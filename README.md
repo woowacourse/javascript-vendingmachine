@@ -1,5 +1,5 @@
 <p align="middle" >
-  <img width="200px;" src="./images/lotto_ball.png"/>
+  <img width="200px;" src="./images/popcorn.png"/>
 </p>
 <h2 align="middle">level1 - 자판기</h2>
 <p align="middle">자바스크립트로 구현 하는 자판기 어플리케이션</p>
