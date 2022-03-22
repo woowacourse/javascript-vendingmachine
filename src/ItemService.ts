@@ -16,9 +16,19 @@ export default class ItemService {
   }
 
   add(newItem: ItemInfo): void {
-    if (this.itemList.get(newItem.name).stockCount + newItem.stockCount > 20) {
-      throw Error('error');
-    }
+    if (
+      (this.itemList.has(newItem.name)
+        ? this.itemList.get(newItem.name).stockCount + newItem.stockCount
+        : newItem.stockCount) > 20
+    )
+      throw new Error('error');
+
+    if (newItem.price % 10 !== 0) throw new Error('error');
+
+    if (newItem.name.length > 10 || newItem.name.trim().length === 0)
+      throw new Error('error');
+
+    if (newItem.price < 100 || newItem.price > 10000) throw new Error('error');
 
     this.itemList.set(newItem.name, new Item(newItem));
   }
