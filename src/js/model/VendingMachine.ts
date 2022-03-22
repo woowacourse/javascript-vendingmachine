@@ -1,3 +1,9 @@
+import {
+  isValidProductPrice,
+  isValidProductAmount,
+  isValidProductNameLength,
+} from './validator';
+
 interface Coin {
   coin10: number;
   coin50: number;
@@ -28,7 +34,20 @@ export default class VendingMachine {
 
     if (isExist) {
       throw new Error('이미 존재하는 이름의 상품입니다.');
-      return;
+    }
+
+    if (!isValidProductNameLength(product.name)) {
+      throw new Error('상품명은 최대 10글자까지 입력해주세요.');
+    }
+
+    if (!isValidProductPrice(product.price)) {
+      throw new Error(
+        '상품가격은 100원~10,000원 사이 여야 하며 10원으로 나누어 떨어져야 합니다.',
+      );
+    }
+
+    if (!isValidProductAmount(product.amount)) {
+      throw new Error('한 제품당 수량은 최대 20개 입니다.');
     }
 
     this.products.push(product);
