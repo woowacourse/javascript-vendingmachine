@@ -33,7 +33,14 @@ export default class ItemService {
     this.itemList.set(newItem.name, new Item(newItem));
   }
 
-  update(name: string, newValue: ItemInfo): void {}
+  update(name: string, newValue: ItemInfo): void {
+    if (!this.itemList.has(name)) throw new Error('error');
+
+    if (name !== newValue.name && this.itemList.has(newValue.name))
+      throw new Error('error');
+
+    this.itemList.set(name, new Item(newValue));
+  }
 
   delete(name: string): void {}
 
