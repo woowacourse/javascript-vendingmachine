@@ -1,68 +1,68 @@
 interface VendingMachineInterface {
-    itemList: Array<Object>;
-    coinCollection: Object;
+  itemList: Array<Object>;
+  coinCollection: Object;
 
-    addItem: (itemName: string, itemPrice:number, itemQuantity: number) => void;
-    editItem: (itemName: string, itemPrice:number, itemQuantity: number, itemIndex: number) => void;
-    deleteItem: (itemName: string) => void;
-    buyItem: () => void;
+  addItem: (itemName: string, itemPrice: number, itemQuantity: number) => void;
+  editItem: (itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) => void;
+  deleteItem: (itemName: string) => void;
+  buyItem: () => void;
 
-    chargeCoin: () => void;
-    genreageRandomCoin: () => void;
+  chargeCoin: () => void;
+  genreageRandomCoin: () => void;
 }
 
 class VendingMachine implements VendingMachineInterface {
-    itemList: { itemName: string, itemPrice: number, itemQuantity: number}[];
-    coinCollection: Object;
-    
-    constructor() {
-        this.itemList = [];
-        this.coinCollection = {};
+  itemList: { itemName: string; itemPrice: number; itemQuantity: number }[];
+  coinCollection: Object;
+
+  constructor() {
+    this.itemList = [];
+    this.coinCollection = {};
+  }
+
+  addItem(itemName: string, itemPrice: number, itemQuantity: number) {
+    this.itemList = [...this.itemList, { itemName, itemPrice, itemQuantity }];
+  }
+
+  buyItem() {}
+
+  deleteItem(itemName: string) {
+    this.itemList = this.itemList.filter((savedItem) => savedItem.itemName !== itemName);
+  }
+
+  editItem(itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) {
+    this.itemList[itemIndex] = { itemName, itemPrice, itemQuantity };
+  }
+
+  chargeCoin() {}
+
+  genreageRandomCoin() {}
+
+  validateItemInput = (itemName: string, itemPrice: number, itemQuantity: number) => {
+    if (!itemName || !itemPrice || !itemQuantity) {
+      throw new Error('빈칸 없이 모두 입력해주세요.');
     }
 
-    addItem(itemName: string, itemPrice:number, itemQuantity: number) {
-        this.itemList = [...this.itemList, {itemName, itemPrice, itemQuantity}];
+    if (itemName.length > 10) {
+      throw new Error('상품명은 최대 10글자까지 가능합니다.');
     }
 
-    buyItem() {}
-
-    deleteItem(itemName: string) {
-        this.itemList = this.itemList.filter((savedItem) => savedItem.itemName !== itemName);
+    if (this.itemList.some((savedItem) => savedItem.itemName === itemName)) {
+      throw new Error('이미 등록된 상품입니다. 수정을 원한다면 수정 기능을 이용해주세요.');
     }
 
-    editItem(itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) {
-        this.itemList[itemIndex] = {itemName, itemPrice, itemQuantity};
-    };
+    if (itemPrice < 100 || itemPrice > 10000) {
+      throw new Error('상품 가격은 100원 이상, 10,000원 이하여야 합니다.');
+    }
 
-    chargeCoin() {}
+    if (itemPrice % 10 !== 0) {
+      throw new Error('상품 가격은 10원으로 나누어 떨어져야 합니다.');
+    }
 
-    genreageRandomCoin() {}
-
-    validateItemInput = (itemName: string, itemPrice: number, itemQuantity: number) => {
-        if(!itemName || !itemPrice || !itemQuantity) {
-          throw new Error('빈칸 없이 모두 입력해주세요.');
-        }
-      
-        if (itemName.length > 10) {
-          throw new Error('상품명은 최대 10글자까지 가능합니다.');
-        }
-
-        if(this.itemList.some(savedItem => savedItem.itemName === itemName)) {
-          throw new Error('이미 등록된 상품입니다. 수정을 원한다면 수정 기능을 이용해주세요.');
-        }
-      
-        if (itemPrice < 100 || itemPrice > 10000) {
-          throw new Error('상품 가격은 100원 이상, 10,000원 이하여야 합니다.');
-        }
-      
-        if (itemPrice % 10 !== 0) {
-          throw new Error('상품 가격은 10원으로 나누어 떨어져야 합니다.');
-        }
-      
-        if (itemQuantity < 1 || itemQuantity > 20) {
-          throw new Error('상품 수량은 최대 20개까지 넣을 수 있습니다.');
-        }
-      }
+    if (itemQuantity < 1 || itemQuantity > 20) {
+      throw new Error('상품 수량은 최대 20개까지 넣을 수 있습니다.');
+    }
+  };
 }
 
 export default VendingMachine;
