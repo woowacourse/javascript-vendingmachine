@@ -11,7 +11,7 @@ interface Product {
   price: number;
 }
 
-class VendingMachine {
+export default class VendingMachine {
   products: Array<Product>; // name amount price
   changes: Coin; // 자판기가 보유하고 있는 돈 = 잔돈
   totalMoney: number;
@@ -24,10 +24,10 @@ class VendingMachine {
 
   addProduct(product: Product) {
     const productIndex = this.findProductIndex(product.name);
-    const isExist = productIndex > 0;
+    const isExist = productIndex >= 0;
 
     if (isExist) {
-      alert('이미 존재하는 이름의 상품입니다.');
+      throw new Error('이미 존재하는 이름의 상품입니다.');
       return;
     }
 
