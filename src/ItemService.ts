@@ -48,7 +48,7 @@ export default class ItemService {
     this.itemList.delete(name);
   }
 
-  find(name: string): ItemInfo {
-    return;
+  find(name: string): ItemInfo | null {
+    return this.itemList.get(name) || null;
   }
 }
