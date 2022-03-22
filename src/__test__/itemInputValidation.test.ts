@@ -1,6 +1,8 @@
-import vendingMachine from "../VendingMachine";
+import VendingMachine from "../VendingMachine";
 
 describe("상품 추가할 때, 입력값 유효성 확인", () => {
+  const vendingMachine = new VendingMachine();
+  
   test("입력값은 공백이 아니어야 한다.", () => {
     const itemName = '';
     const itemPrice = 1000;

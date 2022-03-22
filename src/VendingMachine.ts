@@ -2,30 +2,37 @@ interface VendingMachineInterface {
     itemList: Array<Object>;
     coinCollection: Object;
 
-    addItem: (item: Object) => void;
+    addItem: (itemName: string, itemPrice:number, itemQuantity: number) => void;
+    editItem: (itemName: string, itemPrice:number, itemQuantity: number, itemIndex: number) => void;
+    deleteItem: (itemName: string) => void;
     buyItem: () => void;
-    deleteItem: () => void;
 
     chargeCoin: () => void;
     genreageRandomCoin: () => void;
 }
 
 class VendingMachine implements VendingMachineInterface {
-    itemList: Object[];
-    coinCollection: {};
+    itemList: { itemName: string, itemPrice: number, itemQuantity: number}[];
+    coinCollection: Object;
     
     constructor() {
         this.itemList = [];
         this.coinCollection = {};
     }
 
-    addItem() {
-        
+    addItem(itemName: string, itemPrice:number, itemQuantity: number) {
+        this.itemList = [...this.itemList, {itemName, itemPrice, itemQuantity}];
     }
 
     buyItem() {}
 
-    deleteItem() {}
+    deleteItem(itemName: string) {
+        this.itemList = this.itemList.filter((savedItem) => savedItem.itemName !== itemName);
+    }
+
+    editItem(itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) {
+        this.itemList[itemIndex] = {itemName, itemPrice, itemQuantity};
+    };
 
     chargeCoin() {}
 
@@ -38,6 +45,10 @@ class VendingMachine implements VendingMachineInterface {
       
         if (itemName.length > 10) {
           throw new Error('상품명은 최대 10글자까지 가능합니다.');
+        }
+
+        if(this.itemList.some(savedItem => savedItem.itemName === itemName)) {
+          throw new Error('이미 등록된 상품입니다. 수정을 원한다면 수정 기능을 이용해주세요.');
         }
       
         if (itemPrice < 100 || itemPrice > 10000) {
@@ -54,4 +65,4 @@ class VendingMachine implements VendingMachineInterface {
       }
 }
 
-export default new VendingMachine();
+export default VendingMachine;
