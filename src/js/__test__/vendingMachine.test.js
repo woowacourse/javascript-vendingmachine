@@ -1,12 +1,10 @@
 import { ERROR_MESSAGE } from '../constants';
 import VendingMachine from '../model/VendingMachine'
 
-
-
 describe('자판기 기본 기능 테스트', () => {
-  describe('자판기 상품 추가 기능 테스트', () => {
-    const vendingMachine = new VendingMachine();
+  const vendingMachine = new VendingMachine();
 
+  describe('자판기 상품 추가 기능 테스트', () => {
     it('자판기에 상품을 추가할 수 있어야 한다.', () => {
       const product = {
         name: "코카콜라",
@@ -68,8 +66,11 @@ describe('자판기 기본 기능 테스트', () => {
       expect(() => vendingMachine.addProduct(product)).toThrowError(ERROR_MESSAGE.PRODUCT_AMOUNT);
     });
   })
+  
+  describe('잔돈 충전 기능 테스트', () => {
+    it('자판기가 가진 금액은 100,000원 이하여야 한다.', () => {
+      const money = 100010;
+      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
+    });
+  });
 })
-
-
-
-

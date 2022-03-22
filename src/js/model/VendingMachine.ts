@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, RULES } from '../constants';
 import {
   isValidProductPrice,
   isValidProductAmount,
@@ -73,9 +73,8 @@ export default class VendingMachine {
   inputChanges(money: number) {
     // 1. 돈이 10원으로 나누어지는지 -> 어디에 로직을 둘것인지 킵
 
-    if (money > 100000) {
-      alert(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
-      return;
+    if (money > RULES.MAX_VENDING_MACHINE_CHANGE) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
     }
 
     this.totalMoney += money;
