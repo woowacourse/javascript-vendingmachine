@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../constants';
 import {
   isValidProductPrice,
   isValidProductAmount,
@@ -33,21 +34,19 @@ export default class VendingMachine {
     const isExist = productIndex >= 0;
 
     if (isExist) {
-      throw new Error('이미 존재하는 이름의 상품입니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_IS_DUPLICATED);
     }
 
     if (!isValidProductNameLength(product.name)) {
-      throw new Error('상품명은 최대 10글자까지 입력해주세요.');
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
     }
 
     if (!isValidProductPrice(product.price)) {
-      throw new Error(
-        '상품가격은 100원~10,000원 사이 여야 하며 10원으로 나누어 떨어져야 합니다.',
-      );
+      throw new Error(ERROR_MESSAGE.PRODUCT_PRICE);
     }
 
     if (!isValidProductAmount(product.amount)) {
-      throw new Error('한 제품당 수량은 최대 20개 입니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT_AMOUNT);
     }
 
     this.products.push(product);
@@ -75,7 +74,7 @@ export default class VendingMachine {
     // 1. 돈이 10원으로 나누어지는지 -> 어디에 로직을 둘것인지 킵
 
     if (money > 100000) {
-      alert('자판기가 보유할 수 있는 최대 금액은 100,000원 입니다.');
+      alert(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
       return;
     }
 
