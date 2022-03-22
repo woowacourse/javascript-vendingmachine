@@ -1,16 +1,201 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <h1>🍿 자판기 🍿</h1>
-    </div>
-</body>
+      <h1>🍿 자판기 🍿</h1>
+      <nav>
+        <button type="button" class="tab-button" id="manage-product-tab">상품 관리</button>
+        <button type="button" class="tab-button" id="recharge-change-tab">잔돈 충전</button>
+        <button type="button" class="tab-button" id="purchase-product-tab">상품 구매</button>
+      </nav>
+      <section id="manage-product-container" aria-labelledby="manage-product-title">
+        <h2 id="manage-product-title" hidden>상품을 관리하는 섹션</h2>
+        <form id="product-input-form" class="input-form">
+          <label for="product-input-form">추가할 상품 정보를 입력해주세요</label>
+          <div class="input-wrapper">
+            <input id="product-name-input" type="text" placeholder="상품명" />
+            <input id="product-price-input" type="number" placeholder="가격" />
+            <input id="product-quantity-input" type="number" placeholder="수량" />
+          </div>
+          <button type="button" class="submit-button">추가</button>
+        </form>
+        <table id="current-product-list" class="product-list">
+          <thead>
+            상품 현황
+          </thead>
+          <tbody>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>콜라</td>
+              <td>15000</td>
+              <td>20</td>
+              <td>
+                <button
+                  type="button"
+                  class="product-edit-button gray-button"
+                  data-product-id="productId"
+                >
+                  수정
+                </button>
+                <button
+                  type="button"
+                  class="product-delete-button gray-button"
+                  data-product-id="productId"
+                >
+                  삭제
+                </button>
+              </td>
+            </tr>
 
+            <tr>
+              <td>사이다</td>
+              <td>15000</td>
+              <td>20</td>
+              <td>
+                <button
+                  type="button"
+                  class="product-confirm-button gray-button"
+                  data-product-id="productId"
+                >
+                  확인
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="recharge-change-container" aria-labelledby="recharge-change-title">
+        <h2 id="recharge-change-title" hidden>자판기의 잔돈을 충전하는 섹션</h2>
+        <form id="recharge-change-form" class="input-form">
+          <label for="recharge-change-form">자판기가 보유할 금액을 입력해주세요</label>
+          <div class="input-wrapper">
+            <input id="recharge-change-input" type="number" placeholder="금액" />
+          </div>
+          <button type="button" class="submit-button">충전</button>
+        </form>
+        <div class="total-amount">투입한 금액: <span id="change-total-amount">500</span>원</div>
+
+        <table>
+          <thead>
+            자판기가 보유한 동전
+          </thead>
+          <tbody>
+            <tr>
+              <th>동전</th>
+              <th>개수</th>
+            </tr>
+            <tr>
+              <td>500원</td>
+              <td id="hold-coin-500-count">0개</td>
+            </tr>
+            <tr>
+              <td>100원</td>
+              <td id="hold-coin-100-count">13개</td>
+            </tr>
+            <tr>
+              <td>50원</td>
+              <td id="hold-coin-50-count">1개</td>
+            </tr>
+            <tr>
+              <td>10원</td>
+              <td id="hold-coin-10-count">5개</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="purchase-product-container" aria-labelledby="purchase-product-title">
+        <h2 id="purchase-product-title" hidden>상품을 구매하는 섹션</h2>
+        <form id="charge-input-form" class="input-form">
+          <label for="charge-input-form">상품을 구매할 금액을 투입해주세요</label>
+          <div class="input-wrapper">
+            <input id="charge-input" type="number" placeholder="금액" />
+          </div>
+          <button type="button" class="submit-button">추가</button>
+        </form>
+        <div class="total-amount">투입한 금액: <span id="input-total-amount">3000</span>원</div>
+        <table>
+          <thead>
+            구매 가능 상품 현황
+          </thead>
+          <tbody>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th>구매</th>
+            </tr>
+            <tr>
+              <td>콜라</td>
+              <td>1500</td>
+              <td>20</td>
+              <td>
+                <button
+                  type="button"
+                  class="product-purchase-button gray-button"
+                  data-product-id="productId"
+                >
+                  구매
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>사이다</td>
+              <td>1000</td>
+              <td>10</td>
+              <td>
+                <button
+                  type="button"
+                  class="product-purchase-button gray-button"
+                  data-product-id="productId"
+                >
+                  구매
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            자판기가 보유한 동전
+          </thead>
+          <tbody>
+            <tr>
+              <th>동전</th>
+              <th>개수</th>
+            </tr>
+            <tr>
+              <td>500원</td>
+              <td id="change-coin-500-count">0개</td>
+            </tr>
+            <tr>
+              <td>100원</td>
+              <td id="change-coin-100-count">13개</td>
+            </tr>
+            <tr>
+              <td>50원</td>
+              <td id="change-coin-50-count">1개</td>
+            </tr>
+            <tr>
+              <td>10원</td>
+              <td id="change-coin-10-count">5개</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" id="return-change-button" class="gray-button">반환</button>
+      </section>
+    </div>
+  </body>
 </html>
