@@ -128,4 +128,20 @@ describe('ItemService', () => {
       });
     });
   });
+
+  describe('delete', () => {
+    describe('성공 시', () => {
+      test('상품을 삭제할 수 있다', () => {
+        itemService.add({ name: '콜라', price: 1500, stockCount: 5 });
+        itemService.delete('콜라');
+        expect(itemService.itemList.has('콜라')).toBeFalsy();
+      });
+    });
+
+    describe('실패 시', () => {
+      test('itemList에 존재하지 않는 상품명의 상품을 삭제할 시 Error를 throw한다.', () => {
+        expect(itemService.delete('콜라')).toThrowError();
+      });
+    });
+  });
 });
