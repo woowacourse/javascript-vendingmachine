@@ -42,7 +42,11 @@ export default class ItemService {
     this.itemList.set(name, new Item(newValue));
   }
 
-  delete(name: string): void {}
+  delete(name: string): void {
+    if (!this.itemList.has(name)) throw new Error('error');
+
+    this.itemList.delete(name);
+  }
 
   find(name: string): ItemInfo {
     return;

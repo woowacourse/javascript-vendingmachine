@@ -140,7 +140,9 @@ describe('ItemService', () => {
 
     describe('실패 시', () => {
       test('itemList에 존재하지 않는 상품명의 상품을 삭제할 시 Error를 throw한다.', () => {
-        expect(itemService.delete('콜라')).toThrowError();
+        expect(() => {
+          itemService.delete('콜라');
+        }).toThrowError();
       });
     });
   });
