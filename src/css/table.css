@@ -24,6 +24,10 @@ tr {
   border-bottom: 1px solid var(--table-border-color);
 }
 
+#product-list-table button {
+  width: 50px;
+}
+
 #coin-list-table {
   margin-top: 38px;
 }
