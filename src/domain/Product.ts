@@ -1,23 +1,27 @@
 export class Product {
-  #name: string;
-  #price: number;
-  #quantity: number;
+  private name: string;
+  private price: number;
+  private quantity: number;
 
   constructor(name: string, price: number, quantity: number) {
-    this.#name = name;
-    this.#price = price;
-    this.#quantity = quantity;
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
   }
 
   setName(name: string) {
-    this.#name = name;
+    this.name = name;
   }
 
   setPrice(price: number) {
-    this.#price = price;
+    this.price = price;
   }
 
   setQuantity(quantity: number) {
-    this.#quantity = quantity;
+    this.quantity = quantity;
+  }
+
+  getAllProperties() {
+    return { name: this.name, price: this.price, quantity: this.quantity };
   }
 }
