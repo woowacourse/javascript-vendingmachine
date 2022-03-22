@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-lines-per-function */
+import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
 import VendingMachineProduct from './VendingMachineProduct';
 
 function generateProduct(inputData = {}) {
@@ -65,43 +66,43 @@ describe('상품 클래스 테스트', () => {
 
 function validationTests(testType, testFunction) {
   describe(`${testType} 유효성 검사`, () => {
-    test(`${testType} 상품명이 10글자 초과되면 에러를 발생한다.`, () => {
+    test(`${testType} 상품명이 ${PRODUCT_RULES.MAX_NAME_LENGTH}글자를 초과하면 오류가 발생한다.`, () => {
       const invalidName = '콜라콜라맛있다맛있으면';
 
       expect(() => testFunction({ name: invalidName })).toThrow(
-        '상품명은 10글자를 초과해서는 안됩니다.'
+        ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH
       );
     });
 
-    test(`${testType} 상품 가격이 100원 미만인 경우 오류가 발생한다.`, () => {
+    test(`${testType} 상품 가격이 ${PRODUCT_RULES.MIN_PRICE}원 미만인 경우 오류가 발생한다.`, () => {
       const lowPrice = 90;
 
       expect(() => testFunction({ price: lowPrice })).toThrow(
-        '상품 가격은 100원 미만이거나 10000원 초과일 수 없습니다.'
+        ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE
       );
     });
 
-    test(`${testType} 상품 가격이 10000원을 초과한 경우 오류가 발생한다.`, () => {
+    test(`${testType} 상품 가격이 ${PRODUCT_RULES.MAX_PRICE}원을 초과한 경우 오류가 발생한다.`, () => {
       const highPrice = 10010;
 
       expect(() => testFunction({ price: highPrice })).toThrow(
-        '상품 가격은 100원 미만이거나 10000원 초과일 수 없습니다.'
+        ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE
       );
     });
 
-    test(`${testType} 상품 가격은 10원 단위가 아닐 경우 오류가 발생한다.`, () => {
+    test(`${testType} 상품 가격은 ${PRODUCT_RULES.PRICE_UNIT}원 단위가 아닐 경우 오류가 발생한다.`, () => {
       const invalidUnitPrice = 111;
 
       expect(() => testFunction({ price: invalidUnitPrice })).toThrow(
-        '상품 가격은 10원 단위여야 합니다.'
+        ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE
       );
     });
 
-    test(`${testType} 상품 수량은 20개 초과할 경우 오류가 발생한다.`, () => {
+    test(`${testType} 상품 수량은 ${PRODUCT_RULES.MAX_STOCK}개 초과할 경우 오류가 발생한다.`, () => {
       const invalidStock = 21;
 
       expect(() => testFunction({ stock: invalidStock })).toThrow(
-        '상품 수량은 20개 초과해서는 안됩니다.'
+        ERROR_MESSAGE.EXCEED_MAX_PRODUCT_STOCK
       );
     });
   });

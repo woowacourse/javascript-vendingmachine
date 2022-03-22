@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
+
 export default class VendingMachineProduct {
   #name;
 
@@ -7,28 +9,27 @@ export default class VendingMachineProduct {
 
   constructor({ name, price, stock }) {
     this.validateData({ name, price, stock });
+
     this.#name = name;
     this.#price = price;
     this.#stock = stock;
   }
 
   validateData({ name, price, stock }) {
-    if (name.length > 10) {
-      throw new Error('상품명은 10글자를 초과해서는 안됩니다.');
+    if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
+      throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
     }
 
-    if (price < 100 || price > 10000) {
-      throw new Error(
-        '상품 가격은 100원 미만이거나 10000원 초과일 수 없습니다.'
-      );
+    if (price < PRODUCT_RULES.MIN_PRICE || price > PRODUCT_RULES.MAX_PRICE) {
+      throw new Error(ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE);
     }
 
-    if (price % 10 !== 0) {
-      throw new Error('상품 가격은 10원 단위여야 합니다.');
+    if (price % PRODUCT_RULES.PRICE_UNIT !== 0) {
+      throw new Error(ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE);
     }
 
-    if (stock > 20) {
-      throw new Error('상품 수량은 20개 초과해서는 안됩니다.');
+    if (stock > PRODUCT_RULES.MAX_STOCK) {
+      throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_STOCK);
     }
   }
 
@@ -46,6 +47,7 @@ export default class VendingMachineProduct {
 
   modify({ name, price, stock }) {
     this.validateData({ name, price, stock });
+
     this.#name = name;
     this.#price = price;
     this.#stock = stock;
