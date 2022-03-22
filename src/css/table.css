@@ -1,0 +1,29 @@
+table caption {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.15px;
+  margin-bottom: 14px;
+}
+
+table {
+  border-collapse: collapse;
+  line-height: 40px;
+}
+
+td {
+  width: 118px;
+  text-align: center;
+}
+
+tr {
+  border-top: 1px solid var(--table-border-color);
+  border-bottom: 1px solid var(--table-border-color);
+}
+
+#coin-list-table {
+  margin-top: 38px;
+}
