@@ -1,3 +1,4 @@
+import ChangeAdd from './ChangeAdd';
 import ProductManage from './ProductManage';
 
 const clearPurchaseBody = () => {
@@ -8,30 +9,34 @@ const clearPurchaseBody = () => {
   $contentsContainer.replaceChildren();
 };
 
-const routesCoke = () => {
+const router = () => {
   const productManage = new ProductManage();
+  const changeAdd = new ChangeAdd();
   let prevPath = '';
 
   return () => {
-    const pathname = window.location.hash;
+    const pathName = window.location.hash;
 
-    if (prevPath === pathname) {
+    if (prevPath === pathName) {
       return;
     }
 
-    prevPath = pathname;
+    prevPath = pathName;
     clearPurchaseBody();
 
-    switch (pathname) {
+    switch (pathName) {
       case '#!/product-manage':
         productManage.render();
         break;
-      case '/#!/change-add':
+      case '#!/change-add':
+        changeAdd.render();
+        break;
+      default:
         break;
     }
   };
 };
 
-const routes = routesCoke();
+const routes = router();
 
 export default routes;
