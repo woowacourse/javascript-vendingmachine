@@ -1,0 +1,87 @@
+#app {
+  width: 600px;
+  height: 675px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+input {
+  padding: 0 10px;
+  height: 36px;
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+
+  &::placeholder {
+    color: #8b8b8b;
+  }
+}
+
+.input-description {
+  display: block;
+  line-height: 24px;
+  margin-bottom: 4px;
+}
+
+.title {
+  margin: 44px 0 32px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.nav {
+  margin-bottom: 52px;
+
+  &__button {
+    width: 117px;
+    height: 36px;
+    background: #f5f5f5;
+    border-radius: 4px;
+
+    &.active {
+      background: rgba(0, 188, 212, 0.16);
+    }
+  }
+}
+
+.grid {
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 40px;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dcdcdc;
+  }
+
+  &-header {
+    font-weight: 600;
+    border-top: 1px solid #dcdcdc;
+  }
+
+  &-button {
+    width: 80px;
+    height: 32px;
+  }
+}
+
+.submit-button {
+  width: 56px;
+  height: 36px;
+  background: #00bcd4;
+  border-radius: 4px;
+  color: white;
+  margin-left: 8px;
+}

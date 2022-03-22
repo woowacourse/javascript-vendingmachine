@@ -1,0 +1,13 @@
+.product-addition {
+  margin-bottom: 48px;
+
+  &__input {
+    width: 120px;
+  }
+}
+
+.product-inventory {
+  &__container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
