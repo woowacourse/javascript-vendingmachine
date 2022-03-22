@@ -21,6 +21,18 @@ export class Product {
     this.quantity = quantity;
   }
 
+  getName() {
+    return this.name;
+  }
+
+  getPrice() {
+    return this.price;
+  }
+
+  getQuantity() {
+    return this.quantity;
+  }
+
   getAllProperties() {
     return { name: this.name, price: this.price, quantity: this.quantity };
   }

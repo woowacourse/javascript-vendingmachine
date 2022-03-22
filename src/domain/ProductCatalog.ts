@@ -8,6 +8,10 @@ export class ProductCatalog {
   }
 
   addProduct(name: string, price: number, quantity: number) {
-    this.productList.push(new Product(name, price, quantity));
+    this.productList = [...this.productList, new Product(name, price, quantity)];
+  }
+
+  deleteProductByName(name: string) {
+    this.productList = this.productList.filter((product) => product.getName() !== name);
   }
 }
