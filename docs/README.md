@@ -2,9 +2,13 @@
 
 ### 1) 공통 : 도메인 영역을 타입스크립트를 이용하여 구현한다.
 
-- [ ] Interface 또는 type을 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
+- [x] Interface 또는 type을 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
 
-  - [ ] vendingMachine의 Interface를 정의한다
+  - [x] product의 type, interface를 정의한다
+
+  - [x] CoinWallet, InputCharge의 type을 정의한다.
+
+  - [x] vendingMachine의 type을 정의한다.
 
 ### 2) 라우팅 기능
 
