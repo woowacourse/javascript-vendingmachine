@@ -16,6 +16,7 @@
           <li><button class="button">상품 구매</button></li>
         </ul>
       </nav>
+      <!-- 상품 관리 -->
       <section>
         <form>
           <label id="product__information">추가할 상품 정보를 입력해주세요.</label>
@@ -45,10 +46,11 @@
           </tbody>
         </table>
       </section>
+      <!-- 잔돈 충전 -->
       <section>
         <form>
-          <label id="product__information">자판기가 보유할 금액을 입력해주세요.</label>
-          <input type="number" placeholder="금액" required aria-labelledby="product__information" />
+          <label for="charge__amount">자판기가 보유할 금액을 입력해주세요.</label>
+          <input id="charge__amount" type="number" placeholder="금액" required />
           <button type="button">구입</button>
         </form>
         <p>현재 보유 금액: 500원</p>
@@ -69,6 +71,54 @@
             </tr>
           </tbody>
         </table>
+      </section>
+      <!-- 상품 구매 -->
+      <section>
+        <form>
+          <label for="product__purchased">상품을 구매할 금액을 투입해주세요.</label>
+          <input id="product__purchased" type="number" placeholder="금액" />
+          <button type="button">투입</button>
+        </form>
+        <p>투입한 금액: 3000원</p>
+        <table>
+          <caption>
+            구매 가능 상품 현황
+          </caption>
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th>구매</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>콜라</td>
+              <td>1000</td>
+              <td>10</td>
+              <td><button type="button">구매하기</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <caption>
+            잔돈 반환
+          </caption>
+          <thead>
+            <tr>
+              <th>동전</th>
+              <th>개수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>500원</td>
+              <td>5개</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button">반환하기</button>
       </section>
     </div>
   </body>
