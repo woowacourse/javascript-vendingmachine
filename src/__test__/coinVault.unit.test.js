@@ -26,3 +26,9 @@ test('자판기 잔돈은 10원 단위만 투입 가능하다', () => {
     expect(err).toStrictEqual(new Error('상평통보는 안 받습니다. 10원단위로 넣어주세요!'));
   }
 });
+
+test('자판기 보유 금액만큼의 동전이 무작위로 생성된다.', () => {
+  const coinValut = new CoinVault();
+  coinValut.chargeMoney(5000);
+  expect(coinValut.getCoins()).toStrictEqual('');
+});

@@ -25,10 +25,9 @@ export class CoinVault {
     };
   }
 
-  setCoin500(quantity: number) {}
-  setCoin100(quantity: number) {}
-  setCoin50(quantity: number) {}
-  setCoin10(quantity: number) {}
+  setCoin(key: string, quantity: number) {
+    this.coinsQuantity[key] = quantity;
+  }
 
   getCoins(): Coins {
     return this.coinsQuantity;
@@ -60,5 +59,19 @@ export class CoinVault {
     return;
   }
 
-  generateRandomCoins(money: number) {}
+  generateRandomCoins(money: number) {
+    let balance = money;
+
+    [...Object.entries(this.coinsPrice)].forEach(([key, price]) => {
+      const maxQuotient = balance / price;
+
+      if (price === 10) {
+        this.setCoin(key, maxQuotient);
+        return;
+      }
+      const randomQuantity = Math.floor(Math.random() * maxQuotient);
+      balance -= price * randomQuantity;
+      this.setCoin(key, randomQuantity);
+    });
+  }
 }
