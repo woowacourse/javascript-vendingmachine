@@ -1,16 +1,28 @@
-//vendinMachine
-type ItemType = { name: string; price: string; quantity: string };
+import { COINS } from '../constants/constant.js';
+import { generateRandom } from '../utils/common.js';
+
+type ItemType = { name: string; price: number; quantity: number };
+type CoinType = { ten: number; fifty: number; hundred: number; fiveHundred: number };
 export default class VendingMachine {
   private items: ItemType[] = [];
+  private coins: CoinType = { ten: 0, fifty: 0, hundred: 0, fiveHundred: 0 };
 
   constructor() {}
 
-  getItems() {
+  getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
   }
 
   setItems(newItems: ItemType[]) {
     this.items = newItems;
+  }
+
+  getCoins(): CoinType {
+    return { ...this.coins };
+  }
+
+  setCoins(newCoins: CoinType) {
+    this.coins = newCoins;
   }
 
   addItem({ name, price, quantity }: ItemType) {
@@ -24,18 +36,25 @@ export default class VendingMachine {
     this.setItems(newItems);
   }
 
-  // 잔돈 충전 탭에서 최초 자판기가 보유한 금액은 0원이며, 각 동전의 개수는 0개이다.
-  // 생성자 단에서 잔돈, 동전의 개수
+  generateRandomCoins(money: number) {
+    const newCoins = this.getCoins();
 
-  // 잔돈 충전 입력 요소에 충전할 금액을 입력한 후, 충전하기 버튼을 눌러 자판기 보유 금액을 충전할 수 있다.
-  // charge money
+    Object.keys(newCoins)
+      .reverse()
+      .forEach(key => {
+        if (key === 'ten') {
+          newCoins[key] += money / COINS[key];
+          return;
+        }
+        const randomNumber = generateRandom(Math.floor(money / COINS[key]));
+        money = money - randomNumber * COINS[key];
+        newCoins[key] += randomNumber;
+      });
+    return newCoins;
+  }
 
-  // 자판기 보유 금액만큼의 동전이 무작위로 생성된다.
-  // random 함수 의존성에 생각
-
-  // 자판기 보유 금액을 누적하여 충전할 수 있다. 추가 충전 금액만큼의 동전이 무작위로 생성되어 기존 동전들에 더해진다.
-  // chare money 로 대체 가능한지 고민
-
-  // 현재 자판기가 가지고 있는 금액을 확인할 수 있다.
-  // get
+  chargeMoney(money: number) {
+    const newCoins = this.generateRandomCoins(money);
+    this.setCoins(newCoins);
+  }
 }

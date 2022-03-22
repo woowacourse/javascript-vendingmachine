@@ -1,4 +1,5 @@
 import VendingMachine from '../vendingMachine/vendingMachine.ts';
+import { COINS } from '../constants/constant.js';
 
 describe('자판기 테스트', () => {
   describe('상품 관리', () => {
@@ -46,19 +47,18 @@ describe('자판기 테스트', () => {
       expect(vendingMachine.getCoins()).toEqual({ ten: 0, fifty: 0, hundred: 0, fiveHundred: 0 });
     });
 
-    // 자판기 보유 금액을 충전할 수 있다.
-    // charge money
-    // 자판기 보유 금액만큼의 동전이 무작위로 생성된다.
-    // random 함수 의존성에 생각
-
-    // 자판기 보유 금액을 누적하여 충전할 수 있다. 추가 충전 금액만큼의 동전이 무작위로 생성되어 기존 동전들에 더해진다.
-    // chare money 로 대체 가능한지 고민
-
     test('자판기 보유 금액을 충전할 수 있다.', () => {
       const vendingMachine = new VendingMachine();
       const validInputMoney = 610;
+      let totalMoney = 0;
 
-      expect(vendingMachine.generateRandomCoins(validInputMoney)).toEqual();
+      vendingMachine.chargeMoney(validInputMoney);
+      const coins = vendingMachine.getCoins();
+      Object.keys(coins).forEach(key => {
+        totalMoney += COINS[key] * coins[key];
+      });
+
+      expect(totalMoney).toBe(validInputMoney);
     });
   });
 });
