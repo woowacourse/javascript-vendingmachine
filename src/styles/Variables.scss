@@ -1,0 +1,19 @@
+/*
+  컬러 세팅
+    * 컬러 이름 지정 기준
+    : https://marketplace.visualstudio.com/items?itemName=volynetsserhii.get-color-name
+*/
+
+// 무채색 계열
+$color-white: #fff;
+$color-concrete: #f3f3f3;
+$color-alabaster: #f8f8f8;
+$color-alto: #dcdcdc;
+$color-nobel: #b4b4b4;
+
+// 푸른색 계열
+$color-robins-egg-blue: #00bcd4;
+
+// 브랜드 컬러
+$brand-color-accent: $color-robins-egg-blue;
+$brand-color-accent-font: $color-white;
