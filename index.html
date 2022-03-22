@@ -1,16 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <h1>🍿 자판기 🍿</h1>
+      <h1>🍿 자판기 🍿</h1>
+      <div class="nav-container">
+        <button class="nav-button nav-button-clicked">상품 관리</button>
+        <button class="nav-button">잔돈 충전</button>
+        <button class="nav-button">상품 구매</button>
+      </div>
+      <div id="상품 관리">
+        <section class="add-item-input-container">
+          <h2 hidden>상품 정보 입력</h2>
+          <form>
+            <label>추가할 상품 정보를 입력해주세요.</label>
+            <div>
+              <input class="add-item-input" placeholder="상품명" />
+              <input class="add-item-input" placeholder="가격" />
+              <input class="add-item-input" placeholder="수량" />
+              <button class="submit-button">추가</button>
+            </div>
+          </form>
+        </section>
+        <section class="items-table-container">
+          <h2>상품 현황</h2>
+          <table>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>콜라</td>
+              <td>1500</td>
+              <td>20</td>
+              <td>
+                <button class="item-table-change-button">수정</button>
+                <button class="item-table-delete-button">삭제</button>
+              </td>
+            </tr>
+            <tr>
+              <td>사이다</td>
+              <td>1000</td>
+              <td>10</td>
+              <td>
+                <button class="item-table-change-button">수정</button>
+                <button class="item-table-delete-button">삭제</button>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </div>
+      <div id="잔돈 충전" hidden></div>
+      <div id="상품 구매" hidden></div>
     </div>
-</body>
-
+  </body>
 </html>
