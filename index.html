@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <h1>🍿 자판기 🍿</h1>
+      <h1>🍿 자판기 🍿</h1>
+      <nav>
+        <ul>
+          <li><button class="button">상품 관리</button></li>
+          <li><button class="button">잔돈 충전</button></li>
+          <li><button class="button">상품 구매</button></li>
+        </ul>
+      </nav>
+      <section>
+        <form>
+          <label id="product__information">추가할 상품 정보를 입력해주세요.</label>
+          <input type="text" placeholder="상품명" required aria-labelledby="product__information" />
+          <input type="number" placeholder="가격" required aria-labelledby="product__information" />
+          <input type="number" placeholder="수량" required aria-labelledby="product__information" />
+          <button type="button">추가</button>
+        </form>
+        <table>
+          <caption>
+            상품 현황
+          </caption>
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>콜라</td>
+              <td>1000</td>
+              <td>10</td>
+              <td><button type="button">수정</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </div>
-</body>
-
+  </body>
 </html>
