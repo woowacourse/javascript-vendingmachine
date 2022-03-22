@@ -8,7 +8,20 @@ export class ProductCatalog {
   }
 
   addProduct(name: string, price: number, quantity: number) {
+    const productIndex = this.findExistingProductIndex(name);
+
+    if (productIndex !== -1) {
+      const target = this.productList[productIndex];
+      target.setQuantity(target.getQuantity() + quantity);
+
+      return;
+    }
+
     this.productList = [...this.productList, new Product(name, price, quantity)];
+  }
+
+  findExistingProductIndex(name: string): number {
+    return this.productList.findIndex((product) => product.getName() === name);
   }
 
   deleteProductByName(name: string) {

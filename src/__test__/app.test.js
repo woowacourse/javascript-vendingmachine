@@ -82,3 +82,28 @@ test('상품을 삭제할 수 있다', () => {
 
   expect(productCatalog.productList).toHaveLength(0);
 });
+
+test('이미 존재하는 제품을 추가했을시 수량을 합쳐준다.', () => {
+  const productCatalog = new ProductCatalog();
+
+  productCatalog.addProduct('코카콜라', 1000, 10);
+  productCatalog.addProduct('코카콜라', 1000, 8);
+
+  expect(productCatalog.productList[0].getAllProperties()).toStrictEqual({
+    name: '코카콜라',
+    price: 1000,
+    quantity: 18,
+  });
+});
+
+test('이미 존재하는 제품을 추가했을시 합한 수량이 20개가 넘을 수 없다', () => {
+  const productCatalog = new ProductCatalog();
+
+  productCatalog.addProduct('코카콜라', 1000, 10);
+
+  try {
+    productCatalog.addProduct('코카콜라', 1000, 11);
+  } catch (err) {
+    expect(err).toStrictEqual(new Error('상품수량은 최대 20개까지만 가능합니다~'));
+  }
+});
