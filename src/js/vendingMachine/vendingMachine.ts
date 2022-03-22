@@ -36,7 +36,7 @@ export default class VendingMachine {
     this.setItems(newItems);
   }
 
-  generateRandomCoins(money: number) {
+  generateRandomCoins(money: number): CoinType {
     const newCoins = this.getCoins();
 
     Object.keys(newCoins)
