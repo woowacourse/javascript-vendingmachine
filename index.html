@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <h1>🍿 자판기 🍿</h1>
+      <h1>🍿 자판기 🍿</h1>
+      <nav class="nav-tab">
+        <form>
+          <input
+            class="tab-button"
+            type="radio"
+            id="tab-manage-product"
+            name="tab"
+            checked
+          />
+          <label class="tab-label" for="tab-manage-product">상품 관리</label>
+          <input class="tab-button" type="radio" id="tab-recharge" name="tab" />
+          <label class="tab-label" for="tab-recharge">잔돈 충전</label>
+          <input
+            class="tab-button"
+            type="radio"
+            id="tab-purchase-product"
+            name="tab"
+          />
+          <label class="tab-label" for="tab-purchase-product">상품 구매</label>
+        </form>
+      </nav>
     </div>
-</body>
-
+  </body>
 </html>
