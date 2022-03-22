@@ -1,4 +1,4 @@
-import VendingMachine from '../VendingMachine';
+import VendingMachine from '../ts/VendingMachine';
 
 describe('상품 추가할 때, 입력값 유효성 확인', () => {
   const vendingMachine = new VendingMachine();
