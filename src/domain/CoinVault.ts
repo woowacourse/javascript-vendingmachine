@@ -25,8 +25,10 @@ export class CoinVault {
     };
   }
 
-  setCoin(key: string, quantity: number) {
-    this.coinsQuantity[key] = quantity;
+  setCoins(coins: Coins) {
+    [...Object.entries(coins)].forEach(([key, value]) => {
+      this.coinsQuantity[key] = value;
+    });
   }
 
   getCoins(): Coins {
@@ -43,7 +45,7 @@ export class CoinVault {
   chargeMoney(money: number) {
     try {
       this.validateMoney(money);
-      this.generateRandomCoins(money);
+      this.setCoins(this.generateRandomCoins(money));
     } catch (err) {
       throw err;
     }
@@ -59,19 +61,27 @@ export class CoinVault {
     return;
   }
 
-  generateRandomCoins(money: number) {
+  generateRandomCoins(money: number): Coins {
     let balance = money;
+    const generatedCoins = {
+      coin500: 0,
+      coin100: 0,
+      coin50: 0,
+      coin10: 0,
+    };
 
     [...Object.entries(this.coinsPrice)].forEach(([key, price]) => {
       const maxQuotient = balance / price;
 
       if (price === 10) {
-        this.setCoin(key, maxQuotient);
+        generatedCoins[key] = maxQuotient;
         return;
       }
       const randomQuantity = Math.floor(Math.random() * maxQuotient);
       balance -= price * randomQuantity;
-      this.setCoin(key, randomQuantity);
+      generatedCoins[key] = randomQuantity;
     });
+
+    return generatedCoins;
   }
 }
