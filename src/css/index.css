@@ -1,4 +1,5 @@
 @import './root.css';
-@import './app.css';
 @import './nav.css';
-@import './productManage.css';
+@import './productManageTab.css';
+@import './rechargeTab.css';
+@import './app.css';

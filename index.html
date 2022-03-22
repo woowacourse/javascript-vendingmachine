@@ -22,15 +22,15 @@
 
       <section class="tab-result-container">
         <h2 hidden>상품 관리</h2>
-        <div class="product-manage-input-wrapper">
+        <div class="tab-result-wrapper ">
           <form class="product-manage-form">
             <div class="label-wrapper">
               <label for="product-name">추가할 상품 정보를 입력해주세요.</label>
             </div>
-            <input class="product-manage-input" id="product-name" placeholder="상품명" />
-            <input class="product-manage-input" placeholder="가격" />
-            <input class="product-manage-input" placeholder="수량" />
-            <button class="product-manage-button">추가</button>
+            <input class="product-manage-input" id="product-name" placeholder="상품명" type="text" size="" minlength="1" maxlength="10" required />
+            <input class="product-manage-input" placeholder="가격" type="number" min="100" max="100000" required />
+            <input class="product-manage-input" placeholder="수량" type="number" min="1" max="20" required />
+            <button class="short-button">추가</button>
           </form>
           <table>
             <colgroup>
@@ -54,15 +54,59 @@
                 <td>콜라</td>
                 <td>1500</td>
                 <td>20</td>
-                <td><button class="edit-button">수정</button></td>
+                <td><button class="long-button">수정</button></td>
               </tr>
             </tbody>
           </table>
         </div>
-
-        <div></div>
       </section>
-      <section class="tab-result-container"><h2 hidden>잔돈 충전</h2></section>
+
+      <section class="tab-result-container">
+        <h2 hidden>잔돈 충전</h2>
+        <div class="tab-result-wrapper">
+          <form class="recharge-form">
+            <div class="label-wrapper">
+              <label for="recharge-input">자판기가 보유할 금액을 입력해주세요</label>
+            </div>
+            <input id="recharge-input" placeholder="금액" type="number" max="100000" min="100" required/>
+            <button class="short-button">충전</button>
+            <div class="holding-money-wrapper">현재 보유 금액: <span id="current-holding-money">500</span>원</div>
+          </form>
+          <table class="change-table">
+            <colgroup>
+              <col style="width:30%"></col>
+              <col style="width:30%"></col>
+            </colgroup>
+            <caption>
+              자판기가 보유한 동전
+            </caption>
+            <thead>
+              <tr>
+                <th>동전</th>
+                <th>개수</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>500원</td>
+                <td><span id="coin-500">0</span>개</td>
+              </tr>
+              <tr>
+                <td>100원</td>
+                <td><span id="coin-100">4</span>개</td>
+              </tr>
+              <tr>
+                <td>50원</td>
+                <td><span id="coin-50">1</span>개</td>
+              </tr>
+              <tr>
+                <td>10원</td>
+                <td><span id="coin-10">5</span>개</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
       <section class="tab-result-container"><h2 hidden>상품 구매</h2></section>
     </div>
   </body>

@@ -69,3 +69,24 @@ th {
 th {
   font-weight: 600;
 }
+
+.hide {
+  display: none;
+}
+
+.short-button {
+  width: 56px;
+  margin: 0 0 0 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.long-button {
+  background: var(--secondary-lighten);
+  color: var(--black);
+  width: 100px;
+}
+
+.long-button:hover {
+  background: var(--secondary);
+}
