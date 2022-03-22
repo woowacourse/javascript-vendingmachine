@@ -1,3 +1,5 @@
+import { PRODUCT_CONDITION } from '../utils/domain.const';
+
 export class Product {
   private name: string;
   private price: number;
@@ -19,7 +21,7 @@ export class Product {
   }
 
   validateName(name: string) {
-    if (name.length > 10) {
+    if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error('10글자 미만의 이름을 넣어주세요~');
     }
     return;
@@ -35,10 +37,10 @@ export class Product {
   }
 
   validatePrice(price: number) {
-    if (price < 100 || price > 10000) {
+    if (price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE) {
       throw new Error('100원 이상, 10,000원 이하의 돈을 넣어주세요~');
     }
-    if (price % 10 !== 0) {
+    if (price % PRODUCT_CONDITION.UNIT_PRICE !== 0) {
       throw new Error('10원단위로 돈을 넣어주세요~');
     }
     return;
@@ -54,7 +56,7 @@ export class Product {
   }
 
   validateQuantity(quantity: number) {
-    if (quantity > 20) {
+    if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
       throw new Error('상품수량은 최대 20개까지만 가능합니다~');
     }
 

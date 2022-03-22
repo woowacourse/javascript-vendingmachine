@@ -1,33 +1,22 @@
-interface Coins {
-  coin500: number;
-  coin100: number;
-  coin50: number;
-  coin10: number;
-}
+import { COIN_VAULT_CONDITION, COIN_CONDITION, COINS_PRICE_TABLE } from '../utils/domain.const';
+import { Coins } from '../utils/domain.interface';
+import { getRandomNumZeroToMax } from '../utils/domain.utils';
 
 export class CoinVault {
   private coinsQuantity: Coins;
-  private coinsPrice: Coins;
 
   constructor() {
     this.coinsQuantity = {
-      coin500: 0,
-      coin100: 0,
-      coin50: 0,
-      coin10: 0,
-    };
-
-    this.coinsPrice = {
-      coin500: 500,
-      coin100: 100,
-      coin50: 50,
-      coin10: 10,
+      coin500: COIN_CONDITION.INIT_QUANTITY,
+      coin100: COIN_CONDITION.INIT_QUANTITY,
+      coin50: COIN_CONDITION.INIT_QUANTITY,
+      coin10: COIN_CONDITION.INIT_QUANTITY,
     };
   }
 
-  setCoins(coins: Coins) {
+  addCoins(coins: Coins) {
     [...Object.entries(coins)].forEach(([key, value]) => {
-      this.coinsQuantity[key] = value;
+      this.coinsQuantity[key] += value;
     });
   }
 
@@ -37,7 +26,7 @@ export class CoinVault {
 
   getBalance() {
     return [...Object.entries(this.coinsQuantity)].reduce(
-      (previous, [key, value]) => previous + this.coinsPrice[key] * value,
+      (previous, [key, value]) => previous + COINS_PRICE_TABLE[key] * value,
       0
     );
   }
@@ -45,14 +34,14 @@ export class CoinVault {
   chargeMoney(money: number) {
     try {
       this.validateMoney(money);
-      this.setCoins(this.generateRandomCoins(money));
+      this.addCoins(this.generateRandomCoins(money));
     } catch (err) {
       throw err;
     }
   }
 
   validateMoney(money: number): boolean {
-    if (money > 100000) {
+    if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
       throw new Error('돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.');
     }
     if (money % 10 !== 0) {
@@ -70,14 +59,14 @@ export class CoinVault {
       coin10: 0,
     };
 
-    [...Object.entries(this.coinsPrice)].forEach(([key, price]) => {
+    [...Object.entries(COINS_PRICE_TABLE)].forEach(([key, price]) => {
       const maxQuotient = balance / price;
 
       if (price === 10) {
         generatedCoins[key] = maxQuotient;
         return;
       }
-      const randomQuantity = Math.floor(Math.random() * maxQuotient);
+      const randomQuantity = getRandomNumZeroToMax(maxQuotient);
       balance -= price * randomQuantity;
       generatedCoins[key] = randomQuantity;
     });
