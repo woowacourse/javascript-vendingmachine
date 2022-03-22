@@ -1,4 +1,4 @@
-import { ItemInfo } from '../Item';
+import { Item, ItemInfo } from '../Item';
 import ItemService from '../ItemService';
 
 describe('ItemService', () => {
@@ -143,6 +143,23 @@ describe('ItemService', () => {
         expect(() => {
           itemService.delete('콜라');
         }).toThrowError();
+      });
+    });
+  });
+
+  describe('find', () => {
+    describe('성공 시', () => {
+      test('name에 해당하는 상품을 반환해야 한다.', () => {
+        itemService.add({ name: '콜라', price: 1500, stockCount: 5 });
+        expect(itemService.find('콜라')).toEqual({
+          name: '콜라',
+          price: 1500,
+          stockCount: 5,
+        });
+      });
+
+      test('name에 해당하는 상품을 반환해야 한다.', () => {
+        expect(itemService.find('사이다')).toBeNull();
       });
     });
   });
