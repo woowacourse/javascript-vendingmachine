@@ -78,4 +78,54 @@ describe('ItemService', () => {
       });
     });
   });
+
+  describe('update', () => {
+    describe('성공 시', () => {
+      test('상품명, 가격, 개수를 유효하게 입력해야한다.', () => {
+        itemService.add({ name: '콜라', price: 1500, stockCount: 5 });
+        itemService.update('콜라', {
+          name: '사이다',
+          price: 1500,
+          stockCount: 10,
+        });
+
+        expect(itemService.itemList.get('콜라')).toEqual({
+          name: '사이다',
+          price: 1500,
+          stockCount: 10,
+        });
+      });
+    });
+    describe('실패 시', () => {
+      test('itemList에 포함되지 없는 값을 업데이트 할 때 Error를 throw한다.', () => {
+        expect(() => {
+          itemService.update('콜라', {
+            name: '콜라',
+            price: 1500,
+            stockCount: 10,
+          });
+        }).toThrowError();
+      });
+      test('수정한 이름이 이미 존재할 때 Error를 throw한다.', () => {
+        itemService.add({
+          name: '콜라',
+          price: 1000,
+          stockCount: 1,
+        });
+        itemService.add({
+          name: '사이다',
+          price: 1000,
+          stockCount: 1,
+        });
+
+        expect(() => {
+          itemService.update('사이다', {
+            name: '콜라',
+            price: 1500,
+            stockCount: 10,
+          });
+        }).toThrowError();
+      });
+    });
+  });
 });

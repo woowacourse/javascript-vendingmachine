@@ -33,7 +33,7 @@ export default class ItemService {
     this.itemList.set(newItem.name, new Item(newItem));
   }
 
-  update(name: string): void {}
+  update(name: string, newValue: ItemInfo): void {}
 
   delete(name: string): void {}
 
