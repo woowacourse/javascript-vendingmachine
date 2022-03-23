@@ -7,22 +7,27 @@ export const CATEGORY_TEMPLATE = {
         <input
           type="text"
           placeholder="상품명"
+          maxlength="10"
           required
           aria-labelledby="product__information"
         />
         <input
           type="number"
           placeholder="가격"
+          min="100"
+          max="10000"
           required
           aria-labelledby="product__information"
         />
         <input
           type="number"
           placeholder="수량"
+          min="1"
+          max="20"
           required
           aria-labelledby="product__information"
         />
-        <button type="button">추가</button>
+        <button id="product__add-button">추가</button>
       </div>
     </form>
     <table class="table">
@@ -58,7 +63,7 @@ export const CATEGORY_TEMPLATE = {
           placeholder="금액"
           required
         />
-        <button type="button">구입</button>
+        <button>구입</button>
       </div>
       <p class="current__amount">현재 보유 금액: 500원</p>
     </form>
@@ -86,7 +91,7 @@ export const CATEGORY_TEMPLATE = {
       <label for="product__purchased">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
         <input id="product__purchased" type="number" class="input-width" placeholder="금액" />
-        <button type="button">투입</button>
+        <button>투입</button>
       </div>
       <p class="current__amount">투입한 금액: 3000원</p>
     </form>
