@@ -17,6 +17,7 @@ class Product {
     this.productAddButton = $("#product-add-button");
     this.productTable = $("#product-control-table");
     addEvent(this.productAddButton, "click", this.handleAddProduct);
+    addEvent(this.productTable, "click", this.handleRemoveProduct);
   }
 
   handleAddProduct = (e: Event) => {
@@ -40,6 +41,12 @@ class Product {
       "beforeend",
       addProductTemplate(productName, +productPrice, +productQuantity)
     );
+  };
+
+  handleRemoveProduct = (e: { target: HTMLTableElement }) => {
+    if (e.target.classList.contains("product-remove-button")) {
+      e.target.closest("tr").remove();
+    }
   };
 
   render() {
