@@ -72,6 +72,6 @@
 
   - [x] coinWallet에 대한 테스트를 작성한다.
 
-  - [ ] product에 대한 테스트를 작성한다.
+  - [x] product에 대한 테스트를 작성한다.
 
   - [ ] vendingMachine에 대한 테스트를 작성한다.
