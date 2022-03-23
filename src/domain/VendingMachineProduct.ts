@@ -1,9 +1,9 @@
 import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
 
 interface ProductData {
-  name:string,
-  price:number,
-  stock:number
+  name: string;
+  price: number;
+  stock: number;
 }
 
 export default class VendingMachineProduct {
@@ -13,7 +13,7 @@ export default class VendingMachineProduct {
 
   private _stock: number;
 
-  constructor({ name, price, stock }:ProductData) {
+  constructor({ name, price, stock }: ProductData) {
     this.validateData({ name, price, stock });
 
     this._name = name;
@@ -21,7 +21,7 @@ export default class VendingMachineProduct {
     this._stock = stock;
   }
 
-  validateData({ name, price, stock }:ProductData):void {
+  validateData({ name, price, stock }: ProductData): never|void {
     if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
     }
@@ -39,19 +39,19 @@ export default class VendingMachineProduct {
     }
   }
 
-  get name():string {
+  get name(): string {
     return this._name;
   }
 
-  get price():number {
+  get price(): number {
     return this._price;
   }
 
-  get stock():number {
+  get stock(): number {
     return this._stock;
   }
 
-  modify({ name, price, stock }:ProductData):void {
+  modify({ name, price, stock }: ProductData): void {
     this.validateData({ name, price, stock });
 
     this._name = name;
