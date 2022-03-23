@@ -81,12 +81,12 @@ th {
   font-weight: 700;
 }
 
-.long-button {
+.small-button {
   background: var(--secondary-lighten);
   color: var(--black);
-  width: 100px;
+  width: 50px;
 }
 
-.long-button:hover {
+.small-button:hover {
   background: var(--secondary);
 }
