@@ -1,6 +1,15 @@
+* {
+  padding: 0;
+}
+
 :root {
-  --button-color: #f5f5f5;
-  --button-hover-color: rgba(0, 188, 212, 0.25);
+  --nav-button-color: #f5f5f5;
+  --nav-button-hover-color: rgba(0, 188, 212, 0.25);
+  --input-border-color: #b4b4b4;
+  --default-button-color: #00bcd4;
+  --hover-button-color: #80deea;
+  --table-border-color: #dcdcdc;
+  --process-button-color: #f5f5f5;
 }
 
 #app {
@@ -16,10 +25,11 @@
   width: 360px;
   gap: 20px;
   margin-top: 40px;
+  margin-bottom: 70px;
 }
 
-.button {
-  background-color: var(--button-color);
+.nav-button {
+  background-color: var(--nav-button-color);
   width: 117px;
   height: 36px;
   cursor: pointer;
@@ -27,6 +37,65 @@
   border-radius: 4px;
 }
 
+.nav-button:hover {
+  background-color: var(--nav-button-hover-color);
+}
+
+.input {
+  height: 36px;
+  border-radius: 4px;
+  padding-left: 8px;
+  border: 1px solid var(--input-border-color);
+}
+
+.form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-container {
+  display: flex;
+  gap: 6px;
+}
+
+.button {
+  color: white;
+  background-color: var(--default-button-color);
+  width: 56px;
+  height: 38px;
+  padding: 0;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .button:hover {
-  background-color: var(--button-hover-color);
+  background-color: var(--hover-button-color);
+}
+
+table {
+  width: 470px;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 40px;
+  border-top: 1px solid var(--table-border-color);
+}
+
+.process-button {
+  background-color: var(--process-button-color);
+  width: 50px;
+  height: 32px;
+  border-radius: 4px;
+  border: none;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.process-button:hover {
+  background-color: var(--nav-button-hover-color);
 }
