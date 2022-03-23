@@ -60,6 +60,16 @@
   gap: 6px;
 }
 
+.edit-input-container {
+  display: flex;
+  gap: 5px;
+}
+
+.product-edit-input {
+  width: 90px;
+  height: 30px;
+}
+
 .button {
   color: white;
   background-color: var(--default-button-color);

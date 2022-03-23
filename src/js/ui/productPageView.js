@@ -32,11 +32,47 @@ class ProductPageView {
     if (target.classList.contains("delete-button")) {
       this.productDeleteHandler(target);
     }
+    if (target.classList.contains("edit-button")) {
+      this.productUpdateHandler(target);
+    }
+
+    if (target.classList.contains("save-button")) {
+      this.productSubmitUpdateHandler(target);
+    }
   };
 
   productDeleteHandler = (target) => {
     const productId = target.closest("tr").dataset.id;
     emit("@delete", { id: productId });
+  };
+
+  productUpdateHandler = (target) => {
+    const product = target.closest("tr");
+    product.innerHTML = `
+    <td><input id="edit-name-input" class="product-edit-input input" value='${product.dataset.name}' /></td>
+    <td><input id="edit-price-input" class="product-edit-input input" value='${product.dataset.price}' type="number"/></td>
+    <td><input id="edit-count-input" class="product-edit-input input" value='${product.dataset.count}' type="number"/></td>
+    <td>
+      <button class="save-button process-button">확인</button>
+    </td>
+    `;
+  };
+
+  productSubmitUpdateHandler = (target) => {
+    const updatedProduct = target.closest("tr");
+
+    const idx = updatedProduct.dataset.id;
+    const updatedName = updatedProduct.querySelector("#edit-name-input").value;
+    const updatedPrice =
+      updatedProduct.querySelector("#edit-price-input").valueAsNumber;
+    const updatedCount =
+      updatedProduct.querySelector("#edit-count-input").valueAsNumber;
+    emit("@edit", {
+      idx,
+      name: updatedName,
+      price: updatedPrice,
+      count: updatedCount,
+    });
   };
 
   renderInputForm = () => {

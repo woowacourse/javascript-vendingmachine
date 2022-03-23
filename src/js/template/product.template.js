@@ -35,7 +35,7 @@ const productTemplate = {
         ${products
           .map(
             ({ name, price, count }, idx) => `
-          <tr data-id=${idx}>
+          <tr data-id=${idx} data-name=${name} data-price=${price} data-count=${count}>
             <td>${name}</td>
             <td>${price}</td>
             <td>${count}</td>
@@ -44,11 +44,9 @@ const productTemplate = {
               <button class="delete-button process-button">삭제</button>
             </td>
           </tr>
-
           `
           )
           .join("")}
-          
         </tbody>
       </table>
   `,

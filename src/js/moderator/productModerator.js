@@ -8,6 +8,7 @@ class ProductModerator {
     this.productPageView = new ProductPageView();
     on(window, "@add", (e) => this.addProduct(e.detail));
     on(window, "@delete", (e) => this.deleteProduct(e.detail));
+    on(window, "@edit", (e) => this.updateProduct(e.detail));
   }
 
   init = () => {
@@ -23,6 +24,12 @@ class ProductModerator {
     this.productPageView.renderProductStatus(products);
   };
 
+  updateProduct = ({ idx, name, price, count }) => {
+    this.productProcessMachine.update(idx, name, price, count);
+    const products = this.productProcessMachine.getProducts();
+    this.productPageView.renderProductStatus(products);
+  };
+
   deleteProduct = ({ id }) => {
     if (!confirm("정말로 삭제하시겠습니까?")) {
       return;
@@ -32,6 +39,8 @@ class ProductModerator {
     const products = this.productProcessMachine.getProducts();
     this.productPageView.renderProductStatus(products);
   };
+
+  editProduct = () => {};
 }
 
 export default ProductModerator;
