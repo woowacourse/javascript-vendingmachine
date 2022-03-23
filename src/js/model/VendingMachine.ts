@@ -18,25 +18,7 @@ class VendingMachine {
   }
 
   addProduct(product: Product) {
-    const productIndex = this.findProductIndex(product.name);
-    const isExist = productIndex >= 0;
-
-    if (isExist) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_IS_DUPLICATED);
-    }
-
-    if (!isValidProductNameLength(product.name)) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
-    }
-
-    if (!isValidProductPrice(product.price)) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_PRICE);
-    }
-
-    if (!isValidProductAmount(product.amount)) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_AMOUNT);
-    }
-
+    this.checkProductValidate(product);
     this.products.push(product);
   }
 
@@ -53,8 +35,9 @@ class VendingMachine {
     }
   }
 
-  modifyProduct(oldProduct: Product, newProduct: Product) {
-    const oldProductIndex = this.findProductIndex(oldProduct.name);
+  modifyProduct(oldProductName: string, newProduct: Product) {
+    const oldProductIndex = this.findProductIndex(oldProductName);
+    this.checkProductValidate(newProduct, oldProductIndex);
     this.products[oldProductIndex] = newProduct;
   }
 
@@ -93,6 +76,29 @@ class VendingMachine {
     const coins = [500, 100, 50, 10].filter(coin => coin <= money);
     const index = this.getRandomInt(coins.length - 1);
     return coins[index];
+  }
+
+  checkProductValidate(product: Product, originalIndex: number = -1) {
+    const productIndex = this.findProductIndex(product.name);
+    const isExist = productIndex >= 0;
+    const isAddWithDuplicatedName = isExist && originalIndex === -1;
+    const isModifyWithDuplicateName = isExist && originalIndex !== productIndex;
+
+    if (isAddWithDuplicatedName || isModifyWithDuplicateName) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_IS_DUPLICATED);
+    }
+
+    if (!isValidProductNameLength(product.name)) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
+    }
+
+    if (!isValidProductPrice(product.price)) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_PRICE);
+    }
+
+    if (!isValidProductAmount(product.amount)) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_AMOUNT);
+    }
   }
 }
 
