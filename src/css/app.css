@@ -1,7 +1,7 @@
 #app {
   display: flex;
   flex-direction: column;
-  margin-top: 32px;
+  margin: 32px 0;
   min-height: 675px;
   width: 600px;
   align-items: center;
@@ -14,13 +14,10 @@
 .nav-button {
   width: 200px;
   background: var(--color-nav-button-bg);
-
   width: 118px;
   height: 36px;
-
   border: none;
   border-radius: 4px;
-
   margin: 0px 4px;
 }
 
@@ -87,6 +84,11 @@
   height: 32px;
 }
 
+.item-table-purchase-button {
+  width: 100px;
+  height: 32px;
+}
+
 .table-container > table tr {
   display: grid;
   align-items: center;
@@ -123,4 +125,20 @@
 
 .input-container p {
   margin-top: 16px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display-none {
+  display: none;
+}
+
+.return-money-button {
+  width: 100px;
+  height: 32px;
+  margin-top: 24px;
 }
