@@ -132,12 +132,6 @@ li {
   justify-content: center;
   border-bottom: 1px solid #dcdcdc;
 }
-.product-modify-button {
-  padding: 0;
-  width: 100%;
-  height: 90%;
-  cursor: pointer;
-}
 
 #product-list {
   width: 100%;
@@ -148,13 +142,37 @@ li {
 }
 
 #product-list li span {
-  margin: 8px 20px 4px;
+  margin: 12px 0px 8px;
   width: 100%;
   height: 30px;
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 0.5px;
   color: rgba(0, 0, 0, 0.87);
+}
+
+#product-list li input {
+  width: 80%;
+  text-align: center;
+  outline: 1px dotted #777777;
+  border: 1px dotted #bbbbbb;
+}
+
+.product-control-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.product-control-buttons button {
+  width: 40%;
+  height: 30px;
+  margin-top: -4px !important;
+}
+
+.product-modify-submit-button {
+  width: 90%;
+  margin-top: -8px !important;
 }
 
 #change-list li {
