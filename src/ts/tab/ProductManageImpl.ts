@@ -5,31 +5,33 @@ import vendingMachineResource from '../resource/vendingMachineResource';
 
 class ProductManageImpl implements ProductManage {
   addEvent() {
-    console.log($('#add-product-form'));
     $('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
     $('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
   }
 
   handleAddProduct(e) {
     e.preventDefault();
-    if (e.target.classList.contains('.input-form__submit-button')) {
-      const name = $('#product-name-input').value; 
-      const price = Number($('#product-price-input').value); 
-      const quantity = Number($('#product-quantity-input').value); 
-      if (this.isValidProductInfo(name, price, quantity)) {
-        this.addProduct(name, price, quantity);
-      }
+
+    const name = $('#product-name-input').value; 
+    const price = Number($('#product-price-input').value); 
+    const quantity = Number($('#product-quantity-input').value); 
+
+    if (this.isValidProductInfo(name, price, quantity)) {
+      this.addProduct(name, price, quantity);
+      this.draw();
     }
   }
 
   handleClickButtons(e) {
-    if (e.target.classList.contains('.modify-button')) {
+    console.log(e.target);
+    if (e.target.classList.contains('modify-button')) {
 
     }
-    if (e.target.classList.contains('.delete-button')) {
+    if (e.target.classList.contains('delete-button')) {
+      console.log(e.target.closest('tr').children[0].innerText);
       this.deleteProduct(e.target.closest('tr').children[0].innerText);
     }
-    if (e.target.classList.contains('.confirm-button')) {
+    if (e.target.classList.contains('confirm-button')) {
 
     }
   }
@@ -48,6 +50,28 @@ class ProductManageImpl implements ProductManage {
       return false;
     }
     return true;
+  }
+
+  draw() {
+    const html = vendingMachineResource
+      .products
+      .map(
+        ({ name, price, quantity }: Product) => 
+        `<tr class="product-info">
+          <td class="product-info__text">${name}</td>
+          <td class="product-info__text">${price}</td>
+          <td class="product-info__text">${quantity}</td>
+          <td class="product-info__input"><input type="text" value="${name}" /></td>
+          <td class="product-info__input"><input type="text" value="${price}" /></td>
+          <td class="product-info__input"><input type="text" value="${quantity}" /></td>
+          <td>
+            <button class="modify-button button">수정</button>
+            <button class="delete-button button">삭제</button>
+            <button class="confirm-button button">확인</button>
+          </td>
+        </tr>`)
+        .join('');
+    $('#product-list').innerHTML = html;
   }
 
   addProduct(name: string, price: number, quantity: number): void {
