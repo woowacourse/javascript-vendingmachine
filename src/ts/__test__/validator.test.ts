@@ -25,12 +25,20 @@ describe('validate 테스트', () => {
       MESSAGE.ERROR_EMPTY_VALUE,
     );
 
-    const newProduct2 = { name: '사이다', price: NaN, quantity: MAX_QUANTITY };
+    const newProduct2 = {
+      name: `${product.name}사이다`,
+      price: NaN,
+      quantity: MAX_QUANTITY,
+    };
     expect(() => validateProductInfo(products, newProduct2)).toThrowError(
       MESSAGE.ERROR_EMPTY_VALUE,
     );
 
-    const newProduct3 = { name: '환타', price: PRICE_RULE.MIN, quantity: NaN };
+    const newProduct3 = {
+      name: `${product.name}환타`,
+      price: PRICE_RULE.MIN,
+      quantity: NaN,
+    };
     expect(() => validateProductInfo(products, newProduct3)).toThrowError(
       MESSAGE.ERROR_EMPTY_VALUE,
     );
@@ -38,7 +46,7 @@ describe('validate 테스트', () => {
 
   it('상품 추가 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
     const newProduct = {
-      name: '콜라',
+      name: product.name,
       price: PRICE_RULE.MIN + PRICE_RULE.UNIT,
       quantity: MAX_QUANTITY - 1,
     };
@@ -47,13 +55,17 @@ describe('validate 테스트', () => {
     );
   });
 
-  // TODO: 상품 수정 시 동일한 이름 테스트
-  // it('상품 수정 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
-  //   const newProduct = { name: '콜라', price: 1500, quantity: 15 };
-  //   expect(() => validateProductInfo(products, newProduct, true)).toThrowError(
-  //     MESSAGE.ERROR_SAME_PRODUCT,
-  //   );
-  // });
+  it('상품 수정 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
+    const prevProductName = `${product.name}사이다`;
+    const newProduct = {
+      name: product.name,
+      price: PRICE_RULE.MIN,
+      quantity: MAX_QUANTITY,
+    };
+    expect(() =>
+      validateProductInfo(products, newProduct, prevProductName),
+    ).toThrowError(MESSAGE.ERROR_SAME_PRODUCT);
+  });
 
   it(`상품 추가/수정 시, 상품명의 길이는 ${MAX_NAME_LENGTH}을 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
@@ -68,7 +80,7 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MIN}원 미만이면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: '사이다',
+      name: `${product.name}사이다`,
       price: PRICE_RULE.MIN - PRICE_RULE.UNIT,
       quantity: MAX_QUANTITY,
     };
@@ -79,7 +91,7 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MAX}원 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: '사이다',
+      name: `${product.name}사이다`,
       price: PRICE_RULE.MAX + PRICE_RULE.UNIT,
       quantity: MAX_QUANTITY,
     };
@@ -90,7 +102,7 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.UNIT}으로 나누어 떨어지지 않으면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: '사이다',
+      name: `${product.name}사이다`,
       price: PRICE_RULE.MIN + PRICE_RULE.UNIT / 2,
       quantity: MAX_QUANTITY,
     };
@@ -101,7 +113,7 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 수량이 ${MAX_QUANTITY}개를 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: '사이다',
+      name: `${product.name}사이다`,
       price: PRICE_RULE.MIN,
       quantity: MAX_QUANTITY + 1,
     };
