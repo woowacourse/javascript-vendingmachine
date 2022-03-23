@@ -1,9 +1,7 @@
 import { ERROR_MESSAGE } from '../constants';
-// import VendingMachine from '../model/VendingMachine'
 import vendingMachine from '../model/VendingMachine'
 
 describe('자판기 기본 기능 테스트', () => {
-  // const vendingMachine = new VendingMachine();
 
   describe('자판기 상품 추가 기능 테스트', () => {
     it('자판기에 상품을 추가할 수 있어야 한다.', () => {
@@ -20,8 +18,8 @@ describe('자판기 기본 기능 테스트', () => {
     it('자판기에 같은 이름의 상품은 추가할 수 없어야 한다.', () => {
       const product = {
         name: "코카콜라",
-        price: 1000,
-        amount: 5,
+        price: 2000,
+        amount: 8,
       }
 
       expect(() => vendingMachine.addProduct(product)).toThrowError(ERROR_MESSAGE.PRODUCT_NAME_IS_DUPLICATED);
@@ -72,6 +70,16 @@ describe('자판기 기본 기능 테스트', () => {
     it('자판기가 가진 금액은 100,000원 이하여야 한다.', () => {
       const money = 100010;
       expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
+    });
+
+    it('자판기에 충전할 금액은 양수이어야 한다.', () => {
+      const money = -1000;
+      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    });
+
+    it('자판기에 충전할 수 있는 금액은 10원으로 나누어 떨어지는 금액이어야 한다.', () => {
+      const money = 9;
+      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     });
   });
 })
