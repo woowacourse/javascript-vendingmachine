@@ -21,10 +21,6 @@ td > div {
   display: flex;
 }
 
-td > div {
-  display: flex;
-}
-
 th {
   padding: 8px;
   width: 25%;

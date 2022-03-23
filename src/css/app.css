@@ -40,3 +40,17 @@
 .edit-item-button {
   margin-right: 8px;
 }
+
+.confirm-item-button {
+  width: 100%;
+}
+
+.editable {
+  color: #949494;
+  outline: 1px dashed #949494;
+  outline-offset: -10px;
+}
+
+.hide {
+  display: none;
+}
