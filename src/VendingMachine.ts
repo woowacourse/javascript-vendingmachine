@@ -1,10 +1,15 @@
 import ItemService from './ItemService';
 import CoinService from './CoinService';
+import { ItemInfo } from './Item';
 
 export default class VendingMachine {
+  itemService: ItemService;
+
+  coinService: CoinService;
+
   constructor() {
-    this.itemService = new ItemService();
-    this.coinService = new CoinService();
+    this.itemService = new ItemService([]);
+    this.coinService = new CoinService([]);
   }
 
   addItem(newItem: ItemInfo): void {}

@@ -214,4 +214,20 @@ describe('CoinService', () => {
       });
     });
   });
+
+  describe('getTotalMoney', () => {
+    describe('성공 시', () => {
+      test('총 보유 금액을 반환한다.', () => {
+        expect(coinService.getTotalMoney()).toBe(0);
+
+        coinService.add(10000);
+
+        expect(coinService.getTotalMoney()).toBe(10000);
+
+        coinService.add(90000);
+
+        expect(coinService.getTotalMoney()).toBe(100000);
+      });
+    });
+  });
 });
