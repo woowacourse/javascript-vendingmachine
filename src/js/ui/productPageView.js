@@ -61,7 +61,7 @@ class ProductPageView {
   productSubmitUpdateHandler = (target) => {
     const updatedProduct = target.closest("tr");
 
-    const idx = updatedProduct.dataset.id;
+    const idx = Number(updatedProduct.dataset.id);
     const updatedName = updatedProduct.querySelector("#edit-name-input").value;
     const updatedPrice =
       updatedProduct.querySelector("#edit-price-input").valueAsNumber;

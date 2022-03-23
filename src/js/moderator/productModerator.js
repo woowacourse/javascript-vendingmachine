@@ -39,8 +39,6 @@ class ProductModerator {
     const products = this.productProcessMachine.getProducts();
     this.productPageView.renderProductStatus(products);
   };
-
-  editProduct = () => {};
 }
 
 export default ProductModerator;
