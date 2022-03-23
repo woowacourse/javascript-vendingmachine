@@ -1,5 +1,7 @@
-import { Item, ItemInfo } from '../Item';
+import { CoinList } from '../Coin';
+import { ItemInfo } from '../Item';
 import ItemService from '../ItemService';
+import CoinService from '../CoinService';
 
 describe('ItemService', () => {
   const initItems: Array<ItemInfo> = [];
@@ -160,6 +162,55 @@ describe('ItemService', () => {
 
       test('name에 해당하는 상품을 반환해야 한다.', () => {
         expect(itemService.find('사이다')).toBeNull();
+      });
+    });
+  });
+});
+
+describe('CoinService', () => {
+  const initCoins: CoinList = {
+    10: 0,
+    50: 0,
+    100: 0,
+    500: 0,
+  };
+  const coinService = new CoinService(initCoins);
+
+  beforeEach(() => {
+    coinService.init(initCoins);
+  });
+
+  describe('add', () => {
+    describe('성공 시', () => {
+      test('유효한 금액을 입력하면 동전이 추가된다.', () => {
+        coinService.add(10);
+
+        expect(coinService.coinList[10]).toBe(1);
+      });
+    });
+
+    describe('실패 시', () => {
+      test('주어진 금액이 10 ~ 100000 사이가 아니면 Error를 throw한다.', () => {
+        expect(() => {
+          coinService.add(0);
+        }).toThrowError();
+
+        expect(() => {
+          coinService.add(100010);
+        }).toThrowError();
+      });
+
+      test('주어진 금액이 10 단위가 아니면 Error를 throw한다.', () => {
+        expect(() => {
+          coinService.add(11);
+        }).toThrowError();
+      });
+
+      test('보유 금액이 100000이 넘으면 Error를 throw한다.', () => {
+        expect(() => {
+          coinService.add(100000);
+          coinService.add(10);
+        }).toThrowError();
       });
     });
   });
