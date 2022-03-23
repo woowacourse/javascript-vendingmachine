@@ -7,10 +7,15 @@ interface ProductManagement {
   editProduct: (prevProductName: string, newProduct: ProductInfo) => void;
 }
 
-class ProductManagementImpl implements ProductManagement {
+export default class ProductManagementDomain implements ProductManagement {
   #products: Array<ProductImpl>;
 
+  constructor() {
+    this.#products = [];
+  }
+
   addProduct(newProduct: ProductInfo) {
+    console.log('newProduct', newProduct);
     this.#products.push(new ProductImpl(newProduct));
   }
 
@@ -26,5 +31,9 @@ class ProductManagementImpl implements ProductManagement {
         product.editProduct(newProduct);
       }
     });
+  }
+
+  get products() {
+    return this.#products;
   }
 }
