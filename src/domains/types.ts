@@ -12,6 +12,8 @@ export interface IProduct extends TProduct {
   editProductInfo: (args: TProduct) => void;
 }
 
+export type TCoinWalletKey = 'coin_500' | 'coin_100' | 'coin_50' | 'coin_10';
+
 export type TCoinWallet = {
   coin_500: number;
   coin_100: number;
@@ -19,11 +21,14 @@ export type TCoinWallet = {
   coin_10: number;
 };
 
-export interface ICoinWallet extends TCoinWallet {
-  computeCoinAmount: () => number;
-  generateRandomCoins: (charge: number) => TCoinWallet;
+export interface ICoinWallet {
+  rechargeCoinWallet: (charge: number) => void;
+  computeCoinTotalAmount: () => number;
+  generateRandomCoinInfo: (charge: number) => TCoinWallet;
   getCoinWalletInfo: () => TCoinWallet;
-  subtractCoins: (coins: TCoinWallet) => void;
+  returnChangeCoinInfo: (change: number) => TCoinWallet;
+  pickRandomCoinKey: (charge: number) => TCoinWalletKey;
+  findMaxCoinKey: (change: number) => TCoinWalletKey;
 }
 
 export type TAction = string;
