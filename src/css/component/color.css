@@ -1,0 +1,10 @@
+:root {
+  --app-border-color: rgba(0, 0, 0, 0.12);
+  --tab-background-color: #F5F5F5;
+  --tab-font-color: #000000;
+  --tab-active-background-color: rgba(0, 188, 212, 0.16);
+  --input-border-color: #B4B4B4;
+  --submit-button-color: #00BCD4;
+  --submit-button-font-color: #FFFFFF;
+  --product-border-color: #dcdcdc;
+}

@@ -2,15 +2,101 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>자판기</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <title>자판기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./src/css/index.css">
 </head>
 
 <body>
-    <div id="app">
-        <h1>🍿 자판기 🍿</h1>
-    </div>
+  <div id="app" class="app charge"> 
+    <h1 class="app__title">🍿 자판기 🍿</h1>
+
+    <section class="tab">
+      <button type="button" class="tab__item button" data-name="manage">상품 관리</button>
+      <button type="button" class="tab__item button" data-name="charge">잔돈 충전</button>
+      <button type="button" class="tab__item button" data-name="buy">상품 구매</button>
+    </section>
+
+    <main class="app__main manage">
+      <form class="input-form">
+        <label class="input-description">추가할 상품 정보를 입력해주세요.</label>
+        <div class="input-container">
+          <input id="product-name-input" class="input-form__input" placeholder="상품명">
+          <input id="product-price-input" class="input-form__input" placeholder="가격">
+          <input id="product-quantity-input" class="input-form__input" placeholder="수량">
+          <button type="submit" class="input-form__submit-button button">추가</button>
+        </div>
+      </form>
+
+      <section class="table-wrap">
+        <h2 class="table-wrap__title">상품 현황</h2>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <td>상품명</td>
+              <td>가격</td>
+              <td>수량</td>
+              <td>수정</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="product-info">
+              <td class="product-info__text">콜라</td>
+              <td class="product-info__text">1500</td>
+              <td class="product-info__text">20</td>
+              <td class="product-info__input"><input type="text" value="콜라" /></td>
+              <td class="product-info__input"><input type="text" value="1500" /></td>
+              <td class="product-info__input"><input type="text" value="20" /></td>
+              <td>
+                <button class="modify-button button">수정하기</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <main class="app__main charge">
+      <form class="input-form">
+        <label class="input-description">자판기가 보유할 금액을 입력해주세요.</label>
+        <div class="input-container">
+          <input id="charge-money-input" class="input-form__input" placeholder="금액">
+          <button type="submit" class="input-form__submit-button button">추가</button>
+        </div>
+      </form>
+    
+      <section class="table-wrap">
+        <h2 class="table-wrap__title">자판기가 보유한 동전</h2>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <td>동전</td>
+              <td>개수</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="product-info">
+              <td class="product-info__text">500원</td>
+              <td class="product-info__text">0개</td>
+            </tr>
+            <tr class="product-info">
+              <td class="product-info__text">100원</td>
+              <td class="product-info__text">0개</td>
+            </tr>
+            <tr class="product-info">
+              <td class="product-info__text">50원</td>
+              <td class="product-info__text">0개</td>
+            </tr>
+            <tr class="product-info">
+              <td class="product-info__text">10원</td>
+              <td class="product-info__text">5개</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
 </body>
 
 </html>
