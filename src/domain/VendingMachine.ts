@@ -1,4 +1,5 @@
 import { on, $ } from '../utils';
+import { validateProduct } from '../validator';
 import Coin from './Coin';
 import Product from './Product';
 
@@ -18,11 +19,16 @@ class VendingMachine implements IVendingMachine {
   }
 
   subscribeEvents() {
-    on('.product-manage-form', '@add', (e) => console.log(e.detail), $('product-management'));
+    on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
   }
 
   addProduct(product: Product) {
-    this.products.push(new Product(product));
+    try {
+      validateProduct(product, this.products);
+      this.products.push(new Product(product));
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   updateProduct(targetName: string, product: Product) {
