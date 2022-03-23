@@ -1,26 +1,31 @@
-interface Product {
+export interface Product {
   name: string;
   price: number;
   count: number;
-  id: number;
 }
 
-interface Add {
+export interface Add {
   (newProduct: Product): void;
 }
 
-interface Update {
-  (id: number, name?: string, price?: number, count?: number): void;
+export interface Update {
+  (idx: number, name?: string, price?: number, count?: number): void;
 }
 
-interface Delete {
-  (id: number): void;
+export interface Delete {
+  (idx: number): void;
+}
+
+export interface GetProducts {
+  (): Product[];
 }
 
 export interface ProductDomain {
-  product: Product[];
+  products: Product[];
 
   add: Add; // 상품이 추가됨
+
+  getProducts: GetProducts; // 상품을 가져옴
 
   update: Update; // 상품을 수정할수 있음
 

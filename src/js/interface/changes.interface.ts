@@ -1,20 +1,20 @@
-interface Charge {
+export interface Charge {
   (money: number): void;
 }
 
-interface Coins {
+export interface Coins {
   500: number;
   100: number;
   50: number;
   10: number;
 }
 
-interface GetTotalChanges {
-  (coins: Coins): number;
+export interface GetTotalChanges {
+  (): number;
 }
 
-interface GenerateCoins {
-  (money: number): void;
+export interface GenerateCoins {
+  (money: number): Coins;
 }
 
 export interface ChangesDomain {
