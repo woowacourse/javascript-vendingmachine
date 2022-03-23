@@ -26,6 +26,10 @@ class ProductManagement extends CustomElement {
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
 
+    e.target.name.value = '';
+    e.target.price.value = '';
+    e.target.quantity.value = '';
+
     emit('.product-manage-form', '@add', { name, price, quantity }, this);
   }
 
