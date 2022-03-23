@@ -5,7 +5,7 @@ export const isValidProductNameLength = (name: string) => {
 };
 
 export const isUnitOfTen = (price: number) => {
-  return price % RULES.MINIMUM_CHARGE === 0;
+  return price % RULES.MINIMUM_CHANGE === 0;
 };
 
 export const isPositiveInteger = (price: number) => {

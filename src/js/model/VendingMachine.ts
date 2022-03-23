@@ -58,11 +58,10 @@ class VendingMachine {
   inputChanges(money: number) {
     this.checkInputChangesValidate(money);
     this.totalMoney += money;
-    this.makeChanges(money);
+    this.makeChangesToCoin(money);
   }
 
-  // makeChanges 과연 적절한 이름인가? 리팩토링때 다시보기
-  makeChanges(money: number) {
+  makeChangesToCoin(money: number) {
     const coin = this.getChangeCoin(money);
     money -= coin;
 
@@ -81,8 +80,8 @@ class VendingMachine {
         break;
     }
 
-    if (money >= 10) {
-      this.makeChanges(money);
+    if (money >= RULES.MINIMUM_CHANGE) {
+      this.makeChangesToCoin(money);
     }
   }
 
@@ -96,10 +95,10 @@ class VendingMachine {
     return coins[index];
   }
 
-  checkProductValidate(product: Product, originalIndex: number = -1) {
+  checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
     const productIndex = this.findProductIndex(product.name);
     const isExist = productIndex >= 0;
-    const isAddWithDuplicatedName = isExist && originalIndex === -1;
+    const isAddWithDuplicatedName = isExist && originalIndex === RULES.NOT_EXIST_INDEX;
     const isModifyWithDuplicateName = isExist && originalIndex !== productIndex;
 
     if (isAddWithDuplicatedName || isModifyWithDuplicateName) {
