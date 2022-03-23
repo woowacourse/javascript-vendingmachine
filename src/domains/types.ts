@@ -30,26 +30,3 @@ export interface ICoinWallet {
   pickRandomCoinKey: (charge: number) => TCoinWalletKey;
   findMaxCoinKey: (change: number) => TCoinWalletKey;
 }
-
-export type TAction = string;
-
-export type TState = 'PRODUCT_LIST' | 'COIN_WALLET' | 'INPUT_CHARGE';
-
-export type TSubsrcribedComponents = {
-  PRODUCT_LIST: Array<any>;
-  COIN_WALLET: Array<any>;
-  INPUT_CHARGE: Array<any>;
-};
-
-export interface IVendingMachineStore {
-  subscribedComponents: TSubsrcribedComponents;
-  productList: Array<IProduct>;
-  coinWallet: TCoinWallet;
-  inputCharge: number;
-
-  mutateProductList: (actionType: TAction, payload: any) => void;
-  mutateCoinWallet: (actionType: TAction, payload: any) => void;
-  mutateInputCharge: (actionType: TAction, payload: any) => void;
-  subscribe: (stateType: TState, component: any) => void;
-  getState: (stateType: TState, component: any) => Array<IProduct> | TCoinWallet | number;
-}
