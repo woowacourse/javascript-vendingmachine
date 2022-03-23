@@ -23,6 +23,15 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError("상품명은 10자이하로 입력해주세요");
   });
 
+  test("상품명이 중복되면 에러를 던진다", () => {
+    const productProcessMachine = new ProductProcessMachine();
+
+    expect(() => {
+      productProcessMachine.add({ name: "호프", price: 110, count: 2 });
+      productProcessMachine.add({ name: "호프", price: 110, count: 2 });
+    }).toThrowError("중복된 상품은 입력 할 수 없습니다.");
+  });
+
   test("상품가격이 유효하지 않는다면 에러를 던진다.", () => {
     const productProcessMachine = new ProductProcessMachine();
     expect(() => {

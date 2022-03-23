@@ -10,6 +10,7 @@ class ProductProcessMachine implements ProductDomain {
   products = [];
 
   add: Add = (newProduct) => {
+    this.checkDuplicatedName(newProduct.name);
     this.checkNameLength(newProduct.name);
     this.checkValidPrice(newProduct.price);
     this.checkValidCount(newProduct.count);
@@ -38,6 +39,12 @@ class ProductProcessMachine implements ProductDomain {
     this.products[idx][`${key}`] = status
       ? status
       : this.products[idx][`${key}`];
+  };
+
+  checkDuplicatedName = (newName: string): void => {
+    if (this.products.some(({ name }) => name === newName)) {
+      throw new Error("중복된 상품은 입력 할 수 없습니다.");
+    }
   };
 
   checkNameLength = (name: string): void => {
