@@ -24,9 +24,8 @@ class ProductManageImpl implements ProductManage {
   }
 
   handleClickButtons(e) {
-    console.log(e.target);
     if (e.target.classList.contains('modify-button')) {
-
+      e.target.closest('tr').classList.add('modify');
     }
     if (e.target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) {
       console.log(e.target.closest('tr').children[0].innerText);
@@ -34,8 +33,28 @@ class ProductManageImpl implements ProductManage {
       this.drawProductList();
     }
     if (e.target.classList.contains('confirm-button')) {
-
+      const name = $('.product-info-name', e.target.closest('tr')).value; 
+      const price = Number($('.product-info-price', e.target.closest('tr')).value); 
+      const quantity = Number($('.product-info-quantity', e.target.closest('tr')).value);
+      this.modifyProduct(name, price, quantity);
+      if (this.isValidModifyProductInfo(name, price, quantity)) {
+        vendingMachineResource.products[this.getProductIndex(name)] = { name, price, quantity };
+        this.drawProductList();
+      }
     }
+  }
+
+  isValidModifyProductInfo(name: string, price: number, quantity: number): boolean {
+    if (name.length < 1 || name.length > 10) {
+      return false;
+    }
+    if (price < 100 || price > 10000 || price % 10 !== 0) {
+      return false;
+    }
+    if (quantity < 0 || quantity > 20) {
+      return false;
+    }
+    return true;
   }
   
   isValidProductInfo(name: string, price: number, quantity: number): boolean {
@@ -63,9 +82,9 @@ class ProductManageImpl implements ProductManage {
           <td class="product-info__text">${name}</td>
           <td class="product-info__text">${price}</td>
           <td class="product-info__text">${quantity}</td>
-          <td class="product-info__input"><input type="text" value="${name}" /></td>
-          <td class="product-info__input"><input type="text" value="${price}" /></td>
-          <td class="product-info__input"><input type="text" value="${quantity}" /></td>
+          <td class="product-info__input"><input type="text" class="product-info-name" value="${name}" /></td>
+          <td class="product-info__input"><input type="text" class="product-info-price" value="${price}" /></td>
+          <td class="product-info__input"><input type="text" class="product-info-quantity" value="${quantity}" /></td>
           <td>
             <button class="modify-button button">수정</button>
             <button class="delete-button button">삭제</button>
@@ -78,10 +97,8 @@ class ProductManageImpl implements ProductManage {
   }
 
   addProduct(name: string, price: number, quantity: number): void {
-    
-    if (this.isValidProductInfo(name, price, quantity)) {
-      vendingMachineResource.products.push({ name, price, quantity });
-    }
+    vendingMachineResource.products.push({ name, price, quantity });
+
   }
 
   modifyProduct(name: string, price: number, quantity: number): void {

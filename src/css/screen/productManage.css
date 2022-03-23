@@ -102,6 +102,7 @@
 
 .confirm-button {
   width: 100px;
+  margin: 0 auto;
 }
 
 .product-info .product-info__input,
