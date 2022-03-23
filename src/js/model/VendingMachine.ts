@@ -1,13 +1,9 @@
 import { ERROR_MESSAGE, RULES } from '../constants';
 import { Product, Coin } from '../interfaces/VendingMachine.interface';
-import {
-  isValidProductPrice,
-  isValidProductAmount,
-  isValidProductNameLength,
-} from './validator';
+import { isValidProductPrice, isValidProductAmount, isValidProductNameLength } from './validator';
 
 class VendingMachine {
-  products: Array<Product>; // name amount price
+  private products: Array<Product>; // name amount price
   changes: Coin; // 자판기가 보유하고 있는 돈 = 잔돈
   totalMoney: number;
 
@@ -15,6 +11,10 @@ class VendingMachine {
     this.products = [];
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.totalMoney = 0;
+  }
+
+  getProducts() {
+    return this.products;
   }
 
   addProduct(product: Product) {
