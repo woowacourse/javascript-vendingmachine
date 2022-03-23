@@ -1,5 +1,8 @@
-export const isValidLengthProductName = (name: string): boolean =>
-  name.length >= 1 && name.length <= 10;
+export const checkValidLengthProductName = (name: string): void => {
+  if (name.length < 1 || name.length > 10) {
+    throw new Error('상품명은 1글자 이상 10글자 이하로 작성해주세요.');
+  }
+};
 
 export const checkValidProductPrice = (price: number): void => {
   if (price < 100 || price > 10000) {

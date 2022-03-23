@@ -1,10 +1,10 @@
 import {
-  isValidLengthProductName,
+  checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../utils/utils';
 
-import { bind, dispatch } from '../dom';
+import { emit } from '../dom';
 
 export default class ProductInputComponent {
   private $nameInput: HTMLInputElement = document.querySelector(
@@ -30,7 +30,7 @@ export default class ProductInputComponent {
     e.preventDefault();
 
     try {
-      isValidLengthProductName(this.$nameInput.value);
+      checkValidLengthProductName(this.$nameInput.value);
       checkValidProductPrice(this.$priceInput.valueAsNumber);
       checkValidProductQuantity(this.$quantityInput.valueAsNumber);
 
@@ -40,9 +40,17 @@ export default class ProductInputComponent {
         quantity: this.$quantityInput.valueAsNumber,
       });
 
-      this.vendingMachineProductManagement.getProducts();
-
-      dispatch(document.querySelector('.product-info-form__button'), '@button');
+      emit(
+        document.querySelector('.product-info-form__button'),
+        '@productInputSubmit',
+        {
+          detail: {
+            name: this.$nameInput.value,
+            price: this.$priceInput.valueAsNumber,
+            quantity: this.$quantityInput.valueAsNumber,
+          },
+        }
+      );
     } catch (error) {
       console.error(error);
     }
