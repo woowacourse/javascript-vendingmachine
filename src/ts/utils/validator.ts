@@ -64,7 +64,7 @@ const validateProductInfo = (
 ) => {
   const validator = generateProductInfoValidators(products, newProduct, edit);
 
-  validator.every(({ test, errorMsg }) => {
+  return validator.every(({ test, errorMsg }) => {
     if (test) throw new Error(errorMsg);
     return true;
   });

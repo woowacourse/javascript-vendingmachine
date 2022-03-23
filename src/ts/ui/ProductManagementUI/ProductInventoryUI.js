@@ -1,4 +1,3 @@
-import { viewPainter } from '../../..';
 import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from '../../utils/validator';
