@@ -1,7 +1,7 @@
 export class ProductInformationInput {
   constructor() {}
 
-  templates() {
+  templates(): string {
     return `
       <form>
           <label for="product-information-input">추가할 상품 정보를 입력해주세요</label>
@@ -16,7 +16,7 @@ export class ProductInformationInput {
   }
 
   render(target: HTMLDivElement) {
-    target.insertAdjacentHTML('afterbegin', this.templates());
+    target.insertAdjacentHTML('beforeend', this.templates());
   }
 
   register() {}

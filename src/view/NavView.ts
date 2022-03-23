@@ -1,9 +1,12 @@
 import { ProductManageView } from './ProductManageView';
+import { ChargeBalanceView } from './ChargeBalanceView';
 
 export class NavView {
   productManageNavBtn: HTMLButtonElement;
   chargeBalanceNavBtn: HTMLButtonElement;
   productPurchaseNavBtn: HTMLButtonElement;
+  productManageView: ProductManageView;
+  chargeBalanceView: ChargeBalanceView;
 
   constructor() {
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
@@ -21,12 +24,13 @@ export class NavView {
     });
   }
 
-  productManageView;
   handleShowProductManageTab = () => {
     this.productManageView = new ProductManageView();
   };
 
-  handleShowChargeBalanceTab = () => {};
+  handleShowChargeBalanceTab = () => {
+    this.chargeBalanceView = new ChargeBalanceView();
+  };
 
   handleShowProductPurchaseTab = () => {};
 }
