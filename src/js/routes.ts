@@ -15,16 +15,16 @@ const router = () => {
   let prevPath = '';
 
   return () => {
-    const pathName = window.location.hash;
+    const hash = window.location.hash;
 
-    if (prevPath === pathName) {
+    if (prevPath === hash) {
       return;
     }
 
-    prevPath = pathName;
+    prevPath = hash;
     clearPurchaseBody();
 
-    switch (pathName) {
+    switch (hash) {
       case '#!/product-manage':
         productManage.render();
         break;
