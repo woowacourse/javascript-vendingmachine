@@ -1,0 +1,44 @@
+@import url('./color.css');
+body {
+  /* margin: auto 0; */
+  padding: 64px 0;
+  background-color: var(--body-background-color);
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid var(--app-border-color);
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+nav {
+  display: flex;
+  width: 359px;
+  margin-bottom: 50px;
+  gap: 4px;
+}
+button {
+  width: 100%;
+  cursor: pointer;
+}
+
+button.gray-button {
+  background-color: var(--button-gray-background-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+button:hover {
+  background-color: var(--button-hover-background-color);
+}
+
+#return-change-button {
+  width: 100px;
+}

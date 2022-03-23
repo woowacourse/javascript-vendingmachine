@@ -1,0 +1,41 @@
+@import './color.css';
+
+table {
+  border-collapse: collapse;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+caption {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+tbody tr {
+  border-top: 1px solid var(--table-division-color);
+  border-bottom: 1px solid var(--table-division-color);
+}
+
+tbody tr td {
+  width: 100px;
+}
+
+tbody tr td:last-child {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+tbody tr td,
+tbody tr th {
+  text-align: center;
+  padding: 10px 0;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
