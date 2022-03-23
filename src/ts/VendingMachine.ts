@@ -21,7 +21,10 @@ class VendingMachine implements VendingMachineInterface {
   }
 
   addItem(itemName: string, itemPrice: number, itemQuantity: number) {
-    this.itemList = [...this.itemList, { itemName, itemPrice, itemQuantity }];
+    const newItem = { itemName, itemPrice, itemQuantity };
+    this.itemList = [...this.itemList, newItem];
+
+    return newItem;
   }
 
   buyItem() {}
