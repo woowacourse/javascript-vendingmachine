@@ -7,7 +7,7 @@
 ######## 본문은 한 줄에 최대 72 글자까지만 입력 ########################### -> |
 
 Co-authored-by: lokba <lokba@users.noreply.github.com>
-Co-authored-by: JUDONGHYEOK <judonghyeok@google.com>
+Co-authored-by: JUDONGHYEOK <judonghyeok@gmail.com>
 
 # 꼬릿말은 아래에 작성: ex) #이슈 번호
 
