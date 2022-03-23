@@ -2,6 +2,7 @@ import { $ } from '../util/dom';
 import { Product } from '../resource/declaration';
 import ProductManage from './declaration';
 import vendingMachineResource from '../resource/vendingMachineResource';
+import { template } from '@babel/core';
 
 class ProductManageImpl implements ProductManage {
   addEvent() {
@@ -18,7 +19,7 @@ class ProductManageImpl implements ProductManage {
 
     if (this.isValidProductInfo(name, price, quantity)) {
       this.addProduct(name, price, quantity);
-      this.draw();
+      this.drawProductList();
     }
   }
 
@@ -30,6 +31,7 @@ class ProductManageImpl implements ProductManage {
     if (e.target.classList.contains('delete-button')) {
       console.log(e.target.closest('tr').children[0].innerText);
       this.deleteProduct(e.target.closest('tr').children[0].innerText);
+      this.drawProductList();
     }
     if (e.target.classList.contains('confirm-button')) {
 
@@ -52,8 +54,8 @@ class ProductManageImpl implements ProductManage {
     return true;
   }
 
-  draw() {
-    const html = vendingMachineResource
+  drawProductList() {
+    const template = vendingMachineResource
       .products
       .map(
         ({ name, price, quantity }: Product) => 
@@ -71,7 +73,7 @@ class ProductManageImpl implements ProductManage {
           </td>
         </tr>`)
         .join('');
-    $('#product-list').innerHTML = html;
+    $('#product-list').insertAdjacentHTML('beforeend', template);
   }
 
   addProduct(name: string, price: number, quantity: number): void {
@@ -82,15 +84,15 @@ class ProductManageImpl implements ProductManage {
 
   modifyProduct(name: string, price: number, quantity: number): void {
     if (this.isValidProductInfo(name, price, quantity)) {
-      vendingMachineResource.products[this.index(name)] = { name, price, quantity };
+      vendingMachineResource.products[this.getProductIndex(name)] = { name, price, quantity };
     }
   }
   
   deleteProduct(name: string): void {
-    vendingMachineResource.products.splice(this.index(name), 1);
+    vendingMachineResource.products.splice(this.getProductIndex(name), 1);
   }
 
-  index(name: string) {
+  getProductIndex(name: string) {
     return vendingMachineResource.products.findIndex((product: Product) => product.name === name);
   }
 }
