@@ -1,20 +1,25 @@
-import { MAX_NAME_LENGTH, MESSAGE } from '../constants';
+import {
+  MAX_NAME_LENGTH,
+  MAX_QUANTITY,
+  MESSAGE,
+  PRICE_RULE,
+} from '../constants';
 import ProductImpl from '../domain/Product';
 import { ProductInfo } from '../domain/types';
 
-const hasSameProduct = (products: ProductImpl[], newProduct: ProductInfo) => {
-  return products.some(productInfo => productInfo.name === newProduct.name);
-};
+const hasSameProduct = (products: ProductImpl[], newProduct: ProductInfo) =>
+  products.some(productInfo => productInfo.name === newProduct.name);
 
-const isOverMaxLength = (name: string) => {
-  return name.length > MAX_NAME_LENGTH;
-};
+const isOverMaxLength = (name: string) => name.length > MAX_NAME_LENGTH;
 
 const isInvalidPrice = (price: number) => {
-  const isRanged = price >= 100 && price <= 10000;
-  const isDivisible = price % 10 === 0;
+  const { MAX, MIN, UNIT } = PRICE_RULE;
+  const isRanged = price >= MIN && price <= MAX;
+  const isDivisible = price % UNIT === 0;
   return !(isRanged && isDivisible);
 };
+
+const isOverMaxQuantity = (quantity: number) => quantity > MAX_QUANTITY;
 
 const productInfoValidator = (
   products: ProductImpl[],
@@ -31,6 +36,10 @@ const productInfoValidator = (
   {
     test: isInvalidPrice(newProduct.price),
     errorMsg: MESSAGE.ERROR_INVALID_PRICE,
+  },
+  {
+    test: isOverMaxQuantity(newProduct.quantity),
+    errorMsg: MESSAGE.ERROR_OVER_MAX_QUANTITY,
   },
 ];
 
