@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
     "eslint": "^8.11.0",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
     "style-loader": "^3.3.1",
@@ -40,5 +43,5 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
+  "homepage": "https://intae92.github.io/javascript-vendingmachine"
 }
