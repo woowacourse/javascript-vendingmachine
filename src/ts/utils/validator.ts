@@ -19,7 +19,8 @@ const isInvalidPrice = (price: number) => {
   return !(isRanged && isDivisible);
 };
 
-const isOverMaxQuantity = (quantity: number) => quantity > MAX_QUANTITY;
+const isQuantityRanged = (quantity: number) =>
+  quantity > MAX_QUANTITY || quantity <= 0;
 
 const isEmpty = (product: ProductInfo) =>
   Object.keys(product).some(key => {
@@ -50,7 +51,7 @@ const productInfoValidator = (
     errorMsg: MESSAGE.ERROR_INVALID_PRICE,
   },
   {
-    test: isOverMaxQuantity(newProduct.quantity),
+    test: isQuantityRanged(newProduct.quantity),
     errorMsg: MESSAGE.ERROR_OVER_MAX_QUANTITY,
   },
 ];

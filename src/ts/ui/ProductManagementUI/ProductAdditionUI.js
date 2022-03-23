@@ -22,8 +22,6 @@ export default class ProductAdditionUI {
         quantity: $$inputs[2].valueAsNumber,
       };
 
-      console.log('product', product);
-
       try {
         const products = this.productManagementDomain.products;
         validateProductInfo(products, product);

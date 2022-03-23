@@ -14,7 +14,7 @@ const MESSAGE = {
   }원 이상 ${PRICE_RULE.MAX.toLocaleString()}원 이하여야 하며, ${
     PRICE_RULE.UNIT
   }으로 나누어 떨어져야 합니다.`,
-  ERROR_OVER_MAX_QUANTITY: `상품 수량은 ${MAX_QUANTITY}개 이하로 입력해주세요.`,
+  ERROR_OVER_MAX_QUANTITY: `상품 수량은 1개 이상 ${MAX_QUANTITY}개 이하로 입력해주세요.`,
   ERROR_EMPTY_VALUE: '상품 정보를 공백 없이 입력해주세요.',
 };
 
