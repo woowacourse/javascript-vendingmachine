@@ -18,7 +18,7 @@ export default class ProductInventoryUI {
         상품명
       </div>
       <div class="product-inventory__item grid-item grid-header">
-        가격
+        가격(원)
       </div>
       <div class="product-inventory__item grid-item grid-header">
         수량
@@ -27,9 +27,10 @@ export default class ProductInventoryUI {
       <div class="product-inventory__item grid-item grid-header"></div>
     `;
 
-    const productsTemplate = products.map(product => {
-      const { name, price, quantity } = product.getProduct();
-      return `
+    const productsTemplate = products
+      .map(product => {
+        const { name, price, quantity } = product.getProduct();
+        return `
         <div class="product-inventory__item grid-item">${name}</div>
         <div class="product-inventory__item grid-item">${price}</div>
         <div class="product-inventory__item grid-item">${quantity}</div>
@@ -52,7 +53,8 @@ export default class ProductInventoryUI {
           </button>
         </div>
         `;
-    });
+      })
+      .join('');
 
     return baseTemplate + productsTemplate;
   }

@@ -18,9 +18,11 @@ export default class ProductAdditionUI {
 
       const product = {
         name: $$inputs[0].value,
-        price: $$inputs[1].value,
-        quantity: $$inputs[2].value,
+        price: $$inputs[1].valueAsNumber,
+        quantity: $$inputs[2].valueAsNumber,
       };
+
+      console.log('product', product);
 
       try {
         const products = this.productManagementDomain.products;

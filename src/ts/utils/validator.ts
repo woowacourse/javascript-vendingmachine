@@ -21,10 +21,22 @@ const isInvalidPrice = (price: number) => {
 
 const isOverMaxQuantity = (quantity: number) => quantity > MAX_QUANTITY;
 
+const isEmpty = (product: ProductInfo) =>
+  Object.keys(product).some(key => {
+    if (typeof product[key] === 'number') {
+      return Number.isNaN(product[key]);
+    }
+    return product[key].trim() === '';
+  });
+
 const productInfoValidator = (
   products: ProductImpl[],
   newProduct: ProductInfo,
 ) => [
+  {
+    test: isEmpty(newProduct),
+    errorMsg: MESSAGE.ERROR_EMPTY_VALUE,
+  },
   {
     test: hasSameProduct(products, newProduct),
     errorMsg: MESSAGE.ERROR_SAME_PRODUCT,
