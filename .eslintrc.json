@@ -19,6 +19,10 @@
     ],
     "rules": {
         "import/no-unresolved": "off",
-        "arrow-parens": "off"
+        "arrow-parens": "off",
+        "object-curly-newline": "off",
+        "import/prefer-default-export": "off",
+        "implicit-arrow-linebreak": "off",
+        "class-methods-use-this": "off"
     }
 }
