@@ -1,8 +1,7 @@
 import { $ } from '../util/dom';
 import { Product } from '../resource/declaration';
-import ProductManage from './declaration';
+import { ProductManage } from './declaration';
 import vendingMachineResource from '../resource/vendingMachineResource';
-import { template } from '@babel/core';
 
 class ProductManageImpl implements ProductManage {
   addEvent() {

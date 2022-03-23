@@ -5,8 +5,8 @@ export interface Product {
 }
 
 export interface Coin {
-  amount?: number,
-  count?: number,
+  amount?: number 
+  count?: number 
 }
 
 export interface VendingMachineResource {

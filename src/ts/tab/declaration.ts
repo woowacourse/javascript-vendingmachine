@@ -9,8 +9,9 @@ export interface ProductManage {
 }
 
 export interface ChargeMoney {
-  addMoney(inputMoney: number): void;
+  chargeMoney(coinList: Array<number>): void;
   isValidMoney(inputMoney: number): boolean;
   generateRandomCoins(inputMoney: number): Array<number>;
+  handleChargeMoney(e: Event): void;
   drawCoins(): void;
 }

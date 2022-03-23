@@ -47,7 +47,7 @@
     </main>
 
     <main class="app__main charge">
-      <form class="input-form">
+      <form id="charge-money-form" class="input-form">
         <label class="input-description">자판기가 보유할 금액을 입력해주세요.</label>
         <div class="input-container">
           <input id="charge-money-input" class="input-form__input" placeholder="금액">
@@ -67,19 +67,19 @@
           <tbody>
             <tr class="product-info">
               <td class="product-info__text">500원</td>
-              <td class="product-info__text">0개</td>
+              <td id="coin-500-count" class="product-info__text">0개</td>
             </tr>
             <tr class="product-info">
               <td class="product-info__text">100원</td>
-              <td class="product-info__text">0개</td>
+              <td id="coin-100-count" class="product-info__text">0개</td>
             </tr>
             <tr class="product-info">
               <td class="product-info__text">50원</td>
-              <td class="product-info__text">0개</td>
+              <td id="coin-50-count" class="product-info__text">0개</td>
             </tr>
             <tr class="product-info">
               <td class="product-info__text">10원</td>
-              <td class="product-info__text">5개</td>
+              <td id="coin-10-count" class="product-info__text">0개</td>
             </tr>
           </tbody>
         </table>
