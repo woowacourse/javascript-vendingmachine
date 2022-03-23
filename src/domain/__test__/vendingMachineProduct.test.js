@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-lines-per-function */
-import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
-import VendingMachineProduct from './VendingMachineProduct';
+import { ERROR_MESSAGE, PRODUCT_RULES } from '../../constants';
+import VendingMachineProduct from '../VendingMachineProduct';
 
 function generateProduct(inputData = {}) {
   const data = {
