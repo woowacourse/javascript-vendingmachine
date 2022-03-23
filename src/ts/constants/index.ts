@@ -16,6 +16,7 @@ const MESSAGE = {
   }으로 나누어 떨어져야 합니다.`,
   ERROR_OVER_MAX_QUANTITY: `상품 수량은 1개 이상 ${MAX_QUANTITY}개 이하로 입력해주세요.`,
   ERROR_EMPTY_VALUE: '상품 정보를 공백 없이 입력해주세요.',
+  CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
 };
 
 export { MESSAGE, MAX_NAME_LENGTH, PRICE_RULE, MAX_QUANTITY };

@@ -1,4 +1,5 @@
 import { viewPainter } from '../../..';
+import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from '../../utils/validator';
 
@@ -11,17 +12,21 @@ export default class ProductInventoryUI {
   }
 
   bindEvents() {
-    this.$container.addEventListener('click', e => {
-      if (e.target.tagName !== 'BUTTON') return;
+    this.$container.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'BUTTON') return;
 
-      switch (e.target.innerText) {
+      switch (target.innerText) {
         case '수정':
-          this.activateEditMode(e.target);
+          this.activateEditMode(target);
           break;
         case '확인':
-          this.finishEditMode(e.target);
+          this.finishEditMode(target);
           break;
         case '삭제':
+          const { productName } = target.dataset;
+          if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
+            return;
+          this.deleteProduct(productName);
       }
     });
   }
@@ -74,6 +79,11 @@ export default class ProductInventoryUI {
     this.deactivateEditMode($button);
   }
 
+  deleteProduct(productName) {
+    const $$tableRow = $$(`div[data-product-name="${productName}"]`);
+    $$tableRow.forEach($item => $item.remove());
+  }
+
   render() {
     replaceHTML(this.$container, this.template());
   }
@@ -98,16 +108,16 @@ export default class ProductInventoryUI {
       .map(product => {
         const { name, price, quantity } = product.getProduct();
         return `
-          <div class="product-inventory__item grid-item">
+          <div class="product-inventory__item grid-item" data-product-name="${name}">
             <input class="product-inventory__input" value="${name}" data-product-name="${name}" readonly />
           </div>
-          <div class="product-inventory__item grid-item">
+          <div class="product-inventory__item grid-item" data-product-name="${name}">
             <input type="number" class="product-inventory__input" value="${price}" data-product-name="${name}" readonly />
           </div>
-          <div class="product-inventory__item grid-item">
+          <div class="product-inventory__item grid-item" data-product-name="${name}">
             <input type="number" class="product-inventory__input" value="${quantity}" data-product-name="${name}" readonly />
           </div>
-          <div class="product-inventory__item grid-item">
+          <div class="product-inventory__item grid-item" data-product-name="${name}">
             <button
               type="button"
               data-product-name="${name}"
@@ -116,7 +126,7 @@ export default class ProductInventoryUI {
               수정
             </button>
           </div>
-          <div class="product-inventory__item grid-item">
+          <div class="product-inventory__item grid-item" data-product-name="${name}">
             <button
               type="button"
               data-product-name="${name}"
