@@ -16,7 +16,7 @@ class PurchaseProductComponent {
     this.$purchaseProductContainer = document.querySelector('#purchase-product-container');
   }
   generateTemplate() {
-    return `<section id="purchase-product-container" aria-labelledby="purchase-product-title">
+    return `<section id="purchase-product-container" aria-labelledby="purchase-product-title" class="hide">
           <h2 id="purchase-product-title" hidden>상품을 구매하는 섹션</h2>
           <form id="charge-input-form" class="input-form">
             <label for="charge-input-form">상품을 구매할 금액을 투입해주세요</label>
@@ -37,6 +37,12 @@ class PurchaseProductComponent {
       tableId: 'return-change-table',
       tableCaption: '잔돈 반환',
     });
+  }
+  show() {
+    this.$purchaseProductContainer.classList.remove('hide');
+  }
+  hide() {
+    this.$purchaseProductContainer.classList.add('hide');
   }
 }
 

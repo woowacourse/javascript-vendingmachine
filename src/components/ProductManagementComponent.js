@@ -15,7 +15,7 @@ class ProductManagementComponent {
     this.$manageProductContainer = document.querySelector('#manage-product-container');
   }
   generateTemplate() {
-    return `<section id="manage-product-container" aria-labelledby="manage-product-title">
+    return `<section id="manage-product-container" class="hide" aria-labelledby="manage-product-title">
     <h2 id="manage-product-title" hidden>상품을 관리하는 섹션</h2>
     <form id="product-input-form" class="input-form">
       <label for="product-input-form">추가할 상품 정보를 입력해주세요</label>
@@ -34,6 +34,12 @@ class ProductManagementComponent {
       tableId: 'current-product-list',
       tableCaption: '상품 현황',
     });
+  }
+  show() {
+    this.$manageProductContainer.classList.remove('hide');
+  }
+  hide() {
+    this.$manageProductContainer.classList.add('hide');
   }
 }
 export default ProductManagementComponent;

@@ -14,8 +14,14 @@ class RechargeChangeComponent {
   initDOM() {
     this.$rechargeChangeContainer = document.querySelector('#recharge-change-container');
   }
+  show() {
+    this.$rechargeChangeContainer.classList.remove('hide');
+  }
+  hide() {
+    this.$rechargeChangeContainer.classList.add('hide');
+  }
   generateTemplate() {
-    return `<section id="recharge-change-container" aria-labelledby="recharge-change-title">
+    return `<section id="recharge-change-container" aria-labelledby="recharge-change-title" class="hide">
     <h2 id="recharge-change-title" hidden>자판기의 잔돈을 충전하는 섹션</h2>
     <form id="recharge-change-form" class="input-form">
       <label for="recharge-change-form">자판기가 보유할 금액을 입력해주세요</label>

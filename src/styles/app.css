@@ -42,3 +42,22 @@ button:hover {
 #return-change-button {
   width: 100px;
 }
+
+a.tab-button {
+  width: 100%;
+  background-color: var(--button-gray-background-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #000000;
+  text-align: center;
+}
+a.tab-button:hover {
+  background-color: var(--button-hover-background-color);
+}
+.hide {
+  display: none;
+  visibility: none;
+  opacity: 0;
+}
