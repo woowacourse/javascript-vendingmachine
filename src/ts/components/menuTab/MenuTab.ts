@@ -1,4 +1,4 @@
-import { $, addEvent } from "../../utils";
+import { $, addEvent } from "../../utils/dom";
 
 type ConvertTemplate = (path: string) => void;
 

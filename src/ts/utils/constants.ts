@@ -1,0 +1,10 @@
+const PRODUCT = {
+  MIN_PRICE: 100,
+  MAX_PRICE: 10000,
+  UNIT: 10,
+  MAX_LENGTH: 10,
+  MIN_QUANTITY: 1,
+  MAX_QUANTITY: 20,
+};
+
+export { PRODUCT };

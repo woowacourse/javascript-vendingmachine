@@ -1,4 +1,4 @@
-import { $ } from "../utils";
+import { $ } from "../utils/dom";
 import Charge from "./charge/Charge";
 import MenuTab from "./menuTab/MenuTab";
 import Product from "./product/Product";
