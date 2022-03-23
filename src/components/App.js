@@ -22,7 +22,7 @@ export default class App extends Component {
           <item-management path="#item-management"></item-management>
           <change-charge path="#change-charge"></change-charge>
           <purchase-item path="#purchase-item"></purchase-item>
-          <not-found></not-found>
+          <not-found path="*"></not-found>
         </page-router>
       </main>
     `;

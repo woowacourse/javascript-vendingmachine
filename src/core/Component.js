@@ -33,6 +33,12 @@ export default class Component extends HTMLElement {
     this.afterRender();
   }
 
+  clearDOM() {
+    while (this.firstChild) {
+      this.removeChild(this.lastChild);
+    }
+  }
+
   template() {
     return ``;
     // throw new Error('override');

@@ -2,25 +2,24 @@ import Component from '../core/Component.js';
 
 class Router extends Component {
   setup() {
-    this.state = { location: '', routes: Array.from(this.children) };
+    const routes = Array.from(this.children).map((child) => ({
+      path: child.getAttribute('path'),
+      component: child,
+    }));
+
+    this.state = { location: '', routes };
   }
 
   render() {
     const { location, routes } = this.state;
-    const pathList = routes.map((route) => route.getAttribute('path'));
     const currentRoute = routes.filter(
-      (route) => route.getAttribute('path') === location
+      (route) => route.path === location || route.path === '*'
     )[0];
+    const component =
+      (location === '' && routes[0].component) || currentRoute?.component;
 
-    while (this.firstChild) {
-      this.removeChild(this.lastChild);
-    }
-
-    if (pathList.includes(location) || location === '') {
-      this.appendChild(currentRoute || routes[0]);
-    } else {
-      this.appendChild(routes[routes.length - 1]);
-    }
+    this.clearDOM();
+    this.appendChild(component);
   }
 
   setEvent() {
