@@ -1,8 +1,9 @@
-import { COINS } from '../constants/constant.js';
-import { generateRandom } from '../utils/common.js';
+import { COINS } from '../constants/constant';
+import { generateRandom } from '../utils/common';
 
 type ItemType = { name: string; price: number; quantity: number };
 type CoinType = { ten: number; fifty: number; hundred: number; fiveHundred: number };
+
 export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinType = { ten: 0, fifty: 0, hundred: 0, fiveHundred: 0 };

@@ -72,11 +72,11 @@ TypeScript의 기본 문법을 익히며 필요성을 경험해보고, 객체 �
 
 ## 테스트 요구사항
 
-- [ ] 비즈니스 로직에 대한 단위 테스트를 Jest로 작성한다.
+- [x] 비즈니스 로직에 대한 단위 테스트를 Jest로 작성한다.
 
 ## UI
 
-- [ ] figma 시안을 기준으로 구현한다
+- [x] figma 시안을 기준으로 구현한다
 
 https://www.figma.com/file/n5KChtJXbmUqPimfgZzAZH/%EB%A0%88%EB%B2%A81-%EB%AF%B8%EC%85%98-%EB%94%94%EC%9E%90%EC%9D%B8-(beta)?node-id=4%3A35
 

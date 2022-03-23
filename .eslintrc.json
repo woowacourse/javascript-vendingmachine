@@ -23,7 +23,17 @@
     "class-methods-use-this": "off",
     "no-new": "off",
     "lines-between-class-members": "off",
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+    "import/extensions": "off"
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"],
+        "moduleDirectory": ["node_modules", "@types"]
+      },
+      "typescript": {}
+    }
+  }
 }
