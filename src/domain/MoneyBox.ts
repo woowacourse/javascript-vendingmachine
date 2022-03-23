@@ -2,7 +2,7 @@ import RandomStrategy from './RandomStrategy';
 
 interface Coin {
   name: string;
-  value?: number;
+  value: number;
   count: number;
 }
 
