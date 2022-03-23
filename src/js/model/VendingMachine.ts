@@ -1,11 +1,17 @@
 import { ERROR_MESSAGE, RULES } from '../constants';
 import { Product, Coin } from '../interfaces/VendingMachine.interface';
-import { isValidProductPrice, isValidProductAmount, isValidProductNameLength } from './validator';
+import {
+  isValidProductPrice,
+  isValidProductAmount,
+  isValidProductNameLength,
+  isUnitOfTen,
+  isPositiveInteger,
+} from './validator';
 
 class VendingMachine {
-  private products: Array<Product>; // name amount price
-  changes: Coin; // 자판기가 보유하고 있는 돈 = 잔돈
-  totalMoney: number;
+  private products: Array<Product>;
+  private changes: Coin;
+  private totalMoney: number;
 
   constructor() {
     this.products = [];
@@ -15,6 +21,14 @@ class VendingMachine {
 
   getProducts() {
     return this.products;
+  }
+
+  getChanges() {
+    return this.changes;
+  }
+
+  getTotalMoney() {
+    return this.totalMoney;
   }
 
   addProduct(product: Product) {
@@ -42,15 +56,15 @@ class VendingMachine {
   }
 
   inputChanges(money: number) {
-    // 1. 돈이 10원으로 나누어지는지 -> 어디에 로직을 둘것인지 킵
-
-    if (money > RULES.MAX_VENDING_MACHINE_CHANGE) {
-      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
-    }
-
+    this.checkInputChangesValidate(money);
     this.totalMoney += money;
+    this.makeChanges(money);
+  }
 
+  // makeChanges 과연 적절한 이름인가? 리팩토링때 다시보기
+  makeChanges(money: number) {
     const coin = this.getChangeCoin(money);
+    money -= coin;
 
     switch (coin) {
       case 500:
@@ -66,15 +80,19 @@ class VendingMachine {
         this.changes.coin10 += 1;
         break;
     }
+
+    if (money >= 10) {
+      this.makeChanges(money);
+    }
   }
 
   getRandomInt(max: number) {
-    return Math.floor(Math.random() * max + 1); // 0 ~ max
+    return Math.floor(Math.random() * max);
   }
 
   getChangeCoin(money: number) {
     const coins = [500, 100, 50, 10].filter(coin => coin <= money);
-    const index = this.getRandomInt(coins.length - 1);
+    const index = this.getRandomInt(coins.length);
     return coins[index];
   }
 
@@ -98,6 +116,20 @@ class VendingMachine {
 
     if (!isValidProductAmount(product.amount)) {
       throw new Error(ERROR_MESSAGE.PRODUCT_AMOUNT);
+    }
+  }
+
+  checkInputChangesValidate(money: number) {
+    if (!isPositiveInteger(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    }
+
+    if (!isUnitOfTen(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    }
+
+    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
     }
   }
 }
