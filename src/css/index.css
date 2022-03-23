@@ -1,3 +1,5 @@
+@import './global.css';
+
 body {
   width: 100vw;
   height: 100vh;
@@ -41,10 +43,10 @@ input[type='number']::-webkit-inner-spin-button {
 
 input[type='submit'] {
   cursor: pointer;
-  background: #00bcd4;
-  color: #ffffff;
-  outline: 1px solid #00bcd4;
-  border: 1px solid #00bcd4;
+  background: var(--primary-color);
+  color: var(--primary-button-text-color);
+  outline: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
   border-radius: 2px;
   width: 56px;
   height: 28px;
@@ -52,9 +54,9 @@ input[type='submit'] {
 }
 
 input {
-  background-color: #ffffff;
-  outline: 1px solid #cccccc;
-  border: 1px solid #eeeeee;
+  background-color: var(--primary-input-bg-color);
+  outline: 1px solid var(--input-outline-color);
+  border: 1px solid var(--input-border-color);
   border-radius: 2px;
   width: 120px;
   height: 24px;
@@ -62,8 +64,8 @@ input {
 }
 
 input:focus {
-  outline: 1px solid #777777;
-  border: 1px solid #bbbbbb;
+  outline: 1px solid var(--input-outline-focus-color);
+  border: 1px solid var(--input-border-focus-color);
 }
 
 #change-add-input {
@@ -79,7 +81,7 @@ button {
 }
 
 button:hover {
-  background: rgba(0, 188, 212, 0.16);
+  background: var(--button-hover-color);
 }
 
 h4 {
@@ -91,7 +93,7 @@ h4 {
   line-height: 24px;
   text-align: center;
   letter-spacing: 0.15px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--primary-text-color);
 }
 
 #change-add-container {
@@ -130,7 +132,7 @@ li {
   font-style: normal;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--list-border-color);
 }
 
 #product-list {
@@ -148,14 +150,14 @@ li {
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--primary-text-color);
 }
 
 #product-list li input {
   width: 80%;
   text-align: center;
-  outline: 1px dotted #777777;
-  border: 1px dotted #bbbbbb;
+  outline: 1px dotted var(--input-outline-focus-color);
+  border: 1px dotted var(--input-border-focus-color);
 }
 
 .product-control-buttons {
@@ -186,7 +188,7 @@ li {
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--primary-text-color);
 }
 
 .list-header {
@@ -196,6 +198,6 @@ li {
   display: flex;
   align-items: center;
   letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.87);
-  border-top: 1px solid #dcdcdc;
+  color: var(--primary-text-color);
+  border-top: 1px solid var(--list-border-color);
 }
