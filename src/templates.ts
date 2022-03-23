@@ -23,17 +23,7 @@ const TEMPLATE = {
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="product-item">
-            <td>콜라</td>
-            <td>1,000</td>
-            <td>20</td>
-            <td>
-              <button type="button" class="product-item__edit-button button">수정</button>
-              <button type="button" class="product-item__delete-button button">삭제</button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody></tbody>
       </table>
     </section>
   `,

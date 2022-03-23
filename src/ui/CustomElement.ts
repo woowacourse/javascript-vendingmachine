@@ -1,3 +1,6 @@
+import Coin from '../domain/Coin';
+import Product from '../domain/Product';
+
 class CustomElement extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -13,6 +16,8 @@ class CustomElement extends HTMLElement {
   }
 
   setEvent() {}
+
+  notify(amount: Coin, products: Product[]) {}
 }
 
 export default CustomElement;
