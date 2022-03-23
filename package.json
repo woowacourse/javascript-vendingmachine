@@ -8,9 +8,6 @@
     "start": "webpack serve --open",
     "build": "webpack"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/woowacourse/javascript-vendingmachine.git"
@@ -27,12 +24,6 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
-    "eslint": "^8.11.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
     "style-loader": "^3.3.1",
@@ -46,8 +37,5 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
-  "dependencies": {
-    "npx": "^10.2.2"
-  }
+  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
 }
