@@ -18,6 +18,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "arrow-parens": "off"
     }
 }
