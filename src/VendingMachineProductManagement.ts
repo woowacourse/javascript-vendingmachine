@@ -1,4 +1,4 @@
-interface product {
+export interface product {
   name: string;
   price: number;
   quantity: number;
@@ -7,18 +7,34 @@ interface product {
 interface ProductManagement {
   addProduct(newProduct: product): void;
   getProducts(): product[];
-  editProduct(name: string, edittedProduct: product): void;
+  editProduct(name: string, targetProduct: product): void;
   deleteProduct(name: string): void;
 }
 
-class VendingMachineProductManagement implements ProductManagement {
+export default class VendingMachineProductManagement
+  implements ProductManagement
+{
   private products: product[] = [];
 
-  addProduct() {}
+  addProduct(newProduct) {
+    this.products.push(newProduct);
+  }
 
-  getProducts() {}
+  getProducts() {
+    return this.products;
+  }
 
-  editProduct() {}
+  editProduct(editProductName, targetProduct) {
+    const editIndex = this.products.findIndex(
+      (product) => product.name === editProductName
+    );
 
-  deleteProduct() {}
+    this.products.splice(editIndex, 1, targetProduct);
+  }
+
+  deleteProduct(deleteProductName) {
+    this.products = this.products.filter(
+      (product) => product.name !== deleteProductName
+    );
+  }
 }

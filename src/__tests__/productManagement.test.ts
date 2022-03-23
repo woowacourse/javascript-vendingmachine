@@ -8,7 +8,7 @@ test('최초 상품 목록은 비워진 상태이다.', () => {
   expect(vendingMachineProductManagement.getProducts().length).toBe(0);
 });
 
-test('관리자는 추가한 상품을 추가 할 수 있다.', () => {
+test('관리자는 상품을 추가 할 수 있다.', () => {
   const vendingMachineProductManagement = new VendingMachineProductManagement();
   const newProduct: product = {
     name: '콜라',
@@ -69,5 +69,6 @@ test('관리자는 추가한 상품을 수정 할 수 있다.', () => {
   vendingMachineProductManagement.editProduct(targetProductName, targetProduct);
   const { name, price, quantity } =
     vendingMachineProductManagement.getProducts()[0];
+
   expect(name === '사이다' && price === 1000 && quantity === 10).toBe(true);
 });
