@@ -85,6 +85,14 @@ h1 {
   margin-left: 12px;
 }
 
+/* ********************* */
+/* product-state-section */
+/* ********************* */
+.product-state-section {
+  max-height: 340px;
+  overflow: auto;
+}
+
 .product-table {
   width: 100%;
   margin: 0 auto;
@@ -100,10 +108,24 @@ h1 {
   padding: 4px 0;
 }
 
+.flex-gap05 {
+  display: flex;
+  gap: 0 5px;
+}
+
 .product-table__confirm-button,
+.product-table__delete-button,
 .product-table__edit-button {
   width: 100px;
   height: 32px;
+}
+
+.product-table__input--edit {
+  width: 80%;
+  text-align: center;
+  border-style: none;
+  padding: 8px 9px 4px;
+  border-bottom: 1px solid #b4b4b4;
 }
 
 /* ******************* */

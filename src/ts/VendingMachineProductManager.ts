@@ -7,6 +7,7 @@ export interface product {
 interface ProductManager {
   addProduct(newProduct: product): void;
   getProducts(): product[];
+  getTargetProduct(name: string): product;
   editProduct(name: string, targetProduct: product): void;
   deleteProduct(name: string): void;
 }
@@ -16,6 +17,10 @@ export default class VendingMachineProductManager implements ProductManager {
 
   addProduct(newProduct) {
     this.products.push(newProduct);
+  }
+
+  getTargetProduct(targetName) {
+    return this.products.find((product) => product.name === targetName);
   }
 
   getProducts() {
