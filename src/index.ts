@@ -11,21 +11,13 @@ const btn3 = document.querySelector('#product-purchase-button');
 
 productManageButton.addEventListener('click', () => {
   console.log('click1');
-  history.pushState(
-    { prevPath: window.location.hash },
-    '상품 관리하기',
-    '/#!/product-manage',
-  );
+  history.pushState({ prevPath: window.location.hash }, '상품 관리하기', '/#!/product-manage');
   routes();
 });
 
 changeAddButton.addEventListener('click', () => {
   console.log('click2');
-  history.pushState(
-    { prevPath: window.location.hash },
-    '잔돈 채우기',
-    '/#!/change-add',
-  );
+  history.pushState({ prevPath: window.location.hash }, '잔돈 채우기', '/#!/change-add');
   routes();
 });
 
