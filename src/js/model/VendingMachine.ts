@@ -18,7 +18,7 @@ interface Product {
   price: number;
 }
 
-export default class VendingMachine {
+class VendingMachine {
   products: Array<Product>; // name amount price
   changes: Coin; // 자판기가 보유하고 있는 돈 = 잔돈
   totalMoney: number;
@@ -107,3 +107,7 @@ export default class VendingMachine {
     return coins[index];
   }
 }
+
+const vendingMachine = new VendingMachine();
+
+export default vendingMachine;

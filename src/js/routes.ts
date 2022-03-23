@@ -1,5 +1,5 @@
-import ChangeAdd from './ChangeAdd';
-import ProductManage from './ProductManage';
+import ChangeAdd from './pages/ChangeAdd';
+import ProductManage from './pages/ProductManage';
 
 const clearPurchaseBody = () => {
   const $inputSection = document.querySelector('.input-section');

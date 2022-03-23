@@ -1,8 +1,9 @@
 import { ERROR_MESSAGE } from '../constants';
-import VendingMachine from '../model/VendingMachine'
+// import VendingMachine from '../model/VendingMachine'
+import vendingMachine from '../model/VendingMachine'
 
 describe('자판기 기본 기능 테스트', () => {
-  const vendingMachine = new VendingMachine();
+  // const vendingMachine = new VendingMachine();
 
   describe('자판기 상품 추가 기능 테스트', () => {
     it('자판기에 상품을 추가할 수 있어야 한다.', () => {

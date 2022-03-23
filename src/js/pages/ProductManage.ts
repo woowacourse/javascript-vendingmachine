@@ -1,6 +1,15 @@
+import vendingMachine from '../model/VendingMachine';
+
+interface Product {
+  name: string;
+  amount: number;
+  price: number;
+}
+
 export default class ProductManage {
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
+  $productAddForm: HTMLElement;
 
   constructor() {
     this.$inputSection = document.querySelector('.input-section');
@@ -10,7 +19,32 @@ export default class ProductManage {
   render() {
     this.$inputSection.insertAdjacentHTML('beforeend', this.inputSection());
     this.$contentsContainer.insertAdjacentHTML('beforeend', this.productList());
+
+    this.$productAddForm = document.querySelector('#product-add-form');
+    this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
   }
+
+  onSubmitNewProduct = (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const name = (<HTMLInputElement>(
+      this.$productAddForm.querySelector('#product-name-input')
+    )).value;
+    const price = (<HTMLInputElement>(
+      this.$productAddForm.querySelector('#product-price-input')
+    )).value;
+    const amount = (<HTMLInputElement>(
+      this.$productAddForm.querySelector('#product-amount-input')
+    )).value;
+
+    const newProduct: Product = {
+      name: name,
+      price: parseInt(price),
+      amount: parseInt(amount),
+    };
+
+    vendingMachine.addProduct(newProduct);
+  };
 
   inputSection() {
     return `
