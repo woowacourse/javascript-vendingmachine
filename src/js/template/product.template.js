@@ -35,7 +35,7 @@ const productTemplate = {
         ${products
           .map(
             ({ name, price, count }, idx) => `
-          <tr id=${idx}>
+          <tr data-id=${idx}>
             <td>${name}</td>
             <td>${price}</td>
             <td>${count}</td>

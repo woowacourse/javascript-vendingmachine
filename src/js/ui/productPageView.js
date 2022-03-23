@@ -10,7 +10,7 @@ class ProductPageView {
 
   bindEvent = () => {
     on(this.$page, "submit", this.productSubmitHandler);
-    on(this.$page, "click", this.productSubmitHandler);
+    on(this.$page, "click", this.onClick);
   };
 
   initDOMS = () => {
@@ -26,6 +26,17 @@ class ProductPageView {
     const count = e.target.querySelector("#product-count-input").valueAsNumber;
 
     emit("@add", { name, price, count });
+  };
+
+  onClick = ({ target }) => {
+    if (target.classList.contains("delete-button")) {
+      this.productDeleteHandler(target);
+    }
+  };
+
+  productDeleteHandler = (target) => {
+    const productId = target.closest("tr").dataset.id;
+    emit("@delete", { id: productId });
   };
 
   renderInputForm = () => {
