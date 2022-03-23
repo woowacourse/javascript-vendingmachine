@@ -5,28 +5,53 @@
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-
   <body>
     <div id="app">
-      <h1>🍿 자판기 🍿</h1>
+      <h1 class="vending__machine-header">🍿 자판기 🍿</h1>
       <nav>
-        <ul>
-          <li><button class="button">상품 관리</button></li>
-          <li><button class="button">잔돈 충전</button></li>
-          <li><button class="button">상품 구매</button></li>
+        <ul class="menu__list">
+          <li>
+            <input type="radio" id="manage__menu" name="menu" checked />
+            <label for="manage__menu" class="button">상품 관리</label>
+          </li>
+          <li>
+            <input type="radio" id="charge__menu" name="menu" />
+            <label for="charge__menu" class="button">잔돈 충전</label>
+          </li>
+          <li>
+            <input type="radio" id="purchase__menu" name="menu" />
+            <label for="purchase__menu" class="button">상품 구매</label>
+          </li>
         </ul>
       </nav>
-      <!-- 상품 관리 -->
       <section>
+        <h2 hidden>상품 관리</h2>
         <form>
-          <label id="product__information">추가할 상품 정보를 입력해주세요.</label>
-          <input type="text" placeholder="상품명" required aria-labelledby="product__information" />
-          <input type="number" placeholder="가격" required aria-labelledby="product__information" />
-          <input type="number" placeholder="수량" required aria-labelledby="product__information" />
-          <button type="button">추가</button>
+          <label>추가할 상품 정보를 입력해주세요.</label>
+          <div class="form-input product__manage-input-width">
+            <input
+              type="text"
+              placeholder="상품명"
+              required
+              aria-labelledby="product__information"
+            />
+            <input
+              type="number"
+              placeholder="가격"
+              required
+              aria-labelledby="product__information"
+            />
+            <input
+              type="number"
+              placeholder="수량"
+              required
+              aria-labelledby="product__information"
+            />
+            <button type="button">추가</button>
+          </div>
         </form>
-        <table>
-          <caption>
+        <table class="table">
+          <caption class="caption">
             상품 현황
           </caption>
           <thead>
@@ -41,21 +66,29 @@
               <td>콜라</td>
               <td>1000</td>
               <td>10</td>
-              <td><button type="button">수정</button></td>
+              <td><button type="button">수정</button> <button type="button">삭제</button></td>
             </tr>
           </tbody>
         </table>
       </section>
-      <!-- 잔돈 충전 -->
-      <section>
-        <form>
+      <section hidden>
+        <h2 hidden>잔돈 충전</h2>
+        <form class="form">
           <label for="charge__amount">자판기가 보유할 금액을 입력해주세요.</label>
-          <input id="charge__amount" type="number" placeholder="금액" required />
-          <button type="button">구입</button>
+          <div class="form-input">
+            <input
+              id="charge__amount"
+              class="input-width"
+              type="number"
+              placeholder="금액"
+              required
+            />
+            <button type="button">구입</button>
+          </div>
+          <p class="current__amount">현재 보유 금액: 500원</p>
         </form>
-        <p>현재 보유 금액: 500원</p>
-        <table>
-          <caption>
+        <table class="table">
+          <caption class="caption">
             자판기가 보유한 동전
           </caption>
           <thead>
@@ -72,16 +105,18 @@
           </tbody>
         </table>
       </section>
-      <!-- 상품 구매 -->
-      <section>
-        <form>
+      <section hidden>
+        <h2 hidden>상품 구매</h2>
+        <form class="form">
           <label for="product__purchased">상품을 구매할 금액을 투입해주세요.</label>
-          <input id="product__purchased" type="number" placeholder="금액" />
-          <button type="button">투입</button>
+          <div class="form-input">
+            <input id="product__purchased" type="number" class="input-width" placeholder="금액" />
+            <button type="button">투입</button>
+          </div>
+          <p class="current__amount">투입한 금액: 3000원</p>
         </form>
-        <p>투입한 금액: 3000원</p>
-        <table>
-          <caption>
+        <table class="table">
+          <caption class="caption">
             구매 가능 상품 현황
           </caption>
           <thead>
@@ -97,12 +132,12 @@
               <td>콜라</td>
               <td>1000</td>
               <td>10</td>
-              <td><button type="button">구매하기</button></td>
+              <td><button type="button">구매</button></td>
             </tr>
           </tbody>
         </table>
-        <table>
-          <caption>
+        <table class="table">
+          <caption class="caption">
             잔돈 반환
           </caption>
           <thead>
@@ -118,7 +153,7 @@
             </tr>
           </tbody>
         </table>
-        <button type="button">반환하기</button>
+        <button type="button" class="button change-button">반환하기</button>
       </section>
     </div>
   </body>
