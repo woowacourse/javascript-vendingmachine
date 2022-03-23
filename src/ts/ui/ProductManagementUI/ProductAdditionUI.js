@@ -1,5 +1,6 @@
 import { $ } from '../../utils/dom';
 import { viewPainter } from '../../../index';
+import { validateProductInfo } from '../../utils/validator';
 
 export default class ProductAdditionUI {
   constructor(productManagementDomain) {
@@ -20,6 +21,14 @@ export default class ProductAdditionUI {
         price: $$inputs[1].value,
         quantity: $$inputs[2].value,
       };
+
+      try {
+        const products = this.productManagementDomain.products;
+        validateProductInfo(products, product);
+      } catch ({ message }) {
+        alert(message);
+        return;
+      }
 
       this.productManagementDomain.addProduct(product);
       viewPainter.renderProducts();

@@ -8,7 +8,7 @@ interface ProductManagement {
 }
 
 export default class ProductManagementDomain implements ProductManagement {
-  #products: Array<ProductImpl>;
+  #products: ProductImpl[];
 
   constructor() {
     this.#products = [];
