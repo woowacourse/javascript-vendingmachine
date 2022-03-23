@@ -8,7 +8,7 @@ class ItemManageTab {
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
     this.tabContent = selectDom('#tab-content');
     this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
-    this.itemInfoInputs = Array.from(this.itemInfoForm.querySelectorAll('.item-info-input'));
+    this.itemInfoInputs = this.itemInfoForm.querySelectorAll('.item-info-input');
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
 
     this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
@@ -27,7 +27,7 @@ class ItemManageTab {
   #onSubmitItemInfoForm = (e) => {
     e.preventDefault();
 
-    const itemInfo = this.itemInfoInputs.map((itemInfoInput) => itemInfoInput.value);
+    const itemInfo = Array.from(this.itemInfoInputs).map((itemInfoInput) => itemInfoInput.value);
 
     try {
       this.vendingMachine.validateItemInput(...itemInfo);
@@ -37,6 +37,9 @@ class ItemManageTab {
 
     const newItem = this.vendingMachine.addItem(...itemInfo);
     this.#renderAddedItem(newItem);
+
+    this.itemInfoInputs.forEach((itemInfoInput) => (itemInfoInput.value = ''));
+    this.itemInfoInputs[0].focus();
   };
 
   #onClickItemStatusTableButton = (e) => {
