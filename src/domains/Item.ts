@@ -1,21 +1,5 @@
-export type ItemInfo = {
+export type Item = {
   name: string;
   price: number;
-  stockCount: number;
+  quantity: number;
 };
-
-export class Item {
-  name: string;
-
-  price: number;
-
-  stockCount: number;
-
-  constructor(item: ItemInfo) {
-    this.name = item.name;
-    this.price = item.price;
-    this.stockCount = item.stockCount;
-  }
-
-  update(itme: ItemInfo): void {}
-}
