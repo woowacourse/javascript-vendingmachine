@@ -183,9 +183,9 @@ describe('CoinService', () => {
   describe('add', () => {
     describe('성공 시', () => {
       test('유효한 금액을 입력하면 동전이 추가된다.', () => {
-        coinService.add(10);
+        coinService.add(100000);
 
-        expect(coinService.coinList[10]).toBe(1);
+        expect(coinService.getTotalMoney()).toBe(100000);
       });
     });
 
