@@ -7,8 +7,6 @@ export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinType = { ten: 0, fifty: 0, hundred: 0, fiveHundred: 0 };
 
-  constructor() {}
-
   getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
   }
@@ -38,16 +36,17 @@ export default class VendingMachine {
 
   generateRandomCoins(money: number): CoinType {
     const newCoins = this.getCoins();
+    let restMoney = money;
 
     Object.keys(newCoins)
       .reverse()
       .forEach(key => {
         if (key === 'ten') {
-          newCoins[key] += money / COINS[key];
+          newCoins[key] += restMoney / COINS[key];
           return;
         }
-        const randomNumber = generateRandom(Math.floor(money / COINS[key]));
-        money = money - randomNumber * COINS[key];
+        const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
+        restMoney -= randomNumber * COINS[key];
         newCoins[key] += randomNumber;
       });
     return newCoins;
