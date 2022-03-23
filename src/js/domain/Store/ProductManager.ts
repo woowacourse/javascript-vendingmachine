@@ -12,8 +12,9 @@ interface IProductManager {
   state: IState;
   subscribers: Array<object>;
 
-  addSubscriber(subscriber: object) : void;
+  addSubscriber(subscriber: object): void;
   setState(newState: IState): void;
+  getState(): IState;
 
   addProduct(name: string, price: number, quantity: number): void;
   updateProduct(name: string, price: number, quantity: number): void;
@@ -37,6 +38,10 @@ class ProductManager implements IProductManager {
     this.subscribers.forEach(subscriber => subscriber(this.state));
   }
 
+  getState(): IState {
+    return { ...this.state };
+  }
+
   addProduct(name: string, price: number, quantity: number) {
     this.setState({
       products: [...this.state.products, { name, price, quantity }],
@@ -45,7 +50,11 @@ class ProductManager implements IProductManager {
 
   updateProduct(name: string, price: number, quantity: number) {
     const targetIndex = this.findProductIndexByName(name);
-    const updateProducts = [...this.state.products].splice(targetIndex, 1, { name, price, quantity });
+    const updateProducts = [...this.state.products].splice(targetIndex, 1, {
+      name,
+      price,
+      quantity,
+    });
 
     this.setState({
       products: updateProducts,
@@ -62,7 +71,7 @@ class ProductManager implements IProductManager {
   }
 
   findProductIndexByName(name: string): number {
-    return this.state.products.findIndex((product) => product.name === name);
+    return this.state.products.findIndex(product => product.name === name);
   }
 }
 
