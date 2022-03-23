@@ -3,6 +3,6 @@
     "module": "es6",
     "moduleResolution": "node", // node방식으로 module을 resolution한다
     "sourceMap": true, // source map을 생성한다
-    "strict": true, // any사용 불허
+    "strict": true // any사용 불허
   }
 }
