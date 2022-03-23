@@ -13,6 +13,7 @@ class ItemManageTab {
 
     this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
+    this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
   }
 
   #onClickItemManageTabButton = () => {
@@ -35,8 +36,26 @@ class ItemManageTab {
     }
 
     const newItem = this.vendingMachine.addItem(...itemInfo);
-
     this.#renderAddedItem(newItem);
+  };
+
+  #onClickItemStatusTableButton = (e) => {
+    if (e.target.classList.contains('edit-item-button')) {
+      console.log('hihi');
+      return;
+    }
+
+    if (
+      e.target.classList.contains('delete-item-button') &&
+      confirm('정말 ㅇㅇㅇ 상품을 삭제하시겠습니까?')
+    ) {
+      const targetItem = e.target.closest('tr');
+      const { itemName } = targetItem.dataset;
+
+      this.vendingMachine.deleteItem(itemName);
+      targetItem.remove();
+      return;
+    }
   };
 
   #changeTabContent(contentTemplate) {
@@ -46,9 +65,10 @@ class ItemManageTab {
   }
 
   #renderAddedItem(newItem) {
-    const newItemTemplate = generateItemManageTableRowTemplate(newItem);
-
-    this.itemStatusTable.insertAdjacentHTML('beforeend', newItemTemplate);
+    this.itemStatusTable.insertAdjacentHTML(
+      'beforeend',
+      generateItemManageTableRowTemplate(newItem)
+    );
   }
 }
 

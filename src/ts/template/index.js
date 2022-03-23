@@ -20,14 +20,14 @@ export const itemManageTabContentTemplate = `
 `;
 
 export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
-    <tr>
+    <tr data-item-name="${itemName}">
       <td>${itemName}</td>
       <td>${itemPrice}</td>
       <td>${itemQuantity}</td>
       <td>
         <div>
-          <button type="button" id="edit-item-button" class="default-button">수정</button>
-          <button type="button" id="delete-item-button" class="default-button">삭제</button>
+          <button type="button" class="default-button edit-item-button">수정</button>
+          <button type="button" class="default-button delete-item-button">삭제</button>
         </div>
       </td>
     </tr>
