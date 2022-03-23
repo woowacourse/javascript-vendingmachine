@@ -31,12 +31,18 @@ class VendingMachine implements IVendingMachine {
 
   subscribeEvents() {
     on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
+    on(
+      '#product-list-table',
+      '@edit',
+      (e) => this.updateProduct(e.detail.targetName, e.detail.name, e.detail.price, e.detail.quantity),
+      $('product-management'),
+    );
   }
 
-  dispatch(key: string) {
+  dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify(this.amount, this.products));
+    targets.forEach((target) => target.element.notify(action, this.amount, product));
   }
 
   observe(key: string, element: CustomElement) {
@@ -46,17 +52,20 @@ class VendingMachine implements IVendingMachine {
   addProduct(product: Product) {
     try {
       validateProduct(product, this.products);
-      this.products.push(new Product(product));
-      this.dispatch('product');
+      const newProduct = new Product(product);
+      this.products.push(newProduct);
+      this.dispatch('product', 'add', newProduct);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  updateProduct(targetName: string, product: Product) {
+  updateProduct(targetName: string, name: string, price: number, quantity: number) {
     const target = this.products.find((product) => product.name === targetName);
 
-    target.update(product);
+    target.update(name, price, quantity);
+
+    this.dispatch('product', 'update', target);
   }
 
   deleteProduct(name: string) {

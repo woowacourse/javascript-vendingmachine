@@ -10,6 +10,10 @@
   height: 36px;
 }
 
+.product-item input {
+  border: 0;
+}
+
 fieldset {
   border: 0;
   padding: 0;
