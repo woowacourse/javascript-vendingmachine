@@ -1,4 +1,4 @@
-export default interface ProductManage {
+export interface ProductManage {
   addEvent(): void;
   isValidProductInfo(name: string, price: number, quantity: number): boolean;
   addProduct(name: string, price: number, quantity: number): void;
@@ -8,3 +8,9 @@ export default interface ProductManage {
   getProductIndex(name: string): number;
 }
 
+export interface ChargeMoney {
+  addMoney(inputMoney: number): void;
+  isValidMoney(inputMoney: number): boolean;
+  generateRandomCoins(inputMoney: number): Array<number>;
+  drawCoins(): void;
+}
