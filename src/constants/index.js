@@ -4,6 +4,8 @@ export const ERROR_MESSAGE = {
     '상품 가격은 100원 미만이거나 10000원 초과일 수 없습니다.',
   INVALID_UNIT_PRODUCT_PRICE: '상품 가격은 10원 단위여야 합니다.',
   EXCEED_MAX_PRODUCT_STOCK: '상품 수량은 20개 초과해서는 안됩니다.',
+  DUPLICATE_PRODUCT_NAME: '중복된 상품명의 상품은 등록할 수 없습니다.',
+  NOT_FOUND_PRODUCT_ID: '존재하지 않는 상품 아이디입니다.',
 };
 
 export const PRODUCT_RULES = {

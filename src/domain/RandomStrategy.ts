@@ -1,4 +1,6 @@
 /* eslint-disable max-lines-per-function */
+import { pickNumberInRange } from '../utils';
+
 interface Coin {
   name: string;
   value: number;
@@ -12,7 +14,7 @@ interface distributeStrategy {
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);
 
-  return Math.floor(Math.random() * (maxCount + 1));
+  return pickNumberInRange(0, maxCount);
 }
 
 const RandomStrategy: distributeStrategy = {

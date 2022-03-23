@@ -21,7 +21,7 @@ export default class VendingMachineProduct {
     this._stock = stock;
   }
 
-  validateData({ name, price, stock }: ProductData): never|void {
+  validateData({ name, price, stock }: ProductData): never | void {
     if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
     }
