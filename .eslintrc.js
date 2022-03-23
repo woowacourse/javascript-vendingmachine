@@ -20,6 +20,7 @@ module.exports = {
     'comma-dangle': 'off',
     'class-methods-use-this': 'off',
     'linebreak-style': 'off',
+    'no-underscore-dangle': ['error', { allowAfterThis: true }],
     // 'no-param-reassign': [
     //   'error',
     //   {

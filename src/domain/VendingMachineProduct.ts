@@ -1,21 +1,27 @@
 import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
 
+interface ProductData {
+  name:string,
+  price:number,
+  stock:number
+}
+
 export default class VendingMachineProduct {
-  #name;
+  private _name: string;
 
-  #price;
+  private _price: number;
 
-  #stock;
+  private _stock: number;
 
-  constructor({ name, price, stock }) {
+  constructor({ name, price, stock }:ProductData) {
     this.validateData({ name, price, stock });
 
-    this.#name = name;
-    this.#price = price;
-    this.#stock = stock;
+    this._name = name;
+    this._price = price;
+    this._stock = stock;
   }
 
-  validateData({ name, price, stock }) {
+  validateData({ name, price, stock }:ProductData):void {
     if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
     }
@@ -33,23 +39,23 @@ export default class VendingMachineProduct {
     }
   }
 
-  get name() {
-    return this.#name;
+  get name():string {
+    return this._name;
   }
 
-  get price() {
-    return this.#price;
+  get price():number {
+    return this._price;
   }
 
-  get stock() {
-    return this.#stock;
+  get stock():number {
+    return this._stock;
   }
 
-  modify({ name, price, stock }) {
+  modify({ name, price, stock }:ProductData):void {
     this.validateData({ name, price, stock });
 
-    this.#name = name;
-    this.#price = price;
-    this.#stock = stock;
+    this._name = name;
+    this._price = price;
+    this._stock = stock;
   }
 }
