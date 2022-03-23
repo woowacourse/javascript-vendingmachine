@@ -4,9 +4,9 @@ import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from '../../utils/validator';
 
 export default class ProductInventoryUI {
-  constructor(productManagementDomain) {
+  constructor(productDomain) {
     this.$container = $('.product-inventory__container');
-    this.productManagementDomain = productManagementDomain;
+    this.productDomain = productDomain;
     this.render();
     this.bindEvents();
   }
@@ -65,19 +65,16 @@ export default class ProductInventoryUI {
     };
 
     try {
-      const products = this.productManagementDomain.products;
+      const products = this.productDomain.products;
       validateProductInfo(products, product, prevProductName);
     } catch ({ message }) {
       alert(message);
       return;
     }
 
-    this.productManagementDomain.editProduct(
-      $button.dataset.productName,
-      product,
-    );
+    this.productDomain.editProduct($button.dataset.productName, product);
     this.deactivateEditMode($button);
-    viewPainter.renderProducts();
+    // viewPainter.renderProducts();
   }
 
   deleteProduct(productName) {
@@ -90,7 +87,7 @@ export default class ProductInventoryUI {
   }
 
   template() {
-    const products = this.productManagementDomain.products;
+    const products = this.productDomain.products;
     const baseTemplate = `
       <div class="product-inventory__item grid-item grid-header">
         상품명

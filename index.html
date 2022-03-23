@@ -9,91 +9,33 @@
   <body>
     <div id="app">
       <h1 class="title">🍿 자판기 🍿</h1>
-      <!-- nav -->
       <nav class="nav">
         <button
           type="button"
           class="nav__button active"
           name="product-management"
+          data-pathname="/"
         >
           상품 관리
         </button>
-        <button type="button" class="nav__button" name="coin-charge">
+        <button
+          type="button"
+          class="nav__button"
+          name="coin-charge"
+          data-pathname="/charge"
+        >
           잔돈 충전
         </button>
-        <button type="button" class="nav__button" name="product-purchase">
+        <button
+          type="button"
+          class="nav__button"
+          name="product-purchase"
+          data-pathname="/purchase"
+        >
           상품 구매
         </button>
       </nav>
-      <!-- 상품 관리 탭 -->
-      <main>
-        <section class="product-addition">
-          <h2 hidden>추가할 상품 입력</h2>
-          <form class="product-addition__form">
-            <label
-              class="product-addition__description input-description"
-              for="product-name"
-            >
-              추가할 상품 정보를 입력해주세요.
-            </label>
-            <input
-              id="product-name"
-              class="product-addition__input"
-              placeholder="상품명"
-            />
-            <input
-              type="number"
-              class="product-addition__input"
-              placeholder="가격"
-            />
-            <input
-              type="number"
-              class="product-addition__input"
-              placeholder="수량"
-            />
-            <button class="product-addition__button submit-button">추가</button>
-          </form>
-        </section>
-        <section class="product-inventory">
-          <h2 class="product-inventory__title section-title">상품 현황</h2>
-          <div class="product-inventory__container grid-container">
-            <div class="product-inventory__item grid-item grid-header">
-              상품명
-            </div>
-            <div class="product-inventory__item grid-item grid-header">
-              가격
-            </div>
-            <div class="product-inventory__item grid-item grid-header">
-              수량
-            </div>
-            <div class="product-inventory__item grid-item grid-header"></div>
-            <div class="product-inventory__item grid-item grid-header"></div>
-            <div class="product-inventory__item grid-item">콜라</div>
-            <div class="product-inventory__item grid-item">1500</div>
-            <div class="product-inventory__item grid-item">20</div>
-            <div class="product-inventory__item grid-item">
-              <button
-                type="button"
-                data-product-name="콜라"
-                class="product-inventory__button product-inventory__edit-button grid-button"
-              >
-                수정
-              </button>
-            </div>
-            <div class="product-inventory__item grid-item">
-              <button
-                type="button"
-                data-product-name="콜라"
-                class="product-inventory__button product-inventory__delete-button grid-button"
-              >
-                삭제
-              </button>
-            </div>
-          </div>
-        </section>
-      </main>
-      <!-- 잔돈 충전 탭 -->
-      <main hidden></main>
+      <main id="main-content"></main>
     </div>
   </body>
 </html>

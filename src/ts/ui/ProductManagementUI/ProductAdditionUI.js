@@ -3,9 +3,9 @@ import { viewPainter } from '../../..';
 import { validateProductInfo } from '../../utils/validator';
 
 export default class ProductAdditionUI {
-  constructor(productManagementDomain) {
+  constructor(productDomain) {
     this.$form = $('.product-addition__form');
-    this.productManagementDomain = productManagementDomain;
+    this.productDomain = productDomain;
     this.addSubmitEvent();
   }
 
@@ -23,15 +23,15 @@ export default class ProductAdditionUI {
       };
 
       try {
-        const products = this.productManagementDomain.products;
+        const products = this.productDomain.products;
         validateProductInfo(products, product);
       } catch ({ message }) {
         alert(message);
         return;
       }
 
-      this.productManagementDomain.addProduct(product);
-      viewPainter.renderProducts();
+      this.productDomain.addProduct(product);
+      // viewPainter.renderProducts();
     });
   }
 }
