@@ -1,4 +1,4 @@
-import ProductTableComponent from './ProductTableComponent';
+import ProductTableComponent from './common/ProductTableComponent';
 
 class ProductManagementComponent {
   #currentProductListComponent;

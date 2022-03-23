@@ -1,4 +1,4 @@
-import CoinTableComponent from './CoinTableComponent';
+import CoinTableComponent from './common/CoinTableComponent';
 
 class RechargeChangeComponent {
   #rechargeCoinTableComponent;
