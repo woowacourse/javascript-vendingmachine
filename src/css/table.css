@@ -2,7 +2,7 @@ table {
   border-width: 1px;
   border-bottom: 1px solid #dcdcdc;
   border-collapse: collapse;
-  width: fit-content;
+  min-width: 417px;
 }
 
 caption {
@@ -27,4 +27,5 @@ td > div {
 
 th {
   padding: 8px;
+  width: 25%;
 }
