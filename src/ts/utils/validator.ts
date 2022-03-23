@@ -7,8 +7,15 @@ import {
 import ProductImpl from '../domain/Product';
 import { ProductInfo } from '../domain/types';
 
-const hasSameProduct = (products: ProductImpl[], newProduct: ProductInfo) =>
-  products.some(productInfo => productInfo.name === newProduct.name);
+const hasSameProduct = (
+  products: ProductImpl[],
+  newProduct: ProductInfo,
+  prevProductName: string | null = null,
+) =>
+  products.some(productInfo => {
+    if (productInfo.name === prevProductName) return false;
+    return productInfo.name === newProduct.name;
+  });
 
 const isOverMaxLength = (name: string) => name.length > MAX_NAME_LENGTH;
 
@@ -33,14 +40,14 @@ const isEmpty = (product: ProductInfo) =>
 const generateProductInfoValidators = (
   products: ProductImpl[],
   newProduct: ProductInfo,
-  edit,
+  prevProductName: string | null = null,
 ) => [
   {
     test: isEmpty(newProduct),
     errorMsg: MESSAGE.ERROR_EMPTY_VALUE,
   },
   {
-    test: edit ? false : hasSameProduct(products, newProduct),
+    test: hasSameProduct(products, newProduct, prevProductName),
     errorMsg: MESSAGE.ERROR_SAME_PRODUCT,
   },
   {
@@ -60,9 +67,13 @@ const generateProductInfoValidators = (
 const validateProductInfo = (
   products: ProductImpl[],
   newProduct: ProductInfo,
-  edit = false,
+  prevProductName: string | null = null,
 ) => {
-  const validator = generateProductInfoValidators(products, newProduct, edit);
+  const validator = generateProductInfoValidators(
+    products,
+    newProduct,
+    prevProductName,
+  );
 
   return validator.every(({ test, errorMsg }) => {
     if (test) throw new Error(errorMsg);

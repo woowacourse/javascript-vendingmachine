@@ -1,3 +1,4 @@
+import { viewPainter } from '../../..';
 import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from '../../utils/validator';
@@ -53,9 +54,9 @@ export default class ProductInventoryUI {
   }
 
   finishEditMode($button) {
-    const $$inputs = $$(
-      `input[data-product-name="${$button.dataset.productName}"]`,
-    );
+    const prevProductName = $button.dataset.productName;
+
+    const $$inputs = $$(`input[data-product-name="${prevProductName}"]`);
 
     const product = {
       name: $$inputs[0].value,
@@ -65,7 +66,7 @@ export default class ProductInventoryUI {
 
     try {
       const products = this.productManagementDomain.products;
-      validateProductInfo(products, product, true);
+      validateProductInfo(products, product, prevProductName);
     } catch ({ message }) {
       alert(message);
       return;
@@ -76,6 +77,7 @@ export default class ProductInventoryUI {
       product,
     );
     this.deactivateEditMode($button);
+    viewPainter.renderProducts();
   }
 
   deleteProduct(productName) {

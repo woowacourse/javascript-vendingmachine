@@ -1,5 +1,5 @@
 import { $ } from '../../utils/dom';
-import { viewPainter } from '../../../index';
+import { viewPainter } from '../../..';
 import { validateProductInfo } from '../../utils/validator';
 
 export default class ProductAdditionUI {
