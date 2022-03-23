@@ -1,4 +1,5 @@
 import CustomElement from '../abstracts/CustomElement';
+import { $ } from '../utils/dom';
 
 class AdministratorMenu extends CustomElement {
   template() {
@@ -9,6 +10,14 @@ class AdministratorMenu extends CustomElement {
         <button class="nav__product-purchase-button">상품 구매</button>
       </nav>
     `;
+  }
+
+  setEvent() {
+    $('.nav__product-manage-button').addEventListener('click', this.handleProductManageButtonClick.bind(this));
+  }
+
+  handleProductManageButtonClick() {
+    $('product-manage-container').show();
   }
 }
 
