@@ -19,15 +19,23 @@ class ProductModerator {
   };
 
   addProduct = ({ name, price, count }) => {
-    this.productProcessMachine.add({ name, price, count });
-    const products = this.productProcessMachine.getProducts();
-    this.productPageView.renderProductStatus(products);
+    try {
+      this.productProcessMachine.add({ name, price, count });
+      const products = this.productProcessMachine.getProducts();
+      this.productPageView.renderProductStatus(products);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   updateProduct = ({ idx, name, price, count }) => {
-    this.productProcessMachine.update(idx, name, price, count);
-    const products = this.productProcessMachine.getProducts();
-    this.productPageView.renderProductStatus(products);
+    try {
+      this.productProcessMachine.update(idx, name, price, count);
+      const products = this.productProcessMachine.getProducts();
+      this.productPageView.renderProductStatus(products);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   deleteProduct = ({ id }) => {

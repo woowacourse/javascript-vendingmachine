@@ -4,7 +4,7 @@ import productTemplate from "../template/product.template.js";
 class ProductPageView {
   constructor() {
     this.$page = document.querySelector("#page");
-
+    this.edited = false;
     this.bindEvent();
   }
 
@@ -19,8 +19,9 @@ class ProductPageView {
 
   productSubmitHandler = (e) => {
     if (e.target.id !== "add-product-form") return;
-
     e.preventDefault();
+    if (this.edited === true) return;
+
     const name = e.target.querySelector("#product-name-input").value;
     const price = e.target.querySelector("#product-price-input").valueAsNumber;
     const count = e.target.querySelector("#product-count-input").valueAsNumber;
@@ -30,9 +31,13 @@ class ProductPageView {
 
   onClick = ({ target }) => {
     if (target.classList.contains("delete-button")) {
+      if (this.edited === true) return;
+
       this.productDeleteHandler(target);
     }
     if (target.classList.contains("edit-button")) {
+      if (this.edited === true) return;
+
       this.productUpdateHandler(target);
     }
 
@@ -56,6 +61,8 @@ class ProductPageView {
       <button class="save-button process-button">확인</button>
     </td>
     `;
+
+    this.edited = true;
   };
 
   productSubmitUpdateHandler = (target) => {
@@ -67,6 +74,9 @@ class ProductPageView {
       updatedProduct.querySelector("#edit-price-input").valueAsNumber;
     const updatedCount =
       updatedProduct.querySelector("#edit-count-input").valueAsNumber;
+
+    this.edited = false;
+
     emit("@edit", {
       idx,
       name: updatedName,
