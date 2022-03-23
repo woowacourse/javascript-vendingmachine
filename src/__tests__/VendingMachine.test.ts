@@ -1,7 +1,7 @@
-import { CoinList } from '../Coin';
-import { ItemInfo } from '../Item';
-import ItemService from '../ItemService';
-import CoinService from '../CoinService';
+import { CoinList } from '../domains/Coin';
+import { ItemInfo } from '../domains/Item';
+import ItemService from '../domains/ItemService';
+import CoinService from '../domains/CoinService';
 
 describe('ItemService', () => {
   const initItems: Array<ItemInfo> = [];

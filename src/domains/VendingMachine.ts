@@ -9,7 +9,12 @@ export default class VendingMachine {
 
   constructor() {
     this.itemService = new ItemService([]);
-    this.coinService = new CoinService([]);
+    this.coinService = new CoinService({
+      10: 0,
+      50: 0,
+      100: 0,
+      500: 0,
+    });
   }
 
   addItem(newItem: ItemInfo): void {}

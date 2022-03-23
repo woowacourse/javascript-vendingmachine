@@ -6,3 +6,6 @@ node_modules/
 
 # vscode metadata
 .vscode
+
+# git commit message template
+.gitmessage

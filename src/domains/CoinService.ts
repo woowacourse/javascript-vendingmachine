@@ -32,7 +32,7 @@ export default class CoinService {
   }
 
   init(initCoinList: CoinList): void {
-    this.coinList = initCoinList;
+    this.coinList = { ...initCoinList };
   }
 
   add(amount: number): void {
