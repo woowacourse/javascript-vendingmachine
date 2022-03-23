@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import VendingMachineProduct from '../VendingMachineProduct';
 import VendingMachine from '../VendingMachine';
-import { ERROR_MESSAGE } from '../../constants';
+import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../../constants';
 
 describe('자판기 클래스 테스트', () => {
   let vendingMachine;
@@ -87,6 +87,42 @@ describe('자판기 클래스 테스트', () => {
 
       expect(() => vendingMachine.removeProduct(invalidId)).toThrow(
         ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID
+      );
+    });
+  });
+
+  describe('잔돈 충전 테스트', () => {
+    test('잔돈을 충전할 수 있다.', () => {
+      const inputMoney = 5000;
+
+      vendingMachine.addChange(inputMoney);
+
+      expect(vendingMachine.totalChange).toBe(inputMoney);
+    });
+
+    test(`충전 금액이 ${VENDING_MACHINE_RULES.CHANGE_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
+      const inputMoney = 1025;
+
+      expect(() => vendingMachine.addChange(inputMoney)).toThrow(
+        ERROR_MESSAGE.INVALID_UNIT_CHANGE
+      );
+    });
+
+    test(`충전 금액이  ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과하면 오류가 발생한다.`, () => {
+      const inputMoney = 100010;
+
+      expect(() => vendingMachine.addChange(inputMoney)).toThrow(
+        ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE
+      );
+    });
+
+    test(`충전 금액과 보유 금액의 합이 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과하면 오류가 발생한다.`, () => {
+      const firstInputMoney = 50000;
+      vendingMachine.addChange(firstInputMoney);
+
+      const secondInputMoney = 50010;
+      expect(() => vendingMachine.addChange(secondInputMoney)).toThrow(
+        ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE
       );
     });
   });

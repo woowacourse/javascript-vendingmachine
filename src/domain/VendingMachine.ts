@@ -1,6 +1,7 @@
 import VendingMachineProduct from './VendingMachineProduct';
-import { ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../constants';
 import { generateUniqueId } from '../utils';
+import MoneyBox from './MoneyBox';
 
 interface ProductData {
   name: string;
@@ -15,26 +16,31 @@ interface VendingMachineProductDictionary {
 export default class VendingMachine {
   private _productList: VendingMachineProductDictionary;
 
+  private _moneyBox: MoneyBox;
+
   constructor() {
     this._productList = {};
+    this._moneyBox = new MoneyBox();
   }
 
   get productList(): VendingMachineProductDictionary {
     return this._productList;
   }
 
-  private validateUniqueProductName(name): never | void {
-    if (
-      Object.values(this._productList).some((product) => product.name === name)
-    ) {
-      throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME);
-    }
+  get totalChange(): number {
+    return this._moneyBox.totalAmount;
   }
 
-  private validateProductIdInList(productId: string) {
-    if (this._productList[productId] === undefined) {
-      throw new Error(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+  addChange(money: number): never | void {
+    if (money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0) {
+      throw new Error(ERROR_MESSAGE.INVALID_UNIT_CHANGE);
     }
+
+    if (this.totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE) {
+      throw new Error(ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE);
+    }
+
+    this._moneyBox.charge(money);
   }
 
   addProduct(data: ProductData): never | string {
@@ -55,8 +61,22 @@ export default class VendingMachine {
     this._productList[productId].modify(data);
   }
 
-  removeProduct(productId: string) {
+  private validateUniqueProductName(name): never | void {
+    if (
+      Object.values(this._productList).some((product) => product.name === name)
+    ) {
+      throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME);
+    }
+  }
+
+  removeProduct(productId: string): void {
     this.validateProductIdInList(productId);
     delete this._productList[productId];
+  }
+
+  private validateProductIdInList(productId: string): never | void {
+    if (this._productList[productId] === undefined) {
+      throw new Error(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+    }
   }
 }
