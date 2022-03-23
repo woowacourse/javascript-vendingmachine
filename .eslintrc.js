@@ -3,6 +3,13 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
+  },
   extends: ['airbnb-base', 'plugin:jest/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
