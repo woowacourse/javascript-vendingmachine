@@ -28,7 +28,7 @@ class ProductManageImpl implements ProductManage {
     if (e.target.classList.contains('modify-button')) {
 
     }
-    if (e.target.classList.contains('delete-button')) {
+    if (e.target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) {
       console.log(e.target.closest('tr').children[0].innerText);
       this.deleteProduct(e.target.closest('tr').children[0].innerText);
       this.drawProductList();
@@ -73,10 +73,12 @@ class ProductManageImpl implements ProductManage {
           </td>
         </tr>`)
         .join('');
+    $('#product-list').replaceChildren();
     $('#product-list').insertAdjacentHTML('beforeend', template);
   }
 
   addProduct(name: string, price: number, quantity: number): void {
+    
     if (this.isValidProductInfo(name, price, quantity)) {
       vendingMachineResource.products.push({ name, price, quantity });
     }

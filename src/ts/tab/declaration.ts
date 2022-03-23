@@ -4,6 +4,7 @@ export default interface ProductManage {
   addProduct(name: string, price: number, quantity: number): void;
   modifyProduct(name: string, price: number, quantity: number): void;
   deleteProduct(name: string): void;
-  draw(): void;
+  drawProductList(): void;
+  getProductIndex(name: string): number;
 }
 

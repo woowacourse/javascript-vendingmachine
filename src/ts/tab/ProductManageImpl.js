@@ -16,16 +16,17 @@ var ProductManageImpl = /** @class */ (function () {
         var quantity = Number((0, dom_1.$)('#product-quantity-input').value);
         if (this.isValidProductInfo(name, price, quantity)) {
             this.addProduct(name, price, quantity);
-            this.draw();
+            this.drawProductList();
         }
     };
     ProductManageImpl.prototype.handleClickButtons = function (e) {
         console.log(e.target);
         if (e.target.classList.contains('modify-button')) {
         }
-        if (e.target.classList.contains('delete-button')) {
+        if (e.target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) {
             console.log(e.target.closest('tr').children[0].innerText);
             this.deleteProduct(e.target.closest('tr').children[0].innerText);
+            this.drawProductList();
         }
         if (e.target.classList.contains('confirm-button')) {
         }
@@ -45,15 +46,16 @@ var ProductManageImpl = /** @class */ (function () {
         }
         return true;
     };
-    ProductManageImpl.prototype.draw = function () {
-        var html = vendingMachineResource_1["default"]
+    ProductManageImpl.prototype.drawProductList = function () {
+        var template = vendingMachineResource_1["default"]
             .products
             .map(function (_a) {
             var name = _a.name, price = _a.price, quantity = _a.quantity;
             return "<tr class=\"product-info\">\n          <td class=\"product-info__text\">".concat(name, "</td>\n          <td class=\"product-info__text\">").concat(price, "</td>\n          <td class=\"product-info__text\">").concat(quantity, "</td>\n          <td class=\"product-info__input\"><input type=\"text\" value=\"").concat(name, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" value=\"").concat(price, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" value=\"").concat(quantity, "\" /></td>\n          <td>\n            <button class=\"modify-button button\">\uC218\uC815</button>\n            <button class=\"delete-button button\">\uC0AD\uC81C</button>\n            <button class=\"confirm-button button\">\uD655\uC778</button>\n          </td>\n        </tr>");
         })
             .join('');
-        (0, dom_1.$)('#product-list').innerHTML = html;
+        (0, dom_1.$)('#product-list').replaceChildren();
+        (0, dom_1.$)('#product-list').insertAdjacentHTML('beforeend', template);
     };
     ProductManageImpl.prototype.addProduct = function (name, price, quantity) {
         if (this.isValidProductInfo(name, price, quantity)) {
@@ -62,13 +64,13 @@ var ProductManageImpl = /** @class */ (function () {
     };
     ProductManageImpl.prototype.modifyProduct = function (name, price, quantity) {
         if (this.isValidProductInfo(name, price, quantity)) {
-            vendingMachineResource_1["default"].products[this.index(name)] = { name: name, price: price, quantity: quantity };
+            vendingMachineResource_1["default"].products[this.getProductIndex(name)] = { name: name, price: price, quantity: quantity };
         }
     };
     ProductManageImpl.prototype.deleteProduct = function (name) {
-        vendingMachineResource_1["default"].products.splice(this.index(name), 1);
+        vendingMachineResource_1["default"].products.splice(this.getProductIndex(name), 1);
     };
-    ProductManageImpl.prototype.index = function (name) {
+    ProductManageImpl.prototype.getProductIndex = function (name) {
         return vendingMachineResource_1["default"].products.findIndex(function (product) { return product.name === name; });
     };
     return ProductManageImpl;
