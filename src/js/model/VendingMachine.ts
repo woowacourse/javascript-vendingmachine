@@ -1,22 +1,10 @@
 import { ERROR_MESSAGE, RULES } from '../constants';
+import { Product, Coin } from '../interfaces/VendingMachine.interface';
 import {
   isValidProductPrice,
   isValidProductAmount,
   isValidProductNameLength,
 } from './validator';
-
-interface Coin {
-  coin10: number;
-  coin50: number;
-  coin100: number;
-  coin500: number;
-}
-
-interface Product {
-  name: string;
-  amount: number;
-  price: number;
-}
 
 class VendingMachine {
   products: Array<Product>; // name amount price

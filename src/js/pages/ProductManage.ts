@@ -1,10 +1,5 @@
 import vendingMachine from '../model/VendingMachine';
-
-interface Product {
-  name: string;
-  amount: number;
-  price: number;
-}
+import { Product } from '../interfaces/VendingMachine.interface';
 
 export default class ProductManage {
   $inputSection: HTMLElement;
