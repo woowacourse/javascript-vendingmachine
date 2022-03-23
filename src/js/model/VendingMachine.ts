@@ -26,9 +26,9 @@ class VendingMachine {
     return this.products.findIndex(product => product.name === name);
   }
 
-  removeProduct(product: Product) {
-    const productIndex = this.findProductIndex(product.name);
-    const isExist = productIndex > 0;
+  removeProduct(name: string) {
+    const productIndex = this.findProductIndex(name);
+    const isExist = productIndex >= 0;
 
     if (isExist) {
       this.products.splice(productIndex, 1);

@@ -4,6 +4,7 @@ import AddProductComponent from '../components/AddProductComponent';
 import ProductListComponent from '../components/ProductListComponent';
 import ProductItemComponent from '../components/ProductItemComponent';
 import ModifyProductComponent from '../components/ModifyProductComponent';
+import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 
 export default class ProductManage {
   $inputSection: HTMLElement;
@@ -25,6 +26,7 @@ export default class ProductManage {
     this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
     this.$productList.addEventListener('click', this.onClickModifyButton);
     this.$productList.addEventListener('click', this.onSubmitModifyCompleteButton);
+    this.$productList.addEventListener('click', this.onClickRemoveButton);
 
     this.renderProducts();
   }
@@ -87,8 +89,22 @@ export default class ProductManage {
     } catch (message) {
       alert(message);
     }
+  };
 
-    console.log(vendingMachine.getProducts());
+  onClickRemoveButton = (e: PointerEvent) => {
+    if ((<HTMLElement>e.target).className !== 'product-remove-button') {
+      return;
+    }
+
+    if (!window.confirm(REMOVE_CONFIRM_MESSAGE)) {
+      return;
+    }
+
+    const parentList = (<HTMLElement>e.target).closest('li');
+    const name = (<HTMLElement>parentList.querySelector('.product-name')).textContent;
+
+    vendingMachine.removeProduct(name);
+    parentList.remove();
   };
 
   replaceList = (product: Product, component: Function) => {
