@@ -10,7 +10,7 @@
 //   - [ ] 수정 시 상품명, 가격, 수량 정보 영역 자체가 인풋 영역으로 변경된다. //ui
 //   - [ ] 삭제 시 confirm을 활용하여 사용자에게 다시 한번 확인한다. //ui
 
-import { isValidLengthProductName } from '../utils/utils';
+import { isValidLengthProductName, checkValidPrice } from '../utils/utils';
 
 // 통과
 test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (성공 케이스, 입력: "콜라")', () => {
