@@ -1,4 +1,4 @@
-import pickRandomElement from '../utils';
+import { pickRandomElement } from '../utils';
 
 interface ICoin {
   '500': number;

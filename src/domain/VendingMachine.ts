@@ -1,3 +1,4 @@
+import { on, $ } from '../utils';
 import Coin from './Coin';
 import Product from './Product';
 
@@ -13,6 +14,11 @@ class VendingMachine implements IVendingMachine {
   constructor() {
     this.amount = new Coin();
     this.products = [];
+    this.subscribeEvents();
+  }
+
+  subscribeEvents() {
+    on('.product-manage-form', '@add', (e) => console.log(e.detail), $('product-management'));
   }
 
   addProduct(product: Product) {
