@@ -14,6 +14,8 @@
 
 - [x] CoinWallet 도메인 개발
 
+- [x] Product 도메인 개발
+
 ### 3) 라우팅 기능
 
 - [ ] Browser History Api를 이용하여 SPA처럼 라우팅을 적용한다.

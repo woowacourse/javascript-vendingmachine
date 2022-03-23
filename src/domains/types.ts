@@ -5,11 +5,11 @@ export type TProduct = {
   quantity: number;
 };
 
-export interface IProduct extends TProduct {
+export interface IProduct {
   purchaseProduct: () => void;
-  addProduct: () => void;
   getProductInfo: () => TProduct;
-  editProductInfo: (args: TProduct) => void;
+  editProductInfo: (args: { name: string; price: number; quantity: number }) => void;
+  generateProductId: (name: string) => string;
 }
 
 export type TCoinWalletKey = 'coin_500' | 'coin_100' | 'coin_50' | 'coin_10';
