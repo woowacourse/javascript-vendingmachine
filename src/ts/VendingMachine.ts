@@ -41,16 +41,25 @@ class VendingMachine implements VendingMachineInterface {
 
   genreageRandomCoin() {}
 
-  validateItemInput = (itemName: string, itemPrice: number, itemQuantity: number) => {
-    if (!itemName || !itemPrice || !itemQuantity) {
+  validateItemInput = (
+    itemName: string,
+    itemPrice: number,
+    itemQuantity: number,
+    isAddMode: boolean = true
+  ) => {
+    if (itemName.length === 0) {
       throw new Error('빈칸 없이 모두 입력해주세요.');
+    }
+
+    if (isNaN(itemPrice) || isNaN(itemQuantity)) {
+      throw new Error('가격과 수량은 숫자로 입력해주세요.');
     }
 
     if (itemName.length > 10) {
       throw new Error('상품명은 최대 10글자까지 가능합니다.');
     }
 
-    if (this.itemList.some((savedItem) => savedItem.itemName === itemName)) {
+    if (isAddMode && this.itemList.some((savedItem) => savedItem.itemName === itemName)) {
       throw new Error('이미 등록된 상품입니다. 수정을 원한다면 수정 기능을 이용해주세요.');
     }
 
@@ -63,7 +72,7 @@ class VendingMachine implements VendingMachineInterface {
     }
 
     if (itemQuantity < 1 || itemQuantity > 20) {
-      throw new Error('상품 수량은 최대 20개까지 넣을 수 있습니다.');
+      throw new Error('상품 수량은 최소 1개부터 최대 20개까지 넣을 수 있습니다.');
     }
   };
 }

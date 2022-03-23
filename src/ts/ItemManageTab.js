@@ -27,15 +27,25 @@ class ItemManageTab {
   #onSubmitItemInfoForm = (e) => {
     e.preventDefault();
 
-    const itemInfo = Array.from(this.itemInfoInputs).map((itemInfoInput) => itemInfoInput.value);
+    const [itemName, itemPrice, itemQuantity] = Array.from(this.itemInfoInputs).map(
+      (itemInfoInput) => itemInfoInput.value
+    );
 
     try {
-      this.vendingMachine.validateItemInput(...itemInfo);
+      this.vendingMachine.validateItemInput(
+        itemName.trim(),
+        Number(itemPrice),
+        Number(itemQuantity)
+      );
     } catch (error) {
       return alert(error.message);
     }
 
-    const newItem = this.vendingMachine.addItem(...itemInfo);
+    const newItem = this.vendingMachine.addItem(
+      itemName.trim(),
+      Number(itemPrice),
+      Number(itemQuantity)
+    );
     this.#renderAddedItem(newItem);
 
     this.itemInfoInputs.forEach((itemInfoInput) => (itemInfoInput.value = ''));
@@ -43,8 +53,22 @@ class ItemManageTab {
   };
 
   #onClickItemStatusTableButton = (e) => {
+    const targetItem = e.target.closest('tr');
+    if (!targetItem) {
+      return;
+    }
+
     if (e.target.classList.contains('edit-item-button')) {
-      console.log('hihi');
+      const itemInfoCellList = targetItem.querySelectorAll('.item-info-cell');
+
+      itemInfoCellList.forEach((itemInfoCell) => {
+        itemInfoCell.classList.add('editable');
+        itemInfoCell.setAttribute('contenteditable', true);
+      });
+      itemInfoCellList[0].focus();
+
+      const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
+      itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
       return;
     }
 
@@ -52,12 +76,43 @@ class ItemManageTab {
       e.target.classList.contains('delete-item-button') &&
       confirm('정말 ㅇㅇㅇ 상품을 삭제하시겠습니까?')
     ) {
-      const targetItem = e.target.closest('tr');
       const { itemName } = targetItem.dataset;
 
       this.vendingMachine.deleteItem(itemName);
       targetItem.remove();
       return;
+    }
+
+    if (e.target.classList.contains('confirm-item-button')) {
+      const itemInfoCellList = targetItem.querySelectorAll('.item-info-cell');
+      const [itemName, itemPrice, itemQuantity] = Array.from(itemInfoCellList).map(
+        (itemInfoCell) => itemInfoCell.textContent
+      );
+
+      try {
+        this.vendingMachine.validateItemInput(
+          itemName.trim(),
+          Number(itemPrice),
+          Number(itemQuantity),
+          false
+        );
+      } catch (error) {
+        return alert(error.message);
+      }
+      this.vendingMachine.editItem(
+        itemName.trim(),
+        Number(itemPrice),
+        Number(itemQuantity),
+        targetItem.rowIndex - 1
+      );
+
+      itemInfoCellList.forEach((itemInfoCell) => {
+        itemInfoCell.classList.remove('editable');
+        itemInfoCell.setAttribute('contenteditable', false);
+      });
+
+      const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
+      itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
     }
   };
 

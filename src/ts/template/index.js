@@ -21,14 +21,17 @@ export const itemManageTabContentTemplate = `
 
 export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
     <tr data-item-name="${itemName}">
-      <td>${itemName}</td>
-      <td>${itemPrice}</td>
-      <td>${itemQuantity}</td>
-      <td>
+      <td contenteditable="false" class="item-info-cell">${itemName}</td>
+      <td contenteditable="false" class="item-info-cell">${itemPrice}</td>
+      <td contenteditable="false" class="item-info-cell">${itemQuantity}</td>
+      <td class="item-button-cell">
         <div>
           <button type="button" class="default-button edit-item-button">수정</button>
           <button type="button" class="default-button delete-item-button">삭제</button>
         </div>
+      </td>
+      <td class="item-button-cell hide">
+        <button type="button" class="default-button confirm-item-button">확인</button>
       </td>
     </tr>
 `;
