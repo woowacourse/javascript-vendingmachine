@@ -3,8 +3,8 @@
 
   .add-product-input-wrap {
     display: grid;
-    grid-template-columns: 30% 30% 30% 10%;
-    gap: 0.5rem;
+    grid-template-columns: minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%);
+    grid-column-gap: 0.5rem;
 
     > * {
       position: relative;
