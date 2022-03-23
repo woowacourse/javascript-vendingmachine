@@ -30,7 +30,7 @@ const isEmpty = (product: ProductInfo) =>
     return product[key].trim() === '';
   });
 
-const productInfoValidator = (
+const generateProductInfoValidators = (
   products: ProductImpl[],
   newProduct: ProductInfo,
 ) => [
@@ -60,7 +60,7 @@ const validateProductInfo = (
   products: ProductImpl[],
   newProduct: ProductInfo,
 ) => {
-  const validator = productInfoValidator(products, newProduct);
+  const validator = generateProductInfoValidators(products, newProduct);
 
   validator.every(({ test, errorMsg }) => {
     if (test) throw new Error(errorMsg);
