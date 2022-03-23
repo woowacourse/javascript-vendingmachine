@@ -1,27 +1,27 @@
-import VendingMachineProductManagement, {
+import VendingMachineProductManager, {
   product,
-} from '../VendingMachineProductManagement';
+} from '../ts/VendingMachineProductManager';
 
 test('최초 상품 목록은 비워진 상태이다.', () => {
-  const vendingMachineProductManagement = new VendingMachineProductManagement();
+  const vendingMachineProductManager = new VendingMachineProductManager();
 
-  expect(vendingMachineProductManagement.getProducts().length).toBe(0);
+  expect(vendingMachineProductManager.getProducts().length).toBe(0);
 });
 
 test('관리자는 상품을 추가 할 수 있다.', () => {
-  const vendingMachineProductManagement = new VendingMachineProductManagement();
+  const vendingMachineProductManager = new VendingMachineProductManager();
   const newProduct: product = {
     name: '콜라',
     price: 1500,
     quantity: 20,
   };
 
-  vendingMachineProductManagement.addProduct(newProduct);
-  expect(vendingMachineProductManagement.getProducts()[0]).toBe(newProduct);
+  vendingMachineProductManager.addProduct(newProduct);
+  expect(vendingMachineProductManager.getProducts()[0]).toBe(newProduct);
 });
 
 test('관리자는 추가한 상품을 삭제 할 수 있다.', () => {
-  const vendingMachineProductManagement = new VendingMachineProductManagement();
+  const vendingMachineProductManager = new VendingMachineProductManager();
   const newProducts: product[] = [
     {
       name: '콜라',
@@ -39,19 +39,19 @@ test('관리자는 추가한 상품을 삭제 할 수 있다.', () => {
   const deleteProductName = '콜라';
 
   newProducts.forEach((product) =>
-    vendingMachineProductManagement.addProduct(product)
+    vendingMachineProductManager.addProduct(product)
   );
-  vendingMachineProductManagement.deleteProduct(deleteProductName);
+  vendingMachineProductManager.deleteProduct(deleteProductName);
 
   expect(
-    vendingMachineProductManagement
+    vendingMachineProductManager
       .getProducts()
       .some((product) => product.name === deleteProductName)
   ).toBe(false);
 });
 
 test('관리자는 추가한 상품을 수정 할 수 있다.', () => {
-  const vendingMachineProductManagement = new VendingMachineProductManagement();
+  const vendingMachineProductManager = new VendingMachineProductManager();
   const newProduct: product = {
     name: '콜라',
     price: 1500,
@@ -65,10 +65,10 @@ test('관리자는 추가한 상품을 수정 할 수 있다.', () => {
     quantity: 10,
   };
 
-  vendingMachineProductManagement.addProduct(newProduct);
-  vendingMachineProductManagement.editProduct(targetProductName, targetProduct);
+  vendingMachineProductManager.addProduct(newProduct);
+  vendingMachineProductManager.editProduct(targetProductName, targetProduct);
   const { name, price, quantity } =
-    vendingMachineProductManagement.getProducts()[0];
+    vendingMachineProductManager.getProducts()[0];
 
   expect(name === '사이다' && price === 1000 && quantity === 10).toBe(true);
 });

@@ -4,16 +4,14 @@ export interface product {
   quantity: number;
 }
 
-interface ProductManagement {
+interface ProductManager {
   addProduct(newProduct: product): void;
   getProducts(): product[];
   editProduct(name: string, targetProduct: product): void;
   deleteProduct(name: string): void;
 }
 
-export default class VendingMachineProductManagement
-  implements ProductManagement
-{
+export default class VendingMachineProductManager implements ProductManager {
   private products: product[] = [];
 
   addProduct(newProduct) {
