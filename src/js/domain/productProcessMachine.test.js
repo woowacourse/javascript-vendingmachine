@@ -83,10 +83,10 @@ describe("상품 관리하는 도메인 테스트", () => {
     productProcessMachine.add({ name: "호프", price: 110, count: 2 });
     productProcessMachine.add({ name: "스밍", price: 9990, count: 1 });
 
-    productProcessMachine.update(0, "밝아진 호프", null, 4);
+    productProcessMachine.update(0, "밝아진 호프", 5000, 4);
     expect(productProcessMachine.getProducts()[0]).toStrictEqual({
       name: "밝아진 호프",
-      price: 110,
+      price: 5000,
       count: 4,
     });
   });

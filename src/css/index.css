@@ -12,6 +12,12 @@
   --process-button-color: #f5f5f5;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+  line-height: 40px;
+}
+
 #app {
   text-align: center;
   display: flex;
@@ -108,4 +114,17 @@ tr {
 
 .process-button:hover {
   background-color: var(--nav-button-hover-color);
+}
+
+#changes-input {
+  width: 300px;
+}
+
+#changes-form {
+  width: 400px;
+  margin: 0 auto;
+}
+
+#have-changes {
+  margin-top: 5px;
 }

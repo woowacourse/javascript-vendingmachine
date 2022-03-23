@@ -1,6 +1,7 @@
 import {
   Charge,
   Coins,
+  GetCoins,
   GetTotalChanges,
   GenerateCoins,
   ChangesDomain,
@@ -12,6 +13,7 @@ class ChangesProcessMachine implements ChangesDomain {
   charge: Charge = (money) => {
     this.checkDividedByMinimumCoin(money);
     this.checkMoneyOverMaximum(money);
+    this.checkMoenyUnderZero(money);
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
@@ -38,6 +40,10 @@ class ChangesProcessMachine implements ChangesDomain {
     return newCoins;
   };
 
+  getCoins: GetCoins = () => {
+    return this.coins;
+  };
+
   getTotalChanges: GetTotalChanges = () => {
     return Object.entries(this.coins).reduce((acc, [coin, count]) => {
       return acc + Number(coin) * count;
@@ -53,6 +59,12 @@ class ChangesProcessMachine implements ChangesDomain {
   checkMoneyOverMaximum = (money: number) => {
     if (this.getTotalChanges() + money > 100000) {
       throw new Error("최대 잔액은 100000원 입니다.");
+    }
+  };
+
+  checkMoenyUnderZero = (money: number) => {
+    if (money <= 0) {
+      throw new Error("금액은 0원보다 높아야합니다.");
     }
   };
 }

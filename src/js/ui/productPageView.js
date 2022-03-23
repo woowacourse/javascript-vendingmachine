@@ -86,6 +86,7 @@ class ProductPageView {
   };
 
   renderInputForm = () => {
+    this.$page.replaceChildren();
     this.$page.insertAdjacentHTML("beforeend", productTemplate.input());
   };
 

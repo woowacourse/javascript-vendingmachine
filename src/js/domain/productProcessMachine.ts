@@ -42,9 +42,7 @@ class ProductProcessMachine implements ProductDomain {
   };
 
   updateStatus = (idx: number, status: number | string, key: string) => {
-    this.products[idx][`${key}`] = status
-      ? status
-      : this.products[idx][`${key}`];
+    this.products[idx][`${key}`] = status;
   };
 
   checkDuplicatedName = (newName: string, idx: number = -1): void => {

@@ -17,10 +17,16 @@ export interface GenerateCoins {
   (money: number): Coins;
 }
 
+export interface GetCoins {
+  (): Coins;
+}
+
 export interface ChangesDomain {
   coins: Coins;
 
   charge: Charge; // 돈을 충전함
+
+  getCoins: GetCoins;
 
   getTotalChanges: GetTotalChanges; // 총 잔돈을 계산함
 
