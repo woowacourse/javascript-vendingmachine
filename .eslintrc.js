@@ -10,7 +10,12 @@ module.exports = {
       },
     },
   },
-  extends: ['airbnb-base', 'plugin:jest/recommended'],
+  extends: [
+    'airbnb-base',
+    'plugin:jest/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -27,15 +32,15 @@ module.exports = {
     'comma-dangle': 'off',
     'class-methods-use-this': 'off',
     'linebreak-style': 'off',
+    'object-curly-newline': 'off',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
-    // 'no-param-reassign': [
-    //   'error',
-    //   {
-    //     props: false,
-    //   },
-    // ],
+    'no-param-reassign': [
+      'error',
+      {
+        props: false,
+      },
+    ],
     // 'operator-linebreak': 'off',
-    // 'object-curly-newline': 'off',
     // 'implicit-arrow-linebreak': 'off',
     // 'function-paren-newline': 'off',
   },
