@@ -2,12 +2,11 @@ import Component from '../core/Component.js';
 
 class Router extends Component {
   setup() {
-    this.state = { location: '/', routes: Array.from(this.children) };
+    this.state = { location: '', routes: Array.from(this.children) };
   }
 
   render() {
     const { location, routes } = this.state;
-
     const pathList = routes.map((route) => route.getAttribute('path'));
     const currentRoute = routes.filter(
       (route) => route.getAttribute('path') === location
@@ -17,7 +16,7 @@ class Router extends Component {
       this.removeChild(this.lastChild);
     }
 
-    if (pathList.includes(location) || location === '/') {
+    if (pathList.includes(location) || location === '') {
       this.appendChild(currentRoute || routes[0]);
     } else {
       this.appendChild(routes[routes.length - 1]);
@@ -25,11 +24,11 @@ class Router extends Component {
   }
 
   setEvent() {
-    window.addEventListener('pushState', (event) => {
+    window.addEventListener('hashchange', (event) => {
       const { href } = event.target.location;
-      const route = href.split('/').pop();
+      const route = new URL(href).hash;
 
-      this.setState({ location: `/${route}` });
+      this.setState({ location: route });
     });
   }
 }
