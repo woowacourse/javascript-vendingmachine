@@ -119,7 +119,6 @@ export default class ProductManage {
 
   renderProducts() {
     const products = vendingMachine.getProducts();
-    console.log('products', products);
 
     products.forEach(product => {
       this.addProductItem(product);

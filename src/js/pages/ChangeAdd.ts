@@ -38,9 +38,7 @@ export default class ChangeAdd {
 
   onSubmitChangeAdd = (e: SubmitEvent) => {
     e.preventDefault();
-
     const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
-    console.log('inputChange component', inputChange);
 
     try {
       vendingMachine.inputChanges(inputChange);
@@ -52,8 +50,6 @@ export default class ChangeAdd {
 
   refreshChange() {
     this.$totalChange.textContent = vendingMachine.getTotalMoney().toString();
-
-    console.log(vendingMachine.getChanges());
     const { coin10, coin50, coin100, coin500 } = vendingMachine.getChanges();
 
     this.$amountCoin500.textContent = coin500 + '개';
