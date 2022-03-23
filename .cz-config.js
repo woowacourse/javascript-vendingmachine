@@ -41,6 +41,7 @@ module.exports = {
     { name: 'naming' },
     { name: 'cleanup' },
     { name: 'logic' },
+    { name: 'typo' },
   ],
 
   scopeOverrides: {
