@@ -30,6 +30,13 @@ export default class MoneyBox {
     this.coinDistributeStrategy = strategy;
   }
 
+  get totalAmount(): number {
+    return this._coinStatusList.reduce(
+      (totalAmount, { value, count }) => totalAmount + value * count,
+      0
+    );
+  }
+
   get coinStatusList(): Coin[] {
     return this._coinStatusList;
   }

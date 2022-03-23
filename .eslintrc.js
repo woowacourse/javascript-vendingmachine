@@ -34,6 +34,7 @@ module.exports = {
     'linebreak-style': 'off',
     'object-curly-newline': 'off',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'implicit-arrow-linebreak': 'off',
     'no-param-reassign': [
       'error',
       {
@@ -41,7 +42,6 @@ module.exports = {
       },
     ],
     // 'operator-linebreak': 'off',
-    // 'implicit-arrow-linebreak': 'off',
     // 'function-paren-newline': 'off',
   },
 };
