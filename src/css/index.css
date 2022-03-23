@@ -1,3 +1,7 @@
+@import './table.css';
+@import './buttonStyle.css';
+@import './app.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -35,66 +39,10 @@ h1 {
 button {
   padding: 8px;
 
-  background-color: #00bcd4;
-  color: white;
-  font-style: normal;
-  font-weight: 700;
   font-size: 0.875rem;
   border: none;
   border-radius: 4px;
-}
-
-#app {
-  margin: 32px auto;
-  padding: 44px 89px;
-  width: fit-content;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  background-color: #ffffff;
-}
-
-.nav-tab-button {
-  width: 117px;
-  height: 36px;
-  background-color: #f5f5f5;
-  color: #000;
-  border: none;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
   cursor: pointer;
-}
-
-.nav-tab-button.selected {
-  background-color: #00bcd429;
-}
-.nav-tab-button:hover {
-  background-color: #ebebeb;
-}
-
-.nav-tab-button.selected:hover {
-  background-color: #00bbd459;
-}
-
-#tab-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 52px 0;
-
-  width: 440px;
-  height: 500px;
-  box-shadow: 0 1em 1em -1em #00bbd459 inset;
-}
-
-.input-form {
-  display: flex;
-  flex-direction: column;
-  align-items: space-around;
 }
 
 input {
@@ -110,42 +58,4 @@ form > label {
   line-height: 24px;
   letter-spacing: 0.5px;
   color: rgba(0, 0, 0, 0.87);
-}
-
-.input-form-container {
-  display: flex;
-  margin: 0 0 48px;
-}
-
-.item-info-input {
-  width: 30%;
-  margin-right: 4px;
-}
-
-.input-form-button {
-  margin-left: 8px;
-  flex-shrink: 0;
-}
-
-table {
-  border-width: 1px;
-  border-bottom: 1px solid #dcdcdc;
-  border-collapse: collapse;
-  width: 80%;
-}
-
-caption {
-  padding: 0 0 20px;
-}
-
-tr,
-td {
-  width: 33%;
-  padding: 8px;
-  border-top: 1px solid #dcdcdc;
-  text-align: center;
-}
-
-th {
-  padding: 8px;
 }

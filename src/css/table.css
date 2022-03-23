@@ -1,0 +1,30 @@
+table {
+  border-width: 1px;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+  width: fit-content;
+}
+
+caption {
+  padding: 0 0 20px;
+}
+
+tr,
+td {
+  width: 25%;
+  padding: 8px;
+  border-top: 1px solid #dcdcdc;
+  text-align: center;
+}
+
+td > div {
+  display: flex;
+}
+
+td > div {
+  display: flex;
+}
+
+th {
+  padding: 8px;
+}
