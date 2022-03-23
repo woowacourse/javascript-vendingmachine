@@ -37,6 +37,7 @@ class VendingMachine implements IVendingMachine {
       (e) => this.updateProduct(e.detail.targetName, e.detail.name, e.detail.price, e.detail.quantity),
       $('product-management'),
     );
+    on('#product-list-table', '@delete', (e) => this.deleteProduct(e.detail.productName), $('product-management'));
   }
 
   dispatch(key: string, action: string, product?: Product) {
@@ -69,6 +70,11 @@ class VendingMachine implements IVendingMachine {
   }
 
   deleteProduct(name: string) {
+    this.dispatch(
+      'product',
+      'delete',
+      this.products.find((product) => product.name === name),
+    );
     this.products = this.products.filter((product) => product.name !== name);
   }
 

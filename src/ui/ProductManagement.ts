@@ -15,12 +15,12 @@ class ProductManagement extends CustomElement {
   }
 
   setEvent() {
-    addEvent(this, 'submit', '.product-manage-form', (e: any) => this.emitAdd(e));
+    addEvent(this, 'submit', '.product-manage-form', (e: any) => this.handleAdd(e));
     addEvent(this, 'click', '.product-item', (e: any) => this.handleEdit(e));
     addEvent(this, 'submit', '.product-item__form', (e: any) => this.handleConfirm(e));
   }
 
-  emitAdd(e) {
+  handleAdd(e) {
     e.preventDefault();
     const name = e.target.name.value;
     const price = e.target.price.valueAsNumber;
@@ -30,12 +30,11 @@ class ProductManagement extends CustomElement {
   }
 
   handleEdit(e: any) {
-    if (!e.target.classList.contains('product-item__edit-button')) return;
+    if (e.target.classList.contains('product-item__edit-button')) {
+      const item = e.target.closest('.product-item');
+      const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
 
-    const item = e.target.closest('.product-item');
-    const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
-
-    item.innerHTML = `
+      item.innerHTML = `
       <tr class="product-item" data-product-name="${item.dataset.productName}">
         <td><form id="product-edit-form-${item.dataset.productName}" class="product-item__form"><input form="product-edit-form-${item.dataset.productName}" name="name" maxlength="10" value="${values[0]}" required/></form></td>
         <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="price" min="100" max="10000" value="${values[1]}" required/></td>
@@ -45,6 +44,14 @@ class ProductManagement extends CustomElement {
         </td>
       </tr>
     `;
+      return;
+    }
+
+    if (e.target.classList.contains('product-item__delete-button')) {
+      const productName = e.target.closest('.product-item').dataset.productName;
+
+      emit('#product-list-table', '@delete', { productName }, this);
+    }
   }
 
   handleConfirm(e: any) {
@@ -70,6 +77,10 @@ class ProductManagement extends CustomElement {
 
     if (action === 'update') {
       this.updateItem(product);
+    }
+
+    if (action === 'delete') {
+      this.deleteItem(product);
     }
   }
 
@@ -98,6 +109,10 @@ class ProductManagement extends CustomElement {
         <button type="button" class="product-item__delete-button button">삭제</button>
       </td>
     `;
+  }
+
+  deleteItem(product: Product) {
+    $(`[data-product-name="${product.name}"]`).remove();
   }
 }
 
