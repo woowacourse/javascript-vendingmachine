@@ -1,10 +1,14 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
+import AddProductComponent from '../components/AddProductComponent';
+import ProductListComponent from '../components/ProductListComponent';
+import ProductItemComponent from '../components/ProductItemComponent';
 
 export default class ProductManage {
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $productAddForm: HTMLElement;
+  $productList: HTMLElement;
 
   constructor() {
     this.$inputSection = document.querySelector('.input-section');
@@ -12,25 +16,22 @@ export default class ProductManage {
   }
 
   render() {
-    this.$inputSection.insertAdjacentHTML('beforeend', this.inputSection());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', this.productList());
+    this.$inputSection.insertAdjacentHTML('beforeend', AddProductComponent());
+    this.$contentsContainer.insertAdjacentHTML('beforeend', ProductListComponent());
 
-    this.$productAddForm = document.querySelector('#product-add-form');
+    this.$productAddForm = this.$inputSection.querySelector('#product-add-form');
+    this.$productList = this.$contentsContainer.querySelector('#product-list');
     this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
+
+    this.renderProducts();
   }
 
   onSubmitNewProduct = (e: SubmitEvent) => {
     e.preventDefault();
 
-    const name = (<HTMLInputElement>(
-      this.$productAddForm.querySelector('#product-name-input')
-    )).value;
-    const price = (<HTMLInputElement>(
-      this.$productAddForm.querySelector('#product-price-input')
-    )).value;
-    const amount = (<HTMLInputElement>(
-      this.$productAddForm.querySelector('#product-amount-input')
-    )).value;
+    const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
+    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).value;
+    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).value;
 
     const newProduct: Product = {
       name: name,
@@ -38,71 +39,23 @@ export default class ProductManage {
       amount: parseInt(amount),
     };
 
-    vendingMachine.addProduct(newProduct);
+    try {
+      vendingMachine.addProduct(newProduct);
+      this.addProductItem(newProduct);
+    } catch (message) {
+      alert(message);
+    }
   };
 
-  inputSection() {
-    return `
-    <div id="product-manage-container">
-      <p>추가할 상품 정보를 입력해주세요.</p>
-      <form id="product-add-form">
-        <input
-          type="text"
-          id="product-name-input"
-          placeholder="상품명"
-          required
-        />
-        <input
-          type="number"
-          id="product-price-input"
-          placeholder="가격"
-          required
-        />
-        <input
-          type="number"
-          id="product-amount-input"
-          placeholder="수량"
-          required
-        />
-        <input type="submit" id="product-add-button" value="추가" />
-      </form>
-    </div>`;
+  renderProducts() {
+    const products = vendingMachine.getProducts();
+    console.log('products', products);
+    products.forEach(product => {
+      this.addProductItem(product);
+    });
   }
 
-  productList() {
-    return `
-  <section id="product-list-container">
-    <div id="product-list-wrapper">
-      <h4>상품 현황</h4>
-      <ul id="product-list">
-        <li class="list-header">
-          <span>상품명</span>
-          <span>가격</span>
-          <span>수량</span>
-          <span></span>
-        </li>
-        <li>
-          <span>콜라</span>
-          <span>1500</span>
-          <span>20</span>
-          <span>
-            <button type="button" class="product-modify-button">
-              수정
-            </button>
-          </span>
-        </li>
-        <li>
-          <span>사이다</span>
-          <span>1000</span>
-          <span>10</span>
-          <span>
-            <button type="button" class="product-modify-button">
-              수정
-            </button>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </section>`;
+  addProductItem(product: Product) {
+    this.$productList.insertAdjacentHTML('beforeend', ProductItemComponent(product));
   }
 }
