@@ -1,6 +1,6 @@
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateProduct } from '../validator';
+import { validateChange, validateProduct } from '../validator';
 import Coin from './Coin';
 import Product from './Product';
 
@@ -26,10 +26,9 @@ class VendingMachine implements IVendingMachine {
   constructor() {
     this.amount = new Coin();
     this.products = [];
-    this.subscribeEvents();
   }
 
-  subscribeEvents() {
+  subscribeProductManagement() {
     on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
     on(
       '#product-list-table',
@@ -40,6 +39,10 @@ class VendingMachine implements IVendingMachine {
     on('#product-list-table', '@delete', (e) => this.deleteProduct(e.detail.productName), $('product-management'));
   }
 
+  subscribeChargeTab() {
+    on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
+  }
+
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
@@ -48,6 +51,7 @@ class VendingMachine implements IVendingMachine {
 
   observe(key: string, element: CustomElement) {
     this.observers.push({ key, element });
+    this[key]();
   }
 
   addProduct(product: Product) {
@@ -55,7 +59,7 @@ class VendingMachine implements IVendingMachine {
       validateProduct(product, this.products);
       const newProduct = new Product(product);
       this.products.push(newProduct);
-      this.dispatch('product', 'add', newProduct);
+      this.dispatch('subscribeProductManagement', 'add', newProduct);
     } catch (error) {
       alert(error.message);
     }
@@ -66,7 +70,7 @@ class VendingMachine implements IVendingMachine {
       validateProduct({ name, price, quantity } as Product, this.products);
       const target = this.products.find((product) => product.name === targetName);
       target.update(name, price, quantity);
-      this.dispatch('product', 'update', target);
+      this.dispatch('subscribeProductManagement', 'update', target);
     } catch (error) {
       alert(error.message);
     }
@@ -82,7 +86,13 @@ class VendingMachine implements IVendingMachine {
   }
 
   charge(inputMoney: number) {
-    this.amount.randomGenarate(inputMoney);
+    try {
+      validateChange(inputMoney, this.amount.getAmount());
+      this.amount.randomGenarate(inputMoney);
+      this.dispatch('subscribeChargeTab', 'update');
+    } catch (error) {
+      alert(error.message);
+    }
   }
 }
 

@@ -13,6 +13,10 @@ class Coin implements ICoin {
   '50': number = 0;
   '10': number = 0;
 
+  getAmount() {
+    return Object.entries(this).reduce((previous, [key, value]) => previous + value * Number(key), 0);
+  }
+
   randomGenarate(amount: number) {
     const coins = [500, 100, 50, 10];
     let remainingAmount = amount;

@@ -7,7 +7,7 @@ import Product from '../domain/Product';
 class ProductManagement extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe('product', this);
+    VendingMachine.instance.observe('subscribeProductManagement', this);
   }
 
   template() {
@@ -20,7 +20,7 @@ class ProductManagement extends CustomElement {
     addEvent(this, 'submit', '.product-item__form', (e: any) => this.handleConfirm(e));
   }
 
-  handleAdd(e) {
+  handleAdd(e: any) {
     e.preventDefault();
     const name = e.target.name.value;
     const price = e.target.price.valueAsNumber;
