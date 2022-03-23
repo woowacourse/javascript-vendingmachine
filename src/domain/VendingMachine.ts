@@ -62,11 +62,14 @@ class VendingMachine implements IVendingMachine {
   }
 
   updateProduct(targetName: string, name: string, price: number, quantity: number) {
-    const target = this.products.find((product) => product.name === targetName);
-
-    target.update(name, price, quantity);
-
-    this.dispatch('product', 'update', target);
+    try {
+      validateProduct({ name, price, quantity } as Product, this.products);
+      const target = this.products.find((product) => product.name === targetName);
+      target.update(name, price, quantity);
+      this.dispatch('product', 'update', target);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   deleteProduct(name: string) {
