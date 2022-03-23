@@ -15,7 +15,6 @@ export default class ProductManagementDomain implements ProductManagement {
   }
 
   addProduct(newProduct: ProductInfo) {
-    console.log('newProduct', newProduct);
     this.#products.push(new ProductImpl(newProduct));
   }
 

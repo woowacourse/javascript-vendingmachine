@@ -33,13 +33,14 @@ const isEmpty = (product: ProductInfo) =>
 const generateProductInfoValidators = (
   products: ProductImpl[],
   newProduct: ProductInfo,
+  edit,
 ) => [
   {
     test: isEmpty(newProduct),
     errorMsg: MESSAGE.ERROR_EMPTY_VALUE,
   },
   {
-    test: hasSameProduct(products, newProduct),
+    test: edit ? false : hasSameProduct(products, newProduct),
     errorMsg: MESSAGE.ERROR_SAME_PRODUCT,
   },
   {
@@ -59,8 +60,9 @@ const generateProductInfoValidators = (
 const validateProductInfo = (
   products: ProductImpl[],
   newProduct: ProductInfo,
+  edit = false,
 ) => {
-  const validator = generateProductInfoValidators(products, newProduct);
+  const validator = generateProductInfoValidators(products, newProduct, edit);
 
   validator.every(({ test, errorMsg }) => {
     if (test) throw new Error(errorMsg);

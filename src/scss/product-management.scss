@@ -10,4 +10,11 @@
   &__container {
     grid-template-columns: repeat(5, 1fr);
   }
+
+  &__input {
+    width: 87px;
+    border: 0;
+    text-align: center;
+    outline: 0;
+  }
 }
