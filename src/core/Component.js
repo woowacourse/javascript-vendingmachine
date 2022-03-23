@@ -34,7 +34,8 @@ export default class Component extends HTMLElement {
   }
 
   template() {
-    throw new Error('override');
+    return ``;
+    // throw new Error('override');
   }
 
   beforeRender() {}

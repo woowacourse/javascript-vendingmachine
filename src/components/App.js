@@ -1,45 +1,37 @@
 import Component from '../core/Component';
+import './Router.js';
 import './pages/ItemManagementPage';
 import './pages/ChangeCharge';
 import './pages/PurchaseItem';
 import './pages/NotFound';
 
 export default class App extends Component {
-  setup() {
-    this.state = { tab: '/item-management' };
-  }
-
   setEvent() {
     this.addEvent('click', '#nav-bar', ({ target }) => {
-      this.setState({ tab: target.dataset.to });
+      const href = target.getAttribute('href');
+
+      window.history.pushState({}, '', href);
     });
   }
 
   template() {
-    const { tab } = this.state;
-
     return `
       <main>
         <header>
           <h1>🍿 자판기 🍿</h1>
         </header>
         <nav id="nav-bar">
-          <button class="button-tab" data-to="/item-management">상품 관리</button>
-          <button class="button-tab" data-to="/change-charge">잔돈 충전</button>
-          <button class="button-tab" data-to="/purchase-item">상품 구매</button>
+          <a class="button-tab" href="/item-management">상품 관리</a>
+          <a class="button-tab" href="/change-charge">잔돈 충전</a>
+          <a class="button-tab" href="/purchase-item">상품 구매</a>
+          <a class="button-tab" href="/nowhere">/</a>
         </nav>
-        ${(() => {
-          switch (tab) {
-            case '/item-management':
-              return `<item-management></item-management>`;
-            case '/change-charge':
-              return `<change-charge></change-charge>`;
-            case '/purchase-item':
-              return `<purchase-item></purchase-item>`;
-            default:
-              return `<not-found></not-found>`;
-          }
-        })()}
+        <page-router>
+          <item-management path="/item-management"></item-management>
+          <change-charge path="/change-charge"></change-charge>
+          <purchase-item path="/purchase-item"></purchase-item>
+          <not-found></not-found>
+        </page-router>
       </main>
     `;
   }
