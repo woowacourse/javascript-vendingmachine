@@ -6,6 +6,8 @@
     "sourceMap": true,
 		"paths": {
 			"@Domain/*": ["./src/js/domain/*"],
+			"@Utils/*": ["./src/js/utils/*"],
+			"@Constants/*": ["./src/js/constants/*"],
 		}
   }
 }
