@@ -27,6 +27,12 @@ class PurchaseProductComponent {
   hide() {
     this.$purchaseProductContainer.classList.add('hide');
   }
+  show() {
+    this.$purchaseProductContainer.classList.remove('hide');
+  }
+  hide() {
+    this.$purchaseProductContainer.classList.add('hide');
+  }
 }
 
 export default PurchaseProductComponent;
