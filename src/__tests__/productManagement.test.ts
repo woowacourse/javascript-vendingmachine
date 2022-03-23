@@ -32,3 +32,39 @@ test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (�
 
   expect(isValidLengthProductName(productName)).toBe(false);
 });
+
+test('상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다. 그리고 10원으로 나누어 떨어져야 한다. (성공 케이스, 입력: 1500)', () => {
+  const productPrice = 1500;
+
+  expect(() => {
+    checkValidPrice(productPrice);
+  }).not.toThrowError();
+});
+
+test('상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다. 그리고 10원으로 나누어 떨어져야 한다. (실패 케이스, 입력: 90)', () => {
+  const productPrice = 90;
+
+  expect(() => {
+    checkValidPrice(productPrice);
+  }).toThrowError(
+    '상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다.'
+  );
+});
+
+test('상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다. 그리고 10원으로 나누어 떨어져야 한다. (실패 케이스, 입력: 11000)', () => {
+  const productPrice = 11000;
+
+  expect(() => {
+    checkValidPrice(productPrice);
+  }).toThrowError(
+    '상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다.'
+  );
+});
+
+test('상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다. 그리고 10원으로 나누어 떨어져야 한다. (실패 케이스, 입력: 155)', () => {
+  const productPrice = 155;
+
+  expect(() => {
+    checkValidPrice(productPrice);
+  }).toThrowError('10원으로 나누어 떨어져야 한다.');
+});
