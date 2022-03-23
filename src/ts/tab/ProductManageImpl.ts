@@ -28,7 +28,6 @@ class ProductManageImpl implements ProductManage {
       e.target.closest('tr').classList.add('modify');
     }
     if (e.target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) {
-      console.log(e.target.closest('tr').children[0].innerText);
       this.deleteProduct(e.target.closest('tr').children[0].innerText);
       this.drawProductList();
     }
