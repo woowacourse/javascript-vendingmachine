@@ -19,6 +19,8 @@ export default class ManageItemView {
 
     this.bindEvents();
   }
+
+  // 수정, 삭제 클릭 이벤트 등록
   bindEvents() {
     $$('.item-table-button-container').forEach(container => {
       container.addEventListener('click', event => {
@@ -28,7 +30,6 @@ export default class ManageItemView {
         const quantity = Number(
           target.getElementsByClassName('table-item-quantity')[0].textContent,
         );
-
         const item = { name, price, quantity };
 
         if (event.target.textContent === '삭제') {
@@ -38,6 +39,30 @@ export default class ManageItemView {
         if (event.target.textContent === '수정') {
           target.replaceChildren();
           target.insertAdjacentHTML('beforeEnd', sectionTemplate.changeTableContainer(item));
+        }
+        this.clickEventBind();
+      });
+    });
+  }
+
+  // 확인버튼 클릭 이벤트
+  clickEventBind() {
+    $$('.item-table-confirm-button').forEach(button => {
+      button.addEventListener('click', event => {
+        try {
+          const target = event.target.closest('tr');
+
+          const name = target.getElementsByClassName('table-item-input-name')[0].value;
+          const price = target.getElementsByClassName('table-item-input-price')[0].value;
+          const quantity = target.getElementsByClassName('table-item-input-quantity')[0].value;
+          validateAddItemInput(name, price, quantity);
+
+          const item = { name, price, quantity };
+          target.replaceChildren();
+          target.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
+          this.bindEvents();
+        } catch (error) {
+          alert(error.message);
         }
       });
     });

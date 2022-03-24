@@ -142,3 +142,13 @@
   height: 32px;
   margin-top: 24px;
 }
+
+.table-item-input {
+  width: 90px;
+  text-align: center;
+}
+
+.item-table-confirm-button {
+  width: 100px;
+  height: 32px;
+}
