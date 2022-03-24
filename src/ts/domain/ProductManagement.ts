@@ -14,6 +14,10 @@ export default class ProductManagementDomain implements ProductManagement {
     this.#products = [];
   }
 
+  get products() {
+    return this.#products;
+  }
+
   addProduct(newProduct: ProductInfo) {
     this.#products.push(new ProductImpl(newProduct));
   }
@@ -30,9 +34,5 @@ export default class ProductManagementDomain implements ProductManagement {
         product.editProduct(newProduct);
       }
     });
-  }
-
-  get products() {
-    return this.#products;
   }
 }

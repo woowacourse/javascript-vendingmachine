@@ -1,13 +1,6 @@
 class ViewPainter {
   #productInventoryUI;
   #coinHoldingsUI;
-  renderProducts() {
-    this.#productInventoryUI.render();
-  }
-
-  renderCoins() {
-    this.#coinHoldingsUI.render();
-  }
 
   set productInventoryUI(productInventoryUI) {
     this.#productInventoryUI = productInventoryUI;
@@ -15,6 +8,14 @@ class ViewPainter {
 
   set coinHoldingsUI(coinHoldingsUI) {
     this.#coinHoldingsUI = coinHoldingsUI;
+  }
+
+  renderProducts() {
+    this.#productInventoryUI.render();
+  }
+
+  renderCoins() {
+    this.#coinHoldingsUI.render();
   }
 }
 

@@ -8,6 +8,14 @@ import { isInvalidNumber } from '../../utils/validator';
 import ProductImpl from '../../domain/Product';
 import { ProductInfo } from '../../domain/types';
 
+const isEmpty = (product: ProductInfo) =>
+  Object.keys(product).some(key => {
+    if (typeof product[key] === 'number') {
+      return Number.isNaN(product[key]);
+    }
+    return product[key].trim() === '';
+  });
+
 const hasSameProduct = (
   products: ProductImpl[],
   newProduct: ProductInfo,
@@ -22,14 +30,6 @@ const isOverMaxLength = (name: string) => name.length > MAX_NAME_LENGTH;
 
 const isQuantityRanged = (quantity: number) =>
   quantity > MAX_QUANTITY || quantity <= 0;
-
-const isEmpty = (product: ProductInfo) =>
-  Object.keys(product).some(key => {
-    if (typeof product[key] === 'number') {
-      return Number.isNaN(product[key]);
-    }
-    return product[key].trim() === '';
-  });
 
 const generateProductInfoValidators = (
   products: ProductImpl[],

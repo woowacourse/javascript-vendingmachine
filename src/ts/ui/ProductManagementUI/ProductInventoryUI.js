@@ -11,78 +11,6 @@ export default class ProductInventoryUI {
     this.bindEvents();
   }
 
-  bindEvents() {
-    this.$container.addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'BUTTON') return;
-
-      switch (target.innerText) {
-        case '수정':
-          this.activateEditMode(target);
-          break;
-        case '확인':
-          this.finishEditMode(target);
-          break;
-        case '삭제':
-          const { productName } = target.dataset;
-          if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
-            return;
-          this.deleteProduct(productName);
-      }
-    });
-  }
-
-  activateEditMode($button) {
-    $button.innerText = '확인';
-    const $$inputs = $$(
-      `input[data-product-name="${$button.dataset.productName}"]`,
-    );
-
-    $$inputs.forEach($input => {
-      $input.removeAttribute('readonly');
-    });
-  }
-
-  deactivateEditMode($button) {
-    $button.innerText = '수정';
-    const $$inputs = $$(
-      `input[data-product-name="${$button.dataset.productName}"]`,
-    );
-
-    $$inputs.forEach($input => {
-      $input.setAttribute('readonly', '');
-    });
-  }
-
-  finishEditMode($button) {
-    const prevProductName = $button.dataset.productName;
-
-    const $$inputs = $$(`input[data-product-name="${prevProductName}"]`);
-
-    const product = {
-      name: $$inputs[0].value,
-      price: $$inputs[1].valueAsNumber,
-      quantity: $$inputs[2].valueAsNumber,
-    };
-
-    try {
-      const products = this.productDomain.products;
-      validateProductInfo(products, product, prevProductName);
-    } catch ({ message }) {
-      alert(message);
-      return;
-    }
-
-    this.productDomain.editProduct($button.dataset.productName, product);
-    this.deactivateEditMode($button);
-    viewPainter.renderProducts();
-  }
-
-  deleteProduct(productName) {
-    const $$tableRow = $$(`div[data-product-name="${productName}"]`);
-    $$tableRow.forEach($item => $item.remove());
-    this.productDomain.deleteProduct(productName);
-  }
-
   render() {
     replaceHTML(this.$container, this.template());
   }
@@ -139,5 +67,77 @@ export default class ProductInventoryUI {
       .join('');
 
     return baseTemplate + productsTemplate;
+  }
+
+  bindEvents() {
+    this.$container.addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'BUTTON') return;
+
+      switch (target.innerText) {
+        case '수정':
+          this.activateEditMode(target);
+          break;
+        case '확인':
+          this.finishEditMode(target);
+          break;
+        case '삭제':
+          const { productName } = target.dataset;
+          if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
+            return;
+          this.deleteProduct(productName);
+      }
+    });
+  }
+
+  activateEditMode($button) {
+    $button.innerText = '확인';
+
+    const $$inputs = $$(
+      `input[data-product-name="${$button.dataset.productName}"]`,
+    );
+    $$inputs.forEach($input => {
+      $input.removeAttribute('readonly');
+    });
+  }
+
+  deactivateEditMode($button) {
+    $button.innerText = '수정';
+
+    const $$inputs = $$(
+      `input[data-product-name="${$button.dataset.productName}"]`,
+    );
+    $$inputs.forEach($input => {
+      $input.setAttribute('readonly', '');
+    });
+  }
+
+  finishEditMode($button) {
+    const prevProductName = $button.dataset.productName;
+    const $$inputs = $$(`input[data-product-name="${prevProductName}"]`);
+    const product = {
+      name: $$inputs[0].value,
+      price: $$inputs[1].valueAsNumber,
+      quantity: $$inputs[2].valueAsNumber,
+    };
+
+    try {
+      const products = this.productDomain.products;
+      validateProductInfo(products, product, prevProductName);
+    } catch ({ message }) {
+      alert(message);
+      return;
+    }
+
+    this.productDomain.editProduct($button.dataset.productName, product);
+
+    this.deactivateEditMode($button);
+    viewPainter.renderProducts();
+  }
+
+  deleteProduct(productName) {
+    this.productDomain.deleteProduct(productName);
+
+    const $$tableRow = $$(`div[data-product-name="${productName}"]`);
+    $$tableRow.forEach($item => $item.remove());
   }
 }

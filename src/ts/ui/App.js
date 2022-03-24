@@ -20,9 +20,30 @@ export default class App {
     this.addPopStateEvent();
   }
 
+  addNavClickEvent() {
+    $('.nav').addEventListener('click', ({ target }) => {
+      if (target.tagName !== 'BUTTON') return;
+
+      this.activateClickedButton(target.dataset.pathname);
+      history.pushState({}, '', target.dataset.pathname);
+
+      switch (target.dataset.pathname) {
+        case '/':
+          this.productManagementUI.render();
+          break;
+        case '/charge':
+          this.coinManagementUI.render();
+          break;
+        case '/purchase':
+          this.productPurchaseUI.render();
+      }
+    });
+  }
+
   addPopStateEvent() {
     window.addEventListener('popstate', () => {
       this.activateClickedButton(location.pathname);
+
       switch (location.pathname) {
         case '/':
           this.productManagementUI.render();
@@ -43,27 +64,6 @@ export default class App {
         return;
       }
       $button.classList.remove('active');
-    });
-  }
-
-  addNavClickEvent() {
-    $('.nav').addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'BUTTON') return;
-
-      this.activateClickedButton(target.dataset.pathname);
-      history.pushState({}, '', target.dataset.pathname);
-      switch (target.dataset.pathname) {
-        case '/':
-          this.productManagementUI.render();
-          break;
-
-        case '/charge':
-          this.coinManagementUI.render();
-          break;
-
-        case '/purchase':
-          this.productPurchaseUI.render();
-      }
     });
   }
 }
