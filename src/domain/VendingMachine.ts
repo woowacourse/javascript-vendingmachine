@@ -88,6 +88,7 @@ class VendingMachine implements IVendingMachine {
   charge(inputMoney: number) {
     try {
       validateChange(inputMoney, this.amount.getAmount());
+
       this.amount.genarateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');

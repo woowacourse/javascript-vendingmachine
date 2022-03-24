@@ -129,7 +129,7 @@ class ProductManagement extends CustomElement {
   }
 
   deleteItem(product: Product) {
-    $(`[data-product-name="${product.name}"]`).remove();
+    $(`[data-product-id="${product.id}"]`).remove();
   }
 }
 
