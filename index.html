@@ -25,36 +25,27 @@
                 <form id="add-product-form">
                     <label form="add-product-form">추가할 상품 정보를 입력해주세요.</label>
                     <div class="add-product-input-wrap">
-                        <input type="text" placeholder="상품명" form="add-product-form" required>
-                        <input type="number" placeholder="가격" form="add-product-form" required>
-                        <input type="number" placeholder="수량" form="add-product-form" required>
+                        <input type="text" name="name" placeholder="상품명" form="add-product-form" required>
+                        <input type="number" name="price" placeholder="가격" form="add-product-form" required>
+                        <input type="number" name="quantity" placeholder="수량" form="add-product-form" required>
                         <button id="add-product-submit-button" class="button accent">추가</button>
                     </div>
                 </form>
             </section>
             
             <section id="product-table-section" class="table-section">
-                <table class="table">
+                <table id="product-table" class="table">
                     <caption>상품 현황</caption>
                     <thead>
                         <tr>
-                            <th width="25%">상품명</th>
-                            <th width="25%">가격</th>
-                            <th width="25%">수량</th>
-                            <th width="25%"></th>
+                            <th width="22%">상품명</th>
+                            <th width="22%">가격</th>
+                            <th width="22%">수량</th>
+                            <th width="34%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>콜라</td>
-                            <td >1500</td>
-                            <td>20</td>
-                            <td>
-                                <div class="button-group">
-                                    <button class="button product-update-button" type="button">수정</button>
-                                    <button class="button product-delete-button" type="button">삭제</button>
-                                </div>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

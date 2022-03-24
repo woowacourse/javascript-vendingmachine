@@ -16,6 +16,7 @@ body {
 
 input[type='number'],
 input[type='text'] {
+  width: 100%;
   border: 1px solid $color-nobel;
   padding: 0.5rem;
   border-radius: 5px;
@@ -78,7 +79,7 @@ input[type='text'] {
 
   th,
   td {
-    padding: 0.7rem 0;
+    padding: 0.7rem 0.5rem;
     border: none;
     border-bottom: 1px solid $color-alto;
   }
