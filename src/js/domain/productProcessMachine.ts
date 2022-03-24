@@ -73,7 +73,7 @@ class ProductProcessMachine implements ProductDomain {
   };
 
   checkValidCount = (count: number): void => {
-    if (count <= VENDING_MACHINE_NUMBER.MINIMUM_COUNT) {
+    if (!count || count <= VENDING_MACHINE_NUMBER.MINIMUM_COUNT) {
       throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
     }
 

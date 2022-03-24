@@ -55,9 +55,9 @@ class ProductPageView {
   productUpdateHandler = (target) => {
     const product = target.closest("tr");
     product.innerHTML = productTemplate.productUpdateForm({
-      name: target.datset.name,
-      price: target.dataset.price,
-      count: target.dataset.count,
+      name: product.dataset.name,
+      price: product.dataset.price,
+      count: product.dataset.count,
     });
 
     this.edited = true;
