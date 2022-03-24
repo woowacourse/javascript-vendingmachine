@@ -1,4 +1,4 @@
-import { $ } from '../../utils/dom';
+import { $, replaceHTML } from '../../utils/dom';
 
 export default class ProductPurchaseUI {
   constructor(productDomain) {
@@ -6,7 +6,7 @@ export default class ProductPurchaseUI {
   }
 
   render() {
-    $('#main-content').innerHTML = this.template();
+    replaceHTML($('#main-content'), this.template());
     this.bindDOM();
   }
 

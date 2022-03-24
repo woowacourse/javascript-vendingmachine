@@ -1,4 +1,4 @@
-import { $ } from '../../utils/dom';
+import { $, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
@@ -9,13 +9,13 @@ export default class ProductManagementUI {
   }
 
   render() {
-    $('#main-content').innerHTML = this.template();
+    replaceHTML($('#main-content'), this.template());
     this.bindDOM();
   }
 
   template() {
     return `
-      <section class="product-addition">
+      <section class="product-addition input-section">
         <h2 hidden>추가할 상품 입력</h2>
         <form class="product-addition__form">
           <label
