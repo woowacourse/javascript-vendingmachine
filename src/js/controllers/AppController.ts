@@ -1,15 +1,17 @@
 import ItemManageController from './itemManageController';
+import MoneyChargeController from './moneyChargeController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import navigation from '../views/navigation';
 
 export default class AppController {
   vendingMachine: VendingMachine;
   itemManageController: ItemManageController;
+  moneyChargeController: MoneyChargeController;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
     this.itemManageController = new ItemManageController(this.vendingMachine);
-    // const moneyChargeController = new MoneyCharge(vendinMachine)
+    this.moneyChargeController = new MoneyChargeController(this.vendingMachine);
     // const itemPurchaseController = new ItemPurchaseController(vendinMachine)
   }
 
@@ -40,7 +42,7 @@ export default class AppController {
     } else if (pathname === '/itemMange') {
       this.itemManageController.render();
     } else if (pathname === '/moneyCharge') {
-      this.itemManageController.render();
+      this.moneyChargeController.render();
     } else if (pathname === '/routemPurchase') {
       this.itemManageController.render();
     }
