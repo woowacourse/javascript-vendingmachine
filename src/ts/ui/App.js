@@ -12,10 +12,9 @@ export default class App {
 
     this.productManagementUI = new ProductManagementUI(this.productDomain);
     this.coinManagementUI = new CoinManagementUI(this.coinDomain);
-    this.productPurchaseUI = new ProductPurchaseUI(this.productDomain);
+    this.productPurchaseUI = new ProductPurchaseUI();
 
-    // this.productManagementUI.render();
-    this.coinManagementUI.render();
+    this.productManagementUI.render();
 
     this.addNavClickEvent();
     this.addPopStateEvent();

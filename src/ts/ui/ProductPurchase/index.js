@@ -1,9 +1,7 @@
 import { $, replaceHTML } from '../../utils/dom';
 
 export default class ProductPurchaseUI {
-  constructor(productDomain) {
-    this.productDomain = productDomain;
-  }
+  constructor() {}
 
   render() {
     replaceHTML($('#main-content'), this.template());

@@ -80,6 +80,7 @@ export default class ProductInventoryUI {
   deleteProduct(productName) {
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);
     $$tableRow.forEach($item => $item.remove());
+    this.productDomain.deleteProduct(productName);
   }
 
   render() {
