@@ -31,4 +31,4 @@ window.addEventListener('popstate', function () {
   render(window.location.pathname);
 });
 
-render(window.location.pathname);
+render('/');
