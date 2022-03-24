@@ -9,12 +9,32 @@
     "sourceType": "module",
     "ecmaVersion": "latest"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
+  },
   "rules": {
     "class-methods-use-this": "off",
     "eol-last": ["error", "always"],
-    "no-alert": "off",
-    "no-param-reassign": "off",
+    "import/extensions": "off",
     "max-depth": ["error", 2],
-    "max-lines-per-function": ["error", 15],
-  }
+    "max-lines-per-function": ["error", 15]
+  },
+  "overrides": [{
+    "files": "*.ts",
+    "parser": "@typescript-eslint/parser", // todo
+    "plugins":["@typescript-eslint"],
+    "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+    "rules": {
+      "class-methods-use-this": "off",
+      "eol-last": ["error", "always"],
+      "import/extensions": "off",
+      "no-underscore-dangle": "off",
+      "max-depth": ["error", 2],
+      "max-lines-per-function": ["error", 15]
+    }
+  }]
 }
