@@ -3,6 +3,7 @@ table {
   border-bottom: 1px solid #dcdcdc;
   border-collapse: collapse;
   min-width: 417px;
+  margin: 48px 0 0;
 }
 
 caption {
