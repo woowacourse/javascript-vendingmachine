@@ -1,4 +1,4 @@
-import { Product } from './VendingMachine';
+import ProductType from '../type/ProductType';
 import { ERROR_MESSAGE } from '../constants';
 
 const isOverNameMinLength = (name: string) => name.length > 10;
@@ -9,7 +9,7 @@ const isInvalidPriceUnit = (price: number) => price % 10 !== 0;
 
 const isOverMaxQuantity = (quantity: number) => quantity > 20;
 
-export const checkProductValidation = (product: Product) => {
+export const checkProductValidation = (product: ProductType) => {
   if (isOverNameMinLength(product.name)) {
     throw new Error(ERROR_MESSAGE.NAME);
   }

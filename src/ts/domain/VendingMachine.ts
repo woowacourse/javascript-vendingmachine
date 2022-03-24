@@ -1,26 +1,20 @@
-import { checkProductValidation } from './validator';
+import ProductType from '../type/ProductType';
+import Product from './Product';
 
-export interface Product {
-  name: string;
-  price: number;
-  quantity: number;
+interface VendingMachineInterface {
+  products: ProductType[];
+  addProduct(input: ProductType): void;
 }
 
-interface VendingMachine {
-  products: Product[];
-  addProduct(input: Product): void;
-}
-
-class VendingMachine {
-  products: Product[];
+class VendingMachine implements VendingMachineInterface {
+  products: ProductType[];
 
   constructor() {
     this.products = [];
   }
 
-  addProduct(product) {
-    checkProductValidation(product);
-    /* TODO: product 추가 */
+  addProduct(newProduct: ProductType) {
+    this.products.push(new Product(newProduct));
   }
 }
 
