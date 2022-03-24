@@ -3,6 +3,7 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
+import { $ } from '../utils/common';
 
 export default class AppController {
   vendingMachine: VendingMachine;
@@ -24,19 +25,21 @@ export default class AppController {
   }
 
   bindEvents() {
-    this.appView.bindEvents(this.onClickNavButton.bind(this));
+    this.appView.bindEvents();
     this.appView.bindPostStateEvent(this.route.bind(this));
+    window.addEventListener('ROUTE_CHANGE', this.onClickNavButton.bind(this));
   }
 
   onClickNavButton(event) {
-    if (event.target.classList.contains('nav-button')) {
-      if (event.target.id === 'item-manage-tab') {
+    const target = event.detail;
+    if (target.classList.contains('nav-button')) {
+      if (target.id === 'item-manage-tab') {
         window.history.pushState(null, '상품 관리', 'mangeItem');
       }
-      if (event.target.id === 'money-charge-tab') {
+      if (target.id === 'money-charge-tab') {
         window.history.pushState(null, '잔돈 충전', 'chargeMoney');
       }
-      if (event.target.id === 'item-purchase-tab') {
+      if (target.id === 'item-purchase-tab') {
         window.history.pushState(null, '상품 구매', 'purchaseItem');
       }
     }

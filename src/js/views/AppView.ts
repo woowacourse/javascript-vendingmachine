@@ -19,11 +19,15 @@ export default class AppView {
     this.$app = $('#app');
   }
 
-  // Event
-  bindEvents(callback) {
-    this.$app.addEventListener('click', event => {
-      callback(event);
+  bindEvents() {
+    $('.nav-container').addEventListener('click', event => {
+      const { target } = event;
+      this.customEvent(target);
     });
+  }
+
+  customEvent(target) {
+    window.dispatchEvent(new CustomEvent('ROUTE_CHANGE', { detail: target }));
   }
 
   bindPostStateEvent(callback) {
