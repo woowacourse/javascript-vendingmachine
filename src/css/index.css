@@ -53,11 +53,22 @@ button {
   font-size: 16px;
 }
 
+.charge-control-input {
+  width: 300px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #8b8b8b;
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
 .product-control-form {
   display: flex;
 }
 
-#product-add-button {
+#product-add-button,
+#charge-add-button {
   width: 56px;
   height: 38px;
   cursor: pointer;
@@ -69,21 +80,33 @@ button {
   font-size: 16px;
 }
 
-#product-table-title {
+#product-table-title,
+#charge-table-title {
   text-align: center;
   margin-top: 40px;
 }
 
 #product-control-table {
+  width: 470px;
   text-align: center;
   border-top: 1px solid #dcdcdc;
   border-bottom: 1px solid #dcdcdc;
   border-collapse: collapse;
-  width: 470px;
+}
+
+#charge-control-table {
+  width: 236px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+  margin: auto;
 }
 
 #product-control-table td,
-#product-control-table th {
+#product-control-table th,
+#charge-control-table td,
+#charge-control-table th {
   width: 118px;
   height: 40px;
   border-top: 1px solid #dcdcdc;

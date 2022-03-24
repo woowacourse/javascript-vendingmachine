@@ -32,4 +32,14 @@ const verifyProductInfo = (
   }
 };
 
-export { verifyProductInfo };
+const verifyCharge = (charge: number | null) => {
+  if (charge < 10 || charge > 100000) {
+    throw new Error("최소 10원, 최대 10만원까지 충전할 수 있습니다");
+  }
+
+  if (!charge) {
+    throw new Error("금액을 입력해주세요");
+  }
+};
+
+export { verifyProductInfo, verifyCharge };

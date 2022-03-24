@@ -89,6 +89,7 @@ class Product {
         this.productNameTdList,
         (productNameTd: HTMLTableCellElement) => productNameTd.textContent
       );
+
       try {
         verifyProductInfo(
           productName,
