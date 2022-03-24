@@ -2,11 +2,11 @@ import { COINS } from '../constants/constant';
 import { generateRandom } from '../utils/common';
 
 type ItemType = { name: string; price: number; quantity: number };
-type CoinType = { ten: number; fifty: number; hundred: number; fiveHundred: number };
+type CoinType = { fiveHundred: number; hundred: number; fifty: number; ten: number };
 
 export default class VendingMachine {
   private items: ItemType[] = [];
-  private coins: CoinType = { ten: 0, fifty: 0, hundred: 0, fiveHundred: 0 };
+  private coins: CoinType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
 
   getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
@@ -39,17 +39,15 @@ export default class VendingMachine {
     const newCoins = this.getCoins();
     let restMoney = money;
 
-    Object.keys(newCoins)
-      .reverse()
-      .forEach(key => {
-        if (key === 'ten') {
-          newCoins[key] += restMoney / COINS[key];
-          return;
-        }
-        const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
-        restMoney -= randomNumber * COINS[key];
-        newCoins[key] += randomNumber;
-      });
+    Object.keys(newCoins).forEach(key => {
+      if (key === 'ten') {
+        newCoins[key] += restMoney / COINS[key];
+        return;
+      }
+      const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
+      restMoney -= randomNumber * COINS[key];
+      newCoins[key] += randomNumber;
+    });
     return newCoins;
   }
 
