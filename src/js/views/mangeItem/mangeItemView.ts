@@ -50,17 +50,23 @@ export default class ManageItemView {
     $$('.item-table-confirm-button').forEach(button => {
       button.addEventListener('click', event => {
         try {
-          const target = event.target.closest('tr');
-
-          const name = target.getElementsByClassName('table-item-input-name')[0].value;
-          const price = target.getElementsByClassName('table-item-input-price')[0].value;
-          const quantity = target.getElementsByClassName('table-item-input-quantity')[0].value;
+          const targetElement = event.target.closest('tr');
+          const targetIndex = targetElement.rowIndex - 1;
+          const name = targetElement
+            .getElementsByClassName('table-item-input-name')[0]
+            .value.trim();
+          const price =
+            targetElement.getElementsByClassName('table-item-input-price')[0].valueAsNumber;
+          const quantity = targetElement.getElementsByClassName('table-item-input-quantity')[0]
+            .valueAsNumber;
           validateAddItemInput(name, price, quantity);
 
           const item = { name, price, quantity };
-          target.replaceChildren();
-          target.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
-          this.bindEvents();
+          this.tableItemChangeEvent(item, targetIndex, targetElement);
+
+          // target.replaceChildren();
+          // target.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
+          // this.bindEvents();
         } catch (error) {
           alert(error.message);
         }
@@ -68,6 +74,7 @@ export default class ManageItemView {
     });
   }
 
+  // ADD_ITEM 이벤트
   customEvent() {
     try {
       const addItemName = $('#add-item-name').value.trim();
@@ -84,6 +91,13 @@ export default class ManageItemView {
     }
   }
 
+  // TABLE_ITEM_CHANGE 이벤트
+  tableItemChangeEvent(item, targetIndex, targetElement) {
+    window.dispatchEvent(
+      new CustomEvent('TABLE_ITEM_CHANGE', { detail: { item, targetIndex, targetElement } }),
+    );
+  }
+
   updateItemTable(items) {
     $('.table-container').remove();
     this.$content.insertAdjacentHTML('beforeend', sectionTemplate.tableContainer(items));
@@ -94,5 +108,11 @@ export default class ManageItemView {
     $('#add-item-name').value = '';
     $('#add-item-price').value = '';
     $('#add-item-quantity').value = '';
+  }
+
+  changeItem(itemElement, item) {
+    itemElement.replaceChildren();
+    itemElement.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
+    this.bindEvents();
   }
 }

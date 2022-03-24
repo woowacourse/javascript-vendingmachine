@@ -51,8 +51,8 @@ export const sectionTemplate = {
     return `
     <tr>
       <td><input class="table-item-input table-item-input-name" value="${item.name}" placeholder="상품명"></input></td>
-      <td><input class="table-item-input table-item-input-price" value="${item.price}" placeholder="가격"></input></td>
-      <td><input class="table-item-input table-item-input-quantity" value="${item.quantity}" placeholder="수량"></input></td>
+      <td><input class="table-item-input table-item-input-price" value="${item.price}" placeholder="가격" type="number"></input></td>
+      <td><input class="table-item-input table-item-input-quantity" value="${item.quantity}" placeholder="수량" type="number"></input></td>
       <td>
        <button class="item-table-confirm-button">확인</button>
       </td>
