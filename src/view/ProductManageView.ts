@@ -8,7 +8,9 @@ export class ProductManageView {
   contentsContainer: HTMLDivElement;
   productCatalog: ProductCatalog;
 
-  constructor() {
+  constructor() {}
+
+  init() {
     this.productCatalog = new ProductCatalog();
 
     this.contentsContainer = document.querySelector('#contents-container');
@@ -22,6 +24,10 @@ export class ProductManageView {
       target: this.contentsContainer,
       productCatalog: this.productCatalog,
     });
+  }
+
+  renderAll() {
+    this.contentsContainer.textContent = '';
 
     this.productInformationInput.render();
     this.productCatalogTable.render();

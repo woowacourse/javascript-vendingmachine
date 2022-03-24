@@ -9,7 +9,9 @@ export class BalanceChargeView {
   coinVault: CoinVault;
   contentsContainer: HTMLDivElement;
 
-  constructor() {
+  constructor() {}
+
+  init() {
     this.coinVault = new CoinVault();
 
     this.contentsContainer = document.querySelector('#contents-container');
@@ -23,7 +25,9 @@ export class BalanceChargeView {
       target: this.contentsContainer,
       coinVault: this.coinVault,
     });
+  }
 
+  renderAll() {
     this.balanceChargeInput.render();
     this.coinVaultTable.render();
   }

@@ -17,20 +17,55 @@ export class NavView {
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
     this.productPurchaseNavBtn.addEventListener('click', this.handleShowProductPurchaseTab);
 
+    this.productManageView = new ProductManageView();
+    this.balanceChargeView = new BalanceChargeView();
+
     window.addEventListener('popstate', (savedData) => {
       if (savedData.state === null) {
-      } else {
+        this.productManageView.init();
+        this.productManageView.renderAll();
+      }
+      if (savedData.state.path === '/productManage') {
+        this.productManageView.init();
+        this.productManageView.renderAll();
+      }
+      if (savedData.state.path === '/balanceCharge') {
+        this.balanceChargeView.init();
+        this.balanceChargeView.renderAll();
       }
     });
   }
 
   handleShowProductManageTab = () => {
-    this.productManageView = new ProductManageView();
+    //url 뒤에 선택자? 로 넣어주기
+    this.productManageView.init();
+    this.productManageView.renderAll();
+
+    const path = '/productManage';
+    history.pushState({ path }, null, path);
   };
 
   handleShowBalanceChargeTab = () => {
-    this.balanceChargeView = new BalanceChargeView();
+    //url 뒤에 선택자? 로 넣어주기
+    this.balanceChargeView.init();
+    this.balanceChargeView.renderAll();
+
+    const path = '/balanceCharge';
+    history.pushState({ path }, null, path);
   };
 
   handleShowProductPurchaseTab = () => {};
 }
+
+// console.log(window.location.pathname);
+
+// if (window.location.pathname === '/productManage') {
+//   this.handleShowProductManageTab();
+// }
+
+// if (window.location.pathname === '/') {
+//   this.handleShowProductManageTab();
+// }
+// if (window.location.pathname === '/balanceCharge') {
+//   this.handleShowProductManageTab();
+// }
