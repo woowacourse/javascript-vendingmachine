@@ -28,7 +28,7 @@ class ProductAddForm extends CustomElement {
     const newProduct = {
       name: $('.product-name-input').value,
       price: $('.product-price-input').value,
-      quantity: $('.product-price-input').value,
+      quantity: $('.product-quantity-input').value,
     };
 
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
