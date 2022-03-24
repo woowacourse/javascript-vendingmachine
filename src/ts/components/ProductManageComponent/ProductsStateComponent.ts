@@ -1,9 +1,9 @@
-import { on } from '../dom';
+import { on } from '../../dom';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../utils/utils';
+} from '../../../utils/utils';
 
 const generateTemplate = ({
   name: productName,
@@ -30,17 +30,17 @@ const generateEditTemplate = ({
   quantity: productQuantity,
 }): string => `
   <tr class="product-table__info-tr" data-product-name="${productName}">
-      <td>
-        <input type="text" name="product" minlength="1" maxlength="10" class="product-table__input--edit product-table__product-name-input--edit" value="${productName}" autofocus required />
-      </td>
-      <td><input type="number" class="product-table__input--edit product-table__product-price-input--edit" value="${productPrice}" step="10" min="100" max="10000" required /></td>
-      <td><input type="number" class="product-table__input--edit product-table__product-quantity-input--edit" value="${productQuantity}" min="1" max="20" required /></td>
-      <td class="product-table__button-wrapper hide">
-        <button class="product-table__edit-button">수정</button>
-      </td>
-      <td class="product-table__button-wrapper">
-        <button class="product-table__confirm-button">확인</button>
-      </td>
+    <td>
+      <input type="text" name="product" minlength="1" maxlength="10" class="product-table__input--edit product-table__product-name-input--edit" value="${productName}" autofocus required />
+    </td>
+    <td><input type="number" class="product-table__input--edit product-table__product-price-input--edit" value="${productPrice}" step="10" min="100" max="10000" required /></td>
+    <td><input type="number" class="product-table__input--edit product-table__product-quantity-input--edit" value="${productQuantity}" min="1" max="20" required /></td>
+    <td class="product-table__button-wrapper hide">
+      <button class="product-table__edit-button hide">수정</button>
+    </td>
+    <td class="product-table__button-wrapper">
+      <button class="product-table__confirm-button" type="submit">확인</button>
+    </td>
   </tr>
 `;
 

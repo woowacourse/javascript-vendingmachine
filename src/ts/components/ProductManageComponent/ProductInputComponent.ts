@@ -2,9 +2,9 @@ import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../utils/utils';
+} from '../../../utils/utils';
 
-import { emit } from '../dom';
+import { emit } from '../../dom';
 
 export default class ProductInputComponent {
   private $nameInput: HTMLInputElement = document.querySelector(

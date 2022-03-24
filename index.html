@@ -11,17 +11,21 @@
       <nav class="nav">
         <ul class="nav__list">
           <li>
-            <button
-              class="nav__button nav__product-button nav__button--focused"
-              type="button"
-            >
-              상품 관리
-            </button>
+            <a href="/products">
+              <button
+                class="nav__button nav__product-button nav__button--focused"
+                type="button"
+              >
+                상품 관리
+              </button>
+            </a>
           </li>
           <li>
-            <button class="nav__button nav__charge-button" type="button">
-              잔돈 충전
-            </button>
+            <a href="/coins">
+              <button class="nav__button nav__charge-button" type="button">
+                잔돈 충전
+              </button>
+            </a>
           </li>
           <li>
             <button class="nav__button nav__purchase-button" type="button">
@@ -30,7 +34,7 @@
           </li>
         </ul>
       </nav>
-      <section class="product-info-section show">
+      <section class="product-info-section">
         <h2 hidden>상품 관리</h2>
         <section>
           <h3 hidden>상품 정보 입력</h3>
