@@ -1,0 +1,36 @@
+.table-section {
+  width: 100%;
+}
+
+caption {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+td,
+th {
+  border-bottom: 1px solid #dcdcdc;
+  padding: 8px 35px;
+  text-align: center;
+}
+
+th {
+  border-top: 1px solid #dcdcdc;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.table-button-wrapper {
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.confirm-update-button {
+  width: 100%;
+}
