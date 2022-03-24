@@ -1,5 +1,6 @@
 import ItemManageController from './itemManageController';
 import MoneyChargeController from './moneyChargeController';
+import ItemPurchaseController from './itemPurchaseController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import navigation from '../views/navigation';
 
@@ -7,12 +8,13 @@ export default class AppController {
   vendingMachine: VendingMachine;
   itemManageController: ItemManageController;
   moneyChargeController: MoneyChargeController;
+  itemPurchaseController: ItemPurchaseController;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
     this.itemManageController = new ItemManageController(this.vendingMachine);
     this.moneyChargeController = new MoneyChargeController(this.vendingMachine);
-    // const itemPurchaseController = new ItemPurchaseController(vendinMachine)
+    this.itemPurchaseController = new ItemPurchaseController(this.vendingMachine);
   }
 
   bindEvents() {
@@ -43,8 +45,8 @@ export default class AppController {
       this.itemManageController.render();
     } else if (pathname === '/moneyCharge') {
       this.moneyChargeController.render();
-    } else if (pathname === '/routemPurchase') {
-      this.itemManageController.render();
+    } else if (pathname === '/itemPurchase') {
+      this.itemPurchaseController.render();
     }
   }
 }

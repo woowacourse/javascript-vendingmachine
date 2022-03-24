@@ -7,6 +7,7 @@ type CoinType = { fiveHundred: number; hundred: number; fifty: number; ten: numb
 export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
+  private inputMoney = 0;
 
   getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
@@ -22,6 +23,22 @@ export default class VendingMachine {
 
   setCoins(newCoins: CoinType) {
     this.coins = newCoins;
+  }
+
+  getInputMoney() {
+    return this.inputMoney;
+  }
+
+  setInputMoney(inputMoney) {
+    this.inputMoney = inputMoney;
+  }
+
+  getTotalMoney(coins) {
+    let totalMoney = 0;
+    Object.keys(coins).forEach(coinKey => {
+      totalMoney += coins[coinKey] * COINS[coinKey];
+    });
+    return totalMoney;
   }
 
   addItem({ name, price, quantity }: ItemType) {

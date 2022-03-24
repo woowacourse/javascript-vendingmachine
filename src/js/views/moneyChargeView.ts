@@ -1,5 +1,5 @@
 import { $ } from '../utils/common';
-import { itemPurchaseTemplate } from './template/templates';
+import { MoneyChargeTemplate } from './template/templates';
 
 export default class MoneyChargeView {
   $content: HTMLElement;
@@ -8,7 +8,7 @@ export default class MoneyChargeView {
   }
 
   render(coins, totalMoney) {
-    this.$content.innerHTML = itemPurchaseTemplate(coins, totalMoney);
+    this.$content.innerHTML = MoneyChargeTemplate(coins, totalMoney);
   }
 
   bindEvents() {
