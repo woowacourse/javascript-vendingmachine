@@ -1,3 +1,4 @@
+import { IStore } from '@Domain/Store/interface';
 import { getRandomNumber } from '@Utils/index';
 import { COIN_TYPE } from '@Constants/index';
 
@@ -5,18 +6,7 @@ interface IState {
   coins: Array<number>;
 }
 
-interface IHoldingAmountManager {
-  state: IState;
-  subscribers: Array<object>;
-
-  addSubscriber(subscriber: object): void;
-  setState(newState: IState): void;
-  getState(): IState;
-
-  addAmount(amount: number): void;
-}
-
-class HoldingAmountManager implements IHoldingAmountManager {
+class HoldingAmountStore implements IStore {
   state = {
     coins: [0, 0, 0, 0],
   };
@@ -63,4 +53,4 @@ class HoldingAmountManager implements IHoldingAmountManager {
   }
 }
 
-export default new HoldingAmountManager();
+export default new HoldingAmountStore();

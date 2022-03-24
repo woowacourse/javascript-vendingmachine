@@ -1,3 +1,5 @@
+import { IStore } from '@Domain/Store/interface';
+
 interface IProduct {
   name: string;
   price: number;
@@ -8,22 +10,8 @@ interface IState {
   products: Array<IProduct>;
 }
 
-interface IProductManager {
-  state: IState;
-  subscribers: Array<object>;
-
-  addSubscriber(subscriber: object): void;
-  setState(newState: IState): void;
-  getState(): IState;
-
-  addProduct(name: string, price: number, quantity: number): void;
-  updateProduct(name: string, price: number, quantity: number): void;
-  removeProductByName(name: string): void;
-  findProductIndexByName(name: string): number;
-}
-
-class ProductManager implements IProductManager {
-  state = {
+class ProductStore implements IStore {
+  state: IState = {
     products: [],
   };
 
@@ -34,21 +22,23 @@ class ProductManager implements IProductManager {
   }
 
   setState(newState: IState) {
+    const changeStates = Object.entries(newState).map(([key]) => key);
+
     this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(subscriber => subscriber(this.state));
+    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
   }
 
   getState(): IState {
     return { ...this.state };
   }
 
-  addProduct(name: string, price: number, quantity: number) {
+  addProduct(name: string, price: number, quantity: number): void {
     this.setState({
       products: [...this.state.products, { name, price, quantity }],
     });
   }
 
-  updateProduct(name: string, price: number, quantity: number) {
+  updateProduct(name: string, price: number, quantity: number): void {
     const targetIndex = this.findProductIndexByName(name);
     const updateProducts = [...this.state.products].splice(targetIndex, 1, {
       name,
@@ -61,7 +51,7 @@ class ProductManager implements IProductManager {
     });
   }
 
-  removeProductByName(name: string) {
+  removeProductByName(name: string): void {
     const targetIndex = this.findProductIndexByName(name);
     const updateProducts = [...this.state.products].splice(targetIndex, 1);
 
@@ -75,4 +65,4 @@ class ProductManager implements IProductManager {
   }
 }
 
-export default new ProductManager();
+export default new ProductStore();
