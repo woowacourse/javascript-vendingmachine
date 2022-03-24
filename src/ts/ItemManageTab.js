@@ -5,6 +5,7 @@ class ItemManageTab {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
+    this.navTabButtonList = document.querySelectorAll('.nav-tab-button');
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
     this.tabContent = selectDom('#tab-content');
     this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
@@ -16,12 +17,12 @@ class ItemManageTab {
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
   }
 
-  #onClickItemManageTabButton = () => {
+  #onClickItemManageTabButton = ({ target: targetTabButton }) => {
     if (this.itemManageTabButton.classList.contains('selected')) {
       return;
     }
 
-    this.#changeTabContent(itemManageTabContentTemplate);
+    this.#changeTabContent(itemManageTabContentTemplate, targetTabButton);
   };
 
   #onSubmitItemInfoForm = (e) => {
@@ -114,10 +115,13 @@ class ItemManageTab {
     }
   };
 
-  #changeTabContent(contentTemplate) {
+  #changeTabContent(contentTemplate, targetTabButton) {
     this.tabContent.replaceChildren();
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
-    this.itemManageTabButton.classList.add('selected');
+
+    this.navTabButtonList.forEach((navTabButton) =>
+      navTabButton.classList.toggle('selected', targetTabButton === navTabButton)
+    );
   }
 
   #renderAddedItem(newItem) {

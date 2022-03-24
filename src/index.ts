@@ -1,7 +1,8 @@
 import './css/index.css';
-
-import ItemManageTab from './ts/ItemManageTab';
 import VendingMachine from './ts/VendingMachine';
+import ItemManageTab from './ts/ItemManageTab';
+import CoinRechargeTab from './ts/CoinRechargeTab';
 
 const vendingMachine = new VendingMachine();
-const itemManagetab = new ItemManageTab(vendingMachine);
+new ItemManageTab(vendingMachine);
+new CoinRechargeTab(vendingMachine);
