@@ -25,12 +25,21 @@ class VendingMachine implements IVendingMachine {
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
-    this.amount = new Coin();
-    this.products = storage.getLocalStorage('products').map((product) => {
-      const { name, price, quantity } = product;
+    this.amount = storage.getLocalStorage('amount')
+      ? new Coin(
+          storage.getLocalStorage('amount')[500],
+          storage.getLocalStorage('amount')[100],
+          storage.getLocalStorage('amount')[50],
+          storage.getLocalStorage('amount')[10],
+        )
+      : new Coin();
+    this.products = storage.getLocalStorage('products')
+      ? storage.getLocalStorage('products').map((product) => {
+          const { name, price, quantity } = product;
 
-      return new Product({ name, price, quantity } as Product);
-    });
+          return new Product({ name, price, quantity } as Product);
+        })
+      : [];
   }
 
   subscribeProductManagement() {
@@ -101,6 +110,7 @@ class VendingMachine implements IVendingMachine {
     try {
       validateChange(inputMoney, this.amount.getAmount());
       this.amount.randomGenarate(inputMoney);
+      storage.setLocalStorage('amount', this.amount);
       this.dispatch('subscribeChargeTab', 'update');
     } catch (error) {
       alert(error.message);

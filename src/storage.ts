@@ -4,7 +4,7 @@ const storage = {
   },
 
   getLocalStorage(key: string) {
-    return JSON.parse(localStorage.getItem(key)) ?? [];
+    return JSON.parse(localStorage.getItem(key));
   },
 };
 

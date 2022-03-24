@@ -13,6 +13,13 @@ class Coin implements ICoin {
   '50': number = 0;
   '10': number = 0;
 
+  constructor(quantity500 = 0, quantity100 = 0, quantity50 = 0, quantity10 = 0) {
+    this[500] = quantity500;
+    this[100] = quantity100;
+    this[50] = quantity50;
+    this[10] = quantity10;
+  }
+
   getAmount() {
     return Object.entries(this).reduce((previous, [key, value]) => previous + value * Number(key), 0);
   }
