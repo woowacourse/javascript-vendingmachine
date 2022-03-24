@@ -21,35 +21,39 @@ const productTemplate = () => {
             <th>수량</th>
             <th></th>
           </tr>
-          <tr>
-            <td>콜라</td>
-            <td>1500</td>
-            <td>20</td>
-            <td>
-              <button type="button" class="product-edit-button">수정</button>
-              <button type="button" class="product-remove-button">제거</button>
-            </td>
-          </tr>
-          <tr>
-            <td>사이다</td>
-            <td>2000</td>
-            <td>10</td>
-            <td><button type="button" class="product-confirm-button">확인</button></td>
-          </tr>
         </table>
       </div>
     </section>`;
 };
 
-const addProductTemplate = (productName, productPrice, productQuantity) => `
-  <tr>
-    <td>${productName}</td>
+const addProductTemplate = (
+  productName: string,
+  productPrice: number,
+  productQuantity: number
+) => {
+  return `
+   <tr>
+      <td class="product-name">${productName}</td>
       <td>${productPrice}</td>
       <td>${productQuantity}</td>
-    <td>
-      <button type="button" class="product-edit-button">수정</button>
-      <button type="button" class="product-remove-button">제거</button>
-    </td>
+      <td>
+        <button type="button" class="product-edit-button">수정</button>
+        <button type="button" class="product-remove-button">제거</button>
+      </td>
   </tr>`;
+};
 
-export { productTemplate, addProductTemplate };
+const editProductTemplate = (
+  productName: string,
+  productPrice: number,
+  productQuantity: number
+) => {
+  return `
+    <td class="product-name"><input class="product-edit-input" value='${productName}' /></td>
+    <td><input class="product-edit-input" value='${productPrice}' /></td>
+    <td><input class="product-edit-input" value='${productQuantity}' /></td>
+    <td><button type="button" class="product-confirm-button">확인</button></td>
+  `;
+};
+
+export { productTemplate, addProductTemplate, editProductTemplate };

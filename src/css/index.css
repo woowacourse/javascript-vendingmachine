@@ -113,3 +113,7 @@ button {
 .product-confirm-button:hover {
   background: #ebebeb;
 }
+
+.product-edit-input {
+  width: 50px;
+}

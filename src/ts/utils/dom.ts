@@ -1,7 +1,7 @@
-const $ = (selector: string, element = document) =>
+const $ = (selector: string, element: HTMLElement | Document = document) =>
   element.querySelector(selector) as HTMLElement;
 
-const $$ = (selector: string, element = document) =>
+const $$ = (selector: string, element: HTMLElement | Document = document) =>
   element.querySelectorAll(selector) as NodeList;
 
 const addEvent = (target: HTMLElement, eventName: string, handler) => {

@@ -3,8 +3,12 @@ import { PRODUCT } from "./constants";
 const verifyProductInfo = (
   productName: string | null,
   productPrice: number | null,
-  productQuantity: number | null
+  productQuantity: number | null,
+  productNameList: string[] | null
 ) => {
+  if (productNameList.includes(productName)) {
+    throw new Error("중복된 상품명은 등록할 수 없습니다.");
+  }
   if (productName.trim() === "" || typeof productPrice !== "number") {
     throw new Error("값을 모두 입력해주세요.");
   }
