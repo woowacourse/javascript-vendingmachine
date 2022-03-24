@@ -48,7 +48,8 @@ class VendingMachine implements VendingMachineInterface {
 
     while (remainCoin !== 0) {
       if (COIN_50 > remainCoin) {
-        candidateCoins = [COIN_10];
+        this.coinCollection[COIN_10] += remainCoin / COIN_10;
+        break;
       } else if (COIN_100 > remainCoin) {
         candidateCoins = [COIN_50, COIN_10];
       } else if (COIN_500 > remainCoin) {
