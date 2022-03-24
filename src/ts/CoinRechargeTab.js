@@ -11,6 +11,8 @@ class CoinRechargeTab {
 
     this.cashChargeForm = null;
     this.cashChargeInput = null;
+    this.chargedAmountText = null;
+    this.coinCountList = null;
 
     this.coinRechargeTabButton.addEventListener('click', this.#onClickCoinRechargeTabButton);
   }
@@ -24,6 +26,8 @@ class CoinRechargeTab {
 
     this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
     this.cashChargeInput = selectDom('.cash-charge-input', this.cashChargeForm);
+    this.chargedAmountText = selectDom('#charged-amount', this.tabContent);
+    this.coinCountList = this.tabContent.querySelectorAll('.coin-count');
 
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
   };
@@ -40,12 +44,21 @@ class CoinRechargeTab {
   #onSubmitCashChargeForm = (e) => {
     e.preventDefault();
 
-    const chargedCash = this.cashChargeInput.value;
+    const chargedCash = this.cashChargeInput.valueAsNumber;
+
     try {
-      this.vendingMachine.validateCashInput(Number(chargedCash));
+      this.vendingMachine.validateCashInput(chargedCash);
     } catch (error) {
       return alert(error.message);
     }
+
+    this.vendingMachine.chargeCoin(chargedCash);
+    this.chargedAmountText.textContent = this.vendingMachine.calculateTotalCoinAmount();
+
+    const currentCoinColelction = this.vendingMachine.coinCollection;
+    this.coinCountList.forEach((coinCount) => {
+      coinCount.textContent = `${currentCoinColelction[coinCount.dataset.coinValue]}개`;
+    });
   };
 }
 

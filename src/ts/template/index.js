@@ -44,7 +44,7 @@ export const coinRechargeTabContentTemplate = `
           <button class="input-form-button">충전</button>
         </div>
     </form>
-    <p class="vendingmachine-total-amount">현재 보유 금액: <span>500</span>원</p>
+    <p class="vendingmachine-total-amount">현재 보유 금액: <span id="charged-amount">0</span>원</p>
     <table class="vendingmachine-coin-table">
       <caption><h2>자판기가 보유한 동전</h2></caption>
       <tr>
@@ -53,19 +53,19 @@ export const coinRechargeTabContentTemplate = `
       </tr>
       <tr>
         <td>500원</td>
-        <td>0개</td>
+        <td class="coin-count" data-coin-value="500">0개</td>
       </tr>
       <tr>
         <td>100원</td>
-        <td>0개</td>
+        <td class="coin-count" data-coin-value="100">0개</td>
       </tr>
       <tr>
         <td>50원</td>
-        <td>0개</td>
+        <td class="coin-count" data-coin-value="50">0개</td>
       </tr>
       <tr>
         <td>10원</td>
-        <td>0개</td>
+        <td class="coin-count" data-coin-value="10">0개</td>
       </tr>
     </table>
 `;
