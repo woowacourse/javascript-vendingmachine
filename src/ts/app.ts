@@ -1,5 +1,5 @@
-import NavComponent from './components/NavComponent';
+import NavigatorComponent from './components/NavigatorComponent';
 
 export default function startApp() {
-  new NavComponent();
+  new NavigatorComponent();
 }

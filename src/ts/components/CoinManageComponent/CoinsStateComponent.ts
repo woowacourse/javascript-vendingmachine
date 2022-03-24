@@ -1,20 +1,16 @@
-import { on } from '../../dom';
+import { on, $ } from '../../dom';
 
 export default class CoinsStateComponent {
-  $coin500 = document.querySelector('.coin-quantity-table__coin-500');
-  $coin100 = document.querySelector('.coin-quantity-table__coin-100');
-  $coin50 = document.querySelector('.coin-quantity-table__coin-50');
-  $coin10 = document.querySelector('.coin-quantity-table__coin-10');
+  private $coin500 = $('.coin-quantity-table__coin-500');
+  private $coin100 = $('.coin-quantity-table__coin-100');
+  private $coin50 = $('.coin-quantity-table__coin-50');
+  private $coin10 = $('.coin-quantity-table__coin-10');
 
   constructor(private vendingMachineCoinManager) {
-    on(
-      document.querySelector('.charge-form-section__button'),
-      '@chargeInputSubmit',
-      this.render
-    );
+    on($('.charge-form-section__button'), '@chargeInputSubmit', this.render);
   }
 
-  render = ({
+  private render = ({
     detail: {
       coins: { coin500, coin100, coin50, coin10 },
     },

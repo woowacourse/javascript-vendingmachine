@@ -1,25 +1,17 @@
 import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
-import { emit, renderSnackBar } from '../../dom';
+import { emit, renderSnackBar, $, on } from '../../dom';
 
 export default class CoinInputComponent {
-  $coinInput: HTMLInputElement = document.querySelector(
-    '.charge-form-section__coin-input'
-  );
-  $chargeButton: HTMLButtonElement = document.querySelector(
-    '.charge-form-section__button'
-  );
-  $totalCoin: HTMLElement = document.querySelector(
-    '.charge-form-section__total-coin'
-  );
-  private $snackBarContainer: HTMLElement = document.querySelector(
-    '.snack-bar-container'
-  );
+  private $coinInput: HTMLInputElement = $('.charge-form-section__coin-input');
+  private $chargeButton: HTMLButtonElement = $('.charge-form-section__button');
+  private $totalCoin: HTMLElement = $('.charge-form-section__total-coin');
+  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineCoinManager) {
-    this.$chargeButton.addEventListener('click', this.onSubmitChargeButton);
+    on(this.$chargeButton, 'click', this.onSubmitChargeButton);
   }
 
-  onSubmitChargeButton = (e) => {
+  private onSubmitChargeButton = (e) => {
     e.preventDefault();
 
     try {

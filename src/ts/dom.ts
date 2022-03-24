@@ -27,3 +27,14 @@ export const renderSnackBar = (
     container.removeChild($snackBar);
   }, 3000);
 };
+
+export const $ = (selector) => document.querySelector(selector);
+export const $$ = (selector) => document.querySelectorAll(selector);
+
+export const focusEditInput = ($targetInput: HTMLInputElement): void => {
+  $targetInput.focus();
+  $targetInput.setSelectionRange(
+    $targetInput.value.length,
+    $targetInput.value.length
+  );
+};

@@ -1,9 +1,10 @@
-import { on, renderSnackBar } from '../../dom';
+import { on, renderSnackBar, $, focusEditInput } from '../../dom';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../utils/utils';
+import { product } from '../../VendingMachineProductManager';
 
 const generateTemplate = ({
   name: productName,
@@ -45,66 +46,54 @@ const generateEditTemplate = ({
 `;
 
 export default class ProductStateComponent {
-  vendingMachineProductManager;
-  productTableTbody;
-  private $snackBarContainer: HTMLElement = document.querySelector(
-    '.snack-bar-container'
-  );
+  private productTableTbody: HTMLElement = $('.product-table tbody');
+  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
-  constructor(vendingMachineProductManager) {
-    this.vendingMachineProductManager = vendingMachineProductManager;
-    this.productTableTbody = document.querySelector('.product-table tbody');
-
-    on(
-      document.querySelector('.product-info-form__button'),
-      '@productInputSubmit',
-      this.render
-    );
-    this.productTableTbody.addEventListener('click', this.onClickEditButton);
-    this.productTableTbody.addEventListener('click', this.onClickDeleteButton);
-    this.productTableTbody.addEventListener(
-      'click',
-      this.onClickEditSubmitButton
-    );
+  constructor(private vendingMachineProductManager) {
+    on($('.product-info-form__button'), '@productInputSubmit', this.render);
+    on(this.productTableTbody, 'click', this.onClickEditButton);
+    on(this.productTableTbody, 'click', this.onClickDeleteButton);
+    on(this.productTableTbody, 'click', this.onClickEditSubmitButton);
   }
 
-  render = ({ detail }) => {
+  private render = ({ detail: { newProduct } }): void => {
     this.productTableTbody.insertAdjacentHTML(
       'beforeend',
-      generateTemplate(detail)
+      generateTemplate(newProduct)
     );
   };
 
-  onClickEditButton = ({ target }) => {
+  private onClickEditButton = ({ target }): void => {
     if (!target.matches('.product-table__edit-button')) return;
 
-    const parentElement = target.closest('.product-table__info-tr');
-    const targetProduct = this.vendingMachineProductManager.getTargetProduct(
-      parentElement.dataset.productName
+    const parentElement: HTMLTableRowElement = target.closest(
+      '.product-table__info-tr'
     );
+    const targetProduct: product =
+      this.vendingMachineProductManager.getTargetProduct(
+        parentElement.dataset.productName
+      );
 
     parentElement.innerHTML = generateEditTemplate(targetProduct);
-    const $targetInput = parentElement.querySelector(
-      '.product-table__product-name-input--edit'
-    );
-    $targetInput.focus();
-    $targetInput.setSelectionRange(
-      $targetInput.value.length,
-      $targetInput.value.length
+
+    focusEditInput(
+      parentElement.querySelector('.product-table__product-name-input--edit')
     );
   };
 
-  onClickEditSubmitButton = ({ target }) => {
+  private onClickEditSubmitButton = ({ target }): void => {
     if (!target.matches('.product-table__confirm-button')) return;
 
-    const parentElement = target.closest('.product-table__info-tr');
-    const editProductNameInput: HTMLInputElement = document.querySelector(
+    const parentElement: HTMLTableRowElement = target.closest(
+      '.product-table__info-tr'
+    );
+    const editProductNameInput: HTMLInputElement = $(
       '.product-table__product-name-input--edit'
     );
-    const editProductPriceInput: HTMLInputElement = document.querySelector(
+    const editProductPriceInput: HTMLInputElement = $(
       '.product-table__product-price-input--edit'
     );
-    const editProductQuantityInput: HTMLInputElement = document.querySelector(
+    const editProductQuantityInput: HTMLInputElement = $(
       '.product-table__product-quantity-input--edit'
     );
 
@@ -112,11 +101,13 @@ export default class ProductStateComponent {
       checkValidLengthProductName(editProductNameInput.value);
       checkValidProductPrice(editProductPriceInput.valueAsNumber);
       checkValidProductQuantity(editProductQuantityInput.valueAsNumber);
-      const editedProduct = {
+
+      const editedProduct: product = {
         name: editProductNameInput.value,
         price: editProductPriceInput.valueAsNumber,
         quantity: editProductQuantityInput.valueAsNumber,
       };
+
       this.vendingMachineProductManager.editProduct(
         parentElement.dataset.productName,
         editedProduct
@@ -129,11 +120,14 @@ export default class ProductStateComponent {
     }
   };
 
-  onClickDeleteButton = ({ target }) => {
+  private onClickDeleteButton = ({ target }): void => {
     if (!target.matches('.product-table__delete-button')) return;
 
-    const parentElement = target.closest('.product-table__info-tr');
-    const grandParentElement = target.closest('tbody');
+    const parentElement: HTMLTableRowElement = target.closest(
+      '.product-table__info-tr'
+    );
+    const grandParentElement: HTMLElement = target.closest('tbody');
+
     this.vendingMachineProductManager.deleteProduct(
       parentElement.dataset.productName
     );
