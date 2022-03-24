@@ -7,8 +7,8 @@ interface VendingMachineInterface {
   deleteItem: (itemName: string) => void;
   buyItem: () => void;
 
-  chargeCoin: () => void;
-  genreageRandomCoin: () => void;
+  chargeCoin: (rechargeCoin: number) => void;
+  calculateTotalCoinAmount: () => number;
 }
 
 class VendingMachine implements VendingMachineInterface {
@@ -17,7 +17,12 @@ class VendingMachine implements VendingMachineInterface {
 
   constructor() {
     this.itemList = [];
-    this.coinCollection = {};
+    this.coinCollection = {
+      500: 0,
+      100: 0,
+      50: 0,
+      10: 0,
+    };
   }
 
   addItem(itemName: string, itemPrice: number, itemQuantity: number) {
@@ -37,9 +42,31 @@ class VendingMachine implements VendingMachineInterface {
     this.itemList[itemIndex] = { itemName, itemPrice, itemQuantity };
   }
 
-  chargeCoin() {}
+  chargeCoin(rechargeCoin) {
+    let candidateCoins = [500, 100, 50, 10];
+    let remainCoin = rechargeCoin;
 
-  genreageRandomCoin() {}
+    while (remainCoin !== 0) {
+      if (50 > remainCoin) {
+        candidateCoins = [10];
+      } else if (100 > remainCoin) {
+        candidateCoins = [50, 10];
+      } else if (500 > remainCoin) {
+        candidateCoins = [100, 50, 10];
+      }
+
+      const selectedCoin = candidateCoins[Math.floor(Math.random() * candidateCoins.length)];
+      this.coinCollection[selectedCoin]++;
+      remainCoin -= selectedCoin;
+    }
+  }
+
+  calculateTotalCoinAmount() {
+    return Object.entries(this.coinCollection).reduce(
+      (prev, [key, value]) => prev + Number(key) * value,
+      0
+    );
+  }
 
   validateItemInput(
     itemName: string,
@@ -85,7 +112,7 @@ class VendingMachine implements VendingMachineInterface {
       throw new Error('충전할 금액은 10원 이상이여야 합니다.');
     }
 
-    if (rechargedCash > 100000) {
+    if (rechargedCash > 100000 - this.calculateTotalCoinAmount()) {
       throw new Error('보유할 수 있는 최소 금액은 0원, 최대 금액은 100,000원입니다.');
     }
 
