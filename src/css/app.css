@@ -1,3 +1,59 @@
+@import './productManage.css';
+@import './balanceCharge.css';
+
 .hide {
-  visibility: hidden;
+  display: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#contents-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 632px;
+  row-gap: 40px;
+}
+
+.submit-button {
+  background-color: #00bcd4;
+  color: white;
+  width: 70px;
+  height: 37px;
+}
+
+.submit-button:hover {
+  background-color: #00a2b8;
+}
+
+.tab-button {
+  background-color: #f5f5f5;
+  color: black;
+  width: 120px;
+  height: 37px;
+}
+
+.tab-button:hover {
+  background-color: rgba(0, 188, 212, 0.16);
+}
+
+.input {
+  border: solid 1.5px;
+  border-radius: 10px;
+  border-color: #dcdcdc;
+  width: 160px;
+  height: 30px;
+  padding-left: 8px;
+}
+
+.button {
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
 }

@@ -13,14 +13,12 @@ export class BalanceChargeInput {
 
   templates(balance: number): string {
     return `
-        <form>
-            <label for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
-            <div></div>
-              <input id="charge-balance-input" type="text" placeholder="금액"></input>
-              <button id='charge-balance-submit-btn' type="submit">충전</button>
-            </div>
-            <div>현재보유금액:<span id="current-balance">${balance}</span>원</div>
-        </form>
+          <form id = 'charge-balance-input-container'>
+            <label id ='charge-balance-input-label' for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
+              <input id="charge-balance-input" type="text" placeholder="금액" class = 'input'></input>
+              <button id='charge-balance-submit-btn' type="submit" class ='submit-button button'>충전</button>
+              <div id = 'current-balance-container'>현재보유금액 : <span id="current-balance">${balance}</span>원</div>
+          </form id = >
       `;
   }
 

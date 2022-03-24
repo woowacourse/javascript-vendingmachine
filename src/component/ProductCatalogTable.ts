@@ -14,7 +14,7 @@ export class ProductCatalogTable {
 
   templates(): string {
     return `
-      <div id='table-container'>
+      <div class='table-container'>
         <h2>상품 현황</h2>
         <table id='product-table'>
           <thead>
@@ -42,9 +42,9 @@ export class ProductCatalogTable {
     <td class='product-price product-prop'><span>${product.getPrice()}</span></td>
     <td class='product-quantity product-prop'><span>${product.getQuantity()}</span></td>
     <td class='edit-button-container'>
-      <button class='edit-button' type='button'>수정</button>
-      <button class='delete-button' type='button'>삭제</button>
-      <button class='confirm-button hide' type='button'>확인</button>
+      <button class='edit-button button' type='button'>수정</button>
+      <button class='delete-button button' type='button'>삭제</button>
+      <button class='confirm-button button hide' type='button'>확인</button>
     </td>
   </tr>`;
   }
@@ -97,6 +97,7 @@ export class ProductCatalogTable {
       'type',
       `${tableDatum.classList.contains('product-name') ? 'text' : 'number'}`
     );
+    after.className += 'product-input';
     after.value = `${tableDatum.firstChild.textContent}`;
     return after;
   }

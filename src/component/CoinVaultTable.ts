@@ -14,9 +14,9 @@ export class CoinVaultTable {
 
   templates(coinsQuantity: Coins): string {
     return `
-      <div>
+      <div class = 'table-container'>
         <h2>자판기가 보유한 동전</h2>
-        <table>
+        <table id= 'coin-vault-table'>
           <thead>
             <tr>
               <th>동전</th>

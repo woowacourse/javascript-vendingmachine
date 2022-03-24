@@ -11,15 +11,13 @@ export class ProductInformationInput {
 
   templates(): string {
     return `
-      <form>
-          <label for="product-information-input">추가할 상품 정보를 입력해주세요</label>
-          <div id="product-information-input">
-            <input id='product-name-input' type="text" placeholder="상품명"></input>
-            <input id='product-price-input' type="number" placeholder="가격"></input>
-            <input id='product-quantity-input' type="number" placeholder="수량"></input>
-            <button id = 'product-information-submit-btn' type="submit">추가</button>
-          </div>
-      </form>
+        <form id="product-information-input">
+            <label id ='product-input-label' for="product-information-input">추가할 상품 정보를 입력해주세요</label>
+            <input id='product-name-input' type="text" placeholder="상품명" class = 'input'></input>
+            <input id='product-price-input' type="number" placeholder="가격" class = 'input'></input>
+            <input id='product-quantity-input' type="number" placeholder="수량" class = 'input'></input>
+            <button id = 'product-information-submit-btn' type="submit" class='submit-button button'>추가</button>
+          </form>
     `;
   }
 
