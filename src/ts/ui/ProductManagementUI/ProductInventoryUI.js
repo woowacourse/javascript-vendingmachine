@@ -8,7 +8,7 @@ export default class ProductInventoryUI {
     this.$container = $('.product-inventory__container');
     this.productDomain = productDomain;
     this.render();
-    this.bindEvents();
+    this.addButtonClickEvent();
   }
 
   render() {
@@ -69,25 +69,27 @@ export default class ProductInventoryUI {
     return baseTemplate + productsTemplate;
   }
 
-  bindEvents() {
-    this.$container.addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'BUTTON') return;
-
-      switch (target.innerText) {
-        case '수정':
-          this.activateEditMode(target);
-          break;
-        case '확인':
-          this.finishEditMode(target);
-          break;
-        case '삭제':
-          const { productName } = target.dataset;
-          if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
-            return;
-          this.deleteProduct(productName);
-      }
-    });
+  addButtonClickEvent() {
+    this.$container.addEventListener('click', this.buttonClickHandler);
   }
+
+  buttonClickHandler = ({ target }) => {
+    if (target.tagName !== 'BUTTON') return;
+
+    switch (target.innerText) {
+      case '수정':
+        this.activateEditMode(target);
+        break;
+      case '확인':
+        this.finishEditMode(target);
+        break;
+      case '삭제':
+        const { productName } = target.dataset;
+        if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
+          return;
+        this.deleteProduct(productName);
+    }
+  };
 
   activateEditMode($button) {
     $button.innerText = '확인';

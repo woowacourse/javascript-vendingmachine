@@ -9,21 +9,23 @@ export default class CoinChargeUI {
   }
 
   addSubmitEvent() {
-    $('.coin-charge__form').addEventListener('submit', e => {
-      e.preventDefault();
-      const cash = e.target.elements.cashInput.valueAsNumber;
-
-      try {
-        validateCash(cash);
-      } catch ({ message }) {
-        alert(message);
-        return;
-      }
-
-      this.coinDomain.addCash(cash);
-
-      $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
-      viewPainter.renderCoins();
-    });
+    $('.coin-charge__form').addEventListener('submit', this.submitHandler);
   }
+
+  submitHandler = e => {
+    e.preventDefault();
+    const cash = e.target.elements.cashInput.valueAsNumber;
+
+    try {
+      validateCash(cash);
+    } catch ({ message }) {
+      alert(message);
+      return;
+    }
+
+    this.coinDomain.addCash(cash);
+
+    $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
+    viewPainter.renderCoins();
+  };
 }

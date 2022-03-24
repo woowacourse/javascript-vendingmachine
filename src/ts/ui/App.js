@@ -21,41 +21,45 @@ export default class App {
   }
 
   addNavClickEvent() {
-    $('.nav').addEventListener('click', ({ target }) => {
-      if (target.tagName !== 'BUTTON') return;
-
-      this.activateClickedButton(target.dataset.pathname);
-      history.pushState({}, '', target.dataset.pathname);
-
-      switch (target.dataset.pathname) {
-        case '/':
-          this.productManagementUI.render();
-          break;
-        case '/charge':
-          this.coinManagementUI.render();
-          break;
-        case '/purchase':
-          this.productPurchaseUI.render();
-      }
-    });
+    $('.nav').addEventListener('click', this.navClickHandler);
   }
+
+  navClickHandler = ({ target }) => {
+    if (target.tagName !== 'BUTTON') return;
+
+    this.activateClickedButton(target.dataset.pathname);
+    history.pushState({}, '', target.dataset.pathname);
+
+    switch (target.dataset.pathname) {
+      case '/':
+        this.productManagementUI.render();
+        break;
+      case '/charge':
+        this.coinManagementUI.render();
+        break;
+      case '/purchase':
+        this.productPurchaseUI.render();
+    }
+  };
 
   addPopStateEvent() {
-    window.addEventListener('popstate', () => {
-      this.activateClickedButton(location.pathname);
-
-      switch (location.pathname) {
-        case '/':
-          this.productManagementUI.render();
-          break;
-        case '/charge':
-          this.coinManagementUI.render();
-          break;
-        case '/purchase':
-          this.productPurchaseUI.render();
-      }
-    });
+    window.addEventListener('popstate', this.popStateHandler);
   }
+
+  popStateHandler = () => {
+    this.activateClickedButton(location.pathname);
+
+    switch (location.pathname) {
+      case '/':
+        this.productManagementUI.render();
+        break;
+      case '/charge':
+        this.coinManagementUI.render();
+        break;
+      case '/purchase':
+        this.productPurchaseUI.render();
+    }
+  };
 
   activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
