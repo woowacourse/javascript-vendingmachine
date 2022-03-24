@@ -41,10 +41,29 @@ class View {
       if (container.id === id) {
         container.classList.remove('hide');
         this.$$tabButtons[index].checked = true;
+        this.renderUpdatedView(id);
         return;
       }
       container.classList.add('hide');
     });
+  };
+
+  renderUpdatedView = (id: string) => {
+    console.log(id);
+    const containerBranch = {
+      'product-manage-container': () => {
+        this.productManageView.renderProductManage();
+      },
+      'recharge-container': () => {
+        // this.renderRecharge();
+      },
+      'purchase-product-container': () => {
+        // this.renderPurchaseProduct();
+      },
+    };
+    if (containerBranch[id]) {
+      containerBranch[id]();
+    }
   };
 
   tabRouter = (url: string, isPopState = false) => {
