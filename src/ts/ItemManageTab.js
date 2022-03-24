@@ -59,13 +59,12 @@ class ItemManageTab {
     }
 
     if (e.target.classList.contains('edit-item-button')) {
-      const itemInfoCellList = targetItem.querySelectorAll('.item-info-cell');
+      const itemInfoInputCellList = targetItem.querySelectorAll('.item-info-input-cell');
 
-      itemInfoCellList.forEach((itemInfoCell) => {
-        itemInfoCell.classList.add('editable');
-        itemInfoCell.setAttribute('contenteditable', true);
+      itemInfoInputCellList.forEach((itemInfoInputCell) => {
+        itemInfoInputCell.disabled = false;
       });
-      itemInfoCellList[0].focus();
+      itemInfoInputCellList[0].focus();
 
       const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
       itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
@@ -84,9 +83,9 @@ class ItemManageTab {
     }
 
     if (e.target.classList.contains('confirm-item-button')) {
-      const itemInfoCellList = targetItem.querySelectorAll('.item-info-cell');
-      const [itemName, itemPrice, itemQuantity] = Array.from(itemInfoCellList).map(
-        (itemInfoCell) => itemInfoCell.textContent
+      const itemInfoInputCellList = targetItem.querySelectorAll('.item-info-input-cell');
+      const [itemName, itemPrice, itemQuantity] = Array.from(itemInfoInputCellList).map(
+        (itemInfoInputCell) => itemInfoInputCell.value
       );
 
       try {
@@ -106,9 +105,8 @@ class ItemManageTab {
         targetItem.rowIndex - 1
       );
 
-      itemInfoCellList.forEach((itemInfoCell) => {
-        itemInfoCell.classList.remove('editable');
-        itemInfoCell.setAttribute('contenteditable', false);
+      itemInfoInputCellList.forEach((itemInfoInputCell) => {
+        itemInfoInputCell.disabled = true;
       });
 
       const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
