@@ -1,4 +1,5 @@
 import VendingMachine from '../ts/VendingMachine';
+import { ITEM_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 
 describe('상품 추가할 때, 입력값 유효성 확인', () => {
   const vendingMachine = new VendingMachine();
@@ -9,7 +10,17 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 20;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '빈칸 없이 모두 입력해주세요.'
+      ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED
+    );
+  });
+
+  test('가격과 수량은 숫자 타입이어야 한다.', () => {
+    const itemName = 'asdfasdf';
+    const itemPrice = NaN;
+    const itemQuantity = NaN;
+
+    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+      ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE
     );
   });
 
@@ -19,7 +30,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 10;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품명은 최대 10글자까지 가능합니다.'
+      ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH
     );
   });
 
@@ -29,7 +40,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 10;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품 가격은 100원 이상, 10,000원 이하여야 합니다.'
+      ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE
     );
   });
 
@@ -39,7 +50,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 10;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품 가격은 100원 이상, 10,000원 이하여야 합니다.'
+      ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE
     );
   });
 
@@ -57,7 +68,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 10;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품 가격은 10원으로 나누어 떨어져야 합니다.'
+      ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT
     );
   });
 
@@ -67,7 +78,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 21;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품 수량은 최소 1개부터 최대 20개까지 넣을 수 있습니다.'
+      ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE
     );
   });
 });
