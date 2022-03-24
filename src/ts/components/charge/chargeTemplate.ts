@@ -11,10 +11,10 @@ const chargeTemplate = () => {
         </form>  
       </div>
       <div>
-        <p>현재 보유 금액: 0원</p>
+        <p>현재 보유 금액: <span id="current-contain-charge"></span>원</p>
       </div>
       <div>
-        <h1 id="charge-table-title">자판기가 보여한 동전</h1>
+        <h1 id="charge-table-title">자판기가 보유한 동전</h1>
         <table id="charge-control-table">
           <tr> 
             <th>동전</th>
@@ -22,19 +22,19 @@ const chargeTemplate = () => {
           </tr>
           <tr>
             <td>500원</td>
-            <td>0개</td>
+            <td class="charge-coin-count">0개</td>
           </tr>
           <tr>
             <td>100원</td>
-            <td>0개</td>
+            <td class="charge-coin-count">0개</td>
           </tr>
           <tr>
             <td>50원</td>
-            <td>0개</td>
+            <td class="charge-coin-count">0개</td>
           </tr>
           <tr>
             <td>10원</td>
-            <td>0개</td>
+            <td class="charge-coin-count">0개</td>
           </tr>
         </table>
       </div>
