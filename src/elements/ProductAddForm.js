@@ -1,4 +1,7 @@
+import ProductStore from '../domains/stores/ProductStore';
+import { createAction, PRODUCT_ACTION } from '../domains/actions';
 import CustomElement from '../abstracts/CustomElement';
+import { $ } from '../utils/dom';
 
 class ProductAddForm extends CustomElement {
   template() {
@@ -15,7 +18,21 @@ class ProductAddForm extends CustomElement {
     `;
   }
 
-  setEvent() {}
+  setEvent() {
+    $('product-add-form').addEventListener('submit', this.handleProductAddFormSubmit);
+  }
+
+  handleProductAddFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newProduct = {
+      name: $('.product-name-input').value,
+      price: $('.product-price-input').value,
+      quantity: $('.product-price-input').value,
+    };
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
+  };
 }
 
 customElements.define('product-add-form', ProductAddForm);
