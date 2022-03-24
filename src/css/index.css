@@ -46,7 +46,7 @@ h1 {
   height: 36px;
 }
 
-.button .focus {
+.focus-button {
   background: var(--button-focus-bg-color);
 }
 
