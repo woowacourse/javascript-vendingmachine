@@ -10,16 +10,35 @@
     <div id="app">
       <header>
         <h1 id="app-title">🍿 자판기 🍿</h1>
-        <nav>
-          <button type="button" class="tab-menu-button current">
+        <nav id="tab-menu-navigation">
+          <a
+            type="button"
+            id="manage-tab-menu"
+            class="tab-menu-button"
+            href="#/manage"
+          >
             상품 관리
-          </button>
-          <button type="button" class="tab-menu-button">잔돈 충전</button>
-          <button type="button" class="tab-menu-button">상품 구매</button>
+          </a>
+          <a
+            type="button"
+            id="charge-tab-menu"
+            class="tab-menu-button"
+            href="#/charge"
+          >
+            잔돈 충전
+          </a>
+          <a
+            type="button"
+            id="purchase-tab-menu"
+            class="tab-menu-button"
+            href="#/purchase"
+          >
+            상품 구매
+          </a>
         </nav>
       </header>
       <main>
-        <section title="상품 정보">
+        <!-- <section title="상품 정보">
           <form>
             <fieldset>
               <legend>추가할 상품 정보를 입력해주세요.</legend>
@@ -70,10 +89,10 @@
               </td>
             </tr>
           </table>
-        </section>
+        </section> -->
       </main>
-      <main>
-        <section title="잔돈 충전">
+      <!-- <main> -->
+      <!-- <section title="잔돈 충전">
           <form id="add-change-form">
             <label for="">자판기가 보유할 금액을 입력해주세요</label>
             <div>
@@ -109,8 +128,8 @@
               <td>5개</td>
             </tr>
           </table>
-        </section>
-      </main>
+        </section> -->
+      <!-- </main> -->
     </div>
   </body>
 </html>

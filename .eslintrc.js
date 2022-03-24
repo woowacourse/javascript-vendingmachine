@@ -31,17 +31,22 @@ module.exports = {
     'no-alert': 'off',
     'comma-dangle': 'off',
     'class-methods-use-this': 'off',
+    'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'linebreak-style': 'off',
     'object-curly-newline': 'off',
-    'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'implicit-arrow-linebreak': 'off',
     'function-paren-newline': 'off',
+    'operator-linebreak': 'off',
     'no-param-reassign': [
       'error',
       {
         props: false,
       },
     ],
-    // 'operator-linebreak': 'off',
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
   },
 };
