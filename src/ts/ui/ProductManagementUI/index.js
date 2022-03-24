@@ -1,4 +1,5 @@
 import { $ } from '../../utils/dom';
+import { viewPainter } from '../ViewPainter';
 import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
 
@@ -50,6 +51,7 @@ export default class ProductManagementUI {
 
   bindDOM() {
     new ProductAdditionUI(this.productDomain);
-    new ProductInventoryUI(this.productDomain);
+    const productInventoryUI = new ProductInventoryUI(this.productDomain);
+    viewPainter.productInventoryUI = productInventoryUI;
   }
 }

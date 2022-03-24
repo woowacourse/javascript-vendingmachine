@@ -1,6 +1,6 @@
 import { $ } from '../../utils/dom';
-import { viewPainter } from '../../..';
 import { validateProductInfo } from '../../utils/validator';
+import { viewPainter } from '../ViewPainter';
 
 export default class ProductAdditionUI {
   constructor(productDomain) {
@@ -31,7 +31,7 @@ export default class ProductAdditionUI {
       }
 
       this.productDomain.addProduct(product);
-      // viewPainter.renderProducts();
+      viewPainter.renderProducts();
     });
   }
 }

@@ -1,7 +1,7 @@
-import { viewPainter } from '../../..';
 import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from '../../utils/validator';
+import { viewPainter } from '../ViewPainter';
 
 export default class ProductInventoryUI {
   constructor(productDomain) {
@@ -74,7 +74,7 @@ export default class ProductInventoryUI {
 
     this.productDomain.editProduct($button.dataset.productName, product);
     this.deactivateEditMode($button);
-    // viewPainter.renderProducts();
+    viewPainter.renderProducts();
   }
 
   deleteProduct(productName) {

@@ -1,9 +1,12 @@
-export default class ViewPainter {
-  constructor(productInventoryUI) {
-    this.productInventoryUI = productInventoryUI;
+class ViewPainter {
+  #productInventoryUI;
+  renderProducts() {
+    this.#productInventoryUI.render();
   }
 
-  renderProducts() {
-    this.productInventoryUI.render();
+  set productInventoryUI(productInventoryUI) {
+    this.#productInventoryUI = productInventoryUI;
   }
 }
+
+export const viewPainter = new ViewPainter();
