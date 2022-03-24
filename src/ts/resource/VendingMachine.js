@@ -3,10 +3,11 @@ exports.__esModule = true;
 var ProductManageImpl_1 = require("../tab/ProductManageImpl");
 var ChargeMoneyImpl_1 = require("../tab/ChargeMoneyImpl");
 var dom_1 = require("../util/dom");
+var index_1 = require("../constants/index");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
         this.products = [];
-        this.coins = [{ amount: 10, count: 0 }, { amount: 50, count: 0 }, { amount: 100, count: 0 }, { amount: 500, count: 0 }];
+        this.coins = [{ amount: index_1.COINS.VAULE_10, count: 0 }, { amount: index_1.COINS.VAULE_50, count: 0 }, { amount: index_1.COINS.VAULE_100, count: 0 }, { amount: index_1.COINS.VAULE_500, count: 0 }];
         new ProductManageImpl_1["default"](this.products);
         new ChargeMoneyImpl_1["default"](this.coins);
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));

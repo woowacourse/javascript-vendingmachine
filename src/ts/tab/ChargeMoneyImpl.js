@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var dom_1 = require("../util/dom");
+var index_1 = require("../constants/index");
 var ChargeMoneyImpl = /** @class */ (function () {
     function ChargeMoneyImpl(coins) {
         var _this = this;
@@ -22,10 +23,10 @@ var ChargeMoneyImpl = /** @class */ (function () {
         this.coins.forEach(function (coin, index) { return coin.count += coinList[index]; });
     };
     ChargeMoneyImpl.prototype.isValidMoney = function (inputMoney) {
-        if (inputMoney < 1000 || inputMoney % 10 !== 0) {
+        if (inputMoney < index_1.INPUT_MONEY_RULES.MIN || inputMoney % index_1.INPUT_MONEY_RULES.MOD_UNIT !== 0) {
             return false;
         }
-        if (this.totalAmount() + inputMoney > 100000) {
+        if (this.totalAmount() + inputMoney > index_1.INPUT_MONEY_RULES.MAX) {
             return false;
         }
         return true;

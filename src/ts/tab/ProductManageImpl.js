@@ -10,6 +10,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 exports.__esModule = true;
 var dom_1 = require("../util/dom");
+var index_1 = require("../constants/index");
 var ProductManageImpl = /** @class */ (function () {
     function ProductManageImpl(products) {
         var _this = this;
@@ -39,8 +40,7 @@ var ProductManageImpl = /** @class */ (function () {
             this.drawProductList();
         }
     };
-    ProductManageImpl.prototype.rowIndex = function (productRow) {
-        console.log((0, dom_1.$)('#product-list').childNodes);
+    ProductManageImpl.prototype.getProductRowIndex = function (productRow) {
         return __spreadArray([], (0, dom_1.$)('#product-list').childNodes, true).findIndex(function (row) { return row === productRow; });
     };
     ProductManageImpl.prototype.handleClickButtons = function (e) {
@@ -53,9 +53,8 @@ var ProductManageImpl = /** @class */ (function () {
         }
         if (e.target.classList.contains('confirm-button')) {
             var productInfo = this.getProductInfoModify(e.target.closest('tr'));
-            var index = this.rowIndex(e.target.closest('tr'));
+            var index = this.getProductRowIndex(e.target.closest('tr'));
             if (this.isValidModifyProductInfo(productInfo, index)) {
-                console.log(this.isValidModifyProductInfo(productInfo, index));
                 this.modifyProduct(productInfo, index);
                 this.drawProductList();
             }
@@ -63,13 +62,13 @@ var ProductManageImpl = /** @class */ (function () {
     };
     ProductManageImpl.prototype.isValidModifyProductInfo = function (_a, index) {
         var name = _a.name, price = _a.price, quantity = _a.quantity;
-        if (name.length < 1 || name.length > 10) {
+        if (name.length < index_1.PRODUCT_RULES.MIN_NAME_LENGTH || name.length > index_1.PRODUCT_RULES.MAX_NAME_LENGTH) {
             return false;
         }
-        if (price < 100 || price > 10000 || price % 10 !== 0) {
+        if (price < index_1.PRODUCT_RULES.MIN_PRICE || price > index_1.PRODUCT_RULES.MAX_PRICE || price % index_1.PRODUCT_RULES.PRICE_MOD_UNIT !== 0) {
             return false;
         }
-        if (quantity < 0 || quantity > 20) {
+        if (quantity < index_1.PRODUCT_RULES.MIN_QUANTITY || quantity > index_1.PRODUCT_RULES.MAX_QUANTITY) {
             return false;
         }
         if (this.products.some(function (product, productIndex) { return productIndex !== index && product.name === name; })) {
