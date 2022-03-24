@@ -1,10 +1,12 @@
 import { $ } from '../util/dom';
 import { Product } from '../resource/declaration';
 import { ProductManage } from './declaration';
-import vendingMachineResource from '../resource/vendingMachineResource';
 
 class ProductManageImpl implements ProductManage {
-  addEvent() {
+  private products: Array<Product>;
+
+  constructor(products: Array<Product>) {
+    this.products = products;
     $('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
     $('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
   }
@@ -36,7 +38,7 @@ class ProductManageImpl implements ProductManage {
       const quantity = Number($('.product-info-quantity', e.target.closest('tr')).value);
       this.modifyProduct(name, price, quantity);
       if (this.isValidModifyProductInfo(name, price, quantity)) {
-        vendingMachineResource.products[this.getProductIndex(name)] = { name, price, quantity };
+        this.products[this.getProductIndex(name)] = { name, price, quantity };
         this.drawProductList();
       }
     }
@@ -59,7 +61,7 @@ class ProductManageImpl implements ProductManage {
     if (name.length < 1 || name.length > 10) {
       return false;
     }
-    if (vendingMachineResource.products.some((product: Product) => product.name === name)) {
+    if (this.products.some((product: Product) => product.name === name)) {
       return false;
     }
     if (price < 100 || price > 10000 || price % 10 !== 0) {
@@ -72,7 +74,7 @@ class ProductManageImpl implements ProductManage {
   }
 
   drawProductList() {
-    const template = vendingMachineResource
+    const template = this
       .products
       .map(
         ({ name, price, quantity }: Product) => 
@@ -95,22 +97,22 @@ class ProductManageImpl implements ProductManage {
   }
 
   addProduct(name: string, price: number, quantity: number): void {
-    vendingMachineResource.products.push({ name, price, quantity });
+    this.products.push({ name, price, quantity });
 
   }
 
   modifyProduct(name: string, price: number, quantity: number): void {
     if (this.isValidProductInfo(name, price, quantity)) {
-      vendingMachineResource.products[this.getProductIndex(name)] = { name, price, quantity };
+      this.products[this.getProductIndex(name)] = { name, price, quantity };
     }
   }
   
   deleteProduct(name: string): void {
-    vendingMachineResource.products.splice(this.getProductIndex(name), 1);
+    this.products.splice(this.getProductIndex(name), 1);
   }
 
   getProductIndex(name: string) {
-    return vendingMachineResource.products.findIndex((product: Product) => product.name === name);
+    return this.products.findIndex((product: Product) => product.name === name);
   }
 }
 

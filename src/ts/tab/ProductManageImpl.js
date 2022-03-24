@@ -1,14 +1,12 @@
 "use strict";
 exports.__esModule = true;
 var dom_1 = require("../util/dom");
-var vendingMachineResource_1 = require("../resource/vendingMachineResource");
 var ProductManageImpl = /** @class */ (function () {
-    function ProductManageImpl() {
-    }
-    ProductManageImpl.prototype.addEvent = function () {
+    function ProductManageImpl(products) {
+        this.products = products;
         (0, dom_1.$)('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
         (0, dom_1.$)('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
-    };
+    }
     ProductManageImpl.prototype.handleAddProduct = function (e) {
         e.preventDefault();
         var name = (0, dom_1.$)('#product-name-input').value;
@@ -33,7 +31,7 @@ var ProductManageImpl = /** @class */ (function () {
             var quantity = Number((0, dom_1.$)('.product-info-quantity', e.target.closest('tr')).value);
             this.modifyProduct(name_1, price, quantity);
             if (this.isValidModifyProductInfo(name_1, price, quantity)) {
-                vendingMachineResource_1["default"].products[this.getProductIndex(name_1)] = { name: name_1, price: price, quantity: quantity };
+                this.products[this.getProductIndex(name_1)] = { name: name_1, price: price, quantity: quantity };
                 this.drawProductList();
             }
         }
@@ -54,7 +52,7 @@ var ProductManageImpl = /** @class */ (function () {
         if (name.length < 1 || name.length > 10) {
             return false;
         }
-        if (vendingMachineResource_1["default"].products.some(function (product) { return product.name === name; })) {
+        if (this.products.some(function (product) { return product.name === name; })) {
             return false;
         }
         if (price < 100 || price > 10000 || price % 10 !== 0) {
@@ -66,7 +64,7 @@ var ProductManageImpl = /** @class */ (function () {
         return true;
     };
     ProductManageImpl.prototype.drawProductList = function () {
-        var template = vendingMachineResource_1["default"]
+        var template = this
             .products
             .map(function (_a) {
             var name = _a.name, price = _a.price, quantity = _a.quantity;
@@ -77,18 +75,18 @@ var ProductManageImpl = /** @class */ (function () {
         (0, dom_1.$)('#product-list').insertAdjacentHTML('beforeend', template);
     };
     ProductManageImpl.prototype.addProduct = function (name, price, quantity) {
-        vendingMachineResource_1["default"].products.push({ name: name, price: price, quantity: quantity });
+        this.products.push({ name: name, price: price, quantity: quantity });
     };
     ProductManageImpl.prototype.modifyProduct = function (name, price, quantity) {
         if (this.isValidProductInfo(name, price, quantity)) {
-            vendingMachineResource_1["default"].products[this.getProductIndex(name)] = { name: name, price: price, quantity: quantity };
+            this.products[this.getProductIndex(name)] = { name: name, price: price, quantity: quantity };
         }
     };
     ProductManageImpl.prototype.deleteProduct = function (name) {
-        vendingMachineResource_1["default"].products.splice(this.getProductIndex(name), 1);
+        this.products.splice(this.getProductIndex(name), 1);
     };
     ProductManageImpl.prototype.getProductIndex = function (name) {
-        return vendingMachineResource_1["default"].products.findIndex(function (product) { return product.name === name; });
+        return this.products.findIndex(function (product) { return product.name === name; });
     };
     return ProductManageImpl;
 }());

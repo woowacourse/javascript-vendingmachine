@@ -1,13 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var vendingMachineResource_1 = require("../resource/vendingMachineResource");
 var dom_1 = require("../util/dom");
 var ChargeMoneyImpl = /** @class */ (function () {
-    function ChargeMoneyImpl() {
-    }
-    ChargeMoneyImpl.prototype.addEvent = function () {
+    function ChargeMoneyImpl(coins) {
+        this.coins = coins;
         (0, dom_1.$)('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
-    };
+    }
     ChargeMoneyImpl.prototype.handleChargeMoney = function (e) {
         e.preventDefault();
         var inputMoney = Number((0, dom_1.$)('#charge-money-input').value);
@@ -18,13 +16,13 @@ var ChargeMoneyImpl = /** @class */ (function () {
         }
     };
     ChargeMoneyImpl.prototype.chargeMoney = function (coinList) {
-        vendingMachineResource_1["default"].coins.forEach(function (coin, index) { return coin.count += coinList[index]; });
+        this.coins.forEach(function (coin, index) { return coin.count += coinList[index]; });
     };
     ChargeMoneyImpl.prototype.isValidMoney = function (inputMoney) {
         if (inputMoney < 1000 || inputMoney % 10 !== 0) {
             return false;
         }
-        var totalAmout = vendingMachineResource_1["default"].coins.reduce(function (acc, _a) {
+        var totalAmout = this.coins.reduce(function (acc, _a) {
             var amount = _a.amount, count = _a.count;
             return acc + amount * count;
         }, 0);
@@ -45,7 +43,7 @@ var ChargeMoneyImpl = /** @class */ (function () {
         return coinList;
     };
     ChargeMoneyImpl.prototype.drawCoins = function () {
-        vendingMachineResource_1["default"].coins.forEach(function (_a) {
+        this.coins.forEach(function (_a) {
             var amount = _a.amount, count = _a.count;
             (0, dom_1.$)("#coin-".concat(amount, "-count")).innerText = "".concat(count, "\uAC1C");
         });

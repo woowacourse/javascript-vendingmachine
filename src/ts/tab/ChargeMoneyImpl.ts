@@ -1,9 +1,12 @@
-import vendingMachineResource from "../resource/vendingMachineResource";
 import { $ } from "../util/dom";
 import { ChargeMoney } from './declaration';
+import { Coin } from '../resource/declaration'
 
 class ChargeMoneyImpl implements ChargeMoney {
-  addEvent() {
+  private coins: Array<Coin>;
+
+  constructor(coins: Array<Coin>) {
+    this.coins = coins;
     $('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
   }
 
@@ -20,14 +23,14 @@ class ChargeMoneyImpl implements ChargeMoney {
   }
 
   chargeMoney(coinList: Array<number>) {
-    vendingMachineResource.coins.forEach((coin, index) => coin.count += coinList[index]);
+    this.coins.forEach((coin, index) => coin.count += coinList[index]);
   }
 
   isValidMoney(inputMoney: number) {
     if (inputMoney < 1000 || inputMoney % 10 !== 0) {
       return false;
     }
-    const totalAmout = vendingMachineResource.coins.reduce(
+    const totalAmout = this.coins.reduce(
       (acc, { amount, count }) => acc + amount * count, 0);
       
     if (totalAmout + inputMoney > 100000) {
@@ -52,7 +55,7 @@ class ChargeMoneyImpl implements ChargeMoney {
   }  
 
   drawCoins() {
-    vendingMachineResource.coins.forEach(({ amount, count }) => {
+    this.coins.forEach(({ amount, count }) => {
       $(`#coin-${amount}-count`).innerText = `${count}개`;
     });
   }
