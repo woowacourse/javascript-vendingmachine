@@ -8,12 +8,17 @@ export default class Controller {
     this.productManager = new ProductManager();
     this.productManageView = new ProductManageView();
 
-    on(this.productManageView.$sectionContainer, '@submit', this.#handle.bind(this));
+    on(
+      this.productManageView.$sectionContainer,
+      '@submit',
+      this.#handleProductInformation.bind(this)
+    );
   }
 
-  #handle(event) {
+  #handleProductInformation(event) {
     const { keyword } = event.detail;
     this.productManager.addProduct(keyword);
     this.productManageView.renderTable(keyword);
+    this.productManageView.resetProductInput();
   }
 }

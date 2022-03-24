@@ -1,4 +1,5 @@
 import { $ } from '../utils/dom.js';
+import { emit } from '../utils/event.js';
 import { CATEGORY_TEMPLATE } from '../template.js';
 
 const routes = {
@@ -17,6 +18,7 @@ const render = () => {
   selectTab(hash);
   sectionContainer.replaceChildren();
   sectionContainer.insertAdjacentHTML('beforeend', routes[hash] ?? '');
+  if (hash === '#!manage') emit(sectionContainer, '@select');
 };
 
 const selectTab = (hash) => {
