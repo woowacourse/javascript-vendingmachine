@@ -28,7 +28,7 @@ export default class AppView {
     $('.nav-container').addEventListener('click', event => {
       const { target } = event;
       this.customEvent(target);
-      this.changeButtonColor(target);
+      this.changeButtonColor(target.id);
     });
   }
 
@@ -40,10 +40,10 @@ export default class AppView {
     window.addEventListener('popstate', callback);
   }
 
-  changeButtonColor(clickedButton) {
+  changeButtonColor(buttonID) {
     const navButtons = $$('.nav-button');
     navButtons.forEach(navButton =>
-      navButton === clickedButton
+      navButton.id === buttonID
         ? navButton.classList.add('nav-button-clicked')
         : navButton.classList.remove('nav-button-clicked'),
     );

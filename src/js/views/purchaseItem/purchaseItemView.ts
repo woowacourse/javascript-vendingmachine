@@ -1,4 +1,4 @@
-import { $ } from '../../utils/common';
+import { $, $$ } from '../../utils/common';
 import { purchaseItemTemplate } from './template';
 
 export default class PurchaseItemView {
@@ -10,10 +10,5 @@ export default class PurchaseItemView {
   render(items, coins, inputMoney) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, coins, inputMoney));
-  }
-
-  bindEvents() {
-    // 추가
-    // 수정,가제
   }
 }

@@ -33,15 +33,17 @@ export default class ManageItemView {
         const item = { name, price, quantity };
 
         if (event.target.textContent === '삭제') {
-          this.tableItemDeleteEvent(item);
-          target.remove();
-          return;
+          if (window.confirm('정말로 삭제하시겠습니까?')) {
+            this.tableItemDeleteEvent(item);
+            target.remove();
+            return;
+          }
         }
         if (event.target.textContent === '수정') {
           target.replaceChildren();
           target.insertAdjacentHTML('beforeEnd', sectionTemplate.changeTableContainer(item));
+          this.clickEventBind();
         }
-        this.clickEventBind();
       });
     });
   }
@@ -64,10 +66,6 @@ export default class ManageItemView {
 
           const item = { name, price, quantity };
           this.tableItemChangeEvent(item, targetIndex, targetElement);
-
-          // target.replaceChildren();
-          // target.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
-          // this.bindEvents();
         } catch (error) {
           alert(error.message);
         }

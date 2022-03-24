@@ -3,11 +3,11 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
-import { $ } from '../utils/common';
+import { $, $$ } from '../utils/common';
 
 export default class AppController {
   vendingMachine: VendingMachine;
-  ManageItemController: ManageItemController;
+  manageItemController: ManageItemController;
   chargeMoneyController: ChargeMoneyController;
   purchaseItemController: PurchaseItemController;
   appView: AppView;
@@ -16,7 +16,7 @@ export default class AppController {
     this.vendingMachine = new VendingMachine();
 
     this.appView = new AppView();
-    this.ManageItemController = new ManageItemController(this.vendingMachine);
+    this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
 
@@ -47,13 +47,17 @@ export default class AppController {
   route() {
     const { pathname } = window.location;
     if (pathname === '/') {
-      this.ManageItemController.render();
+      this.manageItemController.render();
+      this.appView.changeButtonColor('item-manage-tab');
     } else if (pathname === '/mangeItem') {
-      this.ManageItemController.render();
+      this.manageItemController.render();
+      this.appView.changeButtonColor('item-manage-tab');
     } else if (pathname === '/chargeMoney') {
       this.chargeMoneyController.render();
+      this.appView.changeButtonColor('money-charge-tab');
     } else if (pathname === '/purchaseItem') {
       this.purchaseItemController.render();
+      this.appView.changeButtonColor('item-purchase-tab');
     }
   }
 }

@@ -1,4 +1,4 @@
-import { $ } from '../../utils/common';
+import { $, $$ } from '../../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from './template';
 import { validateInputMoney } from '../../validates/inputValidates';
 
@@ -11,6 +11,7 @@ export default class ChargeMoneyView {
   render(coins, totalMoney) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
+
     this.bindChargeButton();
   }
 
