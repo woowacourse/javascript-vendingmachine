@@ -3,9 +3,9 @@ import { $, $$ } from '../utils/common';
 const navigation = {
   $navContainer: $('.nav-container'),
   $navButton: $$('.nav-button'),
-  $itemManage: $('#상품관리'),
-  $moneyCharge: $('#잔돈충전'),
-  $itemPurchase: $('#상품구매'),
+  $ManageItem: $('#상품관리'),
+  $chargeMoney: $('#잔돈충전'),
+  $purchaseItem: $('#상품구매'),
 
   // Event
   bindEvents(callback) {

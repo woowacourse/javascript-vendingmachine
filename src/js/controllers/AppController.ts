@@ -1,20 +1,20 @@
-import ItemManageController from './itemManageController';
-import MoneyChargeController from './moneyChargeController';
-import ItemPurchaseController from './itemPurchaseController';
+import ManageItemController from './manageItemController';
+import ChargeMoneyController from './chargeMoneyController';
+import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import navigation from '../views/navigation';
 
 export default class AppController {
   vendingMachine: VendingMachine;
-  itemManageController: ItemManageController;
-  moneyChargeController: MoneyChargeController;
-  itemPurchaseController: ItemPurchaseController;
+  ManageItemController: ManageItemController;
+  chargeMoneyController: ChargeMoneyController;
+  purchaseItemController: PurchaseItemController;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
-    this.itemManageController = new ItemManageController(this.vendingMachine);
-    this.moneyChargeController = new MoneyChargeController(this.vendingMachine);
-    this.itemPurchaseController = new ItemPurchaseController(this.vendingMachine);
+    this.ManageItemController = new ManageItemController(this.vendingMachine);
+    this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
+    this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
   }
 
   bindEvents() {
@@ -25,13 +25,13 @@ export default class AppController {
   onClickNavButton(event) {
     if (event.target.classList.contains('nav-button')) {
       if (event.target.id === 'item-manage-tab') {
-        window.history.pushState(null, '상품 관리', 'itemMange');
+        window.history.pushState(null, '상품 관리', 'mangeItem');
       }
       if (event.target.id === 'money-charge-tab') {
-        window.history.pushState(null, '잔돈 충전', 'moneyCharge');
+        window.history.pushState(null, '잔돈 충전', 'chargeMoney');
       }
       if (event.target.id === 'item-purchase-tab') {
-        window.history.pushState(null, '상품 구매', 'itemPurchase');
+        window.history.pushState(null, '상품 구매', 'purchaseItem');
       }
     }
     this.route();
@@ -40,13 +40,13 @@ export default class AppController {
   route() {
     const { pathname } = window.location;
     if (pathname === '/') {
-      this.itemManageController.render();
-    } else if (pathname === '/itemMange') {
-      this.itemManageController.render();
-    } else if (pathname === '/moneyCharge') {
-      this.moneyChargeController.render();
-    } else if (pathname === '/itemPurchase') {
-      this.itemPurchaseController.render();
+      this.ManageItemController.render();
+    } else if (pathname === '/mangeItem') {
+      this.ManageItemController.render();
+    } else if (pathname === '/chargeMoney') {
+      this.chargeMoneyController.render();
+    } else if (pathname === '/purchaseItem') {
+      this.purchaseItemController.render();
     }
   }
 }

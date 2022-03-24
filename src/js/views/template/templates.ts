@@ -98,7 +98,7 @@ const sharedTemplate = {
       </table>
     </section>`;
   },
-  itemPurchaseTableContainer(items) {
+  purchaseItemTableContainer(items) {
     return `
     <section class="table-container">
       <h2>구매 가능 상품 현황</h2>
@@ -152,18 +152,18 @@ const sharedTemplate = {
   },
 };
 
-export const itemMangeTemplate = items => `
+export const mangeItemTemplate = items => `
   ${sharedTemplate.addInputContainer()}
   ${sharedTemplate.itemTableContainer(items)}
 `;
 
-export const MoneyChargeTemplate = (coins, currentMoney) => `
+export const chargeMoneyTemplate = (coins, currentMoney) => `
   ${sharedTemplate.chargeMoneyInputContainer(currentMoney)}
   ${sharedTemplate.coinTableContainer(coins)}
 `;
 
-export const itemPurchaseTemplate = (items, coins, inputMoney) => `
+export const purchaseItemTemplate = (items, coins, inputMoney) => `
   ${sharedTemplate.purchaseItemInputContainer(inputMoney)}
-  ${sharedTemplate.itemPurchaseTableContainer(items)}
+  ${sharedTemplate.purchaseItemTableContainer(items)}
   ${sharedTemplate.returnCoinTableContainer(coins)}
 `;
