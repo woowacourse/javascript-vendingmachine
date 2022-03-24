@@ -8,6 +8,7 @@ export default class ChargeMoneyController {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
     this.chargeMoneyView = new ChargeMoneyView();
+    this.bindCustomEvents();
   }
 
   render() {
@@ -22,5 +23,16 @@ export default class ChargeMoneyController {
       totalMoney += coins[coinKey] * COINS[coinKey];
     });
     return totalMoney;
+  }
+
+  bindCustomEvents() {
+    window.addEventListener('CHARGE_MONEY', this.onChargeMoneySubmit.bind(this));
+  }
+
+  onChargeMoneySubmit(event) {
+    const { inputMoney } = event.detail;
+    this.vendingMachine.chargeMoney(inputMoney);
+    this.chargeMoneyView.updateCurrentMoney(this.vendingMachine.getInputMoney());
+    this.chargeMoneyView.updateCoinsTable(this.vendingMachine.getCoins());
   }
 }

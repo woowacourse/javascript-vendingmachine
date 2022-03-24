@@ -24,3 +24,18 @@ export const validateAddItemInput = (name, price, quantity) => {
     throw new Error('100개 보다 많은 수량을 입력할 수 없습니다.');
   }
 };
+
+export const validateInputMoney = inputMoney => {
+  if (!Number.isInteger(inputMoney)) {
+    throw new Error('정수가 아닌 숫자는 금액으로 입력할 수 없습니다.');
+  }
+  if (inputMoney <= 0) {
+    throw new Error('0원이하의 금액은 투입할 수 없습니다.');
+  }
+  if (inputMoney > 1000000) {
+    throw new Error('1,000,000원 보다 많은 금액을 투입할 수 없습니다.');
+  }
+  if (inputMoney % 10 !== 0) {
+    throw new Error('10원 단위의 금액만 투입할 수 있습니다.');
+  }
+};

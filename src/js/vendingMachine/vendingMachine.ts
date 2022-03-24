@@ -75,6 +75,8 @@ export default class VendingMachine {
 
   chargeMoney(money: number) {
     const newCoins = this.generateRandomCoins(money);
+    const newMoney = this.getInputMoney() + money;
     this.setCoins(newCoins);
+    this.setInputMoney(newMoney);
   }
 }
