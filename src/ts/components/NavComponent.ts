@@ -1,6 +1,10 @@
 import ProductInputComponent from './ProductManageComponent/ProductInputComponent';
 import ProductStateComponent from './ProductManageComponent/ProductsStateComponent';
+import CoinInputComponent from './CoinManageComponent/CoinInputComponent';
+
 import VendingMachineProductManager from '../VendingMachineProductManager';
+import VendingMachineCoinManager from '../VendingMachineCoinManager';
+import CoinsStateComponent from './CoinManageComponent/CoinsStateComponent';
 
 export default class NavComponent {
   $productInfoSection: HTMLElement = document.querySelector(
@@ -16,11 +20,13 @@ export default class NavComponent {
     '.nav__charge-button'
   );
   vendingMachineProductManager = new VendingMachineProductManager();
+  vendingMachineCoinManager = new VendingMachineCoinManager();
 
   constructor() {
     new ProductStateComponent(this.vendingMachineProductManager);
     new ProductInputComponent(this.vendingMachineProductManager);
-
+    new CoinInputComponent(this.vendingMachineCoinManager);
+    new CoinsStateComponent(this.vendingMachineCoinManager);
     this.$navProductButton.addEventListener(
       'click',
       this.onClickNavProductButton

@@ -36,7 +36,7 @@ export const checkValidProductPrice = (price: number): void => {
   }
 };
 
-export const checkValidProductQuantity = (quantity) => {
+export const checkValidProductQuantity = (quantity: number): void => {
   if (!Number.isInteger(quantity)) {
     throw new Error('상품 갯수는 정수여야 한다.');
   }
@@ -48,8 +48,34 @@ export const checkValidProductQuantity = (quantity) => {
   }
 };
 
-export const checkValidChargeMoney = (money) => {
+export const checkValidChargeMoney = (money: number): void => {
   if (money % 10 !== 0) {
     throw new Error('금액은 10으로 나누어떨어져야 합니다.');
   }
+};
+
+function pickRandomIndex(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export const generateRandomCoins = (money: number) => {
+  const coins = [10, 50, 100, 500];
+  const coinsObject = {
+    coin500: 0,
+    coin100: 0,
+    coin50: 0,
+    coin10: 0,
+  };
+
+  let remainMoney = money;
+
+  while (remainMoney) {
+    const pickableCoins = coins.filter((coin) => coin <= remainMoney);
+    const pickedCoin =
+      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
+    coinsObject[`coin${pickedCoin}`] += 1;
+    remainMoney -= pickedCoin;
+  }
+
+  return coinsObject;
 };
