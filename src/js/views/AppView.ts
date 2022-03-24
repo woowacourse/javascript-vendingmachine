@@ -1,4 +1,4 @@
-import { $ } from '../utils/common';
+import { $, $$ } from '../utils/common';
 
 const template = `
 <h1>🍿 자판기 🍿</h1>
@@ -23,6 +23,7 @@ export default class AppView {
     $('.nav-container').addEventListener('click', event => {
       const { target } = event;
       this.customEvent(target);
+      this.changeButtonColor(target);
     });
   }
 
@@ -36,5 +37,14 @@ export default class AppView {
 
   render() {
     this.$app.insertAdjacentHTML('beforeend', template);
+  }
+
+  changeButtonColor(clickedButton) {
+    const navButtons = $$('.nav-button');
+    navButtons.forEach(navButton =>
+      navButton === clickedButton
+        ? navButton.classList.add('nav-button-clicked')
+        : navButton.classList.remove('nav-button-clicked'),
+    );
   }
 }
