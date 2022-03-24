@@ -5,6 +5,7 @@ export const CATEGORY_TEMPLATE = {
       <label>추가할 상품 정보를 입력해주세요.</label>
       <div class="form-input product__manage-input-width">
         <input
+          id="product__name-input"
           type="text"
           placeholder="상품명"
           maxlength="10"
@@ -12,6 +13,7 @@ export const CATEGORY_TEMPLATE = {
           aria-labelledby="product__information"
         />
         <input
+          id="product__price-input"
           type="number"
           placeholder="가격"
           min="100"
@@ -20,6 +22,7 @@ export const CATEGORY_TEMPLATE = {
           aria-labelledby="product__information"
         />
         <input
+          id="product__quantity-input"
           type="number"
           placeholder="수량"
           min="1"

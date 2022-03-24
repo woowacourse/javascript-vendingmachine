@@ -10,17 +10,14 @@
       <h1 class="vending__machine-header">🍿 자판기 🍿</h1>
       <nav id="menu__category">
         <ul class="menu__list">
-          <li route="/manage">
-            <input type="radio" id="manage__menu" name="menu" />
-            <label for="manage__menu" class="button">상품 관리</label>
+          <li>
+            <a id="manage__menu" href="#!manage" class="button">상품 관리</a>
           </li>
-          <li route="/charge">
-            <input type="radio" id="charge__menu" name="menu" />
-            <label for="charge__menu" class="button">잔돈 충전</label>
+          <li>
+            <a id="charge__menu" href="#!charge" class="button">잔돈 충전</a>
           </li>
-          <li route="/purchase">
-            <input type="radio" id="purchase__menu" name="menu" />
-            <label for="purchase__menu" class="button">상품 구매</label>
+          <li>
+            <a id="purchase__menu" href="#!purchase" class="button">상품 구매</a>
           </li>
         </ul>
       </nav>

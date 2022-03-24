@@ -2,30 +2,29 @@ import { $ } from '../utils/dom.js';
 import { CATEGORY_TEMPLATE } from '../template.js';
 
 const routes = {
-  '/manage': CATEGORY_TEMPLATE.MANAGE,
-  '/charge': CATEGORY_TEMPLATE.CHARGE,
-  '/purchase': CATEGORY_TEMPLATE.PURCHASE,
+  '#!manage': CATEGORY_TEMPLATE.MANAGE,
+  '#!charge': CATEGORY_TEMPLATE.CHARGE,
+  '#!purchase': CATEGORY_TEMPLATE.PURCHASE,
 };
 
-window.onload = () => {
-  const menuLinker = $('#menu__category');
+const manageMenu = $('#manage__menu');
+const chargeMenu = $('#charge__menu');
+const purchaseMenu = $('#purchase__menu');
+const sectionContainer = $('#section__container');
 
-  menuLinker.addEventListener('click', (e) => {
-    if (e.target.tagName === 'LABEL') return;
-    const pathName = e.target.closest('li').getAttribute('route');
-    historyRouthPush(pathName, $('#section__container'));
-  });
+const render = () => {
+  const { hash } = window.location;
+  selectTab(hash);
+  sectionContainer.replaceChildren();
+  sectionContainer.insertAdjacentHTML('beforeend', routes[hash] ?? '');
 };
 
-const historyRouthPush = (pathName, element) => {
-  window.history.pushState({}, pathName, window.location.origin + pathName);
-  renderHTML(element, routes[pathName]);
+const selectTab = (hash) => {
+  manageMenu.classList.toggle('select', hash === '#!manage');
+  chargeMenu.classList.toggle('select', hash === '#!charge');
+  purchaseMenu.classList.toggle('select', hash === '#!purchase');
 };
 
-const renderHTML = (element, route) => {
-  element.innerHTML = route;
-};
+window.addEventListener('hashchange', render);
 
-window.onpopstate = () => {
-  renderHTML($('#section__container'), routes[window.location.pathname]);
-};
+window.addEventListener('DOMContentLoaded', render);
