@@ -1,5 +1,7 @@
 import ProductType from '../type/ProductType';
 import Product from './Product';
+import { ERROR_MESSAGE } from '../constants';
+import { checkDuplicatedProduct } from './validator';
 
 export interface VendingMachineInterface {
   products: ProductType[];
@@ -16,6 +18,7 @@ class VendingMachine implements VendingMachineInterface {
 
   addProduct = (newProduct: ProductType) => {
     const productToAdd = new Product(newProduct);
+    checkDuplicatedProduct(this.products, productToAdd.name);
     this.products.push(productToAdd);
 
     return productToAdd;

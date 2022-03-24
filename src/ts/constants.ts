@@ -16,6 +16,7 @@ export const ERROR_MESSAGE = {
   PRICE_RANGE: '상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능합니다.',
   PRICE_UNIT: '상품 가격은 10 단위어야 합니다.',
   EXCEED_QUANTITY: '상품의 수량은 최대 20개 입니다.',
+  DUPLICATED_PRODUCT: '현재 상품은 이미 자판기에 있습니다. 중복되지 않는 상품명을 입력해주세요.',
 };
 
 export const CONFIRM_MESSAGE = {
