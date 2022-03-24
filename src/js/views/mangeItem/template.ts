@@ -1,14 +1,14 @@
-const sectionTemplate = {
+export const sectionTemplate = {
   inputContainer() {
     return `
       <section class="input-container">
       <h2 hidden>상품 정보 입력</h2>
-      <form>
+      <form id="add-item-form">
         <label>추가할 상품 정보를 입력해주세요.</label>
         <div>
-          <input class="add-item-input" placeholder="상품명" />
-          <input class="add-item-input" placeholder="가격" />
-          <input class="add-item-input" placeholder="수량" />
+          <input id="add-item-name" class="add-item-input" placeholder="상품명" />
+          <input id="add-item-price" class="add-item-input" placeholder="가격" type="number"/>
+          <input id="add-item-quantity" class="add-item-input" placeholder="수량" type="number"/>
           <button class="submit-button">추가</button>
         </div>
       </form>
@@ -27,23 +27,37 @@ const sectionTemplate = {
           <th>수량</th>
           <th></th>
         </tr>
-       ${items
-         .map(item => {
-           return `
-        <tr>
-          <td>${item.name}</td>
-          <td>${item.price}</td>
-          <td>${item.quantity}</td>
-          <td>
-            <button class="item-table-change-button">수정</button>
-            <button class="item-table-delete-button">삭제</button>
-          </td>
-        </tr>`;
-         })
-         .join('')}
+         ${items.map(item => this.normalTableContainer(item)).join('')}
       </table>
     </section>
     `;
+  },
+
+  normalTableContainer(item) {
+    return `
+    <tr>
+      <td class="table-item-name">${item.name}</td>
+      <td class="table-item-price">${item.price}</td>
+      <td class="table-item-quantity">${item.quantity}</td>
+      <td class="item-table-button-container">
+        <button class="item-table-change-button">수정</button>
+        <button class="item-table-delete-button">삭제</button>
+      </td>
+    </tr>
+    `;
+  },
+
+  changeTableContainer(item) {
+    return `
+    <tr>
+      <td class="table-item-name"><input value="${item.name}"></input></td>
+      <td class="table-item-price"><input value="${item.price}"></input></td>
+      <td class="table-item-quantity"><input value="${item.quantity}"></input></td>
+      <td>
+       <button class="item-table-confirm-button">확인</button>
+      </td>
+    </tr>
+`;
   },
 };
 

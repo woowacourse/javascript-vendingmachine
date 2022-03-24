@@ -16,7 +16,6 @@ export default class AppController {
     this.vendingMachine = new VendingMachine();
 
     this.appView = new AppView();
-    this.appView.render();
     this.ManageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
@@ -25,7 +24,6 @@ export default class AppController {
   }
 
   bindEvents() {
-    this.appView.bindEvents();
     this.appView.bindPostStateEvent(this.route.bind(this));
     window.addEventListener('ROUTE_CHANGE', this.onClickNavButton.bind(this));
   }

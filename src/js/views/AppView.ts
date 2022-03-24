@@ -17,6 +17,11 @@ export default class AppView {
 
   constructor() {
     this.$app = $('#app');
+    this.render();
+    this.bindEvents();
+  }
+  render() {
+    this.$app.insertAdjacentHTML('beforeend', template);
   }
 
   bindEvents() {
@@ -33,10 +38,6 @@ export default class AppView {
 
   bindPostStateEvent(callback) {
     window.addEventListener('popstate', callback);
-  }
-
-  render() {
-    this.$app.insertAdjacentHTML('beforeend', template);
   }
 
   changeButtonColor(clickedButton) {
