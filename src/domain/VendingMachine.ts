@@ -32,7 +32,7 @@ class VendingMachine implements IVendingMachine {
           storage.getLocalStorage('amount')[50],
           storage.getLocalStorage('amount')[10],
         )
-      : new Coin();
+      : new Coin(0, 0, 0, 0);
     this.products = storage.getLocalStorage('products')
       ? storage.getLocalStorage('products').map((product) => {
           const { name, price, quantity } = product;
@@ -109,7 +109,7 @@ class VendingMachine implements IVendingMachine {
   charge(inputMoney: number) {
     try {
       validateChange(inputMoney, this.amount.getAmount());
-      this.amount.randomGenarate(inputMoney);
+      this.amount.genarateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
       this.dispatch('subscribeChargeTab', 'update');
     } catch (error) {
