@@ -32,7 +32,7 @@ class VendingMachine implements IVendingMachine {
 
   subscribeProductManagement() {
     on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
-    on('#product-list-table', '@edit', (e) => this.updateProduct(e.detail), $('product-management'));
+    on('#product-list-table', '@update', (e) => this.updateProduct(e.detail), $('product-management'));
     on('#product-list-table', '@delete', (e) => this.deleteProduct(e.detail.productName), $('product-management'));
   }
 

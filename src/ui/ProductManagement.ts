@@ -26,7 +26,7 @@ class ProductManagement extends CustomElement {
 
   setEvent() {
     addEvent(this, 'submit', '.product-manage-form', (e: any) => this.handleAdd(e));
-    addEvent(this, 'click', '.product-item', (e: any) => this.handleEdit(e));
+    addEvent(this, 'click', '.product-item', (e: any) => this.handleUpdateAndDelete(e));
     addEvent(this, 'submit', '.product-item__form', (e: any) => this.handleConfirm(e));
   }
 
@@ -36,14 +36,12 @@ class ProductManagement extends CustomElement {
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
 
-    e.target.name.value = '';
-    e.target.price.value = '';
-    e.target.quantity.value = '';
+    e.target.reset();
 
     emit('.product-manage-form', '@add', { name, price, quantity }, this);
   }
 
-  handleEdit(e: any) {
+  handleUpdateAndDelete(e: any) {
     if (e.target.classList.contains('product-item__edit-button')) {
       const item = e.target.closest('.product-item');
       const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
@@ -58,7 +56,6 @@ class ProductManagement extends CustomElement {
         </td>
       </tr>
     `;
-      return;
     }
 
     if (e.target.classList.contains('product-item__delete-button') && confirm('해당 상품을 삭제하시겠습니까?')) {
@@ -78,7 +75,7 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@edit', { targetName, name, price, quantity }, this); // 여기 이후에야 UI를 바꿀 수 있음
+    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this); // 여기 이후에야 UI를 바꿀 수 있음
   }
 
   notify(action: string, _: never, product: Product) {
@@ -88,7 +85,6 @@ class ProductManagement extends CustomElement {
     }
 
     if (action === 'update') {
-      // 이미 바뀐 product
       this.updateItem(product);
     }
 
