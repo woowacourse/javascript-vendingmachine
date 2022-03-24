@@ -47,15 +47,19 @@
   background: var(--color-dark-white);
 }
 
-.menu__list input[type='radio'] {
-  display: none;
+.menu__list li a {
+  display: block;
+  text-decoration-line: none;
 }
 
-.menu__list input[type='radio'] + label {
-  display: inline-block;
+.menu__list li a:link,
+.menu__list li a:visited,
+.menu__list li a:hover,
+.menu__list li a:active {
+  color: black;
 }
 
-.menu__list input[type='radio']:checked + label {
+.menu__list li .select {
   background: var(--color-sky-blue);
 }
 
