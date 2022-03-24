@@ -67,7 +67,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 21;
 
     expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
-      '상품 수량은 최대 20개까지 넣을 수 있습니다.'
+      '상품 수량은 최소 1개부터 최대 20개까지 넣을 수 있습니다.'
     );
   });
 });

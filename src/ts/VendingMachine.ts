@@ -41,12 +41,12 @@ class VendingMachine implements VendingMachineInterface {
 
   genreageRandomCoin() {}
 
-  validateItemInput = (
+  validateItemInput(
     itemName: string,
     itemPrice: number,
     itemQuantity: number,
     isAddMode: boolean = true
-  ) => {
+  ) {
     if (itemName.length === 0) {
       throw new Error('빈칸 없이 모두 입력해주세요.');
     }
@@ -74,7 +74,25 @@ class VendingMachine implements VendingMachineInterface {
     if (itemQuantity < 1 || itemQuantity > 20) {
       throw new Error('상품 수량은 최소 1개부터 최대 20개까지 넣을 수 있습니다.');
     }
-  };
+  }
+
+  validateCashInput(rechargedCash: number) {
+    if (isNaN(rechargedCash)) {
+      throw new Error('숫자를 입력해주세요.');
+    }
+
+    if (rechargedCash < 10) {
+      throw new Error('충전할 금액은 10원 이상이여야 합니다.');
+    }
+
+    if (rechargedCash > 100000) {
+      throw new Error('보유할 수 있는 최소 금액은 0원, 최대 금액은 100,000원입니다.');
+    }
+
+    if (rechargedCash % 10 !== 0) {
+      throw new Error('잔돈은 10원으로 나누어 떨어져야 합니다.');
+    }
+  }
 }
 
 export default VendingMachine;
