@@ -71,8 +71,8 @@ function () {
       amount: index_1.COINS.VAULE_500,
       count: 0
     }];
-    new ProductManageImpl_1['default'](this.products);
-    new ChargeMoneyImpl_1['default'](this.coins);
+    new ProductManageImpl_1["default"](this.products);
+    new ChargeMoneyImpl_1["default"](this.coins);
     (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }
@@ -83,7 +83,7 @@ function () {
     }
 
     var tabName = e.target.dataset.name;
-    history.pushState({}, '', window.location.pathname + '#'.concat(tabName));
+    history.pushState({}, '', window.location.pathname + "#".concat(tabName));
     this.switchTab(tabName);
   };
 
@@ -191,7 +191,7 @@ function () {
     this.coins.forEach(function (_a) {
       var amount = _a.amount,
           count = _a.count;
-      (0, dom_1.$)('#coin-'.concat(amount, '-count')).innerText = ''.concat(count, "\uAC1C");
+      (0, dom_1.$)("#coin-".concat(amount, "-count")).innerText = "".concat(count, "\uAC1C");
     });
   };
 
@@ -343,7 +343,7 @@ function () {
       var name = _a.name,
           price = _a.price,
           quantity = _a.quantity;
-      return '<tr class="product-info">\n          <td class="product-info__text">'.concat(name, '</td>\n          <td class="product-info__text">').concat(price, '</td>\n          <td class="product-info__text">').concat(quantity, '</td>\n          <td class="product-info__input"><input type="text" class="product-info-name" value="').concat(name, '" /></td>\n          <td class="product-info__input"><input type="text" class="product-info-price" value="').concat(price, '" /></td>\n          <td class="product-info__input"><input type="text" class="product-info-quantity" value="').concat(quantity, "\" /></td>\n          <td>\n            <button class=\"modify-button button\">\uC218\uC815</button>\n            <button class=\"delete-button button\">\uC0AD\uC81C</button>\n            <button class=\"confirm-button button\">\uD655\uC778</button>\n          </td>\n        </tr>");
+      return "<tr class=\"product-info\">\n          <td class=\"product-info__text\">".concat(name, "</td>\n          <td class=\"product-info__text\">").concat(price, "</td>\n          <td class=\"product-info__text\">").concat(quantity, "</td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-name\" value=\"").concat(name, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-price\" value=\"").concat(price, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-quantity\" value=\"").concat(quantity, "\" /></td>\n          <td>\n            <button class=\"modify-button button\">\uC218\uC815</button>\n            <button class=\"delete-button button\">\uC0AD\uC81C</button>\n            <button class=\"confirm-button button\">\uD655\uC778</button>\n          </td>\n        </tr>");
     }).join('');
     (0, dom_1.$)('#product-list').replaceChildren();
     (0, dom_1.$)('#product-list').insertAdjacentHTML('beforeend', template);
