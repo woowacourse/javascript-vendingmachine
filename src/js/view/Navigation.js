@@ -1,19 +1,24 @@
-import { templateA, templateB, templateC } from './template';
+import VendingMachine from '../domain/VendingMachine';
+import ProductManageTab from './ProductManageTab';
+import AddChangeTab from './AddChangeTab';
+import PurchaseProductTab from './PurchaseProductTab';
 
 export default class Navigation {
+  #app;
   #tabMenuNavigation;
   #main;
   #renderList;
+  #vendingMachine;
 
   constructor() {
+    this.#app = document.querySelector('#app');
     this.#tabMenuNavigation = document.querySelector('#tab-menu-navigation');
-    this.#main = document.querySelector('main');
     this.#renderList = {
-      '#/manage': templateA,
-      '#/charge': templateB,
-      '#/purchase': templateC,
+      '#/manage': new ProductManageTab(),
+      '#/charge': new AddChangeTab(),
+      '#/purchase': new PurchaseProductTab(),
     };
-
+    this.#vendingMachine = new VendingMachine();
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
     this.#tabMenuNavigation.addEventListener(
@@ -26,9 +31,9 @@ export default class Navigation {
     const path = window.location.hash || '#/manage';
 
     this.#updateCurrentTabMenu(path);
+    const main = document.querySelector('main');
 
-    this.#main.replaceChildren();
-    this.#main.insertAdjacentHTML('beforeend', this.#renderList[path]);
+    this.#app.replaceChild(this.#renderList[path].tabElements, main);
   };
 
   #updateCurrentTabMenu(path) {

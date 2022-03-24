@@ -1,10 +1,10 @@
 export const templateA = `<section title="상품 정보">
-<form>
+<form id="add-product-form">
   <fieldset>
     <legend>추가할 상품 정보를 입력해주세요.</legend>
-    <input type="text" placeholder="상품명" />
-    <input type="number" placeholder="가격" min="0" max="100000" />
-    <input type="number" placeholder="수량" min="0" max="20" />
+    <input type="text" id="product-name" placeholder="상품명"/>
+    <input type="number" id="product-price" placeholder="가격" min="0" max="100000" />
+    <input type="number" id="product-stock" placeholder="수량" min="0" max="20" />
     <button type="submit" class="submit-button">추가</button>
   </fieldset>
 </form>
@@ -55,11 +55,11 @@ export const templateB = `<section title="잔돈 충전">
 <form id="add-change-form">
   <label for="">자판기가 보유할 금액을 입력해주세요</label>
   <div>
-    <input type="number" placeholder="금액" />
+    <input type="number" id="money-input" placeholder="금액" />
     <button type="submit" class="submit-button">충전</button>
   </div>
 </form>
-<p>현재 보유 금액: 500원</p>
+<p >현재 보유 금액: <span id="total-change"></span>원</p>
 </section>
 <section class="table-section" title="자판기 현황">
 <table>
