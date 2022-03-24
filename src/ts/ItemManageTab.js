@@ -21,14 +21,10 @@ class ItemManageTab {
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
   }
 
-  #onClickItemManageTabButton = ({ target: targetTabButton }) => {
-    if (this.itemManageTabButton.classList.contains('selected')) {
-      return;
-    }
-
+  render() {
     this.#changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
-      targetTabButton
+      this.itemManageTabButton
     );
 
     this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
@@ -37,6 +33,17 @@ class ItemManageTab {
 
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
+  }
+
+  #onClickItemManageTabButton = ({ target: targetTabButton }) => {
+    if (this.itemManageTabButton.classList.contains('selected')) {
+      return;
+    }
+
+    const path = targetTabButton.dataset.hash;
+    history.pushState({ path }, null, path);
+
+    this.render();
   };
 
   #onSubmitItemInfoForm = (e) => {

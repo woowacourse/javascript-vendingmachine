@@ -17,16 +17,12 @@ class CoinRechargeTab {
     this.coinRechargeTabButton.addEventListener('click', this.#onClickCoinRechargeTabButton);
   }
 
-  #onClickCoinRechargeTabButton = ({ target: targetTabButton }) => {
-    if (this.coinRechargeTabButton.classList.contains('selected')) {
-      return;
-    }
-
+  render() {
     const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
 
     this.#changeTabContent(
       generateCoinRechargeTabContentTemplate(totalCoinAmount, this.vendingMachine.coinCollection),
-      targetTabButton
+      this.coinRechargeTabButton
     );
 
     this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
@@ -35,6 +31,17 @@ class CoinRechargeTab {
     this.coinCountList = this.tabContent.querySelectorAll('.coin-count');
 
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
+  }
+
+  #onClickCoinRechargeTabButton = ({ target: targetTabButton }) => {
+    if (this.coinRechargeTabButton.classList.contains('selected')) {
+      return;
+    }
+
+    const path = targetTabButton.dataset.hash;
+    history.pushState({ path }, null, path);
+
+    this.render();
   };
 
   #changeTabContent(contentTemplate, targetTabButton) {
