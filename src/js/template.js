@@ -44,7 +44,7 @@ export const CATEGORY_TEMPLATE = {
           <th>수량</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="product__tbody">
         <tr>
           <td>콜라</td>
           <td>1000</td>

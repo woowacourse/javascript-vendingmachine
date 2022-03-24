@@ -14,5 +14,6 @@ export default class Controller {
   #handle(event) {
     const { keyword } = event.detail;
     this.productManager.addProduct(keyword);
+    this.productManageView.renderTable(keyword);
   }
 }
