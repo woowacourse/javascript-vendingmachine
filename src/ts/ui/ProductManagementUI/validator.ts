@@ -3,9 +3,9 @@ import {
   MAX_QUANTITY,
   MESSAGE,
   PRICE_RULE,
-} from '../constants';
-import ProductImpl from '../domain/Product';
-import { ProductInfo } from '../domain/types';
+} from '../../constants';
+import ProductImpl from '../../domain/Product';
+import { ProductInfo } from '../../domain/types';
 
 const hasSameProduct = (
   products: ProductImpl[],

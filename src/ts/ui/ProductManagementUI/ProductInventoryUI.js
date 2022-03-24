@@ -1,6 +1,6 @@
 import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
-import { validateProductInfo } from '../../utils/validator';
+import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 
 export default class ProductInventoryUI {
