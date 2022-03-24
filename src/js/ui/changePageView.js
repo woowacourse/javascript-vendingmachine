@@ -23,6 +23,7 @@ class ChangePageView {
     e.preventDefault();
 
     emit(EVENT_TYPE.CHARGE, { money: this.$changesInput.valueAsNumber });
+    this.$changesInput.value = "";
   };
 
   initDOM = () => {

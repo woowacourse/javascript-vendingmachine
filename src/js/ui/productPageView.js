@@ -23,11 +23,19 @@ class ProductPageView {
     e.preventDefault();
     if (this.edited === true) return;
 
-    const name = e.target.querySelector("#product-name-input").value;
-    const price = e.target.querySelector("#product-price-input").valueAsNumber;
-    const count = e.target.querySelector("#product-count-input").valueAsNumber;
+    const $productNameInput = e.target.querySelector("#product-name-input");
+    const $productPriceInput = e.target.querySelector("#product-price-input");
+    const $productCountInput = e.target.querySelector("#product-count-input");
 
-    emit(EVENT_TYPE.ADD, { name, price, count });
+    emit(EVENT_TYPE.ADD, {
+      name: $productNameInput.value,
+      price: $productPriceInput.valueAsNumber,
+      count: $productCountInput.valueAsNumber,
+    });
+
+    $productNameInput.value = "";
+    $productPriceInput.value = "";
+    $productCountInput.value = "";
   };
 
   onClick = ({ target }) => {
