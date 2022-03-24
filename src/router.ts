@@ -3,9 +3,6 @@ import { $, $$ } from './utils';
 const nav = document.querySelector('.nav');
 
 nav.addEventListener('click', (e: any) => {
-  $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
-  e.target.classList.add('focus-button');
-
   historyRouterPush(e.target.getAttribute('route'));
 });
 
@@ -15,6 +12,9 @@ const historyRouterPush = (pathname) => {
 };
 
 const render = (path) => {
+  $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
+  $(`[route='${path}']`, nav)?.classList.add('focus-button');
+
   const cur = routers.find((route) => route.path === path)?.component ?? $('product-management');
   const prevs = routers.filter((route) => route.path !== path);
 
@@ -31,4 +31,4 @@ window.addEventListener('popstate', function () {
   render(window.location.pathname);
 });
 
-render('/');
+render(window.location.pathname);
