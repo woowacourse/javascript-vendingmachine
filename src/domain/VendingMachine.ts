@@ -1,6 +1,6 @@
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateChange, validateProduct } from '../validator';
+import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
 import Coin from './Coin';
 import Product from './Product';
 
@@ -67,7 +67,8 @@ class VendingMachine implements IVendingMachine {
 
   updateProduct(targetName: string, name: string, price: number, quantity: number) {
     try {
-      validateProduct({ name, price, quantity } as Product, this.products);
+      validateUpdateProduct(targetName, name, price, this.products);
+      ($(`[data-product-name="${targetName}"]`) as HTMLElement).dataset.productName = name;
       const target = this.products.find((product) => product.name === targetName);
       target.update(name, price, quantity);
       this.dispatch('subscribeProductManagement', 'update', target);
@@ -78,7 +79,7 @@ class VendingMachine implements IVendingMachine {
 
   deleteProduct(name: string) {
     this.dispatch(
-      'product',
+      'subscribeProductManagement',
       'delete',
       this.products.find((product) => product.name === name),
     );

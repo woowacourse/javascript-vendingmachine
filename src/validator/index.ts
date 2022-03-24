@@ -39,3 +39,28 @@ export const validateChange = (inputMoney: number, currentChange: number) => {
     throw new Error('금액은 10원 단위로 나누어 떨어지는 금액으로 입력하세요.');
   }
 };
+
+const updateProductValidator = {
+  isDuplicated(targetName, name, products) {
+    if (targetName === name) {
+      return false;
+    }
+
+    const filterArr = products.filter((product) => product.name !== targetName);
+    return filterArr.some((product) => product.name === name);
+  },
+
+  isIncorrectUnit(price: number) {
+    return price % 10 !== 0;
+  },
+};
+
+export const validateUpdateProduct = (targetName: string, name: string, price: number, products: Product[]) => {
+  if (updateProductValidator.isDuplicated(targetName, name, products)) {
+    throw new Error('중복되는 상품이 존재합니다.');
+  }
+
+  if (updateProductValidator.isIncorrectUnit(price)) {
+    throw new Error('상품 가격은 10원 단위로 나누어 떨어지는 금액으로 입력하세요.');
+  }
+};

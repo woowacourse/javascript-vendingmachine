@@ -68,8 +68,6 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    e.target.closest('.product-item').dataset.productName = name;
-
     emit('#product-list-table', '@edit', { targetName, name, price, quantity }, this);
   }
 
