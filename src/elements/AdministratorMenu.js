@@ -13,12 +13,12 @@ class AdministratorMenu extends CustomElement {
   }
 
   setEvent() {
-    $('.nav__product-manage-button').addEventListener('click', this.handleProductManageButtonClick.bind(this));
+    $('.nav__product-manage-button').addEventListener('click', this.handleProductManageButtonClick);
   }
 
-  handleProductManageButtonClick() {
+  handleProductManageButtonClick = () => {
     $('product-manage-container').show();
-  }
+  };
 }
 
 customElements.define('administrator-menu', AdministratorMenu);
