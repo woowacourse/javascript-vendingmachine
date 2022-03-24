@@ -1,3 +1,5 @@
+import Component from './abstract/component';
+
 export type Action = {
   type: string;
   payload: string | number | Record<string, unknown>;
@@ -8,3 +10,8 @@ export type AppState = {
 };
 
 export type ActionPayLoad = string | number | Record<string, unknown>;
+
+export interface ComponentConstructor {
+  new (): Component;
+  _tagName?: string;
+}

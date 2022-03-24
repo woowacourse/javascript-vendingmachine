@@ -1,6 +1,8 @@
 import Store from '../flux/store';
 
 abstract class Component extends HTMLElement {
+  _tagName = '';
+
   constructor() {
     super();
   }
@@ -8,7 +10,6 @@ abstract class Component extends HTMLElement {
   connectedCallback() {
     this.render();
     this.subscribe();
-    this.setEvent();
   }
 
   render() {
@@ -26,10 +27,6 @@ abstract class Component extends HTMLElement {
 
   shouldSubscribe() {
     return true;
-  }
-
-  setEvent() {
-    return;
   }
 
   addEvent(
