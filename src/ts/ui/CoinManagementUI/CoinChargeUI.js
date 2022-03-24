@@ -1,5 +1,6 @@
 import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
+import { validateCash } from './validator';
 
 export default class ProductAdditionUI {
   constructor(coinDomain) {
@@ -13,6 +14,14 @@ export default class ProductAdditionUI {
     this.$form.addEventListener('submit', e => {
       e.preventDefault();
       const cash = e.target.elements.cashInput.valueAsNumber;
+
+      try {
+        validateCash(cash);
+      } catch ({ message }) {
+        alert(message);
+        return;
+      }
+
       this.coinDomain.addCash(cash);
 
       this.$totalCash.textContent = this.coinDomain.totalCash;

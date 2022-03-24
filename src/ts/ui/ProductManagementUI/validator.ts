@@ -4,6 +4,7 @@ import {
   MESSAGE,
   PRICE_RULE,
 } from '../../constants';
+import { isInvalidNumber } from '../../utils/validator';
 import ProductImpl from '../../domain/Product';
 import { ProductInfo } from '../../domain/types';
 
@@ -18,13 +19,6 @@ const hasSameProduct = (
   });
 
 const isOverMaxLength = (name: string) => name.length > MAX_NAME_LENGTH;
-
-const isInvalidPrice = (price: number) => {
-  const { MAX, MIN, UNIT } = PRICE_RULE;
-  const isRanged = price >= MIN && price <= MAX;
-  const isDivisible = price % UNIT === 0;
-  return !(isRanged && isDivisible);
-};
 
 const isQuantityRanged = (quantity: number) =>
   quantity > MAX_QUANTITY || quantity <= 0;
@@ -55,7 +49,7 @@ const generateProductInfoValidators = (
     errorMsg: MESSAGE.ERROR_OVER_MAX_LENGTH,
   },
   {
-    test: isInvalidPrice(newProduct.price),
+    test: isInvalidNumber(newProduct.price, PRICE_RULE),
     errorMsg: MESSAGE.ERROR_INVALID_PRICE,
   },
   {
