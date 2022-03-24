@@ -3,7 +3,7 @@ import { Product } from "../resource/declaration";
 export interface ProductManage {
   isValidProductInfo(productInfo: Product): boolean;
   addProduct(productInfo: Product): void;
-  modifyProduct(productInfo: Product): void;
+  modifyProduct(productInfo: Product, index: number): void;
   deleteProduct(productInfo: Product): void;
   drawProductList(): void;
   getProductIndex(productInfo: Product): number;

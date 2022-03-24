@@ -3,8 +3,11 @@ exports.__esModule = true;
 var dom_1 = require("../util/dom");
 var ChargeMoneyImpl = /** @class */ (function () {
     function ChargeMoneyImpl(coins) {
+        var _this = this;
         this.coins = coins;
-        (0, dom_1.$)('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
+        window.addEventListener("load", function () {
+            (0, dom_1.$)('#charge-money-form').addEventListener('submit', _this.handleChargeMoney.bind(_this));
+        });
     }
     ChargeMoneyImpl.prototype.handleChargeMoney = function (e) {
         e.preventDefault();
@@ -22,14 +25,16 @@ var ChargeMoneyImpl = /** @class */ (function () {
         if (inputMoney < 1000 || inputMoney % 10 !== 0) {
             return false;
         }
-        var totalAmout = this.coins.reduce(function (acc, _a) {
-            var amount = _a.amount, count = _a.count;
-            return acc + amount * count;
-        }, 0);
-        if (totalAmout + inputMoney > 100000) {
+        if (this.totalAmount() + inputMoney > 100000) {
             return false;
         }
         return true;
+    };
+    ChargeMoneyImpl.prototype.totalAmount = function () {
+        return this.coins.reduce(function (acc, _a) {
+            var amount = _a.amount, count = _a.count;
+            return acc + amount * count;
+        }, 0);
     };
     ChargeMoneyImpl.prototype.generateRandomCoins = function (inputMoney) {
         var coins = this.coins.map(function (_a) {

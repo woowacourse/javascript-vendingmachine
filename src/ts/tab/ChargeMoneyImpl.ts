@@ -7,7 +7,9 @@ class ChargeMoneyImpl implements ChargeMoney {
 
   constructor(coins: Array<Coin>) {
     this.coins = coins;
-    $('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
+    window.addEventListener("load", () => { 
+      $('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
+    });
   }
 
   handleChargeMoney(e) {
@@ -30,13 +32,16 @@ class ChargeMoneyImpl implements ChargeMoney {
     if (inputMoney < 1000 || inputMoney % 10 !== 0) {
       return false;
     }
-    const totalAmout = this.coins.reduce(
-      (acc, { amount, count }) => acc + amount * count, 0);
       
-    if (totalAmout + inputMoney > 100000) {
+    if (this.totalAmount() + inputMoney > 100000) {
       return false;
     }
     return true;
+  }
+
+  totalAmount() {
+    return this.coins.reduce(
+      (acc, { amount, count }) => acc + amount * count, 0);
   }
 
   generateRandomCoins(inputMoney: number) {

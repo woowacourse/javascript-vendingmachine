@@ -1,11 +1,23 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 var dom_1 = require("../util/dom");
 var ProductManageImpl = /** @class */ (function () {
     function ProductManageImpl(products) {
+        var _this = this;
         this.products = products;
-        (0, dom_1.$)('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
-        (0, dom_1.$)('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
+        window.addEventListener("load", function () {
+            (0, dom_1.$)('#add-product-form').addEventListener('submit', _this.handleAddProduct.bind(_this));
+            (0, dom_1.$)('#product-list').addEventListener('click', _this.handleClickButtons.bind(_this));
+        });
     }
     ProductManageImpl.prototype.getProductInfo = function () {
         var name = (0, dom_1.$)('#product-name-input').value;
@@ -27,6 +39,10 @@ var ProductManageImpl = /** @class */ (function () {
             this.drawProductList();
         }
     };
+    ProductManageImpl.prototype.rowIndex = function (productRow) {
+        console.log((0, dom_1.$)('#product-list').childNodes);
+        return __spreadArray([], (0, dom_1.$)('#product-list').childNodes, true).findIndex(function (row) { return row === productRow; });
+    };
     ProductManageImpl.prototype.handleClickButtons = function (e) {
         if (e.target.classList.contains('modify-button')) {
             e.target.closest('tr').classList.add('modify');
@@ -37,14 +53,15 @@ var ProductManageImpl = /** @class */ (function () {
         }
         if (e.target.classList.contains('confirm-button')) {
             var productInfo = this.getProductInfoModify(e.target.closest('tr'));
-            this.modifyProduct(productInfo);
-            if (this.isValidModifyProductInfo(productInfo)) {
-                this.products[this.getProductIndex(productInfo)] = productInfo;
+            var index = this.rowIndex(e.target.closest('tr'));
+            if (this.isValidModifyProductInfo(productInfo, index)) {
+                console.log(this.isValidModifyProductInfo(productInfo, index));
+                this.modifyProduct(productInfo, index);
                 this.drawProductList();
             }
         }
     };
-    ProductManageImpl.prototype.isValidModifyProductInfo = function (_a) {
+    ProductManageImpl.prototype.isValidModifyProductInfo = function (_a, index) {
         var name = _a.name, price = _a.price, quantity = _a.quantity;
         if (name.length < 1 || name.length > 10) {
             return false;
@@ -55,10 +72,13 @@ var ProductManageImpl = /** @class */ (function () {
         if (quantity < 0 || quantity > 20) {
             return false;
         }
+        if (this.products.some(function (product, productIndex) { return productIndex !== index && product.name === name; })) {
+            return false;
+        }
         return true;
     };
     ProductManageImpl.prototype.isValidProductInfo = function (productInfo) {
-        if (!this.isValidModifyProductInfo(productInfo)) {
+        if (!this.isValidModifyProductInfo(productInfo, -1)) {
             return false;
         }
         if (this.products.some(function (product) { return product.name === productInfo.name; })) {
@@ -80,10 +100,8 @@ var ProductManageImpl = /** @class */ (function () {
     ProductManageImpl.prototype.addProduct = function (productInfo) {
         this.products.push(productInfo);
     };
-    ProductManageImpl.prototype.modifyProduct = function (productInfo) {
-        if (this.isValidProductInfo(productInfo)) {
-            this.products[this.getProductIndex(productInfo)] = productInfo;
-        }
+    ProductManageImpl.prototype.modifyProduct = function (productInfo, index) {
+        this.products[index] = productInfo;
     };
     ProductManageImpl.prototype.deleteProduct = function (productInfo) {
         this.products.splice(this.getProductIndex(productInfo), 1);

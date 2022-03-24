@@ -7,8 +7,10 @@ class ProductManageImpl implements ProductManage {
 
   constructor(products: Array<Product>) {
     this.products = products;
-    $('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
-    $('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
+    window.addEventListener("load", () => { 
+      $('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
+      $('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
+     });
   }
 
   getProductInfo() {
@@ -23,7 +25,7 @@ class ProductManageImpl implements ProductManage {
     const name = $('.product-info-name', productNode).value; 
     const price = Number($('.product-info-price', productNode).value); 
     const quantity = Number($('.product-info-quantity', productNode).value);
-
+    
     return { name, price, quantity };
   }
 
@@ -36,6 +38,11 @@ class ProductManageImpl implements ProductManage {
     }
   }
 
+  rowIndex(productRow) {
+    console.log($('#product-list').childNodes);
+    return [...$('#product-list').childNodes].findIndex((row) => row === productRow);
+  }
+
   handleClickButtons(e) {
     if (e.target.classList.contains('modify-button')) {
       e.target.closest('tr').classList.add('modify');
@@ -46,16 +53,17 @@ class ProductManageImpl implements ProductManage {
     }
     if (e.target.classList.contains('confirm-button')) {
       const productInfo = this.getProductInfoModify(e.target.closest('tr'));
+      const index = this.rowIndex(e.target.closest('tr'));
 
-      this.modifyProduct(productInfo);
-      if (this.isValidModifyProductInfo(productInfo)) {
-        this.products[this.getProductIndex(productInfo)] = productInfo;
+      if (this.isValidModifyProductInfo(productInfo, index)) {
+        console.log(this.isValidModifyProductInfo(productInfo, index));
+        this.modifyProduct(productInfo, index);
         this.drawProductList();
       }
     }
   }
 
-  isValidModifyProductInfo({ name, price, quantity }: Product): boolean {
+  isValidModifyProductInfo({ name, price, quantity }: Product, index: number): boolean {
     if (name.length < 1 || name.length > 10) {
       return false;
     }
@@ -65,12 +73,15 @@ class ProductManageImpl implements ProductManage {
     if (quantity < 0 || quantity > 20) {
       return false;
     }
+    if (this.products.some((product: Product, productIndex) => productIndex !== index && product.name === name)) {
+      return false;
+    }
     
     return true;
   }
   
   isValidProductInfo(productInfo: Product): boolean {
-    if (!this.isValidModifyProductInfo(productInfo)) {
+    if (!this.isValidModifyProductInfo(productInfo, -1)) {
       return false;
     }
     if (this.products.some((product: Product) => product.name === productInfo.name)) {
@@ -105,19 +116,16 @@ class ProductManageImpl implements ProductManage {
 
   addProduct(productInfo: Product): void {
     this.products.push(productInfo);
-
   }
 
-  modifyProduct(productInfo: Product): void {
-    if (this.isValidProductInfo(productInfo)) {
-      this.products[this.getProductIndex(productInfo)] = productInfo;
-    }
+  modifyProduct(productInfo: Product, index: number): void {
+    this.products[index] = productInfo;
   }
   
   deleteProduct(productInfo: Product): void {
     this.products.splice(this.getProductIndex(productInfo), 1);
   }
-
+  
   getProductIndex({ name }: Product) {
     return this.products.findIndex((product: Product) => product.name === name);
   }
