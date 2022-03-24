@@ -2,12 +2,14 @@ import Component from '../core/Component.js';
 
 class Router extends Component {
   setup() {
+    const { href } = window.location;
+    const location = new URL(href).hash;
     const routes = Array.from(this.children).map((child) => ({
       path: child.getAttribute('path'),
       component: child,
     }));
 
-    this.state = { location: '', routes };
+    this.state = { location, routes };
   }
 
   render() {
@@ -25,9 +27,9 @@ class Router extends Component {
   setEvent() {
     window.addEventListener('hashchange', (event) => {
       const { href } = event.target.location;
-      const route = new URL(href).hash;
+      const location = new URL(href).hash;
 
-      this.setState({ location: route });
+      this.setState({ location });
     });
   }
 }
