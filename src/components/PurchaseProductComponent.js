@@ -3,6 +3,7 @@ class PurchaseProductComponent {
     this.$parent = $parent;
     this.mount();
     this.initDOM();
+    this.initChildComponents();
   }
 
   mount() {
