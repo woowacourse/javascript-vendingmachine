@@ -1,12 +1,13 @@
 import ChangePageView from "../ui/changePageView";
 import ChangeProcessMachine from "../domain/changesProcessMachine";
 import { on } from "../util/event";
+import { EVENT_TYPE } from "../constant";
 
 class ChangesModerator {
   constructor() {
     this.changePageView = new ChangePageView();
     this.changeProcessMachine = new ChangeProcessMachine();
-    on(window, "@charge", (e) => this.chargeChange(e.detail));
+    on(window, EVENT_TYPE.CHARGE, (e) => this.chargeChange(e.detail));
   }
 
   init = () => {

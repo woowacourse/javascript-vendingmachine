@@ -5,6 +5,7 @@ import {
   Delete,
   GetProducts,
 } from "../interface/product.interface";
+import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
 class ProductProcessMachine implements ProductDomain {
   products = [];
@@ -51,29 +52,33 @@ class ProductProcessMachine implements ProductDomain {
         return name === newName && (idx === -1 || index !== idx);
       })
     ) {
-      throw new Error("중복된 상품은 입력 할 수 없습니다.");
+      throw new Error(ERROR_MESSAGE.DUPLICATED_NAME);
     }
   };
 
   checkNameLength = (name: string): void => {
-    if (name.length > 10) {
-      throw new Error("상품명은 10자이하로 입력해주세요");
+    if (name.length > VENDING_MACHINE_NUMBER.MAXIMUM_NAME_LENGTH) {
+      throw new Error(ERROR_MESSAGE.MAXIMUM_NAME_LENGTH);
     }
   };
 
   checkValidPrice = (price: number): void => {
-    if (price < 100 || price > 10000 || price % 10 !== 0) {
-      throw new Error("유효한 가격을 입력해주세요");
+    if (
+      price < VENDING_MACHINE_NUMBER.MINIMUM_PRICE ||
+      price > VENDING_MACHINE_NUMBER.MAXIMUM_PRICE ||
+      price % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0
+    ) {
+      throw new Error(ERROR_MESSAGE.VALID_PRICE);
     }
   };
 
   checkValidCount = (count: number): void => {
-    if (count <= 0) {
-      throw new Error("추가하는 수량은 0이하가 될수가 없습니다.");
+    if (count <= VENDING_MACHINE_NUMBER.MINIMUM_COUNT) {
+      throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
     }
 
-    if (count > 20) {
-      throw new Error("수량은 최대 20개까지 추가 가능합니다.");
+    if (count > VENDING_MACHINE_NUMBER.MAXIMUM_COUNT) {
+      throw new Error(ERROR_MESSAGE.MAXIMUM_COUNT);
     }
   };
 }

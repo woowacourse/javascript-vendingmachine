@@ -1,4 +1,5 @@
 import ProductProcessMachine from "./ProductProcessMachine";
+import { ERROR_MESSAGE } from "../constant";
 
 describe("상품 관리하는 도메인 테스트", () => {
   test("상품명, 가격, 수량을 입력해 상품을 추가할 수 있다.", () => {
@@ -20,7 +21,7 @@ describe("상품 관리하는 도메인 테스트", () => {
         price: 100,
         count: 1,
       });
-    }).toThrowError("상품명은 10자이하로 입력해주세요");
+    }).toThrowError(ERROR_MESSAGE.MAXIMUM_NAME_LENGTH);
   });
 
   test("상품명이 중복되면 에러를 던진다", () => {
@@ -29,7 +30,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     expect(() => {
       productProcessMachine.add({ name: "호프", price: 110, count: 2 });
       productProcessMachine.add({ name: "호프", price: 110, count: 2 });
-    }).toThrowError("중복된 상품은 입력 할 수 없습니다.");
+    }).toThrowError(ERROR_MESSAGE.DUPLICATED_NAME);
   });
 
   test("상품가격이 유효하지 않는다면 에러를 던진다.", () => {
@@ -40,7 +41,7 @@ describe("상품 관리하는 도메인 테스트", () => {
         price: 90,
         count: 1,
       });
-    }).toThrowError("유효한 가격을 입력해주세요");
+    }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
 
     expect(() => {
       productProcessMachine.add({
@@ -56,7 +57,7 @@ describe("상품 관리하는 도메인 테스트", () => {
         price: 9999,
         count: 1,
       });
-    }).toThrowError("유효한 가격을 입력해주세요");
+    }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
   });
 
   test("한 제품의 수량이 20개 이상일 경우 에러를 던진다.", () => {
@@ -68,14 +69,14 @@ describe("상품 관리하는 도메인 테스트", () => {
         price: 2000,
         count: 0,
       });
-    }).toThrowError("추가하는 수량은 0이하가 될수가 없습니다.");
+    }).toThrowError(ERROR_MESSAGE.MINIMUM_COUNT);
     expect(() => {
       productProcessMachine.add({
         name: "호오프",
         price: 2000,
         count: 21,
       });
-    }).toThrowError("수량은 최대 20개까지 추가 가능합니다.");
+    }).toThrowError(ERROR_MESSAGE.MAXIMUM_COUNT);
   });
 
   test("제품의 정보를 수정 할 수 있다.", () => {

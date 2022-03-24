@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from "../constant";
 import ChangesProcessMachine from "./ChangesProcessMachine";
 
 describe("잔돈 관리하는 도메인 테스트", () => {
@@ -29,13 +30,13 @@ describe("잔돈 관리하는 도메인 테스트", () => {
     const changeProcessMachine = new ChangesProcessMachine();
     expect(() => {
       changeProcessMachine.charge(1001);
-    }).toThrowError("투입된 금액은 10으로 나누어 떨어져야합니다.");
+    }).toThrowError(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
   });
 
   test("보유할 수 있는 최대 금액은 100,000원이다.", () => {
     const changeProcessMachine = new ChangesProcessMachine();
     expect(() => {
       changeProcessMachine.charge(1000000);
-    }).toThrowError("최대 잔액은 100000원 입니다.");
+    }).toThrowError(ERROR_MESSAGE.MAXIMUM_CHANGES);
   });
 });

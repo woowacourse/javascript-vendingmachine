@@ -6,6 +6,7 @@ import {
   GenerateCoins,
   ChangesDomain,
 } from "../interface/changes.interface";
+import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
 class ChangesProcessMachine implements ChangesDomain {
   coins = { 500: 0, 100: 0, 50: 0, 10: 0 };
@@ -51,20 +52,23 @@ class ChangesProcessMachine implements ChangesDomain {
   };
 
   checkDividedByMinimumCoin = (money: number): void => {
-    if (money % 10 !== 0) {
-      throw new Error("투입된 금액은 10으로 나누어 떨어져야합니다.");
+    if (money % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0) {
+      throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
     }
   };
 
   checkMoneyOverMaximum = (money: number) => {
-    if (this.getTotalChanges() + money > 100000) {
-      throw new Error("최대 잔액은 100000원 입니다.");
+    if (
+      this.getTotalChanges() + money >
+      VENDING_MACHINE_NUMBER.MAXIMUM_CHANGES
+    ) {
+      throw new Error(ERROR_MESSAGE.MAXIMUM_CHANGES);
     }
   };
 
   checkMoenyUnderZero = (money: number) => {
     if (money <= 0) {
-      throw new Error("금액은 0원보다 높아야합니다.");
+      throw new Error(ERROR_MESSAGE.MINIMUM_CHANGES);
     }
   };
 }

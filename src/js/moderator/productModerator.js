@@ -1,3 +1,4 @@
+import { CONFIRM_MESSAGE, EVENT_TYPE } from "../constant";
 import ProductProcessMachine from "../domain/productProcessMachine";
 import ProductPageView from "../ui/productPageView";
 import { on } from "../util/event";
@@ -6,9 +7,9 @@ class ProductModerator {
   constructor() {
     this.productProcessMachine = new ProductProcessMachine();
     this.productPageView = new ProductPageView();
-    on(window, "@add", (e) => this.addProduct(e.detail));
-    on(window, "@delete", (e) => this.deleteProduct(e.detail));
-    on(window, "@edit", (e) => this.updateProduct(e.detail));
+    on(window, EVENT_TYPE.ADD, (e) => this.addProduct(e.detail));
+    on(window, EVENT_TYPE.DELETE, (e) => this.deleteProduct(e.detail));
+    on(window, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
   }
 
   init = () => {
@@ -39,7 +40,7 @@ class ProductModerator {
   };
 
   deleteProduct = ({ id }) => {
-    if (!confirm("정말로 삭제하시겠습니까?")) {
+    if (!confirm(CONFIRM_MESSAGE)) {
       return;
     }
 

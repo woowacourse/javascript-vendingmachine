@@ -1,5 +1,6 @@
 import changesTemplate from "../template/changes.template";
 import { emit, on } from "../util/event";
+import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
   constructor() {
@@ -21,7 +22,7 @@ class ChangePageView {
 
     e.preventDefault();
 
-    emit("@charge", { money: this.$changesInput.valueAsNumber });
+    emit(EVENT_TYPE.CHARGE, { money: this.$changesInput.valueAsNumber });
   };
 
   initDOM = () => {

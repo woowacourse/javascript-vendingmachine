@@ -1,5 +1,6 @@
 import { on, emit } from "../util/event.js";
 import productTemplate from "../template/product.template.js";
+import { EVENT_TYPE } from "../constant";
 
 class ProductPageView {
   constructor() {
@@ -26,7 +27,7 @@ class ProductPageView {
     const price = e.target.querySelector("#product-price-input").valueAsNumber;
     const count = e.target.querySelector("#product-count-input").valueAsNumber;
 
-    emit("@add", { name, price, count });
+    emit(EVENT_TYPE.ADD, { name, price, count });
   };
 
   onClick = ({ target }) => {
@@ -48,19 +49,16 @@ class ProductPageView {
 
   productDeleteHandler = (target) => {
     const productId = target.closest("tr").dataset.id;
-    emit("@delete", { id: productId });
+    emit(EVENT_TYPE.DELETE, { id: productId });
   };
 
   productUpdateHandler = (target) => {
     const product = target.closest("tr");
-    product.innerHTML = `
-    <td><input id="edit-name-input" class="product-edit-input input" value='${product.dataset.name}' /></td>
-    <td><input id="edit-price-input" class="product-edit-input input" value='${product.dataset.price}' type="number"/></td>
-    <td><input id="edit-count-input" class="product-edit-input input" value='${product.dataset.count}' type="number"/></td>
-    <td>
-      <button class="save-button process-button">확인</button>
-    </td>
-    `;
+    product.innerHTML = productTemplate.productUpdateForm({
+      name: target.datset.name,
+      price: target.dataset.price,
+      count: target.dataset.count,
+    });
 
     this.edited = true;
   };
@@ -77,7 +75,7 @@ class ProductPageView {
 
     this.edited = false;
 
-    emit("@edit", {
+    emit(EVENT_TYPE.EDIT, {
       idx,
       name: updatedName,
       price: updatedPrice,

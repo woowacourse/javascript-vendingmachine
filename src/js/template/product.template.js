@@ -50,6 +50,15 @@ const productTemplate = {
         </tbody>
       </table>
   `,
+
+  productUpdateForm: ({ name, price, count }) => `
+    <td><input id="edit-name-input" class="product-edit-input input" value='${name}' /></td>
+    <td><input id="edit-price-input" class="product-edit-input input" value='${price}' type="number"/></td>
+    <td><input id="edit-count-input" class="product-edit-input input" value='${count}' type="number"/></td>
+    <td>
+      <button class="save-button process-button">확인</button>
+    </td>
+  `,
 };
 
 export default productTemplate;
