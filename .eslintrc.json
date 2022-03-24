@@ -23,6 +23,10 @@
         "object-curly-newline": "off",
         "import/prefer-default-export": "off",
         "implicit-arrow-linebreak": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "lines-between-class-members": "off",
+        "no-param-reassign": "off",
+        "nonblock-statement-body-position": "off",
+        "curly": "off"
     }
 }
