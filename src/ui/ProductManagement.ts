@@ -3,11 +3,17 @@ import TEMPLATE from '../templates';
 import { $, addEvent, emit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
+import storage from '../storage';
 
 class ProductManagement extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     VendingMachine.instance.observe('subscribeProductManagement', this);
+  }
+
+  render() {
+    this.innerHTML = this.template();
+    storage.getLocalStorage('products').forEach((product) => this.insertItem(product));
   }
 
   template() {

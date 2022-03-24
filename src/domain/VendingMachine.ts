@@ -1,3 +1,4 @@
+import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
 import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
@@ -25,7 +26,11 @@ class VendingMachine implements IVendingMachine {
 
   constructor() {
     this.amount = new Coin();
-    this.products = [];
+    this.products = storage.getLocalStorage('products').map((product) => {
+      const { name, price, quantity } = product;
+
+      return new Product({ name, price, quantity } as Product);
+    });
   }
 
   subscribeProductManagement() {
@@ -59,6 +64,7 @@ class VendingMachine implements IVendingMachine {
       validateProduct(product, this.products);
       const newProduct = new Product(product);
       this.products.push(newProduct);
+      storage.setLocalStorage('products', this.products);
       this.dispatch('subscribeProductManagement', 'add', newProduct);
     } catch (error) {
       alert(error.message);
@@ -67,12 +73,16 @@ class VendingMachine implements IVendingMachine {
 
   updateProduct(targetName: string, name: string, price: number, quantity: number) {
     try {
+      console.log(targetName, name, price, quantity, this.products);
       validateUpdateProduct(targetName, name, price, this.products);
       ($(`[data-product-name="${targetName}"]`) as HTMLElement).dataset.productName = name;
       const target = this.products.find((product) => product.name === targetName);
+      console.log(target);
       target.update(name, price, quantity);
+      storage.setLocalStorage('products', this.products);
       this.dispatch('subscribeProductManagement', 'update', target);
     } catch (error) {
+      // console.log(error);
       alert(error.message);
     }
   }
@@ -84,6 +94,7 @@ class VendingMachine implements IVendingMachine {
       this.products.find((product) => product.name === name),
     );
     this.products = this.products.filter((product) => product.name !== name);
+    storage.setLocalStorage('products', this.products);
   }
 
   charge(inputMoney: number) {
