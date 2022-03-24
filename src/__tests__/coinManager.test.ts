@@ -1,15 +1,6 @@
-interface coins {
-  coin500: number;
-  coin100: number;
-  coin50: number;
-  coin10: number;
-}
-
-interface CoinManager {
-  getCoins(): coins;
-  getTotalAmount(): number;
-  addCoins(newCoins: coins): void;
-}
+import VendingMachineCoinManager, {
+  coins,
+} from '../ts/VendingMachineCoinManager';
 
 test('잔돈 충전 탭에서 최초 자판기가 보유한 금액은 0원이며, 각 동전의 개수는 0개이다.', () => {
   const vendingMachineCoinManager = new VendingMachineCoinManager();
