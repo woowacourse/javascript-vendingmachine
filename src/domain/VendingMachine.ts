@@ -27,7 +27,7 @@ class VendingMachine implements IVendingMachine {
 
   constructor() {
     this.amount = new Coin(...storage.getAmount());
-    this.products = storage.getProducts().map((product) => new Product(product));
+    this.products = storage.getProducts().map((product) => new Product(product, product.id));
   }
 
   subscribeProductManagement() {
@@ -42,6 +42,7 @@ class VendingMachine implements IVendingMachine {
 
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
+
     targets.forEach((target) => target.element.notify(action, this.amount, product));
   }
 
@@ -54,6 +55,7 @@ class VendingMachine implements IVendingMachine {
     try {
       validateProduct(product, this.products);
       const newProduct = new Product(product);
+
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
@@ -62,13 +64,11 @@ class VendingMachine implements IVendingMachine {
     }
   }
 
-  updateProduct(detail: any) {
+  updateProduct({ targetName, name, price, quantity }) {
     try {
-      const { targetName, name, price, quantity } = detail;
-
       validateUpdateProduct(targetName, name, price, this.products);
-      ($(`[data-product-name="${targetName}"]`) as HTMLElement).dataset.productName = name;
       const target = this.products.find((product) => product.name === targetName);
+
       target.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);

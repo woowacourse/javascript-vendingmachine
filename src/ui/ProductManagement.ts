@@ -15,7 +15,7 @@ class ProductManagement extends CustomElement {
   render() {
     this.innerHTML = this.template();
 
-    const products = storage.getLocalStorage('products') ?? [];
+    const products = storage.getProducts();
 
     products.forEach((product) => this.insertItem(product));
   }
@@ -59,7 +59,7 @@ class ProductManagement extends CustomElement {
     const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
 
     item.innerHTML = `
-      <tr class="product-item" data-product-name="${item.dataset.productName}">
+      <tr class="product-item" data-product-name="${item.dataset.productName}" data-product-id="${item.dataset.productId}">
         <td><form id="product-edit-form-${item.dataset.productName}" class="product-item__form"><input form="product-edit-form-${item.dataset.productName}" name="name" maxlength="10" value="${values[0]}" required/></form></td>
         <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="price" min="100" max="10000" value="${values[1]}" required/></td>
         <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="quantity" min="1" max="20" value="${values[2]}" required/></td>
@@ -86,7 +86,6 @@ class ProductManagement extends CustomElement {
   notify(action: string, _: never, product: Product) {
     if (action === 'add') {
       this.insertItem(product);
-      return;
     }
 
     if (action === 'update') {
@@ -101,7 +100,7 @@ class ProductManagement extends CustomElement {
   insertItem(product: Product) {
     $('tbody', this).insertAdjacentHTML(
       'beforeend',
-      `<tr class="product-item" data-product-name="${product.name}">
+      `<tr class="product-item" data-product-name="${product.name}" data-product-id="${product.id}">
           <td>${product.name}</td>
           <td>${product.price}</td>
           <td>${product.quantity}</td>
@@ -115,7 +114,10 @@ class ProductManagement extends CustomElement {
   }
 
   updateItem(product: Product) {
-    $(`[data-product-name="${product.name}"]`).innerHTML = `  
+    const item = $(`[data-product-id="${product.id}"]`) as HTMLElement;
+
+    item.dataset.productName = product.name;
+    item.innerHTML = ` 
       <td>${product.name}</td>
       <td>${product.price}</td>
       <td>${product.quantity}</td>

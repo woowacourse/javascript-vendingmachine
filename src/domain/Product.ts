@@ -5,11 +5,13 @@ interface IProduct {
 }
 
 class Product implements IProduct {
+  id: string;
   name: string;
   price: number;
   quantity: number;
 
-  constructor(product: Product) {
+  constructor(product: Product, id = Math.random().toString(36).substring(2, 9)) {
+    this.id = id;
     this.update(product);
   }
 
