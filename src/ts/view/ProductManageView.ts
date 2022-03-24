@@ -1,5 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $, $$ } from '../utils';
+import { CONFIRM_MESSAGE } from '../constants';
 
 export interface ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
@@ -7,8 +8,10 @@ export interface ProductManageViewInterface {
   $productQuantityInput: HTMLInputElement;
   $productManageForm: HTMLFormElement;
   vendingMachine: VendingMachineInterface;
-  submitHandler(event: any): void;
+  handleSubmit(event: any): void;
+  handleDelete(target: HTMLButtonElement): void;
   renderProductManage(): void;
+  removeProductRow(name: string): void;
 }
 
 class ProductManageView implements ProductManageViewInterface {
@@ -27,10 +30,40 @@ class ProductManageView implements ProductManageViewInterface {
     this.$currentProductTable = $('#current-product-table');
     this.vendingMachine = vendingMachine;
 
-    this.$productManageForm.addEventListener('submit', this.submitHandler);
+    this.$productManageForm.addEventListener('submit', this.handleSubmit);
+    this.$currentProductTable.addEventListener('click', this.handleModifierButton);
   }
 
-  submitHandler = (event: SubmitEvent) => {
+  handleEdit = () => {
+    console.log('edit!');
+  };
+
+  handleDelete = (target: HTMLButtonElement) => {
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      const name = target.dataset.name;
+      this.vendingMachine.deleteProduct(name);
+      this.removeProductRow(name);
+    }
+  };
+
+  removeProductRow(name: string) {
+    const targetDelete = $(`[data-name=${name}]`);
+    this.$currentProductTable.removeChild(targetDelete);
+  }
+
+  handleModifierButton = (event: PointerEvent) => {
+    const target = event.target as HTMLButtonElement;
+
+    if (target.classList.contains('edit-button')) {
+      this.handleEdit();
+      return;
+    }
+    if (target.classList.contains('delete-button')) {
+      this.handleDelete(target);
+    }
+  };
+
+  handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
     const input = {
@@ -49,13 +82,13 @@ class ProductManageView implements ProductManageViewInterface {
 
   renderAddedProduct = ({ name, price, quantity }) => {
     const template = `
-      <tr class="product-row">
+      <tr class="product-row" data-name="${name}">
         <td class="product-row-name">${name}</td>
         <td class="product-row-price">${price}</td>
         <td class="product-row-quantity">${quantity}</td>
         <td>
-          <button class="small-button" data-name="${name}">수정</button>
-          <button class="small-button" data-name="${name}">삭제</button>
+          <button class="small-button edit-button" data-name="${name}">수정</button>
+          <button class="small-button delete-button" data-name="${name}">삭제</button>
         </td>
       </tr>`;
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);

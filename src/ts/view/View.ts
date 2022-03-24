@@ -49,7 +49,6 @@ class View {
   };
 
   renderUpdatedView = (id: string) => {
-    console.log(id);
     const containerBranch = {
       'product-manage-container': () => {
         this.productManageView.renderProductManage();

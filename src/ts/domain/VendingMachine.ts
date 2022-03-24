@@ -4,6 +4,7 @@ import Product from './Product';
 export interface VendingMachineInterface {
   products: ProductType[];
   addProduct(input: ProductType): ProductType;
+  deleteProduct(name: string): void;
 }
 
 class VendingMachine implements VendingMachineInterface {
@@ -18,6 +19,12 @@ class VendingMachine implements VendingMachineInterface {
     this.products.push(productToAdd);
 
     return productToAdd;
+  };
+
+  deleteProduct = (name: string) => {
+    const indexToDelete = this.products.findIndex((product) => product.name === name);
+
+    this.products.splice(indexToDelete, 1);
   };
 }
 

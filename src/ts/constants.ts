@@ -17,3 +17,7 @@ export const ERROR_MESSAGE = {
   PRICE_UNIT: '상품 가격은 10 단위어야 합니다.',
   EXCEED_QUANTITY: '상품의 수량은 최대 20개 입니다.',
 };
+
+export const CONFIRM_MESSAGE = {
+  DELETE: '정말 삭제하시겠습니까?',
+};
