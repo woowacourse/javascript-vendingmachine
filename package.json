@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -37,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
+  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
