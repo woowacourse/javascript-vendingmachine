@@ -20,7 +20,7 @@ export default class VendingMachine {
   getState() {
     return {
       items: new Map(this.items),
-      coinList: { ...this.coins },
+      coins: { ...this.coins },
     };
   }
 
@@ -56,7 +56,7 @@ export default class VendingMachine {
     this.items.set(name, updatedItem);
   }
 
-  deleteItem(name: string): void {
+  removeItem(name: string): void {
     if (!this.findItem(name)) throw new Error('error');
 
     this.items.delete(name);

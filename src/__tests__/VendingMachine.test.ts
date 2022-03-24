@@ -128,11 +128,11 @@ describe('vendingMachine', () => {
     });
   });
 
-  describe('delete', () => {
+  describe('remove', () => {
     describe('성공 시', () => {
       test('상품을 삭제할 수 있다', () => {
         vendingMachine.addItem({ name: '콜라', price: 1500, quantity: 5 });
-        vendingMachine.deleteItem('콜라');
+        vendingMachine.removeItem('콜라');
         expect(vendingMachine.items.has('콜라')).toBeFalsy();
       });
     });
@@ -140,7 +140,7 @@ describe('vendingMachine', () => {
     describe('실패 시', () => {
       test('itemList에 존재하지 않는 상품명의 상품을 삭제할 시 Error를 throw한다.', () => {
         expect(() => {
-          vendingMachine.deleteItem('콜라');
+          vendingMachine.removeItem('콜라');
         }).toThrowError();
       });
     });
