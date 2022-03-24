@@ -18,12 +18,21 @@ class HoldingAmountStore implements IStore {
   }
 
   setState(newState: IState) {
+    const changeStates = Object.entries(newState).map(([key]) => key);
+
     this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(subscriber => subscriber(this.state));
+    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
   }
 
   getState(): IState {
     return { ...this.state };
+  }
+
+  getTotalAmount(): number {
+    return this.state.coins.reduce(
+      (previous, coin, index) => (previous += COIN_TYPE[index] * coin),
+      0,
+    );
   }
 
   getMaxCoinIndex(baseAmount) {
