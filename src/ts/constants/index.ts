@@ -6,6 +6,8 @@ const PRICE_RULE = {
 };
 const MAX_QUANTITY = 20;
 
+const coinType = [500, 100, 50, 10];
+
 const MESSAGE = {
   ERROR_SAME_PRODUCT: '이미 동일한 이름의 상품이 존재합니다.',
   ERROR_OVER_MAX_LENGTH: `상품명을 ${MAX_NAME_LENGTH}글자 이하로 입력해주세요.`,
@@ -19,4 +21,4 @@ const MESSAGE = {
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
 };
 
-export { MESSAGE, MAX_NAME_LENGTH, PRICE_RULE, MAX_QUANTITY };
+export { MESSAGE, MAX_NAME_LENGTH, PRICE_RULE, MAX_QUANTITY, coinType };

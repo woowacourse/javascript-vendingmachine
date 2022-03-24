@@ -1,4 +1,4 @@
-import { $ } from '../../utils/dom';
+import { $, replaceHTML } from '../../utils/dom';
 import CoinHoldingsUI from './CoinHoldingsUI';
 
 export default class CoinChargeUI {
