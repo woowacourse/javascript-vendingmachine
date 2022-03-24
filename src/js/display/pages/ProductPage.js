@@ -6,17 +6,33 @@ import { template } from '@Display/template';
 export default class ProductPage {
   renderMethodList;
 
-  $addFormSection = $('#add-product-form-section');
-  $addForm = $('#add-product-form', this.$addFormSection);
-
-  $tableSection = $('#product-table-section');
-  $table = $('#product-table', this.$tableSection);
+  $addFormSection;
+  $addForm;
+  $tableSection;
+  $table;
 
   constructor() {
     ProductStore.addSubscriber(this.render);
-
     this.setRenderMethodList();
+  }
+
+  loadPage = () => {
+    $('main').innerHTML = template.productPage;
+
+    this.setDom();
+    this.render({
+      state: ProductStore.getState(),
+      changeStates: Object.keys(this.renderMethodList),
+    });
     this.setEvents();
+  };
+
+  setDom() {
+    this.$addFormSection = $('#add-product-form-section');
+    this.$addForm = $('#add-product-form', this.$addFormSection);
+
+    this.$tableSection = $('#product-table-section');
+    this.$table = $('#product-table', this.$tableSection);
   }
 
   setRenderMethodList() {
@@ -43,9 +59,16 @@ export default class ProductPage {
     });
   }
 
+  render = ({ state, changeStates }) => {
+    changeStates.forEach(stateKey => {
+      this.renderMethodList[stateKey].forEach(renderMethod => renderMethod(state));
+    });
+  };
+
   onSubmitAddProductForm(event) {
     event.preventDefault();
-    const product = Array.from($$('input', event.target)).reduce((previous, inputElement) => {
+    const $$inputs = $$('input', event.target);
+    const product = Array.from($$inputs).reduce((previous, inputElement) => {
       previous[inputElement.name] =
         inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value;
       return previous;
@@ -54,10 +77,12 @@ export default class ProductPage {
     // 예외 처리
     try {
       validateProduct(product);
-      ProductStore.addProduct(product);
     } catch (error) {
       alert(error.message);
+      return;
     }
+    ProductStore.addProduct(product);
+    $$inputs.forEach($input => ($input.value = ''));
   }
 
   onClickUpdateButton({ target: $target }) {
@@ -84,10 +109,11 @@ export default class ProductPage {
 
     try {
       validateProduct(product);
-      ProductStore.updateProduct(productIndex, product);
     } catch (error) {
       alert(error.message);
+      return;
     }
+    ProductStore.updateProduct(productIndex, product);
   }
 
   onClickUpdateCancelButton({ target: $target }) {
@@ -110,14 +136,7 @@ export default class ProductPage {
     ProductStore.removeProductByIndex(productIndex);
   }
 
-  render = ({ state, changeStates }) => {
-    changeStates.forEach(stateKey => {
-      this.renderMethodList[stateKey].forEach(renderMethod => renderMethod(state));
-    });
-  };
-
   drawProductList = ({ products }) => {
-    // 상품 목록을 그려준다.
     const productItem = template.productTableRows(products);
     $('tbody', this.$table).innerHTML = productItem;
   };
