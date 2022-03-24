@@ -7,13 +7,23 @@ var ProductManageImpl = /** @class */ (function () {
         (0, dom_1.$)('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
         (0, dom_1.$)('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
     }
-    ProductManageImpl.prototype.handleAddProduct = function (e) {
-        e.preventDefault();
+    ProductManageImpl.prototype.getProductInfo = function () {
         var name = (0, dom_1.$)('#product-name-input').value;
         var price = Number((0, dom_1.$)('#product-price-input').value);
         var quantity = Number((0, dom_1.$)('#product-quantity-input').value);
-        if (this.isValidProductInfo(name, price, quantity)) {
-            this.addProduct(name, price, quantity);
+        return { name: name, price: price, quantity: quantity };
+    };
+    ProductManageImpl.prototype.getProductInfoModify = function (productNode) {
+        var name = (0, dom_1.$)('.product-info-name', productNode).value;
+        var price = Number((0, dom_1.$)('.product-info-price', productNode).value);
+        var quantity = Number((0, dom_1.$)('.product-info-quantity', productNode).value);
+        return { name: name, price: price, quantity: quantity };
+    };
+    ProductManageImpl.prototype.handleAddProduct = function (e) {
+        e.preventDefault();
+        var productInfo = this.getProductInfo();
+        if (this.isValidProductInfo(productInfo)) {
+            this.addProduct(productInfo);
             this.drawProductList();
         }
     };
@@ -26,17 +36,16 @@ var ProductManageImpl = /** @class */ (function () {
             this.drawProductList();
         }
         if (e.target.classList.contains('confirm-button')) {
-            var name_1 = (0, dom_1.$)('.product-info-name', e.target.closest('tr')).value;
-            var price = Number((0, dom_1.$)('.product-info-price', e.target.closest('tr')).value);
-            var quantity = Number((0, dom_1.$)('.product-info-quantity', e.target.closest('tr')).value);
-            this.modifyProduct(name_1, price, quantity);
-            if (this.isValidModifyProductInfo(name_1, price, quantity)) {
-                this.products[this.getProductIndex(name_1)] = { name: name_1, price: price, quantity: quantity };
+            var productInfo = this.getProductInfoModify(e.target.closest('tr'));
+            this.modifyProduct(productInfo);
+            if (this.isValidModifyProductInfo(productInfo)) {
+                this.products[this.getProductIndex(productInfo)] = productInfo;
                 this.drawProductList();
             }
         }
     };
-    ProductManageImpl.prototype.isValidModifyProductInfo = function (name, price, quantity) {
+    ProductManageImpl.prototype.isValidModifyProductInfo = function (_a) {
+        var name = _a.name, price = _a.price, quantity = _a.quantity;
         if (name.length < 1 || name.length > 10) {
             return false;
         }
@@ -48,17 +57,11 @@ var ProductManageImpl = /** @class */ (function () {
         }
         return true;
     };
-    ProductManageImpl.prototype.isValidProductInfo = function (name, price, quantity) {
-        if (name.length < 1 || name.length > 10) {
+    ProductManageImpl.prototype.isValidProductInfo = function (productInfo) {
+        if (!this.isValidModifyProductInfo(productInfo)) {
             return false;
         }
-        if (this.products.some(function (product) { return product.name === name; })) {
-            return false;
-        }
-        if (price < 100 || price > 10000 || price % 10 !== 0) {
-            return false;
-        }
-        if (quantity < 0 || quantity > 20) {
+        if (this.products.some(function (product) { return product.name === productInfo.name; })) {
             return false;
         }
         return true;
@@ -74,18 +77,19 @@ var ProductManageImpl = /** @class */ (function () {
         (0, dom_1.$)('#product-list').replaceChildren();
         (0, dom_1.$)('#product-list').insertAdjacentHTML('beforeend', template);
     };
-    ProductManageImpl.prototype.addProduct = function (name, price, quantity) {
-        this.products.push({ name: name, price: price, quantity: quantity });
+    ProductManageImpl.prototype.addProduct = function (productInfo) {
+        this.products.push(productInfo);
     };
-    ProductManageImpl.prototype.modifyProduct = function (name, price, quantity) {
-        if (this.isValidProductInfo(name, price, quantity)) {
-            this.products[this.getProductIndex(name)] = { name: name, price: price, quantity: quantity };
+    ProductManageImpl.prototype.modifyProduct = function (productInfo) {
+        if (this.isValidProductInfo(productInfo)) {
+            this.products[this.getProductIndex(productInfo)] = productInfo;
         }
     };
-    ProductManageImpl.prototype.deleteProduct = function (name) {
-        this.products.splice(this.getProductIndex(name), 1);
+    ProductManageImpl.prototype.deleteProduct = function (productInfo) {
+        this.products.splice(this.getProductIndex(productInfo), 1);
     };
-    ProductManageImpl.prototype.getProductIndex = function (name) {
+    ProductManageImpl.prototype.getProductIndex = function (_a) {
+        var name = _a.name;
         return this.products.findIndex(function (product) { return product.name === name; });
     };
     return ProductManageImpl;

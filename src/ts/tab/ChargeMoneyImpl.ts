@@ -40,7 +40,7 @@ class ChargeMoneyImpl implements ChargeMoney {
   }
 
   generateRandomCoins(inputMoney: number) {
-    const coins = [10, 50, 100, 500];
+    const coins: Array<number> = this.coins.map(({ amount }) => amount);
     const coinList = [0, 0, 0, 0];
 
     while (inputMoney > 0) {

@@ -32,7 +32,10 @@ var ChargeMoneyImpl = /** @class */ (function () {
         return true;
     };
     ChargeMoneyImpl.prototype.generateRandomCoins = function (inputMoney) {
-        var coins = [10, 50, 100, 500];
+        var coins = this.coins.map(function (_a) {
+            var amount = _a.amount;
+            return amount;
+        });
         var coinList = [0, 0, 0, 0];
         while (inputMoney > 0) {
             var pickLength = coins.filter(function (coin) { return inputMoney >= coin; });
