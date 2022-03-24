@@ -51,6 +51,14 @@ input {
   border-radius: 4px;
 }
 
+input[type='number']::-webkit-inner-spin-button {
+  opacity: 0.5;
+}
+
+input[type='number']:disabled::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 form > label {
   margin: 0 0 8px;
   font-weight: 400;
