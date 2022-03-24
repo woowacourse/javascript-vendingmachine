@@ -2,16 +2,14 @@ import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 import { validateCash } from './validator';
 
-export default class ProductAdditionUI {
+export default class CoinChargeUI {
   constructor(coinDomain) {
-    this.$form = $('.coin-charge__form');
-    this.$totalCash = $('.coin-charge__total-cash');
     this.coinDomain = coinDomain;
     this.addSubmitEvent();
   }
 
   addSubmitEvent() {
-    this.$form.addEventListener('submit', e => {
+    $('.coin-charge__form').addEventListener('submit', e => {
       e.preventDefault();
       const cash = e.target.elements.cashInput.valueAsNumber;
 
@@ -24,7 +22,7 @@ export default class ProductAdditionUI {
 
       this.coinDomain.addCash(cash);
 
-      this.$totalCash.textContent = this.coinDomain.totalCash;
+      $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
       viewPainter.renderCoins();
     });
   }

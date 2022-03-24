@@ -4,13 +4,12 @@ import { viewPainter } from '../ViewPainter';
 
 export default class ProductAdditionUI {
   constructor(productDomain) {
-    this.$form = $('.product-addition__form');
     this.productDomain = productDomain;
     this.addSubmitEvent();
   }
 
   addSubmitEvent() {
-    this.$form.addEventListener('submit', e => {
+    $('.product-addition__form').addEventListener('submit', e => {
       e.preventDefault();
       const $$inputs = Array.from(e.target.elements).filter(
         element => element.tagName === 'INPUT',
