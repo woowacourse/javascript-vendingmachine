@@ -46,6 +46,11 @@ export default class VendingMachine {
     this.setItems(newItems);
   }
 
+  deleteItem(targetItem: ItemType) {
+    const newItems = this.getItems().filter(item => item.name !== targetItem.name);
+    this.setItems(newItems);
+  }
+
   changeItem(index: number, { name, price, quantity }: ItemType) {
     const newItems = this.getItems();
     newItems[index] = { name, price, quantity };

@@ -33,6 +33,7 @@ export default class ManageItemView {
         const item = { name, price, quantity };
 
         if (event.target.textContent === '삭제') {
+          this.tableItemDeleteEvent(item);
           target.remove();
           return;
         }
@@ -96,6 +97,11 @@ export default class ManageItemView {
     window.dispatchEvent(
       new CustomEvent('TABLE_ITEM_CHANGE', { detail: { item, targetIndex, targetElement } }),
     );
+  }
+
+  // TABLE_ITEM_DELETE 이벤트
+  tableItemDeleteEvent(item) {
+    window.dispatchEvent(new CustomEvent('TABLE_ITEM_DELETE', { detail: { item } }));
   }
 
   updateItemTable(items) {

@@ -18,6 +18,7 @@ export default class ManageItemController {
   bindEvents() {
     window.addEventListener('ADD_ITEM', this.onSubmitAddItem.bind(this));
     window.addEventListener('TABLE_ITEM_CHANGE', this.onTableItemChange.bind(this));
+    window.addEventListener('TABLE_ITEM_DELETE', this.onTableItemDelete.bind(this));
   }
 
   onSubmitAddItem(event) {
@@ -47,6 +48,11 @@ export default class ManageItemController {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  onTableItemDelete(event) {
+    const { item } = event.detail;
+    this.vendingMachine.deleteItem(item);
   }
 
   checkDuplicatedItem(newItem, targetIndex) {
