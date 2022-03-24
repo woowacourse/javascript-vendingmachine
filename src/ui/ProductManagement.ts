@@ -32,6 +32,7 @@ class ProductManagement extends CustomElement {
 
   handleAdd(e: any) {
     e.preventDefault();
+
     const name = e.target.name.value;
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
@@ -43,10 +44,21 @@ class ProductManagement extends CustomElement {
 
   handleUpdateAndDelete(e: any) {
     if (e.target.classList.contains('product-item__edit-button')) {
-      const item = e.target.closest('.product-item');
-      const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
+      this.showForm(e);
+    }
 
-      item.innerHTML = `
+    if (e.target.classList.contains('product-item__delete-button') && confirm('해당 상품을 삭제하시겠습니까?')) {
+      const productName = e.target.closest('.product-item').dataset.productName;
+
+      emit('#product-list-table', '@delete', { productName }, this);
+    }
+  }
+
+  showForm(e: any) {
+    const item = e.target.closest('.product-item');
+    const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
+
+    item.innerHTML = `
       <tr class="product-item" data-product-name="${item.dataset.productName}">
         <td><form id="product-edit-form-${item.dataset.productName}" class="product-item__form"><input form="product-edit-form-${item.dataset.productName}" name="name" maxlength="10" value="${values[0]}" required/></form></td>
         <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="price" min="100" max="10000" value="${values[1]}" required/></td>
@@ -56,13 +68,6 @@ class ProductManagement extends CustomElement {
         </td>
       </tr>
     `;
-    }
-
-    if (e.target.classList.contains('product-item__delete-button') && confirm('해당 상품을 삭제하시겠습니까?')) {
-      const productName = e.target.closest('.product-item').dataset.productName;
-
-      emit('#product-list-table', '@delete', { productName }, this);
-    }
   }
 
   handleConfirm(e: any) {
@@ -75,7 +80,7 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this); // 여기 이후에야 UI를 바꿀 수 있음
+    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
   }
 
   notify(action: string, _: never, product: Product) {
@@ -104,12 +109,12 @@ class ProductManagement extends CustomElement {
             <button type="button" class="product-item__edit-button button">수정</button>
             <button type="button" class="product-item__delete-button button">삭제</button>
           </td>
-      </tr>`,
+       </tr>
+      `,
     );
   }
 
   updateItem(product: Product) {
-    // 이미 바뀐 product임
     $(`[data-product-name="${product.name}"]`).innerHTML = `  
       <td>${product.name}</td>
       <td>${product.price}</td>
