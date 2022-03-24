@@ -27,6 +27,10 @@
         "lines-between-class-members": "off",
         "no-param-reassign": "off",
         "nonblock-statement-body-position": "off",
-        "curly": "off"
+        "curly": "off",
+        "operator-linebreak": "off",
+        "no-return-assign": "off",
+        "no-new": "off",
+        "no-unused-expressions": "off"
     }
 }
