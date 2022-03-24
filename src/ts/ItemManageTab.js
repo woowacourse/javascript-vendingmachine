@@ -1,4 +1,7 @@
-import { itemManageTabContentTemplate, generateItemManageTableRowTemplate } from './template';
+import {
+  generateItemManageTabContentTemplate,
+  generateItemManageTableRowTemplate,
+} from './template';
 import { selectDom } from './utils';
 
 class ItemManageTab {
@@ -8,6 +11,7 @@ class ItemManageTab {
     this.navTabButtonList = document.querySelectorAll('.nav-tab-button');
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
     this.tabContent = selectDom('#tab-content');
+
     this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
     this.itemInfoInputs = this.itemInfoForm.querySelectorAll('.item-info-input');
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
@@ -22,7 +26,17 @@ class ItemManageTab {
       return;
     }
 
-    this.#changeTabContent(itemManageTabContentTemplate, targetTabButton);
+    this.#changeTabContent(
+      generateItemManageTabContentTemplate(this.vendingMachine.itemList),
+      targetTabButton
+    );
+
+    this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
+    this.itemInfoInputs = this.itemInfoForm.querySelectorAll('.item-info-input');
+    this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
+
+    this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
+    this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
   };
 
   #onSubmitItemInfoForm = (e) => {

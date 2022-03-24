@@ -1,4 +1,4 @@
-export const itemManageTabContentTemplate = `
+export const generateItemManageTabContentTemplate = (itemList) => `
     <form id="item-info-form" class="input-form">
       <label>추가할 상품 정보를 입력해주세요.</label>
       <div class="input-form-container">
@@ -16,6 +16,7 @@ export const itemManageTabContentTemplate = `
         <th>수량</th>
         <th></th>
       </tr>
+      ${itemList.map((itemInfo) => generateItemManageTableRowTemplate(itemInfo)).join('')}
     </table>
 `;
 
@@ -36,7 +37,7 @@ export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQu
     </tr>
 `;
 
-export const coinRechargeTabContentTemplate = `
+export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollection) => `
     <form id="cash-charge-form" class="input-form">
         <label>자판기가 보유할 금액을 입력해주세요</label>
         <div class="input-form-container">
@@ -44,7 +45,7 @@ export const coinRechargeTabContentTemplate = `
           <button class="input-form-button">충전</button>
         </div>
     </form>
-    <p class="vendingmachine-total-amount">현재 보유 금액: <span id="charged-amount">0</span>원</p>
+    <p class="vendingmachine-total-amount">현재 보유 금액: <span id="charged-amount">${chargedAmount}</span>원</p>
     <table class="vendingmachine-coin-table">
       <caption><h2>자판기가 보유한 동전</h2></caption>
       <tr>
@@ -53,19 +54,19 @@ export const coinRechargeTabContentTemplate = `
       </tr>
       <tr>
         <td>500원</td>
-        <td class="coin-count" data-coin-value="500">0개</td>
+        <td class="coin-count" data-coin-value="500">${coinCollection[500]}개</td>
       </tr>
       <tr>
         <td>100원</td>
-        <td class="coin-count" data-coin-value="100">0개</td>
+        <td class="coin-count" data-coin-value="100">${coinCollection[100]}개</td>
       </tr>
       <tr>
         <td>50원</td>
-        <td class="coin-count" data-coin-value="50">0개</td>
+        <td class="coin-count" data-coin-value="50">${coinCollection[50]}개</td>
       </tr>
       <tr>
         <td>10원</td>
-        <td class="coin-count" data-coin-value="10">0개</td>
+        <td class="coin-count" data-coin-value="10">${coinCollection[10]}개</td>
       </tr>
     </table>
 `;

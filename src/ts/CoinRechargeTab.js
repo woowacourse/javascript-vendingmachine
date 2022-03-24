@@ -1,4 +1,4 @@
-import { coinRechargeTabContentTemplate } from './template';
+import { generateCoinRechargeTabContentTemplate } from './template';
 import { selectDom } from './utils';
 
 class CoinRechargeTab {
@@ -22,7 +22,12 @@ class CoinRechargeTab {
       return;
     }
 
-    this.#changeTabContent(coinRechargeTabContentTemplate, targetTabButton);
+    const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
+
+    this.#changeTabContent(
+      generateCoinRechargeTabContentTemplate(totalCoinAmount, this.vendingMachine.coinCollection),
+      targetTabButton
+    );
 
     this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
     this.cashChargeInput = selectDom('.cash-charge-input', this.cashChargeForm);
