@@ -10,6 +10,7 @@ module.exports = {
     extensions: ['.js', '.ts', '.css', '.scss'],
     alias: {
       '@Styles': path.resolve(__dirname, 'src/styles'),
+      '@Display': path.resolve(__dirname, 'src/js/display'),
       '@Domain': path.resolve(__dirname, 'src/js/domain'),
       '@Utils': path.resolve(__dirname, 'src/js/utils'),
       '@Constants': path.resolve(__dirname, 'src/js/constants'),
