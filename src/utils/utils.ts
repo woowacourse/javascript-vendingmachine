@@ -47,3 +47,9 @@ export const checkValidProductQuantity = (quantity) => {
     );
   }
 };
+
+export const checkValidChargeMoney = (money) => {
+  if (money % 10 !== 0) {
+    throw new Error('금액은 10으로 나누어떨어져야 합니다.');
+  }
+};
