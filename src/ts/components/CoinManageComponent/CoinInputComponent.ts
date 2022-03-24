@@ -1,8 +1,5 @@
-import {
-  generateRandomCoins,
-  checkValidChargeMoney,
-} from '../../../utils/utils';
-import { emit } from '../../dom';
+import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
+import { emit, renderSnackBar } from '../../dom';
 
 export default class CoinInputComponent {
   $coinInput: HTMLInputElement = document.querySelector(
@@ -13,6 +10,9 @@ export default class CoinInputComponent {
   );
   $totalCoin: HTMLElement = document.querySelector(
     '.charge-form-section__total-coin'
+  );
+  private $snackBarContainer: HTMLElement = document.querySelector(
+    '.snack-bar-container'
   );
 
   constructor(private vendingMachineCoinManager) {
@@ -36,8 +36,8 @@ export default class CoinInputComponent {
           coins: this.vendingMachineCoinManager.getCoins(),
         },
       });
-    } catch (error) {
-      console.log(error);
+    } catch ({ message }) {
+      renderSnackBar(this.$snackBarContainer, message);
     }
   };
 }

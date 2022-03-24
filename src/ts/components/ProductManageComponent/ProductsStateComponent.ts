@@ -1,9 +1,9 @@
-import { on } from '../../dom';
+import { on, renderSnackBar } from '../../dom';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../../utils/utils';
+} from '../../utils/utils';
 
 const generateTemplate = ({
   name: productName,
@@ -47,6 +47,9 @@ const generateEditTemplate = ({
 export default class ProductStateComponent {
   vendingMachineProductManager;
   productTableTbody;
+  private $snackBarContainer: HTMLElement = document.querySelector(
+    '.snack-bar-container'
+  );
 
   constructor(vendingMachineProductManager) {
     this.vendingMachineProductManager = vendingMachineProductManager;
@@ -113,8 +116,8 @@ export default class ProductStateComponent {
 
       parentElement.innerHTML = generateTemplate(editedProduct);
       parentElement.dataset.productName = editProductNameInput.value;
-    } catch (error) {
-      console.error(error);
+    } catch ({ message }) {
+      renderSnackBar(this.$snackBarContainer, message);
     }
   };
 

@@ -1,8 +1,9 @@
 @import url('https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import './app.css';
+@import './snackbar.css';
 
-:root {
+:root  {
   --color-primary: #00bcd4;
 }
 

@@ -2,9 +2,9 @@ import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../../utils/utils';
+} from '../../utils/utils';
 
-import { emit } from '../../dom';
+import { emit, renderSnackBar } from '../../dom';
 
 export default class ProductInputComponent {
   private $nameInput: HTMLInputElement = document.querySelector(
@@ -15,6 +15,9 @@ export default class ProductInputComponent {
   );
   private $quantityInput: HTMLInputElement = document.querySelector(
     '.product-info-form__quantity-input'
+  );
+  private $snackBarContainer: HTMLElement = document.querySelector(
+    '.snack-bar-container'
   );
 
   vendingMachineProductManagement;
@@ -51,8 +54,8 @@ export default class ProductInputComponent {
           },
         }
       );
-    } catch (error) {
-      console.error(error);
+    } catch ({ message }) {
+      renderSnackBar(this.$snackBarContainer, message);
     }
   };
 }
