@@ -1,10 +1,4 @@
-import { IStore } from '@Domain/Store/interface';
-
-interface IProduct {
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { IStore, IProduct } from '@Domain/Store/Interface';
 
 interface IState {
   products: Array<IProduct>;
@@ -32,29 +26,25 @@ class ProductStore implements IStore {
     return { ...this.state };
   }
 
-  addProduct(name: string, price: number, quantity: number): void {
+  addProduct(product: IProduct): void {
     this.setState({
-      products: [...this.state.products, { name, price, quantity }],
+      products: [...this.state.products, product],
     });
   }
 
-  updateProduct(name: string, price: number, quantity: number): void {
-    const targetIndex = this.findProductIndexByName(name);
-    const updateProducts = [...this.state.products].splice(targetIndex, 1, {
-      name,
-      price,
-      quantity,
-    });
+  updateProduct(index, product: IProduct): void {
+    const updateProducts = [...this.state.products];
 
+    updateProducts.splice(index, 1, product);
     this.setState({
       products: updateProducts,
     });
   }
 
-  removeProductByName(name: string): void {
-    const targetIndex = this.findProductIndexByName(name);
-    const updateProducts = [...this.state.products].splice(targetIndex, 1);
+  removeProductByIndex(index: number): void {
+    const updateProducts = [...this.state.products];
 
+    updateProducts.splice(index, 1);
     this.setState({
       products: updateProducts,
     });
