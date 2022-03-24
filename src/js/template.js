@@ -1,7 +1,7 @@
 export const CATEGORY_TEMPLATE = {
   MANAGE: `
     <h2 hidden>상품 관리</h2>
-    <form>
+    <form id="product__add-form">
       <label>추가할 상품 정보를 입력해주세요.</label>
       <div class="form-input product__manage-input-width">
         <input
