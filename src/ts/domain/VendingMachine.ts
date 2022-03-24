@@ -1,7 +1,7 @@
 import ProductType from '../type/ProductType';
 import Product from './Product';
 
-interface VendingMachineInterface {
+export interface VendingMachineInterface {
   products: ProductType[];
   addProduct(input: ProductType): void;
 }
