@@ -4,11 +4,12 @@ import { $, addEvent, emit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
+import { ELEMENT_KEY } from '../constants';
 
 class ProductManagement extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe('subscribeProductManagement', this);
+    VendingMachine.instance.observe(ELEMENT_KEY.PRODUCT, this);
   }
 
   render() {
@@ -77,7 +78,7 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@edit', { targetName, name, price, quantity }, this);
+    emit('#product-list-table', '@edit', { targetName, name, price, quantity }, this); // 여기 이후에야 UI를 바꿀 수 있음
   }
 
   notify(action: string, _: never, product: Product) {
@@ -87,6 +88,7 @@ class ProductManagement extends CustomElement {
     }
 
     if (action === 'update') {
+      // 이미 바뀐 product
       this.updateItem(product);
     }
 
@@ -111,6 +113,7 @@ class ProductManagement extends CustomElement {
   }
 
   updateItem(product: Product) {
+    // 이미 바뀐 product임
     $(`[data-product-name="${product.name}"]`).innerHTML = `  
       <td>${product.name}</td>
       <td>${product.price}</td>

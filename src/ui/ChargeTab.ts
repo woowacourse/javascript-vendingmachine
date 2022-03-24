@@ -4,11 +4,12 @@ import { $, addEvent, emit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
 import Coin from '../domain/Coin';
+import { ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe('subscribeChargeTab', this);
+    VendingMachine.instance.observe(ELEMENT_KEY.CHARGE, this);
   }
 
   render() {
