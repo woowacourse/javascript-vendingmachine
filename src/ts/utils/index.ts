@@ -1,5 +1,5 @@
 const getRandomIndex = array => {
-  return Math.floor(Math.random() * (array.length - 1));
+  return Math.floor(Math.random() * array.length);
 };
 
 export { getRandomIndex };

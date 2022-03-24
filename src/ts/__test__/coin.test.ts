@@ -1,7 +1,7 @@
-import CoinChargeDomain from '../domain/CoinCharge';
+import CoinManagementDomain from '../domain/CoinManagement';
 
 describe('잔돈 도메인 테스트', () => {
-  const coinDomain = new CoinChargeDomain();
+  const coinDomain = new CoinManagementDomain();
   const clearDomain = () => {
     coinDomain.addCash(-coinDomain.totalCash);
   };

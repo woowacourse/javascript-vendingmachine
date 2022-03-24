@@ -1,12 +1,12 @@
 import { coinType } from '../constants';
 import { getRandomIndex } from '../utils';
 
-interface CoinCharge {
+interface CoinManagement {
   addCash: (cash: number) => void;
   addCoins: (cash: number) => void;
 }
 
-export default class CoinChargeDomain implements CoinCharge {
+export default class CoinManagementDomain implements CoinManagement {
   #totalCash;
   #coins;
 
@@ -26,6 +26,7 @@ export default class CoinChargeDomain implements CoinCharge {
 
   addCash(cash) {
     this.#totalCash += cash;
+    this.addCoins(cash);
   }
 
   addCoins(cash) {

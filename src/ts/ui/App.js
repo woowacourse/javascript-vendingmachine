@@ -1,17 +1,21 @@
 import ProductManagementDomain from '../domain/ProductManagement';
+import CoinManagementDomain from '../domain/CoinManagement';
 import { $, $$ } from '../utils/dom';
-import CoinChargeUI from './CoinChargeUI';
+import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
 export default class App {
   constructor() {
     this.productDomain = new ProductManagementDomain();
+    this.coinDomain = new CoinManagementDomain();
+
     this.productManagementUI = new ProductManagementUI(this.productDomain);
-    this.coinChargeUI = new CoinChargeUI(this.productDomain);
+    this.coinManagementUI = new CoinManagementUI(this.coinDomain);
     this.productPurchaseUI = new ProductPurchaseUI(this.productDomain);
 
-    this.productManagementUI.render();
+    // this.productManagementUI.render();
+    this.coinManagementUI.render();
 
     this.addNavClickEvent();
     this.addPopStateEvent();
@@ -25,7 +29,7 @@ export default class App {
           this.productManagementUI.render();
           break;
         case '/charge':
-          this.coinChargeUI.render();
+          this.coinManagementUI.render();
           break;
         case '/purchase':
           this.productPurchaseUI.render();
@@ -55,7 +59,7 @@ export default class App {
           break;
 
         case '/charge':
-          this.coinChargeUI.render();
+          this.coinManagementUI.render();
           break;
 
         case '/purchase':

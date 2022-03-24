@@ -1,9 +1,11 @@
 import { $, replaceHTML } from '../../utils/dom';
 import CoinHoldingsUI from './CoinHoldingsUI';
+import CoinChargeUI from './CoinChargeUI';
+import { viewPainter } from '../ViewPainter';
 
-export default class CoinChargeUI {
-  constructor(productDomain) {
-    this.productDomain = productDomain;
+export default class CoinManagementUI {
+  constructor(coinDomain) {
+    this.coinDomain = coinDomain;
   }
 
   render() {
@@ -23,9 +25,11 @@ export default class CoinChargeUI {
             자판기가 보유할 금액을 입력해주세요.
           </label>
           <input
+            type="number"
             id="cash-amount"
             class="coin-charge__input"
             placeholder="금액"
+            name="cashInput"
           />
           <button class="coin-charge__button submit-button">충전</button>
         </form>
@@ -39,6 +43,8 @@ export default class CoinChargeUI {
   }
 
   bindDOM() {
-    new CoinHoldingsUI();
+    new CoinChargeUI(this.coinDomain);
+    const coinHoldingsUI = new CoinHoldingsUI(this.coinDomain);
+    viewPainter.coinHoldingsUI = coinHoldingsUI;
   }
 }
