@@ -1,4 +1,4 @@
-import { product } from '../ts/VendingMachineProductManager';
+import { product } from '../VendingMachineProductManager';
 
 export const checkValidLengthProductName = (name: string): void => {
   if (name.length < 1 || name.length > 10) {

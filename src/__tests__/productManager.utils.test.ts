@@ -3,7 +3,7 @@ import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../utils/utils';
+} from '../ts/utils/utils';
 import { product } from '../ts/VendingMachineProductManager';
 
 test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (성공 케이스, 입력: "콜라")', () => {

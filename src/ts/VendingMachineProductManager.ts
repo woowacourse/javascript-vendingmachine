@@ -1,7 +1,7 @@
 import {
   checkDuplicatedProductName,
   checkEditDuplicateName,
-} from '../utils/utils';
+} from './utils/utils';
 
 export interface product {
   name: string;
