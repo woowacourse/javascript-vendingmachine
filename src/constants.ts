@@ -1,4 +1,4 @@
-export const COINS = [500, 100, 50, 10];
+export const COINS = [10, 50, 100, 500];
 
 export const ELEMENT_KEY = {
   PRODUCT: 'subscribeProductManagement',

@@ -4,7 +4,7 @@ import { $, addEvent, emit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
 import Coin from '../domain/Coin';
-import { ELEMENT_KEY } from '../constants';
+import { COINS, ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {
   connectedCallback() {
@@ -14,16 +14,12 @@ class ChargeTab extends CustomElement {
 
   render() {
     this.innerHTML = this.template();
-    const amount: Coin = storage.getLocalStorage('amount');
+    const amount: number[] = storage.getAmount();
 
-    if (amount) {
-      $('.charge-amount', this).textContent =
-        Object.entries(amount).reduce((previous, [key, value]) => previous + value * Number(key), 0) + '';
-      $('.coin-500-quantity', this).textContent = amount['500'] + '';
-      $('.coin-100-quantity', this).textContent = amount['100'] + '';
-      $('.coin-50-quantity', this).textContent = amount['50'] + '';
-      $('.coin-10-quantity', this).textContent = amount['10'] + '';
-    }
+    $('.charge-amount', this).textContent = String(
+      COINS.map((coin, i) => coin * amount[i]).reduce((acc, cur) => acc + cur, 0),
+    );
+    COINS.forEach((coin, i) => ($(`.coin-${coin}-quantity`).textContent = String(amount[i])));
   }
 
   template() {
@@ -42,12 +38,9 @@ class ChargeTab extends CustomElement {
     emit('.charge-form', '@charge', { change }, this);
   }
 
-  notify(action, amount, _) {
-    $('.charge-amount', this).textContent = amount.getAmount();
-    $('.coin-500-quantity', this).textContent = amount['500'];
-    $('.coin-100-quantity', this).textContent = amount['100'];
-    $('.coin-50-quantity', this).textContent = amount['50'];
-    $('.coin-10-quantity', this).textContent = amount['10'];
+  notify(_, amount: Coin, __) {
+    $('.charge-amount', this).textContent = String(amount.getAmount());
+    COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount[coin]));
   }
 }
 
