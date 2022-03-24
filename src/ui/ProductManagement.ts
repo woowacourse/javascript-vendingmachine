@@ -13,7 +13,10 @@ class ProductManagement extends CustomElement {
 
   render() {
     this.innerHTML = this.template();
-    storage.getLocalStorage('products').forEach((product) => this.insertItem(product));
+
+    const products = storage.getLocalStorage('products') ?? [];
+
+    products.forEach((product) => this.insertItem(product));
   }
 
   template() {
@@ -57,7 +60,7 @@ class ProductManagement extends CustomElement {
       return;
     }
 
-    if (e.target.classList.contains('product-item__delete-button')) {
+    if (e.target.classList.contains('product-item__delete-button') && confirm('해당 상품을 삭제하시겠습니까?')) {
       const productName = e.target.closest('.product-item').dataset.productName;
 
       emit('#product-list-table', '@delete', { productName }, this);
