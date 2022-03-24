@@ -1,6 +1,7 @@
 import { $ } from "../util/dom";
 import { ChargeMoney } from './declaration';
 import { Coin } from '../resource/declaration'
+import { INPUT_MONEY_RULES } from '../constants/index'
 
 class ChargeMoneyImpl implements ChargeMoney {
   private coins: Array<Coin>;
@@ -29,11 +30,10 @@ class ChargeMoneyImpl implements ChargeMoney {
   }
 
   isValidMoney(inputMoney: number) {
-    if (inputMoney < 1000 || inputMoney % 10 !== 0) {
+    if (inputMoney < INPUT_MONEY_RULES.MIN || inputMoney % INPUT_MONEY_RULES.MOD_UNIT !== 0) {
       return false;
     }
-      
-    if (this.totalAmount() + inputMoney > 100000) {
+    if (this.totalAmount() + inputMoney > INPUT_MONEY_RULES.MAX) {
       return false;
     }
     return true;

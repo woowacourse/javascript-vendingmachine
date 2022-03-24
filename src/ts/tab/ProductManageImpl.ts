@@ -1,6 +1,7 @@
 import { $ } from '../util/dom';
 import { Product } from '../resource/declaration';
 import { ProductManage } from './declaration';
+import { PRODUCT_RULES } from '../constants/index';
 
 class ProductManageImpl implements ProductManage {
   private products: Array<Product>;
@@ -38,8 +39,7 @@ class ProductManageImpl implements ProductManage {
     }
   }
 
-  rowIndex(productRow) {
-    console.log($('#product-list').childNodes);
+  getProductRowIndex(productRow) {
     return [...$('#product-list').childNodes].findIndex((row) => row === productRow);
   }
 
@@ -53,10 +53,9 @@ class ProductManageImpl implements ProductManage {
     }
     if (e.target.classList.contains('confirm-button')) {
       const productInfo = this.getProductInfoModify(e.target.closest('tr'));
-      const index = this.rowIndex(e.target.closest('tr'));
+      const index = this.getProductRowIndex(e.target.closest('tr'));
 
       if (this.isValidModifyProductInfo(productInfo, index)) {
-        console.log(this.isValidModifyProductInfo(productInfo, index));
         this.modifyProduct(productInfo, index);
         this.drawProductList();
       }
@@ -64,13 +63,13 @@ class ProductManageImpl implements ProductManage {
   }
 
   isValidModifyProductInfo({ name, price, quantity }: Product, index: number): boolean {
-    if (name.length < 1 || name.length > 10) {
+    if (name.length < PRODUCT_RULES.MIN_NAME_LENGTH || name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
       return false;
     }
-    if (price < 100 || price > 10000 || price % 10 !== 0) {
+    if (price < PRODUCT_RULES.MIN_PRICE || price > PRODUCT_RULES.MAX_PRICE || price % PRODUCT_RULES.PRICE_MOD_UNIT !== 0) {
       return false;
     }
-    if (quantity < 0 || quantity > 20) {
+    if (quantity < PRODUCT_RULES.MIN_QUANTITY || quantity > PRODUCT_RULES.MAX_QUANTITY) {
       return false;
     }
     if (this.products.some((product: Product, productIndex) => productIndex !== index && product.name === name)) {

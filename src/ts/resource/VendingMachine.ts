@@ -2,10 +2,11 @@ import ProductManageImpl from '../tab/ProductManageImpl';
 import ChargeMoneyImpl from '../tab/ChargeMoneyImpl';
 import { Product, Coin } from './declaration';
 import { $ } from '../util/dom';
+import { COINS } from '../constants/index'
 
 class VendingMachine {
   private products: Array<Product> = []; 
-  private coins: Array<Coin> = [{ amount:10, count: 0 }, { amount:50, count: 0 }, { amount:100, count: 0 }, { amount:500, count: 0 }];
+  private coins: Array<Coin> = [{ amount:COINS.VAULE_10, count: 0 }, { amount:COINS.VAULE_50, count: 0 }, { amount:COINS.VAULE_100, count: 0 }, { amount:COINS.VAULE_500, count: 0 }];
 
   constructor() {
     new ProductManageImpl(this.products);
