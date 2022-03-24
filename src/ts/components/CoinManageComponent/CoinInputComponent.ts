@@ -36,6 +36,9 @@ export default class CoinInputComponent {
           coins: this.vendingMachineCoinManager.getCoins(),
         },
       });
+
+      this.$coinInput.value = '';
+      this.$coinInput.focus();
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message);
     }

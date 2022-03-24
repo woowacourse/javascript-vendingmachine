@@ -19,6 +19,13 @@ export default class NavComponent {
   $navChargeButton: HTMLButtonElement = document.querySelector(
     '.nav__charge-button'
   );
+  $coinInput: HTMLInputElement = document.querySelector(
+    '.charge-form-section__coin-input'
+  );
+  $productInput: HTMLInputElement = document.querySelector(
+    '.product-info-form__product-input'
+  );
+
   vendingMachineProductManager = new VendingMachineProductManager();
   vendingMachineCoinManager = new VendingMachineCoinManager();
 
@@ -43,6 +50,7 @@ export default class NavComponent {
       this.$navProductButton.classList.remove('nav__button--focused');
       this.$navChargeButton.classList.add('nav__button--focused');
       history.pushState(null, null, '/coins');
+      this.$coinInput.focus();
     }
 
     if (window.location.pathname === '/products') {
@@ -51,6 +59,7 @@ export default class NavComponent {
       this.$navProductButton.classList.add('nav__button--focused');
       this.$navChargeButton.classList.remove('nav__button--focused');
       history.pushState(null, null, '/products');
+      this.$productInput.focus();
     }
 
     window.addEventListener('popstate', (): void => {
@@ -59,6 +68,7 @@ export default class NavComponent {
         this.$chargeCoinSection.classList.remove('hide');
         this.$navProductButton.classList.remove('nav__button--focused');
         this.$navChargeButton.classList.add('nav__button--focused');
+        this.$coinInput.focus();
       }
 
       if (
@@ -69,11 +79,10 @@ export default class NavComponent {
         this.$chargeCoinSection.classList.add('hide');
         this.$navProductButton.classList.add('nav__button--focused');
         this.$navChargeButton.classList.remove('nav__button--focused');
+        this.$productInput.focus();
       }
     });
   }
-
-  renderByRoute(route) {}
 
   onClickNavProductButton = (e) => {
     e.preventDefault();
@@ -82,6 +91,7 @@ export default class NavComponent {
     this.$navProductButton.classList.add('nav__button--focused');
     this.$navChargeButton.classList.remove('nav__button--focused');
     history.pushState(null, null, '/products');
+    this.$productInput.focus();
   };
 
   onClickNavChargeButton = (e) => {
@@ -91,5 +101,6 @@ export default class NavComponent {
     this.$navProductButton.classList.remove('nav__button--focused');
     this.$navChargeButton.classList.add('nav__button--focused');
     history.pushState(null, null, '/coins');
+    this.$coinInput.focus();
   };
 }

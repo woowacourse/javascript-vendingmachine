@@ -26,10 +26,10 @@ export default class ProductInputComponent {
     this.vendingMachineProductManagement = vendingMachineProductManagement;
     document
       .querySelector('.product-info-form__button')
-      .addEventListener('click', this.onSubmitProductInputs);
+      .addEventListener('click', this.onSubmitProductInputsButton);
   }
 
-  onSubmitProductInputs = (e: Event) => {
+  onSubmitProductInputsButton = (e: Event) => {
     e.preventDefault();
 
     try {
@@ -54,6 +54,11 @@ export default class ProductInputComponent {
           },
         }
       );
+
+      this.$nameInput.value = '';
+      this.$priceInput.value = '';
+      this.$quantityInput.value = '';
+      this.$nameInput.focus();
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message);
     }

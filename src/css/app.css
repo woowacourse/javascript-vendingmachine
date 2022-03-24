@@ -37,8 +37,12 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+.nav__button:hover {
+  background-color: var(--color-light-skyblue);
+}
+
 .nav__button--focused {
-  background-color: rgba(0, 188, 212, 0.16);
+  background-color: var(--color-light-skyblue);
 }
 
 /* ******************** */
@@ -85,6 +89,11 @@ h1 {
   margin-left: 12px;
 }
 
+.charge-form-section__button:hover,
+.product-info-form__button:hover {
+  opacity: 0.7;
+}
+
 /* ********************* */
 /* product-state-section */
 /* ********************* */
@@ -118,6 +127,15 @@ h1 {
 .product-table__edit-button {
   width: 100px;
   height: 32px;
+}
+
+.product-table__edit-button:hover,
+.product-table__confirm-button:hover {
+  background-color: var(--color-light-skyblue);
+}
+
+.product-table__delete-button:hover {
+  background-color: rgba(255, 20, 20, 0.44);
 }
 
 .product-table__input--edit {

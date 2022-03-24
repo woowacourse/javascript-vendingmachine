@@ -84,6 +84,14 @@ export default class ProductStateComponent {
     );
 
     parentElement.innerHTML = generateEditTemplate(targetProduct);
+    const $targetInput = parentElement.querySelector(
+      '.product-table__product-name-input--edit'
+    );
+    $targetInput.focus();
+    $targetInput.setSelectionRange(
+      $targetInput.value.length,
+      $targetInput.value.length
+    );
   };
 
   onClickEditSubmitButton = ({ target }) => {
