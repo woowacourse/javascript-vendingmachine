@@ -105,7 +105,7 @@ export default class ProductInventoryUI {
 
     const productsTemplate = products
       .map(product => {
-        const { name, price, quantity } = product.getProduct();
+        const { name, price, quantity } = product.product;
         return `
           <div class="product-inventory__item grid-item" data-product-name="${name}">
             <input class="product-inventory__input" value="${name}" data-product-name="${name}" readonly />

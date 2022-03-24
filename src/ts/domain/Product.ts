@@ -2,32 +2,24 @@ import { ProductInfo } from './types';
 
 interface Product {
   editProduct: (newProduct: ProductInfo) => void;
-  getProduct: () => ProductInfo;
 }
 
 export default class ProductImpl implements Product {
-  #name: string;
-  #price: number;
-  #quantity: number;
+  #product: ProductInfo;
 
-  constructor({ name, price, quantity }: ProductInfo) {
-    this.#name = name;
-    this.#price = price;
-    this.#quantity = quantity;
+  constructor(product: ProductInfo) {
+    this.#product = product;
   }
 
   get name() {
-    return this.#name;
+    return this.#product.name;
+  }
+
+  get product() {
+    return this.#product;
   }
 
   editProduct(newProduct: ProductInfo) {
-    const { name, price, quantity } = newProduct;
-    this.#name = name;
-    this.#price = price;
-    this.#quantity = quantity;
-  }
-
-  getProduct() {
-    return { name: this.#name, price: this.#price, quantity: this.#quantity };
+    this.#product = newProduct;
   }
 }

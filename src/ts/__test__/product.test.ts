@@ -15,9 +15,7 @@ describe('상품 도메인 테스트', () => {
 
   it('상품 정보를 추가할 수 있다.', () => {
     productManagementDomain.addProduct(product);
-    expect(productManagementDomain.products[0].getProduct()).toMatchObject(
-      product,
-    );
+    expect(productManagementDomain.products[0].product).toMatchObject(product);
   });
 
   it('상품 정보를 수정할 수 있다.', () => {
@@ -27,7 +25,7 @@ describe('상품 도메인 테스트', () => {
 
     productManagementDomain.editProduct(prevProductName, newProduct);
 
-    expect(productManagementDomain.products[0].getProduct()).toMatchObject(
+    expect(productManagementDomain.products[0].product).toMatchObject(
       newProduct,
     );
   });
