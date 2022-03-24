@@ -3,12 +3,13 @@ class CoinTableComponent {
     this.$parent = $parent;
     this.tableId = tableId;
     this.tableCaption = tableCaption;
+    this.mount();
   }
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
   generateTemplate() {
-    return `<table id="${this.tableId}>
+    return `<table id="${this.tableId}">
         <caption>
           ${this.tableCaption}
         </caption>

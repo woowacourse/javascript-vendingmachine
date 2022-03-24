@@ -30,7 +30,8 @@ class RechargeChangeComponent {
         <button type="button" class="submit-button">충전</button>
       </div>
       <div class="total-amount">투입한 금액: <span id="change-total-amount"></span>원</div>
-    </form>
+      
+      </form>
   </section>`;
   }
   initChildComponents() {

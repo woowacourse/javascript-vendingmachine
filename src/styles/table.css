@@ -18,7 +18,8 @@ tbody tr {
   border-bottom: 1px solid var(--table-division-color);
 }
 
-tbody tr td {
+tbody tr td,
+table tr th {
   width: 100px;
 }
 
