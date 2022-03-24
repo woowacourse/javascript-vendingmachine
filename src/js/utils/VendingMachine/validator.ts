@@ -18,3 +18,12 @@ export const validateProduct = (product: IProduct) => {
   if (!isNumberInRange(quantity, 1, 20))
     throw new Error('상품 수량은 1개에서 최대 20개까지만 입력할 수 있습니다.');
 };
+
+export const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmount: number) => {
+  if (!Number.isInteger(holdingAmountToAdd))
+    throw new Error('추가할 보유 금액은 숫자만 입력할 수 있습니다.');
+  if (!isCorrectNumberUnit(holdingAmountToAdd, 10))
+    throw new Error('추가할 보유 금액은 10원 단위로 입력할 수 있습니다.');
+  if (holdingAmountToAdd + totalAmount > 100000)
+    throw new Error('보유 금액은 100,000원까지 충전할 수 있습니다.');
+};
