@@ -6,15 +6,15 @@ const storage = {
   },
 
   getLocalStorage(key: string) {
-    return JSON.parse(localStorage.getItem(key));
+    return localStorage.getItem(key);
   },
 
   getProducts(): Product[] {
-    return this.getLocalStorage('products') ?? [];
+    return this.getLocalStorage('products') ? JSON.parse(this.getLocalStorage('products')) : [];
   },
 
   getAmount(): number[] {
-    return this.getLocalStorage('amount') ? Object.values(this.getLocalStorage('amount')) : [0, 0, 0, 0];
+    return this.getLocalStorage('amount') ? Object.values(JSON.parse(this.getLocalStorage('amount'))) : [0, 0, 0, 0];
   },
 };
 
