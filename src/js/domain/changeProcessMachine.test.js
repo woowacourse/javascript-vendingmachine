@@ -36,7 +36,7 @@ describe("잔돈 관리하는 도메인 테스트", () => {
   test("보유할 수 있는 최대 금액은 100,000원이다.", () => {
     const changeProcessMachine = new ChangesProcessMachine();
     expect(() => {
-      changeProcessMachine.charge(1000000);
+      changeProcessMachine.charge(100010);
     }).toThrowError(ERROR_MESSAGE.MAXIMUM_CHANGES);
   });
 });

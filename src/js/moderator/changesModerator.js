@@ -1,13 +1,14 @@
 import ChangePageView from "../ui/changePageView";
 import ChangeProcessMachine from "../domain/changesProcessMachine";
-import { on } from "../util/event";
+import { setEvent } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangesModerator {
   constructor() {
-    this.changePageView = new ChangePageView();
+    this.$page = document.querySelector("#page");
+    this.changePageView = new ChangePageView(this.$page);
     this.changeProcessMachine = new ChangeProcessMachine();
-    on(window, EVENT_TYPE.CHARGE, (e) => this.chargeChange(e.detail));
+    setEvent(this.$page, EVENT_TYPE.CHARGE, (e) => this.chargeChange(e.detail));
   }
 
   init = () => {

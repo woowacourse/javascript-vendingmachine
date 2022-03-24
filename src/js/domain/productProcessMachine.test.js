@@ -33,7 +33,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError(ERROR_MESSAGE.DUPLICATED_NAME);
   });
 
-  test("상품가격이 유효하지 않는다면 에러를 던진다.", () => {
+  test("상품가격이 100원미만이라면 에러를 던진다.", () => {
     const productProcessMachine = new ProductProcessMachine();
     expect(() => {
       productProcessMachine.add({
@@ -42,6 +42,10 @@ describe("상품 관리하는 도메인 테스트", () => {
         count: 1,
       });
     }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
+  });
+
+  test("상품가격이 10000원초과라면 에러를 던진다.", () => {
+    const productProcessMachine = new ProductProcessMachine();
 
     expect(() => {
       productProcessMachine.add({
@@ -49,7 +53,11 @@ describe("상품 관리하는 도메인 테스트", () => {
         price: 10010,
         count: 1,
       });
-    }).toThrowError("유효한 가격을 입력해주세요");
+    }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
+  });
+
+  test("상품가격이 10으로 나눠떨어지지 않으면 에러를 던진다.", () => {
+    const productProcessMachine = new ProductProcessMachine();
 
     expect(() => {
       productProcessMachine.add({

@@ -25,9 +25,6 @@ class ProductProcessMachine implements ProductDomain {
 
   update: Update = (idx, name, price, count) => {
     this.checkDuplicatedName(name, idx);
-    this.checkNameLength(name);
-    this.checkValidPrice(price);
-    this.checkValidCount(count);
 
     name && this.checkNameLength(name);
     price && this.checkValidPrice(price);

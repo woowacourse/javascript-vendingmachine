@@ -1,15 +1,15 @@
 import changesTemplate from "../template/changes.template";
-import { emit, on } from "../util/event";
+import { emit, setEvent } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
-  constructor() {
-    this.$page = document.querySelector("#page");
+  constructor(target) {
+    this.$page = target;
     this.bindEvent();
   }
 
   bindEvent = () => {
-    on(this.$page, "submit", this.changesSubmitHandler);
+    setEvent(this.$page, "submit", this.changesSubmitHandler);
   };
 
   renderInput() {
@@ -22,7 +22,9 @@ class ChangePageView {
 
     e.preventDefault();
 
-    emit(EVENT_TYPE.CHARGE, { money: this.$changesInput.valueAsNumber });
+    emit(this.$page, EVENT_TYPE.CHARGE, {
+      money: this.$changesInput.valueAsNumber,
+    });
     this.$changesInput.value = "";
   };
 

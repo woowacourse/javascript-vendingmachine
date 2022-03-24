@@ -1,17 +1,17 @@
-import { on, emit } from "../util/event.js";
+import { setEvent, emit } from "../util/event.js";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
 
 class ProductPageView {
-  constructor() {
-    this.$page = document.querySelector("#page");
+  constructor(target) {
+    this.$page = target;
     this.edited = false;
     this.bindEvent();
   }
 
   bindEvent = () => {
-    on(this.$page, "submit", this.productSubmitHandler);
-    on(this.$page, "click", this.onClick);
+    setEvent(this.$page, "submit", this.productSubmitHandler);
+    setEvent(this.$page, "click", this.onClick);
   };
 
   initDOMS = () => {
@@ -27,7 +27,7 @@ class ProductPageView {
     const $productPriceInput = e.target.querySelector("#product-price-input");
     const $productCountInput = e.target.querySelector("#product-count-input");
 
-    emit(EVENT_TYPE.ADD, {
+    emit(this.$page, EVENT_TYPE.ADD, {
       name: $productNameInput.value,
       price: $productPriceInput.valueAsNumber,
       count: $productCountInput.valueAsNumber,
@@ -57,7 +57,7 @@ class ProductPageView {
 
   productDeleteHandler = (target) => {
     const productId = target.closest("tr").dataset.id;
-    emit(EVENT_TYPE.DELETE, { id: productId });
+    emit(this.$page, EVENT_TYPE.DELETE, { id: productId });
   };
 
   productUpdateHandler = (target) => {
@@ -83,7 +83,7 @@ class ProductPageView {
 
     this.edited = false;
 
-    emit(EVENT_TYPE.EDIT, {
+    emit(this.$page, EVENT_TYPE.EDIT, {
       idx,
       name: updatedName,
       price: updatedPrice,

@@ -1,15 +1,19 @@
 import { CONFIRM_MESSAGE, EVENT_TYPE } from "../constant";
 import ProductProcessMachine from "../domain/productProcessMachine";
 import ProductPageView from "../ui/productPageView";
-import { on } from "../util/event";
+import { setEvent } from "../util/event";
 
 class ProductModerator {
   constructor() {
+    this.$page = document.querySelector("#page");
+
     this.productProcessMachine = new ProductProcessMachine();
-    this.productPageView = new ProductPageView();
-    on(window, EVENT_TYPE.ADD, (e) => this.addProduct(e.detail));
-    on(window, EVENT_TYPE.DELETE, (e) => this.deleteProduct(e.detail));
-    on(window, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
+    this.productPageView = new ProductPageView(this.$page);
+    setEvent(this.$page, EVENT_TYPE.ADD, (e) => this.addProduct(e.detail));
+    setEvent(this.$page, EVENT_TYPE.DELETE, (e) =>
+      this.deleteProduct(e.detail)
+    );
+    setEvent(this.$page, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
   }
 
   init = () => {
