@@ -1,10 +1,6 @@
 import reducer from './reducer';
 import Component from '../abstract/component';
-
-type Action = {
-  type: string;
-  payload: string | number | Record<string, unknown>;
-};
+import { Action, AppState } from '../types';
 
 class Store {
   static _instance: null | Store = null;
@@ -20,7 +16,7 @@ class Store {
 
   #state = {};
 
-  constructor(initialState: Record<string, unknown>) {
+  constructor(initialState: AppState) {
     if (Store._instance) {
       // eslint-disable-next-line no-constructor-return
       return Store._instance;
@@ -44,6 +40,5 @@ class Store {
     });
   }
 }
-new Store({});
 
 export default Store;
