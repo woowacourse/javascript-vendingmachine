@@ -1,3 +1,8 @@
+import {
+  checkDuplicatedProductName,
+  checkEditDuplicateName,
+} from '../utils/utils';
+
 export interface product {
   name: string;
   price: number;
@@ -16,6 +21,8 @@ export default class VendingMachineProductManager implements ProductManager {
   private products: product[] = [];
 
   addProduct(newProduct) {
+    checkDuplicatedProductName(this.products, newProduct);
+
     this.products.push(newProduct);
   }
 
@@ -31,6 +38,11 @@ export default class VendingMachineProductManager implements ProductManager {
     const editIndex = this.products.findIndex(
       (product) => product.name === editProductName
     );
+    const duplicatedNameIndex = this.products.findIndex(
+      (product) => product.name === targetProduct.name
+    );
+
+    checkEditDuplicateName(editIndex, duplicatedNameIndex);
 
     this.products.splice(editIndex, 1, targetProduct);
   }

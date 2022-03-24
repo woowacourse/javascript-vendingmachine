@@ -1,10 +1,11 @@
 import {
+  checkDuplicatedProductName,
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../utils/utils';
+import { product } from '../ts/VendingMachineProductManager';
 
-// 통과
 test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (성공 케이스, 입력: "콜라")', () => {
   const productName = '콜라';
 
@@ -13,7 +14,6 @@ test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (�
   }).not.toThrowError();
 });
 
-// 실패
 test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (실패 케이스, 입력: "")', () => {
   const productName = '';
 
@@ -22,13 +22,36 @@ test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (�
   }).toThrowError('상품명은 1글자 이상 10글자 이하로 작성해주세요.');
 });
 
-// 실패
 test('상품명은 최소 1글자 부터 최대 10글자까지 가능하다. (실패 케이스, 입력: "열 글자가 넘는 상품명")', () => {
   const productName = '열 글자가 넘는 상품명';
 
   expect(() => {
     checkValidLengthProductName(productName);
   }).toThrowError('상품명은 1글자 이상 10글자 이하로 작성해주세요.');
+});
+
+test('중복된 상품명은 입력할 수 없습니다.', () => {
+  const products: product[] = [
+    {
+      name: '콜라',
+      price: 1500,
+      quantity: 20,
+    },
+    {
+      name: '사이다',
+      price: 1500,
+      quantity: 20,
+    },
+  ];
+  const duplicateProduct: product = {
+    name: '콜라',
+    price: 1800,
+    quantity: 10,
+  };
+
+  expect(() => {
+    checkDuplicatedProductName(products, duplicateProduct);
+  }).toThrowError('중복된 상품명은 입력할 수 없습니다.');
 });
 
 test('상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다. 그리고 10원으로 나누어 떨어져야 한다. (성공 케이스, 입력: 1500)', () => {

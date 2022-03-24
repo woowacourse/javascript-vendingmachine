@@ -1,6 +1,26 @@
+import { product } from '../ts/VendingMachineProductManager';
+
 export const checkValidLengthProductName = (name: string): void => {
   if (name.length < 1 || name.length > 10) {
     throw new Error('상품명은 1글자 이상 10글자 이하로 작성해주세요.');
+  }
+};
+
+export const checkDuplicatedProductName = (
+  products: product[],
+  newProduct: product
+): void => {
+  if (products.some((product) => product.name === newProduct.name)) {
+    throw new Error('중복된 상품명은 입력할 수 없습니다.');
+  }
+};
+
+export const checkEditDuplicateName = (
+  editIndex: number,
+  duplicatedNameIndex: number
+): void => {
+  if (duplicatedNameIndex !== -1 && editIndex !== duplicatedNameIndex) {
+    throw new Error('이미 존재하는 상품명입니다.');
   }
 };
 
