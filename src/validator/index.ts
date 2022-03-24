@@ -41,7 +41,7 @@ export const validateChange = (inputMoney: number, currentChange: number) => {
 };
 
 const updateProductValidator = {
-  isDuplicated(targetName, name, products) {
+  isDuplicated(targetName: string, name: string, products: Product[]) {
     if (targetName === name) {
       return false;
     }

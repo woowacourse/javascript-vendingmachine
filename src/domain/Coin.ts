@@ -26,7 +26,7 @@ class Coin implements ICoin {
     let remainingAmount = amount;
 
     while (remainingAmount > 0) {
-      const randomCoin: number = pickRandomElement(COINS);
+      const randomCoin = pickRandomElement(COINS);
 
       if (remainingAmount >= randomCoin) {
         this[randomCoin] += 1;

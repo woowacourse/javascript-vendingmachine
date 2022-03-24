@@ -12,7 +12,7 @@ interface IVendingMachine {
 }
 
 class VendingMachine implements IVendingMachine {
-  static _instance = null;
+  static _instance: VendingMachine | null = null;
 
   static get instance() {
     if (!VendingMachine._instance) {

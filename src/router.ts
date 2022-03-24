@@ -6,12 +6,12 @@ nav.addEventListener('click', (e: any) => {
   historyRouterPush(e.target.getAttribute('route'));
 });
 
-const historyRouterPush = (pathname) => {
+const historyRouterPush = (pathname: string) => {
   history.pushState({ pathname }, '', pathname);
   render(pathname);
 };
 
-const render = (path) => {
+const render = (path: string) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
   $(`[route='${path}']`, nav)?.classList.add('focus-button');
 
