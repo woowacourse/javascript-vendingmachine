@@ -1,1 +1,2 @@
-export const $ = (selector, parentNode = document) => parentNode.querySelector(selector);
+export const $ = (selector, parentNode = document) =>
+  parentNode.querySelector(selector);

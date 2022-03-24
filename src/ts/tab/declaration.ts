@@ -1,4 +1,4 @@
-import { Product } from "../resource/declaration";
+import { Product } from '../resource/declaration';
 
 export interface ProductManage {
   isValidProductInfo(productInfo: Product): boolean;

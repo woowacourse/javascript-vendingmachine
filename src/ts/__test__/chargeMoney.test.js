@@ -3,7 +3,15 @@ import ChargeMoneyImpl from '../tab/ChargeMoneyImpl';
 describe('chargeMoney', () => {
   let chargeMoney;
 
-  beforeEach(() => chargeMoney = new ChargeMoneyImpl([{ amount:10, count: 0 }, { amount:50, count: 0 }, { amount:100, count: 0 }, { amount:500, count: 0 }]));
+  beforeEach(
+    () =>
+      (chargeMoney = new ChargeMoneyImpl([
+        { amount: 10, count: 0 },
+        { amount: 50, count: 0 },
+        { amount: 100, count: 0 },
+        { amount: 500, count: 0 },
+      ])),
+  );
 
   test('투입 금액이 10으로 나누어 떨어지지 않을 때, 동전이 충전되지 않는지 확인', () => {
     const inputMoney = 1555;
@@ -25,7 +33,7 @@ describe('chargeMoney', () => {
 
     expect(chargeMoney.isValidMoney(inputMoney)).toBe(false);
   });
-  
+
   test('투입 금액만큼 동전이 만들어지는지 확인', () => {
     const inputMoney = 89500;
 
@@ -33,5 +41,4 @@ describe('chargeMoney', () => {
 
     expect(chargeMoney.totalAmount()).toBe(inputMoney);
   });
-
 });
