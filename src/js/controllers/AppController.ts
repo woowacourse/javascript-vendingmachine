@@ -2,24 +2,30 @@ import ManageItemController from './manageItemController';
 import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import navigation from '../views/navigation';
+import AppView from '../views/AppView';
 
 export default class AppController {
   vendingMachine: VendingMachine;
   ManageItemController: ManageItemController;
   chargeMoneyController: ChargeMoneyController;
   purchaseItemController: PurchaseItemController;
+  appView: AppView;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
+
+    this.appView = new AppView();
+    this.appView.render();
     this.ManageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
+
+    this.bindEvents();
   }
 
   bindEvents() {
-    navigation.bindEvents(this.onClickNavButton.bind(this));
-    navigation.bindPostStateEvent(this.route.bind(this));
+    this.appView.bindEvents(this.onClickNavButton.bind(this));
+    this.appView.bindPostStateEvent(this.route.bind(this));
   }
 
   onClickNavButton(event) {

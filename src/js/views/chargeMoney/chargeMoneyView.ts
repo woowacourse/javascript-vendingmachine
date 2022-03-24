@@ -1,5 +1,5 @@
 import { $ } from '../../utils/common';
-import { chargeMoneyTemplate } from '../template/templates';
+import { chargeMoneyTemplate } from './template';
 
 export default class ChargeMoneyView {
   $content: HTMLElement;
@@ -8,7 +8,8 @@ export default class ChargeMoneyView {
   }
 
   render(coins, totalMoney) {
-    this.$content.innerHTML = chargeMoneyTemplate(coins, totalMoney);
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
   }
 
   bindEvents() {

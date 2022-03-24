@@ -1,5 +1,5 @@
 import { $ } from '../../utils/common';
-import { mangeItemTemplate } from '../template/templates';
+import { manageItemTemplate } from './template';
 
 export default class ManageItemView {
   $content: HTMLElement;
@@ -8,7 +8,8 @@ export default class ManageItemView {
   }
 
   render(items) {
-    this.$content.innerHTML = mangeItemTemplate(items);
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
   }
 
   bindEvents() {

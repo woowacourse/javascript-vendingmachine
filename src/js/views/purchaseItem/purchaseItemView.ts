@@ -1,5 +1,5 @@
 import { $ } from '../../utils/common';
-import { purchaseItemTemplate } from '../template/templates';
+import { purchaseItemTemplate } from './template';
 
 export default class PurchaseItemView {
   $content: HTMLElement;
@@ -8,7 +8,8 @@ export default class PurchaseItemView {
   }
 
   render(items, coins, inputMoney) {
-    this.$content.innerHTML = purchaseItemTemplate(items, coins, inputMoney);
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, coins, inputMoney));
   }
 
   bindEvents() {
