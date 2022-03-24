@@ -36,3 +36,5 @@ export const $ = (selector: string, scope: Element | Document = document) => sco
 
 export const $$ = (selector: string, scope: Element | Document = document) =>
   Array.from(scope.querySelectorAll(selector));
+
+export const markUnit = (price: number) => price.toLocaleString();
