@@ -11,3 +11,11 @@
 .product-manage-input {
   width: 120px;
 }
+
+.edit-form {
+  display: flex;
+}
+
+.edit-input {
+  width: 84px;
+}

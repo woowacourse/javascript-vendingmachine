@@ -1,6 +1,7 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $, $$ } from '../utils';
 import { CONFIRM_MESSAGE } from '../constants';
+import ProductType from '../type/ProductType';
 
 export interface ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
@@ -8,10 +9,16 @@ export interface ProductManageViewInterface {
   $productQuantityInput: HTMLInputElement;
   $productManageForm: HTMLFormElement;
   vendingMachine: VendingMachineInterface;
+
+  handleEdit(target: HTMLButtonElement): void;
   handleSubmit(event: any): void;
   handleDelete(target: HTMLButtonElement): void;
   renderProductManage(): void;
   removeProductRow(name: string): void;
+  handleConfirmEdit(name: string): void;
+  getProductTemplate(productType: ProductType): string;
+  renderEditedProduct(productToEdit: ProductType, targetEdit: HTMLTableCellElement): void;
+  getEditTemplate({ name, price, quantity }: ProductType): string;
 }
 
 class ProductManageView implements ProductManageViewInterface {
@@ -34,8 +41,62 @@ class ProductManageView implements ProductManageViewInterface {
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
   }
 
-  handleEdit = () => {
-    console.log('edit!');
+  getEditTemplate = ({ name, price, quantity }: ProductType) => {
+    return `
+      <td class="product-row-name">
+        <input class="edit-input" id="edit-name-input" type="text" size="10" minlength="1" maxlength="10" value="${name}">
+      </td>
+      <td class="product-row-price">
+        <input class="edit-input" id="edit-price-input" type="number" min="100" max="100000" value="${price}">
+      </td>
+      <td class="product-row-quantity">
+        <input class="edit-input" id="edit-quantity-input" type="number" min="1" max="20" value="${quantity}">
+      </td>
+      <td>
+        <button class="small-button edit-confirm-button" data-name="${name}" >확인</button>
+      </td>
+    `;
+  };
+
+  handleEdit = (target: HTMLButtonElement) => {
+    const { name, price, quantity } = this.vendingMachine.getProductByName(target.dataset.name);
+    const editTemplate = this.getEditTemplate({ name, price, quantity });
+    const newTr = document.createElement('tr');
+    newTr.className = 'product-row';
+    newTr.dataset.name = name;
+    newTr.insertAdjacentHTML('beforeend', editTemplate);
+
+    const targetEdit = $(`tr[data-name=${name}]`);
+    this.$currentProductTable.replaceChild(newTr, targetEdit);
+
+    $('.edit-confirm-button').addEventListener('click', () => this.handleConfirmEdit(name));
+  };
+
+  renderEditedProduct = (productToEdit: ProductType, targetEdit: HTMLTableCellElement) => {
+    const editedProduct = this.vendingMachine.getProductByName(productToEdit.name);
+    const newTr = document.createElement('tr');
+    newTr.className = 'product-row';
+    newTr.dataset.name = editedProduct.name;
+    const template = this.getProductTemplate(editedProduct);
+    newTr.insertAdjacentHTML('beforeend', template);
+
+    this.$currentProductTable.replaceChild(newTr, targetEdit);
+  };
+
+  handleConfirmEdit = (targetName: string) => {
+    const targetEdit = $(`tr[data-name=${targetName}]`);
+    const productToEdit = {
+      name: $('#edit-name-input').value,
+      price: +$('#edit-price-input').value,
+      quantity: +$('#edit-quantity-input').value,
+    };
+    try {
+      this.vendingMachine.editProduct(targetName, productToEdit);
+      this.renderEditedProduct(productToEdit, targetEdit);
+    } catch (error) {
+      alert(error.message);
+      /* 분기해서 원래 값으로 돌려놓는 함수 실행 */
+    }
   };
 
   handleDelete = (target: HTMLButtonElement) => {
@@ -47,7 +108,7 @@ class ProductManageView implements ProductManageViewInterface {
   };
 
   removeProductRow(name: string) {
-    const targetDelete = $(`[data-name=${name}]`);
+    const targetDelete = $(`tr[data-name=${name}]`);
     this.$currentProductTable.removeChild(targetDelete);
   }
 
@@ -55,7 +116,7 @@ class ProductManageView implements ProductManageViewInterface {
     const target = event.target as HTMLButtonElement;
 
     if (target.classList.contains('edit-button')) {
-      this.handleEdit();
+      this.handleEdit(target);
       return;
     }
     if (target.classList.contains('delete-button')) {
@@ -80,8 +141,8 @@ class ProductManageView implements ProductManageViewInterface {
     }
   };
 
-  renderAddedProduct = ({ name, price, quantity }) => {
-    const template = `
+  getProductTemplate = ({ name, price, quantity }) => {
+    return `
       <tr class="product-row" data-name="${name}">
         <td class="product-row-name">${name}</td>
         <td class="product-row-price">${price}</td>
@@ -90,7 +151,12 @@ class ProductManageView implements ProductManageViewInterface {
           <button class="small-button edit-button" data-name="${name}">수정</button>
           <button class="small-button delete-button" data-name="${name}">삭제</button>
         </td>
-      </tr>`;
+      </tr>
+      `;
+  };
+
+  renderAddedProduct = (addedProduct: ProductType) => {
+    const template = this.getProductTemplate(addedProduct);
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 
