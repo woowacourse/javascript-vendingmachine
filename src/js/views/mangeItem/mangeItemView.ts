@@ -1,6 +1,6 @@
 import { $, $$ } from '../../utils/common';
 import { manageItemTemplate, sectionTemplate } from './template';
-import { validateAddItemInput } from '../../validates/inputValidates';
+import { validateAddItemInput } from '../../validates/validates';
 
 export default class ManageItemView {
   $content: HTMLElement;
@@ -91,9 +91,9 @@ export default class ManageItemView {
   }
 
   // TABLE_ITEM_CHANGE 이벤트
-  tableItemChangeEvent(item, targetIndex, targetElement) {
+  tableItemChangeEvent(item, targetRowIndex, $targetTableRow) {
     window.dispatchEvent(
-      new CustomEvent('TABLE_ITEM_CHANGE', { detail: { item, targetIndex, targetElement } }),
+      new CustomEvent('TABLE_ITEM_CHANGE', { detail: { item, targetRowIndex, $targetTableRow } }),
     );
   }
 
@@ -114,9 +114,9 @@ export default class ManageItemView {
     $('#add-item-quantity').value = '';
   }
 
-  changeItem(itemElement, item) {
-    itemElement.replaceChildren();
-    itemElement.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
+  changeTableRow($targetTableRow, item) {
+    $targetTableRow.replaceChildren();
+    $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableContainer(item));
     this.bindEvents();
   }
 }

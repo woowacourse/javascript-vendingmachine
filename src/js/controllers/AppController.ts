@@ -3,7 +3,7 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
-import { $, $$ } from '../utils/common';
+import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constant';
 
 export default class AppController {
   vendingMachine: VendingMachine;
@@ -14,7 +14,6 @@ export default class AppController {
 
   constructor() {
     this.vendingMachine = new VendingMachine();
-
     this.appView = new AppView();
     this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
@@ -24,40 +23,49 @@ export default class AppController {
   }
 
   bindEvents() {
-    this.appView.bindPostStateEvent(this.route.bind(this));
-    window.addEventListener('ROUTE_CHANGE', this.onClickNavButton.bind(this));
+    this.appView.bindPopStateEvent(this.route.bind(this));
+    window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
   }
 
-  onClickNavButton(event) {
-    const target = event.detail;
-    if (target.classList.contains('nav-button')) {
-      if (target.id === 'item-manage-tab') {
-        window.history.pushState(null, '상품 관리', 'mangeItem');
-      }
-      if (target.id === 'money-charge-tab') {
-        window.history.pushState(null, '잔돈 충전', 'chargeMoney');
-      }
-      if (target.id === 'item-purchase-tab') {
-        window.history.pushState(null, '상품 구매', 'purchaseItem');
-      }
+  handleRouteChange(event) {
+    const { $navButton } = event.detail;
+
+    if ($navButton.id === SELECTOR.ID_STRING.ITEM_MANGE_TAB) {
+      window.history.pushState(null, null, URL.MANAGE_ITEM);
     }
+
+    if ($navButton.id === SELECTOR.ID_STRING.MONEY_CHARGE_TAB) {
+      window.history.pushState(null, null, URL.CHARGE_MONEY);
+    }
+
+    if ($navButton.id === SELECTOR.ID_STRING.ITEM_PURCHASE_TAB) {
+      window.history.pushState(null, null, URL.PURCHASE_ITEM);
+    }
+
     this.route();
   }
 
   route() {
     const { pathname } = window.location;
+
     if (pathname === '/') {
-      this.manageItemController.render();
-      this.appView.changeButtonColor('item-manage-tab');
-    } else if (pathname === '/mangeItem') {
-      this.manageItemController.render();
-      this.appView.changeButtonColor('item-manage-tab');
-    } else if (pathname === '/chargeMoney') {
-      this.chargeMoneyController.render();
-      this.appView.changeButtonColor('money-charge-tab');
-    } else if (pathname === '/purchaseItem') {
+      this.manageItemController.loadPage();
+      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      return;
+    }
+    if (pathname === `/${URL.MANAGE_ITEM}`) {
+      this.manageItemController.loadPage();
+      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      return;
+    }
+    if (pathname === `/${URL.CHARGE_MONEY}`) {
+      this.chargeMoneyController.loadPage();
+      this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
+      return;
+    }
+    if (pathname === `/${URL.PURCHASE_ITEM}`) {
       this.purchaseItemController.render();
-      this.appView.changeButtonColor('item-purchase-tab');
+      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
     }
   }
 }

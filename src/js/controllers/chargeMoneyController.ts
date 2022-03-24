@@ -1,37 +1,34 @@
 import ChargeMoneyView from '../views/chargeMoney/chargeMoneyView';
-import { COINS } from '../constants/constant';
+import VendingMachine from '../vendingMachine/vendingMachine';
+import { CUSTOM_EVENT } from '../constants/constant';
 
 export default class ChargeMoneyController {
-  vendingMachine: any;
-  chargeMoneyView: any;
+  vendingMachine: VendingMachine;
+  chargeMoneyView: ChargeMoneyView;
 
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
     this.chargeMoneyView = new ChargeMoneyView();
-    this.bindCustomEvents();
+
+    this.bindEvents();
   }
 
-  render() {
+  bindEvents() {
+    window.addEventListener(CUSTOM_EVENT.CHARGE_MONEY, this.handleChargeMoney.bind(this));
+  }
+
+  loadPage() {
     const coins = this.vendingMachine.getCoins();
-    const totalMoney = this.getTotalMoney(coins);
+    const totalMoney = this.vendingMachine.getInputMoney();
+
     this.chargeMoneyView.render(coins, totalMoney);
   }
 
-  getTotalMoney(coins) {
-    let totalMoney = 0;
-    Object.keys(coins).forEach(coinKey => {
-      totalMoney += coins[coinKey] * COINS[coinKey];
-    });
-    return totalMoney;
-  }
-
-  bindCustomEvents() {
-    window.addEventListener('CHARGE_MONEY', this.onChargeMoneySubmit.bind(this));
-  }
-
-  onChargeMoneySubmit(event) {
+  handleChargeMoney(event) {
     const { inputMoney } = event.detail;
+
     this.vendingMachine.chargeMoney(inputMoney);
+
     this.chargeMoneyView.updateCurrentMoney(this.vendingMachine.getInputMoney());
     this.chargeMoneyView.updateCoinsTable(this.vendingMachine.getCoins());
   }

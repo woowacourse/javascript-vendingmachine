@@ -1,6 +1,6 @@
 import { $, $$ } from '../../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from './template';
-import { validateInputMoney } from '../../validates/inputValidates';
+import { validateInputMoney } from '../../validates/validates';
 
 export default class ChargeMoneyView {
   $content: HTMLElement;

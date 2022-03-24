@@ -1,71 +1,67 @@
 import ManageItemView from '../views/mangeItem/mangeItemView';
+import VendingMachine from '../vendingMachine/vendingMachine';
+import { CUSTOM_EVENT } from '../constants/constant';
+import { checkDuplicatedItem } from '../validates/validates';
 
 export default class ManageItemController {
-  vendingMachine: any;
-  manageItemView: any;
+  vendingMachine: VendingMachine;
+  manageItemView: ManageItemView;
 
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
     this.manageItemView = new ManageItemView();
+
     this.bindEvents();
   }
 
-  render() {
+  loadPage() {
     const itemList = this.vendingMachine.getItems();
+
     this.manageItemView.render(itemList);
   }
 
   bindEvents() {
-    window.addEventListener('ADD_ITEM', this.onSubmitAddItem.bind(this));
-    window.addEventListener('TABLE_ITEM_CHANGE', this.onTableItemChange.bind(this));
-    window.addEventListener('TABLE_ITEM_DELETE', this.onTableItemDelete.bind(this));
+    window.addEventListener(CUSTOM_EVENT.ADD_ITEM, this.handleAddItem.bind(this));
+    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_CHANGE, this.handleTableItemChange.bind(this));
+    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_DELETE, this.handleTableItemDelete.bind(this));
   }
 
-  onSubmitAddItem(event) {
+  handleAddItem(event) {
     try {
-      const { detail } = event;
-      const item = {
-        name: detail.addItemName,
-        price: detail.addItemPrice,
-        quantity: detail.addItemQuantity,
+      const { addItemName, addItemPrice, addItemQuantity } = event.detail;
+      const newItem = {
+        name: addItemName,
+        price: addItemPrice,
+        quantity: addItemQuantity,
       };
-      this.checkDuplicatedItem(item, null);
-      this.vendingMachine.addItem(item);
+      const items = this.vendingMachine.getItems();
+
+      checkDuplicatedItem(items, newItem, null);
+      this.vendingMachine.addItem(newItem);
 
       this.manageItemView.clearInput();
-      this.manageItemView.updateItemTable(this.vendingMachine.getItems());
+      this.manageItemView.updateItemTable(items);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  onTableItemChange(event) {
+  handleTableItemChange(event) {
     try {
-      const { item, targetIndex, targetElement } = event.detail;
-      this.checkDuplicatedItem(item, targetIndex);
-      this.vendingMachine.changeItem(targetIndex, item);
-      this.manageItemView.changeItem(targetElement, item);
+      const { item, targetRowIndex, $targetTableRow } = event.detail;
+      const items = this.vendingMachine.getItems();
+
+      checkDuplicatedItem(items, item, targetRowIndex);
+      this.vendingMachine.changeItem(targetRowIndex, item);
+
+      this.manageItemView.changeTableRow($targetTableRow, item);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  onTableItemDelete(event) {
+  handleTableItemDelete(event) {
     const { item } = event.detail;
     this.vendingMachine.deleteItem(item);
-  }
-
-  checkDuplicatedItem(newItem, targetIndex) {
-    if (typeof targetIndex === 'number') {
-      const items = this.vendingMachine.getItems();
-      if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
-        throw new Error('이미 등록된 상품명입니다.');
-      }
-      return;
-    }
-    const items = this.vendingMachine.getItems();
-    if (items.find(item => item.name === newItem.name)) {
-      throw new Error('이미 등록된 상품명입니다.');
-    }
   }
 }

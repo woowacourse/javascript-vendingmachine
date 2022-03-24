@@ -42,3 +42,9 @@ export const validateInputMoney = inputMoney => {
     throw new Error('10원 단위의 금액만 투입할 수 있습니다.');
   }
 };
+
+export const checkDuplicatedItem = (items, newItem, targetIndex) => {
+  if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
+    throw new Error('이미 등록된 상품명입니다.');
+  }
+};

@@ -26,17 +26,17 @@ export default class AppView {
 
   bindEvents() {
     $('.nav-container').addEventListener('click', event => {
-      const { target } = event;
-      this.customEvent(target);
-      this.changeButtonColor(target.id);
+      const $navButton = event.target;
+      this.customEvent($navButton);
+      this.changeButtonColor($navButton.id);
     });
   }
 
-  customEvent(target) {
-    window.dispatchEvent(new CustomEvent('ROUTE_CHANGE', { detail: target }));
+  customEvent($navButton) {
+    window.dispatchEvent(new CustomEvent('ROUTE_CHANGE', { detail: { $navButton } }));
   }
 
-  bindPostStateEvent(callback) {
+  bindPopStateEvent(callback) {
     window.addEventListener('popstate', callback);
   }
 
