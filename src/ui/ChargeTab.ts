@@ -1,6 +1,6 @@
 import CustomElement from './CustomElement';
 import TEMPLATE from '../templates';
-import { $, addEvent, emit } from '../utils';
+import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
 import Coin from '../domain/Coin';
@@ -16,7 +16,7 @@ class ChargeTab extends CustomElement {
     this.innerHTML = this.template();
     const amount: number[] = storage.getAmount();
 
-    $('.charge-amount', this).textContent = String(
+    $('.charge-amount', this).textContent = markUnit(
       COINS.map((coin, i) => coin * amount[i]).reduce((acc, cur) => acc + cur, 0),
     );
     COINS.forEach((coin, i) => ($(`.coin-${coin}-quantity`).textContent = String(amount[i])));
@@ -39,7 +39,7 @@ class ChargeTab extends CustomElement {
   }
 
   notify(_: never, amount: Coin, __: never) {
-    $('.charge-amount', this).textContent = String(amount.getAmount());
+    $('.charge-amount', this).textContent = markUnit(amount.getAmount());
     COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount[coin]));
   }
 }

@@ -1,6 +1,6 @@
 import CustomElement from './CustomElement';
 import TEMPLATE from '../templates';
-import { $, addEvent, emit } from '../utils';
+import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
@@ -102,7 +102,7 @@ class ProductManagement extends CustomElement {
       'beforeend',
       `<tr class="product-item" data-product-name="${product.name}" data-product-id="${product.id}">
           <td>${product.name}</td>
-          <td>${product.price}</td>
+          <td>${markUnit(product.price)}</td>
           <td>${product.quantity}</td>
           <td class="product-item__button">
             <button type="button" class="product-item__edit-button button">수정</button>
@@ -119,7 +119,7 @@ class ProductManagement extends CustomElement {
     item.dataset.productName = product.name;
     item.innerHTML = ` 
       <td>${product.name}</td>
-      <td>${product.price}</td>
+      <td>${markUnit(product.price)}</td>
       <td>${product.quantity}</td>
       <td class="product-item__button">
         <button type="button" class="product-item__edit-button button">수정</button>
