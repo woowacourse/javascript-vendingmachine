@@ -9,16 +9,14 @@ class Product implements IProduct {
   price: number;
   quantity: number;
 
-  constructor({ name, price, quantity }: Product) {
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
+  constructor(product: Product) {
+    this.update(product);
   }
 
-  update(name: string, price: number, quantity: number) {
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
+  update(product: Product) {
+    this.name = product.name;
+    this.price = product.price;
+    this.quantity = product.quantity;
   }
 }
 

@@ -34,10 +34,8 @@ class VendingMachine implements IVendingMachine {
         )
       : new Coin(0, 0, 0, 0);
     this.products = storage.getLocalStorage('products')
-      ? storage.getLocalStorage('products').map((product) => {
-          const { name, price, quantity } = product;
-
-          return new Product({ name, price, quantity } as Product);
+      ? storage.getLocalStorage('products').map((product: Product) => {
+          return new Product(product);
         })
       : [];
   }
@@ -87,7 +85,7 @@ class VendingMachine implements IVendingMachine {
       ($(`[data-product-name="${targetName}"]`) as HTMLElement).dataset.productName = name;
       const target = this.products.find((product) => product.name === targetName);
       console.log(target);
-      target.update(name, price, quantity);
+      target.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
       this.dispatch('subscribeProductManagement', 'update', target);
     } catch (error) {
