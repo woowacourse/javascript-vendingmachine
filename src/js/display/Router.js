@@ -1,6 +1,8 @@
 import { $, getSearchParamsObject } from '@Utils/index';
+import Header from '@Display/Header';
 
 export default class Router {
+  pageHeader = new Header();
   pageList;
 
   constructor(pageList) {
@@ -13,6 +15,7 @@ export default class Router {
     $('#app').addEventListener('click', event => {
       const routeURL = event.target.dataset.route;
       if (!routeURL) return;
+
       this.pushState(routeURL);
     });
 
@@ -28,6 +31,8 @@ export default class Router {
 
   pageRender(searchUrl) {
     const { page = 'product' } = getSearchParamsObject(searchUrl);
+
+    this.pageHeader.render({ currentPage: page });
     !!this.pageList[page] && this.pageList[page].loadPage();
   }
 }

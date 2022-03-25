@@ -115,6 +115,11 @@ input[type='text'] {
         padding: 0.8rem;
         cursor: pointer;
 
+        &.selected {
+          background-color: $color-robins-egg-blue-20;
+          color: $color-black;
+        }
+
         &:hover {
           filter: brightness(0.95);
         }
