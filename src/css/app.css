@@ -11,14 +11,14 @@
   box-sizing: border-box;
 }
 
-.vending__machine-header {
+.vending-machine-header {
   margin-bottom: 32px;
   line-height: 36px;
   font-size: 34px;
   font-weight: 600;
 }
 
-.menu__list {
+.menu-list {
   display: flex;
   margin-bottom: 52px;
   gap: 4px;
@@ -33,7 +33,6 @@
   line-height: 38px;
   font-weight: 500;
   font-size: 16px;
-  cursor: pointer;
   background: var(--color-light-white);
 }
 
@@ -47,19 +46,19 @@
   background: var(--color-dark-white);
 }
 
-.menu__list li a {
+.menu-list li a {
   display: block;
   text-decoration-line: none;
 }
 
-.menu__list li a:link,
-.menu__list li a:visited,
-.menu__list li a:hover,
-.menu__list li a:active {
+.menu-list li a:link,
+.menu-list li a:visited,
+.menu-list li a:hover,
+.menu-list li a:active {
   color: black;
 }
 
-.menu__list li .select {
+.menu-list li .select {
   background: var(--color-sky-blue);
 }
 
@@ -71,7 +70,7 @@
   gap: 3px;
 }
 
-.product__manage-input-width input {
+.product-manage-input-width input {
   width: 120px;
 }
 
@@ -95,7 +94,7 @@
   background: var(--color-light-blue);
 }
 
-.current__amount {
+.current-amount {
   margin-top: 20px;
 }
 
@@ -145,4 +144,9 @@
 .change-button {
   display: block;
   margin: 0 auto;
+}
+
+.modify-input {
+  width: 60%;
+  padding: 5px 0;
 }

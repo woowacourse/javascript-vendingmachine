@@ -1,36 +1,36 @@
 export const CATEGORY_TEMPLATE = {
   MANAGE: `
     <h2 hidden>상품 관리</h2>
-    <form id="product__add-form">
+    <form id="product-add-form">
       <label>추가할 상품 정보를 입력해주세요.</label>
-      <div class="form-input product__manage-input-width">
+      <div class="form-input product-manage-input-width">
         <input
-          id="product__name-input"
+          id="product-name-input"
           type="text"
           placeholder="상품명"
           maxlength="10"
           required
-          aria-labelledby="product__information"
+          aria-labelledby="product-information"
         />
         <input
-          id="product__price-input"
+          id="product-price-input"
           type="number"
           placeholder="가격"
           min="100"
           max="10000"
           required
-          aria-labelledby="product__information"
+          aria-labelledby="product-information"
         />
         <input
-          id="product__quantity-input"
+          id="product-quantity-input"
           type="number"
           placeholder="수량"
           min="1"
           max="20"
           required
-          aria-labelledby="product__information"
+          aria-labelledby="product-information"
         />
-        <button id="product__add-button">추가</button>
+        <button id="product-add-button">추가</button>
       </div>
     </form>
     <table class="table">
@@ -44,16 +44,16 @@ export const CATEGORY_TEMPLATE = {
           <th>수량</th>
         </tr>
       </thead>
-      <tbody id="product__tbody"></tbody>
+      <tbody id="product-tbody"></tbody>
     </table>
   `,
   CHARGE: `
     <h2 hidden>잔돈 충전</h2>
     <form class="form">
-      <label for="charge__amount">자판기가 보유할 금액을 입력해주세요.</label>
+      <label for="charge-amount">자판기가 보유할 금액을 입력해주세요.</label>
       <div class="form-input">
         <input
-          id="charge__amount"
+          id="charge-amount"
           class="input-width"
           type="number"
           placeholder="금액"
@@ -61,7 +61,7 @@ export const CATEGORY_TEMPLATE = {
         />
         <button>구입</button>
       </div>
-      <p class="current__amount">현재 보유 금액: 500원</p>
+      <p class="current-amount">현재 보유 금액: 500원</p>
     </form>
     <table class="table">
       <caption class="caption">
@@ -84,12 +84,12 @@ export const CATEGORY_TEMPLATE = {
   PURCHASE: `
     <h2 hidden>상품 구매</h2>
     <form class="form">
-      <label for="product__purchased">상품을 구매할 금액을 투입해주세요.</label>
+      <label for="product-purchased">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
-        <input id="product__purchased" type="number" class="input-width" placeholder="금액" />
+        <input id="product-purchased" type="number" class="input-width" placeholder="금액" />
         <button>투입</button>
       </div>
-      <p class="current__amount">투입한 금액: 3000원</p>
+      <p class="current-amount">투입한 금액: 3000원</p>
     </form>
     <table class="table">
       <caption class="caption">
