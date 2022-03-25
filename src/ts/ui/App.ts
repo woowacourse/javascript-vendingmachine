@@ -6,11 +6,11 @@ import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
 export default class App {
-  productDomain;
-  coinDomain;
-  productManagementUI;
-  coinManagementUI;
-  productPurchaseUI;
+  private productDomain;
+  private coinDomain;
+  private productManagementUI;
+  private coinManagementUI;
+  private productPurchaseUI;
 
   constructor() {
     this.productDomain = new ProductManagementDomain();
@@ -26,7 +26,7 @@ export default class App {
     window.addEventListener('popstate', this.popStateHandler);
   }
 
-  navClickHandler = ({ target }) => {
+  private navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
 
     history.pushState({}, '', target.dataset.pathname);
@@ -35,12 +35,12 @@ export default class App {
     this.renderMainContent(target.dataset.pathname);
   };
 
-  popStateHandler = () => {
+  private popStateHandler = () => {
     this.activateClickedButton(location.pathname);
     this.renderMainContent(location.pathname);
   };
 
-  activateClickedButton(pathname) {
+  private activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
       if ($button.dataset.pathname === pathname) {
         $button.classList.add('active');
@@ -50,7 +50,7 @@ export default class App {
     });
   }
 
-  renderMainContent(pathname) {
+  private renderMainContent(pathname) {
     switch (pathname) {
       case '/':
         this.productManagementUI.render();

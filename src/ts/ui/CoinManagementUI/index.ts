@@ -15,7 +15,7 @@ export default class CoinManagementUI {
     this.bindDOM();
   }
 
-  template() {
+  private template() {
     return `
       <section class="coin-charge input-section">
         <h2 hidden>충전할 금액 입력</h2>
@@ -44,7 +44,7 @@ export default class CoinManagementUI {
     `;
   }
 
-  bindDOM() {
+  private bindDOM() {
     new CoinChargeUI(this.coinDomain);
     const coinHoldingsUI = new CoinHoldingsUI(this.coinDomain);
     viewPainter.coinHoldingsUI = coinHoldingsUI;

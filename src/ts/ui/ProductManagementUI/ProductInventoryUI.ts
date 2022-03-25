@@ -18,7 +18,7 @@ export default class ProductInventoryUI {
     replaceHTML(this.$container, this.template());
   }
 
-  template() {
+  private template() {
     const { products } = this.productDomain;
     const baseTemplate = `
       <div class="product-inventory__item grid-item grid-header">
@@ -72,7 +72,7 @@ export default class ProductInventoryUI {
     return baseTemplate + productsTemplate;
   }
 
-  buttonClickHandler = (e: MouseEvent) => {
+  private buttonClickHandler = (e: MouseEvent) => {
     const { target } = e;
     if (!(target instanceof HTMLButtonElement)) return;
 
@@ -91,7 +91,7 @@ export default class ProductInventoryUI {
     }
   };
 
-  activateEditMode($button: HTMLButtonElement) {
+  private activateEditMode($button: HTMLButtonElement) {
     $button.innerText = '확인';
 
     const $$inputs = $$(
@@ -102,7 +102,7 @@ export default class ProductInventoryUI {
     });
   }
 
-  deactivateEditMode($button: HTMLButtonElement) {
+  private deactivateEditMode($button: HTMLButtonElement) {
     $button.innerText = '수정';
 
     const $$inputs = $$(
@@ -113,7 +113,7 @@ export default class ProductInventoryUI {
     });
   }
 
-  finishEditMode($button: HTMLButtonElement) {
+  private finishEditMode($button: HTMLButtonElement) {
     const prevProductName = $button.dataset.productName;
     const $$inputs = $$(
       `input[data-product-name="${prevProductName}"]`,
@@ -138,7 +138,7 @@ export default class ProductInventoryUI {
     viewPainter.renderProducts();
   }
 
-  deleteProduct(productName) {
+  private deleteProduct(productName) {
     this.productDomain.deleteProduct(productName);
 
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);

@@ -15,7 +15,7 @@ export default class ProductManagementUI {
     this.bindDOM();
   }
 
-  template() {
+  private template() {
     return `
       <section class="product-addition input-section">
         <h2 hidden>추가할 상품 입력</h2>
@@ -51,7 +51,7 @@ export default class ProductManagementUI {
     `;
   }
 
-  bindDOM() {
+  private bindDOM() {
     new ProductAdditionUI(this.productDomain);
     const productInventoryUI = new ProductInventoryUI(this.productDomain);
     viewPainter.productInventoryUI = productInventoryUI;

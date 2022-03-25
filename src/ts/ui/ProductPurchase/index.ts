@@ -6,11 +6,11 @@ export default class ProductPurchaseUI {
     this.bindDOM();
   }
 
-  template() {
+  private template() {
     return `
       <div>Product Purchase (Step2 구현 예정!)</div>
     `;
   }
 
-  bindDOM() {}
+  private bindDOM() {}
 }

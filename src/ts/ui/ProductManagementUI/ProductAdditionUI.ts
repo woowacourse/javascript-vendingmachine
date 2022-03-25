@@ -10,7 +10,7 @@ export default class ProductAdditionUI {
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
   }
 
-  submitHandler = (e: Event) => {
+  private submitHandler = (e: Event) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;

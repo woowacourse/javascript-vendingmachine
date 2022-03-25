@@ -12,7 +12,7 @@ export default class CoinHoldingsUI {
     replaceHTML($('.coin-holdings__container'), this.template());
   }
 
-  template() {
+  private template() {
     const baseTemplate = `
       <div class="coin-holdings__item grid-item grid-header">동전</div>
       <div class="coin-holdings__item grid-item grid-header">개수</div>
