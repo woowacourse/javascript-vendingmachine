@@ -132,6 +132,12 @@ describe('잔돈 충전 테스트', () => {
     expect(() => {
       vendingMachine.rechargeMoney(invalidUnitMoney);
     }).toThrowError(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
+
+    const zeroMoney = 0;
+
+    expect(() => {
+      vendingMachine.rechargeMoney(zeroMoney);
+    }).toThrowError(ERROR_MESSAGE.UNDER_MIN_RECHARGING_MONEY);
   });
 
   it('보유한 금액이 100,000원을 넘으면 에러를 발생시킨다.', () => {
