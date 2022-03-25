@@ -20,6 +20,7 @@ export const VENDING_MACHINE_STATE_KEYS: {
   COIN_WALLET: 'COIN_WALLET',
   INPUT_CHARGE: 'INPUT_CHARGE',
 };
+
 export const ERROR_MSG = {
   NAME_OVER_LIMIT_LENGTH: '상품 명은 10글자를 초과할 수 없습니다.',
   NAME_EMPTY: '상품 명을 최소 한 글자를 입력해주세요.',
