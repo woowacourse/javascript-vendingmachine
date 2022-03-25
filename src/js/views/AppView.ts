@@ -1,51 +1,41 @@
 import { $, $$ } from '../utils/common';
-
-const template = `
-<h1>🍿 자판기 🍿</h1>
-<div class="nav-container">
-  <button id="item-manage-tab" class="nav-button nav-button-clicked">상품 관리</button>
-  <button id="money-charge-tab" class="nav-button">잔돈 충전</button>
-  <button id="item-purchase-tab" class="nav-button">상품 구매</button>
-</div>
-<div id="content"></div>
-
-`;
+import { initialTemplate } from '../templates/initialTemplate';
+import { CUSTOM_EVENT, SELECTOR } from '../constants/constants';
 
 export default class AppView {
   $navContainer: HTMLElement;
   $app: HTMLElement;
 
   constructor() {
-    this.$app = $('#app');
+    this.$app = $(SELECTOR.ID.APP);
+
     this.render();
     this.bindEvents();
   }
+
   render() {
-    this.$app.insertAdjacentHTML('beforeend', template);
+    this.$app.insertAdjacentHTML('beforeend', initialTemplate);
   }
 
   bindEvents() {
-    $('.nav-container').addEventListener('click', event => {
-      const $navButton = event.target;
-      this.customEvent($navButton);
-      this.changeButtonColor($navButton.id);
-    });
+    $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
   }
 
-  customEvent($navButton) {
-    window.dispatchEvent(new CustomEvent('ROUTE_CHANGE', { detail: { $navButton } }));
+  handleClickNavButton(event: Event) {
+    const $navButton = event.target as HTMLButtonElement;
+    const targetButtonId = $navButton.id;
+
+    this.changeButtonColor(targetButtonId);
+    window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ROUTE_CHANGE, { detail: { $navButton } }));
   }
 
-  bindPopStateEvent(callback) {
-    window.addEventListener('popstate', callback);
-  }
+  changeButtonColor(targetButtonId: string) {
+    const $navButtons = $$(SELECTOR.CLASS.NAV_BUTTON);
 
-  changeButtonColor(buttonID) {
-    const navButtons = $$('.nav-button');
-    navButtons.forEach(navButton =>
-      navButton.id === buttonID
-        ? navButton.classList.add('nav-button-clicked')
-        : navButton.classList.remove('nav-button-clicked'),
+    $navButtons.forEach($navButton =>
+      $navButton.id === targetButtonId
+        ? $navButton.classList.add(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED)
+        : $navButton.classList.remove(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED),
     );
   }
 }

@@ -1,7 +1,7 @@
-export function generateRandom(max) {
+export function generateRandom(max: number) {
   return Math.floor(Math.random() * (max + 1));
 }
 
-export const $ = element => document.querySelector(element);
+export const $ = selector => document.querySelector(selector);
 
-export const $$ = element => document.querySelectorAll(element);
+export const $$ = selector => document.querySelectorAll(selector);

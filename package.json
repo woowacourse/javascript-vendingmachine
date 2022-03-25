@@ -1,7 +1,7 @@
 {
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
-  "description": "",
+  "description": "javascript-vendingmachine",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",

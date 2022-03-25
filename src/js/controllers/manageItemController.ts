@@ -1,13 +1,14 @@
-import ManageItemView from '../views/mangeItem/mangeItemView';
+import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CUSTOM_EVENT } from '../constants/constant';
+import { CUSTOM_EVENT } from '../constants/constants';
 import { checkDuplicatedItem } from '../validates/validates';
+import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
 
 export default class ManageItemController {
   vendingMachine: VendingMachine;
   manageItemView: ManageItemView;
 
-  constructor(vendingMachine) {
+  constructor(vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
     this.manageItemView = new ManageItemView();
 
@@ -26,42 +27,37 @@ export default class ManageItemController {
     window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_DELETE, this.handleTableItemDelete.bind(this));
   }
 
-  handleAddItem(event) {
+  handleAddItem(event: CustomEvent) {
     try {
-      const { addItemName, addItemPrice, addItemQuantity } = event.detail;
-      const newItem = {
-        name: addItemName,
-        price: addItemPrice,
-        quantity: addItemQuantity,
-      };
+      const newItem: ItemType = event.detail;
       const items = this.vendingMachine.getItems();
 
       checkDuplicatedItem(items, newItem, null);
       this.vendingMachine.addItem(newItem);
 
       this.manageItemView.clearInput();
-      this.manageItemView.updateItemTable(items);
+      this.manageItemView.repaintItemTable(this.vendingMachine.getItems());
     } catch (error) {
       alert(error.message);
     }
   }
 
-  handleTableItemChange(event) {
+  handleTableItemChange(event: CustomEvent) {
     try {
-      const { item, targetRowIndex, $targetTableRow } = event.detail;
+      const { item, targetRowIndex, $targetTableRow }: TableItemChangeDetailType = event.detail;
       const items = this.vendingMachine.getItems();
 
       checkDuplicatedItem(items, item, targetRowIndex);
       this.vendingMachine.changeItem(targetRowIndex, item);
 
-      this.manageItemView.changeTableRow($targetTableRow, item);
+      this.manageItemView.repaintItemTableRow($targetTableRow, item);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  handleTableItemDelete(event) {
-    const { item } = event.detail;
+  handleTableItemDelete(event: CustomEvent) {
+    const { item }: TableItemDeleteDetailType = event.detail;
     this.vendingMachine.deleteItem(item);
   }
 }

@@ -3,7 +3,8 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
-import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constant';
+import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constants';
+import { RouteChangeDetailType } from '../types/types';
 
 export default class AppController {
   vendingMachine: VendingMachine;
@@ -23,12 +24,12 @@ export default class AppController {
   }
 
   bindEvents() {
-    this.appView.bindPopStateEvent(this.route.bind(this));
     window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
+    window.addEventListener('popstate', this.route.bind(this));
   }
 
-  handleRouteChange(event) {
-    const { $navButton } = event.detail;
+  handleRouteChange(event: CustomEvent) {
+    const { $navButton }: RouteChangeDetailType = event.detail;
 
     if ($navButton.id === SELECTOR.ID_STRING.ITEM_MANGE_TAB) {
       window.history.pushState(null, null, URL.MANAGE_ITEM);

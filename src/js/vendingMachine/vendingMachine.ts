@@ -1,12 +1,10 @@
-import { COINS } from '../constants/constant';
+import { COINS } from '../constants/constants';
 import { generateRandom } from '../utils/common';
-
-type ItemType = { name: string; price: number; quantity: number };
-type CoinType = { fiveHundred: number; hundred: number; fifty: number; ten: number };
+import { ItemType, CoinsType } from '../types/types';
 
 export default class VendingMachine {
   private items: ItemType[] = [];
-  private coins: CoinType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
+  private coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
   private inputMoney = 0;
 
   getItems(): Array<ItemType> {
@@ -17,23 +15,23 @@ export default class VendingMachine {
     this.items = newItems;
   }
 
-  getCoins(): CoinType {
+  getCoins(): CoinsType {
     return { ...this.coins };
   }
 
-  setCoins(newCoins: CoinType) {
+  setCoins(newCoins: CoinsType) {
     this.coins = newCoins;
   }
 
-  getInputMoney() {
+  getInputMoney(): number {
     return this.inputMoney;
   }
 
-  setInputMoney(inputMoney) {
+  setInputMoney(inputMoney: number) {
     this.inputMoney = inputMoney;
   }
 
-  getTotalMoney(coins) {
+  getTotalMoney(coins: CoinsType): number {
     let totalMoney = 0;
     Object.keys(coins).forEach(coinKey => {
       totalMoney += coins[coinKey] * COINS[coinKey];
@@ -57,7 +55,7 @@ export default class VendingMachine {
     this.setItems(newItems);
   }
 
-  generateRandomCoins(money: number): CoinType {
+  generateRandomCoins(money: number): CoinsType {
     const newCoins = this.getCoins();
     let restMoney = money;
 

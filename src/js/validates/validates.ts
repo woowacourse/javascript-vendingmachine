@@ -1,50 +1,55 @@
-export const validateAddItemInput = (name, price, quantity) => {
+import { ItemType } from '../types/types';
+import { ERROR_MESSAGE, ITEM, MONEY } from '../constants/constants';
+
+export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   if (name.length === 0) {
-    throw new Error('공백으로된 상품명을 입력할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.ITEM_NAME.EMPTY_NAME);
   }
-  if (name.length > 10) {
-    throw new Error('10자 이상의 상품명을 입력할 수 없습니다.');
+  if (name.length > ITEM.NAME.MAX_LENGTH) {
+    throw new Error(ERROR_MESSAGE.ITEM_NAME.OVER_MAX_LENGTH);
   }
   if (!Number.isInteger(price)) {
-    throw new Error('정수가 아닌 숫자는 가격으로 입력할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.ITEM_PRICE.NOT_INTEGER);
   }
-  if (price < 100) {
-    throw new Error('100미만의 수는 가격으로 입력할 수 없습니다.');
+
+  if (price < ITEM.PRICE.MIN) {
+    throw new Error(ERROR_MESSAGE.ITEM_PRICE.UNDER_MIN);
   }
-  if (price > 10000) {
-    throw new Error('10,000원 보다 큰 가격을 입력할 수 없습니다.');
+  if (price > ITEM.PRICE.MAX) {
+    throw new Error(ERROR_MESSAGE.ITEM_PRICE.OVER_MAX);
   }
-  if (price % 10 !== 0) {
-    throw new Error('10원 단위의 금액만 투입할 수 있습니다.');
+  if (price % ITEM.PRICE.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGE.ITEM_PRICE.INVALID_UNIT);
   }
+
   if (!Number.isInteger(quantity)) {
-    throw new Error('정수가 아닌 숫자는 수량으로 입력할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.ITEM_QUANTITY.NOT_INTEGER);
   }
-  if (quantity <= 0) {
-    throw new Error('0이하의 수는 수량으로 입력할 수 없습니다.');
+  if (quantity <= ITEM.QUANTITY.MIN) {
+    throw new Error(ERROR_MESSAGE.ITEM_QUANTITY.UNDER_MIN);
   }
-  if (quantity > 20) {
-    throw new Error('20개 보다 많은 수량을 입력할 수 없습니다.');
+  if (quantity > ITEM.QUANTITY.MAX) {
+    throw new Error(ERROR_MESSAGE.ITEM_QUANTITY.OVER_MAX);
   }
 };
 
-export const validateInputMoney = inputMoney => {
+export const validateInputMoney = (inputMoney: number) => {
   if (!Number.isInteger(inputMoney)) {
-    throw new Error('정수가 아닌 숫자는 금액으로 입력할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
   }
-  if (inputMoney <= 0) {
-    throw new Error('0원이하의 금액은 투입할 수 없습니다.');
+  if (inputMoney <= MONEY.MIN) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   }
-  if (inputMoney > 100000) {
-    throw new Error('100,000원 보다 많은 금액을 투입할 수 없습니다.');
+  if (inputMoney > MONEY.MAX) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_MAX);
   }
-  if (inputMoney % 10 !== 0) {
-    throw new Error('10원 단위의 금액만 투입할 수 있습니다.');
+  if (inputMoney % MONEY.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
   }
 };
 
-export const checkDuplicatedItem = (items, newItem, targetIndex) => {
+export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, targetIndex: number) => {
   if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
-    throw new Error('이미 등록된 상품명입니다.');
+    throw new Error(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
   }
 };

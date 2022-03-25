@@ -1,13 +1,15 @@
-import PurchaseItemView from '../views/purchaseItem/purchaseItemView';
-import { COINS } from '../constants/constant';
+import PurchaseItemView from '../views/purchaseItemView';
+import VendingMachine from '../vendingMachine/vendingMachine';
+import { CoinsType } from '../types/types';
+import { $ } from '../utils/common';
 
 export default class PurchaseItemController {
-  vendingMachine: any;
-  purchaseItemView: any;
-  coins: { fiveHundred: number; hundred: number; fifty: number; ten: number };
+  vendingMachine: VendingMachine;
+  purchaseItemView: PurchaseItemView;
+  coins: CoinsType;
   inputMoney: number;
 
-  constructor(vendingMachine) {
+  constructor(vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
     this.purchaseItemView = new PurchaseItemView();
 
@@ -18,5 +20,11 @@ export default class PurchaseItemController {
   render() {
     const items = this.vendingMachine.getItems();
     this.purchaseItemView.render(items, this.coins, this.inputMoney);
+
+    this.bindEvent();
+  }
+
+  bindEvent() {
+    $('.submit-button').addEventListener('click', event => event.preventDefault());
   }
 }

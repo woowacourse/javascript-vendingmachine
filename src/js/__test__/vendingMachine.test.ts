@@ -1,5 +1,5 @@
-import VendingMachine from '../vendingMachine/vendingMachine.ts';
-import { COINS } from '../constants/constant.js';
+import VendingMachine from '../vendingMachine/vendingMachine';
+import { COINS } from '../constants/constants';
 
 describe('자판기 테스트', () => {
   describe('상품 관리', () => {
