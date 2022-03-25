@@ -8,17 +8,17 @@ import {
 
 class Product {
   vendingmachineFunctionWrap: HTMLElement;
-  productControlInputs: NodeList;
+  productInfoInputs: HTMLElement[];
   productAddButton: HTMLElement;
   productTable: HTMLElement;
-  productNameTdList: NodeList | null;
+  productNameTdList: Element[] | null;
 
   constructor() {
     this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
   bindProductDom() {
-    this.productControlInputs = selectDomAll(".product-control-input");
+    this.productInfoInputs = selectDomAll(".product-control-input");
     this.productAddButton = selectDom("#product-add-button");
     this.productTable = selectDom("#product-control-table");
     this.productNameTdList = selectDomAll(".product-name", this.productTable);
@@ -26,18 +26,17 @@ class Product {
     addEvent(this.productTable, "click", this.handleRemoveProduct);
     addEvent(this.productTable, "click", this.handleEditProduct);
     addEvent(this.productTable, "click", this.handleConfirmProduct);
+
+    const [productNameInput] = this.productInfoInputs;
+    productNameInput.focus();
   }
 
   handleAddProduct = (e: Event) => {
     e.preventDefault();
-    const [productName, productPrice, productQuantity] = Array.from(
-      this.productControlInputs,
-      (input: HTMLInputElement) => input.value
-    );
-    const productNameList = Array.from(
-      this.productNameTdList,
-      (productNameTd: HTMLTableCellElement) => productNameTd.textContent
-    );
+    const [productName, productPrice, productQuantity] = 
+      this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
+    const productNameList = 
+      this.productNameTdList.map((productNameTd: HTMLTableCellElement) => productNameTd.textContent);
 
     try {
       verifyProductInfo(
@@ -46,9 +45,9 @@ class Product {
         +productQuantity,
         productNameList
       );
-      this.productControlInputs.forEach(
-        (input: HTMLInputElement) => (input.value = "")
-      );
+      this.productInfoInputs.forEach((input: HTMLInputElement) => (input.value = ""));
+      const [productNameInput] = this.productInfoInputs;
+      productNameInput.focus();
     } catch ({ message }) {
       alert(message);
       return;
@@ -76,6 +75,9 @@ class Product {
         +productPriceTd.textContent,
         +productQuantityTd.textContent
       );
+
+      const [productEditInput] = selectDomAll(".product-edit-input");
+      productEditInput.focus();
     }
   };
 
@@ -85,10 +87,8 @@ class Product {
         selectDomAll(".product-edit-input"),
         (input: HTMLInputElement) => input.value
       );
-      const productNameList = Array.from(
-        this.productNameTdList,
-        (productNameTd: HTMLTableCellElement) => productNameTd.textContent
-      );
+      const productNameList =
+        this.productNameTdList.map((productNameTd: HTMLTableCellElement) => productNameTd.textContent)
 
       try {
         verifyProductInfo(

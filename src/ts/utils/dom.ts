@@ -1,8 +1,9 @@
 const selectDom = (selector: string, element: HTMLElement | Document = document) =>
   element.querySelector(selector) as HTMLElement;
 
-const selectDomAll = (selector: string, element: HTMLElement | Document = document) =>
-  element.querySelectorAll(selector) as NodeList;
+const selectDomAll = (selector: string, element: HTMLElement | Document = document): HTMLElement[] => {
+  return Array.from(element.querySelectorAll(selector));
+}
 
 const addEvent = (target: HTMLElement, eventName: string, handler) => {
   Array.isArray(target)
