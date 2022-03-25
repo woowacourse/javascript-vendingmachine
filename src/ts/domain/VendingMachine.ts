@@ -4,6 +4,7 @@ import Product from './Product';
 import Money from './Money';
 import { checkDuplicatedProduct, checkMoneyValidation } from './validator';
 import { getRandomNumber } from '../utils';
+import { STORAGE_ID } from '../constants';
 export interface VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
@@ -21,8 +22,13 @@ export default class VendingMachine implements VendingMachineInterface {
   money: MoneyType[];
 
   constructor() {
-    this.products = [];
-    this.money = [new Money(500, 0), new Money(100, 0), new Money(50, 0), new Money(10, 0)];
+    this.products = JSON.parse(localStorage.getItem(STORAGE_ID.PRODUCTS)) || [];
+    this.money = JSON.parse(localStorage.getItem(STORAGE_ID.HOLDING_MONEY)) || [
+      new Money(500, 0),
+      new Money(100, 0),
+      new Money(50, 0),
+      new Money(10, 0),
+    ];
   }
 
   getCoinByValue = (value: number) => {

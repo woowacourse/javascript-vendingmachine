@@ -1,5 +1,5 @@
 import { $, $$ } from '../utils';
-import { URL, ID } from '../constants';
+import { PATH_ID, STORAGE_ID } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
 import RechargeView, { RechargeViewInterface } from './RechargeView';
@@ -13,6 +13,7 @@ export default class View {
   vendingMachine: VendingMachineInterface;
   productManageView: ProductManageViewInterface;
   rechargeView: RechargeViewInterface;
+  currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
@@ -23,19 +24,20 @@ export default class View {
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
+    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
 
-    history.replaceState({ url: URL.PRODUCT_MANAGE }, null, URL.PRODUCT_MANAGE);
-    this.renderTabResult(ID.PRODUCT_MANAGE);
+    history.replaceState({ url: this.currentTab }, null, this.currentTab);
+    this.renderTabResult(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, true);
     });
     this.$tabProductManageButton.addEventListener('click', () =>
-      this.tabRouter(URL.PRODUCT_MANAGE),
+      this.tabRouter(PATH_ID.PRODUCT_MANAGE),
     );
-    this.$tabRechargeButton.addEventListener('click', () => this.tabRouter(URL.RECHARGE));
+    this.$tabRechargeButton.addEventListener('click', () => this.tabRouter(PATH_ID.RECHARGE));
     this.$tabPurchaseProductButton.addEventListener('click', () =>
-      this.tabRouter(URL.PURCHASE_PRODUCT),
+      this.tabRouter(PATH_ID.PURCHASE_PRODUCT),
     );
   }
 
@@ -49,17 +51,18 @@ export default class View {
       }
       container.classList.add('hide');
     });
+    localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
   };
 
   renderUpdatedView = (id: string) => {
     const containerBranch = {
-      'product-manage-container': () => {
+      '/#!/product-manage': () => {
         this.productManageView.renderProductManage();
       },
-      'recharge-container': () => {
+      '/#!/recharge': () => {
         this.rechargeView.renderRecharge();
       },
-      'purchase-product-container': () => {
+      '/#!/purchase-product': () => {
         // this.renderPurchaseProduct();
       },
     };
@@ -72,13 +75,13 @@ export default class View {
     if (!isPopState) history.pushState({ url }, null, url);
     const routes = {
       '/#!/product-manage': () => {
-        this.renderTabResult(ID.PRODUCT_MANAGE);
+        this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
       },
       '/#!/recharge': () => {
-        this.renderTabResult(ID.RECHARGE);
+        this.renderTabResult(PATH_ID.RECHARGE);
       },
       '/#!/purchase-product': () => {
-        this.renderTabResult(ID.PURCHASE_PRODUCT);
+        this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
       },
     };
     routes[url]();

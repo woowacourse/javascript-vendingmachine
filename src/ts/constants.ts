@@ -1,13 +1,7 @@
-export const URL = {
+export const PATH_ID = {
   PRODUCT_MANAGE: '/#!/product-manage',
   RECHARGE: '/#!/recharge',
   PURCHASE_PRODUCT: '/#!/purchase-product',
-};
-
-export const ID = {
-  PRODUCT_MANAGE: 'product-manage-container',
-  RECHARGE: 'recharge-container',
-  PURCHASE_PRODUCT: 'purchase-product-container',
 };
 
 export const ERROR_MESSAGE = {
@@ -34,4 +28,10 @@ export const VENDING_MACHINE_RULE = {
   UNIT: 10,
   MAX_HOLDING_MONEY: 100000,
   MIN_RECHARGING_MONEY: 10,
+};
+
+export const STORAGE_ID = {
+  HOLDING_MONEY: 'holding-money',
+  PRODUCTS: 'products',
+  CURRENT_TAB: 'current-tab',
 };
