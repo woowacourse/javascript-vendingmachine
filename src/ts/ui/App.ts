@@ -40,6 +40,16 @@ export default class App {
     this.renderMainContent(location.pathname);
   };
 
+  activateClickedButton(pathname) {
+    $$('.nav__button').forEach($button => {
+      if ($button.dataset.pathname === pathname) {
+        $button.classList.add('active');
+        return;
+      }
+      $button.classList.remove('active');
+    });
+  }
+
   renderMainContent(pathname) {
     switch (pathname) {
       case '/':
@@ -51,15 +61,5 @@ export default class App {
       case '/purchase':
         this.productPurchaseUI.render();
     }
-  }
-
-  activateClickedButton(pathname) {
-    $$('.nav__button').forEach($button => {
-      if ($button.dataset.pathname === pathname) {
-        $button.classList.add('active');
-        return;
-      }
-      $button.classList.remove('active');
-    });
   }
 }
