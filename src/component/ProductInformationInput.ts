@@ -17,13 +17,13 @@ export class ProductInformationInput {
 
   template(): string {
     return `
-        <form id="product-information-input">
-            <label id ='product-input-label' for="product-information-input">추가할 상품 정보를 입력해주세요</label>
-            <input id='product-name-input' type="text" placeholder="상품명" class = 'input'></input>
-            <input id='product-price-input' type="number" placeholder="가격" class = 'input'></input>
-            <input id='product-quantity-input' type="number" placeholder="수량" class = 'input'></input>
-            <button id = 'product-information-submit-btn' type="submit" class='submit-button button'>추가</button>
-          </form>
+      <form id="product-information-input">
+        <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
+        <input id="product-name-input" type="text" placeholder="상품명" class="input" />
+        <input id="product-price-input" type="number" placeholder="가격" class="input" />
+        <input id="product-quantity-input" type="number" placeholder="수량" class="input" />
+        <button id="product-information-submit-btn" type="submit" class="submit-button button">추가</button>
+      </form>
     `;
   }
 
@@ -55,8 +55,9 @@ export class ProductInformationInput {
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
       this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {
-      alert(err);
+      alert(err.message);
     }
+
     this.productInformationForm.reset();
   };
 }

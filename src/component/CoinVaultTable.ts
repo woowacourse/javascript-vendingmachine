@@ -17,16 +17,16 @@ export class CoinVaultTable {
     this.target.addEventListener('coinCharged', this.updateCoinVaultTableTemplate);
   }
 
-  render = () => {
+  render() {
     this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getCoins()));
     this.selectDom();
-  };
+  }
 
   template(coinsQuantity: Coins): string {
     return `
-      <div class = 'table-container'>
+      <div class="table-container">
         <h2>자판기가 보유한 동전</h2>
-        <table id= 'coin-vault-table'>
+        <table id="coin-vault-table">
           <thead>
             <tr>
               <th>동전</th>
@@ -64,9 +64,11 @@ export class CoinVaultTable {
   }
 
   updateCoinVaultTableTemplate = () => {
-    this.coin500Quantity.textContent = `${this.coinVault.getCoins().coin500}`;
-    this.coin100Quantity.textContent = `${this.coinVault.getCoins().coin100}`;
-    this.coin50Quantity.textContent = `${this.coinVault.getCoins().coin50}`;
-    this.coin10Quantity.textContent = `${this.coinVault.getCoins().coin10}`;
+    const { coin500, coin100, coin50, coin10 } = this.coinVault.getCoins();
+
+    this.coin500Quantity.textContent = `${coin500}`;
+    this.coin100Quantity.textContent = `${coin100}`;
+    this.coin50Quantity.textContent = `${coin50}`;
+    this.coin10Quantity.textContent = `${coin10}`;
   };
 }

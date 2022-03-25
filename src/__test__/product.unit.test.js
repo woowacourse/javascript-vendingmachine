@@ -3,11 +3,11 @@ import { Product } from '../domain/Product.ts';
 
 test('상품명, 가격, 수량을 입력하여 물품을 등록할 수 있다.', () => {
   const productCatalog = new ProductCatalog();
-  expect(productCatalog.productList).toHaveLength(0);
+  expect(productCatalog.getProductList()).toHaveLength(0);
 
   productCatalog.addProduct('코카콜라', 1000, 20);
 
-  expect(productCatalog.productList[0].getAllProperties()).toStrictEqual({
+  expect(productCatalog.getProductList()[0].getAllProperties()).toStrictEqual({
     name: '코카콜라',
     price: 1000,
     quantity: 20,
@@ -75,12 +75,12 @@ test('상품을 수정할 수 있다.', () => {
 
 test('상품을 삭제할 수 있다', () => {
   const productCatalog = new ProductCatalog();
-  expect(productCatalog.productList).toHaveLength(0);
+  expect(productCatalog.getProductList()).toHaveLength(0);
 
   productCatalog.addProduct('코카콜라', 1000, 20);
-  productCatalog.deleteProductByName('코카콜라');
+  productCatalog.deleteProduct('코카콜라');
 
-  expect(productCatalog.productList).toHaveLength(0);
+  expect(productCatalog.getProductList()).toHaveLength(0);
 });
 
 test('이미 존재하는 제품을 추가했을시 수량을 합쳐준다.', () => {
@@ -89,7 +89,7 @@ test('이미 존재하는 제품을 추가했을시 수량을 합쳐준다.', ()
   productCatalog.addProduct('코카콜라', 1000, 10);
   productCatalog.addProduct('코카콜라', 1000, 8);
 
-  expect(productCatalog.productList[0].getAllProperties()).toStrictEqual({
+  expect(productCatalog.getProductList()[0].getAllProperties()).toStrictEqual({
     name: '코카콜라',
     price: 1000,
     quantity: 18,

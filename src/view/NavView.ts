@@ -1,5 +1,6 @@
 import { ProductManageView } from './ProductManageView';
 import { BalanceChargeView } from './BalanceChargeView';
+import { URL_PATH } from '../utils/constants';
 
 export class NavView {
   productManageNavBtn: HTMLButtonElement;
@@ -9,6 +10,10 @@ export class NavView {
   balanceChargeView: BalanceChargeView;
 
   constructor() {
+    this.productManageView = new ProductManageView();
+    this.balanceChargeView = new BalanceChargeView();
+
+    this.contentsContainer = document.querySelector('#contents-container');
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
     this.productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
@@ -16,26 +21,32 @@ export class NavView {
     this.productManageNavBtn.addEventListener('click', this.handleShowProductManageTab);
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
 
-    this.productManageView = new ProductManageView();
-    this.balanceChargeView = new BalanceChargeView();
-
-    this.renderHome();
     window.addEventListener('popstate', (savedData) => {
       this.handlePopstate(savedData);
     });
+
+    this.renderHome();
   }
 
   handlePopstate = (savedData) => {
-    if (savedData.state.path === '/') {
+    if (savedData.state.path === URL_PATH.HOME) {
       this.renderHome();
+
+      return;
     }
-    if (savedData.state.path === '/productManage') {
+
+    if (savedData.state.path === URL_PATH.PRODUCT_MANAGE) {
       this.productManageView.init();
       this.productManageView.renderAll();
+
+      return;
     }
-    if (savedData.state.path === '/balanceCharge') {
+
+    if (savedData.state.path === URL_PATH.BALANCE_CHAREGE) {
       this.balanceChargeView.init();
       this.balanceChargeView.renderAll();
+
+      return;
     }
   };
 
@@ -43,7 +54,7 @@ export class NavView {
     this.productManageView.init();
     this.productManageView.renderAll();
 
-    const path = '/productManage';
+    const path = URL_PATH.PRODUCT_MANAGE;
     history.pushState({ path }, null, path);
   };
 
@@ -51,15 +62,15 @@ export class NavView {
     this.balanceChargeView.init();
     this.balanceChargeView.renderAll();
 
-    const path = '/balanceCharge';
+    const path = URL_PATH.BALANCE_CHAREGE;
     history.pushState({ path }, null, path);
   };
 
   contentsContainer: HTMLDivElement;
   renderHome() {
-    const path = '/';
+    const path = URL_PATH.HOME;
+
     history.pushState({ path }, null, path);
-    this.contentsContainer = document.querySelector('#contents-container');
     this.contentsContainer.textContent = '';
   }
 }

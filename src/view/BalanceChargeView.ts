@@ -12,15 +12,17 @@ export class BalanceChargeView {
 
   constructor() {
     this.coinVault = new CoinVault();
+
     this.contentsContainer = document.querySelector('#contents-container');
   }
 
   init() {
+    this.contentsContainer.textContent = ``;
+
     this.props = {
       target: this.contentsContainer,
       coinVault: this.coinVault,
     };
-    this.contentsContainer.textContent = ``;
     this.balanceChargeInput = new BalanceChargeInput(this.props);
     this.coinVaultTable = new CoinVaultTable(this.props);
   }

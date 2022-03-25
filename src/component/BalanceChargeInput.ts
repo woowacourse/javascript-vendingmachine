@@ -21,13 +21,13 @@ export class BalanceChargeInput {
 
   template(balance: number): string {
     return `
-          <form id = 'charge-balance-input-container'>
-            <label id ='charge-balance-input-label' for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
-              <input id="charge-balance-input" type="text" placeholder="금액" class = 'input'></input>
-              <button id='charge-balance-submit-btn' type="submit" class ='submit-button button'>충전</button>
-              <div id = 'current-balance-container'>현재보유금액 : <span id="current-balance">${balance}</span>원</div>
-          </form id = >
-      `;
+      <form id="charge-balance-input-container">
+        <label id="charge-balance-input-label" for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
+        <input id="charge-balance-input" class="input" type="text" placeholder="금액" />
+        <button id="charge-balance-submit-btn" class="submit-button button" type="submit">충전</button>
+        <div id="current-balance-container">현재보유금액 : <span id="current-balance">${balance}</span>원</div>
+      </form>
+    `;
   }
 
   selectDom() {
@@ -43,12 +43,14 @@ export class BalanceChargeInput {
 
   handleChargeBalance = (e: Event) => {
     e.preventDefault();
+
     try {
       this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
     } catch (err) {
       this.chargeBalanceInputForm.reset();
-      alert(err);
+      alert(err.message);
     }
+
     this.updateCurrentBalance();
     this.target.dispatchEvent(new CustomEvent('coinCharged'));
   };

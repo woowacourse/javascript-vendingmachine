@@ -1,10 +1,14 @@
 import { Product } from './Product';
 
 export class ProductCatalog {
-  productList: Product[];
+  private productList: Product[];
 
   constructor() {
     this.productList = [];
+  }
+
+  getProductList() {
+    return this.productList;
   }
 
   addProduct(name: string, price: number, quantity: number) {
@@ -23,16 +27,17 @@ export class ProductCatalog {
   }
 
   accumulateQuantity(productIndex: number, quantity: number) {
-    const target = this.productList[productIndex];
+    const targetProduct = this.productList[productIndex];
+
     try {
-      target.validateQuantity(target.getQuantity() + quantity);
-      target.setQuantity(target.getQuantity() + quantity);
+      targetProduct.validateQuantity(targetProduct.getQuantity() + quantity);
+      targetProduct.setQuantity(targetProduct.getQuantity() + quantity);
     } catch (err) {
       throw err;
     }
   }
 
-  deleteProductByName(name: string) {
+  deleteProduct(name: string) {
     this.productList = this.productList.filter((product) => product.getName() !== name);
   }
 }
