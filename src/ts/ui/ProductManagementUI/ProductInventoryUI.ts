@@ -11,7 +11,7 @@ export default class ProductInventoryUI {
     this.$container = $('.product-inventory__container');
     this.productDomain = productDomain;
     this.render();
-    this.addButtonClickEvent();
+    this.$container.addEventListener('click', this.buttonClickHandler);
   }
 
   render() {
@@ -70,10 +70,6 @@ export default class ProductInventoryUI {
       .join('');
 
     return baseTemplate + productsTemplate;
-  }
-
-  addButtonClickEvent() {
-    this.$container.addEventListener('click', this.buttonClickHandler);
   }
 
   buttonClickHandler = (e: MouseEvent) => {
