@@ -133,6 +133,8 @@ class ItemManageTab {
 
       const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
       itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+
+      targetItem.dataset.itemName = itemName.trim();
     }
   };
 
