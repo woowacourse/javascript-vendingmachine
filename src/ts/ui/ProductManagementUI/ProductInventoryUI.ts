@@ -16,6 +16,9 @@ export default class ProductInventoryUI {
 
   render() {
     replaceHTML(this.$container, this.template());
+    $$('.product-inventory__input').forEach($input =>
+      $input.addEventListener('keydown', this.enterForEditHandler),
+    );
   }
 
   private template() {
@@ -71,6 +74,17 @@ export default class ProductInventoryUI {
 
     return baseTemplate + productsTemplate;
   }
+
+  private enterForEditHandler = (e: KeyboardEvent) => {
+    if (e.key !== 'Enter') return;
+    if (!(e.target instanceof HTMLElement)) return;
+
+    const $editButton = $(
+      `button[data-product-name=${e.target.dataset.productName}]`,
+    ) as HTMLButtonElement;
+
+    this.finishEditMode($editButton);
+  };
 
   private buttonClickHandler = (e: MouseEvent) => {
     const { target } = e;
