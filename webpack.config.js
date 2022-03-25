@@ -10,12 +10,15 @@ module.exports = {
   },
   devServer: {
     port: 9000,
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [{ from: /./, to: '/javascript-vendingmachine/index.html' }],
+    },
   },
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/javascript-vendingmachine/',
   },
   module: {
     rules: [
