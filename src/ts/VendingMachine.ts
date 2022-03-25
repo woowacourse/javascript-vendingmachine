@@ -1,12 +1,11 @@
 import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from './constant/errorMessage';
 import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from './constant/rule';
 
+type itemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
+
 interface VendingMachineInterface {
-  addItem: (itemInfo: { itemName: string; itemPrice: number; itemQuantity: number }) => Object;
-  editItem: (
-    itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
-    itemIndex: number
-  ) => void;
+  addItem: (itemInfo: itemInfoType) => Object;
+  editItem: (itemInfo: itemInfoType, itemIndex: number) => void;
   deleteItem: (itemName: string) => void;
 
   chargeCoin: (rechargeCoin: number) => void;
@@ -14,7 +13,7 @@ interface VendingMachineInterface {
 }
 
 class VendingMachine implements VendingMachineInterface {
-  private _itemList: { itemName: string; itemPrice: number; itemQuantity: number }[];
+  private _itemList: itemInfoType[];
   private _coinCollection: Object;
 
   constructor() {
@@ -35,7 +34,7 @@ class VendingMachine implements VendingMachineInterface {
     return this._coinCollection;
   }
 
-  addItem(itemInfo: { itemName: string; itemPrice: number; itemQuantity: number }) {
+  addItem(itemInfo: itemInfoType) {
     this._itemList = [...this._itemList, itemInfo];
     return itemInfo;
   }
@@ -44,10 +43,7 @@ class VendingMachine implements VendingMachineInterface {
     this._itemList = this._itemList.filter((savedItem) => savedItem.itemName !== itemName);
   }
 
-  editItem(
-    itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
-    itemIndex: number
-  ) {
+  editItem(itemInfo: itemInfoType, itemIndex: number) {
     this._itemList[itemIndex] = itemInfo;
   }
 
@@ -80,10 +76,7 @@ class VendingMachine implements VendingMachineInterface {
     );
   }
 
-  validateItemInput(
-    itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
-    isAddMode = true
-  ) {
+  validateItemInput(itemInfo: itemInfoType, isAddMode = true) {
     const testCases = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
@@ -104,7 +97,7 @@ class VendingMachine implements VendingMachineInterface {
     ];
 
     testCases.every(({ testCase, errorMessage }) => {
-      if (testCase({ ...itemInfo, isAddMode })) throw new Error(errorMessage);
+      if (testCase({ itemInfo, isAddMode })) throw new Error(errorMessage);
       return true;
     });
   }
@@ -129,75 +122,55 @@ class VendingMachine implements VendingMachineInterface {
     });
   }
 
-  private isBlank({
-    itemName,
-  }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
-    isAddMode: boolean;
-  }) {
+  private isBlank({ itemInfo: { itemName } }: { itemInfo: itemInfoType; isAddMode: boolean }) {
     return itemName.length === 0;
   }
 
   private isNotNumberType({
-    itemPrice,
-    itemQuantity,
+    itemInfo: { itemPrice, itemQuantity },
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return isNaN(itemPrice) || isNaN(itemQuantity);
   }
   private isExceedMaxNameLength({
-    itemName,
+    itemInfo: { itemName },
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
   private isAlreadyExist({
-    itemName,
+    itemInfo: { itemName },
     isAddMode,
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return isAddMode && this._itemList.some((savedItem) => savedItem.itemName === itemName);
   }
   private isExceedPriceRange({
-    itemPrice,
+    itemInfo: { itemPrice },
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
   }
   private isNotDividedByPriceUnit({
-    itemPrice,
+    itemInfo: { itemPrice },
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return itemPrice % ITEM.PRICE_UNIT !== 0;
   }
   private isExceedQuantityRange({
-    itemQuantity,
+    itemInfo: { itemQuantity },
   }: {
-    itemName: string;
-    itemPrice: number;
-    itemQuantity: number;
+    itemInfo: itemInfoType;
     isAddMode: boolean;
   }) {
     return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;

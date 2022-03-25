@@ -3,11 +3,11 @@ import VendingMachine from '../ts/VendingMachine';
 describe('상품 추가, 삭제, 수정 테스트', () => {
   const vendingMachine = new VendingMachine();
   beforeEach(() => {
-    vendingMachine.addItem('콜라', 900, 10);
+    vendingMachine.addItem({ itemName: '콜라', itemPrice: 900, itemQuantity: 10 });
   });
 
   test('상품을 추가할 수 있다.', () => {
-    vendingMachine.addItem('사이다', 1000, 10);
+    vendingMachine.addItem({ itemName: '사이다', itemPrice: 1000, itemQuantity: 10 });
 
     expect(vendingMachine.itemList.length).toBe(2);
   });
