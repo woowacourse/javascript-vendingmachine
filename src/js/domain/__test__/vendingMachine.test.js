@@ -100,6 +100,14 @@ describe('자판기 클래스 테스트', () => {
       expect(vendingMachine.totalChange).toBe(inputMoney);
     });
 
+    test('충전 금액이 0원 이하면 오류가 발생한다.', () => {
+      const inputMoney = 0;
+
+      expect(() => vendingMachine.addChange(inputMoney)).toThrow(
+        ERROR_MESSAGE.BELOW_MIN_CHANGE
+      );
+    });
+
     test(`충전 금액이 ${VENDING_MACHINE_RULES.CHANGE_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
       const inputMoney = 1025;
 

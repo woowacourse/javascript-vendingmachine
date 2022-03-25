@@ -32,6 +32,10 @@ export default class VendingMachine {
   }
 
   addChange(money: number): never | void {
+    if (money <= 0) {
+      throw new Error(ERROR_MESSAGE.BELOW_MIN_CHANGE);
+    }
+
     if (money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0) {
       throw new Error(ERROR_MESSAGE.INVALID_UNIT_CHANGE);
     }
