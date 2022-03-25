@@ -11,8 +11,8 @@ export interface product {
 
 interface ProductManager {
   addProduct(newProduct: product): void;
-  getProducts(): product[];
   getTargetProduct(name: string): product;
+  getProducts(): product[];
   editProduct(name: string, targetProduct: product): void;
   deleteProduct(name: string): void;
 }

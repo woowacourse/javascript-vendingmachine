@@ -1,3 +1,5 @@
+import { checkCanAddMoney } from './utils/utils';
+
 export interface coins {
   coin500: number;
   coin100: number;
@@ -25,9 +27,8 @@ export default class VendingMachineCoinManager implements CoinManager {
 
   getTotalAmount() {
     return Object.entries(this.coins).reduce(
-      (sum: number, [coin, count]: [string, number]) => {
-        return sum + Number(coin.replace('coin', '')) * count;
-      },
+      (sum: number, [coin, count]: [string, number]) =>
+        sum + Number(coin.replace('coin', '')) * count,
       0
     );
   }
@@ -40,16 +41,3 @@ export default class VendingMachineCoinManager implements CoinManager {
     });
   }
 }
-
-const checkCanAddMoney = (currentMoney, coins) => {
-  const totalMoney = Object.entries(coins).reduce(
-    (sum: number, [coin, count]: [string, number]) => {
-      return sum + Number(coin.replace('coin', '')) * count;
-    },
-    currentMoney
-  );
-
-  if (totalMoney > 100000) {
-    throw new Error('보유할 수 있는 최대 누적 금액은 100,000원입니다.');
-  }
-};

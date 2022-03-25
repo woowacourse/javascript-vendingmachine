@@ -1,3 +1,4 @@
+import { coins } from '../VendingMachineCoinManager';
 import { product } from '../VendingMachineProductManager';
 
 export const checkValidLengthProductName = (name: string): void => {
@@ -10,7 +11,7 @@ export const checkDuplicatedProductName = (
   products: product[],
   newProduct: product
 ): void => {
-  if (products.some((product) => product.name === newProduct.name)) {
+  if (products.some((product: product) => product.name === newProduct.name)) {
     throw new Error('중복된 상품명은 입력할 수 없습니다.');
   }
 };
@@ -58,24 +59,41 @@ function pickRandomIndex(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const generateRandomCoins = (money: number) => {
-  const coins = [10, 50, 100, 500];
-  const coinsObject = {
+export const generateRandomCoins = (money: number): coins => {
+  const coinList: number[] = [10, 50, 100, 500];
+  const coinsObject: coins = {
     coin500: 0,
     coin100: 0,
     coin50: 0,
     coin10: 0,
   };
 
-  let remainMoney = money;
+  let remainMoney: number = money;
 
   while (remainMoney) {
-    const pickableCoins = coins.filter((coin) => coin <= remainMoney);
-    const pickedCoin =
+    const pickableCoins: number[] = coinList.filter(
+      (coin: number) => coin <= remainMoney
+    );
+    const pickedCoin: number =
       pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
     coinsObject[`coin${pickedCoin}`] += 1;
     remainMoney -= pickedCoin;
   }
 
   return coinsObject;
+};
+
+export const checkCanAddMoney = (
+  currentMoney: number,
+  coinList: coins
+): void => {
+  const totalMoney: number = Object.entries(coinList).reduce(
+    (sum: number, [coin, count]: [string, number]) =>
+      sum + Number(coin.replace('coin', '')) * count,
+    currentMoney
+  );
+
+  if (totalMoney > 100000) {
+    throw new Error('보유할 수 있는 최대 누적 금액은 100,000원입니다.');
+  }
 };
