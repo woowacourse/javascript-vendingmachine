@@ -4,12 +4,18 @@ export interface Product {
   quantity: number;
 }
 
+export type ModifyDetail = {
+  productIndex: number;
+  newProductInfo: Product;
+};
+
 export interface Action {
   type: string;
-  detail?: Product | number;
+  detail?: Product | ModifyDetail | number;
 }
 
 export interface ActionType {
   ADD: string;
+  MODIFY: string;
   DELETE: string;
 }

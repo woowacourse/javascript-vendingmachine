@@ -7,5 +7,6 @@ export const createAction: object = (type: string, detail?: Product | number) =>
 
 export const PRODUCT_ACTION: ActionType = {
   ADD: 'product-add',
+  MODIFY: 'product-modify',
   DELETE: 'product-delete',
 };
