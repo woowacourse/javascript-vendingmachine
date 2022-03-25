@@ -1,4 +1,4 @@
-import { templateC } from './template';
+import { purchaseProductTabTemplate } from './template';
 
 export default class PurchaseProductTab {
   #purchaseProductTabContainer;
@@ -7,7 +7,7 @@ export default class PurchaseProductTab {
     this.#purchaseProductTabContainer = document.createElement('main');
     this.#purchaseProductTabContainer.insertAdjacentHTML(
       'beforeend',
-      templateC
+      purchaseProductTabTemplate
     );
   }
 

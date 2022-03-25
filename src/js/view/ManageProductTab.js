@@ -1,4 +1,8 @@
-import { templateA, productTableRow, updateProductTableRow } from './template';
+import {
+  manageProductTemplate,
+  productTableRow,
+  updateProductTableRow,
+} from './template';
 
 export default class ManageProductTab {
   #manageTabContainer;
@@ -13,7 +17,10 @@ export default class ManageProductTab {
     this.#vendingMachine = machine;
 
     this.#manageTabContainer = document.createElement('main');
-    this.#manageTabContainer.insertAdjacentHTML('beforeend', templateA);
+    this.#manageTabContainer.insertAdjacentHTML(
+      'beforeend',
+      manageProductTemplate
+    );
     this.#addProductForm =
       this.#manageTabContainer.querySelector('#add-product-form');
     this.#addProductNameInput = this.#manageTabContainer.querySelector(

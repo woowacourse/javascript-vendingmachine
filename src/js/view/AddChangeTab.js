@@ -1,4 +1,4 @@
-import { templateB } from './template';
+import { addChangeTabTemplate } from './template';
 
 export default class AddChangeTab {
   #vendingMachine;
@@ -11,7 +11,10 @@ export default class AddChangeTab {
   constructor(machine) {
     this.#vendingMachine = machine;
     this.#addChangeTabContainer = document.createElement('main');
-    this.#addChangeTabContainer.insertAdjacentHTML('beforeend', templateB);
+    this.#addChangeTabContainer.insertAdjacentHTML(
+      'beforeend',
+      addChangeTabTemplate
+    );
     this.#addChangeForm =
       this.#addChangeTabContainer.querySelector('#add-change-form');
     this.#moneyInput =

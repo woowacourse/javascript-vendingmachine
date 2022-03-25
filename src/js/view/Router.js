@@ -6,7 +6,6 @@ import PurchaseProductTab from './PurchaseProductTab';
 export default class Navigation {
   #app;
   #tabMenuNavigation;
-  #main;
   #renderList;
   #vendingMachine;
 

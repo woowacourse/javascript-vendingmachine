@@ -1,4 +1,4 @@
-export const templateA = `<section title="상품 정보">
+export const manageProductTemplate = `<section title="상품 정보">
 <form id="add-product-form">
   <fieldset>
     <legend>추가할 상품 정보를 입력해주세요.</legend>
@@ -23,7 +23,7 @@ export const templateA = `<section title="상품 정보">
 </table>
 </section>`;
 
-export const templateB = `<section title="잔돈 충전">
+export const addChangeTabTemplate = `<section title="잔돈 충전">
 <form id="add-change-form">
   <label for="">자판기가 보유할 금액을 입력해주세요</label>
   <div>
@@ -61,7 +61,7 @@ export const templateB = `<section title="잔돈 충전">
 </table>
 </section>`;
 
-export const templateC = '<div>아직 공사중입니다 🚫</div>';
+export const purchaseProductTabTemplate = '<div>아직 공사중입니다 🚫</div>';
 
 export const productTableRow = ({ name, price, stock, id }) => `
 <tr>
