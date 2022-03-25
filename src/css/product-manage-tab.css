@@ -32,7 +32,7 @@ td input {
 
 td input:focus {
   outline: none !important;
-  animation: focus 2s infinite;
+  animation: focus linear 1.5s infinite;
 }
 
 @keyframes focus {
