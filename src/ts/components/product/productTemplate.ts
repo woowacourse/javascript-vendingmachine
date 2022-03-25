@@ -32,7 +32,7 @@ const addProductTemplate = (
   productQuantity: number
 ) => {
   return `
-   <tr>
+    <tr>
       <td class="product-name">${productName}</td>
       <td>${productPrice}</td>
       <td>${productQuantity}</td>
@@ -40,7 +40,7 @@ const addProductTemplate = (
         <button type="button" class="product-edit-button">수정</button>
         <button type="button" class="product-remove-button">제거</button>
       </td>
-  </tr>`;
+    </tr>`;
 };
 
 const editProductTemplate = (
