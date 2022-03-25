@@ -47,16 +47,6 @@ class ItemRow extends TableRow {
         quantity: this.querySelector('.item-quantity-edit-input').valueAsNumber,
       };
 
-      if (
-        !updatedItem.name.length ||
-        !updatedItem.price ||
-        !updatedItem.quantity
-      ) {
-        window.alert('error');
-
-        return;
-      }
-
       vendingMachine.updateItem(prevName, updatedItem);
     });
 

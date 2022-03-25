@@ -1,3 +1,4 @@
+import Subject from './Subject';
 import { deepEqual } from '../utils/commons';
 
 export default class TableRow extends HTMLTableRowElement {

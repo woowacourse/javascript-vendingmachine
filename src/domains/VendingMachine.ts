@@ -1,6 +1,7 @@
 import Subject from '../core/Subject';
 import { Item } from './Item';
 import { deepClone } from '../utils/commons';
+import { validate, itemValidator, amountValidator } from '../utils/validator';
 
 interface Keyable {
   [key: string]: any;
@@ -34,15 +35,16 @@ export default class VendingMachine {
   addItem(item: Item) {
     const prevItem = this.findItem(item.name);
 
-    if ((prevItem ? prevItem.quantity + item.quantity : item.quantity) > 20)
-      throw new Error('error');
+    if (prevItem) {
+      this.updateItem(prevItem.name, {
+        ...prevItem,
+        ...{ quantity: prevItem.quantity + item.quantity },
+      });
 
-    if (item.price % 10 !== 0) throw new Error('error');
+      return;
+    }
 
-    if (item.name.length > 10 || item.name.trim().length === 0)
-      throw new Error('error');
-
-    if (item.price < 100 || item.price > 10000) throw new Error('error');
+    validate(itemValidator, item);
 
     const newItem = prevItem
       ? {
@@ -59,6 +61,8 @@ export default class VendingMachine {
 
     if (name !== updatedItem.name && this.findItem(updatedItem.name))
       throw new Error('error');
+
+    validate(itemValidator, updatedItem);
 
     this.state.items = this.state.items.map((item) =>
       item.name === name ? updatedItem : item
@@ -100,9 +104,7 @@ export default class VendingMachine {
   }
 
   addCoin(amount: number): void {
-    if (amount < 10 || amount > 100000) throw new Error('error');
-    if (amount % 10 !== 0) throw new Error('error');
-    if (this.getTotalMoney() + amount > 100000) throw new Error('error');
+    validate(amountValidator, amount, this.getTotalMoney());
 
     const randomCoins = this.createRandomCoins(amount);
 
