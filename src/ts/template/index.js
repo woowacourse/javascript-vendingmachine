@@ -8,16 +8,18 @@ export const generateItemManageTabContentTemplate = (itemList) => `
         <button class="input-form-button">추가</button>
       </div>
     </form>
-    <table class="item-status-table">
-      <caption><h2>상품 현황</h2></caption>
-      <tr>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>수량</th>
-        <th></th>
-      </tr>
-      ${itemList.map((itemInfo) => generateItemManageTableRowTemplate(itemInfo)).join('')}
-    </table>
+    <div class="table-container">
+      <table class="item-status-table">
+        <caption><h2>상품 현황</h2></caption>
+        <tr>
+          <th><span>상품명</span></th>
+          <th><span>가격</span></th>
+          <th><span>수량</span></th>
+          <th><span></span></th>
+        </tr>
+        ${itemList.map((itemInfo) => generateItemManageTableRowTemplate(itemInfo)).join('')}
+      </table>
+    </div>
 `;
 
 export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `

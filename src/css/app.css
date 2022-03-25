@@ -31,37 +31,6 @@
   display: flex;
 }
 
-.item-info-input {
-  width: 30%;
-  margin-right: 4px;
-}
-
-.item-info-input-cell {
-  width: 100%;
-  text-align: center;
-  background-color: #ffffff;
-  color: #949494;
-}
-
-.item-info-input-cell:disabled {
-  border: none;
-  color: #000000;
-}
-
-.edit-item-button {
-  margin-right: 8px;
-}
-
-.confirm-item-button {
-  width: 100%;
-}
-
-.editable {
-  color: #949494;
-  outline: 1px dashed #949494;
-  outline-offset: -10px;
-}
-
 .hide {
   display: none;
 }

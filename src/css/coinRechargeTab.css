@@ -16,5 +16,6 @@
 }
 
 .vendingmachine-coin-table {
+  margin-top: 48px;
   min-width: 300px;
 }
