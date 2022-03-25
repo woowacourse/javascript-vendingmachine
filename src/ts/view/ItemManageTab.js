@@ -2,17 +2,15 @@ import {
   generateComfirmMessage,
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
-} from './template';
-import { selectDom, selectDoms } from './utils';
+} from '../template';
+import { selectDom, selectDoms } from '../utils';
+import VendingMachineTab from './VendingMachineTab';
 
-class ItemManageTab {
+class ItemManageTab extends VendingMachineTab {
   constructor(vendingMachine) {
-    this.vendingMachine = vendingMachine;
+    super(vendingMachine);
 
-    this.navTabButtonList = selectDoms('.nav-tab-button');
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
-    this.tabContent = selectDom('#tab-content');
-
     this.itemInfoForm = null;
     this.itemInfoInputs = null;
     this.itemStatusTable = null;
@@ -21,7 +19,7 @@ class ItemManageTab {
   }
 
   renderInitialTabState() {
-    this.#changeTabContent(
+    this.changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
       this.itemManageTabButton
     );
@@ -135,15 +133,6 @@ class ItemManageTab {
       itemPrice: Number(itemPrice),
       itemQuantity: Number(itemQuantity),
     };
-  }
-
-  #changeTabContent(contentTemplate, targetTabButton) {
-    this.tabContent.replaceChildren();
-    this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
-
-    this.navTabButtonList.forEach((navTabButton) =>
-      navTabButton.classList.toggle('selected', targetTabButton === navTabButton)
-    );
   }
 
   #renderAddedItem(newItem) {

@@ -69,6 +69,8 @@ class VendingMachine implements VendingMachineInterface {
       this._coinCollection[selectedCoin]++;
       remainCoin -= selectedCoin;
     }
+
+    return this.calculateTotalCoinAmount();
   }
 
   calculateTotalCoinAmount() {
