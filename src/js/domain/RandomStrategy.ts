@@ -1,15 +1,5 @@
-/* eslint-disable max-lines-per-function */
+import { Coin, distributeStrategy } from './interface';
 import { pickNumberInRange } from '../utils';
-
-interface Coin {
-  name: string;
-  value: number;
-  count: number;
-}
-
-interface distributeStrategy {
-  distribute(inputMoney: number): Coin[];
-}
 
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);

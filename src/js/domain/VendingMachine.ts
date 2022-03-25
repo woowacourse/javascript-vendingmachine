@@ -1,30 +1,15 @@
+import {
+  Coin,
+  CoinCounts,
+  ProductData,
+  VendingMachineProductDictionary,
+} from './interface';
+
 import VendingMachineProduct from './VendingMachineProduct';
-import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../constants';
-import { generateUniqueId } from '../utils';
 import MoneyBox from './MoneyBox';
 
-interface ProductData {
-  name: string;
-  price: number;
-  stock: number;
-}
-
-interface Coin {
-  name: string;
-  value: number;
-  count: number;
-}
-
-interface CoinCounts {
-  FIVE_HUNDRED_WON: number;
-  ONE_HUNDRED_WON: number;
-  FIFTY_WON: number;
-  TEN_WON: number;
-}
-
-interface VendingMachineProductDictionary {
-  [id: string]: VendingMachineProduct;
-}
+import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../constants';
+import { generateUniqueId } from '../utils';
 
 export default class VendingMachine {
   private _productList: VendingMachineProductDictionary;

@@ -1,10 +1,5 @@
+import { ProductData } from './interface';
 import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
-
-interface ProductData {
-  name: string;
-  price: number;
-  stock: number;
-}
 
 export default class VendingMachineProduct {
   private _name: string;

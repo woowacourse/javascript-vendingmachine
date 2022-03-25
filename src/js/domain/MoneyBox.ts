@@ -1,21 +1,5 @@
+import { Coin, CoinCounts, distributeStrategy } from './interface';
 import RandomStrategy from './RandomStrategy';
-
-interface Coin {
-  name: string;
-  value: number;
-  count: number;
-}
-
-interface CoinCounts {
-  FIVE_HUNDRED_WON: number;
-  ONE_HUNDRED_WON: number;
-  FIFTY_WON: number;
-  TEN_WON: number;
-}
-
-interface distributeStrategy {
-  distribute(inputMoney: number): Coin[];
-}
 
 export default class MoneyBox {
   private _coinStatusList: Coin[];
