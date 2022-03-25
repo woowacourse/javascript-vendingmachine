@@ -33,7 +33,7 @@ class ProductManagementComponent {
         <input id="product-name-input" type="text" placeholder="상품명" />
         <input id="product-price-input" type="number" placeholder="가격" />
         <input id="product-quantity-input" type="number" placeholder="수량" />
-        <button  class="submit-button">추가</button>
+        <button id="product-input-submit" class="submit-button">추가</button>
       </div>
     </form> 
   </section>`;

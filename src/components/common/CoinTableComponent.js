@@ -25,19 +25,19 @@ class CoinTableComponent {
           </tr>
           <tr>
             <td>500원</td>
-            <td id="hold-coin-500-count">0개</td>
+            <td ><span id="hold-coin-500-count">0</span>개</td>
           </tr>
           <tr>
             <td>100원</td>
-            <td id="hold-coin-100-count">0개</td>
+            <td ><span id="hold-coin-100-count">0</span>개</td>
           </tr>
           <tr>
             <td>50원</td>
-            <td id="hold-coin-50-count">0개</td>
+            <td ><span id="hold-coin-50-count">0</span>개</td>
           </tr>
           <tr>
             <td>10원</td>
-            <td id="hold-coin-10-count">0개</td>
+            <td><span id="hold-coin-10-count">0</span>개</td>
           </tr>
         </tbody>
       </table>`;
@@ -72,10 +72,10 @@ class CoinTableComponent {
   renderRechargeCoinTable(coinWallet) {
     const { coin500, coin100, coin50, coin10 } = coinWallet.getCoinWalletInfo();
 
-    this.$tableData500.textContent = `${coin500}개`;
-    this.$tableData100.textContent = `${coin100}개`;
-    this.$tableData50.textContent = `${coin50}개`;
-    this.$tableData10.textContent = `${coin10}개`;
+    this.$tableData500.textContent = `${coin500}`;
+    this.$tableData100.textContent = `${coin100}`;
+    this.$tableData50.textContent = `${coin50}`;
+    this.$tableData10.textContent = `${coin10}`;
   }
   renderReturnChangeTable() {}
 }

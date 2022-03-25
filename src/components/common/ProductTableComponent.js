@@ -139,9 +139,9 @@ class ProductTableComponent {
       ...parentElement.querySelectorAll('td'),
     ];
 
-    nameTableData.innerHTML = `<input type="text" id="product-name-edit-input hide"  value="${nameTableData.dataset.productName}"/>`;
-    priceTableData.innerHTML = `<input type="number" id="product-price-edit-input hide"  value="${priceTableData.dataset.productPrice}"/>`;
-    quantityTableData.innerHTML = `<input type="number" id="product-quantity-edit-input hide"  value="${quantityTableData.dataset.productQuantity}"/>`;
+    nameTableData.innerHTML = `<input type="text" id="product-name-edit-input"   value="${nameTableData.dataset.productName}"/>`;
+    priceTableData.innerHTML = `<input type="number" id="product-price-edit-input"   value="${priceTableData.dataset.productPrice}"/>`;
+    quantityTableData.innerHTML = `<input type="number" id="product-quantity-edit-input"  value="${quantityTableData.dataset.productQuantity}"/>`;
   };
   onClickConfirmButton = (parentElement, targetClassList, productId) => {
     const productInputs = parentElement.querySelectorAll('input');
