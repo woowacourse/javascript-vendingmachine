@@ -1,0 +1,331 @@
+/*!***********************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles/utils/resetStyle.css ***!
+  \***********************************************************************************/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*!***********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles/Font.css ***!
+  \***********************************************************************/
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: bold;
+  font-weight: 700;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix')
+      format('embedded-opentype'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix')
+      format('embedded-opentype'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'),
+    url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+}
+
+/*!****************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/index.scss ***!
+  \****************************************************************************************************************/
+@charset "UTF-8";
+/*
+  컬러 세팅
+    * 컬러 이름 지정 기준
+    : https://marketplace.visualstudio.com/items?itemName=volynetsserhii.get-color-name
+*/
+:root {
+  font-size: 14px;
+  font-family: "NanumBarunGothic";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 140%;
+}
+
+body {
+  background-color: #f8f8f8;
+}
+
+input[type=number],
+input[type=text] {
+  width: 100%;
+  border: 1px solid #b4b4b4;
+  padding: 0.5rem;
+  border-radius: 5px;
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button,
+input[type=text]::-webkit-outer-spin-button,
+input[type=text]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button {
+  background: #f3f3f3;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button.accent {
+  background-color: #00bcd4;
+  color: #fff;
+}
+.button:hover {
+  filter: brightness(0.95);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+.button-group > .button {
+  flex-grow: 1;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-top: 1px solid #dcdcdc;
+  margin-bottom: 1.6rem;
+}
+.table caption {
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 1.2rem;
+}
+.table tr {
+  border: none;
+}
+.table th {
+  font-weight: bold;
+}
+.table th,
+.table td {
+  padding: 0.7rem 0.5rem;
+  border: none;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+#app {
+  background-color: #fff;
+  width: 42.85rem;
+  margin: 5rem auto;
+  padding: 2.85rem 5.7rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.header > h1.title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-bottom: 2.2rem;
+}
+.header > .nav > ul {
+  display: flex;
+  gap: 1rem;
+}
+.header > .nav > ul li {
+  display: block;
+  flex-grow: 1;
+  background-color: #f3f3f3;
+  border-radius: 0.4rem;
+  padding: 0.8rem;
+  cursor: pointer;
+}
+.header > .nav > ul li.selected {
+  background-color: #D1E7ED;
+  color: #000;
+}
+.header > .nav > ul li:hover {
+  filter: brightness(0.95);
+}
+
+.form-section {
+  margin-bottom: 3rem;
+}
+.form-section form > label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+#add-product-form-section {
+  position: relative;
+}
+#add-product-form-section .add-product-input-wrap {
+  display: grid;
+  grid-template-columns: minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%);
+  grid-column-gap: 0.5rem;
+}
+#add-product-form-section .add-product-input-wrap > * {
+  position: relative;
+  display: block;
+}
+
+#add-holding-amount-form-section #add-holding-amount-form {
+  margin-bottom: 1rem;
+}
+#add-holding-amount-form-section #add-holding-amount-form .add-holding-amount-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+#add-holding-amount-form-section #add-holding-amount-form .add-holding-amount-wrap > input {
+  grid-column: 1/3;
+}
+#add-holding-amount-form-section #add-holding-amount-form .add-holding-amount-wrap > button {
+  grid-column: 3/3;
+}
+
+#holding-amount-table-section > table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=style.css.map*/
