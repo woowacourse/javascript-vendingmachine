@@ -5,11 +5,11 @@ interface IState {
 }
 
 class ProductStore implements IStore {
-  state: IState = {
+  private state: IState = {
     products: [],
   };
 
-  subscribers = [];
+  private subscribers = [];
 
   addSubscriber(subscriber: object) {
     this.subscribers.push(subscriber);

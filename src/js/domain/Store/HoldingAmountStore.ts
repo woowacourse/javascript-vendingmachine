@@ -7,11 +7,11 @@ interface IState {
 }
 
 class HoldingAmountStore implements IStore {
-  state = {
+  private state = {
     coins: [0, 0, 0, 0],
   };
 
-  subscribers = [];
+  private subscribers = [];
 
   addSubscriber(subscriber: object) {
     this.subscribers.push(subscriber);
