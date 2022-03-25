@@ -113,7 +113,7 @@ class Product {
     productName: string,
     productPrice: number,
     productQuantity: number,
-    target
+    target: HTMLElement
   ) => {
     target.closest("tr").innerHTML = addProductTemplate(
       productName,
