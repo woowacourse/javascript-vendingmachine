@@ -12,12 +12,14 @@ import { ROUTES } from '../constants';
 export default class NavigatorComponent {
   private $productInfoSection: HTMLElement = $('.product-info-section');
   private $chargeCoinSection: HTMLElement = $('.charge-coin-section');
-  private $navProductButton: HTMLButtonElement = $('.nav__product-button');
-  private $navChargeButton: HTMLButtonElement = $('.nav__charge-button');
-  private $coinInput: HTMLInputElement = $('.charge-form-section__coin-input');
-  private $productInput: HTMLInputElement = $(
+  private $navProductButton = $('.nav__product-button') as HTMLButtonElement;
+  private $navChargeButton = $('.nav__charge-button') as HTMLButtonElement;
+  private $coinInput = $(
+    '.charge-form-section__coin-input'
+  ) as HTMLInputElement;
+  private $productInput = $(
     '.product-info-form__product-input'
-  );
+  ) as HTMLInputElement;
 
   private vendingMachineProductManager = new VendingMachineProductManager();
   private vendingMachineCoinManager = new VendingMachineCoinManager();

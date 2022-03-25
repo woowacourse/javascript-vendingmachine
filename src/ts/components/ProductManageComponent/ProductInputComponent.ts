@@ -7,11 +7,15 @@ import {
 import { on, emit, renderSnackBar, $ } from '../../dom';
 
 export default class ProductInputComponent {
-  private $nameInput: HTMLInputElement = $('.product-info-form__product-input');
-  private $priceInput: HTMLInputElement = $('.product-info-form__price-input');
-  private $quantityInput: HTMLInputElement = $(
+  private $nameInput = $(
+    '.product-info-form__product-input'
+  ) as HTMLInputElement;
+  private $priceInput = $(
+    '.product-info-form__price-input'
+  ) as HTMLInputElement;
+  private $quantityInput = $(
     '.product-info-form__quantity-input'
-  );
+  ) as HTMLInputElement;
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineProductManagement) {

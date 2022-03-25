@@ -1,10 +1,10 @@
 import { on, $ } from '../../dom';
 
 export default class CoinsStateComponent {
-  private $coin500 = $('.coin-quantity-table__coin-500');
-  private $coin100 = $('.coin-quantity-table__coin-100');
-  private $coin50 = $('.coin-quantity-table__coin-50');
-  private $coin10 = $('.coin-quantity-table__coin-10');
+  private $coin500: HTMLSpanElement = $('.coin-quantity-table__coin-500');
+  private $coin100: HTMLSpanElement = $('.coin-quantity-table__coin-100');
+  private $coin50: HTMLSpanElement = $('.coin-quantity-table__coin-50');
+  private $coin10: HTMLSpanElement = $('.coin-quantity-table__coin-10');
 
   constructor() {
     on($('.charge-form-section__button'), '@chargeInputSubmit', this.render);

@@ -1,27 +1,35 @@
 import { Icoins } from './types/vendingMachineCoinManager';
+import {
+  productQuantity,
+  productName,
+  productPrice,
+  chargeMoney,
+  errorMessage,
+  routes,
+} from './types/constants';
 
-export const PRODUCT_NAME = {
+export const PRODUCT_NAME: productName = {
   MAX_LENGTH: 10,
   MIN_LENGTH: 1,
 };
 
-export const PRODUCT_PRICE = {
+export const PRODUCT_PRICE: productPrice = {
   MAX_PRICE: 10000,
   MIN_PRICE: 100,
   UNIT: 10,
 };
 
-export const PRODUCT_QUANTITY = {
+export const PRODUCT_QUANTITY: productQuantity = {
   MAX_QUANTITY: 20,
   MIN_QUANTITY: 1,
 };
 
-export const CHARGE_MONEY = {
+export const CHARGE_MONEY: chargeMoney = {
   MAX_TOTAL_CHARGE_MONEY: 100000,
   UNIT: 10,
 };
 
-export const ERROR_MESSAGE = {
+export const ERROR_MESSAGE: errorMessage = {
   WRONG_LENGTH_PRODUCT_NAME: `상품명을 잘못 입력하셨습니다. 상품명은 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 ${PRODUCT_NAME.MAX_LENGTH}글자 이하로 작성해주세요.`,
   DUPLICATED_PRODUCT_NAME:
     '중복된 상품명을 입력하셨습니다. 중복되지 않는 상품명을 다시 입력해주세요.',
@@ -47,7 +55,7 @@ export const COINS: Icoins = {
   LIST: [10, 50, 100, 500],
 };
 
-export const ROUTES = {
+export const ROUTES: routes = {
   PRODUCTS: '/products',
   COINS: '/coins',
 };

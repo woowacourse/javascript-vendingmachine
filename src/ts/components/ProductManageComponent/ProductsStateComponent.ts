@@ -92,15 +92,15 @@ export default class ProductStateComponent {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const editProductNameInput: HTMLInputElement = $(
+    const editProductNameInput = $(
       '.product-table__product-name-input--edit'
-    );
-    const editProductPriceInput: HTMLInputElement = $(
+    ) as HTMLInputElement;
+    const editProductPriceInput = $(
       '.product-table__product-price-input--edit'
-    );
-    const editProductQuantityInput: HTMLInputElement = $(
+    ) as HTMLInputElement;
+    const editProductQuantityInput = $(
       '.product-table__product-quantity-input--edit'
-    );
+    ) as HTMLInputElement;
 
     try {
       checkValidLengthProductName(editProductNameInput.value);
@@ -134,7 +134,7 @@ export default class ProductStateComponent {
     const grandParentElement: HTMLElement = target.closest('tbody');
     const targetProductName = parentElement.dataset.productName;
 
-    if (!confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(targetProductName))) {
+    if (!window.confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(targetProductName))) {
       return;
     }
 

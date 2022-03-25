@@ -2,8 +2,12 @@ import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
 import { emit, renderSnackBar, $, on } from '../../dom';
 
 export default class CoinInputComponent {
-  private $coinInput: HTMLInputElement = $('.charge-form-section__coin-input');
-  private $chargeButton: HTMLButtonElement = $('.charge-form-section__button');
+  private $coinInput = $(
+    '.charge-form-section__coin-input'
+  ) as HTMLInputElement;
+  private $chargeButton = $(
+    '.charge-form-section__button'
+  ) as HTMLButtonElement;
   private $totalCoin: HTMLElement = $('.charge-form-section__total-coin');
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
@@ -11,7 +15,7 @@ export default class CoinInputComponent {
     on(this.$chargeButton, 'click', this.onSubmitChargeButton);
   }
 
-  private onSubmitChargeButton = (e) => {
+  private onSubmitChargeButton = (e: Event): void => {
     e.preventDefault();
 
     try {

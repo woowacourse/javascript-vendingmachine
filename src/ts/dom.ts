@@ -1,10 +1,18 @@
 import { SNACK_BAR_DELAY_TIME } from './constants';
 
-export const on = (target, eventName, callback) => {
+export const on = (
+  target: Window | HTMLElement,
+  eventName: string,
+  callback
+) => {
   target.addEventListener(eventName, callback);
 };
 
-export const emit = (target, eventName, detail = {}) => {
+export const emit = (
+  target: Window | HTMLElement,
+  eventName: string,
+  detail = {}
+) => {
   const customEvent = new CustomEvent(eventName, detail);
   target.dispatchEvent(customEvent);
 };
@@ -30,8 +38,10 @@ export const renderSnackBar = (
   }, SNACK_BAR_DELAY_TIME);
 };
 
-export const $ = (selector) => document.querySelector(selector);
-export const $$ = (selector) => document.querySelectorAll(selector);
+export const $ = (selector: string): HTMLElement =>
+  document.querySelector(selector);
+export const $$ = (selector: string): NodeListOf<HTMLElement> =>
+  document.querySelectorAll(selector);
 
 export const focusEditInput = ($targetInput: HTMLInputElement): void => {
   $targetInput.focus();
