@@ -18,7 +18,7 @@ class HoldingAmountStore implements IStore {
   }
 
   setState(newState: IState) {
-    const changeStates = Object.entries(newState).map(([key]) => key);
+    const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
@@ -44,8 +44,11 @@ class HoldingAmountStore implements IStore {
     const returnCoins = [0, 0, 0, 0];
 
     while (leftAmount > 0) {
-      const coinIndex = getRandomNumber(this.getMaxCoinIndex(leftAmount), COIN_TYPE.length - 1);
-      const randomCoin = COIN_TYPE[coinIndex];
+      const coinIndex: number = getRandomNumber(
+        this.getMaxCoinIndex(leftAmount),
+        COIN_TYPE.length - 1,
+      );
+      const randomCoin: number = COIN_TYPE[coinIndex];
 
       returnCoins[coinIndex] += 1;
       leftAmount -= randomCoin;
@@ -54,8 +57,11 @@ class HoldingAmountStore implements IStore {
   }
 
   addAmount(amount: number): void {
-    const coinsToAdd = this.getRandomCoinsFromAmount(amount);
-    const totalCoins = this.state.coins.map((value, index) => value + coinsToAdd[index]);
+    const coinsToAdd: Array<number> = this.getRandomCoinsFromAmount(amount);
+    const totalCoins: Array<number> = this.state.coins.map(
+      (value, index) => value + coinsToAdd[index],
+    );
+
     this.setState({
       coins: totalCoins,
     });
