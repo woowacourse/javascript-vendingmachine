@@ -22,3 +22,36 @@ fieldset {
 legend {
   margin-bottom: 4px;
 }
+
+td input {
+  text-align: center;
+  font-size: 16px;
+  width: 118px;
+  letter-spacing: 0.5px;
+}
+
+td input:focus {
+  outline: none !important;
+  animation: focus 2s infinite;
+}
+
+@keyframes focus {
+  0% {
+    box-shadow: 0 0 5px red;
+  }
+  20% {
+    box-shadow: 0 0 5px orange;
+  }
+  40% {
+    box-shadow: 0 0 5px yellow;
+  }
+  60% {
+    box-shadow: 0 0 5px green;
+  }
+  80% {
+    box-shadow: 0 0 5px blue;
+  }
+  100% {
+    box-shadow: 0 0 4px purple;
+  }
+}
