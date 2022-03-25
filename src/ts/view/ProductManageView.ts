@@ -96,7 +96,6 @@ export default class ProductManageView implements ProductManageViewInterface {
       this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
     } catch (error) {
       alert(error.message);
-      /* 분기해서 원래 값으로 돌려놓는 함수 실행 */
     }
   };
 

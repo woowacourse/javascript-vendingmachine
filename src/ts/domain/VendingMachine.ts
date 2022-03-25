@@ -17,40 +17,43 @@ export interface VendingMachineInterface {
   getHoldingMoney(): number;
   generateRandomCoins(money: number): void;
   getCoinByValue(value: number): MoneyType;
+  getProductsFromStorage(key: string): ProductType;
+  getMoneyFromStorage(key: string): MoneyType[];
 }
 
-function getProductsFromStorage(key) {
-  const copy = JSON.parse(localStorage.getItem(key));
-
-  return copy?.map((product) => {
-    const productToCopy = {
-      name: product.name,
-      price: product.price,
-      quantity: product.quantity,
-    };
-
-    return new Product(productToCopy);
-  });
-}
-
-function getMoneyFromStorage(key) {
-  const copy = JSON.parse(localStorage.getItem(key));
-
-  return copy?.map((money) => new Money(money.value, money.count));
-}
 export default class VendingMachine implements VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
 
   constructor() {
-    this.products = getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
-    this.money = getMoneyFromStorage(STORAGE_ID.MONEY) || [
+    this.products = this.getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
+    this.money = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
       new Money(500, 0),
       new Money(100, 0),
       new Money(50, 0),
       new Money(10, 0),
     ];
   }
+
+  getProductsFromStorage = (key: string) => {
+    const copy = JSON.parse(localStorage.getItem(key));
+
+    return copy?.map((product) => {
+      const productToCopy = {
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+      };
+
+      return new Product(productToCopy);
+    });
+  };
+
+  getMoneyFromStorage = (key: string) => {
+    const copy = JSON.parse(localStorage.getItem(key));
+
+    return copy?.map((money) => new Money(money.value, money.count));
+  };
 
   getCoinByValue = (value: number) => {
     return this.money.find((coin) => coin.value === value);
@@ -84,9 +87,7 @@ export default class VendingMachine implements VendingMachineInterface {
     const productToAdd = new Product(newProduct);
     checkDuplicatedProduct(this.products, productToAdd.name);
     this.products.push(productToAdd);
-    console.log('setItem @ this.products', this.products);
 
-    console.log('JSON.stringify(this.products)', JSON.stringify(this.products));
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
 
     return productToAdd;
