@@ -1,5 +1,5 @@
 import ProductProcessMachine from "./ProductProcessMachine";
-import { ERROR_MESSAGE } from "../constant";
+import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
 describe("상품 관리하는 도메인 테스트", () => {
   test("상품명, 가격, 수량을 입력해 상품을 추가할 수 있다.", () => {
@@ -13,7 +13,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     ]);
   });
 
-  test("상품명은 최대 10글자이상일 경우 에러를 던진다", () => {
+  test(`상품명은 최대 ${VENDING_MACHINE_NUMBER.MAXIMUM_NAME_LENGTH}글자이상일 경우 에러를 던진다`, () => {
     const productProcessMachine = new ProductProcessMachine();
     expect(() => {
       productProcessMachine.add({
@@ -33,7 +33,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError(ERROR_MESSAGE.DUPLICATED_NAME);
   });
 
-  test("상품가격이 100원미만이라면 에러를 던진다.", () => {
+  test(`상품가격이 ${VENDING_MACHINE_NUMBER.MINIMUM_PRICE}원미만이라면 에러를 던진다.`, () => {
     const productProcessMachine = new ProductProcessMachine();
     expect(() => {
       productProcessMachine.add({
@@ -44,7 +44,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
   });
 
-  test("상품가격이 10000원초과라면 에러를 던진다.", () => {
+  test(`상품가격이 ${VENDING_MACHINE_NUMBER.MAXIMUM_PRICE}원초과라면 에러를 던진다.`, () => {
     const productProcessMachine = new ProductProcessMachine();
 
     expect(() => {
@@ -56,7 +56,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
   });
 
-  test("상품가격이 10으로 나눠떨어지지 않으면 에러를 던진다.", () => {
+  test(`상품가격이 ${VENDING_MACHINE_NUMBER.MINIMUM_COIN}으로 나눠떨어지지 않으면 에러를 던진다.`, () => {
     const productProcessMachine = new ProductProcessMachine();
 
     expect(() => {
@@ -68,7 +68,7 @@ describe("상품 관리하는 도메인 테스트", () => {
     }).toThrowError(ERROR_MESSAGE.VALID_PRICE);
   });
 
-  test("한 제품의 수량이 20개 이상일 경우 에러를 던진다.", () => {
+  test(`한 제품의 수량이 ${VENDING_MACHINE_NUMBER.MAXIMUM_COUNT}개 이상일 경우 에러를 던진다.`, () => {
     const productProcessMachine = new ProductProcessMachine();
 
     expect(() => {

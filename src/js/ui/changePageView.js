@@ -1,5 +1,5 @@
 import changesTemplate from "../template/changes.template";
-import { emit, setEvent } from "../util/event";
+import { emit, addEvent } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
@@ -9,7 +9,7 @@ class ChangePageView {
   }
 
   bindEvent = () => {
-    setEvent(this.$page, "submit", this.changesSubmitHandler);
+    addEvent(this.$page, "submit", this.changesSubmitHandler);
   };
 
   renderInput() {

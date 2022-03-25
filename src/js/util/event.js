@@ -1,5 +1,5 @@
-export const { setEvent, emit } = {
-  setEvent: (element, eventName, callback) => {
+export const { addEvent: setEvent, emit } = {
+  addEvent: (element, eventName, callback) => {
     element.addEventListener(eventName, callback);
   },
 

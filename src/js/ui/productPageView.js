@@ -1,4 +1,4 @@
-import { setEvent, emit } from "../util/event.js";
+import { addEvent, emit } from "../util/event.js";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
 
@@ -10,8 +10,8 @@ class ProductPageView {
   }
 
   bindEvent = () => {
-    setEvent(this.$page, "submit", this.productSubmitHandler);
-    setEvent(this.$page, "click", this.onClick);
+    addEvent(this.$page, "submit", this.productSubmitHandler);
+    addEvent(this.$page, "click", this.onClick);
   };
 
   initDOMS = () => {

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constant";
+import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 import ChangesProcessMachine from "./ChangesProcessMachine";
 
 describe("잔돈 관리하는 도메인 테스트", () => {
@@ -26,14 +26,14 @@ describe("잔돈 관리하는 도메인 테스트", () => {
     expect(chargedMoney).toEqual(2500);
   });
 
-  test("잔돈은 10원으로 나누어 떨어지는 금액만 투입할 수 있다.", () => {
+  test(`잔돈은 ${VENDING_MACHINE_NUMBER.MINIMUM_COIN}원으로 나누어 떨어지는 금액만 투입할 수 있다.`, () => {
     const changeProcessMachine = new ChangesProcessMachine();
     expect(() => {
       changeProcessMachine.charge(1001);
     }).toThrowError(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
   });
 
-  test("보유할 수 있는 최대 금액은 100,000원이다.", () => {
+  test(`보유할 수 있는 최대 금액은 ${VENDING_MACHINE_NUMBER.MAXIMUM_CHANGES}원이다.`, () => {
     const changeProcessMachine = new ChangesProcessMachine();
     expect(() => {
       changeProcessMachine.charge(100010);

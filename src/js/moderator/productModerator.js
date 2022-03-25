@@ -1,7 +1,7 @@
 import { CONFIRM_MESSAGE, EVENT_TYPE } from "../constant";
 import ProductProcessMachine from "../domain/productProcessMachine";
 import ProductPageView from "../ui/productPageView";
-import { setEvent } from "../util/event";
+import { addEvent } from "../util/event";
 
 class ProductModerator {
   constructor() {
@@ -9,11 +9,11 @@ class ProductModerator {
 
     this.productProcessMachine = new ProductProcessMachine();
     this.productPageView = new ProductPageView(this.$page);
-    setEvent(this.$page, EVENT_TYPE.ADD, (e) => this.addProduct(e.detail));
-    setEvent(this.$page, EVENT_TYPE.DELETE, (e) =>
+    addEvent(this.$page, EVENT_TYPE.ADD, (e) => this.addProduct(e.detail));
+    addEvent(this.$page, EVENT_TYPE.DELETE, (e) =>
       this.deleteProduct(e.detail)
     );
-    setEvent(this.$page, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
+    addEvent(this.$page, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
   }
 
   init = () => {
