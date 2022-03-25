@@ -1,9 +1,10 @@
+import { ERROR_MESSAGE } from '../constants';
 import { coins } from '../VendingMachineCoinManager';
 import { product } from '../VendingMachineProductManager';
 
 export const checkValidLengthProductName = (name: string): void => {
   if (name.length < 1 || name.length > 10) {
-    throw new Error('상품명은 1글자 이상 10글자 이하로 작성해주세요.');
+    throw new Error(ERROR_MESSAGE.WRONG_LENGTH_PRODUCT_NAME);
   }
 };
 
@@ -12,7 +13,7 @@ export const checkDuplicatedProductName = (
   newProduct: product
 ): void => {
   if (products.some((product: product) => product.name === newProduct.name)) {
-    throw new Error('중복된 상품명은 입력할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
 
@@ -21,37 +22,33 @@ export const checkEditDuplicateName = (
   duplicatedNameIndex: number
 ): void => {
   if (duplicatedNameIndex !== -1 && editIndex !== duplicatedNameIndex) {
-    throw new Error('이미 존재하는 상품명입니다.');
+    throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
 
 export const checkValidProductPrice = (price: number): void => {
   if (price < 100 || price > 10000) {
-    throw new Error(
-      '상품 가격은 100원부터 시작하며, 최대 10,000원까지 가능하다.'
-    );
+    throw new Error(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   }
 
   if (price % 10 !== 0) {
-    throw new Error('10원으로 나누어 떨어져야 한다.');
+    throw new Error(ERROR_MESSAGE.WRONG_UNIT_PRODUCT_PRICE);
   }
 };
 
 export const checkValidProductQuantity = (quantity: number): void => {
   if (!Number.isInteger(quantity)) {
-    throw new Error('상품 갯수는 정수여야 한다.');
+    throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }
 
   if (quantity < 1 || quantity > 20) {
-    throw new Error(
-      '한 제품당 수량은 최소 1개에서 최대 20개까지 넣을 수 있다.'
-    );
+    throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }
 };
 
 export const checkValidChargeMoney = (money: number): void => {
   if (money % 10 !== 0) {
-    throw new Error('금액은 10으로 나누어떨어져야 합니다.');
+    throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 };
 
@@ -94,6 +91,6 @@ export const checkCanAddMoney = (
   );
 
   if (totalMoney > 100000) {
-    throw new Error('보유할 수 있는 최대 누적 금액은 100,000원입니다.');
+    throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(currentMoney));
   }
 };
