@@ -35,6 +35,10 @@ button.gray-button {
   padding: 5px 10px;
 }
 
+a.tab-button.checked {
+  background-color: var(--button-hover-background-color);
+}
+
 button:hover {
   background-color: var(--button-hover-background-color);
 }

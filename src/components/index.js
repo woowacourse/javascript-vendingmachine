@@ -10,8 +10,17 @@ class VendingMachineComponent {
   $app;
   constructor(hashRoute) {
     this.$app = document.querySelector('#app');
+    this.initDOM();
     this.initChildComponents();
     this.showSectionByRoute(hashRoute);
+  }
+
+  initDOM() {
+    this.tabButtonMap = {
+      manageProduct: this.$app.querySelector('#manage-product-tab'),
+      rechargeChange: this.$app.querySelector('#recharge-change-tab'),
+      purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
+    };
   }
   initChildComponents() {
     this.#ProductManagementComponent = new ProductManagementComponent(this.$app);
@@ -24,19 +33,31 @@ class VendingMachineComponent {
       this.#PurchaseProductComponent.hide();
 
       this.#ProductManagementComponent.show();
+      this.focusTabButton('manageProduct');
     }
     if (route === 'recharge') {
       this.#PurchaseProductComponent.hide();
       this.#ProductManagementComponent.hide();
 
       this.#RechargeChangeComponent.show();
+      this.focusTabButton('rechargeChange');
     }
     if (route === 'purchase') {
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
       this.#PurchaseProductComponent.show();
+      this.focusTabButton('purchaseProduct');
     }
+  }
+  focusTabButton(buttonName) {
+    Object.entries(this.tabButtonMap).forEach(([key, node]) => {
+      if (key === buttonName) {
+        node.classList.add('checked');
+        return;
+      }
+      node.classList.remove('checked');
+    });
   }
 }
 
