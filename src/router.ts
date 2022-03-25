@@ -6,6 +6,7 @@ interface IRouter {
 }
 
 const nav = document.querySelector('.nav');
+const baseURL = '/javascript-vendingmachine';
 
 nav.addEventListener('click', (e) => {
   historyRouterPush((e.target as HTMLElement).getAttribute('route'));
@@ -28,12 +29,16 @@ const render = (path: string) => {
 };
 
 const routers: IRouter[] = [
-  { path: '/javascript-vendingmachine/', component: $('product-management') },
-  { path: '/javascript-vendingmachine/charge', component: $('charge-tab') },
+  { path: baseURL + '/', component: $('product-management') },
+  { path: baseURL + '/charge', component: $('charge-tab') },
 ];
 
 window.addEventListener('popstate', function () {
   render(window.location.pathname);
 });
+
+if (window.location.pathname === '/') {
+  window.location.pathname = baseURL;
+}
 
 render(window.location.pathname);
