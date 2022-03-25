@@ -24,10 +24,10 @@ describe('상품 관리 탭 테스트', () => {
     cy.addItem(itemName, itemPrice, itemQuantity);
 
     cy.get('.edit-item-button').click();
-    cy.get('.item-info-input-cell').eq(0).type('코카');
+    cy.get('.item-info-input-cell').eq(0).clear().type('사이다');
     cy.get('.confirm-item-button').click();
 
-    cy.get('tr').eq(1).should('have.attr', 'data-item-name', '코카콜라');
+    cy.get('tr').eq(1).should('have.attr', 'data-item-name', '사이다');
   });
 
   it('추가한 상품에 삭제 버튼을 누르면 상품을 삭제할 수 있다.', () => {
