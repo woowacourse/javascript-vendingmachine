@@ -5,6 +5,10 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
-    "checkJs": false
-  }
+    "checkJs": false,
+    "target": "ES5"
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ]
 }
