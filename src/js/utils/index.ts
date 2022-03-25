@@ -11,3 +11,12 @@ export const isStringLengthInRange = (value: string, min: number, max: number) =
   value.length >= min && value.length <= max;
 
 export const isCorrectNumberUnit = (value: number, base: number) => value % base === 0;
+
+export const getSearchParamsObject = (searchUrl = '') => {
+  const searchString = `?${searchUrl.split('?')[1]}`;
+  const searchParams = new URLSearchParams(searchString);
+  return Array.from(searchParams.keys()).reduce((previous, key) => {
+    previous[key] = searchParams.get(key);
+    return previous;
+  }, {});
+};

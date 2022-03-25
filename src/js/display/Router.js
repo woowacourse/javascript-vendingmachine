@@ -1,4 +1,4 @@
-import { $ } from '@Utils/index';
+import { $, getSearchParamsObject } from '@Utils/index';
 
 export default class Router {
   loadMethodList;
@@ -6,16 +6,7 @@ export default class Router {
   constructor(loadMethodList) {
     this.loadMethodList = loadMethodList;
     this.setEvents();
-    this.pageRender();
-  }
-
-  파라미터를오브젝트로바꿔주는기능(searchUrl = '') {
-    const searchString = `?${searchUrl.split('?')[1]}`;
-    const searchParams = new URLSearchParams(searchString);
-    return [...searchParams.keys()].reduce((previous, key) => {
-      previous[key] = searchParams.get(key);
-      return previous;
-    }, {});
+    this.pageRender(window.location.search);
   }
 
   setEvents() {
@@ -25,18 +16,18 @@ export default class Router {
       this.pushState(routeURL);
     });
 
-    window.addEventListener('popstate', event => {
+    window.addEventListener('popstate', () => {
       this.pageRender(window.location.search);
     });
   }
 
   pushState(searchUrl) {
-    window.history.pushState(this.파라미터를오브젝트로바꿔주는기능(searchUrl), '', searchUrl);
+    window.history.pushState(getSearchParamsObject(searchUrl), '', searchUrl);
     this.pageRender(searchUrl);
   }
 
   pageRender(searchUrl) {
-    const { page = 'product' } = this.파라미터를오브젝트로바꿔주는기능(searchUrl);
+    const { page = 'product' } = getSearchParamsObject(searchUrl);
     !!this.loadMethodList[page] && this.loadMethodList[page]();
   }
 }
