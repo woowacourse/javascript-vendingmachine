@@ -58,5 +58,6 @@ export default class Controller {
     this.coin.setAmount(amount);
     this.chargeView.renderCurrentAmount(this.coin.getAmount());
     this.chargeView.resetChargeInput();
+    this.chargeView.renderHaveCoins(this.coin.getCoins());
   }
 }

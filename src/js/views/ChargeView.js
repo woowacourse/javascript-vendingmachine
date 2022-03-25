@@ -34,6 +34,13 @@ export default class ChargeView {
     }
   }
 
+  renderHaveCoins(coins) {
+    this.$fiveHundredCoin.innerText = `${coins[500]}개`;
+    this.$oneHundredCoin.innerText = `${coins[100]}개`;
+    this.$fiftyCoin.innerText = `${coins[50]}개`;
+    this.$tenCoin.innerText = `${coins[10]}개`;
+  }
+
   renderCurrentAmount(amount) {
     this.$currentAmount.innerText = `현재 보유 금액: ${amount}원`;
   }

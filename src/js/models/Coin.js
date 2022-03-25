@@ -18,7 +18,7 @@ export default class Coin {
         throw new Error('최대 보유 금액은 100,000원 을 넘을 수 없습니다.');
       }
       this.amount += chargedAmount;
-      this.makeRandomCoin(chargedAmount);
+      this.makeRandomCoins(chargedAmount);
     } catch (error) {
       alert(error.message);
     }
@@ -32,7 +32,7 @@ export default class Coin {
     return this.coins;
   }
 
-  makeRandomCoin(amount) {
+  makeRandomCoins(amount) {
     let currentAmount = amount;
     let count;
     COIN_UNITS.forEach((coin) => {
