@@ -1,6 +1,9 @@
 import VendingMachine from './VendingMachine';
 import { ERROR_MESSAGE } from '../constants';
 import Money from './Money';
+import LocalStorageMock from './localStorageMock';
+
+global.localStorage = new LocalStorageMock();
 
 describe('상품 관리 테스트', () => {
   const vendingMachine = new VendingMachine();

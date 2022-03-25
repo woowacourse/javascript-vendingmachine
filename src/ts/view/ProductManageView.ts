@@ -39,6 +39,7 @@ export default class ProductManageView implements ProductManageViewInterface {
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
+    this.renderInitialProductManage();
   }
 
   getEditTemplate = ({ name, price, quantity }: ProductType) => {
@@ -160,6 +161,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 
+  // 업데이트된 부분만 값 수정
   renderProductManage = () => {
     const $$productRows = $$('.product-row');
     const allProducts = this.vendingMachine.products;
@@ -174,5 +176,13 @@ export default class ProductManageView implements ProductManageViewInterface {
         $('.product-row-quantity', <HTMLElement>$$productRows[index])
       )).textContent = String(product.quantity);
     });
+  };
+
+  // 페이지 로드 시 해당 부분 전체 렌더링
+  renderInitialProductManage = () => {
+    const template = this.vendingMachine.products
+      .map((product) => this.getProductTemplate(product))
+      .join('');
+    this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 }

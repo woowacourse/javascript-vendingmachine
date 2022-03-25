@@ -5,6 +5,7 @@ import Money from './Money';
 import { checkDuplicatedProduct, checkMoneyValidation } from './validator';
 import { getRandomNumber } from '../utils';
 import { STORAGE_ID } from '../constants';
+
 export interface VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
@@ -17,13 +18,33 @@ export interface VendingMachineInterface {
   generateRandomCoins(money: number): void;
   getCoinByValue(value: number): MoneyType;
 }
+
+function getProductsFromStorage(key) {
+  const copy = JSON.parse(localStorage.getItem(key));
+
+  return copy?.map((product) => {
+    const productToCopy = {
+      name: product.name,
+      price: product.price,
+      quantity: product.quantity,
+    };
+
+    return new Product(productToCopy);
+  });
+}
+
+function getMoneyFromStorage(key) {
+  const copy = JSON.parse(localStorage.getItem(key));
+
+  return copy?.map((money) => new Money(money.value, money.count));
+}
 export default class VendingMachine implements VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
 
   constructor() {
-    this.products = JSON.parse(localStorage.getItem(STORAGE_ID.PRODUCTS)) || [];
-    this.money = JSON.parse(localStorage.getItem(STORAGE_ID.HOLDING_MONEY)) || [
+    this.products = getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
+    this.money = getMoneyFromStorage(STORAGE_ID.MONEY) || [
       new Money(500, 0),
       new Money(100, 0),
       new Money(50, 0),
@@ -55,12 +76,18 @@ export default class VendingMachine implements VendingMachineInterface {
   rechargeMoney = (money: number) => {
     checkMoneyValidation(money, money + this.getHoldingMoney());
     this.generateRandomCoins(money);
+
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
   };
 
   addProduct = (newProduct: ProductType) => {
     const productToAdd = new Product(newProduct);
     checkDuplicatedProduct(this.products, productToAdd.name);
     this.products.push(productToAdd);
+    console.log('setItem @ this.products', this.products);
+
+    console.log('JSON.stringify(this.products)', JSON.stringify(this.products));
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
 
     return productToAdd;
   };
@@ -69,6 +96,8 @@ export default class VendingMachine implements VendingMachineInterface {
     const indexToDelete = this.products.findIndex((product) => product.name === name);
 
     this.products.splice(indexToDelete, 1);
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 
   getProductByName = (name: string) => {
@@ -82,5 +111,7 @@ export default class VendingMachine implements VendingMachineInterface {
       checkDuplicatedProduct(this.products, product.name);
     }
     this.products[indexToEdit] = editedProduct;
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 }

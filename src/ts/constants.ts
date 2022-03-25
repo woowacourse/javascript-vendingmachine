@@ -31,7 +31,7 @@ export const VENDING_MACHINE_RULE = {
 };
 
 export const STORAGE_ID = {
-  HOLDING_MONEY: 'holding-money',
+  MONEY: 'money',
   PRODUCTS: 'products',
   CURRENT_TAB: 'current-tab',
 };
