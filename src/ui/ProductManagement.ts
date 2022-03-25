@@ -1,6 +1,6 @@
 import CustomElement from './CustomElement';
 import TEMPLATE from '../templates';
-import { $, addEvent, emit, markUnit } from '../utils';
+import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
@@ -56,15 +56,20 @@ class ProductManagement extends CustomElement {
 
   showForm(e: any) {
     const item = e.target.closest('.product-item');
+    const { productName, productId } = item.dataset;
     const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
 
+    const name = values[0];
+    const price = deleteSeparator(values[1]);
+    const quantity = values[2];
+
     item.innerHTML = `
-      <tr class="product-item" data-product-name="${item.dataset.productName}" data-product-id="${item.dataset.productId}">
-        <td><form id="product-edit-form-${item.dataset.productName}" class="product-item__form"><input form="product-edit-form-${item.dataset.productName}" name="name" maxlength="10" value="${values[0]}" required/></form></td>
-        <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="price" min="100" max="10000" value="${values[1]}" required/></td>
-        <td><input type="number" form="product-edit-form-${item.dataset.productName}" name="quantity" min="1" max="20" value="${values[2]}" required/></td>
+      <tr class="product-item" data-product-name="${productName}" data-product-id="${productId}">
+        <td><form id="product-edit-form-${productName}" class="product-item__form"><input form="product-edit-form-${productName}" name="name" maxlength="10" value="${name}" required/></form></td>
+        <td><input type="number" form="product-edit-form-${productName}" name="price" min="100" max="10000" value="${price}" required/></td>
+        <td><input type="number" form="product-edit-form-${productName}" name="quantity" min="1" max="20" value="${quantity}" required/></td>
         <td class="product-item__button">
-          <button type="submit" class="product-item__confirm-button button" form="product-edit-form-${item.dataset.productName}">확인</button>
+          <button type="submit" class="product-item__confirm-button button" form="product-edit-form-${productName}">확인</button>
         </td>
       </tr>
     `;

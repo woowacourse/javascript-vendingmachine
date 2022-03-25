@@ -38,3 +38,5 @@ export const $$ = (selector: string, scope: Element | Document = document) =>
   Array.from(scope.querySelectorAll(selector));
 
 export const markUnit = (price: number) => price.toLocaleString();
+
+export const deleteSeparator = (price: string) => parseInt(price.replace(',', ''), 10);
