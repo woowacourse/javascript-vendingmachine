@@ -2,13 +2,14 @@ import { $, getSearchParamsObject } from '@Utils/index';
 import Header from '@Display/Header';
 
 export default class Router {
+  pathname = window.location.pathname.slice(0, -1);
   pageHeader = new Header();
   pageList;
 
   constructor(pageList) {
     this.pageList = pageList;
     this.setEvents();
-    this.pageRender(window.location.search);
+    this.pageRender(this.pathname + window.location.search);
   }
 
   setEvents() {
@@ -25,7 +26,7 @@ export default class Router {
   }
 
   pushState(searchUrl) {
-    window.history.pushState(getSearchParamsObject(searchUrl), '', searchUrl);
+    window.history.pushState(getSearchParamsObject(searchUrl), '', this.pathname + searchUrl);
     this.pageRender(searchUrl);
   }
 
