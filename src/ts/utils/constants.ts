@@ -7,4 +7,10 @@ const PRODUCT = {
   MAX_QUANTITY: 20,
 };
 
-export { PRODUCT };
+const CHARGE = {
+  MIN_PRICE: 10,
+  MAX_PRICE: 100000,
+  UNIT: 10,
+};
+
+export { PRODUCT, CHARGE };
