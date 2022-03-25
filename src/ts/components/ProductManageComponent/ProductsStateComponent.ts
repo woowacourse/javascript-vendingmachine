@@ -6,6 +6,12 @@ import {
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../utils/utils';
+import {
+  PRODUCT_NAME,
+  PRODUCT_PRICE,
+  PRODUCT_QUANTITY,
+  DELETE_PRODUCT_CONFIRM_MESSAGE,
+} from '../../constants';
 
 const generateTemplate = ({
   name: productName,
@@ -32,11 +38,9 @@ const generateEditTemplate = ({
   quantity: productQuantity,
 }): string => `
   <tr class="product-table__info-tr" data-product-name="${productName}">
-    <td>
-      <input type="text" name="product" minlength="1" maxlength="10" class="product-table__input--edit product-table__product-name-input--edit" value="${productName}" autofocus required />
-    </td>
-    <td><input type="number" class="product-table__input--edit product-table__product-price-input--edit" value="${productPrice}" step="10" min="100" max="10000" required /></td>
-    <td><input type="number" class="product-table__input--edit product-table__product-quantity-input--edit" value="${productQuantity}" min="1" max="20" required /></td>
+    <td><input type="text" name="product" class="product-table__input--edit product-table__product-name-input--edit" minlength="${PRODUCT_NAME.MIN_LENGTH}" maxlength="${PRODUCT_NAME.MAX_LENGTH}" value="${productName}" autofocus required /></td>
+    <td><input type="number" class="product-table__input--edit product-table__product-price-input--edit" value="${productPrice}" step="${PRODUCT_PRICE.UNIT}" min="${PRODUCT_PRICE.MIN_PRICE}" max="${PRODUCT_PRICE.MAX_PRICE}" required /></td>
+    <td><input type="number" class="product-table__input--edit product-table__product-quantity-input--edit" value="${productQuantity}" min="${PRODUCT_QUANTITY.MIN_QUANTITY}" max="${PRODUCT_QUANTITY.MAX_QUANTITY}" required /></td>
     <td class="product-table__button-wrapper hide">
       <button class="product-table__edit-button hide">수정</button>
     </td>
@@ -128,14 +132,13 @@ export default class ProductStateComponent {
       '.product-table__info-tr'
     );
     const grandParentElement: HTMLElement = target.closest('tbody');
+    const targetProductName = parentElement.dataset.productName;
 
-    this.vendingMachineProductManager.deleteProduct(
-      parentElement.dataset.productName
-    );
-
-    if (!confirm('이 상품을 삭제 하시겠습니까?')) {
+    if (!confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(targetProductName))) {
       return;
     }
+
+    this.vendingMachineProductManager.deleteProduct(targetProductName);
 
     grandParentElement.removeChild(parentElement);
   };

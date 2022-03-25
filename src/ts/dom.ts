@@ -1,3 +1,5 @@
+import { SNACK_BAR_DELAY_TIME } from './constants';
+
 export const on = (target, eventName, callback) => {
   target.addEventListener(eventName, callback);
 };
@@ -25,7 +27,7 @@ export const renderSnackBar = (
     );
     $snackBar.classList.add('hide');
     container.removeChild($snackBar);
-  }, 3000);
+  }, SNACK_BAR_DELAY_TIME);
 };
 
 export const $ = (selector) => document.querySelector(selector);

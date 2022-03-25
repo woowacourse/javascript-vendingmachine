@@ -5,6 +5,11 @@ export interface coins {
   COIN_10: number;
 }
 
+export interface Icoins {
+  readonly INITIAL_STATE: coins;
+  readonly LIST: number[];
+}
+
 export interface CoinManager {
   getCoins(): coins;
   getTotalAmount(): number;

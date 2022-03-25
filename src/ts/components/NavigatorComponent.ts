@@ -7,6 +7,7 @@ import VendingMachineCoinManager from '../VendingMachineCoinManager';
 import CoinsStateComponent from './CoinManageComponent/CoinsStateComponent';
 
 import { $, on } from '../dom';
+import { ROUTES } from '../constants';
 
 export default class NavigatorComponent {
   private $productInfoSection: HTMLElement = $('.product-info-section');
@@ -29,31 +30,30 @@ export default class NavigatorComponent {
 
     on(this.$navProductButton, 'click', this.onClickNavProductButton);
     on(this.$navChargeButton, 'click', this.onClickNavChargeButton);
-    on(window, 'popstate', this.popstateWindow);
+    on(window, 'popstate', this.onPopstateRoute);
 
     this.routeURLVisit(window.location.pathname);
   }
 
   private routeURLVisit(pathname: string): void {
-    if (pathname === '/coins') {
+    if (pathname === ROUTES.COINS) {
       this.renderCoinComponent();
-      history.pushState(null, null, '/coins');
+      window.history.pushState(null, null, ROUTES.COINS);
     }
 
-    if (pathname === '/products') {
+    if (pathname === ROUTES.PRODUCTS) {
       this.renderProductComponent();
-      history.pushState(null, null, '/products');
+      window.history.pushState(null, null, ROUTES.PRODUCTS);
     }
   }
 
-  private popstateWindow = (): void => {
-    if (window.location.pathname === '/coins') {
+  private onPopstateRoute = (): void => {
+    if (window.location.pathname === ROUTES.COINS) {
       this.renderCoinComponent();
-      this.$coinInput.focus();
     }
 
     if (
-      window.location.pathname === '/products' ||
+      window.location.pathname === ROUTES.PRODUCTS ||
       window.location.pathname === '/'
     ) {
       this.renderProductComponent();
@@ -63,13 +63,13 @@ export default class NavigatorComponent {
   private onClickNavProductButton = (e: Event): void => {
     e.preventDefault();
     this.renderProductComponent();
-    history.pushState(null, null, '/products');
+    window.history.pushState(null, null, ROUTES.PRODUCTS);
   };
 
   private onClickNavChargeButton = (e: Event): void => {
     e.preventDefault();
     this.renderCoinComponent();
-    history.pushState(null, null, '/coins');
+    window.history.pushState(null, null, ROUTES.COINS);
   };
 
   private renderProductComponent(): void {

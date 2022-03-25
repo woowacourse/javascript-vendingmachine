@@ -1,10 +1,20 @@
 import { coins } from '../types/vendingMachineCoinManager';
 import { product } from '../types/vendingMachineProductManager';
 
-import { ERROR_MESSAGE, COINS_INITIAL_STATE } from '../constants';
+import {
+  ERROR_MESSAGE,
+  COINS,
+  PRODUCT_NAME,
+  PRODUCT_PRICE,
+  PRODUCT_QUANTITY,
+  CHARGE_MONEY,
+} from '../constants';
 
 export const checkValidLengthProductName = (name: string): void => {
-  if (name.length < 1 || name.length > 10) {
+  if (
+    name.length < PRODUCT_NAME.MIN_LENGTH ||
+    name.length > PRODUCT_NAME.MAX_LENGTH
+  ) {
     throw new Error(ERROR_MESSAGE.WRONG_LENGTH_PRODUCT_NAME);
   }
 };
@@ -28,11 +38,11 @@ export const checkEditDuplicateName = (
 };
 
 export const checkValidProductPrice = (price: number): void => {
-  if (price < 100 || price > 10000) {
+  if (price < PRODUCT_PRICE.MIN_PRICE || price > PRODUCT_PRICE.MAX_PRICE) {
     throw new Error(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   }
 
-  if (price % 10 !== 0) {
+  if (price % PRODUCT_PRICE.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.WRONG_UNIT_PRODUCT_PRICE);
   }
 };
@@ -42,13 +52,16 @@ export const checkValidProductQuantity = (quantity: number): void => {
     throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }
 
-  if (quantity < 1 || quantity > 20) {
+  if (
+    quantity < PRODUCT_QUANTITY.MIN_QUANTITY ||
+    quantity > PRODUCT_QUANTITY.MAX_QUANTITY
+  ) {
     throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }
 };
 
 export const checkValidChargeMoney = (money: number): void => {
-  if (money % 10 !== 0) {
+  if (money % CHARGE_MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 };
@@ -58,8 +71,8 @@ function pickRandomIndex(min: number, max: number): number {
 }
 
 export const generateRandomCoins = (money: number): coins => {
-  const coinList: number[] = [10, 50, 100, 500];
-  const coinsObject: coins = { ...COINS_INITIAL_STATE };
+  const coinList: number[] = COINS.LIST;
+  const coinsObject: coins = { ...COINS.INITIAL_STATE };
 
   let remainMoney: number = money;
 
@@ -86,7 +99,7 @@ export const checkCanAddMoney = (
     currentMoney
   );
 
-  if (totalMoney > 100000) {
+  if (totalMoney > CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY) {
     throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(currentMoney));
   }
 };
