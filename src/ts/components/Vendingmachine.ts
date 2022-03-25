@@ -1,18 +1,18 @@
-import { $, $$ } from "../utils/dom";
+import { selectDom, selectDomAll } from "../utils/dom";
 import Charge from "./charge/Charge";
 import MenuTab from "./menuTab/MenuTab";
 import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 import Product from "./product/Product";
 
-class App {
-  app: HTMLElement;
+class Vendingmachine {
+  vendingmachineWrap: HTMLElement;
   menuTab: MenuTab;
   charge: Charge;
   product: Product;
 
   constructor() {
-    this.app = $("#app");
-    this.app.insertAdjacentHTML(
+    this.vendingmachineWrap = selectDom("#app");
+    this.vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
       `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
     );
@@ -38,11 +38,11 @@ class App {
   }
 
   handleMenuStyle() {
-    const navList = $$(".nav__button");
-    navList.forEach((button: HTMLButtonElement) =>
-      button.dataset.menu === location.hash
-        ? button.classList.add("button-click")
-        : button.classList.remove("button-click")
+    const navList = selectDomAll(".nav__button");
+    navList.forEach((navButton: HTMLButtonElement) =>
+      navButton.dataset.menu === location.hash
+        ? navButton.classList.add("button-click")
+        : navButton.classList.remove("button-click")
     );
   }
 
@@ -50,11 +50,11 @@ class App {
     const routes = {
       "#charge": () => this.charge.render(),
       "#product": () => this.product.render(),
-      "#purchase": () => console.log("상품구매"),
+      "#purchase": () => "",
     };
 
     routes[path]();
   };
 }
 
-export default App;
+export default Vendingmachine;

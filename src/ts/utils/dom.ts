@@ -1,7 +1,7 @@
-const $ = (selector: string, element: HTMLElement | Document = document) =>
+const selectDom = (selector: string, element: HTMLElement | Document = document) =>
   element.querySelector(selector) as HTMLElement;
 
-const $$ = (selector: string, element: HTMLElement | Document = document) =>
+const selectDomAll = (selector: string, element: HTMLElement | Document = document) =>
   element.querySelectorAll(selector) as NodeList;
 
 const addEvent = (target: HTMLElement, eventName: string, handler) => {
@@ -10,4 +10,4 @@ const addEvent = (target: HTMLElement, eventName: string, handler) => {
     : target.addEventListener(eventName, handler);
 };
 
-export { $, $$, addEvent };
+export { selectDom, selectDomAll, addEvent };

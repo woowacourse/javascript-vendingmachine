@@ -1,19 +1,19 @@
-import { $, $$, addEvent } from "../../utils/dom";
+import { selectDom, selectDomAll, addEvent,  } from "../../utils/dom";
 
 type ConvertTemplate = (path: string) => void;
 
 class MenuTab {
   convertTemplate: ConvertTemplate;
-  app: HTMLElement;
+  vendingmachineWrap: HTMLElement;
 
   constructor({ convertTemplate }) {
     this.convertTemplate = convertTemplate;
-    this.app = $("#app");
-    addEvent(this.app, "click", this.handleMenuTab);
+    this.vendingmachineWrap = selectDom("#app");
+    addEvent(this.vendingmachineWrap, "click", this.handleMenuTab);
   }
 
   handleMenuTab = (e: { target: HTMLButtonElement }) => {
-    const navList = $$(".nav__button");
+    const navList = selectDomAll(".nav__button");
     if (!e.target.classList.contains("nav__button")) {
       return;
     }

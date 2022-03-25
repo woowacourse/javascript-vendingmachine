@@ -1,4 +1,4 @@
-import { $, $$, addEvent } from "../../utils/dom";
+import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
 import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
 
@@ -10,23 +10,23 @@ interface CoinType {
 }
 
 class Charge {
-  main: HTMLElement;
+  vendingmachineFunctionWrap: HTMLElement;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
-  coinObj: CoinType;
+  coinKindCount: CoinType;
   totalCharge: number;
 
   constructor() {
-    this.main = $(".main");
-    this.coinObj = { 10: 0, 50: 0, 100: 0, 500: 0 };
+    this.vendingmachineFunctionWrap = selectDom(".main");
+    this.coinKindCount = { 10: 0, 50: 0, 100: 0, 500: 0 };
     this.totalCharge = 0;
   }
 
   bindChargeDom() {
-    this.chargeForm = $("#charge-control-form");
-    this.chargeInput = $(".charge-control-input");
-    this.currentContainCharge = $("#current-contain-charge");
+    this.chargeForm = selectDom("#charge-control-form");
+    this.chargeInput = selectDom(".charge-control-input");
+    this.currentContainCharge = selectDom("#current-contain-charge");
     addEvent(this.chargeForm, "submit", this.handleAddCharge);
   }
 
@@ -51,21 +51,21 @@ class Charge {
       if (totalAmount > charge) {
         totalAmount -= randomCoin;
       } else if (totalAmount <= charge) {
-        this.coinObj[randomCoin]++;
+        this.coinKindCount[randomCoin]++;
       }
     }
 
-    this.showRandomCharge(Object.values(this.coinObj).reverse());
+    this.showRandomChargeResult(Object.values(this.coinKindCount).reverse());
   }
 
-  pickNumberInList() {
+  pickNumberInList(): number {
     const coinList = [10, 50, 100, 500];
     const randomNumber = Math.floor(Math.random() * coinList.length);
     return coinList[randomNumber];
   }
 
-  showRandomCharge(chargeResult: number[]) {
-    const chargeCoinCount = $$(".charge-coin-count");
+  showRandomChargeResult(chargeResult: number[]) {
+    const chargeCoinCount = selectDomAll(".charge-coin-count");
     this.currentContainCharge.textContent = `${this.totalCharge}`;
     Array.from(
       chargeCoinCount,
@@ -75,8 +75,8 @@ class Charge {
   }
 
   render() {
-    this.main.replaceChildren();
-    this.main.insertAdjacentHTML("beforeend", chargeTemplate());
+    this.vendingmachineFunctionWrap.replaceChildren();
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", chargeTemplate());
     this.bindChargeDom();
   }
 }

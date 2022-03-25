@@ -1,4 +1,4 @@
-import { $, $$, addEvent } from "../../utils/dom";
+import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
 import { verifyProductInfo } from "../../utils/validation";
 import {
   productTemplate,
@@ -7,21 +7,21 @@ import {
 } from "./productTemplate";
 
 class Product {
-  main: HTMLElement;
+  vendingmachineFunctionWrap: HTMLElement;
   productControlInputs: NodeList;
   productAddButton: HTMLElement;
   productTable: HTMLElement;
   productNameTdList: NodeList | null;
 
   constructor() {
-    this.main = $(".main");
+    this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
   bindProductDom() {
-    this.productControlInputs = $$(".product-control-input");
-    this.productAddButton = $("#product-add-button");
-    this.productTable = $("#product-control-table");
-    this.productNameTdList = $$(".product-name", this.productTable);
+    this.productControlInputs = selectDomAll(".product-control-input");
+    this.productAddButton = selectDom("#product-add-button");
+    this.productTable = selectDom("#product-control-table");
+    this.productNameTdList = selectDomAll(".product-name", this.productTable);
     addEvent(this.productAddButton, "click", this.handleAddProduct);
     addEvent(this.productTable, "click", this.handleRemoveProduct);
     addEvent(this.productTable, "click", this.handleEditProduct);
@@ -82,7 +82,7 @@ class Product {
   handleConfirmProduct = (e: { target: HTMLTableElement }) => {
     if (e.target.classList.contains("product-confirm-button")) {
       const [productName, productPrice, productQuantity] = Array.from(
-        $$(".product-edit-input"),
+        selectDomAll(".product-edit-input"),
         (input: HTMLInputElement) => input.value
       );
       const productNameList = Array.from(
@@ -123,8 +123,8 @@ class Product {
   };
 
   render() {
-    this.main.replaceChildren();
-    this.main.insertAdjacentHTML("beforeend", productTemplate());
+    this.vendingmachineFunctionWrap.replaceChildren();
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", productTemplate());
     this.bindProductDom();
   }
 }

@@ -1,8 +1,8 @@
 import "./css/index.css";
-import App from "./ts/components/App";
+import Vendingmachine from "./ts/components/Vendingmachine";
 
 function startVendingmachine() {
-  new App();
+  new Vendingmachine();
 }
 
 document.addEventListener("DOMContentLoaded", startVendingmachine);
