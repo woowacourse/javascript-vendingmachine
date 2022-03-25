@@ -101,7 +101,7 @@
   margin-top: 20px;
 }
 
-#product-add-button:hover {
+.hover-button:hover {
   background-color: var(--color-dark-blue);
 }
 

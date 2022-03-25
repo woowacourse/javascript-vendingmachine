@@ -40,7 +40,7 @@ export default class ProductManageView {
     };
     try {
       validProductInfo(product);
-      emit(SECTION_CONTAINER, '@submit', { product });
+      emit(SECTION_CONTAINER, '@manage', { product });
     } catch (error) {
       alert(error.message);
     }

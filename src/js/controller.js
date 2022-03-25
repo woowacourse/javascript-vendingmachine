@@ -1,17 +1,20 @@
+import { SECTION_CONTAINER } from './constants/constants.js';
+import { on } from './utils/event.js';
 import ProductManager from './models/ProductManger.js';
+import Coin from './models/Coin.js';
 import ProductManageView from './views/ProductManageView.js';
 import ChargeView from './views/ChargeView.js';
-import { on } from './utils/event.js';
-import { SECTION_CONTAINER } from './constants/constants.js';
 
 export default class Controller {
   constructor() {
     this.productManager = new ProductManager();
     this.productManageView = new ProductManageView();
     this.chargeView = new ChargeView();
+    this.coin = new Coin();
 
-    on(SECTION_CONTAINER, '@submit', this.#handleProductInfo.bind(this));
     on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
+
+    on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
     on(SECTION_CONTAINER, '@modify', this.#modifySavedData.bind(this));
     on(SECTION_CONTAINER, '@delete', this.#deleteSavedData.bind(this));
 
@@ -52,5 +55,8 @@ export default class Controller {
 
   #handleChargeCoin(event) {
     const { amount } = event.detail;
+    this.coin.setAmount(amount);
+    this.chargeView.renderCurrentAmount(this.coin.getAmount());
+    this.chargeView.resetChargeInput();
   }
 }

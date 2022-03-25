@@ -9,6 +9,8 @@ export default class ChargeView {
   }
 
   initChargeDOM() {
+    this.$chargeAmountInput = $('#charge-amount-input');
+    this.$currentAmount = $('.current-amount');
     this.$fiveHundredCoin = $('#five-hundred-coin');
     this.$oneHundredCoin = $('#one-hundred-coin');
     this.$fiftyCoin = $('#fifty-coin');
@@ -23,12 +25,20 @@ export default class ChargeView {
     e.preventDefault();
     if (e.target.id !== 'charge-form') return;
 
-    const amount = $('#charge-amount').value;
+    const amount = this.$chargeAmountInput.valueAsNumber;
     try {
       validChargeCoinUnit(amount);
-      emit(this.$sectionContainer, '@charge', { amount });
+      emit(SECTION_CONTAINER, '@charge', { amount });
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  renderCurrentAmount(amount) {
+    this.$currentAmount.innerText = `현재 보유 금액: ${amount}원`;
+  }
+
+  resetChargeInput() {
+    this.$chargeAmountInput.value = '';
   }
 }

@@ -30,7 +30,7 @@ export const CATEGORY_TEMPLATE = {
           required
           aria-labelledby="product-information"
         />
-        <button id="product-add-button">추가</button>
+        <button class="hover-button">추가</button>
       </div>
     </form>
     <table class="table">
@@ -59,7 +59,7 @@ export const CATEGORY_TEMPLATE = {
       <label for="charge-amount">자판기가 보유할 금액을 입력해주세요.</label>
       <div class="form-input">
         <input
-          id="charge-amount"
+          id="charge-amount-input"
           class="input-width"
           type="number"
           placeholder="금액"
@@ -67,7 +67,7 @@ export const CATEGORY_TEMPLATE = {
           max="100000"
           required
         />
-        <button>구입</button>
+        <button class="hover-button">구입</button>
       </div>
       <p class="current-amount">현재 보유 금액: 0원</p>
     </form>
@@ -107,7 +107,7 @@ export const CATEGORY_TEMPLATE = {
       <label for="product-purchased">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
         <input id="product-purchased" type="number" class="input-width" placeholder="금액" />
-        <button>투입</button>
+        <button class="hover-button">투입</button>
       </div>
       <p class="current-amount">투입한 금액: 3000원</p>
     </form>
