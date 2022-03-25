@@ -14,7 +14,11 @@ export default class ProductManager {
     }
   }
 
-  getList() {
+  getProducts() {
     return this.products;
+  }
+
+  modifyProduct(index, product) {
+    this.products.splice(index - 1, 1, product);
   }
 }

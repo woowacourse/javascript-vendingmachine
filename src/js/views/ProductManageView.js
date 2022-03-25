@@ -17,7 +17,7 @@ const tableInputTemplate = (product) => {
     <td><input type="text" class="modify-input" placeholder="상품명" maxlength="10" value=${product.name} required /></td>
     <td><input type="number" class="modify-input" placeholder="가격" min="100" max="10000" value=${product.price} required /></td>
     <td><input type="number" class="modify-input" placeholder="수량" min="1" max="20" value=${product.quantity} required /></td>
-    <td><button id="confirm-button" type="button">확인</button></td>
+    <td><button class="confirm-button" type="button">확인</button></td>
   `;
 };
 
@@ -36,7 +36,12 @@ export default class ProductManageView {
 
     this.$productTbody.addEventListener('click', (e) => {
       if (e.target.classList.contains('modify-button')) {
-        this.#replaceProductInformation(e.target.closest('tr'));
+        this.#modifyProductInfo(e.target.closest('tr'));
+        return;
+      }
+      if (e.target.classList.contains('confirm-button')) {
+        this.#confirmProductInfo(e.target.closest('tr'));
+        return;
       }
     });
   }
@@ -52,19 +57,27 @@ export default class ProductManageView {
     emit(this.$sectionContainer, '@submit', { keyword });
   }
 
-  #replaceProductInformation(selectedProductElement) {
+  #modifyProductInfo(selectedProductElement) {
     const product = {
       name: selectedProductElement.children[0].textContent,
       price: selectedProductElement.children[1].textContent,
       quantity: selectedProductElement.children[2].textContent,
     };
-    selectedProductElement.innerHTML = tableInputTemplate(product);
+    selectedProductElement.replaceChildren();
+    selectedProductElement.insertAdjacentHTML('beforeend', tableInputTemplate(product));
   }
 
-  // renderTable(product) {
-  //   this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(product));
-  //   $('#product-tbody').insertAdjacentHTML('beforeend', tableInputTemplate(product));
-  // }
+  #confirmProductInfo(selectedProductElement) {
+    const index = selectedProductElement.rowIndex;
+    const product = {
+      name: selectedProductElement.children[0].firstChild.value,
+      price: selectedProductElement.children[1].firstChild.valueAsNumber,
+      quantity: selectedProductElement.children[2].firstChild.valueAsNumber,
+    };
+    selectedProductElement.replaceChildren();
+    selectedProductElement.insertAdjacentHTML('beforeend', tableTemplate(product));
+    emit(this.$sectionContainer, '@modify', { index, product });
+  }
 
   render(productList) {
     if (Array.isArray(productList)) {

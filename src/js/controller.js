@@ -10,13 +10,14 @@ export default class Controller {
 
     on(this.$sectionContainer, '@submit', this.#handleProductInformation.bind(this));
     on(this.$sectionContainer, '@render', this.#renderSavedData.bind(this));
+    on(this.$sectionContainer, '@modify', this.#modifySavedData.bind(this));
   }
 
   #renderSavedData(event) {
     const { hash } = event.detail;
     if (hash === '#!manage') {
       this.productManageView.initManageView();
-      const savedProductList = this.productManager.getList();
+      const savedProductList = this.productManager.getProducts();
       if (savedProductList.length !== 0) {
         this.productManageView.render(savedProductList);
       }
@@ -29,5 +30,10 @@ export default class Controller {
     this.productManager.addProduct(keyword);
     this.productManageView.render(keyword);
     this.productManageView.resetProductInput();
+  }
+
+  #modifySavedData(event) {
+    const { index, product } = event.detail;
+    this.productManager.modifyProduct(index, product);
   }
 }

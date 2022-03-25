@@ -37,7 +37,13 @@ export const CATEGORY_TEMPLATE = {
       <caption class="caption">
         상품 현황
       </caption>
-      <thead>
+      <colgroup>
+        <col>
+        <col width="24%">
+        <col width="24%">
+        <col width="24%">
+      </colgroup>
+      <thead></thead>
         <tr>
           <th>상품명</th>
           <th>가격</th>
