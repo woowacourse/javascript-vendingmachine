@@ -31,6 +31,7 @@ class PurchaseProductComponent {
   show() {
     this.$purchaseProductContainer.classList.remove('hide');
   }
+
   hide() {
     this.$purchaseProductContainer.classList.add('hide');
   }
