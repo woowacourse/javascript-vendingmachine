@@ -1,0 +1,61 @@
+@import './variables';
+
+.btn {
+  width: 117px;
+  height: 36px;
+  padding: 9px 0;
+  border-radius: 4px;
+  font-weight: 500;
+  outline: 0;
+  border-style: none;
+  cursor: pointer;
+  word-break: keep-all;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.btn.active {
+  background-color: $color-cyan-700;
+}
+
+.btn.sm {
+  width: 100px;
+  height: 32px;
+  font-size: 15px;
+  padding: 7px 0;
+}
+
+.btn.xs {
+  @extend .btn.sm;
+  width: 50px;
+}
+
+.btn.circle {
+  width: 40px;
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 50%;
+}
+
+.btn.cyan {
+  color: white;
+  background-color: $color-cyan-900;
+  border-color: $color-cyan-900;
+}
+
+.btn.cyan:hover {
+  background-color: $color-cyan-800;
+}
+
+.btn.gray {
+  background-color: $color-gray-400;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btn-group {
+  display: inline-flex;
+  justify-content: center;
+}
