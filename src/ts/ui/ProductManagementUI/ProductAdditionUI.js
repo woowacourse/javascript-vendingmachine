@@ -25,7 +25,7 @@ export default class ProductAdditionUI {
     };
 
     try {
-      const products = this.productDomain.products;
+      const { products } = this.productDomain;
       validateProductInfo(products, product);
     } catch ({ message }) {
       alert(message);

@@ -16,7 +16,7 @@ export default class ProductInventoryUI {
   }
 
   template() {
-    const products = this.productDomain.products;
+    const { products } = this.productDomain;
     const baseTemplate = `
       <div class="product-inventory__item grid-item grid-header">
         상품명
@@ -123,7 +123,7 @@ export default class ProductInventoryUI {
     };
 
     try {
-      const products = this.productDomain.products;
+      const { products } = this.productDomain;
       validateProductInfo(products, product, prevProductName);
     } catch ({ message }) {
       alert(message);

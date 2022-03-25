@@ -1,5 +1,4 @@
-import { $ } from '../../utils/dom';
-import { replaceHTML } from '../../utils/dom';
+import { $, replaceHTML } from '../../utils/dom';
 
 export default class CoinHoldingsUI {
   constructor(coinDomain) {
@@ -17,7 +16,7 @@ export default class CoinHoldingsUI {
       <div class="coin-holdings__item grid-item grid-header">개수</div>
     `;
 
-    const coins = this.coinDomain.coins;
+    const { coins } = this.coinDomain;
 
     const coinsTemplate = Object.keys(coins)
       .reverse()
