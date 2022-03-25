@@ -25,7 +25,7 @@ export default class NavigatorComponent {
     new ProductStateComponent(this.vendingMachineProductManager);
     new ProductInputComponent(this.vendingMachineProductManager);
     new CoinInputComponent(this.vendingMachineCoinManager);
-    new CoinsStateComponent(this.vendingMachineCoinManager);
+    new CoinsStateComponent();
 
     on(this.$navProductButton, 'click', this.onClickNavProductButton);
     on(this.$navChargeButton, 'click', this.onClickNavChargeButton);

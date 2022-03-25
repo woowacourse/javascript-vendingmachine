@@ -1,3 +1,5 @@
+import { coins } from './types/vendingMachineCoinManager';
+
 export const PRODUCT_NAME = {
   MAX_LENGTH: 10,
   MIN_LENGTH: 1,
@@ -29,4 +31,11 @@ export const ERROR_MESSAGE = {
   OVERFLOW_CHARGE_MONEY(chargeMoney) {
     return `잔돈 누적 금액이 100,000원을 초과했습니다.\n현재 누적 금액은 ${chargeMoney}원 입니다. 누적 금액이 100,000원이 넘지 않도록 작성해주세요.`;
   },
+};
+
+export const COINS_INITIAL_STATE: coins = {
+  COIN_500: 0,
+  COIN_100: 0,
+  COIN_50: 0,
+  COIN_10: 0,
 };

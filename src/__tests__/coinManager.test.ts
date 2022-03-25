@@ -1,7 +1,7 @@
-import { ERROR_MESSAGE } from '../ts/constants';
-import VendingMachineCoinManager, {
-  coins,
-} from '../ts/VendingMachineCoinManager';
+import { coins } from '../ts/types/vendingMachineCoinManager';
+
+import { ERROR_MESSAGE, COINS_INITIAL_STATE } from '../ts/constants';
+import VendingMachineCoinManager from '../ts/VendingMachineCoinManager';
 
 describe('잔돈 관리 도메인 테스트', () => {
   test('잔돈 충전 탭에서 최초 자판기가 보유한 금액은 0원이며, 각 동전의 개수는 0개이다.', () => {
@@ -13,10 +13,8 @@ describe('잔돈 관리 도메인 테스트', () => {
   test('보유할 수 있는 최대 누적 금액은 100,000원이다.', () => {
     const vendingMachineCoinManager = new VendingMachineCoinManager();
     const coins: coins = {
-      coin500: 0,
-      coin100: 1,
-      coin50: 0,
-      coin10: 0,
+      ...COINS_INITIAL_STATE,
+      COIN_100: 1,
     };
 
     expect(() => {
@@ -27,16 +25,12 @@ describe('잔돈 관리 도메인 테스트', () => {
   test(`보유할 수 있는 최대 누적 금액은 100,000원이다.`, () => {
     const vendingMachineCoinManager = new VendingMachineCoinManager();
     const coins: coins = {
-      coin500: 0,
-      coin100: 1000,
-      coin50: 0,
-      coin10: 0,
+      ...COINS_INITIAL_STATE,
+      COIN_100: 1000,
     };
     const newCoins: coins = {
-      coin500: 0,
-      coin100: 1,
-      coin50: 0,
-      coin10: 0,
+      ...COINS_INITIAL_STATE,
+      COIN_100: 1,
     };
 
     vendingMachineCoinManager.addCoins(coins);

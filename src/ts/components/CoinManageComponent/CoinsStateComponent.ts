@@ -6,18 +6,18 @@ export default class CoinsStateComponent {
   private $coin50 = $('.coin-quantity-table__coin-50');
   private $coin10 = $('.coin-quantity-table__coin-10');
 
-  constructor(private vendingMachineCoinManager) {
+  constructor() {
     on($('.charge-form-section__button'), '@chargeInputSubmit', this.render);
   }
 
   private render = ({
     detail: {
-      coins: { coin500, coin100, coin50, coin10 },
+      coins: { COIN_500, COIN_100, COIN_50, COIN_10 },
     },
   }) => {
-    this.$coin500.textContent = coin500;
-    this.$coin100.textContent = coin100;
-    this.$coin50.textContent = coin50;
-    this.$coin10.textContent = coin10;
+    this.$coin500.textContent = COIN_500;
+    this.$coin100.textContent = COIN_100;
+    this.$coin50.textContent = COIN_50;
+    this.$coin10.textContent = COIN_10;
   };
 }

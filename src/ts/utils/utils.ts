@@ -1,6 +1,7 @@
-import { ERROR_MESSAGE } from '../constants';
-import { coins } from '../VendingMachineCoinManager';
-import { product } from '../VendingMachineProductManager';
+import { coins } from '../types/vendingMachineCoinManager';
+import { product } from '../types/vendingMachineProductManager';
+
+import { ERROR_MESSAGE, COINS_INITIAL_STATE } from '../constants';
 
 export const checkValidLengthProductName = (name: string): void => {
   if (name.length < 1 || name.length > 10) {
@@ -58,12 +59,7 @@ function pickRandomIndex(min: number, max: number): number {
 
 export const generateRandomCoins = (money: number): coins => {
   const coinList: number[] = [10, 50, 100, 500];
-  const coinsObject: coins = {
-    coin500: 0,
-    coin100: 0,
-    coin50: 0,
-    coin10: 0,
-  };
+  const coinsObject: coins = { ...COINS_INITIAL_STATE };
 
   let remainMoney: number = money;
 
@@ -73,7 +69,7 @@ export const generateRandomCoins = (money: number): coins => {
     );
     const pickedCoin: number =
       pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
-    coinsObject[`coin${pickedCoin}`] += 1;
+    coinsObject[`COIN_${pickedCoin}`] += 1;
     remainMoney -= pickedCoin;
   }
 
@@ -86,7 +82,7 @@ export const checkCanAddMoney = (
 ): void => {
   const totalMoney: number = Object.entries(coinList).reduce(
     (sum: number, [coin, count]: [string, number]) =>
-      sum + Number(coin.replace('coin', '')) * count,
+      sum + Number(coin.replace('COIN_', '')) * count,
     currentMoney
   );
 

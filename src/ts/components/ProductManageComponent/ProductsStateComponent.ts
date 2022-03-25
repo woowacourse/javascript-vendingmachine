@@ -1,10 +1,11 @@
+import { product } from '../../types/vendingMachineProductManager';
+
 import { on, renderSnackBar, $, focusEditInput } from '../../dom';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../utils/utils';
-import { product } from '../../VendingMachineProductManager';
 
 const generateTemplate = ({
   name: productName,

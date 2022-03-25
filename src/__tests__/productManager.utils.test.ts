@@ -1,4 +1,5 @@
-import { product } from '../ts/VendingMachineProductManager';
+import { product } from '../ts/types/vendingMachineProductManager';
+
 import {
   checkDuplicatedProductName,
   checkValidLengthProductName,

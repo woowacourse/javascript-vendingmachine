@@ -1,21 +1,9 @@
+import { ProductManager, product } from './types/vendingMachineProductManager';
+
 import {
   checkDuplicatedProductName,
   checkEditDuplicateName,
 } from './utils/utils';
-
-export interface product {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface ProductManager {
-  addProduct(newProduct: product): void;
-  getTargetProduct(name: string): product;
-  getProducts(): product[];
-  editProduct(name: string, targetProduct: product): void;
-  deleteProduct(name: string): void;
-}
 
 export default class VendingMachineProductManager implements ProductManager {
   private products: product[] = [];
