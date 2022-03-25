@@ -1,6 +1,6 @@
 import { ICoinWallet, IProduct, TCoinWallet } from '../domains/types';
 
-export type TAction = string;
+export type TAction = 'addProduct' | 'editProduct' | 'deleteProduct' | 'rechargeChange';
 
 export type TStateKey = 'PRODUCT_LIST' | 'COIN_WALLET' | 'INPUT_CHARGE';
 
@@ -16,9 +16,16 @@ export type TSubsrcribedComponents = {
   INPUT_CHARGE: Array<any>;
 };
 export interface IVendingMachineStore {
-  mutateProductList: (actionType: TAction, payload: any) => void;
-  mutateCoinWallet: (actionType: TAction, payload: any) => void;
-  mutateInputCharge: (actionType: TAction, payload: any) => void;
+  mutateState: ({
+    actionType,
+    payload,
+    stateKey,
+  }: {
+    actionType: TAction;
+    payload: any;
+    stateKey: TStateKey;
+  }) => void;
+
   subscribe: (stateType: TStateKey, component: any) => void;
   getState: (
     stateType: TStateKey,

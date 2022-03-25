@@ -1,4 +1,4 @@
-import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
 import vendingMachineStore from '../../stores/vendingMachineStore';
 import { checkProductInput } from '../../utils/validation';
 class ProductTableComponent {
@@ -147,11 +147,15 @@ class ProductTableComponent {
           quantityInput: quantity,
         })
       ) {
-        vendingMachineStore.mutateProductList('editProduct', {
-          id: productId,
-          name,
-          price,
-          quantity,
+        vendingMachineStore.mutateState({
+          actionType: ACTION_TYPES.EDIT_PRODUCT,
+          payload: {
+            id: productId,
+            name,
+            price,
+            quantity,
+          },
+          stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
         this.showEditAndDeleteButton(parentElement, targetClassList);
       }
@@ -161,7 +165,11 @@ class ProductTableComponent {
   };
   onClickDeleteButton(productId) {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      vendingMachineStore.mutateProductList('deleteProduct', { id: productId });
+      vendingMachineStore.mutateState({
+        actionType: ACTION_TYPES.DELETE_PRODUCT,
+        payload: { id: productId },
+        stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
+      });
     }
   }
   showConfirmButton(parentElement, targetClassList) {

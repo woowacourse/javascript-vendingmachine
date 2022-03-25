@@ -1,5 +1,5 @@
 import vendingMachineStore from '../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
 import { checkChangeInput } from '../utils/validation';
 import CoinTableComponent from './common/CoinTableComponent';
 
@@ -32,7 +32,7 @@ class RechargeChangeComponent {
       <label for="recharge-change-form">자판기가 보유할 금액을 입력해주세요</label>
       <div class="input-wrapper">
         <input id="recharge-change-input" type="number" placeholder="금액" />
-        <button type="button" class="submit-button">충전</button>
+        <button  class="submit-button">충전</button>
       </div>
       <div class="total-amount">투입한 금액: <span id="change-total-amount">0</span>원</div>
       </form>
@@ -78,7 +78,11 @@ class RechargeChangeComponent {
     const { valueAsNumber: changeInput } = this.$rechargeChangeInput;
     try {
       if (checkChangeInput(changeInput)) {
-        vendingMachineStore.mutateCoinWallet('rechargeChange', { changeInput });
+        vendingMachineStore.mutateState({
+          actionType: ACTION_TYPES.RECHARGE_CHANGE,
+          payload: { changeInput },
+          stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
+        });
       }
     } catch ({ message }) {
       alert(message);

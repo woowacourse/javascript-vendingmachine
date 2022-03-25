@@ -1,4 +1,5 @@
 import {
+  CHANGE_RANGE,
   ERROR_MSG,
   MONEY_DIVIDE_STANDARD,
   NAME_LENGHT_LIMIT,
@@ -35,10 +36,10 @@ export const checkProductInput = ({
 
 export const checkChangeInput = (changeInput: number) => {
   if (isNotdivisibleBy10(changeInput)) {
-    throw new Error('잔돈은 10으로 나누어 떨어져야합니다.');
+    throw new Error(ERROR_MSG.CHANGE_NOT_DIVISIBLE_BY_10);
   }
   if (isOutOfChangeRange(changeInput)) {
-    throw new Error('잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.');
+    throw new Error(ERROR_MSG.CHANGE_OUT_OF_RANGE);
   }
   return true;
 };
@@ -55,4 +56,5 @@ export const isNotdivisibleBy10 = (priceInput: number) => priceInput % MONEY_DIV
 export const isOutOfQuantityRange = (qauntityInput: number) =>
   qauntityInput < QUANTITY_RANGE.MIN || qauntityInput > QUANTITY_RANGE.MAX;
 
-export const isOutOfChangeRange = (changeInput: number) => changeInput < 10 || changeInput > 100000;
+export const isOutOfChangeRange = (changeInput: number) =>
+  changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;

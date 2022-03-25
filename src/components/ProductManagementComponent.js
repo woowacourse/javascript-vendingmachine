@@ -1,6 +1,7 @@
 import ProductTableComponent from './common/ProductTableComponent';
 import { checkProductInput } from '../utils/validation';
 import vendingMachineStore from '../stores/vendingMachineStore';
+import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
 class ProductManagementComponent {
   #currentProductListComponent;
   constructor($parent) {
@@ -72,17 +73,19 @@ class ProductManagementComponent {
           quantityInput: productQuantityInputValue,
         })
       ) {
-        // vendingMachineStore에다가 mutateProductList를 호출
-        vendingMachineStore.mutateProductList('addProduct', {
-          name: productNameInputValue,
-          price: productPriceInputValue,
-          quantity: productQuantityInputValue,
+        vendingMachineStore.mutateState({
+          actionType: ACTION_TYPES.ADD_PRODUCT,
+          payload: {
+            name: productNameInputValue,
+            price: productPriceInputValue,
+            quantity: productQuantityInputValue,
+          },
+          stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
       }
     } catch ({ message }) {
       alert(message);
     }
-    // 유효성 검사
   };
 }
 export default ProductManagementComponent;
