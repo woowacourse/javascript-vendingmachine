@@ -8,17 +8,20 @@ const routes = {
   '#!purchase': CATEGORY_TEMPLATE.PURCHASE,
 };
 
-const manageMenu = $('#manage__menu');
-const chargeMenu = $('#charge__menu');
-const purchaseMenu = $('#purchase__menu');
-const sectionContainer = $('#section__container');
+const manageMenu = $('#manage-menu');
+const chargeMenu = $('#charge-menu');
+const purchaseMenu = $('#purchase-menu');
+const sectionContainer = $('#section-container');
 
 const render = () => {
   const { hash } = window.location;
   selectTab(hash);
   sectionContainer.replaceChildren();
   sectionContainer.insertAdjacentHTML('beforeend', routes[hash] ?? '');
-  if (hash === '#!manage') emit(sectionContainer, '@select');
+  if (hash === '#!manage') {
+    emit(sectionContainer, '@select');
+    emit(sectionContainer, '@init');
+  }
 };
 
 const selectTab = (hash) => {
