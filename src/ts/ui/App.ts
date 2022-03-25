@@ -22,40 +22,26 @@ export default class App {
 
     this.productManagementUI.render();
 
-    this.addNavClickEvent();
-    this.addPopStateEvent();
-  }
-
-  addNavClickEvent() {
     $('.nav').addEventListener('click', this.navClickHandler);
+    window.addEventListener('popstate', this.popStateHandler);
   }
 
   navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
 
-    this.activateClickedButton(target.dataset.pathname);
     history.pushState({}, '', target.dataset.pathname);
 
-    switch (target.dataset.pathname) {
-      case '/':
-        this.productManagementUI.render();
-        break;
-      case '/charge':
-        this.coinManagementUI.render();
-        break;
-      case '/purchase':
-        this.productPurchaseUI.render();
-    }
+    this.activateClickedButton(target.dataset.pathname);
+    this.renderMainContent(target.dataset.pathname);
   };
-
-  addPopStateEvent() {
-    window.addEventListener('popstate', this.popStateHandler);
-  }
 
   popStateHandler = () => {
     this.activateClickedButton(location.pathname);
+    this.renderMainContent(location.pathname);
+  };
 
-    switch (location.pathname) {
+  renderMainContent(pathname) {
+    switch (pathname) {
       case '/':
         this.productManagementUI.render();
         break;
@@ -65,7 +51,7 @@ export default class App {
       case '/purchase':
         this.productPurchaseUI.render();
     }
-  };
+  }
 
   activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
