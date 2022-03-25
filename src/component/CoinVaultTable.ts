@@ -5,6 +5,11 @@ export class CoinVaultTable {
   target: HTMLDivElement;
   coinVault: CoinVault;
 
+  coin500Quantity: HTMLSpanElement;
+  coin100Quantity: HTMLSpanElement;
+  coin50Quantity: HTMLSpanElement;
+  coin10Quantity: HTMLSpanElement;
+
   constructor(props) {
     this.target = props.target;
     this.coinVault = props.coinVault;
@@ -12,7 +17,12 @@ export class CoinVaultTable {
     this.target.addEventListener('coinCharged', this.updateCoinVaultTableTemplate);
   }
 
-  templates(coinsQuantity: Coins): string {
+  render = () => {
+    this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getCoins()));
+    this.selectDom();
+  };
+
+  template(coinsQuantity: Coins): string {
     return `
       <div class = 'table-container'>
         <h2>자판기가 보유한 동전</h2>
@@ -46,19 +56,17 @@ export class CoinVaultTable {
     `;
   }
 
-  render = () => {
-    this.target.insertAdjacentHTML('beforeend', this.templates(this.coinVault.getCoins()));
-  };
+  selectDom() {
+    this.coin500Quantity = document.querySelector('#coin500-quantity');
+    this.coin100Quantity = document.querySelector('#coin100-quantity');
+    this.coin50Quantity = document.querySelector('#coin50-quantity');
+    this.coin10Quantity = document.querySelector('#coin10-quantity');
+  }
 
   updateCoinVaultTableTemplate = () => {
-    const coin500Quantity = document.querySelector('#coin500-quantity');
-    const coin100Quantity = document.querySelector('#coin100-quantity');
-    const coin50Quantity = document.querySelector('#coin50-quantity');
-    const coin10Quantity = document.querySelector('#coin10-quantity');
-
-    coin500Quantity.textContent = `${this.coinVault.getCoins().coin500}`;
-    coin100Quantity.textContent = `${this.coinVault.getCoins().coin100}`;
-    coin50Quantity.textContent = `${this.coinVault.getCoins().coin50}`;
-    coin10Quantity.textContent = `${this.coinVault.getCoins().coin10}`;
+    this.coin500Quantity.textContent = `${this.coinVault.getCoins().coin500}`;
+    this.coin100Quantity.textContent = `${this.coinVault.getCoins().coin100}`;
+    this.coin50Quantity.textContent = `${this.coinVault.getCoins().coin50}`;
+    this.coin10Quantity.textContent = `${this.coinVault.getCoins().coin10}`;
   };
 }

@@ -9,7 +9,13 @@ export class ProductInformationInput {
     this.productCatalog = props.productCatalog;
   }
 
-  templates(): string {
+  render() {
+    this.target.insertAdjacentHTML('beforeend', this.template());
+    this.selectDom();
+    this.bindEvent();
+  }
+
+  template(): string {
     return `
         <form id="product-information-input">
             <label id ='product-input-label' for="product-information-input">추가할 상품 정보를 입력해주세요</label>
@@ -19,12 +25,6 @@ export class ProductInformationInput {
             <button id = 'product-information-submit-btn' type="submit" class='submit-button button'>추가</button>
           </form>
     `;
-  }
-
-  render() {
-    this.target.insertAdjacentHTML('beforeend', this.templates());
-    this.selectDom();
-    this.bindEvent();
   }
 
   productInformationForm: HTMLFormElement;
@@ -44,7 +44,6 @@ export class ProductInformationInput {
     this.submitButton.addEventListener('click', this.handleAddProduct);
   }
 
-  tempEvent: CustomEvent;
   handleAddProduct = (e) => {
     e.preventDefault();
 
@@ -54,11 +53,10 @@ export class ProductInformationInput {
 
     try {
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
-      this.tempEvent = new CustomEvent('productAdded');
-      this.target.dispatchEvent(this.tempEvent);
+      this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {
-      this.productInformationForm.reset();
       alert(err);
     }
+    this.productInformationForm.reset();
   };
 }

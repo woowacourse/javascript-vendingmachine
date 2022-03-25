@@ -7,6 +7,7 @@ export class ProductManageView {
   productCatalogTable: ProductCatalogTable;
   contentsContainer: HTMLDivElement;
   productCatalog: ProductCatalog;
+  props: object;
 
   constructor() {}
 
@@ -16,14 +17,13 @@ export class ProductManageView {
     this.contentsContainer = document.querySelector('#contents-container');
     this.contentsContainer.textContent = '';
 
-    this.productInformationInput = new ProductInformationInput({
+    this.props = {
       target: this.contentsContainer,
       productCatalog: this.productCatalog,
-    });
-    this.productCatalogTable = new ProductCatalogTable({
-      target: this.contentsContainer,
-      productCatalog: this.productCatalog,
-    });
+    };
+
+    this.productInformationInput = new ProductInformationInput(this.props);
+    this.productCatalogTable = new ProductCatalogTable(this.props);
   }
 
   renderAll() {

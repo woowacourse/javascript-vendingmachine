@@ -15,27 +15,29 @@ export class NavView {
 
     this.productManageNavBtn.addEventListener('click', this.handleShowProductManageTab);
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
-    this.productPurchaseNavBtn.addEventListener('click', this.handleShowProductPurchaseTab);
 
     this.productManageView = new ProductManageView();
     this.balanceChargeView = new BalanceChargeView();
 
     this.renderHome();
-
     window.addEventListener('popstate', (savedData) => {
-      if (savedData.state.path === '/') {
-        this.renderHome();
-      }
-      if (savedData.state.path === '/productManage') {
-        this.productManageView.init();
-        this.productManageView.renderAll();
-      }
-      if (savedData.state.path === '/balanceCharge') {
-        this.balanceChargeView.init();
-        this.balanceChargeView.renderAll();
-      }
+      this.handlePopstate(savedData);
     });
   }
+
+  handlePopstate = (savedData) => {
+    if (savedData.state.path === '/') {
+      this.renderHome();
+    }
+    if (savedData.state.path === '/productManage') {
+      this.productManageView.init();
+      this.productManageView.renderAll();
+    }
+    if (savedData.state.path === '/balanceCharge') {
+      this.balanceChargeView.init();
+      this.balanceChargeView.renderAll();
+    }
+  };
 
   handleShowProductManageTab = () => {
     this.productManageView.init();
@@ -52,8 +54,6 @@ export class NavView {
     const path = '/balanceCharge';
     history.pushState({ path }, null, path);
   };
-
-  handleShowProductPurchaseTab = () => {};
 
   contentsContainer: HTMLDivElement;
   renderHome() {

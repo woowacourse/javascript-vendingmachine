@@ -27,8 +27,8 @@
 }
 
 #coin-vault-table {
-  border-top: 2px solid #dcdcdc;
-  border-bottom: 2px solid #dcdcdc;
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
   border-collapse: collapse;
   text-align: center;
 }

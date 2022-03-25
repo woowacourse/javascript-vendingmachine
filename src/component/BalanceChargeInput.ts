@@ -5,13 +5,21 @@ export class BalanceChargeInput {
   coinVault: CoinVault;
   submitBtn: HTMLButtonElement;
   chargeBalanceInput: HTMLInputElement;
+  chargeBalanceInputForm: HTMLFormElement;
+  currentBalance: HTMLSpanElement;
 
   constructor(props) {
     this.target = props.target;
     this.coinVault = props.coinVault;
   }
 
-  templates(balance: number): string {
+  render() {
+    this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getBalance()));
+    this.selectDom();
+    this.bindEvent();
+  }
+
+  template(balance: number): string {
     return `
           <form id = 'charge-balance-input-container'>
             <label id ='charge-balance-input-label' for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
@@ -22,30 +30,30 @@ export class BalanceChargeInput {
       `;
   }
 
-  render() {
-    this.target.insertAdjacentHTML('beforeend', this.templates(this.coinVault.getBalance()));
-
+  selectDom() {
+    this.chargeBalanceInputForm = document.querySelector('#charge-balance-input-container');
     this.chargeBalanceInput = document.querySelector('#charge-balance-input');
     this.submitBtn = document.querySelector('#charge-balance-submit-btn');
+    this.currentBalance = document.querySelector('#current-balance');
+  }
+
+  bindEvent() {
     this.submitBtn.addEventListener('click', this.handleChargeBalance);
   }
 
-  tempEvent: CustomEvent;
   handleChargeBalance = (e: Event) => {
     e.preventDefault();
     try {
       this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
-
-      this.updateCurrentBalance();
-      this.tempEvent = new CustomEvent('coinCharged');
-      this.target.dispatchEvent(this.tempEvent);
     } catch (err) {
+      this.chargeBalanceInputForm.reset();
       alert(err);
     }
+    this.updateCurrentBalance();
+    this.target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
   updateCurrentBalance() {
-    const currentBalance = document.querySelector('#current-balance');
-    currentBalance.textContent = `${this.coinVault.getBalance()}`;
+    this.currentBalance.textContent = `${this.coinVault.getBalance()}`;
   }
 }

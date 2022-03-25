@@ -11,13 +11,7 @@ export class ProductCatalog {
     const productIndex = this.findExistingProductIndex(name);
 
     if (productIndex !== -1) {
-      const target = this.productList[productIndex];
-      try {
-        target.validateQuantity(target.getQuantity() + quantity);
-        target.setQuantity(target.getQuantity() + quantity);
-      } catch (err) {
-        throw err;
-      }
+      this.accumulateQuantity(productIndex, quantity);
       return;
     }
 
@@ -26,6 +20,16 @@ export class ProductCatalog {
 
   findExistingProductIndex(name: string): number {
     return this.productList.findIndex((product) => product.getName() === name);
+  }
+
+  accumulateQuantity(productIndex: number, quantity: number) {
+    const target = this.productList[productIndex];
+    try {
+      target.validateQuantity(target.getQuantity() + quantity);
+      target.setQuantity(target.getQuantity() + quantity);
+    } catch (err) {
+      throw err;
+    }
   }
 
   deleteProductByName(name: string) {

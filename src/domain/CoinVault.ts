@@ -1,4 +1,10 @@
-import { COIN_VAULT_CONDITION, COIN_CONDITION, COINS_PRICE_TABLE } from '../utils/domain.const';
+import {
+  COIN_VAULT_CONDITION,
+  COIN_CONDITION,
+  COINS_PRICE_TABLE,
+  COINS_INIT_QUANTITY,
+  CHEAPEST_COIN,
+} from '../utils/domain.const';
 import { Coins } from '../utils/interface';
 import { getRandomNumZeroToMax } from '../utils/domain.utils';
 
@@ -6,12 +12,7 @@ export class CoinVault {
   private coinsQuantity: Coins;
 
   constructor() {
-    this.coinsQuantity = {
-      coin500: COIN_CONDITION.INIT_QUANTITY,
-      coin100: COIN_CONDITION.INIT_QUANTITY,
-      coin50: COIN_CONDITION.INIT_QUANTITY,
-      coin10: COIN_CONDITION.INIT_QUANTITY,
-    };
+    this.coinsQuantity = COINS_INIT_QUANTITY;
   }
 
   addCoins(coins: Coins) {
@@ -44,7 +45,7 @@ export class CoinVault {
     if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
       throw new Error('돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.');
     }
-    if (money % 10 !== 0) {
+    if (money % COIN_CONDITION.UNIT_PRICE !== 0) {
       throw new Error('상평통보는 안 받습니다. 10원단위로 넣어주세요!');
     }
     return;
@@ -52,17 +53,12 @@ export class CoinVault {
 
   generateRandomCoins(money: number): Coins {
     let balance = money;
-    const generatedCoins = {
-      coin500: 0,
-      coin100: 0,
-      coin50: 0,
-      coin10: 0,
-    };
+    const generatedCoins = COINS_INIT_QUANTITY;
 
     [...Object.entries(COINS_PRICE_TABLE)].forEach(([key, price]) => {
       const maxQuotient = balance / price;
 
-      if (price === 10) {
+      if (price === CHEAPEST_COIN) {
         generatedCoins[key] = maxQuotient;
         return;
       }

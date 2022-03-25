@@ -1,5 +1,3 @@
-import { Coins } from './interface';
-
 export const PRODUCT_CONDITION = {
   MAX_NAME_LENGTH: 10,
   MIN_PRICE: 100,
@@ -14,12 +12,19 @@ export const COIN_VAULT_CONDITION = {
 
 export const COIN_CONDITION = {
   UNIT_PRICE: 10,
-  INIT_QUANTITY: 0,
 };
 
-export const COINS_PRICE_TABLE: Coins = {
+export const COINS_PRICE_TABLE = {
   coin500: 500,
   coin100: 100,
   coin50: 50,
   coin10: 10,
+};
+export const CHEAPEST_COIN = 10;
+
+export const COINS_INIT_QUANTITY = {
+  coin500: 0,
+  coin100: 0,
+  coin50: 0,
+  coin10: 0,
 };

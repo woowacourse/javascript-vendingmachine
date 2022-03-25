@@ -6,6 +6,7 @@ export class ProductCatalogTable {
   target: HTMLDivElement;
   productTable: HTMLTableElement;
   productTableBody: HTMLTableElement;
+
   constructor(props) {
     this.target = props.target;
     this.productCatalog = props.productCatalog;
@@ -13,22 +14,38 @@ export class ProductCatalogTable {
     this.target.addEventListener('productAdded', this.render);
   }
 
-  templates(): string {
+  render = () => {
+    if (this.isRerender()) {
+      this.productTableBody.textContent = ``;
+      this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
+      return;
+    }
+    this.target.insertAdjacentHTML('beforeend', this.template());
+
+    this.productTableBody = document.querySelector('#product-table-body');
+    this.productTableBody.addEventListener('click', this.handleProductStateManage);
+  };
+
+  isRerender(): boolean {
+    return this.productTableBody !== undefined;
+  }
+
+  template(): string {
     return `
-      <div class='table-container'>
-        <h2>상품 현황</h2>
-        <table id='product-table'>
-          <thead>
-            <tr>
-              <th>상품명</th>
-              <th>가격</th>
-              <th>수량</th>
-            </tr>
-          </thead>
-          <tbody id ='product-table-body'>${this.tableBodyTemplate()}</tbody>
-        </table>
-      </div>
-    `;
+    <div class='table-container'>
+      <h2>상품 현황</h2>
+      <table id='product-table'>
+        <thead>
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+          </tr>
+        </thead>
+        <tbody id ='product-table-body'>${this.tableBodyTemplate()}</tbody>
+      </table>
+    </div>
+  `;
   }
 
   tableBodyTemplate(): string {
@@ -39,36 +56,20 @@ export class ProductCatalogTable {
 
   tableRowTemplate(product): string {
     return `<tr id = '${product.getName()}'>
-    <td class='product-name product-prop'><span>${product.getName()}</span></td>
-    <td class='product-price product-prop'><span>${product.getPrice()}</span></td>
-    <td class='product-quantity product-prop'><span>${product.getQuantity()}</span></td>
-    <td class='edit-button-container'>
-      <button class='edit-button button' type='button'>수정</button>
-      <button class='delete-button button' type='button'>삭제</button>
-      <button class='confirm-button button hide' type='button'>확인</button>
-    </td>
-  </tr>`;
-  }
-
-  tableContainer: HTMLDivElement;
-  render = () => {
-    if (this.isRerender()) {
-      this.productTableBody.textContent = ``;
-      this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
-      return;
-    }
-    this.target.insertAdjacentHTML('beforeend', this.templates());
-    this.productTableBody = document.querySelector('#product-table-body');
-    this.productTableBody.addEventListener('click', this.handleProductStateManage);
-  };
-
-  isRerender(): boolean {
-    return this.productTableBody !== undefined;
+  <td class='product-name product-prop'><span>${product.getName()}</span></td>
+  <td class='product-price product-prop'><span>${product.getPrice()}</span></td>
+  <td class='product-quantity product-prop'><span>${product.getQuantity()}</span></td>
+  <td class='edit-button-container'>
+    <button class='edit-button button' type='button'>수정</button>
+    <button class='delete-button button' type='button'>삭제</button>
+    <button class='confirm-button button hide' type='button'>확인</button>
+  </td>
+</tr>`;
   }
 
   handleProductStateManage = (e) => {
     if (e.target.classList.contains('edit-button')) {
-      this.editProduct(e.target.parentNode.parentNode);
+      this.renderEditProduct(e.target.parentNode.parentNode);
     }
 
     if (e.target.classList.contains('delete-button')) {
@@ -78,65 +79,45 @@ export class ProductCatalogTable {
     if (e.target.classList.contains('confirm-button')) {
       const tableRow = e.target.parentNode.parentNode;
       try {
-        this.saveEditedProductProp(e.target.parentNode.parentNode);
-        this.confirmEditProduct(e.target.parentNode.parentNode);
-        this.toggleEditBtn(e.target.parentNode.parentNode);
+        this.saveEditedProductState(tableRow);
+        this.confirmEditProduct(tableRow);
+        this.toggleEditBtn(tableRow);
       } catch (err) {
         alert(err);
       }
     }
   };
 
-  editProduct = (tableRow: HTMLTableRowElement) => {
+  renderEditProduct = (tableRow: HTMLTableRowElement) => {
     const productRowItems = tableRow.querySelectorAll('.product-prop');
 
     productRowItems.forEach((tableDatum) => {
-      const currentProductElement = tableDatum.firstChild;
-      tableDatum.replaceChild(this.editProductTemplateElement(tableDatum), currentProductElement);
+      const productSpanElement = tableDatum.firstChild;
+      tableDatum.replaceChild(this.createProductInputElement(tableDatum), productSpanElement);
     });
 
     this.toggleEditBtn(tableRow);
   };
 
-  editProductTemplateElement(tableDatum: Element): HTMLInputElement {
-    const after = document.createElement('input');
-    after.setAttribute(
+  createProductInputElement(tableDatum: Element): HTMLInputElement {
+    const productInputElement = document.createElement('input');
+    productInputElement.setAttribute(
       'type',
       `${tableDatum.classList.contains('product-name') ? 'text' : 'number'}`
     );
-    after.className += 'product-input';
-    after.value = `${tableDatum.firstChild.textContent}`;
-    return after;
+    productInputElement.className += 'product-input';
+    productInputElement.value = `${tableDatum.firstChild.textContent}`;
+    return productInputElement;
   }
 
-  toggleEditBtn(tableRow: HTMLTableRowElement) {
-    [...tableRow.querySelector('.edit-button-container').children].forEach((btn) =>
-      btn.classList.toggle('hide')
-    );
+  deleteProduct(tableRow: HTMLTableRowElement) {
+    if (window.confirm('진짜 지우실건가요?')) {
+      tableRow.remove();
+      this.productCatalog.deleteProductByName(tableRow.id);
+    }
   }
 
-  confirmEditProduct(tableRow: HTMLTableRowElement) {
-    const productProp = tableRow.querySelectorAll('.product-prop');
-
-    [...productProp].forEach((tableDatum) => {
-      const currentProductElement = tableDatum.firstChild;
-      tableDatum.replaceChild(
-        this.confirmedProductTemplateElement(tableDatum),
-        currentProductElement
-      );
-    });
-
-    tableRow.id = `${tableRow.querySelector('.product-name').textContent}`;
-  }
-
-  confirmedProductTemplateElement(tableDatum: Element): HTMLSpanElement {
-    const after = document.createElement('span');
-
-    after.insertAdjacentHTML('beforeend', `${(tableDatum.firstChild as HTMLInputElement).value}`);
-    return after;
-  }
-
-  saveEditedProductProp(tableRow: HTMLTableRowElement): boolean {
+  saveEditedProductState(tableRow: HTMLTableRowElement) {
     const productState = {
       index: this.productCatalog.findExistingProductIndex(tableRow.id),
       name: (tableRow.querySelector('.product-name').firstChild as HTMLInputElement).value,
@@ -146,16 +127,14 @@ export class ProductCatalogTable {
         .valueAsNumber,
     };
 
-    if (this.canSave(productState)) {
+    if (this.isSavable(productState)) {
       this.productCatalog.productList[productState.index].setName(productState.name);
       this.productCatalog.productList[productState.index].setPrice(productState.price);
       this.productCatalog.productList[productState.index].setQuantity(productState.quantity);
-      return true;
     }
-    return false;
   }
 
-  canSave(productState: ProductState) {
+  isSavable(productState: ProductState) {
     try {
       this.productCatalog.productList[productState.index].validateName(productState.name);
       this.productCatalog.productList[productState.index].validatePrice(productState.price);
@@ -166,10 +145,29 @@ export class ProductCatalogTable {
     }
   }
 
-  deleteProduct(tableRow: HTMLTableRowElement) {
-    if (window.confirm('진짜 지우실건가요?')) {
-      tableRow.remove();
-      this.productCatalog.deleteProductByName(tableRow.id);
-    }
+  confirmEditProduct(tableRow: HTMLTableRowElement) {
+    const productProp = tableRow.querySelectorAll('.product-prop');
+
+    [...productProp].forEach((tableDatum) => {
+      const productInputElement = tableDatum.firstChild;
+      tableDatum.replaceChild(this.createProductSpanElement(tableDatum), productInputElement);
+    });
+
+    tableRow.id = `${tableRow.querySelector('.product-name').textContent}`;
+  }
+
+  createProductSpanElement(tableDatum: Element): HTMLSpanElement {
+    const productSpanElement = document.createElement('span');
+    productSpanElement.insertAdjacentHTML(
+      'beforeend',
+      `${(tableDatum.firstChild as HTMLInputElement).value}`
+    );
+    return productSpanElement;
+  }
+
+  toggleEditBtn(tableRow: HTMLTableRowElement) {
+    [...tableRow.querySelector('.edit-button-container').children].forEach((btn) =>
+      btn.classList.toggle('hide')
+    );
   }
 }
