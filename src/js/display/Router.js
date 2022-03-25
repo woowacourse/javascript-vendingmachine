@@ -1,10 +1,10 @@
 import { $, getSearchParamsObject } from '@Utils/index';
 
 export default class Router {
-  loadMethodList;
+  pageList;
 
-  constructor(loadMethodList) {
-    this.loadMethodList = loadMethodList;
+  constructor(pageList) {
+    this.pageList = pageList;
     this.setEvents();
     this.pageRender(window.location.search);
   }
@@ -28,6 +28,6 @@ export default class Router {
 
   pageRender(searchUrl) {
     const { page = 'product' } = getSearchParamsObject(searchUrl);
-    !!this.loadMethodList[page] && this.loadMethodList[page]();
+    !!this.pageList[page] && this.pageList[page].loadPage();
   }
 }

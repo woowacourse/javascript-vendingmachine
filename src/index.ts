@@ -4,7 +4,6 @@ import ProductPage from '@Display/pages/ProductPage';
 import HoldingAmountPage from '@Display/pages/HoldingAmountPage';
 
 new Router({
-  product: new ProductPage().loadPage,
-  holding_amount: new HoldingAmountPage().loadPage,
+  product: new ProductPage(),
+  holding_amount: new HoldingAmountPage(),
 });
-// history.pushState({page:1}, 'test', '/?page=feat');
