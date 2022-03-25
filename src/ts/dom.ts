@@ -64,13 +64,11 @@ export const focusWrongInput = ({
       $nameInput.focus();
       break;
 
-    case ERROR_MESSAGE.EMPTY_PRODUCT_PRICE:
     case ERROR_MESSAGE.WRONG_UNIT_PRODUCT_PRICE:
     case ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE:
       $priceInput.focus();
       break;
 
-    case ERROR_MESSAGE.EMPTY_PRODUCT_QUANTITY:
     case ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY:
       $quantityInput.focus();
       break;

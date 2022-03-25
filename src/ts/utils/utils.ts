@@ -11,7 +11,7 @@ import {
 } from '../constants';
 
 export const checkValidLengthProductName = (name: string): void => {
-  if (!name) {
+  if (!name.trim()) {
     throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   }
 
@@ -43,7 +43,7 @@ export const checkEditDuplicateName = (
 
 export const checkValidProductPrice = (price: number): void => {
   if (Number.isNaN(price)) {
-    throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_PRICE);
+    throw new Error(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   }
 
   if (price < PRODUCT_PRICE.MIN_PRICE || price > PRODUCT_PRICE.MAX_PRICE) {
@@ -57,7 +57,7 @@ export const checkValidProductPrice = (price: number): void => {
 
 export const checkValidProductQuantity = (quantity: number): void => {
   if (Number.isNaN(quantity)) {
-    throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_QUANTITY);
+    throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }
 
   if (!Number.isInteger(quantity)) {
@@ -74,7 +74,7 @@ export const checkValidProductQuantity = (quantity: number): void => {
 
 export const checkValidChargeMoney = (money: number): void => {
   if (Number.isNaN(money)) {
-    throw new Error(ERROR_MESSAGE.EMPTY_CHARGE_MONEY);
+    throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 
   if (money % CHARGE_MONEY.UNIT !== 0) {

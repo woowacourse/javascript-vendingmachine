@@ -39,10 +39,6 @@ export const ERROR_MESSAGE: errorMessage = {
   WRONG_UNIT_CHARGE_MONEY: `잔돈을 잘못 입력하셨습니다. 잔돈은 ${CHARGE_MONEY.UNIT}원 단위로 입력해주세요.`,
   EMPTY_PRODUCT_NAME:
     '상품명을 입력하지 않으셨습니다. 상품명을 먼저 입력해주세요.',
-  EMPTY_PRODUCT_PRICE:
-    '상품의 가격을 입력하지 않으셨습니다. 상품의 가격을 먼저 입력해주세요.',
-  EMPTY_PRODUCT_QUANTITY:
-    '상품의 수량을 입력하지 않으셨습니다. 상품의 수량을 먼저 입력해주세요.',
   OVERFLOW_CHARGE_MONEY(chargeMoney) {
     return `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다.<br />현재 누적 금액은 ${chargeMoney}원 입니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`;
   },

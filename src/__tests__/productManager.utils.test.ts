@@ -23,11 +23,11 @@ describe('올바른 상품명 확인', () => {
   });
 
   test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "")`, () => {
-    const productName = '';
+    const productName = '   ';
 
     expect(() => {
       checkValidLengthProductName(productName);
-    }).toThrowError(ERROR_MESSAGE.WRONG_LENGTH_PRODUCT_NAME);
+    }).toThrowError(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   });
 
   test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "열 글자가 넘는 상품명")`, () => {

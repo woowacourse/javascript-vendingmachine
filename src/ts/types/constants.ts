@@ -27,9 +27,6 @@ export interface errorMessage {
   readonly WRONG_PRODUCT_QUANTITY: string;
   readonly WRONG_UNIT_CHARGE_MONEY: string;
   readonly EMPTY_PRODUCT_NAME: string;
-  readonly EMPTY_PRODUCT_PRICE: string;
-  readonly EMPTY_PRODUCT_QUANTITY: string;
-  readonly EMPTY_CHARGE_MONEY: string;
   OVERFLOW_CHARGE_MONEY(chargeMoney: number): string;
 }
 
