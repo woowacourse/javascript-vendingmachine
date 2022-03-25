@@ -1,6 +1,8 @@
 import ProductStore from '../domains/stores/ProductStore';
+import { createAction, PRODUCT_ACTION } from '../domains/actions';
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
+import CONFIRM_MESSAGE from '../constants';
 
 class ProductCurrentSituation extends CustomElement {
   connectedCallback() {
@@ -24,14 +26,26 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  rerender(newProduct) {
-    $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(newProduct));
-    this.setEventAfterRerender();
+  // eslint-disable-next-line max-lines-per-function
+  rerender(newProduct, productIndex) {
+    const { type, detail } = newProduct;
+
+    switch (type) {
+      case PRODUCT_ACTION.ADD:
+        $('tbody', $('.product-current-situation')).insertAdjacentHTML(
+          'beforeend',
+          this.tableBodyRowTemplate(productIndex, detail),
+        );
+        this.setEventAfterProductAddRerender(productIndex);
+        break;
+      case PRODUCT_ACTION.DELETE:
+        $(`.table-body-row${detail}`).remove();
+    }
   }
 
-  tableBodyRowTemplate({ name, price, quantity }) {
+  tableBodyRowTemplate(productIndex, { name, price, quantity }) {
     return `
-      <tr>
+      <tr class="table-body-row${productIndex}">
         <td>${name}</td>
         <td>${price}</td>
         <td>${quantity}</td>
@@ -43,14 +57,23 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  setEventAfterRerender() {
-    $('.table__product-modify-button').addEventListener('click', this.handleProductModifyButtonClick);
-    $('.table__product-delete-button').addEventListener('click', this.handleProductDeleteButtonClick);
+  setEventAfterProductAddRerender(productIndex) {
+    $('.table__product-modify-button', $(`.table-body-row${productIndex}`)).addEventListener(
+      'click',
+      this.handleProductModifyButtonClick,
+    );
+    $('.table__product-delete-button', $(`.table-body-row${productIndex}`)).addEventListener('click', () =>
+      this.handleProductDeleteButtonClick(productIndex),
+    );
   }
 
   handleProductModifyButtonClick = () => {};
 
-  handleProductDeleteButtonClick = () => {};
+  handleProductDeleteButtonClick = (productIndex) => {
+    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productIndex));
+  };
 }
 
 customElements.define('product-current-situation', ProductCurrentSituation);

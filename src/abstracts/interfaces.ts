@@ -6,9 +6,10 @@ export interface Product {
 
 export interface Action {
   type: string;
-  detail?: Product;
+  detail?: Product | number;
 }
 
 export interface ActionType {
   ADD: string;
+  DELETE: string;
 }

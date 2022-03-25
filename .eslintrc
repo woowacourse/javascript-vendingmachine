@@ -18,10 +18,12 @@
   },
   "rules": {
     "class-methods-use-this": "off",
+    "default-case": "off",
     "eol-last": ["error", "always"],
     "import/extensions": "off",
     "max-depth": ["error", 2],
-    "max-lines-per-function": ["error", 15]
+    "max-lines-per-function": ["error", 15],
+    "no-alert": "off"
   },
   "overrides": [{
     "files": "*.ts",
@@ -30,6 +32,7 @@
     "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
     "rules": {
       "class-methods-use-this": "off",
+      "default-case": "off",
       "eol-last": ["error", "always"],
       "import/extensions": "off",
       "import/no-unresolved": "off",

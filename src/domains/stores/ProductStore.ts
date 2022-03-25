@@ -31,21 +31,35 @@ class ProductStore {
     this.#products = newProducts;
   }
 
+  // eslint-disable-next-line max-lines-per-function
   generateNewProducts(oldProducts: Product[], { type, detail }: Action): Product[] {
     const newProducts = oldProducts;
 
     switch (type) {
-      case PRODUCT_ACTION.ADD:
-        newProducts.push(detail);
+      case PRODUCT_ACTION.ADD: {
+        newProducts.push(detail as Product);
         return newProducts;
+      }
+      case PRODUCT_ACTION.DELETE: {
+        newProducts.splice(detail as number, 1);
+        return newProducts;
+      }
       default:
-        return newProducts;
+        return oldProducts;
     }
   }
 
-  notifySubscribers({ detail }: Action): void {
+  notifySubscribers({ type, detail }: Action): void {
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(detail);
+      switch (type) {
+        case PRODUCT_ACTION.ADD: {
+          const productIndex: number = this.#products.indexOf(detail as Product);
+          subscriber.rerender({ type, detail }, productIndex);
+          break;
+        }
+        case PRODUCT_ACTION.DELETE:
+          subscriber.rerender({ type, detail });
+      }
     });
   }
 }
