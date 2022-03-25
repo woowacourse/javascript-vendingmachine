@@ -1,6 +1,5 @@
 @import url('./color.css');
 body {
-  /* margin: auto 0; */
   padding: 64px 0;
   background-color: var(--body-background-color);
 }

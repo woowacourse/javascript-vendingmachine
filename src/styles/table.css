@@ -54,8 +54,6 @@ tbody tr td input:read-only {
 }
 tbody tr td input {
   text-align: center;
-  /* display: flex; */
-  /* justify-content: center; */
   color: #111;
   padding: 5px 0;
 }

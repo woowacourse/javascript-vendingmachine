@@ -56,22 +56,12 @@ class CoinTableComponent {
     if (this.tableId === 'recharge-coin-table') {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
     }
-    if (this.tableId === 'return-change-table') {
-      vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
-    }
   }
 
   wakeUp() {
     if (this.tableId === 'recharge-coin-table') {
       const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
       this.renderRechargeCoinTable(coinWallet);
-    }
-    if (this.tableId === 'return-change-table') {
-      const inputCharge = vendingMachineStore.getState(
-        VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE,
-        this,
-      );
-      this.renderReturnChangeTable(inputCharge);
     }
   }
 
@@ -83,8 +73,6 @@ class CoinTableComponent {
     this.$tableData50.textContent = `${coin50}`;
     this.$tableData10.textContent = `${coin10}`;
   }
-
-  renderReturnChangeTable() {}
 }
 
 export default CoinTableComponent;

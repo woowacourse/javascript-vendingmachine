@@ -67,18 +67,16 @@ class ProductTableComponent {
   generateProductListTemplate(productList) {
     return productList.reduce((prev, product) => {
       const { id, name, price, quantity } = product.getProductInfo();
-      return (
-        prev +
-        `<tr class="product-row">
-          <td data-product-name='${name}'>${name}</td>
-          <td data-product-price='${price}'>${price}</td>
-          <td data-product-quantity='${quantity}'>${quantity}</td>
+      return `${prev}
+        <tr class="product-row">
+          <td class="product-row-name" data-product-name='${name}'>${name}</td>
+          <td class="product-row-price" data-product-price='${price}'>${price}</td>
+          <td class="product-row-quantity" data-product-quantity='${quantity}'>${quantity}</td>
           <td>
             ${this.generateButton(id)}
           </td>
       </tr>
-      `
-      );
+      `;
     }, '');
   }
 
@@ -146,9 +144,9 @@ class ProductTableComponent {
 
   onClickEditButton = (parentElement, targetClassList) => {
     this.showConfirmButton(parentElement, targetClassList);
-    const [nameTableData, priceTableData, quantityTableData] = [
-      ...parentElement.querySelectorAll('td'),
-    ];
+    const nameTableData = parentElement.querySelector(`td.product-row-name`);
+    const priceTableData = parentElement.querySelector(`td.product-row-price`);
+    const quantityTableData = parentElement.querySelector(`td.product-row-quantity`);
 
     nameTableData.innerHTML = `<input type="text" id="product-name-edit-input"   value="${nameTableData.dataset.productName}"/>`;
     priceTableData.innerHTML = `<input type="number" id="product-price-edit-input"   value="${priceTableData.dataset.productPrice}"/>`;
@@ -156,9 +154,10 @@ class ProductTableComponent {
   };
 
   onClickConfirmButton = (parentElement, targetClassList, productId) => {
-    const productInputs = parentElement.querySelectorAll('input');
+    const { value: name } = parentElement.querySelector('#product-name-edit-input');
+    const { valueAsNumber: price } = parentElement.querySelector('#product-price-edit-input');
+    const { valueAsNumber: quantity } = parentElement.querySelector('#product-quantity-edit-input');
 
-    const [{ value: name }, { valueAsNumber: price }, { valueAsNumber: quantity }] = productInputs;
     try {
       if (
         checkProductInput({
