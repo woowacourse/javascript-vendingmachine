@@ -1,4 +1,5 @@
 import {
+  generateComfirmMessage,
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
 } from './template';
@@ -47,65 +48,51 @@ class ItemManageTab {
   #onSubmitItemInfoForm = (e) => {
     e.preventDefault();
 
-    const [itemName, itemPrice, itemQuantity] = Array.from(this.itemInfoInputs).map(
-      (itemInfoInput) => itemInfoInput.value
-    );
+    const itemInfo = this.#convertToItemInfoObject(Array.from(this.itemInfoInputs));
 
     try {
-      this.vendingMachine.validateItemInput({
-        itemName: itemName.trim(),
-        itemPrice: Number(itemPrice),
-        itemQuantity: Number(itemQuantity),
-      });
+      this.vendingMachine.validateItemInput(itemInfo);
     } catch (error) {
       return alert(error.message);
     }
 
-    const newItem = this.vendingMachine.addItem(
-      itemName.trim(),
-      Number(itemPrice),
-      Number(itemQuantity)
-    );
+    const newItem = this.vendingMachine.addItem(itemInfo);
     this.#renderAddedItem(newItem);
 
     this.itemInfoInputs.forEach((itemInfoInput) => (itemInfoInput.value = ''));
     this.itemInfoInputs[0].focus();
   };
 
-  #onClickItemStatusTableButton = (e) => {
-    const targetItem = e.target.closest('tr');
+  #onClickItemStatusTableButton = ({ target }) => {
+    const targetItem = target.closest('tr');
     if (!targetItem) {
       return;
     }
 
-    if (e.target.classList.contains('edit-item-button')) {
+    if (this.#isEditItemButton(target)) {
       this.#handleEditButtonClickEvent(targetItem);
       return;
     }
 
     if (
-      e.target.classList.contains('delete-item-button') &&
-      confirm('정말 해당 상품을 삭제하시겠습니까?')
+      this.#isDeleteItemButton(target) &&
+      confirm(generateComfirmMessage(targetItem.dataset.itemName))
     ) {
       this.#handleDeleteButtonClickEvent(targetItem);
       return;
     }
 
-    if (e.target.classList.contains('confirm-item-button')) {
+    if (this.#isConfirmItemButton(target)) {
       this.#handleConfirmButtonClickEvent(targetItem);
     }
   };
 
   #handleEditButtonClickEvent(targetItem) {
     const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
-
-    itemInfoInputCellList.forEach((itemInfoInputCell) => {
-      itemInfoInputCell.disabled = false;
-    });
-    itemInfoInputCellList[0].focus();
-
     const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
-    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+
+    itemInfoInputCellList[0].focus();
+    this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
   }
 
   #handleDeleteButtonClickEvent(targetItem) {
@@ -118,6 +105,7 @@ class ItemManageTab {
   #handleConfirmButtonClickEvent(targetItem) {
     const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
     const itemInfo = this.#convertToItemInfoObject(Array.from(itemInfoInputCellList));
+    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
 
     try {
       this.vendingMachine.validateItemInput(itemInfo, false);
@@ -126,14 +114,15 @@ class ItemManageTab {
     }
     this.vendingMachine.editItem(itemInfo, targetItem.rowIndex - 1);
 
-    itemInfoInputCellList.forEach((itemInfoInputCell) => {
-      itemInfoInputCell.disabled = true;
-    });
-
-    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
-    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
-
     targetItem.dataset.itemName = itemInfo.itemName.trim();
+    this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList);
+  }
+
+  #toggleEditMode(itemInfoInputCellList, itemButtonCellList, isDisabled = true) {
+    itemInfoInputCellList.forEach((itemInfoInputCell) => {
+      itemInfoInputCell.disabled = isDisabled;
+    });
+    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
   }
 
   #convertToItemInfoObject(itemInfoInputCellArray) {
@@ -162,6 +151,18 @@ class ItemManageTab {
       'beforeend',
       generateItemManageTableRowTemplate(newItem)
     );
+  }
+
+  #isEditItemButton(target) {
+    return target.classList.contains('edit-item-button');
+  }
+
+  #isDeleteItemButton(target) {
+    return target.classList.contains('delete-item-button');
+  }
+
+  #isConfirmItemButton(target) {
+    return target.classList.contains('confirm-item-button');
   }
 }
 

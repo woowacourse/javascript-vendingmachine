@@ -70,3 +70,5 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
       </tr>
     </table>
 `;
+
+export const generateComfirmMessage = (itemName) => `정말 '${itemName}' 상품을 삭제하시겠습니까?`;

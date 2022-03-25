@@ -2,7 +2,7 @@ import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from './constant/errorMessage'
 import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from './constant/rule';
 
 interface VendingMachineInterface {
-  addItem: (itemName: string, itemPrice: number, itemQuantity: number) => void;
+  addItem: (itemInfo: { itemName: string; itemPrice: number; itemQuantity: number }) => Object;
   editItem: (
     itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
     itemIndex: number
@@ -35,11 +35,9 @@ class VendingMachine implements VendingMachineInterface {
     return this._coinCollection;
   }
 
-  addItem(itemName: string, itemPrice: number, itemQuantity: number) {
-    const newItem = { itemName, itemPrice, itemQuantity };
-    this._itemList = [...this._itemList, newItem];
-
-    return newItem;
+  addItem(itemInfo: { itemName: string; itemPrice: number; itemQuantity: number }) {
+    this._itemList = [...this._itemList, itemInfo];
+    return itemInfo;
   }
 
   deleteItem(itemName: string) {
