@@ -160,7 +160,6 @@ export default class ProductManageView implements ProductManageViewInterface {
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 
-  // 업데이트된 부분만 값 수정
   renderProductManage = () => {
     const $$productRows = $$('.product-row');
     const allProducts = this.vendingMachine.products;
@@ -177,7 +176,6 @@ export default class ProductManageView implements ProductManageViewInterface {
     });
   };
 
-  // 페이지 로드 시 해당 부분 전체 렌더링
   renderInitialProductManage = () => {
     const template = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
