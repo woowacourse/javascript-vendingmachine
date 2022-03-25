@@ -5,9 +5,9 @@ import VendingMachineProduct from '../VendingMachineProduct';
 
 function generateProduct(inputData = {}) {
   const data = {
-    name: inputData.name || '콜라',
-    price: inputData.price || 1500,
-    stock: inputData.stock || 20,
+    name: inputData.name ?? '콜라',
+    price: inputData.price ?? 1500,
+    stock: inputData.stock ?? 20,
   };
 
   return new VendingMachineProduct(data);
@@ -16,9 +16,9 @@ function generateProduct(inputData = {}) {
 function modifyProduct(inputData = {}) {
   const newProduct = generateProduct();
   const data = {
-    name: inputData.name || '사이다',
-    price: inputData.price || 1200,
-    stock: inputData.stock || 5,
+    name: inputData.name ?? '사이다',
+    price: inputData.price ?? 1200,
+    stock: inputData.stock ?? 5,
   };
 
   newProduct.modify(data);
@@ -66,6 +66,30 @@ describe('상품 클래스 테스트', () => {
 
 function validationTests(testType, testFunction) {
   describe(`${testType} 유효성 검사`, () => {
+    test(`${testType} 상품명이 입력되지 않으면 오류가 발생한다.`, () => {
+      const emptyName = '';
+
+      expect(() => testFunction({ name: emptyName })).toThrow(
+        ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM
+      );
+    });
+
+    test(`${testType} 가격이 입력되지 않으면 오류가 발생한다.`, () => {
+      const emptyPrice = '';
+
+      expect(() => testFunction({ price: emptyPrice })).toThrow(
+        ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM
+      );
+    });
+
+    test(`${testType} 수량이 입력되지 않으면 오류가 발생한다.`, () => {
+      const emptyStock = '';
+
+      expect(() => testFunction({ stock: emptyStock })).toThrow(
+        ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM
+      );
+    });
+
     test(`${testType} 상품명이 ${PRODUCT_RULES.MAX_NAME_LENGTH}글자를 초과하면 오류가 발생한다.`, () => {
       const invalidName = '콜라콜라맛있다맛있으면';
 
@@ -102,7 +126,23 @@ function validationTests(testType, testFunction) {
       const invalidStock = 21;
 
       expect(() => testFunction({ stock: invalidStock })).toThrow(
-        ERROR_MESSAGE.EXCEED_MAX_PRODUCT_STOCK
+        ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE
+      );
+    });
+
+    test(`${testType} 상품 수량은 ${PRODUCT_RULES.MIN_STOCK}개 미만일 경우 오류가 발생한다.`, () => {
+      const invalidStock = -1;
+
+      expect(() => testFunction({ stock: invalidStock })).toThrow(
+        ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE
+      );
+    });
+
+    test(`${testType} 상품 수량이 자연수가 아닐 경우 오류가 발생한다.`, () => {
+      const invalidStock = 1.1;
+
+      expect(() => testFunction({ stock: invalidStock })).toThrow(
+        ERROR_MESSAGE.INVALID_PRODUCT_STOCK
       );
     });
   });

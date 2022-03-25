@@ -22,20 +22,23 @@ export default class VendingMachineProduct {
   }
 
   validateData({ name, price, stock }: ProductData): never | void {
+    if (!name || !price || !stock) {
+      throw new Error(ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM);
+    }
     if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
     }
-
     if (price < PRODUCT_RULES.MIN_PRICE || price > PRODUCT_RULES.MAX_PRICE) {
       throw new Error(ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE);
     }
-
     if (price % PRODUCT_RULES.PRICE_UNIT !== 0) {
       throw new Error(ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE);
     }
-
-    if (stock > PRODUCT_RULES.MAX_STOCK) {
-      throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_STOCK);
+    if (stock > PRODUCT_RULES.MAX_STOCK || stock < PRODUCT_RULES.MIN_STOCK) {
+      throw new Error(ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE);
+    }
+    if (!Number.isInteger(stock)) {
+      throw new Error(ERROR_MESSAGE.INVALID_PRODUCT_STOCK);
     }
   }
 
