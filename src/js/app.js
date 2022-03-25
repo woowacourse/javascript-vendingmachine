@@ -1,12 +1,13 @@
 import ProductModerator from "./moderator/productModerator";
 import ChangesModerator from "./moderator/changesModerator";
+import { $ } from "./util/dom";
 
 class App {
   constructor() {
     this.productModerator = new ProductModerator();
     this.changesModerator = new ChangesModerator();
 
-    this.$nav = document.querySelector("#page-tab-container");
+    this.$nav = $("#page-tab-container");
     this.$nav.addEventListener("click", this.onClickNavButton);
     window.addEventListener("hashchange", this.onChangePage);
 

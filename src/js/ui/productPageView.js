@@ -1,10 +1,11 @@
 import { on, emit } from "../util/event.js";
+import { $ } from "../util/dom";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
 
 class ProductPageView {
   constructor() {
-    this.$page = document.querySelector("#page");
+    this.$page = $("#page");
     this.edited = false;
     this.bindEvent();
   }
@@ -15,7 +16,7 @@ class ProductPageView {
   };
 
   initDOMS = () => {
-    this.$productStatus = document.querySelector("#product-status");
+    this.$productStatus = $("#product-status");
   };
 
   productSubmitHandler = (e) => {

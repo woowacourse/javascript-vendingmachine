@@ -1,10 +1,11 @@
 import changesTemplate from "../template/changes.template";
+import { $ } from "../util/dom";
 import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
   constructor() {
-    this.$page = document.querySelector("#page");
+    this.$page = $("#page");
     this.bindEvent();
   }
 
@@ -27,10 +28,10 @@ class ChangePageView {
   };
 
   initDOM = () => {
-    this.$changesForm = document.querySelector("#changes-form");
-    this.$changesInput = document.querySelector("#changes-input");
-    this.$haveChanges = document.querySelector("#have-changes");
-    this.$changesTableBody = document.querySelector("#changes-table-body");
+    this.$changesForm = $("#changes-form");
+    this.$changesInput = $("#changes-input");
+    this.$haveChanges = $("#have-changes");
+    this.$changesTableBody = $("#changes-table-body");
   };
 
   renderHaveChanges = (changes) => {
