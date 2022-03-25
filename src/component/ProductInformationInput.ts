@@ -27,11 +27,13 @@ export class ProductInformationInput {
     this.bindEvent();
   }
 
+  productInformationForm: HTMLFormElement;
   productNameInput: HTMLInputElement;
   productPriceInput: HTMLInputElement;
   productQuantityInput: HTMLInputElement;
   submitButton: HTMLButtonElement;
   selectDom() {
+    this.productInformationForm = document.querySelector('#product-information-input');
     this.productNameInput = document.querySelector('#product-name-input');
     this.productPriceInput = document.querySelector('#product-price-input');
     this.productQuantityInput = document.querySelector('#product-quantity-input');
@@ -55,7 +57,8 @@ export class ProductInformationInput {
       this.tempEvent = new CustomEvent('productAdded');
       this.target.dispatchEvent(this.tempEvent);
     } catch (err) {
-      //Todo:Error message;
+      this.productInformationForm.reset();
+      alert(err);
     }
   };
 }

@@ -20,10 +20,11 @@ export class NavView {
     this.productManageView = new ProductManageView();
     this.balanceChargeView = new BalanceChargeView();
 
+    this.renderHome();
+
     window.addEventListener('popstate', (savedData) => {
-      if (savedData.state === null) {
-        this.productManageView.init();
-        this.productManageView.renderAll();
+      if (savedData.state.path === '/') {
+        this.renderHome();
       }
       if (savedData.state.path === '/productManage') {
         this.productManageView.init();
@@ -37,7 +38,6 @@ export class NavView {
   }
 
   handleShowProductManageTab = () => {
-    //url 뒤에 선택자? 로 넣어주기
     this.productManageView.init();
     this.productManageView.renderAll();
 
@@ -46,7 +46,6 @@ export class NavView {
   };
 
   handleShowBalanceChargeTab = () => {
-    //url 뒤에 선택자? 로 넣어주기
     this.balanceChargeView.init();
     this.balanceChargeView.renderAll();
 
@@ -55,17 +54,12 @@ export class NavView {
   };
 
   handleShowProductPurchaseTab = () => {};
+
+  contentsContainer: HTMLDivElement;
+  renderHome() {
+    const path = '/';
+    history.pushState({ path }, null, path);
+    this.contentsContainer = document.querySelector('#contents-container');
+    this.contentsContainer.textContent = '';
+  }
 }
-
-// console.log(window.location.pathname);
-
-// if (window.location.pathname === '/productManage') {
-//   this.handleShowProductManageTab();
-// }
-
-// if (window.location.pathname === '/') {
-//   this.handleShowProductManageTab();
-// }
-// if (window.location.pathname === '/balanceCharge') {
-//   this.handleShowProductManageTab();
-// }

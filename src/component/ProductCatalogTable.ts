@@ -1,4 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
+import { ProductState } from '../utils/interface';
 
 export class ProductCatalogTable {
   productCatalog: ProductCatalog;
@@ -75,8 +76,14 @@ export class ProductCatalogTable {
     }
 
     if (e.target.classList.contains('confirm-button')) {
-      this.saveEditedProductProp(e.target.parentNode.parentNode);
-      this.confirmEditProduct(e.target.parentNode.parentNode);
+      const tableRow = e.target.parentNode.parentNode;
+      try {
+        this.saveEditedProductProp(e.target.parentNode.parentNode);
+        this.confirmEditProduct(e.target.parentNode.parentNode);
+        this.toggleEditBtn(e.target.parentNode.parentNode);
+      } catch (err) {
+        alert(err);
+      }
     }
   };
 
@@ -120,7 +127,6 @@ export class ProductCatalogTable {
     });
 
     tableRow.id = `${tableRow.querySelector('.product-name').textContent}`;
-    this.toggleEditBtn(tableRow);
   }
 
   confirmedProductTemplateElement(tableDatum: Element): HTMLSpanElement {
@@ -130,18 +136,34 @@ export class ProductCatalogTable {
     return after;
   }
 
-  saveEditedProductProp(tableRow: HTMLTableRowElement) {
-    const index = this.productCatalog.findExistingProductIndex(tableRow.id);
-    const productName = (tableRow.querySelector('.product-name').firstChild as HTMLInputElement)
-      .value;
-    const productPrice = (tableRow.querySelector('.product-price').firstChild as HTMLInputElement)
-      .valueAsNumber;
-    const productQuantity = (
-      tableRow.querySelector('.product-quantity').firstChild as HTMLInputElement
-    ).valueAsNumber;
-    this.productCatalog.productList[index].setName(productName);
-    this.productCatalog.productList[index].setPrice(productPrice);
-    this.productCatalog.productList[index].setQuantity(productQuantity);
+  saveEditedProductProp(tableRow: HTMLTableRowElement): boolean {
+    const productState = {
+      index: this.productCatalog.findExistingProductIndex(tableRow.id),
+      name: (tableRow.querySelector('.product-name').firstChild as HTMLInputElement).value,
+      price: (tableRow.querySelector('.product-price').firstChild as HTMLInputElement)
+        .valueAsNumber,
+      quantity: (tableRow.querySelector('.product-quantity').firstChild as HTMLInputElement)
+        .valueAsNumber,
+    };
+
+    if (this.canSave(productState)) {
+      this.productCatalog.productList[productState.index].setName(productState.name);
+      this.productCatalog.productList[productState.index].setPrice(productState.price);
+      this.productCatalog.productList[productState.index].setQuantity(productState.quantity);
+      return true;
+    }
+    return false;
+  }
+
+  canSave(productState: ProductState) {
+    try {
+      this.productCatalog.productList[productState.index].validateName(productState.name);
+      this.productCatalog.productList[productState.index].validatePrice(productState.price);
+      this.productCatalog.productList[productState.index].validateQuantity(productState.quantity);
+      return true;
+    } catch (err) {
+      throw err;
+    }
   }
 
   deleteProduct(tableRow: HTMLTableRowElement) {

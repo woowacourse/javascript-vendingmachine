@@ -12,8 +12,12 @@ export class ProductCatalog {
 
     if (productIndex !== -1) {
       const target = this.productList[productIndex];
-      target.setQuantity(target.getQuantity() + quantity);
-
+      try {
+        target.validateQuantity(target.getQuantity() + quantity);
+        target.setQuantity(target.getQuantity() + quantity);
+      } catch (err) {
+        throw err;
+      }
       return;
     }
 

@@ -1,5 +1,5 @@
 import { COIN_VAULT_CONDITION, COIN_CONDITION, COINS_PRICE_TABLE } from '../utils/domain.const';
-import { Coins } from '../utils/domain.interface';
+import { Coins } from '../utils/interface';
 import { getRandomNumZeroToMax } from '../utils/domain.utils';
 
 export class CoinVault {

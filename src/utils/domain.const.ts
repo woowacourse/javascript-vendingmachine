@@ -1,4 +1,4 @@
-import { Coins } from './domain.interface';
+import { Coins } from './interface';
 
 export const PRODUCT_CONDITION = {
   MAX_NAME_LENGTH: 10,

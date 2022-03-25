@@ -33,11 +33,15 @@ export class BalanceChargeInput {
   tempEvent: CustomEvent;
   handleChargeBalance = (e: Event) => {
     e.preventDefault();
-    this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
+    try {
+      this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
 
-    this.updateCurrentBalance();
-    this.tempEvent = new CustomEvent('coinCharged');
-    this.target.dispatchEvent(this.tempEvent);
+      this.updateCurrentBalance();
+      this.tempEvent = new CustomEvent('coinCharged');
+      this.target.dispatchEvent(this.tempEvent);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   updateCurrentBalance() {

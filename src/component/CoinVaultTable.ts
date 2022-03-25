@@ -1,5 +1,5 @@
 import { CoinVault } from '../domain/CoinVault';
-import { Coins } from '../utils/domain.interface';
+import { Coins } from '../utils/interface';
 
 export class CoinVaultTable {
   target: HTMLDivElement;

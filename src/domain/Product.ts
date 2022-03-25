@@ -6,18 +6,25 @@ export class Product {
   private quantity: number;
 
   constructor(name: string, price: number, quantity: number) {
-    this.setName(name);
-    this.setPrice(price);
-    this.setQuantity(quantity);
-  }
-
-  setName(name: string) {
     try {
-      this.validateName(name);
-      this.name = name;
+      this.validateAllProp(name, price, quantity);
+      this.setName(name);
+      this.setPrice(price);
+      this.setQuantity(quantity);
     } catch (err) {
       throw err;
     }
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
+
+  setPrice(price: number) {
+    this.price = price;
+  }
+  setQuantity(quantity: number) {
+    this.quantity = quantity;
   }
 
   validateName(name: string) {
@@ -25,15 +32,6 @@ export class Product {
       throw new Error('10글자 미만의 이름을 넣어주세요~');
     }
     return;
-  }
-
-  setPrice(price: number) {
-    try {
-      this.validatePrice(price);
-      this.price = price;
-    } catch (err) {
-      throw err;
-    }
   }
 
   validatePrice(price: number) {
@@ -46,21 +44,22 @@ export class Product {
     return;
   }
 
-  setQuantity(quantity: number) {
-    try {
-      this.validateQuantity(quantity);
-      this.quantity = quantity;
-    } catch (err) {
-      throw err;
-    }
-  }
-
   validateQuantity(quantity: number) {
     if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
       throw new Error('상품수량은 최대 20개까지만 가능합니다~');
     }
 
     return;
+  }
+
+  validateAllProp(name, price, quantity) {
+    try {
+      this.validateName(name);
+      this.validatePrice(price);
+      this.validateQuantity(quantity);
+    } catch (err) {
+      throw err;
+    }
   }
 
   getName() {
