@@ -6,6 +6,12 @@ import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
 export default class App {
+  productDomain;
+  coinDomain;
+  productManagementUI;
+  coinManagementUI;
+  productPurchaseUI;
+
   constructor() {
     this.productDomain = new ProductManagementDomain();
     this.coinDomain = new CoinManagementDomain();

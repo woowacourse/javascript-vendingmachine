@@ -27,5 +27,7 @@ module.exports = {
     'default-case': 'off',
     'no-param-reassign': 'off',
     'lines-between-class-members': 'off',
+    'no-undef': 'off',
+    'no-unused-vars': 'off',
   },
 };

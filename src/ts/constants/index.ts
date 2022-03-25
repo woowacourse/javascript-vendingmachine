@@ -6,7 +6,8 @@ const PRICE_RULE = {
 };
 const MAX_QUANTITY = 20;
 
-const coinType = [500, 100, 50, 10];
+const coinType: [500, 100, 50, 10] = [500, 100, 50, 10];
+
 const CASH_RULE = {
   MIN: 1,
   MAX: 100000,

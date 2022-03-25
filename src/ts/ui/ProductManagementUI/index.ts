@@ -4,6 +4,8 @@ import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
 
 export default class ProductManagementUI {
+  private productDomain;
+
   constructor(productDomain) {
     this.productDomain = productDomain;
   }

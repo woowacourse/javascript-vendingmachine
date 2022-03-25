@@ -4,6 +4,8 @@ import CoinChargeUI from './CoinChargeUI';
 import { viewPainter } from '../ViewPainter';
 
 export default class CoinManagementUI {
+  private coinDomain;
+
   constructor(coinDomain) {
     this.coinDomain = coinDomain;
   }

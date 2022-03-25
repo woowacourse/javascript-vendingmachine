@@ -4,6 +4,9 @@ import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 
 export default class ProductInventoryUI {
+  private $container: HTMLElement;
+  private productDomain;
+
   constructor(productDomain) {
     this.$container = $('.product-inventory__container');
     this.productDomain = productDomain;
@@ -73,8 +76,9 @@ export default class ProductInventoryUI {
     this.$container.addEventListener('click', this.buttonClickHandler);
   }
 
-  buttonClickHandler = ({ target }) => {
-    if (target.tagName !== 'BUTTON') return;
+  buttonClickHandler = (e: MouseEvent) => {
+    const { target } = e;
+    if (!(target instanceof HTMLButtonElement)) return;
 
     switch (target.innerText) {
       case '수정':
@@ -91,7 +95,7 @@ export default class ProductInventoryUI {
     }
   };
 
-  activateEditMode($button) {
+  activateEditMode($button: HTMLButtonElement) {
     $button.innerText = '확인';
 
     const $$inputs = $$(
@@ -102,7 +106,7 @@ export default class ProductInventoryUI {
     });
   }
 
-  deactivateEditMode($button) {
+  deactivateEditMode($button: HTMLButtonElement) {
     $button.innerText = '수정';
 
     const $$inputs = $$(
@@ -113,9 +117,11 @@ export default class ProductInventoryUI {
     });
   }
 
-  finishEditMode($button) {
+  finishEditMode($button: HTMLButtonElement) {
     const prevProductName = $button.dataset.productName;
-    const $$inputs = $$(`input[data-product-name="${prevProductName}"]`);
+    const $$inputs = $$(
+      `input[data-product-name="${prevProductName}"]`,
+    ) as NodeListOf<HTMLInputElement>;
     const product = {
       name: $$inputs[0].value,
       price: $$inputs[1].valueAsNumber,

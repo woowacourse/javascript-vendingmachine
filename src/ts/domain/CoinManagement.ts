@@ -1,14 +1,17 @@
 import { coinType } from '../constants';
 import { getRandomIndex } from '../utils';
 
+type CoinUnionType = typeof coinType[number];
+type Coins = { [K in CoinUnionType]: number } | {};
+
 interface CoinManagement {
   addCash: (cash: number) => void;
   addCoins: (cash: number) => void;
 }
 
 export default class CoinManagementDomain implements CoinManagement {
-  #totalCash;
-  #coins;
+  #totalCash: number;
+  #coins: Coins;
 
   constructor() {
     this.#totalCash = 0;
@@ -24,14 +27,14 @@ export default class CoinManagementDomain implements CoinManagement {
     return this.#coins;
   }
 
-  addCash(cash) {
+  addCash(cash: number) {
     this.#totalCash += cash;
     this.addCoins(cash);
   }
 
-  addCoins(cash) {
+  addCoins(cash: number) {
     while (cash > 0) {
-      const randomIndex = getRandomIndex(coinType);
+      const randomIndex = getRandomIndex<CoinUnionType>(coinType);
       const type = coinType[randomIndex];
 
       if (type > cash) continue;

@@ -3,6 +3,8 @@ import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 
 export default class ProductAdditionUI {
+  private productDomain;
+
   constructor(productDomain) {
     this.productDomain = productDomain;
     this.addSubmitEvent();
@@ -12,11 +14,14 @@ export default class ProductAdditionUI {
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
   }
 
-  submitHandler = e => {
+  submitHandler = (e: Event) => {
     e.preventDefault();
+
+    if (!(e.target instanceof HTMLFormElement)) return;
+
     const $$inputs = Array.from(e.target.elements).filter(
       element => element.tagName === 'INPUT',
-    );
+    ) as HTMLInputElement[];
 
     const product = {
       name: $$inputs[0].value,

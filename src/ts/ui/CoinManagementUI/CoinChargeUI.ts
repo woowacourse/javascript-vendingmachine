@@ -3,6 +3,8 @@ import { viewPainter } from '../ViewPainter';
 import { validateCash } from './validator';
 
 export default class CoinChargeUI {
+  private coinDomain;
+
   constructor(coinDomain) {
     this.coinDomain = coinDomain;
     this.addSubmitEvent();
@@ -12,9 +14,15 @@ export default class CoinChargeUI {
     $('.coin-charge__form').addEventListener('submit', this.submitHandler);
   }
 
-  submitHandler = e => {
+  submitHandler = (e: Event) => {
     e.preventDefault();
-    const cash = e.target.elements.cashInput.valueAsNumber;
+
+    if (!(e.target instanceof HTMLFormElement)) return;
+
+    const cashInput = e.target.elements.namedItem(
+      'cashInput',
+    ) as HTMLInputElement;
+    const cash = cashInput.valueAsNumber;
 
     try {
       validateCash(cash);
