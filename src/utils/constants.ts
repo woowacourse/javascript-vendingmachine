@@ -28,6 +28,8 @@ export const ERROR_MSG = {
   QUANTITY_OUT_OF_RANGE: '상품 수량을 0이상 20이하의 수로 입력해주세요.',
   PRODUCT_SOLD_OUT: '상품이 매진되었습니다.',
   CAN_NOT_REFERENCE_STATE: '조회할 수 없는 상태값 입니다',
+  CHANGE_NOT_DIVISIBLE_BY_10: '잔돈은 10으로 나누어 떨어져야합니다.',
+  CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
 };
 
 export const ERROR_MSG = {
