@@ -27,9 +27,9 @@ export default class Controller {
   }
 
   #handleProductInformation(event) {
-    const { keyword } = event.detail;
-    this.productManager.addProduct(keyword);
-    this.productManageView.render(keyword);
+    const { product } = event.detail;
+    this.productManager.addProduct(product);
+    this.productManageView.render(product);
     this.productManageView.resetProductInput();
   }
 
