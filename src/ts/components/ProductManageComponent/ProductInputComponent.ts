@@ -4,7 +4,8 @@ import {
   checkValidProductQuantity,
 } from '../../utils/utils';
 
-import { on, emit, renderSnackBar, $ } from '../../dom';
+import { on, emit, renderSnackBar, $, focusWrongInput } from '../../dom';
+import { ERROR_MESSAGE } from '../../constants';
 
 export default class ProductInputComponent {
   private $nameInput = $(
@@ -53,6 +54,12 @@ export default class ProductInputComponent {
       this.$quantityInput.value = '';
       this.$nameInput.focus();
     } catch ({ message }) {
+      focusWrongInput({
+        message,
+        $nameInput: this.$nameInput,
+        $priceInput: this.$priceInput,
+        $quantityInput: this.$quantityInput,
+      });
       renderSnackBar(this.$snackBarContainer, message);
     }
   };

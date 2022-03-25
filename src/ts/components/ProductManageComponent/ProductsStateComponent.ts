@@ -1,6 +1,12 @@
 import { product } from '../../types/vendingMachineProductManager';
 
-import { on, renderSnackBar, $, focusEditInput } from '../../dom';
+import {
+  on,
+  renderSnackBar,
+  $,
+  focusWrongInput,
+  focusEditInput,
+} from '../../dom';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
@@ -59,6 +65,7 @@ export default class ProductStateComponent {
     on(this.productTableTbody, 'click', this.onClickEditButton);
     on(this.productTableTbody, 'click', this.onClickDeleteButton);
     on(this.productTableTbody, 'click', this.onClickEditSubmitButton);
+    on(this.productTableTbody, 'keyup', this.onKeyupEditSubmitButton);
   }
 
   private render = ({ detail: { newProduct } }): void => {
@@ -66,6 +73,61 @@ export default class ProductStateComponent {
       'beforeend',
       generateTemplate(newProduct)
     );
+  };
+
+  private editProduct(target) {
+    const parentElement: HTMLTableRowElement = target.closest(
+      '.product-table__info-tr'
+    );
+    const $editProductNameInput = $(
+      '.product-table__product-name-input--edit'
+    ) as HTMLInputElement;
+    const $editProductPriceInput = $(
+      '.product-table__product-price-input--edit'
+    ) as HTMLInputElement;
+    const $editProductQuantityInput = $(
+      '.product-table__product-quantity-input--edit'
+    ) as HTMLInputElement;
+
+    try {
+      checkValidLengthProductName($editProductNameInput.value);
+      checkValidProductPrice($editProductPriceInput.valueAsNumber);
+      checkValidProductQuantity($editProductQuantityInput.valueAsNumber);
+
+      const editedProduct: product = {
+        name: $editProductNameInput.value,
+        price: $editProductPriceInput.valueAsNumber,
+        quantity: $editProductQuantityInput.valueAsNumber,
+      };
+
+      this.vendingMachineProductManager.editProduct(
+        parentElement.dataset.productName,
+        editedProduct
+      );
+
+      parentElement.innerHTML = generateTemplate(editedProduct);
+      parentElement.dataset.productName = $editProductNameInput.value;
+    } catch ({ message }) {
+      focusWrongInput({
+        message,
+        $nameInput: $editProductNameInput,
+        $priceInput: $editProductPriceInput,
+        $quantityInput: $editProductQuantityInput,
+      });
+      renderSnackBar(this.$snackBarContainer, message);
+    }
+  }
+
+  private onClickEditSubmitButton = ({ target }): void => {
+    if (!target.matches('.product-table__confirm-button')) return;
+    this.editProduct(target);
+  };
+
+  private onKeyupEditSubmitButton = (event) => {
+    if (!event.target.matches('.product-table__input--edit')) return;
+    if (event.key !== 'Enter') return;
+
+    this.editProduct(event.target);
   };
 
   private onClickEditButton = ({ target }): void => {
@@ -84,45 +146,6 @@ export default class ProductStateComponent {
     focusEditInput(
       parentElement.querySelector('.product-table__product-name-input--edit')
     );
-  };
-
-  private onClickEditSubmitButton = ({ target }): void => {
-    if (!target.matches('.product-table__confirm-button')) return;
-
-    const parentElement: HTMLTableRowElement = target.closest(
-      '.product-table__info-tr'
-    );
-    const editProductNameInput = $(
-      '.product-table__product-name-input--edit'
-    ) as HTMLInputElement;
-    const editProductPriceInput = $(
-      '.product-table__product-price-input--edit'
-    ) as HTMLInputElement;
-    const editProductQuantityInput = $(
-      '.product-table__product-quantity-input--edit'
-    ) as HTMLInputElement;
-
-    try {
-      checkValidLengthProductName(editProductNameInput.value);
-      checkValidProductPrice(editProductPriceInput.valueAsNumber);
-      checkValidProductQuantity(editProductQuantityInput.valueAsNumber);
-
-      const editedProduct: product = {
-        name: editProductNameInput.value,
-        price: editProductPriceInput.valueAsNumber,
-        quantity: editProductQuantityInput.valueAsNumber,
-      };
-
-      this.vendingMachineProductManager.editProduct(
-        parentElement.dataset.productName,
-        editedProduct
-      );
-
-      parentElement.innerHTML = generateTemplate(editedProduct);
-      parentElement.dataset.productName = editProductNameInput.value;
-    } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message);
-    }
   };
 
   private onClickDeleteButton = ({ target }): void => {
