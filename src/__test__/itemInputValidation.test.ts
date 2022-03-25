@@ -9,7 +9,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 1000;
     const itemQuantity = 20;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED
     );
   });
@@ -19,7 +19,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = NaN;
     const itemQuantity = NaN;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE
     );
   });
@@ -29,7 +29,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 1000;
     const itemQuantity = 10;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH
     );
   });
@@ -39,7 +39,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 99;
     const itemQuantity = 10;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE
     );
   });
@@ -49,7 +49,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 10001;
     const itemQuantity = 10;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE
     );
   });
@@ -59,7 +59,9 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 10000;
     const itemQuantity = 10;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).not.toThrow();
+    expect(() =>
+      vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })
+    ).not.toThrow();
   });
 
   test('10원으로 나누어 떨어져야 한다.', () => {
@@ -67,7 +69,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 1001;
     const itemQuantity = 10;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT
     );
   });
@@ -77,7 +79,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemPrice = 1000;
     const itemQuantity = 21;
 
-    expect(() => vendingMachine.validateItemInput(itemName, itemPrice, itemQuantity)).toThrow(
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE
     );
   });
