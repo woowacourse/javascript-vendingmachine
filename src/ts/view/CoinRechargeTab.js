@@ -31,14 +31,15 @@ class CoinRechargeTab extends VendingMachineTab {
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
   }
 
-  #onClickCoinRechargeTabButton = ({ target: targetTabButton }) => {
+  #onClickCoinRechargeTabButton = ({
+    target: {
+      dataset: { hash },
+    },
+  }) => {
     if (this.coinRechargeTabButton.classList.contains('selected')) {
       return;
     }
-
-    const path = targetTabButton.dataset.hash;
-    history.pushState({ path }, null, path);
-
+    this.changeHashUrl(hash);
     this.renderInitialTabState();
   };
 

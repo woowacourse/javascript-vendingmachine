@@ -16,6 +16,10 @@ class VendingMachineTab {
       navTabButton.classList.toggle('selected', targetTabButton === navTabButton)
     );
   }
+
+  changeHashUrl(hash) {
+    history.pushState({ hash }, null, hash);
+  }
 }
 
 export default VendingMachineTab;
