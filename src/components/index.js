@@ -22,11 +22,13 @@ class VendingMachineComponent {
       purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
     };
   }
+
   initChildComponents() {
     this.#ProductManagementComponent = new ProductManagementComponent(this.$app);
     this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
   }
+
   showSectionByRoute(route) {
     if (route === '') {
       this.#RechargeChangeComponent.hide();
@@ -50,6 +52,7 @@ class VendingMachineComponent {
       this.focusTabButton('purchaseProduct');
     }
   }
+
   focusTabButton(buttonName) {
     Object.entries(this.tabButtonMap).forEach(([key, node]) => {
       if (key === buttonName) {

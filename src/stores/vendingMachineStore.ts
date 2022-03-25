@@ -1,10 +1,10 @@
 import CoinWallet from '../domains/coinWallet';
 import Product from '../domains/product';
 import { ERROR_MSG, ACTION_TYPES } from '../utils/constants';
-import { IVendingMachineStore, TState, TSubsrcribedComponents } from './types';
+import { IVendingMachineStore, TAction, TState, TStateKey, TSubscribedComponents } from './types';
 
 class VendingMachineStore implements IVendingMachineStore {
-  subscribedComponents: TSubsrcribedComponents;
+  subscribedComponents: TSubscribedComponents;
 
   state: TState;
 
@@ -21,27 +21,35 @@ class VendingMachineStore implements IVendingMachineStore {
     };
   }
 
-  mutateState({ actionType, payload, stateKey }) {
+  mutateState({
+    actionType,
+    payload,
+    stateKey,
+  }: {
+    actionType: TAction;
+    payload: any;
+    stateKey: TStateKey;
+  }) {
     this.reducer[actionType](payload);
     this.notifySubscribedView(stateKey);
   }
 
-  subscribe(stateType, component) {
+  subscribe(stateType: TStateKey, component: unknown) {
     this.subscribedComponents[stateType].push(component);
   }
 
-  getState(stateType, component) {
+  getState(stateType: TStateKey, component: unknown) {
     if (this.subscribedComponents[stateType].includes(component)) {
       return this.state[stateType];
     }
     throw new Error(ERROR_MSG.CAN_NOT_REFERENCE_STATE);
   }
 
-  notifySubscribedView(stateType) {
+  notifySubscribedView(stateType: TStateKey) {
     this.subscribedComponents[stateType].forEach(component => component.wakeUp());
   }
 
-  private reducer = {
+  reducer = {
     [ACTION_TYPES.ADD_PRODUCT]: payload => {
       const { name, price, quantity } = payload;
 

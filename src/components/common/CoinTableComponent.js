@@ -10,9 +10,11 @@ class CoinTableComponent {
     this.initDOM();
     this.subscribeStore();
   }
+
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
+
   generateTemplate() {
     return `<table id="${this.tableId}">
         <caption>
@@ -42,12 +44,14 @@ class CoinTableComponent {
         </tbody>
       </table>`;
   }
+
   initDOM() {
     this.$tableData500 = this.$parent.querySelector('#hold-coin-500-count');
     this.$tableData100 = this.$parent.querySelector('#hold-coin-100-count');
     this.$tableData50 = this.$parent.querySelector('#hold-coin-50-count');
     this.$tableData10 = this.$parent.querySelector('#hold-coin-10-count');
   }
+
   subscribeStore() {
     if (this.tableId === 'recharge-coin-table') {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
@@ -56,6 +60,7 @@ class CoinTableComponent {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
     }
   }
+
   wakeUp() {
     if (this.tableId === 'recharge-coin-table') {
       const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
@@ -69,6 +74,7 @@ class CoinTableComponent {
       this.renderReturnChangeTable(inputCharge);
     }
   }
+
   renderRechargeCoinTable(coinWallet) {
     const { coin500, coin100, coin50, coin10 } = coinWallet.getCoinWalletInfo();
 
@@ -77,6 +83,7 @@ class CoinTableComponent {
     this.$tableData50.textContent = `${coin50}`;
     this.$tableData10.textContent = `${coin10}`;
   }
+
   renderReturnChangeTable() {}
 }
 

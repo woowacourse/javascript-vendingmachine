@@ -11,9 +11,11 @@ class ProductTableComponent {
     this.subscribeStore();
     this.bindEventHandler();
   }
+
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
+
   generateTemplate() {
     return `<table id="${this.tableId}" class="product-list">
         <caption>
@@ -31,17 +33,21 @@ class ProductTableComponent {
       <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
       `;
   }
+
   initDOM() {
     this.$tableBody = this.$parent.querySelector('.product-list-table-body');
     this.$emptyImg = this.$parent.querySelector('.empty-img');
   }
+
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
   }
+
   wakeUp() {
     const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
     this.render(productList);
   }
+
   render(productList) {
     if (productList.length === 0) {
       this.$emptyImg.classList.remove('hide');
@@ -57,6 +63,7 @@ class ProductTableComponent {
     </tr>
     ${this.generateProductListTemplate(productList)}`;
   }
+
   generateProductListTemplate(productList) {
     return productList.reduce((prev, product) => {
       const { id, name, price, quantity } = product.getProductInfo();
@@ -74,6 +81,7 @@ class ProductTableComponent {
       );
     }, '');
   }
+
   generateButton(id) {
     if (this.tableId === 'current-product-list') {
       return `<button
@@ -109,9 +117,11 @@ class ProductTableComponent {
     }
     return '';
   }
+
   bindEventHandler() {
     document.querySelector(`#${this.tableId}`).addEventListener('click', this.onClickTable);
   }
+
   onClickTable = e => {
     e.preventDefault();
     const {
@@ -133,6 +143,7 @@ class ProductTableComponent {
       this.onClickConfirmButton(parentElement, classList, productId);
     }
   };
+
   onClickEditButton = (parentElement, targetClassList) => {
     this.showConfirmButton(parentElement, targetClassList);
     const [nameTableData, priceTableData, quantityTableData] = [
@@ -143,6 +154,7 @@ class ProductTableComponent {
     priceTableData.innerHTML = `<input type="number" id="product-price-edit-input"   value="${priceTableData.dataset.productPrice}"/>`;
     quantityTableData.innerHTML = `<input type="number" id="product-quantity-edit-input"  value="${quantityTableData.dataset.productQuantity}"/>`;
   };
+
   onClickConfirmButton = (parentElement, targetClassList, productId) => {
     const productInputs = parentElement.querySelectorAll('input');
 
@@ -171,6 +183,7 @@ class ProductTableComponent {
       alert(message);
     }
   };
+
   onClickDeleteButton(productId) {
     if (confirm('정말로 삭제하시겠습니까?')) {
       vendingMachineStore.mutateState({
@@ -180,13 +193,16 @@ class ProductTableComponent {
       });
     }
   }
+
   showConfirmButton(parentElement, targetClassList) {
     const deleteButton = parentElement.querySelector('.product-delete-button');
     const confirmButton = parentElement.querySelector('.product-confirm-button');
+
     targetClassList.add('hide');
     deleteButton.classList.add('hide');
     confirmButton.classList.remove('hide');
   }
+
   showEditAndDeleteButton(parentElement, targetClassList) {
     const editButton = parentElement.querySelector('.product-edit-button');
     const deleteButton = parentElement.querySelector('.product-delete-button');

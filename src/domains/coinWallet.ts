@@ -11,11 +11,13 @@ class CoinWallet implements ICoinWallet {
       coin10: 0,
     };
   }
-  rechargeCoinWallet(charge) {
+
+  rechargeCoinWallet(charge: number) {
     const coinWallet = this.generateRandomCoinInfo(charge);
 
     Object.keys(coinWallet).forEach(key => (this.coinWallet[key] += coinWallet[key]));
   }
+
   computeCoinTotalAmount() {
     return Object.keys(this.coinWallet).reduce(
       (prev, key) => prev + this.coinWallet[key] * COIN_VALUES[key],
@@ -23,7 +25,7 @@ class CoinWallet implements ICoinWallet {
     );
   }
 
-  generateRandomCoinInfo(charge) {
+  generateRandomCoinInfo(charge: number) {
     const coinWalletInfo: TCoinWallet = { coin500: 0, coin100: 0, coin50: 0, coin10: 0 };
     while (charge > 0) {
       const coinKey = this.pickRandomCoinKey();
@@ -36,7 +38,7 @@ class CoinWallet implements ICoinWallet {
     return coinWalletInfo;
   }
 
-  returnChangeCoinInfo(change) {
+  returnChangeCoinInfo(change: number) {
     const returnCoinInfo = {
       coin500: 0,
       coin100: 0,
@@ -63,17 +65,20 @@ class CoinWallet implements ICoinWallet {
     }
     return returnCoinInfo;
   }
+
   pickRandomCoinKey() {
     const randomIndex = Math.floor(Math.random() * COIN_KEYS.length);
     return COIN_KEYS[randomIndex];
   }
-  getCoinWalletInfo() {
-    return this.coinWallet;
-  }
-  findMaxCoinKey(change) {
+
+  findMaxCoinKey(change: number) {
     return COIN_KEYS.find(
       coinKey => this.coinWallet[coinKey] !== 0 && change >= COIN_VALUES[coinKey],
     );
+  }
+
+  getCoinWalletInfo() {
+    return this.coinWallet;
   }
 }
 export default CoinWallet;

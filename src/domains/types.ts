@@ -9,7 +9,6 @@ export interface IProduct {
   purchaseProduct: () => void;
   getProductInfo: () => TProduct;
   editProductInfo: (args: { name: string; price: number; quantity: number }) => void;
-  generateProductId: (name: string) => string;
 }
 
 export type TCoinWalletKey = 'coin500' | 'coin100' | 'coin50' | 'coin10';
@@ -25,8 +24,8 @@ export interface ICoinWallet {
   rechargeCoinWallet: (charge: number) => void;
   computeCoinTotalAmount: () => number;
   generateRandomCoinInfo: (charge: number) => TCoinWallet;
-  getCoinWalletInfo: () => TCoinWallet;
   returnChangeCoinInfo: (change: number) => TCoinWallet;
-  pickRandomCoinKey: (charge: number) => TCoinWalletKey;
+  pickRandomCoinKey: () => TCoinWalletKey;
   findMaxCoinKey: (change: number) => TCoinWalletKey;
+  getCoinWalletInfo: () => TCoinWallet;
 }
