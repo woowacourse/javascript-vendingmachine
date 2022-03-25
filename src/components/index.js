@@ -64,18 +64,21 @@ class VendingMachineComponent {
       this.#PurchaseProductComponent.hide();
 
       this.#ProductManagementComponent.show();
+      this.focusTabButton('manageProduct');
     }
     if (name === TAB_NAME.RECHARGE) {
       this.#PurchaseProductComponent.hide();
       this.#ProductManagementComponent.hide();
 
       this.#RechargeChangeComponent.show();
+      this.focusTabButton('rechargeChange');
     }
     if (name === TAB_NAME.PURCHASE) {
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
       this.#PurchaseProductComponent.show();
+      this.focusTabButton('purchaseProduct');
     }
     this.focusTabButton(name);
   }
