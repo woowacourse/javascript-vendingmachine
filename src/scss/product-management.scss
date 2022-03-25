@@ -7,6 +7,7 @@
 .product-inventory {
   &__container {
     grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 48px;
   }
 
   &__input {
