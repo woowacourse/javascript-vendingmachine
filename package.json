@@ -7,7 +7,9 @@
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",
