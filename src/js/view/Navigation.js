@@ -1,5 +1,5 @@
 import VendingMachine from '../domain/VendingMachine';
-import ProductManageTab from './ProductManageTab';
+import ManageProductTab from './ManageProductTab';
 import AddChangeTab from './AddChangeTab';
 import PurchaseProductTab from './PurchaseProductTab';
 
@@ -13,12 +13,12 @@ export default class Navigation {
   constructor() {
     this.#app = document.querySelector('#app');
     this.#tabMenuNavigation = document.querySelector('#tab-menu-navigation');
+    this.#vendingMachine = new VendingMachine();
     this.#renderList = {
-      '#/manage': new ProductManageTab(),
+      '#/manage': new ManageProductTab(this.#vendingMachine),
       '#/charge': new AddChangeTab(),
       '#/purchase': new PurchaseProductTab(),
     };
-    this.#vendingMachine = new VendingMachine();
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
     this.#tabMenuNavigation.addEventListener(
