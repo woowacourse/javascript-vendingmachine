@@ -25,12 +25,12 @@ class ProductManagement extends CustomElement {
   }
 
   setEvent() {
-    addEvent(this, 'submit', '.product-manage-form', (e: any) => this.handleAdd(e));
-    addEvent(this, 'click', '.product-item', (e: any) => this.handleUpdateAndDelete(e));
-    addEvent(this, 'submit', '.product-item__form', (e: any) => this.handleConfirm(e));
+    addEvent(this, 'submit', '.product-manage-form', (e) => this.handleAdd(e));
+    addEvent(this, 'click', '.product-item', (e) => this.handleUpdateAndDelete(e));
+    addEvent(this, 'submit', '.product-item__form', (e) => this.handleConfirm(e));
   }
 
-  handleAdd(e: any) {
+  handleAdd(e) {
     e.preventDefault();
 
     const name = e.target.name.value;
@@ -42,7 +42,7 @@ class ProductManagement extends CustomElement {
     emit('.product-manage-form', '@add', { name, price, quantity }, this);
   }
 
-  handleUpdateAndDelete(e: any) {
+  handleUpdateAndDelete(e) {
     if (e.target.classList.contains('product-item__edit-button')) {
       this.showForm(e);
     }
@@ -54,7 +54,7 @@ class ProductManagement extends CustomElement {
     }
   }
 
-  showForm(e: any) {
+  showForm(e) {
     const item = e.target.closest('.product-item');
     const { productName, productId } = item.dataset;
     const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
@@ -75,7 +75,7 @@ class ProductManagement extends CustomElement {
     `;
   }
 
-  handleConfirm(e: any) {
+  handleConfirm(e) {
     e.preventDefault();
 
     if (!e.submitter.classList.contains('product-item__confirm-button')) return;

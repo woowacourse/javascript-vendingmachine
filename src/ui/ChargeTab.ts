@@ -27,10 +27,10 @@ class ChargeTab extends CustomElement {
   }
 
   setEvent() {
-    addEvent(this, 'submit', '.charge-form', (e: any) => this.handleCharge(e));
+    addEvent(this, 'submit', '.charge-form', (e) => this.handleCharge(e));
   }
 
-  handleCharge(e: any) {
+  handleCharge(e) {
     e.preventDefault();
 
     const change = e.target.change.valueAsNumber;

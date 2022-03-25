@@ -1,9 +1,14 @@
 import { $, $$ } from './utils';
 
+interface IRouter {
+  path: string;
+  component: Element;
+}
+
 const nav = document.querySelector('.nav');
 
-nav.addEventListener('click', (e: any) => {
-  historyRouterPush(e.target.getAttribute('route'));
+nav.addEventListener('click', (e) => {
+  historyRouterPush((e.target as HTMLElement).getAttribute('route'));
 });
 
 const historyRouterPush = (pathname: string) => {
@@ -19,10 +24,10 @@ const render = (path: string) => {
   const prevs = routers.filter((route) => route.path !== path);
 
   cur.classList.remove('hidden');
-  prevs.forEach((p: any) => p.component.classList.add('hidden'));
+  prevs.forEach((p: IRouter) => p.component.classList.add('hidden'));
 };
 
-const routers = [
+const routers: IRouter[] = [
   { path: '/', component: $('product-management') },
   { path: '/charge', component: $('charge-tab') },
 ];
