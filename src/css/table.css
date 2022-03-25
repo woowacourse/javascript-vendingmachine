@@ -11,8 +11,12 @@ caption {
 td,
 th {
   border-bottom: 1px solid #dcdcdc;
-  padding: 8px 35px;
+  padding: 8px 0;
   text-align: center;
+}
+
+td {
+  height: 65px;
 }
 
 th {
@@ -26,6 +30,7 @@ table {
 
 .table-button-wrapper {
   width: 90px;
+  margin: auto;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -33,4 +38,23 @@ table {
 
 .confirm-update-button {
   width: 100%;
+}
+
+tr input {
+  width: 90%;
+  margin: auto;
+  font-size: 1rem;
+}
+
+th:nth-child(1) {
+  width: 160px;
+}
+th:nth-child(2) {
+  width: 60px;
+}
+th:nth-child(3) {
+  width: 50px;
+}
+th:nth-child(4) {
+  width: 140px;
 }
