@@ -31,10 +31,10 @@ export const templateB = `<section title="잔돈 충전">
     <button type="submit" class="submit-button">충전</button>
   </div>
 </form>
-<p >현재 보유 금액: <span id="total-change"></span>원</p>
+<p >현재 보유 금액: <span id="total-change">0</span>원</p>
 </section>
 <section class="table-section" title="자판기 현황">
-<table>
+<table id="coin-status-table">
   <caption>
     자판기가 보유한 동전
   </caption>
@@ -44,19 +44,19 @@ export const templateB = `<section title="잔돈 충전">
   </tr>
   <tr>
     <td>500원</td>
-    <td>0개</td>
+    <td data-coin-name='FIVE_HUNDRED_WON'>0개</td>
   </tr>
   <tr>
     <td>100원</td>
-    <td>4개</td>
+    <td data-coin-name='ONE_HUNDRED_WON'>0개</td>
   </tr>
   <tr>
     <td>50원</td>
-    <td>1개</td>
+    <td data-coin-name='FIFTY_WON'>0개</td>
   </tr>
   <tr>
     <td>10원</td>
-    <td>5개</td>
+    <td data-coin-name='TEN_WON'>0개</td>
   </tr>
 </table>
 </section>`;

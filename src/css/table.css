@@ -40,21 +40,25 @@ table {
   width: 100%;
 }
 
-tr input {
+#product-status-table tr input {
   width: 90%;
   margin: auto;
   font-size: 1rem;
 }
 
-th:nth-child(1) {
+#product-status-table th:nth-child(1) {
   width: 160px;
 }
-th:nth-child(2) {
+#product-status-table th:nth-child(2) {
   width: 60px;
 }
-th:nth-child(3) {
+#product-status-table th:nth-child(3) {
   width: 50px;
 }
-th:nth-child(4) {
+#product-status-table th:nth-child(4) {
   width: 140px;
+}
+
+#coin-status-table td {
+  width: 100px;
 }

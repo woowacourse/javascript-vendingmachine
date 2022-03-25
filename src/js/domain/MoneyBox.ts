@@ -6,6 +6,13 @@ interface Coin {
   count: number;
 }
 
+interface CoinCounts {
+  FIVE_HUNDRED_WON: number;
+  ONE_HUNDRED_WON: number;
+  FIFTY_WON: number;
+  TEN_WON: number;
+}
+
 interface distributeStrategy {
   distribute(inputMoney: number): Coin[];
 }
@@ -34,6 +41,21 @@ export default class MoneyBox {
     return this._coinStatusList.reduce(
       (totalAmount, { value, count }) => totalAmount + value * count,
       0
+    );
+  }
+
+  get coinStatus(): CoinCounts {
+    return this._coinStatusList.reduce(
+      (totalStatus, { name, count }) => {
+        totalStatus[name] = count;
+        return totalStatus;
+      },
+      {
+        FIVE_HUNDRED_WON: 0,
+        ONE_HUNDRED_WON: 0,
+        FIFTY_WON: 0,
+        TEN_WON: 0,
+      }
     );
   }
 

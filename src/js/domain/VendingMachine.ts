@@ -9,6 +9,19 @@ interface ProductData {
   stock: number;
 }
 
+interface Coin {
+  name: string;
+  value: number;
+  count: number;
+}
+
+interface CoinCounts {
+  FIVE_HUNDRED_WON: number;
+  ONE_HUNDRED_WON: number;
+  FIFTY_WON: number;
+  TEN_WON: number;
+}
+
 interface VendingMachineProductDictionary {
   [id: string]: VendingMachineProduct;
 }
@@ -31,7 +44,11 @@ export default class VendingMachine {
     return this._moneyBox.totalAmount;
   }
 
-  addChange(money: number): never | void {
+  get coinStatus(): CoinCounts {
+    return this._moneyBox.coinStatus;
+  }
+
+  addChange(money: number): never | Coin[] {
     if (money <= 0) {
       throw new Error(ERROR_MESSAGE.BELOW_MIN_CHANGE);
     }
@@ -45,6 +62,8 @@ export default class VendingMachine {
     }
 
     this._moneyBox.charge(money);
+
+    return this._moneyBox.coinStatusList;
   }
 
   addProduct(data: ProductData): never | string {

@@ -16,7 +16,7 @@ export default class Navigation {
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine),
-      '#/charge': new AddChangeTab(),
+      '#/charge': new AddChangeTab(this.#vendingMachine),
       '#/purchase': new PurchaseProductTab(),
     };
     window.addEventListener('popstate', this.#render);
