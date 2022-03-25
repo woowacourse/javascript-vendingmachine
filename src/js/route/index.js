@@ -18,10 +18,7 @@ const render = () => {
   selectTab(hash);
   sectionContainer.replaceChildren();
   sectionContainer.insertAdjacentHTML('beforeend', routes[hash] ?? '');
-  if (hash === '#!manage') {
-    emit(sectionContainer, '@select');
-    emit(sectionContainer, '@init');
-  }
+  emit(sectionContainer, '@render', { hash });
 };
 
 const selectTab = (hash) => {

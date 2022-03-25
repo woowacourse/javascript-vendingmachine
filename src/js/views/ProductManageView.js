@@ -26,22 +26,19 @@ export default class ProductManageView {
     this.$sectionContainer = $('#section-container');
 
     on(this.$sectionContainer, 'submit', this.#getProductInformation.bind(this));
-    on(this.$sectionContainer, '@select', this.#selectProductDOM.bind(this));
   }
 
-  #selectProductDOM() {
+  initManageView() {
     this.$productNameInput = $('#product-name-input');
     this.$productPriceInput = $('#product-price-input');
     this.$productQuantityInput = $('#product-quantity-input');
+    this.$productTbody = $('#product-tbody');
 
-    $('#product-tbody').addEventListener('click', (e) => {
+    this.$productTbody.addEventListener('click', (e) => {
       if (e.target.classList.contains('modify-button')) {
-        console.log(e.target);
         this.#replaceProductInformation(e.target.closest('tr'));
       }
     });
-
-    emit(this.$sectionContainer, '@renderTable');
   }
 
   #getProductInformation(e) {
@@ -56,18 +53,27 @@ export default class ProductManageView {
   }
 
   #replaceProductInformation(selectedProductElement) {
-    console.log(selectedProductElement.rowIndex);
+    const product = {
+      name: selectedProductElement.children[0].textContent,
+      price: selectedProductElement.children[1].textContent,
+      quantity: selectedProductElement.children[2].textContent,
+    };
+    selectedProductElement.innerHTML = tableInputTemplate(product);
   }
 
-  renderTable(product) {
-    $('#product-tbody').insertAdjacentHTML('beforeend', tableTemplate(product));
-    // $('#product-tbody').insertAdjacentHTML('beforeend', tableInputTemplate(product));
-  }
+  // renderTable(product) {
+  //   this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(product));
+  //   $('#product-tbody').insertAdjacentHTML('beforeend', tableInputTemplate(product));
+  // }
 
-  render(list) {
-    list.forEach((element) => {
-      $('#product-tbody').insertAdjacentHTML('beforeend', tableTemplate(element));
-    });
+  render(productList) {
+    if (Array.isArray(productList)) {
+      productList.forEach((product) => {
+        this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(product));
+      });
+      return;
+    }
+    this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(productList));
   }
 
   resetProductInput() {
