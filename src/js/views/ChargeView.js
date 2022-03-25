@@ -1,11 +1,11 @@
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
+import { validChargeCoinUnit } from '../utils/validation.js';
+import { SECTION_CONTAINER } from '../constants/constants.js';
 
 export default class ChargeView {
   constructor() {
-    this.$sectionContainer = $('#section-container');
-
-    on(this.$sectionContainer, 'submit', this.#onSubmitChargeAmount.bind(this));
+    on(SECTION_CONTAINER, 'submit', this.#onSubmitChargeAmount.bind(this));
   }
 
   initChargeDOM() {
@@ -21,8 +21,14 @@ export default class ChargeView {
 
   #onSubmitChargeAmount(e) {
     e.preventDefault();
-    console.log('coin');
+    if (e.target.id !== 'charge-form') return;
+
     const amount = $('#charge-amount').value;
-    emit(this.$sectionContainer, '@charge', { amount });
+    try {
+      validChargeCoinUnit(amount);
+      emit(this.$sectionContainer, '@charge', { amount });
+    } catch (error) {
+      alert(error.message);
+    }
   }
 }

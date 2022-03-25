@@ -1,14 +1,12 @@
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
-import { CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
+import { SECTION_CONTAINER, CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
 import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 import { validProductInfo } from '../utils/validation.js';
 
 export default class ProductManageView {
   constructor() {
-    this.$sectionContainer = $('#section-container');
-
-    on(this.$sectionContainer, 'submit', this.#onSubmitProductInfo.bind(this));
+    on(SECTION_CONTAINER, 'submit', this.#onSubmitProductInfo.bind(this));
   }
 
   #bindMangeEvent() {
@@ -34,6 +32,7 @@ export default class ProductManageView {
   #onSubmitProductInfo(e) {
     e.preventDefault();
     if (e.target.id !== 'product-add-form') return;
+
     const product = {
       name: this.$productNameInput.value,
       price: this.$productPriceInput.valueAsNumber,
@@ -41,7 +40,7 @@ export default class ProductManageView {
     };
     try {
       validProductInfo(product);
-      emit(this.$sectionContainer, '@submit', { product });
+      emit(SECTION_CONTAINER, '@submit', { product });
     } catch (error) {
       alert(error.message);
     }
@@ -68,7 +67,7 @@ export default class ProductManageView {
       validProductInfo(product);
       selectedProduct.replaceChildren();
       selectedProduct.insertAdjacentHTML('beforeend', tableTemplate(product));
-      emit(this.$sectionContainer, '@modify', { index, product });
+      emit(SECTION_CONTAINER, '@modify', { index, product });
     } catch (error) {
       alert(error.message);
     }
@@ -77,7 +76,7 @@ export default class ProductManageView {
   #deleteProductInfo(selectedProduct) {
     const index = selectedProduct.rowIndex - 1;
     this.$productTbody.removeChild(selectedProduct);
-    emit(this.$sectionContainer, '@delete', { index });
+    emit(SECTION_CONTAINER, '@delete', { index });
   }
 
   initManageDOM() {

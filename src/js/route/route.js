@@ -1,6 +1,7 @@
 import { $ } from '../utils/dom.js';
 import { emit } from '../utils/event.js';
 import { CATEGORY_TEMPLATE } from '../templates/templates.js';
+import { SECTION_CONTAINER } from '../constants/constants.js';
 
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,
@@ -11,14 +12,13 @@ const routes = {
 const manageMenu = $('#manage-menu');
 const chargeMenu = $('#charge-menu');
 const purchaseMenu = $('#purchase-menu');
-const sectionContainer = $('#section-container');
 
 const render = () => {
   const { hash } = window.location;
   selectTab(hash);
-  sectionContainer.replaceChildren();
-  sectionContainer.insertAdjacentHTML('beforeend', routes[hash] ?? '');
-  emit(sectionContainer, '@render', { hash });
+  SECTION_CONTAINER.replaceChildren();
+  SECTION_CONTAINER.insertAdjacentHTML('beforeend', routes[hash] ?? '');
+  emit(SECTION_CONTAINER, '@render', { hash });
 };
 
 const selectTab = (hash) => {

@@ -55,7 +55,7 @@ export const CATEGORY_TEMPLATE = {
   `,
   CHARGE: `
     <h2 hidden>잔돈 충전</h2>
-    <form class="form">
+    <form id="charge-form" class="form">
       <label for="charge-amount">자판기가 보유할 금액을 입력해주세요.</label>
       <div class="form-input">
         <input
@@ -67,7 +67,7 @@ export const CATEGORY_TEMPLATE = {
           max="100000"
           required
         />
-        <button id="charge-button">구입</button>
+        <button>구입</button>
       </div>
       <p class="current-amount">현재 보유 금액: 0원</p>
     </form>

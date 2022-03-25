@@ -1,3 +1,7 @@
+import { $ } from '../utils/dom.js';
+
+export const SECTION_CONTAINER = $('#section-container');
+
 export const PRODUCT = {
   MAX_LENGTH: 10,
   PRICE_UNIT: 10,
