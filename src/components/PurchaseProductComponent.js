@@ -21,7 +21,7 @@ class PurchaseProductComponent {
   generateTemplate() {
     return `<section id="purchase-product-container" aria-labelledby="purchase-product-title" class="hide">
           <h2 id="purchase-product-title" hidden>상품을 구매하는 섹션</h2>
-          <div>준비중입니다.</div>
+          <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
         </section>`;
   }
 

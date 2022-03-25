@@ -4,6 +4,7 @@ table {
   border-collapse: collapse;
   margin-top: 50px;
   margin-bottom: 20px;
+  min-width: 200px;
 }
 
 caption {
@@ -11,6 +12,10 @@ caption {
   font-weight: bold;
   text-align: center;
   margin-bottom: 16px;
+}
+
+tbody {
+  min-width: 200px;
 }
 
 tbody tr {

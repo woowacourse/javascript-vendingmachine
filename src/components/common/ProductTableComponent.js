@@ -20,17 +20,20 @@ class ProductTableComponent {
          ${this.tableCaption}
         </caption>
         <tbody class="product-list-table-body">
-          <tr>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>수량</th>
-            <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-          </tr>
+        <tr>
+          <th>상품명</th>
+          <th>가격</th>
+          <th>수량</th>
+          <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+        </tr>
         </tbody>
-      </table>`;
+      </table>
+      <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
+      `;
   }
   initDOM() {
     this.$tableBody = this.$parent.querySelector('.product-list-table-body');
+    this.$emptyImg = this.$parent.querySelector('.empty-img');
   }
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
@@ -40,14 +43,19 @@ class ProductTableComponent {
     this.render(productList);
   }
   render(productList) {
+    if (productList.length === 0) {
+      this.$emptyImg.classList.remove('hide');
+    }
+    if (productList.length !== 0) {
+      this.$emptyImg.classList.add('hide');
+    }
     this.$tableBody.innerHTML = `<tr>
-    <th>상품명</th>
-    <th>가격</th>
-    <th>수량</th>
-    <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-  </tr>
-    ${this.generateProductListTemplate(productList)}
-  `;
+        <th>상품명</th>
+        <th>가격</th>
+        <th>수량</th>
+        <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+    </tr>
+    ${this.generateProductListTemplate(productList)}`;
   }
   generateProductListTemplate(productList) {
     return productList.reduce((prev, product) => {
@@ -55,13 +63,13 @@ class ProductTableComponent {
       return (
         prev +
         `<tr class="product-row">
-      <td data-product-name='${name}'>${name}</td>
-      <td data-product-price='${price}'>${price}</td>
-      <td data-product-quantity='${quantity}'>${quantity}</td>
-      <td>
-        ${this.generateButton(id)}
-      </td>
-    </tr>
+          <td data-product-name='${name}'>${name}</td>
+          <td data-product-price='${price}'>${price}</td>
+          <td data-product-quantity='${quantity}'>${quantity}</td>
+          <td>
+            ${this.generateButton(id)}
+          </td>
+      </tr>
       `
       );
     }, '');

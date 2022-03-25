@@ -1,3 +1,4 @@
+import '../images/empty-img.png';
 import '../src/styles/index.css';
 import '../src/components/index';
 import VendingMachineComponent from '../src/components/index';
