@@ -691,9 +691,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "STORAGE_ID": () => (/* binding */ STORAGE_ID)
 /* harmony export */ });
 var PATH_ID = {
-    PRODUCT_MANAGE: '/#!/product-manage',
-    RECHARGE: '/#!/recharge',
-    PURCHASE_PRODUCT: '/#!/purchase-product'
+    PRODUCT_MANAGE: '/javascript-vendingmachine/#!/product-manage',
+    RECHARGE: '/javascript-vendingmachine/#!/recharge',
+    PURCHASE_PRODUCT: '/javascript-vendingmachine/#!/purchase-product'
 };
 var ERROR_MESSAGE = {
     NAME_EMPTY: '상품명은 최소 한 글자 이상이어야 합니다.',
@@ -1061,7 +1061,6 @@ var ProductManageView = /** @class */ (function () {
             var template = _this.getProductTemplate(addedProduct);
             _this.$currentProductTable.insertAdjacentHTML('beforeend', template);
         };
-        // 업데이트된 부분만 값 수정
         this.renderProductManage = function () {
             var $$productRows = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.$$)('.product-row');
             var allProducts = _this.vendingMachine.products;
@@ -1071,7 +1070,6 @@ var ProductManageView = /** @class */ (function () {
                 ((0,_utils__WEBPACK_IMPORTED_MODULE_0__.$)('.product-row-quantity', $$productRows[index])).textContent = String(product.quantity);
             });
         };
-        // 페이지 로드 시 해당 부분 전체 렌더링
         this.renderInitialProductManage = function () {
             var template = _this.vendingMachine.products
                 .map(function (product) { return _this.getProductTemplate(product); })
@@ -1190,13 +1188,13 @@ var View = /** @class */ (function () {
         };
         this.renderUpdatedView = function (id) {
             var containerBranch = {
-                '/#!/product-manage': function () {
+                '/javascript-vendingmachine/#!/product-manage': function () {
                     _this.productManageView.renderProductManage();
                 },
-                '/#!/recharge': function () {
+                '/javascript-vendingmachine/#!/recharge': function () {
                     _this.rechargeView.renderRecharge();
                 },
-                '/#!/purchase-product': function () {
+                '/javascript-vendingmachine/#!/purchase-product': function () {
                     // this.renderPurchaseProduct();
                 }
             };
@@ -1209,13 +1207,13 @@ var View = /** @class */ (function () {
             if (!isPopState)
                 history.pushState({ url: url }, null, url);
             var routes = {
-                '/#!/product-manage': function () {
+                '/javascript-vendingmachine/#!/product-manage': function () {
                     _this.renderTabResult(_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.PRODUCT_MANAGE);
                 },
-                '/#!/recharge': function () {
+                '/javascript-vendingmachine/#!/recharge': function () {
                     _this.renderTabResult(_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.RECHARGE);
                 },
-                '/#!/purchase-product': function () {
+                '/javascript-vendingmachine/#!/purchase-product': function () {
                     _this.renderTabResult(_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.PURCHASE_PRODUCT);
                 }
             };
@@ -1233,6 +1231,7 @@ var View = /** @class */ (function () {
         history.replaceState({ url: this.currentTab }, null, this.currentTab);
         this.renderTabResult(this.currentTab);
         window.addEventListener('popstate', function (event) {
+            console.log(event.state.url);
             _this.tabRouter(event.state.url, true);
         });
         this.$tabProductManageButton.addEventListener('click', function () {

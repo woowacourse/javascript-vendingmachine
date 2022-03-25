@@ -1,7 +1,7 @@
 export const PATH_ID = {
-  PRODUCT_MANAGE: '/#!/product-manage',
-  RECHARGE: '/#!/recharge',
-  PURCHASE_PRODUCT: '/#!/purchase-product',
+  PRODUCT_MANAGE: '/javascript-vendingmachine/#!/product-manage',
+  RECHARGE: '/javascript-vendingmachine/#!/recharge',
+  PURCHASE_PRODUCT: '/javascript-vendingmachine/#!/purchase-product',
 };
 
 export const ERROR_MESSAGE = {
