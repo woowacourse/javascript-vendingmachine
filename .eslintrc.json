@@ -23,7 +23,9 @@
     "no-useless-escape": "off",
     "import/extensions": "off",
     "indent": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "implicit-arrow-linebreak": "off",
+    "no-new": "off"
   },
   "settings": {
     "import/resolver": {

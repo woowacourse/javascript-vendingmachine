@@ -5,7 +5,6 @@ import {
 } from '../../utils/utils';
 
 import { on, emit, renderSnackBar, $, focusWrongInput } from '../../dom';
-import { ERROR_MESSAGE } from '../../constants';
 
 export default class ProductInputComponent {
   private $nameInput = $(
