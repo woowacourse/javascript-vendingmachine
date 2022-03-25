@@ -19,6 +19,10 @@ export default class ProductManager {
   }
 
   modifyProduct(index, product) {
-    this.products.splice(index - 1, 1, product);
+    this.products.splice(index, 1, product);
+  }
+
+  deleteProduct(index) {
+    this.products.splice(index, 1);
   }
 }

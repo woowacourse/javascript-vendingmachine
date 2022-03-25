@@ -1,5 +1,6 @@
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
+import { CONFIRM_DELETE_MESSAGE } from '../constants/index.js';
 
 const tableTemplate = (product) => {
   return `
@@ -43,6 +44,11 @@ export default class ProductManageView {
         this.#confirmProductInfo(e.target.closest('tr'));
         return;
       }
+      if (e.target.classList.contains('delete-button')) {
+        if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
+          this.#deleteProductInfo(e.target.closest('tr'));
+        }
+      }
     });
   }
 
@@ -68,7 +74,7 @@ export default class ProductManageView {
   }
 
   #confirmProductInfo(selectedProductElement) {
-    const index = selectedProductElement.rowIndex;
+    const index = selectedProductElement.rowIndex - 1;
     const product = {
       name: selectedProductElement.children[0].firstChild.value,
       price: selectedProductElement.children[1].firstChild.valueAsNumber,
@@ -77,6 +83,12 @@ export default class ProductManageView {
     selectedProductElement.replaceChildren();
     selectedProductElement.insertAdjacentHTML('beforeend', tableTemplate(product));
     emit(this.$sectionContainer, '@modify', { index, product });
+  }
+
+  #deleteProductInfo(selectedProductElement) {
+    const index = selectedProductElement.rowIndex - 1;
+    this.$productTbody.removeChild(selectedProductElement);
+    emit(this.$sectionContainer, '@delete', { index });
   }
 
   render(productList) {

@@ -11,6 +11,7 @@ export default class Controller {
     on(this.$sectionContainer, '@submit', this.#handleProductInformation.bind(this));
     on(this.$sectionContainer, '@render', this.#renderSavedData.bind(this));
     on(this.$sectionContainer, '@modify', this.#modifySavedData.bind(this));
+    on(this.$sectionContainer, '@delete', this.#deleteSavedData.bind(this));
   }
 
   #renderSavedData(event) {
@@ -35,5 +36,10 @@ export default class Controller {
   #modifySavedData(event) {
     const { index, product } = event.detail;
     this.productManager.modifyProduct(index, product);
+  }
+
+  #deleteSavedData(event) {
+    const { index } = event.detail;
+    this.productManager.deleteProduct(index);
   }
 }
