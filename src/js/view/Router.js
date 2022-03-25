@@ -5,20 +5,21 @@ import ManageProductTab from './ManageProductTab';
 import selectDom from '../utils/selectDom';
 
 export default class Router {
+  #vendingMachine;
+  #renderList;
   #app;
   #tabMenuNavigation;
-  #renderList;
-  #vendingMachine;
 
   constructor() {
-    this.#app = selectDom('#app');
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine),
       '#/charge': new AddChangeTab(this.#vendingMachine),
       '#/purchase': new PurchaseProductTab(),
     };
+    this.#app = selectDom('#app');
+    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
+
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
     this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);

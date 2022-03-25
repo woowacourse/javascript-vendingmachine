@@ -2,12 +2,12 @@ import selectDom from '../utils/selectDom';
 import { manageProductTemplate, productTableRow, updateProductTableRow } from './template';
 
 export default class ManageProductTab {
+  #vendingMachine;
   #manageContainer;
   #addProductForm;
   #addProductNameInput;
   #addProductPriceInput;
   #addProductStockInput;
-  #vendingMachine;
   #productStatusTable;
 
   constructor(machine) {
