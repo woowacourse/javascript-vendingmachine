@@ -31,6 +31,8 @@
         "operator-linebreak": "off",
         "no-return-assign": "off",
         "no-new": "off",
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "import/extensions": "off",
+        "no-restricted-globals": "off"
     }
 }

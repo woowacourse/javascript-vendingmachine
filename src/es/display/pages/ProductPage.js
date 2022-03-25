@@ -1,6 +1,6 @@
 import { $, $$ } from '@Utils/index';
 import { validateProduct } from '@Utils/VendingMachine/validator';
-import ProductStore from '@Domain/Store/ProductStore';
+import ProductStore from '@Store/ProductStore';
 import { template } from '@Display/template';
 
 export default class ProductPage {

@@ -1,4 +1,4 @@
-import { IStore } from '@Domain/Store/interface';
+import { IStore } from '@Store/interface';
 import { getRandomNumber } from '@Utils/index';
 import { COIN_TYPE } from '@Constants/index';
 

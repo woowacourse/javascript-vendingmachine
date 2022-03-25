@@ -1,6 +1,6 @@
 import { $ } from '@Utils/index';
 import { validateHoldingAmountToAdd } from '@Utils/VendingMachine/validator';
-import HoldingAmountStore from '@Domain/Store/HoldingAmountStore';
+import HoldingAmountStore from '@Store/HoldingAmountStore';
 import { template } from '@Display/template';
 
 export default class HoldingAmountPage {

@@ -1,4 +1,4 @@
-import { IStore, IProduct } from '@Domain/Store/Interface';
+import { IStore, IProduct } from '@Store/Interface';
 
 interface IState {
   products: Array<IProduct>;
