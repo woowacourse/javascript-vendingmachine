@@ -43,7 +43,6 @@ class VendingMachineStore implements IVendingMachineStore {
 
   private reducer = {
     [ACTION_TYPES.ADD_PRODUCT]: payload => {
-      console.log(payload);
       const { name, price, quantity } = payload;
 
       const product = new Product(name, price, quantity);
