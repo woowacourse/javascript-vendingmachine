@@ -33,6 +33,8 @@
         "no-new": "off",
         "no-unused-expressions": "off",
         "import/extensions": "off",
-        "no-restricted-globals": "off"
+        "no-restricted-globals": "off",
+        "linebreak-style": 0,
+        "no-console": "warn"
     }
 }
