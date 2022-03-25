@@ -1,7 +1,6 @@
-import { ERROR_MSG } from '../constants';
 import CoinWallet from '../domains/coinWallet';
 import Product from '../domains/product';
-import { VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { VENDING_MACHINE_STATE_KEYS, ERROR_MSG } from '../utils/constants';
 import { IVendingMachineStore, TState, TSubsrcribedComponents } from './types';
 
 class VendingMachineStore implements IVendingMachineStore {
@@ -47,7 +46,14 @@ class VendingMachineStore implements IVendingMachineStore {
     }
     this.notifySubscribedView(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
   }
-  mutateCoinWallet() {}
+  mutateCoinWallet(actionType, payload) {
+    if (actionType === 'rechargeChange') {
+      const { changeInput } = payload;
+
+      this.state.COIN_WALLET.rechargeCoinWallet(changeInput);
+    }
+    this.notifySubscribedView(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
+  }
   mutateInputCharge() {}
   subscribe(stateType, component) {
     this.subscribedComponents[stateType].push(component);

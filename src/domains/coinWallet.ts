@@ -5,10 +5,10 @@ class CoinWallet implements ICoinWallet {
   coinWallet: TCoinWallet;
   constructor() {
     this.coinWallet = {
-      coin_500: 0,
-      coin_100: 0,
-      coin_50: 0,
-      coin_10: 0,
+      coin500: 0,
+      coin100: 0,
+      coin50: 0,
+      coin10: 0,
     };
   }
   rechargeCoinWallet(charge) {
@@ -24,7 +24,7 @@ class CoinWallet implements ICoinWallet {
   }
 
   generateRandomCoinInfo(charge) {
-    const coinWalletInfo: TCoinWallet = { coin_500: 0, coin_100: 0, coin_50: 0, coin_10: 0 };
+    const coinWalletInfo: TCoinWallet = { coin500: 0, coin100: 0, coin50: 0, coin10: 0 };
     while (charge > 0) {
       const coinKey = this.pickRandomCoinKey();
       const coin = COIN_VALUES[coinKey];
@@ -38,10 +38,10 @@ class CoinWallet implements ICoinWallet {
 
   returnChangeCoinInfo(change) {
     const returnCoinInfo = {
-      coin_500: 0,
-      coin_100: 0,
-      coin_50: 0,
-      coin_10: 0,
+      coin500: 0,
+      coin100: 0,
+      coin50: 0,
+      coin10: 0,
     };
 
     const currentCoinTotalAmount = this.computeCoinTotalAmount();

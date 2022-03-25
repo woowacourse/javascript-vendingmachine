@@ -1,5 +1,5 @@
 import { IProduct, TProduct } from './types';
-import { ERROR_MSG } from '../constants/index';
+import { ERROR_MSG } from '../utils/constants';
 
 class Product implements IProduct {
   product: TProduct;

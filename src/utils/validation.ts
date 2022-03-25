@@ -1,10 +1,11 @@
 import {
   ERROR_MSG,
+  MONEY_DIVIDE_STANDARD,
   NAME_LENGHT_LIMIT,
   PRICE_RANGE,
-  MONEY_DIVIDE_STANDARD,
   QUANTITY_RANGE,
-} from '../constants/index';
+} from './constants';
+
 export const checkProductInput = ({
   nameInput,
   priceInput,
@@ -32,6 +33,16 @@ export const checkProductInput = ({
   return true;
 };
 
+export const checkChangeInput = (changeInput: number) => {
+  if (isNotdivisibleBy10(changeInput)) {
+    throw new Error('잔돈은 10으로 나누어 떨어져야합니다.');
+  }
+  if (isOutOfChangeRange(changeInput)) {
+    throw new Error('잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.');
+  }
+  return true;
+};
+
 export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGHT_LIMIT;
 
 export const isEmptyName = (nameInput: string) => nameInput.length === 0;
@@ -43,3 +54,5 @@ export const isNotdivisibleBy10 = (priceInput: number) => priceInput % MONEY_DIV
 
 export const isOutOfQuantityRange = (qauntityInput: number) =>
   qauntityInput < QUANTITY_RANGE.MIN || qauntityInput > QUANTITY_RANGE.MAX;
+
+export const isOutOfChangeRange = (changeInput: number) => changeInput < 10 || changeInput > 100000;

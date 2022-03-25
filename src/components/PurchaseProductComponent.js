@@ -10,12 +10,15 @@ class PurchaseProductComponent {
     this.initDOM();
     this.initChildComponents();
   }
+
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
+
   initDOM() {
     this.$purchaseProductContainer = document.querySelector('#purchase-product-container');
   }
+
   generateTemplate() {
     return `<section id="purchase-product-container" aria-labelledby="purchase-product-title" class="hide">
           <h2 id="purchase-product-title" hidden>상품을 구매하는 섹션</h2>
@@ -29,6 +32,7 @@ class PurchaseProductComponent {
           </form>
         </section>`;
   }
+
   initChildComponents() {
     this.#purchaseProductComponent = new ProductTableComponent(this.$purchaseProductContainer, {
       tableId: 'purchase-product-list',
@@ -43,9 +47,11 @@ class PurchaseProductComponent {
       '<button type="button" id="return-change-button" class="gray-button">반환</button>',
     );
   }
+
   show() {
     this.$purchaseProductContainer.classList.remove('hide');
   }
+
   hide() {
     this.$purchaseProductContainer.classList.add('hide');
   }

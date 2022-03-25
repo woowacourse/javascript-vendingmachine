@@ -10,9 +10,11 @@ class ProductManagementComponent {
     this.initChildComponents();
     this.bindEventHandler();
   }
+
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
+
   initDOM() {
     this.$manageProductContainer = document.querySelector('#manage-product-container');
     this.$productInputForm = document.querySelector('#product-input-form');
@@ -20,6 +22,7 @@ class ProductManagementComponent {
     this.$productPriceInput = document.querySelector('#product-price-input');
     this.$productQuantityInput = document.querySelector('#product-quantity-input');
   }
+
   generateTemplate() {
     return `<section id="manage-product-container" class="hide" aria-labelledby="manage-product-title">
     <h2 id="manage-product-title" hidden>상품을 관리하는 섹션</h2>
@@ -34,21 +37,26 @@ class ProductManagementComponent {
     </form> 
   </section>`;
   }
+
   initChildComponents() {
     this.#currentProductListComponent = new ProductTableComponent(this.$manageProductContainer, {
       tableId: 'current-product-list',
       tableCaption: '상품 현황',
     });
   }
+
   bindEventHandler() {
     this.$productInputForm.addEventListener('submit', this.onSubmitProductInputForm);
   }
+
   show() {
     this.$manageProductContainer.classList.remove('hide');
   }
+
   hide() {
     this.$manageProductContainer.classList.add('hide');
   }
+
   onSubmitProductInputForm = e => {
     e.preventDefault();
 

@@ -1,3 +1,6 @@
+import vendingMachineStore from '../stores/vendingMachineStore';
+import { VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { checkChangeInput } from '../utils/validation';
 import CoinTableComponent from './common/CoinTableComponent';
 
 class RechargeChangeComponent {
@@ -7,19 +10,21 @@ class RechargeChangeComponent {
     this.mount();
     this.initDOM();
     this.initChildComponents();
+    this.bindEventHandler();
+    this.subscribeStore();
   }
+
   mount() {
     this.$parent.insertAdjacentHTML('beforeend', this.generateTemplate());
   }
+
   initDOM() {
-    this.$rechargeChangeContainer = document.querySelector('#recharge-change-container');
+    this.$rechargeChangeContainer = this.$parent.querySelector('#recharge-change-container');
+    this.$rechargeChangeForm = this.$parent.querySelector('#recharge-change-form');
+    this.$rechargeChangeInput = this.$parent.querySelector('#recharge-change-input');
+    this.$rechargeChangeTotal = this.$parent.querySelector('#change-total-amount');
   }
-  show() {
-    this.$rechargeChangeContainer.classList.remove('hide');
-  }
-  hide() {
-    this.$rechargeChangeContainer.classList.add('hide');
-  }
+
   generateTemplate() {
     return `<section id="recharge-change-container" aria-labelledby="recharge-change-title" class="hide">
     <h2 id="recharge-change-title" hidden>자판기의 잔돈을 충전하는 섹션</h2>
@@ -29,17 +34,56 @@ class RechargeChangeComponent {
         <input id="recharge-change-input" type="number" placeholder="금액" />
         <button type="button" class="submit-button">충전</button>
       </div>
-      <div class="total-amount">투입한 금액: <span id="change-total-amount"></span>원</div>
-      
+      <div class="total-amount">투입한 금액: <span id="change-total-amount">0</span>원</div>
       </form>
   </section>`;
   }
+
   initChildComponents() {
     this.#rechargeCoinTableComponent = new CoinTableComponent(this.$rechargeChangeContainer, {
       tableId: 'recharge-coin-table',
       tableCaption: '자판기가 보유한 동전',
     });
   }
+
+  bindEventHandler() {
+    this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
+  }
+
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+  }
+
+  wakeUp() {
+    const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+    this.render(coinWallet);
+  }
+
+  render(coinWallet) {
+    const coinTotalAmount = coinWallet.computeCoinTotalAmount();
+    this.$rechargeChangeTotal.textContent = coinTotalAmount;
+  }
+
+  show() {
+    this.$rechargeChangeContainer.classList.remove('hide');
+  }
+
+  hide() {
+    this.$rechargeChangeContainer.classList.add('hide');
+  }
+
+  onSubmitRechargeChangeForm = e => {
+    e.preventDefault();
+
+    const { valueAsNumber: changeInput } = this.$rechargeChangeInput;
+    try {
+      if (checkChangeInput(changeInput)) {
+        vendingMachineStore.mutateCoinWallet('rechargeChange', { changeInput });
+      }
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
 }
 
 export default RechargeChangeComponent;

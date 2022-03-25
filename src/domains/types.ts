@@ -12,13 +12,13 @@ export interface IProduct {
   generateProductId: (name: string) => string;
 }
 
-export type TCoinWalletKey = 'coin_500' | 'coin_100' | 'coin_50' | 'coin_10';
+export type TCoinWalletKey = 'coin500' | 'coin100' | 'coin50' | 'coin10';
 
 export type TCoinWallet = {
-  coin_500: number;
-  coin_100: number;
-  coin_50: number;
-  coin_10: number;
+  coin500: number;
+  coin100: number;
+  coin50: number;
+  coin10: number;
 };
 
 export interface ICoinWallet {
