@@ -138,3 +138,23 @@ export const CATEGORY_TEMPLATE = {
     <button type="button" class="button change-button">반환하기</button>
   `,
 };
+
+export const tableTemplate = (product) => {
+  return `
+    <tr>
+      <td>${product.name}</td>
+      <td>${product.price}</td>
+      <td>${product.quantity}</td>
+      <td><button class="modify-button" type="button">수정</button> <button class="delete-button" type="button">삭제</button></td>
+    </tr>
+  `;
+};
+
+export const tableInputTemplate = (product) => {
+  return `
+    <td><input type="text" class="modify-input" placeholder="상품명" value=${product.name} /></td>
+    <td><input type="number" class="modify-input" placeholder="가격" value=${product.price} /></td>
+    <td><input type="number" class="modify-input" placeholder="수량" value=${product.quantity} /></td>
+    <td><button class="confirm-button" type="button">확인</button></td>
+  `;
+};

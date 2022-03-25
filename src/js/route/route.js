@@ -1,6 +1,6 @@
 import { $ } from '../utils/dom.js';
 import { emit } from '../utils/event.js';
-import { CATEGORY_TEMPLATE } from '../template.js';
+import { CATEGORY_TEMPLATE } from '../templates/templates.js';
 
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,

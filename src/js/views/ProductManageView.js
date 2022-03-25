@@ -1,32 +1,83 @@
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
-import { CONFIRM_DELETE_MESSAGE } from '../constants/index.js';
-
-const tableTemplate = (product) => {
-  return `
-    <tr>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td>${product.quantity}</td>
-      <td><button class="modify-button" type="button">수정</button> <button class="delete-button" type="button">삭제</button></td>
-    </tr>
-  `;
-};
-
-const tableInputTemplate = (product) => {
-  return `
-    <td><input type="text" class="modify-input" placeholder="상품명" maxlength="10" value=${product.name} required /></td>
-    <td><input type="number" class="modify-input" placeholder="가격" min="100" max="10000" value=${product.price} required /></td>
-    <td><input type="number" class="modify-input" placeholder="수량" min="1" max="20" value=${product.quantity} required /></td>
-    <td><button class="confirm-button" type="button">확인</button></td>
-  `;
-};
+import { CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
+import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
+import { validProductInfo } from '../utils/validation.js';
 
 export default class ProductManageView {
   constructor() {
     this.$sectionContainer = $('#section-container');
 
-    on(this.$sectionContainer, 'submit', this.#getProductInformation.bind(this));
+    on(this.$sectionContainer, 'submit', this.#getProductInfo.bind(this));
+  }
+
+  #bindMangeEvent() {
+    this.$productTbody.addEventListener('click', (e) => {
+      const { target } = e;
+
+      if (target.classList.contains('modify-button')) {
+        this.#modifyProductInfo(target.closest('tr'));
+        return;
+      }
+      if (target.classList.contains('confirm-button')) {
+        this.#confirmProductInfo(target.closest('tr'));
+        return;
+      }
+      if (target.classList.contains('delete-button')) {
+        if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
+          this.#deleteProductInfo(target.closest('tr'));
+        }
+      }
+    });
+  }
+
+  #getProductInfo(e) {
+    e.preventDefault();
+    if (e.target.id !== 'product-add-form') return;
+    const product = {
+      name: this.$productNameInput.value,
+      price: this.$productPriceInput.valueAsNumber,
+      quantity: this.$productQuantityInput.valueAsNumber,
+    };
+    try {
+      validProductInfo(product);
+      emit(this.$sectionContainer, '@submit', { product });
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  #modifyProductInfo(selectedProduct) {
+    const product = {
+      name: selectedProduct.children[0].textContent,
+      price: selectedProduct.children[1].textContent,
+      quantity: selectedProduct.children[2].textContent,
+    };
+    selectedProduct.replaceChildren();
+    selectedProduct.insertAdjacentHTML('beforeend', tableInputTemplate(product));
+  }
+
+  #confirmProductInfo(selectedProduct) {
+    const index = selectedProduct.rowIndex - 1;
+    const product = {
+      name: selectedProduct.children[0].firstChild.value,
+      price: selectedProduct.children[1].firstChild.valueAsNumber,
+      quantity: selectedProduct.children[2].firstChild.valueAsNumber,
+    };
+    try {
+      validProductInfo(product);
+      selectedProduct.replaceChildren();
+      selectedProduct.insertAdjacentHTML('beforeend', tableTemplate(product));
+      emit(this.$sectionContainer, '@modify', { index, product });
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  #deleteProductInfo(selectedProduct) {
+    const index = selectedProduct.rowIndex - 1;
+    this.$productTbody.removeChild(selectedProduct);
+    emit(this.$sectionContainer, '@delete', { index });
   }
 
   initManageView() {
@@ -35,60 +86,7 @@ export default class ProductManageView {
     this.$productQuantityInput = $('#product-quantity-input');
     this.$productTbody = $('#product-tbody');
 
-    this.$productTbody.addEventListener('click', (e) => {
-      if (e.target.classList.contains('modify-button')) {
-        this.#modifyProductInfo(e.target.closest('tr'));
-        return;
-      }
-      if (e.target.classList.contains('confirm-button')) {
-        this.#confirmProductInfo(e.target.closest('tr'));
-        return;
-      }
-      if (e.target.classList.contains('delete-button')) {
-        if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
-          this.#deleteProductInfo(e.target.closest('tr'));
-        }
-      }
-    });
-  }
-
-  #getProductInformation(e) {
-    e.preventDefault();
-    if (e.target.id !== 'product-add-form') return;
-    const keyword = {
-      name: this.$productNameInput.value,
-      price: this.$productPriceInput.valueAsNumber,
-      quantity: this.$productQuantityInput.valueAsNumber,
-    };
-    emit(this.$sectionContainer, '@submit', { keyword });
-  }
-
-  #modifyProductInfo(selectedProductElement) {
-    const product = {
-      name: selectedProductElement.children[0].textContent,
-      price: selectedProductElement.children[1].textContent,
-      quantity: selectedProductElement.children[2].textContent,
-    };
-    selectedProductElement.replaceChildren();
-    selectedProductElement.insertAdjacentHTML('beforeend', tableInputTemplate(product));
-  }
-
-  #confirmProductInfo(selectedProductElement) {
-    const index = selectedProductElement.rowIndex - 1;
-    const product = {
-      name: selectedProductElement.children[0].firstChild.value,
-      price: selectedProductElement.children[1].firstChild.valueAsNumber,
-      quantity: selectedProductElement.children[2].firstChild.valueAsNumber,
-    };
-    selectedProductElement.replaceChildren();
-    selectedProductElement.insertAdjacentHTML('beforeend', tableTemplate(product));
-    emit(this.$sectionContainer, '@modify', { index, product });
-  }
-
-  #deleteProductInfo(selectedProductElement) {
-    const index = selectedProductElement.rowIndex - 1;
-    this.$productTbody.removeChild(selectedProductElement);
-    emit(this.$sectionContainer, '@delete', { index });
+    this.#bindMangeEvent();
   }
 
   render(productList) {
