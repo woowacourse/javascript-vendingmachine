@@ -13,3 +13,7 @@ export const isDivideUnit = (number, unit) => {
 export const isRangeNumber = (number, min, max) => {
   return number < min || number > max;
 };
+
+export const getRandomNumber = (max) => {
+  return Math.floor(Math.random() * (max + 1));
+};

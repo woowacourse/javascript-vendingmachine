@@ -15,6 +15,8 @@ export const PRODUCT = {
   },
 };
 
+export const COIN_UNITS = [500, 100, 50, 10];
+
 export const COIN_UNIT = 10;
 
 export const CONFIRM_DELETE_MESSAGE = '상품을 삭제하시겠습니까?';
