@@ -1,4 +1,4 @@
-import { VENDING_MACHINE } from '@Constants/index';
+import { VENDING_MACHINE, ERROR_MESSAGE } from '@Constants/index';
 import { IProduct } from '@Store/Interface';
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '../index';
 
@@ -15,38 +15,35 @@ export const validateProduct = (product: IProduct) => {
     MAX_PRODUCT_QUANTITY,
   } = VENDING_MACHINE;
 
-  if (name === '') throw new Error('상품명을 입력해주세요.');
+  if (name === '') throw new Error(ERROR_MESSAGE.PRODUCT_NAME_REQUIRED);
   if (!isStringLengthInRange(name, MIN_PRODUCT_NAME, MAX_PRODUCT_NAME))
-    throw new Error(
-      `상품명은 ${MIN_PRODUCT_NAME}자에서 ${MAX_PRODUCT_NAME}자까지 입력할 수 있습니다.`,
-    );
+    throw new Error(ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
 
-  if (!Number.isInteger(price)) throw new Error('상품 가격은 숫자만 입력할 수 있습니다.');
+  if (!Number.isInteger(price)) throw new Error(ERROR_MESSAGE.PRODUCT_PRICE_ONLY_NUMBER);
 
   if (!isNumberInRange(price, MIN_PRODUCT_PRICE, MAX_PRODUCT_PRICE))
-    throw new Error(
-      `상품 가격은 ${MIN_PRODUCT_PRICE}원에서 ${MAX_PRODUCT_PRICE}원까지 입력할 수 있습니다.`,
-    );
+    throw new Error(ERROR_MESSAGE.PRODUCT_PRICE_WRONG_RANGE);
 
   if (!isCorrectNumberUnit(price, MONEY_UNIT))
-    throw new Error(`상품 가격은 ${MONEY_UNIT}원 단위로 입력할 수 있습니다.`);
+    throw new Error(ERROR_MESSAGE.PRODUCT_PRICE_WRONG_UNIT);
 
-  if (!Number.isInteger(quantity)) throw new Error('상품 수량은 숫자만 입력할 수 있습니다.');
+  if (!Number.isInteger(quantity)) throw new Error(ERROR_MESSAGE.PRODUCT_QUANTITY_ONLY_NUMBER);
 
   if (!isNumberInRange(quantity, MIN_PRODUCT_QUANTITY, MAX_PRODUCT_QUANTITY))
-    throw new Error(
-      `상품 수량은 ${MIN_PRODUCT_QUANTITY}개에서 최대 ${MAX_PRODUCT_QUANTITY}개까지만 입력할 수 있습니다.`,
-    );
+    throw new Error(ERROR_MESSAGE.PRODUCT_QUANTITY_WRONG_RANGE);
+
+  return true;
 };
 
 export const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmount: number) => {
   const { MAX_HOLDING_AMOUNT, MONEY_UNIT } = VENDING_MACHINE;
 
   if (!Number.isInteger(holdingAmountToAdd))
-    throw new Error('추가할 보유 금액은 숫자만 입력할 수 있습니다.');
-
+    throw new Error(ERROR_MESSAGE.HOLDING_AMOUNT_ONLY_NUMBER);
   if (!isCorrectNumberUnit(holdingAmountToAdd, MONEY_UNIT))
-    throw new Error(`추가할 보유 금액은 ${MONEY_UNIT}원 단위로 입력할 수 있습니다.`);
+    throw new Error(ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_UNIT);
   if (holdingAmountToAdd + totalAmount > MAX_HOLDING_AMOUNT)
-    throw new Error(`보유 금액은 ${MAX_HOLDING_AMOUNT}원까지 충전할 수 있습니다.`);
+    throw new Error(ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_LIMIT);
+
+  return true;
 };
