@@ -3,7 +3,7 @@ import { vendingMachine } from '../../domains/VendingMachine';
 
 class ChangeCharge extends Component {
   template() {
-    const { coins } = vendingMachine.getState();
+    const coins = vendingMachine.useStore((state) => state.coins);
     const coinArray = [...Object.entries(coins)];
     const totalMoney = vendingMachine.getTotalMoney();
 

@@ -8,7 +8,7 @@ class ItemManagementPage extends Component {
   }
 
   template() {
-    const { items } = vendingMachine.getState();
+    const items = vendingMachine.useStore((state) => state.items);
 
     return `
       <section>
@@ -37,7 +37,7 @@ class ItemManagementPage extends Component {
             </tr>
           </thead>
           <tbody>
-            ${Array.from(items.values())
+            ${items
               .map(
                 ({ name, price, quantity }) => `
                   <tr is="item-row" name="${name}" price="${price}" quantity="${quantity}"></tr>
@@ -59,8 +59,6 @@ class ItemManagementPage extends Component {
       };
 
       vendingMachine.addItem(item);
-
-      this.render();
     });
   }
 }

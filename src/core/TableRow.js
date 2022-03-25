@@ -1,4 +1,4 @@
-import { deepEqual } from '../utils/commons.js';
+import { deepEqual } from '../utils/commons';
 
 export default class TableRow extends HTMLTableRowElement {
   props;
@@ -14,7 +14,11 @@ export default class TableRow extends HTMLTableRowElement {
   }
 
   connectedCallback() {
-    this.render();
+    Subject.observe(this);
+  }
+
+  disconnectedCallback() {
+    Subject.unobserve(this);
   }
 
   setProps() {
@@ -67,5 +71,9 @@ export default class TableRow extends HTMLTableRowElement {
 
       callback(event);
     });
+  }
+
+  notify() {
+    this.render();
   }
 }

@@ -3,18 +3,12 @@ import { vendingMachine } from '../../domains/VendingMachine';
 
 class ItemRow extends TableRow {
   setup() {
-    const { name, price, quantity } = this.props;
-    this.state = {
-      isEditing: false,
-      item: { name, price, quantity },
-    };
+    this.state = { isEditing: false };
   }
 
   template() {
-    const {
-      isEditing,
-      item: { name, price, quantity },
-    } = this.state;
+    const { name, price, quantity } = this.props;
+    const { isEditing } = this.state;
 
     return `
        ${
@@ -46,7 +40,7 @@ class ItemRow extends TableRow {
     });
 
     this.addEvent('click', '.item-update-button', () => {
-      const { item } = this.state;
+      const prevName = this.props.name;
       const updatedItem = {
         name: this.querySelector('.item-name-edit-input').value.trim(),
         price: this.querySelector('.item-price-edit-input').valueAsNumber,
@@ -63,21 +57,14 @@ class ItemRow extends TableRow {
         return;
       }
 
-      vendingMachine.updateItem(item.name, updatedItem);
-
-      this.setState({
-        isEditing: false,
-        item: updatedItem,
-      });
+      vendingMachine.updateItem(prevName, updatedItem);
     });
 
     this.addEvent('click', '.item-remove-button', () => {
       if (window.confirm('정말로 삭제하시겠습니까?')) {
-        const { name } = this.state.item;
+        const { name } = this.props;
 
         vendingMachine.removeItem(name);
-
-        this.remove();
       }
     });
   }
