@@ -1,17 +1,18 @@
 import VendingMachine from '../domain/VendingMachine';
-import ManageProductTab from './ManageProductTab';
-import AddChangeTab from './AddChangeTab';
 import PurchaseProductTab from './PurchaseProductTab';
+import AddChangeTab from './AddChangeTab';
+import ManageProductTab from './ManageProductTab';
+import selectDom from '../utils/selectDom';
 
-export default class Navigation {
+export default class Router {
   #app;
   #tabMenuNavigation;
   #renderList;
   #vendingMachine;
 
   constructor() {
-    this.#app = document.querySelector('#app');
-    this.#tabMenuNavigation = document.querySelector('#tab-menu-navigation');
+    this.#app = selectDom('#app');
+    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine),
@@ -20,29 +21,23 @@ export default class Navigation {
     };
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
-    this.#tabMenuNavigation.addEventListener(
-      'click',
-      this.#handleTabMenuChange
-    );
+    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
   }
 
   #render = () => {
     const path = window.location.hash || '#/manage';
 
     this.#updateCurrentTabMenu(path);
-    const main = document.querySelector('main');
+    const main = selectDom('main');
 
     this.#app.replaceChild(this.#renderList[path].tabElements, main);
   };
 
   #updateCurrentTabMenu(path) {
-    const previousMenuButton =
-      this.#tabMenuNavigation.querySelector('.current');
+    const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
     previousMenuButton?.classList.remove('current');
 
-    const currentMenuButton = this.#tabMenuNavigation.querySelector(
-      `[href="${path}"]`
-    );
+    const currentMenuButton = selectDom(`[href="${path}"]`, this.#tabMenuNavigation);
     currentMenuButton.classList.add('current');
   }
 

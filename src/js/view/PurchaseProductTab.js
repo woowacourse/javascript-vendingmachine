@@ -1,17 +1,14 @@
-import { purchaseProductTabTemplate } from './template';
+import { purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {
-  #purchaseProductTabContainer;
+  #purchaseContainer;
 
   constructor() {
-    this.#purchaseProductTabContainer = document.createElement('main');
-    this.#purchaseProductTabContainer.insertAdjacentHTML(
-      'beforeend',
-      purchaseProductTabTemplate
-    );
+    this.#purchaseContainer = document.createElement('main');
+    this.#purchaseContainer.insertAdjacentHTML('beforeend', purchaseTemplate);
   }
 
   get tabElements() {
-    return this.#purchaseProductTabContainer;
+    return this.#purchaseContainer;
   }
 }

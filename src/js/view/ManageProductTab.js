@@ -1,11 +1,8 @@
-import {
-  manageProductTemplate,
-  productTableRow,
-  updateProductTableRow,
-} from './template';
+import selectDom from '../utils/selectDom';
+import { manageProductTemplate, productTableRow, updateProductTableRow } from './template';
 
 export default class ManageProductTab {
-  #manageTabContainer;
+  #manageContainer;
   #addProductForm;
   #addProductNameInput;
   #addProductPriceInput;
@@ -16,32 +13,16 @@ export default class ManageProductTab {
   constructor(machine) {
     this.#vendingMachine = machine;
 
-    this.#manageTabContainer = document.createElement('main');
-    this.#manageTabContainer.insertAdjacentHTML(
-      'beforeend',
-      manageProductTemplate
-    );
-    this.#addProductForm =
-      this.#manageTabContainer.querySelector('#add-product-form');
-    this.#addProductNameInput = this.#manageTabContainer.querySelector(
-      '#add-product-name-input'
-    );
-    this.#addProductPriceInput = this.#manageTabContainer.querySelector(
-      '#add-product-price-input'
-    );
-    this.#addProductStockInput = this.#manageTabContainer.querySelector(
-      '#add-product-stock-input'
-    );
-
-    this.#productStatusTable = this.#manageTabContainer.querySelector(
-      '#product-status-table'
-    );
+    this.#manageContainer = document.createElement('main');
+    this.#manageContainer.insertAdjacentHTML('beforeend', manageProductTemplate);
+    this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
+    this.#addProductNameInput = selectDom('#add-product-name-input', this.#manageContainer);
+    this.#addProductPriceInput = selectDom('#add-product-price-input', this.#manageContainer);
+    this.#addProductStockInput = selectDom('#add-product-stock-input', this.#manageContainer);
+    this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
 
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
-    this.#productStatusTable.addEventListener(
-      'click',
-      this.#handleProductStatus
-    );
+    this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
 
   #handleAddProductForm = (e) => {
@@ -82,9 +63,9 @@ export default class ManageProductTab {
 
   #handleProductUpdate = (target) => {
     const targetTableRow = target.closest('tr');
-    const name = targetTableRow.querySelector('.product-name').textContent;
-    const price = targetTableRow.querySelector('.product-price').textContent;
-    const stock = targetTableRow.querySelector('.product-stock').textContent;
+    const name = selectDom('.product-name', targetTableRow).textContent;
+    const price = selectDom('.product-price', targetTableRow).textContent;
+    const stock = selectDom('.product-stock', targetTableRow).textContent;
     targetTableRow.insertAdjacentHTML(
       'afterend',
       updateProductTableRow({
@@ -99,15 +80,10 @@ export default class ManageProductTab {
 
   #handleProductUpdateConfirm = (target) => {
     const targetTableRow = target.closest('tr');
-    const name = targetTableRow.querySelector(
-      '.update-product-name-input'
-    ).value;
-    const price = targetTableRow.querySelector(
-      '.update-product-price-input'
-    ).valueAsNumber;
-    const stock = targetTableRow.querySelector(
-      '.update-product-stock-input'
-    ).valueAsNumber;
+
+    const name = selectDom('.update-product-name-input', targetTableRow).value;
+    const price = selectDom('.update-product-price-input', targetTableRow).valueAsNumber;
+    const stock = selectDom('.update-product-stock-input', targetTableRow).valueAsNumber;
 
     const { productId } = target.dataset;
     try {
@@ -133,6 +109,6 @@ export default class ManageProductTab {
   };
 
   get tabElements() {
-    return this.#manageTabContainer;
+    return this.#manageContainer;
   }
 }

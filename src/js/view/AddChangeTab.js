@@ -1,8 +1,9 @@
-import { addChangeTabTemplate } from './template';
+import selectDom from '../utils/selectDom';
+import { addChangeTemplate } from './template';
 
 export default class AddChangeTab {
   #vendingMachine;
-  #addChangeTabContainer;
+  #addChangeContainer;
   #addChangeForm;
   #moneyInput;
   #totalChange;
@@ -10,30 +11,23 @@ export default class AddChangeTab {
 
   constructor(machine) {
     this.#vendingMachine = machine;
-    this.#addChangeTabContainer = document.createElement('main');
-    this.#addChangeTabContainer.insertAdjacentHTML(
-      'beforeend',
-      addChangeTabTemplate
-    );
-    this.#addChangeForm =
-      this.#addChangeTabContainer.querySelector('#add-change-form');
-    this.#moneyInput =
-      this.#addChangeTabContainer.querySelector('#money-input');
-    this.#totalChange =
-      this.#addChangeTabContainer.querySelector('#total-change');
-    this.#coinStatusTable =
-      this.#addChangeTabContainer.querySelector('#coin-status-table');
+
+    this.#addChangeContainer = document.createElement('main');
+    this.#addChangeContainer.insertAdjacentHTML('beforeend', addChangeTemplate);
+    this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
+    this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
+    this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
+    this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
     this.#addChangeForm.addEventListener('submit', this.handleAddChange);
   }
 
   get tabElements() {
-    return this.#addChangeTabContainer;
+    return this.#addChangeContainer;
   }
 
   handleAddChange = (e) => {
     e.preventDefault();
-
     const money = this.#moneyInput.valueAsNumber;
 
     try {
@@ -47,8 +41,7 @@ export default class AddChangeTab {
   renderCoinStatus() {
     this.#totalChange.textContent = this.#vendingMachine.totalChange;
 
-    const coinCountElements =
-      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
+    const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
     const { coinStatus } = this.#vendingMachine;
 
     coinCountElements.forEach((element) => {
