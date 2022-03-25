@@ -74,19 +74,27 @@ export default class ProductPage {
       return previous;
     }, {});
 
-    // 예외 처리
     try {
       validateProduct(product);
     } catch (error) {
       alert(error.message);
       return;
     }
-    ProductStore.addProduct(product);
-    $$inputs.forEach($input => ($input.value = ''));
+
+    const productIndex = ProductStore.findProductIndexByName(product.name);
+
+    if (productIndex === -1) {
+      ProductStore.addProduct(product);
+      $$inputs.forEach($input => ($input.value = ''));
+      return;
+    }
+
+    if (confirm('이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?')) {
+      ProductStore.updateProduct(productIndex, product);
+    }
   }
 
   onClickUpdateButton({ target: $target }) {
-    // 상품 정보를 input으로 바꿔줌
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
 
