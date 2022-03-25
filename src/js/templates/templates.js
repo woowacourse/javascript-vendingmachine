@@ -63,11 +63,13 @@ export const CATEGORY_TEMPLATE = {
           class="input-width"
           type="number"
           placeholder="금액"
+          min="10"
+          max="100000"
           required
         />
-        <button>구입</button>
+        <button id="charge-button">구입</button>
       </div>
-      <p class="current-amount">현재 보유 금액: 500원</p>
+      <p class="current-amount">현재 보유 금액: 0원</p>
     </form>
     <table class="table">
       <caption class="caption">
@@ -80,9 +82,21 @@ export const CATEGORY_TEMPLATE = {
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr></tr>
           <td>500원</td>
-          <td>5개</td>
+          <td id="five-hundred-coin">0개</td>
+        </tr>
+        <tr>
+          <td>100원</td>
+          <td id="one-hundred-coin">0개</td>
+        </tr>
+        <tr>
+          <td>50원</td>
+          <td id="fifty-coin">0개</td>
+        </tr>
+        <tr>
+          <td>10원</td>
+          <td id="ten-coin">0개</td>
         </tr>
       </tbody>
     </table>
