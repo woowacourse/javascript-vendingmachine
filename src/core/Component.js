@@ -1,4 +1,5 @@
-import { deepEqual } from '../utils/commons.js';
+import Subject from './Subject';
+import { deepEqual } from '../utils/commons';
 
 export default class Component extends HTMLElement {
   props;
@@ -14,7 +15,11 @@ export default class Component extends HTMLElement {
   }
 
   connectedCallback() {
-    this.render();
+    Subject.observe(this);
+  }
+
+  disconnectedCallback() {
+    Subject.unobserve(this);
   }
 
   setProps() {
@@ -40,8 +45,7 @@ export default class Component extends HTMLElement {
   }
 
   template() {
-    return ``;
-    // throw new Error('override');
+    throw new Error('override');
   }
 
   beforeRender() {}
@@ -67,5 +71,9 @@ export default class Component extends HTMLElement {
 
       callback(event);
     });
+  }
+
+  notify() {
+    this.render();
   }
 }

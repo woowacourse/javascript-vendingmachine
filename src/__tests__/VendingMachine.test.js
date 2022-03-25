@@ -14,11 +14,15 @@ describe('vendingMachine', () => {
       test('유효한 상품 정보가 상품 목록에 추가되어야 한다.', () => {
         vendingMachine.addItem(newItem);
 
-        expect(vendingMachine.items.get('콜라')).toEqual({
-          name: '콜라',
-          price: 1500,
-          quantity: 5,
-        });
+        const items = vendingMachine.useStore((state) => state.items);
+
+        expect(items).toEqual([
+          {
+            name: '콜라',
+            price: 1500,
+            quantity: 5,
+          },
+        ]);
       });
     });
 
@@ -88,11 +92,15 @@ describe('vendingMachine', () => {
           quantity: 10,
         });
 
-        expect(vendingMachine.items.get('콜라')).toEqual({
-          name: '사이다',
-          price: 1500,
-          quantity: 10,
-        });
+        const items = vendingMachine.useStore((state) => state.items);
+
+        expect(items).toEqual([
+          {
+            name: '사이다',
+            price: 1500,
+            quantity: 10,
+          },
+        ]);
       });
     });
     describe('실패 시', () => {
@@ -133,7 +141,10 @@ describe('vendingMachine', () => {
       test('상품을 삭제할 수 있다', () => {
         vendingMachine.addItem({ name: '콜라', price: 1500, quantity: 5 });
         vendingMachine.removeItem('콜라');
-        expect(vendingMachine.items.has('콜라')).toBeFalsy();
+
+        const items = vendingMachine.useStore((state) => state.items);
+
+        expect(items).toEqual([]);
       });
     });
 
