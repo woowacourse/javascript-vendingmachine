@@ -10,7 +10,7 @@ export const isNumberInRange = (value: number, min: number, max: number) =>
 export const isStringLengthInRange = (value: string, min: number, max: number) =>
   value.length >= min && value.length <= max;
 
-export const isCorrectNumberUnit = (value: number, base: number) => value % base === 0;
+export const isCorrectNumberUnit = (value: number, unit: number) => value % unit === 0;
 
 export const getSearchParamsObject = (searchUrl = '') => {
   const searchString = `?${searchUrl.split('?')[1]}`;
