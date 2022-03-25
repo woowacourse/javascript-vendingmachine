@@ -29,16 +29,19 @@ export default class ProductManagementUI {
           <input
             id="product-name"
             class="product-addition__input"
+            name="name"
             placeholder="상품명"
           />
           <input
             type="number"
             class="product-addition__input"
+            name="price"
             placeholder="가격"
           />
           <input
             type="number"
             class="product-addition__input"
+            name="quantity"
             placeholder="수량"
           />
           <button class="product-addition__button submit-button">추가</button>

@@ -1,6 +1,10 @@
 import { $ } from '../../utils/dom';
-import { validateProductInfo } from './validator';
+import { ProductInfoUnionType, validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
+
+type Inputs = {
+  [infoType in ProductInfoUnionType]: HTMLInputElement;
+};
 
 export default class ProductAdditionUI {
   private productDomain;
@@ -16,20 +20,24 @@ export default class ProductAdditionUI {
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const $$inputs = Array.from(e.target.elements).filter(
-      element => element.tagName === 'INPUT',
-    ) as HTMLInputElement[];
+    const $$formElements = e.target.elements;
+    const $$inputs = {
+      name: $$formElements.namedItem('name') as HTMLInputElement,
+      price: $$formElements.namedItem('price') as HTMLInputElement,
+      quantity: $$formElements.namedItem('quantity') as HTMLInputElement,
+    };
 
     const product = {
-      name: $$inputs[0].value,
-      price: $$inputs[1].valueAsNumber,
-      quantity: $$inputs[2].valueAsNumber,
+      name: $$inputs.name.value,
+      price: $$inputs.price.valueAsNumber,
+      quantity: $$inputs.quantity.valueAsNumber,
     };
 
     try {
       const { products } = this.productDomain;
       validateProductInfo(products, product);
-    } catch ({ message }) {
+    } catch ({ name, message }) {
+      this.focusOnInvalidInput(name, $$inputs);
       alert(message);
       return;
     }
@@ -37,4 +45,17 @@ export default class ProductAdditionUI {
     this.productDomain.addProduct(product);
     viewPainter.renderProducts();
   };
+
+  private focusOnInvalidInput(target: ProductInfoUnionType, $$inputs: Inputs) {
+    switch (target) {
+      case 'name':
+        $$inputs.name.focus();
+        break;
+      case 'price':
+        $$inputs.price.focus();
+        break;
+      case 'quantity':
+        $$inputs.quantity.focus();
+    }
+  }
 }

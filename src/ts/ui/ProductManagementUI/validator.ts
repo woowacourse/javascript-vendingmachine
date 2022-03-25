@@ -8,13 +8,21 @@ import { isInvalidNumber } from '../../utils/validator';
 import ProductImpl from '../../domain/Product';
 import { ProductInfo } from '../../domain/types';
 
-const isEmpty = (product: ProductInfo) =>
-  Object.keys(product).some(key => {
+export type ProductInfoUnionType = keyof ProductInfo;
+
+const findEmptyField = (
+  product: ProductInfo,
+): { isEmpty: boolean; target: ProductInfoUnionType } => {
+  let target;
+  const isEmpty = Object.keys(product).some(key => {
+    target = key;
     if (typeof product[key] === 'number') {
       return Number.isNaN(product[key]);
     }
     return product[key].trim() === '';
   });
+  return { isEmpty, target };
+};
 
 const hasSameProduct = (
   products: ProductImpl[],
@@ -31,30 +39,41 @@ const isOverMaxLength = (name: string) => name.length > MAX_NAME_LENGTH;
 const isQuantityRanged = (quantity: number) =>
   quantity > MAX_QUANTITY || quantity <= 0;
 
+interface Validator {
+  test: boolean;
+  errorMsg: string;
+  target: ProductInfoUnionType;
+}
+
 const generateProductInfoValidators = (
   products: ProductImpl[],
   newProduct: ProductInfo,
   prevProductName: string | null = null,
-) => [
+): Validator[] => [
   {
-    test: isEmpty(newProduct),
+    test: findEmptyField(newProduct).isEmpty,
     errorMsg: MESSAGE.ERROR_EMPTY_VALUE,
+    target: findEmptyField(newProduct).target,
   },
   {
     test: hasSameProduct(products, newProduct, prevProductName),
     errorMsg: MESSAGE.ERROR_SAME_PRODUCT,
+    target: 'name',
   },
   {
     test: isOverMaxLength(newProduct.name),
     errorMsg: MESSAGE.ERROR_OVER_MAX_LENGTH,
+    target: 'name',
   },
   {
     test: isInvalidNumber(newProduct.price, PRICE_RULE),
     errorMsg: MESSAGE.ERROR_INVALID_PRICE,
+    target: 'price',
   },
   {
     test: isQuantityRanged(newProduct.quantity),
     errorMsg: MESSAGE.ERROR_OVER_MAX_QUANTITY,
+    target: 'quantity',
   },
 ];
 
@@ -69,8 +88,12 @@ const validateProductInfo = (
     prevProductName,
   );
 
-  return validator.every(({ test, errorMsg }) => {
-    if (test) throw new Error(errorMsg);
+  return validator.every(({ test, errorMsg, target }) => {
+    if (test) {
+      const error = new Error(errorMsg);
+      error.name = target;
+      throw error;
+    }
     return true;
   });
 };
