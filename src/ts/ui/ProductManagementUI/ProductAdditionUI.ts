@@ -8,6 +8,7 @@ export default class ProductAdditionUI {
   constructor(productDomain) {
     this.productDomain = productDomain;
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
+    $('.product-addition__input').focus();
   }
 
   private submitHandler = (e: Event) => {

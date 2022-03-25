@@ -8,6 +8,7 @@ export default class CoinChargeUI {
   constructor(coinDomain) {
     this.coinDomain = coinDomain;
     $('.coin-charge__form').addEventListener('submit', this.submitHandler);
+    $('.coin-charge__input').focus();
   }
 
   private submitHandler = (e: Event) => {
