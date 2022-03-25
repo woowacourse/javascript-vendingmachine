@@ -1,7 +1,8 @@
 import VendingMachine from './VendingMachine';
 import { ERROR_MESSAGE } from '../constants';
+import Money from './Money';
 
-describe('자판기 테스트', () => {
+describe('상품 관리 테스트', () => {
   const vendingMachine = new VendingMachine();
   const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
 
@@ -102,5 +103,44 @@ describe('자판기 테스트', () => {
     expect(() => {
       vendingMachine.editProduct('코카콜라', overMaxQuantity);
     }).toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
+  });
+});
+
+describe('잔돈 충전 테스트', () => {
+  const vendingMachine = new VendingMachine();
+
+  afterEach(() => {
+    vendingMachine.money = [
+      new Money(500, 0),
+      new Money(100, 0),
+      new Money(50, 0),
+      new Money(10, 0),
+    ];
+  });
+
+  it('잔돈을 충전하면, 충전된 금액과 생성된 동전들의 금액의 합이 같아야 한다.', () => {
+    const moneyToRecharge = 1000;
+    vendingMachine.rechargeMoney(moneyToRecharge);
+
+    const holdingMoney = vendingMachine.getHoldingMoney();
+    expect(holdingMoney).toEqual(moneyToRecharge);
+  });
+
+  it('충전할 금액이 10의 배수가 아니면 에러를 발생시킨다.', () => {
+    const invalidUnitMoney = 1513;
+
+    expect(() => {
+      vendingMachine.rechargeMoney(invalidUnitMoney);
+    }).toThrowError(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
+  });
+
+  it('보유한 금액이 100,000원을 넘으면 에러를 발생시킨다.', () => {
+    vendingMachine.rechargeMoney(50000);
+    vendingMachine.rechargeMoney(30000);
+    vendingMachine.rechargeMoney(20000);
+
+    expect(() => {
+      vendingMachine.rechargeMoney(10);
+    }).toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   });
 });

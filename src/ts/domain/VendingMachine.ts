@@ -1,22 +1,50 @@
 import ProductType from '../type/ProductType';
+import MoneyType from '../type/MoneyType';
 import Product from './Product';
-import { ERROR_MESSAGE } from '../constants';
-import { checkDuplicatedProduct } from './validator';
-
+import Money from './Money';
+import { checkDuplicatedProduct, checkMoneyValidation } from './validator';
+import { getRandomNumber } from '../utils';
 export interface VendingMachineInterface {
   products: ProductType[];
+  money: MoneyType[];
   addProduct(input: ProductType): ProductType;
   deleteProduct(name: string): void;
   getProductByName(name: string): ProductType;
   editProduct(name: string, product: ProductType): void;
+  rechargeMoney(money: number): void;
+  getHoldingMoney(): number;
+  generateRandomCoins(money: number): void;
 }
-
-class VendingMachine implements VendingMachineInterface {
+export default class VendingMachine implements VendingMachineInterface {
   products: ProductType[];
+  money: MoneyType[];
 
   constructor() {
     this.products = [];
+    this.money = [new Money(500, 0), new Money(100, 0), new Money(50, 0), new Money(10, 0)];
   }
+
+  getHoldingMoney = () => {
+    return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
+      return holdingMoney + currentMoney.value * currentMoney.count;
+    }, 0);
+  };
+
+  generateRandomCoins = (money: number) => {
+    while (money !== 0) {
+      const coinValue = this.money[getRandomNumber(0, 3)].value;
+      if (coinValue <= money) {
+        const index = this.money.findIndex((coin: MoneyType) => coin.value === coinValue);
+        this.money[index].count += 1;
+        money -= coinValue;
+      }
+    }
+  };
+
+  rechargeMoney = (money: number) => {
+    checkMoneyValidation(money, money + this.getHoldingMoney());
+    this.generateRandomCoins(money);
+  };
 
   addProduct = (newProduct: ProductType) => {
     const productToAdd = new Product(newProduct);
@@ -45,5 +73,3 @@ class VendingMachine implements VendingMachineInterface {
     this.products[indexToEdit] = editedProduct;
   };
 }
-
-export default VendingMachine;

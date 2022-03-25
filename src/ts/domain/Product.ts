@@ -3,7 +3,7 @@ import { checkProductValidation } from './validator';
 
 interface ProductInterface extends ProductType {}
 
-class Product implements ProductInterface {
+export default class Product implements ProductInterface {
   name: string;
   price: number;
   quantity: number;
@@ -15,5 +15,3 @@ class Product implements ProductInterface {
     this.quantity = quantity;
   }
 }
-
-export default Product;

@@ -11,7 +11,7 @@ export interface ProductManageViewInterface {
   vendingMachine: VendingMachineInterface;
 
   handleEdit(target: HTMLButtonElement): void;
-  handleSubmit(event: any): void;
+  handleSubmit(event: SubmitEvent): void;
   handleDelete(target: HTMLButtonElement): void;
   renderProductManage(): void;
   removeProductRow(name: string): void;
@@ -21,7 +21,7 @@ export interface ProductManageViewInterface {
   getEditTemplate({ name, price, quantity }: ProductType): string;
 }
 
-class ProductManageView implements ProductManageViewInterface {
+export default class ProductManageView implements ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
   $productPriceInput: HTMLInputElement;
   $productQuantityInput: HTMLInputElement;
@@ -30,11 +30,11 @@ class ProductManageView implements ProductManageViewInterface {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$productNameInput = $('#product-name');
-    this.$productPriceInput = $('#product-price');
-    this.$productQuantityInput = $('#product-quantity');
-    this.$productManageForm = $('.product-manage-form');
-    this.$currentProductTable = $('#current-product-table');
+    this.$productNameInput = <HTMLInputElement>$('#product-name');
+    this.$productPriceInput = <HTMLInputElement>$('#product-price');
+    this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
+    this.$productManageForm = <HTMLFormElement>$('.product-manage-form');
+    this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
     this.vendingMachine = vendingMachine;
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
@@ -86,13 +86,13 @@ class ProductManageView implements ProductManageViewInterface {
   handleConfirmEdit = (targetName: string) => {
     const targetEdit = $(`tr[data-name=${targetName}]`);
     const productToEdit = {
-      name: $('#edit-name-input').value,
-      price: +$('#edit-price-input').value,
-      quantity: +$('#edit-quantity-input').value,
+      name: (<HTMLInputElement>$('#edit-name-input')).value,
+      price: +(<HTMLInputElement>$('#edit-price-input')).value,
+      quantity: +(<HTMLInputElement>$('#edit-quantity-input')).value,
     };
     try {
       this.vendingMachine.editProduct(targetName, productToEdit);
-      this.renderEditedProduct(productToEdit, targetEdit);
+      this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
     } catch (error) {
       alert(error.message);
       /* 분기해서 원래 값으로 돌려놓는 함수 실행 */
@@ -113,7 +113,7 @@ class ProductManageView implements ProductManageViewInterface {
   }
 
   handleModifierButton = (event: PointerEvent) => {
-    const target = event.target as HTMLButtonElement;
+    const target = <HTMLButtonElement>event.target;
 
     if (target.classList.contains('edit-button')) {
       this.handleEdit(target);
@@ -164,11 +164,15 @@ class ProductManageView implements ProductManageViewInterface {
     const $$productRows = $$('.product-row');
     const allProducts = this.vendingMachine.products;
     allProducts.forEach((product, index) => {
-      $('.product-row-name', $$productRows[index]).textContent = product.name;
-      $('.product-row-price', $$productRows[index]).textContent = product.price;
-      $('.product-row-quantity', $$productRows[index]).textContent = product.quantity;
+      (<HTMLTableCellElement>(
+        $('.product-row-name', <HTMLElement>$$productRows[index])
+      )).textContent = product.name;
+      (<HTMLTableCellElement>(
+        $('.product-row-price', <HTMLElement>$$productRows[index])
+      )).textContent = String(product.price);
+      (<HTMLTableCellElement>(
+        $('.product-row-quantity', <HTMLElement>$$productRows[index])
+      )).textContent = String(product.quantity);
     });
   };
 }
-
-export default ProductManageView;

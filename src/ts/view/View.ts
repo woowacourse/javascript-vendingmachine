@@ -2,8 +2,9 @@ import { $, $$ } from '../utils';
 import { URL, ID } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
+import RechargeView, { RechargeViewInterface } from './RechargeView';
 
-class View {
+export default class View {
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
   $tabProductManageButton: HTMLInputElement;
   $tabRechargeButton: HTMLInputElement;
@@ -11,15 +12,17 @@ class View {
   $$tabButtons: NodeListOf<HTMLInputElement>;
   vendingMachine: VendingMachineInterface;
   productManageView: ProductManageViewInterface;
+  rechargeView: RechargeViewInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$$tabResultContainers = $$('.tab-result-container');
-    this.$tabProductManageButton = $('#tab-product-manage');
-    this.$tabRechargeButton = $('#tab-recharge');
-    this.$tabPurchaseProductButton = $('#tab-purchase-product');
-    this.$$tabButtons = $$('.tab-button');
+    this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
+    this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
+    this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
+    this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
+    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-button');
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);
+    this.rechargeView = new RechargeView(this.vendingMachine);
 
     history.replaceState({ url: URL.PRODUCT_MANAGE }, null, URL.PRODUCT_MANAGE);
     this.renderTabResult(ID.PRODUCT_MANAGE);
@@ -54,7 +57,7 @@ class View {
         this.productManageView.renderProductManage();
       },
       'recharge-container': () => {
-        // this.renderRecharge();
+        this.rechargeView.renderRecharge();
       },
       'purchase-product-container': () => {
         // this.renderPurchaseProduct();
@@ -81,5 +84,3 @@ class View {
     routes[url]();
   };
 }
-
-export default View;
