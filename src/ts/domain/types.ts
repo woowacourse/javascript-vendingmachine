@@ -3,3 +3,5 @@ export interface ProductInfo {
   price: number;
   quantity: number;
 }
+
+export type ProductInfoUnionType = keyof ProductInfo;

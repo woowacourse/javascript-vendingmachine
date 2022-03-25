@@ -6,9 +6,7 @@ import {
 } from '../../constants';
 import { isInvalidNumber } from '../../utils/validator';
 import ProductImpl from '../../domain/Product';
-import { ProductInfo } from '../../domain/types';
-
-export type ProductInfoUnionType = keyof ProductInfo;
+import { ProductInfo, ProductInfoUnionType } from '../../domain/types';
 
 const findEmptyField = (
   product: ProductInfo,

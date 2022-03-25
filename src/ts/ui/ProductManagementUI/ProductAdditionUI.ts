@@ -1,6 +1,7 @@
 import { $ } from '../../utils/dom';
-import { ProductInfoUnionType, validateProductInfo } from './validator';
+import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
+import { ProductInfoUnionType } from '../../domain/types';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
