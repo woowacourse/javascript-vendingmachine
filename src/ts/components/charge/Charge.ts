@@ -28,7 +28,6 @@ class Charge {
     this.chargeInput = $(".charge-control-input");
     this.currentContainCharge = $("#current-contain-charge");
     addEvent(this.chargeForm, "submit", this.handleAddCharge);
-    addEvent($("#charge-add-button"), "click", this.handleAddCharge);
   }
 
   handleAddCharge = (e: Event) => {
@@ -43,7 +42,7 @@ class Charge {
     }
   };
 
-  convertRandomCharge(charge) {
+  convertRandomCharge(charge: number) {
     let totalAmount = 0;
     this.totalCharge += charge;
     while (totalAmount !== charge) {
@@ -65,7 +64,7 @@ class Charge {
     return coinList[randomNumber];
   }
 
-  showRandomCharge(chargeResult) {
+  showRandomCharge(chargeResult: number[]) {
     const chargeCoinCount = $$(".charge-coin-count");
     this.currentContainCharge.textContent = `${this.totalCharge}`;
     Array.from(

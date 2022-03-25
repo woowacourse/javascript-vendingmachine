@@ -33,6 +33,7 @@ button {
   width: 120px;
   height: 36px;
   background: #f5f5f5;
+  margin: 0 4px;
 }
 
 .nav__button:hover {
