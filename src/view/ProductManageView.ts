@@ -9,19 +9,17 @@ export class ProductManageView {
   productCatalog: ProductCatalog;
   props: object;
 
-  constructor() {}
+  constructor() {
+    this.productCatalog = new ProductCatalog();
+    this.contentsContainer = document.querySelector('#contents-container');
+  }
 
   init() {
-    this.productCatalog = new ProductCatalog();
-
-    this.contentsContainer = document.querySelector('#contents-container');
-    this.contentsContainer.textContent = '';
-
     this.props = {
       target: this.contentsContainer,
       productCatalog: this.productCatalog,
     };
-
+    this.contentsContainer.textContent = '';
     this.productInformationInput = new ProductInformationInput(this.props);
     this.productCatalogTable = new ProductCatalogTable(this.props);
   }

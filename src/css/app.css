@@ -40,7 +40,7 @@
 }
 
 .tab-button:hover {
-  background-color: var(--gray-light);
+  background-color: var(--gray);
 }
 
 .input {

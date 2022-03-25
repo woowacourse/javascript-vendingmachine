@@ -12,7 +12,7 @@ export class CoinVault {
   private coinsQuantity: Coins;
 
   constructor() {
-    this.coinsQuantity = COINS_INIT_QUANTITY;
+    this.coinsQuantity = { ...COINS_INIT_QUANTITY };
   }
 
   addCoins(coins: Coins) {
@@ -53,7 +53,7 @@ export class CoinVault {
 
   generateRandomCoins(money: number): Coins {
     let balance = money;
-    const generatedCoins = COINS_INIT_QUANTITY;
+    const generatedCoins = { ...COINS_INIT_QUANTITY };
 
     [...Object.entries(COINS_PRICE_TABLE)].forEach(([key, price]) => {
       const maxQuotient = balance / price;
