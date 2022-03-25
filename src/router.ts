@@ -28,8 +28,8 @@ const render = (path: string) => {
 };
 
 const routers: IRouter[] = [
-  { path: '/', component: $('product-management') },
-  { path: '/charge', component: $('charge-tab') },
+  { path: '/javascript-vendingmachine/', component: $('product-management') },
+  { path: '/javascript-vendingmachine/charge', component: $('charge-tab') },
 ];
 
 window.addEventListener('popstate', function () {
