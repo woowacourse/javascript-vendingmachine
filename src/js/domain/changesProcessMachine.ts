@@ -18,7 +18,6 @@ class ChangesProcessMachine implements ChangesDomain {
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
-    console.log(this.coins);
   };
 
   accumulateCoins = (newCoins: Coins): void => {

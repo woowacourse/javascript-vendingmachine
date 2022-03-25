@@ -23,11 +23,11 @@ export interface GetProducts {
 export interface ProductDomain {
   products: Product[];
 
-  add: Add; // 상품이 추가됨
+  add: Add; 
 
-  getProducts: GetProducts; // 상품을 가져옴
+  getProducts: GetProducts; 
 
-  update: Update; // 상품을 수정할수 있음
+  update: Update;
 
-  delete: Delete; // 상품을 삭제할수 있음
+  delete: Delete;
 }

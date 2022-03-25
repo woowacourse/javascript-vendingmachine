@@ -24,11 +24,11 @@ export interface GetCoins {
 export interface ChangesDomain {
   coins: Coins;
 
-  charge: Charge; // 돈을 충전함
+  charge: Charge; 
 
   getCoins: GetCoins;
 
-  getTotalChanges: GetTotalChanges; // 총 잔돈을 계산함
+  getTotalChanges: GetTotalChanges; 
 
-  generateCoins: GenerateCoins; // 동전을 무작위로 생성함
+  generateCoins: GenerateCoins;
 }
