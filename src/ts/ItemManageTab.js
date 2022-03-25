@@ -2,33 +2,31 @@ import {
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
 } from './template';
-import { selectDom } from './utils';
+import { selectDom, selectDoms } from './utils';
 
 class ItemManageTab {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
-    this.navTabButtonList = document.querySelectorAll('.nav-tab-button');
+    this.navTabButtonList = selectDoms('.nav-tab-button');
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
     this.tabContent = selectDom('#tab-content');
 
-    this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
-    this.itemInfoInputs = this.itemInfoForm.querySelectorAll('.item-info-input');
-    this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
+    this.itemInfoForm = null;
+    this.itemInfoInputs = null;
+    this.itemStatusTable = null;
 
     this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
-    this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
-    this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
   }
 
-  render() {
+  renderInitialTabState() {
     this.#changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
       this.itemManageTabButton
     );
 
     this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
-    this.itemInfoInputs = this.itemInfoForm.querySelectorAll('.item-info-input');
+    this.itemInfoInputs = selectDoms('.item-info-input', this.itemInfoForm);
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
 
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
@@ -43,7 +41,7 @@ class ItemManageTab {
     const path = targetTabButton.dataset.hash;
     history.pushState({ path }, null, path);
 
-    this.render();
+    this.renderInitialTabState();
   };
 
   #onSubmitItemInfoForm = (e) => {
@@ -54,11 +52,11 @@ class ItemManageTab {
     );
 
     try {
-      this.vendingMachine.validateItemInput(
-        itemName.trim(),
-        Number(itemPrice),
-        Number(itemQuantity)
-      );
+      this.vendingMachine.validateItemInput({
+        itemName: itemName.trim(),
+        itemPrice: Number(itemPrice),
+        itemQuantity: Number(itemQuantity),
+      });
     } catch (error) {
       return alert(error.message);
     }
@@ -81,14 +79,14 @@ class ItemManageTab {
     }
 
     if (e.target.classList.contains('edit-item-button')) {
-      const itemInfoInputCellList = targetItem.querySelectorAll('.item-info-input-cell');
+      const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
 
       itemInfoInputCellList.forEach((itemInfoInputCell) => {
         itemInfoInputCell.disabled = false;
       });
       itemInfoInputCellList[0].focus();
 
-      const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
+      const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
       itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
       return;
     }
@@ -105,16 +103,18 @@ class ItemManageTab {
     }
 
     if (e.target.classList.contains('confirm-item-button')) {
-      const itemInfoInputCellList = targetItem.querySelectorAll('.item-info-input-cell');
+      const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
       const [itemName, itemPrice, itemQuantity] = Array.from(itemInfoInputCellList).map(
         (itemInfoInputCell) => itemInfoInputCell.value
       );
 
       try {
         this.vendingMachine.validateItemInput(
-          itemName.trim(),
-          Number(itemPrice),
-          Number(itemQuantity),
+          {
+            itemName: itemName.trim(),
+            itemPrice: Number(itemPrice),
+            itemQuantity: Number(itemQuantity),
+          },
           false
         );
       } catch (error) {
@@ -131,7 +131,7 @@ class ItemManageTab {
         itemInfoInputCell.disabled = true;
       });
 
-      const itemButtonCellList = targetItem.querySelectorAll('.item-button-cell');
+      const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
       itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
 
       targetItem.dataset.itemName = itemName.trim();

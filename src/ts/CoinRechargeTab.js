@@ -1,11 +1,11 @@
 import { generateCoinRechargeTabContentTemplate } from './template';
-import { selectDom } from './utils';
+import { selectDom, selectDoms } from './utils';
 
 class CoinRechargeTab {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
-    this.navTabButtonList = document.querySelectorAll('.nav-tab-button');
+    this.navTabButtonList = selectDoms('.nav-tab-button');
     this.coinRechargeTabButton = selectDom('#coin-recharge-tab-button');
     this.tabContent = selectDom('#tab-content');
 
@@ -28,7 +28,7 @@ class CoinRechargeTab {
     this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
     this.cashChargeInput = selectDom('.cash-charge-input', this.cashChargeForm);
     this.chargedAmountText = selectDom('#charged-amount', this.tabContent);
-    this.coinCountList = this.tabContent.querySelectorAll('.coin-count');
+    this.coinCountList = selectDoms('.coin-count', this.tabContent);
 
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
   }
