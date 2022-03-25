@@ -3,7 +3,10 @@ import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from './constant/rul
 
 interface VendingMachineInterface {
   addItem: (itemName: string, itemPrice: number, itemQuantity: number) => void;
-  editItem: (itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) => void;
+  editItem: (
+    itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
+    itemIndex: number
+  ) => void;
   deleteItem: (itemName: string) => void;
 
   chargeCoin: (rechargeCoin: number) => void;
@@ -43,8 +46,11 @@ class VendingMachine implements VendingMachineInterface {
     this._itemList = this._itemList.filter((savedItem) => savedItem.itemName !== itemName);
   }
 
-  editItem(itemName: string, itemPrice: number, itemQuantity: number, itemIndex: number) {
-    this._itemList[itemIndex] = { itemName, itemPrice, itemQuantity };
+  editItem(
+    itemInfo: { itemName: string; itemPrice: number; itemQuantity: number },
+    itemIndex: number
+  ) {
+    this._itemList[itemIndex] = itemInfo;
   }
 
   chargeCoin(rechargeCoin) {

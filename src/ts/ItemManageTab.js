@@ -79,64 +79,74 @@ class ItemManageTab {
     }
 
     if (e.target.classList.contains('edit-item-button')) {
-      const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
-
-      itemInfoInputCellList.forEach((itemInfoInputCell) => {
-        itemInfoInputCell.disabled = false;
-      });
-      itemInfoInputCellList[0].focus();
-
-      const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
-      itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+      this.#handleEditButtonClickEvent(targetItem);
       return;
     }
 
     if (
       e.target.classList.contains('delete-item-button') &&
-      confirm('정말 ㅇㅇㅇ 상품을 삭제하시겠습니까?')
+      confirm('정말 해당 상품을 삭제하시겠습니까?')
     ) {
-      const { itemName } = targetItem.dataset;
-
-      this.vendingMachine.deleteItem(itemName);
-      targetItem.remove();
+      this.#handleDeleteButtonClickEvent(targetItem);
       return;
     }
 
     if (e.target.classList.contains('confirm-item-button')) {
-      const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
-      const [itemName, itemPrice, itemQuantity] = Array.from(itemInfoInputCellList).map(
-        (itemInfoInputCell) => itemInfoInputCell.value
-      );
-
-      try {
-        this.vendingMachine.validateItemInput(
-          {
-            itemName: itemName.trim(),
-            itemPrice: Number(itemPrice),
-            itemQuantity: Number(itemQuantity),
-          },
-          false
-        );
-      } catch (error) {
-        return alert(error.message);
-      }
-      this.vendingMachine.editItem(
-        itemName.trim(),
-        Number(itemPrice),
-        Number(itemQuantity),
-        targetItem.rowIndex - 1
-      );
-
-      itemInfoInputCellList.forEach((itemInfoInputCell) => {
-        itemInfoInputCell.disabled = true;
-      });
-
-      const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
-      itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
-
-      targetItem.dataset.itemName = itemName.trim();
+      this.#handleConfirmButtonClickEvent(targetItem);
     }
   };
+
+  #handleEditButtonClickEvent(targetItem) {
+    const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
+
+    itemInfoInputCellList.forEach((itemInfoInputCell) => {
+      itemInfoInputCell.disabled = false;
+    });
+    itemInfoInputCellList[0].focus();
+
+    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
+    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+  }
+
+  #handleDeleteButtonClickEvent(targetItem) {
+    const { itemName } = targetItem.dataset;
+
+    this.vendingMachine.deleteItem(itemName);
+    targetItem.remove();
+  }
+
+  #handleConfirmButtonClickEvent(targetItem) {
+    const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
+    const itemInfo = this.#convertToItemInfoObject(Array.from(itemInfoInputCellList));
+
+    try {
+      this.vendingMachine.validateItemInput(itemInfo, false);
+    } catch (error) {
+      return alert(error.message);
+    }
+    this.vendingMachine.editItem(itemInfo, targetItem.rowIndex - 1);
+
+    itemInfoInputCellList.forEach((itemInfoInputCell) => {
+      itemInfoInputCell.disabled = true;
+    });
+
+    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
+    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+
+    targetItem.dataset.itemName = itemInfo.itemName.trim();
+  }
+
+  #convertToItemInfoObject(itemInfoInputCellArray) {
+    const [itemName, itemPrice, itemQuantity] = itemInfoInputCellArray.map(
+      (itemInfoInputCell) => itemInfoInputCell.value
+    );
+
+    return {
+      itemName: itemName.trim(),
+      itemPrice: Number(itemPrice),
+      itemQuantity: Number(itemQuantity),
+    };
+  }
 
   #changeTabContent(contentTemplate, targetTabButton) {
     this.tabContent.replaceChildren();

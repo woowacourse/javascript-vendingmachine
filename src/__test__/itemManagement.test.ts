@@ -21,7 +21,12 @@ describe('상품 추가, 삭제, 수정 테스트', () => {
 
   test('상품을 수정할 수 있다.', () => {
     const itemIndex = 0;
-    vendingMachine.editItem('콜라', 900, 10, itemIndex);
+    const itemInfo = {
+      itemName: '콜라',
+      itemPrice: 900,
+      itemQuantity: 10,
+    };
+    vendingMachine.editItem(itemInfo, itemIndex);
 
     expect(vendingMachine.itemList[itemIndex]).toEqual({
       itemName: '콜라',
