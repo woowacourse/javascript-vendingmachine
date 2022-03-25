@@ -14,6 +14,7 @@ export interface VendingMachineInterface {
   rechargeMoney(money: number): void;
   getHoldingMoney(): number;
   generateRandomCoins(money: number): void;
+  getCoinByValue(value: number): MoneyType;
 }
 export default class VendingMachine implements VendingMachineInterface {
   products: ProductType[];
@@ -23,6 +24,10 @@ export default class VendingMachine implements VendingMachineInterface {
     this.products = [];
     this.money = [new Money(500, 0), new Money(100, 0), new Money(50, 0), new Money(10, 0)];
   }
+
+  getCoinByValue = (value: number) => {
+    return this.money.find((coin) => coin.value === value);
+  };
 
   getHoldingMoney = () => {
     return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
