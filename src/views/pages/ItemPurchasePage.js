@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 
-class PurchaseItem extends Component {
+class ItemPurchasePage extends Component {
   template() {
     return `
       <div>
@@ -10,4 +10,4 @@ class PurchaseItem extends Component {
   }
 }
 
-customElements.define('purchase-item', PurchaseItem);
+customElements.define('item-purchase', ItemPurchasePage);

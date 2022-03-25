@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 
-class ChangeCharge extends Component {
+class ChangeChargePage extends Component {
   template() {
     const coins = vendingMachine.useStore((state) => state.coins);
     const coinArray = [...Object.entries(coins)];
@@ -12,7 +12,17 @@ class ChangeCharge extends Component {
         <h2 hidden>잔돈 충전</h2>
         <form id="change-charge-form">
           <label for="amount">자판기가 보유할 금액을 입력해주세요.</label>
-          <input id="change-amount" name="amount" placeholder="금액" type="number" min="10" max="100000" step="10" required autofocus>
+          <input
+            id="charge-amount" 
+            name="amount" 
+            placeholder="금액" 
+            type="number" 
+            min="10" 
+            max="100000" 
+            step="10" 
+            required 
+            autofocus
+          >
           <button>충전</button>
         </form>
         <p>현재 보유 금액: <span>${totalMoney}원</span></p>
@@ -45,13 +55,15 @@ class ChangeCharge extends Component {
 
   setEvent() {
     this.addEvent('submit', '#change-charge-form', () => {
-      const changeAmount = this.querySelector('#change-amount').valueAsNumber;
+      const chargeAmount = this.querySelector('#charge-amount').valueAsNumber;
 
-      vendingMachine.addCoin(changeAmount);
-
-      this.render();
+      try {
+        vendingMachine.addCoin(chargeAmount);
+      } catch (err) {
+        window.alert(err);
+      }
     });
   }
 }
 
-customElements.define('change-charge', ChangeCharge);
+customElements.define('change-charge', ChangeChargePage);

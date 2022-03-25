@@ -58,7 +58,11 @@ class ItemManagementPage extends Component {
         quantity: target.querySelector('#item-quantity-input').valueAsNumber,
       };
 
-      vendingMachine.addItem(item);
+      try {
+        vendingMachine.addItem(item);
+      } catch (err) {
+        window.alert(err);
+      }
     });
   }
 }

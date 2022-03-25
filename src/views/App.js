@@ -1,9 +1,9 @@
 import Component from '../core/Component';
 import './Router.js';
 import './pages/ItemManagementPage';
-import './pages/ChangeCharge';
-import './pages/PurchaseItem';
-import './pages/NotFound';
+import './pages/ChangeChargePage';
+import './pages/ItemPurchasePage';
+import './pages/NotFoundPage';
 
 export default class App extends Component {
   template() {
@@ -15,13 +15,13 @@ export default class App extends Component {
         <nav id="nav-bar">
           <a class="button-tab" href="#item-management">상품 관리</a>
           <a class="button-tab" href="#change-charge">잔돈 충전</a>
-          <a class="button-tab" href="#purchase-item">상품 구매</a>
+          <a class="button-tab" href="#item-purchase">상품 구매</a>
           <a class="button-tab" href="#nowhere">/</a>
         </nav>
         <page-router>
           <item-management path="#item-management"></item-management>
           <change-charge path="#change-charge"></change-charge>
-          <purchase-item path="#purchase-item"></purchase-item>
+          <item-purchase path="#item-purchase"></item-purchase>
           <not-found path="*"></not-found>
         </page-router>
       </main>

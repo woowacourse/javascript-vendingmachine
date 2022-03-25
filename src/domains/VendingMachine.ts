@@ -107,10 +107,13 @@ export default class VendingMachine {
     validate(amountValidator, amount, this.getTotalMoney());
 
     const randomCoins = this.createRandomCoins(amount);
+    const updatedCoins = {};
 
     Object.keys(this.state.coins).forEach((key) => {
-      this.state.coins[key] += randomCoins[key];
+      updatedCoins[key] = this.state.coins[key] + randomCoins[key];
     });
+
+    this.state.coins = updatedCoins;
   }
 
   getTotalMoney(): number {
