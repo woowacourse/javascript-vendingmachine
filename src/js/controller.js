@@ -1,14 +1,16 @@
 import ProductManager from './models/ProductManger.js';
 import ProductManageView from './views/ProductManageView.js';
+import ChargeView from './views/ChargeView.js';
 import { on } from './utils/event.js';
 
 export default class Controller {
   constructor() {
     this.productManager = new ProductManager();
     this.productManageView = new ProductManageView();
+    this.chargeView = new ChargeView();
     this.$sectionContainer = this.productManageView.$sectionContainer;
 
-    on(this.$sectionContainer, '@submit', this.#handleProductInformation.bind(this));
+    on(this.$sectionContainer, '@submit', this.#handleProductInfo.bind(this));
     on(this.$sectionContainer, '@render', this.#renderSavedData.bind(this));
     on(this.$sectionContainer, '@modify', this.#modifySavedData.bind(this));
     on(this.$sectionContainer, '@delete', this.#deleteSavedData.bind(this));
@@ -17,16 +19,19 @@ export default class Controller {
   #renderSavedData(event) {
     const { hash } = event.detail;
     if (hash === '#!manage') {
-      this.productManageView.initManageView();
+      this.productManageView.initManageDOM();
       const savedProductList = this.productManager.getProducts();
       if (savedProductList.length !== 0) {
         this.productManageView.render(savedProductList);
       }
       return;
     }
+    if (hash === '#!charge') {
+      this.chargeView.initChargeDOM();
+    }
   }
 
-  #handleProductInformation(event) {
+  #handleProductInfo(event) {
     const { product } = event.detail;
     this.productManager.addProduct(product);
     this.productManageView.render(product);

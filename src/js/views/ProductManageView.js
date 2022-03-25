@@ -8,7 +8,7 @@ export default class ProductManageView {
   constructor() {
     this.$sectionContainer = $('#section-container');
 
-    on(this.$sectionContainer, 'submit', this.#getProductInfo.bind(this));
+    on(this.$sectionContainer, 'submit', this.#onSubmitProductInfo.bind(this));
   }
 
   #bindMangeEvent() {
@@ -31,7 +31,7 @@ export default class ProductManageView {
     });
   }
 
-  #getProductInfo(e) {
+  #onSubmitProductInfo(e) {
     e.preventDefault();
     if (e.target.id !== 'product-add-form') return;
     const product = {
@@ -80,7 +80,7 @@ export default class ProductManageView {
     emit(this.$sectionContainer, '@delete', { index });
   }
 
-  initManageView() {
+  initManageDOM() {
     this.$productNameInput = $('#product-name-input');
     this.$productPriceInput = $('#product-price-input');
     this.$productQuantityInput = $('#product-quantity-input');
