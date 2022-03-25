@@ -69,7 +69,7 @@ export const CATEGORY_TEMPLATE = {
         />
         <button class="hover-button">구입</button>
       </div>
-      <p class="current-amount">현재 보유 금액: 0원</p>
+      <p class="current-amount"></p>
     </form>
     <table class="table">
       <caption class="caption">
@@ -84,19 +84,19 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr></tr>
           <td>500원</td>
-          <td id="five-hundred-coin">0개</td>
+          <td id="five-hundred-coin"></td>
         </tr>
         <tr>
           <td>100원</td>
-          <td id="one-hundred-coin">0개</td>
+          <td id="one-hundred-coin"></td>
         </tr>
         <tr>
           <td>50원</td>
-          <td id="fifty-coin">0개</td>
+          <td id="fifty-coin"></td>
         </tr>
         <tr>
           <td>10원</td>
-          <td id="ten-coin">0개</td>
+          <td id="ten-coin"></td>
         </tr>
       </tbody>
     </table>

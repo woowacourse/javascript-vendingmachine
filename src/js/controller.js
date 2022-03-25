@@ -33,6 +33,8 @@ export default class Controller {
     }
     if (hash === '#!charge') {
       this.chargeView.initChargeDOM();
+      this.chargeView.renderCurrentAmount(this.coin.getAmount());
+      this.chargeView.renderHaveCoins(this.coin.getCoins());
     }
   }
 
