@@ -1,7 +1,7 @@
 import { SECTION_CONTAINER } from './constants/constants.js';
 import { on } from './utils/event.js';
 import { initHashContents } from './views/menuCategoryView.js';
-import Coin from './models/Coin.js';
+import Coin from './models/Coin.ts';
 import ProductManager from './models/ProductManger.ts';
 import ChargeView from './views/ChargeView.js';
 import ProductManageView from './views/ProductManageView.js';
