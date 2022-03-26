@@ -5,6 +5,9 @@ import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
+const basePath =
+  process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
+
 export default class App {
   private productDomain;
   private coinDomain;
@@ -24,20 +27,26 @@ export default class App {
 
     $('.nav').addEventListener('click', this.navClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
+    // window.addEventListener('popstate', () => {
+    //   const pathname = `/${location.pathname.split('/')[2]}`;
+    //   console.log(location.pathname, pathname);
+    // });
   }
 
   private navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
 
-    history.pushState({}, '', target.dataset.pathname);
+    history.pushState({}, '', `${basePath}${target.dataset.pathname}`);
 
     this.activateClickedButton(target.dataset.pathname);
     this.renderMainContent(target.dataset.pathname);
   };
 
   private popStateHandler = () => {
-    this.activateClickedButton(location.pathname);
-    this.renderMainContent(location.pathname);
+    const paths = location.pathname.split('/');
+    const pathname = `/${paths[paths.length - 1]}`;
+    this.activateClickedButton(pathname);
+    this.renderMainContent(pathname);
   };
 
   private activateClickedButton(pathname) {
