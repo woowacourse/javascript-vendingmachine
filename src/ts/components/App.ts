@@ -47,7 +47,7 @@ class App {
     const routes = {
       "#charge": () => this.charge.render(),
       "#product": () => this.product.render(),
-      "#purchase": () => console.log("상품구매"),
+      "#purchase": () => "",
     };
 
     routes[path]();
