@@ -11,6 +11,16 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
+## [데모페이지](https://euijinkk.github.io/javascript-vendingmachine/)
+
+<br>
+
+## 프로젝트 구조 도식화
+
+<img width="60%" src="https://user-images.githubusercontent.com/24906022/160223273-a3959391-a03e-4496-8847-cd63a20440bd.png" />
+
+<br>
+
 ## ⚙️ Before Started
 
 #### 개발 환경 가이드
@@ -26,18 +36,6 @@ npm run start
 ```
 npm run build
 ```
-
-<br>
-
-## 👏 Contributing
-
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
-
-<br>
-
-## 🐞 Bug Report
-
-버그를 발견한다면, [Issues](https://github.com/woowacourse/javascript-vendingmachine/issues)에 등록해주세요.
 
 <br>
 
