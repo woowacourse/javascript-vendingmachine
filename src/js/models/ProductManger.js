@@ -1,10 +1,17 @@
+import { validProductInfo } from '../utils/validation.js';
+
 export default class ProductManager {
   constructor() {
     this.products = [];
   }
 
   addProduct(product) {
-    this.products.push(product);
+    try {
+      validProductInfo(product);
+      this.products.push(product);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   getProducts() {

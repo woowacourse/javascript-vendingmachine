@@ -1,7 +1,5 @@
 import { SECTION_CONTAINER } from '../constants/constants.js';
-
 import { $, replaceElement } from '../utils/dom.js';
-
 import { CATEGORY_TEMPLATE } from '../templates/templates.js';
 
 const routes = {

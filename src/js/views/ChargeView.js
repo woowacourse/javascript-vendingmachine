@@ -1,7 +1,6 @@
 import { SECTION_CONTAINER } from '../constants/constants.js';
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
-import { validChargeCoinUnit } from '../utils/validation.js';
 
 export default class ChargeView {
   constructor() {
@@ -13,12 +12,7 @@ export default class ChargeView {
     if (e.target.id !== 'charge-form') return;
 
     const amount = this.$chargeAmountInput.valueAsNumber;
-    try {
-      validChargeCoinUnit(amount);
-      emit(SECTION_CONTAINER, '@charge', { amount });
-    } catch (error) {
-      alert(error.message);
-    }
+    emit(SECTION_CONTAINER, '@charge', { amount });
   }
 
   initChargeDOM() {

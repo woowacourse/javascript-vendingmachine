@@ -1,7 +1,6 @@
 import { SECTION_CONTAINER, CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
 import { $, replaceElement } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
-import { validProductInfo } from '../utils/validation.js';
 import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 
 export default class ProductManageView {
@@ -38,12 +37,7 @@ export default class ProductManageView {
       price: this.$productPriceInput.valueAsNumber,
       quantity: this.$productQuantityInput.valueAsNumber,
     };
-    try {
-      validProductInfo(product);
-      emit(SECTION_CONTAINER, '@manage', { product });
-    } catch (error) {
-      alert(error.message);
-    }
+    emit(SECTION_CONTAINER, '@manage', { product });
   }
 
   #modifyProductInfo(selectedProduct) {
@@ -62,13 +56,8 @@ export default class ProductManageView {
       price: selectedProduct.children[1].firstChild.valueAsNumber,
       quantity: selectedProduct.children[2].firstChild.valueAsNumber,
     };
-    try {
-      validProductInfo(product);
-      replaceElement(selectedProduct, tableTemplate(product));
-      emit(SECTION_CONTAINER, '@modify', { index, product });
-    } catch (error) {
-      alert(error.message);
-    }
+    emit(SECTION_CONTAINER, '@modify', { index, product });
+    replaceElement(selectedProduct, tableTemplate(product));
   }
 
   #deleteProductInfo(selectedProduct) {

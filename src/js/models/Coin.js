@@ -1,5 +1,6 @@
-import { COIN, ERROR_MESSAGE } from '../constants/constants.js';
+import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
+import { validChargeAmount } from '../utils/validation.js';
 
 export default class Coin {
   constructor() {
@@ -14,10 +15,9 @@ export default class Coin {
 
   setAmount(chargedAmount) {
     try {
-      if (this.amount + chargedAmount > COIN.MAX_AMOUNT) {
-        throw new Error(ERROR_MESSAGE.OVER_MAX_AMOUNT);
-      }
-      this.amount += chargedAmount;
+      const currentAmount = this.amount + chargedAmount;
+      validChargeAmount(chargedAmount, currentAmount);
+      this.amount = currentAmount;
       this.makeRandomCoins(chargedAmount);
     } catch (error) {
       alert(error.message);
