@@ -30,12 +30,12 @@ export default class ProductInputComponent {
     e.preventDefault();
 
     try {
-      checkValidLengthProductName(this.$nameInput.value);
+      checkValidLengthProductName(this.$nameInput.value.trim());
       checkValidProductPrice(this.$priceInput.valueAsNumber);
       checkValidProductQuantity(this.$quantityInput.valueAsNumber);
 
       const newProduct = {
-        name: this.$nameInput.value,
+        name: this.$nameInput.value.trim(),
         price: this.$priceInput.valueAsNumber,
         quantity: this.$quantityInput.valueAsNumber,
       };

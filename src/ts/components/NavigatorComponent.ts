@@ -33,19 +33,22 @@ export default class NavigatorComponent {
     on(this.$navProductButton, 'click', this.onClickNavProductButton);
     on(this.$navChargeButton, 'click', this.onClickNavChargeButton);
     on(window, 'popstate', this.onPopstateRoute);
-
     this.routeURLVisit(window.location.pathname);
   }
 
   private routeURLVisit(pathname: string): void {
     if (pathname === ROUTES.COINS) {
       this.renderCoinComponent();
-      window.history.pushState(null, null, ROUTES.COINS);
+      window.history.pushState({}, '', ROUTES.COINS);
+
+      return;
     }
 
     if (pathname === ROUTES.PRODUCTS) {
       this.renderProductComponent();
-      window.history.pushState(null, null, ROUTES.PRODUCTS);
+      window.history.pushState({}, '', ROUTES.PRODUCTS);
+
+      return;
     }
   }
 
@@ -65,13 +68,13 @@ export default class NavigatorComponent {
   private onClickNavProductButton = (e: Event): void => {
     e.preventDefault();
     this.renderProductComponent();
-    window.history.pushState(null, null, ROUTES.PRODUCTS);
+    window.history.pushState({}, '', ROUTES.PRODUCTS);
   };
 
   private onClickNavChargeButton = (e: Event): void => {
     e.preventDefault();
     this.renderCoinComponent();
-    window.history.pushState(null, null, ROUTES.COINS);
+    window.history.pushState({}, '', ROUTES.COINS);
   };
 
   private renderProductComponent(): void {
