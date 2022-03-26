@@ -13,4 +13,8 @@ const CHARGE = {
   UNIT: 10,
 };
 
-export { PRODUCT, CHARGE };
+const INFOMATION_MESSAGES = {
+  ASK_DELETE: "정말 삭제하시겠습니까?",
+};
+
+export { PRODUCT, CHARGE, INFOMATION_MESSAGES };

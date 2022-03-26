@@ -1,3 +1,4 @@
+import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { $, $$, addEvent } from "../../utils/dom";
 import { verifyProductInfo } from "../../utils/validation";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
@@ -17,7 +18,6 @@ class Product {
     this.productControlInputs = $$(".product-control-input");
     this.productAddButton = $("#product-add-button");
     this.productTable = $("#product-control-table");
-    this.productNameTdList = $$(".product-name", this.productTable);
     addEvent(this.productAddButton, "click", this.handleAddProduct);
     addEvent(this.productTable, "click", this.handleRemoveProduct);
     addEvent(this.productTable, "click", this.handleEditProduct);
@@ -31,7 +31,7 @@ class Product {
       (input: HTMLInputElement) => input.value,
     );
     const productNameList = Array.from(
-      this.productNameTdList,
+      $$(".product-name", this.productTable),
       (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
     );
 
@@ -48,7 +48,7 @@ class Product {
 
   handleRemoveProduct = (e: { target: HTMLTableElement }) => {
     if (e.target.classList.contains("product-remove-button")) {
-      e.target.closest("tr").remove();
+      confirm(INFOMATION_MESSAGES.ASK_DELETE) && e.target.closest("tr").remove();
     }
   };
 
@@ -70,7 +70,7 @@ class Product {
         (input: HTMLInputElement) => input.value,
       );
       const productNameList = Array.from(
-        this.productNameTdList,
+        $$(".product-name", this.productTable),
         (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
       );
 
