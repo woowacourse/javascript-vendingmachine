@@ -57,13 +57,16 @@ export default class ProductManageView {
       quantity: selectedProduct.children[2].firstChild.valueAsNumber,
     };
     emit(SECTION_CONTAINER, '@modify', { index, product });
-    replaceElement(selectedProduct, tableTemplate(product));
   }
 
   #deleteProductInfo(selectedProduct) {
     const index = selectedProduct.rowIndex - 1;
     this.$productTbody.removeChild(selectedProduct);
     emit(SECTION_CONTAINER, '@delete', { index });
+  }
+
+  renderModifiedProduct(index, product) {
+    replaceElement(this.$productTbody.children[index], tableTemplate(product));
   }
 
   initManageDOM() {

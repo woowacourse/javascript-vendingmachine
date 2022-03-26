@@ -1,11 +1,15 @@
 import { validProductInfo } from '../utils/validation.js';
 
-export default class ProductManager {
+import { Product, ProductManageInterface } from '../interface/productManage.interface';
+
+export default class ProductManager implements ProductManageInterface {
+  private products: Product[];
+
   constructor() {
     this.products = [];
   }
 
-  addProduct(product) {
+  addProduct(product: Product) {
     validProductInfo(product, this.products);
     this.products.push(product);
   }
@@ -15,6 +19,9 @@ export default class ProductManager {
   }
 
   modifyProduct(index, product) {
+    const productsList = [...this.products];
+    productsList.splice(index, 1);
+    validProductInfo(product, productsList);
     this.products.splice(index, 1, product);
   }
 
