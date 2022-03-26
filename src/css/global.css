@@ -1,11 +1,11 @@
 :root {
   --primary-color: #00bcd4;
-  --primary-button-text-color: #ffffff;
-  --primary-input-bg-color: #ffffff;
-  --input-outline-color: #cccccc;
-  --input-border-color: #eeeeee;
-  --input-outline-focus-color: #777777;
-  --input-border-focus-color: #bbbbbb;
+  --primary-button-text-color: #fff;
+  --primary-input-bg-color: #fff;
+  --input-outline-color: #ccc;
+  --input-border-color: #eee;
+  --input-outline-focus-color: #777;
+  --input-border-focus-color: #bbb;
   --button-hover-color: rgba(0, 188, 212, 0.16);
   --primary-text-color: rgba(0, 0, 0, 0.87);
   --list-border-color: #dcdcdc;
