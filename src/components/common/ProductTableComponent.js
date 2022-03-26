@@ -1,6 +1,7 @@
 import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
 import vendingMachineStore from '../../stores/vendingMachineStore';
 import { checkProductInput } from '../../utils/validation';
+
 class ProductTableComponent {
   constructor($parent, { tableId, tableCaption }) {
     this.$parent = $parent;
@@ -35,6 +36,7 @@ class ProductTableComponent {
   }
 
   initDOM() {
+    this.$productTable = this.$parent.querySelector(`#${this.tableId}`);
     this.$tableBody = this.$parent.querySelector('.product-list-table-body');
     this.$emptyImg = this.$parent.querySelector('.empty-img');
   }
@@ -46,6 +48,10 @@ class ProductTableComponent {
   wakeUp() {
     const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
     this.render(productList);
+  }
+
+  bindEventHandler() {
+    this.$productTable.addEventListener('click', this.onClickTable);
   }
 
   render(productList) {
@@ -104,6 +110,7 @@ class ProductTableComponent {
         확인
       </button>`;
     }
+    /** 구매 기능 요구사항도 이번 스텝에 포함되는 줄 알고 미리 작성.. 했네요 .. */
     if (this.tableId === 'purchase-product-list') {
       return `  <button
         type="button"
@@ -114,10 +121,6 @@ class ProductTableComponent {
       </button>`;
     }
     return '';
-  }
-
-  bindEventHandler() {
-    document.querySelector(`#${this.tableId}`).addEventListener('click', this.onClickTable);
   }
 
   onClickTable = e => {
@@ -142,8 +145,8 @@ class ProductTableComponent {
     }
   };
 
-  onClickEditButton = (parentElement, targetClassList) => {
-    this.showConfirmButton(parentElement, targetClassList);
+  onClickEditButton = (parentElement, editButtonClassList) => {
+    /** 모든 상품 엘리먼트 (tr) 에 대한 td 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const nameTableData = parentElement.querySelector(`td.product-row-name`);
     const priceTableData = parentElement.querySelector(`td.product-row-price`);
     const quantityTableData = parentElement.querySelector(`td.product-row-quantity`);
@@ -151,9 +154,11 @@ class ProductTableComponent {
     nameTableData.innerHTML = `<input type="text" id="product-name-edit-input"   value="${nameTableData.dataset.productName}"/>`;
     priceTableData.innerHTML = `<input type="number" id="product-price-edit-input"   value="${priceTableData.dataset.productPrice}"/>`;
     quantityTableData.innerHTML = `<input type="number" id="product-quantity-edit-input"  value="${quantityTableData.dataset.productQuantity}"/>`;
+
+    this.showConfirmButton(parentElement, editButtonClassList);
   };
 
-  onClickConfirmButton = (parentElement, targetClassList, productId) => {
+  onClickConfirmButton = (parentElement, confirmButtonClassList, productId) => {
     const { value: name } = parentElement.querySelector('#product-name-edit-input');
     const { valueAsNumber: price } = parentElement.querySelector('#product-price-edit-input');
     const { valueAsNumber: quantity } = parentElement.querySelector('#product-quantity-edit-input');
@@ -176,7 +181,7 @@ class ProductTableComponent {
           },
           stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
-        this.showEditAndDeleteButton(parentElement, targetClassList);
+        this.showEditAndDeleteButton(parentElement, confirmButtonClassList);
       }
     } catch ({ message }) {
       alert(message);
@@ -193,20 +198,22 @@ class ProductTableComponent {
     }
   }
 
-  showConfirmButton(parentElement, targetClassList) {
+  showConfirmButton(parentElement, editButtonClassList) {
+    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const deleteButton = parentElement.querySelector('.product-delete-button');
     const confirmButton = parentElement.querySelector('.product-confirm-button');
 
-    targetClassList.add('hide');
+    editButtonClassList.add('hide');
     deleteButton.classList.add('hide');
     confirmButton.classList.remove('hide');
   }
 
-  showEditAndDeleteButton(parentElement, targetClassList) {
+  showEditAndDeleteButton(parentElement, confirmButtonClassList) {
+    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const editButton = parentElement.querySelector('.product-edit-button');
     const deleteButton = parentElement.querySelector('.product-delete-button');
 
-    targetClassList.add('hide');
+    confirmButtonClassList.add('hide');
     editButton.classList.remove('hide');
     deleteButton.classList.remove('hide');
   }
