@@ -54,7 +54,6 @@ export class ProductInformationInput {
     try {
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
       this.target.dispatchEvent(new CustomEvent('productAdded'));
-      console.log('added', 'informationInput');
     } catch (err) {
       alert(err.message);
     }
