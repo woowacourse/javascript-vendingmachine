@@ -1,10 +1,6 @@
 import { $, $$, addEvent } from "../../utils/dom";
 import { verifyProductInfo } from "../../utils/validation";
-import {
-  productTemplate,
-  addProductTemplate,
-  editProductTemplate,
-} from "./productTemplate";
+import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
 class Product {
   main: HTMLElement;
@@ -32,32 +28,22 @@ class Product {
     e.preventDefault();
     const [productName, productPrice, productQuantity] = Array.from(
       this.productControlInputs,
-      (input: HTMLInputElement) => input.value
+      (input: HTMLInputElement) => input.value,
     );
     const productNameList = Array.from(
       this.productNameTdList,
-      (productNameTd: HTMLTableCellElement) => productNameTd.textContent
+      (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
     );
 
     try {
-      verifyProductInfo(
-        productName,
-        +productPrice,
-        +productQuantity,
-        productNameList
-      );
-      this.productControlInputs.forEach(
-        (input: HTMLInputElement) => (input.value = "")
-      );
+      verifyProductInfo(productName, +productPrice, +productQuantity, productNameList);
+      this.productControlInputs.forEach((input: HTMLInputElement) => (input.value = ""));
     } catch ({ message }) {
       alert(message);
       return;
     }
 
-    this.productTable.insertAdjacentHTML(
-      "beforeend",
-      addProductTemplate(productName, +productPrice, +productQuantity)
-    );
+    this.productTable.insertAdjacentHTML("beforeend", addProductTemplate(productName, +productPrice, +productQuantity));
   };
 
   handleRemoveProduct = (e: { target: HTMLTableElement }) => {
@@ -68,13 +54,11 @@ class Product {
 
   handleEditProduct = (e: { target: HTMLTableElement }) => {
     if (e.target.classList.contains("product-edit-button")) {
-      const [productNameTd, productPriceTd, productQuantityTd] = Array.from(
-        e.target.closest("tr").children
-      );
+      const [productNameTd, productPriceTd, productQuantityTd] = Array.from(e.target.closest("tr").children);
       e.target.closest("tr").innerHTML = editProductTemplate(
         productNameTd.textContent,
         +productPriceTd.textContent,
-        +productQuantityTd.textContent
+        +productQuantityTd.textContent,
       );
     }
   };
@@ -83,43 +67,24 @@ class Product {
     if (e.target.classList.contains("product-confirm-button")) {
       const [productName, productPrice, productQuantity] = Array.from(
         $$(".product-edit-input"),
-        (input: HTMLInputElement) => input.value
+        (input: HTMLInputElement) => input.value,
       );
       const productNameList = Array.from(
         this.productNameTdList,
-        (productNameTd: HTMLTableCellElement) => productNameTd.textContent
+        (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
       );
 
       try {
-        verifyProductInfo(
-          productName,
-          +productPrice,
-          +productQuantity,
-          productNameList
-        );
-        this.changeEditProductInfo(
-          productName,
-          +productPrice,
-          +productQuantity,
-          e.target
-        );
+        verifyProductInfo(productName, +productPrice, +productQuantity, productNameList);
+        this.changeEditProductInfo(productName, +productPrice, +productQuantity, e.target);
       } catch ({ message }) {
         alert(message);
       }
     }
   };
 
-  changeEditProductInfo = (
-    productName: string,
-    productPrice: number,
-    productQuantity: number,
-    target
-  ) => {
-    target.closest("tr").innerHTML = addProductTemplate(
-      productName,
-      productPrice,
-      productQuantity
-    );
+  changeEditProductInfo = (productName: string, productPrice: number, productQuantity: number, target) => {
+    target.closest("tr").innerHTML = addProductTemplate(productName, productPrice, productQuantity);
   };
 
   render() {

@@ -21,14 +21,10 @@ class MenuTab {
     navList.forEach((button: HTMLButtonElement) =>
       button.dataset.menu === e.target.dataset.menu
         ? button.classList.add("button-click")
-        : button.classList.remove("button-click")
+        : button.classList.remove("button-click"),
     );
 
-    history.pushState(
-      { path: e.target.dataset.menu },
-      null,
-      e.target.dataset.menu
-    );
+    history.pushState({ path: e.target.dataset.menu }, null, e.target.dataset.menu);
 
     this.convertTemplate(location.hash);
   };

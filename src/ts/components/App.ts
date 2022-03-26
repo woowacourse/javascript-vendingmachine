@@ -12,10 +12,7 @@ class App {
 
   constructor() {
     this.app = $("#app");
-    this.app.insertAdjacentHTML(
-      "beforeend",
-      `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
-    );
+    this.app.insertAdjacentHTML("beforeend", `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`);
 
     this.mountComponent();
     this.convertTemplate(location.hash || "#product");
@@ -42,7 +39,7 @@ class App {
     navList.forEach((button: HTMLButtonElement) =>
       button.dataset.menu === location.hash
         ? button.classList.add("button-click")
-        : button.classList.remove("button-click")
+        : button.classList.remove("button-click"),
     );
   }
 

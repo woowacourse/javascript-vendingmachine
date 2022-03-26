@@ -26,11 +26,7 @@ const productTemplate = () => {
     </section>`;
 };
 
-const addProductTemplate = (
-  productName: string,
-  productPrice: number,
-  productQuantity: number
-) => {
+const addProductTemplate = (productName: string, productPrice: number, productQuantity: number) => {
   return `
    <tr>
       <td class="product-name">${productName}</td>
@@ -43,11 +39,7 @@ const addProductTemplate = (
   </tr>`;
 };
 
-const editProductTemplate = (
-  productName: string,
-  productPrice: number,
-  productQuantity: number
-) => {
+const editProductTemplate = (productName: string, productPrice: number, productQuantity: number) => {
   return `
     <td class="product-name"><input class="product-edit-input" value='${productName}' /></td>
     <td><input class="product-edit-input" value='${productPrice}' /></td>

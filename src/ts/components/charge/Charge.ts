@@ -69,8 +69,7 @@ class Charge {
     this.currentContainCharge.textContent = `${this.totalCharge}`;
     Array.from(
       chargeCoinCount,
-      (coinCount: HTMLTableElement, index: number) =>
-        (coinCount.innerText = `${chargeResult[index]}개`)
+      (coinCount: HTMLTableElement, index: number) => (coinCount.innerText = `${chargeResult[index]}개`),
     );
   }
 
