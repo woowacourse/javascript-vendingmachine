@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
+import { customElement, event } from '../decorators/decortators';
 import Store from '../flux/store';
 import { ProductItem } from '../types';
 
@@ -13,8 +13,8 @@ class ProductInventory extends Component {
         <td>${quantity}</td>
         <td>
           <div class="btn-group">
-            <button class="btn xs mr-2">수정</button>
-            <button class="btn xs">삭제</button>
+            <button class="btn xs mr-2 btn-edit">수정</button>
+            <button class="btn xs btn-delete">삭제</button>
           </div>
         </td>
       </tr>
@@ -41,9 +41,23 @@ class ProductInventory extends Component {
     `;
   }
 
-  render() {
+  @event('click', '.btn-edit')
+  editProduct() {}
+
+  @event('click', '.btn-delete')
+  deleteProduct() {}
+
+  mount() {
     const { productList } = Store.instance.getState();
     this.innerHTML = this.template(productList);
+  }
+
+  render() {
+    const tbody = this.querySelector('tbody');
+    const { productList } = Store.instance.getState();
+    const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
+    if (!tbody) return;
+    tbody.innerHTML = productListTemplate;
   }
 }
 

@@ -11,6 +11,10 @@ class ProductManageTab extends Component {
       <product-inventory></product-inventory>
     `;
   }
+
+  shouldSubscribe(): boolean {
+    return false;
+  }
 }
 
 export default ProductManageTab;

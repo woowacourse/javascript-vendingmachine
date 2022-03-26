@@ -1,5 +1,12 @@
 import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
+import { ACTION } from '../constants';
+import { customElement, event } from '../decorators/decortators';
+import createAction from '../flux/createAction';
+import Store from '../flux/store';
+import { RawProductItem } from '../types';
+import { consoleErrorWithConditionalAlert } from '../utils';
+import ValidationError from '../validation/validation-error';
+import { validateProduct } from '../validation/validators';
 
 @customElement('add-product-form')
 class AddProductForm extends Component {
@@ -15,6 +22,32 @@ class AddProductForm extends Component {
         </div>
       </form>
     `;
+  }
+
+  @event('click', 'button')
+  onClickAddProductBtn() {
+    const nameInput = this.querySelector('input[name="product-name"]') as HTMLInputElement;
+    const priceInput = this.querySelector('input[name="product-price"]') as HTMLInputElement;
+    const quantityInput = this.querySelector('input[name="product-quantity"]') as HTMLInputElement;
+    const [name, price, quantity] = [nameInput.value, priceInput.value, quantityInput.value];
+    const productItem = { name, price, quantity };
+
+    try {
+      this.addProduct(productItem);
+    } catch (e: any) {
+      consoleErrorWithConditionalAlert(e);
+    }
+  }
+
+  addProduct(productItem: RawProductItem) {
+    const { productList } = Store.instance.getState();
+    const errorList = validateProduct(productItem, productList).filter((result) => result.hasError);
+    if (errorList.length > 0 && errorList[0].hasError) throw new ValidationError(errorList[0].errorMessage);
+    Store.instance.dispatch(createAction(ACTION.ADD_PRODUCT, productItem));
+  }
+
+  shouldSubscribe(): boolean {
+    return false;
   }
 }
 

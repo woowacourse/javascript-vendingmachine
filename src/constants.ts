@@ -1,18 +1,11 @@
 import { AppState } from './types';
 
-export const initialState: AppState = {
-  productList: [
-    {
-      id: '1',
-      name: '콜라',
-      price: 1500,
-      quantity: 20,
-    },
-    {
-      id: '2',
-      name: '사이다',
-      price: 2000,
-      quantity: 15,
-    },
-  ],
+export const ACTION = {
+  ADD_PRODUCT: 'add-product',
 };
+
+export const initialState: AppState = {
+  productList: [],
+};
+
+export const VALIDATION_ERROR_NAME = 'validation-error';

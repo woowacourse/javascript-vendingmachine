@@ -9,12 +9,16 @@ abstract class Component extends HTMLElement {
 
   connectedCallback() {
     this.style.display = 'block';
-    this.render();
+    this.mount();
     this.subscribe();
   }
 
-  render() {
+  mount() {
     this.innerHTML = this.template();
+  }
+
+  render() {
+    return;
   }
 
   abstract template(...args: any[]): string;
