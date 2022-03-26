@@ -43,6 +43,7 @@ module.exports = {
     { name: 'logic' },
     { name: 'typo' },
     { name: 'flux' },
+    { name: 'component' },
   ],
 
   scopeOverrides: {
