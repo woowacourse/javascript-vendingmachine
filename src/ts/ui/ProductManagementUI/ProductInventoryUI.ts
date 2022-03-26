@@ -110,10 +110,16 @@ export default class ProductInventoryUI {
 
     const $$inputs = $$(
       `input[data-product-name="${$button.dataset.productName}"]`,
-    );
+    ) as NodeListOf<HTMLInputElement>;
     $$inputs.forEach($input => {
       $input.removeAttribute('readonly');
     });
+
+    $$inputs[0].focus();
+
+    const inputValueLength = $$inputs[0].value.length;
+    $$inputs[0].setSelectionRange(inputValueLength, inputValueLength);
+    $$inputs[0].scrollLeft = inputValueLength * 30;
   }
 
   private deactivateEditMode($button: HTMLButtonElement) {
