@@ -3,7 +3,8 @@ import Component from '../../core/Component';
 export default class NavBar extends Component {
   setup() {
     const { href } = window.location;
-    const location = new URL(href).hash;
+    const { hash } = new URL(href);
+    const location = hash === '' ? '#item-management' : hash;
 
     this.state = { location };
   }
