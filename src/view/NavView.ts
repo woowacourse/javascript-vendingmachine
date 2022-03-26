@@ -54,7 +54,7 @@ export class NavView {
     this.productManageView.renderAll();
 
     const path = URL_PATH.PRODUCT_MANAGE;
-    history.pushState({ path }, null, path);
+    this.handleUrlPath(path);
   };
 
   private handleShowBalanceChargeTab = () => {
@@ -62,13 +62,25 @@ export class NavView {
     this.balanceChargeView.renderAll();
 
     const path = URL_PATH.BALANCE_CHAREGE;
-    history.pushState({ path }, null, path);
+    this.handleUrlPath(path);
   };
 
   private renderHome() {
+    this.contentsContainer.textContent = '';
+
     const path = URL_PATH.HOME;
+    history.pushState({ path }, null, path);
+  }
+
+  private handleUrlPath(path: string) {
+    const isSamePath = location.pathname === path;
+
+    if (isSamePath) {
+      history.replaceState({ path }, null, path);
+
+      return;
+    }
 
     history.pushState({ path }, null, path);
-    this.contentsContainer.textContent = '';
   }
 }
