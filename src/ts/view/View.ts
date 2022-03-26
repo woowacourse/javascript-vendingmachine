@@ -32,6 +32,7 @@ export default class View {
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, true);
     });
+
     this.$tabProductManageButton.addEventListener('click', () =>
       this.tabRouter(PATH_ID.PRODUCT_MANAGE),
     );
@@ -68,6 +69,8 @@ export default class View {
     };
     if (containerBranch[id]) {
       containerBranch[id]();
+    } else {
+      throw new Error('????');
     }
   };
 
@@ -86,4 +89,8 @@ export default class View {
     };
     routes[url]();
   };
+
+  renderNotFound() {
+    console.log('not found');
+  }
 }

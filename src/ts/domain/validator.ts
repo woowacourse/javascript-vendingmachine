@@ -30,10 +30,13 @@ export const checkProductValidation = (product: ProductType) => {
   if (isOverMaxValue(product.quantity, VENDING_MACHINE_RULE.MAX_QUANTITY)) {
     throw new Error(ERROR_MESSAGE.EXCEED_QUANTITY);
   }
+  if (!Number.isInteger(product.quantity)) {
+    throw new Error(ERROR_MESSAGE.NOT_INTEGER);
+  }
 };
 
 export const checkDuplicatedProduct = (products: ProductType[], name: string) => {
-  if (products.find((product) => product.name === name)) {
+  if (products.find((product) => product.name === name.trim())) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
   }
 };

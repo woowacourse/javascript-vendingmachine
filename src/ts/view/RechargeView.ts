@@ -1,5 +1,5 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, $$ } from '../utils';
+import { $ } from '../utils';
 
 export interface RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
@@ -50,6 +50,7 @@ export default class RechargeView implements RechargeViewInterface {
   renderRecharge = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
+    this.$rechargeInput.focus();
   };
 
   renderHoldingMoney = () => {
@@ -63,6 +64,7 @@ export default class RechargeView implements RechargeViewInterface {
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
       this.renderRecharge();
+      this.$rechargeInput.value = '';
     } catch (error) {
       alert(error.message);
     }

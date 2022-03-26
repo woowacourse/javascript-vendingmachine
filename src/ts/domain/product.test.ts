@@ -54,4 +54,12 @@ describe('상품 테스트', () => {
       new Product(overMaxQuantity);
     }).toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
   });
+
+  it('상품 수량에 소수점이 입력되면 에러를 발생시킨다', () => {
+    const decimalNumber = { name: '코카콜라', price: 1000, quantity: 10.3 };
+
+    expect(() => {
+      new Product(decimalNumber);
+    }).toThrowError(ERROR_MESSAGE.NOT_INTEGER);
+  });
 });

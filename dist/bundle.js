@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  font-family: 'Roboto', sans-serif;\r\n  margin: 0;\r\n}\r\n\r\nh1 {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\nbutton {\r\n  background: var(--primary);\r\n  border-radius: 4px;\r\n  height: 36px;\r\n  border-style: none;\r\n  color: var(--white);\r\n}\r\n\r\nbutton:hover {\r\n  background: var(--primary-darken);\r\n  cursor: pointer;\r\n}\r\n\r\ninput {\r\n  padding: 0 8px;\r\n  border: 1px solid var(--secondary);\r\n  box-sizing: border-box;\r\n  border-radius: 4px;\r\n  height: 36px;\r\n  line-height: 36px;\r\n  font-weight: 400;\r\n  font-size: 16px;\r\n}\r\n\r\ninput::placeholder {\r\n  color: var(--secondary-darken);\r\n}\r\n\r\n.tab-result-container {\r\n  margin: 52px 0;\r\n}\r\n\r\ncaption {\r\n  font-weight: 600;\r\n  font-size: 20px;\r\n  margin: 48px 0 16px;\r\n}\r\n\r\ntable {\r\n  border-collapse: collapse;\r\n  width: 471px;\r\n}\r\n\r\ntr {\r\n  border: 1px solid var(--secondary-lighten);\r\n  border-left: 0;\r\n  border-right: 0;\r\n  text-align: center;\r\n}\r\n\r\ntd,\r\nth {\r\n  padding: 8px;\r\n  font-weight: 400;\r\n}\r\n\r\nth {\r\n  font-weight: 600;\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n\r\n.short-button {\r\n  width: 56px;\r\n  margin: 0 0 0 16px;\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n}\r\n\r\n.small-button {\r\n  background: var(--secondary-lighten);\r\n  color: var(--black);\r\n  width: 50px;\r\n}\r\n\r\n.small-button:hover {\r\n  background: var(--secondary);\r\n}\r\n\r\n.edit-confirm-button {\r\n  width: 100px;\r\n  height: 32px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAEA;EACE,iCAAiC;EACjC,SAAS;AACX;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,0BAA0B;EAC1B,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,iCAAiC;EACjC,eAAe;AACjB;;AAEA;EACE,cAAc;EACd,kCAAkC;EAClC,sBAAsB;EACtB,kBAAkB;EAClB,YAAY;EACZ,iBAAiB;EACjB,gBAAgB;EAChB,eAAe;AACjB;;AAEA;EACE,8BAA8B;AAChC;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,0CAA0C;EAC1C,cAAc;EACd,eAAe;EACf,kBAAkB;AACpB;;AAEA;;EAEE,YAAY;EACZ,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,oCAAoC;EACpC,mBAAmB;EACnB,WAAW;AACb;;AAEA;EACE,4BAA4B;AAC9B;;AAEA;EACE,YAAY;EACZ,YAAY;AACd","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Roboto');\r\n\r\nbody {\r\n  font-family: 'Roboto', sans-serif;\r\n  margin: 0;\r\n}\r\n\r\nh1 {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\nbutton {\r\n  background: var(--primary);\r\n  border-radius: 4px;\r\n  height: 36px;\r\n  border-style: none;\r\n  color: var(--white);\r\n}\r\n\r\nbutton:hover {\r\n  background: var(--primary-darken);\r\n  cursor: pointer;\r\n}\r\n\r\ninput {\r\n  padding: 0 8px;\r\n  border: 1px solid var(--secondary);\r\n  box-sizing: border-box;\r\n  border-radius: 4px;\r\n  height: 36px;\r\n  line-height: 36px;\r\n  font-weight: 400;\r\n  font-size: 16px;\r\n}\r\n\r\ninput::placeholder {\r\n  color: var(--secondary-darken);\r\n}\r\n\r\n.tab-result-container {\r\n  margin: 52px 0;\r\n}\r\n\r\ncaption {\r\n  font-weight: 600;\r\n  font-size: 20px;\r\n  margin: 48px 0 16px;\r\n}\r\n\r\ntable {\r\n  border-collapse: collapse;\r\n  width: 471px;\r\n}\r\n\r\ntr {\r\n  border: 1px solid var(--secondary-lighten);\r\n  border-left: 0;\r\n  border-right: 0;\r\n  text-align: center;\r\n}\r\n\r\ntd,\r\nth {\r\n  padding: 8px;\r\n  font-weight: 400;\r\n}\r\n\r\nth {\r\n  font-weight: 600;\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n\r\n.short-button {\r\n  width: 56px;\r\n  margin: 0 0 0 16px;\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n}\r\n\r\n.small-button {\r\n  background: var(--secondary-lighten);\r\n  color: var(--black);\r\n  width: 50px;\r\n}\r\n\r\n.small-button:hover {\r\n  background: var(--secondary);\r\n}\r\n\r\n.edit-confirm-button {\r\n  width: 100px;\r\n  height: 32px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  font-family: 'Roboto', sans-serif;\n  margin: 0;\n}\n\nh1 {\n  display: flex;\n  justify-content: center;\n}\n\nbutton {\n  background: var(--primary);\n  border-radius: 4px;\n  height: 36px;\n  border-style: none;\n  color: var(--white);\n}\n\nbutton:hover {\n  background: var(--primary-darken);\n  cursor: pointer;\n}\n\ninput {\n  padding: 0 8px;\n  border: 1px solid var(--secondary);\n  box-sizing: border-box;\n  border-radius: 4px;\n  height: 36px;\n  line-height: 36px;\n  font-weight: 400;\n  font-size: 16px;\n}\n\ninput::placeholder {\n  color: var(--secondary-darken);\n}\n\n.tab-result-container {\n  margin: 52px 0;\n}\n\ncaption {\n  font-weight: 600;\n  font-size: 20px;\n  margin: 48px 0 16px;\n}\n\ntable {\n  border-collapse: collapse;\n  width: 471px;\n}\n\ntr {\n  border: 1px solid var(--secondary-lighten);\n  border-left: 0;\n  border-right: 0;\n  text-align: center;\n}\n\ntd,\nth {\n  padding: 8px;\n  font-weight: 400;\n}\n\nth {\n  font-weight: 600;\n}\n\n.hide {\n  display: none;\n}\n\n.short-button {\n  width: 56px;\n  margin: 0 0 0 16px;\n  font-size: 14px;\n  font-weight: 700;\n}\n\n.small-button {\n  background: var(--secondary-lighten);\n  color: var(--black);\n  width: 50px;\n}\n\n.small-button:hover {\n  background: var(--secondary);\n}\n\n.edit-confirm-button {\n  width: 100px;\n  height: 32px;\n}\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAEA;EACE,iCAAiC;EACjC,SAAS;AACX;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,0BAA0B;EAC1B,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,iCAAiC;EACjC,eAAe;AACjB;;AAEA;EACE,cAAc;EACd,kCAAkC;EAClC,sBAAsB;EACtB,kBAAkB;EAClB,YAAY;EACZ,iBAAiB;EACjB,gBAAgB;EAChB,eAAe;AACjB;;AAEA;EACE,8BAA8B;AAChC;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,yBAAyB;EACzB,YAAY;AACd;;AAEA;EACE,0CAA0C;EAC1C,cAAc;EACd,eAAe;EACf,kBAAkB;AACpB;;AAEA;;EAEE,YAAY;EACZ,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,oCAAoC;EACpC,mBAAmB;EACnB,WAAW;AACb;;AAEA;EACE,4BAA4B;AAC9B;;AAEA;EACE,YAAY;EACZ,YAAY;AACd","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Roboto');\n\nbody {\n  font-family: 'Roboto', sans-serif;\n  margin: 0;\n}\n\nh1 {\n  display: flex;\n  justify-content: center;\n}\n\nbutton {\n  background: var(--primary);\n  border-radius: 4px;\n  height: 36px;\n  border-style: none;\n  color: var(--white);\n}\n\nbutton:hover {\n  background: var(--primary-darken);\n  cursor: pointer;\n}\n\ninput {\n  padding: 0 8px;\n  border: 1px solid var(--secondary);\n  box-sizing: border-box;\n  border-radius: 4px;\n  height: 36px;\n  line-height: 36px;\n  font-weight: 400;\n  font-size: 16px;\n}\n\ninput::placeholder {\n  color: var(--secondary-darken);\n}\n\n.tab-result-container {\n  margin: 52px 0;\n}\n\ncaption {\n  font-weight: 600;\n  font-size: 20px;\n  margin: 48px 0 16px;\n}\n\ntable {\n  border-collapse: collapse;\n  width: 471px;\n}\n\ntr {\n  border: 1px solid var(--secondary-lighten);\n  border-left: 0;\n  border-right: 0;\n  text-align: center;\n}\n\ntd,\nth {\n  padding: 8px;\n  font-weight: 400;\n}\n\nth {\n  font-weight: 600;\n}\n\n.hide {\n  display: none;\n}\n\n.short-button {\n  width: 56px;\n  margin: 0 0 0 16px;\n  font-size: 14px;\n  font-weight: 700;\n}\n\n.small-button {\n  background: var(--secondary-lighten);\n  color: var(--black);\n  width: 50px;\n}\n\n.small-button:hover {\n  background: var(--secondary);\n}\n\n.edit-confirm-button {\n  width: 100px;\n  height: 32px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -63,7 +63,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_productManageTab_
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_rechargeTab_css__WEBPACK_IMPORTED_MODULE_5__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_6__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -89,7 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-tab {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin: 32px 0 0;\r\n}\r\n\r\n.tab-button {\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.tab-label {\r\n  display: inline-block;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  height: 36px;\r\n  width: 117px;\r\n  font-weight: 500;\r\n  line-height: 36px;\r\n  background-color: #f5f5f5;\r\n  border-radius: 4px;\r\n}\r\n\r\n.tab-button:checked + label {\r\n  background: rgba(0, 188, 212, 0.16);\r\n}\r\n\r\n.tab-label:hover {\r\n  cursor: pointer;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/nav.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,gBAAgB;AAClB;;AAEA;EACE,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;EAClB,eAAe;EACf,YAAY;EACZ,YAAY;EACZ,gBAAgB;EAChB,iBAAiB;EACjB,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,eAAe;AACjB","sourcesContent":[".nav-tab {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin: 32px 0 0;\r\n}\r\n\r\n.tab-button {\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.tab-label {\r\n  display: inline-block;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  height: 36px;\r\n  width: 117px;\r\n  font-weight: 500;\r\n  line-height: 36px;\r\n  background-color: #f5f5f5;\r\n  border-radius: 4px;\r\n}\r\n\r\n.tab-button:checked + label {\r\n  background: rgba(0, 188, 212, 0.16);\r\n}\r\n\r\n.tab-label:hover {\r\n  cursor: pointer;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-tab {\n  display: flex;\n  justify-content: center;\n  margin: 32px 0 0;\n}\n\n.tab-button {\n  width: 0;\n  height: 0;\n}\n\n.tab-label {\n  display: inline-block;\n  text-align: center;\n  font-size: 16px;\n  height: 36px;\n  width: 117px;\n  font-weight: 500;\n  line-height: 36px;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n\n.tab-button:checked + label {\n  background: rgba(0, 188, 212, 0.16);\n}\n\n.tab-label:hover {\n  cursor: pointer;\n}\n", "",{"version":3,"sources":["webpack://./src/css/nav.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,gBAAgB;AAClB;;AAEA;EACE,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;EAClB,eAAe;EACf,YAAY;EACZ,YAAY;EACZ,gBAAgB;EAChB,iBAAiB;EACjB,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,eAAe;AACjB","sourcesContent":[".nav-tab {\n  display: flex;\n  justify-content: center;\n  margin: 32px 0 0;\n}\n\n.tab-button {\n  width: 0;\n  height: 0;\n}\n\n.tab-label {\n  display: inline-block;\n  text-align: center;\n  font-size: 16px;\n  height: 36px;\n  width: 117px;\n  font-weight: 500;\n  line-height: 36px;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n\n.tab-button:checked + label {\n  background: rgba(0, 188, 212, 0.16);\n}\n\n.tab-label:hover {\n  cursor: pointer;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -115,7 +115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tab-result-wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n}\r\n\r\n.label-wrapper {\r\n  margin: 10px 0;\r\n}\r\n\r\n.product-manage-input {\r\n  width: 120px;\r\n}\r\n\r\n.edit-form {\r\n  display: flex;\r\n}\r\n\r\n.edit-input {\r\n  width: 84px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/productManageTab.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;AACrB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;AACb","sourcesContent":[".tab-result-wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n}\r\n\r\n.label-wrapper {\r\n  margin: 10px 0;\r\n}\r\n\r\n.product-manage-input {\r\n  width: 120px;\r\n}\r\n\r\n.edit-form {\r\n  display: flex;\r\n}\r\n\r\n.edit-input {\r\n  width: 84px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".tab-result-wrapper {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.label-wrapper {\n  margin: 10px 0;\n}\n\n.product-manage-input {\n  width: 120px;\n}\n\n.edit-form {\n  display: flex;\n}\n\n.edit-input {\n  width: 84px;\n}\n", "",{"version":3,"sources":["webpack://./src/css/productManageTab.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;AACrB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;AACb","sourcesContent":[".tab-result-wrapper {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.label-wrapper {\n  margin: 10px 0;\n}\n\n.product-manage-input {\n  width: 120px;\n}\n\n.edit-form {\n  display: flex;\n}\n\n.edit-input {\n  width: 84px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -141,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#recharge-input {\r\n  width: 300px;\r\n}\r\n\r\n.recharge-button {\r\n  width: 56px;\r\n}\r\n\r\n.holding-money-wrapper {\r\n  margin: 16px 0 0 0;\r\n}\r\n\r\n.change-table {\r\n  width: 237px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/rechargeTab.css"],"names":[],"mappings":"AAAA;EACE,YAAY;AACd;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,YAAY;AACd","sourcesContent":["#recharge-input {\r\n  width: 300px;\r\n}\r\n\r\n.recharge-button {\r\n  width: 56px;\r\n}\r\n\r\n.holding-money-wrapper {\r\n  margin: 16px 0 0 0;\r\n}\r\n\r\n.change-table {\r\n  width: 237px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#recharge-input {\n  width: 300px;\n}\n\n.recharge-button {\n  width: 56px;\n}\n\n.holding-money-wrapper {\n  margin: 16px 0 0 0;\n}\n\n.change-table {\n  width: 237px;\n}\n", "",{"version":3,"sources":["webpack://./src/css/rechargeTab.css"],"names":[],"mappings":"AAAA;EACE,YAAY;AACd;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,YAAY;AACd","sourcesContent":["#recharge-input {\n  width: 300px;\n}\n\n.recharge-button {\n  width: 56px;\n}\n\n.holding-money-wrapper {\n  margin: 16px 0 0 0;\n}\n\n.change-table {\n  width: 237px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -167,7 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ":root {\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #f5f5f5;\r\n  --secondary-darken: #8b8b8b;\r\n  --white: #fff;\r\n  --black: #000;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/root.css"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,0BAA0B;EAC1B,yBAAyB;EACzB,oBAAoB;EACpB,4BAA4B;EAC5B,2BAA2B;EAC3B,aAAa;EACb,aAAa;AACf","sourcesContent":[":root {\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #f5f5f5;\r\n  --secondary-darken: #8b8b8b;\r\n  --white: #fff;\r\n  --black: #000;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ":root {\n  --primary: #00bcd4;\n  --primary-lighten: #80deea;\n  --primary-darken: #009eb3;\n  --secondary: #b4b4b4;\n  --secondary-lighten: #f5f5f5;\n  --secondary-darken: #8b8b8b;\n  --white: #fff;\n  --black: #000;\n}\n", "",{"version":3,"sources":["webpack://./src/css/root.css"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,0BAA0B;EAC1B,yBAAyB;EACzB,oBAAoB;EACpB,4BAA4B;EAC5B,2BAA2B;EAC3B,aAAa;EACb,aAAa;AACf","sourcesContent":[":root {\n  --primary: #00bcd4;\n  --primary-lighten: #80deea;\n  --primary-darken: #009eb3;\n  --secondary: #b4b4b4;\n  --secondary-lighten: #f5f5f5;\n  --secondary-darken: #8b8b8b;\n  --white: #fff;\n  --black: #000;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -704,7 +704,8 @@ var ERROR_MESSAGE = {
     DUPLICATED_PRODUCT: '현재 상품은 이미 자판기에 있습니다. 중복되지 않는 상품명을 입력해주세요.',
     RECHARGE_MONEY_UNIT: '충전할 금액은 10의 배수여야 합니다.',
     EXCEED_HOLDING_MONEY: '보유할 수 있는 최대 금액은 10만원입니다.',
-    UNDER_MIN_RECHARGING_MONEY: '충전할 금액은 10원 이상이어야 합니다.'
+    UNDER_MIN_RECHARGING_MONEY: '충전할 금액은 10원 이상이어야 합니다.',
+    NOT_INTEGER: '정수를 입력하셔야 합니다.'
 };
 var CONFIRM_MESSAGE = {
     DELETE: '정말 삭제하시겠습니까?'
@@ -917,9 +918,12 @@ var checkProductValidation = function (product) {
     if (isOverMaxValue(product.quantity, _constants__WEBPACK_IMPORTED_MODULE_0__.VENDING_MACHINE_RULE.MAX_QUANTITY)) {
         throw new Error(_constants__WEBPACK_IMPORTED_MODULE_0__.ERROR_MESSAGE.EXCEED_QUANTITY);
     }
+    if (!Number.isInteger(product.quantity)) {
+        throw new Error(_constants__WEBPACK_IMPORTED_MODULE_0__.ERROR_MESSAGE.NOT_INTEGER);
+    }
 };
 var checkDuplicatedProduct = function (products, name) {
-    if (products.find(function (product) { return product.name === name; })) {
+    if (products.find(function (product) { return product.name === name.trim(); })) {
         throw new Error(_constants__WEBPACK_IMPORTED_MODULE_0__.ERROR_MESSAGE.DUPLICATED_PRODUCT);
     }
 };
@@ -984,7 +988,7 @@ var ProductManageView = /** @class */ (function () {
         var _this = this;
         this.getEditTemplate = function (_a) {
             var name = _a.name, price = _a.price, quantity = _a.quantity;
-            return "\n      <td class=\"product-row-name\">\n        <input class=\"edit-input\" id=\"edit-name-input\" type=\"text\" size=\"10\" minlength=\"1\" maxlength=\"10\" value=\"".concat(name, "\">\n      </td>\n      <td class=\"product-row-price\">\n        <input class=\"edit-input\" id=\"edit-price-input\" type=\"number\" min=\"100\" max=\"100000\" value=\"").concat(price, "\">\n      </td>\n      <td class=\"product-row-quantity\">\n        <input class=\"edit-input\" id=\"edit-quantity-input\" type=\"number\" min=\"1\" max=\"20\" value=\"").concat(quantity, "\">\n      </td>\n      <td>\n        <button class=\"small-button edit-confirm-button\" data-name=\"").concat(name, "\" >\uD655\uC778</button>\n      </td>\n    ");
+            return "\n      <td class=\"product-row-name\">\n        <input class=\"edit-input\" id=\"edit-name-input\" type=\"text\" size=\"10\" minlength=\"1\" maxlength=\"10\" value=\"".concat(name, "\">\n      </td>\n      <td class=\"product-row-price\">\n        <input class=\"edit-input\" id=\"edit-price-input\" type=\"number\" step=\"10\" min=\"100\" max=\"100000\" value=\"").concat(price, "\">\n      </td>\n      <td class=\"product-row-quantity\">\n        <input class=\"edit-input\" id=\"edit-quantity-input\" type=\"number\" min=\"1\" max=\"20\" value=\"").concat(quantity, "\">\n      </td>\n      <td>\n        <button class=\"small-button edit-confirm-button\" data-name=\"").concat(name, "\" >\uD655\uC778</button>\n      </td>\n    ");
         };
         this.handleEdit = function (target) {
             var _a = _this.vendingMachine.getProductByName(target.dataset.name), name = _a.name, price = _a.price, quantity = _a.quantity;
@@ -1041,13 +1045,14 @@ var ProductManageView = /** @class */ (function () {
         this.handleSubmit = function (event) {
             event.preventDefault();
             var input = {
-                name: _this.$productNameInput.value,
+                name: _this.$productNameInput.value.trim(),
                 price: +_this.$productPriceInput.value,
                 quantity: +_this.$productQuantityInput.value
             };
             try {
                 var addedProduct = _this.vendingMachine.addProduct(input);
                 _this.renderAddedProduct(addedProduct);
+                _this.resetProductManageForm();
             }
             catch (error) {
                 alert(error.message);
@@ -1069,6 +1074,7 @@ var ProductManageView = /** @class */ (function () {
                 ((0,_utils__WEBPACK_IMPORTED_MODULE_0__.$)('.product-row-price', $$productRows[index])).textContent = String(product.price);
                 ((0,_utils__WEBPACK_IMPORTED_MODULE_0__.$)('.product-row-quantity', $$productRows[index])).textContent = String(product.quantity);
             });
+            _this.$productNameInput.focus();
         };
         this.renderInitialProductManage = function () {
             var template = _this.vendingMachine.products
@@ -1089,6 +1095,12 @@ var ProductManageView = /** @class */ (function () {
     ProductManageView.prototype.removeProductRow = function (name) {
         var targetDelete = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.$)("tr[data-name=".concat(name, "]"));
         this.$currentProductTable.removeChild(targetDelete);
+    };
+    ProductManageView.prototype.resetProductManageForm = function () {
+        this.$productNameInput.value = '';
+        this.$productPriceInput.value = '';
+        this.$productQuantityInput.value = '';
+        this.$productNameInput.focus();
     };
     return ProductManageView;
 }());
@@ -1121,6 +1133,7 @@ var RechargeView = /** @class */ (function () {
         this.renderRecharge = function () {
             _this.renderHoldingMoney();
             _this.renderCoinTable();
+            _this.$rechargeInput.focus();
         };
         this.renderHoldingMoney = function () {
             _this.$currentHoldingMoney.textContent = String(_this.vendingMachine.getHoldingMoney());
@@ -1131,6 +1144,7 @@ var RechargeView = /** @class */ (function () {
             try {
                 _this.vendingMachine.rechargeMoney(moneyToRecharge);
                 _this.renderRecharge();
+                _this.$rechargeInput.value = '';
             }
             catch (error) {
                 alert(error.message);
@@ -1201,6 +1215,9 @@ var View = /** @class */ (function () {
             if (containerBranch[id]) {
                 containerBranch[id]();
             }
+            else {
+                throw new Error('????');
+            }
         };
         this.tabRouter = function (url, isPopState) {
             if (isPopState === void 0) { isPopState = false; }
@@ -1231,7 +1248,6 @@ var View = /** @class */ (function () {
         history.replaceState({ url: this.currentTab }, null, this.currentTab);
         this.renderTabResult(this.currentTab);
         window.addEventListener('popstate', function (event) {
-            console.log(event.state.url);
             _this.tabRouter(event.state.url, true);
         });
         this.$tabProductManageButton.addEventListener('click', function () {
@@ -1242,6 +1258,9 @@ var View = /** @class */ (function () {
             return _this.tabRouter(_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.PURCHASE_PRODUCT);
         });
     }
+    View.prototype.renderNotFound = function () {
+        console.log('not found');
+    };
     return View;
 }());
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (View);

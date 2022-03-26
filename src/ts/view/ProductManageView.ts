@@ -19,6 +19,7 @@ export interface ProductManageViewInterface {
   getProductTemplate(productType: ProductType): string;
   renderEditedProduct(productToEdit: ProductType, targetEdit: HTMLTableCellElement): void;
   getEditTemplate({ name, price, quantity }: ProductType): string;
+  resetProductManageForm(): void;
 }
 
 export default class ProductManageView implements ProductManageViewInterface {
@@ -48,7 +49,7 @@ export default class ProductManageView implements ProductManageViewInterface {
         <input class="edit-input" id="edit-name-input" type="text" size="10" minlength="1" maxlength="10" value="${name}">
       </td>
       <td class="product-row-price">
-        <input class="edit-input" id="edit-price-input" type="number" min="100" max="100000" value="${price}">
+        <input class="edit-input" id="edit-price-input" type="number" step="10" min="100" max="100000" value="${price}">
       </td>
       <td class="product-row-quantity">
         <input class="edit-input" id="edit-quantity-input" type="number" min="1" max="20" value="${quantity}">
@@ -128,7 +129,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     event.preventDefault();
 
     const input = {
-      name: this.$productNameInput.value,
+      name: this.$productNameInput.value.trim(),
       price: +this.$productPriceInput.value,
       quantity: +this.$productQuantityInput.value,
     };
@@ -136,10 +137,18 @@ export default class ProductManageView implements ProductManageViewInterface {
     try {
       const addedProduct = this.vendingMachine.addProduct(input);
       this.renderAddedProduct(addedProduct);
+      this.resetProductManageForm();
     } catch (error) {
       alert(error.message);
     }
   };
+
+  resetProductManageForm() {
+    this.$productNameInput.value = '';
+    this.$productPriceInput.value = '';
+    this.$productQuantityInput.value = '';
+    this.$productNameInput.focus();
+  }
 
   getProductTemplate = ({ name, price, quantity }) => {
     return `
@@ -174,6 +183,7 @@ export default class ProductManageView implements ProductManageViewInterface {
         $('.product-row-quantity', <HTMLElement>$$productRows[index])
       )).textContent = String(product.quantity);
     });
+    this.$productNameInput.focus();
   };
 
   renderInitialProductManage = () => {

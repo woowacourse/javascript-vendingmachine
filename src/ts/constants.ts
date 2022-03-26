@@ -14,6 +14,7 @@ export const ERROR_MESSAGE = {
   RECHARGE_MONEY_UNIT: '충전할 금액은 10의 배수여야 합니다.',
   EXCEED_HOLDING_MONEY: '보유할 수 있는 최대 금액은 10만원입니다.',
   UNDER_MIN_RECHARGING_MONEY: '충전할 금액은 10원 이상이어야 합니다.',
+  NOT_INTEGER: '정수를 입력하셔야 합니다.',
 };
 
 export const CONFIRM_MESSAGE = {
