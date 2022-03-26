@@ -46,12 +46,6 @@ export const COINS = {
   ten: 10,
 };
 
-export const URL = {
-  MANAGE_ITEM: 'mangeItem',
-  CHARGE_MONEY: 'chargeMoney',
-  PURCHASE_ITEM: 'purchaseItem',
-};
-
 export const CUSTOM_EVENT = {
   ROUTE_CHANGE: 'ROUTE_CHANGE',
   CHARGE_MONEY: 'CHARGE_MONEY',

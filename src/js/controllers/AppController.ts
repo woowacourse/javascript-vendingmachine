@@ -3,7 +3,7 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
-import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constants';
+import { SELECTOR, CUSTOM_EVENT } from '../constants/constants';
 import { RouteChangeDetailType } from '../types/types';
 
 export default class AppController {
@@ -32,39 +32,39 @@ export default class AppController {
     const { $navButton }: RouteChangeDetailType = event.detail;
 
     if ($navButton.id === SELECTOR.ID_STRING.ITEM_MANGE_TAB) {
-      window.history.pushState(null, null, URL.MANAGE_ITEM);
+      window.history.pushState(null, null, '#mangeItem');
     }
 
     if ($navButton.id === SELECTOR.ID_STRING.MONEY_CHARGE_TAB) {
-      window.history.pushState(null, null, URL.CHARGE_MONEY);
+      window.history.pushState(null, null, '#chargeMoney');
     }
 
     if ($navButton.id === SELECTOR.ID_STRING.ITEM_PURCHASE_TAB) {
-      window.history.pushState(null, null, URL.PURCHASE_ITEM);
+      window.history.pushState(null, null, '#purchaseItem');
     }
 
     this.route();
   }
 
   route() {
-    const { pathname } = window.location;
+    const { hash } = window.location;
 
-    if (pathname === '/') {
+    if (hash === '') {
       this.manageItemController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
-    if (pathname === `/${URL.MANAGE_ITEM}`) {
+    if (hash === '#mangeItem') {
       this.manageItemController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
-    if (pathname === `/${URL.CHARGE_MONEY}`) {
+    if (hash === '#chargeMoney') {
       this.chargeMoneyController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
       return;
     }
-    if (pathname === `/${URL.PURCHASE_ITEM}`) {
+    if (hash === '#purchaseItem') {
       this.purchaseItemController.render();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
     }
