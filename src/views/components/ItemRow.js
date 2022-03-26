@@ -14,20 +14,45 @@ class ItemRow extends TableRow {
        ${
          isEditing
            ? `
-            <td class="item-name"><input value="${name}" class="item-name-edit-input" type="text" maxlength="10" ></td>
-            <td class="item-price"><input value="${price}" class="item-price-edit-input" type="number" step="10" min="100" max="10000"></td>
-            <td class="item-quantity"><input value="${quantity}" class="item-quantity-edit-input" type="number" step="1" min="1" max="20"></td>
-            <td>
-              <button class="item-update-button">완료</button>
+            <td class="item-name styled-td">
+              <input
+                value="${name}"
+                class="item-name-edit-input transparent-input"
+                type="text"
+                maxlength="10"
+              >
+            </td>
+            <td class="item-price styled-td">
+              <input
+                value="${price}"
+                class="item-price-edit-input transparent-input"
+                type="number"
+                step="10"
+                min="100"
+                max="10000"
+              >
+            </td>
+            <td class="item-quantity styled-td">
+              <input
+                value="${quantity}"
+                class="item-quantity-edit-input transparent-input"
+                type="number"
+                step="1"
+                min="1"
+                max="20"
+              >
+            </td>
+            <td class="item-button-container">
+              <button class="item-update-button styled-button">완료</button>
             </td>
           `
            : `
-            <td class="item-name">${name}</td>
-            <td class="item-price">${price}</td>
-            <td class="item-quantity">${quantity}</td>
-            <td>
-              <button class="item-edit-button" type="button">수정</button>
-              <button class="item-remove-button" type="button">삭제</button>
+            <td class="item-name styled-td">${name}</td>
+            <td class="item-price styled-td">${price}</td>
+            <td class="item-quantity styled-td">${quantity}</td>
+            <td class="item-button-container">
+              <button class="item-edit-button styled-button" type="button">수정</button>
+              <button class="item-remove-button styled-button" type="button">삭제</button>
             </td>
           `
        }
