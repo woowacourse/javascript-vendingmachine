@@ -3,8 +3,14 @@ import { Coin, CoinStatus, ProductData, VendingMachineProductDictionary } from '
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
 
-import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
 import { generateUniqueId } from '../utils';
+import {
+  inValidUnitChange,
+  isBelowMinCharge,
+  isExceedMaxTotalChange,
+  validateData,
+} from './validator';
 
 export default class VendingMachine {
   private _productList: VendingMachineProductDictionary;
@@ -28,17 +34,7 @@ export default class VendingMachine {
   }
 
   addChange(money: number): never | Coin[] {
-    if (money <= 0) {
-      throw new Error(ERROR_MESSAGE.BELOW_MIN_CHANGE);
-    }
-
-    if (money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0) {
-      throw new Error(ERROR_MESSAGE.INVALID_UNIT_CHANGE);
-    }
-
-    if (this.totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE) {
-      throw new Error(ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE);
-    }
+    this.validateChange(money);
 
     this._moneyBox.addChange(money);
 
@@ -63,15 +59,28 @@ export default class VendingMachine {
     this._productList[productId].modify(data);
   }
 
+  removeProduct(productId: string): void {
+    this.validateProductIdInList(productId);
+    delete this._productList[productId];
+  }
+
+  private validateChange(money: number): never | void {
+    const changeValidator = [
+      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.BELOW_MIN_CHANGE },
+      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.INVALID_UNIT_CHANGE },
+      {
+        testFunc: isExceedMaxTotalChange,
+        errorMsg: ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE,
+      },
+    ];
+
+    validateData({ money, totalChange: this.totalChange }, changeValidator);
+  }
+
   private validateUniqueProductName(name): never | void {
     if (Object.values(this._productList).some((product) => product.name === name)) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME);
     }
-  }
-
-  removeProduct(productId: string): void {
-    this.validateProductIdInList(productId);
-    delete this._productList[productId];
   }
 
   private validateProductIdInList(productId: string): never | void {

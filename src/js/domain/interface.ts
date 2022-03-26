@@ -26,3 +26,13 @@ export interface CoinStatus {
 export interface distributeStrategy {
   distribute(inputMoney: number): Coin[];
 }
+
+export interface Validator<T> {
+  testFunc: (data: T) => boolean;
+  errorMsg: string;
+}
+
+export interface changeValidationData {
+  money: number;
+  totalChange: number;
+}

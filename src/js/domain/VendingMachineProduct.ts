@@ -1,5 +1,14 @@
 import { ProductData } from './interface';
-import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
+import {
+  hasEmptyInput,
+  isInvalidUnitPrice,
+  isNotIntegerStock,
+  isOverMaxLengthName,
+  isPriceOutOfRange,
+  isStockOutOfRange,
+  validateData,
+} from './validator';
+import { ERROR_MESSAGE } from '../constants';
 
 export default class VendingMachineProduct {
   private _name: string;
@@ -7,32 +16,11 @@ export default class VendingMachineProduct {
   private _stock: number;
 
   constructor({ name, price, stock }: ProductData) {
-    this.validateData({ name, price, stock });
+    this.validateProduct({ name, price, stock });
 
     this._name = name;
     this._price = price;
     this._stock = stock;
-  }
-
-  validateData({ name, price, stock }: ProductData): never | void {
-    if (!name || !price || !stock) {
-      throw new Error(ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM);
-    }
-    if (name.length > PRODUCT_RULES.MAX_NAME_LENGTH) {
-      throw new Error(ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH);
-    }
-    if (price < PRODUCT_RULES.MIN_PRICE || price > PRODUCT_RULES.MAX_PRICE) {
-      throw new Error(ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE);
-    }
-    if (price % PRODUCT_RULES.PRICE_UNIT !== 0) {
-      throw new Error(ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE);
-    }
-    if (stock > PRODUCT_RULES.MAX_STOCK || stock < PRODUCT_RULES.MIN_STOCK) {
-      throw new Error(ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE);
-    }
-    if (!Number.isInteger(stock)) {
-      throw new Error(ERROR_MESSAGE.INVALID_PRODUCT_STOCK);
-    }
   }
 
   get name(): string {
@@ -48,10 +36,26 @@ export default class VendingMachineProduct {
   }
 
   modify({ name, price, stock }: ProductData): void {
-    this.validateData({ name, price, stock });
+    this.validateProduct({ name, price, stock });
 
     this._name = name;
     this._price = price;
     this._stock = stock;
+  }
+
+  validateProduct(data: ProductData) {
+    const productValidator = [
+      { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
+      {
+        testFunc: isOverMaxLengthName,
+        errorMsg: ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH,
+      },
+      { testFunc: isPriceOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE },
+      { testFunc: isInvalidUnitPrice, errorMsg: ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE },
+      { testFunc: isStockOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE },
+      { testFunc: isNotIntegerStock, errorMsg: ERROR_MESSAGE.INVALID_PRODUCT_STOCK },
+    ];
+
+    validateData(data, productValidator);
   }
 }
