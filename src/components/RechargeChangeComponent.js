@@ -10,8 +10,8 @@ class RechargeChangeComponent {
     this.mount();
     this.initDOM();
     this.initChildComponents();
-    this.bindEventHandler();
     this.subscribeStore();
+    this.bindEventHandler();
   }
 
   mount() {
@@ -46,12 +46,12 @@ class RechargeChangeComponent {
     });
   }
 
-  bindEventHandler() {
-    this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
-  }
-
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+  }
+
+  bindEventHandler() {
+    this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
   }
 
   wakeUp() {
@@ -83,11 +83,18 @@ class RechargeChangeComponent {
           payload: { changeInput },
           stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
         });
+        this.clearInputForm();
       }
     } catch ({ message }) {
       alert(message);
     }
   };
+
+  clearInputForm() {
+    this.$rechargeChangeInput.value = '';
+
+    this.$rechargeChangeInput.blur();
+  }
 }
 
 export default RechargeChangeComponent;
