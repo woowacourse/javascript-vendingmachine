@@ -1,7 +1,13 @@
 import Subject from '../core/Subject';
 import { deepClone } from '../utils/commons';
-import { createRandomCoins } from '../utils/coinUtil';
-import { validate, itemValidator, amountValidator } from '../utils/validator';
+import { createRandomCoins } from '../utils/coinUtils';
+import {
+  validate,
+  itemValidator,
+  amountValidator,
+  updatedItemValidator,
+  removedItemValidator,
+} from '../utils/validator';
 
 export interface Item {
   name: string;
@@ -64,12 +70,8 @@ export default class VendingMachine {
   }
 
   updateItem(name: string, updatedItem: Item): void {
-    if (!this.findItem(name)) throw new Error('error');
-
-    if (name !== updatedItem.name && this.findItem(updatedItem.name))
-      throw new Error('error');
-
     validate(itemValidator, updatedItem);
+    validate(updatedItemValidator, this, name, updatedItem);
 
     this.state.items = this.state.items.map((item) =>
       item.name === name ? updatedItem : item
@@ -77,7 +79,7 @@ export default class VendingMachine {
   }
 
   removeItem(name: string): void {
-    if (!this.findItem(name)) throw new Error('error');
+    validate(removedItemValidator, this);
 
     this.state.items = this.state.items.filter((item) => item.name !== name);
   }

@@ -1,11 +1,10 @@
 import Component from '../../core/Component';
+import { PAGES } from '../../configs/constants';
+import { getHash } from '../../utils/domUtils';
 
 export default class NavBar extends Component {
   setup() {
-    const { href } = window.location;
-    const location = new URL(href).hash;
-
-    this.state = { location };
+    this.state = { location: getHash() };
   }
 
   template() {
@@ -14,27 +13,30 @@ export default class NavBar extends Component {
     return `
       <a
         class="nav-button styled-button ${
-          location === '' || location === '#item-management' ? 'selected' : ''
+          location === PAGES.LANDING.PATH ||
+          location === PAGES.ITEM_MANAGEMENT.PATH
+            ? 'selected'
+            : ''
         }"
-        href="#item-management"
+        href="${PAGES.ITEM_MANAGEMENT.PATH}"
       >
-        상품 관리
+        ${PAGES.ITEM_MANAGEMENT.TITLE}
       </a>
       <a
         class="nav-button styled-button ${
-          location === '#change-charge' ? 'selected' : ''
+          location === PAGES.CHANGE_CHARGE.PATH ? 'selected' : ''
         }"
-        href="#change-charge"
+        href="${PAGES.CHANGE_CHARGE.PATH}"
       >
-        잔돈 충전
+        ${PAGES.CHANGE_CHARGE.TITLE}
       </a>
       <a
         class="nav-button styled-button ${
-          location === '#item-purchase' ? 'selected' : ''
+          location === PAGES.ITEM_PURCHASE.PATH ? 'selected' : ''
         }"
-        href="#item-purchase"
+        href="${PAGES.ITEM_PURCHASE.PATH}"
       >
-        상품 구매
+        ${PAGES.ITEM_PURCHASE.TITLE}
       </a>
     `;
   }

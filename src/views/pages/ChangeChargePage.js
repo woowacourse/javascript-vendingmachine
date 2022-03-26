@@ -1,5 +1,6 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
+import { CHARGE_AMOUNT } from '../../configs/constants';
 
 class ChangeChargePage extends Component {
   template() {
@@ -19,9 +20,9 @@ class ChangeChargePage extends Component {
               name="amount"
               placeholder="금액"
               type="number"
-              min="10"
-              max="100000"
-              step="10"
+              min="${CHARGE_AMOUNT.MIN}"
+              max="${CHARGE_AMOUNT.MAX}"
+              step="${CHARGE_AMOUNT.STEP}"
               required
               autofocus
             >

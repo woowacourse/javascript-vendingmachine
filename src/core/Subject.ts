@@ -1,5 +1,3 @@
-import { vendingMachine } from '../domains/VendingMachine';
-
 interface Observer {
   notify(): void;
 }
@@ -91,7 +89,7 @@ export default class Subject {
       this.updated = false;
     }
 
-    requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       this.checkUpdated();
     });
   }

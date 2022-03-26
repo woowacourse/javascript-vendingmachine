@@ -1,5 +1,6 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
+import { ITEM } from '../../configs/constants';
 
 class ItemRow extends TableRow {
   setup() {
@@ -19,7 +20,7 @@ class ItemRow extends TableRow {
                 value="${name}"
                 class="item-name-edit-input transparent-input"
                 type="text"
-                maxlength="10"
+                maxlength="${ITEM.NAME.LENGTH.MAX}"
               >
             </td>
             <td class="item-price styled-td">
@@ -27,9 +28,9 @@ class ItemRow extends TableRow {
                 value="${price}"
                 class="item-price-edit-input transparent-input"
                 type="number"
-                step="10"
-                min="100"
-                max="10000"
+                min="${ITEM.PRICE.MIN}"
+                max="${ITEM.PRICE.MAX}"
+                step="${ITEM.PRICE.STEP}"
               >
             </td>
             <td class="item-quantity styled-td">
@@ -68,8 +69,8 @@ class ItemRow extends TableRow {
       input.focus();
 
       setTimeout(() => {
-        input.selectionStart = 10000;
-        input.selectionEnd = 10000;
+        input.selectionStart = Number.MAX_SAFE_INTEGER;
+        input.selectionEnd = Number.MAX_SAFE_INTEGER;
       }, 0);
     });
 
@@ -81,14 +82,22 @@ class ItemRow extends TableRow {
         quantity: this.querySelector('.item-quantity-edit-input').valueAsNumber,
       };
 
-      vendingMachine.updateItem(prevName, updatedItem);
+      try {
+        vendingMachine.updateItem(prevName, updatedItem);
+      } catch (err) {
+        window.alert(err);
+      }
     });
 
     this.addEvent('click', '.item-remove-button', () => {
       if (window.confirm('정말로 삭제하시겠습니까?')) {
         const { name } = this.props;
 
-        vendingMachine.removeItem(name);
+        try {
+          vendingMachine.removeItem(name);
+        } catch (err) {
+          window.alert(err);
+        }
       }
     });
   }

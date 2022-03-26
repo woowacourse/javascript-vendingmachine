@@ -5,6 +5,7 @@ import './pages/ChangeChargePage';
 import './pages/ItemPurchasePage';
 import './pages/NotFoundPage';
 import './components/NavBar';
+import { PAGES } from '../configs/constants';
 
 export default class App extends Component {
   template() {
@@ -16,10 +17,10 @@ export default class App extends Component {
         <nav-bar class="nav-bar"></nav-bar>
         <div class="page-container">
           <page-router>
-            <item-management class="page" path="#item-management"></item-management>
-            <change-charge class="page" path="#change-charge"></change-charge>
-            <item-purchase class="page" path="#item-purchase"></item-purchase>
-            <not-found class="page" path="*"></not-found>
+            <item-management class="page" path="${PAGES.ITEM_MANAGEMENT.PATH}"></item-management>
+            <change-charge class="page" path="${PAGES.CHANGE_CHARGE.PATH}"></change-charge>
+            <item-purchase class="page" path="${PAGES.ITEM_PURCHASE.PATH}"></item-purchase>
+            <not-found class="page" path="${PAGES.DEFAULT.PATH}"></not-found>
           </page-router>
         </div>
       </main>

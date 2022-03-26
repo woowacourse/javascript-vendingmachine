@@ -1,12 +1,9 @@
 import Component from '../../core/Component';
-import { vendingMachine } from '../../domains/VendingMachine';
 import '../components/ItemRow';
+import { vendingMachine } from '../../domains/VendingMachine';
+import { ITEM } from '../../configs/constants';
 
 class ItemManagementPage extends Component {
-  setup() {
-    this.state = { editItems: [] };
-  }
-
   template() {
     const items = vendingMachine.useStore((state) => state.items);
 
@@ -16,39 +13,39 @@ class ItemManagementPage extends Component {
         <form id="item-add-form" class="item-add-form">
           <fieldset class="fieldset">
             <legend class="description">추가할 상품 현황을 입력해주세요.</legend>
-            <label hidden for="name"">상품명</label>
+            <label hidden for="name">${ITEM.NAME.LABEL}</label>
             <input
               id="item-name-input"
               class="item-input styled-input"
               name="name"
-              placeholder="상품명"
+              placeholder="${ITEM.NAME.LABEL}"
               type="text"
-              maxlength="10"
+              maxlength="${ITEM.NAME.LENGTH.MAX}"
               required
               autofocus
             >
-            <label hidden for="price">가격</label>
+            <label hidden for="price">${ITEM.PRICE.LABEL}</label>
             <input
               id="item-price-input"
               class="item-input styled-input"
               name="price"
-              placeholder="가격"
+              placeholder="${ITEM.PRICE.LABEL}"
               type="number"
-              step="10"
-              min="100"
-              max="10000"
+              min="${ITEM.PRICE.MIN}"
+              max="${ITEM.PRICE.MAX}"
+              step="${ITEM.PRICE.STEP}"
               required
             >
-            <label hidden for="quantity">수량</label>
+            <label hidden for="quantity">${ITEM.QUANTITY.LABEL}</label>
             <input
               id="item-quantity-input"
               class="item-input styled-input"
               name="quantity"
-              placeholder="수량"
+              placeholder="${ITEM.QUANTITY.LABEL}"
               type="number"
+              min="${ITEM.QUANTITY.MIN}"
+              max="${ITEM.QUANTITY.MAX}"
               step="1"
-              min="1"
-              max="20"
               required
             >
           </fieldset>
@@ -66,9 +63,9 @@ class ItemManagementPage extends Component {
           </colgroup>
           <thead>
             <tr class="styled-tr">
-              <th class="styled-th">상품명</th>
-              <th class="styled-th">가격</th>
-              <th class="styled-th">수량</th>
+              <th class="styled-th">${ITEM.NAME.LABEL}</th>
+              <th class="styled-th">${ITEM.PRICE.LABEL}</th>
+              <th class="styled-th">${ITEM.QUANTITY.LABEL}</th>
               <th class="styled-th"></th>
             </tr>
           </thead>

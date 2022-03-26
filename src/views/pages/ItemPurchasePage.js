@@ -4,7 +4,7 @@ class ItemPurchasePage extends Component {
   template() {
     return `
       <div>
-        <p>comming soon</p>
+        <p>2단계 구현 예정</p>
       </div>
     `;
   }

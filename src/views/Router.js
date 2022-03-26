@@ -1,21 +1,21 @@
 import Component from '../core/Component';
+import { getHash } from '../utils/domUtils';
+import { PAGES } from '../configs/constants';
 
 class Router extends Component {
   setup() {
-    const { href } = window.location;
-    const location = new URL(href).hash;
     const routes = Array.from(this.children).map((child) => ({
       path: child.getAttribute('path'),
       component: child,
     }));
 
-    this.state = { location, routes };
+    this.state = { routes, location: getHash() };
   }
 
   render() {
-    const { location, routes } = this.state;
+    const { routes, location } = this.state;
     const currentRoute = routes.filter(
-      (route) => route.path === location || route.path === '*'
+      (route) => route.path === location || route.path === PAGES.DEFAULT.PATH
     )[0];
     const component =
       (location === '' && routes[0].component) || currentRoute?.component;
@@ -26,10 +26,7 @@ class Router extends Component {
 
   setEvent() {
     window.addEventListener('hashchange', (event) => {
-      const { href } = event.target.location;
-      const location = new URL(href).hash;
-
-      this.setState({ location });
+      this.setState({ location: getHash(event.target) });
     });
   }
 }
