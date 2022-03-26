@@ -27,10 +27,6 @@ export default class App {
 
     $('.nav').addEventListener('click', this.navClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
-    // window.addEventListener('popstate', () => {
-    //   const pathname = `/${location.pathname.split('/')[2]}`;
-    //   console.log(location.pathname, pathname);
-    // });
   }
 
   private navClickHandler = ({ target }) => {
