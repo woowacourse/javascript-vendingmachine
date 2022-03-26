@@ -2,7 +2,7 @@ import { SECTION_CONTAINER } from './constants/constants.js';
 import { on } from './utils/event.js';
 import { initHashContents } from './views/menuCategoryView.js';
 import Coin from './models/Coin.js';
-import ProductManager from './models/ProductManger.js';
+import ProductManager from './models/ProductManger.ts';
 import ChargeView from './views/ChargeView.js';
 import ProductManageView from './views/ProductManageView.js';
 
@@ -20,8 +20,8 @@ export default class Controller {
     on(SECTION_CONTAINER, '@charge', this.#handleChargeCoin.bind(this));
   }
 
-  #renderSavedData(event) {
-    const { hash } = event.detail;
+  #renderSavedData(e) {
+    const { hash } = e.detail;
     initHashContents(hash);
 
     if (hash === '#!manage') {
@@ -39,9 +39,9 @@ export default class Controller {
     }
   }
 
-  #handleProductInfo(event) {
+  #handleProductInfo(e) {
     try {
-      const { product } = event.detail;
+      const { product } = e.detail;
       this.productManager.addProduct(product);
       this.productManageView.render(product);
       this.productManageView.resetProductInput();
@@ -50,19 +50,24 @@ export default class Controller {
     }
   }
 
-  #modifySavedData(event) {
-    const { index, product } = event.detail;
-    this.productManager.modifyProduct(index, product);
+  #modifySavedData(e) {
+    try {
+      const { index, product } = e.detail;
+      this.productManager.modifyProduct(index, product);
+      this.productManageView.renderModifiedProduct(index, product);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
-  #deleteSavedData(event) {
-    const { index } = event.detail;
+  #deleteSavedData(e) {
+    const { index } = e.detail;
     this.productManager.deleteProduct(index);
   }
 
-  #handleChargeCoin(event) {
+  #handleChargeCoin(e) {
     try {
-      const { amount } = event.detail;
+      const { amount } = e.detail;
       this.coin.setAmount(amount);
       this.chargeView.renderCurrentAmount(this.coin.getAmount());
       this.chargeView.resetChargeInput();
