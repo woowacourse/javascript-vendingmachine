@@ -82,7 +82,7 @@ export const updateProductTableRow = ({ name, price, stock, id }) => `
   <td><input type="text" class="update-product-name-input" value="${name}" /></td>
   <td><input type="number" class="update-product-price-input" value="${price}" /></td>
   <td><input type="number" class="update-product-stock-input" value="${stock}" /></td>
-  <td></td>
+  <td>
     <div class="table-button-wrapper">
       <button type="button" class="confirm-update-button" data-product-id=${id}>
       확인
