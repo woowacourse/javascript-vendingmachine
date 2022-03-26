@@ -7,6 +7,18 @@ import {
   QUANTITY_RANGE,
 } from './constants';
 
+export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGHT_LIMIT;
+
+export const isEmptyName = (nameInput: string) => nameInput.length === 0;
+
+export const isOutOfPriceRange = (priceInput: number) =>
+  priceInput < PRICE_RANGE.MIN || priceInput > PRICE_RANGE.MAX;
+
+export const isNotdivisibleBy10 = (priceInput: number) => priceInput % MONEY_DIVIDE_STANDARD !== 0;
+
+export const isOutOfQuantityRange = (qauntityInput: number) =>
+  qauntityInput < QUANTITY_RANGE.MIN || qauntityInput > QUANTITY_RANGE.MAX;
+
 export const checkProductInput = ({
   nameInput,
   priceInput,
@@ -34,6 +46,9 @@ export const checkProductInput = ({
   return true;
 };
 
+export const isOutOfChangeRange = (changeInput: number) =>
+  changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;
+
 export const checkChangeInput = (changeInput: number) => {
   if (isNotdivisibleBy10(changeInput)) {
     throw new Error(ERROR_MSG.CHANGE_NOT_DIVISIBLE_BY_10);
@@ -43,18 +58,3 @@ export const checkChangeInput = (changeInput: number) => {
   }
   return true;
 };
-
-export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGHT_LIMIT;
-
-export const isEmptyName = (nameInput: string) => nameInput.length === 0;
-
-export const isOutOfPriceRange = (priceInput: number) =>
-  priceInput < PRICE_RANGE.MIN || priceInput > PRICE_RANGE.MAX;
-
-export const isNotdivisibleBy10 = (priceInput: number) => priceInput % MONEY_DIVIDE_STANDARD !== 0;
-
-export const isOutOfQuantityRange = (qauntityInput: number) =>
-  qauntityInput < QUANTITY_RANGE.MIN || qauntityInput > QUANTITY_RANGE.MAX;
-
-export const isOutOfChangeRange = (changeInput: number) =>
-  changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;
