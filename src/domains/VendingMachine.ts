@@ -22,8 +22,6 @@ export interface VendingMachineState {
 }
 
 export default class VendingMachine {
-  currentObserver: object;
-
   state: VendingMachineState;
 
   constructor(initItems: Item[], initCoins: Coins) {
