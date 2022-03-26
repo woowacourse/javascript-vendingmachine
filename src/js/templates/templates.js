@@ -103,7 +103,7 @@ export const CATEGORY_TEMPLATE = {
   `,
   PURCHASE: `
     <h2 hidden>상품 구매</h2>
-    <form class="form">
+    <form class="purchase-form form">
       <label for="product-purchased">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
         <input id="product-purchased" type="number" class="input-width" placeholder="금액" />
