@@ -1,11 +1,11 @@
+import { createMainElement } from '../utils/dom';
 import { purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {
   #purchaseContainer;
 
   constructor() {
-    this.#purchaseContainer = document.createElement('main');
-    this.#purchaseContainer.insertAdjacentHTML('beforeend', purchaseTemplate);
+    this.#purchaseContainer = createMainElement(purchaseTemplate);
   }
 
   get tabElements() {

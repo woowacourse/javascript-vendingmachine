@@ -82,7 +82,7 @@ export const updateProductTableRow = ({ name, price, stock, id }) => `
   <td><input type="text" class="update-product-name-input" value="${name}" /></td>
   <td><input type="number" class="update-product-price-input" value="${price}" /></td>
   <td><input type="number" class="update-product-stock-input" value="${stock}" /></td>
-  <td>
+  <td></td>
     <div class="table-button-wrapper">
       <button type="button" class="confirm-update-button" data-product-id=${id}>
       확인
@@ -93,3 +93,9 @@ export const updateProductTableRow = ({ name, price, stock, id }) => `
 `;
 
 export const purchaseTemplate = '<div>아직 공사중입니다 🚫</div>';
+
+export const notFoundTemplate = `
+<section title="존재하지 않는 페이지" class="not-found-section">
+  <h2>🛒 Page Not Found</h2>
+  <a href="#/manage" class="tab-menu-button">시작 페이지로</a>
+</section>`;

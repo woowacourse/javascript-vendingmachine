@@ -2,7 +2,8 @@ import VendingMachine from '../domain/VendingMachine';
 import PurchaseProductTab from './PurchaseProductTab';
 import AddChangeTab from './AddChangeTab';
 import ManageProductTab from './ManageProductTab';
-import selectDom from '../utils/selectDom';
+import { createMainElement, selectDom } from '../utils/dom';
+import { notFoundTemplate } from './template';
 
 export default class Router {
   #vendingMachine;
@@ -31,6 +32,12 @@ export default class Router {
     this.#updateCurrentTabMenu(path);
     const main = selectDom('main');
 
+    if (!this.#renderList[path]) {
+      const notFoundContainer = createMainElement(notFoundTemplate);
+      this.#app.replaceChild(notFoundContainer, main);
+      return;
+    }
+
     this.#app.replaceChild(this.#renderList[path].tabElements, main);
   };
 
@@ -39,7 +46,7 @@ export default class Router {
     previousMenuButton?.classList.remove('current');
 
     const currentMenuButton = selectDom(`[href="${path}"]`, this.#tabMenuNavigation);
-    currentMenuButton.classList.add('current');
+    currentMenuButton?.classList.add('current');
   }
 
   #handleTabMenuChange = (e) => {

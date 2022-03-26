@@ -1,4 +1,4 @@
-import selectDom from '../utils/selectDom';
+import { createMainElement, selectDom } from '../utils/dom';
 import { manageProductTemplate, productTableRow, updateProductTableRow } from './template';
 
 export default class ManageProductTab {
@@ -13,8 +13,7 @@ export default class ManageProductTab {
   constructor(machine) {
     this.#vendingMachine = machine;
 
-    this.#manageContainer = document.createElement('main');
-    this.#manageContainer.insertAdjacentHTML('beforeend', manageProductTemplate);
+    this.#manageContainer = createMainElement(manageProductTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
     this.#addProductNameInput = selectDom('#add-product-name-input', this.#manageContainer);
     this.#addProductPriceInput = selectDom('#add-product-price-input', this.#manageContainer);

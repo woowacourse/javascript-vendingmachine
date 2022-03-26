@@ -1,4 +1,4 @@
-import selectDom from '../utils/selectDom';
+import { createMainElement, selectDom } from '../utils/dom';
 import { addChangeTemplate } from './template';
 
 export default class AddChangeTab {
@@ -12,8 +12,7 @@ export default class AddChangeTab {
   constructor(machine) {
     this.#vendingMachine = machine;
 
-    this.#addChangeContainer = document.createElement('main');
-    this.#addChangeContainer.insertAdjacentHTML('beforeend', addChangeTemplate);
+    this.#addChangeContainer = createMainElement(addChangeTemplate);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
     this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
@@ -40,11 +39,10 @@ export default class AddChangeTab {
   };
 
   #renderCoinStatus() {
-    this.#totalChange.textContent = this.#vendingMachine.totalChange;
-
     const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
     const { coinStatus } = this.#vendingMachine;
 
+    this.#totalChange.textContent = this.#vendingMachine.totalChange;
     coinCountElements.forEach((element) => {
       element.textContent = `${coinStatus[element.dataset.coinName]}개`;
     });
