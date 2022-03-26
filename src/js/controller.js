@@ -1,9 +1,10 @@
 import { SECTION_CONTAINER } from './constants/constants.js';
 import { on } from './utils/event.js';
-import ProductManager from './models/ProductManger.js';
+import { initHashContents } from './views/menuCategoryView.js';
 import Coin from './models/Coin.js';
-import ProductManageView from './views/ProductManageView.js';
+import ProductManager from './models/ProductManger.js';
 import ChargeView from './views/ChargeView.js';
+import ProductManageView from './views/ProductManageView.js';
 
 export default class Controller {
   constructor() {
@@ -23,6 +24,8 @@ export default class Controller {
 
   #renderSavedData(event) {
     const { hash } = event.detail;
+    initHashContents(hash);
+
     if (hash === '#!manage') {
       this.productManageView.initManageDOM();
       const savedProductList = this.productManager.getProducts();

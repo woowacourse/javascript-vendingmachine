@@ -1,4 +1,4 @@
-import { COIN_UNITS } from '../constants/constants.js';
+import { COIN, ERROR_MESSAGE } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
 
 export default class Coin {
@@ -14,8 +14,8 @@ export default class Coin {
 
   setAmount(chargedAmount) {
     try {
-      if (this.amount + chargedAmount > 100000) {
-        throw new Error('최대 보유 금액은 100,000원 을 넘을 수 없습니다.');
+      if (this.amount + chargedAmount > COIN.MAX_AMOUNT) {
+        throw new Error(ERROR_MESSAGE.OVER_MAX_AMOUNT);
       }
       this.amount += chargedAmount;
       this.makeRandomCoins(chargedAmount);
@@ -34,15 +34,11 @@ export default class Coin {
 
   makeRandomCoins(amount) {
     let currentAmount = amount;
-    let count;
-    COIN_UNITS.forEach((coin) => {
-      if (coin === 10) {
-        count = currentAmount / coin;
-      } else {
-        count = getRandomNumber(currentAmount / coin);
-      }
-      currentAmount -= count * coin;
-      this.coins[coin] += count;
+    COIN.UNIT_LIST.forEach((coin) => {
+      const maxCoinCount = currentAmount / coin;
+      const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
+      currentAmount -= coinCount * coin;
+      this.coins[coin] += coinCount;
     });
   }
 }

@@ -1,5 +1,5 @@
 import { isEmpty, isDivideUnit, isMaximumLength, isRangeNumber } from './common.js';
-import { PRODUCT, ERROR_MESSAGE, COIN_UNIT } from '../constants/constants.js';
+import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants.js';
 
 export const validProductInfo = ({ name, price, quantity }) => {
   if (isEmpty(name)) {
@@ -27,7 +27,7 @@ export const validProductInfo = ({ name, price, quantity }) => {
 };
 
 export const validChargeCoinUnit = (coin) => {
-  if (isDivideUnit(coin, COIN_UNIT)) {
+  if (isDivideUnit(coin, COIN.MIN_UNIT)) {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   }
 };

@@ -15,9 +15,11 @@ export const PRODUCT = {
   },
 };
 
-export const COIN_UNITS = [500, 100, 50, 10];
-
-export const COIN_UNIT = 10;
+export const COIN = {
+  UNIT_LIST: [500, 100, 50, 10],
+  MIN_UNIT: 10,
+  MAX_AMOUNT: 100000,
+};
 
 export const CONFIRM_DELETE_MESSAGE = '상품을 삭제하시겠습니까?';
 
@@ -29,4 +31,5 @@ export const ERROR_MESSAGE = {
   NOT_DIVIDE_NUMBER: '10원 단위로 입력해 주세요.',
   OUT_OF_PRICE_RANGE: '상품 가격은 100원 이상 10000원 이하로 입력해 주세요.',
   OUT_OF_QUANTITY_RANGE: '상품 수량은 1개 이상 20개 이하로 입력해 주세요.',
+  OVER_MAX_AMOUNT: '최대 보유 금액은 100,000원 을 넘을 수 없습니다.',
 };
