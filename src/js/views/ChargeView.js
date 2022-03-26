@@ -1,25 +1,12 @@
+import { SECTION_CONTAINER } from '../constants/constants.js';
 import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
 import { validChargeCoinUnit } from '../utils/validation.js';
-import { SECTION_CONTAINER } from '../constants/constants.js';
 
 export default class ChargeView {
   constructor() {
     on(SECTION_CONTAINER, 'submit', this.#onSubmitChargeAmount.bind(this));
   }
-
-  initChargeDOM() {
-    this.$chargeAmountInput = $('#charge-amount-input');
-    this.$currentAmount = $('.current-amount');
-    this.$fiveHundredCoin = $('#five-hundred-coin');
-    this.$oneHundredCoin = $('#one-hundred-coin');
-    this.$fiftyCoin = $('#fifty-coin');
-    this.$tenCoin = $('#ten-coin');
-
-    this.#bindChargeEvent();
-  }
-
-  #bindChargeEvent() {}
 
   #onSubmitChargeAmount(e) {
     e.preventDefault();
@@ -32,6 +19,15 @@ export default class ChargeView {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  initChargeDOM() {
+    this.$chargeAmountInput = $('#charge-amount-input');
+    this.$currentAmount = $('.current-amount');
+    this.$fiveHundredCoin = $('#five-hundred-coin');
+    this.$oneHundredCoin = $('#one-hundred-coin');
+    this.$fiftyCoin = $('#fifty-coin');
+    this.$tenCoin = $('#ten-coin');
   }
 
   renderHaveCoins(coins) {

@@ -1,8 +1,8 @@
-import { $ } from '../utils/dom.js';
-import { on, emit } from '../utils/event.js';
 import { SECTION_CONTAINER, CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
-import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
+import { $, replaceElement } from '../utils/dom.js';
+import { on, emit } from '../utils/event.js';
 import { validProductInfo } from '../utils/validation.js';
+import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 
 export default class ProductManageView {
   constructor() {
@@ -52,8 +52,7 @@ export default class ProductManageView {
       price: selectedProduct.children[1].textContent,
       quantity: selectedProduct.children[2].textContent,
     };
-    selectedProduct.replaceChildren();
-    selectedProduct.insertAdjacentHTML('beforeend', tableInputTemplate(product));
+    replaceElement(selectedProduct, tableInputTemplate(product));
   }
 
   #confirmProductInfo(selectedProduct) {
@@ -65,8 +64,7 @@ export default class ProductManageView {
     };
     try {
       validProductInfo(product);
-      selectedProduct.replaceChildren();
-      selectedProduct.insertAdjacentHTML('beforeend', tableTemplate(product));
+      replaceElement(selectedProduct, tableTemplate(product));
       emit(SECTION_CONTAINER, '@modify', { index, product });
     } catch (error) {
       alert(error.message);
