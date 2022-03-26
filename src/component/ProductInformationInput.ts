@@ -1,8 +1,13 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductInformationInput {
-  productCatalog: ProductCatalog;
-  target: HTMLDivElement;
+  private productCatalog: ProductCatalog;
+  private target: HTMLDivElement;
+  private productInformationForm: HTMLFormElement;
+  private productNameInput: HTMLInputElement;
+  private productPriceInput: HTMLInputElement;
+  private productQuantityInput: HTMLInputElement;
+  private submitButton: HTMLButtonElement;
 
   constructor(props) {
     this.target = props.target;
@@ -15,24 +20,19 @@ export class ProductInformationInput {
     this.bindEvent();
   }
 
-  template(): string {
+  private template(): string {
     return `
       <form id="product-information-input">
         <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
-        <input id="product-name-input" type="text" placeholder="상품명" class="input" />
-        <input id="product-price-input" type="number" placeholder="가격" class="input" />
-        <input id="product-quantity-input" type="number" placeholder="수량" class="input" />
-        <button id="product-information-submit-btn" type="submit" class="submit-button button">추가</button>
+        <input id="product-name-input" class="input" type="text" placeholder="상품명" />
+        <input id="product-price-input" class="input" type="number" placeholder="가격" />
+        <input id="product-quantity-input" class="input" type="number" placeholder="수량" />
+        <button id="product-information-submit-btn" class="submit-button button" type="submit">추가</button>
       </form>
     `;
   }
 
-  productInformationForm: HTMLFormElement;
-  productNameInput: HTMLInputElement;
-  productPriceInput: HTMLInputElement;
-  productQuantityInput: HTMLInputElement;
-  submitButton: HTMLButtonElement;
-  selectDom() {
+  private selectDom() {
     this.productInformationForm = document.querySelector('#product-information-input');
     this.productNameInput = document.querySelector('#product-name-input');
     this.productPriceInput = document.querySelector('#product-price-input');
@@ -40,11 +40,11 @@ export class ProductInformationInput {
     this.submitButton = document.querySelector('#product-information-submit-btn');
   }
 
-  bindEvent() {
+  private bindEvent() {
     this.submitButton.addEventListener('click', this.handleAddProduct);
   }
 
-  handleAddProduct = (e) => {
+  private handleAddProduct = (e) => {
     e.preventDefault();
 
     const productName = this.productNameInput.value;
@@ -54,6 +54,7 @@ export class ProductInformationInput {
     try {
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
       this.target.dispatchEvent(new CustomEvent('productAdded'));
+      console.log('added', 'informationInput');
     } catch (err) {
       alert(err.message);
     }

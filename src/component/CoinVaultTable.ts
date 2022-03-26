@@ -2,13 +2,12 @@ import { CoinVault } from '../domain/CoinVault';
 import { Coins } from '../utils/interface';
 
 export class CoinVaultTable {
-  target: HTMLDivElement;
-  coinVault: CoinVault;
-
-  coin500Quantity: HTMLSpanElement;
-  coin100Quantity: HTMLSpanElement;
-  coin50Quantity: HTMLSpanElement;
-  coin10Quantity: HTMLSpanElement;
+  private target: HTMLDivElement;
+  private coinVault: CoinVault;
+  private coin500Quantity: HTMLSpanElement;
+  private coin100Quantity: HTMLSpanElement;
+  private coin50Quantity: HTMLSpanElement;
+  private coin10Quantity: HTMLSpanElement;
 
   constructor(props) {
     this.target = props.target;
@@ -22,7 +21,7 @@ export class CoinVaultTable {
     this.selectDom();
   }
 
-  template(coinsQuantity: Coins): string {
+  private template(coinsQuantity: Coins): string {
     return `
       <div class="table-container">
         <h2>자판기가 보유한 동전</h2>
@@ -56,14 +55,14 @@ export class CoinVaultTable {
     `;
   }
 
-  selectDom() {
+  private selectDom() {
     this.coin500Quantity = document.querySelector('#coin500-quantity');
     this.coin100Quantity = document.querySelector('#coin100-quantity');
     this.coin50Quantity = document.querySelector('#coin50-quantity');
     this.coin10Quantity = document.querySelector('#coin10-quantity');
   }
 
-  updateCoinVaultTableTemplate = () => {
+  private updateCoinVaultTableTemplate = () => {
     const { coin500, coin100, coin50, coin10 } = this.coinVault.getCoins();
 
     this.coin500Quantity.textContent = `${coin500}`;

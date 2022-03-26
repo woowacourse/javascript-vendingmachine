@@ -3,11 +3,11 @@ import { BalanceChargeView } from './BalanceChargeView';
 import { URL_PATH } from '../utils/constants';
 
 export class NavView {
-  productManageNavBtn: HTMLButtonElement;
-  balanceChargeNavBtn: HTMLButtonElement;
-  productPurchaseNavBtn: HTMLButtonElement;
-  productManageView: ProductManageView;
-  balanceChargeView: BalanceChargeView;
+  private productManageNavBtn: HTMLButtonElement;
+  private balanceChargeNavBtn: HTMLButtonElement;
+  private productManageView: ProductManageView;
+  private balanceChargeView: BalanceChargeView;
+  private contentsContainer: HTMLDivElement;
 
   constructor() {
     this.productManageView = new ProductManageView();
@@ -16,7 +16,6 @@ export class NavView {
     this.contentsContainer = document.querySelector('#contents-container');
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
-    this.productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
 
     this.productManageNavBtn.addEventListener('click', this.handleShowProductManageTab);
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
@@ -28,7 +27,7 @@ export class NavView {
     this.renderHome();
   }
 
-  handlePopstate = (savedData) => {
+  private handlePopstate = (savedData) => {
     if (savedData.state.path === URL_PATH.HOME) {
       this.renderHome();
 
@@ -50,7 +49,7 @@ export class NavView {
     }
   };
 
-  handleShowProductManageTab = () => {
+  private handleShowProductManageTab = () => {
     this.productManageView.init();
     this.productManageView.renderAll();
 
@@ -58,7 +57,7 @@ export class NavView {
     history.pushState({ path }, null, path);
   };
 
-  handleShowBalanceChargeTab = () => {
+  private handleShowBalanceChargeTab = () => {
     this.balanceChargeView.init();
     this.balanceChargeView.renderAll();
 
@@ -66,8 +65,7 @@ export class NavView {
     history.pushState({ path }, null, path);
   };
 
-  contentsContainer: HTMLDivElement;
-  renderHome() {
+  private renderHome() {
     const path = URL_PATH.HOME;
 
     history.pushState({ path }, null, path);

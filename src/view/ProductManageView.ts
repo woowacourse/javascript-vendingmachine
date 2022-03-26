@@ -3,10 +3,10 @@ import { ProductCatalogTable } from '../component/ProductCatalogTable';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductManageView {
-  productInformationInput: ProductInformationInput;
-  productCatalogTable: ProductCatalogTable;
-  contentsContainer: HTMLDivElement;
+  private productInformationInput: ProductInformationInput;
+  private productCatalogTable: ProductCatalogTable;
   productCatalog: ProductCatalog;
+  contentsContainer: HTMLDivElement;
   props: object;
 
   constructor() {

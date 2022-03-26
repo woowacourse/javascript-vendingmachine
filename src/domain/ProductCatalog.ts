@@ -16,6 +16,7 @@ export class ProductCatalog {
 
     if (productIndex !== -1) {
       this.accumulateQuantity(productIndex, quantity);
+
       return;
     }
 
@@ -26,7 +27,7 @@ export class ProductCatalog {
     return this.productList.findIndex((product) => product.getName() === name);
   }
 
-  accumulateQuantity(productIndex: number, quantity: number) {
+  private accumulateQuantity(productIndex: number, quantity: number) {
     const targetProduct = this.productList[productIndex];
 
     try {

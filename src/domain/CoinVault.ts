@@ -19,12 +19,6 @@ export class CoinVault {
     return this.coinsQuantity;
   }
 
-  addCoins(coins: Coins) {
-    [...Object.entries(coins)].forEach(([key, value]) => {
-      this.coinsQuantity[key] += value;
-    });
-  }
-
   getBalance() {
     return [...Object.entries(this.coinsQuantity)].reduce(
       (previous, [key, value]) => previous + COINS_PRICE_TABLE[key] * value,
@@ -41,7 +35,13 @@ export class CoinVault {
     }
   }
 
-  validateMoney(money: number) {
+  private addCoins(coins: Coins) {
+    [...Object.entries(coins)].forEach(([key, value]) => {
+      this.coinsQuantity[key] += value;
+    });
+  }
+
+  private validateMoney(money: number) {
     if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
       throw new Error('돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.');
     }
@@ -50,7 +50,7 @@ export class CoinVault {
     }
   }
 
-  generateRandomCoins(money: number): Coins {
+  private generateRandomCoins(money: number): Coins {
     let balance = money;
     const generatedCoins = { ...COINS_INIT_QUANTITY };
 

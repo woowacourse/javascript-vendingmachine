@@ -3,10 +3,9 @@ import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../utils/interface';
 
 export class ProductCatalogTable {
-  productCatalog: ProductCatalog;
-  target: HTMLDivElement;
-  productTable: HTMLTableElement;
-  productTableBody: HTMLTableElement;
+  private productCatalog: ProductCatalog;
+  private target: HTMLDivElement;
+  private productTableBody: HTMLTableElement;
 
   constructor(props) {
     this.target = props.target;
@@ -17,7 +16,7 @@ export class ProductCatalogTable {
 
   render = () => {
     if (this.isRerender()) {
-      this.productTableBody.textContent = ``;
+      this.productTableBody.textContent = '';
       this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
 
       return;
@@ -29,11 +28,11 @@ export class ProductCatalogTable {
     this.productTableBody.addEventListener('click', this.handleProductStateManage);
   };
 
-  isRerender(): boolean {
+  private isRerender(): boolean {
     return this.productTableBody !== undefined;
   }
 
-  template(): string {
+  private template(): string {
     return `
     <div class="table-container">
       <h2>상품 현황</h2>
@@ -51,14 +50,14 @@ export class ProductCatalogTable {
   `;
   }
 
-  tableBodyTemplate(): string {
+  private tableBodyTemplate(): string {
     return this.productCatalog
       .getProductList()
       .map((product) => this.tableRowTemplate(product))
       .join('');
   }
 
-  tableRowTemplate(product: Product): string {
+  private tableRowTemplate(product: Product): string {
     return `<tr id="${product.getName()}">
       <td class="product-name product-prop"><span>${product.getName()}</span></td>
       <td class="product-price product-prop"><span>${product.getPrice()}</span></td>
@@ -71,7 +70,7 @@ export class ProductCatalogTable {
     </tr>`;
   }
 
-  handleProductStateManage = (e) => {
+  private handleProductStateManage = (e) => {
     if (e.target.classList.contains('edit-button')) {
       const tableRow = e.target.closest('tr');
       this.renderEditProduct(tableRow);
@@ -99,7 +98,7 @@ export class ProductCatalogTable {
     }
   };
 
-  renderEditProduct = (tableRow: HTMLTableRowElement) => {
+  private renderEditProduct = (tableRow: HTMLTableRowElement) => {
     const productRowItems = tableRow.querySelectorAll('.product-prop');
 
     productRowItems.forEach((tableDatum) => {
@@ -115,7 +114,7 @@ export class ProductCatalogTable {
     this.toggleEditBtn(tableRow);
   };
 
-  createProductInputElement(tableDatum: Element, content: string): HTMLInputElement {
+  private createProductInputElement(tableDatum: Element, content: string): HTMLInputElement {
     const productInputElement = document.createElement('input');
 
     productInputElement.setAttribute(
@@ -128,14 +127,14 @@ export class ProductCatalogTable {
     return productInputElement;
   }
 
-  deleteProduct(tableRow: HTMLTableRowElement) {
+  private deleteProduct(tableRow: HTMLTableRowElement) {
     if (window.confirm('진짜 지우실건가요?')) {
       tableRow.remove();
       this.productCatalog.deleteProduct(tableRow.id);
     }
   }
 
-  saveEditedProductState(tableRow: HTMLTableRowElement) {
+  private saveEditedProductState(tableRow: HTMLTableRowElement) {
     const productState = {
       index: this.productCatalog.findExistingProductIndex(tableRow.id),
       name: (tableRow.querySelector('.product-name input') as HTMLInputElement).value,
@@ -151,7 +150,7 @@ export class ProductCatalogTable {
     }
   }
 
-  isSavable(productState: ProductState) {
+  private isSavable(productState: ProductState) {
     try {
       this.productCatalog.getProductList()[productState.index].validateName(productState.name);
       this.productCatalog.getProductList()[productState.index].validatePrice(productState.price);
@@ -165,7 +164,7 @@ export class ProductCatalogTable {
     }
   }
 
-  confirmEditProduct(tableRow: HTMLTableRowElement) {
+  private confirmEditProduct(tableRow: HTMLTableRowElement) {
     const productProp = tableRow.querySelectorAll('.product-prop');
 
     productProp.forEach((tableDatum) => {
@@ -178,14 +177,14 @@ export class ProductCatalogTable {
     tableRow.id = `${tableRow.querySelector('.product-name').textContent}`;
   }
 
-  createProductSpanElement(editedValue: string): HTMLSpanElement {
+  private createProductSpanElement(editedValue: string): HTMLSpanElement {
     const productSpanElement = document.createElement('span');
     productSpanElement.innerText = editedValue;
 
     return productSpanElement;
   }
 
-  toggleEditBtn(tableRow: HTMLTableRowElement) {
+  private toggleEditBtn(tableRow: HTMLTableRowElement) {
     [...tableRow.querySelector('.edit-button-container').children].forEach((btn) =>
       btn.classList.toggle('hide')
     );

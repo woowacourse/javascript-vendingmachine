@@ -4,8 +4,8 @@ import { CoinVaultTable } from '../component/CoinVaultTable';
 import { CoinVault } from '../domain/CoinVault';
 
 export class BalanceChargeView {
-  balanceChargeInput: BalanceChargeInput;
-  coinVaultTable: CoinVaultTable;
+  private balanceChargeInput: BalanceChargeInput;
+  private coinVaultTable: CoinVaultTable;
   coinVault: CoinVault;
   contentsContainer: HTMLDivElement;
   props: object;
@@ -17,7 +17,7 @@ export class BalanceChargeView {
   }
 
   init() {
-    this.contentsContainer.textContent = ``;
+    this.contentsContainer.textContent = '';
 
     this.props = {
       target: this.contentsContainer,
