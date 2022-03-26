@@ -15,16 +15,16 @@ export default class ManageItemView {
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitAddItem.bind(this));
   }
 
-  bindDeleteClickEvents() {
-    $$(SELECTOR.CLASS.ITEM_TABLE_DELETE_BUTTON).forEach(button =>
-      this.bindTargetDeleteClickEvent(button),
-    );
-  }
-
   bindChangeClickEvents() {
     $$(SELECTOR.CLASS.ITEM_TABLE_CHANGE_BUTTON).forEach(button => {
       this.bindTargetChangeClickEvent(button);
     });
+  }
+
+  bindDeleteClickEvents() {
+    $$(SELECTOR.CLASS.ITEM_TABLE_DELETE_BUTTON).forEach(button =>
+      this.bindTargetDeleteClickEvent(button),
+    );
   }
 
   bindTargetChangeClickEvent($targetButton) {

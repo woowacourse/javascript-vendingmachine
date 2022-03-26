@@ -8,10 +8,10 @@ export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   if (name.length > ITEM.NAME.MAX_LENGTH) {
     throw new Error(ERROR_MESSAGE.ITEM_NAME.OVER_MAX_LENGTH);
   }
+
   if (!Number.isInteger(price)) {
     throw new Error(ERROR_MESSAGE.ITEM_PRICE.NOT_INTEGER);
   }
-
   if (price < ITEM.PRICE.MIN) {
     throw new Error(ERROR_MESSAGE.ITEM_PRICE.UNDER_MIN);
   }

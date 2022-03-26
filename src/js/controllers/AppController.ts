@@ -7,15 +7,15 @@ import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constants';
 import { RouteChangeDetailType } from '../types/types';
 
 export default class AppController {
+  appView: AppView;
   vendingMachine: VendingMachine;
   manageItemController: ManageItemController;
   chargeMoneyController: ChargeMoneyController;
   purchaseItemController: PurchaseItemController;
-  appView: AppView;
 
   constructor() {
-    this.vendingMachine = new VendingMachine();
     this.appView = new AppView();
+    this.vendingMachine = new VendingMachine();
     this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
