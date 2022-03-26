@@ -14,7 +14,7 @@ export default class NavBar extends Component {
     return `
       <a
         class="nav-button styled-button ${
-          location === '#item-management' ? 'selected' : ''
+          location === '' || location === '#item-management' ? 'selected' : ''
         }"
         href="#item-management"
       >
