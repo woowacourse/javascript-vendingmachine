@@ -37,7 +37,7 @@ export default class ProductPage {
 
   setRenderMethodList() {
     this.renderMethodList = {
-      products: [this.drawProductList, this.drawProductList],
+      products: [this.drawProductList],
     };
   }
 
