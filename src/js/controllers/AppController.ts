@@ -49,22 +49,22 @@ export default class AppController {
   route() {
     const { pathname } = window.location;
 
-    if (pathname === '/') {
+    if (pathname === `${URL.BASE_URL}/`) {
       this.manageItemController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
-    if (pathname === `/${URL.MANAGE_ITEM}`) {
+    if (pathname === `${URL.BASE_URL}/${URL.MANAGE_ITEM}`) {
       this.manageItemController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
-    if (pathname === `/${URL.CHARGE_MONEY}`) {
+    if (pathname === `${URL.BASE_URL}/${URL.CHARGE_MONEY}`) {
       this.chargeMoneyController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
       return;
     }
-    if (pathname === `/${URL.PURCHASE_ITEM}`) {
+    if (pathname === `${URL.BASE_URL}/${URL.PURCHASE_ITEM}`) {
       this.purchaseItemController.render();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
     }

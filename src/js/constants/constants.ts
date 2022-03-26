@@ -47,9 +47,10 @@ export const COINS = {
 };
 
 export const URL = {
-  MANAGE_ITEM: 'mangeItem',
-  CHARGE_MONEY: 'chargeMoney',
-  PURCHASE_ITEM: 'purchaseItem',
+  BASE_URL: '/javascript-vendingmachine',
+  MANAGE_ITEM: `manageItem`,
+  CHARGE_MONEY: `chargeMoney`,
+  PURCHASE_ITEM: `purchaseItem`,
 };
 
 export const CUSTOM_EVENT = {
