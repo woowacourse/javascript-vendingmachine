@@ -22,7 +22,7 @@
     "eol-last": ["error", "always"],
     "import/extensions": "off",
     "max-depth": ["error", 2],
-    "max-lines-per-function": ["error", 15],
+    "max-lines-per-function": ["error", 20],
     "no-alert": "off",
     "no-param-reassign": "off"
   },
@@ -39,7 +39,7 @@
       "import/no-unresolved": "off",
       "no-underscore-dangle": "off",
       "max-depth": ["error", 2],
-      "max-lines-per-function": ["error", 15]
+      "max-lines-per-function": ["error", 20]
     }
   }]
 }

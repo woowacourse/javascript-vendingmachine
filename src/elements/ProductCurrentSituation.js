@@ -2,7 +2,7 @@ import ProductStore from '../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../domains/actions';
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
-import CONFIRM_MESSAGE from '../constants';
+import { CONFIRM_MESSAGE } from '../constants';
 
 class ProductCurrentSituation extends CustomElement {
   connectedCallback() {

@@ -73,6 +73,10 @@ class ProductStore {
       }
     });
   }
+
+  get products() {
+    return this.#products;
+  }
 }
 
 export default ProductStore;

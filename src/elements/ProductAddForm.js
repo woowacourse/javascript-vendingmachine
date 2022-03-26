@@ -1,7 +1,9 @@
 import ProductStore from '../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../domains/actions';
+
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
+import checkProductValidation from '../validators';
 
 class ProductAddForm extends CustomElement {
   template() {
@@ -26,13 +28,23 @@ class ProductAddForm extends CustomElement {
     event.preventDefault();
 
     const newProduct = {
-      name: $('.product-name-input').value,
+      name: $('.product-name-input').value.trim(),
       price: $('.product-price-input').value,
       quantity: $('.product-quantity-input').value,
     };
 
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
+    try {
+      this.addProduct(newProduct);
+    } catch (error) {
+      alert(error.message);
+    }
   };
+
+  addProduct(newProduct) {
+    checkProductValidation(newProduct);
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
+  }
 }
 
 customElements.define('product-add-form', ProductAddForm);
