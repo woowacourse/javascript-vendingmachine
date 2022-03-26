@@ -11,6 +11,12 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
+<br >
+
+## [🥤 자판기 데모 페이지](https://soyi47.github.io/javascript-vendingmachine/)
+
+<br >
+
 ## 기능 목록
 
 ### 도메인 영역
@@ -53,6 +59,20 @@
     - [x] 자판기의 보유 금액은 누적하여 충전할 수 있다.
   - [x] 자판기가 보유 중인 동전 갯수를 확인할 수 있어야 한다.
   - [x] 자판기가 보유 중인 총 금액을 확인할 수 있어야 한다.
+
+<br >
+
+---
+
+## 개요도
+
+### Step 1
+
+<img alt="flow chart" src="./images/step1_flow.png">
+
+<br >
+
+---
 
 ## ⚙️ Before Started
 
