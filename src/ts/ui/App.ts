@@ -5,9 +5,6 @@ import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
-const basePath =
-  process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
-
 export default class App {
   private productDomain;
   private coinDomain;
@@ -31,6 +28,9 @@ export default class App {
 
   private navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
+
+    const basePath =
+      process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
     history.pushState({}, '', `${basePath}${target.dataset.pathname}`);
 
