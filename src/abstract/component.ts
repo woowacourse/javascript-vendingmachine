@@ -43,11 +43,8 @@ abstract class Component extends HTMLElement {
     const isTarget = (target: Element) => children.includes(target) || target.closest(selector);
     this.addEventListener(eventType, (event) => {
       const isValidTarget =
-        event.target && event.target instanceof Element && !isTarget(event.target);
-      if (isValidTarget) {
-        return false;
-      }
-      return callback(event);
+        event.target && event.target instanceof Element && isTarget(event.target);
+      if (isValidTarget) callback(event);
     });
   }
 
