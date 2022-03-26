@@ -747,14 +747,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const basePath =  false ? 0 : '';
 class App {
     constructor() {
         this.navClickHandler = ({ target }) => {
             if (target.tagName !== 'BUTTON')
                 return;
-            history.pushState({}, '', target.dataset.pathname);
-            this.activateClickedButton(target.dataset.pathname);
-            this.renderMainContent(target.dataset.pathname);
+            const pathname = `${basePath}${target.dataset.pathname}`;
+            history.pushState({}, '', pathname || '/');
+            this.activateClickedButton(pathname);
+            this.renderMainContent(pathname);
         };
         this.popStateHandler = () => {
             this.activateClickedButton(location.pathname);
@@ -771,22 +773,25 @@ class App {
     }
     activateClickedButton(pathname) {
         (0,_utils_dom__WEBPACK_IMPORTED_MODULE_2__.$$)('.nav__button').forEach($button => {
-            if ($button.dataset.pathname === pathname) {
+            if (this.checkMatchPathname($button.dataset.pathname, pathname.replace(basePath, ''))) {
                 $button.classList.add('active');
                 return;
             }
             $button.classList.remove('active');
         });
     }
+    checkMatchPathname(buttonPathname, pathname) {
+        return buttonPathname === pathname;
+    }
     renderMainContent(pathname) {
         switch (pathname) {
-            case '/':
+            case `${basePath}`:
                 this.productManagementUI.render();
                 break;
-            case '/charge':
+            case `${basePath}/charge`:
                 this.coinManagementUI.render();
                 break;
-            case '/purchase':
+            case `${basePath}/purchase`:
                 this.productPurchaseUI.render();
         }
     }
