@@ -47,9 +47,12 @@ export default class HoldingAmountPage {
   }
 
   render = ({ state, changeStates }) => {
+    const renderTargetMethod = new Set();
     changeStates.forEach(stateKey => {
-      this.renderMethodList[stateKey].forEach(renderMethod => renderMethod(state));
+      renderTargetMethod.add(...this.renderMethodList[stateKey].map(renderMethod => renderMethod));
     });
+
+    renderTargetMethod.forEach(renderMethod => renderMethod(state));
   };
 
   onSubmitAddHoldingAmountForm(event) {
