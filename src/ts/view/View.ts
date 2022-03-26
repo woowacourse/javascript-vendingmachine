@@ -27,7 +27,7 @@ export default class View {
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
 
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.renderTabResult(this.currentTab);
+    this.tabRouter(this.currentTab, true);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, true);
@@ -41,19 +41,6 @@ export default class View {
       this.tabRouter(PATH_ID.PURCHASE_PRODUCT),
     );
   }
-
-  renderTabResult = (id: string) => {
-    this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
-      if (container.id === id) {
-        container.classList.remove('hide');
-        this.$$tabButtons[index].checked = true;
-        this.renderUpdatedView(id);
-        return;
-      }
-      container.classList.add('hide');
-    });
-    localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
-  };
 
   renderUpdatedView = (id: string) => {
     const containerBranch = {
@@ -72,19 +59,17 @@ export default class View {
     }
   };
 
-  tabRouter = (tabId: string, isPopState = false) => {
-    if (!isPopState) history.pushState({ tabId }, null, tabId);
-    const routes = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
-        this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
-      },
-      '/javascript-vendingmachine/#!/recharge': () => {
-        this.renderTabResult(PATH_ID.RECHARGE);
-      },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
-        this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
-      },
-    };
-    routes[tabId]();
+  tabRouter = (tabId: string, isPushState = false) => {
+    if (!isPushState) history.pushState({ tabId }, null, tabId);
+    this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
+      if (container.id === tabId) {
+        container.classList.remove('hide');
+        this.$$tabButtons[index].checked = true;
+        this.renderUpdatedView(tabId);
+        return;
+      }
+      container.classList.add('hide');
+    });
+    localStorage.setItem(STORAGE_ID.CURRENT_TAB, tabId);
   };
 }
