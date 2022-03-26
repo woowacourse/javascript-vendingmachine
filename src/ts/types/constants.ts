@@ -15,6 +15,7 @@ export interface productQuantity {
 }
 
 export interface routes {
+  readonly HOME: string;
   readonly PRODUCTS: string;
   readonly COINS: string;
 }

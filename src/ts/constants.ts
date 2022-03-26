@@ -58,6 +58,7 @@ export const COINS: Icoins = {
 };
 
 export const ROUTES: routes = {
+  HOME: '/',
   PRODUCTS: '/products',
   COINS: '/coins',
 };

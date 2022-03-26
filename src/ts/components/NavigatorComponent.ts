@@ -37,6 +37,14 @@ export default class NavigatorComponent {
   }
 
   private routeURLVisit(pathname: string): void {
+    if (
+      !Object.values(ROUTES).some((route) => route === window.location.pathname)
+    ) {
+      window.history.replaceState(null, null, '/');
+
+      return;
+    }
+
     if (pathname === ROUTES.COINS) {
       this.renderCoinComponent();
       window.history.pushState({}, '', ROUTES.COINS);
