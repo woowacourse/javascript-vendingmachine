@@ -33,7 +33,7 @@ export default class ProductManageView {
     if (e.target.id !== 'product-add-form') return;
 
     const product = {
-      name: this.$productNameInput.value,
+      name: this.$productNameInput.value.trim(),
       price: this.$productPriceInput.valueAsNumber,
       quantity: this.$productQuantityInput.valueAsNumber,
     };
@@ -52,7 +52,7 @@ export default class ProductManageView {
   #confirmProductInfo(selectedProduct) {
     const index = selectedProduct.rowIndex - 1;
     const product = {
-      name: selectedProduct.children[0].firstChild.value,
+      name: selectedProduct.children[0].firstChild.value.trim(),
       price: selectedProduct.children[1].firstChild.valueAsNumber,
       quantity: selectedProduct.children[2].firstChild.valueAsNumber,
     };
