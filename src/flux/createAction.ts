@@ -1,6 +1,6 @@
-import { Action, ActionPayLoad } from '../types';
+import { Action } from '../types';
 
-const createAction = (type: string, payload: ActionPayLoad): Action => {
+const createAction = (type: string, payload: any): Action => {
   return {
     type,
     payload,

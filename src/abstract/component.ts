@@ -8,6 +8,7 @@ abstract class Component extends HTMLElement {
   }
 
   connectedCallback() {
+    this.style.display = 'block';
     this.render();
     this.subscribe();
   }
@@ -16,7 +17,7 @@ abstract class Component extends HTMLElement {
     this.innerHTML = this.template();
   }
 
-  abstract template(): string;
+  abstract template(...args: any[]): string;
 
   subscribe() {
     if (!this.shouldSubscribe()) {

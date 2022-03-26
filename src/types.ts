@@ -2,16 +2,21 @@ import Component from './abstract/component';
 
 export type Action = {
   type: string;
-  payload: string | number | Record<string, unknown>;
+  payload: any;
 };
 
 export type AppState = {
-  [key in string]: string | number | Record<string, unknown>;
+  productList: Array<ProductItem>;
 };
-
-export type ActionPayLoad = string | number | Record<string, unknown>;
 
 export interface ComponentConstructor {
   new (): Component;
   _tagName?: string;
 }
+
+export type ProductItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+};

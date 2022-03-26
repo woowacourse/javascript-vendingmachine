@@ -1,39 +1,41 @@
-.add-product-form {
-  padding: 0px 80px;
-  margin: 0px 0px 48px 0px;
-}
-.add-product-form label {
-  display: block;
-  margin-bottom: 4px;
+#app {
+  add-product-form {
+    padding: 0px 80px;
+    margin: 0px 0px 48px 0px;
+  }
+  add-product-form label {
+    display: block;
+    margin-bottom: 4px;
 
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.5px;
-}
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+  }
 
-.add-product-form input {
-  width: 120px;
-}
+  add-product-form input {
+    width: 120px;
+  }
 
-.add-product-form button {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  letter-spacing: 1.25px;
-}
+  add-product-form button {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 1.25px;
+  }
 
-.product-inventory {
-  padding: 0px 64px;
-}
+  product-inventory {
+    padding: 0px 64px;
+  }
 
-.product-inventory h2 {
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 0.15px;
+  product-inventory h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
 
-  margin: 0px 0px 16px 0px;
+    margin: 0px 0px 16px 0px;
+  }
 }
 
 table {
