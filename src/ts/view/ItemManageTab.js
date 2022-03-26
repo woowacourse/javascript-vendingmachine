@@ -33,15 +33,10 @@ class ItemManageTab extends VendingMachineTab {
     this.itemStatusTable.addEventListener('keydown', this.#onKeyDownItemInfoRow);
   }
 
-  #onClickItemManageTabButton = ({
-    target: {
-      dataset: { hash },
-    },
-  }) => {
+  #onClickItemManageTabButton = () => {
     if (this.itemManageTabButton.classList.contains('selected')) {
       return;
     }
-    this.changeHashUrl(hash);
     this.renderInitialTabState();
   };
 
