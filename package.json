@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
-    "start": "webpack serve --open",
-    "build": "webpack",
+    "start": "webpack serve --open --mode=development",
+    "start:p": "webpack serve --open --mode=production",
+    "build": "webpack --mode=production",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
