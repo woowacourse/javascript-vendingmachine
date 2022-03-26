@@ -8,3 +8,5 @@ cypress/plugins
 cypress/screenshots
 
 cypress/videos
+
+dist
