@@ -39,7 +39,8 @@
       "import/no-unresolved": "off",
       "no-underscore-dangle": "off",
       "max-depth": ["error", 2],
-      "max-lines-per-function": ["error", 20]
+      "max-lines-per-function": ["error", 20],
+      "no-continue": "off"
     }
   }]
 }

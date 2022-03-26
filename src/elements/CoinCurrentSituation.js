@@ -1,6 +1,13 @@
+import CoinStore from '../domains/stores/CoinStore';
 import CustomElement from '../abstracts/CustomElement';
+import { $ } from '../utils/dom';
 
 class CoinCurrentSituation extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    CoinStore.instance.subscribeCoinsCount(this);
+  }
+
   // eslint-disable-next-line max-lines-per-function
   template() {
     return `
@@ -33,6 +40,13 @@ class CoinCurrentSituation extends CustomElement {
         </tbody>
       </table>
     `;
+  }
+
+  rerender(newCoinsCount) {
+    $('.coin-500-count-td').textContent = `${newCoinsCount[500]}개`;
+    $('.coin-100-count-td').textContent = `${newCoinsCount[100]}개`;
+    $('.coin-50-count-td').textContent = `${newCoinsCount[50]}개`;
+    $('.coin-10-count-td').textContent = `${newCoinsCount[10]}개`;
   }
 }
 

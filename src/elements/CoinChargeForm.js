@@ -1,6 +1,14 @@
+import CoinStore from '../domains/stores/CoinStore';
+import { createAction, COIN_ACTION } from '../domains/actions';
 import CustomElement from '../abstracts/CustomElement';
+import { $ } from '../utils/dom';
 
 class CoinChargeForm extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    CoinStore.instance.subscribeMoney(this);
+  }
+
   template() {
     return `
       <form class="coin-charge-form">
@@ -8,8 +16,25 @@ class CoinChargeForm extends CustomElement {
         <input type="number" id="coin-input" placeholder="금액">
         <button class="coin-charge-button">충전</button>
       </form>
-      <p>현재 보유 금액: <span></span></p>
+      <p>현재 보유 금액: <span class="money">0</span>원</p>
     `;
+  }
+
+  setEvent() {
+    $('.coin-charge-form').addEventListener('submit', this.handleCoinChargeFormSubmit);
+  }
+
+  handleCoinChargeFormSubmit = (event) => {
+    event.preventDefault();
+
+    const coinInputValue = $('#coin-input').valueAsNumber;
+
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
+  };
+
+  rerender(newMoney) {
+    $('.money').textContent = newMoney;
   }
 }
 
