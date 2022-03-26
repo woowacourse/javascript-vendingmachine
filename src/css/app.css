@@ -158,3 +158,8 @@
   width: 60%;
   padding: 5px 0;
 }
+
+.purchase-form {
+  width: 375px;
+  margin: 0 auto;
+}
