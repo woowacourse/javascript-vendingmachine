@@ -33,6 +33,7 @@ export default class AddChangeTab {
     try {
       this.#vendingMachine.addChange(money);
       this.#renderCoinStatus();
+      this.#resetInput();
     } catch ({ message }) {
       alert(message);
     }
@@ -47,5 +48,9 @@ export default class AddChangeTab {
     coinCountElements.forEach((element) => {
       element.textContent = `${coinStatus[element.dataset.coinName]}개`;
     });
+  }
+
+  #resetInput() {
+    this.#moneyInput.value = '';
   }
 }

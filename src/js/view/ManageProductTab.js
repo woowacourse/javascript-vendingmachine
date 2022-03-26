@@ -38,10 +38,18 @@ export default class ManageProductTab {
         'beforeend',
         productTableRow({ name, price, stock, id })
       );
+      this.#resetInput();
     } catch ({ message }) {
       alert(message);
     }
   };
+
+  #resetInput() {
+    this.#addProductNameInput.value = '';
+    this.#addProductPriceInput.value = '';
+    this.#addProductStockInput.value = '';
+    this.#addProductNameInput.focus();
+  }
 
   #handleProductStatus = ({ target }) => {
     if (target.classList.contains('update-product-button')) {
