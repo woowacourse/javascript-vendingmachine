@@ -1,9 +1,4 @@
-import ProductTableComponent from './common/ProductTableComponent';
-import CoinTableComponent from './common/CoinTableComponent';
-
 class PurchaseProductComponent {
-  #purchaseProductComponent;
-  #returnChangeComponent;
   constructor($parent) {
     this.$parent = $parent;
     this.mount();
