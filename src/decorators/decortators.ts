@@ -9,7 +9,11 @@ export function customElement(name: string) {
 }
 
 export function event(eventType: string, selector: string) {
-  return function (target: Component, _: string, descriptor: TypedPropertyDescriptor<() => void>) {
+  return function (
+    target: Component,
+    _: string,
+    descriptor: TypedPropertyDescriptor<(event?: any) => void>
+  ) {
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => {
         const el = document.querySelector((target.constructor as any)._tagName);

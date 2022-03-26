@@ -1,7 +1,19 @@
 import Component from '../abstract/component';
+import { ACTION, VALIDATION_ERROR_NAME } from '../constants';
 import { customElement, event } from '../decorators/decortators';
+import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { ProductItem } from '../types';
+import { consoleErrorWithConditionalAlert } from '../utils';
+import ValidationError from '../validation/validation-error';
+import { validateProduct } from '../validation/validators';
+
+type EditParams = {
+  target: HTMLElement;
+  $name: Element;
+  $price: Element;
+  $quantity: Element;
+};
 
 @customElement('product-inventory')
 class ProductInventory extends Component {
@@ -42,10 +54,55 @@ class ProductInventory extends Component {
   }
 
   @event('click', '.btn-edit')
-  editProduct() {}
+  onClickEditBtn(event: { target: HTMLElement }) {
+    const children = event.target.closest('tr')?.children;
+    if (!children) return;
+    const [$name, $price, $quantity] = children;
+
+    if (!event.target.classList.contains('confirm')) {
+      this.changeToEditMode({ target: event.target, $price, $quantity });
+      return;
+    }
+    try {
+      this.editProduct({ target: event.target, $name, $price, $quantity });
+    } catch (e: any) {
+      consoleErrorWithConditionalAlert(e, VALIDATION_ERROR_NAME);
+    }
+  }
 
   @event('click', '.btn-delete')
   deleteProduct() {}
+
+  changeToEditMode({ target, $price, $quantity }: Omit<EditParams, '$name'>) {
+    $price.innerHTML = `<input placeholder=${$price.textContent} class="form-control"/>`;
+    $quantity.innerHTML = `<input placeholder=${$quantity.textContent} class="form-control"/>`;
+    target.innerText = '확인';
+    target.classList.add('cyan');
+    target.classList.add('confirm');
+  }
+
+  editProduct({ target, $name, $price, $quantity }: EditParams) {
+    const name = $name.innerHTML;
+    const price = ($price.childNodes[0] as HTMLInputElement).value;
+    const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
+
+    const productList = Store.instance.getState().productList;
+    const errorList = validateProduct(
+      { name, price, quantity },
+      productList.filter((item) => item.name !== name)
+    ).filter((result) => result.hasError);
+
+    if (errorList.length > 0 && errorList[0].hasError) {
+      throw new ValidationError(errorList[0].errorMessage);
+    }
+
+    $price.innerHTML = price;
+    $quantity.innerHTML = quantity;
+    Store.instance.dispatch(createAction(ACTION.EDIT_PRODUCT, { name, price, quantity }));
+    target.innerText = '수정';
+    target.classList.remove('cyan');
+    target.classList.remove('confirm');
+  }
 
   mount() {
     const { productList } = Store.instance.getState();
