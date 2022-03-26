@@ -42,5 +42,6 @@
       "max-lines-per-function": ["error", 20],
       "no-continue": "off"
     }
-  }]
+  }],
+  "ignorePatterns": [ "**/*.test.*"]
 }

@@ -95,6 +95,10 @@ class CoinStore {
   get money() {
     return this.#money;
   }
+
+  get coinsCount() {
+    return this.#coinsCount;
+  }
 }
 
 export default CoinStore;
