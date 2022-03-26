@@ -1,5 +1,6 @@
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
 import { TAction, TStateKey } from '../stores/types';
+import { TRange } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
   coin500: 500,
@@ -34,19 +35,19 @@ export const ERROR_MSG = {
 
 export const NAME_LENGHT_LIMIT = 10;
 
-export const PRICE_RANGE = {
+export const PRICE_RANGE: TRange = {
   MIN: 100,
   MAX: 10000,
 };
 
 export const MONEY_DIVIDE_STANDARD = 10;
 
-export const QUANTITY_RANGE = {
+export const QUANTITY_RANGE: TRange = {
   MIN: 0,
   MAX: 20,
 };
 
-export const CHANGE_RANGE = {
+export const CHANGE_RANGE: TRange = {
   MIN: 10,
   MAX: 100000,
 };
