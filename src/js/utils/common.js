@@ -17,3 +17,7 @@ export const isRangeNumber = (number, min, max) => {
 export const getRandomNumber = (max) => {
   return Math.floor(Math.random() * (max + 1));
 };
+
+export const isOverMaxNumber = (number, max) => {
+  return number > max;
+};

@@ -7,7 +7,11 @@ import {
 } from './common.js';
 import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants.js';
 
-export const validProductInfo = ({ name, price, quantity }) => {
+const isDuplicateProduct = (name, products) => {
+  return products.some((product) => product.name === name);
+};
+
+export const validProductInfo = ({ name, price, quantity }, products) => {
   if (isEmpty(name)) {
     throw new Error(ERROR_MESSAGE.EMPTY_NAME);
   }
@@ -16,6 +20,9 @@ export const validProductInfo = ({ name, price, quantity }) => {
   }
   if (Number.isNaN(quantity)) {
     throw new Error(ERROR_MESSAGE.EMPTY_QUANTITY);
+  }
+  if (isDuplicateProduct(name, products)) {
+    throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT);
   }
   if (isMaximumLength(name, PRODUCT.MAX_LENGTH)) {
     throw new Error(ERROR_MESSAGE.OVER_MAX_LENGTH);
