@@ -114,6 +114,7 @@ export default class ProductInventoryUI {
     $$inputs.forEach($input => {
       $input.removeAttribute('readonly');
     });
+    $$inputs[0].focus();
   }
 
   private deactivateEditMode($button: HTMLButtonElement) {
