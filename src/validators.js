@@ -1,5 +1,6 @@
 import ProductStore from './domains/stores/ProductStore';
-import { ERROR_MESSAGE } from './constants';
+import CoinStore from './domains/stores/CoinStore';
+import { ERROR_MESSAGE, MONEY } from './constants';
 
 const isBlankProductName = (name) => name === '';
 
@@ -10,9 +11,15 @@ const isAlreadyExistProduct = (name) => {
   return existProductNames.includes(name);
 };
 
-const cannotDividedByTen = (price) => price % 10;
+const cannotDividedByTen = (number) => number % 10;
 
-const checkProductValidation = ({ name, price }) => {
+const isOverMaxMoney = (inputMoney) => {
+  const currentMoney = CoinStore.instance.money;
+
+  return currentMoney + inputMoney > MONEY.MAX;
+};
+
+export const checkProductValidation = ({ name, price }) => {
   if (isBlankProductName(name)) {
     throw new Error(ERROR_MESSAGE.IS_BLANK_PRODUCT_NAME);
   }
@@ -20,8 +27,15 @@ const checkProductValidation = ({ name, price }) => {
     throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT);
   }
   if (cannotDividedByTen(price)) {
-    throw new Error(ERROR_MESSAGE.CANNOT_DIVIDED_BY_TEN);
+    throw new Error(ERROR_MESSAGE.PRICE_CANNOT_DIVIDED_BY_TEN);
   }
 };
 
-export default checkProductValidation;
+export const checkCoinValidation = (coinInputValue) => {
+  if (isOverMaxMoney(coinInputValue)) {
+    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MONEY);
+  }
+  if (cannotDividedByTen(coinInputValue)) {
+    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+  }
+};

@@ -1,7 +1,9 @@
 import CoinStore from '../domains/stores/CoinStore';
 import { createAction, COIN_ACTION } from '../domains/actions';
+
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
+import { checkCoinValidation } from '../validators';
 
 class CoinChargeForm extends CustomElement {
   connectedCallback() {
@@ -29,9 +31,19 @@ class CoinChargeForm extends CustomElement {
 
     const coinInputValue = $('#coin-input').valueAsNumber;
 
+    try {
+      this.chargeCoin(coinInputValue);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  chargeCoin(coinInputValue) {
+    checkCoinValidation(coinInputValue);
+
     CoinStore.instance.dispatch(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
     CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
-  };
+  }
 
   rerender(newMoney) {
     $('.money').textContent = newMoney;

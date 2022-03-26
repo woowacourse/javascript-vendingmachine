@@ -3,7 +3,7 @@ import { createAction, PRODUCT_ACTION } from '../domains/actions';
 
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
-import checkProductValidation from '../validators';
+import { checkProductValidation } from '../validators';
 
 class ProductAddForm extends CustomElement {
   template() {

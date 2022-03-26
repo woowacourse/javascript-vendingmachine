@@ -1,6 +1,6 @@
 import { Action, CoinsCount } from '../../abstracts/interfaces';
 import { COIN_ACTION } from '../actions';
-import { COIN } from '../../constants';
+import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
 
 class CoinStore {
@@ -14,7 +14,7 @@ class CoinStore {
     return CoinStore._instance;
   }
 
-  #money = 0;
+  #money = MONEY.DEFAULT;
 
   #coinsCount: CoinsCount = {
     500: COIN.DEFAULT_COUNT,
@@ -90,6 +90,10 @@ class CoinStore {
           subscriber.rerender(this.#coinsCount);
         });
     }
+  }
+
+  get money() {
+    return this.#money;
   }
 }
 
