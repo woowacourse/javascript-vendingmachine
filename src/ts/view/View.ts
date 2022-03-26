@@ -69,8 +69,6 @@ export default class View {
     };
     if (containerBranch[id]) {
       containerBranch[id]();
-    } else {
-      throw new Error('????');
     }
   };
 
@@ -89,8 +87,4 @@ export default class View {
     };
     routes[url]();
   };
-
-  renderNotFound() {
-    console.log('not found');
-  }
 }
