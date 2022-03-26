@@ -4,8 +4,8 @@ import { CUSTOM_EVENT } from '../constants/constants';
 import { ChargeMoneyDetailType } from '../types/types';
 
 export default class ChargeMoneyController {
-  vendingMachine: VendingMachine;
-  chargeMoneyView: ChargeMoneyView;
+  private vendingMachine: VendingMachine;
+  private chargeMoneyView: ChargeMoneyView;
 
   constructor(vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
@@ -18,13 +18,6 @@ export default class ChargeMoneyController {
     window.addEventListener(CUSTOM_EVENT.CHARGE_MONEY, this.handleChargeMoney.bind(this));
   }
 
-  loadPage() {
-    const coins = this.vendingMachine.getCoins();
-    const totalMoney = this.vendingMachine.getInputMoney();
-
-    this.chargeMoneyView.render(coins, totalMoney);
-  }
-
   handleChargeMoney(event: CustomEvent) {
     const { inputMoney }: ChargeMoneyDetailType = event.detail;
 
@@ -32,5 +25,12 @@ export default class ChargeMoneyController {
 
     this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.getInputMoney());
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
+  }
+
+  loadPage() {
+    const coins = this.vendingMachine.getCoins();
+    const totalMoney = this.vendingMachine.getInputMoney();
+
+    this.chargeMoneyView.render(coins, totalMoney);
   }
 }

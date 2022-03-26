@@ -13,10 +13,6 @@ export default class AppView {
     this.bindEvents();
   }
 
-  render() {
-    this.$app.insertAdjacentHTML('beforeend', initialTemplate);
-  }
-
   bindEvents() {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
   }
@@ -27,6 +23,10 @@ export default class AppView {
 
     this.changeButtonColor(targetButtonId);
     window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ROUTE_CHANGE, { detail: { $navButton } }));
+  }
+
+  render() {
+    this.$app.insertAdjacentHTML('beforeend', initialTemplate);
   }
 
   changeButtonColor(targetButtonId: string) {

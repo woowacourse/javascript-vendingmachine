@@ -7,11 +7,11 @@ import { SELECTOR, CUSTOM_EVENT } from '../constants/constants';
 import { RouteChangeDetailType } from '../types/types';
 
 export default class AppController {
-  vendingMachine: VendingMachine;
-  manageItemController: ManageItemController;
-  chargeMoneyController: ChargeMoneyController;
-  purchaseItemController: PurchaseItemController;
-  appView: AppView;
+  private vendingMachine: VendingMachine;
+  private appView: AppView;
+  private manageItemController: ManageItemController;
+  private chargeMoneyController: ChargeMoneyController;
+  private purchaseItemController: PurchaseItemController;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
@@ -65,7 +65,7 @@ export default class AppController {
       return;
     }
     if (hash === '#purchaseItem') {
-      this.purchaseItemController.render();
+      this.purchaseItemController.loadPage();
       this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
     }
   }

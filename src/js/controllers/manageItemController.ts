@@ -5,20 +5,14 @@ import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
 
 export default class ManageItemController {
-  vendingMachine: VendingMachine;
-  manageItemView: ManageItemView;
+  private vendingMachine: VendingMachine;
+  private manageItemView: ManageItemView;
 
   constructor(vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
     this.manageItemView = new ManageItemView();
 
     this.bindEvents();
-  }
-
-  loadPage() {
-    const itemList = this.vendingMachine.getItems();
-
-    this.manageItemView.render(itemList);
   }
 
   bindEvents() {
@@ -59,5 +53,11 @@ export default class ManageItemController {
   handleTableItemDelete(event: CustomEvent) {
     const { item }: TableItemDeleteDetailType = event.detail;
     this.vendingMachine.deleteItem(item);
+  }
+
+  loadPage() {
+    const itemList = this.vendingMachine.getItems();
+
+    this.manageItemView.render(itemList);
   }
 }

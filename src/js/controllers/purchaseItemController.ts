@@ -4,10 +4,10 @@ import { CoinsType } from '../types/types';
 import { $ } from '../utils/common';
 
 export default class PurchaseItemController {
-  vendingMachine: VendingMachine;
-  purchaseItemView: PurchaseItemView;
-  coins: CoinsType;
-  inputMoney: number;
+  private vendingMachine: VendingMachine;
+  private purchaseItemView: PurchaseItemView;
+  private coins: CoinsType;
+  private inputMoney: number;
 
   constructor(vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
@@ -17,14 +17,14 @@ export default class PurchaseItemController {
     this.inputMoney = 0;
   }
 
-  render() {
+  bindEvent() {
+    $('.submit-button').addEventListener('click', event => event.preventDefault());
+  }
+
+  loadPage() {
     const items = this.vendingMachine.getItems();
     this.purchaseItemView.render(items, this.coins, this.inputMoney);
 
     this.bindEvent();
-  }
-
-  bindEvent() {
-    $('.submit-button').addEventListener('click', event => event.preventDefault());
   }
 }

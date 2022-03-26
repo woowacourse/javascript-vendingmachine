@@ -39,10 +39,6 @@ export default class ChargeMoneyView {
     this.bindEvents();
   }
 
-  clearInput() {
-    $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).value = '';
-  }
-
   repaintCurrentMoney(money: number) {
     $(SELECTOR.ID.CURRENT_MONEY).textContent = money;
   }
@@ -53,5 +49,9 @@ export default class ChargeMoneyView {
       'beforeend',
       sectionTemplate.coinTableContent(coins),
     );
+  }
+
+  clearInput() {
+    $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).value = '';
   }
 }
