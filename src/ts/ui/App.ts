@@ -5,6 +5,9 @@ import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
+const basePath =
+  process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
+
 export default class App {
   private productDomain;
   private coinDomain;
@@ -29,10 +32,12 @@ export default class App {
   private navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
 
-    history.pushState({}, '', target.dataset.pathname);
+    const pathname = `${basePath}${target.dataset.pathname}`;
 
-    this.activateClickedButton(target.dataset.pathname);
-    this.renderMainContent(target.dataset.pathname);
+    history.pushState({}, '', pathname || '/');
+
+    this.activateClickedButton(pathname);
+    this.renderMainContent(pathname);
   };
 
   private popStateHandler = () => {
@@ -42,7 +47,12 @@ export default class App {
 
   private activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
-      if ($button.dataset.pathname === pathname) {
+      if (
+        this.checkMatchPathname(
+          $button.dataset.pathname,
+          pathname.replace(basePath, ''),
+        )
+      ) {
         $button.classList.add('active');
         return;
       }
@@ -50,15 +60,19 @@ export default class App {
     });
   }
 
+  private checkMatchPathname(buttonPathname, pathname) {
+    return buttonPathname === pathname;
+  }
+
   private renderMainContent(pathname) {
     switch (pathname) {
-      case '/':
+      case `${basePath}`:
         this.productManagementUI.render();
         break;
-      case '/charge':
+      case `${basePath}/charge`:
         this.coinManagementUI.render();
         break;
-      case '/purchase':
+      case `${basePath}/purchase`:
         this.productPurchaseUI.render();
     }
   }
