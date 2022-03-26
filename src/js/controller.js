@@ -14,11 +14,9 @@ export default class Controller {
     this.coin = new Coin();
 
     on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
-
     on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
     on(SECTION_CONTAINER, '@modify', this.#modifySavedData.bind(this));
     on(SECTION_CONTAINER, '@delete', this.#deleteSavedData.bind(this));
-
     on(SECTION_CONTAINER, '@charge', this.#handleChargeCoin.bind(this));
   }
 

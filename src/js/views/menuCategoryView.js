@@ -8,14 +8,16 @@ const routes = {
   '#!purchase': CATEGORY_TEMPLATE.PURCHASE,
 };
 
-const manageMenu = $('#manage-menu');
-const chargeMenu = $('#charge-menu');
-const purchaseMenu = $('#purchase-menu');
+const menu = {
+  manage: $('#manage-menu'),
+  charge: $('#charge-menu'),
+  purchase: $('#purchase-menu'),
+};
 
 const selectTab = (hash) => {
-  manageMenu.classList.toggle('select', hash === '#!manage');
-  chargeMenu.classList.toggle('select', hash === '#!charge');
-  purchaseMenu.classList.toggle('select', hash === '#!purchase');
+  menu.manage.classList.toggle('select', hash === '#!manage');
+  menu.charge.classList.toggle('select', hash === '#!charge');
+  menu.purchase.classList.toggle('select', hash === '#!purchase');
 };
 
 export const initHashContents = (hash) => {
