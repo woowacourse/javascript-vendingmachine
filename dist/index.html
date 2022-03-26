@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>자판기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script defer src="bundle.js"></script></head>
+
+  <body>
+    <div id="app">
+      <h1 class="title">🍿 자판기 🍿</h1>
+      <nav class="nav">
+        <button
+          type="button"
+          class="nav__button active"
+          name="product-management"
+          data-pathname="/"
+        >
+          상품 관리
+        </button>
+        <button
+          type="button"
+          class="nav__button"
+          name="coin-charge"
+          data-pathname="/charge"
+        >
+          잔돈 충전
+        </button>
+        <button
+          type="button"
+          class="nav__button"
+          name="product-purchase"
+          data-pathname="/purchase"
+        >
+          상품 구매
+        </button>
+      </nav>
+      <main id="main-content"></main>
+    </div>
+  </body>
+</html>
