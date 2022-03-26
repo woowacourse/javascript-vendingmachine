@@ -143,7 +143,6 @@ var Component = /*#__PURE__*/function (_HTMLElement) {
 
       this.addEventListener(type, function (event) {
         if (!isTarget(event.target)) return;
-        event.preventDefault();
         callback(event);
       });
     }
@@ -302,7 +301,6 @@ var TableRow = /*#__PURE__*/function (_HTMLTableRowElement) {
 
       this.addEventListener(type, function (event) {
         if (!isTarget(event.target)) return;
-        event.preventDefault();
         callback(event);
       });
     }
@@ -336,6 +334,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_ChangeChargePage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/ChangeChargePage */ "./src/views/pages/ChangeChargePage.js");
 /* harmony import */ var _pages_ItemPurchasePage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/ItemPurchasePage */ "./src/views/pages/ItemPurchasePage.js");
 /* harmony import */ var _pages_NotFoundPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/NotFoundPage */ "./src/views/pages/NotFoundPage.js");
+/* harmony import */ var _components_NavBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/NavBar */ "./src/views/components/NavBar.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -365,6 +364,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
 
@@ -379,7 +379,7 @@ var App = /*#__PURE__*/function (_Component) {
   _createClass(App, [{
     key: "template",
     value: function template() {
-      return "\n      <main>\n        <header>\n          <h1 class=\"title\">\uD83C\uDF7F \uC790\uD310\uAE30 \uD83C\uDF7F</h1>\n        </header>\n        <nav id=\"nav-bar\">\n          <a class=\"nav-button\" href=\"#item-management\">\uC0C1\uD488 \uAD00\uB9AC</a>\n          <a class=\"nav-button\" href=\"#change-charge\">\uC794\uB3C8 \uCDA9\uC804</a>\n          <a class=\"nav-button\" href=\"#item-purchase\">\uC0C1\uD488 \uAD6C\uB9E4</a>\n        </nav>\n        <div class=\"page-wrapper\">\n          <page-router>\n            <item-management path=\"#item-management\"></item-management>\n            <change-charge path=\"#change-charge\"></change-charge>\n            <item-purchase path=\"#item-purchase\"></item-purchase>\n            <not-found path=\"*\"></not-found>\n          </page-router>\n        </div>\n      </main>\n    ";
+      return "\n      <main class=\"app-container\">\n        <header>\n          <h1 class=\"title\">\uD83C\uDF7F \uC790\uD310\uAE30 \uD83C\uDF7F</h1>\n        </header>\n        <nav-bar class=\"nav-bar\"></nav-bar>\n        <div class=\"page-container\">\n          <page-router>\n            <item-management class=\"page\" path=\"#item-management\"></item-management>\n            <change-charge class=\"page\" path=\"#change-charge\"></change-charge>\n            <item-purchase class=\"page\" path=\"#item-purchase\"></item-purchase>\n            <not-found class=\"page\" path=\"*\"></not-found>\n          </page-router>\n        </div>\n      </main>\n    ";
     }
   }]);
 
@@ -398,7 +398,7 @@ customElements.define('app-wrapper', App);
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _core_Component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/Component.js */ "./src/core/Component.js");
+/* harmony import */ var _core_Component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/Component */ "./src/core/Component.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -480,7 +480,7 @@ var Router = /*#__PURE__*/function (_Component) {
   }]);
 
   return Router;
-}(_core_Component_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}(_core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 customElements.define('page-router', Router);
 
@@ -546,7 +546,7 @@ var ItemRow = /*#__PURE__*/function (_TableRow) {
           price = _this$props.price,
           quantity = _this$props.quantity;
       var isEditing = this.state.isEditing;
-      return "\n       ".concat(isEditing ? "\n            <td class=\"item-name\"><input value=\"".concat(name, "\" class=\"item-name-edit-input\" type=\"text\" maxlength=\"10\" ></td>\n            <td class=\"item-price\"><input value=\"").concat(price, "\" class=\"item-price-edit-input\" type=\"number\" step=\"10\" min=\"100\" max=\"10000\"></td>\n            <td class=\"item-quantity\"><input value=\"").concat(quantity, "\" class=\"item-quantity-edit-input\" type=\"number\" step=\"1\" min=\"1\" max=\"20\"></td>\n            <td>\n              <button class=\"item-update-button\">\uC644\uB8CC</button>\n            </td>\n          ") : "\n            <td class=\"item-name\">".concat(name, "</td>\n            <td class=\"item-price\">").concat(price, "</td>\n            <td class=\"item-quantity\">").concat(quantity, "</td>\n            <td>\n              <button class=\"item-edit-button\" type=\"button\">\uC218\uC815</button>\n              <button class=\"item-remove-button\" type=\"button\">\uC0AD\uC81C</button>\n            </td>\n          "), "\n    ");
+      return "\n       ".concat(isEditing ? "\n            <td class=\"item-name styled-td\">\n              <input\n                value=\"".concat(name, "\"\n                class=\"item-name-edit-input transparent-input\"\n                type=\"text\"\n                maxlength=\"10\"\n              >\n            </td>\n            <td class=\"item-price styled-td\">\n              <input\n                value=\"").concat(price, "\"\n                class=\"item-price-edit-input transparent-input\"\n                type=\"number\"\n                step=\"10\"\n                min=\"100\"\n                max=\"10000\"\n              >\n            </td>\n            <td class=\"item-quantity styled-td\">\n              <input\n                value=\"").concat(quantity, "\"\n                class=\"item-quantity-edit-input transparent-input\"\n                type=\"number\"\n                step=\"1\"\n                min=\"1\"\n                max=\"20\"\n              >\n            </td>\n            <td class=\"item-button-container\">\n              <button class=\"item-update-button styled-button\">\uC644\uB8CC</button>\n            </td>\n          ") : "\n            <td class=\"item-name styled-td\">".concat(name, "</td>\n            <td class=\"item-price styled-td\">").concat(price, "</td>\n            <td class=\"item-quantity styled-td\">").concat(quantity, "</td>\n            <td class=\"item-button-container\">\n              <button class=\"item-edit-button styled-button\" type=\"button\">\uC218\uC815</button>\n              <button class=\"item-remove-button styled-button\" type=\"button\">\uC0AD\uC81C</button>\n            </td>\n          "), "\n    ");
     }
   }, {
     key: "setEvent",
@@ -557,6 +557,14 @@ var ItemRow = /*#__PURE__*/function (_TableRow) {
         _this.setState({
           isEditing: true
         });
+
+        var input = _this.querySelector('.item-name-edit-input');
+
+        input.focus();
+        setTimeout(function () {
+          input.selectionStart = 10000;
+          input.selectionEnd = 10000;
+        }, 0);
       });
       this.addEvent('click', '.item-update-button', function () {
         var prevName = _this.props.name;
@@ -582,6 +590,91 @@ var ItemRow = /*#__PURE__*/function (_TableRow) {
 customElements.define('item-row', ItemRow, {
   "extends": 'tr'
 });
+
+/***/ }),
+
+/***/ "./src/views/components/NavBar.js":
+/*!****************************************!*\
+  !*** ./src/views/components/NavBar.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ NavBar)
+/* harmony export */ });
+/* harmony import */ var _core_Component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/Component */ "./src/core/Component.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var NavBar = /*#__PURE__*/function (_Component) {
+  _inherits(NavBar, _Component);
+
+  var _super = _createSuper(NavBar);
+
+  function NavBar() {
+    _classCallCheck(this, NavBar);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(NavBar, [{
+    key: "setup",
+    value: function setup() {
+      var href = window.location.href;
+      var location = new URL(href).hash;
+      this.state = {
+        location: location
+      };
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      var location = this.state.location;
+      return "\n      <a\n        class=\"nav-button styled-button ".concat(location === '#item-management' ? 'selected' : '', "\"\n        href=\"#item-management\"\n      >\n        \uC0C1\uD488 \uAD00\uB9AC\n      </a>\n      <a\n        class=\"nav-button styled-button ").concat(location === '#change-charge' ? 'selected' : '', "\"\n        href=\"#change-charge\"\n      >\n        \uC794\uB3C8 \uCDA9\uC804\n      </a>\n      <a\n        class=\"nav-button styled-button ").concat(location === '#item-purchase' ? 'selected' : '', "\"\n        href=\"#item-purchase\"\n      >\n        \uC0C1\uD488 \uAD6C\uB9E4\n      </a>\n    ");
+    }
+  }, {
+    key: "setEvent",
+    value: function setEvent() {
+      var _this = this;
+
+      this.addEvent('click', '.nav-button', function (_ref) {
+        var target = _ref.target;
+        var location = target.getAttribute('href');
+
+        _this.setState({
+          location: location
+        });
+      });
+    }
+  }]);
+
+  return NavBar;
+}(_core_Component__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+customElements.define('nav-bar', NavBar);
 
 /***/ }),
 
@@ -657,15 +750,23 @@ var ChangeChargePage = /*#__PURE__*/function (_Component) {
         return state.coins;
       });
 
-      var coinArray = _toConsumableArray(Object.entries(coins));
+      var coinArray = _toConsumableArray(Object.entries(coins)).sort(function (_ref, _ref2) {
+        var _ref3 = _slicedToArray(_ref, 1),
+            a = _ref3[0];
+
+        var _ref4 = _slicedToArray(_ref2, 1),
+            b = _ref4[0];
+
+        return b - a;
+      });
 
       var totalMoney = _domains_VendingMachine__WEBPACK_IMPORTED_MODULE_1__.vendingMachine.getTotalMoney();
-      return "\n      <section>\n        <h2 hidden>\uC794\uB3C8 \uCDA9\uC804</h2>\n        <form id=\"change-charge-form\">\n          <label for=\"amount\">\uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD560 \uAE08\uC561\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n          <input\n            id=\"charge-amount\" \n            name=\"amount\" \n            placeholder=\"\uAE08\uC561\" \n            type=\"number\" \n            min=\"10\" \n            max=\"100000\" \n            step=\"10\" \n            required \n            autofocus\n          >\n          <button>\uCDA9\uC804</button>\n        </form>\n        <p>\uD604\uC7AC \uBCF4\uC720 \uAE08\uC561: <span>".concat(totalMoney, "\uC6D0</span></p>\n      </section>\n      <section>\n        <h2>\uC790\uD310\uAE30 \uBCF4\uC720\uD55C \uB3D9\uC804</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>\uB3D9\uC804</th>\n              <th>\uAC1C\uC218</th>\n            </tr>\n          </thead>\n          <tbody>\n            ").concat(coinArray.map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            value = _ref2[1];
+      return "\n      <section>\n        <h2 hidden>\uC794\uB3C8 \uCDA9\uC804</h2>\n        <form id=\"change-charge-form\" class=\"change-charge-form\">\n          <div>\n            <label for=\"amount\" class=\"description\">\uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD560 \uAE08\uC561\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n            <input\n              id=\"charge-amount\"\n              class=\"charge-amount-input styled-input\"\n              name=\"amount\"\n              placeholder=\"\uAE08\uC561\"\n              type=\"number\"\n              min=\"10\"\n              max=\"100000\"\n              step=\"10\"\n              required\n              autofocus\n            >\n          </div>\n          <button class=\"add-charge-button styled-button emphasized\">\uCDA9\uC804</button>\n        </form>\n        <p class=\"current-money-indicator\">\uD604\uC7AC \uBCF4\uC720 \uAE08\uC561: <span>".concat(totalMoney, "\uC6D0</span></p>\n      </section>\n      <section>\n        <h2 class=\"table-title\">\uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD55C \uB3D9\uC804</h2>\n        <table class=\"styled-table\">\n          <thead>\n            <tr class=\"styled-tr\">\n              <th class=\"styled-th\">\uB3D9\uC804</th>\n              <th class=\"styled-th\">\uAC1C\uC218</th>\n            </tr>\n          </thead>\n          <tbody>\n            ").concat(coinArray.map(function (_ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            key = _ref6[0],
+            value = _ref6[1];
 
-        return "\n                  <tr>\n                    <td>".concat(key, "\uC6D0</td>\n                    <td>").concat(value, "\uAC1C</td>\n                  </tr>\n                ");
+        return "\n                  <tr class=\"styled-tr\">\n                    <td class=\"styled-td\">".concat(key, "\uC6D0</td>\n                    <td class=\"styled-td\">").concat(value, "\uAC1C</td>\n                  </tr>\n                ");
       }).join(''), "\n          </tbody>\n        </table>\n      </section>\n    ");
     }
   }, {
@@ -673,7 +774,9 @@ var ChangeChargePage = /*#__PURE__*/function (_Component) {
     value: function setEvent() {
       var _this = this;
 
-      this.addEvent('submit', '#change-charge-form', function () {
+      this.addEvent('submit', '#change-charge-form', function (event) {
+        event.preventDefault();
+
         var chargeAmount = _this.querySelector('#charge-amount').valueAsNumber;
 
         try {
@@ -752,18 +855,19 @@ var ItemManagementPage = /*#__PURE__*/function (_Component) {
       var items = _domains_VendingMachine__WEBPACK_IMPORTED_MODULE_1__.vendingMachine.useStore(function (state) {
         return state.items;
       });
-      return "\n      <section>\n        <h2 hidden>\uCD94\uAC00\uD560 \uC0C1\uD488 \uC815\uBCF4</h2>\n        <form id=\"item-add-form\">\n          <fieldset>\n            <legend>\uCD94\uAC00\uD560 \uC0C1\uD488 \uD604\uD669\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</legend>\n            <label hidden for=\"name\"\">\uC0C1\uD488\uBA85</label>\n            <input id=\"item-name-input\" name=\"name\" placeholder=\"\uC0C1\uD488\uBA85\" type=\"text\" maxlength=\"10\" required autofocus>\n            <label hidden for=\"price\">\uAC00\uACA9</label>\n            <input id=\"item-price-input\" name=\"price\" placeholder=\"\uAC00\uACA9\" type=\"number\" step=\"10\" min=\"100\" max=\"10000\" required>\n            <label hidden for=\"quantity\">\uC218\uB7C9</label>\n            <input id=\"item-quantity-input\" name=\"quantity\" placeholder=\"\uC218\uB7C9\" type=\"number\" step=\"1\" min=\"1\" max=\"20\" required>\n          </fieldset>\n          <button>\uCD94\uAC00</button>\n        </form>\n      </section>\n      <section>\n        <h2>\uC0C1\uD488\uD604\uD669</h2>\n        <table>\n          <thead>\n            <tr>\n              <th>\uC0C1\uD488\uBA85</th>\n              <th>\uAC00\uACA9</th>\n              <th>\uC218\uB7C9</th>\n            </tr>\n          </thead>\n          <tbody>\n            ".concat(items.map(function (_ref) {
+      return "\n      <section>\n        <h2 hidden>\uCD94\uAC00\uD560 \uC0C1\uD488 \uC815\uBCF4</h2>\n        <form id=\"item-add-form\" class=\"item-add-form\">\n          <fieldset class=\"fieldset\">\n            <legend class=\"description\">\uCD94\uAC00\uD560 \uC0C1\uD488 \uD604\uD669\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</legend>\n            <label hidden for=\"name\"\">\uC0C1\uD488\uBA85</label>\n            <input\n              id=\"item-name-input\"\n              class=\"item-input styled-input\"\n              name=\"name\"\n              placeholder=\"\uC0C1\uD488\uBA85\"\n              type=\"text\"\n              maxlength=\"10\"\n              required\n              autofocus\n            >\n            <label hidden for=\"price\">\uAC00\uACA9</label>\n            <input\n              id=\"item-price-input\"\n              class=\"item-input styled-input\"\n              name=\"price\"\n              placeholder=\"\uAC00\uACA9\"\n              type=\"number\"\n              step=\"10\"\n              min=\"100\"\n              max=\"10000\"\n              required\n            >\n            <label hidden for=\"quantity\">\uC218\uB7C9</label>\n            <input\n              id=\"item-quantity-input\"\n              class=\"item-input styled-input\"\n              name=\"quantity\"\n              placeholder=\"\uC218\uB7C9\"\n              type=\"number\"\n              step=\"1\"\n              min=\"1\"\n              max=\"20\"\n              required\n            >\n          </fieldset>\n          <button class=\"add-item-button styled-button emphasized\">\uCD94\uAC00</button>\n        </form>\n      </section>\n      <section>\n        <h2 class=\"table-title\">\uC0C1\uD488 \uD604\uD669</h2>\n        <table class=\"styled-table\">\n          <colgroup>\n            <col style=\"width: 25%\">\n            <col style=\"width: 25%\">\n            <col style=\"width: 25%\">\n            <col style=\"width: 25%\">\n          </colgroup>\n          <thead>\n            <tr class=\"styled-tr\">\n              <th class=\"styled-th\">\uC0C1\uD488\uBA85</th>\n              <th class=\"styled-th\">\uAC00\uACA9</th>\n              <th class=\"styled-th\">\uC218\uB7C9</th>\n              <th class=\"styled-th\"></th>\n            </tr>\n          </thead>\n        </table>\n        <div class=\"scrollable\">\n          <table class=\"styled-table no-border-top\">\n            <colgroup>\n              <col style=\"width: 25%\">\n              <col style=\"width: 25%\">\n              <col style=\"width: 25%\">\n              <col style=\"width: 25%\">\n            </colgroup>\n            <tbody>\n              ".concat(items.map(function (_ref) {
         var name = _ref.name,
             price = _ref.price,
             quantity = _ref.quantity;
-        return "\n                  <tr is=\"item-row\" name=\"".concat(name, "\" price=\"").concat(price, "\" quantity=\"").concat(quantity, "\"></tr>\n                ");
-      }).join(''), "\n          </tbody>\n        </table>\n      </section>\n    ");
+        return "\n                    <tr\n                      is=\"item-row\"\n                      class=\"styled-tr\"\n                      name=\"".concat(name, "\"\n                      price=\"").concat(price, "\"\n                      quantity=\"").concat(quantity, "\"\n                    >\n                    </tr>\n                  ");
+      }).join(''), "\n            </tbody>\n          </table>\n        </div>\n      </section>\n    ");
     }
   }, {
     key: "setEvent",
     value: function setEvent() {
-      this.addEvent('submit', '#item-add-form', function (_ref2) {
-        var target = _ref2.target;
+      this.addEvent('submit', '#item-add-form', function (event) {
+        event.preventDefault();
+        var target = event.target;
         var item = {
           name: target.querySelector('#item-name-input').value.trim(),
           price: target.querySelector('#item-price-input').valueAsNumber,
@@ -900,10 +1004,10 @@ customElements.define('not-found', NotFound);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/index.css":
-/*!*****************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/index.css ***!
-  \*****************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/app.css":
+/*!***************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/app.css ***!
+  \***************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -919,7 +1023,96 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  background-color: #f9f9f9;\n  letter-spacing: 0.5px;\n}\n\ninput {\n  margin: 0;\n  padding: 0;\n}\n\n.app-container {\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  border-radius: 4px;\n  background-color: #ffffff;\n  display: flex;\n  flex-direction: column;\n  width: 518px;\n  min-height: 593px;\n  margin: 0 auto;\n  align-items: center;\n  margin-top: 32px;\n  padding: 40px;\n}\n\n.title {\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin-bottom: 32px;\n}\n\n.nav-bar {\n  display: flex;\n  flex-direction: row;\n  gap: 4px;\n}\n\n.nav-button {\n  width: 117px;\n  height: 36px;\n}\n\n.styled-button {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  border-radius: 4px;\n  text-decoration: none;\n  outline: none;\n  background: #f5f5f5;\n  color: black;\n  cursor: pointer;\n}\n\n.styled-button.selected {\n  background: #ceecf0;\n}\n\n.styled-button.emphasized {\n  background: #00bcd4;\n  color: white;\n}\n\n.page-container {\n  margin-top: 52px;\n}\n\n.page {\n  display: flex;\n  flex-direction: column;\n  gap: 48px;\n}\n\n.description {\n  display: block;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n  margin-bottom: 4px;\n}\n\n.styled-input {\n  /* padding-left: 9px; */\n  font-family: 'Roboto', sans-serif;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  border: 1px solid rgba(180, 180, 180, 1);\n  border-radius: 4px;\n}\n\n.styled-input::placeholder {\n  color: #8b8b8b;\n}\n\n.transparent-input {\n  font-family: 'Roboto', sans-serif;\n  font-size: 16px;\n  text-align: center;\n  width: 100%;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n  padding: 0;\n  border: 0;\n}\n\n.table-title {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 20px;\n  line-height: 24px;\n  text-align: center;\n  letter-spacing: 0.15px;\n  margin-bottom: 16px;\n}\n\n.styled-table {\n  width: 100%;\n  border-top: 1px solid #dcdcdc;\n  border-collapse: collapse;\n  text-align: center;\n}\n\n.no-border-top {\n  border-top: none;\n}\n\n.scrollable {\n  max-height: 225px;\n  overflow-y: auto;\n}\n\n.styled-th {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 16px;\n  line-height: 24px;\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\n.styled-tr {\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\n.styled-td {\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\ninput::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n}\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,iCAAiC;EACjC,eAAe;AACjB;;AAEA;EACE,yBAAyB;EACzB,qBAAqB;AACvB;;AAEA;EACE,SAAS;EACT,UAAU;AACZ;;AAEA;EACE,qCAAqC;EACrC,kBAAkB;EAClB,yBAAyB;EACzB,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,iBAAiB;EACjB,cAAc;EACd,mBAAmB;EACnB,gBAAgB;EAChB,aAAa;AACf;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,QAAQ;AACV;;AAEA;EACE,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;EACZ,kBAAkB;EAClB,qBAAqB;EACrB,aAAa;EACb,mBAAmB;EACnB,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;AACX;;AAEA;EACE,cAAc;EACd,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,uBAAuB;EACvB,iCAAiC;EACjC,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,wCAAwC;EACxC,kBAAkB;AACpB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,iCAAiC;EACjC,eAAe;EACf,kBAAkB;EAClB,WAAW;EACX,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,UAAU;EACV,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,kBAAkB;EAClB,sBAAsB;EACtB,mBAAmB;AACrB;;AAEA;EACE,WAAW;EACX,6BAA6B;EAC7B,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,iBAAiB;EACjB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,gCAAgC;EAChC,YAAY;AACd;;AAEA;EACE,gCAAgC;EAChC,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,gCAAgC;EAChC,YAAY;AACd;;AAEA;EACE,wBAAwB;AAC1B","sourcesContent":["html {\n  font-family: 'Roboto', sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  background-color: #f9f9f9;\n  letter-spacing: 0.5px;\n}\n\ninput {\n  margin: 0;\n  padding: 0;\n}\n\n.app-container {\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  border-radius: 4px;\n  background-color: #ffffff;\n  display: flex;\n  flex-direction: column;\n  width: 518px;\n  min-height: 593px;\n  margin: 0 auto;\n  align-items: center;\n  margin-top: 32px;\n  padding: 40px;\n}\n\n.title {\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin-bottom: 32px;\n}\n\n.nav-bar {\n  display: flex;\n  flex-direction: row;\n  gap: 4px;\n}\n\n.nav-button {\n  width: 117px;\n  height: 36px;\n}\n\n.styled-button {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  border-radius: 4px;\n  text-decoration: none;\n  outline: none;\n  background: #f5f5f5;\n  color: black;\n  cursor: pointer;\n}\n\n.styled-button.selected {\n  background: #ceecf0;\n}\n\n.styled-button.emphasized {\n  background: #00bcd4;\n  color: white;\n}\n\n.page-container {\n  margin-top: 52px;\n}\n\n.page {\n  display: flex;\n  flex-direction: column;\n  gap: 48px;\n}\n\n.description {\n  display: block;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n  margin-bottom: 4px;\n}\n\n.styled-input {\n  /* padding-left: 9px; */\n  font-family: 'Roboto', sans-serif;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  border: 1px solid rgba(180, 180, 180, 1);\n  border-radius: 4px;\n}\n\n.styled-input::placeholder {\n  color: #8b8b8b;\n}\n\n.transparent-input {\n  font-family: 'Roboto', sans-serif;\n  font-size: 16px;\n  text-align: center;\n  width: 100%;\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n  padding: 0;\n  border: 0;\n}\n\n.table-title {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 20px;\n  line-height: 24px;\n  text-align: center;\n  letter-spacing: 0.15px;\n  margin-bottom: 16px;\n}\n\n.styled-table {\n  width: 100%;\n  border-top: 1px solid #dcdcdc;\n  border-collapse: collapse;\n  text-align: center;\n}\n\n.no-border-top {\n  border-top: none;\n}\n\n.scrollable {\n  max-height: 225px;\n  overflow-y: auto;\n}\n\n.styled-th {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 16px;\n  line-height: 24px;\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\n.styled-tr {\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\n.styled-td {\n  font-style: normal;\n  font-weight: 400;\n  font-size: 16px;\n  line-height: 24px;\n  border-bottom: 1px solid #dcdcdc;\n  padding: 8px;\n}\n\ninput::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/changeChargePage.css":
+/*!****************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/changeChargePage.css ***!
+  \****************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".change-charge-form {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 372px;\n}\n\n.charge-amount-input {\n  width: 300px;\n  height: 34px;\n}\n\n.add-charge-button {\n  width: 56px;\n  height: 36px;\n  align-self: flex-end;\n}\n\n.current-money-indicator {\n  margin-top: 16px;\n}\n", "",{"version":3,"sources":["webpack://./src/css/changeChargePage.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,8BAA8B;EAC9B,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,oBAAoB;AACtB;;AAEA;EACE,gBAAgB;AAClB","sourcesContent":[".change-charge-form {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 372px;\n}\n\n.charge-amount-input {\n  width: 300px;\n  height: 34px;\n}\n\n.add-charge-button {\n  width: 56px;\n  height: 36px;\n  align-self: flex-end;\n}\n\n.current-money-indicator {\n  margin-top: 16px;\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/index.css":
+/*!*****************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/index.css ***!
+  \*****************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./app.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/app.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_itemManagementPage_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./itemManagementPage.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/itemManagementPage.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_changeChargePage_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./changeChargePage.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/changeChargePage.css");
+// Imports
+
+
+
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap);"]);
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css);"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_app_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_itemManagementPage_css__WEBPACK_IMPORTED_MODULE_3__["default"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_changeChargePage_css__WEBPACK_IMPORTED_MODULE_4__["default"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "/* font Roboto */\n/* reset css */\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAEhB,cAAc","sourcesContent":["/* font Roboto */\n@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');\n/* reset css */\n@import url('https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css');\n@import './app.css';\n@import './itemManagementPage.css';\n@import './changeChargePage.css';\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/itemManagementPage.css":
+/*!******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/itemManagementPage.css ***!
+  \******************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".item-add-form {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 440px;\n}\n\n.fieldset {\n  border: 0;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  gap: 4px;\n  justify-content: stretch;\n}\n\n.item-input {\n  vertical-align: top;\n  width: 120px;\n  height: 34px;\n}\n\n.add-item-button {\n  width: 56px;\n  height: 36px;\n  margin-left: 16px;\n  align-self: flex-end;\n}\n\n.item-button-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  gap: 8px;\n}\n\n.item-edit-button,\n.item-remove-button,\n.item-update-button {\n  width: 50px;\n  height: 32px;\n}\n", "",{"version":3,"sources":["webpack://./src/css/itemManagementPage.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,8BAA8B;EAC9B,YAAY;AACd;;AAEA;EACE,SAAS;EACT,WAAW;EACX,aAAa;EACb,mBAAmB;EACnB,QAAQ;EACR,wBAAwB;AAC1B;;AAEA;EACE,mBAAmB;EACnB,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,oBAAoB;AACtB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,QAAQ;AACV;;AAEA;;;EAGE,WAAW;EACX,YAAY;AACd","sourcesContent":[".item-add-form {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 440px;\n}\n\n.fieldset {\n  border: 0;\n  width: 100%;\n  display: flex;\n  flex-direction: row;\n  gap: 4px;\n  justify-content: stretch;\n}\n\n.item-input {\n  vertical-align: top;\n  width: 120px;\n  height: 34px;\n}\n\n.add-item-button {\n  width: 56px;\n  height: 36px;\n  margin-left: 16px;\n  align-self: flex-end;\n}\n\n.item-button-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  gap: 8px;\n}\n\n.item-edit-button,\n.item-remove-button,\n.item-update-button {\n  width: 50px;\n  height: 32px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1445,8 +1638,10 @@ var Subject = /** @class */ (function () {
         this.key = key;
         this.value = initValue;
         this.observers = new Set();
+        this.updated = false;
         Object.seal(this);
         Subject.subjects.add(this);
+        this.checkUpdated();
     }
     Subject.observable = function (obj) {
         var observableObj = {};
@@ -1458,7 +1653,6 @@ var Subject = /** @class */ (function () {
                 },
                 set: function (newValue) {
                     subject.set(newValue);
-                    subject.notify();
                 }
             });
         });
@@ -1482,12 +1676,23 @@ var Subject = /** @class */ (function () {
     };
     Subject.prototype.set = function (newValue) {
         this.value = newValue;
+        this.updated = true;
     };
     Subject.prototype.observe = function (observer) {
         this.observers.add(observer);
     };
     Subject.prototype.unobserve = function (observer) {
         this.observers["delete"](observer);
+    };
+    Subject.prototype.checkUpdated = function () {
+        var _this = this;
+        if (this.updated) {
+            this.notify();
+            this.updated = false;
+        }
+        requestAnimationFrame(function () {
+            _this.checkUpdated();
+        });
     };
     Subject.prototype.notify = function () {
         this.observers.forEach(function (observer) { return observer.notify(); });
