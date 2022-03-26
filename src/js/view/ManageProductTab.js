@@ -1,3 +1,4 @@
+import { CONFIRM_MESSAGE } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
 import { manageProductTemplate, productTableRow, updateProductTableRow } from './template';
 
@@ -61,10 +62,7 @@ export default class ManageProductTab {
       this.#handleProductUpdate(target);
     }
 
-    if (
-      classList.contains('remove-product-button') &&
-      window.confirm('정말 삭제하겠습니까?')
-    ) {
+    if (classList.contains('remove-product-button') && window.confirm(CONFIRM_MESSAGE)) {
       this.#handleProductRemove(target);
     }
 
