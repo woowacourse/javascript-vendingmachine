@@ -1,22 +1,21 @@
 import './css/index';
-import routes from './js/routes';
+import router from './js/routes';
 
-routes();
+const routes = new router();
+routes.init();
 
 const productManageButton = document.querySelector('#product-manage-button');
 const changeAddButton = document.querySelector('#change-add-button');
 // const btn3 = document.querySelector('#product-purchase-button');
 
 productManageButton.addEventListener('click', () => {
-  history.pushState({}, '상품 관리하기', window.location.pathname + '#!/product-manage');
-  routes();
+  routes.go('#!/product-manage');
 });
 
 changeAddButton.addEventListener('click', () => {
-  history.pushState({}, '잔돈 채우기', window.location.pathname + '#!/change-add');
-  routes();
+  routes.go('#!/change-add');
 });
 
 window.addEventListener('popstate', function () {
-  routes();
+  routes.back();
 });

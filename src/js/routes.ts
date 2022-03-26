@@ -1,42 +1,54 @@
 import ChangeAdd from './pages/ChangeAdd';
 import ProductManage from './pages/ProductManage';
 
-const clearPurchaseBody = () => {
-  const $inputSection = document.querySelector('.input-section');
-  const $contentsContainer = document.querySelector('.contents-container');
+class router {
+  prevPath: string;
+  productManage: ProductManage;
+  changeAdd: ChangeAdd;
 
-  $inputSection.replaceChildren();
-  $contentsContainer.replaceChildren();
-};
+  constructor() {
+    this.productManage = new ProductManage();
+    this.changeAdd = new ChangeAdd();
+    this.prevPath = null;
+  }
 
-const router = () => {
-  const productManage = new ProductManage();
-  const changeAdd = new ChangeAdd();
-  let prevPath = '';
+  init() {
+    this.go(window.location.hash);
+  }
 
-  return () => {
-    const hash = window.location.hash;
+  back() {
+    this.go(window.location.hash);
+  }
 
-    if (prevPath === hash) {
+  go(hash: string) {
+    if (this.prevPath === hash) {
       return;
     }
 
-    prevPath = hash;
-    clearPurchaseBody();
+    this.prevPath = hash;
+    this.clear();
 
     switch (hash) {
       case '#!/product-manage':
-        productManage.render();
+        history.pushState({}, '상품 관리하기', window.location.pathname + hash);
+        this.productManage.render();
         break;
       case '#!/change-add':
-        changeAdd.render();
+        history.pushState({}, '잔돈 충전하기', window.location.pathname + hash);
+        this.changeAdd.render();
         break;
       default:
         break;
     }
-  };
-};
+  }
 
-const routes = router();
+  clear() {
+    const $inputSection = document.querySelector('.input-section');
+    const $contentsContainer = document.querySelector('.contents-container');
 
-export default routes;
+    $inputSection.replaceChildren();
+    $contentsContainer.replaceChildren();
+  }
+}
+
+export default router;
