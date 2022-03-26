@@ -45,8 +45,7 @@ export default class TableRow extends HTMLTableRowElement {
   }
 
   template() {
-    return ``;
-    // throw new Error('override');
+    throw new Error('override');
   }
 
   beforeRender() {}

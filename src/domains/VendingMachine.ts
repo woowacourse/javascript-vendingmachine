@@ -1,34 +1,43 @@
 import Subject from '../core/Subject';
-import { Item } from './Item';
 import { deepClone } from '../utils/commons';
+import { createRandomCoins } from '../utils/coinUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
 
-interface Keyable {
-  [key: string]: any;
+export interface Item {
+  name: string;
+  price: number;
+  quantity: number;
 }
 
-interface State {
-  items: Array<Item>;
-  coins: Keyable;
+export interface Coins {
+  10: number;
+  50: number;
+  100: number;
+  500: number;
+}
+
+export interface VendingMachineState {
+  items: Item[];
+  coins: Coins;
 }
 
 export default class VendingMachine {
   currentObserver: object;
 
-  state: State;
+  state: VendingMachineState;
 
-  constructor(initItems: any, initCoins: any) {
+  constructor(initItems: Item[], initCoins: Coins) {
     this.init(initItems, initCoins);
   }
 
-  init(initItems: Array<Item>, initCoins: Keyable): void {
+  init(initItems: Item[], initCoins: Coins): void {
     this.state = Subject.observable({
       items: initItems,
       coins: initCoins,
     });
   }
 
-  useStore(callback: Function): Keyable {
+  useStore(callback: Function): any {
     return deepClone(callback(this.state));
   }
 
@@ -79,35 +88,16 @@ export default class VendingMachine {
     return this.state.items.filter((item) => item.name === name)[0] || null;
   }
 
-  createRandomCoins(amount: number): any {
-    const coinValueList = [10, 50, 100, 500];
-    const coins: object = {
+  addCoin(amount: number): void {
+    validate(amountValidator, amount, this.getTotalMoney());
+
+    const randomCoins = createRandomCoins(amount);
+    const updatedCoins: Coins = {
       10: 0,
       50: 0,
       100: 0,
       500: 0,
     };
-    let sum = 0;
-
-    while (sum !== amount) {
-      const randomIndex = Math.floor(Math.random() * 4);
-      const randomCoin = coinValueList[randomIndex];
-
-      if (sum + randomCoin <= amount) {
-        sum += randomCoin;
-
-        coins[randomCoin] += 1;
-      }
-    }
-
-    return coins;
-  }
-
-  addCoin(amount: number): void {
-    validate(amountValidator, amount, this.getTotalMoney());
-
-    const randomCoins = this.createRandomCoins(amount);
-    const updatedCoins = {};
 
     Object.keys(this.state.coins).forEach((key) => {
       updatedCoins[key] = this.state.coins[key] + randomCoins[key];
@@ -118,7 +108,8 @@ export default class VendingMachine {
 
   getTotalMoney(): number {
     return Object.entries(this.state.coins).reduce(
-      (sum: number, [key, value]) => sum + Number(key) * Number(value),
+      (sum: number, [key, value]: [string, number]) =>
+        sum + Number(key) * value,
       0
     );
   }

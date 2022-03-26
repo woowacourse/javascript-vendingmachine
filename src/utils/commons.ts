@@ -1,4 +1,4 @@
-export const deepEqual = (a: any, b: any) => {
+export const deepEqual = (a: any, b: any): boolean => {
   if (a === b) return true;
 
   if (a && b && typeof a === 'object' && typeof b === 'object') {
@@ -41,7 +41,7 @@ export const deepEqual = (a: any, b: any) => {
   return Number.isNaN(a) && Number.isNaN(b);
 };
 
-export const deepClone = (obj: any) => {
+export const deepClone = <T>(obj: T): T => {
   if (
     obj === null ||
     obj === undefined ||
@@ -51,7 +51,7 @@ export const deepClone = (obj: any) => {
     return obj;
 
   if (Array.isArray(obj)) {
-    return obj.map((elem) => deepClone(elem));
+    return (obj as any[]).map((elem) => deepClone(elem)) as any as T;
   }
 
   if (obj instanceof Set) {
@@ -59,7 +59,7 @@ export const deepClone = (obj: any) => {
 
     obj.forEach((elem) => clone.add(deepClone(elem)));
 
-    return clone;
+    return clone as any as T;
   }
 
   if (obj instanceof Map) {
@@ -69,10 +69,10 @@ export const deepClone = (obj: any) => {
       clone.set(key, value);
     });
 
-    return clone;
+    return clone as any as T;
   }
 
-  const clone = {};
+  const clone = {} as T;
 
   Object.keys(obj).forEach((key) => {
     clone[key] =

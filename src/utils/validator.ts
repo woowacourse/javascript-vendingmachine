@@ -1,4 +1,4 @@
-import { Item } from '../domains/Item';
+import { Item } from '../domains/VendingMachine';
 
 interface Condition {
   test: Function;
@@ -23,18 +23,19 @@ export const itemValidator: Validator = [
     errorMessage: '가격은 10원 단위여야 합니다.',
   },
   {
-    test: (item: Item) => item.name.length <= 10 || item.name.length > 0,
+    test: (item: Item) =>
+      item.name.trim().length <= 10 && item.name.trim().length > 0,
     errorMessage: '상품명은 0~10 글자 사이여야 합니다.',
   },
   {
-    test: (item: Item) => item.price >= 100 || item.price <= 10000,
+    test: (item: Item) => item.price >= 100 && item.price <= 10000,
     errorMessage: '상품 가격은 100원 이상, 10000원 이하여야 합니다.',
   },
 ];
 
 export const amountValidator: Array<Condition> = [
   {
-    test: (amount: number) => amount >= 10 || amount <= 100000,
+    test: (amount: number) => amount >= 10 && amount <= 100000,
     errorMessage: '10~100000 범위의 금액을 입력해주세요',
   },
   {
