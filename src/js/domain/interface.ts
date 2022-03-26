@@ -16,7 +16,7 @@ export interface Coin {
   count: number;
 }
 
-export interface CoinCounts {
+export interface CoinStatus {
   FIVE_HUNDRED_WON: number;
   ONE_HUNDRED_WON: number;
   FIFTY_WON: number;

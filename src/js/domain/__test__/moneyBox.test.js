@@ -30,25 +30,25 @@ describe('돈통 클래스 테스트', () => {
     const inputMoney = 3000;
 
     setMockDistributeStrategy();
-    moneyBox.charge(inputMoney);
+    moneyBox.addChange(inputMoney);
 
     expect(moneyBox.coinStatusList).toEqual(mockCoinStatusList);
   });
 
   test('금액을 투입하고 총 보유 금액을 확인할 수 있다.', () => {
     const inputMoney = 3000;
-    moneyBox.charge(inputMoney);
+    moneyBox.addChange(inputMoney);
 
-    expect(moneyBox.totalAmount).toEqual(inputMoney);
+    expect(moneyBox.totalChange).toEqual(inputMoney);
   });
 
   test('금액을 추가 투입하면 총 보유 금액에 더해진다.', () => {
     const firstInputMoney = 3000;
-    moneyBox.charge(firstInputMoney);
+    moneyBox.addChange(firstInputMoney);
 
     const secondInputMoney = 2000;
-    moneyBox.charge(secondInputMoney);
+    moneyBox.addChange(secondInputMoney);
 
-    expect(moneyBox.totalAmount).toEqual(firstInputMoney + secondInputMoney);
+    expect(moneyBox.totalChange).toEqual(firstInputMoney + secondInputMoney);
   });
 });

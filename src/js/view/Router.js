@@ -43,14 +43,12 @@ export default class Router {
   }
 
   #handleTabMenuChange = (e) => {
+    e.preventDefault();
+
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash)) return;
-
-    if (newHash === previousHash) return;
-
-    e.preventDefault();
+    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
 
     window.history.pushState({}, null, newHash);
     this.#render();

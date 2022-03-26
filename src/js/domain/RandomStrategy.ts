@@ -8,6 +8,7 @@ function getRandomCoin(moneyLeft: number, value: number): number {
 }
 
 const RandomStrategy: distributeStrategy = {
+  // eslint-disable-next-line max-lines-per-function
   distribute(inputMoney: number): Coin[] {
     const coinStatusList: Coin[] = [
       { name: 'FIVE_HUNDRED_WON', value: 500, count: 0 },
@@ -15,8 +16,8 @@ const RandomStrategy: distributeStrategy = {
       { name: 'FIFTY_WON', value: 50, count: 0 },
       { name: 'TEN_WON', value: 10, count: 0 },
     ];
-
     let moneyLeft = inputMoney;
+
     coinStatusList.forEach((coin) => {
       if (coin.name === 'TEN_WON') {
         coin.count = moneyLeft / coin.value;
@@ -26,6 +27,7 @@ const RandomStrategy: distributeStrategy = {
       moneyLeft -= coin.value * randomCount;
       coin.count = randomCount;
     });
+
     return coinStatusList;
   },
 };

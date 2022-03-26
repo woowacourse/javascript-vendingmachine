@@ -3,9 +3,7 @@ import { ERROR_MESSAGE, PRODUCT_RULES } from '../constants';
 
 export default class VendingMachineProduct {
   private _name: string;
-
   private _price: number;
-
   private _stock: number;
 
   constructor({ name, price, stock }: ProductData) {

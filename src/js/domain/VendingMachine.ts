@@ -1,9 +1,4 @@
-import {
-  Coin,
-  CoinCounts,
-  ProductData,
-  VendingMachineProductDictionary,
-} from './interface';
+import { Coin, CoinStatus, ProductData, VendingMachineProductDictionary } from './interface';
 
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
@@ -13,7 +8,6 @@ import { generateUniqueId } from '../utils';
 
 export default class VendingMachine {
   private _productList: VendingMachineProductDictionary;
-
   private _moneyBox: MoneyBox;
 
   constructor() {
@@ -26,10 +20,10 @@ export default class VendingMachine {
   }
 
   get totalChange(): number {
-    return this._moneyBox.totalAmount;
+    return this._moneyBox.totalChange;
   }
 
-  get coinStatus(): CoinCounts {
+  get coinStatus(): CoinStatus {
     return this._moneyBox.coinStatus;
   }
 
@@ -46,7 +40,7 @@ export default class VendingMachine {
       throw new Error(ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE);
     }
 
-    this._moneyBox.charge(money);
+    this._moneyBox.addChange(money);
 
     return this._moneyBox.coinStatusList;
   }
@@ -70,9 +64,7 @@ export default class VendingMachine {
   }
 
   private validateUniqueProductName(name): never | void {
-    if (
-      Object.values(this._productList).some((product) => product.name === name)
-    ) {
+    if (Object.values(this._productList).some((product) => product.name === name)) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME);
     }
   }

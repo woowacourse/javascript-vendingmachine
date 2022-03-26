@@ -27,7 +27,6 @@ export default class ManageProductTab {
 
   #handleAddProductForm = (e) => {
     e.preventDefault();
-
     const name = this.#addProductNameInput.value;
     const price = this.#addProductPriceInput.valueAsNumber;
     const stock = this.#addProductStockInput.valueAsNumber;

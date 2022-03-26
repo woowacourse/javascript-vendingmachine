@@ -32,13 +32,13 @@ export default class AddChangeTab {
 
     try {
       this.#vendingMachine.addChange(money);
-      this.renderCoinStatus();
+      this.#renderCoinStatus();
     } catch ({ message }) {
       alert(message);
     }
   };
 
-  renderCoinStatus() {
+  #renderCoinStatus() {
     this.#totalChange.textContent = this.#vendingMachine.totalChange;
 
     const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
