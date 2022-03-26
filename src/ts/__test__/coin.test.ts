@@ -13,7 +13,7 @@ describe('잔돈 도메인 테스트', () => {
 
   it('랜덤으로 생성한 동전의 총액이 투입 금액과 일치한다.', () => {
     const coinDomain = new CoinManagementDomain();
-    const coins = coinDomain.coins;
+    const { coins } = coinDomain;
     coinDomain.addCoins(cash);
 
     const cashFromCoins = Object.keys(coins).reduce(
