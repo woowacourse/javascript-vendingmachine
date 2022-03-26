@@ -11,6 +11,10 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
+## 👨🏻‍💻 데모 페이지
+
+[링크](https://woojeongmin.com/javascript-vendingmachine/)
+
 ## ⚙️ Before Started
 
 #### 개발 환경 가이드
