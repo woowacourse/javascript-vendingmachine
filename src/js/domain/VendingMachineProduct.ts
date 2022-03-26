@@ -43,7 +43,7 @@ export default class VendingMachineProduct {
     this._stock = stock;
   }
 
-  validateProduct(data: ProductData) {
+  private validateProduct(data: ProductData) {
     const productValidator = [
       { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
       {

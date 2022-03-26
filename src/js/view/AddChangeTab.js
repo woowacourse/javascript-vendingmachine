@@ -18,14 +18,14 @@ export default class AddChangeTab {
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
-    this.#addChangeForm.addEventListener('submit', this.handleAddChange);
+    this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
   get tabElements() {
     return this.#addChangeContainer;
   }
 
-  handleAddChange = (e) => {
+  #handleAddChange = (e) => {
     e.preventDefault();
     const money = this.#moneyInput.valueAsNumber;
 
