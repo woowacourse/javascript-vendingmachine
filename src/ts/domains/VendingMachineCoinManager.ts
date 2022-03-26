@@ -1,7 +1,7 @@
-import { CoinManager, coins } from './types/vendingMachineCoinManager';
+import { CoinManager, coins } from '../types/vendingMachineCoinManager';
 
-import { COINS } from './constants';
-import { checkCanAddMoney } from './utils/utils';
+import { COINS } from '../constants';
+import { checkCanAddMoney } from '../utils/utils';
 
 export default class VendingMachineCoinManager implements CoinManager {
   private coins: coins = { ...COINS.INITIAL_STATE };

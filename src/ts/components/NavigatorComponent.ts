@@ -2,8 +2,8 @@ import ProductInputComponent from './ProductManageComponent/ProductInputComponen
 import ProductStateComponent from './ProductManageComponent/ProductsStateComponent';
 import CoinInputComponent from './CoinManageComponent/CoinInputComponent';
 
-import VendingMachineProductManager from '../VendingMachineProductManager';
-import VendingMachineCoinManager from '../VendingMachineCoinManager';
+import VendingMachineProductManager from '../domains/VendingMachineProductManager';
+import VendingMachineCoinManager from '../domains/VendingMachineCoinManager';
 import CoinsStateComponent from './CoinManageComponent/CoinsStateComponent';
 
 import { $, on } from '../dom';

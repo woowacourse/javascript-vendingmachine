@@ -1,7 +1,7 @@
 import { coins } from '../ts/types/vendingMachineCoinManager';
 
 import { ERROR_MESSAGE, COINS, CHARGE_MONEY } from '../ts/constants';
-import VendingMachineCoinManager from '../ts/VendingMachineCoinManager';
+import VendingMachineCoinManager from '../ts/domains/VendingMachineCoinManager';
 
 describe('잔돈 관리 도메인 테스트', () => {
   test('잔돈 충전 탭에서 최초 자판기가 보유한 금액은 0원이며, 각 동전의 개수는 0개이다.', () => {

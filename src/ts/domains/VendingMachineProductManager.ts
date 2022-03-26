@@ -1,9 +1,9 @@
-import { ProductManager, product } from './types/vendingMachineProductManager';
+import { ProductManager, product } from '../types/vendingMachineProductManager';
 
 import {
   checkDuplicatedProductName,
   checkEditDuplicateName,
-} from './utils/utils';
+} from '../utils/utils';
 
 export default class VendingMachineProductManager implements ProductManager {
   private products: product[] = [];
