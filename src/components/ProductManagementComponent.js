@@ -2,6 +2,7 @@ import ProductTableComponent from './common/ProductTableComponent';
 import { checkProductInput } from '../utils/validation';
 import vendingMachineStore from '../stores/vendingMachineStore';
 import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+
 class ProductManagementComponent {
   #currentProductListComponent;
   constructor($parent) {
@@ -82,10 +83,18 @@ class ProductManagementComponent {
           },
           stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
+        this.clearInputForm();
       }
     } catch ({ message }) {
       alert(message);
     }
   };
+  clearInputForm() {
+    this.$productNameInput.value = '';
+    this.$productPriceInput.value = '';
+    this.$productQuantityInput.value = '';
+
+    this.$productNameInput.focus();
+  }
 }
 export default ProductManagementComponent;
