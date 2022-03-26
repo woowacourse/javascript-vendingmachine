@@ -1,6 +1,6 @@
 table {
   border-width: 1px;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--table-border-color);
   border-collapse: collapse;
   min-width: 417px;
 }
@@ -13,7 +13,7 @@ tr,
 td {
   width: 25%;
   padding: 8px;
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid var(--table-border-color);
   text-align: center;
 }
 

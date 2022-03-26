@@ -1,11 +1,11 @@
 .default-button {
-  background-color: #f5f5f5e3;
-  color: #000;
+  background-color: var(--default-button-bg-color);
+  color: var(--main-color);
   font-weight: 500;
 }
 
 .default-button:hover {
-  background-color: #eeeeee;
+  background-color: var(--default-button-hover-bg-color);
 }
 
 .input-form-button {
@@ -13,21 +13,21 @@
   flex-shrink: 0;
   padding: 8px 16px;
 
-  background-color: #00bcd4;
+  background-color: var(--form-button-bg-color);
   color: white;
   font-weight: 700;
 }
 
 .input-form-button:hover {
-  background-color: #00b3ca;
+  background-color: var(--form-button-hover-bg-color);
 }
 
 .nav-tab-button {
   padding: 8px 20px;
 
   line-height: 35px;
-  background-color: #f5f5f5;
-  color: #000;
+  background-color: var(--default-button-bg-color);
+  color: var(--main-color);
   font-style: normal;
   font-weight: 500;
   font-size: 1rem;
@@ -35,12 +35,12 @@
 }
 
 .nav-tab-button.selected {
-  background-color: #00bcd429;
+  background-color: var(--selected-nav-tab-button-bg-color);
 }
 .nav-tab-button:hover {
-  background-color: #ebebeb;
+  background-color: var(--default-button-hover-bg-color);
 }
 
 .nav-tab-button.selected:hover {
-  background-color: #00bbd459;
+  background-color: var(--selected-nav-tab-button-bg-color);
 }
