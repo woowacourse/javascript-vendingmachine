@@ -6,12 +6,8 @@ export default class ProductManager {
   }
 
   addProduct(product) {
-    try {
-      validProductInfo(product);
-      this.products.push(product);
-    } catch (error) {
-      alert(error.message);
-    }
+    validProductInfo(product, this.products);
+    this.products.push(product);
   }
 
   getProducts() {

@@ -42,10 +42,14 @@ export default class Controller {
   }
 
   #handleProductInfo(event) {
-    const { product } = event.detail;
-    this.productManager.addProduct(product);
-    this.productManageView.render(product);
-    this.productManageView.resetProductInput();
+    try {
+      const { product } = event.detail;
+      this.productManager.addProduct(product);
+      this.productManageView.render(product);
+      this.productManageView.resetProductInput();
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   #modifySavedData(event) {
@@ -59,10 +63,14 @@ export default class Controller {
   }
 
   #handleChargeCoin(event) {
-    const { amount } = event.detail;
-    this.coin.setAmount(amount);
-    this.chargeView.renderCurrentAmount(this.coin.getAmount());
-    this.chargeView.resetChargeInput();
-    this.chargeView.renderHaveCoins(this.coin.getCoins());
+    try {
+      const { amount } = event.detail;
+      this.coin.setAmount(amount);
+      this.chargeView.renderCurrentAmount(this.coin.getAmount());
+      this.chargeView.resetChargeInput();
+      this.chargeView.renderHaveCoins(this.coin.getCoins());
+    } catch (error) {
+      alert(error.message);
+    }
   }
 }

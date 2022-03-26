@@ -14,14 +14,10 @@ export default class Coin {
   }
 
   setAmount(chargedAmount) {
-    try {
-      const currentAmount = this.amount + chargedAmount;
-      validChargeAmount(chargedAmount, currentAmount);
-      this.amount = currentAmount;
-      this.makeRandomCoins(chargedAmount);
-    } catch (error) {
-      alert(error.message);
-    }
+    const currentAmount = this.amount + chargedAmount;
+    validChargeAmount(chargedAmount, currentAmount);
+    this.amount = currentAmount;
+    this.makeRandomCoins(chargedAmount);
   }
 
   getAmount() {
