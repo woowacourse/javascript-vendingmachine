@@ -27,7 +27,7 @@ class VendingMachineStore implements IVendingMachineStore {
     stateKey,
   }: {
     actionType: TAction;
-    payload: any;
+    payload: unknown;
     stateKey: TStateKey;
   }) {
     this.reducer[actionType](payload);
@@ -55,11 +55,15 @@ class VendingMachineStore implements IVendingMachineStore {
 
       const product = new Product(name, price, quantity);
 
+      /** 무언가.. 객체를 직접 변경하는 것 같죠..? 얕은 복사를 수행한 배열 데이터를 조작하여 그 배열 데이터를 set 해주어야 할 것 같은데 */
       this.state.PRODUCT_LIST.push(product);
+      /** 아래 방법으로 수행하는 것과 위 방법으로 수행하는 것 - 둘은 어떤 문제를 막고 어떤 문제를 발생시킬 수 있나요.? */
+      // this.state.PRODUCT_LIST = [...this.state.PRODUCT_LIST,product];
     },
     [ACTION_TYPES.EDIT_PRODUCT]: payload => {
       const { id, name, price, quantity } = payload;
 
+      /** 무언가.. 객체를 직접 변경하는 것 같죠..? 얕은 복사를 수행한 배열 데이터를 조작하여 그 배열 데이터를 set 해주어야 할 것 같은데 */
       const editProduct = this.state.PRODUCT_LIST.find(
         product => product.getProductInfo().id === id,
       );
