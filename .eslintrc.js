@@ -23,6 +23,7 @@ module.exports = {
     'import/extensions': ['off'],
     'newline-before-return': 2,
     'no-console': 'warn',
+    'class-methods-use-this': 'off',
   },
   settings: {
     'import/resolver': {
