@@ -71,7 +71,21 @@ class ProductInventory extends Component {
   }
 
   @event('click', '.btn-delete')
-  deleteProduct() {}
+  deleteProduct({ target }: { target: HTMLElement }) {
+    const tds = this.findTds(target);
+    if (!tds) return;
+    const { $name } = tds;
+    const result = window.confirm('해당 상품을 삭제하시겠습니까?');
+    if (!result) return;
+    Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
+  }
+
+  findTds(target: HTMLElement) {
+    const children = target.closest('tr')?.children;
+    if (!children) return null;
+    const [$name, $price, $quantity] = children;
+    return { $name, $price, $quantity };
+  }
 
   changeToEditMode({ target, $price, $quantity }: Omit<EditParams, '$name'>) {
     $price.innerHTML = `<input placeholder=${$price.textContent} class="form-control"/>`;
