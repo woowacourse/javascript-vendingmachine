@@ -1,4 +1,5 @@
 @import './global.css';
+@import './font.css';
 
 body {
   width: 100vw;
@@ -21,7 +22,7 @@ h1 {
 
 header {
   text-align: center;
-  margin: 40px 0 10px 0;
+  margin: 40px 0 10px;
 }
 
 nav {
@@ -86,7 +87,6 @@ button:hover {
 
 h4 {
   margin: 0;
-  font-family: 'Roboto';
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -128,7 +128,6 @@ h4 {
 li {
   list-style-type: none;
   text-align: center;
-  font-family: 'Roboto';
   font-style: normal;
   display: flex;
   justify-content: center;
@@ -144,7 +143,7 @@ li {
 }
 
 #product-list li span {
-  margin: 12px 0px 8px;
+  margin: 12px 0 8px;
   width: 100%;
   height: 30px;
   font-size: 15px;
@@ -169,12 +168,12 @@ li {
 .product-control-buttons button {
   width: 40%;
   height: 30px;
-  margin-top: -4px !important;
+  margin-top: -2px;
 }
 
 .product-modify-submit-button {
   width: 90%;
-  margin-top: -8px !important;
+  margin-top: -8px;
 }
 
 #change-list li {

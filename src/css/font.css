@@ -1,0 +1,9 @@
+@import url(https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css);
+
+* {
+  font-family: inherit;
+}
+
+body {
+  font-family: 'NanumGothic';
+}
