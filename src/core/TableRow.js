@@ -67,8 +67,6 @@ export default class TableRow extends HTMLTableRowElement {
     this.addEventListener(type, (event) => {
       if (!isTarget(event.target)) return;
 
-      event.preventDefault();
-
       callback(event);
     });
   }

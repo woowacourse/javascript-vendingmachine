@@ -62,6 +62,15 @@ class ItemRow extends TableRow {
   setEvent() {
     this.addEvent('click', '.item-edit-button', () => {
       this.setState({ isEditing: true });
+
+      const input = this.querySelector('.item-name-edit-input');
+
+      input.focus();
+
+      setTimeout(() => {
+        input.selectionStart = 10000;
+        input.selectionEnd = 10000;
+      }, 0);
     });
 
     this.addEvent('click', '.item-update-button', () => {

@@ -8,6 +8,11 @@ body {
   letter-spacing: 0.5px;
 }
 
+input {
+  margin: 0;
+  padding: 0;
+}
+
 .app-container {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
@@ -73,6 +78,7 @@ body {
 }
 
 .description {
+  display: block;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;

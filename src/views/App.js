@@ -4,6 +4,7 @@ import './pages/ItemManagementPage';
 import './pages/ChangeChargePage';
 import './pages/ItemPurchasePage';
 import './pages/NotFoundPage';
+import './components/NavBar';
 
 export default class App extends Component {
   template() {
@@ -12,11 +13,7 @@ export default class App extends Component {
         <header>
           <h1 class="title">🍿 자판기 🍿</h1>
         </header>
-        <nav class="nav-bar">
-          <a class="nav-button styled-button selected" href="#item-management">상품 관리</a>
-          <a class="nav-button styled-button" href="#change-charge">잔돈 충전</a>
-          <a class="nav-button styled-button" href="#item-purchase">상품 구매</a>
-        </nav>
+        <nav-bar class="nav-bar"></nav-bar>
         <div class="page-container">
           <page-router>
             <item-management class="page" path="#item-management"></item-management>

@@ -104,7 +104,10 @@ class ItemManagementPage extends Component {
   }
 
   setEvent() {
-    this.addEvent('submit', '#item-add-form', ({ target }) => {
+    this.addEvent('submit', '#item-add-form', (event) => {
+      event.preventDefault();
+
+      const { target } = event;
       const item = {
         name: target.querySelector('#item-name-input').value.trim(),
         price: target.querySelector('#item-price-input').valueAsNumber,

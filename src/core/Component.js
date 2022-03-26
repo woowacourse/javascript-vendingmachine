@@ -67,8 +67,6 @@ export default class Component extends HTMLElement {
     this.addEventListener(type, (event) => {
       if (!isTarget(event.target)) return;
 
-      event.preventDefault();
-
       callback(event);
     });
   }

@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from '../core/Component';
 
 class Router extends Component {
   setup() {

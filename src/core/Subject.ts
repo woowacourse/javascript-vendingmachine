@@ -1,3 +1,5 @@
+import { vendingMachine } from '../domains/VendingMachine';
+
 interface Observer {
   notify(): void;
 }
@@ -21,7 +23,6 @@ export default class Subject {
         },
         set(newValue) {
           subject.set(newValue);
-          subject.notify();
         },
       });
     });
@@ -49,16 +50,19 @@ export default class Subject {
 
   private observers: Set<Observer>;
 
+  private updated: boolean;
+
   constructor(key: string, initValue: any, checker: symbol) {
     if (checker !== Subject.private) return;
 
     this.key = key;
     this.value = initValue;
     this.observers = new Set();
+    this.updated = false;
 
     Object.seal(this);
-
     Subject.subjects.add(this);
+    this.checkUpdated();
   }
 
   get(): any {
@@ -69,6 +73,7 @@ export default class Subject {
 
   set(newValue: any): void {
     this.value = newValue;
+    this.updated = true;
   }
 
   observe(observer: Observer): void {
@@ -77,6 +82,18 @@ export default class Subject {
 
   unobserve(observer: Observer): void {
     this.observers.delete(observer);
+  }
+
+  checkUpdated(): void {
+    if (this.updated) {
+      this.notify();
+
+      this.updated = false;
+    }
+
+    requestAnimationFrame(() => {
+      this.checkUpdated();
+    });
   }
 
   notify(): void {

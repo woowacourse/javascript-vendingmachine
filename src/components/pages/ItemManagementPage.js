@@ -51,11 +51,14 @@ class ItemManagementPage extends Component {
   }
 
   setEvent() {
-    this.addEvent('submit', '#item-add-form', ({ target }) => {
+    this.addEvent('submit', '#item-add-form', (event) => {
+      event.preventDefault();
+
       const item = {
-        name: target.querySelector('#item-name-input').value,
-        price: target.querySelector('#item-price-input').valueAsNumber,
-        quantity: target.querySelector('#item-quantity-input').valueAsNumber,
+        name: event.target.querySelector('#item-name-input').value,
+        price: event.target.querySelector('#item-price-input').valueAsNumber,
+        quantity: event.target.querySelector('#item-quantity-input')
+          .valueAsNumber,
       };
       vendingMachine.addItem(item);
 
