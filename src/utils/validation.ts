@@ -2,12 +2,12 @@ import {
   CHANGE_RANGE,
   ERROR_MSG,
   MONEY_DIVIDE_STANDARD,
-  NAME_LENGHT_LIMIT,
+  NAME_LENGTH_LIMIT,
   PRICE_RANGE,
   QUANTITY_RANGE,
 } from './constants';
 
-export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGHT_LIMIT;
+export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGTH_LIMIT;
 
 export const isEmptyName = (nameInput: string) => nameInput.length === 0;
 

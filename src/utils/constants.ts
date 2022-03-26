@@ -33,7 +33,7 @@ export const ERROR_MSG = {
   CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
 };
 
-export const NAME_LENGHT_LIMIT = 10;
+export const NAME_LENGTH_LIMIT = 10;
 
 export const PRICE_RANGE: TRange = {
   MIN: 100,
