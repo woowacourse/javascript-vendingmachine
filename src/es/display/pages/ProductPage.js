@@ -37,7 +37,7 @@ export default class ProductPage {
 
   setRenderMethodList() {
     this.renderMethodList = {
-      products: [this.drawProductList],
+      products: [this.drawProductList, this.drawProductList],
     };
   }
 
@@ -60,10 +60,10 @@ export default class ProductPage {
   }
 
   render = ({ state, changeStates }) => {
-    const renderTargetMethod = new Set();
-    changeStates.forEach(stateKey => {
-      renderTargetMethod.add(...this.renderMethodList[stateKey].map(renderMethod => renderMethod));
-    });
+    const renderTargetMethod = changeStates.reduce((previous, stateKey) => {
+      this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
+      return previous;
+    }, new Set());
 
     renderTargetMethod.forEach(renderMethod => renderMethod(state));
   };
