@@ -69,13 +69,11 @@ export default class View {
     };
     if (containerBranch[id]) {
       containerBranch[id]();
-    } else {
-      throw new Error('????');
     }
   };
 
-  tabRouter = (url: string, isPopState = false) => {
-    if (!isPopState) history.pushState({ url }, null, url);
+  tabRouter = (tabId: string, isPopState = false) => {
+    if (!isPopState) history.pushState({ tabId }, null, tabId);
     const routes = {
       '/javascript-vendingmachine/#!/product-manage': () => {
         this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
@@ -87,10 +85,6 @@ export default class View {
         this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
       },
     };
-    routes[url]();
+    routes[tabId]();
   };
-
-  renderNotFound() {
-    console.log('not found');
-  }
 }
