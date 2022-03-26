@@ -54,17 +54,17 @@ class ProductInventory extends Component {
   }
 
   @event('click', '.btn-edit')
-  onClickEditBtn(event: { target: HTMLElement }) {
-    const children = event.target.closest('tr')?.children;
-    if (!children) return;
-    const [$name, $price, $quantity] = children;
+  onClickEditBtn({ target }: { target: HTMLElement }) {
+    const tds = this.findTds(target);
+    if (!tds) return;
+    const { $name, $price, $quantity } = tds;
 
-    if (!event.target.classList.contains('confirm')) {
-      this.changeToEditMode({ target: event.target, $price, $quantity });
+    if (!target.classList.contains('confirm')) {
+      this.changeToEditMode({ target: target, $price, $quantity });
       return;
     }
     try {
-      this.editProduct({ target: event.target, $name, $price, $quantity });
+      this.editProduct({ target: target, $name, $price, $quantity });
     } catch (e: any) {
       consoleErrorWithConditionalAlert(e, VALIDATION_ERROR_NAME);
     }
@@ -78,13 +78,6 @@ class ProductInventory extends Component {
     const result = window.confirm('해당 상품을 삭제하시겠습니까?');
     if (!result) return;
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
-  }
-
-  findTds(target: HTMLElement) {
-    const children = target.closest('tr')?.children;
-    if (!children) return null;
-    const [$name, $price, $quantity] = children;
-    return { $name, $price, $quantity };
   }
 
   changeToEditMode({ target, $price, $quantity }: Omit<EditParams, '$name'>) {
@@ -116,6 +109,13 @@ class ProductInventory extends Component {
     target.innerText = '수정';
     target.classList.remove('cyan');
     target.classList.remove('confirm');
+  }
+
+  findTds(target: HTMLElement) {
+    const children = target.closest('tr')?.children;
+    if (!children) return null;
+    const [$name, $price, $quantity] = children;
+    return { $name, $price, $quantity };
   }
 
   mount() {
