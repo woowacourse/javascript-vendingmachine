@@ -1,7 +1,7 @@
 const MAX_NAME_LENGTH = 10;
 const PRICE_RULE = {
   MIN: 100,
-  MAX: 10000,
+  MAX: 10_000,
   UNIT: 10,
 };
 const MAX_QUANTITY = 20;
@@ -10,7 +10,7 @@ const coinType: [500, 100, 50, 10] = [500, 100, 50, 10];
 
 const CASH_RULE = {
   MIN: 1,
-  MAX: 100000,
+  MAX: 100_000,
   UNIT: 10,
 };
 
