@@ -28,7 +28,7 @@
   },
   "overrides": [{
     "files": "*.ts",
-    "parser": "@typescript-eslint/parser", // todo
+    "parser": "@typescript-eslint/parser",
     "plugins":["@typescript-eslint"],
     "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
     "rules": {
