@@ -40,7 +40,7 @@ const handleCoinChargeButtonClick = (event) => {
 };
 
 const renderTargetContainer = (path) => {
-  if (path === `/${BASE_URL}`) {
+  if (path === `${BASE_URL}/`) {
     renderProductManageContainer();
 
     return;
