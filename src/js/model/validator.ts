@@ -1,5 +1,13 @@
 import { RULES } from '../constants';
 
+export const isDuplicatedName = (productIndex: number, originalIndex: number) => {
+  const isExist = productIndex >= 0;
+  const isAddWithDuplicatedName = isExist && originalIndex === RULES.NOT_EXIST_INDEX;
+  const isModifyWithDuplicateName = isExist && originalIndex !== productIndex;
+
+  return isAddWithDuplicatedName || isModifyWithDuplicateName;
+};
+
 export const isValidProductNameLength = (name: string) => {
   return name.length <= RULES.MAX_LENGTH_PRODUCT_NAME && name.length > 0;
 };

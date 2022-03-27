@@ -7,6 +7,7 @@ import {
   isValidProductNameLength,
   isUnitOfTen,
   isPositiveInteger,
+  isDuplicatedName,
 } from './validator';
 
 class VendingMachine {
@@ -95,12 +96,7 @@ class VendingMachine {
   }
 
   private checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
-    const productIndex = this.findProductIndex(product.name);
-    const isExist = productIndex >= 0;
-    const isAddWithDuplicatedName = isExist && originalIndex === RULES.NOT_EXIST_INDEX;
-    const isModifyWithDuplicateName = isExist && originalIndex !== productIndex;
-
-    if (isAddWithDuplicatedName || isModifyWithDuplicateName) {
+    if (!isDuplicatedName(this.findProductIndex(product.name), originalIndex)) {
       throw new Error(ERROR_MESSAGE.PRODUCT_NAME_IS_DUPLICATED);
     }
 
