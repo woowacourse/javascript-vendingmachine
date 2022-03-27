@@ -15,4 +15,5 @@ export const ERROR_MESSAGE = {
   INDIVISIBLE_PRICE_MOD_UNIT: `상품 가격은 ${PRODUCT_RULES.PRICE_MOD_UNIT}의 배수로 입력해주세요!`,
   OUT_OF_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${PRODUCT_RULES.MIN_QUANTITY}이상 ${PRODUCT_RULES.MAX_QUANTITY}이하로 입력해주세요!`,
   OVERLAP_PRODUCT: '이미 존재하는 상품입니다!',
+  NOT_EXIST_PRODUCT: '존재하지 않는 상품입니다!',
 };

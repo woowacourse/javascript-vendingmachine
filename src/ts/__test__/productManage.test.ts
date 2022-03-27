@@ -247,7 +247,7 @@ describe('상품 삭제', () => {
     const deleteProductName = '야압';
     const test = () => vendingMachine.deleteProduct(deleteProductName);
 
-    expect(test).toThrow('존재하지 않는 상품입니다!');
+    expect(test).toThrow(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
   });
 
   it('상품 목록에 존재하는 상품명이 입력됐을 때, 삭제할 수 있다.', () => {

@@ -1,4 +1,5 @@
 import { VendingMachine, ProductCollection, CoinCollection, Product } from '../../index.d';
+import { ERROR_MESSAGE } from '../constant';
 import ProductCollectionImpl from '../entity/ProductCollectionImpl';
 import CoinCollectionImpl from '../entity/CoinCollectionImpl';
 import validator from './validator';
@@ -23,7 +24,7 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   deleteProduct(name: string): void {
-    if (this.productCollection.getIndex(name) === -1) throw new Error('존재하지 않는 상품입니다!');
+    if (this.productCollection.getIndex(name) === -1) throw new Error(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
     this.productCollection.delete(name);
   }
 }
