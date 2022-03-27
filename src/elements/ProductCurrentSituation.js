@@ -79,6 +79,8 @@ class ProductCurrentSituation extends CustomElement {
   setEventAfterRerender({ name }) {
     const $tbodyRow = $(`[data-product-name="${name}"]`);
 
+    $tbodyRow.scrollIntoView();
+
     $('.table__product-modify-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductModifyButtonClick($tbodyRow),
     );
