@@ -25,6 +25,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   margin: 4px 0px;
+  padding-left: 7px;
 }
 
 .input-form__submit-button {
