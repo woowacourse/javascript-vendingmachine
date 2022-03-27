@@ -1,4 +1,4 @@
-import { Action, CoinsCount } from '../../abstracts/types';
+import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
 import { COIN_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
@@ -23,15 +23,15 @@ class CoinStore {
     10: COIN.DEFAULT_COUNT,
   };
 
-  #moneySubscribers: any[] = [];
+  #moneySubscribers: CustomElement[] = [];
 
-  #coinsCountSubscribers: any[] = [];
+  #coinsCountSubscribers: CustomElement[] = [];
 
-  subscribeMoney(element: any): void {
+  subscribeMoney(element: CustomElement): void {
     this.#moneySubscribers.push(element);
   }
 
-  subscribeCoinsCount(element: any): void {
+  subscribeCoinsCount(element: CustomElement): void {
     this.#coinsCountSubscribers.push(element);
   }
 

@@ -1,4 +1,4 @@
-import { Action, ModifyDetail, Product } from '../../abstracts/types';
+import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/types';
 import { PRODUCT_ACTION } from '../actions';
 
 class ProductStore {
@@ -14,9 +14,9 @@ class ProductStore {
 
   #products: Product[] = [];
 
-  #subscribers: any[] = [];
+  #subscribers: CustomElement[] = [];
 
-  subscribe(element: any): void {
+  subscribe(element: CustomElement): void {
     this.#subscribers.push(element);
   }
 
@@ -59,9 +59,9 @@ class ProductStore {
     return this.#products.findIndex((product) => product.name === productName);
   }
 
-  notifySubscribers({ type, detail }: Action): void {
+  notifySubscribers(action: Action): void {
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender({ type, detail });
+      subscriber.rerender(action);
     });
   }
 
