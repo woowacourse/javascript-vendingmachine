@@ -9,15 +9,16 @@ const initApp = function () {
   const coinRechargeTab = new CoinRechargeTab(vendingMachine);
 
   return function () {
-    if (!location.hash || location.hash === HASH.ITEM_MANAGE) {
+    const currentHash = location.hash;
+    if (!currentHash || currentHash === HASH.ITEM_MANAGE) {
       itemManageTab.renderInitialTabState();
       return;
     }
-    if (location.hash === HASH.COIN_RECHARGE) {
+    if (currentHash === HASH.COIN_RECHARGE) {
       coinRechargeTab.renderInitialTabState();
       return;
     }
-    if (location.hash === HASH.ITEM_PURCHASE) {
+    if (currentHash === HASH.ITEM_PURCHASE) {
       return;
     }
   };
