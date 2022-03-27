@@ -60,10 +60,10 @@ class ItemManagementPage extends Component {
         <h2 class="table-title">상품 현황</h2>
         <table class="styled-table">
           <colgroup>
-            <col style="width: 25%">
-            <col style="width: 25%">
-            <col style="width: 25%">
-            <col style="width: 25%">
+            <col style="width: 30%">
+            <col style="width: 20%">
+            <col style="width: 20%">
+            <col style="width: 30%">
           </colgroup>
           <thead>
             <tr class="styled-tr">
@@ -77,10 +77,10 @@ class ItemManagementPage extends Component {
         <div class="scrollable">
           <table class="styled-table no-border-top">
             <colgroup>
-              <col style="width: 25%">
-              <col style="width: 25%">
-              <col style="width: 25%">
-              <col style="width: 25%">
+              <col style="width: 30%">
+              <col style="width: 20%">
+              <col style="width: 20%">
+              <col style="width: 30%">
             </colgroup>
             <tbody>
               ${items

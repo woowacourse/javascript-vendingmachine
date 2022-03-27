@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background-color: #f9f9f9;
+  background-color: var(--body-background-color);
   letter-spacing: 0.5px;
 }
 
@@ -14,9 +14,9 @@ input {
 }
 
 .app-container {
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--app-border-color);
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: var(--app-background-color);
   display: flex;
   flex-direction: column;
   width: 518px;
@@ -53,18 +53,22 @@ input {
   border-radius: 4px;
   text-decoration: none;
   outline: none;
-  background: #f5f5f5;
-  color: black;
+  background: var(--button-background-color);
+  color: var(--button-text-color);
   cursor: pointer;
 }
 
 .styled-button.selected {
-  background: #ceecf0;
+  background: var(--button-selected-color);
 }
 
 .styled-button.emphasized {
-  background: #00bcd4;
-  color: white;
+  background: var(--emphasized-background-color);
+  color: var(--emphasized-text-color);
+}
+
+.styled-button.emphasized:hover {
+  background: var(--emphasized-hover-color);
 }
 
 .page-container {
@@ -93,12 +97,13 @@ input {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid rgba(180, 180, 180, 1);
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
+  padding: 3px;
 }
 
 .styled-input::placeholder {
-  color: #8b8b8b;
+  color: var(--input-placeholder-color);
 }
 
 .transparent-input {
@@ -127,7 +132,7 @@ input {
 
 .styled-table {
   width: 100%;
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid var(--table-border-color);
   border-collapse: collapse;
   text-align: center;
 }
@@ -146,12 +151,12 @@ input {
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--table-border-color);
   padding: 8px;
 }
 
 .styled-tr {
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--table-border-color);
   padding: 8px;
 }
 
@@ -160,7 +165,7 @@ input {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--table-border-color);
   padding: 8px;
 }
 
