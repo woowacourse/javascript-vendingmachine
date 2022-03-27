@@ -1,11 +1,9 @@
 import Component from '../abstract/component';
-import { ACTION, VALIDATION_ERROR_NAME } from '../constants';
-import { customElement, event } from '../decorators/decortators';
+import { ACTION } from '../constants';
+import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
-import { ProductItem } from '../types';
-import { consoleErrorWithConditionalAlert } from '../utils';
-import ValidationError from '../validation/validation-error';
+import { EventOnElement, ProductItem } from '../types';
 import { validateProduct } from '../validation/validators';
 
 @customElement('product-inventory')
@@ -60,18 +58,23 @@ class ProductInventory extends Component {
     `;
   }
 
-  @event('click', '.btn-edit')
-  changeToEditMode({ target }: { target: HTMLElement }) {
+  setEvent() {
+    this.addEvent('click', '.btn-edit', this.changeToEditMode);
+    this.addEvent('click', '.btn-confirm', this.editProduct);
+    this.addEvent('click', '.btn-cancel', this.cancelProduct);
+    this.addEvent('click', '.btn-delete', this.deleteProduct);
+  }
+
+  changeToEditMode = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name } = tds;
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: $name.textContent, isEditing: true })
     );
-  }
+  };
 
-  @event('click', '.btn-confirm')
-  editProduct({ target }: { target: HTMLElement }) {
+  editProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name, $price, $quantity } = tds;
@@ -95,10 +98,9 @@ class ProductInventory extends Component {
     Store.instance.dispatch(
       createAction(ACTION.EDIT_PRODUCT, { originalName, name, price, quantity })
     );
-  }
+  };
 
-  @event('click', '.btn-cancel')
-  cancelProduct({ target }: { target: HTMLElement }) {
+  cancelProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name } = tds;
@@ -107,17 +109,16 @@ class ProductInventory extends Component {
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: originalName, isEditing: false })
     );
-  }
+  };
 
-  @event('click', '.btn-delete')
-  deleteProduct({ target }: { target: HTMLElement }) {
+  deleteProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name } = tds;
     const result = window.confirm('해당 상품을 삭제하시겠습니까?');
     if (!result) return;
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
-  }
+  };
 
   findTds(target: HTMLElement) {
     const children = target.closest('tr')?.children;

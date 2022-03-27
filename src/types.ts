@@ -1,6 +1,6 @@
 import Component from './abstract/component';
 
-type Override<T1, T2> = Omit<T1, keyof T2> & T2;
+export type Override<T1, T2> = Omit<T1, keyof T2> & T2;
 
 export type Action = {
   type: string;
@@ -36,3 +36,5 @@ export type RawProductItem = Override<
 export type Indexable = number | string;
 
 export type CoinRecord = { [key: number]: number };
+
+export type EventOnElement = Override<Event, { target: HTMLElement }>;

@@ -1,4 +1,5 @@
 import Store from '../flux/store';
+import { EventOnElement, Override } from '../types';
 
 abstract class Component extends HTMLElement {
   _tagName = '';
@@ -10,11 +11,16 @@ abstract class Component extends HTMLElement {
   connectedCallback() {
     this.style.display = 'block';
     this.mount();
+    this.setEvent();
     this.subscribe();
   }
 
   mount() {
     this.innerHTML = this.template();
+  }
+
+  setEvent() {
+    return;
   }
 
   render() {
@@ -37,12 +43,12 @@ abstract class Component extends HTMLElement {
   addEvent(
     eventType: keyof HTMLElementEventMap,
     selector: string,
-    callback: (event: Event) => void
+    callback: (event: EventOnElement) => void
   ) {
     this.addEventListener(eventType, (event) => {
       const { target } = event;
       const isValidTarget = !!(target && target instanceof Element && target.closest(selector));
-      if (isValidTarget) callback(event);
+      if (isValidTarget) callback(event as EventOnElement);
     });
   }
 

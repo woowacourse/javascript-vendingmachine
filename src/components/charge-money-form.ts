@@ -1,8 +1,9 @@
 import Component from '../abstract/component';
 import { ACTION } from '../constants';
-import { customElement, event } from '../decorators/decortators';
+import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
+import { EventOnElement } from '../types';
 import { consoleErrorWithConditionalAlert, toInt } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateChargeCoins } from '../validation/validators';
@@ -22,8 +23,11 @@ class ChargeMoneyForm extends Component {
     `;
   }
 
-  @event('click', 'button')
-  onClickChargeBtn({ target }: { target: HTMLElement }) {
+  setEvent() {
+    this.addEvent('click', 'button', this.onClickChargeBtn);
+  }
+
+  onClickChargeBtn = ({ target }: EventOnElement) => {
     const $input = target.previousElementSibling as HTMLInputElement;
     const money: string = $input.value;
     try {
@@ -33,7 +37,7 @@ class ChargeMoneyForm extends Component {
       $input.focus();
       $input.value = '';
     }
-  }
+  };
 
   chargeCoins(money: string) {
     const { chargedMoney } = Store.instance.getState();

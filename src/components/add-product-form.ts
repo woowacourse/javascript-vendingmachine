@@ -24,8 +24,11 @@ class AddProductForm extends Component {
     `;
   }
 
-  @event('click', 'button')
-  onClickAddProductBtn() {
+  setEvent() {
+    this.addEvent('click', 'button', this.onClickAddProductBtn);
+  }
+
+  onClickAddProductBtn = () => {
     const nameInput = this.querySelector('input[name="product-name"]') as HTMLInputElement;
     const priceInput = this.querySelector('input[name="product-price"]') as HTMLInputElement;
     const quantityInput = this.querySelector('input[name="product-quantity"]') as HTMLInputElement;
@@ -37,7 +40,7 @@ class AddProductForm extends Component {
     } catch (e: any) {
       consoleErrorWithConditionalAlert(e);
     }
-  }
+  };
 
   addProduct(productItem: RawProductItem) {
     const { productList } = Store.instance.getState();
