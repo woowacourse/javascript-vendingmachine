@@ -8,13 +8,6 @@ import { consoleErrorWithConditionalAlert } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
-type EditParams = {
-  target: HTMLElement;
-  $name: Element;
-  $price: Element;
-  $quantity: Element;
-};
-
 @customElement('product-inventory')
 class ProductInventory extends Component {
   productItemTemplate({ name, price, quantity, isEditing }: ProductItem) {
