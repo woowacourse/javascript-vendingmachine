@@ -13,9 +13,11 @@ class VendingMachine {
   private products: Array<Product>;
   private changes: Coin;
   private totalMoney: number;
+  private availableCoinTypeList: Array<number>;
 
   constructor() {
     this.products = [];
+    this.availableCoinTypeList = [500, 100, 50, 10];
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.totalMoney = 0;
   }
@@ -87,7 +89,7 @@ class VendingMachine {
   }
 
   private getChangeCoin(money: number) {
-    const coins = [500, 100, 50, 10].filter(coin => coin <= money);
+    const coins = this.availableCoinTypeList.filter(coin => coin <= money);
     const index = getRandomInt(coins.length);
     return coins[index];
   }
