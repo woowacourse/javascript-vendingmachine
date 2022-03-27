@@ -1,10 +1,7 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
-import AddProductComponent from '../components/AddProductComponent';
-import ProductListComponent from '../components/ProductListComponent';
-import ProductItemComponent from '../components/ProductItemComponent';
-import ModifyProductComponent from '../components/ModifyProductComponent';
 import { REMOVE_CONFIRM_MESSAGE } from '../constants';
+import template from '../template/index';
 
 export default class ProductManage {
   $inputSection: HTMLElement;
@@ -18,8 +15,8 @@ export default class ProductManage {
   }
 
   render() {
-    this.$inputSection.insertAdjacentHTML('beforeend', AddProductComponent());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', ProductListComponent());
+    this.$inputSection.insertAdjacentHTML('beforeend', template.productManageContainer());
+    this.$contentsContainer.insertAdjacentHTML('beforeend', template.productListContainer());
 
     this.$productAddForm = this.$inputSection.querySelector('#product-add-form');
     this.$productList = this.$contentsContainer.querySelector('#product-list');
@@ -64,7 +61,7 @@ export default class ProductManage {
       price: parseInt((<HTMLElement>oldLi.querySelector('.product-price')).textContent),
       amount: parseInt((<HTMLElement>oldLi.querySelector('.product-amount')).textContent),
     };
-    const newLi = this.replaceList(product, ModifyProductComponent);
+    const newLi = this.replaceList(product, template.modifyProductItem);
 
     ul.replaceChild(newLi, oldLi);
   };
@@ -87,7 +84,7 @@ export default class ProductManage {
     try {
       vendingMachine.modifyProduct(prevName, product);
 
-      const newLi = this.replaceList(product, ProductItemComponent);
+      const newLi = this.replaceList(product, template.productItem);
       ul.replaceChild(newLi, oldLi);
     } catch (message) {
       alert(message);
@@ -132,7 +129,7 @@ export default class ProductManage {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
-    li.insertAdjacentHTML('beforeend', ProductItemComponent(product));
+    li.insertAdjacentHTML('beforeend', template.productItem(product));
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }

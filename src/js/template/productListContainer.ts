@@ -1,4 +1,4 @@
-const ProductListComponent = () => {
+const productListContainer = () => {
   return `
   <section id="product-list-container">
     <div id="product-list-wrapper">
@@ -15,4 +15,4 @@ const ProductListComponent = () => {
   </section>`;
 };
 
-export default ProductListComponent;
+export default productListContainer;

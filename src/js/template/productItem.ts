@@ -1,6 +1,6 @@
 import { Product } from '../interfaces/VendingMachine.interface';
 
-const ProductItemComponent = (product: Product) => {
+const productItem = (product: Product) => {
   const { name, price, amount } = product;
   return `
     <span class="product-name">${name}</span>
@@ -17,4 +17,4 @@ const ProductItemComponent = (product: Product) => {
   `;
 };
 
-export default ProductItemComponent;
+export default productItem;

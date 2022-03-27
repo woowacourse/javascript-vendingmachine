@@ -1,6 +1,5 @@
 import vendingMachine from '../model/VendingMachine';
-import AddChangeComponent from '../components/AddChangeComponent';
-import ChangeListComponent from '../components/ChangeListComponent';
+import template from '../template';
 
 export default class ChangeAdd {
   $inputSection: HTMLElement;
@@ -19,8 +18,8 @@ export default class ChangeAdd {
   }
 
   render() {
-    this.$inputSection.insertAdjacentHTML('beforeend', AddChangeComponent());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', ChangeListComponent());
+    this.$inputSection.insertAdjacentHTML('beforeend', template.changeAddContainer());
+    this.$contentsContainer.insertAdjacentHTML('beforeend', template.changeListWrapper());
 
     this.$changeAddForm = this.$inputSection.querySelector('#change-add-form');
     this.$totalChange = this.$inputSection.querySelector('#total-change');

@@ -1,4 +1,4 @@
-const AddProductComponent = () => {
+const productManageContainer = () => {
   return `
   <div id="product-manage-container">
     <p>추가할 상품 정보를 입력해주세요.</p>
@@ -26,4 +26,4 @@ const AddProductComponent = () => {
   </div>`;
 };
 
-export default AddProductComponent;
+export default productManageContainer;

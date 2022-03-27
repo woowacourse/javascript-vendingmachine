@@ -1,4 +1,4 @@
-const ChangeListComponent = () => {
+const changeListWrapper = () => {
   return `
   <div id="change-list-wrapper">
     <h4>자판기가 보유한 동전</h4>
@@ -27,4 +27,4 @@ const ChangeListComponent = () => {
   </div>`;
 };
 
-export default ChangeListComponent;
+export default changeListWrapper;
