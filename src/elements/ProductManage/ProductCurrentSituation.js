@@ -32,9 +32,7 @@ class ProductCurrentSituation extends CustomElement {
   }
 
   // eslint-disable-next-line max-lines-per-function
-  rerender(newProduct) {
-    const { type, detail } = newProduct;
-
+  rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
         $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
