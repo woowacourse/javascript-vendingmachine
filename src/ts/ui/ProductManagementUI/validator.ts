@@ -5,7 +5,7 @@ import {
   PRICE_RULE,
 } from '../../constants';
 import { isInvalidNumber } from '../../utils/validator';
-import ProductImpl from '../../domain/Product';
+import Product from '../../domain/Product';
 import { ProductInfo, ProductInfoUnionType } from '../../domain/types';
 
 const findEmptyField = (
@@ -23,7 +23,7 @@ const findEmptyField = (
 };
 
 const hasSameProduct = (
-  products: ProductImpl[],
+  products: Product[],
   newProduct: ProductInfo,
   prevProductName: string | null = null,
 ) =>
@@ -44,7 +44,7 @@ interface Validator {
 }
 
 const generateProductInfoValidators = (
-  products: ProductImpl[],
+  products: Product[],
   newProduct: ProductInfo,
   prevProductName: string | null = null,
 ): Validator[] => [
@@ -76,7 +76,7 @@ const generateProductInfoValidators = (
 ];
 
 const validateProductInfo = (
-  products: ProductImpl[],
+  products: Product[],
   newProduct: ProductInfo,
   prevProductName: string | null = null,
 ) => {

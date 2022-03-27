@@ -1,14 +1,14 @@
-import ProductImpl from './Product';
+import Product from './Product';
 import { ProductInfo } from './types';
 
-interface ProductManagement {
+interface ProductManagementProps {
   addProduct: (newProduct: ProductInfo) => void;
   deleteProduct: (productName: string) => void;
   editProduct: (prevProductName: string, newProduct: ProductInfo) => void;
 }
 
-export default class ProductManagementDomain implements ProductManagement {
-  #products: ProductImpl[];
+export default class ProductManagementDomain implements ProductManagementProps {
+  #products: Product[];
 
   constructor() {
     this.#products = [];
@@ -19,7 +19,7 @@ export default class ProductManagementDomain implements ProductManagement {
   }
 
   addProduct(newProduct: ProductInfo) {
-    this.#products.push(new ProductImpl(newProduct));
+    this.#products.push(new Product(newProduct));
   }
 
   deleteProduct(productName: string) {

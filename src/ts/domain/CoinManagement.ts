@@ -4,19 +4,21 @@ import { getRandomIndex } from '../utils';
 type CoinUnionType = typeof coinType[number];
 type Coins = { [K in CoinUnionType]: number } | {};
 
-interface CoinManagement {
+interface CoinManagementProps {
   addCash: (cash: number) => void;
   addCoins: (cash: number) => void;
 }
 
-export default class CoinManagementDomain implements CoinManagement {
+export default class CoinManagementDomain implements CoinManagementProps {
   #totalCash: number;
   #coins: Coins;
 
   constructor() {
     this.#totalCash = 0;
     this.#coins = {};
-    coinType.forEach(type => (this.#coins[type] = 0));
+    coinType.forEach(type => {
+      this.#coins[type] = 0;
+    });
   }
 
   get totalCash() {

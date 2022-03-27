@@ -4,7 +4,7 @@ import {
   MESSAGE,
   PRICE_RULE,
 } from '../constants';
-import ProductImpl from '../domain/Product';
+import Product from '../domain/Product';
 import { validateProductInfo } from '../ui/ProductManagementUI/validator';
 
 describe('validate 테스트', () => {
@@ -13,7 +13,7 @@ describe('validate 테스트', () => {
     price: PRICE_RULE.MIN,
     quantity: MAX_QUANTITY,
   };
-  const products = [new ProductImpl(product)];
+  const products = [new Product(product)];
 
   it('상품 추가/수정 시, 빈 값이 있으면 에러를 발생시킨다.', () => {
     const newProduct1 = {
