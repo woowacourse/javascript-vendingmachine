@@ -1,6 +1,9 @@
 # Dependency directories
 node_modules/
 
+# webpack build
+dist/
+
 # mac os metadata
 .DS_Store
 
