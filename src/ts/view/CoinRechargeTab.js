@@ -60,10 +60,10 @@ class CoinRechargeTab extends VendingMachineTab {
     );
   };
 
-  #renderChargedCoinState(totalCoinAmount, currentCoinColelction) {
+  #renderChargedCoinState(totalCoinAmount, currentCoinCollection) {
     this.chargedAmountText.textContent = totalCoinAmount;
     this.coinCountList.forEach((coinCount) => {
-      coinCount.textContent = `${currentCoinColelction[coinCount.dataset.coinValue]}개`;
+      coinCount.textContent = `${currentCoinCollection[coinCount.dataset.coinValue]}개`;
     });
   }
 }
