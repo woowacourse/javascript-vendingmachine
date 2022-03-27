@@ -30,9 +30,6 @@ const router = () => {
         break;
       case '#!/change-add':
         changeAdd.render();
-        break;
-      default:
-        break;
     }
   };
 };
