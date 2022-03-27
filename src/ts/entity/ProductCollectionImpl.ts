@@ -11,8 +11,8 @@ export default class ProductCollectionImpl implements ProductCollection {
     this.products.push(product);
   }
 
-  modify(product: Product) {
-    this.products[this.getIndex(product.name)] = product;
+  modify(product: Product, originProductName: string) {
+    this.products[this.getIndex(originProductName)] = product;
   } 
 
   delete(name: string) {

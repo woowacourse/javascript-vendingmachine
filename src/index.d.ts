@@ -32,7 +32,7 @@ export interface ProductCollection {
   readonly products: Array<Product>;
 
   add(product: Product): void;
-  modify(product: Product): void;
+  modify(product: Product, originProductName: string): void;
   delete(name: string): void;
   getIndex(name: string): number;
 }
