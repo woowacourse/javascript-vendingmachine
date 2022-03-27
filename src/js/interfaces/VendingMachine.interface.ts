@@ -11,4 +11,4 @@ interface Product {
   price: number;
 }
 
-export { Coin, Product };
+export type { Coin, Product };
