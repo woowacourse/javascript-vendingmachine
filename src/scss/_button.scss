@@ -14,10 +14,6 @@
   letter-spacing: 0.5px;
 }
 
-.btn.active {
-  background-color: $color-cyan-700;
-}
-
 .btn.sm {
   width: 100px;
   height: 32px;
@@ -54,6 +50,10 @@
   color: $color-primary;
   background-color: white;
   border: 1px solid $color-primary;
+}
+
+.btn.active {
+  background-color: $color-cyan-700 !important;
 }
 
 .btn:disabled {
