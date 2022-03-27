@@ -1,4 +1,5 @@
 import { Product, VendingMachine } from '../../index.d';
+import { PRODUCT_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
 describe('상품 추가', () => {
@@ -12,17 +13,17 @@ describe('상품 추가', () => {
     const product: Product = { name: '', price: 1000, quantity: 10 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품명을 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   });
 
-  it('상품명이 11글자일 때, 상품이 추가되면 안된다.', () => {
-    const product: Product = { name: '아메리카노좋아좋아좋아', price: 1000, quantity: 10 };
+  it(`상품명이 ${PRODUCT_RULES.MAX_NAME_LENGTH + 1}글자일 때, 상품이 추가되면 안된다.`, () => {
+    const product: Product = { name: '아'.repeat(PRODUCT_RULES.MAX_NAME_LENGTH + 1), price: 1000, quantity: 10 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품명은 1이상 10이하로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_NAME);
   });
 
-  it('상품명이 1글자일 때, 상품이 추가된다.', () => {
+  it(`상품명이 ${PRODUCT_RULES.MIN_NAME_LENGTH}글자일 때, 상품이 추가된다.`, () => {
     const product: Product = { name: '얍', price: 1000, quantity: 10 };
 
     vendingMachine.addProduct(product);
@@ -30,8 +31,8 @@ describe('상품 추가', () => {
     expect(vendingMachine.productCollection.products[0]).toEqual(product);
   });
 
-  it('상품명이 10글자일 때, 상품이 추가된다.', () => {
-    const product: Product = { name: '얍'.repeat(10), price: 1000, quantity: 10 };
+  it(`상품명이 ${PRODUCT_RULES.MAX_NAME_LENGTH}글자일 때, 상품이 추가된다.`, () => {
+    const product: Product = { name: '얍'.repeat(PRODUCT_RULES.MAX_NAME_LENGTH), price: 1000, quantity: 10 };
 
     vendingMachine.addProduct(product);
 
@@ -44,70 +45,70 @@ describe('상품 추가', () => {
 
     vendingMachine.addProduct(product);
 
-    expect(test).toThrow('이미 존재하는 상품입니다!');
+    expect(test).toThrow(ERROR_MESSAGE.OVERLAP_PRODUCT);
   });
 
-  it('상품 가격이 90원일 때, 상품이 추가되면 안된다.', () => {
-    const product: Product = { name: '아메리카노', price: 90, quantity: 10 };
+  it(`상품 가격이 ${PRODUCT_RULES.MIN_PRICE - PRODUCT_RULES.PRICE_MOD_UNIT}원일 때, 상품이 추가되면 안된다.`, () => {
+    const product: Product = { name: '아메리카노', price: PRODUCT_RULES.MIN_PRICE - PRODUCT_RULES.PRICE_MOD_UNIT, quantity: 10 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품 가격은 100이상 10000이하로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_PRICE);
   });
 
-  it('상품 가격이 10010원일 때, 상품이 추가되면 안된다.', () => {
-    const product: Product = { name: '아메리카노', price: 10010, quantity: 10 };
+  it(`상품 가격이 ${PRODUCT_RULES.MAX_PRICE + PRODUCT_RULES.PRICE_MOD_UNIT}원일 때, 상품이 추가되면 안된다.`, () => {
+    const product: Product = { name: '아메리카노', price: PRODUCT_RULES.MAX_PRICE + PRODUCT_RULES.PRICE_MOD_UNIT, quantity: 10 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품 가격은 100이상 10000이하로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_PRICE);
   });
 
-  it('상품 가격이 100원일 때, 상품이 추가된다.', () => {
-    const product: Product = { name: '아메리카노', price: 100, quantity: 10 };
+  it(`상품 가격이 ${PRODUCT_RULES.MIN_PRICE}원일 때, 상품이 추가된다.`, () => {
+    const product: Product = { name: '아메리카노', price: PRODUCT_RULES.MIN_PRICE, quantity: 10 };
 
     vendingMachine.addProduct(product)
 
     expect(vendingMachine.productCollection.products[0]).toEqual(product);
   });
 
-  it('상품 가격이 10000원일 때, 상품이 추가된다.', () => {
-    const product: Product = { name: '아메리카노', price: 10000, quantity: 10 };
+  it(`상품 가격이 ${PRODUCT_RULES.MAX_PRICE}원일 때, 상품이 추가된다.`, () => {
+    const product: Product = { name: '아메리카노', price: PRODUCT_RULES.MAX_PRICE, quantity: 10 };
 
     vendingMachine.addProduct(product)
 
     expect(vendingMachine.productCollection.products[0]).toEqual(product);
   });
 
-  it('상품 가격이 10으로 나누어 떨어지지 않을 때, 상품이 추가되면 안된다.', () => {
-    const product: Product = { name: '아메리카노', price: 1009, quantity: 10 };
+  it(`상품 가격이 ${PRODUCT_RULES.PRICE_MOD_UNIT}으로 나누어 떨어지지 않을 때, 상품이 추가되면 안된다.`, () => {
+    const product: Product = { name: '아메리카노', price: PRODUCT_RULES.MIN_PRICE + PRODUCT_RULES.PRICE_MOD_UNIT - 1, quantity: 10 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품 가격은 10의 배수로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.INDIVISIBLE_PRICE_MOD_UNIT);
   });
 
-  it('상품 수량이 0개일 때, 상품이 추가되면 안된다.', () => {
-    const product = { name: '아메리카노', price: 4300, quantity: 0 };
+  it(`상품 수량이 ${PRODUCT_RULES.MIN_QUANTITY - 1}개일 때, 상품이 추가되면 안된다.`, () => {
+    const product = { name: '아메리카노', price: 4300, quantity: PRODUCT_RULES.MIN_QUANTITY - 1 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품 수량은 1이상 20이하로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_QUANTITY);
   });
 
-  it('상품 수량이 21개일 때, 상품이 추가되면 안된다.', () => {
-    const product = { name: '아메리카노', price: 4300, quantity: 21 };
+  it(`상품 수량이 ${PRODUCT_RULES.MAX_QUANTITY + 1}개일 때, 상품이 추가되면 안된다.`, () => {
+    const product = { name: '아메리카노', price: 4300, quantity: PRODUCT_RULES.MAX_QUANTITY + 1 };
     const test = () => vendingMachine.addProduct(product);
 
-    expect(test).toThrow('상품 수량은 1이상 20이하로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_QUANTITY);
   });
 
-  it('상품 수량이 1개일 때, 상품이 추가된다.', () => {
-    const product: Product = { name: '아메리카노', price: 2000, quantity: 1 };
+  it(`상품 수량이 ${PRODUCT_RULES.MIN_QUANTITY}개일 때, 상품이 추가된다.`, () => {
+    const product: Product = { name: '아메리카노', price: 2000, quantity: PRODUCT_RULES.MIN_QUANTITY };
 
     vendingMachine.addProduct(product)
 
     expect(vendingMachine.productCollection.products[0]).toEqual(product);
   });
 
-  it('상품 수량이 20개일 때, 상품이 추가된다.', () => {
-    const product: Product = { name: '아메리카노', price: 2000, quantity: 20 };
+  it(`상품 수량이 ${PRODUCT_RULES.MAX_QUANTITY}개일 때, 상품이 추가된다.`, () => {
+    const product: Product = { name: '아메리카노', price: 2000, quantity: PRODUCT_RULES.MAX_QUANTITY };
 
     vendingMachine.addProduct(product)
 
