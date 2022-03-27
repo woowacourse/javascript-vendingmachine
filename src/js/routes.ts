@@ -15,11 +15,10 @@ const router = () => {
   let prevPath = '';
 
   return () => {
-    const hash = window.location.hash;
+    const { hash } = window.location;
+    const isSamePage = prevPath === hash;
 
-    if (prevPath === hash) {
-      return;
-    }
+    if (isSamePage) return;
 
     prevPath = hash;
     clearPurchaseBody();
