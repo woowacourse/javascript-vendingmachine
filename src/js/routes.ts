@@ -1,14 +1,14 @@
-import ChangeAdd from './pages/ChangeAdd';
+import AddChange from './pages/AddChange';
 import ProductManage from './pages/ProductManage';
 
 class router {
   prevPath: string;
   productManage: ProductManage;
-  changeAdd: ChangeAdd;
+  addChange: AddChange;
 
   constructor() {
     this.productManage = new ProductManage();
-    this.changeAdd = new ChangeAdd();
+    this.addChange = new AddChange();
     this.prevPath = null;
   }
 
@@ -35,7 +35,7 @@ class router {
         break;
       case '#!/change-add':
         history.pushState({}, '잔돈 충전하기', window.location.pathname + hash);
-        this.changeAdd.render();
+        this.addChange.render();
         break;
       default:
         break;
