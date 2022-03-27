@@ -51,4 +51,5 @@ export interface VendingMachine {
   addProduct(product: Product): void;
   modifyProduct(product: Product, originProductName: string): void;
   deleteProduct(name: string): void;
+  chargeMoney(inputMoney: number): void;
 }

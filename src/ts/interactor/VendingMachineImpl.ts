@@ -27,4 +27,8 @@ export default class VendingMachineImpl implements VendingMachine {
     if (this.productCollection.getIndex(name) === -1) throw new Error(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
     this.productCollection.delete(name);
   }
+
+  chargeMoney(inputMoney: number): void {
+    
+  }
 }
