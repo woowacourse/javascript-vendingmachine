@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE, RULES } from '../constants';
 import { Product, Coin } from '../interfaces/VendingMachine.interface';
+import { getRandomInt } from '../utils/utils';
 import {
   isValidProductPrice,
   isValidProductAmount,
@@ -61,7 +62,7 @@ class VendingMachine {
     this.makeChangesToCoin(money);
   }
 
-  makeChangesToCoin(money: number) {
+  private makeChangesToCoin(money: number) {
     const coin = this.getChangeCoin(money);
     money -= coin;
 
@@ -85,17 +86,13 @@ class VendingMachine {
     }
   }
 
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
-
-  getChangeCoin(money: number) {
+  private getChangeCoin(money: number) {
     const coins = [500, 100, 50, 10].filter(coin => coin <= money);
-    const index = this.getRandomInt(coins.length);
+    const index = getRandomInt(coins.length);
     return coins[index];
   }
 
-  checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
+  private checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
     const productIndex = this.findProductIndex(product.name);
     const isExist = productIndex >= 0;
     const isAddWithDuplicatedName = isExist && originalIndex === RULES.NOT_EXIST_INDEX;
@@ -118,7 +115,7 @@ class VendingMachine {
     }
   }
 
-  checkInputChangesValidate(money: number) {
+  private checkInputChangesValidate(money: number) {
     if (!isPositiveInteger(money)) {
       throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
     }

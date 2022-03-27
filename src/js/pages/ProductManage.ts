@@ -23,7 +23,7 @@ export default class ProductManage {
     this.stateChange();
   }
 
-  stateChange = (state: string = '', product: Product = null) => {
+  private stateChange = (state: string = '', product: Product = null) => {
     if (state === 'add') {
       this.ProductListComponent.addProductItem(product);
       return;

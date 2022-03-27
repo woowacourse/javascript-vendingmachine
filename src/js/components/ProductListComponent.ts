@@ -16,13 +16,13 @@ class ProductListComponent {
     this.ModifyProductComponent = new ModifyProductComponent(parentElement);
   }
 
-  bindEvent = () => {
+  private bindEvent = () => {
     this.$productList = this.parentElement.querySelector('#product-list');
     this.$productList.addEventListener('click', this.onClickModifyButton);
     this.$productList.addEventListener('click', this.onClickRemoveButton);
   };
 
-  onClickModifyButton = (e: PointerEvent) => {
+  private onClickModifyButton = (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-modify-button') {
       return;
     }
@@ -39,7 +39,7 @@ class ProductListComponent {
     this.ModifyProductComponent.bindEvent();
   };
 
-  onClickRemoveButton = (e: PointerEvent) => {
+  private onClickRemoveButton = (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-remove-button') {
       return;
     }
@@ -55,7 +55,7 @@ class ProductListComponent {
     parentList.remove();
   };
 
-  replaceList = (product: Product, component: Function) => {
+  private replaceList = (product: Product, component: Function) => {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
@@ -87,7 +87,7 @@ class ProductListComponent {
     this.bindEvent();
   };
 
-  template = () => `
+  private template = () => `
   <section id="product-list-container">
     <div id="product-list-wrapper">
       <h4>상품 현황</h4>

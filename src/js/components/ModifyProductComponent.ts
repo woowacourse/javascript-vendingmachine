@@ -18,7 +18,7 @@ class ModifyProductComponent {
     this.$productList.addEventListener('click', this.onSubmitModifyCompleteButton);
   };
 
-  onSubmitModifyCompleteButton = (e: PointerEvent) => {
+  private onSubmitModifyCompleteButton = (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-modify-submit-button') {
       return;
     }
@@ -41,7 +41,7 @@ class ModifyProductComponent {
     }
   };
 
-  replaceList = (product: Product, component: Function) => {
+  private replaceList = (product: Product, component: Function) => {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
@@ -58,7 +58,7 @@ class ModifyProductComponent {
     return this.template();
   };
 
-  template = () => `
+  private template = () => `
     <span>
       <input
       type="text"

@@ -21,7 +21,7 @@ export default class ChangeAdd {
     this.ChangeListComponent.refreshChange();
   };
 
-  stateChange = () => {
+  private stateChange = () => {
     this.ChangeListComponent.refreshChange();
     this.AddChangeComponent.refreshChange();
   };

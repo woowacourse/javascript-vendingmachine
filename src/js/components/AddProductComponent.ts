@@ -12,14 +12,14 @@ class AddProductComponent {
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  bindEventAndElement = () => {
+  private bindEventAndElement = () => {
     this.$productAddForm = this.parentElement.querySelector('#product-add-form');
     this.$productList = this.parentElement.querySelector('#product-list');
 
     this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
   };
 
-  onSubmitNewProduct = (e: SubmitEvent) => {
+  private onSubmitNewProduct = (e: SubmitEvent) => {
     e.preventDefault();
 
     const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
@@ -47,7 +47,7 @@ class AddProductComponent {
     this.bindEventAndElement();
   };
 
-  template = () => `
+  private template = () => `
   <div id="product-manage-container">
     <p>추가할 상품 정보를 입력해주세요.</p>
     <form id="product-add-form">

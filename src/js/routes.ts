@@ -42,7 +42,7 @@ class router {
     }
   }
 
-  clear() {
+  private clear() {
     const $inputSection = document.querySelector('.input-section');
     const $contentsContainer = document.querySelector('.contents-container');
 

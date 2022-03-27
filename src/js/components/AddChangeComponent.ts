@@ -11,13 +11,13 @@ class AddChangeComponent {
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  bindEventAndElement() {
+  private bindEventAndElement = () => {
     this.$totalChange = document.querySelector('#total-change');
     this.$changeAddForm = document.querySelector('#change-add-form');
     this.$changeAddForm.addEventListener('submit', this.onSubmitChangeAdd);
-  }
+  };
 
-  onSubmitChangeAdd = (e: SubmitEvent) => {
+  private onSubmitChangeAdd = (e: SubmitEvent) => {
     e.preventDefault();
     const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
 
@@ -38,7 +38,7 @@ class AddChangeComponent {
     this.bindEventAndElement();
   };
 
-  template = () => `
+  private template = () => `
   <div id="change-add-container">
       <p>자판기가 보유할 금액을 입력해주세요</p>
       <form id="change-add-form">

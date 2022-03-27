@@ -13,7 +13,7 @@ class ChangeListComponent {
     this.parentElement = parentElement;
   }
 
-  bindElement = () => {
+  private bindElement = () => {
     this.$changeList = document.querySelector('#change-list');
     this.$amountCoin500 = document.querySelector('#amount-coin-500');
     this.$amountCoin100 = document.querySelector('#amount-coin-100');
@@ -35,7 +35,7 @@ class ChangeListComponent {
     this.bindElement();
   };
 
-  template = () => `
+  private template = () => `
   <div id="change-list-wrapper">
     <h4>자판기가 보유한 동전</h4>
     <ul id="change-list">
