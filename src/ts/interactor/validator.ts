@@ -15,6 +15,12 @@ const validator = {
     
     if (products.some(({ name }) => name === product.name)) throw new Error(ERROR_MESSAGE.OVERLAP_PRODUCT);
   },
+  
+  checkModifiedProduct(product: Product, products: Array<Product>, originProductIndex: number) {
+    checkProduct(product);
+
+    if (products.some(({ name }, index) => index !== originProductIndex && name === product.name)) throw new Error(ERROR_MESSAGE.OVERLAP_PRODUCT);
+  }
 };
 
 export default validator;

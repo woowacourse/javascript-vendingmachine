@@ -18,7 +18,8 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   modifyProduct(product: Product, originProductName: string): void {
-    
+    validator.checkModifiedProduct(product, this.productCollection.products, this.productCollection.getIndex(originProductName));
+    this.productCollection.modify(product, originProductName);
   }
 
   deleteProduct(name: string): void {
