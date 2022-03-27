@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -50,7 +51,6 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://nan-noo.github.io/javascript-vendingmachine/",
   "dependencies": {
     "gh-pages": "^3.2.3"
   }
