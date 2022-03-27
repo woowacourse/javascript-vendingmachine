@@ -1,5 +1,6 @@
 import { coinType } from '../constants';
 import { getRandomIndex } from '../utils';
+import { validateCash } from './validator';
 
 type CoinUnionType = typeof coinType[number];
 type Coins = { [K in CoinUnionType]: number } | {};
@@ -44,5 +45,9 @@ export default class CoinManagementDomain implements CoinManagementProps {
       this.#coins[type] += 1;
       cash -= type;
     }
+  }
+
+  validateCashInput(cash) {
+    validateCash(cash);
   }
 }

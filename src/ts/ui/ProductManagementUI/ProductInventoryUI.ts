@@ -1,6 +1,5 @@
 import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
-import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 
 export default class ProductInventoryUI {
@@ -145,8 +144,7 @@ export default class ProductInventoryUI {
     };
 
     try {
-      const { products } = this.productDomain;
-      validateProductInfo(products, product, prevProductName);
+      this.productDomain.validateProductInput(product, prevProductName);
     } catch ({ message }) {
       alert(message);
       return;

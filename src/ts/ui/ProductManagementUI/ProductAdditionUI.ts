@@ -1,5 +1,4 @@
 import { $ } from '../../utils/dom';
-import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 import { ProductInfoUnionType } from '../../domain/types';
 
@@ -35,8 +34,7 @@ export default class ProductAdditionUI {
     };
 
     try {
-      const { products } = this.productDomain;
-      validateProductInfo(products, product);
+      this.productDomain.validateProductInput(product);
     } catch ({ name, message }) {
       this.focusOnInvalidInput(name, $$inputs);
       alert(message);

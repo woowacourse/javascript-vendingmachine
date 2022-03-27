@@ -1,4 +1,5 @@
 import Product from './Product';
+import { validateProductInfo } from './validator';
 import { ProductInfo } from './types';
 
 interface ProductManagementProps {
@@ -34,5 +35,12 @@ export default class ProductManagementDomain implements ProductManagementProps {
         product.editProduct(newProduct);
       }
     });
+  }
+
+  validateProductInput(
+    product: ProductInfo,
+    prevProductName: string | null = null,
+  ) {
+    validateProductInfo(this.#products, product, prevProductName);
   }
 }

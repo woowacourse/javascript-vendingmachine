@@ -1,12 +1,13 @@
 import {
+  CASH_RULE,
   MAX_NAME_LENGTH,
   MAX_QUANTITY,
   MESSAGE,
   PRICE_RULE,
-} from '../../constants';
-import { isInvalidNumber } from '../../utils/validator';
-import Product from '../../domain/Product';
-import { ProductInfo, ProductInfoUnionType } from '../../domain/types';
+} from '../constants';
+import { isInvalidNumber } from '../utils/validator';
+import Product from '../domain/Product';
+import { ProductInfo, ProductInfoUnionType } from '../domain/types';
 
 const findEmptyField = (
   product: ProductInfo,
@@ -96,4 +97,11 @@ const validateProductInfo = (
   });
 };
 
-export { validateProductInfo };
+const validateCash = (cash: number) => {
+  if (isInvalidNumber(cash, CASH_RULE)) {
+    throw new Error(MESSAGE.ERROR_INVALID_CASH);
+  }
+  return true;
+};
+
+export { validateProductInfo, validateCash };

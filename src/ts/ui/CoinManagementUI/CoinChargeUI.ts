@@ -1,6 +1,5 @@
 import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
-import { validateCash } from './validator';
 
 export default class CoinChargeUI {
   private coinDomain;
@@ -22,7 +21,7 @@ export default class CoinChargeUI {
     const cash = cashInput.valueAsNumber;
 
     try {
-      validateCash(cash);
+      this.coinDomain.validateCashInput(cash);
     } catch ({ message }) {
       alert(message);
       return;
