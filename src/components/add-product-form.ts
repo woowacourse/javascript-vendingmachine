@@ -42,8 +42,11 @@ class AddProductForm extends Component {
   addProduct(productItem: RawProductItem) {
     const { productList } = Store.instance.getState();
     const errorList = validateProduct(productItem, productList).filter((result) => result.hasError);
-    if (errorList.length > 0 && errorList[0].hasError) throw new ValidationError(errorList[0].errorMessage);
+    if (errorList.length > 0 && errorList[0].hasError)
+      throw new ValidationError(errorList[0].errorMessage);
     Store.instance.dispatch(createAction(ACTION.ADD_PRODUCT, productItem));
+    [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
+    this.querySelector('input')?.focus();
   }
 
   shouldSubscribe(): boolean {
