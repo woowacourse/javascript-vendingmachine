@@ -66,10 +66,16 @@ export const checkProductValidation = ({ name, price, quantity }) => {
 
 export const checkProductAddValidation = (product) => {
   if (isAlreadyExistProduct(product.name)) {
-    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT);
+    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_ADD);
   }
 
   checkProductValidation(product);
+};
+
+export const checkDuplicateProductWhenModify = (product) => {
+  if (isAlreadyExistProduct(product.name)) {
+    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY);
+  }
 };
 
 export const checkCoinValidation = (coinInputValue) => {

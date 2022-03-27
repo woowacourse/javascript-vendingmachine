@@ -30,7 +30,9 @@ export const CONFIRM_MESSAGE = {
 export const ERROR_MESSAGE = {
   IS_BLANK_PRODUCT_NAME: '공백으로만 이루어진 상품명이 입력되었습니다! 상품명을 입력해 주세요!',
   IS_OVER_MAX_PRODUCT_NAME_LENGTH: `상품명이 최대 길이인 ${PRODUCT.NAME.MAX_LENGTH}자를 초과하여 입력되었습니다! ${PRODUCT.NAME.MAX_LENGTH}자 이내로 입력해 주세요!`,
-  IS_ALREADY_EXIST_PRODUCT: '이미 존재하는 상품입니다! 가격 또는 수량을 수정하고 싶으시다면 수정 버튼을 클릭해 주세요!',
+  IS_ALREADY_EXIST_PRODUCT_WHEN_ADD:
+    '이미 존재하는 상품입니다! 가격 또는 수량을 수정하고 싶으시다면 수정 버튼을 클릭해 주세요!',
+  IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY: '이미 존재하는 상품입니다! 다른 상품명을 입력해 주세요!',
 
   IS_NOT_INTEGER_PRICE: '가격에 정수가 입력되지 않았습니다! 정수를 입력해 주세요!',
   IS_UNDER_MIN_PRICE: `가격이 최소 가격인 ${PRODUCT.PRICE.MIN}원 미만으로 입력되었습니다! ${PRODUCT.PRICE.MIN}원 이상으로 입력해 주세요!`,

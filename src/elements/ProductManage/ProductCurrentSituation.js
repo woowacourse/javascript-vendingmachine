@@ -3,7 +3,7 @@ import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $, $$ } from '../../utils/dom';
-import { checkProductValidation } from '../../validators';
+import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
 import { CONFIRM_MESSAGE } from '../../constants';
 
 class ProductCurrentSituation extends CustomElement {
@@ -140,6 +140,10 @@ class ProductCurrentSituation extends CustomElement {
       price: $('.product-price-input', $tbodyRow).valueAsNumber,
       quantity: $('.product-quantity-input', $tbodyRow).valueAsNumber,
     };
+
+    if (oldProductName !== newProductInfo.name) {
+      checkDuplicateProductWhenModify(newProductInfo);
+    }
 
     checkProductValidation(newProductInfo);
 
