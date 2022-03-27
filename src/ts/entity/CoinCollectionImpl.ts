@@ -1,4 +1,5 @@
 import { CoinCollection, Coin } from '../../index.d';
+import { generateRandomInRange } from '../util';
 
 export default class CoinCollectionImpl implements CoinCollection {
   public readonly coins: Array<Coin>;
@@ -13,7 +14,13 @@ export default class CoinCollectionImpl implements CoinCollection {
   }
 
   generateCoins(inputMoney: number): void {
-    
+    while (inputMoney > 0) {
+      const pickLength = this.coins.filter(({ amount }) => inputMoney >= amount).length - 1;
+      const coinIndex = generateRandomInRange(0, pickLength);
+
+      this.coins[coinIndex].count += 1;
+      inputMoney -= this.coins[coinIndex].amount;
+    }
   }
 
   calculateTotalAmount(): number {
