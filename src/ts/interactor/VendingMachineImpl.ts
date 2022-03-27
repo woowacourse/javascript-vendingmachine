@@ -17,7 +17,7 @@ export default class VendingMachineImpl implements VendingMachine {
     this.productCollection.add(product);
   }
 
-  modifyProduct(product: Product): void {
+  modifyProduct(product: Product, originProductName: string): void {
     
   }
 

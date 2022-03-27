@@ -49,6 +49,6 @@ export interface VendingMachine {
   readonly coinCollection: CoinCollection;
 
   addProduct(product: Product): void;
-  modifyProduct(product: Product): void;
+  modifyProduct(product: Product, originProductName: string): void;
   deleteProduct(name: string): void;
 }
