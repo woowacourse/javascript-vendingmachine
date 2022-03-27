@@ -1,6 +1,8 @@
+import { ERROR_MSG } from '../../src/utils/constants';
+
 describe('상품 관리를 할 수 있다', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
   });
 
   it('상품을 추가할 수 있다', () => {
@@ -52,7 +54,7 @@ describe('상품 관리를 할 수 있다', () => {
     cy.on('window:alert', alertStub);
 
     cy.addProduct(productName, productPrice, productQuantity).then(() => {
-      expect(alertStub).to.be.called;
+      expect(alertStub).to.be.calledWith(ERROR_MSG.NAME_OVER_LIMIT_LENGTH);
     });
   });
 });

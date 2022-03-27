@@ -1,6 +1,8 @@
+import { ERROR_MSG } from '../../src/utils/constants';
+
 describe('잔돈을 충전할 수 있다.', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
     cy.get('#recharge-change-tab').click();
   });
 
@@ -22,7 +24,7 @@ describe('잔돈을 충전할 수 있다.', () => {
     const alertStub = cy.stub();
     cy.on('window:alert', alertStub);
     cy.rechargeChange(changeInput).then(() => {
-      expect(alertStub).to.be.called;
+      expect(alertStub).to.be.calledWith(ERROR_MSG.CHANGE_OUT_OF_RANGE);
     });
   });
 });
