@@ -8,6 +8,6 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
-  testMatch: ['<rootDir>/**/*.test.(js|ts)'],
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  testMatch: ['<rootDir>/src/__test__/**/*.test.(js|ts)'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/cypress/'],
 };
