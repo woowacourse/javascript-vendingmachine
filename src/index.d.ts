@@ -27,3 +27,28 @@ export interface ProductManageView extends View {
   modifyProduct(e: Event): void;
   deleteProduct(e: Event): void;
 }
+
+export interface ProductCollection {
+  products: Array<Product>;
+
+  add(product: Product): void;
+  modify(product: Product): void;
+  delete(name: string): void;
+  getIndex(name: string): number;
+}
+
+export interface CoinCollection {
+  coins: Array<Coin>;
+
+  generateCoins(inputMoney: number): void;
+  calculateTotalAmount(): number;
+}
+
+export interface VendingMachine {
+  productCollection: ProductCollection;
+  coinCollection: CoinCollection;
+
+  addProduct(product: Product): void;
+  modifyProduct(product: Product): void;
+  deleteProduct(name: string): void;
+}
