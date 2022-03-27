@@ -1,6 +1,7 @@
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
 import vendingMachineStore from '../../stores/vendingMachineStore';
 import { checkProductInput } from '../../utils/validation';
+import { showSnackBar } from '../../utils/showSnackBar';
 
 class ProductTableComponent {
   constructor($parent, { tableId, tableCaption }) {
@@ -182,6 +183,7 @@ class ProductTableComponent {
           stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
         this.showEditAndDeleteButton(parentElement, confirmButtonClassList);
+        showSnackBar(NOTICE_MENTION.EDIT_PRODUCT);
       }
     } catch ({ message }) {
       alert(message);
@@ -195,6 +197,7 @@ class ProductTableComponent {
         payload: { id: productId },
         stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
       });
+      showSnackBar(NOTICE_MENTION.DELETE_PRODUCT);
     }
   }
 

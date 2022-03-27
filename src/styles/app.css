@@ -64,3 +64,30 @@ a.tab-button:hover {
   visibility: none;
   opacity: 0;
 }
+
+.snack-bar {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+
+  visibility: hidden;
+  transform: translateX(-50%) translate3d(0, 100%, 0);
+
+  background-color: var(--snackbar-background-color);
+  border-style: none;
+  border-radius: 4px;
+
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  color: var(--snackbar-font-color);
+  font-size: 18px;
+}
+
+.snack-bar.is-active {
+  visibility: visible;
+  transform: translateX(-50%) translate3d(0, 0, 0);
+  transition: transform 300ms ease-in-out;
+}

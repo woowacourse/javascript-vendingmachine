@@ -1,5 +1,6 @@
 import vendingMachineStore from '../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { showSnackBar } from '../utils/showSnackBar';
 import { checkChangeInput } from '../utils/validation';
 import CoinTableComponent from './common/CoinTableComponent';
 
@@ -84,6 +85,7 @@ class RechargeChangeComponent {
           stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
         });
         this.clearInputForm();
+        showSnackBar(NOTICE_MENTION.RECHARGE_CHANGE);
       }
     } catch ({ message }) {
       alert(message);

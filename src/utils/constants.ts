@@ -1,6 +1,6 @@
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
 import { TAction, TStateKey } from '../stores/types';
-import { TRange } from './types';
+import { TMention, TRange } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
   coin500: 500,
@@ -63,3 +63,12 @@ export const ACTION_TYPES: {
   DELETE_PRODUCT: 'deleteProduct',
   RECHARGE_CHANGE: 'rechargeChange',
 };
+
+export const NOTICE_MENTION: TMention = {
+  ADD_PRODUCT: '상품이 추가되었습니다🛒',
+  EDIT_PRODUCT: '상품이 수정되었습니다🩹',
+  DELETE_PRODUCT: '상품이 삭제되었습니다🗑',
+  RECHARGE_CHANGE: '잔돈이 충전되었습니다💰',
+};
+
+export const SNACKBAR_DELAY_TIME = 1000;

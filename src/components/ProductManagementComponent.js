@@ -1,7 +1,8 @@
 import ProductTableComponent from './common/ProductTableComponent';
 import { checkProductInput } from '../utils/validation';
 import vendingMachineStore from '../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { showSnackBar } from '../utils/showSnackBar';
 class ProductManagementComponent {
   #currentProductListComponent;
   constructor($parent) {
@@ -82,7 +83,9 @@ class ProductManagementComponent {
           },
           stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
         });
+
         this.clearInputForm();
+        showSnackBar(NOTICE_MENTION.ADD_PRODUCT);
       }
     } catch ({ message }) {
       alert(message);
