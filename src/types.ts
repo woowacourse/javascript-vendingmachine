@@ -8,6 +8,8 @@ export type Action = {
 };
 
 export type AppState = {
+  chargedMoney: number;
+  chargedCoins: CoinRecord;
   productList: Array<ProductItem>;
 };
 
@@ -30,3 +32,7 @@ export type RawProductItem = Override<
     quantity: string;
   }
 >;
+
+export type Indexable = number | string;
+
+export type CoinRecord = { [key: number]: number };

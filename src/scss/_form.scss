@@ -17,6 +17,7 @@ fieldset {
 .form-control {
   display: block;
   width: 100%;
+  flex:1;
   padding: 8px 8px 4px;
   border: 1px solid $color-gray-800;
   border-radius: 4px;

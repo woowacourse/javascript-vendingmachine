@@ -33,7 +33,7 @@ class ProductInventory extends Component {
             ? `<input class="form-control" placeholder="수량" value="${quantity}"/>`
             : quantity
         }</td>
-        <td>
+        <td class="has-btn">
           <div class="btn-group">
             <button class="btn xs mr-2 ${
               isEditing ? 'btn-primary btn-confirm' : 'btn-secondary btn-edit'
@@ -50,7 +50,7 @@ class ProductInventory extends Component {
   template(productList: Array<ProductItem>): string {
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
     return `
-      <h2 class="text-center">상품 현황</h2>
+      <h2>상품 현황</h2>
       <table>
         <thead>
           <tr>

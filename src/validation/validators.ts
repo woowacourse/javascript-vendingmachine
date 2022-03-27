@@ -45,3 +45,13 @@ export const validateProduct = (
     validateProductQuantity(quantity),
   ];
 };
+
+export const validateChargeCoins = (money: string, chargedMoney: number) => {
+  if (!money) return new ValidationResult(true, '충전 금액을 입력해주세요.');
+  if (!isInteger(money)) return new ValidationResult(true, '충전 금액은 숫자이어야 합니다');
+  const moneyNum = toInt(money, 0);
+  if (moneyNum % 10) return new ValidationResult(true, '충전 금액은 10원 단위이어야 합니다');
+  if (100000 < moneyNum + chargedMoney)
+    return new ValidationResult(true, '잔돈으로 보유할 수 있는 최대 금액은 100,000원입니다.');
+  return new ValidationResult(false);
+};

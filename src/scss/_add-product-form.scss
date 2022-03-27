@@ -3,15 +3,6 @@
     padding: 0px 80px;
     margin: 0px 0px 48px 0px;
   }
-  add-product-form label {
-    display: block;
-    margin-bottom: 4px;
-
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-  }
 
   add-product-form input {
     width: 120px;
@@ -27,43 +18,15 @@
   product-inventory {
     padding: 0px 64px;
   }
-
-  product-inventory h2 {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0.15px;
-
-    margin: 0px 0px 16px 0px;
-  }
 }
 
-table {
-  width: 100%;
-  text-align: center;
+product-inventory table {
   @for $i from 1 through 3 {
     th:nth-child(#{$i}) {
       width: 20%;
     }
   }
-  border-top: 1px solid $color-gray-700;
   th:nth-child(4) {
     width: 40%;
-  }
-  th {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-  }
-  border-collapse: collapse;
-  thead th {
-    padding: 8px 0px;
-  }
-  tr {
-    border-bottom: 1px solid $color-gray-700;
-  }
-  td:last-of-type {
-    padding: 4px 0;
   }
 }
