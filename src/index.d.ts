@@ -15,11 +15,11 @@ export interface View {
 }
 
 export interface ProductManageView extends View {
-  $addProductForm: HTMLElement;
-  $productContainer: HTMLElement;
-  $additionalProductName: HTMLElement;
-  $additionalProductPrice: HTMLElement;
-  $additionalProductQuantity: HTMLElement;
+  readonly $addProductForm: HTMLElement;
+  readonly $productContainer: HTMLElement;
+  readonly $additionalProductName: HTMLElement;
+  readonly $additionalProductPrice: HTMLElement;
+  readonly $additionalProductQuantity: HTMLElement;
 
   handleSubmitForm(e: Event): void;
   handleClickButtons(e: Event): void;
@@ -29,7 +29,7 @@ export interface ProductManageView extends View {
 }
 
 export interface ProductCollection {
-  products: Array<Product>;
+  readonly products: Array<Product>;
 
   add(product: Product): void;
   modify(product: Product): void;
@@ -38,15 +38,15 @@ export interface ProductCollection {
 }
 
 export interface CoinCollection {
-  coins: Array<Coin>;
+  readonly coins: Array<Coin>;
 
   generateCoins(inputMoney: number): void;
   calculateTotalAmount(): number;
 }
 
 export interface VendingMachine {
-  productCollection: ProductCollection;
-  coinCollection: CoinCollection;
+  readonly productCollection: ProductCollection;
+  readonly coinCollection: CoinCollection;
 
   addProduct(product: Product): void;
   modifyProduct(product: Product): void;
