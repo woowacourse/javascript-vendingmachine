@@ -13,10 +13,11 @@ class MenuTab {
   }
 
   handleMenuTab = (e: { target: HTMLButtonElement }) => {
-    const navList = selectDomAll(".nav__button");
     if (!e.target.classList.contains("nav__button")) {
       return;
     }
+    
+    const navList = selectDomAll(".nav__button");
 
     navList.forEach((button: HTMLButtonElement) =>
       button.dataset.menu === e.target.dataset.menu

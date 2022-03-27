@@ -21,7 +21,6 @@ class Product {
     this.productInfoInputs = selectDomAll(".product-control-input");
     this.productAddButton = selectDom("#product-add-button");
     this.productTable = selectDom("#product-control-table");
-    this.productNameTdList = selectDomAll(".product-name", this.productTable);
     addEvent(this.productAddButton, "click", this.handleAddProduct);
     addEvent(this.productTable, "click", this.handleRemoveProduct);
     addEvent(this.productTable, "click", this.handleEditProduct);
@@ -33,11 +32,12 @@ class Product {
 
   handleAddProduct = (e: Event) => {
     e.preventDefault();
+    this.productNameTdList = selectDomAll(".product-name", this.productTable);
     const [productName, productPrice, productQuantity] = 
       this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
     const productNameList = 
       this.productNameTdList.map((productNameTd: HTMLTableCellElement) => productNameTd.textContent);
-
+      
     try {
       verifyProductInfo(
         productName,
@@ -60,52 +60,61 @@ class Product {
   };
 
   handleRemoveProduct = (e: { target: HTMLTableElement }) => {
-    if (e.target.classList.contains("product-remove-button")) {
-      e.target.closest("tr").remove();
-    }
+    if (!e.target.classList.contains("product-remove-button")) {
+      return;
+    };
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return;
+    };
+
+    e.target.closest("tr").remove();
   };
 
   handleEditProduct = (e: { target: HTMLTableElement }) => {
-    if (e.target.classList.contains("product-edit-button")) {
-      const [productNameTd, productPriceTd, productQuantityTd] = Array.from(
-        e.target.closest("tr").children
-      );
-      e.target.closest("tr").innerHTML = editProductTemplate(
-        productNameTd.textContent,
-        +productPriceTd.textContent,
-        +productQuantityTd.textContent
-      );
-
-      const [productEditInput] = selectDomAll(".product-edit-input");
-      productEditInput.focus();
+    if (!e.target.classList.contains("product-edit-button")) {
+      return;
     }
+
+    const [productNameTd, productPriceTd, productQuantityTd] = 
+      Array.from(e.target.closest("tr").children);
+
+    e.target.closest("tr").innerHTML = editProductTemplate(
+      productNameTd.textContent,
+      +productPriceTd.textContent,
+      +productQuantityTd.textContent
+    );
+
+    const [productEditInput] = selectDomAll(".product-edit-input");
+    productEditInput.focus();
   };
 
   handleConfirmProduct = (e: { target: HTMLTableElement }) => {
-    if (e.target.classList.contains("product-confirm-button")) {
-      const [productName, productPrice, productQuantity] = Array.from(
-        selectDomAll(".product-edit-input"),
-        (input: HTMLInputElement) => input.value
-      );
-      const productNameList =
-        this.productNameTdList.map((productNameTd: HTMLTableCellElement) => productNameTd.textContent)
+    if (!e.target.classList.contains("product-confirm-button")) {
+      return;
+    }
 
-      try {
-        verifyProductInfo(
-          productName,
-          +productPrice,
-          +productQuantity,
-          productNameList
-        );
-        this.changeEditProductInfo(
-          productName,
-          +productPrice,
-          +productQuantity,
-          e.target
-        );
-      } catch ({ message }) {
-        alert(message);
-      }
+    const [productName, productPrice, productQuantity] = Array.from(
+      selectDomAll(".product-edit-input"),
+      (input: HTMLInputElement) => input.value
+    );
+    const productNameList =
+      this.productNameTdList.map((productNameTd: HTMLTableCellElement) => productNameTd.textContent)
+
+    try {
+      verifyProductInfo(
+        productName,
+        +productPrice,
+        +productQuantity,
+        productNameList
+      );
+      this.changeEditProductInfo(
+        productName,
+        +productPrice,
+        +productQuantity,
+        e.target
+      );
+    } catch ({ message }) {
+      alert(message);
     }
   };
 
