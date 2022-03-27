@@ -17,14 +17,14 @@ export interface ComponentConstructor {
 }
 
 export type ProductItem = {
-  id: string;
   name: string;
   price: number;
   quantity: number;
+  isEditing: boolean;
 };
 
 export type RawProductItem = Override<
-  Omit<ProductItem, 'id'>,
+  Omit<ProductItem, 'isEditing'>,
   {
     price: string;
     quantity: string;

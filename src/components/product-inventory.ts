@@ -17,16 +17,30 @@ type EditParams = {
 
 @customElement('product-inventory')
 class ProductInventory extends Component {
-  productItemTemplate({ id, name, price, quantity }: ProductItem) {
+  productItemTemplate({ name, price, quantity, isEditing }: ProductItem) {
     return `
-      <tr data-product-id="${id}">
-        <td>${name}</td>
-        <td>${price}</td>
-        <td>${quantity}</td>
+      <tr>
+        <td>${
+          isEditing
+            ? `<input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}"/>`
+            : name
+        }</td>
+        <td>${
+          isEditing ? `<input class="form-control" placeholder="가격" value="${price}"/>` : price
+        }</td>
+        <td>${
+          isEditing
+            ? `<input class="form-control" placeholder="수량" value="${quantity}"/>`
+            : quantity
+        }</td>
         <td>
           <div class="btn-group">
-            <button class="btn xs mr-2 btn-edit">수정</button>
-            <button class="btn xs btn-delete">삭제</button>
+            <button class="btn xs mr-2 ${
+              isEditing ? 'btn-primary btn-confirm' : 'btn-secondary btn-edit'
+            }">${isEditing ? '확인' : '수정'}</button>
+            <button class="btn xs ${
+              isEditing ? 'btn-outline-primary btn-cancel' : 'btn-secondary btn-delete'
+            }">${isEditing ? '취소' : '삭제'}</button>
           </div>
         </td>
       </tr>
@@ -54,20 +68,52 @@ class ProductInventory extends Component {
   }
 
   @event('click', '.btn-edit')
-  onClickEditBtn({ target }: { target: HTMLElement }) {
+  changeToEditMode({ target }: { target: HTMLElement }) {
+    const tds = this.findTds(target);
+    if (!tds) return;
+    const { $name } = tds;
+    Store.instance.dispatch(
+      createAction(ACTION.CHANGE_EDIT_MODE, { name: $name.textContent, isEditing: true })
+    );
+  }
+
+  @event('click', '.btn-confirm')
+  editProduct({ target }: { target: HTMLElement }) {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name, $price, $quantity } = tds;
 
-    if (!target.classList.contains('confirm')) {
-      this.changeToEditMode({ target: target, $price, $quantity });
+    const originalName = ($name.childNodes[0] as HTMLInputElement).dataset.originalName as string;
+    const name = ($name.childNodes[0] as HTMLInputElement).value;
+    const price = ($price.childNodes[0] as HTMLInputElement).value;
+    const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
+
+    const productList = Store.instance.getState().productList;
+    const errorList = validateProduct(
+      { name, price, quantity },
+      productList.filter((item) => !(item.name === originalName && item.name === name))
+    ).filter((result) => result.hasError);
+
+    if (errorList.length > 0 && errorList[0].hasError) {
+      alert(errorList[0].errorMessage);
       return;
     }
-    try {
-      this.editProduct({ target: target, $name, $price, $quantity });
-    } catch (e: any) {
-      consoleErrorWithConditionalAlert(e, VALIDATION_ERROR_NAME);
-    }
+
+    Store.instance.dispatch(
+      createAction(ACTION.EDIT_PRODUCT, { originalName, name, price, quantity })
+    );
+  }
+
+  @event('click', '.btn-cancel')
+  cancelProduct({ target }: { target: HTMLElement }) {
+    const tds = this.findTds(target);
+    if (!tds) return;
+    const { $name } = tds;
+    const $nameInput = $name.childNodes[0] as HTMLInputElement;
+    const originalName = $nameInput.dataset.originalName as string;
+    Store.instance.dispatch(
+      createAction(ACTION.CHANGE_EDIT_MODE, { name: originalName, isEditing: false })
+    );
   }
 
   @event('click', '.btn-delete')
@@ -78,37 +124,6 @@ class ProductInventory extends Component {
     const result = window.confirm('해당 상품을 삭제하시겠습니까?');
     if (!result) return;
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
-  }
-
-  changeToEditMode({ target, $price, $quantity }: Omit<EditParams, '$name'>) {
-    $price.innerHTML = `<input placeholder=${$price.textContent} class="form-control"/>`;
-    $quantity.innerHTML = `<input placeholder=${$quantity.textContent} class="form-control"/>`;
-    target.innerText = '확인';
-    target.classList.add('cyan');
-    target.classList.add('confirm');
-  }
-
-  editProduct({ target, $name, $price, $quantity }: EditParams) {
-    const name = $name.innerHTML;
-    const price = ($price.childNodes[0] as HTMLInputElement).value;
-    const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
-
-    const productList = Store.instance.getState().productList;
-    const errorList = validateProduct(
-      { name, price, quantity },
-      productList.filter((item) => item.name !== name)
-    ).filter((result) => result.hasError);
-
-    if (errorList.length > 0 && errorList[0].hasError) {
-      throw new ValidationError(errorList[0].errorMessage);
-    }
-
-    $price.innerHTML = price;
-    $quantity.innerHTML = quantity;
-    Store.instance.dispatch(createAction(ACTION.EDIT_PRODUCT, { name, price, quantity }));
-    target.innerText = '수정';
-    target.classList.remove('cyan');
-    target.classList.remove('confirm');
   }
 
   findTds(target: HTMLElement) {

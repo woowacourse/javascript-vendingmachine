@@ -18,7 +18,7 @@ class AddProductForm extends Component {
           <input placeholder="상품명" name="product-name" class="form-control mr-1" />
           <input placeholder="가격" name="product-price" class="form-control mr-1" />
           <input placeholder="수량" name="product-quantity" class="form-control mr-4" />
-          <button type="button" class="btn cyan">추가</button>
+          <button type="button" class="btn btn-primary">추가</button>
         </div>
       </form>
     `;
@@ -47,7 +47,7 @@ class AddProductForm extends Component {
   }
 
   shouldSubscribe(): boolean {
-    return false;
+    return true;
   }
 }
 

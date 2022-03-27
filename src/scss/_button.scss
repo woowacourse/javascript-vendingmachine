@@ -37,18 +37,23 @@
   border-radius: 50%;
 }
 
-.btn.cyan {
+.btn.btn-primary {
   color: white;
-  background-color: $color-cyan-900;
-  border-color: $color-cyan-900;
+  background-color: $color-primary;
 }
 
-.btn.cyan:hover {
+.btn.btn-primary:hover {
   background-color: $color-cyan-800;
 }
 
-.btn.gray {
-  background-color: $color-gray-400;
+.btn.btn-secondary {
+  background-color: $color-secondary;
+}
+
+.btn.btn-outline-primary {
+  color: $color-primary;
+  background-color: white;
+  border: 1px solid $color-primary;
 }
 
 .btn:disabled {
