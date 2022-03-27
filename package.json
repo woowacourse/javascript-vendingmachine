@@ -1,4 +1,5 @@
 {
+  "homepage": "https://github.com/liswktjs/javascript-vendingmachine",
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
   "description": "",
@@ -8,7 +9,8 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "cypress:run": "cypress run --browser chrome",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,5 @@
   },
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
-  },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
+  }
 }
