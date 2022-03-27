@@ -1,5 +1,53 @@
-const AddProductComponent = () => {
-  return `
+import vendingMachine from '../model/VendingMachine';
+import { Product } from '../interfaces/VendingMachine.interface';
+
+class AddProductComponent {
+  parentElement: HTMLElement;
+  noticeStateChanged: Function;
+  $productAddForm: HTMLElement;
+  $productList: HTMLElement;
+
+  constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    this.parentElement = parentElement;
+    this.noticeStateChanged = noticeStateChanged;
+  }
+
+  bindEventAndElement = () => {
+    this.$productAddForm = this.parentElement.querySelector('#product-add-form');
+    this.$productList = this.parentElement.querySelector('#product-list');
+
+    this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
+  };
+
+  onSubmitNewProduct = (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
+    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).value;
+    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).value;
+
+    const newProduct: Product = {
+      name: name,
+      price: parseInt(price),
+      amount: parseInt(amount),
+    };
+
+    try {
+      vendingMachine.addProduct(newProduct);
+      this.noticeStateChanged('add', newProduct);
+    } catch (message) {
+      alert(message);
+    }
+  };
+
+  refreshComponent = () => {};
+
+  render = () => {
+    this.parentElement.insertAdjacentHTML('beforeend', this.template());
+    this.bindEventAndElement();
+  };
+
+  template = () => `
   <div id="product-manage-container">
     <p>추가할 상품 정보를 입력해주세요.</p>
     <form id="product-add-form">
@@ -24,6 +72,6 @@ const AddProductComponent = () => {
       <input type="submit" id="product-add-button" value="추가" />
     </form>
   </div>`;
-};
+}
 
 export default AddProductComponent;
