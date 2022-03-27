@@ -233,3 +233,28 @@ describe('상품 수정', () => {
     expect(vendingMachine.productCollection.products[0]).toEqual(product);
   });
 });
+
+describe('상품 삭제', () => {
+  const originProductName = '얍';
+  const addedProduct: Product = { name: originProductName, price: 1000, quantity: 10 };
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachineImpl();
+    vendingMachine.addProduct(addedProduct);
+  });
+
+  it('상품 목록에 존재하지 않는 상품명이 입력됐을 때, 삭제할 수 없다.', () => {
+    const deleteProductName = '야압';
+    const test = () => vendingMachine.deleteProduct(deleteProductName);
+
+    expect(test).toThrow('존재하지 않는 상품입니다!');
+  });
+
+  it('상품 목록에 존재하는 상품명이 입력됐을 때, 삭제할 수 있다.', () => {
+    const deleteProductName = originProductName;
+
+    vendingMachine.deleteProduct(deleteProductName);
+
+    expect(vendingMachine.productCollection.getIndex(deleteProductName)).toBe(-1);
+  });
+});
