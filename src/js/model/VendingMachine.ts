@@ -77,7 +77,6 @@ class VendingMachine {
         break;
       case 10:
         this.changes.coin10 += 1;
-        break;
     }
 
     if (money >= RULES.MINIMUM_CHANGE) {
