@@ -31,8 +31,11 @@ export default class App {
 
     const basePath =
       process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
+    const pathname = `${basePath}${target.dataset.pathname}`;
 
-    history.pushState({}, '', `${basePath}${target.dataset.pathname}`);
+    if (pathname === location.pathname) return;
+
+    history.pushState({}, '', pathname);
 
     this.activateClickedButton(target.dataset.pathname);
     this.renderMainContent(target.dataset.pathname);
