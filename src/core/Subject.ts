@@ -3,7 +3,7 @@ interface Observer {
 }
 
 export default class Subject {
-  private static private: symbol = Symbol('private checker');
+  private static private: symbol = Symbol('subject checker');
 
   private static subjects: Set<Subject> = new Set();
 
@@ -51,7 +51,7 @@ export default class Subject {
   private updated: boolean;
 
   constructor(key: string, initValue: any, checker: symbol) {
-    if (checker !== Subject.private) return;
+    if (checker !== Subject.private) throw Error('use Subject.observable()');
 
     this.key = key;
     this.value = initValue;
