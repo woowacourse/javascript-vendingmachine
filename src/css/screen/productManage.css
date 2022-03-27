@@ -47,6 +47,11 @@
   margin-top: 48px;
 }
 
+.app__main.productManage {
+  height: 300px;
+  overflow-y: scroll;
+}
+
 .table-wrap__title {
   text-align: center;
   margin-bottom: 16px;

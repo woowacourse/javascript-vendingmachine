@@ -58,6 +58,7 @@ export interface ProductManageView extends View {
 export interface ChargeMoneyView extends View {
   readonly $chargeMoneyForm: HTMLElement;
   readonly $chargeMoneyInput: HTMLElement;
+  readonly $totalAmount: HTMLElement;
   readonly $coin500: HTMLElement;
   readonly $coin100: HTMLElement;
   readonly $coin50: HTMLElement;

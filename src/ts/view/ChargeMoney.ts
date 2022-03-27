@@ -5,6 +5,7 @@ import VendingMachineImpl from '../interactor/VendingMachineImpl';
 export default class ChargeMoney implements ChargeMoneyView {
   public readonly $chargeMoneyForm: HTMLElement;
   public readonly $chargeMoneyInput: HTMLElement;
+  public readonly $totalAmount: HTMLElement;
   public readonly $coin500: HTMLElement;
   public readonly $coin100: HTMLElement;
   public readonly $coin50: HTMLElement;
@@ -14,6 +15,7 @@ export default class ChargeMoney implements ChargeMoneyView {
   constructor() {
     this.$chargeMoneyForm = $('#charge-money-form');
     this.$chargeMoneyInput = $('#charge-money-input');
+    this.$totalAmount = $('#total-amount');
     this.$coin500 = $('#coin-500-count');
     this.$coin100 = $('#coin-100-count');
     this.$coin50 = $('#coin-50-count');
@@ -41,5 +43,6 @@ export default class ChargeMoney implements ChargeMoneyView {
     this.vendingMachine.coinCollection.coins.forEach(({ amount, count }) => {
       this[`$coin${amount}`].innerText = `${count}개`;
     });
+    this.$totalAmount.innerText = String(this.vendingMachine.coinCollection.calculateTotalAmount());
   }
 }
