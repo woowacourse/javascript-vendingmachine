@@ -29,10 +29,12 @@ class CoinChargeForm extends CustomElement {
   handleCoinChargeFormSubmit = (event) => {
     event.preventDefault();
 
-    const coinInputValue = $('#coin-input').valueAsNumber;
+    const $coinInput = $('#coin-input');
+    const coinInputValue = $coinInput.valueAsNumber;
 
     try {
       this.chargeCoin(coinInputValue);
+      this.initiaCoinInput($coinInput);
     } catch (error) {
       alert(error.message);
     }
@@ -43,6 +45,12 @@ class CoinChargeForm extends CustomElement {
 
     CoinStore.instance.dispatch(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
     CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
+  }
+
+  initiaCoinInput($coinInput) {
+    $coinInput.value = '';
+
+    $coinInput.focus();
   }
 
   rerender(newMoney) {

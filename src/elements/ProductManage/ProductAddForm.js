@@ -27,14 +27,19 @@ class ProductAddForm extends CustomElement {
   handleProductAddFormSubmit = (event) => {
     event.preventDefault();
 
+    const $productNameInput = $('.product-name-input');
+    const $productPriceInput = $('.product-price-input');
+    const $productQuantityInput = $('.product-quantity-input');
+
     const newProduct = {
-      name: $('.product-name-input').value.trim(),
-      price: $('.product-price-input').valueAsNumber,
-      quantity: $('.product-quantity-input').valueAsNumber,
+      name: $productNameInput.value.trim(),
+      price: $productPriceInput.valueAsNumber,
+      quantity: $productQuantityInput.valueAsNumber,
     };
 
     try {
       this.addProduct(newProduct);
+      this.initiaProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
     } catch (error) {
       alert(error.message);
     }
@@ -44,6 +49,14 @@ class ProductAddForm extends CustomElement {
     checkProductAddValidation(newProduct);
 
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
+  }
+
+  initiaProductInputs($productNameInput, $productPriceInput, $productQuantityInput) {
+    $productNameInput.value = '';
+    $productPriceInput.value = '';
+    $productQuantityInput.value = '';
+
+    $productNameInput.focus();
   }
 }
 
