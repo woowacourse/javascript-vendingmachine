@@ -6,7 +6,7 @@
 
 ## 🖥 데모 페이지
 
-[클릭해서 이동하기 🏃🏻‍♀️](https://rladpwl0512.github.io/javascript-vendingmachine/)
+[클릭해서 이동하기 🏃🏻‍♀️](https://daaaayeah.github.io/javascript-vendingmachine/)
 
 ## 🎯 기능 구현 목록
 
