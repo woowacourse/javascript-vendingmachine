@@ -8,6 +8,13 @@ export const PRODUCT_RULES = {
   PRICE_MOD_UNIT: 10,
 };
 
+export const INPUT_MONEY_RULES = {
+  MIN: 1000,
+  MOD_UNIT: 10,
+};
+
+export const MAX_HAVE_MONEY = 100000;
+
 export const ERROR_MESSAGE = {
   EMPTY_PRODUCT_NAME: '상품명을 입력해주세요!',
   OUT_OF_RANGE_PRODUCT_NAME: `상품명은 ${PRODUCT_RULES.MIN_NAME_LENGTH}이상 ${PRODUCT_RULES.MAX_NAME_LENGTH}이하로 입력해주세요!`,
@@ -16,4 +23,7 @@ export const ERROR_MESSAGE = {
   OUT_OF_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${PRODUCT_RULES.MIN_QUANTITY}이상 ${PRODUCT_RULES.MAX_QUANTITY}이하로 입력해주세요!`,
   OVERLAP_PRODUCT: '이미 존재하는 상품입니다!',
   NOT_EXIST_PRODUCT: '존재하지 않는 상품입니다!',
+  INDIVISIBLE_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
+  LACK_OF_INPUT_MONEY: `${INPUT_MONEY_RULES.MIN}원 이상 투입해주세요!`,
+  EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${MAX_HAVE_MONEY.toLocaleString()}원 입니다!`,
 };

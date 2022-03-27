@@ -1,5 +1,5 @@
 import { Product } from '../../index.d';
-import { PRODUCT_RULES, ERROR_MESSAGE } from '../constant';
+import { PRODUCT_RULES, INPUT_MONEY_RULES, MAX_HAVE_MONEY, ERROR_MESSAGE } from '../constant';
 
 const checkProduct = ({ name, price, quantity }: Product): void => {
   if (name === '') throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
@@ -23,9 +23,9 @@ const validator = {
   },
 
   checkChargeMoney(inputMoney: number, totalAmount: number) {
-    if (inputMoney % 10 > 0) throw new Error('투입 금액은 10의 배수로 입력해주세요!');
-    if (inputMoney < 1000) throw new Error('1000원 이상 투입해주세요!');
-    if (inputMoney + totalAmount > 100000) throw new Error('총 보유할 수 있는 금액은 100,000원 입니다!');
+    if (inputMoney % INPUT_MONEY_RULES.MOD_UNIT > 0) throw new Error(ERROR_MESSAGE.INDIVISIBLE_INPUT_MONEY_MOD_UNIT);
+    if (inputMoney < INPUT_MONEY_RULES.MIN) throw new Error(ERROR_MESSAGE.LACK_OF_INPUT_MONEY);
+    if (inputMoney + totalAmount > MAX_HAVE_MONEY) throw new Error(ERROR_MESSAGE.EXCEED_MAX_HAVE_MONEY);
   }
 };
 
