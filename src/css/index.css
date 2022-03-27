@@ -169,12 +169,12 @@ li {
 .product-control-buttons button {
   width: 40%;
   height: 30px;
-  margin-top: -4px !important;
+  margin-top: -4px;
 }
 
 .product-modify-submit-button {
   width: 90%;
-  margin-top: -8px !important;
+  margin-top: -8px;
 }
 
 #change-list li {
