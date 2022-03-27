@@ -23,7 +23,7 @@ export interface ProductManageView extends View {
 
   handleSubmitForm(e: Event): void;
   handleClickButtons(e: Event): void;
-  addProduct(product: Product): void;
-  modifyProduct(product: Product): void;
-  deleteProduct(productName: string): void;
+  setModifyForm(e: Event): void;
+  modifyProduct(e: Event): void;
+  deleteProduct(e: Event): void;
 }
