@@ -1,4 +1,4 @@
-import VendingMachine from '../ts/VendingMachine';
+import VendingMachine from '../ts/domain/VendingMachine';
 
 describe('상품 추가, 삭제, 수정 테스트', () => {
   const vendingMachine = new VendingMachine();

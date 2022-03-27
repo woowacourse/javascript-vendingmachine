@@ -1,5 +1,5 @@
-import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from './constant/errorMessage';
-import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from './constant/rule';
+import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from '../constant/errorMessage';
+import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
 type itemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
 

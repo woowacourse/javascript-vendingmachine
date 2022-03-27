@@ -1,4 +1,4 @@
-import VendingMachine from '../ts/VendingMachine';
+import VendingMachine from '../ts/domain/VendingMachine';
 import { CASH_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 
 describe('잔돈을 충전할 때, 입력값 유효성 확인', () => {

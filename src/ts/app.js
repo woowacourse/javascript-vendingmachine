@@ -1,7 +1,7 @@
 import CoinRechargeTab from './view/CoinRechargeTab';
 import { HASH } from './constant/hash';
 import ItemManageTab from './view/ItemManageTab';
-import VendingMachine from './VendingMachine';
+import VendingMachine from './domain/VendingMachine';
 
 const initApp = function () {
   const vendingMachine = new VendingMachine();
