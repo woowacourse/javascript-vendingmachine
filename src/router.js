@@ -3,9 +3,11 @@ import { BASE_URL } from './constants';
 
 const $productManageButton = $('.nav__product-manage-button');
 const $productManageContainer = $('product-manage-container');
+const $productNameInput = $('.product-name-input');
 
 const $coinChargeButton = $('.nav__coin-charge-button');
 const $coinChargeContainer = $('coin-charge-container');
+const $coinInput = $('#coin-input');
 
 const renderProductManageContainer = () => {
   $productManageContainer.show();
@@ -13,6 +15,8 @@ const renderProductManageContainer = () => {
 
   $productManageButton.classList.add('clicked');
   $coinChargeButton.classList.remove('clicked');
+
+  $productNameInput.focus();
 };
 
 const handleProductManageButtonClick = (event) => {
@@ -29,6 +33,8 @@ const renderCoinChargeContainer = () => {
 
   $productManageButton.classList.remove('clicked');
   $coinChargeButton.classList.add('clicked');
+
+  $coinInput.focus();
 };
 
 const handleCoinChargeButtonClick = (event) => {
