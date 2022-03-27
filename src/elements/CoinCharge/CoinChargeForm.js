@@ -1,9 +1,9 @@
-import CoinStore from '../domains/stores/CoinStore';
-import { createAction, COIN_ACTION } from '../domains/actions';
+import CoinStore from '../../domains/stores/CoinStore';
+import { createAction, COIN_ACTION } from '../../domains/actions';
 
-import CustomElement from '../abstracts/CustomElement';
-import { $ } from '../utils/dom';
-import { checkCoinValidation } from '../validators';
+import CustomElement from '../../abstracts/CustomElement';
+import { $ } from '../../utils/dom';
+import { checkCoinValidation } from '../../validators';
 
 class CoinChargeForm extends CustomElement {
   connectedCallback() {

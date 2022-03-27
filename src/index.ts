@@ -1,5 +1,5 @@
 import './elements/AdministratorMenu';
-import './elements/ProductManageContainer';
-import './elements/CoinChargeContainer';
+import './elements/ProductManage/ProductManageContainer';
+import './elements/CoinCharge/CoinChargeContainer';
 
 import './css/index';

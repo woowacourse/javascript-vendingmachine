@@ -1,4 +1,4 @@
-import CustomElement from '../abstracts/CustomElement';
+import CustomElement from '../../abstracts/CustomElement';
 
 import './CoinChargeForm';
 import './CoinCurrentSituation';

@@ -1,9 +1,9 @@
-import ProductStore from '../domains/stores/ProductStore';
-import { createAction, PRODUCT_ACTION } from '../domains/actions';
+import ProductStore from '../../domains/stores/ProductStore';
+import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
-import CustomElement from '../abstracts/CustomElement';
-import { $ } from '../utils/dom';
-import { checkProductAddValidation } from '../validators';
+import CustomElement from '../../abstracts/CustomElement';
+import { $ } from '../../utils/dom';
+import { checkProductAddValidation } from '../../validators';
 
 class ProductAddForm extends CustomElement {
   template() {
