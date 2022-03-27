@@ -44,6 +44,7 @@ module.exports = {
     { name: 'element' },
     { name: 'domain' },
     { name: 'validation' },
+    { name: 'router' },
     { name: 'util' },
     { name: 'test' },
     { name: 'settings' },
