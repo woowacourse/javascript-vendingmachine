@@ -1,3 +1,4 @@
+import { PATH_NAME } from './constants';
 import AddChange from './pages/AddChange';
 import ProductManage from './pages/ProductManage';
 
@@ -29,11 +30,11 @@ class router {
     this.clear();
 
     switch (hash) {
-      case '#!/product-manage':
+      case PATH_NAME.PRODUCT_MANAGE:
         history.pushState({}, '상품 관리하기', window.location.pathname + hash);
         this.productManage.render();
         break;
-      case '#!/change-add':
+      case PATH_NAME.ADD_CHANGE:
         history.pushState({}, '잔돈 충전하기', window.location.pathname + hash);
         this.addChange.render();
         break;

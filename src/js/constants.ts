@@ -1,3 +1,8 @@
+const PATH_NAME = {
+  PRODUCT_MANAGE: '#!/product-manage',
+  ADD_CHANGE: '#!/change-add',
+};
+
 const RULES = {
   MAX_PRODUCT_PRICE: 10000,
   MIN_PRODUCT_PRICE: 100,
@@ -21,4 +26,4 @@ const ERROR_MESSAGE = {
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 
-export { RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE };
+export { PATH_NAME, RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE };
