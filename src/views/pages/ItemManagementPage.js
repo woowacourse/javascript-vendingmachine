@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import '../components/ItemRow';
+import { ITEM, MONEY_UNIT } from '../../constant/constant';
 
 class ItemManagementPage extends Component {
   setup() {
@@ -16,14 +17,14 @@ class ItemManagementPage extends Component {
         <form id="item-add-form" class="item-add-form">
           <fieldset class="fieldset">
             <legend class="description">추가할 상품 현황을 입력해주세요.</legend>
-            <label hidden for="name"">상품명</label>
+            <label hidden for="name">상품명</label>
             <input
               id="item-name-input"
               class="item-input styled-input"
               name="name"
               placeholder="상품명"
               type="text"
-              maxlength="10"
+              maxlength="${ITEM.NAME.MAX_LENGTH}"
               required
               autofocus
             >
@@ -34,9 +35,9 @@ class ItemManagementPage extends Component {
               name="price"
               placeholder="가격"
               type="number"
-              step="10"
-              min="100"
-              max="10000"
+              step="${MONEY_UNIT}"
+              min="${ITEM.PRICE.MIN}"
+              max="${ITEM.PRICE.MAX}"
               required
             >
             <label hidden for="quantity">수량</label>
@@ -47,8 +48,8 @@ class ItemManagementPage extends Component {
               placeholder="수량"
               type="number"
               step="1"
-              min="1"
-              max="20"
+              min="${ITEM.QUANTITY.MIN}"
+              max="${ITEM.QUANTITY.MAX}"
               required
             >
           </fieldset>

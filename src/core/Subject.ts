@@ -1,5 +1,3 @@
-import { vendingMachine } from '../domains/VendingMachine';
-
 interface Observer {
   notify(): void;
 }

@@ -2,7 +2,7 @@ import { Coins } from '../domains/VendingMachine';
 
 const getRandomCoin = (): number => {
   const coinValueList = [10, 50, 100, 500];
-  const randomIndex = Math.floor(Math.random() * 4);
+  const randomIndex = Math.floor(Math.random() * coinValueList.length);
 
   return coinValueList[randomIndex];
 };

@@ -1,5 +1,6 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
+import { ITEM, MONEY_UNIT, CONFIRM_MESSAGE } from '../../constant/constant';
 
 class ItemRow extends TableRow {
   setup() {
@@ -19,7 +20,7 @@ class ItemRow extends TableRow {
                 value="${name}"
                 class="item-name-edit-input transparent-input"
                 type="text"
-                maxlength="10"
+                maxlength="${ITEM.NAME.MAX_LENGTH}"
               >
             </td>
             <td class="item-price styled-td">
@@ -27,9 +28,9 @@ class ItemRow extends TableRow {
                 value="${price}"
                 class="item-price-edit-input transparent-input"
                 type="number"
-                step="10"
-                min="100"
-                max="10000"
+                step="${MONEY_UNIT}"
+                min="${ITEM.PRICE.MIN}"
+                max="${ITEM.PRICE.MAX}"
               >
             </td>
             <td class="item-quantity styled-td">
@@ -38,8 +39,8 @@ class ItemRow extends TableRow {
                 class="item-quantity-edit-input transparent-input"
                 type="number"
                 step="1"
-                min="1"
-                max="20"
+                min="${ITEM.QUANTITY.MIN}"
+                max="${ITEM.QUANTITY.MAX}"
               >
             </td>
             <td class="item-button-container">
@@ -68,8 +69,8 @@ class ItemRow extends TableRow {
       input.focus();
 
       setTimeout(() => {
-        input.selectionStart = 10000;
-        input.selectionEnd = 10000;
+        input.selectionStart = ITEM.NAME.MAX_LENGTH;
+        input.selectionEnd = ITEM.NAME.MAX_LENGTH;
       }, 0);
     });
 
@@ -81,11 +82,15 @@ class ItemRow extends TableRow {
         quantity: this.querySelector('.item-quantity-edit-input').valueAsNumber,
       };
 
-      vendingMachine.updateItem(prevName, updatedItem);
+      try {
+        vendingMachine.updateItem(prevName, updatedItem);
+      } catch ({ message }) {
+        window.alert(message);
+      }
     });
 
     this.addEvent('click', '.item-remove-button', () => {
-      if (window.confirm('정말로 삭제하시겠습니까?')) {
+      if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
         const { name } = this.props;
 
         vendingMachine.removeItem(name);

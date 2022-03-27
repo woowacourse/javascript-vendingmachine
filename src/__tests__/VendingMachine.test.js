@@ -1,4 +1,5 @@
 import VendingMachine from '../domains/VendingMachine';
+import { ITEM, AMOUNT, MONEY_UNIT } from '../constant/constant';
 
 const vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
 
@@ -27,20 +28,20 @@ describe('vendingMachine', () => {
     });
 
     describe('실패 시', () => {
-      test('quantity > 20이면 Error를 throw한다.', () => {
+      test(`quantity > ${ITEM.QUANTITY.MAX}이면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addItem({ name: '사이다', price: 1500, quantity: 20 });
           vendingMachine.addItem({ name: '사이다', price: 1500, quantity: 1 });
         }).toThrowError();
       });
 
-      test('price를 10 단위가 아니면 Error를 throw한다.', () => {
+      test(`price를 ${MONEY_UNIT} 단위가 아니면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addItem({ name: '사이다', price: 101, quantity: 1 });
         }).toThrowError();
       });
 
-      test('name의 길이가 10자를 초과하면 Error를 throw한다.', () => {
+      test(`name의 길이가 ${ITEM.NAME.MAX_LENGTH}자를 초과하면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addItem({
             name: '사이다사이다사이다사이',
@@ -60,7 +61,7 @@ describe('vendingMachine', () => {
         }).toThrowError();
       });
 
-      test('price가 100 미만이면 Error를 throw한다.', () => {
+      test(`price가 ${ITEM.PRICE.MIN} 미만이면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addItem({
             name: '사이다',
@@ -70,7 +71,7 @@ describe('vendingMachine', () => {
         }).toThrowError();
       });
 
-      test('price가 10000 초과이면 Error를 throw한다.', () => {
+      test(`price가 ${ITEM.PRICE.MAX} 초과이면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addItem({
             name: '사이다',
@@ -190,7 +191,7 @@ describe('vendingMachine', () => {
     });
 
     describe('실패 시', () => {
-      test('주어진 금액이 10 ~ 100000 사이가 아니면 Error를 throw한다.', () => {
+      test(`주어진 금액이 ${AMOUNT.MIN} ~ ${AMOUNT.MAX} 사이가 아니면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addCoin(0);
         }).toThrowError();
@@ -200,13 +201,13 @@ describe('vendingMachine', () => {
         }).toThrowError();
       });
 
-      test('주어진 금액이 10 단위가 아니면 Error를 throw한다.', () => {
+      test(`주어진 금액이 ${MONEY_UNIT} 단위가 아니면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addCoin(11);
         }).toThrowError();
       });
 
-      test('보유 금액이 100000이 넘으면 Error를 throw한다.', () => {
+      test(`보유 금액이 ${AMOUNT.MAX_TOTAL_MONEY}이 넘으면 Error를 throw한다.`, () => {
         expect(() => {
           vendingMachine.addCoin(100000);
           vendingMachine.addCoin(10);

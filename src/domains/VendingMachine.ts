@@ -2,6 +2,7 @@ import Subject from '../core/Subject';
 import { deepClone } from '../utils/commons';
 import { createRandomCoins } from '../utils/coinUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
+import { ERROR_MESSAGE } from '../constant/constant';
 
 export interface Item {
   name: string;
@@ -64,10 +65,10 @@ export default class VendingMachine {
   }
 
   updateItem(name: string, updatedItem: Item): void {
-    if (!this.findItem(name)) throw new Error('error');
+    if (!this.findItem(name)) throw new Error(ERROR_MESSAGE.NOT_FOUND);
 
     if (name !== updatedItem.name && this.findItem(updatedItem.name))
-      throw new Error('error');
+      throw new Error(ERROR_MESSAGE.NAME_ALREADY_USED);
 
     validate(itemValidator, updatedItem);
 
@@ -77,7 +78,7 @@ export default class VendingMachine {
   }
 
   removeItem(name: string): void {
-    if (!this.findItem(name)) throw new Error('error');
+    if (!this.findItem(name)) throw new Error(ERROR_MESSAGE.NOT_FOUND);
 
     this.state.items = this.state.items.filter((item) => item.name !== name);
   }
