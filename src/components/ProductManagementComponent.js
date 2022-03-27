@@ -17,11 +17,11 @@ class ProductManagementComponent {
   }
 
   initDOM() {
-    this.$manageProductContainer = document.querySelector('#manage-product-container');
-    this.$productInputForm = document.querySelector('#product-input-form');
-    this.$productNameInput = document.querySelector('#product-name-input');
-    this.$productPriceInput = document.querySelector('#product-price-input');
-    this.$productQuantityInput = document.querySelector('#product-quantity-input');
+    this.$manageProductContainer = this.$parent.querySelector('#manage-product-container');
+    this.$productInputForm = this.$parent.querySelector('#product-input-form');
+    this.$productNameInput = this.$parent.querySelector('#product-name-input');
+    this.$productPriceInput = this.$parent.querySelector('#product-price-input');
+    this.$productQuantityInput = this.$parent.querySelector('#product-quantity-input');
   }
 
   generateTemplate() {
