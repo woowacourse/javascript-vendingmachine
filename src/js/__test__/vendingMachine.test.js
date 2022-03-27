@@ -69,17 +69,17 @@ describe('자판기 기본 기능 테스트', () => {
   describe('잔돈 충전 기능 테스트', () => {
     it('자판기가 가진 금액은 100,000원 이하여야 한다.', () => {
       const money = 100010;
-      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
+      expect(() => vendingMachine.addChange(money)).toThrowError(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
     });
 
     it('자판기에 충전할 금액은 양수이어야 한다.', () => {
       const money = -1000;
-      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+      expect(() => vendingMachine.addChange(money)).toThrowError(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
     });
 
     it('자판기에 충전할 수 있는 금액은 10원으로 나누어 떨어지는 금액이어야 한다.', () => {
       const money = 9;
-      expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+      expect(() => vendingMachine.addChange(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     });
   });
 })

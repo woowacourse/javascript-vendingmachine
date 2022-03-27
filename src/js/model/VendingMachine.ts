@@ -55,8 +55,8 @@ class VendingMachine {
     this.products[oldProductIndex] = newProduct;
   }
 
-  inputChanges(money: number) {
-    this.checkInputChangesValidate(money);
+  addChange(money: number) {
+    this.checkChangeValidate(money);
     this.totalMoney += money;
     this.makeChangesToCoin(money);
   }
@@ -117,7 +117,7 @@ class VendingMachine {
     }
   }
 
-  checkInputChangesValidate(money: number) {
+  checkChangeValidate(money: number) {
     if (!isPositiveInteger(money)) {
       throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
     }

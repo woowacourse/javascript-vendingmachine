@@ -40,7 +40,7 @@ export default class ChangeAdd {
     const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
 
     try {
-      vendingMachine.inputChanges(inputChange);
+      vendingMachine.addChange(inputChange);
       this.refreshChange();
     } catch (message) {
       alert(message);
