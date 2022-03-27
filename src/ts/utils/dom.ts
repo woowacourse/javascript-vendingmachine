@@ -1,11 +1,11 @@
 const $ = (
   selector: string,
   target: Document | HTMLElement = document,
-): HTMLElement => target.querySelector(selector);
+): HTMLElement | null => target.querySelector(selector);
 const $$ = (
   selector: string,
   target: Document | HTMLElement = document,
-): NodeListOf<HTMLElement> => target.querySelectorAll(selector);
+): NodeListOf<HTMLElement> | null => target.querySelectorAll(selector);
 
 const replaceHTML = ($el: HTMLElement, template: string) => {
   $el.replaceChildren();
