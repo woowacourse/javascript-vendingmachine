@@ -1,4 +1,6 @@
-import VendingMachine from './ts/resource/VendingMachine';
 import './css/index.css';
+import Tab from './ts/view/Tab';
 
-new VendingMachine().handlePopstate();
+const tab = new Tab();
+
+tab.bindEvent();

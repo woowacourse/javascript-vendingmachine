@@ -14,20 +14,6 @@ export interface View {
   bindEvent(): void;
 }
 
-export interface ProductManageView extends View {
-  readonly $addProductForm: HTMLElement;
-  readonly $productContainer: HTMLElement;
-  readonly $additionalProductName: HTMLElement;
-  readonly $additionalProductPrice: HTMLElement;
-  readonly $additionalProductQuantity: HTMLElement;
-
-  handleSubmitForm(e: Event): void;
-  handleClickButtons(e: Event): void;
-  setModifyForm(e: Event): void;
-  modifyProduct(e: Event): void;
-  deleteProduct(e: Event): void;
-}
-
 export interface ProductCollection {
   readonly products: Array<Product>;
 
@@ -52,4 +38,30 @@ export interface VendingMachine {
   modifyProduct(product: Product, originProductName: string): void;
   deleteProduct(name: string): void;
   chargeMoney(inputMoney: number): void;
+}
+
+export interface ProductManageView extends View {
+  readonly $addProductForm: HTMLElement;
+  readonly $productContainer: HTMLElement;
+  readonly $additionalProductName: HTMLElement;
+  readonly $additionalProductPrice: HTMLElement;
+  readonly $additionalProductQuantity: HTMLElement;
+  readonly vendingMachine: VendingMachine;
+
+  handleSubmitForm(e: Event): void;
+  handleClickButtons(e: Event): void;
+  setModifyForm(productRow: HTMLElement): void;
+  deleteProduct(productRow: HTMLElement): void;
+  modifyProduct(productRow: HTMLElement): void;
+}
+
+export interface TabView {
+  readonly $app: HTMLElement;
+  readonly $tabs: HTMLElement;
+  readonly productManage: ProductManageView;
+
+  bindEvent(): void;
+  handleClickTabs(e: Event): void;
+  handlePopstate(): void;
+  switchTab(tabName: string): void;
 }

@@ -46,9 +46,9 @@ body {
   margin: 0 4px;
 }
 
-.app.manage .tab__item[data-name="manage"],
-.app.charge .tab__item[data-name="charge"], 
-.app.buy .tab__item[data-name="buy"] {
+.app.productManage .tab__item[data-name="productManage"],
+.app.chargeMoney .tab__item[data-name="chargeMoney"], 
+.app.buyProduct .tab__item[data-name="buyProduct"] {
   background-color: var(--tab-active-background-color);
 }
 
@@ -56,8 +56,8 @@ body {
   display: none;
 }
 
-.app.manage .app__main.manage,
-.app.charge .app__main.charge, 
-.app.buy .app__main.buy {
+.app.productManage .app__main.productManage,
+.app.chargeMoney .app__main.chargeMoney, 
+.app.buyProduct .app__main.buyProduct {
   display: flex;
 }

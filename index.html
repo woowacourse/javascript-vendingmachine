@@ -7,38 +7,41 @@
   </head>
 
   <body>
-    <div id="app" class="app manage">
+    <div id="app" class="app productManage">
       <h1 class="app__title">🍿 자판기 🍿</h1>
 
       <section id="tab" class="tab">
-        <button type="button" class="tab__item button" data-name="manage">
+        <button type="button" class="tab__item button" data-name="productManage">
           상품 관리
         </button>
-        <button type="button" class="tab__item button" data-name="charge">
+        <button type="button" class="tab__item button" data-name="chargeMoney">
           잔돈 충전
         </button>
-        <button type="button" class="tab__item button" data-name="buy">
+        <button type="button" class="tab__item button" data-name="buyProduct">
           상품 구매
         </button>
       </section>
 
-      <main class="app__main manage">
+      <main class="app__main productManage">
         <form id="add-product-form" class="input-form">
           <label class="input-description"
             >추가할 상품 정보를 입력해주세요.
           </label>
           <div class="input-container">
             <input
+              type="text"
               id="product-name-input"
               class="input-form__input"
               placeholder="상품명"
             />
             <input
+              type="number"
               id="product-price-input"
               class="input-form__input"
               placeholder="가격"
             />
             <input
+              type="number"
               id="product-quantity-input"
               class="input-form__input"
               placeholder="수량"
@@ -65,13 +68,14 @@
         </section>
       </main>
 
-      <main class="app__main charge">
+      <main class="app__main chargeMoney">
         <form id="charge-money-form" class="input-form">
           <label class="input-description"
             >자판기가 보유할 금액을 입력해주세요.
           </label>
           <div class="input-container">
             <input
+              type="number"
               id="charge-money-input"
               class="input-form__input"
               placeholder="금액"

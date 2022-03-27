@@ -1,4 +1,4 @@
-.app__main.charge .input-form__input {
+.app__main.chargeMoney .input-form__input {
   width:  300px;
   height: 100%;
   border: 1px solid var(--input-border-color);
@@ -8,7 +8,7 @@
   padding-left: 7px;
 }
 
-.app__main.charge .product-table {
+.app__main.chargeMoney .product-table {
   width: 45%;
   margin: 0 auto;
   border-collapse: collapse;

@@ -18,7 +18,7 @@
   width: fit-content;
 }
 
-.app__main.manage .input-form__input {
+.app__main.productManage .input-form__input {
   width: 120px;
   height: 100%;
   border: 1px solid var(--input-border-color);
@@ -57,7 +57,7 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
-.app__main.manage .product-table {
+.app__main.productManage .product-table {
   width: 80%;
   margin: 0 auto;
   border-collapse: collapse;
@@ -93,6 +93,10 @@
 .product-info .button {
   height: 32px;
   background-color: var(--tab-background-color);
+}
+
+.product-info .button:hover {
+  opacity: 0.8;
 }
 
 .modify-button, 

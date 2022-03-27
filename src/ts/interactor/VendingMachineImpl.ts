@@ -7,6 +7,15 @@ import validator from './validator';
 export default class VendingMachineImpl implements VendingMachine {
   public readonly productCollection: ProductCollection;
   public readonly coinCollection: CoinCollection;
+  private static instance: VendingMachine;
+
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new VendingMachineImpl();
+    }
+
+    return this.instance;
+  }
 
   constructor() {
     this.productCollection = new ProductCollectionImpl();
