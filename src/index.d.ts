@@ -55,10 +55,22 @@ export interface ProductManageView extends View {
   modifyProduct(productRow: HTMLElement): void;
 }
 
+export interface ChargeMoneyView extends View {
+  readonly $chargeMoneyForm: HTMLElement;
+  readonly $chargeMoneyInput: HTMLElement;
+  readonly $coin500: HTMLElement;
+  readonly $coin100: HTMLElement;
+  readonly $coin50: HTMLElement;
+  readonly $coin10: HTMLElement;
+
+  handleSubmitForm(e: Event): void;
+}
+
 export interface TabView {
   readonly $app: HTMLElement;
   readonly $tabs: HTMLElement;
   readonly productManage: ProductManageView;
+  readonly chargeMoney: ChargeMoneyView;
 
   bindEvent(): void;
   handleClickTabs(e: Event): void;
