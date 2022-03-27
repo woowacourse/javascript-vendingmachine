@@ -46,7 +46,7 @@ export default class ProductManage {
 
     try {
       vendingMachine.addProduct(newProduct);
-      this.addProductItem(newProduct);
+      this.renderProductItem(newProduct);
     } catch (message) {
       alert(message);
     }
@@ -124,11 +124,11 @@ export default class ProductManage {
     const products = vendingMachine.getProducts();
 
     products.forEach(product => {
-      this.addProductItem(product);
+      this.renderProductItem(product);
     });
   }
 
-  addProductItem(product: Product) {
+  renderProductItem(product: Product) {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
