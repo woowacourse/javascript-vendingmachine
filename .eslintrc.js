@@ -1,11 +1,15 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
-  extends: ['airbnb', 'plugin:prettier/recommended'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'react-hooks'],
+  extends: ['airbnb-base', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   rules: {
-    'linebreak-style': ['error', 'windows'],
+    'prettier/prettier': 0,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
   },
 };
