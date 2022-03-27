@@ -19,7 +19,6 @@ class Store {
 
   constructor(initialState: AppState) {
     if (Store._instance) {
-      // eslint-disable-next-line no-constructor-return
       return Store._instance;
     }
     this.state = initialState;
