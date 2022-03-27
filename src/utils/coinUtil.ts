@@ -1,8 +1,9 @@
 import { Coins } from '../domains/VendingMachine';
+import { COINS } from '../constant/constant';
 
 const getRandomCoin = (): number => {
-  const coinValueList = [10, 50, 100, 500];
-  const randomIndex = Math.floor(Math.random() * coinValueList.length);
+  const coinValueList = COINS;
+  const randomIndex = Math.floor(Math.random() * COINS.length);
 
   return coinValueList[randomIndex];
 };

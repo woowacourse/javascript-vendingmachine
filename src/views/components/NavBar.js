@@ -1,4 +1,5 @@
 import Component from '../../core/Component';
+import { PAGE } from '../../constant/constant';
 
 export default class NavBar extends Component {
   setup() {
@@ -15,27 +16,27 @@ export default class NavBar extends Component {
     return `
       <a
         class="nav-button styled-button ${
-          location === '#item-management' ? 'selected' : ''
+          location === PAGE.ITEM_MANAGEMENT.PATH ? 'selected' : ''
         }"
-        href="#item-management"
+        href=${PAGE.ITEM_MANAGEMENT.PATH}
       >
-        상품 관리
+        ${PAGE.ITEM_MANAGEMENT.TITLE}
       </a>
       <a
         class="nav-button styled-button ${
-          location === '#change-charge' ? 'selected' : ''
+          location === PAGE.CHANGE_CHARGE.PATH ? 'selected' : ''
         }"
-        href="#change-charge"
+        href=${PAGE.CHANGE_CHARGE.PATH}
       >
-        잔돈 충전
+        ${PAGE.CHANGE_CHARGE.TITLE}
       </a>
       <a
         class="nav-button styled-button ${
-          location === '#item-purchase' ? 'selected' : ''
+          location === PAGE.ITEM_PURCHASE.PATH ? 'selected' : ''
         }"
-        href="#item-purchase"
+        href=${PAGE.ITEM_PURCHASE.PATH}
       >
-        상품 구매
+        ${PAGE.ITEM_PURCHASE.TITLE}
       </a>
     `;
   }

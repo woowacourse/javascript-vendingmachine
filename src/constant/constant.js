@@ -1,3 +1,18 @@
+export const PAGE = {
+  ITEM_MANAGEMENT: {
+    PATH: '#item-management',
+    TITLE: '상품 관리',
+  },
+  CHANGE_CHARGE: {
+    PATH: '#change-charge',
+    TITLE: '잔돈 충전',
+  },
+  ITEM_PURCHASE: {
+    PATH: '#item-purchase',
+    TITLE: '상품 구매',
+  },
+};
+
 export const ITEM = {
   NAME: {
     MIN_LENGTH: 1,
@@ -14,6 +29,8 @@ export const ITEM = {
 };
 
 export const MONEY_UNIT = 10;
+
+export const COINS = [10, 50, 100, 500];
 
 export const AMOUNT = {
   MIN: 10,
