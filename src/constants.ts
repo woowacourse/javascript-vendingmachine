@@ -18,26 +18,7 @@ export const initialState: AppState = {
     50: 0,
     10: 0,
   },
-  productList: [
-    {
-      name: '콜라',
-      price: 1000,
-      quantity: 1,
-      isEditing: false,
-    },
-    {
-      name: '사이다',
-      price: 2000,
-      quantity: 1,
-      isEditing: false,
-    },
-    {
-      name: '환티',
-      price: 1000,
-      quantity: 1,
-      isEditing: false,
-    },
-  ],
+  productList: [],
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
