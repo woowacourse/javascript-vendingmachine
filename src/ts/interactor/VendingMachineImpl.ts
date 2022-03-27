@@ -29,6 +29,7 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   chargeMoney(inputMoney: number): void {
-    
+    validator.checkChargeMoney(inputMoney, this.coinCollection.calculateTotalAmount());
+    this.coinCollection.generateCoins(inputMoney);
   }
 }
