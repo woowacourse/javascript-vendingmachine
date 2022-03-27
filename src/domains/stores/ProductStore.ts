@@ -46,7 +46,8 @@ class ProductStore {
         break;
       }
       case PRODUCT_ACTION.DELETE: {
-        newProducts.splice(detail as number, 1);
+        const productIndex = this.findProductIndex(detail as string);
+        newProducts.splice(productIndex, 1);
         break;
       }
     }

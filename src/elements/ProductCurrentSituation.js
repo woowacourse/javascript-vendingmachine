@@ -54,7 +54,7 @@ class ProductCurrentSituation extends CustomElement {
         break;
       }
       case PRODUCT_ACTION.DELETE:
-        $(`.tbody-row${detail}`).remove();
+        $(`[data-product-name="${detail}"]`).remove();
     }
   }
 
@@ -78,9 +78,9 @@ class ProductCurrentSituation extends CustomElement {
     $('.table__product-modify-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductModifyButtonClick($tbodyRow),
     );
-    // $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
-    //   this.handleProductDeleteButtonClick(productIndex),
-    // );
+    $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
+      this.handleProductDeleteButtonClick(name),
+    );
   }
 
   handleProductModifyButtonClick = ($tbodyRow) => {
@@ -119,10 +119,10 @@ class ProductCurrentSituation extends CustomElement {
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }
 
-  handleProductDeleteButtonClick = (productIndex) => {
+  handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productIndex));
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
   };
 }
 

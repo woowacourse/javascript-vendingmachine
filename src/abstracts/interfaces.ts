@@ -18,7 +18,7 @@ export type ModifyDetail = {
 
 export interface Action {
   type: string;
-  detail?: Product | ModifyDetail | number;
+  detail?: Product | ModifyDetail | string | number;
 }
 
 export type ProductActionType = {
