@@ -7,7 +7,7 @@ import {
   QUANTITY_RANGE,
 } from './constants';
 
-export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGTH_LIMIT;
+export const isOverNameLimitLength = (nameInput: string) => nameInput.length > NAME_LENGTH_LIMIT;
 
 export const isEmptyName = (nameInput: string) => nameInput.length === 0;
 
@@ -28,7 +28,7 @@ export const checkProductInput = ({
   priceInput: number;
   quantityInput: number;
 }) => {
-  if (isOverLimitLength(nameInput)) {
+  if (isOverNameLimitLength(nameInput)) {
     throw new Error(ERROR_MSG.NAME_OVER_LIMIT_LENGTH);
   }
   if (isEmptyName(nameInput)) {
