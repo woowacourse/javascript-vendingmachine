@@ -12,7 +12,7 @@ export type CoinsCount = {
 };
 
 export type ModifyDetail = {
-  productIndex: number;
+  oldProductName: string;
   newProductInfo: Product;
 };
 

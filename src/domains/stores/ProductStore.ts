@@ -40,7 +40,8 @@ class ProductStore {
         break;
       }
       case PRODUCT_ACTION.MODIFY: {
-        const { productIndex, newProductInfo } = detail as ModifyDetail;
+        const { oldProductName, newProductInfo } = detail as ModifyDetail;
+        const productIndex = this.findProductIndex(oldProductName);
         newProducts[productIndex] = newProductInfo;
         break;
       }
@@ -53,24 +54,13 @@ class ProductStore {
     return newProducts;
   }
 
-  // eslint-disable-next-line max-lines-per-function
+  findProductIndex(productName): number {
+    return this.#products.findIndex((product) => product.name === productName);
+  }
+
   notifySubscribers({ type, detail }: Action): void {
-    // eslint-disable-next-line max-lines-per-function
     this.#subscribers.forEach((subscriber) => {
-      switch (type) {
-        case PRODUCT_ACTION.ADD: {
-          const productIndex: number = this.#products.indexOf(detail as Product);
-          subscriber.rerender({ type, detail }, productIndex);
-          break;
-        }
-        case PRODUCT_ACTION.MODIFY: {
-          const productIndex: number = this.#products.indexOf((detail as ModifyDetail).newProductInfo);
-          subscriber.rerender({ type, detail }, productIndex);
-          break;
-        }
-        case PRODUCT_ACTION.DELETE:
-          subscriber.rerender({ type, detail });
-      }
+      subscriber.rerender({ type, detail });
     });
   }
 

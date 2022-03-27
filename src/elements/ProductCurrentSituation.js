@@ -19,6 +19,7 @@ class ProductCurrentSituation extends CustomElement {
             <th>상품명</th>
             <th>가격</th>
             <th>수량</th>
+            <th></th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -27,20 +28,19 @@ class ProductCurrentSituation extends CustomElement {
   }
 
   // eslint-disable-next-line max-lines-per-function
-  rerender(newProduct, productIndex) {
+  rerender(newProduct) {
     const { type, detail } = newProduct;
 
     switch (type) {
       case PRODUCT_ACTION.ADD:
-        $('tbody', $('.product-current-situation')).insertAdjacentHTML(
-          'beforeend',
-          this.tableBodyRowTemplate(productIndex, detail),
-        );
-        this.setEventAfterRerender(productIndex);
+        $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
+        this.setEventAfterRerender(detail);
         break;
       case PRODUCT_ACTION.MODIFY: {
-        const $tbodyRow = $(`.tbody-row${productIndex}`);
-        const { newProductInfo } = detail;
+        const { oldProductName, newProductInfo } = detail;
+        const $tbodyRow = $(`[data-product-name="${oldProductName}"]`);
+
+        $tbodyRow.dataset.productName = newProductInfo.name;
 
         $('.product-name-td', $tbodyRow).textContent = newProductInfo.name;
         $('.product-price-td', $tbodyRow).textContent = newProductInfo.price;
@@ -50,7 +50,7 @@ class ProductCurrentSituation extends CustomElement {
           <button class="table__product-delete-button">삭제</button>
         `;
 
-        this.setEventAfterRerender(productIndex);
+        this.setEventAfterRerender(newProductInfo);
         break;
       }
       case PRODUCT_ACTION.DELETE:
@@ -58,10 +58,10 @@ class ProductCurrentSituation extends CustomElement {
     }
   }
 
-  tableBodyRowTemplate(productIndex, { name, price, quantity }) {
-    return `
-      <tr class="tbody-row${productIndex}">
-        <td class="product-name-td">${name}</td>
+  tableBodyRowTemplate({ name, price, quantity }) {
+    return ` 
+      <tr data-product-name="${name}">
+        <td class="product-name-td">${name}</td> 
         <td class="product-price-td">${price}</td>
         <td class="product-quantity-td">${quantity}</td>
         <td class="product-manage-buttons-td">
@@ -72,25 +72,23 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  setEventAfterRerender(productIndex) {
-    const $tbodyRow = $(`.tbody-row${productIndex}`);
+  setEventAfterRerender({ name }) {
+    const $tbodyRow = $(`[data-product-name="${name}"]`);
 
     $('.table__product-modify-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductModifyButtonClick(productIndex),
+      this.handleProductModifyButtonClick($tbodyRow),
     );
-    $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductDeleteButtonClick(productIndex),
-    );
+    // $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
+    //   this.handleProductDeleteButtonClick(productIndex),
+    // );
   }
 
-  handleProductModifyButtonClick = (productIndex) => {
-    this.makeProductInfoModifiable(productIndex);
-    this.setEventForProductModify(productIndex);
+  handleProductModifyButtonClick = ($tbodyRow) => {
+    this.makeProductInfoModifiable($tbodyRow);
+    this.setEventForProductModify($tbodyRow);
   };
 
-  makeProductInfoModifiable(productIndex) {
-    const $tbodyRow = $(`.tbody-row${productIndex}`);
-
+  makeProductInfoModifiable($tbodyRow) {
     const $productNameTd = $('.product-name-td', $tbodyRow);
     $productNameTd.innerHTML = `<input class="product-name-input" placeholder="상품명" value="${$productNameTd.textContent}" maxlength="10" required>`;
 
@@ -104,21 +102,21 @@ class ProductCurrentSituation extends CustomElement {
     $productManageButtonsTd.innerHTML = `<button class="table__product-modify-confirm-button">확인</button>`;
   }
 
-  setEventForProductModify(productIndex) {
-    $('.table__product-modify-confirm-button', $(`.tbody-row${productIndex}`)).addEventListener('click', () =>
-      this.handleProductModifyConfirmButtonClick(productIndex),
+  setEventForProductModify($tbodyRow) {
+    $('.table__product-modify-confirm-button', $tbodyRow).addEventListener('click', () =>
+      this.handleProductModifyConfirmButtonClick($tbodyRow),
     );
   }
 
-  handleProductModifyConfirmButtonClick(productIndex) {
-    const $tbodyRow = $(`.tbody-row${productIndex}`);
+  handleProductModifyConfirmButtonClick($tbodyRow) {
+    const oldProductName = $tbodyRow.dataset.productName;
     const newProductInfo = {
       name: $('.product-name-input', $tbodyRow).value,
       price: $('.product-price-input', $tbodyRow).value,
       quantity: $('.product-quantity-input', $tbodyRow).value,
     };
 
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { productIndex, newProductInfo }));
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }
 
   handleProductDeleteButtonClick = (productIndex) => {
