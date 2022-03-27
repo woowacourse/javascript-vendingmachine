@@ -35,7 +35,7 @@ export default class CoinManagementUI {
           />
           <button class="coin-charge__button submit-button">충전</button>
         </form>
-        <p class="coin-charge__total-cash-description">현재 보유 금액: <span class="coin-charge__total-cash">0</span>원</p>
+        <p class="coin-charge__total-cash-description">현재 보유 금액: <span class="coin-charge__total-cash">${this.coinDomain.totalCash}</span>원</p>
       </section>
       <section class="coin-holdings">
         <h2 class="coin-holdings__title section-title">자판기가 보유한 동전</h2>
