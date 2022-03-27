@@ -4,13 +4,6 @@ export interface Product {
   quantity: number;
 }
 
-export type CoinsCount = {
-  500: number;
-  100: number;
-  50: number;
-  10: number;
-};
-
 export type ModifyDetail = {
   oldProductName: string;
   newProductInfo: Product;
@@ -30,4 +23,11 @@ export type ProductActionType = {
 export type CoinActionType = {
   MONEY_CHARGE: string;
   COIN_ADD: string;
+};
+
+export type CoinsCount = {
+  500: number;
+  100: number;
+  50: number;
+  10: number;
 };

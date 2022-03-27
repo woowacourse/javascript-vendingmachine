@@ -1,4 +1,4 @@
-import { Action, CoinsCount } from '../../abstracts/interfaces';
+import { Action, CoinsCount } from '../../abstracts/types';
 import { COIN_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
