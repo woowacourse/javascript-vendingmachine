@@ -23,6 +23,7 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   deleteProduct(name: string): void {
-    
+    if (this.productCollection.getIndex(name) === -1) throw new Error('존재하지 않는 상품입니다!');
+    this.productCollection.delete(name);
   }
 }
