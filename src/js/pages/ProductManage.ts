@@ -64,8 +64,9 @@ export default class ProductManage {
       price: parseInt((<HTMLElement>oldLi.querySelector('.product-price')).textContent),
       amount: parseInt((<HTMLElement>oldLi.querySelector('.product-amount')).textContent),
     };
+    const newLi = this.replaceList(product, ModifyProductComponent);
 
-    ul.replaceChild(this.replaceList(product, ModifyProductComponent), oldLi);
+    ul.replaceChild(newLi, oldLi);
   };
 
   onSubmitModifyCompleteButton = (e: PointerEvent) => {
@@ -74,18 +75,20 @@ export default class ProductManage {
     }
 
     const ul = (<HTMLElement>e.target).closest('ul');
-    const parentList = (<HTMLElement>e.target).closest('li');
+    const oldLi = (<HTMLElement>e.target).closest('li');
     const product = {
-      name: (<HTMLInputElement>parentList.querySelector('.product-name-modify-input')).value,
-      price: parseInt((<HTMLInputElement>parentList.querySelector('.product-price-modify-input')).value),
-      amount: parseInt((<HTMLInputElement>parentList.querySelector('.product-amount-modify-input')).value),
+      name: (<HTMLInputElement>oldLi.querySelector('.product-name-modify-input')).value,
+      price: parseInt((<HTMLInputElement>oldLi.querySelector('.product-price-modify-input')).value),
+      amount: parseInt((<HTMLInputElement>oldLi.querySelector('.product-amount-modify-input')).value),
     };
 
-    const prevName = (<HTMLElement>parentList.querySelector('.product-modify-submit-button')).dataset.name;
+    const prevName = (<HTMLElement>oldLi.querySelector('.product-modify-submit-button')).dataset.name;
 
     try {
       vendingMachine.modifyProduct(prevName, product);
-      ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
+
+      const newLi = this.replaceList(product, ProductItemComponent);
+      ul.replaceChild(newLi, oldLi);
     } catch (message) {
       alert(message);
     }
