@@ -101,9 +101,6 @@ class ItemManageTab extends VendingMachineTab {
 
     itemInfoInputCellList[0].focus();
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
-    targetItem.addEventListener('keydown', ({ key }) =>
-      this.#onKeyDownItemInfoRow(key, targetItem)
-    );
   }
 
   #handleDeleteButtonClickEvent(targetItem) {
