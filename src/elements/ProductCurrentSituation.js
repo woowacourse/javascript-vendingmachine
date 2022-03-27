@@ -1,7 +1,9 @@
 import ProductStore from '../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../domains/actions';
+
 import CustomElement from '../abstracts/CustomElement';
-import { $ } from '../utils/dom';
+import { $, $$ } from '../utils/dom';
+import { checkProductValidation } from '../validators';
 import { CONFIRM_MESSAGE } from '../constants';
 
 class ProductCurrentSituation extends CustomElement {
@@ -103,18 +105,41 @@ class ProductCurrentSituation extends CustomElement {
   }
 
   setEventForProductModify($tbodyRow) {
+    $$('input', $tbodyRow).forEach((input) =>
+      input.addEventListener('keydown', (event) => this.handleProductModifyEnter(event, $tbodyRow)),
+    );
     $('.table__product-modify-confirm-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductModifyConfirmButtonClick($tbodyRow),
     );
   }
 
-  handleProductModifyConfirmButtonClick($tbodyRow) {
+  handleProductModifyEnter = (event, $tbodyRow) => {
+    if (event.key !== 'Enter') return;
+
+    try {
+      this.modifyProduct($tbodyRow);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  handleProductModifyConfirmButtonClick = ($tbodyRow) => {
+    try {
+      this.modifyProduct($tbodyRow);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  modifyProduct($tbodyRow) {
     const oldProductName = $tbodyRow.dataset.productName;
     const newProductInfo = {
       name: $('.product-name-input', $tbodyRow).value,
-      price: $('.product-price-input', $tbodyRow).value,
-      quantity: $('.product-quantity-input', $tbodyRow).value,
+      price: $('.product-price-input', $tbodyRow).valueAsNumber,
+      quantity: $('.product-quantity-input', $tbodyRow).valueAsNumber,
     };
+
+    checkProductValidation(newProductInfo);
 
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }

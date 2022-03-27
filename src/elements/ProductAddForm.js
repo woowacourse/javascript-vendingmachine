@@ -3,14 +3,14 @@ import { createAction, PRODUCT_ACTION } from '../domains/actions';
 
 import CustomElement from '../abstracts/CustomElement';
 import { $ } from '../utils/dom';
-import { checkProductValidation } from '../validators';
+import { checkProductAddValidation } from '../validators';
 
 class ProductAddForm extends CustomElement {
   template() {
     return `
       <form class="product-add-form">
         <label>추가할 상품 정보를 입력해주세요.</label>
-        <div>
+        <div class="product-input-container">
           <input class="product-name-input" placeholder="상품명" maxlength="10" required>
           <input type="number" class="product-price-input" placeholder="가격" min="100" max="10000" required>
           <input type="number" class="product-quantity-input" placeholder="수량" min="1" max="20" required>
@@ -29,8 +29,8 @@ class ProductAddForm extends CustomElement {
 
     const newProduct = {
       name: $('.product-name-input').value.trim(),
-      price: $('.product-price-input').value,
-      quantity: $('.product-quantity-input').value,
+      price: $('.product-price-input').valueAsNumber,
+      quantity: $('.product-quantity-input').valueAsNumber,
     };
 
     try {
@@ -41,7 +41,7 @@ class ProductAddForm extends CustomElement {
   };
 
   addProduct(newProduct) {
-    checkProductValidation(newProduct);
+    checkProductAddValidation(newProduct);
 
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
   }
