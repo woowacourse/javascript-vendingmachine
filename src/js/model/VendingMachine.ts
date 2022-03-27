@@ -8,51 +8,29 @@ import {
   isPositiveInteger,
 } from './validator';
 
+const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+
 class VendingMachine {
-  private products: Array<Product>;
   private changes: Coin;
+  private products: Array<Product>;
   private totalMoney: number;
 
   constructor() {
-    this.products = [];
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    this.products = [];
     this.totalMoney = 0;
-  }
-
-  getProducts() {
-    return this.products;
   }
 
   getChanges() {
     return this.changes;
   }
 
+  getProducts() {
+    return this.products;
+  }
+
   getTotalMoney() {
     return this.totalMoney;
-  }
-
-  addProduct(product: Product) {
-    this.checkProductValidate(product);
-    this.products.push(product);
-  }
-
-  findProductIndex(name: string) {
-    return this.products.findIndex(product => product.name === name);
-  }
-
-  removeProduct(name: string) {
-    const productIndex = this.findProductIndex(name);
-    const isExist = productIndex >= 0;
-
-    if (isExist) {
-      this.products.splice(productIndex, 1);
-    }
-  }
-
-  modifyProduct(oldProductName: string, newProduct: Product) {
-    const oldProductIndex = this.findProductIndex(oldProductName);
-    this.checkProductValidate(newProduct, oldProductIndex);
-    this.products[oldProductIndex] = newProduct;
   }
 
   addChange(money: number) {
@@ -61,7 +39,21 @@ class VendingMachine {
     this.makeChangesToCoin(money);
   }
 
-  makeChangesToCoin(money: number) {
+  private checkChangeValidate(money: number) {
+    if (!isPositiveInteger(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    }
+
+    if (!isUnitOfTen(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    }
+
+    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
+    }
+  }
+
+  private makeChangesToCoin(money: number) {
     const coin = this.getChangeCoin(money);
     money -= coin;
 
@@ -84,17 +76,37 @@ class VendingMachine {
     }
   }
 
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
-
-  getChangeCoin(money: number) {
-    const coins = [500, 100, 50, 10].filter(coin => coin <= money);
-    const index = this.getRandomInt(coins.length);
+  private getChangeCoin(money: number) {
+    const coins = RULES.CHANGE_UNITS.filter(coin => coin <= money);
+    const index = getRandomInt(coins.length);
     return coins[index];
   }
 
-  checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
+  addProduct(product: Product) {
+    this.checkProductValidate(product);
+    this.products.push(product);
+  }
+
+  modifyProduct(oldProductName: string, newProduct: Product) {
+    const oldProductIndex = this.findProductIndex(oldProductName);
+    this.checkProductValidate(newProduct, oldProductIndex);
+    this.products[oldProductIndex] = newProduct;
+  }
+
+  removeProduct(name: string) {
+    const productIndex = this.findProductIndex(name);
+    const isExist = productIndex >= 0;
+
+    if (isExist) {
+      this.products.splice(productIndex, 1);
+    }
+  }
+
+  private findProductIndex(name: string) {
+    return this.products.findIndex(product => product.name === name);
+  }
+
+  private checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
     const productIndex = this.findProductIndex(product.name);
     const isExist = productIndex >= 0;
     const isAddWithDuplicatedName = isExist && originalIndex === RULES.NOT_EXIST_INDEX;
@@ -114,20 +126,6 @@ class VendingMachine {
 
     if (!isValidProductAmount(product.amount)) {
       throw new Error(ERROR_MESSAGE.PRODUCT_AMOUNT);
-    }
-  }
-
-  checkChangeValidate(money: number) {
-    if (!isPositiveInteger(money)) {
-      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
-    }
-
-    if (!isUnitOfTen(money)) {
-      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
-    }
-
-    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
-      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
     }
   }
 }
