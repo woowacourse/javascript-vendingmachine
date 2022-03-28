@@ -20,7 +20,7 @@ export default class Router {
     });
   }
 
-  tabRouter = (url: string, isPopState = false) => {
+  private tabRouter = (url: string, isPopState = false) => {
     if (!isPopState) history.pushState({ url }, null, url);
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {

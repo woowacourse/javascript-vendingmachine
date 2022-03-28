@@ -11,10 +11,7 @@ export interface RechargeViewInterface {
   $coin10: HTMLSpanElement;
   vendingMachine: VendingMachineInterface;
 
-  handleSubmit(event: SubmitEvent): void;
-  renderHoldingMoney(): void;
   renderRecharge(): void;
-  renderCoinTable(): void;
 }
 
 export default class RechargeView implements RechargeViewInterface {
@@ -40,24 +37,24 @@ export default class RechargeView implements RechargeViewInterface {
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
   }
 
-  renderCoinTable = () => {
+  public renderRecharge = () => {
+    this.renderHoldingMoney();
+    this.renderCoinTable();
+    this.$rechargeInput.focus();
+  };
+
+  private renderHoldingMoney = () => {
+    this.$currentHoldingMoney.textContent = String(this.vendingMachine.getHoldingMoney());
+  };
+
+  private renderCoinTable = () => {
     this.$coin500.textContent = String(this.vendingMachine.getCoinByValue(500).count);
     this.$coin100.textContent = String(this.vendingMachine.getCoinByValue(100).count);
     this.$coin50.textContent = String(this.vendingMachine.getCoinByValue(50).count);
     this.$coin10.textContent = String(this.vendingMachine.getCoinByValue(10).count);
   };
 
-  renderRecharge = () => {
-    this.renderHoldingMoney();
-    this.renderCoinTable();
-    this.$rechargeInput.focus();
-  };
-
-  renderHoldingMoney = () => {
-    this.$currentHoldingMoney.textContent = String(this.vendingMachine.getHoldingMoney());
-  };
-
-  handleSubmit = (event: SubmitEvent) => {
+  private handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
     const moneyToRecharge = +this.$rechargeInput.value;
 

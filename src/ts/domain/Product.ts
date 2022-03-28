@@ -15,15 +15,15 @@ export default class Product implements ProductInterface {
     this._quantity = quantity;
   }
 
-  get name() {
+  public get name() {
     return this._name;
   }
 
-  get price() {
+  public get price() {
     return this._price;
   }
 
-  get quantity() {
+  public get quantity() {
     return this._quantity;
   }
 }

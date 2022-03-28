@@ -39,13 +39,7 @@ export default class View {
     );
   }
 
-  handleClickTabButton(url: string) {
-    const detail = url;
-    const event = new CustomEvent('@route-tab', { detail });
-    this.$navTab.dispatchEvent(event);
-  }
-
-  renderTabResult = (id: string) => {
+  public renderTabResult = (id: string) => {
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
       if (container.id === id) {
         container.classList.remove('hide');
@@ -58,7 +52,13 @@ export default class View {
     localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
   };
 
-  renderUpdatedView = (id: string) => {
+  private handleClickTabButton(url: string) {
+    const detail = url;
+    const event = new CustomEvent('@route-tab', { detail });
+    this.$navTab.dispatchEvent(event);
+  }
+
+  private renderUpdatedView = (id: string) => {
     const containerBranch = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
         this.productManageView.renderProductManage();

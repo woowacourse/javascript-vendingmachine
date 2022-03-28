@@ -15,10 +15,7 @@ export interface VendingMachineInterface {
   editProduct(name: string, product: ProductType): void;
   rechargeMoney(money: number): void;
   getHoldingMoney(): number;
-  generateRandomCoins(money: number): void;
   getCoinByValue(value: number): MoneyType;
-  getProductsFromStorage(key: string): ProductType;
-  getMoneyFromStorage(key: string): MoneyType[];
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -35,7 +32,57 @@ export default class VendingMachine implements VendingMachineInterface {
     ];
   }
 
-  getProductsFromStorage = (key: string) => {
+  public rechargeMoney = (money: number) => {
+    checkMoneyValidation(money, money + this.getHoldingMoney());
+    this.generateRandomCoins(money);
+
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
+  };
+
+  public getHoldingMoney = () => {
+    return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
+      return holdingMoney + currentMoney.value * currentMoney.count;
+    }, 0);
+  };
+
+  public getCoinByValue = (value: number) => {
+    return this.money.find((coin) => coin.value === value);
+  };
+
+  public getProductByName = (name: string) => {
+    return this.products.find((product) => product.name === name);
+  };
+
+  public addProduct = (newProduct: ProductType) => {
+    const productToAdd = new Product(newProduct);
+    checkDuplicatedProduct(this.products, productToAdd.name);
+    this.products.push(productToAdd);
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+
+    return productToAdd;
+  };
+
+  public deleteProduct = (name: string) => {
+    const indexToDelete = this.products.findIndex((product) => product.name === name);
+
+    this.products.splice(indexToDelete, 1);
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+  };
+
+  public editProduct = (targetName: string, product: ProductType) => {
+    const indexToEdit = this.products.findIndex((product) => product.name === targetName);
+    const editedProduct = new Product(product);
+    if (editedProduct.name !== targetName) {
+      checkDuplicatedProduct(this.products, product.name);
+    }
+    this.products[indexToEdit] = editedProduct;
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+  };
+
+  private getProductsFromStorage = (key: string) => {
     const copy = JSON.parse(localStorage.getItem(key));
 
     return copy?.map((product) => {
@@ -49,23 +96,13 @@ export default class VendingMachine implements VendingMachineInterface {
     });
   };
 
-  getMoneyFromStorage = (key: string) => {
+  private getMoneyFromStorage = (key: string) => {
     const copy = JSON.parse(localStorage.getItem(key));
 
     return copy?.map((money) => new Money(money._value, money._count));
   };
 
-  getCoinByValue = (value: number) => {
-    return this.money.find((coin) => coin.value === value);
-  };
-
-  getHoldingMoney = () => {
-    return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
-      return holdingMoney + currentMoney.value * currentMoney.count;
-    }, 0);
-  };
-
-  generateRandomCoins = (money: number) => {
+  private generateRandomCoins = (money: number) => {
     while (money !== 0) {
       const coinValue = this.money[getRandomNumber(0, 3)].value;
       if (coinValue <= money) {
@@ -74,45 +111,5 @@ export default class VendingMachine implements VendingMachineInterface {
         money -= coinValue;
       }
     }
-  };
-
-  rechargeMoney = (money: number) => {
-    checkMoneyValidation(money, money + this.getHoldingMoney());
-    this.generateRandomCoins(money);
-
-    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
-  };
-
-  addProduct = (newProduct: ProductType) => {
-    const productToAdd = new Product(newProduct);
-    checkDuplicatedProduct(this.products, productToAdd.name);
-    this.products.push(productToAdd);
-
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
-
-    return productToAdd;
-  };
-
-  deleteProduct = (name: string) => {
-    const indexToDelete = this.products.findIndex((product) => product.name === name);
-
-    this.products.splice(indexToDelete, 1);
-
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
-  };
-
-  getProductByName = (name: string) => {
-    return this.products.find((product) => product.name === name);
-  };
-
-  editProduct = (targetName: string, product: ProductType) => {
-    const indexToEdit = this.products.findIndex((product) => product.name === targetName);
-    const editedProduct = new Product(product);
-    if (editedProduct.name !== targetName) {
-      checkDuplicatedProduct(this.products, product.name);
-    }
-    this.products[indexToEdit] = editedProduct;
-
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 }

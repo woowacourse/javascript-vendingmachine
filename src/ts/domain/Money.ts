@@ -9,15 +9,15 @@ export default class Money implements MoneyType {
     this._count = count;
   }
 
-  get value() {
+  public get value() {
     return this._value;
   }
 
-  get count() {
+  public get count() {
     return this._count;
   }
 
-  increaseCount() {
+  public increaseCount() {
     this._count += 1;
   }
 }
