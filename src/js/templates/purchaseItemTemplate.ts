@@ -1,5 +1,5 @@
-import { COINS } from '../constants/constants';
 import { CoinsType, ItemType } from '../types/types';
+import { generateCoinTableTemplate } from '../utils/viewTemplate';
 
 const sectionTemplate = {
   inputContainer(inputMoney: number): string {
@@ -47,6 +47,15 @@ const sectionTemplate = {
     `;
   },
 
+  coinTableRowLayout(coinKey: number, coinNumber: number): string {
+    return `
+    <tr>
+      <td>${coinKey}원</td>
+      <td>${coinNumber}개</td>
+    </tr>
+    `;
+  },
+
   coinTableContainer(coins: CoinsType): string {
     return `
     <section class="table-container">
@@ -56,16 +65,7 @@ const sectionTemplate = {
             <th>동전</th>
             <th>개수</th>
           </tr>
-          ${Object.keys(coins)
-            .map(coinKey => {
-              return `
-              <tr>
-                <td>${COINS[coinKey]}원</td>
-                <td>${coins[coinKey]}개</td>
-              </tr>
-            `;
-            })
-            .join('')}
+          ${generateCoinTableTemplate(coins, this.coinTableRowLayout)}
         </table>
       <button class="return-money-button">반환</button>
     </section>
