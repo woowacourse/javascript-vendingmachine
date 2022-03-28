@@ -43,13 +43,13 @@
   text-align: center;
 }
 
-tr > td {
+td {
   padding: 10px 0;
   border-top: 2px solid var(--gray);
   border-bottom: 2px solid var(--gray);
 }
 
-tr > th {
+th {
   padding: 10px 0;
 }
 
