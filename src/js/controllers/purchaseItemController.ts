@@ -18,7 +18,7 @@ export default class PurchaseItemController {
   }
 
   render() {
-    const items = this.vendingMachine.getItems();
+    const { items } = this.vendingMachine;
     this.purchaseItemView.render(items, this.coins, this.inputMoney);
 
     this.bindEvent();

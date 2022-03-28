@@ -16,7 +16,7 @@ export default class ManageItemController {
   }
 
   loadPage() {
-    const itemList = this.vendingMachine.getItems();
+    const itemList = this.vendingMachine.items;
 
     this.manageItemView.render(itemList);
   }
@@ -30,13 +30,13 @@ export default class ManageItemController {
   handleAddItem(event: CustomEvent) {
     try {
       const newItem: ItemType = event.detail;
-      const items = this.vendingMachine.getItems();
+      const { items } = this.vendingMachine;
 
       checkDuplicatedItem(items, newItem, null);
       this.vendingMachine.addItem(newItem);
 
       this.manageItemView.clearInput();
-      this.manageItemView.repaintItemTable(this.vendingMachine.getItems());
+      this.manageItemView.repaintItemTable(this.vendingMachine.items);
     } catch (error) {
       alert(error.message);
     }
@@ -45,7 +45,7 @@ export default class ManageItemController {
   handleTableItemChange(event: CustomEvent) {
     try {
       const { item, targetRowIndex, $targetTableRow }: TableItemChangeDetailType = event.detail;
-      const items = this.vendingMachine.getItems();
+      const { items } = this.vendingMachine;
 
       checkDuplicatedItem(items, item, targetRowIndex);
       this.vendingMachine.changeItem(targetRowIndex, item);

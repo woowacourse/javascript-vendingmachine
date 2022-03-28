@@ -19,10 +19,9 @@ export default class ChargeMoneyController {
   }
 
   loadPage() {
-    const coins = this.vendingMachine.getCoins();
-    const totalMoney = this.vendingMachine.getInputMoney();
+    const { coins, inputMoney } = this.vendingMachine;
 
-    this.chargeMoneyView.render(coins, totalMoney);
+    this.chargeMoneyView.render(coins, inputMoney);
   }
 
   handleChargeMoney(event: CustomEvent) {
@@ -30,7 +29,7 @@ export default class ChargeMoneyController {
 
     this.vendingMachine.chargeMoney(inputMoney);
 
-    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.getInputMoney());
-    this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
+    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.inputMoney);
+    this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.coins);
   }
 }
