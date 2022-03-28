@@ -71,13 +71,13 @@ export default class VendingMachine implements VendingMachineInterface {
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 
-  public editProduct = (targetName: string, product: ProductType) => {
+  public editProduct = (targetName: string, editedProduct: ProductType) => {
     const indexToEdit = this.products.findIndex((product) => product.name === targetName);
-    const editedProduct = new Product(product);
-    if (editedProduct.name !== targetName) {
-      checkDuplicatedProduct(this.products, product.name);
+
+    if (this.products[indexToEdit].name !== editedProduct.name) {
+      checkDuplicatedProduct(this.products, editedProduct.name);
     }
-    this.products[indexToEdit] = editedProduct;
+    this.products[indexToEdit].setProduct(editedProduct);
 
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };

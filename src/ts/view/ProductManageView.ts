@@ -100,7 +100,6 @@ export default class ProductManageView implements ProductManageViewInterface {
 
     if (target.classList.contains('edit-button')) {
       this.handleEdit(target);
-      return;
     }
     if (target.classList.contains('delete-button')) {
       this.handleDelete(target);

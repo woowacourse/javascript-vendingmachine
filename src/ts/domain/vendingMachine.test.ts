@@ -52,9 +52,9 @@ describe('상품 관리 테스트', () => {
     const productToEdit = { name: '사이다', price: 1500, quantity: 15 };
     vendingMachine.addProduct(productToEdit);
 
-    const newProduct = { name: '코카콜라', price: 1500, quantity: 15 };
+    const editedProduct = { name: '코카콜라', price: 1500, quantity: 15 };
     expect(() => {
-      vendingMachine.editProduct('사이다', newProduct);
+      vendingMachine.editProduct('사이다', editedProduct);
     }).toThrowError(ERROR_MESSAGE.DUPLICATED_PRODUCT);
   });
 

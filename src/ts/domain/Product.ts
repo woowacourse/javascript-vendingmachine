@@ -1,7 +1,9 @@
 import ProductType from '../type/ProductType';
 import { checkProductValidation } from './validator';
 
-interface ProductInterface extends ProductType {}
+interface ProductInterface extends ProductType {
+  setProduct?({ name, price, quantity }: ProductType): void;
+}
 
 export default class Product implements ProductInterface {
   private _name: string;
@@ -25,5 +27,24 @@ export default class Product implements ProductInterface {
 
   public get quantity() {
     return this._quantity;
+  }
+
+  setProduct({ name, price, quantity }: ProductType) {
+    checkProductValidation({ name, price, quantity });
+    this._name = name;
+    this._price = price;
+    this._quantity = quantity;
+  }
+
+  public set name(name) {
+    this._name = name;
+  }
+
+  public set price(price) {
+    this._price = price;
+  }
+
+  public set quantity(quantity) {
+    this._quantity = quantity;
   }
 }
