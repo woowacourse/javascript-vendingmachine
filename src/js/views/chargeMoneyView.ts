@@ -12,9 +12,9 @@ export default class ChargeMoneyView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  render(coins: CoinsType, totalMoney: number) {
+  render(coins: CoinsType, money: number) {
     this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
+    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, money));
 
     this.bindEvents();
   }

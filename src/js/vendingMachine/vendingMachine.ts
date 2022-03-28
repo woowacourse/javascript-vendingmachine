@@ -5,7 +5,7 @@ import { ItemType, CoinsType } from '../types/types';
 export default class VendingMachine {
   private _items: ItemType[] = [];
   private _coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private _inputMoney = 0;
+  private _money = 0;
 
   get items(): Array<ItemType> {
     return this._items;
@@ -15,8 +15,8 @@ export default class VendingMachine {
     return this._coins;
   }
 
-  get inputMoney(): number {
-    return this._inputMoney;
+  get money(): number {
+    return this._money;
   }
 
   addItem({ name, price, quantity }: ItemType) {
@@ -31,9 +31,9 @@ export default class VendingMachine {
     this._items = this._items.filter(item => item.name !== targetItem.name);
   }
 
-  chargeMoney(money: number) {
-    this._coins = this.generateRandomCoins(money);
-    this._inputMoney += money;
+  chargeMoney(inputMoney: number) {
+    this._coins = this.generateRandomCoins(inputMoney);
+    this._money += inputMoney;
   }
 
   private generateRandomCoins(money: number): CoinsType {

@@ -15,9 +15,9 @@ export default class ChargeMoneyController {
   }
 
   loadPage() {
-    const { coins, inputMoney } = this.vendingMachine;
+    const { coins, money } = this.vendingMachine;
 
-    this.chargeMoneyView.render(coins, inputMoney);
+    this.chargeMoneyView.render(coins, money);
   }
 
   handleChargeMoney(event: CustomEvent) {
@@ -25,7 +25,7 @@ export default class ChargeMoneyController {
 
     this.vendingMachine.chargeMoney(inputMoney);
 
-    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.inputMoney);
+    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.money);
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.coins);
   }
 }
