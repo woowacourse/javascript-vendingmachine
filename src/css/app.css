@@ -76,7 +76,7 @@ th {
 
 .short-button {
   width: 56px;
-  margin: 0 0 0 16px;
+  margin-left: 16px;
   font-size: 14px;
   font-weight: 700;
 }
