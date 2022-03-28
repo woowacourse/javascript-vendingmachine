@@ -6,7 +6,6 @@ export interface Coins {
 }
 
 export interface ProductState {
-  index: number;
   name: string;
   price: number;
   quantity: number;

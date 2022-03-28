@@ -135,28 +135,26 @@ export class ProductCatalogTable {
   }
 
   private saveEditedProductState(tableRow: HTMLTableRowElement) {
-    const productState = {
-      index: this.productCatalog.findExistingProductIndex(tableRow.id),
+    const product = this.productCatalog.findProduct(tableRow.id);
+    const editedProductState = {
       name: (tableRow.querySelector('.product-name input') as HTMLInputElement).value,
       price: (tableRow.querySelector('.product-price input') as HTMLInputElement).valueAsNumber,
       quantity: (tableRow.querySelector('.product-quantity input') as HTMLInputElement)
         .valueAsNumber,
     };
 
-    if (this.isSavable(productState)) {
-      this.productCatalog.getProductList()[productState.index].setName(productState.name);
-      this.productCatalog.getProductList()[productState.index].setPrice(productState.price);
-      this.productCatalog.getProductList()[productState.index].setQuantity(productState.quantity);
+    if (this.isSavable(product, editedProductState)) {
+      product.setName(editedProductState.name);
+      product.setPrice(editedProductState.price);
+      product.setQuantity(editedProductState.quantity);
     }
   }
 
-  private isSavable(productState: ProductState) {
+  private isSavable(product: Product, editedProductState: ProductState) {
     try {
-      this.productCatalog.getProductList()[productState.index].validateName(productState.name);
-      this.productCatalog.getProductList()[productState.index].validatePrice(productState.price);
-      this.productCatalog
-        .getProductList()
-        [productState.index].validateQuantity(productState.quantity);
+      product.validateName(editedProductState.name);
+      product.validatePrice(editedProductState.price);
+      product.validateQuantity(editedProductState.quantity);
 
       return true;
     } catch (err) {

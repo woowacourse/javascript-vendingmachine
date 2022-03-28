@@ -12,10 +12,10 @@ export class ProductCatalog {
   }
 
   addProduct(name: string, price: number, quantity: number) {
-    const productIndex = this.findExistingProductIndex(name);
+    const product = this.findProduct(name);
 
-    if (productIndex !== -1) {
-      this.accumulateQuantity(productIndex, quantity);
+    if (product) {
+      this.accumulateQuantity(product, quantity);
 
       return;
     }
@@ -23,16 +23,14 @@ export class ProductCatalog {
     this.productList = [...this.productList, new Product(name, price, quantity)];
   }
 
-  findExistingProductIndex(name: string): number {
-    return this.productList.findIndex((product) => product.getName() === name);
+  findProduct(name: string): Product {
+    return this.productList.find((product) => product.getName() === name);
   }
 
-  private accumulateQuantity(productIndex: number, quantity: number) {
-    const targetProduct = this.productList[productIndex];
-
+  private accumulateQuantity(product: Product, quantity: number) {
     try {
-      targetProduct.validateQuantity(targetProduct.getQuantity() + quantity);
-      targetProduct.setQuantity(targetProduct.getQuantity() + quantity);
+      product.validateQuantity(product.getQuantity() + quantity);
+      product.setQuantity(product.getQuantity() + quantity);
     } catch (err) {
       throw err;
     }
