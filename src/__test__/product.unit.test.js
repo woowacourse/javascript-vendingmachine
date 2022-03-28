@@ -77,12 +77,12 @@ test('상품을 수정할 수 있다.', () => {
 
 test('상품을 삭제할 수 있다', () => {
   const productCatalog = new ProductCatalog();
-  expect(productCatalog.getProductList()).toHaveLength(0);
 
   productCatalog.addProduct('코카콜라', 1000, 20);
-  productCatalog.deleteProduct('코카콜라');
+  expect(productCatalog.findExistingProductIndex('코카콜라')).toEqual(0);
 
-  expect(productCatalog.getProductList()).toHaveLength(0);
+  productCatalog.deleteProduct('코카콜라');
+  expect(productCatalog.findExistingProductIndex('코카콜라')).toEqual(-1);
 });
 
 test('이미 존재하는 제품을 추가했을시 수량을 합쳐준다.', () => {
