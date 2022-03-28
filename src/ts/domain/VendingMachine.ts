@@ -9,7 +9,7 @@ import { STORAGE_ID } from '../constants';
 export interface VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
-  addProduct(input: ProductType): ProductType;
+  addProduct(product: ProductType): ProductType;
   deleteProduct(name: string): void;
   getProduct(name: string): ProductType;
   editProduct(name: string, product: ProductType): void;
@@ -71,13 +71,13 @@ export default class VendingMachine implements VendingMachineInterface {
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 
-  public editProduct = (targetName: string, editedProduct: ProductType) => {
-    const indexToEdit = this.products.findIndex((product) => product.name === targetName);
+  public editProduct = (name: string, product: ProductType) => {
+    const indexToEdit = this.products.findIndex((product) => product.name === name);
 
-    if (this.products[indexToEdit].name !== editedProduct.name) {
-      checkDuplicatedProduct(this.products, editedProduct.name);
+    if (this.products[indexToEdit].name !== product.name) {
+      checkDuplicatedProduct(this.products, product.name);
     }
-    this.products[indexToEdit].setProduct(editedProduct);
+    this.products[indexToEdit].setProduct(product);
 
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
