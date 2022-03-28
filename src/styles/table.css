@@ -1,0 +1,59 @@
+@import './color.css';
+
+table {
+  border-collapse: collapse;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  min-width: 200px;
+}
+
+caption {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+tbody {
+  min-width: 200px;
+}
+
+tbody tr {
+  border-top: 1px solid var(--table-division-color);
+  border-bottom: 1px solid var(--table-division-color);
+}
+
+tbody tr td,
+table tr th {
+  width: 100px;
+}
+
+tbody tr td:last-child {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+tbody tr td,
+tbody tr th {
+  text-align: center;
+  padding: 10px 0;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+tbody tr td input:read-only {
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+}
+tbody tr td input {
+  text-align: center;
+  color: #111;
+  padding: 5px 0;
+}
