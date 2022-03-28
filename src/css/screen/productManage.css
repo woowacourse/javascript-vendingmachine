@@ -47,7 +47,7 @@
   margin-top: 48px;
 }
 
-.app__main.productManage {
+.app__main.productManage .table-wrap {
   height: 300px;
   overflow-y: scroll;
 }
