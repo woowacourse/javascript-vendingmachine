@@ -17,7 +17,7 @@ describe('잔돈 도메인 테스트', () => {
     coinDomain.addCoins(cash);
 
     const cashFromCoins = Object.keys(coins).reduce(
-      (prev, current) => prev + Number(current) * coins[current],
+      (acc, current) => acc + Number(current) * coins[current],
       0,
     );
     expect(cashFromCoins).toBe(cash);
