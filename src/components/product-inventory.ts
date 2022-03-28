@@ -4,6 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
+import { toInt } from '../utils';
 import { validateProduct } from '../validation/validators';
 
 @customElement('product-inventory')
@@ -17,12 +18,14 @@ class ProductInventory extends Component {
             : name
         }</td>
         <td>${
-          isEditing ? `<input class="form-control" placeholder="가격" value="${price}"/>` : price
+          isEditing
+            ? `<input class="form-control" placeholder="가격" value="${price}"/>`
+            : `${price.toLocaleString('ko-kr')}원`
         }</td>
         <td>${
           isEditing
             ? `<input class="form-control" placeholder="수량" value="${quantity}"/>`
-            : quantity
+            : `${quantity.toLocaleString('ko-kr')}개`
         }</td>
         <td class="has-btn">
           <div class="btn-group">
@@ -94,9 +97,13 @@ class ProductInventory extends Component {
       alert(errorList[0].errorMessage);
       return;
     }
-
     Store.instance.dispatch(
-      createAction(ACTION.EDIT_PRODUCT, { originalName, name, price, quantity })
+      createAction(ACTION.EDIT_PRODUCT, {
+        originalName,
+        name,
+        price: toInt(price),
+        quantity: toInt(quantity),
+      })
     );
   };
 

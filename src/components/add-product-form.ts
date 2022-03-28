@@ -4,7 +4,7 @@ import { customElement, event } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { RawProductItem } from '../types';
-import { consoleErrorWithConditionalAlert } from '../utils';
+import { consoleErrorWithConditionalAlert, toInt } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
@@ -44,10 +44,17 @@ class AddProductForm extends Component {
 
   addProduct(productItem: RawProductItem) {
     const { productList } = Store.instance.getState();
+    const { price, quantity } = productItem;
     const errorList = validateProduct(productItem, productList).filter((result) => result.hasError);
     if (errorList.length > 0 && errorList[0].hasError)
       throw new ValidationError(errorList[0].errorMessage);
-    Store.instance.dispatch(createAction(ACTION.ADD_PRODUCT, productItem));
+    Store.instance.dispatch(
+      createAction(ACTION.ADD_PRODUCT, {
+        ...productItem,
+        price: toInt(price),
+        quantity: toInt(quantity),
+      })
+    );
     [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
     this.querySelector('input')?.focus();
   }

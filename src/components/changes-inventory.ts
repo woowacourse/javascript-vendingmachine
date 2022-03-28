@@ -11,8 +11,8 @@ class ChangesInventory extends Component {
       .map((unit) => {
         return `
         <tr>
-          <td>${unit}원</td>
-          <td>${coins[unit]}개</td>
+          <td>${unit.toLocaleString('ko-kr')}원</td>
+          <td>${coins[unit].toLocaleString('ko-kr')}개</td>
         </tr>
       `;
       })
