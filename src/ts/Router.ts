@@ -10,7 +10,7 @@ export default class Router {
 
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.view.renderTabResult(this.currentTab);
+    this.view.renderTabs(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, true);
@@ -24,13 +24,13 @@ export default class Router {
     if (!isPopState) history.pushState({ url }, null, url);
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
-        this.view.renderTabResult(PATH_ID.PRODUCT_MANAGE);
+        this.view.renderTabs(PATH_ID.PRODUCT_MANAGE);
       },
       [PATH_ID.RECHARGE]: () => {
-        this.view.renderTabResult(PATH_ID.RECHARGE);
+        this.view.renderTabs(PATH_ID.RECHARGE);
       },
       [PATH_ID.PURCHASE_PRODUCT]: () => {
-        this.view.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
+        this.view.renderTabs(PATH_ID.PURCHASE_PRODUCT);
       },
     };
     routes[url]();

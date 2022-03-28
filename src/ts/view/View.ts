@@ -39,7 +39,7 @@ export default class View {
     );
   }
 
-  public renderTabResult = (id: string) => {
+  public renderTabs = (id: string) => {
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
       if (container.id === id) {
         container.classList.remove('hide');
