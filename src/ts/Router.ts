@@ -15,24 +15,21 @@ export default class Router {
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, true);
     });
-    this.view.$navTab.addEventListener('@route-tab', this.handleRouteTab);
+    this.view.$navTab.addEventListener('@route-tab', (event: CustomEvent) => {
+      this.tabRouter(event.detail);
+    });
   }
-
-  handleRouteTab = (event: CustomEvent) => {
-    const url = event.detail;
-    this.tabRouter(url);
-  };
 
   tabRouter = (url: string, isPopState = false) => {
     if (!isPopState) history.pushState({ url }, null, url);
     const routes = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
+      [PATH_ID.PRODUCT_MANAGE]: () => {
         this.view.renderTabResult(PATH_ID.PRODUCT_MANAGE);
       },
-      '/javascript-vendingmachine/#!/recharge': () => {
+      [PATH_ID.RECHARGE]: () => {
         this.view.renderTabResult(PATH_ID.RECHARGE);
       },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
+      [PATH_ID.PURCHASE_PRODUCT]: () => {
         this.view.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
       },
     };

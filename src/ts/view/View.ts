@@ -60,18 +60,16 @@ export default class View {
 
   renderUpdatedView = (id: string) => {
     const containerBranch = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
+      [PATH_ID.PRODUCT_MANAGE]: () => {
         this.productManageView.renderProductManage();
       },
-      '/javascript-vendingmachine/#!/recharge': () => {
+      [PATH_ID.RECHARGE]: () => {
         this.rechargeView.renderRecharge();
       },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
+      [PATH_ID.PURCHASE_PRODUCT]: () => {
         // this.renderPurchaseProduct();
       },
     };
-    if (containerBranch[id]) {
-      containerBranch[id]();
-    }
+    containerBranch[id]();
   };
 }
