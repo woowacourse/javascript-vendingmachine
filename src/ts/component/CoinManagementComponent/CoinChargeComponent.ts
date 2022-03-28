@@ -2,7 +2,7 @@ import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 import { validateCash } from './validator';
 
-export default class CoinChargeUI {
+export default class CoinChargeComponent {
   private coinDomain;
 
   constructor(coinDomain) {

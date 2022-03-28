@@ -1,9 +1,9 @@
 import { $, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
-import ProductAdditionUI from './ProductAdditionUI';
-import ProductInventoryUI from './ProductInventoryUI';
+import ProductAdditionComponent from './ProductAdditionComponent';
+import ProductInventoryComponent from './ProductInventoryComponent';
 
-export default class ProductManagementUI {
+export default class ProductManagementComponent {
   private productDomain;
 
   constructor(productDomain) {
@@ -55,8 +55,10 @@ export default class ProductManagementUI {
   }
 
   private bindDOM() {
-    new ProductAdditionUI(this.productDomain);
-    const productInventoryUI = new ProductInventoryUI(this.productDomain);
-    viewPainter.productInventoryUI = productInventoryUI;
+    new ProductAdditionComponent(this.productDomain);
+    const productInventoryComponent = new ProductInventoryComponent(
+      this.productDomain,
+    );
+    viewPainter.productInventoryComponent = productInventoryComponent;
   }
 }

@@ -1,6 +1,6 @@
 import { $, replaceHTML } from '../../utils/dom';
 
-export default class ProductPurchaseUI {
+export default class ProductPurchaseComponent {
   render() {
     replaceHTML($('#main-content'), this.template());
     this.bindDOM();

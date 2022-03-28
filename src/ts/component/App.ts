@@ -1,9 +1,9 @@
 import ProductManagementDomain from '../domain/ProductManagement';
 import CoinManagementDomain from '../domain/CoinManagement';
 import { $, $$ } from '../utils/dom';
-import CoinManagementUI from './CoinManagementUI';
-import ProductManagementUI from './ProductManagementUI';
-import ProductPurchaseUI from './ProductPurchase';
+import CoinManagementComponent from './CoinManagementComponent';
+import ProductManagementComponent from './ProductManagementComponent';
+import ProductPurchaseComponent from './ProductPurchaseComponent';
 
 const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
@@ -11,19 +11,21 @@ const basePath =
 export default class App {
   private productDomain;
   private coinDomain;
-  private productManagementUI;
-  private coinManagementUI;
-  private productPurchaseUI;
+  private productManagementComponent;
+  private coinManagementComponent;
+  private productPurchaseComponent;
 
   constructor() {
     this.productDomain = new ProductManagementDomain();
     this.coinDomain = new CoinManagementDomain();
 
-    this.productManagementUI = new ProductManagementUI(this.productDomain);
-    this.coinManagementUI = new CoinManagementUI(this.coinDomain);
-    this.productPurchaseUI = new ProductPurchaseUI();
+    this.productManagementComponent = new ProductManagementComponent(
+      this.productDomain,
+    );
+    this.coinManagementComponent = new CoinManagementComponent(this.coinDomain);
+    this.productPurchaseComponent = new ProductPurchaseComponent();
 
-    this.productManagementUI.render();
+    this.productManagementComponent.render();
 
     $('.nav').addEventListener('click', this.navClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
@@ -67,13 +69,13 @@ export default class App {
   private renderMainContent(pathname) {
     switch (pathname) {
       case `${basePath}`:
-        this.productManagementUI.render();
+        this.productManagementComponent.render();
         break;
       case `${basePath}/charge`:
-        this.coinManagementUI.render();
+        this.coinManagementComponent.render();
         break;
       case `${basePath}/purchase`:
-        this.productPurchaseUI.render();
+        this.productPurchaseComponent.render();
     }
   }
 }

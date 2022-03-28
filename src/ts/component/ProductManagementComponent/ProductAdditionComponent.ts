@@ -7,7 +7,7 @@ type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
 };
 
-export default class ProductAdditionUI {
+export default class ProductAdditionComponent {
   private productDomain;
 
   constructor(productDomain) {

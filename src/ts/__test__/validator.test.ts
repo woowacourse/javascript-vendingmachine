@@ -5,7 +5,7 @@ import {
   PRICE_RULE,
 } from '../constants';
 import ProductImpl from '../domain/Product';
-import { validateProductInfo } from '../ui/ProductManagementUI/validator';
+import { validateProductInfo } from '../component/ProductManagementComponent/validator';
 
 describe('validate 테스트', () => {
   const defaultProduct = {

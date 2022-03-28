@@ -3,7 +3,7 @@ import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 
-export default class ProductInventoryUI {
+export default class ProductInventoryComponent {
   private $container: HTMLElement;
   private productDomain;
 

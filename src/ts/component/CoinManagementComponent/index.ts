@@ -1,9 +1,9 @@
 import { $, replaceHTML } from '../../utils/dom';
-import CoinHoldingsUI from './CoinHoldingsUI';
-import CoinChargeUI from './CoinChargeUI';
+import CoinHoldingsComponent from './CoinHoldingsComponent';
+import CoinChargeComponent from './CoinChargeComponent';
 import { viewPainter } from '../ViewPainter';
 
-export default class CoinManagementUI {
+export default class CoinManagementComponent {
   private coinDomain;
 
   constructor(coinDomain) {
@@ -45,8 +45,8 @@ export default class CoinManagementUI {
   }
 
   private bindDOM() {
-    new CoinChargeUI(this.coinDomain);
-    const coinHoldingsUI = new CoinHoldingsUI(this.coinDomain);
-    viewPainter.coinHoldingsUI = coinHoldingsUI;
+    new CoinChargeComponent(this.coinDomain);
+    const coinHoldingsComponent = new CoinHoldingsComponent(this.coinDomain);
+    viewPainter.coinHoldingsComponent = coinHoldingsComponent;
   }
 }
