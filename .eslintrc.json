@@ -24,7 +24,8 @@
     "lines-between-class-members": "off",
     "no-return-assign": "off",
     "import/extensions": "off",
-    "default-case": "off"
+    "default-case": "off",
+    "no-underscore-dangle": "off"
   },
   "plugins": ["prettier"],
   "settings": {
