@@ -14,7 +14,7 @@ const modifyProductItem = (product: Product) => {
     </span>
     <span>
       <input
-      type="text"
+      type="number"
       class="product-price-modify-input"
       value="${price}"
       placeholder="가격"
@@ -23,7 +23,7 @@ const modifyProductItem = (product: Product) => {
     </span>
     <span>
       <input
-      type="text"
+      type="number"
       class="product-amount-modify-input"
       value="${amount}"
       placeholder="수량"

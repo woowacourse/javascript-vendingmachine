@@ -32,14 +32,10 @@ export default class ProductManage {
     e.preventDefault();
 
     const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
-    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).value;
-    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).value;
+    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).valueAsNumber;
+    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).valueAsNumber;
 
-    const newProduct: Product = {
-      name: name,
-      price: parseInt(price),
-      amount: parseInt(amount),
-    };
+    const newProduct: Product = { name, price, amount };
 
     try {
       vendingMachine.addProduct(newProduct);
@@ -75,8 +71,8 @@ export default class ProductManage {
     const oldLi = (<HTMLElement>e.target).closest('li');
     const product = {
       name: (<HTMLInputElement>oldLi.querySelector('.product-name-modify-input')).value,
-      price: parseInt((<HTMLInputElement>oldLi.querySelector('.product-price-modify-input')).value),
-      amount: parseInt((<HTMLInputElement>oldLi.querySelector('.product-amount-modify-input')).value),
+      price: (<HTMLInputElement>oldLi.querySelector('.product-price-modify-input')).valueAsNumber,
+      amount: (<HTMLInputElement>oldLi.querySelector('.product-amount-modify-input')).valueAsNumber,
     };
 
     const prevName = (<HTMLElement>oldLi.querySelector('.product-modify-submit-button')).dataset.name;
