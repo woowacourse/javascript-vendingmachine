@@ -12,6 +12,13 @@ export default class ChargeMoneyView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
+  render(coins: CoinsType, totalMoney: number) {
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
+
+    this.bindEvents();
+  }
+
   bindEvents() {
     $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener(
       'submit',
@@ -31,13 +38,6 @@ export default class ChargeMoneyView {
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  render(coins: CoinsType, totalMoney: number) {
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
-
-    this.bindEvents();
   }
 
   clearInput() {

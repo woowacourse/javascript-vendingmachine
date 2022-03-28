@@ -21,10 +21,6 @@ export default class AppController {
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
 
-    this.bindEvents();
-  }
-
-  bindEvents() {
     window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
     window.addEventListener('popstate', this.route.bind(this));
   }

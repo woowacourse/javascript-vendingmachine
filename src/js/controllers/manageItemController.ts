@@ -12,19 +12,15 @@ export default class ManageItemController {
     this.vendingMachine = vendingMachine;
     this.manageItemView = new ManageItemView();
 
-    this.bindEvents();
+    window.addEventListener(CUSTOM_EVENT.ADD_ITEM, this.handleAddItem.bind(this));
+    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_CHANGE, this.handleTableItemChange.bind(this));
+    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_DELETE, this.handleTableItemDelete.bind(this));
   }
 
   loadPage() {
     const itemList = this.vendingMachine.items;
 
     this.manageItemView.render(itemList);
-  }
-
-  bindEvents() {
-    window.addEventListener(CUSTOM_EVENT.ADD_ITEM, this.handleAddItem.bind(this));
-    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_CHANGE, this.handleTableItemChange.bind(this));
-    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_DELETE, this.handleTableItemDelete.bind(this));
   }
 
   handleAddItem(event: CustomEvent) {

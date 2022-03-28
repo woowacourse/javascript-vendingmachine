@@ -10,15 +10,7 @@ export default class AppView {
   constructor() {
     this.$app = $(SELECTOR.ID.APP);
 
-    this.render();
-    this.bindEvents();
-  }
-
-  render() {
     this.$app.insertAdjacentHTML('beforeend', initialTemplate);
-  }
-
-  bindEvents() {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
   }
 

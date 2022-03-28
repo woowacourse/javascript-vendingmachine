@@ -13,6 +13,15 @@ export default class ManageItemView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
+  render(items: ItemType[]) {
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
+
+    this.bindSubmitEvent();
+    this.bindChangeClickEvents();
+    this.bindDeleteClickEvents();
+  }
+
   bindSubmitEvent() {
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitAddItem.bind(this));
   }
@@ -98,15 +107,6 @@ export default class ManageItemView {
 
   handleTableItemDelete(item: ItemType) {
     window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.TABLE_ITEM_DELETE, { detail: { item } }));
-  }
-
-  render(items: ItemType[]) {
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
-
-    this.bindSubmitEvent();
-    this.bindChangeClickEvents();
-    this.bindDeleteClickEvents();
   }
 
   repaintItemTable(items: ItemType[]) {

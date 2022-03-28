@@ -11,10 +11,6 @@ export default class ChargeMoneyController {
     this.vendingMachine = vendingMachine;
     this.chargeMoneyView = new ChargeMoneyView();
 
-    this.bindEvents();
-  }
-
-  bindEvents() {
     window.addEventListener(CUSTOM_EVENT.CHARGE_MONEY, this.handleChargeMoney.bind(this));
   }
 
