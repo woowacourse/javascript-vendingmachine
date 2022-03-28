@@ -1,13 +1,7 @@
 import ProductImpl from './Product';
 import { ProductInfo } from './types';
 
-interface ProductManagement {
-  addProduct: (newProduct: ProductInfo) => void;
-  deleteProduct: (productName: string) => void;
-  editProduct: (prevProductName: string, newProduct: ProductInfo) => void;
-}
-
-export default class ProductManagementDomain implements ProductManagement {
+export default class ProductManagementDomain {
   #products: ProductImpl[];
 
   constructor() {

@@ -1,10 +1,6 @@
 import { ProductInfo } from './types';
 
-interface Product {
-  editProduct: (newProduct: ProductInfo) => void;
-}
-
-export default class ProductImpl implements Product {
+export default class ProductImpl {
   #product: ProductInfo;
 
   constructor(product: ProductInfo) {

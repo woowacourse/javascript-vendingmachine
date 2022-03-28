@@ -4,12 +4,7 @@ import { getRandomIndex } from '../utils';
 type CoinUnionType = typeof coinType[number];
 type Coins = { [K in CoinUnionType]: number } | {};
 
-interface CoinManagement {
-  addCash: (cash: number) => void;
-  addCoins: (cash: number) => void;
-}
-
-export default class CoinManagementDomain implements CoinManagement {
+export default class CoinManagementDomain {
   #totalCash: number;
   #coins: Coins;
 
