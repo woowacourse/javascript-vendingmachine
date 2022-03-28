@@ -26,7 +26,7 @@ export default class View {
     this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
-    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-button');
+    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-input');
 
     this.$tabProductManageButton.addEventListener('click', () =>
       this.handleClickTabButton(PATH_ID.PRODUCT_MANAGE),

@@ -4,7 +4,7 @@
   margin: 32px 0 0;
 }
 
-.tab-button {
+.tab-input {
   width: 0;
   height: 0;
 }
@@ -21,7 +21,7 @@
   border-radius: 4px;
 }
 
-.tab-button:checked + label {
+.tab-input:checked + label {
   background: rgba(0, 188, 212, 0.16);
 }
 
