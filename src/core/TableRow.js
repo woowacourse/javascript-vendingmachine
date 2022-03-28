@@ -39,9 +39,7 @@ export default class TableRow extends HTMLTableRowElement {
   }
 
   clearDOM() {
-    while (this.firstChild) {
-      this.removeChild(this.lastChild);
-    }
+    this.replaceChildren();
   }
 
   template() {

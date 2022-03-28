@@ -39,9 +39,7 @@ export default class Component extends HTMLElement {
   }
 
   clearDOM() {
-    while (this.firstChild) {
-      this.removeChild(this.lastChild);
-    }
+    this.replaceChildren();
   }
 
   template() {
