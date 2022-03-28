@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { customElement, event } from '../decorators/decortators';
+import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';
 
