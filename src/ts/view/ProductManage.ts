@@ -1,5 +1,6 @@
 import { ProductManageView, VendingMachine, Product } from '../../index.d';
 import { $ } from '../util/index';
+import { CONFIRM_DELETE_PRODUCT_MESSAGE } from '../constant/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
 export default class ProductManage implements ProductManageView {
@@ -46,7 +47,7 @@ export default class ProductManage implements ProductManageView {
 
     if (target.classList.contains('modify-button')) this.setModifyForm(target.closest('tr'));
 
-    if (target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) this.deleteProduct(target.closest('tr'));
+    if (target.classList.contains('delete-button') && confirm(CONFIRM_DELETE_PRODUCT_MESSAGE)) this.deleteProduct(target.closest('tr'));
 
     if (target.classList.contains('confirm-button')) this.modifyProduct(target.closest('tr'));
   }
@@ -57,7 +58,8 @@ export default class ProductManage implements ProductManageView {
 
   deleteProduct(productRow: HTMLElement) {
     try {
-      this.vendingMachine.deleteProduct(($('.product-info-name', productRow) as HTMLInputElement).value);
+      const productName = ($('.product-info-name', productRow) as HTMLInputElement).value;
+      this.vendingMachine.deleteProduct(productName);
       this.render();
     } catch ({ message }) {
       alert(message);

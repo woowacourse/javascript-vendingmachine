@@ -27,3 +27,5 @@ export const ERROR_MESSAGE = {
   LACK_OF_INPUT_MONEY: `${INPUT_MONEY_RULES.MIN}원 이상 투입해주세요!`,
   EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${MAX_HAVE_MONEY.toLocaleString()}원 입니다!`,
 };
+
+export const CONFIRM_DELETE_PRODUCT_MESSAGE = '정말 삭제하시겠습니까?';
