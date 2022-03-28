@@ -1,4 +1,6 @@
-export const SELECTOR = {
+import { SelectorType } from '../types/constants';
+
+export const SELECTOR: SelectorType = {
   ID: {
     APP: '#app',
     CONTENT: '#content',
