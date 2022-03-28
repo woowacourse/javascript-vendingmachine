@@ -37,9 +37,15 @@ class ChargeMoneyImpl implements ChargeMoney {
       inputMoney < INPUT_MONEY_RULES.MIN ||
       inputMoney % INPUT_MONEY_RULES.MOD_UNIT !== 0
     ) {
+      alert(
+        `투입금액은 ${INPUT_MONEY_RULES.MOD_UNIT}으로 나누어 떨어져야하며, 최소 ${INPUT_MONEY_RULES.MIN} 값 이상만 가능합니다.`,
+      );
       return false;
     }
     if (this.totalAmount() + inputMoney > INPUT_MONEY_RULES.MAX) {
+      alert(
+        `투입금액과 자판기 보유금액의 합이 ${INPUT_MONEY_RULES.MAX}를 초과할 수 없습니다.`,
+      );
       return false;
     }
     return true;

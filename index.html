@@ -11,7 +11,7 @@
     <div id="app" class="app manage">
       <h1 class="app__title">🍿 자판기 🍿</h1>
 
-      <section id="tab" class="tab">
+      <header id="tab" class="tab">
         <button type="button" class="tab__item button" data-name="manage">
           상품 관리
         </button>
@@ -21,7 +21,7 @@
         <button type="button" class="tab__item button" data-name="buy">
           상품 구매
         </button>
-      </section>
+      </header>
 
       <main class="app__main manage">
         <form id="add-product-form" class="input-form">
@@ -37,11 +37,13 @@
             <input
               id="product-price-input"
               class="input-form__input"
+              type="number"
               placeholder="가격"
             />
             <input
               id="product-quantity-input"
               class="input-form__input"
+              type="number"
               placeholder="수량"
             />
             <button type="submit" class="input-form__submit-button button">
@@ -76,6 +78,7 @@
               id="charge-money-input"
               class="input-form__input"
               placeholder="금액"
+              type="number"
             />
             <button type="submit" class="input-form__submit-button button">
               추가

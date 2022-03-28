@@ -25,9 +25,11 @@ var ChargeMoneyImpl = /** @class */ (function () {
     ChargeMoneyImpl.prototype.isValidMoney = function (inputMoney) {
         if (inputMoney < index_1.INPUT_MONEY_RULES.MIN ||
             inputMoney % index_1.INPUT_MONEY_RULES.MOD_UNIT !== 0) {
+            alert("\uD22C\uC785\uAE08\uC561\uC740 ".concat(index_1.INPUT_MONEY_RULES.MOD_UNIT, "\uC73C\uB85C \uB098\uB204\uC5B4 \uB5A8\uC5B4\uC838\uC57C\uD558\uBA70, \uCD5C\uC18C ").concat(index_1.INPUT_MONEY_RULES.MIN, " \uAC12 \uC774\uC0C1\uB9CC \uAC00\uB2A5\uD569\uB2C8\uB2E4."));
             return false;
         }
         if (this.totalAmount() + inputMoney > index_1.INPUT_MONEY_RULES.MAX) {
+            alert("\uD22C\uC785\uAE08\uC561\uACFC \uC790\uD310\uAE30 \uBCF4\uC720\uAE08\uC561\uC758 \uD569\uC774 ".concat(index_1.INPUT_MONEY_RULES.MAX, "\uB97C \uCD08\uACFC\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."));
             return false;
         }
         return true;

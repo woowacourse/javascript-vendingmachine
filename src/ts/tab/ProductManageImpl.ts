@@ -39,7 +39,7 @@ class ProductManageImpl implements ProductManage {
   handleAddProduct(e) {
     e.preventDefault();
     const productInfo = this.getProductInfo();
-    if (this.isValidProductInfo(productInfo)) {
+    if (this.isValidProductInfo(productInfo, -1)) {
       this.addProduct(productInfo);
       this.drawProductList();
     }
@@ -66,14 +66,14 @@ class ProductManageImpl implements ProductManage {
       const productInfo = this.getProductInfoModify(e.target.closest('tr'));
       const index = this.getProductRowIndex(e.target.closest('tr'));
 
-      if (this.isValidModifyProductInfo(productInfo, index)) {
+      if (this.isValidProductInfo(productInfo, index)) {
         this.modifyProduct(productInfo, index);
         this.drawProductList();
       }
     }
   }
 
-  isValidModifyProductInfo(
+  isValidProductInfo(
     { name, price, quantity }: Product,
     index: number,
   ): boolean {
@@ -81,19 +81,9 @@ class ProductManageImpl implements ProductManage {
       name.length < PRODUCT_RULES.MIN_NAME_LENGTH ||
       name.length > PRODUCT_RULES.MAX_NAME_LENGTH
     ) {
-      return false;
-    }
-    if (
-      price < PRODUCT_RULES.MIN_PRICE ||
-      price > PRODUCT_RULES.MAX_PRICE ||
-      price % PRODUCT_RULES.PRICE_MOD_UNIT !== 0
-    ) {
-      return false;
-    }
-    if (
-      quantity < PRODUCT_RULES.MIN_QUANTITY ||
-      quantity > PRODUCT_RULES.MAX_QUANTITY
-    ) {
+      alert(
+        `상품명은 ${PRODUCT_RULES.MIN_NAME_LENGTH}글자부터 ${PRODUCT_RULES.MAX_NAME_LENGTH}글자까지만 가능합니다.`,
+      );
       return false;
     }
     if (
@@ -102,21 +92,26 @@ class ProductManageImpl implements ProductManage {
           productIndex !== index && product.name === name,
       )
     ) {
-      return false;
-    }
-
-    return true;
-  }
-
-  isValidProductInfo(productInfo: Product): boolean {
-    if (!this.isValidModifyProductInfo(productInfo, -1)) {
+      alert(`상품명은 중복되지 않아야합니다.`);
       return false;
     }
     if (
-      this.products.some(
-        (product: Product) => product.name === productInfo.name,
-      )
+      price < PRODUCT_RULES.MIN_PRICE ||
+      price > PRODUCT_RULES.MAX_PRICE ||
+      price % PRODUCT_RULES.PRICE_MOD_UNIT !== 0
     ) {
+      alert(
+        `상품가격은 ${PRODUCT_RULES.PRICE_MOD_UNIT}으로 나누어 떨어져야하며, ${PRODUCT_RULES.MIN_PRICE}~${PRODUCT_RULES.MAX_PRICE}까지의 값만 가능합니다.`,
+      );
+      return false;
+    }
+    if (
+      quantity < PRODUCT_RULES.MIN_QUANTITY ||
+      quantity > PRODUCT_RULES.MAX_QUANTITY
+    ) {
+      alert(
+        `상품수량은 ${PRODUCT_RULES.MIN_QUANTITY}~${PRODUCT_RULES.MAX_QUANTITY}의 값만 가능합니다.`,
+      );
       return false;
     }
 
@@ -132,8 +127,8 @@ class ProductManageImpl implements ProductManage {
           <td class="product-info__text">${price}</td>
           <td class="product-info__text">${quantity}</td>
           <td class="product-info__input"><input type="text" class="product-info-name" value="${name}" /></td>
-          <td class="product-info__input"><input type="text" class="product-info-price" value="${price}" /></td>
-          <td class="product-info__input"><input type="text" class="product-info-quantity" value="${quantity}" /></td>
+          <td class="product-info__input"><input type="number" class="product-info-price" value="${price}" /></td>
+          <td class="product-info__input"><input type="number" class="product-info-quantity" value="${quantity}" /></td>
           <td>
             <button class="modify-button button">수정</button>
             <button class="delete-button button">삭제</button>
@@ -154,11 +149,14 @@ class ProductManageImpl implements ProductManage {
     this.products[index] = productInfo;
   }
 
-  deleteProduct(productInfo: Product): void {
-    this.products.splice(this.getProductIndex(productInfo), 1);
+  deleteProduct(name: string): boolean {
+    if (this.products.splice(this.getProductIndex(name), 1).length === 0) {
+      return false;
+    }
+    return true;
   }
 
-  getProductIndex({ name }: Product) {
+  getProductIndex(name: string) {
     return this.products.findIndex((product: Product) => product.name === name);
   }
 }

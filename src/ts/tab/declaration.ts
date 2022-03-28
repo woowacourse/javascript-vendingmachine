@@ -1,12 +1,12 @@
 import { Product } from '../resource/declaration';
 
 export interface ProductManage {
-  isValidProductInfo(productInfo: Product): boolean;
+  isValidProductInfo(productInfo: Product, index: number): boolean;
   addProduct(productInfo: Product): void;
   modifyProduct(productInfo: Product, index: number): void;
-  deleteProduct(productInfo: Product): void;
+  deleteProduct(name: string): boolean;
   drawProductList(): void;
-  getProductIndex(productInfo: Product): number;
+  getProductIndex(name: string): number;
 }
 
 export interface ChargeMoney {
