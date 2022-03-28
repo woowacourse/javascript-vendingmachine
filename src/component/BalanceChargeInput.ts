@@ -49,6 +49,8 @@ export class BalanceChargeInput {
     } catch (err) {
       this.chargeBalanceInputForm.reset();
       alert(err.message);
+
+      // return;
     }
 
     this.updateCurrentBalance();

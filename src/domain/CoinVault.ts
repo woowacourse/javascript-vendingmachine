@@ -28,12 +28,8 @@ export class CoinVault {
   }
 
   chargeMoney(money: number) {
-    try {
-      this.validateMoney(money);
-      this.addCoins(this.generateRandomCoins(money));
-    } catch (err) {
-      throw err;
-    }
+    this.validateMoney(money);
+    this.addCoins(this.generateRandomCoins(money));
   }
 
   private addCoins(coins: Coins) {

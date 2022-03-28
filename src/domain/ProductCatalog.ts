@@ -28,12 +28,8 @@ export class ProductCatalog {
   }
 
   private accumulateQuantity(product: Product, quantity: number) {
-    try {
-      product.validateQuantity(product.getQuantity() + quantity);
-      product.setQuantity(product.getQuantity() + quantity);
-    } catch (err) {
-      throw err;
-    }
+    product.validateQuantity(product.getQuantity() + quantity);
+    product.setQuantity(product.getQuantity() + quantity);
   }
 
   deleteProduct(name: string) {
