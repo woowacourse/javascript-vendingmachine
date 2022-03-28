@@ -1,0 +1,56 @@
+@import './variables';
+@import './spacing';
+@import './add-product-form';
+@import './button';
+@import './form';
+@import './typhography';
+@import './flex';
+@import './header';
+@import './charge-money-form';
+@import './changes-inventory';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-gray-400;
+}
+
+#app {
+  width: 602px;
+  margin: 32px auto 0 auto;
+  background-color: $color-white;
+  border: 1px solid $color-gray-500;
+  border-radius: 4px;
+  padding: 44px 0px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid $color-gray-700;
+  th {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+  }
+  border-collapse: collapse;
+  thead th {
+    padding: 8px 0px;
+  }
+  tr {
+    border-bottom: 1px solid $color-gray-700;
+  }
+  td {
+    padding: 8px 0;
+  }
+  td.has-btn {
+    padding: 4px 0;
+  }
+}
