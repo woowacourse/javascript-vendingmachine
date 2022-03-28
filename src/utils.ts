@@ -42,3 +42,17 @@ export const convertArrToObj = <Key extends Indexable, Val>(
 ): { [k: Indexable]: Val } => {
   return Object.fromEntries(arr.map((item) => [item, val]));
 };
+
+export const deepCopy = (obj: { [key in Indexable]: any }) => {
+  const initialObj: { [key in Indexable]: any } = {};
+  return Object.keys(obj).reduce((_obj, key) => {
+    if (Array.isArray(obj[key])) {
+      _obj[key] = [...obj[key]];
+    } else if (typeof obj[key] === 'object') {
+      _obj[key] = deepCopy(obj[key]);
+    } else {
+      _obj[key] = obj[key];
+    }
+    return _obj;
+  }, initialObj);
+};
