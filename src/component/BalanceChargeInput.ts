@@ -50,7 +50,7 @@ export class BalanceChargeInput {
       this.chargeBalanceInputForm.reset();
       alert(err.message);
 
-      // return;
+      return;
     }
 
     this.updateCurrentBalance();

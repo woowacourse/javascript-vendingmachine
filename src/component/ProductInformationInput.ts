@@ -53,11 +53,13 @@ export class ProductInformationInput {
 
     try {
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
-      this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {
       alert(err.message);
+
+      return;
     }
 
+    this.target.dispatchEvent(new CustomEvent('productAdded'));
     this.productInformationForm.reset();
   };
 }

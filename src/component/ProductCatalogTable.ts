@@ -90,11 +90,14 @@ export class ProductCatalogTable {
 
       try {
         this.saveEditedProductState(tableRow);
-        this.confirmEditProduct(tableRow);
-        this.toggleEditBtn(tableRow);
       } catch (err) {
         alert(err.message);
+
+        return;
       }
+
+      this.confirmEditProduct(tableRow);
+      this.toggleEditBtn(tableRow);
     }
   };
 
