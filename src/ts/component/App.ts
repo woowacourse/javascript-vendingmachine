@@ -68,7 +68,7 @@ export default class App {
 
   private renderMainContent(pathname) {
     switch (pathname) {
-      case `${basePath}`:
+      case `${basePath}/`:
         this.productManagementComponent.render();
         break;
       case `${basePath}/charge`:
