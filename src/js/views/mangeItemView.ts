@@ -1,7 +1,9 @@
 import { $, $$ } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { validateAddItemInput } from '../validates/validates';
-import { CUSTOM_EVENT, SELECTOR, CONFIRM_MESSAGE } from '../constants/constants';
+import { CUSTOM_EVENT } from '../constants/appContants';
+import { SELECTOR } from '../constants/viewConstants';
+import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 import { ItemType } from '../types/types';
 
 export default class ManageItemView {

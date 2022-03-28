@@ -1,4 +1,4 @@
-import { COINS } from '../constants/constants';
+import { COINS } from '../constants/vendingMachineConstants';
 import { CoinsType, TemplateType } from '../types/types';
 
 export const sectionTemplate = {

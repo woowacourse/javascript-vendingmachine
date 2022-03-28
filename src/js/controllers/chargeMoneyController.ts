@@ -1,6 +1,6 @@
 import ChargeMoneyView from '../views/chargeMoneyView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CUSTOM_EVENT } from '../constants/constants';
+import { CUSTOM_EVENT } from '../constants/appContants';
 import { ChargeMoneyDetailType } from '../types/types';
 
 export default class ChargeMoneyController {

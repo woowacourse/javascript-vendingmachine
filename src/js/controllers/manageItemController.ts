@@ -1,6 +1,6 @@
 import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CUSTOM_EVENT } from '../constants/constants';
+import { CUSTOM_EVENT } from '../constants/appContants';
 import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
 

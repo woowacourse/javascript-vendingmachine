@@ -1,4 +1,4 @@
-import { COINS } from '../constants/constants';
+import { COINS } from '../constants/vendingMachineConstants';
 import { CoinsType, ItemType, TemplateType } from '../types/types';
 
 const sectionTemplate = {
@@ -76,7 +76,7 @@ const sectionTemplate = {
 export const purchaseItemTemplate = (
   items: ItemType[],
   coins: CoinsType,
-  inputMoney: number,
+  inputMoney: number
 ): TemplateType => `
   ${sectionTemplate.inputContainer(inputMoney)}
   ${sectionTemplate.itemTableContainer(items)}

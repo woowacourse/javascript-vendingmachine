@@ -1,6 +1,7 @@
 import { $, $$ } from '../utils/common';
 import { initialTemplate } from '../templates/initialTemplate';
-import { CUSTOM_EVENT, SELECTOR } from '../constants/constants';
+import { CUSTOM_EVENT } from '../constants/appContants';
+import { SELECTOR } from '../constants/viewConstants';
 
 export default class AppView {
   $navContainer: HTMLElement;

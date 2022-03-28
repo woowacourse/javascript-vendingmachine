@@ -3,7 +3,8 @@ import ChargeMoneyController from './chargeMoneyController';
 import PurchaseItemController from './purchaseItemController';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AppView from '../views/AppView';
-import { SELECTOR, URL, CUSTOM_EVENT } from '../constants/constants';
+import { URL, CUSTOM_EVENT } from '../constants/appContants';
+import { SELECTOR } from '../constants/viewConstants';
 import { RouteChangeDetailType } from '../types/types';
 
 export default class AppController {

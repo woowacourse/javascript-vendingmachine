@@ -1,5 +1,6 @@
 import { ItemType } from '../types/types';
-import { ERROR_MESSAGE, ITEM, MONEY } from '../constants/constants';
+import { ITEM, MONEY } from '../constants/vendingMachineConstants';
+import { ERROR_MESSAGE } from '../constants/errorConstants';
 
 export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   if (name.length === 0) {

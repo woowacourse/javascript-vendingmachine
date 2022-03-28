@@ -1,4 +1,4 @@
-import { COINS } from '../constants/constants';
+import { COINS } from '../constants/vendingMachineConstants';
 import { generateRandom } from '../utils/common';
 import { ItemType, CoinsType } from '../types/types';
 
