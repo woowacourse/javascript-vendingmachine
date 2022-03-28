@@ -1,21 +1,21 @@
-import ManageItemController from './manageItemController';
-import ChargeMoneyController from './chargeMoneyController';
-import PurchaseItemController from './purchaseItemController';
-import VendingMachine from '../vendingMachine/vendingMachine';
-import AppView from '../views/AppView';
-import { SELECTOR, CUSTOM_EVENT } from '../constants/constants';
-import { RouteChangeDetailType } from '../types/types';
+import ManageItemController from './controllers/manageItemController';
+import ChargeMoneyController from './controllers/chargeMoneyController';
+import PurchaseItemController from './controllers/purchaseItemController';
+import VendingMachine from './vendingMachine/vendingMachine';
+import MainView from './views/MainView';
+import { SELECTOR, CUSTOM_EVENT } from './constants/constants';
+import { RouteChangeDetailType } from './types/types';
 
-export default class AppController {
+export default class AppManager {
   private vendingMachine: VendingMachine;
-  private appView: AppView;
+  private mainView: MainView;
   private manageItemController: ManageItemController;
   private chargeMoneyController: ChargeMoneyController;
   private purchaseItemController: PurchaseItemController;
 
   constructor() {
     this.vendingMachine = new VendingMachine();
-    this.appView = new AppView();
+    this.mainView = new MainView();
     this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
@@ -51,22 +51,22 @@ export default class AppController {
 
     if (hash === '') {
       this.manageItemController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
     if (hash === '#mangeItem') {
       this.manageItemController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
     if (hash === '#chargeMoney') {
       this.chargeMoneyController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
+      this.mainView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
       return;
     }
     if (hash === '#purchaseItem') {
       this.purchaseItemController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
     }
   }
 }

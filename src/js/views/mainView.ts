@@ -2,7 +2,7 @@ import { $, $$ } from '../utils/common';
 import { initialTemplate } from '../templates/initialTemplate';
 import { CUSTOM_EVENT, SELECTOR } from '../constants/constants';
 
-export default class AppView {
+export default class MainView {
   $navContainer: HTMLElement;
   $app: HTMLElement;
 

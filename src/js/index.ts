@@ -1,6 +1,6 @@
 import '../css/index.css';
-import AppController from './controllers/AppController';
+import AppManager from './AppManager';
 
-const appController = new AppController();
+const appManager = new AppManager();
 
-appController.route();
+appManager.route();
