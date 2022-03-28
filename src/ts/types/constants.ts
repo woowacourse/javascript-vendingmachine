@@ -1,26 +1,26 @@
-export interface productName {
+export interface ProductName {
   readonly MAX_LENGTH: number;
   readonly MIN_LENGTH: number;
 }
 
-export interface productPrice {
+export interface ProductPrice {
   readonly MAX_PRICE: number;
   readonly MIN_PRICE: number;
   readonly UNIT: number;
 }
 
-export interface productQuantity {
+export interface ProductQuantity {
   readonly MAX_QUANTITY: number;
   readonly MIN_QUANTITY: number;
 }
 
-export interface routes {
+export interface Routes {
   readonly HOME: string;
   readonly PRODUCTS: string;
   readonly COINS: string;
 }
 
-export interface errorMessage {
+export interface ErrorMessage {
   readonly WRONG_LENGTH_PRODUCT_NAME: string;
   readonly DUPLICATED_PRODUCT_NAME: string;
   readonly WRONG_RANGE_PRODUCT_PRICE: string;
@@ -31,7 +31,7 @@ export interface errorMessage {
   OVERFLOW_CHARGE_MONEY(chargeMoney: number): string;
 }
 
-export interface chargeMoney {
+export interface ChargeMoney {
   readonly UNIT: number;
   readonly MAX_TOTAL_CHARGE_MONEY: number;
 }

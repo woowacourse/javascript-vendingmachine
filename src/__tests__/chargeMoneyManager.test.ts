@@ -1,45 +1,48 @@
-import { coins } from '../ts/types/vendingMachineCoinManager';
+import { Coins } from '../ts/types/vendingMachineCoinManager';
 
 import { ERROR_MESSAGE, COINS, CHARGE_MONEY } from '../ts/constants';
-import VendingMachineCoinManager from '../ts/domains/VendingMachineCoinManager';
+import VendingMachineChargeMoneyManager from '../ts/domains/VendingMachineChargeMoneyManager';
 
 describe('잔돈 관리 도메인 테스트', () => {
   test('잔돈 충전 탭에서 최초 자판기가 보유한 금액은 0원이며, 각 동전의 개수는 0개이다.', () => {
-    const vendingMachineCoinManager = new VendingMachineCoinManager();
+    const vendingMachineChargeMoneyManager =
+      new VendingMachineChargeMoneyManager();
 
-    expect(vendingMachineCoinManager.getTotalAmount()).toBe(0);
+    expect(vendingMachineChargeMoneyManager.getTotalAmount()).toBe(0);
   });
 
   test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원까지 보관되는지 확인한다.`, () => {
-    const vendingMachineCoinManager = new VendingMachineCoinManager();
-    const coins: coins = {
+    const vendingMachineChargeMoneyManager =
+      new VendingMachineChargeMoneyManager();
+    const coins: Coins = {
       ...COINS.INITIAL_STATE,
       COIN_100: 1,
     };
 
     expect(() => {
-      vendingMachineCoinManager.addCoins(coins);
+      vendingMachineChargeMoneyManager.addCoins(coins);
     }).not.toThrowError();
   });
 
   test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원을 초과하면 에러가 발생된다.`, () => {
-    const vendingMachineCoinManager = new VendingMachineCoinManager();
-    const coins: coins = {
+    const vendingMachineChargeMoneyManager =
+      new VendingMachineChargeMoneyManager();
+    const coins: Coins = {
       ...COINS.INITIAL_STATE,
       COIN_100: 1000,
     };
-    const newCoins: coins = {
+    const newCoins: Coins = {
       ...COINS.INITIAL_STATE,
       COIN_100: 1,
     };
 
-    vendingMachineCoinManager.addCoins(coins);
+    vendingMachineChargeMoneyManager.addCoins(coins);
 
     expect(() => {
-      vendingMachineCoinManager.addCoins(newCoins);
+      vendingMachineChargeMoneyManager.addCoins(newCoins);
     }).toThrowError(
       ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(
-        vendingMachineCoinManager.getTotalAmount()
+        vendingMachineChargeMoneyManager.getTotalAmount()
       )
     );
   });

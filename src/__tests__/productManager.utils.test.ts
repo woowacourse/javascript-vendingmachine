@@ -1,4 +1,4 @@
-import { product } from '../ts/types/vendingMachineProductManager';
+import { Product } from '../ts/types/vendingMachineProductManager';
 
 import {
   checkDuplicatedProductName,
@@ -39,7 +39,7 @@ describe('올바른 상품명 확인', () => {
   });
 
   test('중복된 상품명을 입력할 경우 error가 발생된다.', () => {
-    const products: product[] = [
+    const products: Product[] = [
       {
         name: '콜라',
         price: 1500,
@@ -51,7 +51,7 @@ describe('올바른 상품명 확인', () => {
         quantity: 20,
       },
     ];
-    const duplicateProduct: product = {
+    const duplicateProduct: Product = {
       name: '콜라',
       price: 1800,
       quantity: 10,

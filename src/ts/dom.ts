@@ -38,8 +38,11 @@ export const renderSnackBar = (
   }, SNACK_BAR_DELAY_TIME);
 };
 
+document.querySelector();
+
 export const $ = (selector: string): HTMLElement =>
   document.querySelector(selector);
+
 export const $$ = (selector: string): NodeListOf<HTMLElement> =>
   document.querySelectorAll(selector);
 

@@ -1,10 +1,10 @@
-import ProductInputComponent from './ProductManageComponent/ProductInputComponent';
-import ProductStateComponent from './ProductManageComponent/ProductsStateComponent';
-import CoinInputComponent from './CoinManageComponent/CoinInputComponent';
+import ProductInputComponent from '../components/ProductManageComponents/ProductInputComponent';
+import ProductStateComponent from '../components/ProductManageComponents/ProductsStateComponent';
+import ChargeMoneyInputComponent from '../components/ChargeMoneyManageComponents/ChargeMoneyInputComponent';
+import ChargeMoneyStateComponent from '../components/ChargeMoneyManageComponents/ChargeMoneyStateComponent';
 
 import VendingMachineProductManager from '../domains/VendingMachineProductManager';
-import VendingMachineCoinManager from '../domains/VendingMachineCoinManager';
-import CoinsStateComponent from './CoinManageComponent/CoinsStateComponent';
+import VendingMachineChargeMoneyManager from '../domains/VendingMachineChargeMoneyManager';
 
 import { $, on } from '../dom';
 import { ROUTES } from '../constants';
@@ -22,13 +22,14 @@ export default class NavigatorComponent {
   ) as HTMLInputElement;
 
   private vendingMachineProductManager = new VendingMachineProductManager();
-  private vendingMachineCoinManager = new VendingMachineCoinManager();
+  private vendingMachineChargeMoneyManager =
+    new VendingMachineChargeMoneyManager();
 
   constructor() {
     new ProductStateComponent(this.vendingMachineProductManager);
     new ProductInputComponent(this.vendingMachineProductManager);
-    new CoinInputComponent(this.vendingMachineCoinManager);
-    new CoinsStateComponent();
+    new ChargeMoneyInputComponent(this.vendingMachineChargeMoneyManager);
+    new ChargeMoneyStateComponent();
 
     on(this.$navProductButton, 'click', this.onClickNavProductButton);
     on(this.$navChargeButton, 'click', this.onClickNavChargeButton);

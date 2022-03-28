@@ -1,7 +1,7 @@
 import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
 import { emit, renderSnackBar, $, on } from '../../dom';
 
-export default class CoinInputComponent {
+export default class ChargeMoneyComponent {
   private $coinInput = $(
     '.charge-form-section__coin-input'
   ) as HTMLInputElement;

@@ -1,6 +1,6 @@
 import { on, $ } from '../../dom';
 
-export default class CoinsStateComponent {
+export default class ChargeMoneyStateComponent {
   private $coin500: HTMLSpanElement = $('.coin-quantity-table__coin-500');
   private $coin100: HTMLSpanElement = $('.coin-quantity-table__coin-100');
   private $coin50: HTMLSpanElement = $('.coin-quantity-table__coin-50');

@@ -1,4 +1,4 @@
-import { ProductManager, product } from '../types/vendingMachineProductManager';
+import { ProductManager, Product } from '../types/vendingMachineProductManager';
 
 import {
   checkDuplicatedProductName,
@@ -6,7 +6,7 @@ import {
 } from '../utils/utils';
 
 export default class VendingMachineProductManager implements ProductManager {
-  private products: product[] = [];
+  private products: Product[] = [];
 
   addProduct(newProduct) {
     checkDuplicatedProductName(this.products, newProduct);
