@@ -116,7 +116,7 @@ describe('잔돈 충전 테스트', () => {
   const vendingMachine = new VendingMachine();
 
   afterEach(() => {
-    vendingMachine.money = [
+    vendingMachine.moneys = [
       new Money(500, 0),
       new Money(100, 0),
       new Money(50, 0),

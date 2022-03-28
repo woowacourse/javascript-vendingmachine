@@ -8,7 +8,7 @@ import { STORAGE_ID } from '../constants';
 
 export interface VendingMachineInterface {
   products: ProductType[];
-  money: MoneyType[];
+  moneys: MoneyType[];
   addProduct(product: ProductType): ProductType;
   deleteProduct(name: string): void;
   getProduct(name: string): ProductType;
@@ -20,11 +20,11 @@ export interface VendingMachineInterface {
 
 export default class VendingMachine implements VendingMachineInterface {
   products: ProductType[];
-  money: MoneyType[];
+  moneys: MoneyType[];
 
   constructor() {
     this.products = this.getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
-    this.money = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
+    this.moneys = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
       new Money(500, 0),
       new Money(100, 0),
       new Money(50, 0),
@@ -36,17 +36,17 @@ export default class VendingMachine implements VendingMachineInterface {
     checkMoneyValidation(money, money + this.getHoldingMoney());
     this.generateRandomCoins(money);
 
-    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.moneys));
   };
 
   public getHoldingMoney = () => {
-    return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
+    return this.moneys.reduce((holdingMoney: number, currentMoney: MoneyType) => {
       return holdingMoney + currentMoney.value * currentMoney.count;
     }, 0);
   };
 
   public getCoin = (value: number) => {
-    return this.money.find((coin) => coin.value === value);
+    return this.moneys.find((coin) => coin.value === value);
   };
 
   public getProduct = (name: string) => {
@@ -104,10 +104,10 @@ export default class VendingMachine implements VendingMachineInterface {
 
   private generateRandomCoins = (money: number) => {
     while (money !== 0) {
-      const coinValue = this.money[getRandomNumber(0, 3)].value;
+      const coinValue = this.moneys[getRandomNumber(0, 3)].value;
       if (coinValue <= money) {
-        const index = this.money.findIndex((coin: MoneyType) => coin.value === coinValue);
-        this.money[index].increaseCount();
+        const index = this.moneys.findIndex((coin: MoneyType) => coin.value === coinValue);
+        this.moneys[index].increaseCount();
         money -= coinValue;
       }
     }
