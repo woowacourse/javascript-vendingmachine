@@ -28,5 +28,3 @@ export type TableItemChangeDetailType = {
 export type TableItemDeleteDetailType = {
   item: ItemType;
 };
-
-export type TemplateType = string;

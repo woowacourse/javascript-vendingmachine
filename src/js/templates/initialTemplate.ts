@@ -1,6 +1,4 @@
-import { TemplateType } from '../types/types';
-
-export const initialTemplate: TemplateType = `
+export const initialTemplate: string = `
   <h1>🍿 자판기 🍿</h1>
   <div class="nav-container">
     <button id="item-manage-tab" class="nav-button nav-button-clicked">상품 관리</button>

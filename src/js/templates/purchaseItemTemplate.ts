@@ -1,8 +1,8 @@
 import { COINS } from '../constants/constants';
-import { CoinsType, ItemType, TemplateType } from '../types/types';
+import { CoinsType, ItemType } from '../types/types';
 
 const sectionTemplate = {
-  inputContainer(inputMoney: number): TemplateType {
+  inputContainer(inputMoney: number): string {
     return `
     <section class="input-container">
       <h2 hidden>상품 구매</h2>
@@ -18,7 +18,7 @@ const sectionTemplate = {
     `;
   },
 
-  itemTableContainer(items: ItemType[]): TemplateType {
+  itemTableContainer(items: ItemType[]): string {
     return `
     <section class="table-container">
       <h2>구매 가능 상품 현황</h2>
@@ -47,7 +47,7 @@ const sectionTemplate = {
     `;
   },
 
-  coinTableContainer(coins: CoinsType): TemplateType {
+  coinTableContainer(coins: CoinsType): string {
     return `
     <section class="table-container">
       <h2>잔돈 반환</h2>
@@ -77,7 +77,7 @@ export const purchaseItemTemplate = (
   items: ItemType[],
   coins: CoinsType,
   inputMoney: number,
-): TemplateType => `
+): string => `
   ${sectionTemplate.inputContainer(inputMoney)}
   ${sectionTemplate.itemTableContainer(items)}
   ${sectionTemplate.coinTableContainer(coins)}
