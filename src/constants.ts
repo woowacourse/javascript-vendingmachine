@@ -32,27 +32,6 @@ export const PATH_TO_TAB_DIC: Record<string, Tab> = {
   '/purchase-product-tab': Tab.PurchaseProductTab,
 };
 
-export const ERROR_MESSAGE: { [k in string]: string } = {
-  EMPTY_PRODUCT_NAME: '상품명을 입력해 주세요',
-  OVER_MAX_LENGTH_PRODUCT_NAME: '상품명은 10글자 이내이어야 합니다',
-  DUPLICATE_PRDUCT_NAME: '이미 등록된 상품입니다',
-
-  EMPTY_PRODUCT_PRICE: '상품 기격을 입력해 주세요',
-  NOT_NUMBER_PRODUCT_PRICE: '상품 가격은 숫자이어야 합니다',
-  NOT_IN_VALID_RANGE_PRODUCT_PRICE: '상품가격은 100원 ~ 10,000원 이내이어야 합니다',
-  NOT_DIVIDED_BY_TEN_PRODUCT_PRICE: '상품 가격은 10원 단위이어야 합니다',
-
-  EMPTY_PRODUCT_QUANTITY: '상품 수량을 입력해 주세요',
-  NOT_NUMBER_QUANTITY: '상품 수량은 숫자이어야 합니다',
-  NOT_IN_VALID_RANGE_PRODUCT_QUANTITY: '상품 수량은 1개 ~ 20개 이내이어야 합니다',
-
-  EMPTY_CHARGE_MONEY: '충전 금액을 입력해주세요.',
-  NOT_NUMBER_CHARGE_MONEY: '충전 금액은 숫자이어야 합니다',
-  NEGATIVE_CHARGE_MONEY: '충전 금액은 양수이어야 합니다.',
-  NOT_DIVIDED_BY_TEN_CHARGE_MONEY: '충전 금액은 10원 단위이어야 합니다',
-  OVER_MAX_CHARGE_MONEY: '잔돈으로 보유할 수 있는 최대 금액은 100,000원입니다.',
-};
-
 export const MAX_LENGTH_OF_PRODUCT_NAME = 10;
 export const MIN_PRODUCT_PRICE = 100;
 export const MAX_PRODUCT_PRICE = 10000;
@@ -60,3 +39,34 @@ export const MIN_COIN_UNIT = 10;
 export const MIN_PRODUCT_QUANTITY = 1;
 export const MAX_PRODUCT_QUANTITY = 20;
 export const MAX_CHARGABLE_MONEY = 100000;
+
+export const ERROR_MESSAGE: { [k in string]: string } = {
+  EMPTY_PRODUCT_NAME: '상품명을 입력해 주세요',
+  OVER_MAX_LENGTH_PRODUCT_NAME: `상품명은 ${MAX_LENGTH_OF_PRODUCT_NAME}글자 이내이어야 합니다`,
+  DUPLICATE_PRDUCT_NAME: '이미 등록된 상품입니다',
+
+  EMPTY_PRODUCT_PRICE: '상품 가격을 입력해 주세요',
+  NOT_NUMBER_PRODUCT_PRICE: '상품 가격은 숫자이어야 합니다',
+  NOT_IN_VALID_RANGE_PRODUCT_PRICE: `상품 가격은 ${MIN_PRODUCT_PRICE.toLocaleString(
+    'ko-kr'
+  )}원 ~ ${MAX_PRODUCT_PRICE.toLocaleString('ko-kr')}원 이내이어야 합니다`,
+  NOT_DIVIDED_BY_TEN_PRODUCT_PRICE: `상품 가격은 ${MIN_COIN_UNIT.toLocaleString(
+    'ko-kr'
+  )}원 단위이어야 합니다`,
+
+  EMPTY_PRODUCT_QUANTITY: '상품 수량을 입력해 주세요',
+  NOT_NUMBER_QUANTITY: '상품 수량은 숫자이어야 합니다',
+  NOT_IN_VALID_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${MIN_PRODUCT_QUANTITY.toLocaleString(
+    'ko-kr'
+  )}개 ~ ${MAX_PRODUCT_QUANTITY.toLocaleString('ko-kr')}개 이내이어야 합니다`,
+
+  EMPTY_CHARGE_MONEY: '충전 금액을 입력해주세요.',
+  NOT_NUMBER_CHARGE_MONEY: '충전 금액은 숫자이어야 합니다',
+  NEGATIVE_CHARGE_MONEY: '충전 금액은 양수이어야 합니다.',
+  NOT_DIVIDED_BY_TEN_CHARGE_MONEY: `충전 금액은 ${MIN_COIN_UNIT.toLocaleString(
+    'ko-kr'
+  )}원 단위이어야 합니다`,
+  OVER_MAX_CHARGE_MONEY: `잔돈으로 보유할 수 있는 최대 금액은 ${MAX_CHARGABLE_MONEY.toLocaleString(
+    'ko-kr'
+  )}원입니다.`,
+};
