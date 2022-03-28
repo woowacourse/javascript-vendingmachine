@@ -26,18 +26,7 @@ class Router {
   }
 
   private onLoad() {
-    this.routeComponent(Router.activeTab());
-  }
-
-  routeComponent(activeTab: Tab) {
-    if (!this.tabContainer) return;
-    if (activeTab === Tab.ProductManageTab) {
-      this.tabContainer.innerHTML = '<product-manage-tab></product-manage-tab>';
-    } else if (activeTab === Tab.ChargeMoneyTab) {
-      this.tabContainer.innerHTML = '<charge-money-tab></charge-money-tab>';
-    } else if (activeTab === Tab.PurchaseProductTab) {
-      this.tabContainer.innerHTML = '<purchase-product-tab></purchase-product-tab>';
-    }
+    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
   }
 
   static pushState(url: string) {
@@ -46,7 +35,6 @@ class Router {
   }
 
   onLocationChange = () => {
-    this.routeComponent(Router.activeTab());
     Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
   };
 
