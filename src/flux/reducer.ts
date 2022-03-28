@@ -1,6 +1,6 @@
 import { ACTION, COIN_UNITS } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
-import { convertArrToObj, shuffle } from '../utils';
+import { convertArrToObj, deepCopy, shuffle } from '../utils';
 
 function moneyToCoin(money: number) {
   const coins = convertArrToObj(COIN_UNITS, 0);
@@ -26,7 +26,7 @@ function mergeCoins(coins: CoinRecord, newCoins: CoinRecord) {
 }
 
 const reducer = (state: AppState, { type, payload }: Action) => {
-  const newState = { ...state };
+  const newState = deepCopy(state) as AppState;
   if (type === ACTION.ADD_PRODUCT) {
     newState.productList = [...newState.productList, { ...payload, isEditing: false }];
   } else if (type === ACTION.CHANGE_EDIT_MODE) {
