@@ -14,15 +14,15 @@ import {
 } from '../ts/constants';
 
 describe('올바른 상품명 확인', () => {
-  test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (성공 케이스, 입력: "콜라")`, () => {
-    const productName = '콜라';
+  test(`상품명이 ${PRODUCT_NAME.MAX_LENGTH}글자일 경우 error가 발생하지 않는다.`, () => {
+    const productName = '정확히열글자인상품명';
 
     expect(() => {
       checkValidLengthProductName(productName);
     }).not.toThrowError();
   });
 
-  test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "")`, () => {
+  test(`상품명에 빈 값이 들어올 경우 error가 발생된다.`, () => {
     const productName = '   ';
 
     expect(() => {
@@ -30,7 +30,7 @@ describe('올바른 상품명 확인', () => {
     }).toThrowError(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   });
 
-  test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "열 글자가 넘는 상품명")`, () => {
+  test(`상품명이 ${PRODUCT_NAME.MAX_LENGTH}글자가 넘는 경우 error가 발생된다.`, () => {
     const productName = '열 글자가 넘는 상품명';
 
     expect(() => {
@@ -38,7 +38,7 @@ describe('올바른 상품명 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_LENGTH_PRODUCT_NAME);
   });
 
-  test('중복된 상품명은 입력할 수 없다.', () => {
+  test('중복된 상품명을 입력할 경우 error가 발생된다.', () => {
     const products: product[] = [
       {
         name: '콜라',
@@ -64,7 +64,7 @@ describe('올바른 상품명 확인', () => {
 });
 
 describe('올바른 상품 가격 확인', () => {
-  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 부터 ${PRODUCT_PRICE.MAX_PRICE}원까지 가능하다. 그리고 ${PRODUCT_PRICE.UNIT}원으로 나누어 떨어져야 한다. (성공 케이스, 입력: 1500)`, () => {
+  test(`상품 가격이 ${PRODUCT_PRICE.UNIT}원 단위로 작성되고, ${PRODUCT_PRICE.MIN_PRICE}원 이상 ${PRODUCT_PRICE.MAX_PRICE}원 이하 일경우 error가 발생되지 않는다.`, () => {
     const productPrice = 1500;
 
     expect(() => {
@@ -72,7 +72,7 @@ describe('올바른 상품 가격 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 부터 ${PRODUCT_PRICE.MAX_PRICE}원까지 가능하다. (실패 케이스, 입력: 90)`, () => {
+  test(`상품 가격이 ${PRODUCT_PRICE.MIN_PRICE}원 미만일 경우 error가 발생된다.`, () => {
     const productPrice = 90;
 
     expect(() => {
@@ -80,15 +80,15 @@ describe('올바른 상품 가격 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   });
 
-  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 부터 ${PRODUCT_PRICE.MAX_PRICE}원까지 가능하다. (실패 케이스, 입력: 11000)`, () => {
-    const productPrice = 11000;
+  test(`상품 가격이 ${PRODUCT_PRICE.MAX_PRICE}원을 초과할 경우 error가 발생된다.`, () => {
+    const productPrice = 10010;
 
     expect(() => {
       checkValidProductPrice(productPrice);
     }).toThrowError(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   });
 
-  test(`상품 가격은 ${PRODUCT_PRICE.UNIT}원으로 나누어 떨어져야 한다. (실패 케이스, 입력: 155)`, () => {
+  test(`상품 가격이 ${PRODUCT_PRICE.UNIT}원 단위가 아닐 경우 error가 발생된다.`, () => {
     const productPrice = 155;
 
     expect(() => {
@@ -98,7 +98,7 @@ describe('올바른 상품 가격 확인', () => {
 });
 
 describe('올바른 상품 수량 확인', () => {
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (성공 케이스, 입력: 15)`, () => {
+  test(`제품의 수량이 ${PRODUCT_QUANTITY.MIN_QUANTITY}에서 ${PRODUCT_QUANTITY.MAX_QUANTITY}사이일 경우 error가 발생되지 않는다.`, () => {
     const productQuantity = 15;
 
     expect(() => {
@@ -106,7 +106,7 @@ describe('올바른 상품 수량 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 1.3)`, () => {
+  test(`제품의 수량이 소수일 경우 error가 발생된다.`, () => {
     const productQuantity = 1.3;
 
     expect(() => {
@@ -114,7 +114,7 @@ describe('올바른 상품 수량 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 0)`, () => {
+  test(`제품의 수량이 ${PRODUCT_QUANTITY.MIN_QUANTITY}보다 작을 경우 error가 발생된다.`, () => {
     const productQuantity = 0;
 
     expect(() => {
@@ -122,7 +122,7 @@ describe('올바른 상품 수량 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 21)`, () => {
+  test(`제품의 수량이 ${PRODUCT_QUANTITY.MAX_QUANTITY}이 넘을 경우 error가 발생된다.`, () => {
     const productQuantity = 21;
 
     expect(() => {

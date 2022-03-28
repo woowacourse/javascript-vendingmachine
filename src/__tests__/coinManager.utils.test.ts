@@ -2,7 +2,7 @@ import { checkValidChargeMoney } from '../ts/utils/utils';
 import { CHARGE_MONEY, ERROR_MESSAGE } from '../ts/constants';
 
 describe('올바른 잔돈 확인', () => {
-  test(`잔돈이 ${CHARGE_MONEY.UNIT}으로 나누어 떨어지는지 확인한다. (성공 케이스, 입력: 1000)`, () => {
+  test(`잔돈이 ${CHARGE_MONEY.UNIT}으로 나누어 떨어지는지 확인한다.`, () => {
     const chargeMoney = 1000;
 
     expect(() => {
@@ -10,7 +10,7 @@ describe('올바른 잔돈 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`잔돈이 ${CHARGE_MONEY.UNIT}으로 나누어 떨어지는지 확인한다. (실패 케이스, 입력: 501)`, () => {
+  test(`잔돈이 ${CHARGE_MONEY.UNIT}으로 나누어 떨어지지 않을경우 에러가 발생된다.`, () => {
     const chargeMoney = 501;
 
     expect(() => {

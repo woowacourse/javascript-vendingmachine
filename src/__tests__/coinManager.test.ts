@@ -10,7 +10,7 @@ describe('잔돈 관리 도메인 테스트', () => {
     expect(vendingMachineCoinManager.getTotalAmount()).toBe(0);
   });
 
-  test(`보유할 수 있는 최대 누적 금액은 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이다.`, () => {
+  test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원까지 보관되는지 확인한다.`, () => {
     const vendingMachineCoinManager = new VendingMachineCoinManager();
     const coins: coins = {
       ...COINS.INITIAL_STATE,
@@ -22,7 +22,7 @@ describe('잔돈 관리 도메인 테스트', () => {
     }).not.toThrowError();
   });
 
-  test(`보유할 수 있는 최대 누적 금액은 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이다.`, () => {
+  test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원을 초과하면 에러가 발생된다.`, () => {
     const vendingMachineCoinManager = new VendingMachineCoinManager();
     const coins: coins = {
       ...COINS.INITIAL_STATE,

@@ -10,20 +10,20 @@ describe('상품 관리 도메인 테스트', () => {
   };
   const targetProductName = '콜라';
 
-  test('최초 상품 목록은 비워진 상태이다.', () => {
+  test('최초 저장된 상품 목록은 비워진 상태인지 확인한다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
 
     expect(vendingMachineProductManager.getProducts().length).toBe(0);
   });
 
-  test('상품을 추가 할 수 있다.', () => {
+  test('상품을 추가가 정상적으로 되는지 확인한다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
 
     vendingMachineProductManager.addProduct(newProduct);
     expect(vendingMachineProductManager.getProducts()[0]).toBe(newProduct);
   });
 
-  test('추가한 상품을 삭제 할 수 있다.', () => {
+  test('추가한 상품이 정상적으로 삭제되는지 확인한다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
     const newProducts: product[] = [
       {
@@ -51,7 +51,7 @@ describe('상품 관리 도메인 테스트', () => {
     ).toBe(false);
   });
 
-  test('추가한 상품을 수정 할 수 있다.', () => {
+  test('추가한 상품이 정상적으로 수정되는지 확인한다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
     const targetProduct: product = {
       name: '사이다',
