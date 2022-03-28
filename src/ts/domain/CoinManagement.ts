@@ -47,7 +47,7 @@ export default class CoinManagementDomain implements CoinManagementProps {
     }
   }
 
-  validateCashInput(cash) {
+  validateCashInput(cash: number) {
     validateCash(cash);
   }
 }
