@@ -5,6 +5,7 @@ import ProductManageView, { ProductManageViewInterface } from './ProductManageVi
 import RechargeView, { RechargeViewInterface } from './RechargeView';
 
 export default class View {
+  $navTab: HTMLDivElement;
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
   $tabProductManageButton: HTMLInputElement;
   $tabRechargeButton: HTMLInputElement;
@@ -16,30 +17,32 @@ export default class View {
   currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
+    this.vendingMachine = vendingMachine;
+    this.productManageView = new ProductManageView(this.vendingMachine);
+    this.rechargeView = new RechargeView(this.vendingMachine);
+
+    this.$navTab = <HTMLDivElement>$('.nav-tab');
     this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
     this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
     this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-button');
-    this.vendingMachine = vendingMachine;
-    this.productManageView = new ProductManageView(this.vendingMachine);
-    this.rechargeView = new RechargeView(this.vendingMachine);
-    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
-
-    history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.renderTabResult(this.currentTab);
-
-    window.addEventListener('popstate', (event: PopStateEvent) => {
-      this.tabRouter(event.state.url, true);
-    });
 
     this.$tabProductManageButton.addEventListener('click', () =>
-      this.tabRouter(PATH_ID.PRODUCT_MANAGE),
+      this.handleClickTabButton(PATH_ID.PRODUCT_MANAGE),
     );
-    this.$tabRechargeButton.addEventListener('click', () => this.tabRouter(PATH_ID.RECHARGE));
+    this.$tabRechargeButton.addEventListener('click', () =>
+      this.handleClickTabButton(PATH_ID.RECHARGE),
+    );
     this.$tabPurchaseProductButton.addEventListener('click', () =>
-      this.tabRouter(PATH_ID.PURCHASE_PRODUCT),
+      this.handleClickTabButton(PATH_ID.PURCHASE_PRODUCT),
     );
+  }
+
+  handleClickTabButton(url: string) {
+    const detail = url;
+    const event = new CustomEvent('@route-tab', { detail });
+    this.$navTab.dispatchEvent(event);
   }
 
   renderTabResult = (id: string) => {
@@ -70,21 +73,5 @@ export default class View {
     if (containerBranch[id]) {
       containerBranch[id]();
     }
-  };
-
-  tabRouter = (url: string, isPopState = false) => {
-    if (!isPopState) history.pushState({ url }, null, url);
-    const routes = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
-        this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
-      },
-      '/javascript-vendingmachine/#!/recharge': () => {
-        this.renderTabResult(PATH_ID.RECHARGE);
-      },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
-        this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
-      },
-    };
-    routes[url]();
   };
 }
