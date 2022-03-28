@@ -12,7 +12,7 @@ import { validateProduct } from '../validation/validators';
 class AddProductForm extends Component {
   template(): string {
     return `
-      <form>
+      <form onsubmit="return false">
         <label for="product-name">추가할 상품 정보를 입력해주세요.</label>
         <div class="d-flex">
           <input placeholder="상품명" name="product-name" class="form-control mr-1" />
