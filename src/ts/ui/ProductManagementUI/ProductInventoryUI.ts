@@ -52,6 +52,7 @@ export default class ProductInventoryUI {
           <div class="product-inventory__item grid-item" data-product-name="${name}">
             <button
               type="button"
+              title="수정"
               data-product-name="${name}"
               class="product-inventory__button product-inventory__edit-button grid-button"
             >
@@ -61,6 +62,7 @@ export default class ProductInventoryUI {
           <div class="product-inventory__item grid-item" data-product-name="${name}">
             <button
               type="button"
+              title="삭제"
               data-product-name="${name}"
               class="product-inventory__button product-inventory__delete-button grid-button"
             >
@@ -79,7 +81,7 @@ export default class ProductInventoryUI {
     if (!(e.target instanceof HTMLElement)) return;
 
     const $editButton = $(
-      `button[data-product-name=${e.target.dataset.productName}]`,
+      `button[data-product-name="${e.target.dataset.productName}"][title="수정"]`,
     ) as HTMLButtonElement;
 
     this.finishEditMode($editButton);
@@ -119,6 +121,11 @@ export default class ProductInventoryUI {
     const inputValueLength = $$inputs[0].value.length;
     $$inputs[0].setSelectionRange(inputValueLength, inputValueLength);
     $$inputs[0].scrollLeft = inputValueLength * 30;
+
+    const $deleteButton = $(
+      `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
+    ) as HTMLButtonElement;
+    $deleteButton.setAttribute('hidden', '');
   }
 
   private deactivateEditMode($button: HTMLButtonElement) {
@@ -130,6 +137,11 @@ export default class ProductInventoryUI {
     $$inputs.forEach($input => {
       $input.setAttribute('readonly', '');
     });
+
+    const $deleteButton = $(
+      `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
+    ) as HTMLButtonElement;
+    $deleteButton.removeAttribute('hidden');
   }
 
   private finishEditMode($button: HTMLButtonElement) {
