@@ -111,7 +111,7 @@ class ProductTableComponent {
         확인
       </button>`;
     }
-    /** 구매 기능 요구사항도 이번 스텝에 포함되는 줄 알고 미리 작성.. 했네요 .. */
+
     if (this.tableId === 'purchase-product-list') {
       return `  <button
         type="button"
@@ -147,7 +147,6 @@ class ProductTableComponent {
   };
 
   onClickEditButton = (parentElement, editButtonClassList) => {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 td 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const nameTableData = parentElement.querySelector(`td.product-row-name`);
     const priceTableData = parentElement.querySelector(`td.product-row-price`);
     const quantityTableData = parentElement.querySelector(`td.product-row-quantity`);
@@ -202,7 +201,6 @@ class ProductTableComponent {
   }
 
   showConfirmButton(parentElement, editButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const deleteButton = parentElement.querySelector('.product-delete-button');
     const confirmButton = parentElement.querySelector('.product-confirm-button');
 
@@ -212,7 +210,6 @@ class ProductTableComponent {
   }
 
   showEditAndDeleteButton(parentElement, confirmButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const editButton = parentElement.querySelector('.product-edit-button');
     const deleteButton = parentElement.querySelector('.product-delete-button');
 
