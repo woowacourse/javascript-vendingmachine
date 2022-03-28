@@ -57,9 +57,10 @@ export class ProductInformationInput {
       alert(err.message);
 
       return;
+    } finally {
+      this.productInformationForm.reset();
     }
 
     this.target.dispatchEvent(new CustomEvent('productAdded'));
-    this.productInformationForm.reset();
   };
 }

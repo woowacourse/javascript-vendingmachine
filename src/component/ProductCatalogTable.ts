@@ -1,6 +1,5 @@
 import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
-import { ProductState } from '../utils/interface';
 
 export class ProductCatalogTable {
   private productCatalog: ProductCatalog;
