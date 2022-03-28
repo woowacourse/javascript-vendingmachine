@@ -107,7 +107,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   };
 
   private handleEdit = (target: HTMLButtonElement) => {
-    const { name, price, quantity } = this.vendingMachine.getProductByName(target.dataset.name);
+    const { name, price, quantity } = this.vendingMachine.getProduct(target.dataset.name);
     const editTemplate = this.getEditTemplate({ name, price, quantity });
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
@@ -153,7 +153,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   };
 
   private renderEditedProduct = (productToEdit: ProductType, targetEdit: HTMLTableCellElement) => {
-    const editedProduct = this.vendingMachine.getProductByName(productToEdit.name);
+    const editedProduct = this.vendingMachine.getProduct(productToEdit.name);
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
     newTr.dataset.name = editedProduct.name;

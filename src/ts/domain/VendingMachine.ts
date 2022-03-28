@@ -11,11 +11,11 @@ export interface VendingMachineInterface {
   money: MoneyType[];
   addProduct(input: ProductType): ProductType;
   deleteProduct(name: string): void;
-  getProductByName(name: string): ProductType;
+  getProduct(name: string): ProductType;
   editProduct(name: string, product: ProductType): void;
   rechargeMoney(money: number): void;
   getHoldingMoney(): number;
-  getCoinByValue(value: number): MoneyType;
+  getCoin(value: number): MoneyType;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -45,11 +45,11 @@ export default class VendingMachine implements VendingMachineInterface {
     }, 0);
   };
 
-  public getCoinByValue = (value: number) => {
+  public getCoin = (value: number) => {
     return this.money.find((coin) => coin.value === value);
   };
 
-  public getProductByName = (name: string) => {
+  public getProduct = (name: string) => {
     return this.products.find((product) => product.name === name);
   };
 
