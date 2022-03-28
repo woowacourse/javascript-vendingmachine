@@ -8,35 +8,34 @@ import ProductImpl from '../domain/Product';
 import { validateProductInfo } from '../ui/ProductManagementUI/validator';
 
 describe('validate 테스트', () => {
-  const product = {
+  const defaultProduct = {
     name: '콜라',
     price: PRICE_RULE.MIN,
     quantity: MAX_QUANTITY,
   };
-  const products = [new ProductImpl(product)];
+  const products = [new ProductImpl(defaultProduct)];
 
   it('상품 추가/수정 시, 빈 값이 있으면 에러를 발생시킨다.', () => {
     const newProduct1 = {
+      ...defaultProduct,
       name: '',
-      price: PRICE_RULE.MIN,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct1)).toThrowError(
       MESSAGE.ERROR_EMPTY_VALUE,
     );
 
     const newProduct2 = {
-      name: `${product.name}사이다`,
+      ...defaultProduct,
+      name: `${defaultProduct.name}사이다`,
       price: NaN,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct2)).toThrowError(
       MESSAGE.ERROR_EMPTY_VALUE,
     );
 
     const newProduct3 = {
-      name: `${product.name}환타`,
-      price: PRICE_RULE.MIN,
+      ...defaultProduct,
+      name: `${defaultProduct.name}환타`,
       quantity: NaN,
     };
     expect(() => validateProductInfo(products, newProduct3)).toThrowError(
@@ -46,7 +45,7 @@ describe('validate 테스트', () => {
 
   it('상품 추가 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
     const newProduct = {
-      name: product.name,
+      ...defaultProduct,
       price: PRICE_RULE.MIN + PRICE_RULE.UNIT,
       quantity: MAX_QUANTITY - 1,
     };
@@ -56,11 +55,11 @@ describe('validate 테스트', () => {
   });
 
   it('상품 수정 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
-    const prevProductName = `${product.name}사이다`;
+    const prevProductName = `${defaultProduct.name}사이다`;
     const newProduct = {
-      name: product.name,
-      price: PRICE_RULE.MIN,
-      quantity: MAX_QUANTITY,
+      ...defaultProduct,
+      price: PRICE_RULE.MIN + PRICE_RULE.UNIT,
+      quantity: MAX_QUANTITY - 1,
     };
     expect(() =>
       validateProductInfo(products, newProduct, prevProductName),
@@ -69,9 +68,8 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 상품명의 길이는 ${MAX_NAME_LENGTH}을 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
+      ...defaultProduct,
       name: '콜'.repeat(MAX_NAME_LENGTH + 1),
-      price: PRICE_RULE.MIN,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct)).toThrowError(
       MESSAGE.ERROR_OVER_MAX_LENGTH,
@@ -80,9 +78,9 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MIN}원 미만이면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: `${product.name}사이다`,
+      ...defaultProduct,
+      name: `${defaultProduct.name}사이다`,
       price: PRICE_RULE.MIN - PRICE_RULE.UNIT,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct)).toThrowError(
       MESSAGE.ERROR_INVALID_PRICE,
@@ -91,9 +89,9 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MAX}원 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: `${product.name}사이다`,
+      ...defaultProduct,
+      name: `${defaultProduct.name}사이다`,
       price: PRICE_RULE.MAX + PRICE_RULE.UNIT,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct)).toThrowError(
       MESSAGE.ERROR_INVALID_PRICE,
@@ -102,9 +100,9 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.UNIT}으로 나누어 떨어지지 않으면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: `${product.name}사이다`,
+      ...defaultProduct,
+      name: `${defaultProduct.name}사이다`,
       price: PRICE_RULE.MIN + PRICE_RULE.UNIT / 2,
-      quantity: MAX_QUANTITY,
     };
     expect(() => validateProductInfo(products, newProduct)).toThrowError(
       MESSAGE.ERROR_INVALID_PRICE,
@@ -113,8 +111,8 @@ describe('validate 테스트', () => {
 
   it(`상품 추가/수정 시, 수량이 ${MAX_QUANTITY}개를 초과하면 에러를 발생시킨다.`, () => {
     const newProduct = {
-      name: `${product.name}사이다`,
-      price: PRICE_RULE.MIN,
+      ...defaultProduct,
+      name: `${defaultProduct.name}사이다`,
       quantity: MAX_QUANTITY + 1,
     };
     expect(() => validateProductInfo(products, newProduct)).toThrowError(
