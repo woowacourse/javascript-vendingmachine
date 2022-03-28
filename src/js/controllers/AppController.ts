@@ -31,16 +31,15 @@ export default class AppController {
   handleRouteChange(event: CustomEvent) {
     const { $navButton }: RouteChangeDetailType = event.detail;
 
-    if ($navButton.id === SELECTOR.ID_STRING.ITEM_MANGE_TAB) {
-      window.history.pushState(null, null, URL.MANAGE_ITEM);
-    }
-
-    if ($navButton.id === SELECTOR.ID_STRING.MONEY_CHARGE_TAB) {
-      window.history.pushState(null, null, URL.CHARGE_MONEY);
-    }
-
-    if ($navButton.id === SELECTOR.ID_STRING.ITEM_PURCHASE_TAB) {
-      window.history.pushState(null, null, URL.PURCHASE_ITEM);
+    switch ($navButton.id) {
+      case SELECTOR.ID_STRING.ITEM_MANGE_TAB:
+        window.history.pushState(null, null, URL.MANAGE_ITEM);
+        break;
+      case SELECTOR.ID_STRING.MONEY_CHARGE_TAB:
+        window.history.pushState(null, null, URL.CHARGE_MONEY);
+        break;
+      case SELECTOR.ID_STRING.ITEM_PURCHASE_TAB:
+        window.history.pushState(null, null, URL.PURCHASE_ITEM);
     }
 
     this.route();
@@ -49,24 +48,22 @@ export default class AppController {
   route() {
     const { pathname } = window.location;
 
-    if (pathname === `${URL.BASE_URL}/`) {
-      this.manageItemController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
-      return;
-    }
-    if (pathname === `${URL.BASE_URL}/${URL.MANAGE_ITEM}`) {
-      this.manageItemController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
-      return;
-    }
-    if (pathname === `${URL.BASE_URL}/${URL.CHARGE_MONEY}`) {
-      this.chargeMoneyController.loadPage();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
-      return;
-    }
-    if (pathname === `${URL.BASE_URL}/${URL.PURCHASE_ITEM}`) {
-      this.purchaseItemController.render();
-      this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+    switch (pathname) {
+      case `${URL.BASE_URL}/${URL.MANAGE_ITEM}`:
+        this.manageItemController.loadPage();
+        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+        break;
+      case `${URL.BASE_URL}/${URL.CHARGE_MONEY}`:
+        this.chargeMoneyController.loadPage();
+        this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
+        break;
+      case `${URL.BASE_URL}/${URL.PURCHASE_ITEM}`:
+        this.purchaseItemController.render();
+        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+        break;
+      default:
+        this.manageItemController.loadPage();
+        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
     }
   }
 }
