@@ -35,7 +35,7 @@ export default class AppView {
     $navButtons.forEach($navButton =>
       $navButton.id === targetButtonId
         ? $navButton.classList.add(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED)
-        : $navButton.classList.remove(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED),
+        : $navButton.classList.remove(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED)
     );
   }
 }

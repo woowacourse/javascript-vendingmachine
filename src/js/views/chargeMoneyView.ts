@@ -14,7 +14,7 @@ export default class ChargeMoneyView {
   bindEvents() {
     $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener(
       'submit',
-      this.handleSubmitChargeMoney.bind(this),
+      this.handleSubmitChargeMoney.bind(this)
     );
   }
 
@@ -51,7 +51,7 @@ export default class ChargeMoneyView {
     $(SELECTOR.CLASS.COIN_TABLE).replaceChildren();
     $(SELECTOR.CLASS.COIN_TABLE).insertAdjacentHTML(
       'beforeend',
-      sectionTemplate.coinTableContent(coins),
+      sectionTemplate.coinTableContent(coins)
     );
   }
 }

@@ -23,7 +23,7 @@ export default class ManageItemView {
 
   bindDeleteClickEvents() {
     $$(SELECTOR.CLASS.ITEM_TABLE_DELETE_BUTTON).forEach(button =>
-      this.bindTargetDeleteClickEvent(button),
+      this.bindTargetDeleteClickEvent(button)
     );
   }
 
@@ -53,7 +53,7 @@ export default class ManageItemView {
 
   bindSaveClickEvent($targetTableRow) {
     const $confirmButton = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.ITEM_TABLE_CONFIRM_BUTTON,
+      SELECTOR.CLASS_STRING.ITEM_TABLE_CONFIRM_BUTTON
     )[0];
 
     $confirmButton.addEventListener('click', () => {
@@ -90,7 +90,7 @@ export default class ManageItemView {
     window.dispatchEvent(
       new CustomEvent(CUSTOM_EVENT.TABLE_ITEM_CHANGE, {
         detail: { item, targetRowIndex, $targetTableRow },
-      }),
+      })
     );
   }
 
@@ -116,10 +116,10 @@ export default class ManageItemView {
 
   repaintItemTableRow($targetTableRow, item: ItemType) {
     const $targetChangeButton = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.ITEM_TABLE_CHANGE_BUTTON,
+      SELECTOR.CLASS_STRING.ITEM_TABLE_CHANGE_BUTTON
     );
     const $targetDeleteButton = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.ITEM_TABLE_DELETE_BUTTON,
+      SELECTOR.CLASS_STRING.ITEM_TABLE_DELETE_BUTTON
     );
 
     $targetTableRow.replaceChildren();
@@ -137,14 +137,14 @@ export default class ManageItemView {
 
   getItemFromTargetTableRow($targetTableRow): ItemType {
     const name: string = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.TABLE_ITEM_NAME,
+      SELECTOR.CLASS_STRING.TABLE_ITEM_NAME
     )[0].textContent;
     const price = Number(
-      $targetTableRow.getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_PRICE)[0].textContent,
+      $targetTableRow.getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_PRICE)[0].textContent
     );
     const quantity = Number(
       $targetTableRow.getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_QUANTITY)[0]
-        .textContent,
+        .textContent
     );
 
     return { name, price, quantity };
@@ -155,10 +155,10 @@ export default class ManageItemView {
       .getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_INPUT_NAME)[0]
       .value.trim();
     const price: number = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.TABLE_ITEM_INPUT_PRICE,
+      SELECTOR.CLASS_STRING.TABLE_ITEM_INPUT_PRICE
     )[0].valueAsNumber;
     const quantity: number = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.TABLE_ITEM_INPUT_QUANTITY,
+      SELECTOR.CLASS_STRING.TABLE_ITEM_INPUT_QUANTITY
     )[0].valueAsNumber;
 
     return { name, price, quantity };
