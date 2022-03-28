@@ -25,7 +25,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     this.$productNameInput = <HTMLInputElement>$('#product-name');
     this.$productPriceInput = <HTMLInputElement>$('#product-price');
     this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
-    this.$productManageForm = <HTMLFormElement>$('.product-manage-form');
+    this.$productManageForm = <HTMLFormElement>$('#product-manage-form');
     this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
     this.vendingMachine = vendingMachine;
 

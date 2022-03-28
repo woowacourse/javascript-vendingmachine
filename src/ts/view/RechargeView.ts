@@ -16,8 +16,8 @@ export interface RechargeViewInterface {
 
 export default class RechargeView implements RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
-  $currentHoldingMoney: HTMLSpanElement;
   $rechargeInput: HTMLInputElement;
+  $currentHoldingMoney: HTMLSpanElement;
   $coin500: HTMLSpanElement;
   $coin100: HTMLSpanElement;
   $coin50: HTMLSpanElement;
@@ -25,13 +25,13 @@ export default class RechargeView implements RechargeViewInterface {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$rechargeForm = <HTMLFormElement>$('.recharge-form');
-    this.$currentHoldingMoney = $('#current-holding-money');
+    this.$rechargeForm = <HTMLFormElement>$('#recharge-form');
     this.$rechargeInput = <HTMLInputElement>$('#recharge-input', this.$rechargeForm);
-    this.$coin500 = <HTMLSpanElement>$('#coin-500');
-    this.$coin100 = <HTMLSpanElement>$('#coin-100');
-    this.$coin50 = <HTMLSpanElement>$('#coin-50');
-    this.$coin10 = <HTMLSpanElement>$('#coin-10');
+    this.$currentHoldingMoney = $('#current-holding-money');
+    this.$coin500 = $('#coin-500');
+    this.$coin100 = $('#coin-100');
+    this.$coin50 = $('#coin-50');
+    this.$coin10 = $('#coin-10');
     this.vendingMachine = vendingMachine;
 
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
