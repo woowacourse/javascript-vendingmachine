@@ -1,5 +1,5 @@
 import Store from '../flux/store';
-import { EventOnElement, Override } from '../types';
+import { EventOnElement } from '../types';
 
 abstract class Component extends HTMLElement {
   _tagName = '';
