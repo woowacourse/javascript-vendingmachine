@@ -2,8 +2,9 @@ import ChargeMoneyView from '../views/chargeMoneyView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { CUSTOM_EVENT } from '../constants/constants';
 import { ChargeMoneyDetailType } from '../types/types';
+import { Controller } from '../types/interface';
 
-export default class ChargeMoneyController {
+export default class ChargeMoneyController implements Controller {
   private vendingMachine: VendingMachine;
   private chargeMoneyView: ChargeMoneyView;
 

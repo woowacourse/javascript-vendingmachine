@@ -3,8 +3,9 @@ import VendingMachine from '../vendingMachine/vendingMachine';
 import { CUSTOM_EVENT } from '../constants/constants';
 import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
+import { Controller } from '../types/interface';
 
-export default class ManageItemController {
+export default class ManageItemController implements Controller {
   private vendingMachine: VendingMachine;
   private manageItemView: ManageItemView;
 

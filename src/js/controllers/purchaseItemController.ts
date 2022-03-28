@@ -2,8 +2,9 @@ import PurchaseItemView from '../views/purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { CoinsType } from '../types/types';
 import { $ } from '../utils/common';
+import { Controller } from '../types/interface';
 
-export default class PurchaseItemController {
+export default class PurchaseItemController implements Controller {
   private vendingMachine: VendingMachine;
   private purchaseItemView: PurchaseItemView;
   private coins: CoinsType;
@@ -17,7 +18,7 @@ export default class PurchaseItemController {
     this.inputMoney = 0;
   }
 
-  bindEvent() {
+  bindEvents() {
     $('.submit-button').addEventListener('click', event => event.preventDefault());
   }
 
@@ -25,6 +26,6 @@ export default class PurchaseItemController {
     const items = this.vendingMachine.getItems();
     this.purchaseItemView.render(items, this.coins, this.inputMoney);
 
-    this.bindEvent();
+    this.bindEvents();
   }
 }
