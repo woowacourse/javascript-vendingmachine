@@ -103,3 +103,9 @@ export const MONEY = {
   MAX: 100000,
   UNIT: 10,
 };
+
+export const URL_HASH = {
+  MANAGE_ITEM: '#mangeItem',
+  CHARGE_MONEY: '#chargeMoney',
+  PURCHASE_ITEM: '#purchaseItem',
+};

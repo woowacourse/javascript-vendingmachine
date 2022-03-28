@@ -3,4 +3,4 @@ import AppManager from './AppManager';
 
 const appManager = new AppManager();
 
-appManager.route();
+appManager.initRouter();
