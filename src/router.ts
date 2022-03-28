@@ -1,4 +1,6 @@
-import { PATH_TO_TAB_DIC } from './constants';
+import { ACTION, PATH_TO_TAB_DIC } from './constants';
+import createAction from './flux/createAction';
+import Store from './flux/store';
 import { Tab } from './types';
 
 class Router {
@@ -45,9 +47,10 @@ class Router {
 
   onLocationChange = () => {
     this.routeComponent(Router.activeTab());
+    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
   };
 
-  static activeTab() {
+  static activeTab(): Tab {
     const { pathname } = window.location;
     return PATH_TO_TAB_DIC[pathname];
   }

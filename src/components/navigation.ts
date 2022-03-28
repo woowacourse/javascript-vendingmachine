@@ -1,5 +1,6 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
+import Store from '../flux/store';
 import Router from '../router';
 import { EventOnElement, Tab } from '../types';
 
@@ -36,16 +37,13 @@ class Navigation extends Component {
     target.classList.add('active');
   }
 
-  shouldSubscribe(): boolean {
-    return false;
-  }
-
   mount() {
     this.render();
   }
 
   render() {
-    this.innerHTML = this.template(Router.activeTab());
+    const { activeTab } = Store.instance.getState();
+    this.innerHTML = this.template(activeTab);
   }
 }
 

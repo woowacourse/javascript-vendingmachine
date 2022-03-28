@@ -6,11 +6,13 @@ export const ACTION = {
   DELETE_PRODUCT: 'delete-product',
   CHANGE_EDIT_MODE: 'change-edit-mode',
   CHARGE_COINS: 'charge-coins',
+  CHANGE_ACTIVE_TAB: 'change-active-tab',
 };
 
 export const COIN_UNITS = [500, 100, 50, 10];
 
 export const initialState: AppState = {
+  activeTab: Tab.ProductManageTab,
   chargedMoney: 0,
   chargedCoins: {
     500: 0,
