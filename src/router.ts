@@ -1,3 +1,6 @@
+import { PATH_TO_TAB_DIC } from './constants';
+import { Tab } from './types';
+
 class Router {
   static _instance?: Router;
 
@@ -21,16 +24,17 @@ class Router {
   }
 
   private onLoad() {
-    const { pathname } = window.location;
-    this.routeComponent(pathname);
+    this.routeComponent(Router.activeTab());
   }
 
-  routeComponent(pathname: string) {
+  routeComponent(activeTab: Tab) {
     if (!this.tabContainer) return;
-    if (['/', '/product-manage-tab'].includes(pathname)) {
+    if (activeTab === Tab.ProductManageTab) {
       this.tabContainer.innerHTML = '<product-manage-tab></product-manage-tab>';
-    } else if (pathname === '/charge-money-tab') {
+    } else if (activeTab === Tab.ChargeMoneyTab) {
       this.tabContainer.innerHTML = '<charge-money-tab></charge-money-tab>';
+    } else if (activeTab === Tab.PurchaseProductTab) {
+      this.tabContainer.innerHTML = '<purchase-product-tab></purchase-product-tab>';
     }
   }
 
@@ -40,9 +44,13 @@ class Router {
   }
 
   onLocationChange = () => {
-    const { pathname } = window.location;
-    this.routeComponent(pathname);
+    this.routeComponent(Router.activeTab());
   };
+
+  static activeTab() {
+    const { pathname } = window.location;
+    return PATH_TO_TAB_DIC[pathname];
+  }
 }
 
 export default Router;

@@ -1,4 +1,4 @@
-import { AppState } from './types';
+import { AppState, Tab } from './types';
 
 export const ACTION = {
   ADD_PRODUCT: 'add-product',
@@ -22,3 +22,10 @@ export const initialState: AppState = {
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
+
+export const PATH_TO_TAB_DIC: Record<string, Tab> = {
+  '/': Tab.ProductManageTab,
+  '/product-manage-tab': Tab.ProductManageTab,
+  '/charge-money-tab': Tab.ChargeMoneyTab,
+  '/purchase-product-tab': Tab.PurchaseProductTab,
+};

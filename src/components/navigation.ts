@@ -1,16 +1,22 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
-import { EventOnElement } from '../types';
+import { EventOnElement, Tab } from '../types';
 
 @customElement('vendingmachine-navigation')
 class Navigation extends Component {
-  template(): string {
+  template(activeTab: Tab): string {
     return `
       <nav class="d-flex justify-content-center">
-        <button class="btn btn-secondary mr-1 active" data-destination="product-manage-tab">상품 관리</button>
-        <button class="btn btn-secondary mr-1" data-destination="charge-money-tab">잔돈 충전</button>
-        <button class="btn btn-secondary">상품 구매</button>
+        <button class="btn btn-secondary mr-1 ${
+          activeTab === Tab.ProductManageTab ? 'active' : ''
+        }" data-destination="product-manage-tab">상품 관리</button>
+        <button class="btn btn-secondary mr-1 ${
+          activeTab === Tab.ChargeMoneyTab ? 'active' : ''
+        }" data-destination="charge-money-tab">잔돈 충전</button>
+        <button class="btn btn-secondary ${
+          activeTab === Tab.PurchaseProductTab ? 'active' : ''
+        }" data-destination="purchase-product-tab">상품 구매</button>
       </nav>
     `;
   }
@@ -32,6 +38,14 @@ class Navigation extends Component {
 
   shouldSubscribe(): boolean {
     return false;
+  }
+
+  mount() {
+    this.render();
+  }
+
+  render() {
+    this.innerHTML = this.template(Router.activeTab());
   }
 }
 
