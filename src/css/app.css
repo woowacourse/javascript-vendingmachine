@@ -70,6 +70,10 @@ th {
   font-weight: 600;
 }
 
+col {
+  width: 23%;
+}
+
 .hide {
   display: none;
 }
