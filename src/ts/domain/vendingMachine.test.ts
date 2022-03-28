@@ -8,6 +8,7 @@ global.localStorage = new LocalStorageMock();
 describe('상품 관리 테스트', () => {
   const vendingMachine = new VendingMachine();
   const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+  const privateValidProduct = { _name: '코카콜라', _price: 1000, _quantity: 10 };
 
   beforeEach(() => {
     vendingMachine.addProduct(validProduct);
@@ -18,7 +19,7 @@ describe('상품 관리 테스트', () => {
   });
 
   it('상품을 자판기에 추가할 수 있다.', () => {
-    expect(vendingMachine.products).toContainEqual(validProduct);
+    expect(vendingMachine.products).toContainEqual(privateValidProduct);
   });
 
   it('상품을 자판기에 삭제할 수 있다.', () => {
@@ -39,10 +40,12 @@ describe('상품 관리 테스트', () => {
   it('상품 정보를 수정하면 수정된 상품 정보가 저장돼야 한다.', () => {
     const targetName = '코카콜라';
     const editedProduct = { name: '사이다', price: 1500, quantity: 15 };
+    const privateEditedProduct = { _name: '사이다', _price: 1500, _quantity: 15 };
+
     vendingMachine.editProduct(targetName, editedProduct);
 
-    expect(vendingMachine.products).not.toContainEqual(validProduct);
-    expect(vendingMachine.products).toContainEqual(editedProduct);
+    expect(vendingMachine.products).not.toContainEqual(privateValidProduct);
+    expect(vendingMachine.products).toContainEqual(privateEditedProduct);
   });
 
   it('상품 정보를 수정할 시, 수정한 상품명이 기존 상품명과 중복되면 에러를 발생시킨다.', () => {

@@ -40,9 +40,9 @@ export default class VendingMachine implements VendingMachineInterface {
 
     return copy?.map((product) => {
       const productToCopy = {
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
+        name: product._name,
+        price: product._price,
+        quantity: product._quantity,
       };
 
       return new Product(productToCopy);
@@ -52,7 +52,7 @@ export default class VendingMachine implements VendingMachineInterface {
   getMoneyFromStorage = (key: string) => {
     const copy = JSON.parse(localStorage.getItem(key));
 
-    return copy?.map((money) => new Money(money.value, money.count));
+    return copy?.map((money) => new Money(money._value, money._count));
   };
 
   getCoinByValue = (value: number) => {
@@ -70,7 +70,7 @@ export default class VendingMachine implements VendingMachineInterface {
       const coinValue = this.money[getRandomNumber(0, 3)].value;
       if (coinValue <= money) {
         const index = this.money.findIndex((coin: MoneyType) => coin.value === coinValue);
-        this.money[index].count += 1;
+        this.money[index].increaseCount();
         money -= coinValue;
       }
     }
