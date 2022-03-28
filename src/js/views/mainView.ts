@@ -17,8 +17,8 @@ export default class MainView {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
   }
 
-  handleClickNavButton(event: Event) {
-    const $navButton = event.target as HTMLButtonElement;
+  handleClickNavButton(event: { target: HTMLButtonElement }) {
+    const $navButton = event.target;
     const targetButtonId = $navButton.id;
 
     this.changeButtonColor(targetButtonId);
