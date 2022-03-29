@@ -52,6 +52,7 @@ export default class RechargeView implements RechargeViewInterface {
     this.renderHoldingMoney();
     this.renderCoinTable();
     
+    this.$rechargeInput.value = '';
     this.$rechargeInput.focus();
   };
 
@@ -66,7 +67,6 @@ export default class RechargeView implements RechargeViewInterface {
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
       this.renderRecharge();
-      this.$rechargeInput.value = '';
     } catch (error) {
       alert(error.message);
     }
