@@ -25,7 +25,7 @@ const RandomStrategy: distributeStrategy = {
       }
       const randomCount = getRandomCoin(moneyLeft, coin.value);
       moneyLeft -= coin.value * randomCount;
-      coin.count = randomCount;
+      coinObject.count = randomCount;
       return coinObject;
     });
   },
