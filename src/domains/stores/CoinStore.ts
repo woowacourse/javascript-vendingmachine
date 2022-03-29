@@ -49,12 +49,12 @@ class CoinStore {
         break;
       }
       case COIN_ACTION.COIN_ADD: {
-        this.#coinsCount = this.generateNewCoinsCount(this.#coinsCount, detail as number);
+        this.#coinsCount = this.generateRandomCoins(this.#coinsCount, detail as number);
       }
     }
   }
 
-  generateNewCoinsCount(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
+  generateRandomCoins(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
     const newCoinsCount = oldCoinsCount;
     let coinList = [500, 100, 50, 10];
     let money = detail;
