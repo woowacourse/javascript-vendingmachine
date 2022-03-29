@@ -11,9 +11,13 @@ export default class ProductPage {
   $tableSection;
   $table;
 
+  isTableUpdating;
+
   constructor() {
     ProductStore.addSubscriber(this.render);
     this.setRenderMethodList();
+
+    this.isTableUpdating = false;
   }
 
   loadPage = () => {
@@ -97,6 +101,11 @@ export default class ProductPage {
   }
 
   onClickUpdateButton({ target: $target }) {
+    if (this.isTableUpdating) {
+      alert('한 번에 하나의 상품만 수정 가능합니다.');
+      return;
+    }
+    this.isTableUpdating = !this.isTableUpdating;
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
 
@@ -112,8 +121,7 @@ export default class ProductPage {
     const productIndex = $tableRow.dataset.primaryKey;
 
     const product = Array.from($$('input', $tableRow)).reduce((previous, inputElement) => {
-      previous[inputElement.name] =
-        inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value;
+      previous[inputElement.name] = inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value;
       return previous;
     }, {});
 
@@ -124,6 +132,7 @@ export default class ProductPage {
       return;
     }
     ProductStore.updateProduct(productIndex, product);
+    this.isTableUpdating = !this.isTableUpdating;
   }
 
   onClickUpdateCancelButton({ target: $target }) {
@@ -134,6 +143,7 @@ export default class ProductPage {
     const { products } = ProductStore.getState();
 
     $tableRow.innerHTML = template.productTableRowInners(products[productIndex]);
+    this.isTableUpdating = !this.isTableUpdating;
   }
 
   onClickDeleteButton({ target: $target }) {
