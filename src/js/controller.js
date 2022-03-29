@@ -41,24 +41,16 @@ export default class Controller {
   };
 
   #handleProductInfo = (e) => {
-    try {
-      const { product } = e.detail;
-      this.productManager.addProduct(product);
-      this.productManageView.render(product);
-      this.productManageView.resetProductInput();
-    } catch (error) {
-      alert(error.message);
-    }
+    const { product } = e.detail;
+    this.productManager.addProduct(product);
+    this.productManageView.render(product);
+    this.productManageView.resetProductInput();
   };
 
   #modifySavedData = (e) => {
-    try {
-      const { index, product } = e.detail;
-      this.productManager.modifyProduct(index, product);
-      this.productManageView.renderModifiedProduct(index, product);
-    } catch (error) {
-      alert(error.message);
-    }
+    const { index, product } = e.detail;
+    this.productManager.modifyProduct(index, product);
+    this.productManageView.renderModifiedProduct(index, product);
   };
 
   #deleteSavedData = (e) => {
@@ -67,14 +59,10 @@ export default class Controller {
   };
 
   #handleChargeCoin = (e) => {
-    try {
-      const { amount } = e.detail;
-      this.coin.addAmount(amount);
-      this.chargeView.renderCurrentAmount(this.coin.getAmount());
-      this.chargeView.resetChargeInput();
-      this.chargeView.renderHaveCoins(this.coin.getCoins());
-    } catch (error) {
-      alert(error.message);
-    }
+    const { amount } = e.detail;
+    this.coin.addAmount(amount);
+    this.chargeView.renderCurrentAmount(this.coin.getAmount());
+    this.chargeView.resetChargeInput();
+    this.chargeView.renderHaveCoins(this.coin.getCoins());
   };
 }

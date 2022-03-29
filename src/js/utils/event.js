@@ -4,5 +4,9 @@ export const emit = (target, eventName, detail) => {
 };
 
 export const on = (target, eventName, handler) => {
-  target.addEventListener(eventName, handler);
+  try {
+    target.addEventListener(eventName, handler);
+  } catch (error) {
+    alert(error.message);
+  }
 };
