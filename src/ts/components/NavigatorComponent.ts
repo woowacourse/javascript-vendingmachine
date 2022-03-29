@@ -1,4 +1,4 @@
-import { $, on } from '../dom';
+import { $, $$, on } from '../dom';
 import { MAIN_PAGE } from '../constants';
 import ProductsComponent from './ProductManageComponent/ProductsComponent';
 import VendingMachineProductManager from '../domains/VendingMachineProductManager';
@@ -7,13 +7,15 @@ import VendingMachineCoinManager from '../domains/VendingMachineCoinManager';
 
 export default class NavigatorComponent {
   private $navList = $('.nav__list');
+  private $tabs = $$('.nav__button');
 
   constructor() {
     new ProductsComponent(new VendingMachineProductManager());
     new CoinComponent(new VendingMachineCoinManager());
     on(this.$navList, 'click', this.onClickTab);
-    on(window, 'popstate', this.onPopstate);
-    this.onPopstate();
+    on(window, 'popstate', this.routeByPath);
+
+    this.routeByPath();
   }
 
   private onClickTab = (e) => {
@@ -25,13 +27,12 @@ export default class NavigatorComponent {
   };
 
   private changeTab = (targetTab) => {
-    const tabs = this.$navList.querySelectorAll('.nav__button');
-    Array.from(tabs).forEach((tabElement: HTMLElement) => {
+    Array.from(this.$tabs).forEach((tabElement: HTMLElement) => {
       this.render(targetTab, tabElement.dataset.tab);
     });
   };
 
-  private onPopstate = () => {
+  private routeByPath = () => {
     const targetTab = window.location.pathname;
     this.changeTab(targetTab.replace('/', '') || MAIN_PAGE);
   };
