@@ -18,7 +18,7 @@ class ItemManageTab extends VendingMachineTab {
     this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
   }
 
-  renderInitialTabState() {
+  renderInitialItemManageTabState() {
     this.changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
       this.itemManageTabButton
@@ -37,7 +37,7 @@ class ItemManageTab extends VendingMachineTab {
     if (this.itemManageTabButton.classList.contains('selected')) {
       return;
     }
-    this.renderInitialTabState();
+    this.renderInitialItemManageTabState();
   };
 
   #onSubmitItemInfoForm = (e) => {
@@ -48,7 +48,8 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo);
     } catch (error) {
-      return alert(error.message);
+      alert(error.message);
+      return;
     }
 
     const newItem = this.vendingMachine.addItem(itemInfo);
@@ -96,9 +97,6 @@ class ItemManageTab extends VendingMachineTab {
 
     itemInfoInputCellList[0].focus();
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
-    targetItem.addEventListener('keydown', ({ key }) =>
-      this.#onKeyDownItemInfoRow(key, targetItem)
-    );
   }
 
   #handleDeleteButtonClickEvent(targetItem) {
@@ -116,7 +114,8 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo, false);
     } catch (error) {
-      return alert(error.message);
+      alert(error.message);
+      return;
     }
     this.vendingMachine.editItem(itemInfo, targetItem.rowIndex - 1);
 
