@@ -17,7 +17,7 @@ export default class Coin implements CoinInterface {
     };
   }
 
-  setAmount(chargedAmount: number): void {
+  addAmount(chargedAmount: number): void {
     const currentAmount = this.amount + chargedAmount;
     validChargeAmount(chargedAmount, currentAmount);
     this.amount = currentAmount;

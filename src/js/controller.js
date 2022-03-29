@@ -68,7 +68,7 @@ export default class Controller {
   #handleChargeCoin(e) {
     try {
       const { amount } = e.detail;
-      this.coin.setAmount(amount);
+      this.coin.addAmount(amount);
       this.chargeView.renderCurrentAmount(this.coin.getAmount());
       this.chargeView.resetChargeInput();
       this.chargeView.renderHaveCoins(this.coin.getCoins());
