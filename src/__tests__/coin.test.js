@@ -12,14 +12,14 @@ describe('잔돈을 충전할 수 있다.', () => {
   });
 
   test('최초 각 동전의 개수는 0개이다.', () => {
-    const initialCoinsCount = {
+    const initCoinsCount = {
       500: COIN.DEFAULT_COUNT,
       100: COIN.DEFAULT_COUNT,
       50: COIN.DEFAULT_COUNT,
       10: COIN.DEFAULT_COUNT,
     };
 
-    expect(CoinStore.instance.coinsCount).toStrictEqual(initialCoinsCount);
+    expect(CoinStore.instance.coinsCount).toStrictEqual(initCoinsCount);
   });
 
   test('현재 보유 금액을 충전할 수 있다.', () => {

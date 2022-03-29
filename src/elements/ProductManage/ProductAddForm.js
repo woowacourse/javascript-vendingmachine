@@ -39,7 +39,7 @@ class ProductAddForm extends CustomElement {
 
     try {
       this.addProduct(newProduct);
-      this.initiaProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
+      this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
     } catch (error) {
       alert(error.message);
     }
@@ -51,7 +51,7 @@ class ProductAddForm extends CustomElement {
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
   }
 
-  initiaProductInputs($productNameInput, $productPriceInput, $productQuantityInput) {
+  initProductInputs($productNameInput, $productPriceInput, $productQuantityInput) {
     $productNameInput.value = '';
     $productPriceInput.value = '';
     $productQuantityInput.value = '';
