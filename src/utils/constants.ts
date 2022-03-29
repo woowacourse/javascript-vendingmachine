@@ -77,6 +77,7 @@ export const NOTICE_MENTION: TMention = {
   EDIT_PRODUCT: '상품이 수정되었습니다🩹',
   DELETE_PRODUCT: '상품이 삭제되었습니다🗑',
   RECHARGE_CHANGE: '잔돈이 충전되었습니다💰',
+  INPUT_CHARGE: '금액이 투입되었습니다💸',
 };
 
 export const SNACKBAR_DELAY_TIME = 1000;

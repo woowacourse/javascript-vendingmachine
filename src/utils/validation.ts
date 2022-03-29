@@ -70,4 +70,5 @@ export const checkInputChargeInput = (chargeInput: number) => {
   if (isOutOfChargeRange(chargeInput)) {
     throw new Error(ERROR_MSG.CHARGE_OUT_OF_RANGE);
   }
+  return true;
 };

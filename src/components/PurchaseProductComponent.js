@@ -2,7 +2,8 @@ import ProductTableComponent from './common/ProductTableComponent';
 import CoinTableComponent from './common/CoinTableComponent';
 import { checkInputChargeInput } from '../utils/validation';
 import vendingMachineStore from '../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import { showSnackBar } from '../utils/showSnackBar';
 
 class PurchaseProductComponent {
   #purchaseProductComponent;
@@ -12,6 +13,7 @@ class PurchaseProductComponent {
     this.mount();
     this.initDOM();
     this.initChildComponent();
+    this.subscribeStore();
     this.bindEventHandler();
   }
 
@@ -23,6 +25,7 @@ class PurchaseProductComponent {
     this.$purchaseProductContainer = this.$parent.querySelector('#purchase-product-container');
     this.$purchaseProductForm = this.$parent.querySelector('#charge-input-form');
     this.$inputChargeInput = this.$parent.querySelector('#charge-input');
+    this.$inputChargeTotal = this.$parent.querySelector('#input-total-amount');
   }
 
   generateTemplate() {
@@ -54,8 +57,21 @@ class PurchaseProductComponent {
     );
   }
 
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
+  }
+
   bindEventHandler() {
     this.$purchaseProductForm.addEventListener('submit', this.onSubmitPurchaseProductForm);
+  }
+
+  wakeUp() {
+    const inputCharge = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
+    this.render(inputCharge);
+  }
+
+  render(inputCharge) {
+    this.$inputChargeTotal.textContent = inputCharge;
   }
 
   show() {
@@ -79,11 +95,17 @@ class PurchaseProductComponent {
           },
           stateKey: VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE,
         });
+        this.clearInputChargeForm();
+        showSnackBar(NOTICE_MENTION.INPUT_CHARGE);
       }
     } catch ({ message }) {
       alert(message);
     }
   };
+
+  clearInputChargeForm() {
+    this.$inputChargeInput.value = '';
+  }
 }
 
 export default PurchaseProductComponent;

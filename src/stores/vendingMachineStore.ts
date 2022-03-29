@@ -79,6 +79,12 @@ class VendingMachineStore implements IVendingMachineStore {
 
       this.state.COIN_WALLET.rechargeCoinWallet(changeInput);
     },
+    [ACTION_TYPES.INSERT_CHARGE]: payload => {
+      const { inputCharge } = payload;
+      const totalInputCharge = this.state.INPUT_CHARGE + inputCharge;
+
+      this.state.INPUT_CHARGE = totalInputCharge;
+    },
   };
 }
 

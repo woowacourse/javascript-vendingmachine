@@ -5,4 +5,5 @@ export type TMention = {
   EDIT_PRODUCT: string;
   DELETE_PRODUCT: string;
   RECHARGE_CHANGE: string;
+  INPUT_CHARGE: string;
 };
