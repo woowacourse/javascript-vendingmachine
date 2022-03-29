@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
