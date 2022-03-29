@@ -38,7 +38,7 @@ export default class Coin implements CoinInterface {
   makeRandomCoins(amount: number): void {
     let currentAmount = amount;
     COIN.UNIT_LIST.forEach((coin) => {
-      const maxCoinCount = currentAmount / coin;
+      const maxCoinCount = Math.floor(currentAmount / coin);
       const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
       currentAmount -= coinCount * coin;
       this.coins[coin] += coinCount;
