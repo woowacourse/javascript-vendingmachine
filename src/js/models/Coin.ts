@@ -4,10 +4,10 @@ import { validChargeAmount } from '../utils/validation.js';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
 export default class Coin implements CoinInterface {
-  private coins: Coins;
+  #coins: Coins;
 
   constructor() {
-    this.coins = {
+    this.#coins = {
       500: 0,
       100: 0,
       50: 0,
@@ -22,14 +22,14 @@ export default class Coin implements CoinInterface {
   }
 
   getAmount(): number {
-    const totalAmount = Object.entries(this.coins).reduce((acc, [coin, count]) => {
+    const totalAmount = Object.entries(this.#coins).reduce((acc, [coin, count]) => {
       return acc + Number(coin) * count;
     }, 0);
     return totalAmount;
   }
 
   getCoins(): Coins {
-    return this.coins;
+    return this.#coins;
   }
 
   // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
@@ -41,7 +41,7 @@ export default class Coin implements CoinInterface {
       const maxCoinCount = Math.floor(currentAmount / coin);
       const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
       currentAmount -= coinCount * coin;
-      this.coins[coin] += coinCount;
+      this.#coins[coin] += coinCount;
     });
   }
 }
