@@ -38,21 +38,13 @@ export default class VendingMachine implements VendingMachineInterface {
   getProductsFromStorage = (key: string) => {
     const productsFromStorage = JSON.parse(localStorage.getItem(key));
 
-    return productsFromStorage?.map((product) => {
-      const productToCopy = {
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-      };
-
-      return new Product(productToCopy);
-    });
+    return productsFromStorage?.map(({name, price, quantity}) => new Product({name, price, quantity}));
   };
 
   getMoneyFromStorage = (key: string) => {
     const moneyFromStorage = JSON.parse(localStorage.getItem(key));
 
-    return moneyFromStorage?.map((money) => new Money(money.value, money.count));
+    return moneyFromStorage?.map(({value, count}) => new Money(value, count));
   };
 
   getCoinByValue = (value: number) => {
