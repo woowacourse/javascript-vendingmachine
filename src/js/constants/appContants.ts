@@ -1,5 +1,5 @@
 export const URL = {
-  BASE_URL: '/javascript-vendingmachine',
+  BASE_URL: '',
   MANAGE_ITEM: `manageItem`,
   CHARGE_MONEY: `chargeMoney`,
   PURCHASE_ITEM: `purchaseItem`,

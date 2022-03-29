@@ -16,6 +16,8 @@ export const SELECTOR = {
     NAV_BUTTON: '.nav-button',
     ITEM_TABLE_BUTTON_CONTAINER: '.item-table-button-container',
     TABLE_CONTAINER: '.table-container',
+    ITEM_TABLE: '.item-table',
+    ITEM_TABLE_BODY: '.item-table-body',
     ITEM_TABLE_CONFIRM_BUTTON: '.item-table-confirm-button',
     ITEM_TABLE_DELETE_BUTTON: '.item-table-delete-button',
     ITEM_TABLE_CHANGE_BUTTON: '.item-table-change-button',

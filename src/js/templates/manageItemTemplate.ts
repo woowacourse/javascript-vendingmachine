@@ -23,19 +23,21 @@ export const sectionTemplate = {
     <section class="table-container">
       <h2>상품 현황</h2>
       <table class="item-table">
+        <tbody class="item-table-body">
         <tr>
           <th>상품명</th>
           <th>가격</th>
           <th>수량</th>
           <th></th>
         </tr>
-         ${items.map(item => this.normalTableContainer(item)).join('')}
+         ${items.map(item => this.normalTableRow(item)).join('')}
+         </tbody>
       </table>
     </section>
     `;
   },
 
-  normalTableContainer(item: ItemType): TemplateType {
+  normalTableRow(item: ItemType): TemplateType {
     return `
     <tr>
       <td class="table-item-name">${item.name}</td>
@@ -49,7 +51,7 @@ export const sectionTemplate = {
     `;
   },
 
-  changeTableContainer(item: ItemType) {
+  changeTableRow(item: ItemType) {
     return `
     <tr>
       <td><input class="table-item-input table-item-input-name" value="${item.name}" placeholder="상품명"></input></td>

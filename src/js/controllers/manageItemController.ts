@@ -25,14 +25,14 @@ export default class ManageItemController {
 
   handleAddItem(event: CustomEvent) {
     try {
-      const newItem: ItemType = event.detail;
+      const newItem: ItemType = event.detail.item;
       const { items } = this.vendingMachine;
 
       checkDuplicatedItem(items, newItem, null);
       this.vendingMachine.addItem(newItem);
 
       this.manageItemView.clearInput();
-      this.manageItemView.repaintItemTable(this.vendingMachine.items);
+      this.manageItemView.appendItemTableRow(newItem);
     } catch (error) {
       alert(error.message);
     }
