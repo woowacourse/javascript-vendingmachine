@@ -73,6 +73,10 @@ export default class ManageProductTab {
     if (classList.contains('confirm-update-button')) {
       this.#handleProductUpdateConfirm(target);
     }
+
+    if (classList.contains('cancel-update-button')) {
+      this.#handleProductUpdateCancel(target);
+    }
   };
 
   #handleProductUpdate = (target) => {
@@ -98,6 +102,22 @@ export default class ManageProductTab {
 
     try {
       this.#vendingMachine.updateProduct(id, { name, price, stock });
+      targetTableRow.insertAdjacentHTML(
+        'afterend',
+        productTableRowTemplate({ name, price, stock, id })
+      );
+      targetTableRow.remove();
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
+
+  #handleProductUpdateCancel = (target) => {
+    const targetTableRow = target.closest('tr');
+    const { productId: id } = target.dataset;
+
+    try {
+      const { name, price, stock } = this.#vendingMachine.productList[id];
       targetTableRow.insertAdjacentHTML(
         'afterend',
         productTableRowTemplate({ name, price, stock, id })
