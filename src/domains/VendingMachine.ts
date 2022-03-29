@@ -25,14 +25,14 @@ export interface VendingMachineState {
 export default class VendingMachine {
   state: VendingMachineState;
 
-  constructor(initItems: Item[], initCoins: Coins) {
-    this.init(initItems, initCoins);
+  constructor(initialItems: Item[], initialCoins: Coins) {
+    this.init(initialItems, initialCoins);
   }
 
-  init(initItems: Item[], initCoins: Coins): void {
+  init(initialItems: Item[], initialCoins: Coins): void {
     this.state = Subject.observable({
-      items: initItems,
-      coins: initCoins,
+      items: initialItems,
+      coins: initialCoins,
     });
   }
 
@@ -46,7 +46,7 @@ export default class VendingMachine {
     if (prevItem) {
       this.updateItem(prevItem.name, {
         ...prevItem,
-        ...{ quantity: prevItem.quantity + item.quantity },
+        quantity: prevItem.quantity + item.quantity,
       });
 
       return;
@@ -54,14 +54,7 @@ export default class VendingMachine {
 
     validate(itemValidator, item);
 
-    const newItem = prevItem
-      ? {
-          ...prevItem,
-          ...{ price: item.price, quantity: prevItem.quantity + item.quantity },
-        }
-      : item;
-
-    this.state.items = [...this.state.items, newItem];
+    this.state.items = [...this.state.items, item];
   }
 
   updateItem(name: string, updatedItem: Item): void {
