@@ -39,4 +39,4 @@ export const ERROR_MESSAGE = {
   },
 };
 
-export const CONFIRM_DELETE_MESSAGE = '정말 삭제하시겠습니까?';
+export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';

@@ -62,10 +62,7 @@ export default class ManageProductTab {
       this.#handleProductUpdate(target);
     }
 
-    if (
-      classList.contains('remove-product-button') &&
-      window.confirm(CONFIRM_DELETE_MESSAGE)
-    ) {
+    if (classList.contains('remove-product-button')) {
       this.#handleProductRemove(target);
     }
 
@@ -108,12 +105,18 @@ export default class ManageProductTab {
   };
 
   #handleProductRemove = (target) => {
-    const { productId: id } = target.dataset;
-    try {
-      this.#vendingMachine.removeProduct(id);
-      target.closest('tr').remove();
-    } catch ({ message }) {
-      alert(message);
+    const productRow = target.closest('tr');
+    const productName = selectDom('.product-name', productRow).textContent;
+    const confirmProductDeleteMessage = `${productName}: ${CONFIRM_DELETE_MESSAGE}`;
+
+    if (window.confirm(confirmProductDeleteMessage)) {
+      const { productId: id } = target.dataset;
+      try {
+        this.#vendingMachine.removeProduct(id);
+        productRow.remove();
+      } catch ({ message }) {
+        alert(message);
+      }
     }
   };
 }
