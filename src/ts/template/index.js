@@ -1,6 +1,6 @@
 export const generateItemManageTabContentTemplate = (itemList) => `
     <form id="item-info-form" class="input-form">
-      <label>추가할 상품 정보를 입력해주세요.</label>
+      <label>추가할 상품 정보를 입력해주세요(상품명, 가격, 수량).</label>
       <div class="input-form-container">
         <input class="item-info-input" type="text" placeholder="상품명" minlength="1" maxlength="10" autofocus/>
         <input class="item-info-input" type="number" placeholder="가격" min="100" max="10000" step="10"/>
