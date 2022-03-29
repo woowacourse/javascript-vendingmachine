@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import MoneyBox from '../MoneyBox';
 
 describe('돈통 클래스 테스트', () => {

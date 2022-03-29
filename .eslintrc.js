@@ -23,9 +23,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    // 'max-lines-per-function': ['error', 20],
     'no-var': 'error',
     'max-depth': ['error', 2],
-    'max-lines-per-function': ['error', 20],
     'no-console': 'warn',
     'import/extensions': 'off',
     'no-alert': 'off',
@@ -43,10 +43,8 @@ module.exports = {
         props: false,
       },
     ],
-    'lines-between-class-members': [
-      'error',
-      'always',
-      { exceptAfterSingleLine: true },
-    ],
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
+    'no-use-before-define': 'off',
+    'no-new': 'off',
   },
 };
