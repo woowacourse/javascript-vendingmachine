@@ -35,6 +35,7 @@ export default class RechargeView implements RechargeViewInterface {
     this.$coin100 = <HTMLSpanElement>$('#coin-100');
     this.$coin50 = <HTMLSpanElement>$('#coin-50');
     this.$coin10 = <HTMLSpanElement>$('#coin-10');
+    
     this.vendingMachine = vendingMachine;
 
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
@@ -50,6 +51,7 @@ export default class RechargeView implements RechargeViewInterface {
   renderRecharge = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
+    
     this.$rechargeInput.focus();
   };
 

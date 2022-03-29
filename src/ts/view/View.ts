@@ -21,6 +21,7 @@ export default class View {
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
     this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-button');
+
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
@@ -52,6 +53,7 @@ export default class View {
       }
       container.classList.add('hide');
     });
+    
     localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
   };
 
@@ -67,6 +69,7 @@ export default class View {
         // this.renderPurchaseProduct();
       },
     };
+    
     if (containerBranch[id]) {
       containerBranch[id]();
     }
@@ -74,6 +77,7 @@ export default class View {
 
   tabRouter = (url: string, isPopState = false) => {
     if (!isPopState) history.pushState({ url }, null, url);
+    
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
         this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
@@ -85,6 +89,7 @@ export default class View {
         this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
       },
     };
+    
     routes[url]();
   };
 }

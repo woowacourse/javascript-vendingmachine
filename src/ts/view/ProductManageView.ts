@@ -63,6 +63,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   handleEdit = (target: HTMLButtonElement) => {
     const { name, price, quantity } = this.vendingMachine.getProductByName(target.dataset.name);
     const editTemplate = this.getEditTemplate({ name, price, quantity });
+    
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
     newTr.dataset.name = name;
@@ -76,9 +77,11 @@ export default class ProductManageView implements ProductManageViewInterface {
 
   renderEditedProduct = (productToEdit: ProductType, targetEdit: HTMLTableCellElement) => {
     const editedProduct = this.vendingMachine.getProductByName(productToEdit.name);
+    
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
     newTr.dataset.name = editedProduct.name;
+    
     const template = this.getProductTemplate(editedProduct);
     newTr.insertAdjacentHTML('beforeend', template);
 
@@ -92,6 +95,7 @@ export default class ProductManageView implements ProductManageViewInterface {
       price: +(<HTMLInputElement>$('#edit-price-input')).value,
       quantity: +(<HTMLInputElement>$('#edit-quantity-input')).value,
     };
+    
     try {
       this.vendingMachine.editProduct(targetName, productToEdit);
       this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
@@ -166,12 +170,14 @@ export default class ProductManageView implements ProductManageViewInterface {
 
   renderAddedProduct = (addedProduct: ProductType) => {
     const template = this.getProductTemplate(addedProduct);
+    
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 
   renderProductManage = () => {
     const $$productRows = $$('.product-row');
     const allProducts = this.vendingMachine.products;
+    
     allProducts.forEach((product, index) => {
       (<HTMLTableCellElement>(
         $('.product-row-name', <HTMLElement>$$productRows[index])
@@ -183,6 +189,7 @@ export default class ProductManageView implements ProductManageViewInterface {
         $('.product-row-quantity', <HTMLElement>$$productRows[index])
       )).textContent = String(product.quantity);
     });
+    
     this.$productNameInput.focus();
   };
 
@@ -190,6 +197,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     const template = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
       .join('');
+    
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 }

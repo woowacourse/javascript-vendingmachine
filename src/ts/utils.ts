@@ -1,5 +1,6 @@
 export const $ = (selector: string, baseElement: HTMLElement | Document = document): HTMLElement =>
   baseElement.querySelector(selector);
+
 export const $$ = (selector: string, baseElement: HTMLElement | Document = document): NodeList =>
   baseElement.querySelectorAll(selector);
 
