@@ -30,15 +30,14 @@ export default class Router {
     const path = window.location.hash || '#/manage';
 
     this.#updateCurrentTabMenu(path);
-    const main = selectDom('main');
 
     if (!this.#renderList[path]) {
       const notFoundContainer = createMainElement(notFoundTemplate);
-      this.#app.replaceChild(notFoundContainer, main);
+      this.#app.replaceChild(notFoundContainer, selectDom('main'));
       return;
     }
 
-    this.#app.replaceChild(this.#renderList[path].tabElements, main);
+    this.#app.replaceChild(this.#renderList[path].tabElements, selectDom('main'));
   };
 
   #updateCurrentTabMenu(path) {
