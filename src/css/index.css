@@ -143,7 +143,7 @@ li {
   width: 100%;
 }
 
-#product-list li span {
+.product-block {
   margin: 12px 0px 8px;
   width: 100%;
   height: 30px;
@@ -153,7 +153,7 @@ li {
   color: var(--primary-text-color);
 }
 
-#product-list li input {
+.product-modify-input {
   width: 80%;
   text-align: center;
   outline: 1px dotted var(--input-outline-focus-color);
@@ -181,7 +181,7 @@ li {
   width: 300px;
 }
 
-#change-list li span {
+.change-block {
   margin: 8px 30px 0;
   width: 70px;
   height: 30px;
