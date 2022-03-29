@@ -1,17 +1,18 @@
 import { IProduct, TProduct } from './types';
 import { ERROR_MSG } from '../utils/constants';
 const { generateNonDuplicatedId } = (function () {
-  const memo = {};
+  const history = new Set();
   function generateId(name: string) {
     return `${name}${[...new Array(10)].map(() => Math.floor(Math.random() * 10)).join('')}`;
   }
   return {
     generateNonDuplicatedId(name: string) {
+      history.forEach(item => console.log(item));
       let id = generateId(name);
-      while (memo[id]) {
+      while (history.has(id)) {
         id = generateId(name);
       }
-      memo[id] = id;
+      history.add(id);
       return id;
     },
   };
