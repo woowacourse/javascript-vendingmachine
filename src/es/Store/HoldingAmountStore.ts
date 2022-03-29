@@ -2,12 +2,12 @@ import { IStore } from '@Store/interface';
 import { getRandomNumber } from '@Utils/index';
 import { COIN_TYPE } from '@Constants/index';
 
-interface IState {
+interface IHoldingAmountStoreState {
   coins: Array<number>;
 }
 
 class HoldingAmountStore implements IStore {
-  private state = {
+  private state: IHoldingAmountStoreState = {
     coins: [0, 0, 0, 0],
   };
 
@@ -17,14 +17,14 @@ class HoldingAmountStore implements IStore {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: IState) {
+  setState(newState: IHoldingAmountStoreState) {
     const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
   }
 
-  getState(): IState {
+  getState(): IHoldingAmountStoreState {
     return { ...this.state };
   }
 

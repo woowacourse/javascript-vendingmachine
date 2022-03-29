@@ -1,11 +1,11 @@
 import { IStore, IProduct } from '@Store/Interface';
 
-interface IState {
+interface IProductStoreState {
   products: Array<IProduct>;
 }
 
 class ProductStore implements IStore {
-  private state: IState = {
+  private state: IProductStoreState = {
     products: [],
   };
 
@@ -15,14 +15,14 @@ class ProductStore implements IStore {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: IState) {
+  setState(newState: IProductStoreState) {
     const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
   }
 
-  getState(): IState {
+  getState(): IProductStoreState {
     return { ...this.state };
   }
 
