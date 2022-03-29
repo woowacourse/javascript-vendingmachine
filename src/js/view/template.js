@@ -8,12 +8,12 @@ export const manageProductTabTemplate = `
         <input type="text" name="add-product-name" id="add-product-name-input" placeholder="상품명" required/>
       </div>
       <div>
-      <label for="add-product-price">상품 가격</label>
-      <input type="number" name="add-product-price" id="add-product-price-input" placeholder="가격" min="100" max="10000" required/>
+        <label for="add-product-price">상품 가격</label>
+        <input type="number" name="add-product-price" id="add-product-price-input" placeholder="가격" min="100" max="10000" required/>
       </div>
       <div>
-      <label for="add-product-stock">상품 수량</label>
-      <input type="number" name="add-product-stock" id="add-product-stock-input" placeholder="수량" min="1" max="20" required/>
+        <label for="add-product-stock">상품 수량</label>
+        <input type="number" name="add-product-stock" id="add-product-stock-input" placeholder="수량" min="1" max="20" required/>
       </div>
       <button type="submit" class="submit-button">추가</button>
     </fieldset>
