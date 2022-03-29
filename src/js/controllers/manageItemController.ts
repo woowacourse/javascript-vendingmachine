@@ -1,7 +1,7 @@
 import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { CUSTOM_EVENT } from '../constants/appContants';
-import { checkDuplicatedItem } from '../validates/validates';
+import { checkDuplicatedItem, validateAddItemInput } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
 
 export default class ManageItemController {
@@ -28,9 +28,10 @@ export default class ManageItemController {
       const newItem: ItemType = event.detail.item;
       const { items } = this.vendingMachine;
 
+      validateAddItemInput(newItem);
       checkDuplicatedItem(items, newItem, null);
-      this.vendingMachine.addItem(newItem);
 
+      this.vendingMachine.addItem(newItem);
       this.manageItemView.clearInput();
       this.manageItemView.appendItemTableRow(newItem);
     } catch (error) {
@@ -43,9 +44,10 @@ export default class ManageItemController {
       const { item, targetRowIndex, $targetTableRow }: TableItemChangeDetailType = event.detail;
       const { items } = this.vendingMachine;
 
+      validateAddItemInput(item);
       checkDuplicatedItem(items, item, targetRowIndex);
-      this.vendingMachine.changeItem(targetRowIndex, item);
 
+      this.vendingMachine.changeItem(targetRowIndex, item);
       this.manageItemView.repaintItemTableRow($targetTableRow, item);
     } catch (error) {
       alert(error.message);

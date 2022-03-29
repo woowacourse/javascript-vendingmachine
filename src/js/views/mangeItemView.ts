@@ -1,6 +1,5 @@
 import { $, emit } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
-import { validateAddItemInput } from '../validates/validates';
 import { CUSTOM_EVENT } from '../constants/appContants';
 import { SELECTOR } from '../constants/viewConstants';
 import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
@@ -41,15 +40,9 @@ export default class ManageItemView {
 
   private handleSubmitEvent(event) {
     event.preventDefault();
-    try {
-      const item: ItemType = this.getItemFromAddItemInput();
+    const item: ItemType = this.getItemFromAddItemInput();
 
-      validateAddItemInput(item);
-
-      emit({ eventName: CUSTOM_EVENT.ADD_ITEM, detail: { item } });
-    } catch (error) {
-      alert(error.message);
-    }
+    emit({ eventName: CUSTOM_EVENT.ADD_ITEM, detail: { item } });
   }
 
   private handleTableClickEvent(event) {
@@ -86,19 +79,13 @@ export default class ManageItemView {
   }
 
   private onConfirmButtonClick($targetTableRow) {
-    try {
-      const targetRowIndex = $targetTableRow.rowIndex - 1;
-      const item = this.getItemFromChangeInput($targetTableRow);
+    const targetRowIndex = $targetTableRow.rowIndex - 1;
+    const item = this.getItemFromChangeInput($targetTableRow);
 
-      validateAddItemInput(item);
-
-      emit({
-        eventName: CUSTOM_EVENT.TABLE_ITEM_CHANGE,
-        detail: { item, targetRowIndex, $targetTableRow },
-      });
-    } catch (error) {
-      alert(error.message);
-    }
+    emit({
+      eventName: CUSTOM_EVENT.TABLE_ITEM_CHANGE,
+      detail: { item, targetRowIndex, $targetTableRow },
+    });
   }
 
   private getItemFromAddItemInput() {
