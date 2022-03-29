@@ -71,23 +71,25 @@ export default class VendingMachine {
   }
 
   findItem(name: string): Item | null {
-    return this.state.items.filter((item) => item.name === name)[0] || null;
+    return this.state.items.find((item) => item.name === name) || null;
   }
 
   addCoin(amount: number): void {
     validate(amountValidator, amount, this.getTotalMoney());
 
     const randomCoins = createRandomCoins(amount);
-    const updatedCoins: Coins = {
-      10: 0,
-      50: 0,
-      100: 0,
-      500: 0,
-    };
-
-    Object.keys(this.state.coins).forEach((key) => {
-      updatedCoins[key] = this.state.coins[key] + randomCoins[key];
-    });
+    const updatedCoins = Object.keys(this.state.coins).reduce(
+      (next: Coins, key) => ({
+        ...next,
+        [key]: this.state.coins[key] + randomCoins[key],
+      }),
+      {
+        10: 0,
+        50: 0,
+        100: 0,
+        500: 0,
+      }
+    );
 
     this.state.coins = updatedCoins;
   }
