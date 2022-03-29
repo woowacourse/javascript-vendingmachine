@@ -1,5 +1,5 @@
 import ProductManager from '../js/models/ProductManger.ts';
-import { ERROR_MESSAGE } from '../js/constants/constants.js';
+import { PRODUCT, ERROR_MESSAGE } from '../js/constants/constants.js';
 
 describe('상품 정보 유효성 테스트', () => {
   let productManager;
@@ -28,7 +28,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품명은 10글자 초과로 입력할 수 없다.', () => {
+  it(`상품명은 ${PRODUCT.MAX_LENGTH}글자 초과로 입력할 수 없다.`, () => {
     const longNameProduct = {
       name: '가나다라마바사아자차카',
       price: 1000,
@@ -39,7 +39,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품 가격은 10원 단위가 아니면 입력할 수 없다.', () => {
+  it(`상품 가격은 ${PRODUCT.PRICE_UNIT}원 단위가 아니면 입력할 수 없다.`, () => {
     const indivisibleProduct = {
       name: '콜라',
       price: 1001,
@@ -50,7 +50,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품 가격은 100원 미만으로 입력할 수 없다.', () => {
+  it(`상품 가격은 ${PRODUCT.PRICE_RANGE.MIN}원 미만으로 입력할 수 없다.`, () => {
     const cheapProduct = {
       name: '콜라',
       price: 90,
@@ -61,7 +61,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품 가격은 10000원을 초과할 수 없다.', () => {
+  it(`상품 가격은 ${PRODUCT.PRICE_RANGE.MAX}원을 초과할 수 없다.`, () => {
     const expensiveProduct = {
       name: '콜라',
       price: 10010,
@@ -72,7 +72,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품 수량은 1개 미만으로 입력할 수 없다.', () => {
+  it(`상품 수량은 ${PRODUCT.QUANTITY_RANGE.MIN}개 미만으로 입력할 수 없다.`, () => {
     const lowInQuantityProduct = {
       name: '콜라',
       price: 1000,
@@ -83,7 +83,7 @@ describe('상품 정보 유효성 테스트', () => {
     );
   });
 
-  it('상품 수량은 20개 초과로 입력할 수 없다.', () => {
+  it(`상품 수량은  ${PRODUCT.QUANTITY_RANGE.MAX}개 초과로 입력할 수 없다.`, () => {
     const lotOfQuantityProduct = {
       name: '콜라',
       price: 1000,

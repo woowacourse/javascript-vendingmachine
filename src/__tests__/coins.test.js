@@ -13,12 +13,12 @@ describe('잔돈 충전 테스트', () => {
     expect(coin.getAmount()).toEqual(amount);
   });
 
-  it('충전 금액은 10원 단위가 아니면 입력할 수 없다.', () => {
+  it(`충전 금액은 ${COIN.MIN_UNIT}원 단위가 아니면 입력할 수 없다.`, () => {
     const indivisibleAmount = 10001;
     expect(() => coin.addAmount(indivisibleAmount)).toThrowError(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   });
 
-  it('보유 금액은 100,000원 이상 보유할 수 없다.', () => {
+  it(`보유 금액은 ${COIN.MAX_AMOUNT}원 이상 보유할 수 없다.`, () => {
     const largeAmount = 51000;
     coin.addAmount(largeAmount);
     expect(() => coin.addAmount(largeAmount)).toThrowError(ERROR_MESSAGE.OVER_MAX_AMOUNT);
