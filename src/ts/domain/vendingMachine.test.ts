@@ -86,59 +86,158 @@ describe('상품 관리 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.NAME_EMPTY);
   });
 
-  it('상품 정보를 수정할 시, 상품명이 10글자 초과하면 에러를 발생시킨다.', () => {
+  it('상품 정보를 수정할 시, 상품명이 10글자 초과하면 에러를 발생시킨다(11글자).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
-    const overMaxNameLength = { name: '코카콜라열글자넘는이름', price: 1000, quantity: 10 };
+    const editedProduct = { name: '코카콜라열글자넘는이름', price: 1000, quantity: 10 };
 
     expect(() => {
-      vendingMachine.editProduct('코카콜라', overMaxNameLength);
+      vendingMachine.editProduct('코카콜라', editedProduct);
     }).toThrowError(ERROR_MESSAGE.NAME_LENGTH);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 100원 미만이면 에러를 발생시킨다.', () => {
+  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 에러를 발생시키지 않는다(10글자).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
-    const underMinPrice = { name: '코카콜라', price: 99, quantity: 10 };
+    const editedProduct = { name: '코카콜라열글자입니다', price: 1000, quantity: 10 };
 
     expect(() => {
-      vendingMachine.editProduct('코카콜라', underMinPrice);
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.NAME_LENGTH);
+  });
+
+  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 에러를 발생시키지 않는다(9글자).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라아홉글자임', price: 1000, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.NAME_LENGTH);
+  });
+
+  it('상품 정보를 수정할 시, 상품 가격이 100원 미만이면 에러를 발생시킨다(99원).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 99, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 10,000원을 초과하면 에러를 발생시킨다.', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 에러를 발생시키지 않는다(100원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
-    const overMaxPrice = { name: '코카콜라', price: 10001, quantity: 10 };
+    const editedProduct = { name: '코카콜라', price: 100, quantity: 10 };
 
     expect(() => {
-      vendingMachine.editProduct('코카콜라', overMaxPrice);
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
+  });
+
+  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 에러를 발생시키지 않는다(101원).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 101, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
+  });
+
+  it('상품 정보를 수정할 시, 상품 가격이 10,000원을 초과하면 에러를 발생시킨다(10,001원).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 10001, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 10의 배수가 아니면 에러를 발생시킨다.', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 에러를 발생시키지 않는다(10,000원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
-    const invalidUnitPrice = { name: '코카콜라', price: 1513, quantity: 10 };
+    const editedProduct = { name: '코카콜라', price: 10000, quantity: 10 };
 
     expect(() => {
-      vendingMachine.editProduct('코카콜라', invalidUnitPrice);
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
+  });
+
+  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 에러를 발생시키지 않는다(9,999원).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 9999, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
+  });
+
+  it('상품 정보를 수정할 시, 상품 가격이 10의 배수가 아니면 에러를 발생시킨다(1,513원).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 1513, quantity: 10 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
     }).toThrowError(ERROR_MESSAGE.PRICE_UNIT);
   });
 
-  it('상품 정보를 수정할 시, 상품 수량이 20개를 초과하면 에러를 발생시킨다.', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 10의 배수이면 에러를 발생시키지 않는다(1,510원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
-    const overMaxQuantity = { name: '코카콜라', price: 1000, quantity: 21 };
+    const editedProduct = { name: '코카콜라', price: 1510, quantity: 10 };
 
     expect(() => {
-      vendingMachine.editProduct('코카콜라', overMaxQuantity);
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.PRICE_UNIT);
+  });
+
+  it('상품 정보를 수정할 시, 상품 수량이 20개를 초과하면 에러를 발생시킨다(21개).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 1000, quantity: 21 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
     }).toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
+  });
+
+  it('상품 정보를 수정할 시, 상품 수량이 20개를 초과하면 에러를 발생시킨다(20개).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 1000, quantity: 20 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
+  });
+
+  it('상품 정보를 수정할 시, 상품 수량이 20개를 초과하면 에러를 발생시킨다(19개).', () => {
+    const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
+    vendingMachine.addProduct(validProduct);
+
+    const editedProduct = { name: '코카콜라', price: 1000, quantity: 19 };
+
+    expect(() => {
+      vendingMachine.editProduct('코카콜라', editedProduct);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
   });
 });
 
@@ -162,21 +261,31 @@ describe('잔돈 충전 테스트', () => {
     expect(holdingMoney).toEqual(moneyToRecharge);
   });
 
-  it('충전할 금액이 10의 배수가 아니면 에러를 발생시킨다.', () => {
-    const invalidUnitMoney = 1513;
+  it('충전할 금액이 10의 배수가 아니면 에러를 발생시킨다(1,153원).', () => {
+    const insertedMoney = 1513;
 
     expect(() => {
-      vendingMachine.rechargeMoney(invalidUnitMoney);
+      vendingMachine.rechargeMoney(insertedMoney);
     }).toThrowError(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
+  });
 
-    const zeroMoney = 0;
+  it('충전할 금액이 10의 배수가 아니면 에러를 발생시킨다(0원).', () => {
+    const insertedMoney = 0;
 
     expect(() => {
-      vendingMachine.rechargeMoney(zeroMoney);
+      vendingMachine.rechargeMoney(insertedMoney);
     }).toThrowError(ERROR_MESSAGE.UNDER_MIN_RECHARGING_MONEY);
   });
 
-  it('보유한 금액이 100,000원을 넘으면 에러를 발생시킨다.', () => {
+  it('충전할 금액이 10의 배수이면 에러를 발생시키지 않는다(1,510원).', () => {
+    const insertedMoney = 1510;
+
+    expect(() => {
+      vendingMachine.rechargeMoney(insertedMoney);
+    }).not.toThrowError(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
+  });
+
+  it('보유한 금액이 100,000원을 초과하면 에러를 발생시킨다(100,010원).', () => {
     vendingMachine.rechargeMoney(50000);
     vendingMachine.rechargeMoney(30000);
     vendingMachine.rechargeMoney(20000);
@@ -184,5 +293,23 @@ describe('잔돈 충전 테스트', () => {
     expect(() => {
       vendingMachine.rechargeMoney(10);
     }).toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
+  });
+
+  it('보유한 금액이 100,000원 이하이면 에러를 발생시키지 않는다(100,000원).', () => {
+    vendingMachine.rechargeMoney(50000);
+    vendingMachine.rechargeMoney(30000);
+
+    expect(() => {
+      vendingMachine.rechargeMoney(20000);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
+  });
+
+  it('보유한 금액이 100,000원 이하이면 에러를 발생시키지 않는다(999,990원).', () => {
+    vendingMachine.rechargeMoney(50000);
+    vendingMachine.rechargeMoney(30000);
+
+    expect(() => {
+      vendingMachine.rechargeMoney(19990);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   });
 });
