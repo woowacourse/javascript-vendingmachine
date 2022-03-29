@@ -1,6 +1,6 @@
-import { $, $$ } from '../utils/common';
+import { $, $$, emitCustomEvent } from '../utils/common';
 import { initialTemplate } from '../templates/initialTemplate';
-import { CUSTOM_EVENT, SELECTOR } from '../constants/constants';
+import { SELECTOR } from '../constants/constants';
 
 export default class MainView {
   $navContainer: HTMLElement;
@@ -22,7 +22,7 @@ export default class MainView {
     const targetButtonId = $navButton.id;
 
     this.changeButtonColor(targetButtonId);
-    window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ROUTE_CHANGE, { detail: { $navButton } }));
+    emitCustomEvent('ROUTE_CHANGE', { detail: { $navButton } });
   }
 
   render() {

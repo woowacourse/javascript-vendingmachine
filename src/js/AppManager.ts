@@ -3,8 +3,9 @@ import ChargeMoneyController from './controllers/chargeMoneyController';
 import PurchaseItemController from './controllers/purchaseItemController';
 import VendingMachine from './vendingMachine/vendingMachine';
 import MainView from './views/MainView';
-import { SELECTOR, CUSTOM_EVENT, URL_HASH } from './constants/constants';
+import { SELECTOR, URL_HASH } from './constants/constants';
 import { RouteChangeDetailType } from './types/types';
+import { onCustomEvent } from './utils/common';
 
 export default class AppManager {
   private vendingMachine: VendingMachine;
@@ -24,7 +25,7 @@ export default class AppManager {
   }
 
   bindEvents() {
-    window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
+    onCustomEvent('ROUTE_CHANGE', this.handleRouteChange.bind(this));
     window.addEventListener('popstate', this.initRouter.bind(this));
   }
 

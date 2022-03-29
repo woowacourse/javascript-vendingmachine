@@ -1,9 +1,9 @@
 import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CUSTOM_EVENT } from '../constants/constants';
 import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
 import { Controller } from '../types/interface';
+import { onCustomEvent } from '../utils/common';
 
 export default class ManageItemController implements Controller {
   private vendingMachine: VendingMachine;
@@ -17,9 +17,9 @@ export default class ManageItemController implements Controller {
   }
 
   bindEvents() {
-    window.addEventListener(CUSTOM_EVENT.ADD_ITEM, this.handleAddItem.bind(this));
-    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_CHANGE, this.handleTableItemChange.bind(this));
-    window.addEventListener(CUSTOM_EVENT.TABLE_ITEM_DELETE, this.handleTableItemDelete.bind(this));
+    onCustomEvent('ADD_ITEM', this.handleAddItem.bind(this));
+    onCustomEvent('TABLE_ITEM_CHANGE', this.handleTableItemChange.bind(this));
+    onCustomEvent('TABLE_ITEM_DELETE', this.handleTableItemDelete.bind(this));
   }
 
   handleAddItem(event: CustomEvent) {

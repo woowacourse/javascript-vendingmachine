@@ -1,7 +1,7 @@
-import { $, $$ } from '../utils/common';
+import { $, $$, emitCustomEvent } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { validateAddItemInput } from '../validates/validates';
-import { CUSTOM_EVENT, SELECTOR, CONFIRM_MESSAGE } from '../constants/constants';
+import { SELECTOR, CONFIRM_MESSAGE } from '../constants/constants';
 import { ItemType } from '../types/types';
 
 export default class ManageItemView {
@@ -80,22 +80,20 @@ export default class ManageItemView {
 
       validateAddItemInput(item);
 
-      window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ADD_ITEM, { detail: item }));
+      emitCustomEvent('ADD_ITEM', { detail: item });
     } catch (error) {
       alert(error.message);
     }
   }
 
   handleTableItemChange(item: ItemType, targetRowIndex: number, $targetTableRow) {
-    window.dispatchEvent(
-      new CustomEvent(CUSTOM_EVENT.TABLE_ITEM_CHANGE, {
-        detail: { item, targetRowIndex, $targetTableRow },
-      }),
-    );
+    emitCustomEvent('TABLE_ITEM_CHANGE', {
+      detail: { item, targetRowIndex, $targetTableRow },
+    });
   }
 
   handleTableItemDelete(item: ItemType) {
-    window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.TABLE_ITEM_DELETE, { detail: { item } }));
+    emitCustomEvent('TABLE_ITEM_DELETE', { detail: { item } });
   }
 
   render(items: ItemType[]) {

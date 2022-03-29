@@ -15,3 +15,10 @@ export type CoinsConstantType = {
   fifty: 50;
   ten: 10;
 };
+
+export type CustomEventType =
+  | 'ROUTE_CHANGE'
+  | 'CHARGE_MONEY'
+  | 'ADD_ITEM'
+  | 'TABLE_ITEM_CHANGE'
+  | 'TABLE_ITEM_DELETE';

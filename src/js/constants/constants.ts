@@ -48,14 +48,6 @@ export const COINS: CoinsConstantType = {
   ten: 10,
 };
 
-export const CUSTOM_EVENT = {
-  ROUTE_CHANGE: 'ROUTE_CHANGE',
-  CHARGE_MONEY: 'CHARGE_MONEY',
-  ADD_ITEM: 'ADD_ITEM',
-  TABLE_ITEM_CHANGE: 'TABLE_ITEM_CHANGE',
-  TABLE_ITEM_DELETE: 'TABLE_ITEM_DELETE',
-};
-
 export const ERROR_MESSAGE = {
   ITEM_NAME: {
     DUPLICATE_ITEM: '이미 등록된 상품명입니다.',

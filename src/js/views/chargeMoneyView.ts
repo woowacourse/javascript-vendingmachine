@@ -1,8 +1,8 @@
-import { $ } from '../utils/common';
+import { $, emitCustomEvent } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { validateInputMoney } from '../validates/validates';
 import { CoinsType } from '../types/types';
-import { SELECTOR, CUSTOM_EVENT } from '../constants/constants';
+import { SELECTOR } from '../constants/constants';
 
 export default class ChargeMoneyView {
   $content: HTMLDivElement;
@@ -26,7 +26,7 @@ export default class ChargeMoneyView {
       validateInputMoney(inputMoney);
       this.clearInput();
 
-      window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.CHARGE_MONEY, { detail: { inputMoney } }));
+      emitCustomEvent('CHARGE_MONEY', { detail: { inputMoney } });
     } catch (error) {
       alert(error.message);
     }
