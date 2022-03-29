@@ -31,6 +31,8 @@ class ItemManageTab extends VendingMachineTab {
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
     this.itemStatusTable.addEventListener('keydown', this.#onKeyDownItemInfoRow);
+
+    this.itemInfoInputs[0].focus();
   }
 
   #onClickItemManageTabButton = () => {
@@ -95,8 +97,8 @@ class ItemManageTab extends VendingMachineTab {
     const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
     const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
 
-    itemInfoInputCellList[0].focus();
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
+    itemInfoInputCellList[0].focus();
   }
 
   #handleDeleteButtonClickEvent(targetItem) {
