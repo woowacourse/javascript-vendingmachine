@@ -12,6 +12,13 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
+:root {
+  --button-bg-color: #f5f5f5;
+  --button-bg-highlight-color: #00bcd429;
+  --button-text-default-color: #000000;
+  --border-preset: 1px solid rgba(0, 0, 0, 0.12);
+}
+
 body {
   background-color: #f9f9f9;
   display: flex;
@@ -22,8 +29,8 @@ body {
   width: 600px;
   min-height: 675px;
   margin-top: 32px;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
+  border: var(--border-preset);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,11 +51,11 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #f5f5f5;
+  background-color: var(--button-bg-color);
 }
 
 button:hover {
-  background-color: #00bcd429;
+  background-color: var(--button-bg-highlight-color);
 }
 
 input:focus {

@@ -16,7 +16,7 @@ nav {
 }
 
 .tab-menu-button {
-  color: #000000;
+  color: var(--button-text-default-color);
   padding: 10px 0;
   width: 120px;
   font-size: 1rem;
@@ -24,20 +24,20 @@ nav {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #f5f5f5;
+  background-color: var(--button-bg-color);
   text-align: center;
   text-decoration: none;
 }
 
 .tab-menu-button.current {
-  background-color: #00bcd429;
+  background-color: var(--button-bg-highlight-color);
   cursor: default;
 }
 
 .tab-menu-button:hover {
-  background-color: #00bcd429;
+  background-color: var(--button-bg-highlight-color);
 }
 
 .tab-menu-button:visited {
-  color: #000000;
+  color: var(--button-text-default-color);
 }
