@@ -4,7 +4,7 @@ import Product from './Product';
 import Money from './Money';
 import { checkDuplicatedProduct, checkMoneyValidation } from './validator';
 import { getRandomNumber } from '../utils';
-import { STORAGE_ID } from '../constants';
+import { STORAGE_ID, COIN } from '../constants';
 
 export interface VendingMachineInterface {
   products: ProductType[];
@@ -28,10 +28,10 @@ export default class VendingMachine implements VendingMachineInterface {
   constructor() {
     this.products = this.getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
     this.money = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
-      new Money(500, 0),
-      new Money(100, 0),
-      new Money(50, 0),
-      new Money(10, 0),
+      new Money(COIN.VALUE_500, 0),
+      new Money(COIN.VALUE_100, 0),
+      new Money(COIN.VALUE_50, 0),
+      new Money(COIN.VALUE_10, 0),
     ];
   }
 

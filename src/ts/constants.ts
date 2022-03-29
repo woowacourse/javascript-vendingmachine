@@ -36,3 +36,10 @@ export const STORAGE_ID = {
   PRODUCTS: 'products',
   CURRENT_TAB: 'current-tab',
 };
+
+export const COIN = {
+  VALUE_500: 500,
+  VALUE_100: 100,
+  VALUE_50: 50,
+  VALUE_10: 10,
+};

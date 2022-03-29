@@ -57,13 +57,13 @@ export default class View {
 
   renderUpdatedView = (id: string) => {
     const containerBranch = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
+      [PATH_ID.PRODUCT_MANAGE]: () => {
         this.productManageView.renderProductManage();
       },
-      '/javascript-vendingmachine/#!/recharge': () => {
+      [PATH_ID.RECHARGE]: () => {
         this.rechargeView.renderRecharge();
       },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
+      [PATH_ID.PURCHASE_PRODUCT]: () => {
         // this.renderPurchaseProduct();
       },
     };
@@ -75,13 +75,13 @@ export default class View {
   tabRouter = (url: string, isPopState = false) => {
     if (!isPopState) history.pushState({ url }, null, url);
     const routes = {
-      '/javascript-vendingmachine/#!/product-manage': () => {
+      [PATH_ID.PRODUCT_MANAGE]: () => {
         this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
       },
-      '/javascript-vendingmachine/#!/recharge': () => {
+      [PATH_ID.RECHARGE]: () => {
         this.renderTabResult(PATH_ID.RECHARGE);
       },
-      '/javascript-vendingmachine/#!/purchase-product': () => {
+      [PATH_ID.PURCHASE_PRODUCT]: () => {
         this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
       },
     };
