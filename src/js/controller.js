@@ -25,19 +25,18 @@ export default class Controller {
   #renderSavedData = (e) => {
     const { hash } = e.detail;
     initHashContents(hash);
-
-    if (hash === '#!manage') {
-      this.productManageView.initManageDOM();
-      const savedProductList = this.productManager.getProducts();
-      if (savedProductList.length !== 0) {
-        this.productManageView.render(savedProductList);
-      }
-      return;
-    }
-    if (hash === '#!charge') {
-      this.chargeView.initChargeDOM();
-      this.chargeView.renderCurrentAmount(this.coin.getAmount());
-      this.chargeView.renderHaveCoins(this.coin.getCoins());
+    switch (hash) {
+      case '#!manage':
+        this.productManageView.initManageDOM();
+        const savedProductList = this.productManager.getProducts();
+        if (savedProductList.length !== 0) {
+          this.productManageView.render(savedProductList);
+        }
+        break;
+      case '#!charge':
+        this.chargeView.initChargeDOM();
+        this.chargeView.renderCurrentAmount(this.coin.getAmount());
+        this.chargeView.renderHaveCoins(this.coin.getCoins());
     }
   };
 
