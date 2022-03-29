@@ -1,4 +1,4 @@
-import { $, $$ } from '@Utils/index';
+import { $, getInnerInputValues, clearInnerInputValues } from '@Utils/index';
 import { validateProduct } from '@Utils/VendingMachine/validator';
 import ProductStore from '@Store/ProductStore';
 import { template } from '@Display/template';
@@ -71,14 +71,9 @@ export default class ProductPage {
     renderMethods.forEach(renderMethod => renderMethod(state));
   };
 
-  onSubmitAddProductForm(event) {
+  onSubmitAddProductForm = (event) => {
     event.preventDefault();
-    const $$inputs = $$('input', event.target);
-    const product = Array.from($$inputs).reduce((previous, inputElement) => {
-      previous[inputElement.name] =
-        inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value;
-      return previous;
-    }, {});
+    const product = getInnerInputValues(event.target);
 
     try {
       validateProduct(product);
@@ -87,18 +82,9 @@ export default class ProductPage {
       return;
     }
 
-    const productIndex = ProductStore.findProductIndexByName(product.name);
-
-    if (productIndex === -1) {
-      ProductStore.addProduct(product);
-      $$inputs.forEach($input => ($input.value = ''));
-      return;
-    }
-
-    if (confirm('이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?')) {
-      ProductStore.updateProduct(productIndex, product);
-    }
-  }
+    ProductStore.addOrUpdateProduct(product);
+    clearInnerInputValues(event.target);
+  };
 
   onClickUpdateButton({ target: $target }) {
     if (this.isTableUpdating) {
@@ -119,11 +105,7 @@ export default class ProductPage {
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
     const productIndex = $tableRow.dataset.primaryKey;
-
-    const product = Array.from($$('input', $tableRow)).reduce((previous, inputElement) => {
-      previous[inputElement.name] = inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value;
-      return previous;
-    }, {});
+    const product = getInnerInputValues($tableRow);
 
     try {
       validateProduct(product);

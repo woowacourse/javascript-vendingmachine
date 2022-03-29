@@ -53,6 +53,19 @@ class ProductStore implements IStore {
   findProductIndexByName(name: string): number {
     return this.state.products.findIndex(product => product.name === name);
   }
+
+  addOrUpdateProduct(product) {
+    const productIndex = this.findProductIndexByName(product.name);
+
+    if (productIndex === -1) {
+      this.addProduct(product);
+      return;
+    }
+
+    if (confirm('이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?')) {
+      this.updateProduct(productIndex, product);
+    }
+  }
 }
 
 export default new ProductStore();
