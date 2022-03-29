@@ -4,11 +4,9 @@ import { validChargeAmount } from '../utils/validation.js';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
 export default class Coin implements CoinInterface {
-  private amount: number;
   private coins: Coins;
 
   constructor() {
-    this.amount = 0;
     this.coins = {
       500: 0,
       100: 0,
@@ -18,14 +16,16 @@ export default class Coin implements CoinInterface {
   }
 
   addAmount(chargedAmount: number): void {
-    const currentAmount = this.amount + chargedAmount;
+    const currentAmount = this.getAmount() + chargedAmount;
     validChargeAmount(chargedAmount, currentAmount);
-    this.amount = currentAmount;
     this.makeRandomCoins(chargedAmount);
   }
 
   getAmount(): number {
-    return this.amount;
+    const totalAmount = Object.entries(this.coins).reduce((acc, [coin, count]) => {
+      return acc + Number(coin) * count;
+    }, 0);
+    return totalAmount;
   }
 
   getCoins(): Coins {
