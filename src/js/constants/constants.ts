@@ -1,4 +1,4 @@
-import { SelectorType } from '../types/constants';
+import { SelectorType, CoinsConstantType } from '../types/constants';
 
 export const SELECTOR: SelectorType = {
   ID: {
@@ -41,7 +41,7 @@ export const SELECTOR: SelectorType = {
   },
 };
 
-export const COINS = {
+export const COINS: CoinsConstantType = {
   fiveHundred: 500,
   hundred: 100,
   fifty: 50,
