@@ -18,11 +18,11 @@ describe('Product 작동 테스트', () => {
 
     const product = new Product(productName, productPrice, productQuantity);
 
-    const edittedName = '사이다';
-    product.editProductInfo({ name: edittedName, price: productPrice, quantity: productQuantity });
+    const editedName = '사이다';
+    product.editProductInfo({ name: editedName, price: productPrice, quantity: productQuantity });
 
     const { name } = product.getProductInfo();
-    expect(name === edittedName).toBe(true);
+    expect(name === editedName).toBe(true);
   });
   test('상품 구매시 수량이 0일경우 에러를 반환한다', () => {
     const productName = '콜라';
