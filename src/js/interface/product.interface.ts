@@ -1,33 +1,36 @@
-export interface Product {
+export interface IProduct {
+  id: string;
   name: string;
   price: number;
   count: number;
 }
 
-export interface Add {
-  (newProduct: Product): void;
+export interface IGet {
+  (): IProduct;
 }
 
-export interface Update {
-  (idx: number, name?: string, price?: number, count?: number): void;
+export interface IGetId {
+  (): string;
 }
 
-export interface Delete {
-  (idx: number): void;
+export interface IUpdateName {
+  (name: string): void;
 }
 
-export interface GetProducts {
-  (): Product[];
+export interface IUpdatePrice {
+  (price: number): void;
 }
 
-export interface ProductDomain {
-  products: Product[];
+export interface IUpdateCount {
+  (count: number): void;
+}
 
-  add: Add; 
+export interface ISingleProduct extends IProduct {
+  readonly id: string;
 
-  getProducts: GetProducts; 
-
-  update: Update;
-
-  delete: Delete;
+  get: IGet;
+  getId: IGetId;
+  updateName: IUpdateName;
+  updatePrice: IUpdatePrice;
+  updateCount: IUpdateCount;
 }
