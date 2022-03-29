@@ -12,10 +12,10 @@ const initApp = function () {
     switch (location.hash) {
       case '':
       case HASH.ITEM_MANAGE:
-        itemManageTab.renderInitialTabState();
+        itemManageTab.renderInitialItemManageTabState();
         break;
       case HASH.COIN_RECHARGE:
-        coinRechargeTab.renderInitialTabState();
+        coinRechargeTab.renderInitialCoinRechargeTabState();
         break;
       case HASH.ITEM_PURCHASE:
         break;

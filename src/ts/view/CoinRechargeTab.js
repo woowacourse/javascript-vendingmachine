@@ -15,7 +15,7 @@ class CoinRechargeTab extends VendingMachineTab {
     this.coinRechargeTabButton.addEventListener('click', this.#onClickCoinRechargeTabButton);
   }
 
-  renderInitialTabState() {
+  renderInitialCoinRechargeTabState() {
     const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
 
     this.changeTabContent(
@@ -35,7 +35,7 @@ class CoinRechargeTab extends VendingMachineTab {
     if (this.coinRechargeTabButton.classList.contains('selected')) {
       return;
     }
-    this.renderInitialTabState();
+    this.renderInitialCoinRechargeTabState();
   };
 
   #onSubmitCashChargeForm = (e) => {
@@ -46,7 +46,8 @@ class CoinRechargeTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateCashInput(chargedCash);
     } catch (error) {
-      return alert(error.message);
+      alert(error.message);
+      return;
     }
 
     this.#renderChargedCoinState(
