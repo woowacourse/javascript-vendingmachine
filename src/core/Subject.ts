@@ -38,7 +38,7 @@ export default class Subject {
 
   static unobserve(target: Observer) {
     Subject.subjects.forEach((subject: Subject) => {
-      subject.unobserve(target);
+      subject.deleteObserver(target);
     });
   }
 
@@ -64,7 +64,7 @@ export default class Subject {
   }
 
   get(): any {
-    if (Subject.currentObserver) this.observe(Subject.currentObserver);
+    if (Subject.currentObserver) this.addObserver(Subject.currentObserver);
 
     return this.value;
   }
@@ -74,11 +74,11 @@ export default class Subject {
     this.updated = true;
   }
 
-  observe(observer: Observer): void {
+  addObserver(observer: Observer): void {
     this.observers.add(observer);
   }
 
-  unobserve(observer: Observer): void {
+  deleteObserver(observer: Observer): void {
     this.observers.delete(observer);
   }
 
