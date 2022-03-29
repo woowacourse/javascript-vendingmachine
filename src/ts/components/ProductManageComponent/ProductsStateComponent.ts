@@ -61,7 +61,7 @@ export default class ProductStateComponent {
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineProductManager) {
-    on($('.product-info-form__button'), '@productInputSubmit', this.render);
+    on($('.products-form__button'), '@productInputSubmit', this.render);
     on(this.productTableTbody, 'click', this.onClickEditButton);
     on(this.productTableTbody, 'click', this.onClickDeleteButton);
     on(this.productTableTbody, 'click', this.onClickEditSubmitButton);

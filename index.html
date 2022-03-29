@@ -1,166 +1,135 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>자판기</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-    <div id="app">
-      <section class="snack-bar-container"></section>
-      <h1>🍿 자판기 🍿</h1>
-      <nav class="nav">
-        <ul class="nav__list">
-          <li>
-            <a href="/products">
-              <button
-                class="nav__button nav__product-button nav__button--focused"
-                type="button"
-              >
-                상품 관리
-              </button>
-            </a>
-          </li>
-          <li>
-            <a href="/coins">
-              <button class="nav__button nav__charge-button" type="button">
-                잔돈 충전
-              </button>
-            </a>
-          </li>
-          <li>
-            <button class="nav__button nav__purchase-button" type="button">
-              상품 구매
+
+<head>
+  <meta charset="UTF-8" />
+  <title>자판기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div id="app">
+    <section class="snack-bar-container"></section>
+    <h1>🍿 자판기 🍿</h1>
+    <nav class="nav">
+      <ul class="nav__list">
+        <li>
+          <a href="/products">
+            <button data-tab="products" class="nav__button nav__products-button nav__button--focused" type="button">
+              상품 관리
             </button>
-          </li>
-        </ul>
-      </nav>
-      <section class="product-info-section">
-        <h2 hidden>상품 관리</h2>
-        <section>
-          <h3 hidden>상품 정보 입력</h3>
-          <form class="product-info-form">
-            <fieldset>
-              <legend>추가할 상품 정보를 입력해주세요.</legend>
-              <div class="product-info-input-wrapper">
-                <label for="product" hidden>상품명</label>
-                <input
-                  class="input product-info-form__product-input"
-                  name="product"
-                  placeholder="상품명"
-                  type="text"
-                  minlength="1"
-                  maxlength="10"
-                  autofocus
-                  required
-                />
-                <label for="price" hidden>가격</label>
-                <input
-                  class="input product-info-form__price-input"
-                  name="price"
-                  placeholder="가격"
-                  type="number"
-                  step="10"
-                  min="100"
-                  max="10000"
-                  required
-                />
-                <label for="quantity" hidden>수량</label>
-                <input
-                  class="input product-info-form__quantity-input"
-                  name="quantity"
-                  placeholder="수량"
-                  type="number"
-                  min="1"
-                  max="20"
-                  required
-                />
-                <button class="product-info-form__button" type="submit">
-                  추가
-                </button>
-              </div>
-            </fieldset>
-          </form>
-        </section>
-        <section class="product-state-section">
-          <h3 hidden>상품 현황</h3>
-          <table class="product-table">
-            <caption class="caption product-table__caption">
-              상품 현황
-            </caption>
-            <thead>
-              <tr>
-                <th>상품명</th>
-                <th>가격</th>
-                <th>수량</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </section>
-      </section>
-      <section class="charge-coin-section hide">
-        <h2 hidden>잔돈 충전</h2>
-        <section class="charge-form-section">
-          <h3 hidden>자판기가 보유할 금액</h3>
-          <form class="charge-form-section__form">
-            <label for="charge-coin">자판기 보유할 금액을 입력해주세요.</label>
-            <div class="charge-form-section__coin-input-wrapper">
-              <input
-                class="input charge-form-section__coin-input"
-                name="charge-coin"
-                placeholder="금액"
-                type="number"
-                step="10"
-                min="100"
-                max="10000"
-                autofocus
-                required
-              />
-              <button class="charge-form-section__button" type="submit">
-                충전
+          </a>
+        </li>
+        <li>
+          <a href="/coins">
+            <button data-tab="coins" class="nav__button nav__coins-button" type="button">
+              잔돈 충전
+            </button>
+          </a>
+        </li>
+        <li>
+          <button data-tab="purchase" class="nav__button nav__purchase-button" type="button">
+            상품 구매
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <section class="products-section">
+      <h2 hidden>상품 관리</h2>
+      <section>
+        <h3 hidden>상품 정보 입력</h3>
+        <form class="products-form">
+          <fieldset>
+            <legend>추가할 상품 정보를 입력해주세요.</legend>
+            <div class="products-input-wrapper">
+              <label for="product" hidden>상품명</label>
+              <input class="input products-form__product-input" name="product" placeholder="상품명" type="text"
+                minlength="1" maxlength="10" autofocus required />
+              <label for="price" hidden>가격</label>
+              <input class="input products-form__price-input" name="price" placeholder="가격" type="number" step="10"
+                min="100" max="10000" required />
+              <label for="quantity" hidden>수량</label>
+              <input class="input products-form__quantity-input" name="quantity" placeholder="수량" type="number" min="1"
+                max="20" required />
+              <button class="products-form__button" type="submit">
+                추가
               </button>
             </div>
-          </form>
-          <p>
-            현재 보유 금액:
-            <span class="charge-form-section__total-coin">0</span>원
-          </p>
-        </section>
-        <section class="coin-quantity-section">
-          <h3 hidden>자판기가 보유한 동전</h3>
-          <table class="coin-quantity-table">
-            <caption class="caption coin-quantity-table__caption">
-              자판기가 보유한 동전
-            </caption>
-            <thead>
-              <tr>
-                <th>동전</th>
-                <th>개수</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>500원</td>
-                <td><span class="coin-quantity-table__coin-500">0</span>개</td>
-              </tr>
-              <tr>
-                <td>100원</td>
-                <td><span class="coin-quantity-table__coin-100">0</span>개</td>
-              </tr>
-              <tr>
-                <td>50원</td>
-                <td><span class="coin-quantity-table__coin-50">0</span>개</td>
-              </tr>
-              <tr>
-                <td>10원</td>
-                <td><span class="coin-quantity-table__coin-10">0</span>개</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+          </fieldset>
+        </form>
       </section>
-    </div>
-  </body>
+      <section class="product-state-section">
+        <h3 hidden>상품 현황</h3>
+        <table class="product-table">
+          <caption class="caption product-table__caption">
+            상품 현황
+          </caption>
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </section>
+    <section class="coins-section hide">
+      <h2 hidden>잔돈 충전</h2>
+      <section class="charge-form-section">
+        <h3 hidden>자판기가 보유할 금액</h3>
+        <form class="charge-form-section__form">
+          <label for="coins">자판기 보유할 금액을 입력해주세요.</label>
+          <div class="charge-form-section__coin-input-wrapper">
+            <input class="input charge-form-section__coin-input" name="coins" placeholder="금액" type="number" step="10"
+              min="100" max="10000" autofocus required />
+            <button class="charge-form-section__button" type="submit">
+              충전
+            </button>
+          </div>
+        </form>
+        <p>
+          현재 보유 금액:
+          <span class="charge-form-section__total-coin">0</span>원
+        </p>
+      </section>
+      <section class="coin-quantity-section">
+        <h3 hidden>자판기가 보유한 동전</h3>
+        <table class="coin-quantity-table">
+          <caption class="caption coin-quantity-table__caption">
+            자판기가 보유한 동전
+          </caption>
+          <thead>
+            <tr>
+              <th>동전</th>
+              <th>개수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>500원</td>
+              <td><span class="coin-quantity-table__coin-500">0</span>개</td>
+            </tr>
+            <tr>
+              <td>100원</td>
+              <td><span class="coin-quantity-table__coin-100">0</span>개</td>
+            </tr>
+            <tr>
+              <td>50원</td>
+              <td><span class="coin-quantity-table__coin-50">0</span>개</td>
+            </tr>
+            <tr>
+              <td>10원</td>
+              <td><span class="coin-quantity-table__coin-10">0</span>개</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+    <section class="purchase-section"></section>
+  </div>
+</body>
+
 </html>

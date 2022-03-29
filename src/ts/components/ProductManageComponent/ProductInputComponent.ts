@@ -7,23 +7,15 @@ import {
 import { on, emit, renderSnackBar, $, focusWrongInput } from '../../dom';
 
 export default class ProductInputComponent {
-  private $nameInput = $(
-    '.product-info-form__product-input'
-  ) as HTMLInputElement;
-  private $priceInput = $(
-    '.product-info-form__price-input'
-  ) as HTMLInputElement;
+  private $nameInput = $('.products-form__product-input') as HTMLInputElement;
+  private $priceInput = $('.products-form__price-input') as HTMLInputElement;
   private $quantityInput = $(
-    '.product-info-form__quantity-input'
+    '.products-form__quantity-input'
   ) as HTMLInputElement;
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineProductManagement) {
-    on(
-      $('.product-info-form__button'),
-      'click',
-      this.onSubmitProductInputsButton
-    );
+    on($('.products-form__button'), 'click', this.onSubmitProductInputsButton);
   }
 
   private onSubmitProductInputsButton = (e: Event): void => {
@@ -42,7 +34,7 @@ export default class ProductInputComponent {
 
       this.vendingMachineProductManagement.addProduct(newProduct);
 
-      emit($('.product-info-form__button'), '@productInputSubmit', {
+      emit($('.products-form__button'), '@productInputSubmit', {
         detail: {
           newProduct,
         },

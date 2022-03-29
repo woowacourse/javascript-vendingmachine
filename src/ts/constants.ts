@@ -1,35 +1,35 @@
 import { Icoins } from './types/vendingMachineCoinManager';
 import {
-  productQuantity,
-  productName,
-  productPrice,
-  chargeMoney,
-  errorMessage,
-  routes,
+  ProductQuantity,
+  ProductName,
+  ProductPrice,
+  ChargeMoney,
+  ErrorMessage,
+  Routes,
 } from './types/constants';
 
-export const PRODUCT_NAME: productName = {
+export const PRODUCT_NAME: ProductName = {
   MAX_LENGTH: 10,
   MIN_LENGTH: 1,
 };
 
-export const PRODUCT_PRICE: productPrice = {
+export const PRODUCT_PRICE: ProductPrice = {
   MAX_PRICE: 10000,
   MIN_PRICE: 100,
   UNIT: 10,
 };
 
-export const PRODUCT_QUANTITY: productQuantity = {
+export const PRODUCT_QUANTITY: ProductQuantity = {
   MAX_QUANTITY: 20,
   MIN_QUANTITY: 1,
 };
 
-export const CHARGE_MONEY: chargeMoney = {
+export const CHARGE_MONEY: ChargeMoney = {
   MAX_TOTAL_CHARGE_MONEY: 100000,
   UNIT: 10,
 };
 
-export const ERROR_MESSAGE: errorMessage = {
+export const ERROR_MESSAGE: ErrorMessage = {
   WRONG_LENGTH_PRODUCT_NAME: `상품명을 잘못 입력하셨습니다. 상품명은 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 ${PRODUCT_NAME.MAX_LENGTH}글자 이하로 작성해주세요.`,
   DUPLICATED_PRODUCT_NAME:
     '중복된 상품명을 입력하셨습니다. 중복되지 않는 상품명을 다시 입력해주세요.',
@@ -57,10 +57,11 @@ export const COINS: Icoins = {
   LIST: [10, 50, 100, 500],
 };
 
-export const ROUTES: routes = {
-  HOME: '/',
-  PRODUCTS: '/products',
+export const ROUTES: Routes = {
+  PRODUCTS: '/',
   COINS: '/coins',
 };
+
+export const MAIN_PAGE = 'products';
 
 export const SNACK_BAR_DELAY_TIME = 3000;
