@@ -8,6 +8,7 @@ import {
   updatedItemValidator,
   removedItemValidator,
 } from '../utils/validator';
+import { COIN } from '../configs/constants';
 
 export interface Item {
   name: string;
@@ -83,12 +84,7 @@ export default class VendingMachine {
         ...next,
         [key]: this.state.coins[key] + randomCoins[key],
       }),
-      {
-        10: 0,
-        50: 0,
-        100: 0,
-        500: 0,
-      }
+      COIN.EMPTY_COINS
     );
 
     this.state.coins = updatedCoins;
@@ -103,9 +99,4 @@ export default class VendingMachine {
   }
 }
 
-export const vendingMachine = new VendingMachine([], {
-  10: 0,
-  50: 0,
-  100: 0,
-  500: 0,
-});
+export const vendingMachine = new VendingMachine([], COIN.EMPTY_COINS);

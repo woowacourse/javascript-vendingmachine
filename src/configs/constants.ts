@@ -1,3 +1,5 @@
+import { Coins } from '../domains/VendingMachine';
+
 export const CHARGE_AMOUNT = {
   LABEL: '충전 금액',
   MIN: 10,
@@ -28,6 +30,12 @@ export const ITEM = {
 
 export const COIN = {
   VALUES: [10, 50, 100, 500],
+  EMPTY_COINS: {
+    10: 0,
+    50: 0,
+    100: 0,
+    500: 0,
+  },
 } as const;
 
 export const PAGES = {

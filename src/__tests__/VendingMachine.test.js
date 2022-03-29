@@ -1,10 +1,11 @@
 import VendingMachine from '../domains/VendingMachine';
+import { COIN } from '../configs/constants';
 
 let vendingMachine;
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], COIN.EMPTY_COINS);
   });
 
   describe('addItem', () => {
@@ -177,7 +178,7 @@ describe('vendingMachine', () => {
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], COIN.EMPTY_COINS);
   });
 
   describe('addCoin', () => {
