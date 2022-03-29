@@ -21,7 +21,8 @@
     "no-use-before-define": "off",
     "no-param-reassign": "off",
     "default-case": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "parser": "@babel/eslint-parser"
   },
   "plugins": ["prettier"]
 }
