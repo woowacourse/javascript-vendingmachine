@@ -1,6 +1,7 @@
 fieldset {
   border: none;
   display: flex;
+  align-items: flex-end;
   gap: 5px;
 }
 
@@ -16,6 +17,7 @@ input {
 }
 
 .submit-button {
+  height: 40px;
   padding: 10px 15px;
   background-color: #00bcd4;
   font-weight: bold;
