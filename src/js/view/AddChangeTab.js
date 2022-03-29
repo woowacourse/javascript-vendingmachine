@@ -1,5 +1,5 @@
 import { createMainElement, selectDom } from '../utils/dom';
-import { addChangeTemplate } from './template';
+import { addChangeTabTemplate } from './template';
 
 export default class AddChangeTab {
   #vendingMachine;
@@ -12,7 +12,7 @@ export default class AddChangeTab {
   constructor(machine) {
     this.#vendingMachine = machine;
 
-    this.#addChangeContainer = createMainElement(addChangeTemplate);
+    this.#addChangeContainer = createMainElement(addChangeTabTemplate);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
     this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);

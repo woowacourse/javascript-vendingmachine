@@ -1,4 +1,4 @@
-export const manageProductTemplate = `
+export const manageProductTabTemplate = `
 <section title="상품 정보">
   <form id="add-product-form">
     <fieldset>
@@ -24,7 +24,7 @@ export const manageProductTemplate = `
   </table>
 </section>`;
 
-export const addChangeTemplate = `
+export const addChangeTabTemplate = `
 <section title="잔돈 충전">
   <form id="add-change-form">
     <label for="">자판기가 보유할 금액을 입력해주세요</label>
@@ -63,7 +63,7 @@ export const addChangeTemplate = `
   </table>
 </section>`;
 
-export const productTableRow = ({ name, price, stock, id }) => `
+export const productTableRowTemplate = ({ name, price, stock, id }) => `
 <tr>
   <td class="product-name">${name}</td>
   <td class="product-price">${price}</td>
@@ -77,7 +77,7 @@ export const productTableRow = ({ name, price, stock, id }) => `
 </tr>
 `;
 
-export const updateProductTableRow = ({ name, price, stock, id }) => `
+export const productUpdateTableRowTemplate = ({ name, price, stock, id }) => `
 <tr>
   <td><input type="text" class="update-product-name-input" value="${name}" /></td>
   <td><input type="number" class="update-product-price-input" value="${price}" /></td>
@@ -92,9 +92,9 @@ export const updateProductTableRow = ({ name, price, stock, id }) => `
 </tr>
 `;
 
-export const purchaseTemplate = '<div>아직 공사중입니다 🚫</div>';
+export const purchaseTabTemplate = '<div>아직 공사중입니다 🚫</div>';
 
-export const notFoundTemplate = `
+export const notFoundTabTemplate = `
 <section title="존재하지 않는 페이지" class="not-found-section">
   <h2>🛒 Page Not Found</h2>
   <a href="#/manage" class="tab-menu-button">시작 페이지로</a>

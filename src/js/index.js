@@ -3,7 +3,7 @@ import PurchaseProductTab from './view/PurchaseProductTab';
 import AddChangeTab from './view/AddChangeTab';
 import ManageProductTab from './view/ManageProductTab';
 import { createMainElement, selectDom } from './utils/dom';
-import { notFoundTemplate } from './view/template';
+import { notFoundTabTemplate } from './view/template';
 
 class App {
   #vendingMachine;
@@ -32,7 +32,7 @@ class App {
     this.#updateCurrentTabMenu(path);
 
     if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTemplate);
+      const notFoundContainer = createMainElement(notFoundTabTemplate);
       this.#appContainer.replaceChild(notFoundContainer, selectDom('main'));
       return;
     }
