@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage" : "https://ronci.github.io/javascript-vendingmachine/",
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
     "predeploy": "npm run build",
-	  "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -45,5 +44,6 @@
   },
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
-  }
+  },
+  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
 }
