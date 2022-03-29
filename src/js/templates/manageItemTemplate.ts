@@ -44,8 +44,8 @@ export const sectionTemplate = {
       <td class="table-item-price">${item.price}</td>
       <td class="table-item-quantity">${item.quantity}</td>
       <td class="item-table-button-container">
-        <button class="item-table-change-button">수정</button>
-        <button class="item-table-delete-button">삭제</button>
+        <button class="item-table-change-button" data-name=${item.name} data-price=${item.price} data-quantity=${item.quantity} >수정</button>
+        <button class="item-table-delete-button" data-name=${item.name} data-price=${item.price} data-quantity=${item.quantity} >삭제</button>
       </td>
     </tr>
     `;

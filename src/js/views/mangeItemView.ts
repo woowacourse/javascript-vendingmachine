@@ -2,7 +2,7 @@ import { $, emit } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { CUSTOM_EVENT } from '../constants/appContants';
 import { SELECTOR } from '../constants/viewConstants';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
+
 import { ItemType } from '../types/types';
 
 export default class ManageItemView {
@@ -47,38 +47,36 @@ export default class ManageItemView {
 
   private handleTableClickEvent(event) {
     if (event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_CHANGE_BUTTON)) {
-      const $targetTableRow = event.target.closest('tr');
-      this.onChangeButtonClick($targetTableRow);
+      this.onChangeButtonClick(event.target);
       return;
     }
     if (event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_DELETE_BUTTON)) {
-      const $targetTableRow = event.target.closest('tr');
-      this.onDeleteButtonClick($targetTableRow);
+      this.onDeleteButtonClick(event.target);
       return;
     }
     if (event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_CONFIRM_BUTTON)) {
-      const $targetTableRow = event.target.closest('tr');
-      this.onConfirmButtonClick($targetTableRow);
+      this.onConfirmButtonClick(event.target);
     }
   }
 
-  private onChangeButtonClick($targetTableRow) {
-    const item = this.getItemFromTargetTableRow($targetTableRow);
+  private onChangeButtonClick($targetButton) {
+    const $targetTableRow = $targetButton.closest('tr');
+    const item = this.getItemFromTargetButton($targetButton);
 
     $targetTableRow.replaceChildren();
     $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.changeTableRow(item));
   }
 
-  private onDeleteButtonClick($targetTableRow) {
-    const item = this.getItemFromTargetTableRow($targetTableRow);
+  private onDeleteButtonClick($targetButton) {
+    const $targetTableRow = $targetButton.closest('tr');
+    const item = this.getItemFromTargetButton($targetButton);
 
-    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
-      emit({ eventName: CUSTOM_EVENT.TABLE_ITEM_DELETE, detail: { item } });
-      $targetTableRow.remove();
-    }
+    emit({ eventName: CUSTOM_EVENT.TABLE_ITEM_DELETE, detail: { item } });
+    $targetTableRow.remove();
   }
 
-  private onConfirmButtonClick($targetTableRow) {
+  private onConfirmButtonClick($targetButton) {
+    const $targetTableRow = $targetButton.closest('tr');
     const targetRowIndex = $targetTableRow.rowIndex - 1;
     const item = this.getItemFromChangeInput($targetTableRow);
 
@@ -96,18 +94,8 @@ export default class ManageItemView {
     return { name, price, quantity };
   }
 
-  private getItemFromTargetTableRow($targetTableRow): ItemType {
-    const name: string = $targetTableRow.getElementsByClassName(
-      SELECTOR.CLASS_STRING.TABLE_ITEM_NAME
-    )[0].textContent;
-    const price = Number(
-      $targetTableRow.getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_PRICE)[0].textContent
-    );
-    const quantity = Number(
-      $targetTableRow.getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_QUANTITY)[0]
-        .textContent
-    );
-
+  private getItemFromTargetButton($targetButton): ItemType {
+    const { name, price, quantity } = $targetButton.dataset;
     return { name, price, quantity };
   }
 

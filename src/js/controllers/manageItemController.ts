@@ -1,5 +1,6 @@
 import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
+import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 import { CUSTOM_EVENT } from '../constants/appContants';
 import { checkDuplicatedItem, validateAddItemInput } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
@@ -56,6 +57,8 @@ export default class ManageItemController {
 
   handleTableItemDelete(event: CustomEvent) {
     const { item }: TableItemDeleteDetailType = event.detail;
-    this.vendingMachine.deleteItem(item);
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      this.vendingMachine.deleteItem(item);
+    }
   }
 }
