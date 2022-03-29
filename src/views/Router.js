@@ -1,5 +1,5 @@
 import Component from '../core/Component';
-import { getHash } from '../utils/domUtils';
+import { vendingMachine } from '../domains/VendingMachine';
 import { PAGES } from '../configs/constants';
 
 class Router extends Component {
@@ -9,11 +9,13 @@ class Router extends Component {
       component: child,
     }));
 
-    this.state = { routes, location: getHash() };
+    this.state = { routes };
   }
 
   render() {
-    const { routes, location } = this.state;
+    const location = vendingMachine.useStore((state) => state.location);
+    const { routes } = this.state;
+
     const currentRoute = routes.filter(
       (route) => route.path === location || route.path === PAGES.DEFAULT.PATH
     )[0];
@@ -22,12 +24,6 @@ class Router extends Component {
 
     this.clearDOM();
     this.appendChild(component);
-  }
-
-  setEvent() {
-    window.addEventListener('hashchange', (event) => {
-      this.setState({ location: getHash(event.target) });
-    });
   }
 }
 

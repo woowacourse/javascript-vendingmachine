@@ -26,13 +26,14 @@ export interface Coins {
 export interface VendingMachineState {
   items: Item[];
   coins: Coins;
+  location: string;
 }
 
 export default class VendingMachine {
   state: VendingMachineState;
 
-  constructor(items: Item[], coins: Coins) {
-    this.state = Subject.observable({ items, coins });
+  constructor(items: Item[], coins: Coins, location = '/') {
+    this.state = Subject.observable({ items, coins, location });
   }
 
   useStore(callback: Function): any {
@@ -96,6 +97,10 @@ export default class VendingMachine {
         sum + Number(key) * value,
       0
     );
+  }
+
+  setLocation(location): void {
+    this.state.location = location;
   }
 }
 

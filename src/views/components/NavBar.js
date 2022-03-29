@@ -1,14 +1,10 @@
 import Component from '../../core/Component';
+import { vendingMachine } from '../../domains/VendingMachine';
 import { PAGES } from '../../configs/constants';
-import { getHash } from '../../utils/domUtils';
 
 export default class NavBar extends Component {
-  setup() {
-    this.state = { location: getHash() };
-  }
-
   template() {
-    const { location } = this.state;
+    const location = vendingMachine.useStore((state) => state.location);
 
     return `
       <a
@@ -42,10 +38,14 @@ export default class NavBar extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', '.nav-button', ({ target }) => {
-      const location = target.getAttribute('href');
+    this.addEvent('click', '.nav-button', (event) => {
+      event.preventDefault();
 
-      this.setState({ location });
+      const to = event.target.getAttribute('href');
+      const state = {};
+
+      window.history.pushState(state, '', to);
+      dispatchEvent(new PopStateEvent('popstate', { state }));
     });
   }
 }

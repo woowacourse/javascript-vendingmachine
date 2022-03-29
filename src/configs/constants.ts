@@ -41,19 +41,19 @@ export const COIN = {
 export const PAGES = {
   LANDING: {
     TITLE: '',
-    PATH: '',
+    PATH: '/',
   },
   ITEM_MANAGEMENT: {
     TITLE: '상품 관리',
-    PATH: '#item-management',
+    PATH: '/item-management',
   },
   CHANGE_CHARGE: {
     TITLE: '잔돈 충전',
-    PATH: '#change-charge',
+    PATH: '/change-charge',
   },
   ITEM_PURCHASE: {
     TITLE: '상품 구매',
-    PATH: '#item-purchase',
+    PATH: '/item-purchase',
   },
   DEFAULT: {
     TITLE: '',

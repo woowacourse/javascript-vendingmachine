@@ -5,9 +5,15 @@ import './pages/ChangeChargePage';
 import './pages/ItemPurchasePage';
 import './pages/NotFoundPage';
 import './components/NavBar';
+import { vendingMachine } from '../domains/VendingMachine';
+import { getPathname } from '../utils/domUtils';
 import { PAGES } from '../configs/constants';
 
 export default class App extends Component {
+  setup() {
+    vendingMachine.setLocation(getPathname());
+  }
+
   template() {
     return `
       <main class="app-container">
@@ -25,6 +31,12 @@ export default class App extends Component {
         </div>
       </main>
     `;
+  }
+
+  setEvent() {
+    window.addEventListener('popstate', (event) => {
+      vendingMachine.setLocation(getPathname(event.path[0]));
+    });
   }
 }
 
