@@ -52,14 +52,7 @@ export default class VendingMachine {
 
     validate(itemValidator, item);
 
-    const newItem = prevItem
-      ? {
-          ...prevItem,
-          ...{ price: item.price, quantity: prevItem.quantity + item.quantity },
-        }
-      : item;
-
-    this.state.items = [...this.state.items, newItem];
+    this.state.items = [...this.state.items, item];
   }
 
   updateItem(name: string, updatedItem: Item): void {
