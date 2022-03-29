@@ -26,7 +26,7 @@ describe('상품 관리 테스트', () => {
     const productNameToDelete = '코카콜라';
     vendingMachine.deleteProduct(productNameToDelete);
 
-    expect(vendingMachine.products).not.toContainEqual(validProduct);
+    expect(vendingMachine.products).not.toContainEqual(privateValidProduct);
   });
 
   it('중복된 상품명으로 상품을 추가하면 에러를 발생시킨다.', () => {

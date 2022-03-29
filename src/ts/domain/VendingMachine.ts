@@ -64,9 +64,7 @@ export default class VendingMachine implements VendingMachineInterface {
   };
 
   public deleteProduct = (name: string) => {
-    const indexToDelete = this.products.findIndex((product) => product.name === name);
-
-    this.products.splice(indexToDelete, 1);
+    this.products = this.products.filter((product) => product.name !== name);
 
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
