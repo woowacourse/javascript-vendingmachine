@@ -48,12 +48,12 @@ export default class VendingMachineProduct {
       { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
       {
         testFunc: isOverMaxLengthName,
-        errorMsg: ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH,
+        errorMsg: ERROR_MESSAGE.PRODUCT_NAME.EXCEED_MAX_LENGTH,
       },
-      { testFunc: isPriceOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE },
-      { testFunc: isInvalidUnitPrice, errorMsg: ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE },
-      { testFunc: isStockOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE },
-      { testFunc: isNotIntegerStock, errorMsg: ERROR_MESSAGE.INVALID_PRODUCT_STOCK },
+      { testFunc: isPriceOutOfRange, errorMsg: ERROR_MESSAGE.PRODUCT_PRICE.OUT_OF_RANGE },
+      { testFunc: isInvalidUnitPrice, errorMsg: ERROR_MESSAGE.PRODUCT_PRICE.INVALID_UNIT },
+      { testFunc: isStockOutOfRange, errorMsg: ERROR_MESSAGE.PRODUCT_STOCK.OUT_OF_RANGE },
+      { testFunc: isNotIntegerStock, errorMsg: ERROR_MESSAGE.PRODUCT_STOCK.INVALID_VALUE },
     ];
 
     validateData(data, productValidator);

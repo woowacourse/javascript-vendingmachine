@@ -94,7 +94,7 @@ function validationTests(testType, testFunction) {
       const invalidName = '콜라콜라맛있다맛있으면';
 
       expect(() => testFunction({ name: invalidName })).toThrow(
-        ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH
+        ERROR_MESSAGE.PRODUCT_NAME.EXCEED_MAX_LENGTH
       );
     });
 
@@ -102,7 +102,7 @@ function validationTests(testType, testFunction) {
       const lowPrice = 90;
 
       expect(() => testFunction({ price: lowPrice })).toThrow(
-        ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE
+        ERROR_MESSAGE.PRODUCT_PRICE.OUT_OF_RANGE
       );
     });
 
@@ -110,7 +110,7 @@ function validationTests(testType, testFunction) {
       const highPrice = 10010;
 
       expect(() => testFunction({ price: highPrice })).toThrow(
-        ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE
+        ERROR_MESSAGE.PRODUCT_PRICE.OUT_OF_RANGE
       );
     });
 
@@ -118,7 +118,7 @@ function validationTests(testType, testFunction) {
       const invalidUnitPrice = 111;
 
       expect(() => testFunction({ price: invalidUnitPrice })).toThrow(
-        ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE
+        ERROR_MESSAGE.PRODUCT_PRICE.INVALID_UNIT
       );
     });
 
@@ -126,7 +126,7 @@ function validationTests(testType, testFunction) {
       const invalidStock = 21;
 
       expect(() => testFunction({ stock: invalidStock })).toThrow(
-        ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE
+        ERROR_MESSAGE.PRODUCT_STOCK.OUT_OF_RANGE
       );
     });
 
@@ -134,7 +134,7 @@ function validationTests(testType, testFunction) {
       const invalidStock = -1;
 
       expect(() => testFunction({ stock: invalidStock })).toThrow(
-        ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE
+        ERROR_MESSAGE.PRODUCT_STOCK.OUT_OF_RANGE
       );
     });
 
@@ -142,7 +142,7 @@ function validationTests(testType, testFunction) {
       const invalidStock = 1.1;
 
       expect(() => testFunction({ stock: invalidStock })).toThrow(
-        ERROR_MESSAGE.INVALID_PRODUCT_STOCK
+        ERROR_MESSAGE.PRODUCT_STOCK.INVALID_VALUE
       );
     });
   });

@@ -66,11 +66,11 @@ export default class VendingMachine {
 
   private validateChange(money: number): never | void {
     const changeValidator = [
-      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.BELOW_MIN_CHANGE },
-      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.INVALID_UNIT_CHANGE },
+      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.CHANGE.BELOW_MIN },
+      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.CHANGE.INVALID_UNIT },
       {
         testFunc: isExceedMaxTotalChange,
-        errorMsg: ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE,
+        errorMsg: ERROR_MESSAGE.CHANGE.EXCEED_MAX_TOTAL,
       },
     ];
 
@@ -79,13 +79,13 @@ export default class VendingMachine {
 
   private validateUniqueProductName(name): never | void {
     if (Object.values(this._productList).some((product) => product.name === name)) {
-      throw new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME);
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME.DUPLICATE_VALUE);
     }
   }
 
   private validateProductIdInList(productId: string): never | void {
     if (this._productList[productId] === undefined) {
-      throw new Error(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+      throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
     }
   }
 }
