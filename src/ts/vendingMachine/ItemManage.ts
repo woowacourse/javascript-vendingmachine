@@ -33,7 +33,7 @@ class ItemManage implements ItemManageInterface {
     this._itemList[itemIndex] = itemInfo;
   }
 
-  validateItemInput(itemInfo: itemInfoType, isAddMode = true) {
+  validateItemInput(itemInfo: itemInfoType, itemIndex = 0, isAddMode = true) {
     const testCases = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
@@ -54,7 +54,7 @@ class ItemManage implements ItemManageInterface {
     ];
 
     testCases.every(({ testCase, errorMessage }) => {
-      if (testCase({ itemInfo, isAddMode })) throw new Error(errorMessage);
+      if (testCase({ itemInfo, itemIndex, isAddMode })) throw new Error(errorMessage);
       return true;
     });
   }
@@ -70,12 +70,16 @@ class ItemManage implements ItemManageInterface {
   }
   private isAlreadyExist({
     itemInfo: { itemName },
+    itemIndex,
     isAddMode,
   }: {
     itemInfo: itemInfoType;
+    itemIndex: number;
     isAddMode: boolean;
   }) {
-    return isAddMode && this._itemList.some((savedItem) => savedItem.itemName === itemName);
+    const isExistItemName = this._itemList.some((savedItem) => savedItem.itemName === itemName);
+    if (isAddMode) return isExistItemName;
+    return this._itemList[itemIndex].itemName !== itemName && isExistItemName;
   }
   private isExceedPriceRange({ itemInfo: { itemPrice } }: { itemInfo: itemInfoType }) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;

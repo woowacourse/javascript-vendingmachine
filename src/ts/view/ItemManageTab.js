@@ -116,14 +116,14 @@ class ItemManageTab extends VendingMachineTab {
     const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
     const itemInfo = this.#convertToItemInfoObject(Array.from(itemInfoInputCellList));
     const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
-
+    const itemIndex = targetItem.rowIndex - 1;
     try {
-      this.vendingMachine.validateItemInput(itemInfo, false);
+      this.vendingMachine.validateItemInput(itemInfo, itemIndex, false);
     } catch (error) {
       alert(error.message);
       return;
     }
-    this.vendingMachine.editItem(itemInfo, targetItem.rowIndex - 1);
+    this.vendingMachine.editItem(itemInfo, itemIndex);
 
     targetItem.dataset.itemName = itemInfo.itemName.trim();
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList);
