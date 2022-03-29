@@ -1,5 +1,6 @@
 import {
   CHANGE_RANGE,
+  CHARGE_RANGE,
   ERROR_MSG,
   MONEY_DIVIDE_STANDARD,
   NAME_LENGTH_LIMIT,
@@ -46,6 +47,9 @@ export const checkProductInput = ({
   return true;
 };
 
+export const isOutOfChangeRange = (changeInput: number) =>
+  changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;
+
 export const checkChangeInput = (changeInput: number) => {
   if (isNotdivisibleBy10(changeInput)) {
     throw new Error(ERROR_MSG.CHANGE_NOT_DIVISIBLE_BY_10);
@@ -56,5 +60,14 @@ export const checkChangeInput = (changeInput: number) => {
   return true;
 };
 
-export const isOutOfChangeRange = (changeInput: number) =>
-  changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;
+export const isOutOfChargeRange = (chargeInput: number) =>
+  chargeInput < CHARGE_RANGE.MIN || chargeInput > CHARGE_RANGE.MAX;
+
+export const checkInputChargeInput = (chargeInput: number) => {
+  if (isNotdivisibleBy10(chargeInput)) {
+    throw new Error(ERROR_MSG.PRICE_NOT_DIVISIBLE_BY_10);
+  }
+  if (isOutOfChargeRange(chargeInput)) {
+    throw new Error(ERROR_MSG.CHARGE_OUT_OF_RANGE);
+  }
+};

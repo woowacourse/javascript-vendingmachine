@@ -1,7 +1,12 @@
 import { ICoinWallet, IProduct, TCoinWallet } from '../domains/types';
 import { ACTION_TYPES } from '../utils/constants';
 
-export type TAction = 'addProduct' | 'editProduct' | 'deleteProduct' | 'rechargeChange';
+export type TAction =
+  | 'addProduct'
+  | 'editProduct'
+  | 'deleteProduct'
+  | 'rechargeChange'
+  | 'insertCharge';
 
 export type TStateKey = 'PRODUCT_LIST' | 'COIN_WALLET' | 'INPUT_CHARGE';
 
