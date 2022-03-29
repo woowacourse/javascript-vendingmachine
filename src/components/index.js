@@ -8,14 +8,16 @@ class VendingMachineComponent {
   #RechargeChangeComponent;
 
   $app;
-  constructor(hashRoute) {
+  constructor(currentSectionName) {
     this.$app = document.querySelector('#app');
     this.initDOM();
     this.initChildComponents();
-    this.showSectionByRoute(hashRoute);
+    this.showSection(currentSectionName);
+    this.$tabNav.addEventListener('click', this.onClickNavigation);
   }
 
   initDOM() {
+    this.$tabNav = this.$app.querySelector('#tab-nav');
     this.tabButtonMap = {
       manageProduct: this.$app.querySelector('#manage-product-tab'),
       rechargeChange: this.$app.querySelector('#recharge-change-tab'),
@@ -29,22 +31,38 @@ class VendingMachineComponent {
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
   }
 
-  showSectionByRoute(route) {
-    if (route === '') {
+  onClickNavigation = e => {
+    const {
+      target: { id },
+    } = e;
+
+    if (id === 'manage-product-tab') {
+      this.showSection('');
+    }
+    if (id === 'recharge-change-tab') {
+      this.showSection('recharge');
+    }
+    if (id === 'purchase-product-tab') {
+      this.showSection('purchase');
+    }
+  };
+
+  showSection(name) {
+    if (name === '') {
       this.#RechargeChangeComponent.hide();
       this.#PurchaseProductComponent.hide();
 
       this.#ProductManagementComponent.show();
       this.focusTabButton('manageProduct');
     }
-    if (route === 'recharge') {
+    if (name === 'recharge') {
       this.#PurchaseProductComponent.hide();
       this.#ProductManagementComponent.hide();
 
       this.#RechargeChangeComponent.show();
       this.focusTabButton('rechargeChange');
     }
-    if (route === 'purchase') {
+    if (name === 'purchase') {
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
