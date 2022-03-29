@@ -44,7 +44,7 @@ export default class VendingMachine {
     if (prevItem) {
       this.updateItem(prevItem.name, {
         ...prevItem,
-        ...{ quantity: prevItem.quantity + item.quantity },
+        quantity: prevItem.quantity + item.quantity,
       });
 
       return;
