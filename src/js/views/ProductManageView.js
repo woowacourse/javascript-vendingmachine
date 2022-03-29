@@ -5,7 +5,7 @@ import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 
 export default class ProductManageView {
   constructor() {
-    on(SECTION_CONTAINER, 'submit', this.#onSubmitProductInfo.bind(this));
+    on(SECTION_CONTAINER, [['submit', this.#onSubmitProductInfo]]);
   }
 
   #bindMangeEvent() {
@@ -28,7 +28,7 @@ export default class ProductManageView {
     });
   }
 
-  #onSubmitProductInfo(e) {
+  #onSubmitProductInfo = (e) => {
     e.preventDefault();
     if (e.target.id !== 'product-add-form') return;
 
@@ -38,7 +38,7 @@ export default class ProductManageView {
       quantity: this.$productQuantityInput.valueAsNumber,
     };
     emit(SECTION_CONTAINER, '@manage', { product });
-  }
+  };
 
   #modifyProductInfo(selectedProduct) {
     const product = {

@@ -4,16 +4,16 @@ import { on, emit } from '../utils/event.js';
 
 export default class ChargeView {
   constructor() {
-    on(SECTION_CONTAINER, 'submit', this.#onSubmitChargeAmount.bind(this));
+    on(SECTION_CONTAINER, [['submit', this.#onSubmitChargeAmount]]);
   }
 
-  #onSubmitChargeAmount(e) {
+  #onSubmitChargeAmount = (e) => {
     e.preventDefault();
     if (e.target.id !== 'charge-form') return;
 
     const amount = this.$chargeAmountInput.valueAsNumber;
     emit(SECTION_CONTAINER, '@charge', { amount });
-  }
+  };
 
   initChargeDOM() {
     this.$chargeAmountInput = $('#charge-amount-input');

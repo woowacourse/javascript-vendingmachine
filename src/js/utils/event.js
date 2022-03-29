@@ -3,9 +3,11 @@ export const emit = (target, eventName, detail) => {
   target.dispatchEvent(event);
 };
 
-export const on = (target, eventName, handler) => {
+export const on = (target, events) => {
   try {
-    target.addEventListener(eventName, handler);
+    events.forEach(([eventName, handler]) => {
+      target.addEventListener(eventName, handler);
+    });
   } catch (error) {
     alert(error.message);
   }
