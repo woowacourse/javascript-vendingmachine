@@ -77,10 +77,9 @@ export const template = {
         </tr>`,
       )
       .join(''),
-
   productTableRowUpdate: ({ name, price, quantity }) => `
     <td><input type="text" name="name" placeholder="상품명" value="${name}"></td>
-    <td><input type="number" name="price" placeholder="가격" value="${price.toLocaleString()}"></td>
+    <td><input type="number" name="price" placeholder="가격" value="${price}"></td>
     <td><input type="number" name="quantity" placeholder="수량" value="${quantity}"></td>
     <td>
       <div class="button-group">
