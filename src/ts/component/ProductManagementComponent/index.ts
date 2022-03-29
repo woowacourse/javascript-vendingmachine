@@ -4,10 +4,10 @@ import ProductAdditionComponent from './ProductAdditionComponent';
 import ProductInventoryComponent from './ProductInventoryComponent';
 
 export default class ProductManagementComponent {
-  private productDomain;
+  private productManagement;
 
-  constructor(productDomain) {
-    this.productDomain = productDomain;
+  constructor(productManagement) {
+    this.productManagement = productManagement;
   }
 
   render() {
@@ -55,9 +55,9 @@ export default class ProductManagementComponent {
   }
 
   private bindDOM() {
-    new ProductAdditionComponent(this.productDomain);
+    new ProductAdditionComponent(this.productManagement);
     const productInventoryComponent = new ProductInventoryComponent(
-      this.productDomain,
+      this.productManagement,
     );
     viewPainter.productInventoryComponent = productInventoryComponent;
   }

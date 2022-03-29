@@ -5,11 +5,11 @@ import { viewPainter } from '../ViewPainter';
 
 export default class ProductInventoryComponent {
   private $container: HTMLElement;
-  private productDomain;
+  private productManagement;
 
-  constructor(productDomain) {
+  constructor(productManagement) {
     this.$container = $('.product-inventory__container');
-    this.productDomain = productDomain;
+    this.productManagement = productManagement;
     this.render();
     this.$container.addEventListener('click', this.buttonClickHandler);
   }
@@ -22,7 +22,7 @@ export default class ProductInventoryComponent {
   }
 
   private template() {
-    const { products } = this.productDomain;
+    const { products } = this.productManagement;
     const baseTemplate = `
       <div class="product-inventory__item grid-item grid-header">
         상품명
@@ -140,21 +140,21 @@ export default class ProductInventoryComponent {
     };
 
     try {
-      const { products } = this.productDomain;
+      const { products } = this.productManagement;
       validateProductInfo(products, product, prevProductName);
     } catch ({ message }) {
       alert(message);
       return;
     }
 
-    this.productDomain.editProduct($button.dataset.productName, product);
+    this.productManagement.editProduct($button.dataset.productName, product);
 
     this.deactivateEditMode($button);
     viewPainter.renderProducts();
   }
 
   private deleteProduct(productName) {
-    this.productDomain.deleteProduct(productName);
+    this.productManagement.deleteProduct(productName);
 
     const $tableRow = $$(`div[data-product-name="${productName}"]`);
     $tableRow.forEach($item => $item.remove());

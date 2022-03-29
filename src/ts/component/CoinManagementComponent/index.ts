@@ -4,10 +4,10 @@ import CoinChargeComponent from './CoinChargeComponent';
 import { viewPainter } from '../ViewPainter';
 
 export default class CoinManagementComponent {
-  private coinDomain;
+  private coinManagement;
 
-  constructor(coinDomain) {
-    this.coinDomain = coinDomain;
+  constructor(coinManagement) {
+    this.coinManagement = coinManagement;
   }
 
   render() {
@@ -45,8 +45,10 @@ export default class CoinManagementComponent {
   }
 
   private bindDOM() {
-    new CoinChargeComponent(this.coinDomain);
-    const coinHoldingsComponent = new CoinHoldingsComponent(this.coinDomain);
+    new CoinChargeComponent(this.coinManagement);
+    const coinHoldingsComponent = new CoinHoldingsComponent(
+      this.coinManagement,
+    );
     viewPainter.coinHoldingsComponent = coinHoldingsComponent;
   }
 }

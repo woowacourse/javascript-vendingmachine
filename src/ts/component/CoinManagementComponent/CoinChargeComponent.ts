@@ -3,10 +3,10 @@ import { viewPainter } from '../ViewPainter';
 import { validateCash } from './validator';
 
 export default class CoinChargeComponent {
-  private coinDomain;
+  private coinManagement;
 
-  constructor(coinDomain) {
-    this.coinDomain = coinDomain;
+  constructor(coinManagement) {
+    this.coinManagement = coinManagement;
     $('.coin-charge__form').addEventListener('submit', this.submitHandler);
     $('.coin-charge__input').focus();
   }
@@ -28,9 +28,9 @@ export default class CoinChargeComponent {
       return;
     }
 
-    this.coinDomain.addCash(cash);
+    this.coinManagement.addCash(cash);
 
-    $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
+    $('.coin-charge__total-cash').textContent = this.coinManagement.totalCash;
     viewPainter.renderCoins();
   };
 }

@@ -1,7 +1,7 @@
-import ProductManagementDomain from '../domain/ProductManagement';
+import ProductManagement from '../domain/ProductManagement';
 
 describe('상품 도메인 테스트', () => {
-  const productManagementDomain = new ProductManagementDomain();
+  const productManagementDomain = new ProductManagement();
   const clearProducts = () => {
     productManagementDomain.products.forEach(product =>
       productManagementDomain.deleteProduct(product.name),

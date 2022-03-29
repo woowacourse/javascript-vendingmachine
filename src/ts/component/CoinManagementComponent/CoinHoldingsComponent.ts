@@ -1,10 +1,10 @@
 import { $, replaceHTML } from '../../utils/dom';
 
 export default class CoinHoldingsComponent {
-  private coinDomain;
+  private coinManagement;
 
-  constructor(coinDomain) {
-    this.coinDomain = coinDomain;
+  constructor(coinManagement) {
+    this.coinManagement = coinManagement;
     this.render();
   }
 
@@ -18,7 +18,7 @@ export default class CoinHoldingsComponent {
       <div class="coin-holdings__item grid-item grid-header">개수</div>
     `;
 
-    const { coins } = this.coinDomain;
+    const { coins } = this.coinManagement;
 
     const coinsTemplate = Object.keys(coins)
       .reverse()

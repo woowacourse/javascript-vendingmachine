@@ -1,7 +1,7 @@
 import ProductImpl from './Product';
 import { ProductInfo } from './types';
 
-export default class ProductManagementDomain {
+export default class ProductManagement {
   #products: ProductImpl[];
 
   constructor() {

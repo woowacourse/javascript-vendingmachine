@@ -1,5 +1,5 @@
-import ProductManagementDomain from '../domain/ProductManagement';
-import CoinManagementDomain from '../domain/CoinManagement';
+import ProductManagement from '../domain/ProductManagement';
+import CoinManagement from '../domain/CoinManagement';
 import { $, $$ } from '../utils/dom';
 import CoinManagementComponent from './CoinManagementComponent';
 import ProductManagementComponent from './ProductManagementComponent';
@@ -9,20 +9,22 @@ const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
 export default class App {
-  private productDomain;
-  private coinDomain;
+  private productManagement;
+  private coinManagement;
   private productManagementComponent;
   private coinManagementComponent;
   private productPurchaseComponent;
 
   constructor() {
-    this.productDomain = new ProductManagementDomain();
-    this.coinDomain = new CoinManagementDomain();
+    this.productManagement = new ProductManagement();
+    this.coinManagement = new CoinManagement();
 
     this.productManagementComponent = new ProductManagementComponent(
-      this.productDomain,
+      this.productManagement,
     );
-    this.coinManagementComponent = new CoinManagementComponent(this.coinDomain);
+    this.coinManagementComponent = new CoinManagementComponent(
+      this.coinManagement,
+    );
     this.productPurchaseComponent = new ProductPurchaseComponent();
 
     this.productManagementComponent.render();

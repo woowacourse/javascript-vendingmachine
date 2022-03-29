@@ -8,10 +8,10 @@ type Inputs = {
 };
 
 export default class ProductAdditionComponent {
-  private productDomain;
+  private productManagement;
 
-  constructor(productDomain) {
-    this.productDomain = productDomain;
+  constructor(productManagement) {
+    this.productManagement = productManagement;
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
     $('.product-addition__input').focus();
   }
@@ -35,7 +35,7 @@ export default class ProductAdditionComponent {
     };
 
     try {
-      const { products } = this.productDomain;
+      const { products } = this.productManagement;
       validateProductInfo(products, product);
     } catch ({ name, message }) {
       this.focusOnInvalidInput(name, $inputs);
@@ -43,7 +43,7 @@ export default class ProductAdditionComponent {
       return;
     }
 
-    this.productDomain.addProduct(product);
+    this.productManagement.addProduct(product);
     viewPainter.renderProducts();
   };
 
