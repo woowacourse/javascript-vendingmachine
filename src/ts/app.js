@@ -9,19 +9,20 @@ const initApp = function () {
   const coinRechargeTab = new CoinRechargeTab(vendingMachine);
 
   return function () {
-    const hash = location.hash;
-    if (!hash || hash === HASH.ITEM_MANAGE) {
-      itemManageTab.renderInitialTabState();
-      return;
-    }
-    if (hash === HASH.COIN_RECHARGE) {
-      coinRechargeTab.renderInitialTabState();
-      return;
-    }
-    if (hash === HASH.ITEM_PURCHASE) {
-      return;
+    switch (location.hash) {
+      case HASH.ITEM_MANAGE:
+        itemManageTab.renderInitialTabState();
+        break;
+      case HASH.COIN_RECHARGE:
+        coinRechargeTab.renderInitialTabState();
+        break;
+      case HASH.ITEM_PURCHASE:
+        break;
+      default:
+        break;
     }
   };
 };
 
-export default initApp();
+const checkRoute = initApp();
+export default checkRoute;
