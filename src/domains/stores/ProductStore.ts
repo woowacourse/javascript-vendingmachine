@@ -32,7 +32,7 @@ class ProductStore {
 
   // eslint-disable-next-line max-lines-per-function
   generateNewProducts(oldProducts: Product[], { type, detail }: Action): Product[] {
-    const newProducts = oldProducts;
+    const newProducts = [...oldProducts];
 
     switch (type) {
       case PRODUCT_ACTION.ADD: {
