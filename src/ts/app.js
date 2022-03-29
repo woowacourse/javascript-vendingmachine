@@ -10,6 +10,7 @@ const initApp = function () {
 
   return function () {
     switch (location.hash) {
+      case '':
       case HASH.ITEM_MANAGE:
         itemManageTab.renderInitialTabState();
         break;
