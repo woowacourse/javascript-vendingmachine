@@ -31,10 +31,6 @@ export default class VendingMachine {
   state: VendingMachineState;
 
   constructor(items: Item[], coins: Coins) {
-    this.init(items, coins);
-  }
-
-  init(items: Item[], coins: Coins): void {
     this.state = Subject.observable({ items, coins });
   }
 

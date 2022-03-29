@@ -1,10 +1,10 @@
 import VendingMachine from '../domains/VendingMachine';
 
-const vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+let vendingMachine;
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine.init([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
   });
 
   describe('addItem', () => {
@@ -177,7 +177,7 @@ describe('vendingMachine', () => {
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine.init([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
   });
 
   describe('addCoin', () => {
