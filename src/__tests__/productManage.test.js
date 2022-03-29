@@ -96,9 +96,14 @@ describe('상품 정보 유효성 테스트', () => {
 });
 
 describe('상품 정보 수정, 삭제 테스트', () => {
-  let productManager;
+  const productManager = new ProductManager();
+  let newProduct;
   beforeEach(() => {
-    productManager = new ProductManager();
+    newProduct = {
+      name: '사이다',
+      price: 2000,
+      quantity: 15,
+    };
   });
 
   it('조건에 맞는 상품명, 가격, 상품 수량으로 정보를 수정할 수 있다.', () => {
@@ -107,11 +112,6 @@ describe('상품 정보 수정, 삭제 테스트', () => {
       name: '콜라',
       price: 1000,
       quantity: 10,
-    };
-    const newProduct = {
-      name: '사이다',
-      price: 2000,
-      quantity: 15,
     };
     productManager.addProduct(oldProduct);
     productManager.modifyProduct(oldProductIndex, newProduct);
@@ -122,13 +122,7 @@ describe('상품 정보 수정, 삭제 테스트', () => {
 
   it('상품 정보를 삭제할 수 있다.', () => {
     const oldProductIndex = 0;
-    const oldProduct = {
-      name: '콜라',
-      price: 1000,
-      quantity: 10,
-    };
-    productManager.addProduct(oldProduct);
     productManager.deleteProduct(oldProductIndex);
-    expect(productManager.getProducts()).not.toContain(oldProduct);
+    expect(productManager.getProducts()).not.toContain(newProduct);
   });
 });
