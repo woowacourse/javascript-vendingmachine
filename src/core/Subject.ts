@@ -50,11 +50,11 @@ export default class Subject {
 
   private updated: boolean;
 
-  constructor(key: string, initValue: any, checker: symbol) {
+  constructor(key: string, value: any, checker: symbol) {
     if (checker !== Subject.private) throw Error('use Subject.observable()');
 
     this.key = key;
-    this.value = initValue;
+    this.value = value;
     this.observers = new Set();
     this.updated = false;
 

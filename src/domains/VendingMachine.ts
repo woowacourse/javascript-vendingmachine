@@ -30,15 +30,12 @@ export interface VendingMachineState {
 export default class VendingMachine {
   state: VendingMachineState;
 
-  constructor(initItems: Item[], initCoins: Coins) {
-    this.init(initItems, initCoins);
+  constructor(items: Item[], coins: Coins) {
+    this.init(items, coins);
   }
 
-  init(initItems: Item[], initCoins: Coins): void {
-    this.state = Subject.observable({
-      items: initItems,
-      coins: initCoins,
-    });
+  init(items: Item[], coins: Coins): void {
+    this.state = Subject.observable({ items, coins });
   }
 
   useStore(callback: Function): any {
