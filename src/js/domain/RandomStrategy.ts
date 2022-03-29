@@ -17,17 +17,17 @@ const RandomStrategy: distributeStrategy = {
     ];
     let moneyLeft = inputMoney;
 
-    coinStatusList.forEach((coin) => {
-      if (coin.name === 'TEN_WON') {
-        coin.count = moneyLeft / coin.value;
-        return;
+    return coinStatusList.map((coin) => {
+      const coinObject = { ...coin };
+      if (coinObject.name === 'TEN_WON') {
+        coinObject.count = moneyLeft / coin.value;
+        return coinObject;
       }
       const randomCount = getRandomCoin(moneyLeft, coin.value);
       moneyLeft -= coin.value * randomCount;
       coin.count = randomCount;
+      return coinObject;
     });
-
-    return coinStatusList;
   },
 };
 
