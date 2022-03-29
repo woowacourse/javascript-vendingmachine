@@ -48,7 +48,7 @@ export default class VendingMachineProduct {
       { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
       {
         testFunc: isOverMaxLengthName,
-        errorMsg: ERROR_MESSAGE.PRODUCTNAME.EXCEED_MAX_LENGTH,
+        errorMsg: ERROR_MESSAGE.PRODUCT_NAME.EXCEED_MAX_LENGTH,
       },
       { testFunc: isPriceOutOfRange, errorMsg: ERROR_MESSAGE.PRODUCT_PRICE.OUT_OF_RANGE },
       { testFunc: isInvalidUnitPrice, errorMsg: ERROR_MESSAGE.PRODUCT_PRICE.INVALID_UNIT },
