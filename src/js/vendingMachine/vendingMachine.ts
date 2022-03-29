@@ -1,54 +1,36 @@
-import { COINS } from '../constants/vendingMachineConstants';
-import { generateRandom } from '../utils/common';
 import { ItemType, CoinsType } from '../types/types';
+import CoinManager from './coinManager';
+import ItemManager from './itemManager';
 
 export default class VendingMachine {
-  private _items: ItemType[] = [];
-  private _coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private _money = 0;
+  private itemManager: ItemManager = new ItemManager();
+  private coinManager: CoinManager = new CoinManager();
 
   get items(): Array<ItemType> {
-    return this._items;
+    return this.itemManager.items;
   }
 
   get coins(): CoinsType {
-    return this._coins;
+    return this.coinManager.coins;
   }
 
   get money(): number {
-    return this._money;
+    return this.coinManager.money;
   }
 
-  addItem({ name, price, quantity }: ItemType) {
-    this._items = [...this._items, { name, price, quantity }];
+  addItem(item: ItemType) {
+    this.itemManager.addItem(item);
   }
 
-  changeItem(index: number, { name, price, quantity }: ItemType) {
-    this._items[index] = { name, price, quantity };
+  changeItem(index: number, item: ItemType) {
+    this.itemManager.changeItem(index, item);
   }
 
   deleteItem(targetItem: ItemType) {
-    this._items = this._items.filter(item => item.name !== targetItem.name);
+    this.itemManager.deleteItem(targetItem);
   }
 
   chargeMoney(inputMoney: number) {
-    this._coins = this.generateRandomCoins(inputMoney);
-    this._money += inputMoney;
-  }
-
-  private generateRandomCoins(money: number): CoinsType {
-    const newCoins = this._coins;
-    let restMoney = money;
-
-    Object.keys(newCoins).forEach(key => {
-      if (key === 'ten') {
-        newCoins[key] += restMoney / COINS[key];
-        return;
-      }
-      const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
-      restMoney -= randomNumber * COINS[key];
-      newCoins[key] += randomNumber;
-    });
-    return newCoins;
+    this.coinManager.chargeCoin(inputMoney);
   }
 }
