@@ -83,6 +83,10 @@ class ItemManageTab extends VendingMachineTab {
     if (this.#isConfirmItemButton(target)) {
       this.#handleConfirmButtonClickEvent(targetItem);
     }
+
+    if (this.#isCancelItemButton(target)) {
+      this.#handleCancelButtonClickEvent(targetItem);
+    }
   };
 
   #onKeyDownItemInfoRow = ({ key, target }) => {
@@ -125,6 +129,17 @@ class ItemManageTab extends VendingMachineTab {
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList);
   }
 
+  #handleCancelButtonClickEvent(targetItem) {
+    const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
+    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
+
+    const originalItemInfo = Object.values(this.vendingMachine.itemList[targetItem.rowIndex - 1]);
+    itemInfoInputCellList.forEach((input, index) => {
+      input.value = originalItemInfo[index];
+    });
+    this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList);
+  }
+
   #toggleEditMode(itemInfoInputCellList, itemButtonCellList, isDisabled = true) {
     itemInfoInputCellList.forEach((itemInfoInputCell) => {
       itemInfoInputCell.disabled = isDisabled;
@@ -161,6 +176,10 @@ class ItemManageTab extends VendingMachineTab {
 
   #isConfirmItemButton(target) {
     return target.classList.contains('confirm-item-button');
+  }
+
+  #isCancelItemButton(target) {
+    return target.classList.contains('cancel-item-button');
   }
 }
 
