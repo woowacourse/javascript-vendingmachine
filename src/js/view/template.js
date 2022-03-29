@@ -3,15 +3,16 @@ export const manageProductTabTemplate = `
   <form id="add-product-form">
     <fieldset>
       <legend>추가할 상품 정보를 입력해주세요.</legend>
-      <div>
-        <label for="add-product-name">상품명</label>
+      <div class="input-wrapper">
+        <label for="add-product-name">상품명
         <input type="text" name="add-product-name" id="add-product-name-input" placeholder="상품명" required/>
+        </label>
       </div>
-      <div>
+      <div class="input-wrapper">
         <label for="add-product-price">상품 가격</label>
         <input type="number" name="add-product-price" id="add-product-price-input" placeholder="가격" min="100" max="10000" required/>
       </div>
-      <div>
+      <div class="input-wrapper">
         <label for="add-product-stock">상품 수량</label>
         <input type="number" name="add-product-stock" id="add-product-stock-input" placeholder="수량" min="1" max="20" required/>
       </div>

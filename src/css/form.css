@@ -9,8 +9,12 @@ legend {
   margin-bottom: 5px;
 }
 
-input {
+.input-wrapper {
   width: 120px;
+}
+
+input {
+  width: 110px;
   border: 1px solid #b4b4b4;
   border-radius: 4px;
   padding: 8px;
