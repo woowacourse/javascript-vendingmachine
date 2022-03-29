@@ -13,14 +13,16 @@ export default class Controller {
     this.chargeView = new ChargeView();
     this.coin = new Coin();
 
-    on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
-    on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
-    on(SECTION_CONTAINER, '@modify', this.#modifySavedData.bind(this));
-    on(SECTION_CONTAINER, '@delete', this.#deleteSavedData.bind(this));
-    on(SECTION_CONTAINER, '@charge', this.#handleChargeCoin.bind(this));
+    on(SECTION_CONTAINER, [
+      ['@render', this.#renderSavedData],
+      ['@manage', this.#handleProductInfo],
+      ['@modify', this.#modifySavedData],
+      ['@delete', this.#deleteSavedData],
+      ['@charge', this.#handleChargeCoin],
+    ]);
   }
 
-  #renderSavedData(e) {
+  #renderSavedData = (e) => {
     const { hash } = e.detail;
     initHashContents(hash);
 
@@ -37,9 +39,9 @@ export default class Controller {
       this.chargeView.renderCurrentAmount(this.coin.getAmount());
       this.chargeView.renderHaveCoins(this.coin.getCoins());
     }
-  }
+  };
 
-  #handleProductInfo(e) {
+  #handleProductInfo = (e) => {
     try {
       const { product } = e.detail;
       this.productManager.addProduct(product);
@@ -48,9 +50,9 @@ export default class Controller {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  #modifySavedData(e) {
+  #modifySavedData = (e) => {
     try {
       const { index, product } = e.detail;
       this.productManager.modifyProduct(index, product);
@@ -58,14 +60,14 @@ export default class Controller {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  #deleteSavedData(e) {
+  #deleteSavedData = (e) => {
     const { index } = e.detail;
     this.productManager.deleteProduct(index);
-  }
+  };
 
-  #handleChargeCoin(e) {
+  #handleChargeCoin = (e) => {
     try {
       const { amount } = e.detail;
       this.coin.addAmount(amount);
@@ -75,5 +77,5 @@ export default class Controller {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 }
