@@ -1,19 +1,10 @@
 import { $, $$, emitCustomEvent } from '../utils/common';
-import { initialTemplate } from '../templates/initialTemplate';
 import { SELECTOR } from '../constants/constants';
 
-export default class MainView {
+export default class NavigationView {
   $navContainer: HTMLElement;
-  $app: HTMLElement;
 
   constructor() {
-    this.$app = $(SELECTOR.ID.APP);
-
-    this.render();
-    this.bindEvents();
-  }
-
-  bindEvents() {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
   }
 
@@ -23,10 +14,6 @@ export default class MainView {
 
     this.changeButtonColor(targetButtonId);
     emitCustomEvent('ROUTE_CHANGE', { detail: { $navButton } });
-  }
-
-  render() {
-    this.$app.insertAdjacentHTML('beforeend', initialTemplate);
   }
 
   changeButtonColor(targetButtonId: string) {
