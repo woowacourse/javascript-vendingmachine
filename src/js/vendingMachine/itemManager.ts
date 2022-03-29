@@ -1,4 +1,5 @@
 import { ItemType } from '../types/types';
+import Item from './item';
 
 export default class ItemManager {
   private _items: ItemType[] = [];
@@ -8,11 +9,11 @@ export default class ItemManager {
   }
 
   addItem({ name, price, quantity }: ItemType) {
-    this._items = [...this._items, { name, price, quantity }];
+    this._items.push(new Item(name, price, quantity));
   }
 
   changeItem(index: number, { name, price, quantity }: ItemType) {
-    this._items[index] = { name, price, quantity };
+    this._items[index] = new Item(name, price, quantity);
   }
 
   deleteItem(targetItem: ItemType) {
