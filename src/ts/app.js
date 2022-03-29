@@ -1,12 +1,14 @@
-import CoinRechargeTab from './view/CoinRechargeTab';
 import { HASH } from './constant/hash';
 import ItemManageTab from './view/ItemManageTab';
-import VendingMachine from './VendingMachine';
+import CoinRechargeTab from './view/CoinRechargeTab';
+import ItemManage from './vendingMachine/ItemManage';
+import CoinRecharge from './vendingMachine/CoinRecharge';
 
 const initApp = function () {
-  const vendingMachine = new VendingMachine();
-  const itemManageTab = new ItemManageTab(vendingMachine);
-  const coinRechargeTab = new CoinRechargeTab(vendingMachine);
+  const itemManage = new ItemManage();
+  const coinRecharge = new CoinRecharge();
+  const itemManageTab = new ItemManageTab(itemManage);
+  const coinRechargeTab = new CoinRechargeTab(coinRecharge);
 
   return function () {
     switch (location.hash) {

@@ -1,8 +1,8 @@
-import VendingMachine from '../ts/VendingMachine';
+import CoinRecharge from '../ts/vendingMachine/CoinRecharge';
 import { CASH_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 
 describe('잔돈을 충전할 때, 입력값 유효성 확인', () => {
-  const vendingMachine = new VendingMachine();
+  const vendingMachine = new CoinRecharge();
 
   test('입력값은 숫자 타입이어야 한다.', () => {
     const cashInput = NaN;

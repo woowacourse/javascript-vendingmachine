@@ -1,8 +1,8 @@
-import VendingMachine from '../ts/VendingMachine';
+import ItemManage from '../ts/vendingMachine/ItemManage';
 import { ITEM_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 
 describe('상품 추가할 때, 입력값 유효성 확인', () => {
-  const vendingMachine = new VendingMachine();
+  const vendingMachine = new ItemManage();
 
   test('입력값은 공백이 아니어야 한다.', () => {
     const itemName = '';

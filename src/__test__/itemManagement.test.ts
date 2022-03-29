@@ -1,7 +1,7 @@
-import VendingMachine from '../ts/VendingMachine';
+import ItemManage from '../ts/vendingMachine/ItemManage';
 
 describe('상품 추가, 삭제, 수정 테스트', () => {
-  const vendingMachine = new VendingMachine();
+  const vendingMachine = new ItemManage();
   beforeEach(() => {
     vendingMachine.addItem({ itemName: '콜라', itemPrice: 900, itemQuantity: 10 });
   });
