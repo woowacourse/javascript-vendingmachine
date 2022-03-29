@@ -35,7 +35,10 @@ export function inValidUnitChange({ money }: changeValidationData): boolean {
   return money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0;
 }
 
-export function isExceedMaxTotalChange({ money, totalChange }: changeValidationData): boolean {
+export function isExceedMaxTotalChange({
+  money,
+  totalChange,
+}: changeValidationData): boolean {
   return totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE;
 }
 
@@ -45,5 +48,6 @@ export function validateData<T>(data: T, validator: Validator<T>[]): never | voi
     if (testFunc(data)) {
       throw new Error(errorMsg);
     }
+    return true;
   });
 }

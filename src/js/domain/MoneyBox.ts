@@ -20,7 +20,7 @@ export default class MoneyBox {
     this.coinDistributeStrategy = strategy;
   }
 
-  get totalChange(): number {
+  get totalChange() {
     return this._coinStatusList.reduce(
       (totalAmount, { value, count }) => totalAmount + value * count,
       0
