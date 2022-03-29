@@ -2,8 +2,12 @@ import ProductManager from '../js/models/ProductManger.ts';
 import { ERROR_MESSAGE } from '../js/constants/constants.js';
 
 describe('상품 정보 유효성 테스트', () => {
+  let productManager;
+  beforeEach(() => {
+    productManager = new ProductManager();
+  });
+
   it('정상적인 상품명, 가격, 상품 수량을 입력할 수 있다.', () => {
-    const productManager = new ProductManager();
     const product = {
       name: '콜라',
       price: 1000,
@@ -14,7 +18,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품명은 빈값을 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const emptyNameProduct = {
       name: '',
       price: 1000,
@@ -26,7 +29,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품명은 10글자 초과로 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const longNameProduct = {
       name: '가나다라마바사아자차카',
       price: 1000,
@@ -38,7 +40,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품 가격은 10원 단위가 아니면 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const indivisibleProduct = {
       name: '콜라',
       price: 1001,
@@ -50,7 +51,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품 가격은 100원 미만으로 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const cheapProduct = {
       name: '콜라',
       price: 90,
@@ -62,7 +62,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품 가격은 10000원을 초과할 수 없다.', () => {
-    const productManager = new ProductManager();
     const expensiveProduct = {
       name: '콜라',
       price: 10010,
@@ -74,7 +73,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품 수량은 1개 미만으로 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const lowInQuantityProduct = {
       name: '콜라',
       price: 1000,
@@ -86,7 +84,6 @@ describe('상품 정보 유효성 테스트', () => {
   });
 
   it('상품 수량은 20개 초과로 입력할 수 없다.', () => {
-    const productManager = new ProductManager();
     const lotOfQuantityProduct = {
       name: '콜라',
       price: 1000,
@@ -99,8 +96,12 @@ describe('상품 정보 유효성 테스트', () => {
 });
 
 describe('상품 정보 수정, 삭제 테스트', () => {
+  let productManager;
+  beforeEach(() => {
+    productManager = new ProductManager();
+  });
+
   it('조건에 맞는 상품명, 가격, 상품 수량으로 정보를 수정할 수 있다.', () => {
-    const productManager = new ProductManager();
     const oldProductIndex = 0;
     const oldProduct = {
       name: '콜라',
@@ -120,7 +121,6 @@ describe('상품 정보 수정, 삭제 테스트', () => {
   });
 
   it('상품 정보를 삭제할 수 있다.', () => {
-    const productManager = new ProductManager();
     const oldProductIndex = 0;
     const oldProduct = {
       name: '콜라',
