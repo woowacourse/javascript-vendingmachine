@@ -17,8 +17,10 @@
 
 .item-info-input-cell:disabled {
   border: none;
+  padding: 9px;
 }
 
-.edit-item-button {
+.edit-item-button,
+.confirm-item-button {
   margin-right: 8px;
 }

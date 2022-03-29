@@ -34,8 +34,10 @@ export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQu
         </div>
       </td>
       <td class="item-button-cell hide">
-        <button type="button" class="default-button confirm-item-button">확인</button>
-        <button type="button" class="default-button cancel-item-button">취소</button>
+        <div>
+          <button type="button" class="default-button confirm-item-button">확인</button>
+          <button type="button" class="default-button cancel-item-button">취소</button>
+        </div>
       </td>
     </tr>
 `;
