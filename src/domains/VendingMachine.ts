@@ -77,7 +77,7 @@ export default class VendingMachine {
   }
 
   findItem(name: string): Item | null {
-    return this.state.items.filter((item) => item.name === name)[0] || null;
+    return this.state.items.find((item) => item.name === name);
   }
 
   addCoin(amount: number): void {

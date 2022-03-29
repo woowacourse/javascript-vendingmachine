@@ -170,7 +170,7 @@ describe('vendingMachine', () => {
       });
 
       test('name에 해당하는 상품을 반환해야 한다.', () => {
-        expect(vendingMachine.findItem('사이다')).toBeNull();
+        expect(vendingMachine.findItem('사이다')).toBeUndefined();
       });
     });
   });

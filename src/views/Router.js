@@ -14,9 +14,9 @@ class Router extends Component {
 
   render() {
     const { location, routes } = this.state;
-    const currentRoute = routes.filter(
+    const currentRoute = routes.find(
       (route) => route.path === location || route.path === '*'
-    )[0];
+    );
     const component =
       (location === '' && routes[0].component) || currentRoute?.component;
 
