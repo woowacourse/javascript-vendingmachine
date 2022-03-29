@@ -1,3 +1,5 @@
+import { COIN_10, COIN_100, COIN_50, COIN_500 } from '../constant/rule';
+
 export const generateItemManageTabContentTemplate = (itemList) => `
     <form id="item-info-form" class="input-form">
       <label>추가할 상품 정보를 입력해주세요(상품명, 가격, 수량).</label>
@@ -59,19 +61,19 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
       </tr>
       <tr>
         <td>500원</td>
-        <td class="coin-count" data-coin-value="500">${coinCollection[500]}개</td>
+        <td class="coin-count" data-coin-value="500">${coinCollection[COIN_500]}개</td>
       </tr>
       <tr>
         <td>100원</td>
-        <td class="coin-count" data-coin-value="100">${coinCollection[100]}개</td>
+        <td class="coin-count" data-coin-value="100">${coinCollection[COIN_100]}개</td>
       </tr>
       <tr>
         <td>50원</td>
-        <td class="coin-count" data-coin-value="50">${coinCollection[50]}개</td>
+        <td class="coin-count" data-coin-value="50">${coinCollection[COIN_50]}개</td>
       </tr>
       <tr>
         <td>10원</td>
-        <td class="coin-count" data-coin-value="10">${coinCollection[10]}개</td>
+        <td class="coin-count" data-coin-value="10">${coinCollection[COIN_10]}개</td>
       </tr>
     </table>
 `;
