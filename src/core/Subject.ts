@@ -60,7 +60,7 @@ export default class Subject {
 
     Object.seal(this);
     Subject.subjects.add(this);
-    this.checkUpdated();
+    this.detectUpdate();
   }
 
   get(): any {
@@ -82,7 +82,7 @@ export default class Subject {
     this.observers.delete(observer);
   }
 
-  checkUpdated(): void {
+  detectUpdate(): void {
     if (this.updated) {
       this.notify();
 
@@ -90,7 +90,7 @@ export default class Subject {
     }
 
     requestAnimationFrame(() => {
-      this.checkUpdated();
+      this.detectUpdate();
     });
   }
 
