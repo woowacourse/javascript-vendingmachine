@@ -22,7 +22,7 @@ class CoinRecharge implements CoinRechargeInterface {
     return this._coinCollection;
   }
 
-  chargeCoin(rechargeCoin) {
+  chargeCoin(rechargeCoin: number) {
     let candidateCoins = [COIN_500, COIN_100, COIN_50, COIN_10];
     let remainCoin = rechargeCoin;
 

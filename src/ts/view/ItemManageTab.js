@@ -1,5 +1,5 @@
 import {
-  generateComfirmMessage,
+  generateConfirmMessage,
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
 } from '../template';
@@ -72,7 +72,7 @@ class ItemManageTab extends VendingMachineTab {
 
     if (
       this.#isDeleteItemButton(target) &&
-      confirm(generateComfirmMessage(targetItem.dataset.itemName))
+      confirm(generateConfirmMessage(targetItem.dataset.itemName))
     ) {
       this.#handleDeleteButtonClickEvent(targetItem);
       return;
