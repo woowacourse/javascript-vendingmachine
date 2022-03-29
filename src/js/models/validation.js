@@ -4,7 +4,7 @@ import {
   isMaximumLength,
   isRangeNumber,
   isOverMaxNumber,
-} from './common.js';
+} from '../utils/common.js';
 import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants.js';
 
 const isDuplicateProduct = (name, products) => {

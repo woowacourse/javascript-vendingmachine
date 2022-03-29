@@ -1,4 +1,4 @@
-import { validProductInfo } from '../utils/validation.js';
+import { validProductInfo } from './validation.js';
 import { Product, ProductManageInterface } from '../interface/productManage.interface';
 
 export default class ProductManager implements ProductManageInterface {

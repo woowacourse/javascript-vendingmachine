@@ -1,6 +1,6 @@
 import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
-import { validChargeAmount } from '../utils/validation.js';
+import { validChargeAmount } from './validation.js';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
 export default class Coin implements CoinInterface {
