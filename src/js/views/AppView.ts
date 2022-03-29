@@ -18,8 +18,10 @@ export default class AppView {
     const $navButton = event.target as HTMLButtonElement;
     const targetButtonId = $navButton.id;
 
-    this.changeButtonColor(targetButtonId);
-    window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ROUTE_CHANGE, { detail: { $navButton } }));
+    if (!$navButton.classList.contains(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED)) {
+      this.changeButtonColor(targetButtonId);
+      window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.ROUTE_CHANGE, { detail: { $navButton } }));
+    }
   }
 
   changeButtonColor(targetButtonId: string) {
