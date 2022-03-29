@@ -108,35 +108,35 @@ export default class ProductInventoryComponent {
   private activateEditMode($button: HTMLButtonElement) {
     $button.innerText = '확인';
 
-    const $$inputs = $$(
+    const $inputs = $$(
       `input[data-product-name="${$button.dataset.productName}"]`,
     );
-    $$inputs.forEach($input => {
+    $inputs.forEach($input => {
       $input.removeAttribute('readonly');
     });
-    $$inputs[0].focus();
+    $inputs[0].focus();
   }
 
   private deactivateEditMode($button: HTMLButtonElement) {
     $button.innerText = '수정';
 
-    const $$inputs = $$(
+    const $inputs = $$(
       `input[data-product-name="${$button.dataset.productName}"]`,
     );
-    $$inputs.forEach($input => {
+    $inputs.forEach($input => {
       $input.setAttribute('readonly', '');
     });
   }
 
   private finishEditMode($button: HTMLButtonElement) {
     const prevProductName = $button.dataset.productName;
-    const $$inputs = $$(
+    const $inputs = $$(
       `input[data-product-name="${prevProductName}"]`,
     ) as NodeListOf<HTMLInputElement>;
     const product = {
-      name: $$inputs[0].value,
-      price: $$inputs[1].valueAsNumber,
-      quantity: $$inputs[2].valueAsNumber,
+      name: $inputs[0].value,
+      price: $inputs[1].valueAsNumber,
+      quantity: $inputs[2].valueAsNumber,
     };
 
     try {
@@ -156,7 +156,7 @@ export default class ProductInventoryComponent {
   private deleteProduct(productName) {
     this.productDomain.deleteProduct(productName);
 
-    const $$tableRow = $$(`div[data-product-name="${productName}"]`);
-    $$tableRow.forEach($item => $item.remove());
+    const $tableRow = $$(`div[data-product-name="${productName}"]`);
+    $tableRow.forEach($item => $item.remove());
   }
 }
