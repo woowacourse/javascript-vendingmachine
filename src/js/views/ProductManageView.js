@@ -6,10 +6,11 @@ import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 export default class ProductManageView {
   constructor() {
     on(SECTION_CONTAINER, [['submit', this.#onSubmitProductInfo]]);
+    this.#bindMangeEvent();
   }
 
   #bindMangeEvent() {
-    this.$productTbody.addEventListener('click', (e) => {
+    SECTION_CONTAINER.addEventListener('click', (e) => {
       const { target } = e;
 
       if (target.classList.contains('modify-button')) {
@@ -74,8 +75,6 @@ export default class ProductManageView {
     this.$productPriceInput = $('#product-price-input');
     this.$productQuantityInput = $('#product-quantity-input');
     this.$productTbody = $('#product-tbody');
-
-    this.#bindMangeEvent();
   }
 
   render(productList) {
