@@ -6,8 +6,8 @@ export const validateProduct = (product: IProduct) => {
   const { name, price, quantity } = product;
 
   const {
-    MIN_PRODUCT_NAME,
-    MAX_PRODUCT_NAME,
+    MIN_PRODUCT_NAME_LENGTH,
+    MAX_PRODUCT_NAME_LENGTH,
     MIN_PRODUCT_PRICE,
     MAX_PRODUCT_PRICE,
     MONEY_UNIT,
@@ -16,7 +16,7 @@ export const validateProduct = (product: IProduct) => {
   } = VENDING_MACHINE;
 
   if (name === '') throw new Error(ERROR_MESSAGE.PRODUCT_NAME_REQUIRED);
-  if (!isStringLengthInRange(name, MIN_PRODUCT_NAME, MAX_PRODUCT_NAME))
+  if (!isStringLengthInRange(name, MIN_PRODUCT_NAME_LENGTH, MAX_PRODUCT_NAME_LENGTH))
     throw new Error(ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
 
   if (!Number.isInteger(price)) throw new Error(ERROR_MESSAGE.PRODUCT_PRICE_ONLY_NUMBER);
