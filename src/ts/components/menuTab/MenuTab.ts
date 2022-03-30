@@ -1,4 +1,4 @@
-import { $, $$, addEvent } from "../../utils/dom";
+import { $, $$ } from "../../utils/dom";
 
 type ConvertTemplate = (path: string) => void;
 
@@ -9,10 +9,10 @@ class MenuTab {
   constructor({ convertTemplate }) {
     this.convertTemplate = convertTemplate;
     this.app = $("#app");
-    addEvent(this.app, "click", this.handleMenuTab);
+    this.app.addEventListener("click", this.handleMenuTab);
   }
 
-  handleMenuTab = (e: { target: HTMLButtonElement }) => {
+  handleMenuTab = (e) => {
     const navList = $$(".nav__button");
     if (!e.target.classList.contains("nav__button")) {
       return;

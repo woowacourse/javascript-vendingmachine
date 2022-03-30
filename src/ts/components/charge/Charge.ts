@@ -1,4 +1,4 @@
-import { $, $$, addEvent } from "../../utils/dom";
+import { $, $$ } from "../../utils/dom";
 import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
 
@@ -27,7 +27,7 @@ class Charge {
     this.chargeForm = $("#charge-control-form");
     this.chargeInput = $(".charge-control-input");
     this.currentContainCharge = $("#current-contain-charge");
-    addEvent(this.chargeForm, "submit", this.handleAddCharge);
+    this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
 
   handleAddCharge = (e: Event) => {
