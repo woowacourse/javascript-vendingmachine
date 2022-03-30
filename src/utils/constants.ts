@@ -63,3 +63,9 @@ export const ACTION_TYPES: {
   DELETE_PRODUCT: 'deleteProduct',
   RECHARGE_CHANGE: 'rechargeChange',
 };
+
+export const TAB_NAME = {
+  MANAGE: 'manage-tab',
+  RECHARGE: 'recharge-tab',
+  PURCHASE: 'purchase-tab',
+};

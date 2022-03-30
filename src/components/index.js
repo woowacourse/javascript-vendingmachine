@@ -1,3 +1,5 @@
+import router from '../lib/router';
+import { TAB_NAME } from '../utils/constants';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
 import RechargeChangeComponent from './RechargeChangeComponent';
@@ -9,13 +11,13 @@ class VendingMachineComponent {
 
   $app;
 
-  #currentSectionName = '';
+  #currentSectionName;
 
-  constructor(currentSectionName) {
+  constructor() {
     this.$app = document.querySelector('#app');
     this.initDOM();
     this.initChildComponents();
-    this.showSection(currentSectionName);
+    this.showSection(localStorage.getItem('current-section'));
     this.$tabNav.addEventListener('click', this.onClickNavigation);
   }
 
@@ -40,40 +42,38 @@ class VendingMachineComponent {
     } = e;
 
     /** history가 중복해서 쌓이지 않게 관리 */
-    if (id === 'manage-product-tab' && this.#currentSectionName !== '') {
-      history.pushState({ path: '' }, '', '/');
-
-      this.showSection('');
+    if (id === 'manage-product-tab' && this.#currentSectionName !== 'manage') {
+      router.pushState({ path: TAB_NAME.MANAGE }, 'home');
+      this.showSection(TAB_NAME.MANAGE);
     }
     if (id === 'recharge-change-tab' && this.#currentSectionName !== 'recharge') {
-      history.pushState({ path: 'recharge' }, '', '/recharge');
-
-      this.showSection('recharge');
+      router.pushState({ path: TAB_NAME.RECHARGE }, 'recharge');
+      this.showSection(TAB_NAME.RECHARGE);
     }
     if (id === 'purchase-product-tab' && this.#currentSectionName !== 'purchase') {
-      history.pushState({ path: 'purchase' }, '', '/purchase');
-
-      this.showSection('purchase');
+      router.pushState({ path: TAB_NAME.PURCHASE }, 'purchase');
+      this.showSection(TAB_NAME.PURCHASE);
     }
   };
 
   showSection(name) {
     this.#currentSectionName = name;
-    if (name === '') {
+    localStorage.setItem('current-section', this.#currentSectionName);
+    if (name === TAB_NAME.MANAGE) {
       this.#RechargeChangeComponent.hide();
       this.#PurchaseProductComponent.hide();
 
       this.#ProductManagementComponent.show();
       this.focusTabButton('manageProduct');
     }
-    if (name === 'recharge') {
+    if (name === TAB_NAME.RECHARGE) {
       this.#PurchaseProductComponent.hide();
       this.#ProductManagementComponent.hide();
 
       this.#RechargeChangeComponent.show();
       this.focusTabButton('rechargeChange');
     }
-    if (name === 'purchase') {
+    if (name === TAB_NAME.PURCHASE) {
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
