@@ -1,6 +1,6 @@
 import { ProductManageView } from './ProductManageView';
 import { BalanceChargeView } from './BalanceChargeView';
-import { pushHistoryPath, Router } from '../utils/router';
+import { pushHistoryPath } from '../utils/router';
 
 export class HomeView {
   productManageNavBtn: HTMLButtonElement;
@@ -9,7 +9,6 @@ export class HomeView {
   productManageView: ProductManageView;
   balanceChargeView: BalanceChargeView;
   target: HTMLDivElement;
-  router: Router;
 
   constructor() {
     this.productManageView = new ProductManageView();
