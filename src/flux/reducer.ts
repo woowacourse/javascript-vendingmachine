@@ -1,19 +1,19 @@
-import { ACTION, COIN_UNITS } from '../constants';
+import { ACTION, COIN } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
 import { convertArrToObj, deepCopy, shuffle } from '../utils';
 
 function moneyToCoin(money: number) {
-  const coins = convertArrToObj(COIN_UNITS, 0);
+  const coins = convertArrToObj(COIN.UNITS, 0);
   let idx = 0;
   while (money > 0) {
-    const mixedCoins = shuffle(COIN_UNITS);
+    const mixedCoins = shuffle(COIN.UNITS);
     if (money < mixedCoins[idx]) {
-      idx = (idx + 1) % COIN_UNITS.length;
+      idx = (idx + 1) % COIN.UNITS.length;
       continue;
     }
     money -= mixedCoins[idx];
     coins[mixedCoins[idx]]++;
-    idx = (idx + 1) % COIN_UNITS.length;
+    idx = (idx + 1) % COIN.UNITS.length;
   }
   return coins;
 }

@@ -1,4 +1,4 @@
-import { COIN_UNITS, ERROR_MESSAGE } from '../constants';
+import { COIN, ERROR_MESSAGE } from '../constants';
 import Store from '../flux/store';
 import {
   validateChargeCoins,
@@ -10,7 +10,7 @@ import {
 const store = new Store({
   activeTab: 'product-manage-tab',
   chargedMoney: 0,
-  chargedCoins: COIN_UNITS,
+  chargedCoins: COIN.UNITS,
   productList: [
     {
       name: '콜라',
