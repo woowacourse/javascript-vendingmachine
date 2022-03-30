@@ -22,15 +22,15 @@ describe('올바른 상품명 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "")`, () => {
-    const productName = '   ';
+  test(`상품명은 빈 문자열일 수 없다. (실패 케이스, 입력: "")`, () => {
+    const productName = '';
 
     expect(() => {
       checkValidLengthProductName(productName);
     }).toThrowError(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   });
 
-  test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (실패 케이스, 입력: "열 글자가 넘는 상품명")`, () => {
+  test(`${PRODUCT_NAME.MAX_LENGTH}글자가 넘는 상품명은 입력할 수 없다. (실패 케이스, 입력: "열 글자가 넘는 상품명")`, () => {
     const productName = '열 글자가 넘는 상품명';
 
     expect(() => {
@@ -72,7 +72,7 @@ describe('올바른 상품 가격 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 부터 ${PRODUCT_PRICE.MAX_PRICE}원까지 가능하다. (실패 케이스, 입력: 90)`, () => {
+  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 미만일 수 없다. (실패 케이스, 입력: 90)`, () => {
     const productPrice = 90;
 
     expect(() => {
@@ -80,7 +80,7 @@ describe('올바른 상품 가격 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   });
 
-  test(`상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 부터 ${PRODUCT_PRICE.MAX_PRICE}원까지 가능하다. (실패 케이스, 입력: 11000)`, () => {
+  test(`상품 가격은 ${PRODUCT_PRICE.MAX_PRICE}원 초과일 수 없다. (실패 케이스, 입력: 11000)`, () => {
     const productPrice = 11000;
 
     expect(() => {
@@ -106,7 +106,7 @@ describe('올바른 상품 수량 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 1.3)`, () => {
+  test(`제품의 수량은 정수여야 한다. (실패 케이스, 입력: 1.3)`, () => {
     const productQuantity = 1.3;
 
     expect(() => {
@@ -114,7 +114,7 @@ describe('올바른 상품 수량 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 0)`, () => {
+  test(`한 제품당 수량은 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 미만일 수 없다. (실패 케이스, 입력: 0)`, () => {
     const productQuantity = 0;
 
     expect(() => {
@@ -122,7 +122,7 @@ describe('올바른 상품 수량 확인', () => {
     }).toThrowError(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   });
 
-  test(`한 제품당 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개까지 넣을 수 있다. (실패 케이스, 입력: 21)`, () => {
+  test(`한 제품당 수량은 ${PRODUCT_QUANTITY.MAX_QUANTITY}개 초과일 수 없다. (실패 케이스, 입력: 21)`, () => {
     const productQuantity = 21;
 
     expect(() => {
