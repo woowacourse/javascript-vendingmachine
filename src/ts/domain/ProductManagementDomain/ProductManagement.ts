@@ -1,6 +1,6 @@
-import Product from './Product';
+import Product from '../Product';
 import { validateProductInfo } from './validator';
-import { ProductInfo } from './types';
+import { ProductInfo } from '../types';
 
 export default class ProductManagementDomain {
   #products: Product[];

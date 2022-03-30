@@ -1,5 +1,5 @@
-import ProductManagementDomain from '../domain/ProductManagement';
-import CoinManagementDomain from '../domain/CoinManagement';
+import ProductManagementDomain from '../domain/ProductManagementDomain/ProductManagement';
+import CoinManagementDomain from '../domain/CoinManagementDomain/CoinManagement';
 import { $, $$ } from '../utils/dom';
 import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';

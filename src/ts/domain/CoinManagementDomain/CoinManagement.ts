@@ -1,5 +1,5 @@
-import { coinType } from '../constants';
-import { getRandomIndex } from '../utils';
+import { coinType } from '../../constants';
+import { getRandomIndex } from '../../utils';
 import { validateCash } from './validator';
 
 type CoinUnionType = typeof coinType[number];
