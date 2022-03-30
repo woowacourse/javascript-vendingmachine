@@ -25,7 +25,7 @@ export default class VendingMachineProductManager implements ProductManager {
       ({ name }) => name === targetProduct.name
     );
 
-    this.products = this.products.splice(targetIndex, 1, targetProduct);
+    this.products.splice(targetIndex, 1, targetProduct);
   }
 
   deleteProduct(deleteProductName) {
