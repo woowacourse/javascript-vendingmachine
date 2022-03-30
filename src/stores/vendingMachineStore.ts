@@ -85,6 +85,15 @@ class VendingMachineStore implements IVendingMachineStore {
 
       this.state.INPUT_CHARGE = totalInputCharge;
     },
+    [ACTION_TYPES.PURCHASE_PRODUCT]: payload => {
+      const { id, productPrice } = payload;
+
+      const purchaseProduct = this.state.PRODUCT_LIST.find(
+        product => product.getProductInfo().id === id,
+      );
+
+      purchaseProduct.purchaseProduct();
+    },
   };
 }
 

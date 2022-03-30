@@ -32,6 +32,8 @@ export const ERROR_MSG = {
   CHANGE_NOT_DIVISIBLE_BY_10: '금액은 10으로 나누어 떨어져야합니다.',
   CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
   CHARGE_OUT_OF_RANGE: '구매 금액은 10이상 10,000이하의 금액을 투입하여야 합니다.',
+  OVER_CHARGE_INPUT:
+    '투입한 금액이 부족하여, 상품을 구매할 수 없습니다 금액을 추가적으로 투입해주세요!',
 };
 
 export const NAME_LENGTH_LIMIT = 10;
@@ -64,12 +66,14 @@ export const ACTION_TYPES: {
   DELETE_PRODUCT: TAction;
   RECHARGE_CHANGE: TAction;
   INSERT_CHARGE: TAction;
+  PURCHASE_PRODUCT: TAction;
 } = {
   ADD_PRODUCT: 'addProduct',
   EDIT_PRODUCT: 'editProduct',
   DELETE_PRODUCT: 'deleteProduct',
   RECHARGE_CHANGE: 'rechargeChange',
   INSERT_CHARGE: 'insertCharge',
+  PURCHASE_PRODUCT: 'purchaseProduct',
 };
 
 export const NOTICE_MENTION: TMention = {

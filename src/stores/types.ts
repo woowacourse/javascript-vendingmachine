@@ -6,7 +6,8 @@ export type TAction =
   | 'editProduct'
   | 'deleteProduct'
   | 'rechargeChange'
-  | 'insertCharge';
+  | 'insertCharge'
+  | 'purchaseProduct';
 
 export type TStateKey = 'PRODUCT_LIST' | 'COIN_WALLET' | 'INPUT_CHARGE';
 

@@ -1,4 +1,9 @@
-import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import {
+  ACTION_TYPES,
+  ERROR_MSG,
+  NOTICE_MENTION,
+  VENDING_MACHINE_STATE_KEYS,
+} from '../../utils/constants';
 import vendingMachineStore from '../../stores/vendingMachineStore';
 import { checkProductInput } from '../../utils/validation';
 import { showSnackBar } from '../../utils/showSnackBar';
@@ -44,6 +49,7 @@ class ProductTableComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
   }
 
   bindEventHandler() {
@@ -144,6 +150,9 @@ class ProductTableComponent {
     if (classList.contains('product-confirm-button')) {
       this.onClickConfirmButton(parentElement, classList, productId);
     }
+    if (classList.contains('product-purchase-button')) {
+      this.onClickPurchaseButton(parentElement, productId);
+    }
   };
 
   onClickEditButton = (parentElement, editButtonClassList) => {
@@ -198,6 +207,43 @@ class ProductTableComponent {
       });
       showSnackBar(NOTICE_MENTION.DELETE_PRODUCT);
     }
+  }
+
+  onClickPurchaseButton(parentElement, productId) {
+    const clickedProductPrice =
+      parentElement.querySelector('td.product-row-price').dataset.productPrice;
+
+    try {
+      if (this.checkIsOverCharge(clickedProductPrice) && this.checkIsSoldOut(parentElement)) {
+        vendingMachineStore.mutateState({
+          actionType: ACTION_TYPES.PURCHASE_PRODUCT,
+          payload: {
+            id: productId,
+            productPrice: clickedProductPrice,
+          },
+          stateKey: VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE,
+        });
+      }
+    } catch ({ message }) {
+      alert(message);
+    }
+  }
+
+  checkIsOverCharge(productPrice) {
+    const inputCharge = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
+
+    if (inputCharge >= productPrice) {
+      return true;
+    }
+    throw new Error(ERROR_MSG.OVER_CHARGE_INPUT);
+  }
+
+  checkIsSoldOut(parentElement) {
+    const quantity = parentElement.querySelector(`td.product-row-quantity`).dataset.productQuantity;
+    if (quantity > 0) {
+      return true;
+    }
+    throw new Error(ERROR_MSG.PRODUCT_SOLD_OUT);
   }
 
   showConfirmButton(parentElement, editButtonClassList) {
