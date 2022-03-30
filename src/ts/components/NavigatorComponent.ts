@@ -1,25 +1,11 @@
 import { $, $$, on } from '../dom';
 import { MAIN_PAGE } from '../constants';
 
-import CoinInputComponent from './CoinManageComponent/CoinInputComponent';
-import CoinsStateComponent from './CoinManageComponent/CoinsStateComponent';
-import ProductInputComponent from './ProductManageComponent/ProductInputComponent';
-import ProductStateComponent from './ProductManageComponent/ProductsStateComponent';
-import VendingMachineProductManager from '../domains/VendingMachineProductManager';
-import VendingMachineCoinManager from '../domains/VendingMachineCoinManager';
-
 export default class NavigatorComponent {
   private $navList = $('.nav__list');
   private $tabs = $$('.nav__button');
-  private productManager = new VendingMachineProductManager();
-  private coinManager = new VendingMachineCoinManager();
 
   constructor() {
-    new ProductInputComponent(this.productManager);
-    new ProductStateComponent(this.productManager);
-    new CoinInputComponent(this.coinManager);
-    new CoinsStateComponent();
-
     on(this.$navList, 'click', this.onClickTab);
     on(window, 'popstate', this.routeByPath);
 
