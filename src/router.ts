@@ -9,10 +9,15 @@ const nav = document.querySelector('.nav');
 const baseURL = '/javascript-vendingmachine';
 
 nav.addEventListener('click', (e) => {
-  historyRouterPush((e.target as HTMLElement).getAttribute('route'));
+  if ((e.target as HTMLButtonElement).type === undefined) return;
+
+  const route = (e.target as HTMLButtonElement).getAttribute('route');
+  historyRouterPush(route);
 });
 
 const historyRouterPush = (pathname: string) => {
+  if (pathname === window.location.pathname) return;
+
   history.pushState({ pathname }, '', pathname);
   render(pathname);
 };
@@ -25,7 +30,7 @@ const render = (path: string) => {
   const prevRoute = routers.filter((route) => route.path !== path);
 
   currentComponent.classList.remove('hidden');
-  prevRoute.forEach((p: IRouter) => p.component.classList.add('hidden'));
+  prevRoute.forEach((router: IRouter) => router.component.classList.add('hidden'));
 };
 
 const routers: IRouter[] = [
@@ -38,7 +43,7 @@ window.addEventListener('popstate', function () {
 });
 
 if (window.location.pathname === '/') {
-  window.location.pathname = baseURL;
+  window.location.pathname = baseURL + '/';
 }
 
 render(window.location.pathname);
