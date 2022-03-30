@@ -29,8 +29,8 @@ export default class RechargeView implements RechargeViewInterface {
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.$rechargeForm = <HTMLFormElement>$('.recharge-form');
-    this.$currentHoldingMoney = $('#current-holding-money');
-    this.$rechargeInput = <HTMLInputElement>$('#recharge-input', this.$rechargeForm);
+    this.$currentHoldingMoney = $('#current-holding-money', this.$rechargeForm);
+    this.$rechargeInput = <HTMLInputElement & HTMLFormElement>$('#recharge-input', this.$rechargeForm);
     this.$coin500 = <HTMLSpanElement>$('#coin-500');
     this.$coin100 = <HTMLSpanElement>$('#coin-100');
     this.$coin50 = <HTMLSpanElement>$('#coin-50');

@@ -31,10 +31,10 @@ export default class ProductManageView implements ProductManageViewInterface {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$productNameInput = <HTMLInputElement>$('#product-name');
-    this.$productPriceInput = <HTMLInputElement>$('#product-price');
-    this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
     this.$productManageForm = <HTMLFormElement>$('.product-manage-form');
+    this.$productNameInput = <HTMLInputElement & HTMLFormElement>$('#product-name', this.$productManageForm);
+    this.$productPriceInput = <HTMLInputElement & HTMLFormElement>$('#product-price', this.$productManageForm);
+    this.$productQuantityInput = <HTMLInputElement & HTMLFormElement>$('#product-quantity', this.$productManageForm);
     this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
     this.vendingMachine = vendingMachine;
 
