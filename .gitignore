@@ -188,5 +188,4 @@ out
 node_modules/
 jspm_packages/
 dist
-
-
+.gitmessage.txt
