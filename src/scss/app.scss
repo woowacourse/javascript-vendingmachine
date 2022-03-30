@@ -1,0 +1,94 @@
+@import 'variable';
+
+#app {
+  width: 600px;
+  min-height: 675px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px 0;
+  background-color: $color-app-background;
+  border: 1px solid $color-app-border;
+  border-radius: 4px;
+}
+
+input {
+  padding: 0 10px;
+  height: 36px;
+  border: 1px solid $color-input-background;
+  border-radius: 4px;
+
+  &::placeholder {
+    color: $color-input-placeholder;
+  }
+}
+
+.input-description {
+  display: block;
+  line-height: 24px;
+  margin-bottom: 4px;
+}
+
+.title {
+  margin: 44px 0 32px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.nav {
+  margin-bottom: 52px;
+
+  &__button {
+    width: 117px;
+    height: 36px;
+    background: $color-button-default;
+    border-radius: 4px;
+
+    &.active {
+      background: $color-brand-secondary;
+    }
+  }
+}
+
+.grid {
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 40px;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid $color-grid-border;
+  }
+
+  &-header {
+    font-weight: 600;
+    border-top: 1px solid $color-grid-border;
+  }
+
+  &-button {
+    width: 80px;
+    height: 32px;
+  }
+}
+
+.submit-button {
+  width: 56px;
+  height: 36px;
+  background: $color-brand-primary;
+  border-radius: 4px;
+  color: $color-button-text-color;
+  margin-left: 8px;
+}
+
+.input-section {
+  margin-bottom: 48px;
+}
