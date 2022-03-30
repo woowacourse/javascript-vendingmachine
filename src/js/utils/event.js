@@ -4,11 +4,13 @@ export const emit = (target, eventName, detail) => {
 };
 
 export const on = (target, events) => {
-  try {
-    events.forEach(([eventName, handler]) => {
-      target.addEventListener(eventName, handler);
+  events.forEach(([eventName, handler]) => {
+    target.addEventListener(eventName, (e) => {
+      try {
+        handler(e);
+      } catch (error) {
+        alert(error.message);
+      }
     });
-  } catch (error) {
-    alert(error.message);
-  }
+  });
 };
