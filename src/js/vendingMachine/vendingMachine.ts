@@ -8,18 +8,18 @@ import {
 } from '../validates/validates';
 
 export default class VendingMachine {
-  private itemManager: ItemManager = new ItemManager();
-  private coinManager: CoinManager = new CoinManager();
+  private itemManager = new ItemManager();
+  private coinManager = new CoinManager();
 
-  get items(): Array<ItemType> {
+  get items() {
     return this.itemManager.items;
   }
 
-  get coins(): CoinsType {
+  get coins() {
     return this.coinManager.coins;
   }
 
-  get money(): number {
+  get money() {
     return this.coinManager.money;
   }
 
