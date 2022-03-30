@@ -16,11 +16,11 @@ export default class VendingMachineProduct {
   #stock: number;
 
   constructor({ name, price, stock }: ProductData) {
-    this.validateProduct({ name, price, stock });
-
-    this.#name = name;
-    this.#price = price;
-    this.#stock = stock;
+    if (this.validateProduct({ name, price, stock })) {
+      this.#name = name;
+      this.#price = price;
+      this.#stock = stock;
+    }
   }
 
   get name() {
@@ -36,14 +36,14 @@ export default class VendingMachineProduct {
   }
 
   modify({ name, price, stock }: ProductData): void {
-    this.validateProduct({ name, price, stock });
-
-    this.#name = name;
-    this.#price = price;
-    this.#stock = stock;
+    if (this.validateProduct({ name, price, stock })) {
+      this.#name = name;
+      this.#price = price;
+      this.#stock = stock;
+    }
   }
 
-  private validateProduct(data: ProductData) {
+  private validateProduct(data: ProductData): boolean {
     const productValidator = [
       { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
       {
@@ -59,6 +59,6 @@ export default class VendingMachineProduct {
       { testFunc: isNotIntegerStock, errorMsg: ERROR_MESSAGE.INVALID_PRODUCT_STOCK },
     ];
 
-    validateData(data, productValidator);
+    return validateData(data, productValidator);
   }
 }

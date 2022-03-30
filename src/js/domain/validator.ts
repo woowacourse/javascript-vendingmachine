@@ -43,11 +43,11 @@ export function isExceedMaxTotalChange({
 }
 
 // validator function
-export function validateData<T>(data: T, validator: Validator<T>[]): never | void {
+export function validateData<T>(data: T, validator: Validator<T>[]): boolean {
   validator.forEach(({ testFunc, errorMsg }) => {
     if (testFunc(data)) {
       throw new Error(errorMsg);
     }
-    return true;
   });
+  return true;
 }

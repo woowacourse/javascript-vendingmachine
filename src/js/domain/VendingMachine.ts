@@ -38,12 +38,10 @@ export default class VendingMachine {
     return this.#moneyBox.coinStatus;
   }
 
-  addChange(money: number): Coin[] {
-    this.validateChange(money);
-
-    this.#moneyBox.addChange(money);
-
-    return this.#moneyBox.coinStatusList;
+  addChange(money: number): void {
+    if (this.validateChange(money)) {
+      this.#moneyBox.addChange(money);
+    }
   }
 
   addProduct(data: ProductData): string {
@@ -69,7 +67,7 @@ export default class VendingMachine {
     delete this.#productList[productId];
   }
 
-  private validateChange(money: number): void {
+  private validateChange(money: number): boolean {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.BELOW_MIN_CHANGE },
       { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.INVALID_UNIT_CHANGE },
@@ -79,7 +77,7 @@ export default class VendingMachine {
       },
     ];
 
-    validateData({ money, totalChange: this.totalChange }, changeValidator);
+    return validateData({ money, totalChange: this.totalChange }, changeValidator);
   }
 
   private validateUniqueProductName(name): void {
