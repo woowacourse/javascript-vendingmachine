@@ -29,7 +29,7 @@ export default class View {
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
 
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.renderTabResult(this.currentTab);
+    this.renderTabs(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       this.tabRouter(event.state.url, FLAG.POP_STATE);
@@ -43,7 +43,7 @@ export default class View {
     );
   }
 
-  renderTabResult = (id: string) => {
+  renderTabs = (id: string) => {
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
       if (container.id === id) {
         container.classList.remove('hide');
@@ -83,13 +83,13 @@ export default class View {
     
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
-        this.renderTabResult(PATH_ID.PRODUCT_MANAGE);
+        this.renderTabs(PATH_ID.PRODUCT_MANAGE);
       },
       [PATH_ID.RECHARGE]: () => {
-        this.renderTabResult(PATH_ID.RECHARGE);
+        this.renderTabs(PATH_ID.RECHARGE);
       },
       [PATH_ID.PURCHASE_PRODUCT]: () => {
-        this.renderTabResult(PATH_ID.PURCHASE_PRODUCT);
+        this.renderTabs(PATH_ID.PURCHASE_PRODUCT);
       },
     };
     

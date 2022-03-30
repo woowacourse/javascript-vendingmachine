@@ -11,12 +11,12 @@ export interface VendingMachineInterface {
   money: MoneyType[];
   addProduct(input: ProductType): ProductType;
   deleteProduct(name: string): void;
-  getProductByName(name: string): ProductType;
+  getProduct(name: string): ProductType;
   editProduct(name: string, product: ProductType): void;
   rechargeMoney(money: number): void;
   getHoldingMoney(): number;
   generateRandomCoins(money: number): void;
-  getCoinByValue(value: number): MoneyType;
+  getCoin(value: number): MoneyType;
   getProductsFromStorage(key: string): ProductType;
   getMoneyFromStorage(key: string): MoneyType[];
 }
@@ -47,7 +47,7 @@ export default class VendingMachine implements VendingMachineInterface {
     return moneyFromStorage?.map(({value, count}) => new Money(value, count));
   };
 
-  getCoinByValue = (value: number) => {
+  getCoin = (value: number) => {
     return this.money.find((coin) => coin.value === value);
   };
 
@@ -93,7 +93,7 @@ export default class VendingMachine implements VendingMachineInterface {
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
   };
 
-  getProductByName = (name: string) => {
+  getProduct = (name: string) => {
     return this.products.find((product) => product.name === name);
   };
 

@@ -42,10 +42,10 @@ export default class RechargeView implements RechargeViewInterface {
   }
 
   renderCoinTable = () => {
-    this.$coin500.textContent = String(this.vendingMachine.getCoinByValue(500).count);
-    this.$coin100.textContent = String(this.vendingMachine.getCoinByValue(100).count);
-    this.$coin50.textContent = String(this.vendingMachine.getCoinByValue(50).count);
-    this.$coin10.textContent = String(this.vendingMachine.getCoinByValue(10).count);
+    this.$coin500.textContent = String(this.vendingMachine.getCoin(500).count);
+    this.$coin100.textContent = String(this.vendingMachine.getCoin(100).count);
+    this.$coin50.textContent = String(this.vendingMachine.getCoin(50).count);
+    this.$coin10.textContent = String(this.vendingMachine.getCoin(10).count);
   };
 
   renderRecharge = () => {
