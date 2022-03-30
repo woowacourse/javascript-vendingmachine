@@ -16,7 +16,7 @@ export default class ProductPage {
     this.setRenderMethodList();
   }
 
-  loadPage = () => {
+  mountPage = () => {
     $('main').innerHTML = template.productPage;
 
     this.setDom();
@@ -26,6 +26,14 @@ export default class ProductPage {
     });
     this.setEvents();
   };
+
+  unmountPage() {
+    this.$addForm = null;
+    this.$addFormSection = null;
+
+    this.$tableSection = null;
+    this.$table = null;
+  }
 
   setDom() {
     this.$addFormSection = $('#add-product-form-section');

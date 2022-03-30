@@ -17,7 +17,7 @@ export default class HoldingAmountPage {
     this.setRenderMethodList();
   }
 
-  loadPage = () => {
+  mountPage = () => {
     $('main').innerHTML = template.holdingAmountPage;
 
     this.setDom();
@@ -27,6 +27,14 @@ export default class HoldingAmountPage {
     });
     this.setEvents();
   };
+
+  unmountPage() {
+    this.$addForm = null;
+    this.$addFormSection = null;
+
+    this.$tableSection = null;
+    this.$table = null;
+  }
 
   setDom() {
     this.$addFormSection = $('#add-holding-amount-form-section');

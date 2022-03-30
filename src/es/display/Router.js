@@ -5,6 +5,7 @@ export default class Router {
   pathname = window.location.pathname.slice(0, -1);
   pageHeader = new Header();
   pageList;
+  previousPage;
 
   constructor(pageList) {
     this.pageList = pageList;
@@ -35,6 +36,9 @@ export default class Router {
     const { page = 'product' } = getSearchParamsObject(searchUrl);
 
     this.pageHeader.render({ currentPage: page });
-    !!this.pageList[page] && this.pageList[page].loadPage();
+    !!this.pageList[page] && this.pageList[page].mountPage();
+
+    this.previousPage && this.previousPage.unmountPage();
+    this.previousPage = this.pageList[page];
   }
 }
