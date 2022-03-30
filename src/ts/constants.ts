@@ -5,7 +5,6 @@ import {
   ProductPrice,
   ChargeMoney,
   ErrorMessage,
-  Routes,
 } from './types/constants';
 
 export const PRODUCT_NAME: ProductName = {
@@ -55,11 +54,6 @@ export const COINS: ICoins = {
     COIN_10: 0,
   },
   LIST: [10, 50, 100, 500],
-};
-
-export const ROUTES: Routes = {
-  PRODUCTS: '/',
-  COINS: '/coins',
 };
 
 export const MAIN_PAGE = 'products';
