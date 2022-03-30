@@ -23,10 +23,10 @@ class Navigation extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', 'button', this.onClickNavLink);
+    this.addEvent('click', 'button', this.onClickNavTab);
   }
 
-  onClickNavLink = ({ target }: EventOnElement) => {
+  onClickNavTab = ({ target }: EventOnElement) => {
     const destination = target.dataset.destination as string;
     Router.pushState(destination);
   };

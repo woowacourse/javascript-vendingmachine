@@ -6,7 +6,7 @@ import { Tab } from './types';
 class Router {
   static _instance?: Router;
 
-  tabContainer?: HTMLElement;
+  pageContainer?: HTMLElement;
 
   constructor() {
     if (Router._instance) {
@@ -14,7 +14,7 @@ class Router {
     }
     window.addEventListener('pushstate', this.onLocationChange);
     window.addEventListener('popstate', this.onLocationChange);
-    this.tabContainer = document.querySelector('.tab-container') as HTMLElement;
+    this.pageContainer = document.querySelector('.tab-container') as HTMLElement;
     this.onLoad();
   }
 

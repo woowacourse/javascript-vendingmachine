@@ -1,17 +1,17 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
+import './charge-money-form';
+import './changes-inventory';
 import { Tab } from '../types';
-import './add-product-form';
-import './product-inventory';
+import Store from '../flux/store';
 
-@customElement('product-manage-tab')
-class ProductManageTab extends Component {
+@customElement('charge-money-page')
+class ChargeMoneyPage extends Component {
   template(activeTab: Tab): string {
     if (this.localName !== activeTab) return '';
     return `
-      <add-product-form></add-product-form>
-      <product-inventory></product-inventory>
+      <charge-money-form class="mb-12"></charge-money-form>
+      <changes-inventory></changes-inventory>
     `;
   }
 
@@ -25,4 +25,4 @@ class ProductManageTab extends Component {
   }
 }
 
-export default ProductManageTab;
+export default ChargeMoneyPage;
