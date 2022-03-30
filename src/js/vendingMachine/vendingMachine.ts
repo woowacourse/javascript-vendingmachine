@@ -1,4 +1,4 @@
-import { ItemType, CoinsType } from '../types/types';
+import { ItemType } from '../types/types';
 import CoinManager from './coinManager';
 import ItemManager from './itemManager';
 import {

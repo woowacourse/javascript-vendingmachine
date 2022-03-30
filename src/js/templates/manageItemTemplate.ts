@@ -1,7 +1,7 @@
-import { TemplateType, ItemType } from '../types/types';
+import { ItemType } from '../types/types';
 
 export const sectionTemplate = {
-  inputContainer(): TemplateType {
+  inputContainer() {
     return `
       <section class="input-container">
       <h2 hidden>상품 정보 입력</h2>
@@ -18,7 +18,7 @@ export const sectionTemplate = {
     `;
   },
 
-  tableContainer(items: ItemType[]): TemplateType {
+  tableContainer(items: ItemType[]) {
     return `
     <section class="table-container">
       <h2>상품 현황</h2>
@@ -37,7 +37,7 @@ export const sectionTemplate = {
     `;
   },
 
-  normalTableRow(item: ItemType): TemplateType {
+  normalTableRow(item: ItemType) {
     return `
     <tr>
       <td class="table-item-name">${item.name}</td>
@@ -65,7 +65,7 @@ export const sectionTemplate = {
   },
 };
 
-export const manageItemTemplate = (items: ItemType[]): TemplateType => `
+export const manageItemTemplate = (items: ItemType[]) => `
   ${sectionTemplate.inputContainer()}
   ${sectionTemplate.tableContainer(items)}
 `;
