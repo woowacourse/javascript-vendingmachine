@@ -14,12 +14,6 @@ export interface ProductQuantity {
   readonly MIN_QUANTITY: number;
 }
 
-export interface PathName {
-  readonly HOME: string;
-  readonly PRODUCTS: string;
-  readonly CHARGE_MONEY: string;
-}
-
 export interface ErrorMessage {
   readonly WRONG_LENGTH_PRODUCT_NAME: string;
   readonly DUPLICATED_PRODUCT_NAME: string;

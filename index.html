@@ -16,14 +16,19 @@
               <button
                 class="nav__button nav__product-button nav__button--focused"
                 type="button"
+                data-pathname="/products"
               >
                 상품 관리
               </button>
             </a>
           </li>
           <li>
-            <a href="/coins">
-              <button class="nav__button nav__charge-button" type="button">
+            <a href="/charge-money">
+              <button
+                class="nav__button nav__charge-button"
+                type="button"
+                data-pathname="/charge-money"
+              >
                 잔돈 충전
               </button>
             </a>
@@ -35,7 +40,10 @@
           </li>
         </ul>
       </nav>
-      <section class="product-info-section">
+      <section
+        class="product-info-section manage-component"
+        data-pathname="/products"
+      >
         <h2 hidden>상품 관리</h2>
         <section>
           <h3 hidden>상품 정보 입력</h3>
@@ -100,7 +108,10 @@
           </table>
         </section>
       </section>
-      <section class="charge-money-section hide">
+      <section
+        class="charge-money-section manage-component hide"
+        data-pathname="/charge-money"
+      >
         <h2 hidden>잔돈 충전</h2>
         <section class="charge-form-section">
           <h3 hidden>자판기가 보유할 금액</h3>

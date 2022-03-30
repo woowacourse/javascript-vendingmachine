@@ -27,7 +27,7 @@ const generateRandomCoins = (money: number): Coins => {
   return coinsQuantity;
 };
 
-export default class ChargeMoneyComponent {
+export default class ChargeMoneyInputComponent {
   private $chargeMoneyInput = $(
     '.charge-form-section__charge-money-input'
   ) as HTMLInputElement;
