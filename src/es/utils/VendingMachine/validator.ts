@@ -1,5 +1,5 @@
 import { VENDING_MACHINE, ERROR_MESSAGE } from '@Constants/index';
-import { IProduct } from '@Store/Interface';
+import { IProduct } from '@Store/interface';
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '../index';
 
 export const validateProduct = (product: IProduct) => {
