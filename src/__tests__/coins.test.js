@@ -23,14 +23,4 @@ describe('잔돈 충전 테스트', () => {
     coin.addAmount(largeAmount);
     expect(() => coin.addAmount(largeAmount)).toThrowError(ERROR_MESSAGE.OVER_MAX_AMOUNT);
   });
-
-  it('충전 금액만큼의 동전이 무작위로 생성된다.', () => {
-    const amount = 1000;
-    coin.addAmount(amount);
-    const coinValues = Object.values(coin.getCoins()).reverse();
-    const totalAmount = coinValues.reduce((acc, cur, idx) => {
-      return acc + cur * COIN.UNIT_LIST[idx];
-    }, 0);
-    expect(coin.getAmount()).toEqual(totalAmount);
-  });
 });
