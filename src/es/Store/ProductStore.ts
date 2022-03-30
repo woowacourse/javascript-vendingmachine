@@ -14,21 +14,14 @@ class ProductStore extends Store {
     });
   }
 
-  updateProduct(index, product: IProduct): void {
-    const updateProducts = [...this.state.products];
+  updateProduct(index: number, replaceProduct: IProduct = null): void {
+    const updateProduct = [...this.state.products];
+    replaceProduct
+      ? updateProduct.splice(index, 1, replaceProduct)
+      : updateProduct.splice(index, 1);
 
-    updateProducts.splice(index, 1, product);
     this.setState({
-      products: updateProducts,
-    });
-  }
-
-  removeProductByIndex(index: number): void {
-    const updateProducts = [...this.state.products];
-
-    updateProducts.splice(index, 1);
-    this.setState({
-      products: updateProducts,
+      products: updateProduct,
     });
   }
 

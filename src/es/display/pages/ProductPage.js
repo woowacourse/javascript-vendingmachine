@@ -144,7 +144,7 @@ export default class ProductPage {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    ProductStore.removeProductByIndex(productIndex);
+    ProductStore.updateProduct(productIndex);
   }
 
   drawProductList = ({ products }) => {

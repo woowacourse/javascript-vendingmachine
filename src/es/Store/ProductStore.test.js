@@ -43,7 +43,7 @@ describe('상품 정보 관리 로직 테스트', () => {
     ProductStore.addProduct(inputValue);
 
     const indexNumber = ProductStore.findProductIndexByName('감자');
-    ProductStore.removeProductByIndex(indexNumber);
+    ProductStore.updateProduct(indexNumber);
 
     const testResultState = {
       products: [],
