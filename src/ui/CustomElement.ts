@@ -1,5 +1,5 @@
 import Coin from '../domain/Coin';
-import Product from '../domain/Product';
+import { Product } from '../domain/Product';
 
 class CustomElement extends HTMLElement {
   connectedCallback() {

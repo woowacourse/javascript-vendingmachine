@@ -1,4 +1,4 @@
-import Product from '../domain/Product';
+import { Product } from '../domain/Product';
 import { ERROR_MESSAGE, CONFIGURATION } from '../constants';
 
 const productValidator = {

@@ -22,4 +22,4 @@ class Product implements IProduct {
   }
 }
 
-export default Product;
+export { IProduct, Product };

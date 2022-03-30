@@ -1,4 +1,4 @@
-import Product from './domain/Product';
+import { Product } from './domain/Product';
 
 const storage = {
   setLocalStorage(key: string, value: any) {

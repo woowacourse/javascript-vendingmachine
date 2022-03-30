@@ -2,7 +2,7 @@ import CustomElement from './CustomElement';
 import TEMPLATE from '../templates';
 import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
-import Product from '../domain/Product';
+import { Product } from '../domain/Product';
 import storage from '../storage';
 import { ELEMENT_KEY } from '../constants';
 

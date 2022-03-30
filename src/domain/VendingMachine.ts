@@ -4,7 +4,7 @@ import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
 import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
 import Coin from './Coin';
-import Product from './Product';
+import { Product } from './Product';
 
 interface IVendingMachine {
   amount: Coin;
