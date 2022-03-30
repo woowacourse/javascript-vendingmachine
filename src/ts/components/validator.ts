@@ -5,7 +5,6 @@ import {
   PRODUCT_PRICE,
   PRODUCT_QUANTITY,
 } from '../constants';
-import { Product } from '../types/vendingMachineProductManager';
 
 export const checkValidLengthProductName = (name: string): void => {
   if (!name.trim()) {

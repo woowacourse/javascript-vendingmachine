@@ -1,6 +1,6 @@
 import { $, $$ } from '../dom';
 import { MAIN_PAGE } from '../constants';
-import { on } from '../utils';
+import { on } from '../events';
 
 const render = (clickedTab: string, tab: string) => {
   $(`.nav__${tab}-button`).className =

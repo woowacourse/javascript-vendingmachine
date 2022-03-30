@@ -1,6 +1,6 @@
 import { $, focusWrongInput } from '../../dom';
-import renderSnackBar from '../../snakbar';
-import { emit, on } from '../../utils';
+import { emit, on } from '../../events';
+import renderSnackBar from '../../snackbar';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,

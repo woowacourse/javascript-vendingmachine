@@ -1,5 +1,5 @@
 import { $ } from '../../dom';
-import { on } from '../../utils';
+import { on } from '../../events';
 
 export default class CoinsStateComponent {
   private $coin500: HTMLSpanElement = $('.coin-quantity-table__coin-500');

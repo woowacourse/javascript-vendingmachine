@@ -1,8 +1,9 @@
 import { COINS } from '../../constants';
 import { $ } from '../../dom';
-import renderSnackBar from '../../snakbar';
+import { emit, on } from '../../events';
+import renderSnackBar from '../../snackbar';
 import { Coins } from '../../types/vendingMachineCoinManager';
-import { emit, on, pickRandomIndex } from '../../utils';
+import { pickRandomIndex } from '../../utils';
 import { checkValidChargeMoney } from '../validator';
 
 const generateRandomCoins = (money: number): Coins => {

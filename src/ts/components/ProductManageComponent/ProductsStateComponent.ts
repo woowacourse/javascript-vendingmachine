@@ -12,8 +12,8 @@ import {
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../validator';
-import renderSnackBar from '../../snakbar';
-import { on } from '../../utils';
+import renderSnackBar from '../../snackbar';
+import { on } from '../../events';
 
 const generateTemplate = ({
   name: productName,
