@@ -75,9 +75,9 @@ export default class View {
     }
   };
 
-  tabRouter = (url: string, isPopState = false) => {
-    if (!isPopState && this.isSamePage(url)) return;
-    if (!isPopState) history.pushState({ url }, null, url);
+  tabRouter = (tabKey: string, isPopState = false) => {
+    if (!isPopState && this.isSamePage(tabKey)) return;
+    if (!isPopState) history.pushState({ tabKey }, null, tabKey);
     
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
@@ -91,8 +91,8 @@ export default class View {
       },
     };
     
-    routes[url]();
+    routes[tabKey]();
   };
 
-  isSamePage = (url: string) => url === window.location.pathname + window.location.hash;
+  isSamePage = (tabKey: string) => tabKey === window.location.pathname + window.location.hash;
 }

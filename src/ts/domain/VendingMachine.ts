@@ -17,7 +17,7 @@ export interface VendingMachineInterface {
   getProduct(name: string): ProductType;
   generateRandomCoins(money: number): void;
   rechargeMoney(money: number): void;
-  addProduct(input: ProductType): ProductType;
+  addProduct(product: ProductType): ProductType;
   deleteProduct(name: string): void;
   editProduct(name: string, product: ProductType): void;
 }
@@ -80,8 +80,8 @@ export default class VendingMachine implements VendingMachineInterface {
     localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
   };
 
-  addProduct = (newProduct: ProductType) => {
-    const productToAdd = new Product(newProduct);
+  addProduct = (product: ProductType) => {
+    const productToAdd = new Product(product);
     checkDuplicatedProduct(this.products, productToAdd.name);
     this.products.push(productToAdd);
 
