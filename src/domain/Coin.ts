@@ -1,14 +1,7 @@
 import { COINS } from '../constants';
 import { pickRandomElement } from '../utils';
 
-interface ICoin {
-  500: number;
-  100: number;
-  50: number;
-  10: number;
-}
-
-class Coin implements ICoin {
+class Coin {
   500: number = 0;
   100: number = 0;
   50: number = 0;
