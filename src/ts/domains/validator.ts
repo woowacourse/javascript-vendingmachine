@@ -25,3 +25,17 @@ export const checkDuplicatedProductName = (
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
+
+export const checkDuplicatedEditName = (
+  products: Product[],
+  targetName: string,
+  editedName: string
+): void => {
+  if (targetName === editedName) {
+    return;
+  }
+
+  if (products.some((product: Product) => product.name === editedName)) {
+    throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
+  }
+};

@@ -96,7 +96,10 @@ export default class ProductStateComponent {
         quantity: $editProductQuantityInput.valueAsNumber,
       };
 
-      this.vendingMachineProductManager.editProduct(editedProduct);
+      this.vendingMachineProductManager.editProduct(
+        parentElement.dataset.productName,
+        editedProduct
+      );
 
       parentElement.innerHTML = generateTemplate(editedProduct);
       parentElement.dataset.productName = $editProductNameInput.value;

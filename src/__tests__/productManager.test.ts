@@ -60,7 +60,7 @@ describe('상품 관리 도메인 테스트', () => {
     };
 
     vendingMachineProductManager.addProduct(newProduct);
-    vendingMachineProductManager.editProduct(targetProduct);
+    vendingMachineProductManager.editProduct(newProduct.name, targetProduct);
 
     const { name, price, quantity } =
       vendingMachineProductManager.getProducts()[0];
