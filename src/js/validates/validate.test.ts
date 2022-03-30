@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from '../constants/errorConstants';
+import { ITEM, MONEY } from '../constants/vendingMachineConstants';
 import Item from '../vendingMachine/item';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { checkDuplicatedItem, validateAddItemInput, validateInputMoney } from './validates';
@@ -6,8 +7,8 @@ import { checkDuplicatedItem, validateAddItemInput, validateInputMoney } from '.
 describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
   test('이름이 공백이라면 에러를 throw 한다.', () => {
     const name = '';
-    const price = 1000;
-    const quantity = 10;
+    const price = ITEM.PRICE.MAX;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -16,8 +17,8 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('이름이 10자를 넘는다면 에러를 throw 한다.', () => {
     const name = '코카콜라환타펩시오란씨';
-    const price = 1000;
-    const quantity = 10;
+    const price = ITEM.PRICE.MAX;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -27,7 +28,7 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
   test('가격이 정수가 아니라면 에러를 throw 한다.', () => {
     const name = '콜라';
     const price = 0.1;
-    const quantity = 10;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -36,8 +37,8 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('가격이 100보다 작다면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 99;
-    const quantity = 10;
+    const price = ITEM.PRICE.MIN - 1;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -46,8 +47,8 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('가격이 10,000보다 크다면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 10001;
-    const quantity = 10;
+    const price = ITEM.PRICE.MAX + 1;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -56,8 +57,8 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('가격이 10단위가 아니라면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 1001;
-    const quantity = 10;
+    const price = ITEM.PRICE.MIN + ITEM.PRICE.UNIT + 1;
+    const quantity = ITEM.QUANTITY.MAX;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -66,7 +67,7 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('수랑이 정수가 아니라면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 500;
+    const price = ITEM.PRICE.MAX;
     const quantity = 0.1;
 
     expect(() => {
@@ -74,10 +75,10 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
     }).toThrowError(ERROR_MESSAGE.ITEM_QUANTITY.NOT_INTEGER);
   });
 
-  test('수랑이 0이히면 에러를 throw 한다.', () => {
+  test('수랑이 0이하면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 500;
-    const quantity = 0;
+    const price = ITEM.PRICE.MAX;
+    const quantity = ITEM.QUANTITY.MIN - 1;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -86,8 +87,8 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
   test('수랑이 20보다 크다면 에러를 throw 한다.', () => {
     const name = '콜라';
-    const price = 500;
-    const quantity = 21;
+    const price = ITEM.PRICE.MAX;
+    const quantity = ITEM.QUANTITY.MAX + 1;
 
     expect(() => {
       validateAddItemInput({ name, price, quantity });
@@ -105,7 +106,7 @@ describe('입력된 충전할 돈이 주어지면', () => {
   });
 
   test('돈이 0이하면 에러를 throw한다.', () => {
-    const money = 0;
+    const money = MONEY.MIN - 1;
 
     expect(() => {
       validateInputMoney(money);
@@ -113,7 +114,7 @@ describe('입력된 충전할 돈이 주어지면', () => {
   });
 
   test('돈이 100,000보다 크다면 에러를 throw한다.', () => {
-    const money = 100001;
+    const money = MONEY.MAX + 1;
 
     expect(() => {
       validateInputMoney(money);
@@ -121,7 +122,7 @@ describe('입력된 충전할 돈이 주어지면', () => {
   });
 
   test('돈이 10단위가 아니라면 에러를 throw한다.', () => {
-    const money = 1;
+    const money = MONEY.UNIT + 1;
 
     expect(() => {
       validateInputMoney(money);
