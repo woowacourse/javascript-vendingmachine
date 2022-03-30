@@ -38,5 +38,5 @@ export interface CustomElement extends HTMLElement {
   setEvent(): void;
   show(): void;
   hide(): void;
-  rerender(data: Action | Product | ModifyDetail | CoinsCount | string | number): void;
+  rerender(data: Action | number, data2?: CoinsCount): void;
 }

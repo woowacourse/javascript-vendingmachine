@@ -8,7 +8,6 @@ import { checkCoinValidation } from '../../validators';
 class CoinChargeForm extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribeMoney(this);
   }
 
   template() {
@@ -18,7 +17,6 @@ class CoinChargeForm extends CustomElement {
         <input type="number" id="coin-input" placeholder="금액" required>
         <button class="coin-charge-button">충전</button>
       </form>
-      <p>현재 보유 금액: <span class="money">0</span>원</p>
     `;
   }
 
@@ -43,18 +41,13 @@ class CoinChargeForm extends CustomElement {
   chargeCoin(coinInputValue) {
     checkCoinValidation(coinInputValue);
 
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_CHARGE, coinInputValue));
   }
 
   initCoinInput($coinInput) {
     $coinInput.value = '';
 
     $coinInput.focus();
-  }
-
-  rerender(newMoney) {
-    $('.money').textContent = newMoney;
   }
 }
 

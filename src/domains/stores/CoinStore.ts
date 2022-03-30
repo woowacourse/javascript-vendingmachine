@@ -23,35 +23,21 @@ class CoinStore {
     10: COIN.DEFAULT_COUNT,
   };
 
-  #moneySubscribers: CustomElement[] = [];
+  #subscribers: CustomElement[] = [];
 
-  #coinsCountSubscribers: CustomElement[] = [];
-
-  subscribeMoney(element: CustomElement): void {
-    this.#moneySubscribers.push(element);
-  }
-
-  subscribeCoinsCount(element: CustomElement): void {
-    this.#coinsCountSubscribers.push(element);
+  subscribe(element: CustomElement): void {
+    this.#subscribers.push(element);
   }
 
   dispatch(action: Action): void {
     this.updateMoneyOrCoinsCount(action);
-    this.notifySubscribers(action);
+    this.notifySubscribers();
   }
 
   updateMoneyOrCoinsCount(action: Action): void {
-    const { type, detail } = action;
-
-    switch (type) {
-      case COIN_ACTION.MONEY_CHARGE: {
-        this.#money += detail as number;
-        break;
-      }
-      case COIN_ACTION.COIN_ADD: {
-        this.#coinsCount = this.generateRandomCoins(this.#coinsCount, detail as number);
-      }
-    }
+    const { detail } = action;
+    this.#money += detail as number;
+    this.#coinsCount = this.generateRandomCoins(this.#coinsCount, detail as number);
   }
 
   generateRandomCoins(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
@@ -78,18 +64,10 @@ class CoinStore {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers({ type }: Action): void {
-    switch (type) {
-      case COIN_ACTION.MONEY_CHARGE:
-        this.#moneySubscribers.forEach((subscriber) => {
-          subscriber.rerender(this.#money);
-        });
-        break;
-      case COIN_ACTION.COIN_ADD:
-        this.#coinsCountSubscribers.forEach((subscriber) => {
-          subscriber.rerender(this.#coinsCount);
-        });
-    }
+  notifySubscribers(): void {
+    this.#subscribers.forEach((subscriber) => {
+      subscriber.rerender(this.#money, this.#coinsCount);
+    });
   }
 
   get money() {
