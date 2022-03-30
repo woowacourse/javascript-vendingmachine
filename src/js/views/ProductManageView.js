@@ -27,6 +27,14 @@ export default class ProductManageView {
         }
       }
     });
+
+    SECTION_CONTAINER.addEventListener('keyup', (e) => {
+      const { code, target } = e;
+      if (code === 'Enter' && target.classList.contains('modify-input')) {
+        this.#confirmProductInfo(target.closest('tr'));
+        return;
+      }
+    });
   }
 
   #onSubmitProductInfo = (e) => {
