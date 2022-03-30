@@ -1,5 +1,5 @@
-import { IProduct } from './Interface';
 import Store from './Abstract';
+import { IProduct } from './Interface';
 
 interface IState {
   products: Array<IProduct>;
