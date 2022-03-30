@@ -12,8 +12,8 @@ export interface RechargeViewInterface {
   vendingMachine: VendingMachineInterface;
 
   handleSubmit(event: SubmitEvent): void;
-  renderHoldingMoney(): void;
   renderRecharge(): void;
+  renderHoldingMoney(): void;
   renderCoinTable(): void;
 }
 
@@ -41,11 +41,16 @@ export default class RechargeView implements RechargeViewInterface {
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
   }
 
-  renderCoinTable = () => {
-    this.$coin500.textContent = String(this.vendingMachine.getCoin(500).count);
-    this.$coin100.textContent = String(this.vendingMachine.getCoin(100).count);
-    this.$coin50.textContent = String(this.vendingMachine.getCoin(50).count);
-    this.$coin10.textContent = String(this.vendingMachine.getCoin(10).count);
+  handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+    const moneyToRecharge = +this.$rechargeInput.value;
+
+    try {
+      this.vendingMachine.rechargeMoney(moneyToRecharge);
+      this.renderRecharge();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   renderRecharge = () => {
@@ -60,15 +65,10 @@ export default class RechargeView implements RechargeViewInterface {
     this.$currentHoldingMoney.textContent = String(this.vendingMachine.getHoldingMoney());
   };
 
-  handleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-    const moneyToRecharge = +this.$rechargeInput.value;
-
-    try {
-      this.vendingMachine.rechargeMoney(moneyToRecharge);
-      this.renderRecharge();
-    } catch (error) {
-      alert(error.message);
-    }
+  renderCoinTable = () => {
+    this.$coin500.textContent = String(this.vendingMachine.getCoin(500).count);
+    this.$coin100.textContent = String(this.vendingMachine.getCoin(100).count);
+    this.$coin50.textContent = String(this.vendingMachine.getCoin(50).count);
+    this.$coin10.textContent = String(this.vendingMachine.getCoin(10).count);
   };
 }

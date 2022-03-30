@@ -9,16 +9,17 @@ import { STORAGE_ID, COIN } from '../constants';
 export interface VendingMachineInterface {
   products: ProductType[];
   money: MoneyType[];
-  addProduct(input: ProductType): ProductType;
-  deleteProduct(name: string): void;
-  getProduct(name: string): ProductType;
-  editProduct(name: string, product: ProductType): void;
-  rechargeMoney(money: number): void;
-  getHoldingMoney(): number;
-  generateRandomCoins(money: number): void;
-  getCoin(value: number): MoneyType;
+
   getProductsFromStorage(key: string): ProductType;
   getMoneyFromStorage(key: string): MoneyType[];
+  getCoin(value: number): MoneyType;
+  getHoldingMoney(): number;
+  getProduct(name: string): ProductType;
+  generateRandomCoins(money: number): void;
+  rechargeMoney(money: number): void;
+  addProduct(input: ProductType): ProductType;
+  deleteProduct(name: string): void;
+  editProduct(name: string, product: ProductType): void;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -57,6 +58,10 @@ export default class VendingMachine implements VendingMachineInterface {
     }, 0);
   };
 
+  getProduct = (name: string) => {
+    return this.products.find((product) => product.name === name);
+  };
+
   generateRandomCoins = (money: number) => {
     while (money !== 0) {
       const coinValue = this.money[getRandomNumber(0, 3)].value;
@@ -91,10 +96,6 @@ export default class VendingMachine implements VendingMachineInterface {
     this.products.splice(indexToDelete, 1);
 
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
-  };
-
-  getProduct = (name: string) => {
-    return this.products.find((product) => product.name === name);
   };
 
   editProduct = (targetName: string, product: ProductType) => {

@@ -75,8 +75,6 @@ export default class View {
     }
   };
 
-  isSamePage = (url: string) => url === window.location.pathname + window.location.hash;
-
   tabRouter = (url: string, isPopState = false) => {
     if (!isPopState && this.isSamePage(url)) return;
     if (!isPopState) history.pushState({ url }, null, url);
@@ -95,4 +93,6 @@ export default class View {
     
     routes[url]();
   };
+
+  isSamePage = (url: string) => url === window.location.pathname + window.location.hash;
 }
