@@ -1,0 +1,143 @@
+:root {
+  font-size: 14px;
+  font-family: 'NanumBarunGothic';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 140%;
+}
+
+body {
+  background-color: $color-alabaster;
+}
+
+input[type='number'],
+input[type='text'] {
+  width: 100%;
+  border: 1px solid $color-nobel;
+  padding: 0.5rem;
+  border-radius: 5px;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.button {
+  background: $color-concrete;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.accent {
+    background-color: $brand-color-accent;
+    color: $brand-color-accent-font;
+  }
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  padding: 0 0.5rem;
+
+  > .button {
+    flex-grow: 1;
+  }
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-top: 1px solid $color-alto;
+  margin-bottom: 1.6rem;
+
+  caption {
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 1.2rem;
+  }
+
+  tr {
+    border: none;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 0.7rem 0.5rem;
+    border: none;
+    border-bottom: 1px solid $color-alto;
+  }
+}
+
+#app {
+  background-color: $color-white;
+  width: 42.85rem;
+  margin: 5rem auto;
+  padding: 2.85rem 5.7rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  > h1.title {
+    font-size: 2.4rem;
+    font-weight: bold;
+    margin-bottom: 2.2rem;
+  }
+
+  > .nav {
+    > ul {
+      display: flex;
+      gap: 1rem;
+
+      li {
+        display: block;
+        flex-grow: 1;
+        background-color: $color-concrete;
+        border-radius: 0.4rem;
+        padding: 0.8rem;
+        cursor: pointer;
+
+        &.selected {
+          background-color: $color-robins-egg-blue-20;
+          color: $color-black;
+        }
+
+        &:hover {
+          filter: brightness(0.95);
+        }
+      }
+    }
+  }
+}
+
+.form-section {
+  margin-bottom: 3rem;
+
+  form {
+    > label {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+  }
+}
+
+.table-section {
+}

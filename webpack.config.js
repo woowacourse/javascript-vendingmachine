@@ -1,20 +1,28 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.ts",
+  mode: 'development',
+  entry: './src/index.ts',
   resolve: {
-    extensions: [".js", ".css", ".ts"],
+    extensions: ['.js', '.ts', '.css', '.scss'],
+    alias: {
+      '@Styles': path.resolve(__dirname, 'src/styles'),
+      '@Display': path.resolve(__dirname, 'src/es/display'),
+      '@Store': path.resolve(__dirname, 'src/es/Store'),
+      '@Utils': path.resolve(__dirname, 'src/es/utils'),
+      '@Constants': path.resolve(__dirname, 'src/es/constants'),
+    },
   },
   devServer: {
     port: 9000,
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -23,9 +31,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ['@babel/preset-env'],
             },
           },
         ],
@@ -34,19 +42,21 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_module/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        exclude: /node_modules/,
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
     }),
+    new MiniCssExtractPlugin({ filename: 'css/style.css' }),
   ],
 };

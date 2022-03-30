@@ -3,6 +3,12 @@
     "module": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+		"paths": {
+			"@Store/*": ["./src/es/Store/*"],
+			"@Display/*": ["./src/es/display/*"],
+			"@Utils/*": ["./src/es/utils/*"],
+			"@Constants/*": ["./src/es/constants/*"],
+		}
   }
 }
