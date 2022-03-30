@@ -16,12 +16,14 @@ export default class Router {
       this.tabRouter(event.state.url, true);
     });
     this.view.$navTab.addEventListener('@route-tab', (event: CustomEvent) => {
-      this.tabRouter(event.detail);
+      this.tabRouter(event.detail, false);
     });
   }
 
   private tabRouter = (url: string, isPopState = false) => {
-    if (!isPopState) history.pushState({ url }, null, url);
+    if (!isPopState && url !== location.pathname + location.hash) {
+      history.pushState({ url }, null, url);
+    }
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
         this.view.renderTabs(PATH_ID.PRODUCT_MANAGE);
