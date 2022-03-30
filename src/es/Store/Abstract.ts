@@ -7,7 +7,7 @@ type IRenderMethod = (renderContent: IRenderContent) => void;
 
 export default abstract class Store {
   protected abstract state: IState;
-  private subscribers: IRenderMethod[];
+  private subscribers: IRenderMethod[] = [];
 
   public addSubscriber(subscriber: IRenderMethod): void {
     this.subscribers.push(subscriber);
