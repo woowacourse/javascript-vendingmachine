@@ -86,6 +86,7 @@ export const NOTICE_MENTION: TMention = {
   RECHARGE_CHANGE: '잔돈이 충전되었습니다💰',
   INPUT_CHARGE: '금액이 투입되었습니다💸',
   PURCHASE_PRODUCT: '상품이 구입되었습니다💳',
+  RETURN_CHARGE: '잔돈이 반환되었습니다🔁',
 };
 
 export const SNACKBAR_DELAY_TIME = 1000;

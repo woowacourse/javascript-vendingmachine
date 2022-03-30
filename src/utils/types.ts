@@ -7,4 +7,5 @@ export type TMention = {
   RECHARGE_CHANGE: string;
   INPUT_CHARGE: string;
   PURCHASE_PRODUCT: string;
+  RETURN_CHARGE: string;
 };

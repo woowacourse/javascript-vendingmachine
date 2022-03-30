@@ -1,5 +1,6 @@
 import vendingMachineStore from '../../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { ACTION_TYPES, NOTICE_MENTION, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { showSnackBar } from '../../utils/showSnackBar';
 
 class CoinTableComponent {
   constructor($parent, { tableId, tableCaption }) {
@@ -115,6 +116,7 @@ class CoinTableComponent {
       payload: '',
       stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
     });
+    showSnackBar(NOTICE_MENTION.RETURN_CHARGE);
   }
 }
 
