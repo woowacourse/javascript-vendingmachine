@@ -77,7 +77,7 @@ export default class View {
 
   tabRouter = (tabKey: string, isPopState = false) => {
     if (!isPopState && this.isSamePage(tabKey)) return;
-    if (!isPopState) history.pushState({ tabKey }, null, tabKey);
+    if (!isPopState) history.pushState({ url: tabKey }, null, tabKey);
     
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
