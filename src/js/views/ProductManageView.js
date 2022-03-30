@@ -48,6 +48,7 @@ export default class ProductManageView {
       quantity: selectedProduct.children[2].textContent,
     };
     replaceElement(selectedProduct, tableInputTemplate(product));
+    selectedProduct.children[0].firstChild.focus();
   }
 
   #confirmProductInfo(selectedProduct) {
@@ -91,5 +92,6 @@ export default class ProductManageView {
     this.$productNameInput.value = '';
     this.$productPriceInput.value = '';
     this.$productQuantityInput.value = '';
+    this.$productNameInput.focus();
   }
 }
