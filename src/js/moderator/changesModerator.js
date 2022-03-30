@@ -11,12 +11,10 @@ class ChangesModerator {
   }
 
   init = () => {
-    this.changePageView.renderInput();
+    this.changePageView.init();
     const changes = this.changeProcessMachine.getTotalChanges();
     const coinStatus = this.changeProcessMachine.getCoins();
-    this.changePageView.renderChangesTable();
-    this.changePageView.initDOM();
-    this.changePageView.renderHaveChanges(changes);
+    this.changePageView.renderCurrentChanges(changes);
     this.changePageView.renderChangeStatus(coinStatus);
   };
 
@@ -26,7 +24,7 @@ class ChangesModerator {
       const changes = this.changeProcessMachine.getTotalChanges();
       const coinStatus = this.changeProcessMachine.getCoins();
 
-      this.changePageView.renderHaveChanges(changes);
+      this.changePageView.renderCurrentChanges(changes);
       this.changePageView.renderChangeStatus(coinStatus);
     } catch (err) {
       alert(err.message);

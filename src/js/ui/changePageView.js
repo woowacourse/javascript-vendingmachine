@@ -1,50 +1,55 @@
 import changesTemplate from "../template/changes.template";
-import { $ } from "../util/dom";
+import { $, createElement } from "../util/dom";
 import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
-  constructor() {
+  init = () => {
     this.$page = $("#page");
+    this.$page.replaceChildren();
+    this.$formContainer = createElement(
+      "form",
+      {
+        id: "changes-form",
+        class: "form",
+      },
+      changesTemplate.input()
+    );
+    this.$changesStatusContainer = createElement(
+      "section",
+      {
+        id: "changes-status",
+      },
+      changesTemplate.changesTable()
+    );
+    this.$currentChangesContainer = createElement("p", {
+      id: "current-changes",
+    });
+    this.$page.appendChild(this.$formContainer);
+    this.$page.appendChild(this.$currentChangesContainer);
+    this.$page.appendChild(this.$changesStatusContainer);
+    this.$changesInput = $("#changes-input");
+    this.$changesList = $("#changes-list", this.$changesStatusContainer);
     this.bindEvent();
-  }
-
-  bindEvent = () => {
-    on(this.$page, "submit", this.changesSubmitHandler);
   };
 
-  renderInput() {
-    this.$page.replaceChildren();
-    this.$page.insertAdjacentHTML("beforeend", changesTemplate.input());
-  }
+  bindEvent = () => {
+    on(this.$formContainer, "submit", this.changesSubmitHandler);
+  };
 
   changesSubmitHandler = (e) => {
-    if (e.target.id !== "changes-form") return;
-
     e.preventDefault();
-
     emit(EVENT_TYPE.CHARGE, { money: this.$changesInput.valueAsNumber });
     this.$changesInput.value = "";
   };
 
-  initDOM = () => {
-    this.$changesForm = $("#changes-form");
-    this.$changesInput = $("#changes-input");
-    this.$haveChanges = $("#have-changes");
-    this.$changesTableBody = $("#changes-table-body");
-  };
-
-  renderHaveChanges = (changes) => {
-    this.$haveChanges.innerText = `현재 보유 금액: ${changes}`;
-  };
-
-  renderChangesTable = () => {
-    this.$page.insertAdjacentHTML("beforeend", changesTemplate.changesTable());
+  renderCurrentChanges = (changes) => {
+    this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;
   };
 
   renderChangeStatus = (coinStatus) => {
-    this.$changesTableBody.replaceChildren();
-    this.$changesTableBody.insertAdjacentHTML(
+    this.$changesList.replaceChildren();
+    this.$changesList.insertAdjacentHTML(
       "beforeend",
       changesTemplate.changeStatus(coinStatus)
     );

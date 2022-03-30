@@ -13,27 +13,24 @@ class ProductModerator {
   }
 
   init = () => {
-    this.productPageView.renderInputForm();
-    this.productPageView.initDOMS();
+    this.productPageView.init();
     const products = this.productProcessMachine.getProducts();
-    this.productPageView.renderProductStatus(products);
+    this.productPageView.initProductsStatus(products);
   };
 
   addProduct = ({ name, price, count }) => {
     try {
-      this.productProcessMachine.add({ name, price, count });
-      const products = this.productProcessMachine.getProducts();
-      this.productPageView.renderProductStatus(products);
+      const product = this.productProcessMachine.add({ name, price, count });
+      this.productPageView.renderNewProduct(product);
     } catch (err) {
       alert(err.message);
     }
   };
 
-  updateProduct = ({ idx, name, price, count }) => {
+  updateProduct = ({ id, name, price, count }) => {
     try {
-      this.productProcessMachine.update(idx, name, price, count);
-      const products = this.productProcessMachine.getProducts();
-      this.productPageView.renderProductStatus(products);
+      const product = this.productProcessMachine.update(id, name, price, count);
+      this.productPageView.renderUpdatedProduct(id, product);
     } catch (err) {
       alert(err.message);
     }
@@ -45,8 +42,7 @@ class ProductModerator {
     }
 
     this.productProcessMachine.delete(id);
-    const products = this.productProcessMachine.getProducts();
-    this.productPageView.renderProductStatus(products);
+    this.productPageView.renderDeleteProduct(id);
   };
 }
 
