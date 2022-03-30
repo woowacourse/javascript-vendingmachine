@@ -1,5 +1,5 @@
 import { $, $$ } from '../utils';
-import { PATH_ID, STORAGE_ID, FLAG, DOMAIN_LENGH } from '../constants';
+import { PATH_ID, STORAGE_ID, FLAG } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
 import RechargeView, { RechargeViewInterface } from './RechargeView';
@@ -75,7 +75,7 @@ export default class View {
     }
   };
 
-  isSamePage = (url: string) => url.substring(DOMAIN_LENGH) === window.location.hash;
+  isSamePage = (url: string) => url === window.location.pathname + window.location.hash;
 
   tabRouter = (url: string, isPopState = false) => {
     if (!isPopState && this.isSamePage(url)) return;
