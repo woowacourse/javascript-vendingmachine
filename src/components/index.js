@@ -1,4 +1,4 @@
-import router from '../lib/router';
+import router from '../router';
 import { TAB_NAME } from '../utils/constants';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
@@ -24,9 +24,9 @@ class VendingMachineComponent {
   initDOM() {
     this.$tabNav = this.$app.querySelector('#tab-nav');
     this.tabButtonMap = {
-      manageProduct: this.$app.querySelector('#manage-product-tab'),
-      rechargeChange: this.$app.querySelector('#recharge-change-tab'),
-      purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
+      [TAB_NAME.MANAGE]: this.$app.querySelector('#manage-product-tab'),
+      [TAB_NAME.RECHARGE]: this.$app.querySelector('#recharge-change-tab'),
+      [TAB_NAME.PURCHASE]: this.$app.querySelector('#purchase-product-tab'),
     };
   }
 
@@ -42,15 +42,15 @@ class VendingMachineComponent {
     } = e;
 
     /** history가 중복해서 쌓이지 않게 관리 */
-    if (id === 'manage-product-tab' && this.#currentSectionName !== 'manage') {
+    if (id === 'manage-product-tab' && this.#currentSectionName !== TAB_NAME.MANAGE) {
       router.pushState({ path: TAB_NAME.MANAGE }, 'home');
       this.showSection(TAB_NAME.MANAGE);
     }
-    if (id === 'recharge-change-tab' && this.#currentSectionName !== 'recharge') {
+    if (id === 'recharge-change-tab' && this.#currentSectionName !== TAB_NAME.RECHARGE) {
       router.pushState({ path: TAB_NAME.RECHARGE }, 'recharge');
       this.showSection(TAB_NAME.RECHARGE);
     }
-    if (id === 'purchase-product-tab' && this.#currentSectionName !== 'purchase') {
+    if (id === 'purchase-product-tab' && this.#currentSectionName !== TAB_NAME.PURCHASE) {
       router.pushState({ path: TAB_NAME.PURCHASE }, 'purchase');
       this.showSection(TAB_NAME.PURCHASE);
     }
@@ -64,22 +64,20 @@ class VendingMachineComponent {
       this.#PurchaseProductComponent.hide();
 
       this.#ProductManagementComponent.show();
-      this.focusTabButton('manageProduct');
     }
     if (name === TAB_NAME.RECHARGE) {
       this.#PurchaseProductComponent.hide();
       this.#ProductManagementComponent.hide();
 
       this.#RechargeChangeComponent.show();
-      this.focusTabButton('rechargeChange');
     }
     if (name === TAB_NAME.PURCHASE) {
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
       this.#PurchaseProductComponent.show();
-      this.focusTabButton('purchaseProduct');
     }
+    this.focusTabButton(name);
   }
 
   focusTabButton(buttonName) {

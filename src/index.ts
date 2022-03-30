@@ -2,7 +2,6 @@ import '../images/empty-img.png';
 import '../src/styles/index.css';
 import '../src/components/index';
 import VendingMachineComponent from '../src/components/index';
-import router from './lib/router';
 import { TAB_NAME } from './utils/constants';
 
 const vendingMachineComponent = new VendingMachineComponent();
