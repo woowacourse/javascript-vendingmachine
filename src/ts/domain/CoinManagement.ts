@@ -30,7 +30,7 @@ export default class CoinManagementDomain {
     this.addCoins(cash);
   }
 
-  addCoins(cash: number) {
+  private addCoins(cash: number) {
     while (cash > 0) {
       const randomIndex = getRandomIndex<CoinUnionType>(coinType);
       const type = coinType[randomIndex];
