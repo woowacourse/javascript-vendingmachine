@@ -17,7 +17,7 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_TOTAL_CHANGE: '최대 보유 금액은 100,000원을 초과할 수 없습니다.',
 };
 
-export const CONFIRM_MESSAGE = '정말 삭제하시겠습니까?';
+export const CONFIRM_MESSAGE = '상품을 정말 삭제하시겠습니까?';
 
 export const PRODUCT_RULES = {
   MAX_NAME_LENGTH: 10,
