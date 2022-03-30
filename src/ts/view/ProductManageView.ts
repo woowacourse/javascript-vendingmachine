@@ -69,7 +69,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     newTr.dataset.name = name;
     newTr.insertAdjacentHTML('beforeend', editTemplate);
 
-    const targetEdit = $(`tr[data-name=${name}]`);
+    const targetEdit = $(`tr[data-name="${name}"]`);
     this.$currentProductTable.replaceChild(newTr, targetEdit);
 
     $('.edit-confirm-button').addEventListener('click', () => this.handleConfirmEdit(name));
@@ -89,7 +89,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   };
 
   handleConfirmEdit = (targetName: string) => {
-    const targetEdit = $(`tr[data-name=${targetName}]`);
+    const targetEdit = $(`tr[data-name="${targetName}"]`);
     const productToEdit = {
       name: (<HTMLInputElement>$('#edit-name-input')).value,
       price: +(<HTMLInputElement>$('#edit-price-input')).value,
@@ -113,7 +113,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   };
 
   removeProductRow(name: string) {
-    const targetDelete = $(`tr[data-name=${name}]`);
+    const targetDelete = $(`tr[data-name="${name}"]`);
     this.$currentProductTable.removeChild(targetDelete);
   }
 
