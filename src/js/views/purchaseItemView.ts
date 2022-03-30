@@ -5,7 +5,7 @@ import { CoinsType, ItemType } from '../types/types';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class PurchaseItemView {
-  $content: HTMLDivElement;
+  private $content: HTMLDivElement;
 
   constructor(private readonly vendingMachine: VendingMachine) {
     this.$content = $(SELECTOR.ID.CONTENT);

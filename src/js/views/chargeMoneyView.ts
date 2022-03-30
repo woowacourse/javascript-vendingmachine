@@ -5,7 +5,7 @@ import { SELECTOR } from '../constants/viewConstants';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ChargeMoneyView {
-  $content: HTMLDivElement;
+  private $content: HTMLDivElement;
 
   constructor(private readonly vendingMachine: VendingMachine) {
     this.$content = $(SELECTOR.ID.CONTENT);
@@ -16,17 +16,10 @@ export default class ChargeMoneyView {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, money));
 
-    this.bindEvents();
+    $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
   }
 
-  bindEvents() {
-    $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener(
-      'submit',
-      this.handleSubmitChargeMoney.bind(this)
-    );
-  }
-
-  handleSubmitChargeMoney(event: Event) {
+  private handleSubmitEvent(event: Event) {
     try {
       event.preventDefault();
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
@@ -41,15 +34,15 @@ export default class ChargeMoneyView {
     }
   }
 
-  clearInput() {
+  private clearInput() {
     $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).value = '';
   }
 
-  repaintCurrentMoney(money: number) {
+  private repaintCurrentMoney(money: number) {
     $(SELECTOR.ID.CURRENT_MONEY).textContent = money;
   }
 
-  repaintCoinsTable(coins: CoinsType) {
+  private repaintCoinsTable(coins: CoinsType) {
     $(SELECTOR.CLASS.COIN_TABLE).replaceChildren();
     $(SELECTOR.CLASS.COIN_TABLE).insertAdjacentHTML(
       'beforeend',

@@ -7,7 +7,7 @@ import { ItemType } from '../types/types';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
-  $content: HTMLDivElement;
+  private $content: HTMLDivElement;
 
   constructor(private readonly vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
@@ -21,24 +21,6 @@ export default class ManageItemView {
 
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
     $(SELECTOR.CLASS.ITEM_TABLE).addEventListener('click', this.handleTableClickEvent.bind(this));
-  }
-
-  appendItemTableRow(item: ItemType) {
-    $(SELECTOR.CLASS.ITEM_TABLE_BODY).insertAdjacentHTML(
-      'beforeend',
-      sectionTemplate.normalTableRow(item)
-    );
-  }
-
-  repaintItemTableRow($targetTableRow, item: ItemType) {
-    $targetTableRow.replaceChildren();
-    $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableRow(item));
-  }
-
-  clearInput() {
-    $(SELECTOR.ID.ADD_ITEM_NAME).value = '';
-    $(SELECTOR.ID.ADD_ITEM_PRICE).value = '';
-    $(SELECTOR.ID.ADD_ITEM_QUANTITY).value = '';
   }
 
   private handleSubmitEvent(event) {
@@ -126,5 +108,23 @@ export default class ManageItemView {
     )[0].valueAsNumber;
 
     return { name, price, quantity };
+  }
+
+  private appendItemTableRow(item: ItemType) {
+    $(SELECTOR.CLASS.ITEM_TABLE_BODY).insertAdjacentHTML(
+      'beforeend',
+      sectionTemplate.normalTableRow(item)
+    );
+  }
+
+  private repaintItemTableRow($targetTableRow, item: ItemType) {
+    $targetTableRow.replaceChildren();
+    $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.normalTableRow(item));
+  }
+
+  private clearInput() {
+    $(SELECTOR.ID.ADD_ITEM_NAME).value = '';
+    $(SELECTOR.ID.ADD_ITEM_PRICE).value = '';
+    $(SELECTOR.ID.ADD_ITEM_QUANTITY).value = '';
   }
 }
