@@ -1,0 +1,21 @@
+.change-charge-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 372px;
+}
+
+.charge-amount-input {
+  width: 292px;
+  height: 28px;
+}
+
+.add-charge-button {
+  width: 56px;
+  height: 36px;
+  align-self: flex-end;
+}
+
+.current-money-indicator {
+  margin-top: 16px;
+}

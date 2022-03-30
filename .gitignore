@@ -1,2 +1,11 @@
 # Dependency directories
 node_modules/
+
+# mac os metadata
+.DS_Store
+
+# vscode metadata
+.vscode
+
+# git commit message template
+.gitmessage
