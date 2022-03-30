@@ -2,13 +2,7 @@ import Product from './Product';
 import { validateProductInfo } from './validator';
 import { ProductInfo } from './types';
 
-interface ProductManagementProps {
-  addProduct: (newProduct: ProductInfo) => void;
-  deleteProduct: (productName: string) => void;
-  editProduct: (prevProductName: string, newProduct: ProductInfo) => void;
-}
-
-export default class ProductManagementDomain implements ProductManagementProps {
+export default class ProductManagementDomain {
   #products: Product[];
 
   constructor() {

@@ -5,12 +5,7 @@ import { validateCash } from './validator';
 type CoinUnionType = typeof coinType[number];
 type Coins = { [K in CoinUnionType]: number } | {};
 
-interface CoinManagementProps {
-  addCash: (cash: number) => void;
-  addCoins: (cash: number) => void;
-}
-
-export default class CoinManagementDomain implements CoinManagementProps {
+export default class CoinManagementDomain {
   #totalCash: number;
   #coins: Coins;
 
