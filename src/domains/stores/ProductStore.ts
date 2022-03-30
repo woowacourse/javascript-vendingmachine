@@ -2,16 +2,6 @@ import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/ty
 import { PRODUCT_ACTION } from '../actions';
 
 class ProductStore {
-  static _instance: null | object = null;
-
-  static get instance() {
-    if (!ProductStore._instance) {
-      ProductStore._instance = new ProductStore();
-    }
-
-    return ProductStore._instance;
-  }
-
   #products: Product[] = [];
 
   #subscribers: CustomElement[] = [];
@@ -69,4 +59,5 @@ class ProductStore {
   }
 }
 
-export default ProductStore;
+const ProductStoreInstance = new ProductStore();
+export default ProductStoreInstance;

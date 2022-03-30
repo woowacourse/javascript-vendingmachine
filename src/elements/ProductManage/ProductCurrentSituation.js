@@ -1,4 +1,4 @@
-import ProductStore from '../../domains/stores/ProductStore';
+import ProductStoreInstance from '../../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
@@ -9,7 +9,7 @@ import { CONFIRM_MESSAGE } from '../../constants';
 class ProductCurrentSituation extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    ProductStore.instance.subscribe(this);
+    ProductStoreInstance.subscribe(this);
   }
 
   template() {
@@ -167,13 +167,13 @@ class ProductCurrentSituation extends CustomElement {
 
     checkProductValidation(newProductInfo);
 
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
+    ProductStoreInstance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }
 
   handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
+    ProductStoreInstance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
   };
 }
 

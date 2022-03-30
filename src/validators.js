@@ -1,4 +1,4 @@
-import ProductStore from './domains/stores/ProductStore';
+import ProductStoreInstance from './domains/stores/ProductStore';
 import CoinStoreInstance from './domains/stores/CoinStore';
 import { ERROR_MESSAGE, MONEY, PRODUCT } from './constants';
 
@@ -11,7 +11,7 @@ const cannotDividedByTen = (number) => number % 10;
 const isOverMaxProductNameLength = (name) => name.length > PRODUCT.NAME.MAX_LENGTH;
 
 const isAlreadyExistProduct = (name) => {
-  const products = ProductStore.instance.products ?? [];
+  const products = ProductStoreInstance.products ?? [];
   const existProductNames = products.map((product) => product.name);
 
   return existProductNames.includes(name);
