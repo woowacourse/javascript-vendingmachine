@@ -18,14 +18,14 @@ const RandomStrategy: distributeStrategy = {
     ];
     let moneyLeft = inputMoney;
 
-    return coinStatusList.map((coin) => {
-      const coinObj = { ...coin };
-      if (coinObj.name === 'TEN_WON') {
-        coinObj.count = moneyLeft / coinObj.value;
+    return coinStatusList.map(({ name, count, value }) => {
+      const coinObj = { name, count, value };
+      if (name === 'TEN_WON') {
+        coinObj.count = moneyLeft / value;
         return coinObj;
       }
-      const randomCount = getRandomCoin(moneyLeft, coinObj.value);
-      moneyLeft -= coinObj.value * randomCount;
+      const randomCount = getRandomCoin(moneyLeft, value);
+      moneyLeft -= value * randomCount;
       coinObj.count = randomCount;
       return coinObj;
     });
