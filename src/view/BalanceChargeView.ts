@@ -14,13 +14,19 @@ export class BalanceChargeView {
     this.coinVault = new CoinVault();
     this.contentsContainer = document.querySelector('#contents-container');
 
-    this.props = {
+    const props = {
       target: this.contentsContainer,
       coinVault: this.coinVault,
     };
-    this.balanceChargeInput = new BalanceChargeInput(this.props);
-    this.coinVaultTable = new CoinVaultTable(this.props);
+    this.balanceChargeInput = new BalanceChargeInput(props);
+    this.coinVaultTable = new CoinVaultTable(props);
+    props.target.addEventListener('balanceChargeTabClick', this.showBalanceChargeTab);
   }
+
+  showBalanceChargeTab = () => {
+    this.eraseAll();
+    this.renderAll();
+  };
 
   eraseAll() {
     this.contentsContainer.textContent = ``;

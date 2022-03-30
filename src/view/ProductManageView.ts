@@ -13,13 +13,20 @@ export class ProductManageView {
     this.productCatalog = new ProductCatalog();
     this.contentsContainer = document.querySelector('#contents-container');
 
-    this.props = {
+    const props = {
       target: this.contentsContainer,
       productCatalog: this.productCatalog,
     };
-    this.productInformationInput = new ProductInformationInput(this.props);
-    this.productCatalogTable = new ProductCatalogTable(this.props);
+    this.productInformationInput = new ProductInformationInput(props);
+    this.productCatalogTable = new ProductCatalogTable(props);
+
+    props.target.addEventListener('productManageTabClick', this.showProductManageTab);
   }
+
+  showProductManageTab = () => {
+    this.eraseAll();
+    this.renderAll();
+  };
 
   eraseAll() {
     this.contentsContainer.textContent = '';

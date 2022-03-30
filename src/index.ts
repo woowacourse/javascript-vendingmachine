@@ -1,7 +1,7 @@
 import './css/app.css';
 
-import { NavView } from './view/NavView';
+import { HomeView } from './view/HomeView';
 
 window.addEventListener('DOMContentLoaded', () => {
-  new NavView();
+  new HomeView();
 });

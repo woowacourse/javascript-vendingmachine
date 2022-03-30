@@ -1,12 +1,15 @@
 import { ProductManageView } from './ProductManageView';
 import { BalanceChargeView } from './BalanceChargeView';
+import { pushHistoryPath, Router } from '../utils/router';
 
-export class NavView {
+export class HomeView {
   productManageNavBtn: HTMLButtonElement;
   balanceChargeNavBtn: HTMLButtonElement;
   productPurchaseNavBtn: HTMLButtonElement;
   productManageView: ProductManageView;
   balanceChargeView: BalanceChargeView;
+  target: HTMLDivElement;
+  router: Router;
 
   constructor() {
     this.productManageView = new ProductManageView();
@@ -19,6 +22,8 @@ export class NavView {
     this.productManageNavBtn.addEventListener('click', this.handleShowProductManageTab);
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
 
+    this.target = document.querySelector('#contents-container');
+
     this.renderHome();
     window.addEventListener('popstate', (savedData) => {
       this.handlePopstate(savedData);
@@ -26,39 +31,37 @@ export class NavView {
   }
 
   handlePopstate = (savedData) => {
-    if (savedData.state.path === '/') {
+    if (savedData.state.path === '/javascript-vendingmachine') {
       this.renderHome();
     }
-    if (savedData.state.path === '/productManage') {
+    if (savedData.state.path === '/javascript-vendingmachine/productManage') {
       this.productManageView.eraseAll();
       this.productManageView.renderAll();
     }
-    if (savedData.state.path === '/balanceCharge') {
+    if (savedData.state.path === '/javascript-vendingmachine/balanceCharge') {
       this.balanceChargeView.eraseAll();
       this.balanceChargeView.renderAll();
     }
   };
 
   handleShowProductManageTab = () => {
-    this.productManageView.eraseAll();
-    this.productManageView.renderAll();
+    this.target.dispatchEvent(new CustomEvent('productManageTabClick'));
 
-    const path = '/productManage';
-    history.pushState({ path }, null, path);
+    const path = '/javascript-vendingmachine/productManage';
+    pushHistoryPath(path);
   };
 
   handleShowBalanceChargeTab = () => {
-    this.balanceChargeView.eraseAll();
-    this.balanceChargeView.renderAll();
+    this.target.dispatchEvent(new CustomEvent('balanceChargeTabClick'));
 
-    const path = '/balanceCharge';
-    history.pushState({ path }, null, path);
+    const path = '/javascript-vendingmachine/balanceCharge';
+    pushHistoryPath(path);
   };
 
   contentsContainer: HTMLDivElement;
   renderHome() {
-    const path = '/';
-    history.pushState({ path }, null, path);
+    const path = '/javascript-vendingmachine';
+    pushHistoryPath(path);
     this.contentsContainer = document.querySelector('#contents-container');
     this.contentsContainer.textContent = '';
   }
