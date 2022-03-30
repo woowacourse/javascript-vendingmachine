@@ -95,7 +95,7 @@ export default class ProductStateComponent {
       checkValidProductQuantity($editProductQuantityInput.valueAsNumber);
 
       const editedProduct: product = {
-        name: $editProductNameInput.value,
+        name: $editProductNameInput.value.trim(),
         price: $editProductPriceInput.valueAsNumber,
         quantity: $editProductQuantityInput.valueAsNumber,
       };

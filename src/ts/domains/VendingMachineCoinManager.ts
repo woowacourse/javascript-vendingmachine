@@ -26,5 +26,3 @@ export default class VendingMachineCoinManager implements CoinManager {
     });
   }
 }
-
-export const coinManager = new VendingMachineCoinManager();
