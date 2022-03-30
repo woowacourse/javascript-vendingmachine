@@ -1,3 +1,5 @@
+import { productProps } from "../../utils/interface";
+
 const productTemplate = () => {
   return `
     <section id="product-control-section">
@@ -26,11 +28,11 @@ const productTemplate = () => {
     </section>`;
 };
 
-const addProductTemplate = (
-  productName: string,
-  productPrice: number,
-  productQuantity: number
-) => {
+const addProductTemplate = ({
+  productName,
+  productPrice,
+  productQuantity
+}: productProps) => {
   return `
     <tr>
       <td class="product-name">${productName}</td>
@@ -43,13 +45,13 @@ const addProductTemplate = (
     </tr>`;
 };
 
-const editProductTemplate = (
-  productName: string,
-  productPrice: number,
-  productQuantity: number
-) => {
+const editProductTemplate = ({
+  productName,
+  productPrice,
+  productQuantity
+}: productProps) => {
   return `
-    <td class="product-name"><input class="product-edit-input" value='${productName}' /></td>
+    <td class="product-name" data-name="${productName}" ><input class="product-edit-input" value="${productName}" /></td>
     <td><input class="product-edit-input" value='${productPrice}' /></td>
     <td><input class="product-edit-input" value='${productQuantity}' /></td>
     <td><button type="button" class="product-confirm-button">확인</button></td>

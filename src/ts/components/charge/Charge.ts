@@ -1,36 +1,32 @@
 import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
+import { CoinType } from "../../utils/interface";
 import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
-
-interface CoinType {
-  10: number;
-  50: number;
-  100: number;
-  500: number;
-}
-
+import ChargeView from "./ChargeView";
 class Charge {
+  chargeView: ChargeView;
   vendingmachineFunctionWrap: HTMLElement;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
-  coinKindCount: CoinType;
+  coinsKindCount: CoinType;
   totalCharge: number;
 
   constructor() {
+    this.chargeView = new ChargeView();
     this.vendingmachineFunctionWrap = selectDom(".main");
-    this.coinKindCount = { 10: 0, 50: 0, 100: 0, 500: 0 };
-    this.totalCharge = 0;
+    this.coinsKindCount = this.getCoinList();
+    this.totalCharge = this.getTotalCharge();
   }
 
   bindChargeDom() {
     this.chargeForm = selectDom("#charge-control-form");
     this.chargeInput = selectDom(".charge-control-input");
     this.currentContainCharge = selectDom("#current-contain-charge");
-    addEvent(this.chargeForm, "submit", this.handleAddCharge);
+    addEvent(this.chargeForm, "submit", this.handleInputAmount);
   }
 
-  handleAddCharge = (e: Event) => {
+  handleInputAmount = (e: Event) => {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
     try {
@@ -51,11 +47,13 @@ class Charge {
       if (totalAmount > charge) {
         totalAmount -= randomCoin;
       } else if (totalAmount <= charge) {
-        this.coinKindCount[randomCoin]++;
+        this.coinsKindCount[randomCoin]++;
       }
     }
 
-    this.showRandomChargeResult(Object.values(this.coinKindCount).reverse());
+    this.chargeView.showRandomChargeResult(this.coinsKindCount, this.totalCharge);
+    this.setCoinList();
+    this.setTotalCharge();
   }
 
   pickNumberInList(): number {
@@ -64,19 +62,25 @@ class Charge {
     return coinList[randomNumber];
   }
 
-  showRandomChargeResult(chargeResult: number[]) {
-    const chargeCoinCount = selectDomAll(".charge-coin-count");
-    this.currentContainCharge.textContent = `${this.totalCharge}`;
-    Array.from(
-      chargeCoinCount,
-      (coinCount: HTMLTableElement, index: number) =>
-        (coinCount.innerText = `${chargeResult[index]}개`)
-    );
+  setCoinList() {
+    localStorage.setItem("COIN_LIST", JSON.stringify(this.coinsKindCount));
+  }
+
+  getCoinList() {
+    return JSON.parse(localStorage.getItem("COIN_LIST")) || { 10: 0, 50: 0, 100: 0, 500: 0 };
+  }
+
+  setTotalCharge() {
+    localStorage.setItem("TOTAL_CHARGE", JSON.stringify(this.totalCharge));
+  }
+
+  getTotalCharge() {
+    return JSON.parse(localStorage.getItem("TOTAL_CHARGE")) || 0;
   }
 
   render() {
-    this.vendingmachineFunctionWrap.replaceChildren();
-    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", chargeTemplate());
+    this.chargeView.renderChargeView();
+    this.chargeView.showRandomChargeResult(this.coinsKindCount, this.totalCharge);
     this.bindChargeDom();
   }
 }

@@ -1,7 +1,8 @@
-const selectDom = (selector: string, element: HTMLElement | Document = document) =>
-  element.querySelector(selector) as HTMLElement;
+const selectDom = (selector: string, element: HTMLElement | Document = document): HTMLElement | null => {
+  return element.querySelector(selector);
+}
 
-const selectDomAll = (selector: string, element: HTMLElement | Document = document): HTMLElement[] => {
+const selectDomAll = (selector: string, element: HTMLElement | Document = document): HTMLElement[] | null[]  => {
   return Array.from(element.querySelectorAll(selector));
 }
 

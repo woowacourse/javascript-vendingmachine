@@ -7,11 +7,12 @@ import Product from "./product/Product";
 class Vendingmachine {
   vendingmachineWrap: HTMLElement;
   menuTab: MenuTab;
-  charge: Charge;
   product: Product;
+  charge: Charge;
 
   constructor() {
     this.vendingmachineWrap = selectDom("#app");
+    console.log(this.vendingmachineWrap);
     this.vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
       `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
@@ -23,9 +24,9 @@ class Vendingmachine {
   }
 
   mountComponent() {
-    this.menuTab = new MenuTab({ convertTemplate: this.convertTemplate });
-    this.charge = new Charge();
+    this.menuTab = new MenuTab(this.convertTemplate);
     this.product = new Product();
+    this.charge = new Charge();
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
@@ -48,8 +49,8 @@ class Vendingmachine {
 
   convertTemplate = (path: string) => {
     const routes = {
-      "#charge": () => this.charge.render(),
       "#product": () => this.product.render(),
+      "#charge": () => this.charge.render(),
       "#purchase": () => "",
     };
 

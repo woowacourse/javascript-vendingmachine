@@ -1,23 +1,20 @@
 import { PRODUCT, CHARGE } from "./constants";
 
-const verifyProductInfo = (
-  productName: string | null,
-  productPrice: number | null,
-  productQuantity: number | null,
-  productNameList: string[] | null
-) => {
-  if (productNameList.includes(productName)) {
-    throw new Error("중복된 상품명은 등록할 수 없습니다.");
-  }
-
-  if (productName.trim() === "" || typeof productPrice !== "number") {
-    throw new Error("값을 모두 입력해주세요.");
+const validateProductName = (productName: string | null) => {
+  if (productName.trim() === "") {
+    throw new Error("상품명을 입력해주세요.");
   }
 
   if (productName.length > PRODUCT.MAX_LENGTH) {
     throw new Error(
       `상품명은 최대 ${PRODUCT.MAX_LENGTH}글자까지 입력 가능합니다.`
     );
+  }
+};
+
+const validateProductPrice = (productPrice: number | null) => {
+  if (typeof productPrice !== "number") {
+    throw new Error("값을 모두 입력해주세요.");
   }
 
   if (productPrice < PRODUCT.MIN_PRICE || productPrice > PRODUCT.MAX_PRICE) {
@@ -29,7 +26,9 @@ const verifyProductInfo = (
   if (productPrice % PRODUCT.UNIT !== 0) {
     throw new Error(`상품 가격은 ${PRODUCT.UNIT}원으로 나누어 떨어져야합니다.`);
   }
+};
 
+const valudateProductQuantity = (productQuantity: number | null) => {
   if (
     productQuantity > PRODUCT.MAX_QUANTITY ||
     productQuantity < PRODUCT.MIN_QUANTITY
@@ -41,6 +40,12 @@ const verifyProductInfo = (
 
   if (productQuantity - Math.floor(productQuantity)) {
     throw new Error("제품의 수량은 소수점으로 입력할 수 없습니다.");
+  }
+};
+
+const validateSameProductName = (productName: string, productNameList: string[]) => {
+  if (productNameList.includes(productName)) {
+    throw new Error("같은 이름의 제품은 등록할 수 없습니다.");
   }
 };
 
@@ -62,4 +67,10 @@ const verifyCharge = (charge: number | null) => {
   }
 };
 
-export { verifyProductInfo, verifyCharge };
+export { 
+  validateProductName,
+  validateProductPrice,
+  valudateProductQuantity,
+  validateSameProductName,
+  verifyCharge
+};

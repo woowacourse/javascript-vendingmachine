@@ -1,12 +1,10 @@
 import { selectDom, selectDomAll, addEvent,  } from "../../utils/dom";
 
 type ConvertTemplate = (path: string) => void;
-
 class MenuTab {
-  convertTemplate: ConvertTemplate;
   vendingmachineWrap: HTMLElement;
 
-  constructor({ convertTemplate }) {
+  constructor(readonly convertTemplate: ConvertTemplate) {
     this.convertTemplate = convertTemplate;
     this.vendingmachineWrap = selectDom("#app");
     addEvent(this.vendingmachineWrap, "click", this.handleMenuTab);
@@ -16,13 +14,20 @@ class MenuTab {
     if (!e.target.classList.contains("nav__button")) {
       return;
     }
-    
+
     const navList = selectDomAll(".nav__button");
 
-    navList.forEach((button: HTMLButtonElement) =>
-      button.dataset.menu === e.target.dataset.menu
-        ? button.classList.add("button-click")
-        : button.classList.remove("button-click")
+    if (
+      e.target.dataset.menu ===
+        navList.find((navButton) => navButton.classList.contains("button-click")).dataset.menu
+      ) {
+      return;
+    }
+
+    navList.forEach((navButton: HTMLButtonElement) =>
+      navButton.dataset.menu === e.target.dataset.menu
+        ? navButton.classList.add("button-click")
+        : navButton.classList.remove("button-click")
     );
 
     history.pushState(
