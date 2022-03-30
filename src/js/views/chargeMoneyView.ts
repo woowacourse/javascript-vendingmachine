@@ -1,6 +1,5 @@
 import { $ } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
-import { validateInputMoney } from '../validates/validates';
 import { CoinsType } from '../types/types';
 import { CUSTOM_EVENT } from '../constants/appContants';
 import { SELECTOR } from '../constants/viewConstants';
@@ -31,7 +30,6 @@ export default class ChargeMoneyView {
       event.preventDefault();
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
-      validateInputMoney(inputMoney);
       this.clearInput();
 
       window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.CHARGE_MONEY, { detail: { inputMoney } }));

@@ -21,11 +21,15 @@ export default class ChargeMoneyController {
   }
 
   handleChargeMoney(event: CustomEvent) {
-    const { inputMoney }: ChargeMoneyDetailType = event.detail;
+    try {
+      const { inputMoney }: ChargeMoneyDetailType = event.detail;
 
-    this.vendingMachine.chargeMoney(inputMoney);
+      this.vendingMachine.chargeMoney(inputMoney);
 
-    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.money);
-    this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.coins);
+      this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.money);
+      this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.coins);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 }
