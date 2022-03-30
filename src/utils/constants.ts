@@ -15,10 +15,12 @@ export const VENDING_MACHINE_STATE_KEYS: {
   PRODUCT_LIST: TStateKey;
   COIN_WALLET: TStateKey;
   INPUT_CHARGE: TStateKey;
+  RETURN_COIN_WALLET: TStateKey;
 } = {
   PRODUCT_LIST: 'PRODUCT_LIST',
   COIN_WALLET: 'COIN_WALLET',
   INPUT_CHARGE: 'INPUT_CHARGE',
+  RETURN_COIN_WALLET: 'RETURN_COIN_WALLET',
 };
 
 export const ERROR_MSG = {
@@ -66,6 +68,7 @@ export const ACTION_TYPES: {
   RECHARGE_CHANGE: TAction;
   INSERT_CHARGE: TAction;
   PURCHASE_PRODUCT: TAction;
+  RETURN_COIN_WALLET: TAction;
 } = {
   ADD_PRODUCT: 'addProduct',
   EDIT_PRODUCT: 'editProduct',
@@ -73,6 +76,7 @@ export const ACTION_TYPES: {
   RECHARGE_CHANGE: 'rechargeChange',
   INSERT_CHARGE: 'insertCharge',
   PURCHASE_PRODUCT: 'purchaseProduct',
+  RETURN_COIN_WALLET: 'returnCoinWallet',
 };
 
 export const NOTICE_MENTION: TMention = {

@@ -48,13 +48,9 @@ class PurchaseProductComponent {
       tableCaption: '구매 가능 상품 현황',
     });
     this.#returnChangeComponent = new CoinTableComponent(this.$purchaseProductContainer, {
-      tableId: 'return-chagne-table',
+      tableId: 'return-change-table',
       tableCaption: '잔돈 반환',
     });
-    this.$purchaseProductContainer.insertAdjacentHTML(
-      'beforeend',
-      '<button type="button" id="return-change-button" class="gray-button">반환</button>',
-    );
   }
 
   subscribeStore() {
