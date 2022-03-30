@@ -31,18 +31,13 @@ export default class MoneyBox {
   }
 
   get coinStatus(): CoinStatus {
-    return this._coinStatusList.reduce(
-      (totalStatus, { name, count }) => {
-        totalStatus[name] = count;
-        return totalStatus;
-      },
-      {
-        [COIN_500.NAME]: 0,
-        [COIN_100.NAME]: 0,
-        [COIN_50.NAME]: 0,
-        [COIN_10.NAME]: 0,
-      }
-    );
+    const totalStatus: CoinStatus = {};
+
+    this._coinStatusList.forEach(({ name, count }) => {
+      totalStatus[name] = count;
+    });
+
+    return totalStatus;
   }
 
   get coinStatusList(): Coin[] {
