@@ -1,32 +1,35 @@
 import {
-  Charge,
-  Coins,
-  GetCoins,
-  GetTotalChanges,
-  GenerateCoins,
-  ChangesDomain,
+  ICharge,
+  ICoins,
+  IGetCoins,
+  IGetTotalChanges,
+  IGenerateCoins,
+  IChangeProcessMachine,
 } from "../interface/changes.interface";
-import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
-
-class ChangesProcessMachine implements ChangesDomain {
+import {
+  checkDividedByMinimumCoin,
+  checkMoneyOverMaximum,
+  checkMoneyUnderZero,
+} from "../util/validations";
+class ChangesProcessMachine implements IChangeProcessMachine {
   coins = { 500: 0, 100: 0, 50: 0, 10: 0 };
 
-  charge: Charge = (money) => {
-    this.checkDividedByMinimumCoin(money);
-    this.checkMoneyOverMaximum(money);
-    this.checkMoenyUnderZero(money);
+  charge: ICharge = (money) => {
+    checkDividedByMinimumCoin(money);
+    checkMoneyOverMaximum(this.getTotalChanges() + money);
+    checkMoneyUnderZero(money);
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
   };
 
-  accumulateCoins = (newCoins: Coins): void => {
+  accumulateCoins = (newCoins: ICoins): void => {
     this.coins = Object.entries(newCoins).reduce((acc, [coin, count]) => {
       return { ...acc, [coin]: this.coins[coin] + count };
     }, this.coins);
   };
 
-  generateCoins: GenerateCoins = (money) => {
+  generateCoins: IGenerateCoins = (money) => {
     const coinArray = [500, 100, 50, 10];
     const newCoins = { 500: 0, 100: 0, 50: 0, 10: 0 };
 
@@ -40,35 +43,14 @@ class ChangesProcessMachine implements ChangesDomain {
     return newCoins;
   };
 
-  getCoins: GetCoins = () => {
+  getCoins: IGetCoins = () => {
     return this.coins;
   };
 
-  getTotalChanges: GetTotalChanges = () => {
+  getTotalChanges: IGetTotalChanges = () => {
     return Object.entries(this.coins).reduce((acc, [coin, count]) => {
       return acc + Number(coin) * count;
     }, 0);
-  };
-
-  checkDividedByMinimumCoin = (money: number): void => {
-    if (money % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0) {
-      throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
-    }
-  };
-
-  checkMoneyOverMaximum = (money: number) => {
-    if (
-      this.getTotalChanges() + money >
-      VENDING_MACHINE_NUMBER.MAXIMUM_CHANGES
-    ) {
-      throw new Error(ERROR_MESSAGE.MAXIMUM_CHANGES);
-    }
-  };
-
-  checkMoenyUnderZero = (money: number) => {
-    if (money <= 0) {
-      throw new Error(ERROR_MESSAGE.MINIMUM_CHANGES);
-    }
   };
 }
 

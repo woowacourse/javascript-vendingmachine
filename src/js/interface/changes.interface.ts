@@ -1,34 +1,34 @@
-export interface Charge {
+export interface ICharge {
   (money: number): void;
 }
 
-export interface Coins {
+export interface ICoins {
   500: number;
   100: number;
   50: number;
   10: number;
 }
 
-export interface GetTotalChanges {
+export interface IGetTotalChanges {
   (): number;
 }
 
-export interface GenerateCoins {
-  (money: number): Coins;
+export interface IGenerateCoins {
+  (money: number): ICoins;
 }
 
-export interface GetCoins {
-  (): Coins;
+export interface IGetCoins {
+  (): ICoins;
 }
 
-export interface ChangesDomain {
-  coins: Coins;
+export interface IChangeProcessMachine {
+  coins: ICoins;
 
-  charge: Charge; 
+  charge: ICharge;
 
-  getCoins: GetCoins;
+  getCoins: IGetCoins;
 
-  getTotalChanges: GetTotalChanges; 
+  getTotalChanges: IGetTotalChanges;
 
-  generateCoins: GenerateCoins;
+  generateCoins: IGenerateCoins;
 }
