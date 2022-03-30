@@ -31,7 +31,6 @@ const isOverMaxMoney = (inputMoney) => {
   return currentMoney + inputMoney > MONEY.MAX;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
     throw new Error(ERROR_MESSAGE.IS_BLANK_PRODUCT_NAME);

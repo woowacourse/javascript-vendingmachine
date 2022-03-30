@@ -31,7 +31,6 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  // eslint-disable-next-line max-lines-per-function
   rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
@@ -47,10 +46,12 @@ class ProductCurrentSituation extends CustomElement {
         $('.product-name-td', $tbodyRow).textContent = newProductInfo.name;
         $('.product-price-td', $tbodyRow).textContent = newProductInfo.price;
         $('.product-quantity-td', $tbodyRow).textContent = newProductInfo.quantity;
-        $('.product-manage-buttons-td', $tbodyRow).innerHTML = `
-          <button class="table__product-modify-button">수정</button>
-          <button class="table__product-delete-button">삭제</button>
-        `;
+        $('.product-manage-buttons-td', $tbodyRow).replaceChildren();
+        $('.product-manage-buttons-td', $tbodyRow).insertAdjacentHTML(
+          'beforeend',
+          `<button class="table__product-modify-button">수정</button>
+            <button class="table__product-delete-button">삭제</button>`,
+        );
 
         this.setEventAfterRerender(newProductInfo);
         break;
@@ -94,16 +95,35 @@ class ProductCurrentSituation extends CustomElement {
 
   makeProductInfoModifiable($tbodyRow) {
     const $productNameTd = $('.product-name-td', $tbodyRow);
-    $productNameTd.innerHTML = `<input class="product-name-input" placeholder="상품명" value="${$productNameTd.textContent}" maxlength="10" required>`;
+    const oldProductName = $productNameTd.textContent;
+    $productNameTd.replaceChildren();
+    $productNameTd.insertAdjacentHTML(
+      'beforeend',
+      `<input class="product-name-input" placeholder="상품명" value="${oldProductName}" maxlength="10" required>`,
+    );
 
     const $productPriceTd = $('.product-price-td', $tbodyRow);
-    $productPriceTd.innerHTML = `<input type="number" class="product-price-input" placeholder="가격" value="${$productPriceTd.textContent}" min="100" max="10000" required>`;
+    const oldProductPrice = $productPriceTd.textContent;
+    $productPriceTd.replaceChildren();
+    $productPriceTd.insertAdjacentHTML(
+      'beforeend',
+      `<input type="number" class="product-price-input" placeholder="가격" value="${oldProductPrice}" min="100" max="10000" required>`,
+    );
 
     const $productQuantityTd = $('.product-quantity-td', $tbodyRow);
-    $productQuantityTd.innerHTML = `<input type="number" class="product-quantity-input" placeholder="수량" value="${$productQuantityTd.textContent}" min="1" max="20" required>`;
+    const oldProductQuantity = $productQuantityTd.textContent;
+    $productQuantityTd.replaceChildren();
+    $productQuantityTd.insertAdjacentHTML(
+      'beforeend',
+      `<input type="number" class="product-quantity-input" placeholder="수량" value="${oldProductQuantity}" min="1" max="20" required>`,
+    );
 
     const $productManageButtonsTd = $('.product-manage-buttons-td', $tbodyRow);
-    $productManageButtonsTd.innerHTML = `<button class="table__product-modify-confirm-button">확인</button>`;
+    $productManageButtonsTd.replaceChildren();
+    $productManageButtonsTd.insertAdjacentHTML(
+      'beforeend',
+      `<button class="table__product-modify-confirm-button">확인</button>`,
+    );
   }
 
   setEventForProductModify($tbodyRow) {

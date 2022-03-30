@@ -8,7 +8,6 @@ class CoinCurrentSituation extends CustomElement {
     CoinStore.instance.subscribe(this);
   }
 
-  // eslint-disable-next-line max-lines-per-function
   template() {
     return `
       <p>현재 보유 금액: <span class="money">0</span>원</p>

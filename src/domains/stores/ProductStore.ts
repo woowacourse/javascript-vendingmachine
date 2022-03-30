@@ -30,7 +30,6 @@ class ProductStore {
     this.#products = newProducts;
   }
 
-  // eslint-disable-next-line max-lines-per-function
   generateNewProducts(oldProducts: Product[], { type, detail }: Action) {
     const newProducts = [...oldProducts];
 

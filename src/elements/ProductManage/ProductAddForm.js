@@ -24,7 +24,6 @@ class ProductAddForm extends CustomElement {
     $('product-add-form').addEventListener('submit', this.handleProductAddFormSubmit);
   }
 
-  // eslint-disable-next-line max-lines-per-function
   handleProductAddFormSubmit = (event) => {
     event.preventDefault();
 
