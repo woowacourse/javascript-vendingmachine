@@ -27,15 +27,9 @@ class Navigation extends Component {
   }
 
   onClickNavLink = ({ target }: EventOnElement) => {
-    this.activeLink(target);
     const destination = target.dataset.destination as string;
     Router.pushState(destination);
   };
-
-  activeLink(target: HTMLElement) {
-    [...this.querySelectorAll('button')].forEach(($button) => $button.classList.remove('active'));
-    target.classList.add('active');
-  }
 
   mount() {
     this.render();
