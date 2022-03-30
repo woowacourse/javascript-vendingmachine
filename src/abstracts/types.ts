@@ -21,8 +21,7 @@ export type ProductActionType = {
 };
 
 export type CoinActionType = {
-  MONEY_CHARGE: string;
-  COIN_ADD: string;
+  COIN_CHARGE: string;
 };
 
 export type CoinsCount = {
@@ -30,6 +29,7 @@ export type CoinsCount = {
   100: number;
   50: number;
   10: number;
+  sum: number;
 };
 
 export interface CustomElement extends HTMLElement {
@@ -38,5 +38,5 @@ export interface CustomElement extends HTMLElement {
   setEvent(): void;
   show(): void;
   hide(): void;
-  rerender(data: Action | number, data2?: CoinsCount): void;
+  rerender(data: Action | number | CoinsCount): void;
 }

@@ -12,6 +12,5 @@ export const PRODUCT_ACTION: ProductActionType = {
 };
 
 export const COIN_ACTION: CoinActionType = {
-  MONEY_CHARGE: 'money-charge',
-  COIN_ADD: 'coin-add',
+  COIN_CHARGE: 'coin-charge',
 };

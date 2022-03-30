@@ -43,8 +43,8 @@ class CoinCurrentSituation extends CustomElement {
     `;
   }
 
-  rerender(newMoney, newCoinsCount) {
-    $('.money').textContent = newMoney;
+  rerender(newCoinsCount) {
+    $('.money').textContent = newCoinsCount.sum;
     $('.coin-500-count-td').textContent = `${newCoinsCount[500]}개`;
     $('.coin-100-count-td').textContent = `${newCoinsCount[100]}개`;
     $('.coin-50-count-td').textContent = `${newCoinsCount[50]}개`;

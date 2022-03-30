@@ -1,5 +1,4 @@
 import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
-import { COIN_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
 
@@ -14,13 +13,12 @@ class CoinStore {
     return CoinStore._instance;
   }
 
-  #money = MONEY.DEFAULT;
-
   #coinsCount: CoinsCount = {
     500: COIN.DEFAULT_COUNT,
     100: COIN.DEFAULT_COUNT,
     50: COIN.DEFAULT_COUNT,
     10: COIN.DEFAULT_COUNT,
+    sum: MONEY.DEFAULT,
   };
 
   #subscribers: CustomElement[] = [];
@@ -30,20 +28,19 @@ class CoinStore {
   }
 
   dispatch(action: Action): void {
-    this.updateMoneyOrCoinsCount(action);
+    this.updateCoinsCount(action);
     this.notifySubscribers();
   }
 
-  updateMoneyOrCoinsCount(action: Action): void {
+  updateCoinsCount(action: Action): void {
     const { detail } = action;
-    this.#money += detail as number;
     this.#coinsCount = this.generateRandomCoins(this.#coinsCount, detail as number);
   }
 
   generateRandomCoins(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
     const newCoinsCount = oldCoinsCount;
     let coinList = [500, 100, 50, 10];
-    let money = detail;
+    let money = detail; // 들어온 돈
 
     while (money) {
       const randomCoin = pickNumberInList(coinList);
@@ -54,6 +51,7 @@ class CoinStore {
       }
 
       newCoinsCount[randomCoin] += 1;
+      newCoinsCount.sum += randomCoin;
       money -= randomCoin;
     }
 
@@ -66,12 +64,8 @@ class CoinStore {
 
   notifySubscribers(): void {
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#money, this.#coinsCount);
+      subscriber.rerender(this.#coinsCount);
     });
-  }
-
-  get money() {
-    return this.#money;
   }
 
   get coinsCount() {
