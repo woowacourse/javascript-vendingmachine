@@ -56,3 +56,7 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
     return _obj;
   }, initialObj);
 };
+
+export const convertToLocaleString = (number: number): string => {
+  return number.toLocaleString('ko-kr');
+};

@@ -2,6 +2,7 @@ import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';
+import { convertToLocaleString } from '../utils';
 
 @customElement('changes-inventory')
 class ChangesInventory extends Component {
@@ -11,8 +12,8 @@ class ChangesInventory extends Component {
       .map((unit) => {
         return `
         <tr>
-          <td>${unit.toLocaleString('ko-kr')}원</td>
-          <td>${coins[unit].toLocaleString('ko-kr')}개</td>
+          <td>${convertToLocaleString(unit)}원</td>
+          <td>${convertToLocaleString(coins[unit])}개</td>
         </tr>
       `;
       })

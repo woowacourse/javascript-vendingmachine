@@ -1,4 +1,5 @@
 import { AppState, Tab } from './types';
+import { convertToLocaleString } from './utils';
 
 export const ACTION = {
   ADD_PRODUCT: 'add-product',
@@ -47,26 +48,27 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
 
   EMPTY_PRODUCT_PRICE: '상품 가격을 입력해 주세요',
   NOT_NUMBER_PRODUCT_PRICE: '상품 가격은 숫자이어야 합니다',
-  NOT_IN_VALID_RANGE_PRODUCT_PRICE: `상품 가격은 ${MIN_PRODUCT_PRICE.toLocaleString(
-    'ko-kr'
-  )}원 ~ ${MAX_PRODUCT_PRICE.toLocaleString('ko-kr')}원 이내이어야 합니다`,
-  NOT_DIVIDED_BY_TEN_PRODUCT_PRICE: `상품 가격은 ${MIN_COIN_UNIT.toLocaleString(
-    'ko-kr'
+
+  NOT_IN_VALID_RANGE_PRODUCT_PRICE: `상품 가격은 ${convertToLocaleString(
+    MIN_PRODUCT_PRICE
+  )}원 ~ ${convertToLocaleString(MAX_PRODUCT_PRICE)}원 이내이어야 합니다`,
+  NOT_DIVIDED_BY_TEN_PRODUCT_PRICE: `상품 가격은 ${convertToLocaleString(
+    MIN_COIN_UNIT
   )}원 단위이어야 합니다`,
 
   EMPTY_PRODUCT_QUANTITY: '상품 수량을 입력해 주세요',
   NOT_NUMBER_QUANTITY: '상품 수량은 숫자이어야 합니다',
-  NOT_IN_VALID_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${MIN_PRODUCT_QUANTITY.toLocaleString(
-    'ko-kr'
-  )}개 ~ ${MAX_PRODUCT_QUANTITY.toLocaleString('ko-kr')}개 이내이어야 합니다`,
+  NOT_IN_VALID_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${convertToLocaleString(
+    MIN_PRODUCT_QUANTITY
+  )}개 ~ ${convertToLocaleString(MAX_PRODUCT_QUANTITY)}개 이내이어야 합니다`,
 
   EMPTY_CHARGE_MONEY: '충전 금액을 입력해주세요.',
   NOT_NUMBER_CHARGE_MONEY: '충전 금액은 숫자이어야 합니다',
   NEGATIVE_CHARGE_MONEY: '충전 금액은 양수이어야 합니다.',
-  NOT_DIVIDED_BY_TEN_CHARGE_MONEY: `충전 금액은 ${MIN_COIN_UNIT.toLocaleString(
-    'ko-kr'
+  NOT_DIVIDED_BY_TEN_CHARGE_MONEY: `충전 금액은 ${convertToLocaleString(
+    MIN_COIN_UNIT
   )}원 단위이어야 합니다`,
-  OVER_MAX_CHARGE_MONEY: `잔돈으로 보유할 수 있는 최대 금액은 ${MAX_CHARGABLE_MONEY.toLocaleString(
-    'ko-kr'
+  OVER_MAX_CHARGE_MONEY: `잔돈으로 보유할 수 있는 최대 금액은 ${convertToLocaleString(
+    MAX_CHARGABLE_MONEY
   )}원입니다.`,
 };

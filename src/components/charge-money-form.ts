@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement } from '../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../utils';
+import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateChargeCoins } from '../validation/validators';
 
@@ -18,7 +18,7 @@ class ChargeMoneyForm extends Component {
           <input placeholder="금액" name="charge-money-input" class="form-control mr-4" />
           <button type="button" class="btn btn-primary">추가</button>
         </div>
-        <label class="mb-0">현재 보유 금액: ${chargedMoney.toLocaleString('ko-kr')}원</label>
+        <label class="mb-0">현재 보유 금액: ${convertToLocaleString(chargedMoney)}원</label>
       </form>
     `;
   }
