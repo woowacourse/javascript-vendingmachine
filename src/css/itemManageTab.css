@@ -1,0 +1,26 @@
+.item-info-input {
+  width: 30%;
+  margin-right: 4px;
+}
+
+.table-container {
+  margin-top: 48px;
+  overflow-y: auto;
+}
+
+.item-info-input-cell {
+  width: 100%;
+  text-align: center;
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+}
+
+.item-info-input-cell:disabled {
+  border: none;
+  padding: 9px;
+}
+
+.edit-item-button,
+.confirm-item-button {
+  margin-right: 8px;
+}

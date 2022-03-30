@@ -11,6 +11,19 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
+## 데모 페이지
+
+[자판기 어플리케이션](https://nan-noo.github.io/javascript-vendingmachine/)
+
+## 기능
+
+[기능 명세서](https://github.com/nan-noo/javascript-vendingmachine/blob/step1/doc/README.md)
+
+## 구조 설계도
+
+![vendingmachine-step1](https://user-images.githubusercontent.com/54002105/160229971-6fc7bfac-f2d1-453d-88e3-dee2206a9a31.png)
+
+
 ## ⚙️ Before Started
 
 #### 개발 환경 가이드
