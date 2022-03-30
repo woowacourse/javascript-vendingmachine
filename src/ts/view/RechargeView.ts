@@ -1,5 +1,7 @@
+import { SUCCESS_MESSAGE } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $ } from '../utils';
+import { renderToastModal } from '../components/ToastNotification';
 
 export interface RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
@@ -62,8 +64,9 @@ export default class RechargeView implements RechargeViewInterface {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
       this.renderRecharge();
       this.$rechargeInput.value = '';
+      renderToastModal('success', SUCCESS_MESSAGE.MONEY_RECHARGED);
     } catch (error) {
-      alert(error.message);
+      renderToastModal('error', error.message);
     }
   };
 }

@@ -1,7 +1,8 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $, $$ } from '../utils';
-import { CONFIRM_MESSAGE } from '../constants';
+import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
+import { renderToastModal } from '../components/ToastNotification';
 
 export interface ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
@@ -19,6 +20,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   $productQuantityInput: HTMLInputElement;
   $productManageForm: HTMLFormElement;
   $currentProductTable: HTMLTableSectionElement;
+  $toastModal: HTMLElement;
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
@@ -27,6 +29,7 @@ export default class ProductManageView implements ProductManageViewInterface {
     this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
     this.$productManageForm = <HTMLFormElement>$('#product-manage-form');
     this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
+    this.$toastModal = <HTMLElement>$('toast-modal');
     this.vendingMachine = vendingMachine;
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
@@ -64,8 +67,9 @@ export default class ProductManageView implements ProductManageViewInterface {
       const addedProduct = this.vendingMachine.addProduct(input);
       this.renderAddedProduct(addedProduct);
       this.resetProductManageForm();
+      renderToastModal('success', SUCCESS_MESSAGE.PRODUCT_REGISTERED);
     } catch (error) {
-      alert(error.message);
+      renderToastModal('error', error.message);
     }
   };
 
@@ -147,8 +151,9 @@ export default class ProductManageView implements ProductManageViewInterface {
     try {
       this.vendingMachine.editProduct(targetName, productToEdit);
       this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
+      renderToastModal('success', SUCCESS_MESSAGE.PRODUCT_EDITED);
     } catch (error) {
-      alert(error.message);
+      renderToastModal('error', error.message);
     }
   };
 
@@ -168,6 +173,7 @@ export default class ProductManageView implements ProductManageViewInterface {
       const name = target.dataset.name;
       this.vendingMachine.deleteProduct(name);
       this.removeProductRow(name);
+      renderToastModal('success', SUCCESS_MESSAGE.PRODUCT_DELETED);
     }
   };
 

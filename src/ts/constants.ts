@@ -17,6 +17,13 @@ export const ERROR_MESSAGE = {
   NOT_INTEGER: '정수를 입력하셔야 합니다.',
 };
 
+export const SUCCESS_MESSAGE = {
+  PRODUCT_REGISTERED: '입력하신 상품 정보가 등록되었습니다.',
+  PRODUCT_EDITED: '선택하신 상품 정보가 수정되었습니다.',
+  PRODUCT_DELETED: '선택하신 상품 정보가 삭제되었습니다.',
+  MONEY_RECHARGED: '충전하신 금액만큼 동전을 보충하였습니다.',
+};
+
 export const CONFIRM_MESSAGE = {
   DELETE: '정말 삭제하시겠습니까?',
 };
