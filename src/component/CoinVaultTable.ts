@@ -64,9 +64,10 @@ export class CoinVaultTable {
   }
 
   updateCoinVaultTableTemplate = () => {
-    this.coin500Quantity.textContent = `${this.coinVault.getCoins().coin500}`;
-    this.coin100Quantity.textContent = `${this.coinVault.getCoins().coin100}`;
-    this.coin50Quantity.textContent = `${this.coinVault.getCoins().coin50}`;
-    this.coin10Quantity.textContent = `${this.coinVault.getCoins().coin10}`;
+    const { coin500, coin100, coin50, coin10 } = this.coinVault.getCoins();
+    this.coin500Quantity.textContent = `${coin500}`;
+    this.coin100Quantity.textContent = `${coin100}`;
+    this.coin50Quantity.textContent = `${coin50}`;
+    this.coin10Quantity.textContent = `${coin10}`;
   };
 }

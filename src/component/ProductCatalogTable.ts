@@ -11,22 +11,24 @@ export class ProductCatalogTable {
     this.target = props.target;
     this.productCatalog = props.productCatalog;
 
-    this.target.addEventListener('productAdded', this.render);
+    this.target.addEventListener('productAdded', this.renderTable);
   }
 
   render = () => {
-    if (this.isRerender()) {
-      this.productTableBody.textContent = ``;
-      this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
-      return;
-    }
     this.target.insertAdjacentHTML('beforeend', this.template());
 
     this.productTableBody = document.querySelector('#product-table-body');
+    this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
     this.productTableBody.addEventListener('click', this.handleProductStateManage);
   };
 
-  isRerender(): boolean {
+  renderTable = () => {
+    this.productTableBody.textContent = '';
+    this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
+    this.productTableBody.addEventListener('click', this.handleProductStateManage);
+  };
+
+  isRerendered(): boolean {
     return this.productTableBody !== undefined;
   }
 
@@ -42,7 +44,7 @@ export class ProductCatalogTable {
             <th>수량</th>
           </tr>
         </thead>
-        <tbody id ='product-table-body'>${this.tableBodyTemplate()}</tbody>
+        <tbody id ='product-table-body'></tbody>
       </table>
     </div>
   `;

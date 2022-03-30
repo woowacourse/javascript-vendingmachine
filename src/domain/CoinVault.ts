@@ -16,7 +16,7 @@ export class CoinVault {
   }
 
   addCoins(coins: Coins) {
-    [...Object.entries(coins)].forEach(([key, value]) => {
+    Object.entries(coins).forEach(([key, value]) => {
       this.coinsQuantity[key] += value;
     });
   }
@@ -26,7 +26,7 @@ export class CoinVault {
   }
 
   getBalance() {
-    return [...Object.entries(this.coinsQuantity)].reduce(
+    return Object.entries(this.coinsQuantity).reduce(
       (previous, [key, value]) => previous + COINS_PRICE_TABLE[key] * value,
       0
     );
@@ -55,7 +55,7 @@ export class CoinVault {
     let balance = money;
     const generatedCoins = { ...COINS_INIT_QUANTITY };
 
-    [...Object.entries(COINS_PRICE_TABLE)].forEach(([key, price]) => {
+    Object.entries(COINS_PRICE_TABLE).forEach(([key, price]) => {
       const maxQuotient = balance / price;
 
       if (price === CHEAPEST_COIN) {

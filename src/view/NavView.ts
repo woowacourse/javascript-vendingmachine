@@ -9,15 +9,15 @@ export class NavView {
   balanceChargeView: BalanceChargeView;
 
   constructor() {
+    this.productManageView = new ProductManageView();
+    this.balanceChargeView = new BalanceChargeView();
+
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
     this.productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
 
     this.productManageNavBtn.addEventListener('click', this.handleShowProductManageTab);
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
-
-    this.productManageView = new ProductManageView();
-    this.balanceChargeView = new BalanceChargeView();
 
     this.renderHome();
     window.addEventListener('popstate', (savedData) => {
@@ -30,17 +30,17 @@ export class NavView {
       this.renderHome();
     }
     if (savedData.state.path === '/productManage') {
-      this.productManageView.init();
+      this.productManageView.eraseAll();
       this.productManageView.renderAll();
     }
     if (savedData.state.path === '/balanceCharge') {
-      this.balanceChargeView.init();
+      this.balanceChargeView.eraseAll();
       this.balanceChargeView.renderAll();
     }
   };
 
   handleShowProductManageTab = () => {
-    this.productManageView.init();
+    this.productManageView.eraseAll();
     this.productManageView.renderAll();
 
     const path = '/productManage';
@@ -48,7 +48,7 @@ export class NavView {
   };
 
   handleShowBalanceChargeTab = () => {
-    this.balanceChargeView.init();
+    this.balanceChargeView.eraseAll();
     this.balanceChargeView.renderAll();
 
     const path = '/balanceCharge';

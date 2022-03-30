@@ -44,7 +44,7 @@
 }
 
 .input {
-  border: solid 1.5px;
+  border: solid 1px;
   border-radius: 10px;
   border-color: var(--gray);
   width: 160px;
