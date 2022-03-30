@@ -1,17 +1,18 @@
 import { $ } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { CoinsType } from '../types/types';
-import { CUSTOM_EVENT } from '../constants/appContants';
 import { SELECTOR } from '../constants/viewConstants';
+import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ChargeMoneyView {
   $content: HTMLDivElement;
 
-  constructor() {
+  constructor(private readonly vendingMachine: VendingMachine) {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  render(coins: CoinsType, money: number) {
+  render() {
+    const { coins, money } = this.vendingMachine;
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, money));
 
@@ -30,9 +31,11 @@ export default class ChargeMoneyView {
       event.preventDefault();
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
-      this.clearInput();
+      this.vendingMachine.chargeMoney(inputMoney);
 
-      window.dispatchEvent(new CustomEvent(CUSTOM_EVENT.CHARGE_MONEY, { detail: { inputMoney } }));
+      this.repaintCurrentMoney(this.vendingMachine.money);
+      this.repaintCoinsTable(this.vendingMachine.coins);
+      this.clearInput();
     } catch (error) {
       alert(error.message);
     }

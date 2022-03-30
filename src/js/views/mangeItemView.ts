@@ -1,18 +1,21 @@
 import { $, emit } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { CUSTOM_EVENT } from '../constants/appContants';
+import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 import { SELECTOR } from '../constants/viewConstants';
-
 import { ItemType } from '../types/types';
+import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
   $content: HTMLDivElement;
 
-  constructor() {
+  constructor(private readonly vendingMachine: VendingMachine) {
+    this.vendingMachine = vendingMachine;
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  render(items: ItemType[]) {
+  render() {
+    const { items } = this.vendingMachine;
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
 
@@ -39,10 +42,16 @@ export default class ManageItemView {
   }
 
   private handleSubmitEvent(event) {
-    event.preventDefault();
-    const item: ItemType = this.getItemFromAddItemInput();
+    try {
+      event.preventDefault();
+      const item: ItemType = this.getItemFromAddItemInput();
 
-    emit({ eventName: CUSTOM_EVENT.ADD_ITEM, detail: { item } });
+      this.vendingMachine.addItem(item);
+      this.clearInput();
+      this.appendItemTableRow(item);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   private handleTableClickEvent(event) {
@@ -71,19 +80,25 @@ export default class ManageItemView {
     const $targetTableRow = $targetButton.closest('tr');
     const item = this.getItemFromTargetButton($targetButton);
 
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      this.vendingMachine.deleteItem(item);
+    }
+
     emit({ eventName: CUSTOM_EVENT.TABLE_ITEM_DELETE, detail: { item } });
     $targetTableRow.remove();
   }
 
   private onConfirmButtonClick($targetButton) {
-    const $targetTableRow = $targetButton.closest('tr');
-    const targetRowIndex = $targetTableRow.rowIndex - 1;
-    const item = this.getItemFromChangeInput($targetTableRow);
+    try {
+      const $targetTableRow = $targetButton.closest('tr');
+      const targetRowIndex = $targetTableRow.rowIndex - 1;
+      const item = this.getItemFromChangeInput($targetTableRow);
 
-    emit({
-      eventName: CUSTOM_EVENT.TABLE_ITEM_CHANGE,
-      detail: { item, targetRowIndex, $targetTableRow },
-    });
+      this.vendingMachine.changeItem(targetRowIndex, item);
+      this.repaintItemTableRow($targetTableRow, item);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   private getItemFromAddItemInput() {
