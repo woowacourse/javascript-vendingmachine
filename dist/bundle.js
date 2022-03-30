@@ -1233,7 +1233,7 @@ var View = /** @class */ (function () {
             if (!isPopState && _this.isSamePage(tabKey))
                 return;
             if (!isPopState)
-                history.pushState({ tabKey: tabKey }, null, tabKey);
+                history.pushState({ url: tabKey }, null, tabKey);
             var routes = (_a = {},
                 _a[_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.PRODUCT_MANAGE] = function () {
                     _this.renderTabs(_constants__WEBPACK_IMPORTED_MODULE_1__.PATH_ID.PRODUCT_MANAGE);
