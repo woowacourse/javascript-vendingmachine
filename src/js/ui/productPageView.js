@@ -27,6 +27,12 @@ class ProductPageView {
     this.$page.appendChild(this.$formContainer);
     this.$page.appendChild(this.$productStatusContainer);
 
+    this.$productNameInput = $("#product-name-input", this.$formContainer);
+    this.$productPriceInput = $("#product-price-input", this.$formContainer);
+    this.$productCountInput = $("#product-count-input", this.$formContainer);
+
+    this.$productList = $("#products-list", this.$productStatusContainer);
+
     this.edited = false;
     this.bindEvent();
   };
@@ -50,19 +56,15 @@ class ProductPageView {
     e.preventDefault();
     if (this.edited === true) return;
 
-    const $productNameInput = $("#product-name-input", this.$formContainer);
-    const $productPriceInput = $("#product-price-input", this.$formContainer);
-    const $productCountInput = $("#product-count-input", this.$formContainer);
-
     emit(EVENT_TYPE.ADD, {
-      name: $productNameInput.value,
-      price: $productPriceInput.valueAsNumber,
-      count: $productCountInput.valueAsNumber,
+      name: this.$productNameInput.value,
+      price: this.$productPriceInput.valueAsNumber,
+      count: this.$productCountInput.valueAsNumber,
     });
 
-    $productNameInput.value = "";
-    $productPriceInput.value = "";
-    $productCountInput.value = "";
+    this.$productNameInput.value = "";
+    this.$productPriceInput.value = "";
+    this.$productCountInput.value = "";
   };
 
   onClick = ({ target }) => {
@@ -130,14 +132,12 @@ class ProductPageView {
   };
 
   renderDeleteProduct = (id) => {
-    const list = $("#products-list", this.$productStatusContainer);
-    const target = $(`[data-id="${id}"]`, list);
-    list.removeChild(target);
+    const target = $(`[data-id="${id}"]`, this.$productList);
+    this.$productList.removeChild(target);
   };
 
   renderUpdatedProduct = (id, { name, price, count }) => {
-    const list = $("#products-list", this.$productStatusContainer);
-    const target = $(`[data-id="${id}"]`, list);
+    const target = $(`[data-id="${id}"]`, this.$productList);
     target.setAttribute("data-name", name);
     target.setAttribute("data-price", price);
     target.setAttribute("data-count", count);
