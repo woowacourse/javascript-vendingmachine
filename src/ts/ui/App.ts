@@ -6,20 +6,15 @@ import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchase';
 
 export default class App {
-  private productDomain;
-  private coinDomain;
-  private productManagementUI;
-  private coinManagementUI;
-  private productPurchaseUI;
-
-  constructor() {
-    this.productDomain = new ProductManagementDomain();
-    this.coinDomain = new CoinManagementDomain();
-
-    this.productManagementUI = new ProductManagementUI(this.productDomain);
-    this.coinManagementUI = new CoinManagementUI(this.coinDomain);
-    this.productPurchaseUI = new ProductPurchaseUI();
-
+  constructor(
+    private readonly productDomain = new ProductManagementDomain(),
+    private readonly coinDomain = new CoinManagementDomain(),
+    private readonly productManagementUI = new ProductManagementUI(
+      productDomain,
+    ),
+    private readonly coinManagementUI = new CoinManagementUI(coinDomain),
+    private readonly productPurchaseUI = new ProductPurchaseUI(),
+  ) {
     this.productManagementUI.render();
 
     $('.nav').addEventListener('click', this.navClickHandler);
