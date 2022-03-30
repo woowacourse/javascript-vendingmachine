@@ -224,8 +224,9 @@ class ProductTableComponent {
           stateKey: VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE,
         });
       }
+      showSnackBar(NOTICE_MENTION.PURCHASE_PRODUCT);
     } catch ({ message }) {
-      alert(message);
+      showSnackBar(message);
     }
   }
 

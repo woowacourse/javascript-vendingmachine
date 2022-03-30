@@ -32,8 +32,7 @@ export const ERROR_MSG = {
   CHANGE_NOT_DIVISIBLE_BY_10: '금액은 10으로 나누어 떨어져야합니다.',
   CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
   CHARGE_OUT_OF_RANGE: '구매 금액은 10이상 10,000이하의 금액을 투입하여야 합니다.',
-  OVER_CHARGE_INPUT:
-    '투입한 금액이 부족하여, 상품을 구매할 수 없습니다 금액을 추가적으로 투입해주세요!',
+  OVER_CHARGE_INPUT: '금액이 부족합니다! 돈을 추가 투입해주세요',
 };
 
 export const NAME_LENGTH_LIMIT = 10;
@@ -82,6 +81,7 @@ export const NOTICE_MENTION: TMention = {
   DELETE_PRODUCT: '상품이 삭제되었습니다🗑',
   RECHARGE_CHANGE: '잔돈이 충전되었습니다💰',
   INPUT_CHARGE: '금액이 투입되었습니다💸',
+  PURCHASE_PRODUCT: '상품이 구입되었습니다💳',
 };
 
 export const SNACKBAR_DELAY_TIME = 1000;
