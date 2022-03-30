@@ -64,7 +64,7 @@ class ProductInventory extends Component {
   setEvent() {
     this.addEvent('click', '.btn-edit', this.changeToEditMode);
     this.addEvent('click', '.btn-confirm', this.editProduct);
-    this.addEvent('click', '.btn-cancel', this.cancelProduct);
+    this.addEvent('click', '.btn-cancel', this.cancelProductEditing);
     this.addEvent('click', '.btn-delete', this.deleteProduct);
   }
 
@@ -107,7 +107,7 @@ class ProductInventory extends Component {
     );
   };
 
-  cancelProduct = ({ target }: EventOnElement) => {
+  cancelProductEditing = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name } = tds;
