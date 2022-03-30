@@ -30,4 +30,6 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_TOTAL_CHANGE: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과할 수 없습니다.`,
 };
 
-export const CONFIRM_MESSAGE = '정말 삭제하시겠습니까?';
+export function confirmMessage(name) {
+  return `정말 ${name} 삭제하시겠습니까?`;
+}

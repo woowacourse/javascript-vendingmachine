@@ -1,6 +1,10 @@
-import { CONFIRM_MESSAGE } from '../constants';
+import { confirmMessage } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
-import { manageProductTemplate, productTableRow, updateProductTableRow } from './template';
+import {
+  manageProductTemplate,
+  productTableRow,
+  updateProductTableRow,
+} from './template';
 
 export default class ManageProductTab {
   #vendingMachine;
@@ -13,14 +17,21 @@ export default class ManageProductTab {
 
   constructor(machine) {
     this.#vendingMachine = machine;
-
     this.#manageContainer = createMainElement(manageProductTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
-    this.#addProductNameInput = selectDom('#add-product-name-input', this.#manageContainer);
-    this.#addProductPriceInput = selectDom('#add-product-price-input', this.#manageContainer);
-    this.#addProductStockInput = selectDom('#add-product-stock-input', this.#manageContainer);
+    this.#addProductNameInput = selectDom(
+      '#add-product-name-input',
+      this.#manageContainer
+    );
+    this.#addProductPriceInput = selectDom(
+      '#add-product-price-input',
+      this.#manageContainer
+    );
+    this.#addProductStockInput = selectDom(
+      '#add-product-stock-input',
+      this.#manageContainer
+    );
     this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
-
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
@@ -62,7 +73,12 @@ export default class ManageProductTab {
       this.#handleProductUpdate(target);
     }
 
-    if (classList.contains('remove-product-button') && window.confirm(CONFIRM_MESSAGE)) {
+    if (
+      classList.contains('remove-product-button') &&
+      window.confirm(
+        confirmMessage(this.#vendingMachine.productList[target.dataset.productId].name)
+      )
+    ) {
       this.#handleProductRemove(target);
     }
 
