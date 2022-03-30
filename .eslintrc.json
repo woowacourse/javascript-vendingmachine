@@ -33,6 +33,7 @@
         "no-new": "off",
         "no-unused-expressions": "off",
         "import/extensions": "off",
-        "no-restricted-globals": "off"
+        "no-restricted-globals": "off",
+        "function-paren-newline": "off"
     }
 }
