@@ -1,6 +1,5 @@
-import { $, emit } from '../utils/common';
+import { $ } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
-import { CUSTOM_EVENT } from '../constants/appContants';
 import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 import { SELECTOR } from '../constants/viewConstants';
 import { ItemType } from '../types/types';
@@ -64,10 +63,8 @@ export default class ManageItemView {
 
     if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
       this.vendingMachine.deleteItem(item);
+      $targetTableRow.remove();
     }
-
-    emit({ eventName: CUSTOM_EVENT.TABLE_ITEM_DELETE, detail: { item } });
-    $targetTableRow.remove();
   }
 
   private onConfirmButtonClick($targetButton) {

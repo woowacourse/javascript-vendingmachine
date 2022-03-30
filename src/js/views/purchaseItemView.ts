@@ -1,7 +1,6 @@
 import { $ } from '../utils/common';
 import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/viewConstants';
-import { CoinsType, ItemType } from '../types/types';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class PurchaseItemView {
