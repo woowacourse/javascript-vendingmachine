@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
-var ProductManageImpl_1 = require("../tab/ProductManageImpl");
-var ChargeMoneyImpl_1 = require("../tab/ChargeMoneyImpl");
+var ProductManageImpl_1 = require("../core/ProductManageImpl");
+var ChargeMoneyImpl_1 = require("../core/ChargeMoneyImpl");
 var dom_1 = require("../util/dom");
 var index_1 = require("../constants/index");
 var VendingMachine = /** @class */ (function () {

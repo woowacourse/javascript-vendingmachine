@@ -1,5 +1,5 @@
-import ProductManageImpl from '../tab/ProductManageImpl';
-import ChargeMoneyImpl from '../tab/ChargeMoneyImpl';
+import ProductManageImpl from '../core/ProductManageImpl';
+import ChargeMoneyImpl from '../core/ChargeMoneyImpl';
 import { Product, Coin } from './declaration';
 import { $ } from '../util/dom';
 import { COINS } from '../constants/index';
@@ -24,7 +24,6 @@ class VendingMachine {
     if (e.target === e.currentTarget) {
       return;
     }
-
     const tabName = e.target.dataset.name;
 
     history.pushState({}, '', window.location.pathname + `#${tabName}`);

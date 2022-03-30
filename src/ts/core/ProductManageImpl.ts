@@ -1,7 +1,7 @@
 import { $ } from '../util/dom';
 import { Product } from '../resource/declaration';
 import { ProductManage } from './declaration';
-import { PRODUCT_RULES } from '../constants/index';
+import { isValidProductInfo } from '../validation/isValidProductInfo';
 
 class ProductManageImpl implements ProductManage {
   private products: Array<Product>;
@@ -39,7 +39,7 @@ class ProductManageImpl implements ProductManage {
   handleAddProduct(e) {
     e.preventDefault();
     const productInfo = this.getProductInfo();
-    if (this.isValidProductInfo(productInfo, -1)) {
+    if (isValidProductInfo(productInfo, -1, this.products)) {
       this.addProduct(productInfo);
       this.drawProductList();
     }
@@ -66,56 +66,11 @@ class ProductManageImpl implements ProductManage {
       const productInfo = this.getProductInfoModify(e.target.closest('tr'));
       const index = this.getProductRowIndex(e.target.closest('tr'));
 
-      if (this.isValidProductInfo(productInfo, index)) {
+      if (isValidProductInfo(productInfo, index, this.products)) {
         this.modifyProduct(productInfo, index);
         this.drawProductList();
       }
     }
-  }
-
-  isValidProductInfo(
-    { name, price, quantity }: Product,
-    index: number,
-  ): boolean {
-    if (
-      name.length < PRODUCT_RULES.MIN_NAME_LENGTH ||
-      name.length > PRODUCT_RULES.MAX_NAME_LENGTH
-    ) {
-      alert(
-        `상품명은 ${PRODUCT_RULES.MIN_NAME_LENGTH}글자부터 ${PRODUCT_RULES.MAX_NAME_LENGTH}글자까지만 가능합니다.`,
-      );
-      return false;
-    }
-    if (
-      this.products.some(
-        (product: Product, productIndex) =>
-          productIndex !== index && product.name === name,
-      )
-    ) {
-      alert(`상품명은 중복되지 않아야합니다.`);
-      return false;
-    }
-    if (
-      price < PRODUCT_RULES.MIN_PRICE ||
-      price > PRODUCT_RULES.MAX_PRICE ||
-      price % PRODUCT_RULES.PRICE_MOD_UNIT !== 0
-    ) {
-      alert(
-        `상품가격은 ${PRODUCT_RULES.PRICE_MOD_UNIT}으로 나누어 떨어져야하며, ${PRODUCT_RULES.MIN_PRICE}~${PRODUCT_RULES.MAX_PRICE}까지의 값만 가능합니다.`,
-      );
-      return false;
-    }
-    if (
-      quantity < PRODUCT_RULES.MIN_QUANTITY ||
-      quantity > PRODUCT_RULES.MAX_QUANTITY
-    ) {
-      alert(
-        `상품수량은 ${PRODUCT_RULES.MIN_QUANTITY}~${PRODUCT_RULES.MAX_QUANTITY}의 값만 가능합니다.`,
-      );
-      return false;
-    }
-
-    return true;
   }
 
   drawProductList() {
@@ -126,9 +81,9 @@ class ProductManageImpl implements ProductManage {
           <td class="product-info__text">${name}</td>
           <td class="product-info__text">${price}</td>
           <td class="product-info__text">${quantity}</td>
-          <td class="product-info__input"><input type="text" class="product-info-name" value="${name}" /></td>
-          <td class="product-info__input"><input type="number" class="product-info-price" value="${price}" /></td>
-          <td class="product-info__input"><input type="number" class="product-info-quantity" value="${quantity}" /></td>
+          <td class="product-info__input"><input type="text" minlength="1" maxlength="10" required="required" class="product-info-name" value="${name}" /></td>
+          <td class="product-info__input"><input type="number" max="10000" min="100" required="required" class="product-info-price" value="${price}" /></td>
+          <td class="product-info__input"><input type="number" max="20" min="1" required="required" class="product-info-quantity" value="${quantity}" /></td>
           <td>
             <button class="modify-button button">수정</button>
             <button class="delete-button button">삭제</button>
@@ -149,11 +104,8 @@ class ProductManageImpl implements ProductManage {
     this.products[index] = productInfo;
   }
 
-  deleteProduct(name: string): boolean {
-    if (this.products.splice(this.getProductIndex(name), 1).length === 0) {
-      return false;
-    }
-    return true;
+  deleteProduct(name: string): void {
+    this.products.splice(this.getProductIndex(name), 1);
   }
 
   getProductIndex(name: string) {
