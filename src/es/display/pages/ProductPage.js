@@ -47,20 +47,7 @@ export default class ProductPage {
 
   setEvents() {
     this.$addForm.addEventListener('submit', this.onSubmitAddProductForm);
-    this.$table.addEventListener('click', event => {
-      if (event.target.classList.contains('product-update-button')) {
-        this.onClickUpdateButton(event);
-      }
-      if (event.target.classList.contains('product-update-confirm-button')) {
-        this.onClickUpdateConfirmButton(event);
-      }
-      if (event.target.classList.contains('product-update-cancel-button')) {
-        this.onClickUpdateCancelButton(event);
-      }
-      if (event.target.classList.contains('product-delete-button')) {
-        this.onClickDeleteButton(event);
-      }
-    });
+    this.$table.addEventListener('click', this.onClickTableInnerButton);
   }
 
   render = ({ state, changeStates }) => {
@@ -84,6 +71,24 @@ export default class ProductPage {
 
     ProductStore.addOrUpdateProduct(product);
     clearInnerInputValues(event.target);
+  };
+
+  onClickTableInnerButton = (event) => {
+    const targetClassList = event.target.classList;
+    switch (true) {
+    case targetClassList.contains('product-update-button'):
+      this.onClickUpdateButton(event);
+      break;
+    case targetClassList.contains('product-update-confirm-button'):
+      this.onClickUpdateConfirmButton(event);
+      break;
+    case targetClassList.contains('product-update-cancel-button'):
+      this.onClickUpdateCancelButton(event);
+      break;
+    case targetClassList.contains('product-delete-button'):
+      this.onClickDeleteButton(event);
+      break;
+    }
   };
 
   onClickUpdateButton({ target: $target }) {
