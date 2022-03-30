@@ -5,7 +5,7 @@ import pickNumberInList from '../../utils/random';
 class CoinStore {
   static _instance: null | object = null;
 
-  static get instance(): object {
+  static get instance() {
     if (!CoinStore._instance) {
       CoinStore._instance = new CoinStore();
     }
@@ -23,21 +23,21 @@ class CoinStore {
 
   #subscribers: CustomElement[] = [];
 
-  subscribe(element: CustomElement): void {
+  subscribe(element: CustomElement) {
     this.#subscribers.push(element);
   }
 
-  dispatch(action: Action): void {
+  dispatch(action: Action) {
     this.updateCoinsCount(action);
     this.notifySubscribers();
   }
 
-  updateCoinsCount(action: Action): void {
+  updateCoinsCount(action: Action) {
     const { detail } = action;
     this.#coinsCount = this.generateRandomCoins(this.#coinsCount, detail as number);
   }
 
-  generateRandomCoins(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
+  generateRandomCoins(oldCoinsCount: CoinsCount, detail: number) {
     const newCoinsCount = oldCoinsCount;
     let coinList = [500, 100, 50, 10];
     let money = detail; // 들어온 돈
@@ -58,11 +58,11 @@ class CoinStore {
     return newCoinsCount;
   }
 
-  generateNewCoinList(coinList, money) {
+  generateNewCoinList(coinList: number[], money: number) {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers(): void {
+  notifySubscribers() {
     this.#subscribers.forEach((subscriber) => {
       subscriber.rerender(this.#coinsCount);
     });
