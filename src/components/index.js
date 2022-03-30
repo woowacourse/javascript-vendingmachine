@@ -8,6 +8,9 @@ class VendingMachineComponent {
   #RechargeChangeComponent;
 
   $app;
+
+  #currentSectionName = '';
+
   constructor(currentSectionName) {
     this.$app = document.querySelector('#app');
     this.initDOM();
@@ -36,24 +39,26 @@ class VendingMachineComponent {
       target: { id },
     } = e;
 
-    if (id === 'manage-product-tab') {
-      history.pushState(null, '', '/');
+    /** history가 중복해서 쌓이지 않게 관리 */
+    if (id === 'manage-product-tab' && this.#currentSectionName !== '') {
+      history.pushState({ path: '' }, '', '/');
 
       this.showSection('');
     }
-    if (id === 'recharge-change-tab') {
-      history.pushState(null, '', '/recharge');
+    if (id === 'recharge-change-tab' && this.#currentSectionName !== 'recharge') {
+      history.pushState({ path: 'recharge' }, '', '/recharge');
 
       this.showSection('recharge');
     }
-    if (id === 'purchase-product-tab') {
-      history.pushState(null, '', '/purchase');
+    if (id === 'purchase-product-tab' && this.#currentSectionName !== 'purchase') {
+      history.pushState({ path: 'purchase' }, '', '/purchase');
 
       this.showSection('purchase');
     }
   };
 
   showSection(name) {
+    this.#currentSectionName = name;
     if (name === '') {
       this.#RechargeChangeComponent.hide();
       this.#PurchaseProductComponent.hide();
