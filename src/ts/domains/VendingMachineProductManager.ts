@@ -24,10 +24,9 @@ export default class VendingMachineProductManager implements ProductManager {
   editProduct(targetName, editedProduct) {
     checkDuplicatedEditName(this.products, targetName, editedProduct.name);
 
-    const targetIndex = this.products.findIndex(
-      ({ name }) => name === targetName
+    this.products = this.products.map((product) =>
+      product.name === targetName ? editedProduct : product
     );
-    this.products.splice(targetIndex, 1, editedProduct);
   }
 
   deleteProduct(deleteProductName) {
