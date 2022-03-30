@@ -1,25 +1,25 @@
-import ManageItemController from './manageItemController';
-import ChargeMoneyController from './chargeMoneyController';
-import PurchaseItemController from './purchaseItemController';
-import VendingMachine from '../vendingMachine/vendingMachine';
-import AppView from '../views/AppView';
-import { URL, CUSTOM_EVENT } from '../constants/appContants';
-import { SELECTOR } from '../constants/viewConstants';
-import { RouteChangeDetailType } from '../types/types';
+import ManageItemView from './views/mangeItemView';
+import ChargeMoneyView from './views/chargeMoneyView';
+import PurchaseItemView from './views/purchaseItemView';
+import VendingMachine from './vendingMachine/vendingMachine';
+import AppView from './views/AppView';
+import { URL, CUSTOM_EVENT } from './constants/appContants';
+import { SELECTOR } from './constants/viewConstants';
+import { RouteChangeDetailType } from './types/types';
 
-export default class AppController {
+export default class App {
   appView: AppView;
   vendingMachine: VendingMachine;
-  manageItemController: ManageItemController;
-  chargeMoneyController: ChargeMoneyController;
-  purchaseItemController: PurchaseItemController;
+  manageItemView: ManageItemView;
+  chargeMoneyView: ChargeMoneyView;
+  purchaseItemView: PurchaseItemView;
 
   constructor() {
     this.appView = new AppView();
     this.vendingMachine = new VendingMachine();
-    this.manageItemController = new ManageItemController(this.vendingMachine);
-    this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
-    this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
+    this.manageItemView = new ManageItemView(this.vendingMachine);
+    this.chargeMoneyView = new ChargeMoneyView(this.vendingMachine);
+    this.purchaseItemView = new PurchaseItemView(this.vendingMachine);
 
     window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
     window.addEventListener('popstate', this.route.bind(this));
@@ -47,19 +47,19 @@ export default class AppController {
 
     switch (pathname) {
       case `${URL.BASE_URL}/${URL.MANAGE_ITEM}`:
-        this.manageItemController.loadPage();
+        this.manageItemView.render();
         this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
         break;
       case `${URL.BASE_URL}/${URL.CHARGE_MONEY}`:
-        this.chargeMoneyController.loadPage();
+        this.chargeMoneyView.render();
         this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
         break;
       case `${URL.BASE_URL}/${URL.PURCHASE_ITEM}`:
-        this.purchaseItemController.render();
+        this.purchaseItemView.render();
         this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
         break;
       default:
-        this.manageItemController.loadPage();
+        this.manageItemView.render();
         this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
     }
   }
