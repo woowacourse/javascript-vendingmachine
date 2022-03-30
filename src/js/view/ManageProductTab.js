@@ -82,6 +82,10 @@ export default class ManageProductTab {
     if (classList.contains('confirm-update-button')) {
       this.#handleProductUpdateConfirm(target);
     }
+
+    if (classList.contains('cancel-update-button')) {
+      this.#handleProductUpdateCancel(target);
+    }
   };
 
   #handleProductUpdate = (target) => {
@@ -134,5 +138,15 @@ export default class ManageProductTab {
 
   #handleProductUpdateCancel = (target) => {
     const targetTableRow = target.closest('tr');
+    const { productId: id } = target.dataset;
+
+    const product = this.#vendingMachine.productList[id];
+    const { name, price, stock } = product;
+
+    targetTableRow.insertAdjacentHTML(
+      'afterend',
+      productTableRow({ name, price, stock, id })
+    );
+    targetTableRow.remove();
   };
 }

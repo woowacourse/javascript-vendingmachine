@@ -87,6 +87,9 @@ export const updateProductTableRow = ({ name, price, stock, id }) => `
       <button type="button" class="confirm-update-button" data-product-id=${id}>
       확인
       </button>
+      <button type="button" class="cancel-update-button" data-product-id=${id}>
+      취소
+      </button>
     </div>
   </td>
 </tr>
