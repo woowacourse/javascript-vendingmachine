@@ -1,7 +1,7 @@
 type IState = Record<string, any>;
 type IRenderContent = {
   state: IState;
-  changeStates: Array<string>;
+  changedStateNames: Array<string>;
 };
 type IRenderMethod = (renderContent: IRenderContent) => void;
 
@@ -14,10 +14,12 @@ export default abstract class Store {
   }
 
   public setState(newState: IState) {
-    const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
+    const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
+    this.subscribers.forEach(renderMethod =>
+      renderMethod({ state: this.state, changedStateNames }),
+    );
   }
 
   public getState(): IState {
