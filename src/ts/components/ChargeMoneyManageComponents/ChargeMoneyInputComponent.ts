@@ -10,7 +10,7 @@ import renderSnackBar from '../../dom/snackBar';
 
 const generateRandomCoins = (money: number): Coins => {
   const coinList: number[] = COINS.INITIAL_LIST;
-  const coinsObject: Coins = { ...COINS.INITIAL_STATE };
+  const coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
 
   let remainMoney: number = money;
 
@@ -20,11 +20,11 @@ const generateRandomCoins = (money: number): Coins => {
     );
     const pickedCoin: number =
       pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
-    coinsObject[`COIN_${pickedCoin}`] += 1;
+    coinsQuantity[`QUANTITY_COIN_${pickedCoin}`] += 1;
     remainMoney -= pickedCoin;
   }
 
-  return coinsObject;
+  return coinsQuantity;
 };
 
 export default class ChargeMoneyComponent {
@@ -39,7 +39,7 @@ export default class ChargeMoneyComponent {
   );
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
-  constructor(private vendingMachineCoinManager) {
+  constructor(private vendingMachineChargeMoneyManager) {
     on(this.$chargeButton, 'click', this.onSubmitChargeButton);
   }
 
@@ -50,17 +50,19 @@ export default class ChargeMoneyComponent {
       const chargeMoney = this.$chargeMoneyInput.valueAsNumber;
 
       checkValidChargeMoney(chargeMoney);
-      this.vendingMachineCoinManager.addCoins(generateRandomCoins(chargeMoney));
+      this.vendingMachineChargeMoneyManager.addCoins(
+        generateRandomCoins(chargeMoney)
+      );
 
       this.$totalChargeMoney.textContent =
-        this.vendingMachineCoinManager.getTotalAmount();
+        this.vendingMachineChargeMoneyManager.getTotalAmount();
 
       this.$chargeMoneyInput.value = '';
       this.$chargeMoneyInput.focus();
 
       emit(this.$chargeButton, '@chargeInputSubmit', {
         detail: {
-          coins: this.vendingMachineCoinManager.getCoins(),
+          coins: this.vendingMachineChargeMoneyManager.getCoins(),
         },
       });
     } catch ({ message }) {

@@ -18,8 +18,8 @@ describe('잔돈 관리 도메인 테스트', () => {
     const vendingMachineChargeMoneyManager =
       new VendingMachineChargeMoneyManager();
     const coins: Coins = {
-      ...COINS.INITIAL_STATE,
-      COIN_100: 1,
+      ...COINS.INITIAL_QUANTITY_STATE,
+      QUANTITY_COIN_100: 1,
     };
 
     expect(() => {
@@ -31,12 +31,12 @@ describe('잔돈 관리 도메인 테스트', () => {
     const vendingMachineChargeMoneyManager =
       new VendingMachineChargeMoneyManager();
     const coins: Coins = {
-      ...COINS.INITIAL_STATE,
-      COIN_100: 1000,
+      ...COINS.INITIAL_QUANTITY_STATE,
+      QUANTITY_COIN_100: 1000,
     };
     const newCoins: Coins = {
-      ...COINS.INITIAL_STATE,
-      COIN_100: 1,
+      ...COINS.INITIAL_QUANTITY_STATE,
+      QUANTITY_COIN_100: 1,
     };
 
     vendingMachineChargeMoneyManager.addCoins(coins);

@@ -1,12 +1,12 @@
 export interface Coins {
-  COIN_500: number;
-  COIN_100: number;
-  COIN_50: number;
-  COIN_10: number;
+  QUANTITY_COIN_500: number;
+  QUANTITY_COIN_100: number;
+  QUANTITY_COIN_50: number;
+  QUANTITY_COIN_10: number;
 }
 
 export interface InitialCoins {
-  readonly INITIAL_STATE: Coins;
+  readonly INITIAL_QUANTITY_STATE: Coins;
   readonly INITIAL_LIST: number[];
 }
 

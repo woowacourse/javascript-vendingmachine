@@ -7,11 +7,11 @@ export const CHARGE_MONEY: ChargeMoney = {
 };
 
 export const COINS: InitialCoins = {
-  INITIAL_STATE: {
-    COIN_500: 0,
-    COIN_100: 0,
-    COIN_50: 0,
-    COIN_10: 0,
+  INITIAL_QUANTITY_STATE: {
+    QUANTITY_COIN_500: 0,
+    QUANTITY_COIN_100: 0,
+    QUANTITY_COIN_50: 0,
+    QUANTITY_COIN_10: 0,
   },
   INITIAL_LIST: [10, 50, 100, 500],
 };

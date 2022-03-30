@@ -19,7 +19,7 @@ export const checkCanAddMoney = (
 ): void => {
   const totalMoney: number = Object.entries(coinList).reduce(
     (sum: number, [coin, count]: [string, number]) =>
-      sum + Number(coin.replace('COIN_', '')) * count,
+      sum + Number(coin.replace('QUANTITY_COIN_', '')) * count,
     currentMoney
   );
 

@@ -81,7 +81,7 @@ h1 {
 }
 
 .charge-form-section__button,
-.product-info-form__button {
+.product-info-form__add-button {
   width: 56px;
   height: 36px;
   background-color: var(--color-primary);
@@ -90,7 +90,7 @@ h1 {
 }
 
 .charge-form-section__button:hover,
-.product-info-form__button:hover {
+.product-info-form__add-button:hover {
   opacity: 0.7;
 }
 

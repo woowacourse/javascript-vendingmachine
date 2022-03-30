@@ -6,26 +6,30 @@ import {
 import { COINS } from '../constants/chargeMoney';
 import { checkCanAddMoney } from '../validation/checkChargeMoney';
 
-export default class VendingMachineCoinManager implements ChargeMoneyManager {
-  private coins: Coins = { ...COINS.INITIAL_STATE };
+export default class VendingMachineChargeMoneyManager
+  implements ChargeMoneyManager
+{
+  private coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
 
   getCoins() {
-    return this.coins;
+    return this.coinsQuantity;
   }
 
   getTotalAmount() {
-    return Object.entries(this.coins).reduce(
+    return Object.entries(this.coinsQuantity).reduce(
       (sum: number, [coin, count]: [string, number]) =>
-        sum + Number(coin.replace('COIN_', '')) * count,
+        sum + Number(coin.replace('QUANTITY_COIN_', '')) * count,
       0
     );
   }
 
-  addCoins(newCoins: Coins) {
-    checkCanAddMoney(this.getTotalAmount(), newCoins);
+  addCoins(newCoinsQuantity: Coins) {
+    checkCanAddMoney(this.getTotalAmount(), newCoinsQuantity);
 
-    Object.entries(newCoins).forEach(([coin, count]: [string, number]) => {
-      this.coins[coin] += count;
-    });
+    Object.entries(newCoinsQuantity).forEach(
+      ([coin, count]: [string, number]) => {
+        this.coinsQuantity[coin] += count;
+      }
+    );
   }
 }

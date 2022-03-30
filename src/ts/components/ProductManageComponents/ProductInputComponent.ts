@@ -19,16 +19,13 @@ export default class ProductInputComponent {
     '.product-info-form__quantity-input'
   ) as HTMLInputElement;
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
+  private $productAddButton: HTMLElement = $('.product-info-form__add-button');
 
   constructor(private vendingMachineProductManagement) {
-    on(
-      $('.product-info-form__button'),
-      'click',
-      this.onSubmitProductInputsButton
-    );
+    on(this.$productAddButton, 'click', this.onSubmitProductAddButton);
   }
 
-  private onSubmitProductInputsButton = (e: Event): void => {
+  private onSubmitProductAddButton = (e: Event): void => {
     e.preventDefault();
 
     try {
@@ -44,16 +41,16 @@ export default class ProductInputComponent {
 
       this.vendingMachineProductManagement.addProduct(newProduct);
 
-      emit($('.product-info-form__button'), '@productInputSubmit', {
-        detail: {
-          newProduct,
-        },
-      });
-
       this.$nameInput.value = '';
       this.$priceInput.value = '';
       this.$quantityInput.value = '';
       this.$nameInput.focus();
+
+      emit(this.$productAddButton, '@productInputSubmit', {
+        detail: {
+          newProduct,
+        },
+      });
     } catch ({ message }) {
       focusWrongInput({
         message,

@@ -59,21 +59,23 @@ export default class ProductStateComponent {
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineProductManager) {
-    on($('.product-info-form__button'), '@productInputSubmit', this.render);
-    on(this.productTableTbody, 'click', this.onClickEditButton);
-    on(this.productTableTbody, 'click', this.onClickDeleteButton);
-    on(this.productTableTbody, 'click', this.onClickEditSubmitButton);
-    on(this.productTableTbody, 'keyup', this.onKeyupEditSubmitButton);
+    on(
+      $('.product-info-form__add-button'),
+      '@productInputSubmit',
+      this.addProduct
+    );
+    on(this.productTableTbody, 'click', this.onClickProductList);
+    on(this.productTableTbody, 'keyup', this.onKeyupProductList);
   }
 
-  private render = ({ detail: { newProduct } }): void => {
+  private addProduct = ({ detail: { newProduct } }): void => {
     this.productTableTbody.insertAdjacentHTML(
       'beforeend',
       generateTemplate(newProduct)
     );
   };
 
-  private editProduct(target) {
+  private approveEditProduct(target) {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
@@ -116,21 +118,7 @@ export default class ProductStateComponent {
     }
   }
 
-  private onClickEditSubmitButton = ({ target }): void => {
-    if (!target.matches('.product-table__confirm-button')) return;
-    this.editProduct(target);
-  };
-
-  private onKeyupEditSubmitButton = (event) => {
-    if (!event.target.matches('.product-table__input--edit')) return;
-    if (event.key !== 'Enter') return;
-
-    this.editProduct(event.target);
-  };
-
-  private onClickEditButton = ({ target }): void => {
-    if (!target.matches('.product-table__edit-button')) return;
-
+  private readyEditProduct(target) {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
@@ -144,11 +132,9 @@ export default class ProductStateComponent {
     focusEditInput(
       parentElement.querySelector('.product-table__product-name-input--edit')
     );
-  };
+  }
 
-  private onClickDeleteButton = ({ target }): void => {
-    if (!target.matches('.product-table__delete-button')) return;
-
+  private deleteProduct(target): void {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
@@ -162,5 +148,34 @@ export default class ProductStateComponent {
     this.vendingMachineProductManager.deleteProduct(targetProductName);
 
     grandParentElement.removeChild(parentElement);
+  }
+
+  private onKeyupProductList = ({ target, key }) => {
+    if (!target.matches('.product-table__input--edit')) return;
+    if (key !== 'Enter') return;
+
+    this.approveEditProduct(target);
+  };
+
+  private onClickProductList = ({ target }): void => {
+    if (
+      !target.matches('.product-table__confirm-button') &&
+      !target.matches('.product-table__edit-button') &&
+      !target.matches('.product-table__delete-button')
+    ) {
+      return;
+    }
+
+    if (target.matches('.product-table__confirm-button')) {
+      this.approveEditProduct(target);
+    }
+
+    if (target.matches('.product-table__edit-button')) {
+      this.readyEditProduct(target);
+    }
+
+    if (target.matches('.product-table__delete-button')) {
+      this.deleteProduct(target);
+    }
   };
 }
