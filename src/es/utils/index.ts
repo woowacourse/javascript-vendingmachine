@@ -12,7 +12,7 @@ export const isStringLengthInRange = (value: string, min: number, max: number): 
 
 export const isCorrectNumberUnit = (value: number, unit: number): boolean => value % unit === 0;
 
-export const getSearchParamsParse = (searchUrl = '') => `?${searchUrl.split('?')[1]}`;
+export const getSearchParamsParse = (searchUrl = ''): string => `?${searchUrl.split('?')[1]}`;
 
-export const getSearchParamsObject = (searchUrl = '') =>
+export const getSearchParamsObject = (searchUrl = ''): object =>
   Object.fromEntries(new URLSearchParams(searchUrl));
