@@ -2,7 +2,8 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
+import { productValidator, changeValidator, updateProductValidator } from '../validator';
+import { ERROR_MESSAGE } from '../constants';
 import Coin from './Coin';
 import { Product } from './Product';
 
@@ -51,9 +52,39 @@ class VendingMachine implements IVendingMachine {
     this[key]();
   }
 
+  validateProduct(product: Product, products: Product[]) {
+    if (productValidator.isDuplicated(product.name, products)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
+    }
+
+    if (productValidator.isIncorrectUnit(product.price)) {
+      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
+    }
+  }
+
+  validateUpdateProduct(targetName: string, name: string, price: number, products: Product[]) {
+    if (updateProductValidator.isDuplicated(targetName, name, products)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
+    }
+
+    if (updateProductValidator.isIncorrectUnit(price)) {
+      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
+    }
+  }
+
+  validateChange(inputMoney: number, currentChange: number) {
+    if (changeValidator.isOverMax(inputMoney, currentChange)) {
+      throw new Error(ERROR_MESSAGE.OVER_AMOUNT);
+    }
+
+    if (changeValidator.isIncorrectUnit(inputMoney)) {
+      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
+    }
+  }
+
   addProduct(product: Product) {
     try {
-      validateProduct(product, this.products);
+      this.validateProduct(product, this.products);
       const newProduct = new Product(product);
 
       this.products.push(newProduct);
@@ -66,7 +97,7 @@ class VendingMachine implements IVendingMachine {
 
   updateProduct({ targetName, name, price, quantity }) {
     try {
-      validateUpdateProduct(targetName, name, price, this.products);
+      this.validateUpdateProduct(targetName, name, price, this.products);
       const currentProduct = this.products.find((product) => product.name === targetName);
 
       currentProduct.update({ name, price, quantity } as Product);
@@ -87,7 +118,7 @@ class VendingMachine implements IVendingMachine {
 
   charge(inputMoney: number) {
     try {
-      validateChange(inputMoney, this.amount.getAmount());
+      this.validateChange(inputMoney, this.amount.getAmount());
 
       this.amount.genarateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
