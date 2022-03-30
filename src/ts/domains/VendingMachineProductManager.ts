@@ -3,7 +3,7 @@ import { ProductManager, Product } from '../types/vendingMachineProductManager';
 import {
   checkDuplicatedProductName,
   checkEditDuplicateName,
-} from '../utils/utils';
+} from '../validation/checkProduct';
 
 export default class VendingMachineProductManager implements ProductManager {
   private products: Product[] = [];

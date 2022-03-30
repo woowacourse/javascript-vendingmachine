@@ -2,9 +2,11 @@ import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../utils/utils';
+} from '../../validation/checkProduct';
 
-import { on, emit, renderSnackBar, $, focusWrongInput } from '../../dom';
+import renderSnackBar from '../../dom/snackBar';
+import { on, emit, $ } from '../../dom/domHelper';
+import focusWrongInput from '../../dom/checkErrorMessage';
 
 export default class ProductInputComponent {
   private $nameInput = $(

@@ -1,23 +1,21 @@
 import { Product } from '../../types/vendingMachineProductManager';
 
-import {
-  on,
-  renderSnackBar,
-  $,
-  focusWrongInput,
-  focusEditInput,
-} from '../../dom';
-import {
-  checkValidLengthProductName,
-  checkValidProductPrice,
-  checkValidProductQuantity,
-} from '../../utils/utils';
+import renderSnackBar from '../../dom/snackBar';
+import { on, $, focusEditInput } from '../../dom/domHelper';
+import focusWrongInput from '../../dom/checkErrorMessage';
+
+import { DELETE_PRODUCT_CONFIRM_MESSAGE } from '../../constants/errorMessage';
 import {
   PRODUCT_NAME,
   PRODUCT_PRICE,
   PRODUCT_QUANTITY,
-  DELETE_PRODUCT_CONFIRM_MESSAGE,
-} from '../../constants';
+} from '../../constants/product';
+
+import {
+  checkValidLengthProductName,
+  checkValidProductPrice,
+  checkValidProductQuantity,
+} from '../../validation/checkProduct';
 
 const generateTemplate = ({
   name: productName,

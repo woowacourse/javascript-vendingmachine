@@ -5,13 +5,14 @@ import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../ts/utils/utils';
+} from '../ts/validation/checkProduct';
+
+import { ERROR_MESSAGE } from '../ts/constants/errorMessage';
 import {
-  ERROR_MESSAGE,
   PRODUCT_NAME,
   PRODUCT_PRICE,
   PRODUCT_QUANTITY,
-} from '../ts/constants';
+} from '../ts/constants/product';
 
 describe('올바른 상품명 확인', () => {
   test(`상품명이 ${PRODUCT_NAME.MAX_LENGTH}글자일 경우 error가 발생하지 않는다.`, () => {

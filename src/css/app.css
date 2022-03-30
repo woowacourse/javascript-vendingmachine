@@ -161,15 +161,15 @@ h1 {
   margin-bottom: 16px;
 }
 
-.charge-form-section__coin-input-wrapper {
+.charge-form-section__charge-money-input-wrapper {
   display: flex;
 }
 
-.charge-form-section__coin-input-wrapper label {
+.charge-form-section__charge-money-input-wrapper label {
   display: block;
 }
 
-.charge-form-section__coin-input {
+.charge-form-section__charge-money-input {
   flex-grow: 1;
   padding: 8px 15.5px 4px;
   border: 1px solid #b4b4b4;

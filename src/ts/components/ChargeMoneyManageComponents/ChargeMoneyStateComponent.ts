@@ -1,4 +1,4 @@
-import { on, $ } from '../../dom';
+import { on, $ } from '../../dom/domHelper';
 
 export default class ChargeMoneyStateComponent {
   private $coin500: HTMLSpanElement = $('.coin-quantity-table__coin-500');

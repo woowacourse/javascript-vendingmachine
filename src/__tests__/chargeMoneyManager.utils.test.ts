@@ -1,5 +1,7 @@
-import { checkValidChargeMoney } from '../ts/utils/utils';
-import { CHARGE_MONEY, ERROR_MESSAGE } from '../ts/constants';
+import { checkValidChargeMoney } from '../ts/validation/checkChargeMoney';
+
+import { CHARGE_MONEY } from '../ts/constants/chargeMoney';
+import { ERROR_MESSAGE } from '../ts/constants/errorMessage';
 
 describe('올바른 잔돈 확인', () => {
   test(`잔돈이 ${CHARGE_MONEY.UNIT}으로 나누어 떨어지는지 확인한다.`, () => {

@@ -6,16 +6,16 @@ import ChargeMoneyStateComponent from '../components/ChargeMoneyManageComponents
 import VendingMachineProductManager from '../domains/VendingMachineProductManager';
 import VendingMachineChargeMoneyManager from '../domains/VendingMachineChargeMoneyManager';
 
-import { $, on } from '../dom';
-import { ROUTES } from '../constants';
+import { $, on } from '../dom/domHelper';
+import { ROUTES } from '../constants/routes';
 
 export default class NavigatorComponent {
   private $productInfoSection: HTMLElement = $('.product-info-section');
-  private $chargeCoinSection: HTMLElement = $('.charge-coin-section');
+  private $chargeMoneySection: HTMLElement = $('.charge-money-section');
   private $navProductButton = $('.nav__product-button') as HTMLButtonElement;
   private $navChargeButton = $('.nav__charge-button') as HTMLButtonElement;
-  private $coinInput = $(
-    '.charge-form-section__coin-input'
+  private $chargeMoneyInput = $(
+    '.charge-form-section__charge-money-input'
   ) as HTMLInputElement;
   private $productInput = $(
     '.product-info-form__product-input'
@@ -88,7 +88,7 @@ export default class NavigatorComponent {
 
   private renderProductComponent(): void {
     this.$productInfoSection.classList.remove('hide');
-    this.$chargeCoinSection.classList.add('hide');
+    this.$chargeMoneySection.classList.add('hide');
     this.$navProductButton.classList.add('nav__button--focused');
     this.$navChargeButton.classList.remove('nav__button--focused');
     this.$productInput.focus();
@@ -96,9 +96,9 @@ export default class NavigatorComponent {
 
   private renderCoinComponent(): void {
     this.$productInfoSection.classList.add('hide');
-    this.$chargeCoinSection.classList.remove('hide');
+    this.$chargeMoneySection.classList.remove('hide');
     this.$navProductButton.classList.remove('nav__button--focused');
     this.$navChargeButton.classList.add('nav__button--focused');
-    this.$coinInput.focus();
+    this.$chargeMoneyInput.focus();
   }
 }

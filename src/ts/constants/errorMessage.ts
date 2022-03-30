@@ -1,33 +1,6 @@
-import { InitialCoins } from './types/vendingMachineCoinManager';
-import {
-  ProductQuantity,
-  ProductName,
-  ProductPrice,
-  ChargeMoney,
-  ErrorMessage,
-  Routes,
-} from './types/constants';
-
-export const PRODUCT_NAME: ProductName = {
-  MAX_LENGTH: 10,
-  MIN_LENGTH: 1,
-};
-
-export const PRODUCT_PRICE: ProductPrice = {
-  MAX_PRICE: 10000,
-  MIN_PRICE: 100,
-  UNIT: 10,
-};
-
-export const PRODUCT_QUANTITY: ProductQuantity = {
-  MAX_QUANTITY: 20,
-  MIN_QUANTITY: 1,
-};
-
-export const CHARGE_MONEY: ChargeMoney = {
-  MAX_TOTAL_CHARGE_MONEY: 100000,
-  UNIT: 10,
-};
+import { ErrorMessage } from '../types/constants';
+import { CHARGE_MONEY } from './chargeMoney';
+import { PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY } from './product';
 
 export const ERROR_MESSAGE: ErrorMessage = {
   WRONG_LENGTH_PRODUCT_NAME: `상품명을 잘못 입력하셨습니다. 상품명은 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 ${PRODUCT_NAME.MAX_LENGTH}글자 이하로 작성해주세요.`,
@@ -46,21 +19,3 @@ export const ERROR_MESSAGE: ErrorMessage = {
 
 export const DELETE_PRODUCT_CONFIRM_MESSAGE = (productName: string): string =>
   `상품명 : ${productName}\n해당하는 상품을 삭제할 경우 복구 하실 수 없습니다. 정말 삭제하시겠습니까?`;
-
-export const COINS: InitialCoins = {
-  INITIAL_STATE: {
-    COIN_500: 0,
-    COIN_100: 0,
-    COIN_50: 0,
-    COIN_10: 0,
-  },
-  INITIAL_LIST: [10, 50, 100, 500],
-};
-
-export const ROUTES: Routes = {
-  HOME: '/',
-  PRODUCTS: '/products',
-  COINS: '/coins',
-};
-
-export const SNACK_BAR_DELAY_TIME = 3000;

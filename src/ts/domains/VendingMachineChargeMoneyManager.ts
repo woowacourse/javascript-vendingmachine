@@ -1,7 +1,10 @@
-import { ChargeMoneyManager, Coins } from '../types/vendingMachineCoinManager';
+import {
+  ChargeMoneyManager,
+  Coins,
+} from '../types/vendingMachineChargeMoneyManager';
 
-import { COINS } from '../constants';
-import { checkCanAddMoney } from '../utils/utils';
+import { COINS } from '../constants/chargeMoney';
+import { checkCanAddMoney } from '../validation/checkChargeMoney';
 
 export default class VendingMachineCoinManager implements ChargeMoneyManager {
   private coins: Coins = { ...COINS.INITIAL_STATE };

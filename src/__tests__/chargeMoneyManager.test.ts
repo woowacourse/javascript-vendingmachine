@@ -1,6 +1,9 @@
-import { Coins } from '../ts/types/vendingMachineCoinManager';
+import { Coins } from '../ts/types/vendingMachineChargeMoneyManager';
 
-import { ERROR_MESSAGE, COINS, CHARGE_MONEY } from '../ts/constants';
+import { ERROR_MESSAGE } from '../ts/constants/errorMessage';
+import { COINS } from '../ts/constants/chargeMoney';
+import { CHARGE_MONEY } from '../ts/constants/chargeMoney';
+
 import VendingMachineChargeMoneyManager from '../ts/domains/VendingMachineChargeMoneyManager';
 
 describe('잔돈 관리 도메인 테스트', () => {

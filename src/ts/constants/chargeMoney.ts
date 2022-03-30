@@ -1,0 +1,17 @@
+import { InitialCoins } from '../types/vendingMachineChargeMoneyManager';
+import { ChargeMoney } from '../types/constants';
+
+export const CHARGE_MONEY: ChargeMoney = {
+  MAX_TOTAL_CHARGE_MONEY: 100000,
+  UNIT: 10,
+};
+
+export const COINS: InitialCoins = {
+  INITIAL_STATE: {
+    COIN_500: 0,
+    COIN_100: 0,
+    COIN_50: 0,
+    COIN_10: 0,
+  },
+  INITIAL_LIST: [10, 50, 100, 500],
+};

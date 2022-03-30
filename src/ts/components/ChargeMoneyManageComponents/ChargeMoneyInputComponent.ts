@@ -1,14 +1,42 @@
-import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
-import { emit, renderSnackBar, $, on } from '../../dom';
+import { Coins } from '../../types/vendingMachineChargeMoneyManager';
+
+import { checkValidChargeMoney } from '../../validation/checkChargeMoney';
+import pickRandomIndex from '../../utils/utils';
+
+import { COINS } from '../../constants/chargeMoney';
+
+import { emit, $, on } from '../../dom/domHelper';
+import renderSnackBar from '../../dom/snackBar';
+
+const generateRandomCoins = (money: number): Coins => {
+  const coinList: number[] = COINS.INITIAL_LIST;
+  const coinsObject: Coins = { ...COINS.INITIAL_STATE };
+
+  let remainMoney: number = money;
+
+  while (remainMoney) {
+    const pickableCoins: number[] = coinList.filter(
+      (coin: number) => coin <= remainMoney
+    );
+    const pickedCoin: number =
+      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
+    coinsObject[`COIN_${pickedCoin}`] += 1;
+    remainMoney -= pickedCoin;
+  }
+
+  return coinsObject;
+};
 
 export default class ChargeMoneyComponent {
-  private $coinInput = $(
-    '.charge-form-section__coin-input'
+  private $chargeMoneyInput = $(
+    '.charge-form-section__charge-money-input'
   ) as HTMLInputElement;
   private $chargeButton = $(
     '.charge-form-section__button'
   ) as HTMLButtonElement;
-  private $totalCoin: HTMLElement = $('.charge-form-section__total-coin');
+  private $totalChargeMoney: HTMLElement = $(
+    '.charge-form-section__total-charge-money'
+  );
   private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineCoinManager) {
@@ -19,22 +47,22 @@ export default class ChargeMoneyComponent {
     e.preventDefault();
 
     try {
-      checkValidChargeMoney(this.$coinInput.valueAsNumber);
-      this.vendingMachineCoinManager.addCoins(
-        generateRandomCoins(this.$coinInput.valueAsNumber)
-      );
+      const chargeMoney = this.$chargeMoneyInput.valueAsNumber;
 
-      this.$totalCoin.textContent =
+      checkValidChargeMoney(chargeMoney);
+      this.vendingMachineCoinManager.addCoins(generateRandomCoins(chargeMoney));
+
+      this.$totalChargeMoney.textContent =
         this.vendingMachineCoinManager.getTotalAmount();
+
+      this.$chargeMoneyInput.value = '';
+      this.$chargeMoneyInput.focus();
 
       emit(this.$chargeButton, '@chargeInputSubmit', {
         detail: {
           coins: this.vendingMachineCoinManager.getCoins(),
         },
       });
-
-      this.$coinInput.value = '';
-      this.$coinInput.focus();
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message);
     }
