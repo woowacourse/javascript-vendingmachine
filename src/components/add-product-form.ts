@@ -58,10 +58,6 @@ class AddProductForm extends Component {
     [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
     this.querySelector('input')?.focus();
   }
-
-  shouldSubscribe(): boolean {
-    return true;
-  }
 }
 
 export default AddProductForm;
