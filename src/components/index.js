@@ -37,12 +37,18 @@ class VendingMachineComponent {
     } = e;
 
     if (id === 'manage-product-tab') {
+      history.pushState(null, '', '');
+
       this.showSection('');
     }
     if (id === 'recharge-change-tab') {
+      history.pushState(null, '', 'recharge');
+
       this.showSection('recharge');
     }
     if (id === 'purchase-product-tab') {
+      history.pushState(null, '', 'purchase');
+
       this.showSection('purchase');
     }
   };

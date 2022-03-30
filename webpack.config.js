@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,6 +11,7 @@ module.exports = {
   },
   devServer: {
     port: 9000,
+    historyApiFallback: true,
   },
   devtool: 'source-map',
   output: {
@@ -54,6 +56,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
+    }),
+    new CopyPlugin({
+      patterns: [{ from: 'public', to: '' }],
     }),
   ],
 };
