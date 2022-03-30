@@ -4,7 +4,7 @@ import { createAction, PRODUCT_ACTION } from '../domains/actions';
 describe('상품을 관리할 수 있다.', () => {
   const findProduct = (newProduct) => {
     return ProductStore.instance.products.find((product) => product.name === newProduct.name);
-  }
+  };
 
   beforeEach(() => {
     ProductStore._instance = null;
@@ -38,7 +38,7 @@ describe('상품을 관리할 수 있다.', () => {
       price: 50800,
       quantity: 23,
     };
-    
+
     ProductStore.instance.updateProducts(createAction(PRODUCT_ACTION.ADD, product));
     ProductStore.instance.updateProducts(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
 
@@ -52,7 +52,7 @@ describe('상품을 관리할 수 있다.', () => {
       price: 10000,
       quantity: 70,
     };
-    
+
     ProductStore.instance.updateProducts(createAction(PRODUCT_ACTION.ADD, product));
     ProductStore.instance.updateProducts(createAction(PRODUCT_ACTION.DELETE, product.name));
 
