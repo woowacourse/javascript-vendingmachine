@@ -1,4 +1,4 @@
-import CoinStore from '../../domains/stores/CoinStore';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { createAction, COIN_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
@@ -36,7 +36,7 @@ class CoinChargeForm extends CustomElement {
       return;
     }
     this.initCoinInput($coinInput);
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_CHARGE, coinInputValue));
+    CoinStoreInstance.dispatch(createAction(COIN_ACTION.COIN_CHARGE, coinInputValue));
   };
 
   initCoinInput($coinInput) {

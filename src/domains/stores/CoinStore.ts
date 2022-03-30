@@ -3,16 +3,6 @@ import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
 
 class CoinStore {
-  static _instance: null | object = null;
-
-  static get instance() {
-    if (!CoinStore._instance) {
-      CoinStore._instance = new CoinStore();
-    }
-
-    return CoinStore._instance;
-  }
-
   #coinsCount: CoinsCount = {
     500: COIN.DEFAULT_COUNT,
     100: COIN.DEFAULT_COUNT,
@@ -73,4 +63,5 @@ class CoinStore {
   }
 }
 
-export default CoinStore;
+const CoinStoreInstance = new CoinStore();
+export default CoinStoreInstance;

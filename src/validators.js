@@ -1,5 +1,5 @@
 import ProductStore from './domains/stores/ProductStore';
-import CoinStore from './domains/stores/CoinStore';
+import CoinStoreInstance from './domains/stores/CoinStore';
 import { ERROR_MESSAGE, MONEY, PRODUCT } from './constants';
 
 const isBlank = (value) => value === '';
@@ -26,7 +26,7 @@ const isUnderMinQuantity = (quantity) => quantity < PRODUCT.QUANTITY.MIN;
 const isOverMaxQuantity = (quantity) => quantity > PRODUCT.QUANTITY.MAX;
 
 const isOverMaxMoney = (inputMoney) => {
-  const currentMoney = CoinStore.instance.money;
+  const currentMoney = CoinStoreInstance.money;
 
   return currentMoney + inputMoney > MONEY.MAX;
 };

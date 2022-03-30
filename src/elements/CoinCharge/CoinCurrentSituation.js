@@ -1,11 +1,11 @@
-import CoinStore from '../../domains/stores/CoinStore';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 
 class CoinCurrentSituation extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribe(this);
+    CoinStoreInstance.subscribe(this);
   }
 
   template() {
