@@ -1,6 +1,6 @@
 import { $, $$ } from './utils';
 
-interface IRouter {
+interface Router {
   path: string;
   component: Element;
 }
@@ -25,10 +25,10 @@ const render = (path: string) => {
   const prevs = routers.filter((route) => route.path !== path);
 
   cur.classList.remove('hidden');
-  prevs.forEach((p: IRouter) => p.component.classList.add('hidden'));
+  prevs.forEach((p: Router) => p.component.classList.add('hidden'));
 };
 
-const routers: IRouter[] = [
+const routers: Router[] = [
   { path: baseURL + '/', component: $('product-management') },
   { path: baseURL + '/charge', component: $('charge-tab') },
 ];

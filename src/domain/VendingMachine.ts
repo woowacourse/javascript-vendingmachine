@@ -6,12 +6,12 @@ import { validateChange, validateProduct, validateUpdateProduct } from '../valid
 import Coin from './Coin';
 import Product from './Product';
 
-interface IVendingMachine {
+interface VendingMachineProperty {
   amount: Coin;
   products: Product[];
 }
 
-class VendingMachine implements IVendingMachine {
+class VendingMachine implements VendingMachineProperty {
   static _instance: VendingMachine | null = null;
 
   static get instance() {

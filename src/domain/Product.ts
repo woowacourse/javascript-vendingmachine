@@ -1,10 +1,11 @@
-interface IProduct {
+interface ProductProperty {
+  id: string;
   name: string;
   price: number;
   quantity: number;
 }
 
-class Product implements IProduct {
+class Product implements ProductProperty {
   id: string;
   name: string;
   price: number;
