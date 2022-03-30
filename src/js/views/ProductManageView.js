@@ -6,10 +6,10 @@ import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 export default class ProductManageView {
   constructor() {
     on(SECTION_CONTAINER, [['submit', this.#onSubmitProductInfo]]);
-    this.#bindMangeEvent();
+    this.#bindManageEvent();
   }
 
-  #bindMangeEvent() {
+  #bindManageEvent() {
     SECTION_CONTAINER.addEventListener('click', (e) => {
       const { target } = e;
 
