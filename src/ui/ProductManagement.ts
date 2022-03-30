@@ -57,11 +57,11 @@ class ProductManagement extends CustomElement {
   showForm(e) {
     const item = e.target.closest('.product-item');
     const { productName, productId } = item.dataset;
-    const values = [...item.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
 
-    const name = values[0];
-    const price = deleteSeparator(values[1]);
-    const quantity = values[2];
+    const [name, priceWithSeperator, quantity] = [...item.getElementsByTagName('td')]
+      .slice(0, 3)
+      .map((td) => td.textContent);
+    const price = deleteSeparator(priceWithSeperator);
 
     item.innerHTML = `
       <tr class="product-item" data-product-name="${productName}" data-product-id="${productId}">
@@ -89,16 +89,16 @@ class ProductManagement extends CustomElement {
   }
 
   notify(action: string, _: never, product: Product) {
-    if (action === 'add') {
-      this.insertItem(product);
-    }
-
-    if (action === 'update') {
-      this.updateItem(product);
-    }
-
-    if (action === 'delete') {
-      this.deleteItem(product);
+    switch (action) {
+      case 'add':
+        this.insertItem(product);
+        break;
+      case 'update':
+        this.updateItem(product);
+        break;
+      case 'delete':
+        this.deleteItem(product);
+        break;
     }
   }
 
