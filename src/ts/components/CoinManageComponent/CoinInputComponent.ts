@@ -1,5 +1,28 @@
-import { generateRandomCoins, checkValidChargeMoney } from '../../utils/utils';
-import { emit, renderSnackBar, $, on } from '../../dom';
+import { COINS } from '../../constants';
+import { $ } from '../../dom';
+import renderSnackBar from '../../snakbar';
+import { Coins } from '../../types/vendingMachineCoinManager';
+import { emit, on, pickRandomIndex } from '../../utils';
+import { checkValidChargeMoney } from '../validator';
+
+const generateRandomCoins = (money: number): Coins => {
+  const coinList: number[] = COINS.LIST;
+  const coinsObject: Coins = { ...COINS.INITIAL_STATE };
+
+  let remainMoney: number = money;
+
+  while (remainMoney) {
+    const pickableCoins: number[] = coinList.filter(
+      (coin: number) => coin <= remainMoney
+    );
+    const pickedCoin: number =
+      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
+    coinsObject[`COIN_${pickedCoin}`] += 1;
+    remainMoney -= pickedCoin;
+  }
+
+  return coinsObject;
+};
 
 export default class CoinInputComponent {
   private $coinInput = $(

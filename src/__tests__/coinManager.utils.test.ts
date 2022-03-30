@@ -1,4 +1,4 @@
-import { checkValidChargeMoney } from '../ts/utils/utils';
+import { checkValidChargeMoney } from '../ts/components/validator';
 import { CHARGE_MONEY, ERROR_MESSAGE } from '../ts/constants';
 
 describe('올바른 잔돈 확인', () => {

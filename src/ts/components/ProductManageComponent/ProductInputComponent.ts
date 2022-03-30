@@ -1,10 +1,11 @@
+import { $, focusWrongInput } from '../../dom';
+import renderSnackBar from '../../snakbar';
+import { emit, on } from '../../utils';
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../../utils/utils';
-
-import { on, emit, renderSnackBar, $, focusWrongInput } from '../../dom';
+} from '../validator';
 
 export default class ProductInputComponent {
   private $nameInput = $('.products-form__product-input') as HTMLInputElement;

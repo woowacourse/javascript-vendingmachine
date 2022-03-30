@@ -1,9 +1,5 @@
 import { ProductManager, Product } from '../types/vendingMachineProductManager';
-
-import {
-  checkDuplicatedProductName,
-  checkEditDuplicateName,
-} from '../utils/utils';
+import { checkDuplicatedProductName } from './validator';
 
 export default class VendingMachineProductManager implements ProductManager {
   private products: Product[] = [];
@@ -22,17 +18,14 @@ export default class VendingMachineProductManager implements ProductManager {
     return this.products;
   }
 
-  editProduct(editProductName, targetProduct) {
-    const editIndex = this.products.findIndex(
-      (product) => product.name === editProductName
-    );
-    const duplicatedNameIndex = this.products.findIndex(
-      (product) => product.name === targetProduct.name
+  editProduct(targetProduct) {
+    checkDuplicatedProductName(this.products, targetProduct);
+
+    const targetIndex = this.products.findIndex(
+      ({ name }) => name === targetProduct.name
     );
 
-    checkEditDuplicateName(editIndex, duplicatedNameIndex);
-
-    this.products.splice(editIndex, 1, targetProduct);
+    this.products = this.products.splice(targetIndex, 1, targetProduct);
   }
 
   deleteProduct(deleteProductName) {

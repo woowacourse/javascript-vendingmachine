@@ -1,23 +1,19 @@
 import { Product } from '../../types/vendingMachineProductManager';
 
-import {
-  on,
-  renderSnackBar,
-  $,
-  focusWrongInput,
-  focusEditInput,
-} from '../../dom';
-import {
-  checkValidLengthProductName,
-  checkValidProductPrice,
-  checkValidProductQuantity,
-} from '../../utils/utils';
+import { focusWrongInput, focusEditInput, $ } from '../../dom';
 import {
   PRODUCT_NAME,
   PRODUCT_PRICE,
   PRODUCT_QUANTITY,
   DELETE_PRODUCT_CONFIRM_MESSAGE,
 } from '../../constants';
+import {
+  checkValidLengthProductName,
+  checkValidProductPrice,
+  checkValidProductQuantity,
+} from '../validator';
+import renderSnackBar from '../../snakbar';
+import { on } from '../../utils';
 
 const generateTemplate = ({
   name: productName,
@@ -100,10 +96,7 @@ export default class ProductStateComponent {
         quantity: $editProductQuantityInput.valueAsNumber,
       };
 
-      this.vendingMachineProductManager.editProduct(
-        parentElement.dataset.productName,
-        editedProduct
-      );
+      this.vendingMachineProductManager.editProduct(editedProduct);
 
       parentElement.innerHTML = generateTemplate(editedProduct);
       parentElement.dataset.productName = $editProductNameInput.value;

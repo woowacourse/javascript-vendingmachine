@@ -1,17 +1,17 @@
 import { Product } from '../ts/types/vendingMachineProductManager';
 
 import {
-  checkDuplicatedProductName,
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
-} from '../ts/utils/utils';
+} from '../ts/components/validator';
 import {
   ERROR_MESSAGE,
   PRODUCT_NAME,
   PRODUCT_PRICE,
   PRODUCT_QUANTITY,
 } from '../ts/constants';
+import { checkDuplicatedProductName } from '../ts/domains/validator';
 
 describe('올바른 상품명 확인', () => {
   test(`상품명은 최소 ${PRODUCT_NAME.MIN_LENGTH}글자 부터 최대 ${PRODUCT_NAME.MAX_LENGTH}글자까지 가능하다. (성공 케이스, 입력: "콜라")`, () => {
