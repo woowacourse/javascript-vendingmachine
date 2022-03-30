@@ -1,9 +1,7 @@
 import Store from './Abstract';
 import { IProduct } from './Interface';
 
-interface IState {
-  products: Array<IProduct>;
-}
+type IState = Record<'products', Array<IProduct>>;
 
 class ProductStore extends Store {
   protected state: IState = {

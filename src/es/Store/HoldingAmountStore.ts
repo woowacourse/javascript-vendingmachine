@@ -2,9 +2,7 @@ import { getRandomNumber } from '@Utils/index';
 import { COIN_TYPE } from '@Constants/index';
 import Store from './Abstract';
 
-interface IState {
-  coins: Array<number>;
-}
+type IState = Record<'coins', Array<number>>;
 
 class HoldingAmountStore extends Store {
   protected state: IState = {
