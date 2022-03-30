@@ -43,8 +43,8 @@ export default class ChargeMoneyComponent {
     on(this.$chargeButton, 'click', this.onSubmitChargeButton);
   }
 
-  private onSubmitChargeButton = (e: Event): void => {
-    e.preventDefault();
+  private onSubmitChargeButton = (event: Event): void => {
+    event.preventDefault();
 
     try {
       const chargeMoney = this.$chargeMoneyInput.valueAsNumber;

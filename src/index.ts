@@ -1,6 +1,5 @@
 import './css/index';
 import startApp from './ts/app';
+import { on } from './ts/dom/domHelper';
 
-window.addEventListener('DOMContentLoaded', () => {
-  startApp();
-});
+on(window, 'DOMContentLoaded', startApp);

@@ -1,5 +1,7 @@
-import NavigatorComponent from './components/NavigatorComponent';
+import RouteManager from './routes/routes';
 
-export default function startApp() {
-  new NavigatorComponent();
-}
+const startApp = () => {
+  new RouteManager();
+};
+
+export default startApp;

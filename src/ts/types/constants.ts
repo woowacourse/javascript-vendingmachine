@@ -14,10 +14,10 @@ export interface ProductQuantity {
   readonly MIN_QUANTITY: number;
 }
 
-export interface Routes {
+export interface PathName {
   readonly HOME: string;
   readonly PRODUCTS: string;
-  readonly COINS: string;
+  readonly CHARGE_MONEY: string;
 }
 
 export interface ErrorMessage {

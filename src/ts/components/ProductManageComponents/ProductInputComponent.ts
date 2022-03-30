@@ -25,8 +25,8 @@ export default class ProductInputComponent {
     on(this.$productAddButton, 'click', this.onSubmitProductAddButton);
   }
 
-  private onSubmitProductAddButton = (e: Event): void => {
-    e.preventDefault();
+  private onSubmitProductAddButton = (event: Event): void => {
+    event.preventDefault();
 
     try {
       checkValidLengthProductName(this.$nameInput.value.trim());

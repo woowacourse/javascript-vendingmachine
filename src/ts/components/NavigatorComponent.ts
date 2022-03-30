@@ -7,13 +7,15 @@ import VendingMachineProductManager from '../domains/VendingMachineProductManage
 import VendingMachineChargeMoneyManager from '../domains/VendingMachineChargeMoneyManager';
 
 import { $, on } from '../dom/domHelper';
-import { ROUTES } from '../constants/routes';
+import { PATH_NAME } from '../routes/routes';
 
 export default class NavigatorComponent {
   private $productInfoSection: HTMLElement = $('.product-info-section');
   private $chargeMoneySection: HTMLElement = $('.charge-money-section');
+
   private $navProductButton = $('.nav__product-button') as HTMLButtonElement;
-  private $navChargeButton = $('.nav__charge-button') as HTMLButtonElement;
+  private $navChargeMoneyButton = $('.nav__charge-button') as HTMLButtonElement;
+
   private $chargeMoneyInput = $(
     '.charge-form-section__charge-money-input'
   ) as HTMLInputElement;
@@ -32,73 +34,36 @@ export default class NavigatorComponent {
     new ChargeMoneyStateComponent();
 
     on(this.$navProductButton, 'click', this.onClickNavProductButton);
-    on(this.$navChargeButton, 'click', this.onClickNavChargeButton);
-    on(window, 'popstate', this.onPopstateRoute);
-    this.routeURLVisit(window.location.pathname);
+    on(this.$navChargeMoneyButton, 'click', this.onClickNavChargeMoneyButton);
+    on(window, '@popstateRenderChargeMoney', this.renderChargeMoneyComponent);
+    on(window, '@popstateRenderProduct', this.renderProductComponent);
   }
 
-  private routeURLVisit(pathname: string): void {
-    if (
-      !Object.values(ROUTES).some((route) => route === window.location.pathname)
-    ) {
-      window.history.replaceState(null, null, '/');
-
-      return;
-    }
-
-    if (pathname === ROUTES.COINS) {
-      this.renderCoinComponent();
-      window.history.pushState({}, '', ROUTES.COINS);
-
-      return;
-    }
-
-    if (pathname === ROUTES.PRODUCTS) {
-      this.renderProductComponent();
-      window.history.pushState({}, '', ROUTES.PRODUCTS);
-
-      return;
-    }
-  }
-
-  private onPopstateRoute = (): void => {
-    if (window.location.pathname === ROUTES.COINS) {
-      this.renderCoinComponent();
-    }
-
-    if (
-      window.location.pathname === ROUTES.PRODUCTS ||
-      window.location.pathname === '/'
-    ) {
-      this.renderProductComponent();
-    }
-  };
-
-  private onClickNavProductButton = (e: Event): void => {
-    e.preventDefault();
+  private onClickNavProductButton = (event: Event): void => {
+    event.preventDefault();
     this.renderProductComponent();
-    window.history.pushState({}, '', ROUTES.PRODUCTS);
+    window.history.pushState({}, '', PATH_NAME.PRODUCTS);
   };
 
-  private onClickNavChargeButton = (e: Event): void => {
-    e.preventDefault();
-    this.renderCoinComponent();
-    window.history.pushState({}, '', ROUTES.COINS);
+  private onClickNavChargeMoneyButton = (event: Event): void => {
+    event.preventDefault();
+    this.renderChargeMoneyComponent();
+    window.history.pushState({}, '', PATH_NAME.CHARGE_MONEY);
   };
 
-  private renderProductComponent(): void {
+  renderProductComponent(): void {
     this.$productInfoSection.classList.remove('hide');
     this.$chargeMoneySection.classList.add('hide');
     this.$navProductButton.classList.add('nav__button--focused');
-    this.$navChargeButton.classList.remove('nav__button--focused');
+    this.$navChargeMoneyButton.classList.remove('nav__button--focused');
     this.$productInput.focus();
   }
 
-  private renderCoinComponent(): void {
+  renderChargeMoneyComponent(): void {
     this.$productInfoSection.classList.add('hide');
     this.$chargeMoneySection.classList.remove('hide');
     this.$navProductButton.classList.remove('nav__button--focused');
-    this.$navChargeButton.classList.add('nav__button--focused');
+    this.$navChargeMoneyButton.classList.add('nav__button--focused');
     this.$chargeMoneyInput.focus();
   }
 }
