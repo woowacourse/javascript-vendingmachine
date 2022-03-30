@@ -43,3 +43,9 @@ export const COIN = {
   VALUE_50: 50,
   VALUE_10: 10,
 };
+
+export const FLAG = {
+  POP_STATE: true,
+};
+
+export const DOMAIN_LENGH = '/javascript-vendingmachine/'.length;
