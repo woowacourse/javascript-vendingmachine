@@ -108,11 +108,9 @@ class ProductPageView {
     const updatedProduct = target.closest("tr");
 
     const id = updatedProduct.dataset.id;
-    const updatedName = updatedProduct.querySelector("#edit-name-input").value;
-    const updatedPrice =
-      updatedProduct.querySelector("#edit-price-input").valueAsNumber;
-    const updatedCount =
-      updatedProduct.querySelector("#edit-count-input").valueAsNumber;
+    const updatedName = $("#edit-name-input", updatedProduct).value;
+    const updatedPrice = $("#edit-price-input", updatedProduct).valueAsNumber;
+    const updatedCount = $("#edit-count-input", updatedProduct).valueAsNumber;
 
     this.edited = false;
 
