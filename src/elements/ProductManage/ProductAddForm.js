@@ -24,6 +24,7 @@ class ProductAddForm extends CustomElement {
     $('product-add-form').addEventListener('submit', this.handleProductAddFormSubmit);
   }
 
+  // eslint-disable-next-line max-lines-per-function
   handleProductAddFormSubmit = (event) => {
     event.preventDefault();
 
@@ -38,18 +39,14 @@ class ProductAddForm extends CustomElement {
     };
 
     try {
-      this.addProduct(newProduct);
-      this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
+      checkProductAddValidation(newProduct);
     } catch (error) {
       alert(error.message);
+      return;
     }
-  };
-
-  addProduct(newProduct) {
-    checkProductAddValidation(newProduct);
-
+    this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
-  }
+  };
 
   initProductInputs($productNameInput, $productPriceInput, $productQuantityInput) {
     $productNameInput.value = '';

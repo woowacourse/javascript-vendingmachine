@@ -29,20 +29,15 @@ class CoinChargeForm extends CustomElement {
 
     const $coinInput = $('#coin-input');
     const coinInputValue = $coinInput.valueAsNumber;
-
     try {
-      this.chargeCoin(coinInputValue);
-      this.initCoinInput($coinInput);
+      checkCoinValidation(coinInputValue);
     } catch (error) {
       alert(error.message);
+      return;
     }
-  };
-
-  chargeCoin(coinInputValue) {
-    checkCoinValidation(coinInputValue);
-
+    this.initCoinInput($coinInput);
     CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_CHARGE, coinInputValue));
-  }
+  };
 
   initCoinInput($coinInput) {
     $coinInput.value = '';
