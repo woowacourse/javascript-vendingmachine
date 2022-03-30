@@ -1,4 +1,4 @@
-import { $, getSearchParamsObject } from '@Utils/index';
+import { $, getSearchParamsParse, getSearchParamsObject } from '@Utils/index';
 import Header from '@Display/Header';
 
 export default class Router {
@@ -9,7 +9,7 @@ export default class Router {
   constructor(pageList) {
     this.pageList = pageList;
     this.setEvents();
-    this.pageRender(this.pathname + window.location.search);
+    this.pageRender(this.pathname + getSearchParamsParse(window.location.search));
   }
 
   setEvents() {
@@ -26,8 +26,9 @@ export default class Router {
   }
 
   pushState(searchUrl) {
-    window.history.pushState(getSearchParamsObject(searchUrl), '', this.pathname + searchUrl);
-    this.pageRender(searchUrl);
+    const searchParams = getSearchParamsParse(searchUrl);
+    window.history.pushState(getSearchParamsObject(searchParams), '', this.pathname + searchUrl);
+    this.pageRender(searchParams);
   }
 
   pageRender(searchUrl) {
