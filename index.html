@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
+  </head>
 
-<body>
-    <div id="app">
-        <h1>🍿 자판기 🍿</h1>
-    </div>
-</body>
-
+  <body>
+    <main id="app">
+      <h1>🍿 자판기 🍿</h1>
+      <nav class="nav">
+        <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
+          상품 관리
+        </button>
+        <button type="button" class="nav__charge-tab button" route="/javascript-vendingmachine/charge">
+          잔돈 충전
+        </button>
+        <button type="button" class="nav__product-purchase-tab button" route="/javascript-vendingmachine/purchase">
+          상품 구매
+        </button>
+      </nav>
+      <section id="tab">
+        <product-management></product-management>
+        <charge-tab class="hidden"></charge-tab>
+      </section>
+    </main>
+  </body>
 </html>

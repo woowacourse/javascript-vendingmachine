@@ -1,0 +1,57 @@
+.product-manage-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.product-manage-form input {
+  width: 120px;
+  height: 36px;
+}
+
+.product-item input {
+  border: 0;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+}
+
+legend {
+  margin-bottom: 4px;
+}
+
+td input {
+  text-align: center;
+  font-size: 16px;
+  width: 118px;
+  letter-spacing: 0.5px;
+}
+
+td input:focus {
+  outline: none !important;
+  animation: focus linear 1.5s infinite;
+}
+
+@keyframes focus {
+  0% {
+    box-shadow: 0 0 5px red;
+  }
+  20% {
+    box-shadow: 0 0 5px orange;
+  }
+  40% {
+    box-shadow: 0 0 5px yellow;
+  }
+  60% {
+    box-shadow: 0 0 5px green;
+  }
+  80% {
+    box-shadow: 0 0 5px blue;
+  }
+  100% {
+    box-shadow: 0 0 4px purple;
+  }
+}

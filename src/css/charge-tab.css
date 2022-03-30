@@ -1,0 +1,13 @@
+.charge-form label {
+  display: block;
+}
+
+.charge-form input {
+  width: 300px;
+}
+
+.tab__charge-tab {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,20 +1,24 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.ts",
+  mode: 'development',
+  entry: './src/index.ts',
   resolve: {
-    extensions: [".js", ".css", ".ts"],
+    extensions: ['.js', '.css', '.ts'],
   },
   devServer: {
     port: 9000,
+    historyApiFallback: {
+      rewrites: [{ from: /./, to: '/javascript-vendingmachine/index.html' }],
+    },
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/javascript-vendingmachine/',
   },
   module: {
     rules: [
@@ -23,9 +27,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ['@babel/preset-env'],
             },
           },
         ],
@@ -34,19 +38,19 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_module/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
         },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
     }),
   ],
 };
