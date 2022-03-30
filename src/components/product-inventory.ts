@@ -88,9 +88,13 @@ class ProductInventory extends Component {
     const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
 
     const productList = Store.instance.getState().productList;
+    const isEditingSameProduct = (item: ProductItem) => {
+      if (originalName === name && item.name === name) return false;
+      return true;
+    };
     const errorList = validateProduct(
       { name, price, quantity },
-      productList.filter((item) => !(item.name === originalName && item.name === name))
+      productList.filter(isEditingSameProduct)
     ).filter((result) => result.hasError);
 
     if (errorList.length > 0 && errorList[0].hasError) {
