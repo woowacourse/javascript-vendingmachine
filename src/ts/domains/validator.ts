@@ -17,11 +17,14 @@ export const checkCanAddMoney = (
   }
 };
 
+const hasDuplicatedName = (products, targetName) =>
+  products.some((product: Product) => product.name === targetName);
+
 export const checkDuplicatedProductName = (
   products: Product[],
   newProduct: Product
 ): void => {
-  if (products.some((product: Product) => product.name === newProduct.name)) {
+  if (hasDuplicatedName(products, newProduct.name)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
@@ -35,7 +38,7 @@ export const checkDuplicatedEditName = (
     return;
   }
 
-  if (products.some((product: Product) => product.name === editedName)) {
+  if (hasDuplicatedName(products, editedName)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
