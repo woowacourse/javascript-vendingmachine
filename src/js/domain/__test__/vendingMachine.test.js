@@ -5,24 +5,19 @@ import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../../constants';
 
 describe('자판기 클래스 테스트', () => {
   let vendingMachine;
-  let initialProduct;
   let productId;
+  const initialProduct = { name: '콜라', price: 2500, stock: 20 };
 
   beforeEach(() => {
     vendingMachine = new VendingMachine();
-    initialProduct = { name: '콜라', price: 2500, stock: 20 };
     productId = vendingMachine.addProduct(initialProduct);
   });
 
   describe('상품 추가 기능 테스트', () => {
     test('상품의 이름, 가격, 수량을 입력하면 새로운 상품을 상품목록에 추가한다.', () => {
-      const mockVendingMachineProduct = new VendingMachineProduct(
-        initialProduct
-      );
+      const vendingMachineProduct = new VendingMachineProduct(initialProduct);
 
-      expect(vendingMachine.productList[productId]).toEqual(
-        mockVendingMachineProduct
-      );
+      expect(vendingMachine.productList[productId]).toEqual(vendingMachineProduct);
     });
 
     test('동일한 이름의 상품을 추가하는 경우 오류가 발생한다.', () => {
@@ -69,9 +64,9 @@ describe('자판기 클래스 테스트', () => {
       const newProductData = { name: '사이다', price: 2500, stock: 10 };
       const invalidId = 'invalidId';
 
-      expect(() =>
-        vendingMachine.updateProduct(invalidId, newProductData)
-      ).toThrow(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+      expect(() => vendingMachine.updateProduct(invalidId, newProductData)).toThrow(
+        ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID
+      );
     });
   });
 
