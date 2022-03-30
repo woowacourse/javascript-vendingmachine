@@ -22,7 +22,7 @@ describe('올바른 상품명 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`상품명은 빈 문자열일 수 없다. (실패 케이스, 입력: "")`, () => {
+  test('상품명은 빈 문자열일 수 없다. (실패 케이스, 입력: "")', () => {
     const productName = '';
 
     expect(() => {
@@ -106,7 +106,7 @@ describe('올바른 상품 수량 확인', () => {
     }).not.toThrowError();
   });
 
-  test(`제품의 수량은 정수여야 한다. (실패 케이스, 입력: 1.3)`, () => {
+  test('제품의 수량은 정수여야 한다. (실패 케이스, 입력: 1.3)', () => {
     const productQuantity = 1.3;
 
     expect(() => {
