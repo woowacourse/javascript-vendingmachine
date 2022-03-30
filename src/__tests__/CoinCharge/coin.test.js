@@ -1,6 +1,6 @@
-import CoinStore from '../domains/stores/CoinStore';
-import { createAction, COIN_ACTION } from '../domains/actions';
-import { COIN, MONEY } from '../constants';
+import CoinStore from '../../domains/stores/CoinStore';
+import { createAction, COIN_ACTION } from '../../domains/actions';
+import { COIN, MONEY } from '../../constants';
 
 describe('잔돈을 충전할 수 있다.', () => {
   beforeEach(() => {

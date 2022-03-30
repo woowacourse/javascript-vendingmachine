@@ -1,7 +1,7 @@
-import CoinStore from '../domains/stores/CoinStore';
-import { createAction, COIN_ACTION } from '../domains/actions';
-import { checkCoinValidation } from '../validators';
-import { ERROR_MESSAGE, MONEY } from '../constants';
+import CoinStore from '../../domains/stores/CoinStore';
+import { createAction, COIN_ACTION } from '../../domains/actions';
+import { checkCoinValidation } from '../../validators';
+import { ERROR_MESSAGE, MONEY } from '../../constants';
 
 describe('잔돈 충전에 대한 유효성을 검사한다.', () => {
   const chargeCoin = (coinInputValue) => {
