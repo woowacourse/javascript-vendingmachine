@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import MoneyBox from '../MoneyBox';
+import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../../constants';
 
 describe('돈통 클래스 테스트', () => {
   let moneyBox;
@@ -7,10 +8,10 @@ describe('돈통 클래스 테스트', () => {
 
   function setMockDistributeStrategy() {
     mockCoinStatusList = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 5 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 4 },
-      { name: 'FIFTY_WON', value: 50, count: 1 },
-      { name: 'TEN_WON', value: 10, count: 5 },
+      { name: COIN_500.NAME, value: COIN_500.VALUE, count: 5 },
+      { name: COIN_100.NAME, value: COIN_100.VALUE, count: 4 },
+      { name: COIN_50.NAME, value: COIN_50.VALUE, count: 1 },
+      { name: COIN_10.NAME, value: COIN_10.VALUE, count: 5 },
     ];
 
     const mockCoinDistributeStrategy = {

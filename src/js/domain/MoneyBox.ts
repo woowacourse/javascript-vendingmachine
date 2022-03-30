@@ -1,5 +1,8 @@
 import { Coin, CoinStatus, distributeStrategy } from './interface';
+
 import RandomStrategy from './RandomStrategy';
+
+import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../constants';
 
 export default class MoneyBox {
   private _coinStatusList: Coin[];
@@ -7,10 +10,10 @@ export default class MoneyBox {
 
   constructor() {
     this._coinStatusList = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 0 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 0 },
-      { name: 'FIFTY_WON', value: 50, count: 0 },
-      { name: 'TEN_WON', value: 10, count: 0 },
+      { name: COIN_500.NAME, value: COIN_500.VALUE, count: 0 },
+      { name: COIN_100.NAME, value: COIN_100.VALUE, count: 0 },
+      { name: COIN_50.NAME, value: COIN_50.VALUE, count: 0 },
+      { name: COIN_10.NAME, value: COIN_10.VALUE, count: 0 },
     ];
 
     this.coinDistributeStrategy = RandomStrategy;
@@ -34,10 +37,10 @@ export default class MoneyBox {
         return totalStatus;
       },
       {
-        FIVE_HUNDRED_WON: 0,
-        ONE_HUNDRED_WON: 0,
-        FIFTY_WON: 0,
-        TEN_WON: 0,
+        [COIN_500.NAME]: 0,
+        [COIN_100.NAME]: 0,
+        [COIN_50.NAME]: 0,
+        [COIN_10.NAME]: 0,
       }
     );
   }

@@ -32,3 +32,11 @@ export const VENDING_MACHINE_RULES = {
   CHANGE_UNIT: 10,
   MAX_TOTAL_CHANGE: 100000,
 };
+
+export const COIN_500 = { NAME: 'FIVE_HUNDRED_WON', VALUE: 500 };
+
+export const COIN_100 = { NAME: 'ONE_HUNDRED_WON', VALUE: 100 };
+
+export const COIN_50 = { NAME: 'FIFTY_WON', VALUE: 50 };
+
+export const COIN_10 = { NAME: 'TEN_WON', VALUE: 10 };

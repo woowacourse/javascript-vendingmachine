@@ -17,10 +17,7 @@ export interface Coin {
 }
 
 export interface CoinStatus {
-  FIVE_HUNDRED_WON: number;
-  ONE_HUNDRED_WON: number;
-  FIFTY_WON: number;
-  TEN_WON: number;
+  [id: string]: number;
 }
 
 export interface distributeStrategy {
