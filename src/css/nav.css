@@ -1,0 +1,43 @@
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+#app-title {
+  font-size: 34px;
+  font-weight: 600;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-menu-button {
+  color: var(--button-text-default-color);
+  padding: 10px 0;
+  width: 120px;
+  font-size: 1rem;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--button-bg-color);
+  text-align: center;
+  text-decoration: none;
+}
+
+.tab-menu-button.current {
+  background-color: var(--button-bg-highlight-color);
+  cursor: default;
+}
+
+.tab-menu-button:hover {
+  background-color: var(--button-bg-highlight-color);
+}
+
+.tab-menu-button:visited {
+  color: var(--button-text-default-color);
+}

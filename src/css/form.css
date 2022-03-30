@@ -1,0 +1,46 @@
+fieldset {
+  border: none;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+legend {
+  margin-bottom: 5px;
+}
+
+.input-wrapper {
+  width: 120px;
+}
+
+input {
+  width: 110px;
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.submit-button {
+  height: 40px;
+  padding: 10px 15px;
+  background-color: #00bcd4;
+  font-weight: bold;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #80deea;
+  color: #424242;
+}
+
+#add-change-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+#add-change-form input {
+  width: 300px;
+}
