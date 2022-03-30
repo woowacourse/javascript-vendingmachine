@@ -67,11 +67,11 @@ class VendingMachine implements IVendingMachine {
   updateProduct({ targetName, name, price, quantity }) {
     try {
       validateUpdateProduct(targetName, name, price, this.products);
-      const target = this.products.find((product) => product.name === targetName);
+      const currentProduct = this.products.find((product) => product.name === targetName);
 
-      target.update({ name, price, quantity } as Product);
+      currentProduct.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
-      this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);
+      this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
     } catch (error) {
       alert(error.message);
     }

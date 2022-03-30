@@ -21,11 +21,11 @@ const render = (path: string) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
   $(`[route='${path}']`, nav)?.classList.add('focus-button');
 
-  const cur = routers.find((route) => route.path === path)?.component ?? $('product-management');
-  const prevs = routers.filter((route) => route.path !== path);
+  const currentComponent = routers.find((route) => route.path === path)?.component ?? $('product-management');
+  const prevRoute = routers.filter((route) => route.path !== path);
 
-  cur.classList.remove('hidden');
-  prevs.forEach((p: IRouter) => p.component.classList.add('hidden'));
+  currentComponent.classList.remove('hidden');
+  prevRoute.forEach((p: IRouter) => p.component.classList.add('hidden'));
 };
 
 const routers: IRouter[] = [

@@ -47,8 +47,8 @@ const updateProductValidator = {
       return false;
     }
 
-    const filterArr = products.filter((product) => product.name !== targetName);
-    return filterArr.some((product) => product.name === name);
+    const filteredProducts = products.filter((product) => product.name !== targetName);
+    return filteredProducts.some((product) => product.name === name);
   },
 
   isIncorrectUnit(price: number) {
