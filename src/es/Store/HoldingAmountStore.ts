@@ -1,32 +1,15 @@
 import { getRandomNumber } from '@Utils/index';
 import { COIN_TYPE } from '@Constants/index';
-import { IStore } from './Interface';
+import Store from './Abstract';
 
 interface IState {
   coins: Array<number>;
 }
 
-class HoldingAmountStore implements IStore {
-  private state = {
+class HoldingAmountStore extends Store {
+  protected state: IState = {
     coins: [0, 0, 0, 0],
   };
-
-  private subscribers = [];
-
-  addSubscriber(subscriber: object) {
-    this.subscribers.push(subscriber);
-  }
-
-  setState(newState: IState) {
-    const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
-
-    this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
-  }
-
-  getState(): IState {
-    return { ...this.state };
-  }
 
   getTotalAmount(): number {
     return this.state.coins.reduce(
