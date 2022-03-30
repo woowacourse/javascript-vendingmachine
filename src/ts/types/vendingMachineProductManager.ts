@@ -1,13 +1,13 @@
-export interface product {
+export interface Product {
   name: string;
   price: number;
   quantity: number;
 }
 
 export interface ProductManager {
-  addProduct(newProduct: product): void;
-  getTargetProduct(name: string): product;
-  getProducts(): product[];
-  editProduct(name: string, targetProduct: product): void;
+  addProduct(newProduct: Product): void;
+  getTargetProduct(name: string): Product;
+  getProducts(): Product[];
+  editProduct(name: string, targetProduct: Product): void;
   deleteProduct(name: string): void;
 }

@@ -1,10 +1,10 @@
-import { CoinManager, coins } from '../types/vendingMachineCoinManager';
+import { CoinManager, Coins } from '../types/vendingMachineCoinManager';
 
 import { COINS } from '../constants';
 import { checkCanAddMoney } from '../utils/utils';
 
 export default class VendingMachineCoinManager implements CoinManager {
-  private coins: coins = { ...COINS.INITIAL_STATE };
+  private coins: Coins = { ...COINS.INITIAL_STATE };
 
   getCoins() {
     return this.coins;
@@ -18,7 +18,7 @@ export default class VendingMachineCoinManager implements CoinManager {
     );
   }
 
-  addCoins(newCoins: coins) {
+  addCoins(newCoins: Coins) {
     checkCanAddMoney(this.getTotalAmount(), newCoins);
 
     Object.entries(newCoins).forEach(([coin, count]: [string, number]) => {

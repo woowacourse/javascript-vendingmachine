@@ -1,4 +1,4 @@
-import { product } from '../../types/vendingMachineProductManager';
+import { Product } from '../../types/vendingMachineProductManager';
 
 import {
   on,
@@ -94,7 +94,7 @@ export default class ProductStateComponent {
       checkValidProductPrice($editProductPriceInput.valueAsNumber);
       checkValidProductQuantity($editProductQuantityInput.valueAsNumber);
 
-      const editedProduct: product = {
+      const editedProduct: Product = {
         name: $editProductNameInput.value.trim(),
         price: $editProductPriceInput.valueAsNumber,
         quantity: $editProductQuantityInput.valueAsNumber,
@@ -136,7 +136,7 @@ export default class ProductStateComponent {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const targetProduct: product =
+    const targetProduct: Product =
       this.vendingMachineProductManager.getTargetProduct(
         parentElement.dataset.productName
       );

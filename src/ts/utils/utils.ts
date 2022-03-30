@@ -1,5 +1,5 @@
-import { coins } from '../types/vendingMachineCoinManager';
-import { product } from '../types/vendingMachineProductManager';
+import { Coins } from '../types/vendingMachineCoinManager';
+import { Product } from '../types/vendingMachineProductManager';
 
 import {
   ERROR_MESSAGE,
@@ -24,10 +24,10 @@ export const checkValidLengthProductName = (name: string): void => {
 };
 
 export const checkDuplicatedProductName = (
-  products: product[],
-  newProduct: product
+  products: Product[],
+  newProduct: Product
 ): void => {
-  if (products.some((product: product) => product.name === newProduct.name)) {
+  if (products.some((product: Product) => product.name === newProduct.name)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
@@ -86,9 +86,9 @@ function pickRandomIndex(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const generateRandomCoins = (money: number): coins => {
+export const generateRandomCoins = (money: number): Coins => {
   const coinList: number[] = COINS.LIST;
-  const coinsObject: coins = { ...COINS.INITIAL_STATE };
+  const coinsObject: Coins = { ...COINS.INITIAL_STATE };
 
   let remainMoney: number = money;
 
@@ -107,7 +107,7 @@ export const generateRandomCoins = (money: number): coins => {
 
 export const checkCanAddMoney = (
   currentMoney: number,
-  coinList: coins
+  coinList: Coins
 ): void => {
   const totalMoney: number = Object.entries(coinList).reduce(
     (sum: number, [coin, count]: [string, number]) =>

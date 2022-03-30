@@ -1,17 +1,17 @@
-export interface coins {
+export interface Coins {
   COIN_500: number;
   COIN_100: number;
   COIN_50: number;
   COIN_10: number;
 }
 
-export interface Icoins {
-  readonly INITIAL_STATE: coins;
+export interface ICoins {
+  readonly INITIAL_STATE: Coins;
   readonly LIST: number[];
 }
 
 export interface CoinManager {
-  getCoins(): coins;
+  getCoins(): Coins;
   getTotalAmount(): number;
-  addCoins(newCoins: coins): void;
+  addCoins(newCoins: Coins): void;
 }

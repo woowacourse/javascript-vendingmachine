@@ -1,4 +1,4 @@
-import { Icoins } from './types/vendingMachineCoinManager';
+import { ICoins } from './types/vendingMachineCoinManager';
 import {
   ProductQuantity,
   ProductName,
@@ -47,7 +47,7 @@ export const ERROR_MESSAGE: ErrorMessage = {
 export const DELETE_PRODUCT_CONFIRM_MESSAGE = (productName: string): string =>
   `상품명 : ${productName}\n해당하는 상품을 삭제할 경우 복구 하실 수 없습니다. 정말 삭제하시겠습니까?`;
 
-export const COINS: Icoins = {
+export const COINS: ICoins = {
   INITIAL_STATE: {
     COIN_500: 0,
     COIN_100: 0,

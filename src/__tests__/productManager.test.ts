@@ -1,9 +1,9 @@
-import { product } from '../ts/types/vendingMachineProductManager';
+import { Product } from '../ts/types/vendingMachineProductManager';
 
 import VendingMachineProductManager from '../ts/domains/VendingMachineProductManager';
 
 describe('상품 관리 도메인 테스트', () => {
-  const newProduct: product = {
+  const newProduct: Product = {
     name: '콜라',
     price: 1500,
     quantity: 20,
@@ -25,7 +25,7 @@ describe('상품 관리 도메인 테스트', () => {
 
   test('추가한 상품을 삭제 할 수 있다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
-    const newProducts: product[] = [
+    const newProducts: Product[] = [
       {
         name: '콜라',
         price: 1500,
@@ -53,7 +53,7 @@ describe('상품 관리 도메인 테스트', () => {
 
   test('추가한 상품을 수정 할 수 있다.', () => {
     const vendingMachineProductManager = new VendingMachineProductManager();
-    const targetProduct: product = {
+    const targetProduct: Product = {
       name: '사이다',
       price: 1000,
       quantity: 10,
