@@ -23,7 +23,7 @@ export default class HoldingAmountPage {
     this.setDom();
     this.render({
       state: HoldingAmountStore.getState(),
-      changeStates: Object.keys(this.renderMethodList),
+      changedStateNames: Object.keys(this.renderMethodList),
     });
     this.setEvents();
   };
@@ -46,8 +46,8 @@ export default class HoldingAmountPage {
     this.$addForm.addEventListener('submit', this.onSubmitAddHoldingAmountForm);
   }
 
-  render = ({ state, changeStates }) => {
-    const renderTargetMethod = changeStates.reduce((previous, stateKey) => {
+  render = ({ state, changedStateNames }) => {
+    const renderTargetMethod = changedStateNames.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
     }, new Set());

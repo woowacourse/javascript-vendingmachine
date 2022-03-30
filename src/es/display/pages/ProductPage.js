@@ -22,7 +22,7 @@ export default class ProductPage {
     this.setDom();
     this.render({
       state: ProductStore.getState(),
-      changeStates: Object.keys(this.renderMethodList),
+      changedStateNames: Object.keys(this.renderMethodList),
     });
     this.setEvents();
   };
@@ -59,8 +59,8 @@ export default class ProductPage {
     });
   }
 
-  render = ({ state, changeStates }) => {
-    const renderTargetMethod = changeStates.reduce((previous, stateKey) => {
+  render = ({ state, changedStateNames }) => {
+    const renderTargetMethod = changedStateNames.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
     }, new Set());
