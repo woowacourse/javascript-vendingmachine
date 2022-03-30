@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { ACTION } from '../constants';
+import { ACTION, CONFIRM_MESSAGE } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
@@ -122,7 +122,7 @@ class ProductInventory extends Component {
     const tds = this.findTds(target);
     if (!tds) return;
     const { $name } = tds;
-    const result = window.confirm('해당 상품을 삭제하시겠습니까?');
+    const result = window.confirm(CONFIRM_MESSAGE.DELETE_PRODUCT);
     if (!result) return;
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
   };

@@ -72,3 +72,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
     MAX_CHARGABLE_MONEY
   )}원입니다.`,
 };
+
+export const CONFIRM_MESSAGE = {
+  DELETE_PRODUCT: '해당 상품을 삭제하시겠습니까?',
+};
