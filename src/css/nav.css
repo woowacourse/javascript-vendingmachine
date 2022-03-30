@@ -1,0 +1,30 @@
+.nav-tab {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 0;
+}
+
+.tab-input {
+  width: 0;
+  height: 0;
+}
+
+.tab-label {
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  height: 36px;
+  width: 117px;
+  font-weight: 500;
+  line-height: 36px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.tab-input:checked + label {
+  background: rgba(0, 188, 212, 0.16);
+}
+
+.tab-label:hover {
+  cursor: pointer;
+}

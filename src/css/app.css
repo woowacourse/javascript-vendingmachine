@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background: var(--primary);
+  border-radius: 4px;
+  height: 36px;
+  border-style: none;
+  color: var(--white);
+}
+
+button:hover {
+  background: var(--primary-darken);
+  cursor: pointer;
+}
+
+input {
+  padding: 0 8px;
+  border: 1px solid var(--secondary);
+  box-sizing: border-box;
+  border-radius: 4px;
+  height: 36px;
+  line-height: 36px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: var(--secondary-darken);
+}
+
+.tab-result-container {
+  margin: 52px 0;
+}
+
+caption {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 48px 0 16px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 471px;
+}
+
+tr {
+  border: 1px solid var(--secondary-lighten);
+  border-left: 0;
+  border-right: 0;
+  text-align: center;
+}
+
+td,
+th {
+  padding: 8px;
+  font-weight: 400;
+}
+
+th {
+  font-weight: 600;
+}
+
+col {
+  width: 23%;
+}
+
+.hide {
+  display: none;
+}
+
+.short-button {
+  width: 56px;
+  margin-left: 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.small-button {
+  background: var(--secondary-lighten);
+  color: var(--black);
+  width: 50px;
+}
+
+.small-button:hover {
+  background: var(--secondary);
+}
+
+.edit-confirm-button {
+  width: 100px;
+  height: 32px;
+}
