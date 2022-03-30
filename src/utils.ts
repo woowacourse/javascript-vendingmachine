@@ -3,7 +3,7 @@ import { Indexable } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
-  return !Number.isNaN(val) ? val : defaultNum;
+  return Number.isNaN(val) ? defaultNum : val;
 };
 
 export const consoleErrorWithConditionalAlert = (
