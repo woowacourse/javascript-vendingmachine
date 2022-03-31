@@ -4,7 +4,7 @@ import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
-  init = () => {
+  init() {
     this.$page = $("#page");
     this.$page.replaceChildren();
     this.$formContainer = createElement(
@@ -28,14 +28,15 @@ class ChangePageView {
     this.$page.appendChild(this.$formContainer);
     this.$page.appendChild(this.$currentChangesContainer);
     this.$page.appendChild(this.$changesStatusContainer);
+
     this.$changesInput = $("#changes-input");
     this.$changesList = $("#changes-list", this.$changesStatusContainer);
     this.bindEvent();
-  };
+  }
 
-  bindEvent = () => {
+  bindEvent() {
     on(this.$formContainer, "submit", this.changesSubmitHandler);
-  };
+  }
 
   changesSubmitHandler = (e) => {
     e.preventDefault();
@@ -43,17 +44,17 @@ class ChangePageView {
     this.$changesInput.value = "";
   };
 
-  renderCurrentChanges = (changes) => {
+  renderCurrentChanges(changes) {
     this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;
-  };
+  }
 
-  renderCoinStatus = (coinStatus) => {
+  renderCoinStatus(coinStatus) {
     this.$changesList.replaceChildren();
     this.$changesList.insertAdjacentHTML(
       "beforeend",
       changesTemplate.changeStatus(coinStatus)
     );
-  };
+  }
 }
 
 export default ChangePageView;

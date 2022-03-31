@@ -10,13 +10,13 @@ class ChangesModerator {
     on(window, EVENT_TYPE.CHARGE, (e) => this.chargeChange(e.detail));
   }
 
-  init = () => {
+  init() {
     this.changePageView.init();
     const changes = this.changeProcessMachine.getTotalChanges();
     const coinStatus = this.changeProcessMachine.getCoins();
     this.changePageView.renderCurrentChanges(changes);
     this.changePageView.renderCoinStatus(coinStatus);
-  };
+  }
 
   chargeChange = ({ money }) => {
     try {

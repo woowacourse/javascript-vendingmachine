@@ -4,7 +4,7 @@ import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
 
 class ProductPageView {
-  init = () => {
+  init() {
     this.$page = $("#page");
     this.$page.replaceChildren();
     this.$formContainer = createElement(
@@ -33,8 +33,9 @@ class ProductPageView {
 
     this.$productList = $("#products-list", this.$productStatusContainer);
     this.bindEvent();
-  };
-  initProductsStatus = (products) => {
+  }
+
+  initProductsStatus(products) {
     $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
       "beforeend",
       products
@@ -43,12 +44,12 @@ class ProductPageView {
         })
         .join("")
     );
-  };
+  }
 
-  bindEvent = () => {
+  bindEvent() {
     on(this.$formContainer, "submit", this.productSubmitHandler);
     on(this.$productStatusContainer, "click", this.onClick);
-  };
+  }
 
   productSubmitHandler = (e) => {
     e.preventDefault();
@@ -113,19 +114,19 @@ class ProductPageView {
     });
   };
 
-  renderNewProduct = (product) => {
+  renderNewProduct(product) {
     $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
       "beforeend",
       productTemplate.product(product.get())
     );
-  };
+  }
 
-  renderDeleteProduct = (id) => {
+  renderDeleteProduct(id) {
     const target = $(`[data-id="${id}"]`, this.$productList);
     this.$productList.removeChild(target);
-  };
+  }
 
-  renderUpdatedProduct = (id, { name, price, count }) => {
+  renderUpdatedProduct(id, { name, price, count }) {
     const target = $(`[data-id="${id}"]`, this.$productList);
     target.setAttribute("data-name", name);
     target.setAttribute("data-price", price);
@@ -142,7 +143,7 @@ class ProductPageView {
       <button class="delete-button process-button">삭제</button>
     </td>`
     );
-  };
+  }
 }
 
 export default ProductPageView;

@@ -12,11 +12,11 @@ class ProductModerator {
     on(window, EVENT_TYPE.EDIT, (e) => this.updateProduct(e.detail));
   }
 
-  init = () => {
+  init() {
     this.productPageView.init();
     const products = this.productProcessMachine.getProducts();
     this.productPageView.initProductsStatus(products);
-  };
+  }
 
   addProduct = ({ name, price, count }) => {
     try {
