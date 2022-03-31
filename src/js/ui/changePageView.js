@@ -47,7 +47,7 @@ class ChangePageView {
     this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;
   };
 
-  renderChangeStatus = (coinStatus) => {
+  renderCoinStatus = (coinStatus) => {
     this.$changesList.replaceChildren();
     this.$changesList.insertAdjacentHTML(
       "beforeend",

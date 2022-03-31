@@ -15,7 +15,7 @@ class ChangesModerator {
     const changes = this.changeProcessMachine.getTotalChanges();
     const coinStatus = this.changeProcessMachine.getCoins();
     this.changePageView.renderCurrentChanges(changes);
-    this.changePageView.renderChangeStatus(coinStatus);
+    this.changePageView.renderCoinStatus(coinStatus);
   };
 
   chargeChange = ({ money }) => {
@@ -25,7 +25,7 @@ class ChangesModerator {
       const coinStatus = this.changeProcessMachine.getCoins();
 
       this.changePageView.renderCurrentChanges(changes);
-      this.changePageView.renderChangeStatus(coinStatus);
+      this.changePageView.renderCoinStatus(coinStatus);
     } catch (err) {
       alert(err.message);
     }
