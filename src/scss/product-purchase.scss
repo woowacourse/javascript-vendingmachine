@@ -1,0 +1,28 @@
+.purchase-cash-charge {
+  &__input {
+    width: 300px;
+  }
+
+  &__form {
+    margin-bottom: 20px;
+  }
+}
+
+.product-status {
+  &__container {
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 60px;
+  }
+}
+
+.return-coin {
+  width: 237px;
+  margin: auto;
+  text-align: center;
+
+  &__button {
+    width: 100px;
+    height: 32px;
+    margin: 16px 0 36px;
+  }
+}
