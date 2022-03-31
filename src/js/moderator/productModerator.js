@@ -15,7 +15,7 @@ class ProductModerator {
   init() {
     this.productPageView.init();
     const products = this.productProcessMachine.getProducts();
-    this.productPageView.initProductsStatus(products);
+    this.productPageView.renderProductsStatus(products);
   }
 
   addProduct = ({ name, price, count }) => {
