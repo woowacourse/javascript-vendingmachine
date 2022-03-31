@@ -14,7 +14,7 @@ class ChargeTab extends CustomElement {
 
   render() {
     this.innerHTML = this.template();
-    const amount: number[] = storage.getAmount();
+    const amount = storage.getLocalStorage('amount');
 
     $('.charge-amount', this).textContent = markUnit(
       COINS.map((coin, i) => coin * amount[i]).reduce((acc, cur) => acc + cur, 0),

@@ -1,20 +1,24 @@
+import Coin from './domain/Coin';
 import Product from './domain/Product';
+
+type Key = 'products' | 'amount';
+type ValueType<T> = T extends 'products' ? Product : T extends 'amount' ? number : never;
 
 const storage = {
   setLocalStorage(key: string, value: object) {
     localStorage.setItem(key, JSON.stringify(value));
   },
 
-  getLocalStorage(key: string) {
-    return localStorage.getItem(key);
-  },
+  getLocalStorage<T extends Key>(key: T): ValueType<T>[] {
+    const items = JSON.parse(localStorage.getItem(key));
 
-  getProducts(): Product[] {
-    return this.getLocalStorage('products') ? JSON.parse(this.getLocalStorage('products')) : [];
-  },
+    switch (key) {
+      case 'products':
+        return items ?? [];
 
-  getAmount(): number[] {
-    return this.getLocalStorage('amount') ? Object.values(JSON.parse(this.getLocalStorage('amount'))) : [0, 0, 0, 0];
+      case 'amount':
+        return items ? Object.values(items as Coin) : [0, 0, 0, 0];
+    }
   },
 };
 

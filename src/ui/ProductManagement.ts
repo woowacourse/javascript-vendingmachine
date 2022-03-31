@@ -15,7 +15,7 @@ class ProductManagement extends CustomElement {
   render() {
     this.innerHTML = this.template();
 
-    const products = storage.getProducts();
+    const products = storage.getLocalStorage('products');
 
     products.forEach((product) => this.insertItem(product));
   }

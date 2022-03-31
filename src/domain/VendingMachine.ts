@@ -26,8 +26,8 @@ class VendingMachine implements VendingMachineProperty {
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
-    this.amount = new Coin(...storage.getAmount());
-    this.products = storage.getProducts().map((product) => new Product(product, product.id));
+    this.amount = new Coin(...storage.getLocalStorage('amount'));
+    this.products = storage.getLocalStorage('products').map((product) => new Product(product, product.id));
   }
 
   subscribeProductManagement() {
