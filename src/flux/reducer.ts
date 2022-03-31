@@ -2,7 +2,7 @@ import { ACTION, COIN_UNITS } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
 import { convertArrToObj, deepCopy, shuffle } from '../utils';
 
-function moneyToCoin(money: number) {
+function exchangeMoneyToCoin(money: number) {
   const coins = convertArrToObj(COIN_UNITS, 0);
   let idx = 0;
   while (money > 0) {
@@ -49,7 +49,7 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       break;
     }
     case ACTION.CHARGE_COINS: {
-      newState.chargedCoins = mergeCoins(newState.chargedCoins, moneyToCoin(payload));
+      newState.chargedCoins = mergeCoins(newState.chargedCoins, exchangeMoneyToCoin(payload));
       newState.chargedMoney += payload;
       break;
     }
