@@ -1,5 +1,5 @@
 import ProductStoreInstance from '../../domains/stores/ProductStore';
-import { createAction, PRODUCT_ACTION } from '../../domains/actions';
+import { PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $, $$ } from '../../utils/dom';

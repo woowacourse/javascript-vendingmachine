@@ -9,8 +9,10 @@
     <div id="app">
       <h1>🍿 자판기 🍿</h1>
       <administrator-menu></administrator-menu>
-      <product-manage-container></product-manage-container>
-      <coin-charge-container hidden></coin-charge-container>
+      <div id="menu-detail-container">
+        <product-manage-container id="product" class="menu-detail"></product-manage-container>
+        <coin-charge-container id="coin" class="menu-detail" hidden></coin-charge-container>
+      </div>  
     </div>
   </body>
 </html>

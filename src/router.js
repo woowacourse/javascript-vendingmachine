@@ -1,5 +1,8 @@
-import { $ } from './utils/dom';
-import { BASE_URL } from './constants';
+import { $, $$ } from './utils/dom';
+// import { BASE_URL } from './constants';
+
+const $nav = $('nav');
+const $navButtons = $$('button', $nav);
 
 const $productManageButton = $('.nav__product-manage-button');
 const $productManageContainer = $('product-manage-container');
@@ -9,6 +12,20 @@ const $coinChargeButton = $('.nav__coin-charge-button');
 const $coinChargeContainer = $('coin-charge-container');
 const $coinInput = $('#coin-input');
 
+const handleNavButtonClick = (clickedButtonClassList) => {
+  clickedButtonClassList.add('clicked');
+  $navButtons.forEach((nav) => {
+    if (nav.classList === clickedButtonClassList) return;
+    nav.classList.remove('clicked');
+  });
+};
+
+$nav.addEventListener('click', (event) => {
+  if (event.target.tagName === 'BUTTON') {
+    handleNavButtonClick(event.target.classList);
+  }
+});
+
 const renderProductManageContainer = () => {
   $productManageContainer.show();
   $coinChargeContainer.hide();
@@ -17,14 +34,6 @@ const renderProductManageContainer = () => {
   $coinChargeButton.classList.remove('clicked');
 
   $productNameInput.focus();
-};
-
-const handleProductManageButtonClick = (event) => {
-  const route = event.target.getAttribute('route');
-
-  window.history.pushState({}, null, route);
-
-  renderProductManageContainer();
 };
 
 const renderCoinChargeContainer = () => {
@@ -37,29 +46,22 @@ const renderCoinChargeContainer = () => {
   $coinInput.focus();
 };
 
-const handleCoinChargeButtonClick = (event) => {
-  const route = event.target.getAttribute('route');
-
-  window.history.pushState({}, null, route);
-
-  renderCoinChargeContainer();
-};
-
-const renderTargetContainer = (path) => {
-  if (path === `${BASE_URL}/`) {
+const renderTargetContainer = (currentHash) => {
+  if (currentHash === '#!product-manage') {
     renderProductManageContainer();
-
-    return;
   }
-
-  renderCoinChargeContainer();
+  if (currentHash === '#!coin-charge') {
+    renderCoinChargeContainer();
+  }
 };
 
-renderTargetContainer(window.location.pathname);
+const renderInitContainer = (currentHash) => {
+  renderTargetContainer(currentHash);
+};
 
-$productManageButton.addEventListener('click', handleProductManageButtonClick);
-$coinChargeButton.addEventListener('click', handleCoinChargeButtonClick);
-
-window.addEventListener('popstate', () => {
-  renderTargetContainer(window.location.pathname);
+window.addEventListener('hashchange', () => {
+  const currentHash = window.location.hash;
+  renderTargetContainer(currentHash);
 });
+
+renderInitContainer(window.location.hash);
