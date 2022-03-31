@@ -14,9 +14,19 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('가격과 수량은 숫자 타입이 아니면 에러가 발생한다.', () => {
+  test('상품 가격이 숫자 타입이 아니면 에러가 발생한다.', () => {
     const itemName = '콜라';
     const itemPrice = NaN;
+    const itemQuantity = 20;
+
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
+      ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE
+    );
+  });
+
+  test('상품 수량이 숫자 타입이 아니면 에러가 발생한다.', () => {
+    const itemName = '콜라';
+    const itemPrice = 1000;
     const itemQuantity = NaN;
 
     expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
@@ -74,13 +84,33 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 수량이 20개 보다 많으면 에러가 발생한다.', () => {
+  test('상품 수량이 20개보다 많으면 에러가 발생한다.', () => {
     const itemName = '콜라';
     const itemPrice = 1000;
     const itemQuantity = 21;
 
     expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE
+    );
+  });
+
+  test('상품 수량이 1개보다 적으면 에러가 발생한다.', () => {
+    const itemName = '콜라';
+    const itemPrice = 1000;
+    const itemQuantity = 0;
+
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
+      ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE
+    );
+  });
+
+  test('상품 수량이 1개로 나누어떨어지지 않으면 에러가 발생한다.', () => {
+    const itemName = '콜라';
+    const itemPrice = 1000;
+    const itemQuantity = 1.5;
+
+    expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
+      ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_QUANTITY_UNIT
     );
   });
 });
