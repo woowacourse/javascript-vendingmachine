@@ -30,13 +30,13 @@ export const ITEM = {
 
 export const MONEY_UNIT = 10;
 
-export const COINS = [10, 50, 100, 500];
+export const COINS = [500, 100, 50, 10];
 
 export const EMPTY_COIN = {
-  10: 0,
-  50: 0,
-  100: 0,
   500: 0,
+  100: 0,
+  50: 0,
+  10: 0,
 };
 
 export const AMOUNT = {

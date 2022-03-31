@@ -52,7 +52,7 @@ class ItemRow extends TableRow {
       <td class="item-price styled-td">${price}</td>
       <td class="item-quantity styled-td">${quantity}</td>
       <td class="item-button-container">
-        <button class="item-edit-button styled-button" type="button">구매</button>
+        <button class="item-buy-button styled-button" type="button">구매</button>
       </td>`;
     }
 
@@ -100,6 +100,15 @@ class ItemRow extends TableRow {
         const { name } = this.props;
 
         vendingMachine.removeItem(name);
+      }
+    });
+
+    this.addEvent('click', '.item-buy-button', () => {
+      const { name } = this.props;
+      try {
+        vendingMachine.buyItem(name);
+      } catch ({ message }) {
+        window.alert(message);
       }
     });
   }

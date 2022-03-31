@@ -127,7 +127,11 @@ class ItemPurchasePage extends Component {
     this.addEvent('click', '#return-button', (event) => {
       event.preventDefault();
 
-      this.state.returnCoins = vendingMachine.returnChange();
+      try {
+        this.state.returnCoins = vendingMachine.returnChange();
+      } catch ({ message }) {
+        window.alert(message);
+      }
     });
   }
 }

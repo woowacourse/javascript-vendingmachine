@@ -1,5 +1,5 @@
 import Subject from '../core/Subject';
-import { deepClone } from '../utils/commons';
+import { deepClone, getData, setData } from '../utils/commons';
 import { createRandomCoins, sortCoins } from '../utils/coinUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
 import { ERROR_MESSAGE, EMPTY_COIN } from '../constant/constant';
@@ -22,6 +22,7 @@ export interface VendingMachineState {
   coins: Coins;
   purchaseMoney: number;
 }
+
 export default class VendingMachine {
   state: VendingMachineState;
 
@@ -52,6 +53,7 @@ export default class VendingMachine {
     validate(itemValidator, item);
 
     this.state.items = [...this.state.items, item];
+    setData('items', this.state.items);
   }
 
   updateItem(name: string, updatedItem: Item): void {
@@ -65,12 +67,14 @@ export default class VendingMachine {
     this.state.items = this.state.items.map((item) =>
       item.name === name ? updatedItem : item
     );
+    setData('items', this.state.items);
   }
 
   removeItem(name: string): void {
     if (!this.findItem(name)) throw new Error(ERROR_MESSAGE.NOT_FOUND);
 
     this.state.items = this.state.items.filter((item) => item.name !== name);
+    setData('items', this.state.items);
   }
 
   findItem(name: string): Item | null {
@@ -88,6 +92,7 @@ export default class VendingMachine {
     });
 
     this.state.coins = updatedCoins;
+    setData('coins', this.state.coins);
   }
 
   getTotalMoney(): number {
@@ -113,12 +118,21 @@ export default class VendingMachine {
       throw new Error('상품을 구매할 수 없습니다. 금액을 충전해주세요.');
 
     this.state.purchaseMoney -= price;
+    if (quantity === 1) {
+      this.removeItem(name);
+
+      return;
+    }
     this.updateItem(name, { name, price, quantity: quantity - 1 });
   }
 
   returnChange(): Coins {
     let index = 0;
     const result = { ...EMPTY_COIN };
+
+    if (this.state.purchaseMoney === 0) {
+      throw new Error('반환할 돈이 없습니다. 투입한 금액을 확인해주세요');
+    }
 
     while (
       this.state.purchaseMoney > 0 &&
@@ -136,8 +150,13 @@ export default class VendingMachine {
       }
     }
 
+    setData('coins', this.state.coins);
+
     return result;
   }
 }
 
-export const vendingMachine = new VendingMachine([], { ...EMPTY_COIN }, 0);
+const initialItems = getData('items') || [];
+const initialCoins = getData('coins') || { ...EMPTY_COIN };
+
+export const vendingMachine = new VendingMachine(initialItems, initialCoins, 0);
