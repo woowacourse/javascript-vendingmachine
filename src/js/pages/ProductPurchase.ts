@@ -60,7 +60,7 @@ export default class ProductPurchase {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
-    li.insertAdjacentHTML('beforeend', template.productItem(product));
+    li.insertAdjacentHTML('beforeend', template.purchaseProductItem(product));
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }

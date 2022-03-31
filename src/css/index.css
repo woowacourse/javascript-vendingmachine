@@ -173,7 +173,8 @@ li {
   margin-top: -4px;
 }
 
-.product-modify-submit-button {
+.product-modify-submit-button,
+.product-purchase-submit-button {
   width: 90%;
   margin-top: -8px;
 }
