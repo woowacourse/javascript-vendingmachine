@@ -19,7 +19,7 @@ class AddChangeComponent {
 
   private onSubmitChangeAdd = (e: SubmitEvent) => {
     e.preventDefault();
-    const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
+    const inputChange = (<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).valueAsNumber;
 
     try {
       vendingMachine.inputChanges(inputChange);

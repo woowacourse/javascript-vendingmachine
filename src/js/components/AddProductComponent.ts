@@ -23,14 +23,10 @@ class AddProductComponent {
     e.preventDefault();
 
     const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
-    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).value;
-    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).value;
+    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).valueAsNumber;
+    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).valueAsNumber;
 
-    const newProduct: Product = {
-      name: name,
-      price: parseInt(price),
-      amount: parseInt(amount),
-    };
+    const newProduct: Product = { name, price, amount };
 
     try {
       vendingMachine.addProduct(newProduct);
