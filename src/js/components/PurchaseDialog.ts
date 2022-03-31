@@ -17,7 +17,7 @@ const template = props => {
             <div class="select-quantity-box">
                 <label for="select-quantity">수량을 선택하세요</label>
                 <button type="button" class="select-quantity-button select-quantity-down-button"><</button>
-                <input type="number" id="select-quantity" value="1" />
+                <input type="number" id="select-quantity" value="1" readonly/>
                 <button type="button" class="select-quantity-button select-quantity-up-button">></button>
             </div>
             <button type="submit" class="dialog-purchase-button">구매하기</button>
