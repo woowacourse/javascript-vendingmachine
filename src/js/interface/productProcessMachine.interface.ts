@@ -1,4 +1,4 @@
-import { ISingleProduct } from './product.interface';
+import { ISingleProduct } from "./product.interface";
 
 interface INewProduct {
   name: string;
@@ -15,7 +15,7 @@ export interface IUpdate {
 }
 
 export interface IDelete {
-  (id: number): void;
+  (id: string): void;
 }
 
 export interface IGetProducts {

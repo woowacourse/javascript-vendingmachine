@@ -1,3 +1,5 @@
+import { IAddProductEvent, IUpdateProductEvent } from "../type";
+
 const productTemplate = {
   input: () => `
     <label for="product-name-input">추가할 상품 정보를 입력해주세요.</label>
@@ -30,7 +32,7 @@ const productTemplate = {
 </table>
   `,
 
-  product: ({ id, name, price, count }) => `
+  product: ({ id, name, price, count }: IUpdateProductEvent) => `
   <tr data-id=${id} data-name=${name} data-price=${price} data-count=${count}>
   <td>${name}</td>
   <td>${price}</td>
@@ -42,7 +44,16 @@ const productTemplate = {
 </tr>
   `,
 
-  productUpdateForm: ({ name, price, count }) => `
+  updatedProduct: ({ name, price, count }: IAddProductEvent) =>
+    `<td>${name}</td>
+  <td>${price}</td>
+  <td>${count}</td>
+  <td>
+    <button class="edit-button process-button">수정</button>
+    <button class="delete-button process-button">삭제</button>
+  </td>`,
+
+  productUpdateForm: ({ name, price, count }: IAddProductEvent) => `
     <td><input id="edit-name-input" class="product-edit-input input" value='${name}' /></td>
     <td><input id="edit-price-input" class="product-edit-input input" value='${price}' type="number"/></td>
     <td><input id="edit-count-input" class="product-edit-input input" value='${count}' type="number"/></td>

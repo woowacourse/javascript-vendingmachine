@@ -1,10 +1,24 @@
 import { on, emit } from "../util/event";
 import { $, createElement } from "../util/dom";
-import productTemplate from "../template/product.template.js";
+import { ISingleProduct } from "../interface/product.interface";
+import productTemplate from "../template/product.template";
 import { EVENT_TYPE } from "../constant";
+import {
+  IDeleteProductEvent,
+  IAddProductEvent,
+  IUpdateProductEvent,
+} from "../type";
 
 class ProductPageView {
-  init() {
+  $page;
+  $formContainer;
+  $productStatusContainer;
+  $productNameInput;
+  $productPriceInput;
+  $productCountInput;
+  $productList;
+
+  init(): void {
     this.$page = $("#page");
     this.$page.replaceChildren();
     this.$formContainer = createElement(
@@ -35,15 +49,15 @@ class ProductPageView {
     this.bindEvent();
   }
 
-  bindEvent() {
+  bindEvent(): void {
     on(this.$formContainer, "submit", this.productSubmitHandler);
     on(this.$productStatusContainer, "click", this.onClick);
   }
 
-  productSubmitHandler = (e) => {
+  productSubmitHandler = (e: Event): void => {
     e.preventDefault();
 
-    emit(EVENT_TYPE.ADD, {
+    emit<IAddProductEvent>(EVENT_TYPE.ADD, {
       name: this.$productNameInput.value,
       price: this.$productPriceInput.valueAsNumber,
       count: this.$productCountInput.valueAsNumber,
@@ -54,48 +68,58 @@ class ProductPageView {
     this.$productCountInput.value = "";
   };
 
-  onClick = ({ target }) => {
+  onClick = (e: Event): void => {
+    const target = e.target as HTMLElement;
     if (target.classList.contains("delete-button")) {
-      this.productDeleteHandler(target);
+      this.productDeleteHandler(e);
       return;
     }
     if (target.classList.contains("edit-button")) {
-      this.productUpdateHandler(target);
+      this.productUpdateHandler(e);
       return;
     }
     if (target.classList.contains("save-button")) {
-      this.productSubmitUpdateHandler(target);
+      this.productSubmitUpdateHandler(e);
       return;
     }
   };
 
-  productDeleteHandler = (target) => {
+  productDeleteHandler = (e: Event): void => {
+    const target = e.target as HTMLElement;
     const productId = target.closest("tr").dataset.id;
-    emit(EVENT_TYPE.DELETE, { id: productId });
+    emit<IDeleteProductEvent>(EVENT_TYPE.DELETE, { id: productId });
   };
 
-  productUpdateHandler = (target) => {
+  productUpdateHandler = (e: Event): void => {
+    const target = e.target as HTMLElement;
     const $product = target.closest("tr");
     $product.replaceChildren();
     $product.insertAdjacentHTML(
       "beforeend",
       productTemplate.productUpdateForm({
         name: $product.dataset.name,
-        price: $product.dataset.price,
-        count: $product.dataset.count,
+        price: +$product.dataset.price,
+        count: +$product.dataset.count,
       })
     );
   };
 
-  productSubmitUpdateHandler = (target) => {
+  productSubmitUpdateHandler = (e: Event): void => {
+    const target = e.target as HTMLElement;
     const updatedProduct = target.closest("tr");
 
     const id = updatedProduct.dataset.id;
-    const updatedName = $("#edit-name-input", updatedProduct).value;
-    const updatedPrice = $("#edit-price-input", updatedProduct).valueAsNumber;
-    const updatedCount = $("#edit-count-input", updatedProduct).valueAsNumber;
+    const updatedName = (
+      $("#edit-name-input", updatedProduct) as HTMLInputElement
+    ).value;
+    const updatedPrice = (
+      $("#edit-price-input", updatedProduct) as HTMLInputElement
+    ).valueAsNumber;
+    const updatedCount = (
+      $("#edit-count-input", updatedProduct) as HTMLInputElement
+    ).valueAsNumber;
 
-    emit(EVENT_TYPE.EDIT, {
+    emit<IUpdateProductEvent>(EVENT_TYPE.EDIT, {
       id,
       name: updatedName,
       price: updatedPrice,
@@ -103,7 +127,7 @@ class ProductPageView {
     });
   };
 
-  renderProductsStatus(products) {
+  renderProductsStatus(products: ISingleProduct[]): void {
     this.$productList.insertAdjacentHTML(
       "beforeend",
       products
@@ -114,34 +138,31 @@ class ProductPageView {
     );
   }
 
-  renderNewProduct(product) {
+  renderNewProduct(product: ISingleProduct): void {
     $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
       "beforeend",
       productTemplate.product(product.get())
     );
   }
 
-  renderDeleteProduct(id) {
+  renderDeleteProduct(id: string): void {
     const target = $(`[data-id="${id}"]`, this.$productList);
     this.$productList.removeChild(target);
   }
 
-  renderUpdatedProduct(id, { name, price, count }) {
+  renderUpdatedProduct(
+    id: string,
+    { name, price, count }: IUpdateProductEvent
+  ): void {
     const target = $(`[data-id="${id}"]`, this.$productList);
     target.setAttribute("data-name", name);
-    target.setAttribute("data-price", price);
-    target.setAttribute("data-count", count);
+    target.setAttribute("data-price", price.toString());
+    target.setAttribute("data-count", count.toString());
 
     target.replaceChildren();
     target.insertAdjacentHTML(
       "beforeend",
-      `<td>${name}</td>
-    <td>${price}</td>
-    <td>${count}</td>
-    <td>
-      <button class="edit-button process-button">수정</button>
-      <button class="delete-button process-button">삭제</button>
-    </td>`
+      productTemplate.updatedProduct({ name, price, count })
     );
   }
 }

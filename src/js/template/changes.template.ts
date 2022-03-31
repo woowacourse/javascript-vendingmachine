@@ -1,3 +1,5 @@
+import { ICoins } from "../interface/changes.interface";
+
 const changesTemplate = {
   input: () => `
     <label for="changes-input">자판기가 보유할 금액을 입력해주세요</label>
@@ -21,7 +23,7 @@ const changesTemplate = {
     </table>
   `,
 
-  changeStatus: (coinStatus) => `
+  changeStatus: (coinStatus: ICoins) => `
     <tr>
       <td>500원</td>
       <td>${coinStatus["500"]}</td>

@@ -3,6 +3,10 @@ import ChangesModerator from "./moderator/changesModerator";
 import { $ } from "./util/dom";
 
 class App {
+  productModerator;
+  changesModerator;
+  $nav;
+
   constructor() {
     this.productModerator = new ProductModerator();
     this.changesModerator = new ChangesModerator();
@@ -14,7 +18,8 @@ class App {
     this.onChangePage();
   }
 
-  onClickNavButton = ({ target }) => {
+  onClickNavButton = (e: Event): void => {
+    const target = e.target as HTMLElement;
     if (target.classList.contains("product-management-button")) {
       this.productModerator.init();
     }
@@ -24,7 +29,7 @@ class App {
     }
   };
 
-  onChangePage = () => {
+  onChangePage = (): void => {
     const hash = location.hash;
 
     if (hash === "#!productManagement") {
