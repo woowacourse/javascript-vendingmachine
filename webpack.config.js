@@ -15,6 +15,12 @@ module.exports = {
   devServer: {
     port: 9000,
     historyApiFallback: true,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
   },
   devtool: 'source-map',
   output: {
@@ -56,15 +62,15 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      API_URL: JSON.stringify(process.env.API_URL),
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
     }),
     new CopyPlugin({
       patterns: [{ from: 'public', to: '' }],
-    }),
-    new webpack.DefinePlugin({
-      'process.env.API_URL': process.env.API_URL,
     }),
   ],
 };
