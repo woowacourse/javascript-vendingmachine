@@ -2,11 +2,13 @@ type IdType = `#${string}`;
 
 type classType = `.${string}`;
 
+type SelectorObjectType<T = string> = Record<string, T>;
+
 export type SelectorType = {
-  ID: { [idName: string]: IdType };
-  CLASS: { [className: string]: classType };
-  ID_STRING: { [idStringName: string]: string };
-  CLASS_STRING: { [classStringName: string]: string };
+  ID: SelectorObjectType<IdType>;
+  CLASS: SelectorObjectType<classType>;
+  ID_STRING: SelectorObjectType;
+  CLASS_STRING: SelectorObjectType;
 };
 
 export type CoinsConstantType = {

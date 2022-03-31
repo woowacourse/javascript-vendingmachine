@@ -2,7 +2,7 @@ import { $, $$, emitCustomEvent } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { validateAddItemInput } from '../validates/validates';
 import { SELECTOR, CONFIRM_MESSAGE } from '../constants/constants';
-import { ItemType } from '../types/types';
+import { ItemType } from '../types';
 
 export default class ManageItemView {
   $content: HTMLDivElement;

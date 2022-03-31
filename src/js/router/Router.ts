@@ -1,5 +1,5 @@
 import { SELECTOR, URL_HASH } from '../constants/constants';
-import { RouteChangeDetailType } from '../types/types';
+import { RouteChangeDetailType } from '../types';
 import { onCustomEvent } from '../utils/common';
 import NavigationView from '../views/navigationView';
 import ManageItemController from '../controllers/manageItemController';

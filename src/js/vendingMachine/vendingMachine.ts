@@ -1,6 +1,6 @@
 import { COINS } from '../constants/constants';
 import { generateRandom } from '../utils/common';
-import { ItemType, CoinsType } from '../types/types';
+import { ItemType, CoinsType } from '../types';
 
 export default class VendingMachine {
   private items: ItemType[] = [];

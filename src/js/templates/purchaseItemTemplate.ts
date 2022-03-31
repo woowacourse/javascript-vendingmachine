@@ -1,4 +1,4 @@
-import { CoinsType, ItemType } from '../types/types';
+import { CoinsType, ItemType } from '../types';
 import { generateCoinTableTemplate } from '../utils/viewTemplate';
 
 const sectionTemplate = {

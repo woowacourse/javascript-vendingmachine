@@ -1,7 +1,7 @@
 import { $, emitCustomEvent } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { validateInputMoney } from '../validates/validates';
-import { CoinsType } from '../types/types';
+import { CoinsType } from '../types';
 import { SELECTOR } from '../constants/constants';
 
 export default class ChargeMoneyView {

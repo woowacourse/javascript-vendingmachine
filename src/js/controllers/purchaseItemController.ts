@@ -1,6 +1,6 @@
 import PurchaseItemView from '../views/purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CoinsType } from '../types/types';
+import { CoinsType } from '../types';
 import { $ } from '../utils/common';
 import { Controller } from '../types/interface';
 

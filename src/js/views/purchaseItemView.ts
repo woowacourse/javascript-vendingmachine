@@ -1,7 +1,7 @@
 import { $ } from '../utils/common';
 import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/constants';
-import { CoinsType, ItemType } from '../types/types';
+import { CoinsType, ItemType } from '../types';
 
 export default class PurchaseItemView {
   $content: HTMLDivElement;

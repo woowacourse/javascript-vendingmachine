@@ -1,4 +1,4 @@
-import { CoinsType } from '../types/types';
+import { CoinsType } from '../types';
 import { COINS } from '../constants/constants';
 
 export const generateCoinTableTemplate = (coins: CoinsType, coinTableRowLayout): string =>

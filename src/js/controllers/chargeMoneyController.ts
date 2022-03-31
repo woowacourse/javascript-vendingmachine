@@ -1,6 +1,6 @@
 import ChargeMoneyView from '../views/chargeMoneyView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { ChargeMoneyDetailType } from '../types/types';
+import { ChargeMoneyDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent } from '../utils/common';
 

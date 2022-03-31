@@ -1,7 +1,7 @@
 import ManageItemView from '../views/mangeItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { checkDuplicatedItem } from '../validates/validates';
-import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types/types';
+import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent } from '../utils/common';
 
