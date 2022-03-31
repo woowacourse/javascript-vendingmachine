@@ -1,7 +1,4 @@
-import { $, $$ } from './utils/dom';
-
-const $nav = $('nav');
-const $navButtons = $$('button', $nav);
+import { $ } from './utils/dom';
 
 const $productManageButton = $('.nav__product-manage-button');
 const $productManageContainer = $('product-manage-container');
@@ -11,46 +8,35 @@ const $coinChargeButton = $('.nav__coin-charge-button');
 const $coinChargeContainer = $('coin-charge-container');
 const $coinInput = $('#coin-input');
 
-const handleNavButtonClick = (clickedButtonClassList) => {
-  clickedButtonClassList.add('clicked');
-  $navButtons.forEach((nav) => {
-    if (nav.classList === clickedButtonClassList) return;
-    nav.classList.remove('clicked');
+const menuContainers = [$productManageContainer, $coinChargeContainer];
+const menuButtons = [$productManageButton, $coinChargeButton];
+
+const renderFocusContainer = ($currentContainer, $currentButton, $currentInput) => {
+  menuContainers.forEach((container) => {
+    if (container === $currentContainer) {
+      container.show();
+      return;
+    }
+    container.hide();
   });
-};
 
-$nav.addEventListener('click', (event) => {
-  if (event.target.tagName === 'BUTTON') {
-    handleNavButtonClick(event.target.classList);
-  }
-});
+  menuButtons.forEach((button) => {
+    if (button === $currentButton) {
+      button.classList.add('clicked');
+      return;
+    }
+    button.classList.remove('clicked');
+  });
 
-const renderProductManageContainer = () => {
-  $productManageContainer.show();
-  $coinChargeContainer.hide();
-
-  $productManageButton.classList.add('clicked');
-  $coinChargeButton.classList.remove('clicked');
-
-  $productNameInput.focus();
-};
-
-const renderCoinChargeContainer = () => {
-  $productManageContainer.hide();
-  $coinChargeContainer.show();
-
-  $productManageButton.classList.remove('clicked');
-  $coinChargeButton.classList.add('clicked');
-
-  $coinInput.focus();
+  $currentInput.focus();
 };
 
 const renderTargetContainer = (currentHash) => {
   if (currentHash === '#!product-manage') {
-    renderProductManageContainer();
+    renderFocusContainer($productManageContainer, $productManageButton, $productNameInput);
   }
   if (currentHash === '#!coin-charge') {
-    renderCoinChargeContainer();
+    renderFocusContainer($coinChargeContainer, $coinChargeButton, $coinInput);
   }
 };
 
