@@ -1,0 +1,21 @@
+.tab-result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label-wrapper {
+  margin: 10px 0;
+}
+
+.product-manage-input {
+  width: 120px;
+}
+
+.edit-form {
+  display: flex;
+}
+
+.edit-input {
+  width: 84px;
+}
