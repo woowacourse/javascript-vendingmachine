@@ -1,0 +1,196 @@
+#app {
+  width: 600px;
+  height: 675px;
+  background-color: white;
+  border-radius: 4px;
+  margin: 0 auto;
+  padding: 44px 64px 32px;
+  margin-top: 32px;
+  line-height: 24px;
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 34px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.hide {
+  display: none;
+}
+
+.nav {
+  margin-bottom: 52px;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: center;
+  gap: 0 4px;
+}
+
+.nav__button {
+  width: 117px;
+  height: 36px;
+  letter-spacing: 0.5px;
+}
+
+.nav__button:hover {
+  background-color: var(--color-light-skyblue);
+}
+
+.nav__button--focused {
+  background-color: var(--color-light-skyblue);
+}
+
+/* ******************** */
+/* products-section */
+/* ******************** */
+.products-input-wrapper {
+  display: flex;
+  gap: 0 4px;
+}
+
+.products-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.products-form legend {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.products-form input {
+  width: 120px;
+  height: 36px;
+  padding: 8px 9px 4px;
+  border: 1px solid;
+}
+
+.products-form .input {
+  border: 1px solid #8b8b8b;
+  border-radius: 4px;
+}
+
+.products-form .input::placeholder {
+  color: #8b8b8b;
+}
+
+.charge-form-section__button,
+.products-form__button {
+  width: 56px;
+  height: 36px;
+  background-color: var(--color-primary);
+  color: #fff;
+  margin-left: 12px;
+}
+
+.charge-form-section__button:hover,
+.products-form__button:hover {
+  opacity: 0.7;
+}
+
+/* ********************* */
+/* product-state-section */
+/* ********************* */
+.product-state-section {
+  max-height: 340px;
+  overflow: auto;
+}
+
+.product-table {
+  width: 100%;
+  margin: 0 auto;
+  table-layout: fixed;
+}
+
+.product-table th {
+  padding: 8px 0;
+  font-weight: 600;
+}
+
+.product-table td {
+  padding: 4px 0;
+}
+
+.flex-gap05 {
+  display: flex;
+  gap: 0 5px;
+}
+
+.product-table__confirm-button,
+.product-table__delete-button,
+.product-table__edit-button {
+  width: 100px;
+  height: 32px;
+}
+
+.product-table__edit-button:hover,
+.product-table__confirm-button:hover {
+  background-color: var(--color-light-skyblue);
+}
+
+.product-table__delete-button:hover {
+  background-color: rgba(255, 20, 20, 0.44);
+}
+
+.product-table__input--edit {
+  width: 80%;
+  text-align: center;
+  border-style: none;
+  padding: 8px 9px 4px;
+  border-bottom: 1px solid #b4b4b4;
+}
+
+/* ******************* */
+/* charge-coin-section */
+/* ******************* */
+.charge-form-section {
+  padding: 0 43px 0 56px;
+  margin-bottom: 48px;
+}
+
+.charge-form-section__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.charge-form-section__coin-input-wrapper {
+  display: flex;
+}
+
+.charge-form-section__coin-input-wrapper label {
+  display: block;
+}
+
+.charge-form-section__coin-input {
+  flex-grow: 1;
+  padding: 8px 15.5px 4px;
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+}
+
+.charge-form-section__button {
+  display: block;
+}
+
+.coin-quantity-section {
+  padding: 0 117px;
+}
+
+.coin-quantity-table {
+  width: 100%;
+  margin: 0 auto;
+  table-layout: fixed;
+}
+
+.coin-quantity-table td,
+.coin-quantity-table th {
+  padding: 8px 0;
+}
