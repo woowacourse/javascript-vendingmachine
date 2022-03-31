@@ -63,8 +63,8 @@ export const template = {
     <td>${quantity}</td>
     <td>
       <div class="button-group">
-        <button class="button product-update-button" type="button">수정</button>
-        <button class="button product-delete-button" type="button">삭제</button>
+        <button class="button product-update-button" name="product-update" type="button">수정</button>
+        <button class="button product-delete-button" name="product-delete" type="button">삭제</button>
       </div>
     </td>
   `,
@@ -83,8 +83,8 @@ export const template = {
     <td><input type="number" name="quantity" placeholder="수량" value="${quantity}"></td>
     <td>
       <div class="button-group">
-        <button class="button product-update-confirm-button" type="button">확인</button>
-        <button class="button product-update-cancel-button" type="button">취소</button>
+        <button class="button product-update-confirm-button" name="product-update-confirm" type="button">확인</button>
+        <button class="button product-update-cancel-button" name="product-update-cancel" type="button">취소</button>
       </div>
     </td>
 `,

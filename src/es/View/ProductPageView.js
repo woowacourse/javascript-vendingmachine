@@ -74,19 +74,19 @@ export default class ProductPageView {
   };
 
   onClickTableInnerButton = (event) => {
-    const targetClassList = event.target.classList;
-    switch (true) {
-      case targetClassList.contains('product-update-button'):
+    if (event.target.type !== 'button') return;
+    switch (event.target.name) {
+      case 'product-update':
         this.onClickUpdateButton(event);
         break;
-      case targetClassList.contains('product-update-confirm-button'):
+      case 'product-delete':
+        this.onClickDeleteButton(event);
+        break;
+      case 'product-update-confirm':
         this.onClickUpdateConfirmButton(event);
         break;
-      case targetClassList.contains('product-update-cancel-button'):
+      case 'product-update-cancel':
         this.onClickUpdateCancelButton(event);
-        break;
-      case targetClassList.contains('product-delete-button'):
-        this.onClickDeleteButton(event);
         break;
     }
   };
