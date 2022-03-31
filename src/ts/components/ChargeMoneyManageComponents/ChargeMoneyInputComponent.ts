@@ -4,16 +4,14 @@ import { emit, $, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 
 export default class ChargeMoneyInputComponent {
-  private $chargeMoneyInput = $(
+  private $chargeMoneyInput = $<HTMLInputElement>(
     '.charge-form-section__charge-money-input'
-  ) as HTMLInputElement;
-  private $chargeButton = $(
-    '.charge-form-section__button'
-  ) as HTMLButtonElement;
-  private $totalChargeMoney: HTMLElement = $(
+  );
+  private $chargeButton = $<HTMLButtonElement>('.charge-form-section__button');
+  private $totalChargeMoney = $<HTMLElement>(
     '.charge-form-section__total-charge-money'
   );
-  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
+  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
   constructor(private vendingMachineChargeMoneyManager) {
     on(this.$chargeButton, 'click', this.onSubmitChargeButton);

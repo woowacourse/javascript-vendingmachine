@@ -2,7 +2,7 @@ export const on = (
   target: Window | HTMLElement,
   eventName: string,
   callback
-) => {
+): void => {
   target.addEventListener(eventName, callback);
 };
 
@@ -10,16 +10,17 @@ export const emit = (
   target: Window | HTMLElement,
   eventName: string,
   detail = {}
-) => {
+): void => {
   const customEvent = new CustomEvent(eventName, detail);
   target.dispatchEvent(customEvent);
 };
 
-export const $ = (selector: string): HTMLElement =>
+export const $ = <T extends HTMLElement>(selector: string): T | null =>
   document.querySelector(selector);
 
-export const $$ = (selector: string): NodeListOf<HTMLElement> =>
-  document.querySelectorAll(selector);
+export const $$ = <T extends HTMLElement>(
+  selector: string
+): NodeListOf<T> | null => document.querySelectorAll(selector);
 
 export const focusEditInput = ($targetInput: HTMLInputElement): void => {
   $targetInput.focus();

@@ -17,12 +17,12 @@ import {
 } from './productStateTemplates';
 
 export default class ProductStateComponent {
-  private productTableTbody: HTMLElement = $('.product-table tbody');
-  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
+  private productTableTbody = $<HTMLElement>('.product-table tbody');
+  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
   constructor(private vendingMachineProductManager) {
     on(
-      $('.product-info-form__add-button'),
+      $<HTMLButtonElement>('.product-info-form__add-button'),
       '@productInputSubmit',
       this.addProduct
     );
@@ -41,15 +41,15 @@ export default class ProductStateComponent {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const $editProductNameInput = $(
+    const $editProductNameInput = $<HTMLInputElement>(
       '.product-table__product-name-input--edit'
-    ) as HTMLInputElement;
-    const $editProductPriceInput = $(
+    );
+    const $editProductPriceInput = $<HTMLInputElement>(
       '.product-table__product-price-input--edit'
-    ) as HTMLInputElement;
-    const $editProductQuantityInput = $(
+    );
+    const $editProductQuantityInput = $<HTMLInputElement>(
       '.product-table__product-quantity-input--edit'
-    ) as HTMLInputElement;
+    );
 
     try {
       checkValidLengthProductName($editProductNameInput.value);

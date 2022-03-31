@@ -1,7 +1,7 @@
 import { $, $$, on } from '../dom/domHelper';
 
 export default class NavigatorComponent {
-  private $navList: HTMLElement = $('.nav__list');
+  private $navList = $<HTMLElement>('.nav__list');
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
@@ -25,7 +25,7 @@ export default class NavigatorComponent {
   private changeComponent(): void {
     const { pathname } = window.location;
 
-    $$('.nav__button').forEach((button) => {
+    $$<HTMLButtonElement>('.nav__button').forEach((button) => {
       if (pathname !== button.dataset.pathname) {
         button.classList.remove('nav__button--focused');
       }
@@ -35,7 +35,7 @@ export default class NavigatorComponent {
       }
     });
 
-    $$('.manage-component').forEach((section) => {
+    $$<HTMLElement>('.manage-component').forEach((section) => {
       if (pathname !== section.dataset.pathname) {
         section.classList.add('hide');
       }

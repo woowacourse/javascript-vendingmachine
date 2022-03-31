@@ -9,17 +9,15 @@ import { on, emit, $ } from '../../dom/domHelper';
 import focusWrongInput from '../../dom/checkErrorMessage';
 
 export default class ProductInputComponent {
-  private $nameInput = $(
-    '.product-info-form__product-input'
-  ) as HTMLInputElement;
-  private $priceInput = $(
-    '.product-info-form__price-input'
-  ) as HTMLInputElement;
-  private $quantityInput = $(
+  private $nameInput = $<HTMLInputElement>('.product-info-form__product-input');
+  private $priceInput = $<HTMLInputElement>('.product-info-form__price-input');
+  private $quantityInput = $<HTMLInputElement>(
     '.product-info-form__quantity-input'
-  ) as HTMLInputElement;
-  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
-  private $productAddButton: HTMLElement = $('.product-info-form__add-button');
+  );
+  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
+  private $productAddButton = $<HTMLButtonElement>(
+    '.product-info-form__add-button'
+  );
 
   constructor(private vendingMachineProductManagement) {
     on(this.$productAddButton, 'click', this.onSubmitProductAddButton);

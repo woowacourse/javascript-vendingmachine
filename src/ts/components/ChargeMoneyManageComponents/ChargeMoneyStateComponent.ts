@@ -1,18 +1,18 @@
 import { on, $ } from '../../dom/domHelper';
 
 export default class ChargeMoneyStateComponent {
-  private $quantityCoin500: HTMLSpanElement = $(
+  private $quantityCoin500 = $<HTMLSpanElement>(
     '.coin-quantity-table__coin-500'
   );
-  private $quantityCoin100: HTMLSpanElement = $(
+  private $quantityCoin100 = $<HTMLSpanElement>(
     '.coin-quantity-table__coin-100'
   );
-  private $quantityCoin50: HTMLSpanElement = $('.coin-quantity-table__coin-50');
-  private $quantityCoin10: HTMLSpanElement = $('.coin-quantity-table__coin-10');
+  private $quantityCoin50 = $<HTMLSpanElement>('.coin-quantity-table__coin-50');
+  private $quantityCoin10 = $<HTMLSpanElement>('.coin-quantity-table__coin-10');
 
   constructor() {
     on(
-      $('.charge-form-section__button'),
+      $<HTMLButtonElement>('.charge-form-section__button'),
       '@chargeInputSubmit',
       this.addCoinsQuantity
     );
