@@ -1,4 +1,4 @@
-export const { on, emit } = {
+export const { on, emit, remove } = {
   on: (element, eventName, callback) => {
     element.addEventListener(eventName, callback);
   },
@@ -6,5 +6,9 @@ export const { on, emit } = {
   emit: (eventName, data = {}) => {
     const customEvent = new CustomEvent(eventName, { detail: data });
     dispatchEvent(customEvent);
+  },
+
+  remove: (element, eventName, callback) => {
+    element?.removeEventListener(eventName, callback);
   },
 };

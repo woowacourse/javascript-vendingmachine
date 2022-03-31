@@ -16,10 +16,12 @@ class App {
 
   onClickNavButton = ({ target }) => {
     if (target.classList.contains("product-management-button")) {
+      this.changesModerator.unmount();
       this.productModerator.init();
     }
 
     if (target.classList.contains("changes-charge-button")) {
+      this.productModerator.unmount();
       this.changesModerator.init();
     }
   };

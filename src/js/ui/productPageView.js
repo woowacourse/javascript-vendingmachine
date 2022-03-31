@@ -1,4 +1,4 @@
-import { on, emit } from "../util/event.js";
+import { on, emit, remove } from "../util/event.js";
 import { $, createElement } from "../util/dom";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
@@ -50,6 +50,11 @@ class ProductPageView {
   bindEvent = () => {
     on(this.$formContainer, "submit", this.productSubmitHandler);
     on(this.$productStatusContainer, "click", this.onClick);
+  };
+
+  unmount = () => {
+    remove(this.$formContainer, "submit", this.productSubmitHandler);
+    remove(this.$productStatusContainer, "click", this.onClick);
   };
 
   productSubmitHandler = (e) => {
