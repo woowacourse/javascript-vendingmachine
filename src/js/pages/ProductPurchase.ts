@@ -1,3 +1,5 @@
+import PurchaseDialog from '../components/PurchaseDialog';
+import { ERROR_MESSAGE } from '../constants';
 import { Product } from '../interfaces/VendingMachine.interface';
 import vendingMachine from '../model/VendingMachine';
 import template from '../template';
@@ -68,14 +70,42 @@ export default class ProductPurchase {
     }
   };
 
+  callbackSubmitQuantity = props => {
+    const { quantity, product, ul, oldLi } = props;
+
+    vendingMachine.purchaseProduct(product, quantity);
+    oldLi.querySelector('.product-amount').textContent = product.amount;
+    this.refreshUserMoney();
+    console.log(vendingMachine.getProducts());
+  };
+
   onClickPurchaseButton = (e: PointerEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     const ul = e.target.closest('ul');
     const oldLi = e.target.closest('li');
-    const productName = e.target.dataset.name;
+    const name = oldLi.querySelector('.product-name').textContent;
+    const price = parseInt(oldLi.querySelector('.product-price').textContent);
+    const amount = parseInt(oldLi.querySelector('.product-amount').textContent);
+    const userMoney = vendingMachine.getUserMoney();
 
-    console.log('productName', productName);
+    if (price > userMoney) {
+      alert(ERROR_MESSAGE.TOO_SHORT_MONEY);
+      return;
+    }
+
+    if (amount === 0) {
+      alert(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
+      return;
+    }
+
+    PurchaseDialog({
+      product: { name, price, amount },
+      userMoney,
+      callbackSubmitQuantity: this.callbackSubmitQuantity,
+      ul,
+      oldLi,
+    });
   };
 
   renderProducts() {

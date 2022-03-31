@@ -107,14 +107,20 @@ class VendingMachine {
     }
   }
 
+  purchaseProduct(newProduct: Product, quantity: number) {
+    const { name, price, amount } = newProduct;
+    this.modifyProduct(name, newProduct, false);
+    this.userMoney -= quantity * price;
+  }
+
   addProduct(product: Product) {
     this.checkProductValidate(product);
     this.products.push(product);
   }
 
-  modifyProduct(oldProductName: string, newProduct: Product) {
+  modifyProduct(oldProductName: string, newProduct: Product, canValidCheck = true) {
     const oldProductIndex = this.findProductIndex(oldProductName);
-    this.checkProductValidate(newProduct, oldProductIndex);
+    if (canValidCheck) this.checkProductValidate(newProduct, oldProductIndex);
     this.products[oldProductIndex] = newProduct;
   }
 

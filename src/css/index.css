@@ -1,4 +1,5 @@
 @import './global.css';
+@import './dialog.css';
 
 body {
   width: 100vw;

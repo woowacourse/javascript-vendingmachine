@@ -23,6 +23,8 @@ const ERROR_MESSAGE = {
   TOO_MUCH_USER_MONEY: `최대 투입 금액은 ${RULES.MAX_USER_MONEY.toLocaleString()}원 입니다.`,
   IS_NOT_UNIT_OF_TEN: `투입할 금액의 단위는 ${RULES.MINIMUM_CHANGE}원입니다.`,
   IS_NOT_POSITIVE_INTEGER: `투입할 금액은 ${RULES.MIN_INPUT_MONEY}보다 큰 금액이어야 합니다.`,
+  TOO_SHORT_MONEY: '돈이 부족합니다. 구매할 금액을 더 투입해주세요.',
+  SOLD_OUT_PRODUCT: '품절된 상품입니다.',
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
