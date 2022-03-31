@@ -1,11 +1,12 @@
+import { VENDING_MACHINE_ROUTE_NAME } from './utils/constants';
 import '../images/empty-img.png';
 import '../src/styles/index.css';
-import '../src/components/index';
-import VendingMachineComponent from '../src/components/index';
-import { TAB_NAME } from './utils/constants';
-
-const vendingMachineComponent = new VendingMachineComponent();
+import './components/VendingMachineComponent';
+import AppComponent from './components';
+import router from './router';
+const appComponent = new AppComponent(router.getRouteName(window.location.pathname));
 window.addEventListener('popstate', e => {
   const { state } = e;
-  vendingMachineComponent.showSection(state?.path ?? TAB_NAME.MANAGE);
+
+  appComponent.showSection(state?.path ?? VENDING_MACHINE_ROUTE_NAME.MANAGE);
 });

@@ -64,8 +64,14 @@ export const ACTION_TYPES: {
   RECHARGE_CHANGE: 'rechargeChange',
 };
 
-export const TAB_NAME = {
-  MANAGE: 'manage-tab',
-  RECHARGE: 'recharge-tab',
-  PURCHASE: 'purchase-tab',
+export const VENDING_MACHINE_ROUTE_NAME = {
+  MANAGE: 'home',
+  RECHARGE: 'recharge',
+  PURCHASE: 'purchase',
+};
+
+export const AUTH_ROUTE_NAME = {
+  LOGIN: 'login',
+  JOIN: 'join',
+  EDIT: 'edit',
 };
