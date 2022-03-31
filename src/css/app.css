@@ -45,7 +45,8 @@
 .button:hover,
 .modify-button:hover,
 .delete-button:hover,
-.confirm-button:hover {
+.confirm-button:hover,
+.purchase-button:hover {
   background-color: var(--color-dark-white);
 }
 
@@ -97,7 +98,7 @@
   background-color: var(--color-light-blue);
 }
 
-.current-amount {
+.mt-20px {
   margin-top: 20px;
 }
 
@@ -159,7 +160,7 @@
   padding: 5px 0;
 }
 
-.purchase-form {
+.purchase-form-width {
   width: 375px;
   margin: 0 auto;
 }
