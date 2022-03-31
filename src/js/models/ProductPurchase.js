@@ -21,4 +21,8 @@ export default class ProductPurchase {
     this.#userAmount -= price;
     return this.#userAmount;
   }
+
+  setUserAmount(currentAmount) {
+    this.#userAmount = currentAmount;
+  }
 }

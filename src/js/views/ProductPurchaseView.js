@@ -6,14 +6,18 @@ import { purchaseTableTemplate } from '../templates/templates';
 export default class ProductPurchaseView {
   constructor() {
     on(SECTION_CONTAINER, [['submit', this.#onSubmitInputAmount]]);
-    this.#bindPurchaseEvent();
+    this.#bindPurchaseAndReturnEvent();
   }
 
-  #bindPurchaseEvent() {
+  #bindPurchaseAndReturnEvent() {
     SECTION_CONTAINER.addEventListener('click', (e) => {
       const { target } = e;
-      if (!target.classList.contains('purchase-button')) return;
-      this.#purchase(target.closest('tr'));
+      if (target.classList.contains('purchase-button')) {
+        this.#purchase(target.closest('tr'));
+      }
+      if (target.id === 'return-button') {
+        emit(SECTION_CONTAINER, '@return');
+      }
     });
   }
 
@@ -63,5 +67,12 @@ export default class ProductPurchaseView {
 
   resetAmountInput() {
     this.$amountInput.value = '';
+  }
+
+  renderHaveCoins(coins) {
+    this.$fiveHundredCoinRemain.textContent = `${coins[500]}개`;
+    this.$oneHundredCoinRemain.textContent = `${coins[100]}개`;
+    this.$fiftyCoinRemain.textContent = `${coins[50]}개`;
+    this.$tenCoinRemain.textContent = `${coins[10]}개`;
   }
 }

@@ -154,7 +154,7 @@ export const CATEGORY_TEMPLATE = {
         </tr>
       </tbody>
     </table>
-    <button type="button" class="button change-button">반환하기</button>
+    <button id="return-button" type="button" class="button change-button">반환하기</button>
   `,
 };
 

@@ -25,6 +25,7 @@ export default class Controller {
       ['@charge', this.#handleChargeCoin],
       ['@amount', this.#handleAmount],
       ['@purchase', this.#purchaseSelectedProduct],
+      ['@return', this.#handleReturnCoin],
     ]);
   }
 
@@ -87,5 +88,14 @@ export default class Controller {
     const userAmount = this.productPurchase.spendAmount(price);
     this.productPurchaseView.renderAmount(userAmount);
     this.productPurchaseView.renderModifiedProductInfo(index);
+  };
+
+  #handleReturnCoin = (e) => {
+    const result = this.coin.returnCoin(this.productPurchase.getUserAmount());
+    const remainCoins = result[0];
+    const currentAmount = result[1];
+    this.productPurchase.setUserAmount(currentAmount);
+    this.productPurchaseView.renderAmount(currentAmount);
+    this.productPurchaseView.renderHaveCoins(remainCoins);
   };
 }

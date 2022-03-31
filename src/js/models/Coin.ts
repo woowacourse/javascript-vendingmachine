@@ -44,4 +44,22 @@ export default class Coin implements CoinInterface {
       this.#coins[coin] += coinCount;
     });
   }
+
+  returnCoin(userAmount: number): [Coins, number] {
+    let remainCoins = {
+      500: 0,
+      100: 0,
+      50: 0,
+      10: 0,
+    };
+    let currentAmount = userAmount;
+    COIN.UNIT_LIST.forEach((coin) => {
+      const maxCoinCount = Math.floor(currentAmount / coin);
+      const coinCount = Math.min(maxCoinCount, this.#coins[coin]);
+      this.#coins[coin] -= coinCount;
+      remainCoins[coin] = coinCount;
+      currentAmount -= coinCount * coin;
+    });
+    return [remainCoins, currentAmount];
+  }
 }
