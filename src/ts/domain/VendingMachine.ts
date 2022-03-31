@@ -102,10 +102,10 @@ export default class VendingMachine implements VendingMachineInterface {
 
   private generateRandomCoins = (money: number) => {
     while (money !== 0) {
-      const coinValue = this.moneys[getRandomNumber(0, 3)].value;
+      const moneyRandomIndex = getRandomNumber(0, 3);
+      const coinValue = this.moneys[moneyRandomIndex].value;
       if (coinValue <= money) {
-        const index = this.moneys.findIndex((coin: MoneyType) => coin.value === coinValue);
-        this.moneys[index].increaseCount();
+        this.moneys[moneyRandomIndex].increaseCount();
         money -= coinValue;
       }
     }
