@@ -1,6 +1,6 @@
-import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '@Utils/index';
-import { validateProduct, validateHoldingAmountToAdd } from '@Utils/VendingMachine/validator';
-import { ERROR_MESSAGE } from '@Constants/index';
+import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '../../utils';
+import { validateProduct, validateHoldingAmountToAdd } from '../../utils/VendingMachine/validator';
+import { ERROR_MESSAGE } from '../../constants';
 
 describe('검증 유틸리티 테스트', () => {
   test('1-1. 주어지는 문자열 길이가 주어지는 범위 안에 있으면 true를 반환한다.', () => {

@@ -8,13 +8,7 @@ module.exports = {
   entry: './src/index.ts',
   resolve: {
     extensions: ['.js', '.ts', '.css', '.scss'],
-    alias: {
-      '@Styles': path.resolve(__dirname, 'src/styles'),
-      '@Display': path.resolve(__dirname, 'src/es/display'),
-      '@Store': path.resolve(__dirname, 'src/es/store'),
-      '@Utils': path.resolve(__dirname, 'src/es/utils'),
-      '@Constants': path.resolve(__dirname, 'src/es/constants'),
-    },
+    alias: {},
   },
   devServer: {
     port: 9000,

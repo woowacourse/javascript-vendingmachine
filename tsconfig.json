@@ -6,10 +6,6 @@
     "sourceMap": true,
     "baseUrl": ".",
 		"paths": {
-			"@Store/*": ["src/es/store/*"],
-			"@Display/*": ["src/es/display/*"],
-			"@Utils/*": ["src/es/utils/*"],
-			"@Constants/*": ["src/es/constants/*"],
 		}
   }
 }
