@@ -1,11 +1,14 @@
 import { $, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
+import ProductStatusUI from './ProductStatusUI';
 import PurchaseCashChargeUI from './PurchaseCashChargeUI';
 
 export default class ProductPurchaseUI {
+  private productDomain;
   private purchaseCashDomain;
 
-  constructor(purchaseCashDomain) {
+  constructor(productDomain, purchaseCashDomain) {
+    this.productDomain = productDomain;
     this.purchaseCashDomain = purchaseCashDomain;
   }
 
@@ -52,6 +55,7 @@ export default class ProductPurchaseUI {
     const purchaseCashChargeUI = new PurchaseCashChargeUI(
       this.purchaseCashDomain,
     );
+    new ProductStatusUI(this.productDomain, this.purchaseCashDomain);
     viewPainter.purchaseCashChargeUI = purchaseCashChargeUI;
   }
 }

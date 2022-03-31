@@ -16,6 +16,7 @@ export default class App {
     ),
     private readonly coinManagementUI = new CoinManagementUI(coinDomain),
     private readonly productPurchaseUI = new ProductPurchaseUI(
+      productDomain,
       purchaseCashDomain,
     ),
   ) {

@@ -35,6 +35,7 @@ const MESSAGE = {
   ERROR_INVALID_PURCHASE_CASH: `금액은 ${PURCHASE_CASH_RULE.MAX.toLocaleString()}원 이하여야 하며, ${
     PURCHASE_CASH_RULE.UNIT
   }으로 나누어 떨어져야 합니다.`,
+  ERROR_LACK_CASH: '금액이 부족합니다.',
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
 };
 
