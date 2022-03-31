@@ -55,7 +55,7 @@ class CoinStore {
   }
 
   generateNewCoinsCount(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
-    const newCoinsCount = oldCoinsCount;
+    const newCoinsCount = { ...oldCoinsCount };
     let coinList = [500, 100, 50, 10];
     let money = detail;
 
