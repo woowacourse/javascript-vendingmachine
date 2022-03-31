@@ -12,7 +12,7 @@ class ProductInventory extends Component {
   productItemTemplate({ name, price, quantity, isEditing }: ProductItem) {
     if (isEditing) {
       return `
-        <tr>
+        <tr class="is-editing">
           <td><input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}"/></td>
           <td><input class="form-control" placeholder="가격" value="${price}"/></td>
           <td><input class="form-control" placeholder="수량" value="${quantity}"/></td>

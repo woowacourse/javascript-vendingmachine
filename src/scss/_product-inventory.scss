@@ -1,0 +1,10 @@
+product-inventory {
+  tr.is-editing {
+    input {
+      width: calc(100% - 4px);
+    }
+    td {
+      padding: 4px 0;
+    }
+  }
+}
