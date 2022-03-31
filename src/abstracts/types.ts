@@ -32,11 +32,11 @@ export type CoinsCount = {
   10: number;
 };
 
-export interface CustomElement extends HTMLElement {
+export interface CustomElement<T> extends HTMLElement {
   render(): void;
   template(): string;
   setEvent(): void;
   show(): void;
   hide(): void;
-  rerender(data: Action | Product | ModifyDetail | CoinsCount | string | number): void;
+  rerender(data: T): void;
 }

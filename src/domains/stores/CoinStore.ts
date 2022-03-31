@@ -23,15 +23,15 @@ class CoinStore {
     10: COIN.DEFAULT_COUNT,
   };
 
-  #moneySubscribers: CustomElement[] = [];
+  #moneySubscribers: CustomElement<number>[] = [];
 
-  #coinsCountSubscribers: CustomElement[] = [];
+  #coinsCountSubscribers: CustomElement<CoinsCount>[] = [];
 
-  subscribeMoney(element: CustomElement): void {
+  subscribeMoney(element: CustomElement<number>): void {
     this.#moneySubscribers.push(element);
   }
 
-  subscribeCoinsCount(element: CustomElement): void {
+  subscribeCoinsCount(element: CustomElement<CoinsCount>): void {
     this.#coinsCountSubscribers.push(element);
   }
 

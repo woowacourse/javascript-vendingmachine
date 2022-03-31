@@ -14,9 +14,9 @@ class ProductStore {
 
   #products: Product[] = [];
 
-  #subscribers: CustomElement[] = [];
+  #subscribers: CustomElement<Action>[] = [];
 
-  subscribe(element: CustomElement): void {
+  subscribe(element: CustomElement<Action>): void {
     this.#subscribers.push(element);
   }
 
