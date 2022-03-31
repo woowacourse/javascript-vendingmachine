@@ -1,3 +1,4 @@
+import ProductManager from "../mananger/ProductManager";
 import { $, $$ } from "../utils/dom";
 import Charge from "./charge/Charge";
 import MenuTab from "./menuTab/MenuTab";
@@ -10,6 +11,7 @@ class App {
   charge: Charge;
   product: Product;
   manageContainers: NodeList;
+  productManager: ProductManager;
 
   constructor() {
     this.app = $("#app");
@@ -24,9 +26,10 @@ class App {
     );
     this.manageContainers = $$(".manange-container");
 
+    this.productManager = new ProductManager();
     this.menuTab = new MenuTab({ convertTemplate: this.convertTemplate });
+    this.product = new Product({ productManager: this.productManager });
     this.charge = new Charge();
-    this.product = new Product();
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");

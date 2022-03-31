@@ -1,5 +1,5 @@
 import { $, $$ } from "../../utils/dom";
-import { verifyCharge } from "../../utils/validation";
+// import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
 
 interface CoinType {
@@ -12,7 +12,7 @@ interface CoinType {
 class Charge {
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
-  currentContainCharge: HTMLElement;
+  chargeHoldingAmount: HTMLElement;
   coinObj: CoinType;
   totalCharge: number;
   chargeContainer: HTMLElement;
@@ -25,9 +25,9 @@ class Charge {
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
 
-    this.chargeForm = $("#charge-control-form");
-    this.chargeInput = $(".charge-control-input");
-    this.currentContainCharge = $("#current-contain-charge");
+    this.chargeForm = $(".charge-manange__form");
+    this.chargeInput = $(".charge-manange__input");
+    this.chargeHoldingAmount = $(".charge-manange__holding-amount");
 
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
@@ -36,7 +36,7 @@ class Charge {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
     try {
-      verifyCharge(charge);
+      // verifyCharge(charge);
       this.convertRandomCharge(charge);
     } catch ({ message }) {
       alert(message);
@@ -68,7 +68,7 @@ class Charge {
 
   showRandomCharge(chargeResult: number[]) {
     const chargeCoinCount = $$(".charge-coin-count");
-    this.currentContainCharge.textContent = `${this.totalCharge}`;
+    this.chargeHoldingAmount.textContent = `${this.totalCharge}`;
     Array.from(
       chargeCoinCount,
       (coinCount: HTMLTableElement, index: number) => (coinCount.innerText = `${chargeResult[index]}개`),

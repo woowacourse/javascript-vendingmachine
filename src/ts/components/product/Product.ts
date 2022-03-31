@@ -1,23 +1,31 @@
+import ProductManager from "../../mananger/ProductManager";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { $, $$ } from "../../utils/dom";
-import { verifyProductInfo } from "../../utils/validation";
+import { verifyProductName, verifyProductPrice, verifyProductQuantity } from "../../utils/validation";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
 class Product {
   productContainer: HTMLElement;
-  productControlInputs: NodeList;
   productAddButton: HTMLElement;
   productTable: HTMLElement;
-  productNameTdList: NodeList | null;
+  productNameInput: HTMLElement;
+  productPriceInput: HTMLElement;
+  productQuantityInput: HTMLElement;
 
-  constructor() {
+  productControlInputs: NodeList;
+  productNameTdList: NodeList | null;
+  productManager: ProductManager;
+
+  constructor({ productManager }) {
+    this.productManager = productManager;
     this.productContainer = $(".product-manange__container");
     this.productContainer.replaceChildren();
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
 
-    this.productControlInputs = $$(".product-control-input");
-    this.productAddButton = $("#product-add-button");
-    this.productTable = $("#product-control-table");
+    this.productNameInput = $(".product-manange__name-input");
+    this.productPriceInput = $(".product-manange__price-input");
+    this.productQuantityInput = $(".product-manange__quantity-input");
+    this.productAddButton = $(".product-manange__add-button");
 
     this.productAddButton.addEventListener("click", this.handleAddProduct);
     this.productTable.addEventListener("click", this.handleRemoveProduct);
@@ -27,24 +35,17 @@ class Product {
 
   handleAddProduct = (e: Event) => {
     e.preventDefault();
-    const [productName, productPrice, productQuantity] = Array.from(
-      this.productControlInputs,
-      (input: HTMLInputElement) => input.value,
-    );
-    const productNameList = Array.from(
-      $$(".product-name", this.productTable),
-      (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
-    );
+    const name = (this.productNameInput as HTMLInputElement).value.trim();
+    const price = (this.productPriceInput as HTMLInputElement).valueAsNumber;
+    const quantity = (this.productQuantityInput as HTMLInputElement).valueAsNumber;
 
     try {
-      verifyProductInfo(productName, +productPrice, +productQuantity, productNameList);
-      this.productControlInputs.forEach((input: HTMLInputElement) => (input.value = ""));
+      verifyProductName(name);
+      verifyProductPrice(price);
+      verifyProductQuantity(quantity);
     } catch ({ message }) {
       alert(message);
-      return;
     }
-
-    this.productTable.insertAdjacentHTML("beforeend", addProductTemplate(productName, +productPrice, +productQuantity));
   };
 
   handleRemoveProduct = (e) => {

@@ -48,7 +48,7 @@ button {
   background: #00bcd41f;
 }
 
-.product-control-input {
+.product-input {
   width: 120px;
   height: 36px;
   border-radius: 5px;
@@ -56,66 +56,6 @@ button {
   padding-left: 5px;
   margin-top: 8px;
   font-size: 16px;
-}
-
-.charge-control-input {
-  width: 300px;
-  height: 36px;
-  border-radius: 5px;
-  border: 1px solid #8b8b8b;
-  padding-left: 5px;
-  margin-top: 8px;
-  font-size: 16px;
-}
-
-.product-control-form {
-  display: flex;
-}
-
-#product-add-button,
-#charge-add-button {
-  width: 56px;
-  height: 38px;
-  cursor: pointer;
-  background: #00bcd4;
-  border-radius: 5px;
-  border: none;
-  margin-left: 16px;
-  color: white;
-  font-size: 16px;
-}
-
-#product-table-title,
-#charge-table-title {
-  text-align: center;
-  margin-top: 40px;
-}
-
-#product-control-table {
-  width: 470px;
-  text-align: center;
-  border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
-  border-collapse: collapse;
-}
-
-#charge-control-table {
-  width: 236px;
-  text-align: center;
-  border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
-  border-collapse: collapse;
-  margin: auto;
-}
-
-#product-control-table td,
-#product-control-table th,
-#charge-control-table td,
-#charge-control-table th {
-  width: 118px;
-  height: 40px;
-  border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
 }
 
 .product-edit-button,
@@ -144,4 +84,60 @@ button {
 
 .product-edit-input {
   width: 50px;
+}
+
+.charge-manange__input {
+  width: 300px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #8b8b8b;
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.product-manange__add-button,
+.charge-manange__add-button {
+  width: 56px;
+  height: 38px;
+  cursor: pointer;
+  background: #00bcd4;
+  border-radius: 5px;
+  border: none;
+  margin-left: 16px;
+  color: white;
+  font-size: 16px;
+}
+
+.product-manange__title,
+.charge-manange__title {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.product-manange__table {
+  width: 470px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+}
+
+.charge-manange__table {
+  width: 236px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.product-manange__table td,
+.product-manange__table th,
+.charge-manange__table td,
+.charge-manange__table th {
+  width: 118px;
+  height: 40px;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
 }
