@@ -10,7 +10,7 @@ export default class Router {
   constructor(pageList) {
     this.pageList = pageList;
     this.setEvents();
-    this.pageRender(this.pathname + getSearchParamsParse(window.location.search));
+    this.pageRender(getSearchParamsParse(window.location.search));
   }
 
   setEvents() {
