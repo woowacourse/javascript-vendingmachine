@@ -1,10 +1,15 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = {
-  mode: 'development',
+  mode: isDev ? 'development' : 'production',
   entry: './src/index.ts',
   resolve: {
     extensions: ['.js', '.css', '.ts'],
@@ -59,6 +64,9 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [{ from: 'public', to: '' }],
+    }),
+    new webpack.DefinePlugin({
+      'process.env.API_URL': process.env.API_URL,
     }),
   ],
 };
