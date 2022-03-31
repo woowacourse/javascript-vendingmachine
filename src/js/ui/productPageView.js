@@ -1,4 +1,4 @@
-import { on, emit, remove } from "../util/event.js";
+import { on, emit, remove } from "../util/event";
 import { $, createElement } from "../util/dom";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";
@@ -32,8 +32,6 @@ class ProductPageView {
     this.$productCountInput = $("#product-count-input", this.$formContainer);
 
     this.$productList = $("#products-list", this.$productStatusContainer);
-
-    this.edited = false;
     this.bindEvent();
   };
   initProductsStatus = (products) => {
@@ -54,7 +52,6 @@ class ProductPageView {
 
   productSubmitHandler = (e) => {
     e.preventDefault();
-    if (this.edited === true) return;
 
     emit(EVENT_TYPE.ADD, {
       name: this.$productNameInput.value,
@@ -69,18 +66,16 @@ class ProductPageView {
 
   onClick = ({ target }) => {
     if (target.classList.contains("delete-button")) {
-      if (this.edited === true) return;
-
       this.productDeleteHandler(target);
+      return;
     }
     if (target.classList.contains("edit-button")) {
-      if (this.edited === true) return;
-
       this.productUpdateHandler(target);
+      return;
     }
-
     if (target.classList.contains("save-button")) {
       this.productSubmitUpdateHandler(target);
+      return;
     }
   };
 
@@ -100,8 +95,6 @@ class ProductPageView {
         count: $product.dataset.count,
       })
     );
-
-    this.edited = true;
   };
 
   productSubmitUpdateHandler = (target) => {
@@ -111,8 +104,6 @@ class ProductPageView {
     const updatedName = $("#edit-name-input", updatedProduct).value;
     const updatedPrice = $("#edit-price-input", updatedProduct).valueAsNumber;
     const updatedCount = $("#edit-count-input", updatedProduct).valueAsNumber;
-
-    this.edited = false;
 
     emit(EVENT_TYPE.EDIT, {
       id,
