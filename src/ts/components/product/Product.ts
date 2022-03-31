@@ -5,6 +5,7 @@ import { verifyProductName, verifyProductPrice, verifyProductQuantity } from "..
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
 class Product {
+  productManager: ProductManager;
   productContainer: HTMLElement;
   productAddButton: HTMLElement;
   productTable: HTMLElement;
@@ -12,25 +13,20 @@ class Product {
   productPriceInput: HTMLElement;
   productQuantityInput: HTMLElement;
 
-  productControlInputs: NodeList;
-  productNameTdList: NodeList | null;
-  productManager: ProductManager;
-
   constructor({ productManager }) {
     this.productManager = productManager;
     this.productContainer = $(".product-manange__container");
     this.productContainer.replaceChildren();
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
 
+    this.productTable = $(".product-manange__table");
     this.productNameInput = $(".product-manange__name-input");
     this.productPriceInput = $(".product-manange__price-input");
     this.productQuantityInput = $(".product-manange__quantity-input");
     this.productAddButton = $(".product-manange__add-button");
 
     this.productAddButton.addEventListener("click", this.handleAddProduct);
-    this.productTable.addEventListener("click", this.handleRemoveProduct);
-    this.productTable.addEventListener("click", this.handleEditProduct);
-    this.productTable.addEventListener("click", this.handleConfirmProduct);
+    this.productTable.addEventListener("click", this.handleManageOption);
   }
 
   handleAddProduct = (e: Event) => {
@@ -43,51 +39,68 @@ class Product {
       verifyProductName(name);
       verifyProductPrice(price);
       verifyProductQuantity(quantity);
+
+      this.productManager.addProduct({ name, price, quantity });
+      this.productTable.insertAdjacentHTML("beforeend", addProductTemplate({ name, price, quantity }));
     } catch ({ message }) {
       alert(message);
     }
   };
 
-  handleRemoveProduct = (e) => {
-    if (e.target.classList.contains("product-remove-button")) {
-      confirm(INFOMATION_MESSAGES.ASK_DELETE) && e.target.closest("tr").remove();
+  handleManageOption = ({ target }) => {
+    if (!target.classList.contains("product-manage__option")) {
+      return;
+    }
+
+    const selectedRow = target.closest("[data-name]");
+
+    if (target.classList.contains("product-manage__edit-button")) {
+      this.editProduct(selectedRow);
+    }
+    if (target.classList.contains("product-manage__remove-button")) {
+      this.removeProduct(selectedRow);
+    }
+    if (target.classList.contains("product-manage__confirm-button")) {
+      this.confirmProduct(selectedRow);
     }
   };
 
-  handleEditProduct = (e) => {
-    if (e.target.classList.contains("product-edit-button")) {
-      const [productNameTd, productPriceTd, productQuantityTd] = Array.from(e.target.closest("tr").children);
-      e.target.closest("tr").innerHTML = editProductTemplate(
-        productNameTd.textContent,
-        +productPriceTd.textContent,
-        +productQuantityTd.textContent,
-      );
+  removeProduct(selectedRow) {
+    if (confirm(INFOMATION_MESSAGES.ASK_DELETE)) {
+      const { name } = selectedRow.dataset;
+      this.productManager.removeProduct(name);
+      selectedRow.remove();
     }
-  };
+  }
 
-  handleConfirmProduct = (e) => {
-    if (e.target.classList.contains("product-confirm-button")) {
-      const [productName, productPrice, productQuantity] = Array.from(
-        $$(".product-edit-input"),
-        (input: HTMLInputElement) => input.value,
-      );
-      const productNameList = Array.from(
-        $$(".product-name", this.productTable),
-        (productNameTd: HTMLTableCellElement) => productNameTd.textContent,
-      );
+  editProduct(selectedRow) {
+    const [name, price, quantity] = selectedRow.children;
 
-      try {
-        verifyProductInfo(productName, +productPrice, +productQuantity, productNameList);
-        this.changeEditProductInfo(productName, +productPrice, +productQuantity, e.target);
-      } catch ({ message }) {
-        alert(message);
-      }
+    selectedRow.innerHTML = editProductTemplate({
+      name: name.textContent,
+      price: price.textContent,
+      quantity: quantity.textContent,
+    });
+  }
+
+  confirmProduct(selectedRow) {
+    const name = ($(".product-manage__edit-input--name") as HTMLInputElement).value.trim();
+    const price = +($(".product-manage__edit-input--price") as HTMLInputElement).value;
+    const quantity = +($(".product-manage__edit-input--quantity") as HTMLInputElement).value;
+    const { name: prevName } = selectedRow.dataset;
+
+    try {
+      verifyProductName(name);
+      verifyProductPrice(price);
+      verifyProductQuantity(quantity);
+
+      this.productManager.editProduct({ name, price, quantity }, prevName);
+      selectedRow.innerHTML = addProductTemplate({ name, price, quantity });
+      selectedRow.dataset.name = name;
+    } catch ({ message }) {
+      alert(message);
     }
-  };
-
-  changeEditProductInfo = (productName: string, productPrice: number, productQuantity: number, target) => {
-    target.closest("tr").innerHTML = addProductTemplate(productName, productPrice, productQuantity);
-  };
+  }
 
   show() {
     this.productContainer.classList.remove("hide");

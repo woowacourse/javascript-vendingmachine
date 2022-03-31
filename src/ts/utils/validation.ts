@@ -1,3 +1,4 @@
+import { Product } from "../mananger/ProductManager";
 import { PRODUCT, CHARGE } from "./constants";
 
 const verifyProductName = (name: string) => {
@@ -34,15 +35,18 @@ const verifyProductQuantity = (quantity: number) => {
   }
 };
 
+const verifyDuplicateName = (products: Product[], newProduct: Product) => {
+  if (products.some((product) => product.name === newProduct.name)) {
+    throw new Error("중복된 상품이 존재합니다.");
+  }
+};
+
 // const verifyProductInfo = (
 //   productName: string | null,
 //   productPrice: number | null,
 //   productQuantity: number | null,
 //   productNameList: string[] | null,
 // ) => {
-//   if (productNameList.includes(productName)) {
-//     throw new Error("중복된 상품명은 등록할 수 없습니다.");
-//   }
 
 // const verifyCharge = (charge: number | null) => {
 //   if (charge < CHARGE.MIN_PRICE || charge > CHARGE.MAX_PRICE) {
@@ -58,4 +62,4 @@ const verifyProductQuantity = (quantity: number) => {
 //   }
 // };
 
-export { verifyProductName, verifyProductPrice, verifyProductQuantity };
+export { verifyProductName, verifyProductPrice, verifyProductQuantity, verifyDuplicateName };

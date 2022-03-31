@@ -24,25 +24,25 @@ const productTemplate = () => {
   </div>`;
 };
 
-const addProductTemplate = (productName: string, productPrice: number, productQuantity: number) => {
+const addProductTemplate = ({ name, price, quantity }) => {
   return `
-   <tr>
-      <td class="product-name">${productName}</td>
-      <td>${productPrice}</td>
-      <td>${productQuantity}</td>
+  <tr data-name=${name}>
+      <td>${name}</td>
+      <td>${price}</td>
+      <td>${quantity}</td>
       <td>
-        <button type="button" class="product-edit-button">수정</button>
-        <button type="button" class="product-remove-button">제거</button>
+        <button type="button" class="product-manage__edit-button product-manage__option">수정</button>
+        <button type="button" class="product-manage__remove-button product-manage__option">제거</button>
       </td>
   </tr>`;
 };
 
-const editProductTemplate = (productName: string, productPrice: number, productQuantity: number) => {
+const editProductTemplate = ({ name, price, quantity }) => {
   return `
-    <td class="product-name"><input class="product-edit-input" value='${productName}' /></td>
-    <td><input class="product-edit-input" value='${productPrice}' /></td>
-    <td><input class="product-edit-input" value='${productQuantity}' /></td>
-    <td><button type="button" class="product-confirm-button">확인</button></td>
+  <td><input class="product-manage__edit-input--name edit-input" value='${name}' /></td>
+  <td><input class="product-manage__edit-input--price edit-input" value='${price}' /></td>
+  <td><input class="product-manage__edit-input--quantity edit-input" value='${quantity}' /></td>
+  <td><button type="button" class="product-manage__confirm-button product-manage__option">확인</button></td>
   `;
 };
 
