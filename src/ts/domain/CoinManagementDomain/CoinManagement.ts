@@ -1,9 +1,7 @@
 import { coinType } from '../../constants';
 import { getRandomIndex } from '../../utils';
+import { Coins, CoinUnionType } from '../types';
 import { validateCash } from './validator';
-
-type CoinUnionType = typeof coinType[number];
-type Coins = { [K in CoinUnionType]: number } | {};
 
 export default class CoinManagementDomain {
   #totalCash: number;
