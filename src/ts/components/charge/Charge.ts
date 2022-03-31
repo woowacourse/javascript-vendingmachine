@@ -39,9 +39,10 @@ class Charge {
 
     try {
       verifyCharge(charge);
+
       const randomCoins = this.getRandomCoins(charge);
       this.chargeManager.addCoins(randomCoins);
-      this.addRandomCoins(randomCoins);
+      this.addRandomCoins();
       this.addHoldingAmount();
     } catch ({ message }) {
       alert(message);
@@ -66,8 +67,8 @@ class Charge {
     this.chargeHoldingAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
-  addRandomCoins(randomCoins: Coin) {
-    const countList = Object.values(randomCoins);
+  addRandomCoins() {
+    const countList = Object.values(this.chargeManager.getCoins());
 
     [this.chargeCoin10, this.chargeCoin50, this.chargeCoin100, this.chargeCoin500].forEach((chargeCoin, index) => {
       chargeCoin.textContent = `${countList[index]}개`;

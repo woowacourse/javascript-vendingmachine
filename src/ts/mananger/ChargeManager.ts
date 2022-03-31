@@ -2,6 +2,8 @@ import { verifyDuplicateName } from "../utils/validation";
 
 interface ChargeManagerInterface {
   getCoins(): Coin;
+  addCoins(coinObject: Coin): void;
+  getTotalCharge(): number;
 }
 
 export interface Coin {
