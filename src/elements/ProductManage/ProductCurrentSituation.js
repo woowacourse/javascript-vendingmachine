@@ -44,15 +44,13 @@ class ProductCurrentSituation extends CustomElement {
 
         $tbodyRow.dataset.productName = newProductInfo.name;
 
-        $('.product-name-td', $tbodyRow).textContent = newProductInfo.name;
-        $('.product-price-td', $tbodyRow).textContent = newProductInfo.price;
-        $('.product-quantity-td', $tbodyRow).textContent = newProductInfo.quantity;
-        $('.product-manage-buttons-td', $tbodyRow).innerHTML = `
-          <button class="table__product-modify-button">수정</button>
-          <button class="table__product-delete-button">삭제</button>
-        `;
+        $$('.product-td', $tbodyRow).forEach((td) => td.removeAttribute('hidden'));
+        $$('.product-modify-td', $tbodyRow).forEach((td) => td.setAttribute('hidden', true));
 
-        this.setEventAfterRerender(newProductInfo);
+        $('.product-td.product-name-td', $tbodyRow).textContent = newProductInfo.name;
+        $('.product-td.product-price-td', $tbodyRow).textContent = newProductInfo.price;
+        $('.product-td.product-quantity-td', $tbodyRow).textContent = newProductInfo.quantity;
+
         break;
       }
       case PRODUCT_ACTION.DELETE:
@@ -60,15 +58,31 @@ class ProductCurrentSituation extends CustomElement {
     }
   }
 
+  // eslint-disable-next-line max-lines-per-function
   tableBodyRowTemplate({ name, price, quantity }) {
     return ` 
       <tr data-product-name="${name}">
-        <td class="product-name-td">${name}</td> 
-        <td class="product-price-td">${price}</td>
-        <td class="product-quantity-td">${quantity}</td>
-        <td class="product-manage-buttons-td">
+        <td class="product-td product-name-td">${name}</td>
+        <td class="product-modify-td product-name-td" hidden>
+          <input class="product-name-input" placeholder="상품명" value="${name}" maxlength="10" required>
+        </td>
+
+        <td class="product-td product-price-td">${price}</td>
+        <td class="product-modify-td product-price-td" hidden>
+          <input type="number" class="product-price-input" placeholder="가격" value="${price}" min="100" max="10000" required>
+        </td>
+      
+        <td class="product-td product-quantity-td">${quantity}</td>
+        <td class="product-modify-td product-quantity-td" hidden>
+          <input type="number" class="product-quantity-input" placeholder="수량" value="${quantity}" min="1" max="20" required>
+        </td>
+
+        <td class="product-td product-manage-buttons-td">
           <button class="table__product-modify-button">수정</button>
           <button class="table__product-delete-button">삭제</button>
+        </td>
+        <td class="product-modify-td product-manage-buttons-td" hidden>
+          <button class="table__product-modify-confirm-button">확인</button>
         </td>
       </tr>
     `;
@@ -85,35 +99,19 @@ class ProductCurrentSituation extends CustomElement {
     $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductDeleteButtonClick(name),
     );
-  }
 
-  handleProductModifyButtonClick = ($tbodyRow) => {
-    this.makeProductInfoModifiable($tbodyRow);
-    this.setEventForProductModify($tbodyRow);
-  };
-
-  makeProductInfoModifiable($tbodyRow) {
-    const $productNameTd = $('.product-name-td', $tbodyRow);
-    $productNameTd.innerHTML = `<input class="product-name-input" placeholder="상품명" value="${$productNameTd.textContent}" maxlength="10" required>`;
-
-    const $productPriceTd = $('.product-price-td', $tbodyRow);
-    $productPriceTd.innerHTML = `<input type="number" class="product-price-input" placeholder="가격" value="${$productPriceTd.textContent}" min="100" max="10000" required>`;
-
-    const $productQuantityTd = $('.product-quantity-td', $tbodyRow);
-    $productQuantityTd.innerHTML = `<input type="number" class="product-quantity-input" placeholder="수량" value="${$productQuantityTd.textContent}" min="1" max="20" required>`;
-
-    const $productManageButtonsTd = $('.product-manage-buttons-td', $tbodyRow);
-    $productManageButtonsTd.innerHTML = `<button class="table__product-modify-confirm-button">확인</button>`;
-  }
-
-  setEventForProductModify($tbodyRow) {
-    $$('input', $tbodyRow).forEach((input) =>
+    $$('.product-modify-td input', $tbodyRow).forEach((input) =>
       input.addEventListener('keydown', (event) => this.handleProductModifyEnter(event, $tbodyRow)),
     );
-    $('.table__product-modify-confirm-button', $tbodyRow).addEventListener('click', () =>
+    $('.product-modify-td .table__product-modify-confirm-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductModifyConfirmButtonClick($tbodyRow),
     );
   }
+
+  handleProductModifyButtonClick = ($tbodyRow) => {
+    $$('.product-td', $tbodyRow).forEach((td) => td.setAttribute('hidden', true));
+    $$('.product-modify-td', $tbodyRow).forEach((td) => td.removeAttribute('hidden'));
+  };
 
   handleProductModifyEnter = (event, $tbodyRow) => {
     if (event.key !== 'Enter') return;

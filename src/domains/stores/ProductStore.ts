@@ -61,9 +61,7 @@ class ProductStore {
   }
 
   notifySubscribers(action: Action): void {
-    this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(action);
-    });
+    this.#subscribers.forEach((subscriber) => subscriber.rerender(action));
   }
 
   get products() {
