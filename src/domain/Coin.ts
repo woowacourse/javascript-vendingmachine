@@ -9,10 +9,10 @@ interface CoinProperty {
 }
 
 class Coin implements CoinProperty {
-  500: number = 0;
-  100: number = 0;
-  50: number = 0;
-  10: number = 0;
+  500 = 0;
+  100 = 0;
+  50 = 0;
+  10 = 0;
 
   constructor(...args: number[]) {
     COINS.forEach((coin, i) => (this[coin] = arguments[i]));

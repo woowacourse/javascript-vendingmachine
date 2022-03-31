@@ -8,7 +8,7 @@ interface Router {
 const nav = document.querySelector('.nav');
 const baseURL = '/javascript-vendingmachine';
 
-nav.addEventListener('click', (e) => {
+nav.addEventListener('click', (e: MouseEvent) => {
   historyRouterPush((e.target as HTMLElement).getAttribute('route'));
 });
 

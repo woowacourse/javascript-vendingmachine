@@ -12,7 +12,7 @@ export const emit = (selector: string, eventName: string, detail: object, compon
 export const on = (
   selector: string,
   eventName: string,
-  handler: (e: any) => any,
+  handler: (e: CustomEvent) => void,
   component: Element | Document = document,
 ) => {
   const targets = component.querySelectorAll(selector);
@@ -22,10 +22,10 @@ export const on = (
 
 export const addEvent = (component: Element, eventType: string, selector: string, callback: Function) => {
   const children = Array.from(component.querySelectorAll(selector));
-  const isTarget = (target) => children.includes(target) || target.closest(selector);
+  const isTarget = (target: Element) => children.includes(target) || target.closest(selector);
 
   component.addEventListener(eventType, (event) => {
-    if (!isTarget(event.target)) {
+    if (!isTarget(event.target as Element)) {
       return false;
     }
     return callback(event);
