@@ -35,7 +35,7 @@ class ProductCurrentSituation extends CustomElement {
     switch (type) {
       case PRODUCT_ACTION.ADD:
         $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
-        this.setEventAfterRerender(detail);
+        this.setEventAfterRerender(detail.name);
         break;
       case PRODUCT_ACTION.MODIFY: {
         const { oldProductName, newProductInfo } = detail;
@@ -53,7 +53,7 @@ class ProductCurrentSituation extends CustomElement {
             <button class="table__product-delete-button">삭제</button>`,
         );
 
-        this.setEventAfterRerender(newProductInfo);
+        this.setEventAfterRerender(newProductInfo.name);
         break;
       }
       case PRODUCT_ACTION.DELETE:
@@ -75,8 +75,8 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  setEventAfterRerender({ name }) {
-    const $tbodyRow = $(`[data-product-name="${name}"]`);
+  setEventAfterRerender(productName) {
+    const $tbodyRow = $(`[data-product-name="${productName}"]`);
 
     $tbodyRow.scrollIntoView();
 
@@ -84,7 +84,7 @@ class ProductCurrentSituation extends CustomElement {
       this.handleProductModifyButtonClick($tbodyRow),
     );
     $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductDeleteButtonClick(name),
+      this.handleProductDeleteButtonClick(productName),
     );
   }
 
