@@ -20,7 +20,7 @@ export function generateUniqueId(list) {
 }
 
 export function deepCopy(obj) {
-  let cloneObject = {};
+  const cloneObject = {};
 
   for (let key in obj) {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
