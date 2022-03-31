@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
+import { consoleErrorWithConditionalAlert, convertToLocaleString, convertToInteger } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
@@ -104,8 +104,8 @@ class ProductInventory extends Component {
       createAction(ACTION.EDIT_PRODUCT, {
         originalName,
         name,
-        price: toInt(price),
-        quantity: toInt(quantity),
+        price: convertToInteger(price),
+        quantity: convertToInteger(quantity),
       })
     );
   };

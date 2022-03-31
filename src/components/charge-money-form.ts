@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
+import { consoleErrorWithConditionalAlert, convertToLocaleString, convertToInteger } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateChargeCoins } from '../validation/validators';
 
@@ -43,7 +43,7 @@ class ChargeMoneyForm extends Component {
     const { chargedMoney } = Store.instance.getState();
     const { hasError, errorMessage } = validateChargeCoins(money, chargedMoney);
     if (hasError) throw new ValidationError(errorMessage);
-    Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, toInt(money)));
+    Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, convertToInteger(money)));
   }
 
   mount() {

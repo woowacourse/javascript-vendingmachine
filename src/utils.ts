@@ -1,7 +1,7 @@
 import { VALIDATION_ERROR_NAME } from './constants';
 import { Indexable } from './types';
 
-export const toInt = (str: string, defaultNum = 0) => {
+export const convertToInteger = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
   return !Number.isNaN(val) ? val : defaultNum;
 };

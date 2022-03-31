@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { RawProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../utils';
+import { consoleErrorWithConditionalAlert, convertToInteger } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
@@ -55,8 +55,8 @@ class AddProductForm extends Component {
     Store.instance.dispatch(
       createAction(ACTION.ADD_PRODUCT, {
         ...productItem,
-        price: toInt(price),
-        quantity: toInt(quantity),
+        price: convertToInteger(price),
+        quantity: convertToInteger(quantity),
       })
     );
   }
