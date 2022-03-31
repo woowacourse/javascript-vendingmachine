@@ -1,7 +1,7 @@
 import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
 import { COIN_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
-import pickNumberInList from '../../utils/random';
+import { pickNumberInList } from '../../utils';
 
 class CoinStore {
   static _instance: null | object = null;

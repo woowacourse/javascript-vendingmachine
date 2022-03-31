@@ -1,4 +1,4 @@
-import { $ } from './utils/dom';
+import { $ } from './utils';
 import { BASE_URL } from './constants';
 
 const targets = [

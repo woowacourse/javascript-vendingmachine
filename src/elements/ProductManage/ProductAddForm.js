@@ -2,7 +2,7 @@ import ProductStore from '../../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils/dom';
+import { $ } from '../../utils';
 import { checkProductAddValidation } from '../../validators';
 
 class ProductAddForm extends CustomElement {

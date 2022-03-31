@@ -2,7 +2,7 @@ import CoinStore from '../../domains/stores/CoinStore';
 import { createAction, COIN_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils/dom';
+import { $ } from '../../utils';
 import { checkCoinValidation } from '../../validators';
 
 class CoinChargeForm extends CustomElement {
