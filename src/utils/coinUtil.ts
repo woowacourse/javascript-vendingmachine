@@ -10,10 +10,10 @@ const getRandomCoin = (): number => {
 
 export const createRandomCoins = (amount: number): Coins => {
   const coins: Coins = {
-    10: 0,
-    50: 0,
-    100: 0,
     500: 0,
+    100: 0,
+    50: 0,
+    10: 0,
   };
   let sum = 0;
 
@@ -29,3 +29,6 @@ export const createRandomCoins = (amount: number): Coins => {
 
   return coins;
 };
+
+export const sortCoins = (coins: Coins): Array<[string, number]> =>
+  [...Object.entries(coins)].sort(([a], [b]) => +b - +a);

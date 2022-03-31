@@ -1,6 +1,6 @@
 import Subject from '../core/Subject';
 import { deepClone } from '../utils/commons';
-import { createRandomCoins } from '../utils/coinUtil';
+import { createRandomCoins, sortCoins } from '../utils/coinUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
 import { ERROR_MESSAGE, EMPTY_COIN } from '../constant/constant';
 
@@ -11,10 +11,10 @@ export interface Item {
 }
 
 export interface Coins {
-  10: number;
-  50: number;
-  100: number;
   500: number;
+  100: number;
+  50: number;
+  10: number;
 }
 
 export interface VendingMachineState {
@@ -117,10 +117,6 @@ export default class VendingMachine {
   }
 
   returnChange(): Coins {
-    const coinArray = [...Object.entries(this.state.coins)].sort(
-      ([a], [b]) => +b - +a
-    );
-
     let index = 0;
     const result = { ...EMPTY_COIN };
 
@@ -128,8 +124,10 @@ export default class VendingMachine {
       this.state.purchaseMoney > 0 &&
       index < Object.keys(this.state.coins).length
     ) {
+      const coinArray = sortCoins(this.state.coins);
       const [coinType, count] = coinArray[index];
-      if (count > 0) {
+
+      if (count > 0 && +coinType <= this.state.purchaseMoney) {
         result[coinType] += 1;
         this.state.purchaseMoney -= +coinType;
         this.state.coins[coinType] -= 1;

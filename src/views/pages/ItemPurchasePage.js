@@ -1,6 +1,7 @@
 import { EMPTY_COIN } from '../../constant/constant';
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
+import { sortCoins } from '../../utils/coinUtil';
 
 class ItemPurchasePage extends Component {
   setup() {
@@ -12,9 +13,7 @@ class ItemPurchasePage extends Component {
       (state) => state.purchaseMoney
     );
     const items = vendingMachine.useStore((state) => state.items);
-    const coinArray = [...Object.entries(this.state.returnCoins)].sort(
-      ([a], [b]) => b - a
-    );
+    const coinArray = sortCoins(this.state.returnCoins);
 
     return `
     <section>

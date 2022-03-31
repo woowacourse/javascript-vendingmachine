@@ -1,11 +1,12 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { AMOUNT, MONEY_UNIT } from '../../constant/constant';
+import { sortCoins } from '../../utils/coinUtil';
 
 class ChangeChargePage extends Component {
   template() {
     const coins = vendingMachine.useStore((state) => state.coins);
-    const coinArray = [...Object.entries(coins)].sort(([a], [b]) => b - a);
+    const coinArray = sortCoins(coins);
     const totalMoney = vendingMachine.getTotalMoney();
 
     return `
