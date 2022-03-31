@@ -1,69 +1,55 @@
 import { $ } from './utils/dom';
 import { BASE_URL } from './constants';
 
-const $productManageButton = $('.nav__product-manage-button');
-const $productManageContainer = $('product-manage-container');
-const $productNameInput = $('.product-name-input');
+const targets = [
+  {
+    route: `${BASE_URL}/`,
+    $button: $('.nav__product-manage-button'),
+    $container: $('product-manage-container'),
+    $focusInput: $('.product-name-input'),
+  },
+  {
+    route: `${BASE_URL}/coin-charge/`,
+    $button: $('.nav__coin-charge-button'),
+    $container: $('coin-charge-container'),
+    $focusInput: $('#coin-input'),
+  },
+];
 
-const $coinChargeButton = $('.nav__coin-charge-button');
-const $coinChargeContainer = $('coin-charge-container');
-const $coinInput = $('#coin-input');
-
-const renderProductManageContainer = () => {
-  $productManageContainer.show();
-  $coinChargeContainer.hide();
-
-  $productManageButton.classList.add('clicked');
-  $coinChargeButton.classList.remove('clicked');
-
-  $productNameInput.focus();
+const findTarget = (route) => {
+  return targets.find((target) => target.route === route);
 };
 
-const handleProductManageButtonClick = (event) => {
-  if (!$productManageContainer.getAttribute('hidden')) return;
+const render = (currentTarget, prevTarget) => {
+  currentTarget.$button.classList.add('clicked');
+  currentTarget.$container.show();
+  currentTarget.$focusInput.focus();
 
-  const route = event.target.getAttribute('route');
+  if (!prevTarget) return;
 
-  window.history.pushState({}, null, route);
-
-  renderProductManageContainer();
+  prevTarget.$button.classList.remove('clicked');
+  prevTarget.$container.hide();
 };
 
-const renderCoinChargeContainer = () => {
-  $productManageContainer.hide();
-  $coinChargeContainer.show();
+const handleAdministratorMenuClick = (event) => {
+  const currentRoute = event.target.getAttribute('route');
+  const currentTarget = findTarget(currentRoute);
+  const prevTarget = findTarget(window.location.pathname);
 
-  $productManageButton.classList.remove('clicked');
-  $coinChargeButton.classList.add('clicked');
+  if (currentTarget.$button.classList.contains('clicked')) return;
 
-  $coinInput.focus();
+  window.history.pushState({ prevRoute: window.location.pathname }, null, currentRoute);
+
+  render(currentTarget, prevTarget);
 };
 
-const handleCoinChargeButtonClick = (event) => {
-  if (!$coinChargeContainer.getAttribute('hidden')) return;
+render(findTarget(window.location.pathname));
 
-  const route = event.target.getAttribute('route');
+$('nav', $('administrator-menu')).addEventListener('click', handleAdministratorMenuClick);
 
-  window.history.pushState({}, null, route);
+window.addEventListener('popstate', (event) => {
+  const currentTarget = findTarget(window.location.pathname);
+  const prevTarget = findTarget(event.state.prevRoute);
 
-  renderCoinChargeContainer();
-};
-
-const renderTargetContainer = (path) => {
-  if (path === `${BASE_URL}/`) {
-    renderProductManageContainer();
-
-    return;
-  }
-
-  renderCoinChargeContainer();
-};
-
-renderTargetContainer(window.location.pathname);
-
-$productManageButton.addEventListener('click', handleProductManageButtonClick);
-$coinChargeButton.addEventListener('click', handleCoinChargeButtonClick);
-
-window.addEventListener('popstate', () => {
-  renderTargetContainer(window.location.pathname);
+  render(currentTarget, prevTarget);
 });
