@@ -4,6 +4,7 @@ body {
   background-color: var(--body-background-color);
 }
 #app {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,14 +15,27 @@ body {
   border: 1px solid var(--app-border-color);
   background-color: #fff;
   border-radius: 4px;
+  padding-bottom: 50px;
 }
 
 nav {
   display: flex;
   width: 359px;
-  margin-bottom: 50px;
   gap: 4px;
 }
+
+#manage-product-container {
+  margin-top: 40px;
+}
+
+#purchase-product-container {
+  margin-top: 40px;
+}
+
+#recharge-change-container {
+  margin-top: 40px;
+}
+
 button {
   width: 100%;
   cursor: pointer;
@@ -46,6 +60,12 @@ button:hover {
   width: 100px;
 }
 
+.login-submit-button {
+  width: 100% !important;
+  height: 36px;
+  margin-bottom: 20px;
+}
+
 a.tab-button {
   width: 100%;
   background-color: var(--button-gray-background-color);
@@ -63,6 +83,8 @@ a.tab-button:hover {
   display: none;
   visibility: none;
   opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .snack-bar {
@@ -90,4 +112,10 @@ a.tab-button:hover {
   visibility: visible;
   transform: translateX(-50%) translate3d(0, 0, 0);
   transition: transform 300ms ease-in-out;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }

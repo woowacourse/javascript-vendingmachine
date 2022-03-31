@@ -1,0 +1,44 @@
+@import url('./color.css');
+
+header {
+  display: flex;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+
+#login-button {
+  width: 110px;
+  height: 30px;
+}
+
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#user-profile {
+  margin-left: 25%;
+  width: 40px;
+  height: 40px;
+  border-style: none;
+  border-radius: 50%;
+
+  background-color: var(--user-profile-background-color);
+}
+#user-profile.is-active,
+#user-profile:hover {
+  background-color: var(--user-profile-active-background-color);
+}
+
+#user-href-container {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 10px;
+}
+
+#edit-user-href {
+  display: block;
+  margin-top: 10px;
+}
