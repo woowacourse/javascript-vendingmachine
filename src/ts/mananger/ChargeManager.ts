@@ -22,18 +22,6 @@ class ChargeManager implements ChargeManagerInterface {
     return this.coins;
   }
 
-  addCoins(coinObject: Coin) {
-    Object.keys(coinObject).forEach((coinName) => {
-      this.coins[coinName] += coinObject[coinName];
-    });
-  }
-
-  getTotalCharge() {
-    return Object.entries(this.coins).reduce((acc, [coinName, count]) => {
-      return acc + Number(coinName) * count;
-    }, 0);
-  }
-
   getRandomCoins(charge: number): Coin {
     verifyCharge(charge);
 
@@ -48,6 +36,18 @@ class ChargeManager implements ChargeManagerInterface {
     }
 
     return coinObject;
+  }
+
+  addCoins(coinObject: Coin) {
+    Object.keys(coinObject).forEach((coinName) => {
+      this.coins[coinName] += coinObject[coinName];
+    });
+  }
+
+  getTotalCharge() {
+    return Object.entries(this.coins).reduce((acc, [coinName, count]) => {
+      return acc + Number(coinName) * count;
+    }, 0);
   }
 }
 
