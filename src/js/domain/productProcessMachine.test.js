@@ -1,4 +1,4 @@
-import ProductProcessMachine from "./ProductProcessMachine";
+import { ProductProcessMachine } from "./ProductProcessMachine";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
 describe("상품 관리하는 도메인 테스트", () => {

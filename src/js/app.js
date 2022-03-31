@@ -1,12 +1,10 @@
-import ProductModerator from "./moderator/productModerator";
-import ChangesModerator from "./moderator/changesModerator";
+import "./pages/product-manage.page";
+import "./pages/changes-manage.page";
 
 class App {
   constructor() {
-    this.productModerator = new ProductModerator();
-    this.changesModerator = new ChangesModerator();
-
     this.$nav = document.querySelector("#page-tab-container");
+    this.$page = document.querySelector("#page");
     this.$nav.addEventListener("click", this.onClickNavButton);
     window.addEventListener("hashchange", this.onChangePage);
 
@@ -15,11 +13,11 @@ class App {
 
   onClickNavButton = ({ target }) => {
     if (target.classList.contains("product-management-button")) {
-      this.productModerator.init();
+      this.$page.innerHTML = "<product-manage></product-manage>";
     }
 
     if (target.classList.contains("changes-charge-button")) {
-      this.changesModerator.init();
+      this.$page.innerHTML = "<changes-manage></changes-manage>";
     }
   };
 
@@ -27,11 +25,11 @@ class App {
     const hash = location.hash;
 
     if (hash === "#!productManagement") {
-      this.productModerator.init();
+      this.$page.innerHTML = "<product-manage></product-manage>";
     }
 
     if (hash === "#!changesCharge") {
-      this.changesModerator.init();
+      this.$page.innerHTML = "<changes-manage></changes-manage>";
     }
   };
 }

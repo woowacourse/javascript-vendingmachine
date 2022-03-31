@@ -8,7 +8,7 @@ import {
 } from "../interface/changes.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
-class ChangesProcessMachine implements ChangesDomain {
+export class ChangesProcessMachine implements ChangesDomain {
   coins = { 500: 0, 100: 0, 50: 0, 10: 0 };
 
   charge: Charge = (money) => {
@@ -18,7 +18,6 @@ class ChangesProcessMachine implements ChangesDomain {
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
-    console.log(this.coins);
   };
 
   accumulateCoins = (newCoins: Coins): void => {
@@ -72,5 +71,4 @@ class ChangesProcessMachine implements ChangesDomain {
     }
   };
 }
-
-export default ChangesProcessMachine;
+export const changesProcessMachine = new ChangesProcessMachine();

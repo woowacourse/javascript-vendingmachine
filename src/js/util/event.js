@@ -1,4 +1,4 @@
-export const { addEvent: setEvent, emit } = {
+export const { addEvent, emit } = {
   addEvent: (element, eventName, callback) => {
     element.addEventListener(eventName, callback);
   },

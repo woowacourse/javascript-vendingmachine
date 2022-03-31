@@ -7,7 +7,7 @@ import {
 } from "../interface/product.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
-class ProductProcessMachine implements ProductDomain {
+export class ProductProcessMachine implements ProductDomain {
   products = [];
 
   add: Add = (newProduct) => {
@@ -80,4 +80,4 @@ class ProductProcessMachine implements ProductDomain {
   };
 }
 
-export default ProductProcessMachine;
+export const productProcessMachine = new ProductProcessMachine();

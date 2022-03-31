@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
-import ChangesProcessMachine from "./ChangesProcessMachine";
+import { ChangesProcessMachine } from "./ChangesProcessMachine";
 
 describe("잔돈 관리하는 도메인 테스트", () => {
   test("자판기 보유 금액을 누적하여 충전할 수 있다.", () => {
