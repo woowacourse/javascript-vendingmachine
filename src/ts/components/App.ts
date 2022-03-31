@@ -1,17 +1,19 @@
+import { $, $$ } from "../utils/dom";
+import { menuTabTemplate } from "./menuTab/menuTabTemplate";
+
 import ChargeManager from "../mananger/ChargeManager";
 import ProductManager from "../mananger/ProductManager";
-import { $, $$ } from "../utils/dom";
-import Charge from "./charge/Charge";
-import MenuTab from "./menuTab/MenuTab";
-import { menuTabTemplate } from "./menuTab/menuTabTemplate";
-import Product from "./product/Product";
+
+import MenuTabComponent from "./menuTab/MenuTabComponent";
+import ProductComponent from "./product/ProductComponent";
+import ChargeComponent from "./charge/ChargeComponent";
 
 class App {
   app: HTMLElement;
-  menuTab: MenuTab;
-  charge: Charge;
-  product: Product;
   manageContainers: NodeList;
+  menuTabComponent: MenuTabComponent;
+  productComponent: ProductComponent;
+  chargeComponent: ChargeComponent;
   productManager: ProductManager;
   chargeManager: ChargeManager;
 
@@ -30,9 +32,9 @@ class App {
 
     this.productManager = new ProductManager();
     this.chargeManager = new ChargeManager();
-    this.menuTab = new MenuTab({ convertTemplate: this.convertTemplate });
-    this.product = new Product({ productManager: this.productManager });
-    this.charge = new Charge({ chargeManager: this.chargeManager });
+    this.menuTabComponent = new MenuTabComponent({ convertTemplate: this.convertTemplate });
+    this.productComponent = new ProductComponent({ productManager: this.productManager });
+    this.chargeComponent = new ChargeComponent({ chargeManager: this.chargeManager });
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
@@ -48,8 +50,8 @@ class App {
     this.hideContainers();
 
     const routes = {
-      "#charge": () => this.charge.show(),
-      "#product": () => this.product.show(),
+      "#charge": () => this.chargeComponent.show(),
+      "#product": () => this.productComponent.show(),
       "#purchase": () => "",
     };
 

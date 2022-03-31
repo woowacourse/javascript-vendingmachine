@@ -2,7 +2,7 @@ import { $, $$ } from "../../utils/dom";
 
 type ConvertTemplate = (path: string) => void;
 
-class MenuTab {
+class MenuTabComponent {
   convertTemplate: ConvertTemplate;
   menuNav: HTMLElement;
   menuNavButtons: NodeList;
@@ -39,4 +39,4 @@ class MenuTab {
   }
 }
 
-export default MenuTab;
+export default MenuTabComponent;

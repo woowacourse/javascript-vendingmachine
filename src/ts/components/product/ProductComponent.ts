@@ -4,7 +4,7 @@ import { $ } from "../../utils/dom";
 import { verifyProductName, verifyProductPrice, verifyProductQuantity } from "../../utils/validation";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
-class Product {
+class ProductComponent {
   productManager: ProductManager;
   productContainer: HTMLElement;
   productAddButton: HTMLElement;
@@ -106,4 +106,4 @@ class Product {
   }
 }
 
-export default Product;
+export default ProductComponent;

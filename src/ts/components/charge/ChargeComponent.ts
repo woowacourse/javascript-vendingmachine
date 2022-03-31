@@ -4,7 +4,7 @@ import { $ } from "../../utils/dom";
 import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
 
-class Charge {
+class ChargeComponent {
   chargeContainer: HTMLElement;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement;
@@ -80,4 +80,4 @@ class Charge {
   }
 }
 
-export default Charge;
+export default ChargeComponent;
