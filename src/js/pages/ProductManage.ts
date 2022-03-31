@@ -4,6 +4,7 @@ import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 import template from '../template/index';
 
 export default class ProductManage {
+  private tabName = 'ProductManage';
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $productAddForm: HTMLElement;
@@ -16,7 +17,10 @@ export default class ProductManage {
 
   render() {
     this.$inputSection.insertAdjacentHTML('beforeend', template.productManageContainer());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.productListContainer());
+    this.$contentsContainer.insertAdjacentHTML(
+      'beforeend',
+      template.productListContainer({ tabName: this.tabName, title: '상품 현황' }),
+    );
 
     this.$productAddForm = this.$inputSection.querySelector('#product-add-form');
     this.$productList = this.$contentsContainer.querySelector('#product-list');

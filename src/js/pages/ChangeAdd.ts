@@ -2,6 +2,7 @@ import vendingMachine from '../model/VendingMachine';
 import template from '../template';
 
 export default class ChangeAdd {
+  private tabName: 'ChangeAdd';
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $changeAddForm: HTMLElement;

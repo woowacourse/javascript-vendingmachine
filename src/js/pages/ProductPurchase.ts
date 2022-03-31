@@ -3,6 +3,7 @@ import vendingMachine from '../model/VendingMachine';
 import template from '../template';
 
 export default class ProductPurchase {
+  private tabName = 'ProductPurchase';
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $productList: HTMLElement;
@@ -29,7 +30,10 @@ export default class ProductPurchase {
     );
     this.$contentsContainer.insertAdjacentHTML(
       'beforeend',
-      template.productListContainer() + template.changeListWrapper(),
+      template.productListContainer({
+        tabName: this.tabName,
+        title: '구매 가능 상품 현황',
+      }) + template.changeListWrapper(),
     );
 
     this.$productList = this.$contentsContainer.querySelector('#product-list');
