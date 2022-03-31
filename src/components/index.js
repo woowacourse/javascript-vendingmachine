@@ -3,12 +3,14 @@ import LoginComponent from './loginComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
 import RechargeChangeComponent from './RechargeChangeComponent';
+import SignInComponent from './SinginComponent';
 
 class VendingMachineComponent {
   #ProductManagementComponent;
   #PurchaseProductComponent;
   #RechargeChangeComponent;
   #LoginComponent;
+  #signInComponent;
 
   $app;
   constructor(hashRoute) {
@@ -25,6 +27,8 @@ class VendingMachineComponent {
       purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
     };
     this.$nav = document.querySelector('nav');
+    this.$header = document.querySelector('header');
+    this.$title = document.querySelector('h1');
     this.$loginUserHref = document.querySelector('.login-user-href');
     this.$userProfileContainer = document.querySelector('.user-profile-container');
   }
@@ -34,13 +38,20 @@ class VendingMachineComponent {
     this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
     this.#LoginComponent = new LoginComponent(this.$app);
+    this.#signInComponent = new SignInComponent(this.$app);
   }
 
   showSectionByRoute(route) {
+    this.$header.classList.remove('hide');
+    this.$title.textContent = '🍿 자판기 🍿';
+
     if (this.checkLoginStatus()) {
       this.$nav.classList.remove('hide');
       this.$loginUserHref.classList.add('hide');
       this.$userProfileContainer.classList.remove('hide');
+
+      this.#LoginComponent.hide();
+      this.#signInComponent.hide();
 
       if (route === 'manage') {
         this.#RechargeChangeComponent.hide();
@@ -61,7 +72,6 @@ class VendingMachineComponent {
       if (route === '') {
         this.#ProductManagementComponent.hide();
         this.#RechargeChangeComponent.hide();
-        this.#LoginComponent.hide();
 
         this.#PurchaseProductComponent.show();
         this.focusTabButton('purchaseProduct');
@@ -72,21 +82,33 @@ class VendingMachineComponent {
       this.$nav.classList.add('hide');
       this.$loginUserHref.classList.remove('hide');
       this.$userProfileContainer.classList.add('hide');
+      this.#ProductManagementComponent.hide();
+      this.#RechargeChangeComponent.hide();
 
       if (route === '') {
-        this.#ProductManagementComponent.hide();
-        this.#RechargeChangeComponent.hide();
         this.#LoginComponent.hide();
+        this.#signInComponent.hide();
 
         this.#PurchaseProductComponent.show();
       }
 
       if (route === 'login') {
-        this.#RechargeChangeComponent.hide();
-        this.#ProductManagementComponent.hide();
+        this.$title.textContent = '로그인';
+
         this.#PurchaseProductComponent.hide();
+        this.#signInComponent.hide();
+        this.$header.classList.add('hide');
 
         this.#LoginComponent.show();
+      }
+
+      if (route === 'signIn') {
+        this.$title.textContent = '회원가입';
+
+        this.#LoginComponent.hide();
+        this.$header.classList.add('hide');
+
+        this.#signInComponent.show();
       }
     }
   }

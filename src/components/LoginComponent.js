@@ -15,8 +15,12 @@ class LoginComponent {
 
   generateTemplate() {
     return `<section id="login-container" aria-labelledby="login-title">
-      <h1 id="login-header">로그인</h2>
-        <form id="login-form">
+      <h2 id="login-title" hidden>로그인 화면</h2>
+      <a href="#" class="back-button">
+        <button type="button" class="gray-button">⬅️</button>   
+      </a>
+      
+      <form id="login-form" class="input-form">
           <div>
             <label for="login-email-input">
               이메일
@@ -29,10 +33,10 @@ class LoginComponent {
             </label>
             <input type="password" id="login-password-input" placeholder="비밀번호를 입력해주세요">
           </div>
-          <button class="submit-button">확인</button>
+          <button class="submit-button login-submit-button">확인</button>
         </form>
         <div>
-          아직 회원이 아니신가요? <a href="#signup" id="signup-href">회원가입</a>
+          아직 회원이 아니신가요? <a href="#signIn" id="signup-href">회원가입</a>
         </div>
     </section>`;
   }
