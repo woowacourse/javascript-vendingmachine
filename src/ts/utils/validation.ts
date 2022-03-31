@@ -1,57 +1,57 @@
 import { Product } from "../mananger/ProductManager";
-import { PRODUCT, CHARGE } from "./constants";
+import { PRODUCT, CHARGE, ERROR_MESSAGES } from "./constants";
 
 const verifyProductName = (name: string) => {
   if (name === "") {
-    throw new Error("상품명을 입력해주세요.");
+    throw new Error(ERROR_MESSAGES.EMPTY_PRODUCT_NAME);
   }
 
   if (name.length > PRODUCT.MAX_LENGTH) {
-    throw new Error(`상품명은 최대 ${PRODUCT.MAX_LENGTH}글자까지 입력 가능합니다.`);
+    throw new Error(ERROR_MESSAGES.EXCEED_PRODUCT_LENGTH);
   }
 };
 
 const verifyProductPrice = (price: number) => {
   if (price < PRODUCT.MIN_PRICE || price > PRODUCT.MAX_PRICE) {
-    throw new Error(`상품 가격은 ${PRODUCT.MIN_PRICE}원부터, 최대 ${PRODUCT.MAX_PRICE}원까지 가능합니다.`);
+    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_PRICE_RANGE);
   }
 
   if (price % PRODUCT.UNIT !== 0) {
-    throw new Error(`상품 가격은 ${PRODUCT.UNIT}원으로 나누어 떨어져야합니다.`);
+    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_PRICE_UNIT);
   }
 };
 
 const verifyProductQuantity = (quantity: number) => {
   if (quantity > PRODUCT.MAX_QUANTITY || quantity < PRODUCT.MIN_QUANTITY) {
-    throw new Error(`제품당 수량은 최소 ${PRODUCT.MAX_QUANTITY}개부터 최대 ${PRODUCT.MIN_QUANTITY}개까지 가능합니다.`);
+    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_QUANTITY_RANGE);
   }
 
   if (quantity - Math.floor(quantity)) {
-    throw new Error("제품의 수량은 소수점으로 입력할 수 없습니다.");
+    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_QUANTITY_UNIT);
   }
 
   if (!quantity) {
-    throw new Error("제품 가격을 입력해주세요.");
+    throw new Error(ERROR_MESSAGES.EMPTY_PRODUCT_QUANTITY);
   }
 };
 
 const verifyDuplicateName = (products: Product[], newProduct: Product) => {
   if (products.some((product) => product.name === newProduct.name)) {
-    throw new Error("중복된 상품이 존재합니다.");
+    throw new Error(ERROR_MESSAGES.DUPLICATED_PRODUCT_NAME);
   }
 };
 
 const verifyCharge = (charge: number) => {
   if (charge < CHARGE.MIN_PRICE || charge > CHARGE.MAX_PRICE) {
-    throw new Error(`최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`);
+    throw new Error(ERROR_MESSAGES.INVALID_CHARGE_RANGE);
   }
 
   if (charge % CHARGE.UNIT !== 0) {
-    throw new Error(`잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`);
+    throw new Error(ERROR_MESSAGES.INVALID_CHARGE_UNIT);
   }
 
   if (!charge) {
-    throw new Error("금액을 입력해주세요.");
+    throw new Error(ERROR_MESSAGES.EMPTY_CHARGE_AMOUNT);
   }
 };
 
