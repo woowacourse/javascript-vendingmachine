@@ -10,6 +10,7 @@ export default class AddChangeTab {
   #coinStatusTable;
 
   constructor(machine) {
+    //멤버변수 생성
     this.#vendingMachine = machine;
 
     this.#addChangeContainer = createMainElement(TEMPLATE.ADD_CHANGE);
@@ -18,6 +19,7 @@ export default class AddChangeTab {
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
+    //이벤트 바인딩
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 

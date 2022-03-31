@@ -51,7 +51,10 @@ export default class VendingMachineProduct {
         errorMsg: ERROR_MESSAGE.EXCEED_MAX_PRODUCT_NAME_LENGTH,
       },
       { testFunc: isPriceOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_PRICE_RANGE },
-      { testFunc: isInvalidUnitPrice, errorMsg: ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE },
+      {
+        testFunc: isInvalidUnitPrice,
+        errorMsg: ERROR_MESSAGE.INVALID_UNIT_PRODUCT_PRICE,
+      },
       { testFunc: isStockOutOfRange, errorMsg: ERROR_MESSAGE.OUT_OF_PRODUCT_STOCK_RANGE },
       { testFunc: isNotIntegerStock, errorMsg: ERROR_MESSAGE.INVALID_PRODUCT_STOCK },
     ];

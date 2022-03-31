@@ -5,7 +5,6 @@ import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../constants';
 
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);
-
   return pickNumberInRange(0, maxCount);
 }
 

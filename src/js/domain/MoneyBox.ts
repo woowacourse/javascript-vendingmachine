@@ -25,10 +25,11 @@ export default class MoneyBox {
   }
 
   get totalChange(): number {
-    return this._coinStatusList.reduce(
+    const totalChange = this._coinStatusList.reduce(
       (totalAmount, { value, count }) => totalAmount + value * count,
       0
     );
+    return totalChange;
   }
 
   get coinStatus(): CoinStatus {

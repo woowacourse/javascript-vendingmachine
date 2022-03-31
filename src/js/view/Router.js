@@ -12,6 +12,7 @@ export default class Router {
   #tabMenuNavigation;
 
   constructor() {
+    //멤버변수 생성
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine),
@@ -21,6 +22,7 @@ export default class Router {
     this.#app = selectDom('#app');
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
 
+    //이벤트 바인딩
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
     this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
@@ -28,8 +30,8 @@ export default class Router {
 
   #render = () => {
     const path = window.location.hash || '#/manage';
-
     this.#updateCurrentTabMenu(path);
+
     const main = selectDom('main');
 
     if (!this.#renderList[path]) {

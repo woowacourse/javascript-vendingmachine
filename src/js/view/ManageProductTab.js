@@ -12,6 +12,7 @@ export default class ManageProductTab {
   #productStatusTable;
 
   constructor(machine) {
+    //멤버변수 생성
     this.#vendingMachine = machine;
 
     this.#manageContainer = createMainElement(TEMPLATE.MANAGE_PRODUCT);
@@ -30,6 +31,7 @@ export default class ManageProductTab {
     );
     this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
 
+    //이벤트 바인딩
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
@@ -69,18 +71,22 @@ export default class ManageProductTab {
 
     if (classList.contains('update-product-button')) {
       this.#handleProductUpdate(target);
+      return;
     }
 
     if (classList.contains('remove-product-button')) {
       this.#handleProductRemove(target);
+      return;
     }
 
     if (classList.contains('confirm-update-button')) {
       this.#handleProductUpdateConfirm(target);
+      return;
     }
 
     if (classList.contains('cancel-update-button')) {
       this.#handleProductUpdateCancel(target);
+      return;
     }
   };
 
@@ -104,6 +110,7 @@ export default class ManageProductTab {
 
     if (window.confirm(productName + CONFIRM_MESSAGE)) {
       const { productId: id } = target.dataset;
+
       try {
         this.#vendingMachine.removeProduct(id);
         target.closest('tr').remove();
