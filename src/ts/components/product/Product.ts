@@ -1,6 +1,6 @@
 import ProductManager from "../../mananger/ProductManager";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
-import { $, $$ } from "../../utils/dom";
+import { $ } from "../../utils/dom";
 import { verifyProductName, verifyProductPrice, verifyProductQuantity } from "../../utils/validation";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
@@ -31,9 +31,9 @@ class Product {
 
   handleAddProduct = (e: Event) => {
     e.preventDefault();
-    const name = (this.productNameInput as HTMLInputElement).value.trim();
-    const price = (this.productPriceInput as HTMLInputElement).valueAsNumber;
-    const quantity = (this.productQuantityInput as HTMLInputElement).valueAsNumber;
+    const name = (<HTMLInputElement>this.productNameInput).value.trim();
+    const price = (<HTMLInputElement>this.productPriceInput).valueAsNumber;
+    const quantity = (<HTMLInputElement>this.productQuantityInput).valueAsNumber;
 
     try {
       verifyProductName(name);
@@ -53,7 +53,6 @@ class Product {
     }
 
     const selectedRow = target.closest("[data-name]");
-
     if (target.classList.contains("product-manage__edit-button")) {
       this.editProduct(selectedRow);
     }
@@ -84,9 +83,9 @@ class Product {
   }
 
   confirmProduct(selectedRow) {
-    const name = ($(".product-manage__edit-input--name") as HTMLInputElement).value.trim();
-    const price = +($(".product-manage__edit-input--price") as HTMLInputElement).value;
-    const quantity = +($(".product-manage__edit-input--quantity") as HTMLInputElement).value;
+    const name = (<HTMLInputElement>$(".product-manage__edit-input--name")).value.trim();
+    const price = +(<HTMLInputElement>$(".product-manage__edit-input--price")).value;
+    const quantity = +(<HTMLInputElement>$(".product-manage__edit-input--quantity")).value;
     const { name: prevName } = selectedRow.dataset;
 
     try {

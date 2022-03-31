@@ -1,6 +1,7 @@
 import { verifyDuplicateName } from "../utils/validation";
 
 interface ProductManagerInterface {
+  getProducts(): Product[];
   addProduct(product: Product): void;
   removeProduct(name: string): void;
   editProduct(editProduct: Product, prevName: string): void;
@@ -14,6 +15,10 @@ export interface Product {
 
 class ProductManager implements ProductManagerInterface {
   private products: Product[] = [];
+
+  getProducts() {
+    return this.products;
+  }
 
   addProduct(newProduct: Product) {
     verifyDuplicateName(this.products, newProduct);

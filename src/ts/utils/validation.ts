@@ -41,25 +41,18 @@ const verifyDuplicateName = (products: Product[], newProduct: Product) => {
   }
 };
 
-// const verifyProductInfo = (
-//   productName: string | null,
-//   productPrice: number | null,
-//   productQuantity: number | null,
-//   productNameList: string[] | null,
-// ) => {
+const verifyCharge = (charge: number) => {
+  if (charge < CHARGE.MIN_PRICE || charge > CHARGE.MAX_PRICE) {
+    throw new Error(`최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`);
+  }
 
-// const verifyCharge = (charge: number | null) => {
-//   if (charge < CHARGE.MIN_PRICE || charge > CHARGE.MAX_PRICE) {
-//     throw new Error(`최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`);
-//   }
+  if (charge % CHARGE.UNIT !== 0) {
+    throw new Error(`잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`);
+  }
 
-//   if (charge % CHARGE.UNIT !== 0) {
-//     throw new Error(`잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`);
-//   }
+  if (!charge) {
+    throw new Error("금액을 입력해주세요.");
+  }
+};
 
-//   if (!charge) {
-//     throw new Error("금액을 입력해주세요.");
-//   }
-// };
-
-export { verifyProductName, verifyProductPrice, verifyProductQuantity, verifyDuplicateName };
+export { verifyProductName, verifyProductPrice, verifyProductQuantity, verifyDuplicateName, verifyCharge };

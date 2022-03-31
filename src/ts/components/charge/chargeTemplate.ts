@@ -21,19 +21,19 @@ const chargeTemplate = () => {
       </tr>
       <tr>
         <td>500원</td>
-        <td class="charge-coin-count">0개</td>
+        <td class="charge-manange__table-coin--500">0개</td>
       </tr>
       <tr>
         <td>100원</td>
-        <td class="charge-coin-count">0개</td>
+        <td class="charge-manange__table-coin--100">0개</td>
       </tr>
       <tr>
         <td>50원</td>
-        <td class="charge-coin-count">0개</td>
+        <td class="charge-manange__table-coin--50">0개</td>
       </tr>
       <tr>
         <td>10원</td>
-        <td class="charge-coin-count">0개</td>
+        <td class="charge-manange__table-coin--10">0개</td>
       </tr>
     </table>
   </div>`;

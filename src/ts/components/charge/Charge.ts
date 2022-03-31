@@ -1,26 +1,22 @@
-import { $, $$ } from "../../utils/dom";
-// import { verifyCharge } from "../../utils/validation";
+import ChargeManager, { Coin } from "../../mananger/ChargeManager";
+import { pickNumberInList } from "../../utils/common";
+import { $ } from "../../utils/dom";
+import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
 
-interface CoinType {
-  10: number;
-  50: number;
-  100: number;
-  500: number;
-}
-
 class Charge {
-  chargeForm: HTMLElement;
-  chargeInput: HTMLElement | HTMLInputElement;
-  chargeHoldingAmount: HTMLElement;
-  coinObj: CoinType;
-  totalCharge: number;
   chargeContainer: HTMLElement;
+  chargeForm: HTMLElement;
+  chargeInput: HTMLElement;
+  chargeHoldingAmount: HTMLElement;
+  chargeManager: ChargeManager;
+  chargeCoin500: HTMLElement;
+  chargeCoin100: HTMLElement;
+  chargeCoin50: HTMLElement;
+  chargeCoin10: HTMLElement;
 
-  constructor() {
-    this.totalCharge = 0;
-    this.coinObj = { 10: 0, 50: 0, 100: 0, 500: 0 };
-
+  constructor({ chargeManager }) {
+    this.chargeManager = chargeManager;
     this.chargeContainer = $(".charge-manange__container");
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
@@ -28,51 +24,54 @@ class Charge {
     this.chargeForm = $(".charge-manange__form");
     this.chargeInput = $(".charge-manange__input");
     this.chargeHoldingAmount = $(".charge-manange__holding-amount");
+    this.chargeCoin500 = $(".charge-manange__table-coin--500");
+    this.chargeCoin100 = $(".charge-manange__table-coin--100");
+    this.chargeCoin50 = $(".charge-manange__table-coin--50");
+    this.chargeCoin10 = $(".charge-manange__table-coin--10");
 
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
 
-  handleAddCharge = (e: Event) => {
+  handleAddCharge = (e) => {
     e.preventDefault();
-    const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
+
+    const charge = (<HTMLInputElement>this.chargeInput).valueAsNumber;
+
     try {
-      // verifyCharge(charge);
-      this.convertRandomCharge(charge);
+      verifyCharge(charge);
+      const randomCoins = this.getRandomCoins(charge);
+      this.chargeManager.addCoins(randomCoins);
+      this.addRandomCoins(randomCoins);
+      this.addHoldingAmount();
     } catch ({ message }) {
       alert(message);
-      return;
     }
   };
 
-  convertRandomCharge(charge: number) {
-    let totalAmount = 0;
-    this.totalCharge += charge;
-    while (totalAmount !== charge) {
-      const randomCoin = this.pickNumberInList();
-      totalAmount += randomCoin;
-      if (totalAmount > charge) {
-        totalAmount -= randomCoin;
-      } else if (totalAmount <= charge) {
-        this.coinObj[randomCoin]++;
-      }
+  getRandomCoins(charge: number): Coin {
+    const coinObject = { 10: 0, 50: 0, 100: 0, 500: 0 };
+    let coinList = [10, 50, 100, 500];
+
+    while (charge) {
+      coinList = coinList.filter((coin) => coin <= charge);
+      const randomCoin = pickNumberInList(coinList);
+      coinObject[randomCoin]++;
+      charge -= randomCoin;
     }
 
-    this.showRandomCharge(Object.values(this.coinObj).reverse());
+    return coinObject;
   }
 
-  pickNumberInList() {
-    const coinList = [10, 50, 100, 500];
-    const randomNumber = Math.floor(Math.random() * coinList.length);
-    return coinList[randomNumber];
+  addHoldingAmount() {
+    this.chargeHoldingAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
-  showRandomCharge(chargeResult: number[]) {
-    const chargeCoinCount = $$(".charge-coin-count");
-    this.chargeHoldingAmount.textContent = `${this.totalCharge}`;
-    Array.from(
-      chargeCoinCount,
-      (coinCount: HTMLTableElement, index: number) => (coinCount.innerText = `${chargeResult[index]}개`),
-    );
+  addRandomCoins(randomCoins: Coin) {
+    const countList = Object.values(randomCoins);
+
+    [this.chargeCoin10, this.chargeCoin50, this.chargeCoin100, this.chargeCoin500].forEach((chargeCoin, index) => {
+      chargeCoin.textContent = `${countList[index]}개`;
+    });
   }
 
   show() {
