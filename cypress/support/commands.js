@@ -45,6 +45,12 @@ Cypress.Commands.add('checkItemNotAdded', () => {
   cy.get('tr').should('have.length', initialTrCount);
 });
 
+Cypress.Commands.add('editItemInfo', (inputIndex, editedInfo) => {
+  cy.get('.edit-item-button').click();
+  cy.get('.item-info-input-cell').eq(inputIndex).clear().type(editedInfo);
+  cy.get('.confirm-item-button').click();
+});
+
 Cypress.Commands.add('rechargeCoin', (cashInput) => {
   cy.get('.cash-charge-input').clear().type(cashInput);
   cy.get('.input-form-button').click();
