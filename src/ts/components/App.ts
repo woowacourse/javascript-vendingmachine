@@ -58,8 +58,8 @@ class App {
     this.hideContainers();
 
     const routes = {
-      "#charge": () => this.chargeComponent.show(),
       "#product": () => this.productComponent.show(),
+      "#charge": () => this.chargeComponent.show(),
       "#purchase": () => this.purchaseComponent.show(),
     };
 

@@ -94,6 +94,7 @@ class ProductComponent {
 
   show() {
     this.productContainer.classList.remove("hide");
+    this.productNameInput.focus();
   }
 }
 

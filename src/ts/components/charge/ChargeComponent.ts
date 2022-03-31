@@ -58,6 +58,7 @@ class ChargeComponent {
 
   show() {
     this.chargeContainer.classList.remove("hide");
+    this.chargeInput.focus();
   }
 }
 
