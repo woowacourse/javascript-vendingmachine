@@ -15,19 +15,14 @@ interface VendingMachineInterface {
 }
 
 class VendingMachine implements VendingMachineInterface {
-  private _itemList: ItemInfoType[];
+  private _itemList: ItemInfoType[] = [];
 
-  private _coinCollection: Record<Coin, number>;
-
-  constructor() {
-    this._itemList = [];
-    this._coinCollection = {
-      [COIN_500]: 0,
-      [COIN_100]: 0,
-      [COIN_50]: 0,
-      [COIN_10]: 0,
-    };
-  }
+  private _coinCollection: Record<Coin, number> = {
+    [COIN_500]: 0,
+    [COIN_100]: 0,
+    [COIN_50]: 0,
+    [COIN_10]: 0,
+  };
 
   get itemList(): ItemInfoType[] {
     return this._itemList;
