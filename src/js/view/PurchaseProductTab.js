@@ -1,11 +1,11 @@
 import { createMainElement } from '../utils/dom';
-import { purchaseTemplate } from './template';
+import { TEMPLATE } from './template';
 
 export default class PurchaseProductTab {
   #purchaseContainer;
 
   constructor() {
-    this.#purchaseContainer = createMainElement(purchaseTemplate);
+    this.#purchaseContainer = createMainElement(TEMPLATE.PURCHASE);
   }
 
   get tabElements() {

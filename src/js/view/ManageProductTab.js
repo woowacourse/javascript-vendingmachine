@@ -1,10 +1,6 @@
 import { CONFIRM_MESSAGE } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
-import {
-  manageProductTemplate,
-  productTableRow,
-  updateProductTableRow,
-} from './template';
+import { TEMPLATE } from './template';
 
 export default class ManageProductTab {
   #vendingMachine;
@@ -18,7 +14,7 @@ export default class ManageProductTab {
   constructor(machine) {
     this.#vendingMachine = machine;
 
-    this.#manageContainer = createMainElement(manageProductTemplate);
+    this.#manageContainer = createMainElement(TEMPLATE.MANAGE_PRODUCT);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
     this.#addProductNameInput = selectDom(
       '#add-product-name-input',
@@ -53,7 +49,7 @@ export default class ManageProductTab {
 
       this.#productStatusTable.insertAdjacentHTML(
         'beforeend',
-        productTableRow({ name, price, stock, id })
+        TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       this.#resetInput();
     } catch ({ message }) {
@@ -97,7 +93,7 @@ export default class ManageProductTab {
 
     targetTableRow.insertAdjacentHTML(
       'afterend',
-      updateProductTableRow({ name, price, stock, id })
+      TEMPLATE.UPDATE_PRODUCT_TABLE_ROW({ name, price, stock, id })
     );
     targetTableRow.remove();
   };
@@ -128,7 +124,7 @@ export default class ManageProductTab {
       this.#vendingMachine.updateProduct(id, { name, price, stock });
       targetTableRow.insertAdjacentHTML(
         'afterend',
-        productTableRow({ name, price, stock, id })
+        TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       targetTableRow.remove();
     } catch ({ message }) {
@@ -145,7 +141,7 @@ export default class ManageProductTab {
 
     targetTableRow.insertAdjacentHTML(
       'afterend',
-      productTableRow({ name, price, stock, id })
+      TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
     );
     targetTableRow.remove();
   };

@@ -3,7 +3,7 @@ import PurchaseProductTab from './PurchaseProductTab';
 import AddChangeTab from './AddChangeTab';
 import ManageProductTab from './ManageProductTab';
 import { createMainElement, selectDom } from '../utils/dom';
-import { notFoundTemplate } from './template';
+import { TEMPLATE } from './template';
 
 export default class Router {
   #vendingMachine;
@@ -33,7 +33,7 @@ export default class Router {
     const main = selectDom('main');
 
     if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTemplate);
+      const notFoundContainer = createMainElement(TEMPLATE.NOT_FOUND);
       this.#app.replaceChild(notFoundContainer, main);
       return;
     }
@@ -55,7 +55,8 @@ export default class Router {
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
+    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash)
+      return;
 
     window.history.pushState({}, null, newHash);
     this.#render();
