@@ -26,6 +26,7 @@ body {
 }
 
 #app {
+  position: relative;
   width: 600px;
   min-height: 675px;
   margin-top: 32px;

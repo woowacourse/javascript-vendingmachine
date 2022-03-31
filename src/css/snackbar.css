@@ -1,0 +1,17 @@
+.snackbar {
+  position: absolute;
+  width: 90%;
+  bottom: 0px;
+  opacity: 0;
+  padding: 15px 20px;
+  background-color: #3f3f3f;
+  border-radius: 4px;
+  color: #ffffff;
+  box-shadow: 0 5px 5px #00000055;
+  transition: all 500ms;
+}
+
+.show {
+  opacity: 1;
+  bottom: 15px;
+}

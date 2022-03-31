@@ -4,6 +4,7 @@ import AddChangeTab from './view/AddChangeTab';
 import ManageProductTab from './view/ManageProductTab';
 import { createMainElement, selectDom } from './utils/dom';
 import { notFoundTabTemplate } from './view/template';
+import SnackBar from './view/SnackBar';
 
 class App {
   #vendingMachine;
@@ -12,10 +13,11 @@ class App {
   #tabMenuNavigation;
 
   constructor() {
+    this.snackBar = new SnackBar();
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
-      '#/manage': new ManageProductTab(this.#vendingMachine),
-      '#/charge': new AddChangeTab(this.#vendingMachine),
+      '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
+      '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
       '#/purchase': new PurchaseProductTab(),
     };
     this.#appContainer = selectDom('#app');

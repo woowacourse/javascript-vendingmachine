@@ -15,8 +15,9 @@ export default class ManageProductTab {
   #addProductStockInput;
   #productStatusTable;
 
-  constructor(machine) {
+  constructor(machine, snackBar) {
     this.#vendingMachine = machine;
+    this.snackBar = snackBar;
 
     this.#manageContainer = createMainElement(manageProductTabTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
@@ -48,7 +49,7 @@ export default class ManageProductTab {
       );
       this.#resetInput();
     } catch ({ message }) {
-      alert(message);
+      this.snackBar.addToMessageList(message);
     }
   };
 
@@ -108,7 +109,7 @@ export default class ManageProductTab {
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      alert(message);
+      this.snackBar.addToMessageList(message);
     }
   };
 
@@ -124,7 +125,7 @@ export default class ManageProductTab {
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      alert(message);
+      this.snackBar.addToMessageList(message);
     }
   };
 
@@ -139,7 +140,7 @@ export default class ManageProductTab {
         this.#vendingMachine.removeProduct(id);
         productRow.remove();
       } catch ({ message }) {
-        alert(message);
+        this.snackBar.addToMessageList(message);
       }
     }
   };

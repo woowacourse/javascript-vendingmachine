@@ -9,7 +9,8 @@ export default class AddChangeTab {
   #totalChange;
   #coinStatusTable;
 
-  constructor(machine) {
+  constructor(machine, snackBar) {
+    this.snackBar = snackBar;
     this.#vendingMachine = machine;
 
     this.#addChangeContainer = createMainElement(addChangeTabTemplate);
@@ -34,7 +35,7 @@ export default class AddChangeTab {
       this.#renderCoinStatus();
       this.#resetInput();
     } catch ({ message }) {
-      alert(message);
+      this.snackBar.addToMessageList(message);
     }
   };
 
