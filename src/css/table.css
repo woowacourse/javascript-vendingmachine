@@ -10,7 +10,7 @@ caption {
 
 td,
 th {
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--table-border-color);
   padding: 8px 0;
   text-align: center;
 }
@@ -20,7 +20,7 @@ td {
 }
 
 th {
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid var(--table-border-color);
 }
 
 table {

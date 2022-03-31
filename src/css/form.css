@@ -10,21 +10,23 @@ legend {
 
 input {
   width: 120px;
-  border: 1px solid #b4b4b4;
+  border: 1px solid var(--input-border-color);
+
   border-radius: 4px;
   padding: 8px;
 }
 
 .submit-button {
   padding: 10px 15px;
-  background-color: #00bcd4;
+  background-color: var(--submit-button-bg-color);
   font-weight: bold;
-  color: white;
+
+  color: var(--default--white-color);
 }
 
 .submit-button:hover {
-  background-color: #80deea;
-  color: #424242;
+  background-color: var(--submit-button-hover-bg-color);
+  color: var(--submit-button-hover-text-color);
 }
 
 #add-change-form {
