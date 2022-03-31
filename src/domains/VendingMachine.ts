@@ -81,7 +81,7 @@ export default class VendingMachine {
     validate(amountValidator, amount, this.getTotalMoney());
 
     const randomCoins = createRandomCoins(amount);
-    const updatedCoins: Coins = EMPTY_COIN;
+    const updatedCoins: Coins = { ...EMPTY_COIN };
 
     Object.keys(this.state.coins).forEach((key) => {
       updatedCoins[key] = this.state.coins[key] + randomCoins[key];
@@ -121,17 +121,20 @@ export default class VendingMachine {
       ([a], [b]) => +b - +a
     );
 
-    let index = coinArray.length;
-    const result = deepClone(EMPTY_COIN);
+    let index = 0;
+    const result = { ...EMPTY_COIN };
 
-    while (this.state.purchaseMoney > 0 && index >= 0) {
+    while (
+      this.state.purchaseMoney > 0 &&
+      index < Object.keys(this.state.coins).length
+    ) {
       const [coinType, count] = coinArray[index];
       if (count > 0) {
         result[coinType] += 1;
         this.state.purchaseMoney -= +coinType;
         this.state.coins[coinType] -= 1;
       } else {
-        index -= 1;
+        index += 1;
       }
     }
 
@@ -139,4 +142,4 @@ export default class VendingMachine {
   }
 }
 
-export const vendingMachine = new VendingMachine([], EMPTY_COIN, 0);
+export const vendingMachine = new VendingMachine([], { ...EMPTY_COIN }, 0);

@@ -4,14 +4,14 @@ import { ITEM, MONEY_UNIT, CONFIRM_MESSAGE } from '../../constant/constant';
 
 class ItemRow extends TableRow {
   setup() {
-    this.state = { isEditing: false };
+    this.state = { isEditing: false, tab: this.getAttribute('tab') };
   }
 
   template() {
     const { name, price, quantity } = this.props;
-    const { isEditing } = this.state;
+    const { isEditing, tab } = this.state;
 
-    if (isEditing) {
+    if (isEditing && tab === 'manage') {
       return `
       <td class="item-name styled-td">
         <input
@@ -43,6 +43,16 @@ class ItemRow extends TableRow {
       </td>
       <td class="item-button-container">
         <button class="item-update-button styled-button">완료</button>
+      </td>`;
+    }
+
+    if (tab === 'buy') {
+      return `
+      <td class="item-name styled-td">${name}</td>
+      <td class="item-price styled-td">${price}</td>
+      <td class="item-quantity styled-td">${quantity}</td>
+      <td class="item-button-container">
+        <button class="item-edit-button styled-button" type="button">구매</button>
       </td>`;
     }
 

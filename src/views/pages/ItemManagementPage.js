@@ -88,6 +88,7 @@ class ItemManagementPage extends Component {
                   ({ name, price, quantity }) => `
                     <tr
                       is="item-row"
+                      tab="manage"
                       class="styled-tr"
                       name="${name}"
                       price="${price}"
