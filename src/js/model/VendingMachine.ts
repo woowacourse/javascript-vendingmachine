@@ -39,6 +39,22 @@ class VendingMachine {
     return this.userMoney;
   }
 
+  // TODO: 유저 잔돈 반환
+  getUserChanges() {
+    // this.userMoney
+    // this.changes
+    const userMoney = this.userMoney;
+    const changesList = [500, 100, 50, 10];
+    const userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+
+    // const coin = this.getUserChangeCoin(userMoney);
+  }
+
+  // getUserChangeCoin(money: number) {
+  //   const coins = RULES.CHANGE_UNITS.filter(coin => coin <= money);
+  //   console.log(coins);
+  // }
+
   addChange(money: number) {
     this.checkChangeValidate(money);
     this.totalMoney += money;

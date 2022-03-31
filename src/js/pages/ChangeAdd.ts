@@ -27,7 +27,13 @@ export default class ChangeAdd {
         resultText: '현재 보유 금액',
       }),
     );
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.changeListWrapper());
+    this.$contentsContainer.insertAdjacentHTML(
+      'beforeend',
+      template.changeListWrapper({
+        title: '자판기가 보유한 동전',
+        tabName: this.tabName,
+      }),
+    );
 
     this.$changeAddForm = this.$inputSection.querySelector('#money-add-form');
     this.$totalChange = this.$inputSection.querySelector('#total-money');

@@ -12,6 +12,7 @@ export default class ProductPurchase {
   $totalChange: HTMLElement;
   $productList: HTMLElement;
   $changeList: HTMLElement;
+  $changeReturnButton: HTMLButtonElement;
   $amountCoin500: HTMLElement;
   $amountCoin100: HTMLElement;
   $amountCoin50: HTMLElement;
@@ -37,7 +38,11 @@ export default class ProductPurchase {
       template.productListContainer({
         tabName: this.tabName,
         title: '구매 가능 상품 현황',
-      }) + template.changeListWrapper(),
+      }) +
+        template.changeListWrapper({
+          title: '잔돈 반환',
+          tabName: this.tabName,
+        }),
     );
 
     this.$moneyAddForm = this.$inputSection.querySelector('#money-add-form');
@@ -49,26 +54,16 @@ export default class ProductPurchase {
     this.$amountCoin100 = this.$changeList.querySelector('#amount-coin-100');
     this.$amountCoin50 = this.$changeList.querySelector('#amount-coin-50');
     this.$amountCoin10 = this.$changeList.querySelector('#amount-coin-10');
+    this.$changeReturnButton = this.$contentsContainer.querySelector('#change-return-button');
 
     this.$productList.addEventListener('click', this.onClickPurchaseButton);
     this.$moneyAddForm.addEventListener('submit', this.onSubmitMoneyAdd);
+    this.$changeReturnButton.addEventListener('click', this.onReturnChange);
 
     this.renderProducts();
     this.refreshUserMoney();
     this.refreshChange();
   }
-
-  onSubmitMoneyAdd = (e: SubmitEvent) => {
-    e.preventDefault();
-    const inputMoney = (<HTMLInputElement>this.$moneyAddForm.querySelector('#money-add-input')).valueAsNumber;
-
-    try {
-      vendingMachine.putMoney(inputMoney);
-      this.refreshUserMoney();
-    } catch (message) {
-      alert(message);
-    }
-  };
 
   callbackSubmitQuantity = props => {
     const { quantity, product, ul, oldLi } = props;
@@ -76,7 +71,6 @@ export default class ProductPurchase {
     vendingMachine.purchaseProduct(product, quantity);
     oldLi.querySelector('.product-amount').textContent = product.amount;
     this.refreshUserMoney();
-    console.log(vendingMachine.getProducts());
   };
 
   onClickPurchaseButton = (e: PointerEvent) => {
@@ -106,6 +100,23 @@ export default class ProductPurchase {
       ul,
       oldLi,
     });
+  };
+
+  onSubmitMoneyAdd = (e: SubmitEvent) => {
+    e.preventDefault();
+    const inputMoney = (<HTMLInputElement>this.$moneyAddForm.querySelector('#money-add-input')).valueAsNumber;
+
+    try {
+      vendingMachine.putMoney(inputMoney);
+      this.refreshUserMoney();
+    } catch (message) {
+      alert(message);
+    }
+  };
+
+  onReturnChange = (e: PointerEvent) => {
+    console.log('click');
+    // const userChanges = vendingMachine.getUserChanges();
   };
 
   renderProducts() {

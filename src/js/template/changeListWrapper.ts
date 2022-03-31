@@ -1,7 +1,10 @@
-const changeListWrapper = () => {
+const changeListWrapper = props => {
+  const { title, tabName } = props;
+  const isChangeReturn = tabName === 'ProductPurchase';
+
   return `
   <div id="change-list-wrapper">
-    <h4>자판기가 보유한 동전</h4>
+    <h4>${title}</h4>
     <ul id="change-list">
       <li class="list-header">
         <span class="change-block">동전</span>
@@ -24,6 +27,7 @@ const changeListWrapper = () => {
         <span id="amount-coin-10" class="change-block"></span>
       </li>
     </ul>
+    ${isChangeReturn ? `<button type="button" id="change-return-button">반환</button>` : ''}
   </div>`;
 };
 
