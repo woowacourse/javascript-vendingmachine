@@ -3,6 +3,8 @@ import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/ru
 
 type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
 
+type Coin = 500 | 100 | 50 | 10;
+
 interface VendingMachineInterface {
   addItem: (itemInfo: ItemInfoType) => Object;
   editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
@@ -14,7 +16,8 @@ interface VendingMachineInterface {
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[];
-  private _coinCollection: Object;
+
+  private _coinCollection: Record<Coin, number>;
 
   constructor() {
     this._itemList = [];
@@ -26,11 +29,11 @@ class VendingMachine implements VendingMachineInterface {
     };
   }
 
-  get itemList(): Object[] {
+  get itemList(): ItemInfoType[] {
     return this._itemList;
   }
 
-  get coinCollection(): Object {
+  get coinCollection(): Record<Coin, number> {
     return this._coinCollection;
   }
 
@@ -62,7 +65,7 @@ class VendingMachine implements VendingMachineInterface {
       }
 
       const selectedCoin = candidateCoins[Math.floor(Math.random() * candidateCoins.length)];
-      this._coinCollection[selectedCoin]++;
+      this._coinCollection[selectedCoin] += 1;
       remainCoin -= selectedCoin;
     }
 
