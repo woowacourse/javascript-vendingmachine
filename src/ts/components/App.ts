@@ -7,6 +7,7 @@ import ProductManager from "../mananger/ProductManager";
 import MenuTabComponent from "./menuTab/MenuTabComponent";
 import ProductComponent from "./product/ProductComponent";
 import ChargeComponent from "./charge/ChargeComponent";
+import PurchaseComponent from "./purchase/PurchaseComponent";
 
 class App {
   app: HTMLElement;
@@ -14,6 +15,7 @@ class App {
   menuTabComponent: MenuTabComponent;
   productComponent: ProductComponent;
   chargeComponent: ChargeComponent;
+  purchaseComponent: PurchaseComponent;
   productManager: ProductManager;
   chargeManager: ChargeManager;
 
@@ -26,6 +28,7 @@ class App {
       <main>
         <section class="product-manange__container manange-container"></section>
         <section class="charge-manange__container manange-container"></section>
+        <section class="purchase-manange__container manange-container"></section>
       </main>`,
     );
     this.manageContainers = $$(".manange-container");
@@ -35,6 +38,7 @@ class App {
     this.menuTabComponent = new MenuTabComponent({ convertTemplate: this.convertTemplate });
     this.productComponent = new ProductComponent({ productManager: this.productManager });
     this.chargeComponent = new ChargeComponent({ chargeManager: this.chargeManager });
+    this.purchaseComponent = new PurchaseComponent();
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
@@ -52,7 +56,7 @@ class App {
     const routes = {
       "#charge": () => this.chargeComponent.show(),
       "#product": () => this.productComponent.show(),
-      "#purchase": () => "",
+      "#purchase": () => this.purchaseComponent.show(),
     };
 
     routes[path]();
