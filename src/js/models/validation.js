@@ -39,7 +39,7 @@ export const validProductInfo = ({ name, price, quantity }, products) => {
   return true;
 };
 
-export const validChargeAmount = (amount, totalAmount) => {
+export const validAmount = (amount, totalAmount) => {
   if (isDivideUnit(amount, COIN.MIN_UNIT)) {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   }

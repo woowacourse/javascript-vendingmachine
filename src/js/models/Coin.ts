@@ -1,6 +1,6 @@
 import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
-import { validChargeAmount } from './validation.js';
+import { validAmount } from './validation.js';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
 export default class Coin implements CoinInterface {
@@ -17,7 +17,7 @@ export default class Coin implements CoinInterface {
 
   addAmount(chargedAmount: number): void {
     const currentAmount = this.getAmount() + chargedAmount;
-    if (!validChargeAmount(chargedAmount, currentAmount)) return;
+    if (!validAmount(chargedAmount, currentAmount)) return;
     this.makeRandomCoins(chargedAmount);
   }
 
