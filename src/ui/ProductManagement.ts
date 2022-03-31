@@ -37,8 +37,6 @@ class ProductManagement extends CustomElement {
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
 
-    e.target.reset();
-
     emit('.product-manage-form', '@add', { name, price, quantity }, this);
   }
 
@@ -103,6 +101,8 @@ class ProductManagement extends CustomElement {
   }
 
   insertItem(product: Product) {
+    ($('.product-manage-form') as HTMLFormElement).reset();
+
     $('tbody', this).insertAdjacentHTML(
       'beforeend',
       `<tr class="product-item" data-product-name="${product.name}" data-product-id="${product.id}">
