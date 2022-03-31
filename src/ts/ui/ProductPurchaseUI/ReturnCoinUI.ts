@@ -1,3 +1,5 @@
+import { MESSAGE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
@@ -39,6 +41,11 @@ export default class ReturnCoinUI {
   }
 
   private returnButtonClickHandler = () => {
+    if (this.purchaseCashDomain.cash <= 0) {
+      showSnackbar(MESSAGE.FAIL_RETURN_COINS);
+      return;
+    }
+
     const returnCoins = this.purchaseCashDomain.returnCoins(
       this.coinDomain.coins,
     );
@@ -47,5 +54,6 @@ export default class ReturnCoinUI {
 
     this.render(returnCoins);
     viewPainter.renderPurchaseCash();
+    showSnackbar(MESSAGE.SUCCESS_RETURN_COINS);
   };
 }

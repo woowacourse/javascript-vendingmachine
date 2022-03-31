@@ -1,4 +1,5 @@
 import { MESSAGE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
@@ -67,7 +68,7 @@ export default class ProductStatusUI {
     const { productName, productPrice, productQuantity } = target.dataset;
 
     if (this.purchaseCashDomain.cash < productPrice) {
-      alert(MESSAGE.ERROR_LACK_CASH);
+      showSnackbar(MESSAGE.ERROR_LACK_CASH);
       return;
     }
 

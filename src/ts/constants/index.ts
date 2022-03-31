@@ -37,6 +37,13 @@ const MESSAGE = {
   }으로 나누어 떨어져야 합니다.`,
   ERROR_LACK_CASH: '금액이 부족합니다.',
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
+  SUCCESS_ADD_PRODUCT: '추가되었습니다.',
+  SUCCESS_EDIT_PRODUCT: '수정되었습니다.',
+  SUCCESS_DELETE_PRODUCT: '삭제되었습니다.',
+  SUCCESS_CHARGE_CASH: '충전되었습니다.',
+  SUCCESS_CHARGE_PURCHASE_CASH: '투입되었습니다.',
+  SUCCESS_RETURN_COINS: '반환되었습니다.',
+  FAIL_RETURN_COINS: '반환할 돈이 없습니다.',
 };
 
 export {

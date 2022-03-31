@@ -1,6 +1,8 @@
 import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 import { ProductInfoUnionType } from '../../domain/types';
+import { showSnackbar } from '../../utils';
+import { MESSAGE } from '../../constants';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
@@ -37,12 +39,13 @@ export default class ProductAdditionUI {
       this.productDomain.validateProductInput(product);
     } catch ({ name, message }) {
       this.focusOnInvalidInput(name, $$inputs);
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
     this.productDomain.addProduct(product);
     viewPainter.renderProducts();
+    showSnackbar(MESSAGE.SUCCESS_ADD_PRODUCT);
   };
 
   private focusOnInvalidInput(target: ProductInfoUnionType, $$inputs: Inputs) {

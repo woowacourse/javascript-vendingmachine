@@ -1,3 +1,5 @@
+import { MESSAGE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $ } from '../../utils/dom';
 
 export default class PurchaseCashChargeUI {
@@ -25,12 +27,13 @@ export default class PurchaseCashChargeUI {
     try {
       this.purchaseCashDomain.validateCashInput(cash);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
     this.purchaseCashDomain.addCash(cash);
     this.render();
+    showSnackbar(MESSAGE.SUCCESS_CHARGE_PURCHASE_CASH);
   };
 
   render() {

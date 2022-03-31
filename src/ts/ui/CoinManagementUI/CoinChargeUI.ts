@@ -1,3 +1,5 @@
+import { MESSAGE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
@@ -23,7 +25,7 @@ export default class CoinChargeUI {
     try {
       this.coinDomain.validateCashInput(cash);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
@@ -31,5 +33,6 @@ export default class CoinChargeUI {
 
     $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
     viewPainter.renderCoins();
+    showSnackbar(MESSAGE.SUCCESS_CHARGE_CASH);
   };
 }

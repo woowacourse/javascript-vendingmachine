@@ -1,4 +1,5 @@
 import { MESSAGE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
@@ -158,7 +159,7 @@ export default class ProductInventoryUI {
     try {
       this.productDomain.validateProductInput(product, prevProductName);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
@@ -166,6 +167,7 @@ export default class ProductInventoryUI {
 
     this.deactivateEditMode($button);
     viewPainter.renderProducts();
+    showSnackbar(MESSAGE.SUCCESS_EDIT_PRODUCT);
   }
 
   private deleteProduct(productName) {
@@ -173,5 +175,6 @@ export default class ProductInventoryUI {
 
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);
     $$tableRow.forEach($item => $item.remove());
+    showSnackbar(MESSAGE.SUCCESS_DELETE_PRODUCT);
   }
 }
