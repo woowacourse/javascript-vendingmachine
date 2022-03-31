@@ -54,7 +54,7 @@ export const validateProduct = (
     validateProductName(name, productList),
     validateProductPrice(price),
     validateProductQuantity(quantity),
-  ];
+  ].filter((result) => result.hasError);
 };
 
 export const validateChargeCoins = (money: string, chargedMoney: number) => {

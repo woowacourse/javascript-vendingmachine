@@ -35,19 +35,23 @@ class AddProductForm extends Component {
     const [name, price, quantity] = [nameInput.value, priceInput.value, quantityInput.value];
     const productItem = { name, price, quantity };
 
-    try {
-      this.addProduct(productItem);
-    } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
-    }
+    this.addProduct(productItem);
+
+    [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
+    this.querySelector('input')?.focus();
   };
 
   addProduct(productItem: RawProductItem) {
     const { productList } = Store.instance.getState();
     const { price, quantity } = productItem;
-    const errorList = validateProduct(productItem, productList).filter((result) => result.hasError);
-    if (errorList.length > 0 && errorList[0].hasError)
-      throw new ValidationError(errorList[0].errorMessage);
+    const errorList = validateProduct(productItem, productList);
+
+    if (errorList.length > 0) {
+      return errorList.forEach((error) =>
+        consoleErrorWithConditionalAlert(new ValidationError(error.errorMessage))
+      );
+    }
+
     Store.instance.dispatch(
       createAction(ACTION.ADD_PRODUCT, {
         ...productItem,
@@ -55,8 +59,6 @@ class AddProductForm extends Component {
         quantity: toInt(quantity),
       })
     );
-    [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
-    this.querySelector('input')?.focus();
   }
 }
 

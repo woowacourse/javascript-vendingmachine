@@ -4,7 +4,8 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
-import { convertToLocaleString, toInt } from '../utils';
+import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
+import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
 @customElement('product-inventory')
@@ -86,17 +87,19 @@ class ProductInventory extends Component {
     const name = ($name.childNodes[0] as HTMLInputElement).value;
     const price = ($price.childNodes[0] as HTMLInputElement).value;
     const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
-
     const productList = Store.instance.getState().productList;
     const errorList = validateProduct(
       { name, price, quantity },
       productList.filter((item) => !(item.name === originalName && item.name === name))
-    ).filter((result) => result.hasError);
+    );
 
-    if (errorList.length > 0 && errorList[0].hasError) {
-      alert(errorList[0].errorMessage);
+    if (errorList.length > 0) {
+      errorList.forEach((error) =>
+        consoleErrorWithConditionalAlert(new ValidationError(error.errorMessage))
+      );
       return;
     }
+
     Store.instance.dispatch(
       createAction(ACTION.EDIT_PRODUCT, {
         originalName,
