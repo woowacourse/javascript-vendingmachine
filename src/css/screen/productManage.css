@@ -1,0 +1,122 @@
+.app__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.input-container {
+  height: 36px;
+}
+
+.input-descripton {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.input-form {
+  width: fit-content;
+}
+
+.app__main.manage .input-form__input {
+  width: 120px;
+  height: 100%;
+  border: 1px solid var(--input-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 4px 0px;
+}
+
+.input-form__submit-button {
+  padding: 6px 6px 6px 8px; 
+  width: 56px;
+  height: 100%;
+  background: var(--submit-button-color);
+  color: var(--submit-button-font-color);
+  margin: 0px 10px;
+}
+
+.input-form__submit-button:hover {
+  background-color: var(--submit-button-color);
+  opacity: 0.7;
+}
+
+.table-wrap {
+  width: 100%;
+  margin-top: 48px;
+}
+
+.table-wrap__title {
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.app__main.manage .product-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.product-table thead td {
+  border-top: 1px solid var(--product-border-color);
+  font-weight: 600;
+}
+
+.product-table tbody td {
+  font-weight: 400;
+}
+
+.product-table td {
+  width: 25%;
+  text-align: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--product-border-color);
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.product-info__input input {
+  width: 80%;
+  padding: 5px 0;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.product-info .button {
+  height: 32px;
+  background-color: var(--tab-background-color);
+}
+
+.modify-button, 
+.delete-button {
+  display: inline-block;
+  width: 50px;
+}
+
+.confirm-button {
+  width: 100px;
+  margin: 0 auto;
+}
+
+.product-info .product-info__input,
+.product-info.modify .product-info__text,
+.product-info .confirm-button,
+.product-info.modify .modify-button,
+.product-info.modify .delete-button {
+  display: none; 
+}
+
+.product-info.modify .confirm-button {
+  display: block;
+}
+
+.product-info.modify .product-info__input {
+  display: table-cell;
+}
