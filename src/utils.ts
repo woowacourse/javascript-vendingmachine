@@ -44,17 +44,19 @@ export const convertArrToObj = <Key extends Indexable, Val>(
 };
 
 export const deepCopy = (obj: { [key in Indexable]: any }) => {
-  const initialObj: { [key in Indexable]: any } = {};
-  return Object.keys(obj).reduce((_obj, key) => {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  const copy: { [key in Indexable]: any } = {};
+  for (const key of Object.keys(obj)) {
     if (Array.isArray(obj[key])) {
-      _obj[key] = [...obj[key]];
-    } else if (typeof obj[key] === 'object') {
-      _obj[key] = deepCopy(obj[key]);
+      copy[key] = [...obj[key]];
     } else {
-      _obj[key] = obj[key];
+      copy[key] = deepCopy(obj[key]);
     }
-    return _obj;
-  }, initialObj);
+  }
+  return copy;
 };
 
 export const convertToLocaleString = (number: number): string => {
