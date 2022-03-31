@@ -1,9 +1,17 @@
 import { MONEY_NAME_STRING } from '../constants';
 
 export const manageProductTabTemplate = `
-<section aria-labelledby="manage-tab-title">
+<section id="add-product-form-section" aria-labelledby="manage-tab-title">
   <h2 id="manage-tab-title">상품 추가하기</h2>
   <form id="add-product-form">
+    <div class="instructions">
+      <h3>🛒상품 추가 시 유의 사항</h3>
+      <ul class="instructions-list">
+        <li>상품명: 1자 이상 10자 이하</li>
+        <li>가격: 100원 이상 10000원 이하, 10원 단위</li>
+        <li>수량: 1개 이상 20개 이하</li>
+      </ul>
+    </div>
     <fieldset>
       <legend>추가할 상품 정보를 입력해주세요.</legend>
       <div class="input-wrapper">
@@ -37,8 +45,15 @@ export const manageProductTabTemplate = `
 `;
 
 export const addChangeTabTemplate = `
-<section aria-labelledby="change-tab-title">
+<section id="add-change-form-section" aria-labelledby="change-tab-title">
   <h2 id="change-tab-title">잔돈 충전하기</h2>
+  <div class="instructions">
+      <h3>💰 잔돈 충전 시 유의 사항</h3>
+      <ul class="instructions-list">
+        <li>최소 충전 금액: 10원</li>
+        <li>최대 충전 가능 금액: 100,000원</li>
+      </ul>
+    </div>
   <form id="add-change-form">
     <label for="change">자판기가 보유할 금액을 입력해주세요</label>
     <div>

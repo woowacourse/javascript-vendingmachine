@@ -33,9 +33,20 @@ input {
   color: #424242;
 }
 
+#add-product-form-section, #add-change-form-section {
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 #manage-tab-title, #change-tab-title {
   text-align: center;
-  margin-bottom: 20px;
+}
+
+#add-product-form{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 #add-change-form {
@@ -48,4 +59,17 @@ input {
 
 #add-change-form input {
   width: 300px;
+}
+
+.instructions {
+  background-color: #f3f3f3;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.instructions-list {
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
