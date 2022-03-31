@@ -115,6 +115,28 @@ export default class VendingMachine {
     this.state.purchaseMoney -= price;
     this.updateItem(name, { name, price, quantity: quantity - 1 });
   }
+
+  returnChange(): Coins {
+    const coinArray = [...Object.entries(this.state.coins)].sort(
+      ([a], [b]) => +b - +a
+    );
+
+    let index = coinArray.length;
+    const result = deepClone(EMPTY_COIN);
+
+    while (this.state.purchaseMoney > 0 && index >= 0) {
+      const [coinType, count] = coinArray[index];
+      if (count > 0) {
+        result[coinType] += 1;
+        this.state.purchaseMoney -= +coinType;
+        this.state.coins[coinType] -= 1;
+      } else {
+        index -= 1;
+      }
+    }
+
+    return result;
+  }
 }
 
 export const vendingMachine = new VendingMachine([], EMPTY_COIN, 0);
