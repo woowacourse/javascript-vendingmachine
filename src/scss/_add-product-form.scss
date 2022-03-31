@@ -13,6 +13,11 @@
     font-size: 14px;
     line-height: 16px;
     letter-spacing: 1.25px;
+    align-self: flex-end;
+  }
+
+  add-product-form .input-container label {
+    font-size: 14px;
   }
 
   product-inventory {

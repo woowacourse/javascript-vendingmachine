@@ -13,11 +13,20 @@ class AddProductForm extends Component {
   template(): string {
     return `
       <form onsubmit="return false">
-        <label for="product-name">추가할 상품 정보를 입력해주세요.</label>
+        <label for="product-name" class="mb-3">추가할 상품 정보를 입력해주세요.</label>
         <div class="d-flex">
-          <input placeholder="상품명" name="product-name" class="form-control mr-1" />
-          <input placeholder="가격" name="product-price" class="form-control mr-1" />
-          <input placeholder="수량" name="product-quantity" class="form-control mr-4" />
+          <div class="input-container mr-1">
+            <label for="product-name-input">상품명</label>
+            <input placeholder="상품명" name="product-name" id="product-name-input" class="form-control" />
+          </div>
+          <div class="input-container mr-1">
+            <label for="product-price-input">가격</label>
+            <input placeholder="가격" name="product-price" id="product-price-input" class="form-control" />
+          </div>
+          <div class="input-container mr-4">
+            <label for="product-quantity-input">수량</label>
+            <input placeholder="수량" name="product-quantity" id="product-quantity-input" class="form-control" />
+          </div>
           <button type="button" class="btn btn-primary">추가</button>
         </div>
       </form>

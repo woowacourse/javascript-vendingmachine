@@ -2,6 +2,7 @@ product-inventory {
   tr.is-editing {
     input {
       width: calc(100% - 4px);
+      height: auto;
     }
     td {
       padding: 4px 0;
