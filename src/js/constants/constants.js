@@ -33,4 +33,5 @@ export const ERROR_MESSAGE = {
   OUT_OF_QUANTITY_RANGE: `상품 수량은 ${PRODUCT.QUANTITY_RANGE.MIN}개 이상 ${PRODUCT.QUANTITY_RANGE.MAX}개 이하로 입력해 주세요.`,
   DUPLICATE_PRODUCT: '중복된 상품 입니다. 다른 상품을 입력해 주세요.',
   OVER_MAX_AMOUNT: `최대 보유 금액은 ${COIN.MAX_AMOUNT}원 을 넘을 수 없습니다.`,
+  OVER_USER_AMOUNT: `투입 금액이 부족하여 선택한 상품을 구매할 수 없습니다`,
 };

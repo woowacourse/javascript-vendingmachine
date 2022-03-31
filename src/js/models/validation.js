@@ -48,3 +48,10 @@ export const validAmount = (amount, totalAmount) => {
   }
   return true;
 };
+
+export const validProductPurchase = (price, userAmount) => {
+  if (isOverMaxNumber(price, userAmount)) {
+    throw new Error(ERROR_MESSAGE.OVER_USER_AMOUNT);
+  }
+  return true;
+};

@@ -16,4 +16,9 @@ export default class ProductPurchase {
   getUserAmount() {
     return this.#userAmount;
   }
+
+  spendAmount(price) {
+    this.#userAmount -= price;
+    return this.#userAmount;
+  }
 }

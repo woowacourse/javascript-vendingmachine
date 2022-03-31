@@ -6,6 +6,15 @@ import { purchaseTableTemplate } from '../templates/templates';
 export default class ProductPurchaseView {
   constructor() {
     on(SECTION_CONTAINER, [['submit', this.#onSubmitInputAmount]]);
+    this.#bindPurchaseEvent();
+  }
+
+  #bindPurchaseEvent() {
+    SECTION_CONTAINER.addEventListener('click', (e) => {
+      const { target } = e;
+      if (!target.classList.contains('purchase-button')) return;
+      this.#purchase(target.closest('tr'));
+    });
   }
 
   #onSubmitInputAmount = (e) => {
@@ -15,6 +24,18 @@ export default class ProductPurchaseView {
     const userAmount = this.$amountInput.valueAsNumber;
     emit(SECTION_CONTAINER, '@amount', { userAmount });
   };
+
+  #purchase(selectedProduct) {
+    const index = selectedProduct.rowIndex - 1;
+    emit(SECTION_CONTAINER, '@purchase', { index });
+  }
+
+  renderModifiedProductInfo(index) {
+    const selectedProduct = this.$purchaseTbody.children[index];
+    const quantity = selectedProduct.children[2].textContent;
+    selectedProduct.children[2].textContent = Number(quantity) - 1;
+    if (quantity === '1') this.$purchaseTbody.removeChild(selectedProduct);
+  }
 
   initPurchaseDOM() {
     this.$amountInput = $('#amount-input');

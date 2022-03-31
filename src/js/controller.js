@@ -24,6 +24,7 @@ export default class Controller {
       ['@delete', this.#deleteSavedData],
       ['@charge', this.#handleChargeCoin],
       ['@amount', this.#handleAmount],
+      ['@purchase', this.#purchaseSelectedProduct],
     ]);
   }
 
@@ -78,5 +79,13 @@ export default class Controller {
     this.productPurchase.addUserAmount(userAmount);
     this.productPurchaseView.renderAmount(this.productPurchase.getUserAmount());
     this.productPurchaseView.resetAmountInput();
+  };
+
+  #purchaseSelectedProduct = (e) => {
+    const { index } = e.detail;
+    const price = this.productManager.purchaseProduct(index, this.productPurchase.getUserAmount());
+    const userAmount = this.productPurchase.spendAmount(price);
+    this.productPurchaseView.renderAmount(userAmount);
+    this.productPurchaseView.renderModifiedProductInfo(index);
   };
 }

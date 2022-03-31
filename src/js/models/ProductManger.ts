@@ -1,4 +1,4 @@
-import { validProductInfo } from './validation.js';
+import { validProductInfo, validProductPurchase } from './validation.js';
 import { Product, ProductManageInterface } from '../interface/productManage.interface';
 
 export default class ProductManager implements ProductManageInterface {
@@ -26,5 +26,15 @@ export default class ProductManager implements ProductManageInterface {
 
   deleteProduct(index: number): void {
     this.#products.splice(index, 1);
+  }
+
+  purchaseProduct(index: number, userAmount: number): number | void {
+    const { price } = this.#products[index];
+    if (!validProductPurchase(price, userAmount)) return;
+    this.#products[index].quantity -= 1;
+    if (this.#products[index].quantity === 0) {
+      this.deleteProduct(index);
+    }
+    return price;
   }
 }
