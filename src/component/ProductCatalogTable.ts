@@ -1,5 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
-import { ProductState } from '../utils/interface';
+import { ProductState } from '../interfaces/interface';
 
 export class ProductCatalogTable {
   productCatalog: ProductCatalog;
@@ -129,18 +129,20 @@ export class ProductCatalogTable {
         .valueAsNumber,
     };
 
+    const targetProduct = this.productCatalog.productList[productState.index];
     if (this.isSavable(productState)) {
-      this.productCatalog.productList[productState.index].setName(productState.name);
-      this.productCatalog.productList[productState.index].setPrice(productState.price);
-      this.productCatalog.productList[productState.index].setQuantity(productState.quantity);
+      targetProduct.setName(productState.name);
+      targetProduct.setPrice(productState.price);
+      targetProduct.setQuantity(productState.quantity);
     }
   }
 
   isSavable(productState: ProductState) {
+    const targetProduct = this.productCatalog.productList[productState.index];
     try {
-      this.productCatalog.productList[productState.index].validateName(productState.name);
-      this.productCatalog.productList[productState.index].validatePrice(productState.price);
-      this.productCatalog.productList[productState.index].validateQuantity(productState.quantity);
+      targetProduct.validateName(productState.name);
+      targetProduct.validatePrice(productState.price);
+      targetProduct.validateQuantity(productState.quantity);
       return true;
     } catch (err) {
       throw err;

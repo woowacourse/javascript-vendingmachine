@@ -4,9 +4,10 @@ import {
   COINS_PRICE_TABLE,
   COINS_INIT_QUANTITY,
   CHEAPEST_COIN,
-} from '../utils/domain.const';
-import { Coins } from '../utils/interface';
+} from '../constants/domain';
+import { Coins } from '../interfaces/interface';
 import { getRandomNumZeroToMax } from '../utils/domain.utils';
+import { ERR_COIN_VAULT } from '../constants/errorMessage';
 
 export class CoinVault {
   private coinsQuantity: Coins;
@@ -43,10 +44,10 @@ export class CoinVault {
 
   validateMoney(money: number): boolean {
     if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
-      throw new Error('돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.');
+      throw new Error(ERR_COIN_VAULT.EXCEED_MAX_BALANCE);
     }
     if (money % COIN_CONDITION.UNIT_PRICE !== 0) {
-      throw new Error('상평통보는 안 받습니다. 10원단위로 넣어주세요!');
+      throw new Error(ERR_COIN_VAULT.SMALL_INPUT_THAN_UNIT);
     }
     return;
   }
