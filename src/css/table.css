@@ -3,15 +3,18 @@
 }
 
 caption {
+  margin-bottom: 16px;
+
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 16px;
 }
 
 td,
 th {
-  border-bottom: 1px solid var(--table-border-color);
   padding: 8px 0;
+
+  border-bottom: 1px solid var(--table-border-color);
+
   text-align: center;
 }
 
@@ -24,16 +27,19 @@ th {
 }
 
 table {
-  border-collapse: collapse;
   margin: 0 auto;
+
+  border-collapse: collapse;
 }
 
 .table-button-wrapper {
   width: 90px;
-  margin: auto;
+
   display: flex;
   justify-content: center;
   gap: 8px;
+
+  margin: auto;
 }
 
 .confirm-update-button {
@@ -42,7 +48,9 @@ table {
 
 #product-status-table tr input {
   width: 90%;
+
   margin: auto;
+
   font-size: 1rem;
 }
 
