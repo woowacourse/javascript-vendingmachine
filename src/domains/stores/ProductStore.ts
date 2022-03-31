@@ -1,4 +1,4 @@
-import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/types';
+import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/interfaces';
 import { PRODUCT_ACTION } from '../actions';
 
 class ProductStore {

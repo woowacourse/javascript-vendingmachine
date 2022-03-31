@@ -1,4 +1,4 @@
-import { CoinActionType, ModifyDetail, ProductActionType, Product } from '../abstracts/types';
+import { CoinActionType, ModifyDetail, ProductActionType, Product } from '../abstracts/interfaces';
 
 export const createAction: object = (type: string, detail?: Product | ModifyDetail | string | number) => ({
   type,
