@@ -1,5 +1,5 @@
 import ProductStoreInstance from '../../domains/stores/ProductStore';
-import { createAction, PRODUCT_ACTION } from '../../domains/actions';
+import { PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
@@ -44,7 +44,7 @@ class ProductAddForm extends CustomElement {
       return;
     }
     this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
-    ProductStoreInstance.dispatch(createAction(PRODUCT_ACTION.ADD, newProduct));
+    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.ADD, newProduct);
   };
 
   initProductInputs($productNameInput, $productPriceInput, $productQuantityInput) {

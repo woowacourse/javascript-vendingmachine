@@ -1,6 +1,7 @@
 import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
+import { createAction } from '../actions';
 
 class CoinStore {
   #coinsCount: CoinsCount = {
@@ -17,7 +18,9 @@ class CoinStore {
     this.#subscribers.push(element);
   }
 
-  dispatch(action: Action) {
+  dispatchAction(actionType: string, detail: number) {
+    const action: Action = createAction(actionType, detail);
+
     this.updateCoinsCount(action);
     this.notifySubscribers();
   }

@@ -1,5 +1,5 @@
 import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/types';
-import { PRODUCT_ACTION } from '../actions';
+import { createAction, PRODUCT_ACTION } from '../actions';
 
 class ProductStore {
   #products: Product[] = [];
@@ -10,7 +10,9 @@ class ProductStore {
     this.#subscribers.push(element);
   }
 
-  dispatch(action: Action) {
+  dispatchAction(actionType: string, detail: Product | ModifyDetail | string) {
+    const action: Action = createAction(actionType, detail);
+
     this.updateProducts(action);
     this.notifySubscribers(action);
   }

@@ -167,13 +167,13 @@ class ProductCurrentSituation extends CustomElement {
 
     checkProductValidation(newProductInfo);
 
-    ProductStoreInstance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
+    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
   }
 
   handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    ProductStoreInstance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
+    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, productName);
   };
 }
 
