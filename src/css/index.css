@@ -17,7 +17,7 @@ button {
   display: none;
 }
 
-.nav {
+.menu-nav {
   display: flex;
   justify-content: center;
   margin-bottom: 48px;
@@ -33,18 +33,18 @@ button {
   letter-spacing: 1.25px;
 }
 
-.nav__button {
+.menu-nav__button {
   width: 120px;
   height: 36px;
   background: #f5f5f5;
   margin: 0 4px;
 }
 
-.nav__button:hover {
+.menu-nav__button:hover {
   background: #ebebeb;
 }
 
-.button-click {
+.active {
   background: #00bcd41f;
 }
 

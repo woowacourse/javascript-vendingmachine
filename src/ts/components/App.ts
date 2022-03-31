@@ -18,18 +18,12 @@ class App {
       `<h1>🍿 자판기 🍿</h1>
       ${menuTabTemplate}
       <main>
-        <section class="product-manange__container container"></section>
-        <section class="charge-manange__container container"></section>
+        <section class="product-manange__container manange-container"></section>
+        <section class="charge-manange__container manange-container"></section>
       </main>`,
     );
-    this.manageContainers = $$(".container");
+    this.manageContainers = $$(".manange-container");
 
-    this.mountComponent();
-    this.convertTemplate(location.hash || "#product");
-    this.handleMenuStyle();
-  }
-
-  mountComponent() {
     this.menuTab = new MenuTab({ convertTemplate: this.convertTemplate });
     this.charge = new Charge();
     this.product = new Product();
@@ -37,20 +31,7 @@ class App {
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
     }
-
-    window.addEventListener("popstate", () => {
-      this.convertTemplate(location.hash || "#product");
-      this.handleMenuStyle();
-    });
-  }
-
-  handleMenuStyle() {
-    const navList = $$(".nav__button");
-    navList.forEach((button: HTMLButtonElement) =>
-      button.dataset.menu === location.hash
-        ? button.classList.add("button-click")
-        : button.classList.remove("button-click"),
-    );
+    this.convertTemplate(location.hash || "#product");
   }
 
   hideContainers() {
