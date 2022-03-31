@@ -104,6 +104,17 @@ export default class VendingMachine {
 
     this.state.purchaseMoney += money;
   }
+
+  buyItem(nameId: string): void {
+    if (!this.findItem(nameId)) throw new Error(ERROR_MESSAGE.NOT_FOUND);
+
+    const { name, price, quantity } = this.findItem(nameId);
+    if (price > this.state.purchaseMoney)
+      throw new Error('상품을 구매할 수 없습니다. 금액을 충전해주세요.');
+
+    this.state.purchaseMoney -= price;
+    this.updateItem(name, { name, price, quantity: quantity - 1 });
+  }
 }
 
 export const vendingMachine = new VendingMachine([], EMPTY_COIN, 0);
