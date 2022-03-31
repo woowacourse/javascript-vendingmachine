@@ -20,14 +20,16 @@ export interface Coins {
 export interface VendingMachineState {
   items: Item[];
   coins: Coins;
+  purchaseMoney: number;
 }
 export default class VendingMachine {
   state: VendingMachineState;
 
-  constructor(initialItems: Item[], initialCoins: Coins) {
+  constructor(initialItems: Item[], initialCoins: Coins, initialMoney: number) {
     this.state = Subject.observable({
       items: initialItems,
       coins: initialCoins,
+      purchaseMoney: initialMoney,
     });
   }
 
@@ -95,6 +97,13 @@ export default class VendingMachine {
       0
     );
   }
+
+  addPurchaseMoney(money: number): void {
+    if (money % 10 !== 0) throw new Error('10으로 나눠 떨어져야함');
+    if (money > 10000 || money <= 0) throw new Error('범위 밖 값');
+
+    this.state.purchaseMoney += money;
+  }
 }
 
-export const vendingMachine = new VendingMachine([], EMPTY_COIN);
+export const vendingMachine = new VendingMachine([], EMPTY_COIN, 0);
