@@ -2,6 +2,7 @@ import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 import ProductManager from "../../mananger/ProductManager";
+import { clearInput } from "../../utils/common";
 
 class ProductComponent {
   productManager: ProductManager;
@@ -37,6 +38,8 @@ class ProductComponent {
     try {
       this.productManager.addProduct({ name, price, quantity });
       this.productTable.insertAdjacentHTML("beforeend", addProductTemplate({ name, price, quantity }));
+      clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
+      this.productNameInput.focus();
     } catch ({ message }) {
       alert(message);
     }

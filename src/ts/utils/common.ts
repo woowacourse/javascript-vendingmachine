@@ -3,4 +3,8 @@ const pickNumberInList = (list: number[]) => {
   return list[randomNumber];
 };
 
-export { pickNumberInList };
+const clearInput = (...inputs: HTMLElement[]) => {
+  inputs.forEach((input: HTMLInputElement) => (input.value = ""));
+};
+
+export { pickNumberInList, clearInput };
