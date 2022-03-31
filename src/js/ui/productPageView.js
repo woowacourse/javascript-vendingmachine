@@ -35,17 +35,6 @@ class ProductPageView {
     this.bindEvent();
   }
 
-  initProductsStatus(products) {
-    $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
-      "beforeend",
-      products
-        .map((product) => {
-          return productTemplate.product(product.get());
-        })
-        .join("")
-    );
-  }
-
   bindEvent() {
     on(this.$formContainer, "submit", this.productSubmitHandler);
     on(this.$productStatusContainer, "click", this.onClick);
@@ -113,6 +102,17 @@ class ProductPageView {
       count: updatedCount,
     });
   };
+
+  renderProductsStatus(products) {
+    this.$productList.insertAdjacentHTML(
+      "beforeend",
+      products
+        .map((product) => {
+          return productTemplate.product(product.get());
+        })
+        .join("")
+    );
+  }
 
   renderNewProduct(product) {
     $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
