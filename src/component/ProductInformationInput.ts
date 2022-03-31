@@ -1,4 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
+import { validateAllProductProps } from '../utils/domain.utils';
 
 export class ProductInformationInput {
   productCatalog: ProductCatalog;
@@ -52,6 +53,7 @@ export class ProductInformationInput {
     const productQuantity = this.productQuantityInput.valueAsNumber;
 
     try {
+      validateAllProductProps(productName, productPrice, productQuantity);
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
       this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {

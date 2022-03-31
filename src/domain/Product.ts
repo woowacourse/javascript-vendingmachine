@@ -7,14 +7,9 @@ export class Product {
   private quantity: number;
 
   constructor(name: string, price: number, quantity: number) {
-    try {
-      this.validateAllProp(name, price, quantity);
-      this.setName(name);
-      this.setPrice(price);
-      this.setQuantity(quantity);
-    } catch (err) {
-      throw err;
-    }
+    this.setName(name);
+    this.setPrice(price);
+    this.setQuantity(quantity);
   }
 
   setName(name: string) {
@@ -27,7 +22,7 @@ export class Product {
   setQuantity(quantity: number) {
     this.quantity = quantity;
   }
-
+  /*
   validateName(name: string) {
     if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error(ERR_PRODUCT.LONG_NAME);
@@ -62,7 +57,7 @@ export class Product {
       throw err;
     }
   }
-
+*/
   getName() {
     return this.name;
   }

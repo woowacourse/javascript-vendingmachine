@@ -1,5 +1,6 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../interfaces/interface';
+import { validateAllProductProps } from '../utils/domain.utils';
 
 export class ProductCatalogTable {
   productCatalog: ProductCatalog;
@@ -140,9 +141,7 @@ export class ProductCatalogTable {
   isSavable(productState: ProductState) {
     const targetProduct = this.productCatalog.productList[productState.index];
     try {
-      targetProduct.validateName(productState.name);
-      targetProduct.validatePrice(productState.price);
-      targetProduct.validateQuantity(productState.quantity);
+      validateAllProductProps(productState.name, productState.price, productState.quantity);
       return true;
     } catch (err) {
       throw err;

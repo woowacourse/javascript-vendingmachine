@@ -1,4 +1,5 @@
 import { Product } from './Product';
+import { validateProductQuantity } from '../utils/domain.utils';
 
 export class ProductCatalog {
   productList: Product[];
@@ -25,7 +26,7 @@ export class ProductCatalog {
   accumulateQuantity(productIndex: number, quantity: number) {
     const target = this.productList[productIndex];
     try {
-      target.validateQuantity(target.getQuantity() + quantity);
+      validateProductQuantity(target.getQuantity() + quantity);
       target.setQuantity(target.getQuantity() + quantity);
     } catch (err) {
       throw err;
