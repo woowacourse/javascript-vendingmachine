@@ -20,17 +20,21 @@ const RandomStrategy: distributeStrategy = {
 
     let moneyLeft = inputMoney;
 
-    coinStatusList.forEach((coin) => {
-      if (coin.name === 'TEN_WON') {
-        coin.count = moneyLeft / coin.value;
-        return;
+    const changedCoinStatusList = coinStatusList.map((coin) => {
+      const cloneCoinObject = { ...coin };
+
+      if (cloneCoinObject.name === 'TEN_WON') {
+        cloneCoinObject.count = moneyLeft / cloneCoinObject.value;
+        return cloneCoinObject;
       }
-      const randomCount = getRandomCoin(moneyLeft, coin.value);
-      moneyLeft -= coin.value * randomCount;
-      coin.count = randomCount;
+
+      const randomCount = getRandomCoin(moneyLeft, cloneCoinObject.value);
+      moneyLeft -= cloneCoinObject.value * randomCount;
+      cloneCoinObject.count = randomCount;
+      return cloneCoinObject;
     });
 
-    return coinStatusList;
+    return changedCoinStatusList;
   },
 };
 
