@@ -36,10 +36,6 @@ class ProductComponent {
     const quantity = (<HTMLInputElement>this.productQuantityInput).valueAsNumber;
 
     try {
-      verifyProductName(name);
-      verifyProductPrice(price);
-      verifyProductQuantity(quantity);
-
       this.productManager.addProduct({ name, price, quantity });
       this.productTable.insertAdjacentHTML("beforeend", addProductTemplate({ name, price, quantity }));
     } catch ({ message }) {
@@ -89,10 +85,6 @@ class ProductComponent {
     const { name: prevName } = selectedRow.dataset;
 
     try {
-      verifyProductName(name);
-      verifyProductPrice(price);
-      verifyProductQuantity(quantity);
-
       this.productManager.editProduct({ name, price, quantity }, prevName);
       selectedRow.innerHTML = addProductTemplate({ name, price, quantity });
       selectedRow.dataset.name = name;

@@ -1,9 +1,11 @@
-import { verifyDuplicateName } from "../utils/validation";
+import { pickNumberInList } from "../utils/common";
+import { verifyCharge } from "../utils/validation";
 
 interface ChargeManagerInterface {
-  getCoins(): Coin;
+  getTotalCoins(): Coin;
   addCoins(coinObject: Coin): void;
   getTotalCharge(): number;
+  getRandomCoins(charge: number): Coin;
 }
 
 export interface Coin {
@@ -16,7 +18,7 @@ export interface Coin {
 class ChargeManager implements ChargeManagerInterface {
   private coins: Coin = { 10: 0, 50: 0, 100: 0, 500: 0 };
 
-  getCoins() {
+  getTotalCoins() {
     return this.coins;
   }
 
@@ -30,6 +32,22 @@ class ChargeManager implements ChargeManagerInterface {
     return Object.entries(this.coins).reduce((acc, [coinName, count]) => {
       return acc + Number(coinName) * count;
     }, 0);
+  }
+
+  getRandomCoins(charge: number): Coin {
+    verifyCharge(charge);
+
+    const coinObject = { 10: 0, 50: 0, 100: 0, 500: 0 };
+    let coinList = [10, 50, 100, 500];
+
+    while (charge) {
+      coinList = coinList.filter((coin) => coin <= charge);
+      const randomCoin = pickNumberInList(coinList);
+      coinObject[randomCoin]++;
+      charge -= randomCoin;
+    }
+
+    return coinObject;
   }
 }
 

@@ -1,6 +1,5 @@
 import { $, $$ } from "../../utils/dom";
-
-type ConvertTemplate = (path: string) => void;
+import { ConvertTemplate } from "../App";
 
 class MenuTabComponent {
   convertTemplate: ConvertTemplate;

@@ -9,6 +9,10 @@ import ProductComponent from "./product/ProductComponent";
 import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 
+export interface ConvertTemplate {
+  (path: string): void;
+}
+
 class App {
   app: HTMLElement;
   manageContainers: NodeList;

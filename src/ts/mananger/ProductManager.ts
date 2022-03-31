@@ -1,4 +1,4 @@
-import { verifyDuplicateName } from "../utils/validation";
+import { verifyDuplicateName, verifyProductName, verifyProductPrice, verifyProductQuantity } from "../utils/validation";
 
 interface ProductManagerInterface {
   getProducts(): Product[];
@@ -21,7 +21,11 @@ class ProductManager implements ProductManagerInterface {
   }
 
   addProduct(newProduct: Product) {
+    verifyProductName(newProduct.name);
+    verifyProductPrice(newProduct.price);
+    verifyProductQuantity(newProduct.quantity);
     verifyDuplicateName(this.products, newProduct);
+
     this.products.push(newProduct);
   }
 
@@ -30,6 +34,10 @@ class ProductManager implements ProductManagerInterface {
   }
 
   editProduct(editProduct: Product, prevName: string) {
+    verifyProductName(editProduct.name);
+    verifyProductPrice(editProduct.price);
+    verifyProductQuantity(editProduct.quantity);
+
     this.products = this.products.filter((product) => product.name !== prevName);
     verifyDuplicateName(this.products, editProduct);
     this.products.push(editProduct);

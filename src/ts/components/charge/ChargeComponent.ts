@@ -1,5 +1,4 @@
-import ChargeManager, { Coin } from "../../mananger/ChargeManager";
-import { pickNumberInList } from "../../utils/common";
+import ChargeManager from "../../mananger/ChargeManager";
 import { $ } from "../../utils/dom";
 import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
@@ -34,41 +33,24 @@ class ChargeComponent {
 
   handleAddCharge = (e) => {
     e.preventDefault();
-
     const charge = (<HTMLInputElement>this.chargeInput).valueAsNumber;
 
     try {
-      verifyCharge(charge);
-
-      const randomCoins = this.getRandomCoins(charge);
+      const randomCoins = this.chargeManager.getRandomCoins(charge);
       this.chargeManager.addCoins(randomCoins);
-      this.addRandomCoins();
-      this.addHoldingAmount();
+      this.increaseRandomCoins();
+      this.increaseHoldingAmount();
     } catch ({ message }) {
       alert(message);
     }
   };
 
-  getRandomCoins(charge: number): Coin {
-    const coinObject = { 10: 0, 50: 0, 100: 0, 500: 0 };
-    let coinList = [10, 50, 100, 500];
-
-    while (charge) {
-      coinList = coinList.filter((coin) => coin <= charge);
-      const randomCoin = pickNumberInList(coinList);
-      coinObject[randomCoin]++;
-      charge -= randomCoin;
-    }
-
-    return coinObject;
-  }
-
-  addHoldingAmount() {
+  increaseHoldingAmount() {
     this.chargeHoldingAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
-  addRandomCoins() {
-    const countList = Object.values(this.chargeManager.getCoins());
+  increaseRandomCoins() {
+    const countList = Object.values(this.chargeManager.getTotalCoins());
 
     [this.chargeCoin10, this.chargeCoin50, this.chargeCoin100, this.chargeCoin500].forEach((chargeCoin, index) => {
       chargeCoin.textContent = `${countList[index]}개`;
