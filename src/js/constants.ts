@@ -1,6 +1,7 @@
 const PATH_NAME = {
   PRODUCT_MANAGE: '#!/product-manage',
   ADD_CHANGE: '#!/change-add',
+  PRODUCT_PURCHASE: '#!/product-purchase',
 };
 
 const RULES = {

@@ -14,6 +14,7 @@ class VendingMachine {
   private products: Array<Product>;
   private changes: Coin;
   private totalMoney: number;
+  private userMoney: number;
   private availableCoinTypeList: Array<number>;
 
   constructor() {
@@ -21,6 +22,7 @@ class VendingMachine {
     this.availableCoinTypeList = [500, 100, 50, 10];
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.totalMoney = 0;
+    this.userMoney = 0;
   }
 
   getProducts() {
@@ -33,6 +35,10 @@ class VendingMachine {
 
   getTotalMoney() {
     return this.totalMoney;
+  }
+
+  getUserMoney() {
+    return this.userMoney;
   }
 
   addProduct(product: Product) {
@@ -63,6 +69,10 @@ class VendingMachine {
     this.checkInputChangesValidate(money);
     this.totalMoney += money;
     this.makeChangesToCoin(money);
+  }
+
+  inputUserMoney(money: number) {
+    this.userMoney += money;
   }
 
   private makeChangesToCoin(money: number) {

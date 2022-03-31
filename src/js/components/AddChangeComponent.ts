@@ -45,6 +45,7 @@ class AddChangeComponent {
       <input
           type="number"
           id="change-add-input"
+          class="single-input"
           placeholder="금액"
           required
       />

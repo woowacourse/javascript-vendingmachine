@@ -7,7 +7,7 @@ routes.init();
 
 const productManageButton = document.querySelector('#product-manage-button');
 const changeAddButton = document.querySelector('#change-add-button');
-// const btn3 = document.querySelector('#product-purchase-button');
+const productPurchaseButton = document.querySelector('#product-purchase-button');
 
 productManageButton.addEventListener('click', () => {
   routes.go(PATH_NAME.PRODUCT_MANAGE);
@@ -15,6 +15,10 @@ productManageButton.addEventListener('click', () => {
 
 changeAddButton.addEventListener('click', () => {
   routes.go(PATH_NAME.ADD_CHANGE);
+});
+
+productPurchaseButton.addEventListener('click', () => {
+  routes.go(PATH_NAME.PRODUCT_PURCHASE);
 });
 
 window.addEventListener('popstate', function () {
