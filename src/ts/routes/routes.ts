@@ -1,8 +1,8 @@
 import { on, emit, $$ } from '../dom/domHelper';
 
-const isUndefinedRoutes = (pathname) =>
-  Array.from($$<HTMLElement>('.manage-component')).some(
-    (route) => route.dataset.pathname !== pathname
+const isUndefinedRoutes = (pathname: string) =>
+  !Array.from($$<HTMLElement>('.manage-component')).some(
+    (route) => route.dataset.pathname === pathname
   );
 
 export default class RouteManager {
