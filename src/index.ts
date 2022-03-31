@@ -1,7 +1,7 @@
 import './css/app.css';
 
-import { HomeView } from './view/HomeView';
+import { App } from './App';
 
 window.addEventListener('DOMContentLoaded', () => {
-  new HomeView();
+  new App();
 });
