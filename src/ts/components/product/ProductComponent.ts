@@ -1,8 +1,7 @@
-import ProductManager from "../../mananger/ProductManager";
-import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { $ } from "../../utils/dom";
-import { verifyProductName, verifyProductPrice, verifyProductQuantity } from "../../utils/validation";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
+import ProductManager from "../../mananger/ProductManager";
 
 class ProductComponent {
   productManager: ProductManager;

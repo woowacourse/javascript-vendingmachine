@@ -1,7 +1,6 @@
-import ChargeManager from "../../mananger/ChargeManager";
 import { $ } from "../../utils/dom";
-import { verifyCharge } from "../../utils/validation";
 import { chargeTemplate } from "./chargeTemplate";
+import ChargeManager from "../../mananger/ChargeManager";
 
 class ChargeComponent {
   chargeContainer: HTMLElement;

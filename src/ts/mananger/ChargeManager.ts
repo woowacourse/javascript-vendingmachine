@@ -3,9 +3,9 @@ import { verifyCharge } from "../utils/validation";
 
 interface ChargeManagerInterface {
   getTotalCoins(): Coin;
+  getRandomCoins(charge: number): Coin;
   addCoins(coinObject: Coin): void;
   getTotalCharge(): number;
-  getRandomCoins(charge: number): Coin;
 }
 
 export interface Coin {
