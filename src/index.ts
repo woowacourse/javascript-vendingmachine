@@ -8,12 +8,22 @@ const changeAddButton = document.querySelector('#change-add-button');
 // const btn3 = document.querySelector('#product-purchase-button');
 
 productManageButton.addEventListener('click', () => {
-  history.pushState({}, '상품 관리하기', window.location.pathname + '#!/product-manage');
+  const { hash, pathname } = window.location;
+  const path: string = '#!/product-manage';
+
+  if (hash === path) return;
+
+  history.pushState({}, '상품 관리하기', pathname + '#!/product-manage');
   routes();
 });
 
 changeAddButton.addEventListener('click', () => {
-  history.pushState({}, '잔돈 채우기', window.location.pathname + '#!/change-add');
+  const { hash, pathname } = window.location;
+  const path: string = '#!/change-add';
+
+  if (hash === path) return;
+
+  history.pushState({}, '잔돈 채우기', pathname + '#!/change-add');
   routes();
 });
 
