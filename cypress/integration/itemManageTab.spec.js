@@ -1,10 +1,3 @@
-Cypress.Commands.add('addItem', (itemName, itemPrice, itemQuantity) => {
-  cy.get('.item-info-input').eq(0).type(itemName);
-  cy.get('.item-info-input').eq(1).type(itemPrice);
-  cy.get('.item-info-input').eq(2).type(itemQuantity);
-  cy.get('.input-form-button').click();
-});
-
 describe('상품 관리 탭 테스트', () => {
   const itemName = '콜라';
   const itemPrice = 1000;
