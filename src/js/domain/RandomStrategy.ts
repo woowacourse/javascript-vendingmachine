@@ -20,7 +20,7 @@ const RandomStrategy: distributeStrategy = {
 
     let moneyLeft = inputMoney;
 
-    const changedCoinStatusList = coinStatusList.map((coin) => {
+    const distributedCoinStatusList = coinStatusList.map((coin) => {
       const cloneCoinObject = { ...coin };
 
       if (cloneCoinObject.name === 'TEN_WON') {
@@ -34,7 +34,7 @@ const RandomStrategy: distributeStrategy = {
       return cloneCoinObject;
     });
 
-    return changedCoinStatusList;
+    return distributedCoinStatusList;
   },
 };
 
