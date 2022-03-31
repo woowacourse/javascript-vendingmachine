@@ -130,14 +130,20 @@ export default class ProductStateComponent {
 
     if (target.matches('.product-table__confirm-button')) {
       this.approveEditProduct(target);
+
+      return;
     }
 
     if (target.matches('.product-table__edit-button')) {
       this.readyEditProduct(target);
+
+      return;
     }
 
     if (target.matches('.product-table__delete-button')) {
       this.deleteProduct(target);
+
+      return;
     }
   };
 }

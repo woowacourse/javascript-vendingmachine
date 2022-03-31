@@ -5,6 +5,26 @@ import {
 
 import { COINS } from '../constants/chargeMoney';
 import { checkCanAddMoney } from '../validation/checkChargeMoney';
+import pickRandomIndex from '../utils/utils';
+
+const generateRandomCoins = (money: number): Coins => {
+  const coinList: number[] = COINS.INITIAL_LIST;
+  const coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
+
+  let remainMoney: number = money;
+
+  while (remainMoney) {
+    const pickableCoins: number[] = coinList.filter(
+      (coin: number) => coin <= remainMoney
+    );
+    const pickedCoin: number =
+      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
+    coinsQuantity[`QUANTITY_COIN_${pickedCoin}`] += 1;
+    remainMoney -= pickedCoin;
+  }
+
+  return coinsQuantity;
+};
 
 export default class VendingMachineChargeMoneyManager
   implements ChargeMoneyManager
@@ -23,7 +43,8 @@ export default class VendingMachineChargeMoneyManager
     );
   }
 
-  addCoins(newCoinsQuantity: Coins) {
+  addCoins(newChargeMoney: number): void {
+    const newCoinsQuantity = generateRandomCoins(newChargeMoney);
     checkCanAddMoney(this.getTotalAmount(), newCoinsQuantity);
 
     Object.entries(newCoinsQuantity).forEach(

@@ -1,31 +1,7 @@
-import { Coins } from '../../types/vendingMachineChargeMoneyManager';
-
 import { checkValidChargeMoney } from '../../validation/checkChargeMoney';
-import pickRandomIndex from '../../utils/utils';
-
-import { COINS } from '../../constants/chargeMoney';
 
 import { emit, $, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
-
-const generateRandomCoins = (money: number): Coins => {
-  const coinList: number[] = COINS.INITIAL_LIST;
-  const coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
-
-  let remainMoney: number = money;
-
-  while (remainMoney) {
-    const pickableCoins: number[] = coinList.filter(
-      (coin: number) => coin <= remainMoney
-    );
-    const pickedCoin: number =
-      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
-    coinsQuantity[`QUANTITY_COIN_${pickedCoin}`] += 1;
-    remainMoney -= pickedCoin;
-  }
-
-  return coinsQuantity;
-};
 
 export default class ChargeMoneyInputComponent {
   private $chargeMoneyInput = $(
@@ -50,9 +26,7 @@ export default class ChargeMoneyInputComponent {
       const chargeMoney = this.$chargeMoneyInput.valueAsNumber;
 
       checkValidChargeMoney(chargeMoney);
-      this.vendingMachineChargeMoneyManager.addCoins(
-        generateRandomCoins(chargeMoney)
-      );
+      this.vendingMachineChargeMoneyManager.addCoins(chargeMoney);
 
       this.$totalChargeMoney.textContent =
         this.vendingMachineChargeMoneyManager.getTotalAmount();

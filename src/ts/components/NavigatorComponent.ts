@@ -22,7 +22,7 @@ export default class NavigatorComponent {
     this.changeComponent();
   };
 
-  changeComponent(): void {
+  private changeComponent(): void {
     const { pathname } = window.location;
 
     $$('.nav__button').forEach((button) => {

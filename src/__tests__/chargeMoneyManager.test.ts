@@ -17,32 +17,36 @@ describe('잔돈 관리 도메인 테스트', () => {
   test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원까지 보관되는지 확인한다.`, () => {
     const vendingMachineChargeMoneyManager =
       new VendingMachineChargeMoneyManager();
-    const coins: Coins = {
-      ...COINS.INITIAL_QUANTITY_STATE,
-      QUANTITY_COIN_100: 1,
-    };
+    // const coins: Coins = {
+    //   ...COINS.INITIAL_QUANTITY_STATE,
+    //   QUANTITY_COIN_100: 1,
+    // };
+    const chargeMoney = 100;
 
     expect(() => {
-      vendingMachineChargeMoneyManager.addCoins(coins);
+      vendingMachineChargeMoneyManager.addCoins(chargeMoney);
     }).not.toThrowError();
   });
 
   test(`보유할 수 있는 최대 누적 금액인 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원을 초과하면 에러가 발생된다.`, () => {
     const vendingMachineChargeMoneyManager =
       new VendingMachineChargeMoneyManager();
-    const coins: Coins = {
-      ...COINS.INITIAL_QUANTITY_STATE,
-      QUANTITY_COIN_100: 1000,
-    };
-    const newCoins: Coins = {
-      ...COINS.INITIAL_QUANTITY_STATE,
-      QUANTITY_COIN_100: 1,
-    };
 
-    vendingMachineChargeMoneyManager.addCoins(coins);
+    const chargeMoney = 100000;
+    const newChargeMoney = 100;
+    // const coins: Coins = {
+    //   ...COINS.INITIAL_QUANTITY_STATE,
+    //   QUANTITY_COIN_100: 1000,
+    // };
+    // const newCoins: Coins = {
+    //   ...COINS.INITIAL_QUANTITY_STATE,
+    //   QUANTITY_COIN_100: 1,
+    // };
+
+    vendingMachineChargeMoneyManager.addCoins(chargeMoney);
 
     expect(() => {
-      vendingMachineChargeMoneyManager.addCoins(newCoins);
+      vendingMachineChargeMoneyManager.addCoins(newChargeMoney);
     }).toThrowError(
       ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(
         vendingMachineChargeMoneyManager.getTotalAmount()
