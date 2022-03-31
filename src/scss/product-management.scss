@@ -1,3 +1,5 @@
+@import 'variable';
+
 .product-addition {
   &__input {
     width: 120px;
@@ -11,9 +13,14 @@
   }
 
   &__input {
-    width: 87px;
+    width: 85px;
     border: 0;
     text-align: center;
     outline: 0;
+
+    &:focus:read-write {
+      outline: solid $color-brand-primary;
+      background: $color-brand-secondary;
+    }
   }
 }
