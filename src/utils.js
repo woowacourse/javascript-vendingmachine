@@ -7,3 +7,7 @@ export const pickNumberInList = (array) => {
 
   return array[index];
 };
+
+export const addThousandUnitComma = (number) => {
+  return number.toLocaleString();
+};

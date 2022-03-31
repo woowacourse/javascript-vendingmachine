@@ -1,3 +1,5 @@
+import { addThousandUnitComma } from './utils';
+
 export const BASE_URL = '/javascript-vendingmachine';
 
 export const COIN = {
@@ -36,7 +38,9 @@ export const ERROR_MESSAGE = {
 
   IS_NOT_INTEGER_PRICE: '가격에 정수가 입력되지 않았습니다! 정수를 입력해 주세요!',
   IS_UNDER_MIN_PRICE: `가격이 최소 가격인 ${PRODUCT.PRICE.MIN}원 미만으로 입력되었습니다! ${PRODUCT.PRICE.MIN}원 이상으로 입력해 주세요!`,
-  IS_OVER_MAX_PRICE: `가격이 최대 가격인 ${PRODUCT.PRICE.MAX.toLocaleString()}원을 초과하여 입력되었습니다! ${PRODUCT.PRICE.MAX.toLocaleString()}원 이하로 입력해 주세요!`,
+  IS_OVER_MAX_PRICE: `가격이 최대 가격인 ${addThousandUnitComma(
+    PRODUCT.PRICE.MAX,
+  )}원을 초과하여 입력되었습니다! ${PRODUCT.PRICE.MAX.toLocaleString()}원 이하로 입력해 주세요!`,
   PRICE_CANNOT_DIVIDED_BY_TEN: '가격에 1원 단위가 입력되었습니다! 10원 단위로 입력해 주세요!',
 
   IS_NOT_INTEGER_QUANTITY: '수량에 정수가 입력되지 않았습니다! 정수를 입력해 주세요!',
@@ -44,5 +48,7 @@ export const ERROR_MESSAGE = {
   IS_OVER_MAX_QUANTITY: `수량이 최대 수량인 ${PRODUCT.QUANTITY.MAX}개를 초과하여 입력되었습니다! ${PRODUCT.QUANTITY.MAX}개 이하로 입력해 주세요!`,
 
   MONEY_CANNOT_DIVIDED_BY_TEN: '금액에 1원 단위가 입력되었습니다! 10원 단위로 입력해 주세요!',
-  IS_OVER_MAX_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${MONEY.MAX.toLocaleString()}원을 초과하였습니다! 현재 보유 금액을 확인한 후 입력해 주세요!`,
+  IS_OVER_MAX_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${addThousandUnitComma(
+    MONEY.MAX,
+  )}원을 초과하였습니다! 현재 보유 금액을 확인한 후 입력해 주세요!`,
 };
