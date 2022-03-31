@@ -1,41 +1,56 @@
 import { selectDom } from '../utils/dom';
 
-export default class SnackBar {
+export default class Snackbar {
+  #app;
+  #messageList;
+  #canShow;
+
   constructor() {
-    this.app = selectDom('#app');
-    this.messageList = [];
-    this.canShow = true;
-    window.requestAnimationFrame(this.handleSnackBarUpdate);
+    this.#app = selectDom('#app');
+    this.#messageList = [];
+    this.#canShow = true;
+    window.requestAnimationFrame(this.#handleSnackbarUpdate);
   }
 
   addToMessageList(message) {
-    this.messageList.push(message);
+    this.#messageList.push(message);
   }
 
-  handleSnackBarUpdate = () => {
-    if (this.messageList.length > 0 && this.canShow) {
-      const nextMessage = this.messageList.shift();
-      this.renderSnackBarUpdate(nextMessage);
+  #handleSnackbarUpdate = () => {
+    if (this.#messageList.length > 0 && this.#canShow) {
+      const nextMessage = this.#messageList.shift();
+      this.#renderSnackbarUpdate(nextMessage);
     }
-    window.requestAnimationFrame(this.handleSnackBarUpdate);
+    window.requestAnimationFrame(this.#handleSnackbarUpdate);
   };
 
-  renderSnackBarUpdate = (message) => {
-    this.canShow = false;
+  #renderSnackbarUpdate = (message) => {
+    this.#canShow = false;
 
-    const snackBar = document.createElement('div');
-    snackBar.className = 'snackbar';
-    snackBar.textContent = message;
+    const snackbar = document.createElement('div');
+    snackbar.className = 'snackbar';
+    snackbar.textContent = message;
 
-    this.app.append(snackBar);
-    snackBar.classList.toggle('show');
+    this.#app.append(snackbar);
 
-    setTimeout(() => {
-      snackBar.classList.toggle('show');
+    snackbar.classList.toggle('show');
+    this.#fadeOutSnackbar(snackbar).then(() => this.#removeSnackbarWithDelay(snackbar));
+  };
+
+  #fadeOutSnackbar(snackbar) {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        snackBar.remove();
-        this.canShow = true;
+        resolve(snackbar.classList.toggle('show'));
+      }, 1000);
+    });
+  }
+
+  #removeSnackbarWithDelay(snackbar) {
+    new Promise(() => {
+      setTimeout(() => {
+        snackbar.remove();
+        this.#canShow = true;
       }, 500);
-    }, 1000);
-  };
+    });
+  }
 }

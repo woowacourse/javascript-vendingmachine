@@ -15,15 +15,24 @@ export default class ManageProductTab {
   #addProductStockInput;
   #productStatusTable;
 
-  constructor(machine, snackBar) {
+  constructor(machine, snackbar) {
     this.#vendingMachine = machine;
-    this.snackBar = snackBar;
+    this.snackbar = snackbar;
 
     this.#manageContainer = createMainElement(manageProductTabTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
-    this.#addProductNameInput = selectDom('#add-product-name-input', this.#manageContainer);
-    this.#addProductPriceInput = selectDom('#add-product-price-input', this.#manageContainer);
-    this.#addProductStockInput = selectDom('#add-product-stock-input', this.#manageContainer);
+    this.#addProductNameInput = selectDom(
+      '#add-product-name-input',
+      this.#manageContainer
+    );
+    this.#addProductPriceInput = selectDom(
+      '#add-product-price-input',
+      this.#manageContainer
+    );
+    this.#addProductStockInput = selectDom(
+      '#add-product-stock-input',
+      this.#manageContainer
+    );
     this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
 
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
@@ -49,7 +58,7 @@ export default class ManageProductTab {
       );
       this.#resetInput();
     } catch ({ message }) {
-      this.snackBar.addToMessageList(message);
+      this.snackbar.addToMessageList(message);
     }
   };
 
@@ -109,7 +118,7 @@ export default class ManageProductTab {
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      this.snackBar.addToMessageList(message);
+      this.snackbar.addToMessageList(message);
     }
   };
 
@@ -125,7 +134,7 @@ export default class ManageProductTab {
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      this.snackBar.addToMessageList(message);
+      this.snackbar.addToMessageList(message);
     }
   };
 
@@ -140,7 +149,7 @@ export default class ManageProductTab {
         this.#vendingMachine.removeProduct(id);
         productRow.remove();
       } catch ({ message }) {
-        this.snackBar.addToMessageList(message);
+        this.snackbar.addToMessageList(message);
       }
     }
   };

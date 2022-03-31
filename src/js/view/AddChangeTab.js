@@ -9,8 +9,8 @@ export default class AddChangeTab {
   #totalChange;
   #coinStatusTable;
 
-  constructor(machine, snackBar) {
-    this.snackBar = snackBar;
+  constructor(machine, snackbar) {
+    this.snackbar = snackbar;
     this.#vendingMachine = machine;
 
     this.#addChangeContainer = createMainElement(addChangeTabTemplate);
@@ -35,12 +35,13 @@ export default class AddChangeTab {
       this.#renderCoinStatus();
       this.#resetInput();
     } catch ({ message }) {
-      this.snackBar.addToMessageList(message);
+      this.snackbar.addToMessageList(message);
     }
   };
 
   #renderCoinStatus() {
-    const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
+    const coinCountElements =
+      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
     const { coinStatus } = this.#vendingMachine;
 
     this.#totalChange.textContent = this.#vendingMachine.totalChange;

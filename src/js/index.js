@@ -4,7 +4,7 @@ import AddChangeTab from './view/AddChangeTab';
 import ManageProductTab from './view/ManageProductTab';
 import { createMainElement, selectDom } from './utils/dom';
 import { notFoundTabTemplate } from './view/template';
-import SnackBar from './view/SnackBar';
+import Snackbar from './view/Snackbar';
 
 class App {
   #vendingMachine;
@@ -13,7 +13,7 @@ class App {
   #tabMenuNavigation;
 
   constructor() {
-    this.snackBar = new SnackBar();
+    this.snackBar = new Snackbar();
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
@@ -39,7 +39,10 @@ class App {
       return;
     }
 
-    this.#appContainer.replaceChild(this.#renderList[path].tabElements, selectDom('main'));
+    this.#appContainer.replaceChild(
+      this.#renderList[path].tabElements,
+      selectDom('main')
+    );
   };
 
   #updateCurrentTabMenu(path) {
@@ -56,7 +59,9 @@ class App {
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
+    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) {
+      return;
+    }
 
     window.history.pushState({}, null, newHash);
     this.#render();
