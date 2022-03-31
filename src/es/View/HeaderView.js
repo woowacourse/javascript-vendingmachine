@@ -1,6 +1,6 @@
-import { $ } from '@Utils/index';
+import { $ } from '../utils';
 
-export default class Header {
+export default class HeaderView {
   $container = $('header');
 
   render(state) {

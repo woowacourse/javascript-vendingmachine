@@ -1,6 +1,6 @@
-import { VENDING_MACHINE, ERROR_MESSAGE } from '@Constants/index';
-import { IProduct } from '@Store/Interface';
-import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '../index';
+import { IProduct } from './Store/Interface';
+import { VENDING_MACHINE, ERROR_MESSAGE } from './constants';
+import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from './utils';
 
 export const validateProduct = (product: IProduct) => {
   const { name, price, quantity } = product;

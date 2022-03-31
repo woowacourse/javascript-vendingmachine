@@ -1,9 +1,9 @@
-import { $, getSearchParamsObject } from '@Utils/index';
-import Header from '@Display/Header';
+import { $, getSearchParamsObject } from './utils';
+import HeaderView from './View/HeaderView';
 
 export default class Router {
   pathname = window.location.pathname.slice(0, -1);
-  pageHeader = new Header();
+  pageHeader = new HeaderView();
   pageList;
 
   constructor(pageList) {

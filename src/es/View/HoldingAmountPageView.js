@@ -1,9 +1,9 @@
-import { $ } from '@Utils/index';
-import { validateHoldingAmountToAdd } from '@Utils/VendingMachine/validator';
-import HoldingAmountStore from '@Store/HoldingAmountStore';
-import { template } from '@Display/template';
+import { template } from './template';
+import { $ } from '../utils';
+import { validateHoldingAmountToAdd } from '../validation';
+import HoldingAmountStore from '../Store/HoldingAmountStore';
 
-export default class HoldingAmountPage {
+export default class HoldingAmountPageView {
   renderMethodList;
 
   $addFormSection;

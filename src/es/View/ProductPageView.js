@@ -1,9 +1,9 @@
-import { $, getInnerInputValues, clearInnerInputValues } from '@Utils/index';
-import { validateProduct } from '@Utils/VendingMachine/validator';
-import ProductStore from '@Store/ProductStore';
-import { template } from '@Display/template';
+import { template } from './template';
+import ProductStore from '../Store/ProductStore';
+import { validateProduct } from '../validation';
+import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
 
-export default class ProductPage {
+export default class ProductPageView {
   renderMethodList;
 
   $addFormSection;
@@ -76,18 +76,18 @@ export default class ProductPage {
   onClickTableInnerButton = (event) => {
     const targetClassList = event.target.classList;
     switch (true) {
-    case targetClassList.contains('product-update-button'):
-      this.onClickUpdateButton(event);
-      break;
-    case targetClassList.contains('product-update-confirm-button'):
-      this.onClickUpdateConfirmButton(event);
-      break;
-    case targetClassList.contains('product-update-cancel-button'):
-      this.onClickUpdateCancelButton(event);
-      break;
-    case targetClassList.contains('product-delete-button'):
-      this.onClickDeleteButton(event);
-      break;
+      case targetClassList.contains('product-update-button'):
+        this.onClickUpdateButton(event);
+        break;
+      case targetClassList.contains('product-update-confirm-button'):
+        this.onClickUpdateConfirmButton(event);
+        break;
+      case targetClassList.contains('product-update-cancel-button'):
+        this.onClickUpdateCancelButton(event);
+        break;
+      case targetClassList.contains('product-delete-button'):
+        this.onClickDeleteButton(event);
+        break;
     }
   };
 

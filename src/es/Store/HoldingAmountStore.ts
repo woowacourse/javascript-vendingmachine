@@ -1,6 +1,6 @@
-import { IStore } from '@Store/interface';
-import { getRandomNumber } from '@Utils/index';
-import { COIN_TYPE } from '@Constants/index';
+import { COIN_TYPE } from '../constants';
+import { getRandomNumber } from '../utils';
+import { IStore } from './Interface';
 
 interface IHoldingAmountStoreState {
   coins: Array<number>;
