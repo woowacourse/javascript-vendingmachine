@@ -1,3 +1,5 @@
+import { MONEY_NAME_STRING } from '../constants';
+
 export const manageProductTabTemplate = `
 <section title="상품 정보">
   <form id="add-product-form">
@@ -56,19 +58,19 @@ export const addChangeTabTemplate = `
     </tr>
     <tr>
       <td>500원</td>
-      <td data-coin-name='FIVE_HUNDRED_WON'>0개</td>
+      <td data-coin-name='${MONEY_NAME_STRING.COIN_500_WON}'>0개</td>
     </tr>
     <tr>
       <td>100원</td>
-      <td data-coin-name='ONE_HUNDRED_WON'>0개</td>
+      <td data-coin-name='${MONEY_NAME_STRING.COIN_100_WON}'>0개</td>
     </tr>
     <tr>
       <td>50원</td>
-      <td data-coin-name='FIFTY_WON'>0개</td>
+      <td data-coin-name='${MONEY_NAME_STRING.COIN_50_WON}'>0개</td>
     </tr>
     <tr>
       <td>10원</td>
-      <td data-coin-name='TEN_WON'>0개</td>
+      <td data-coin-name='${MONEY_NAME_STRING.COIN_10_WON}'>0개</td>
     </tr>
   </table>
 </section>`;

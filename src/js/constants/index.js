@@ -40,3 +40,10 @@ export const ERROR_MESSAGE = {
 };
 
 export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';
+
+export const MONEY_NAME_STRING = {
+  COIN_500_WON: 'FIVE_HUNDRED_WON',
+  COIN_100_WON: 'ONE_HUNDRED_WON',
+  COIN_50_WON: 'FIFTY_WON',
+  COIN_10_WON: 'TEN_WON',
+};

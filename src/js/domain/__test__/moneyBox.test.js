@@ -1,4 +1,5 @@
 import MoneyBox from '../MoneyBox';
+import { MONEY_NAME_STRING } from '../../constants';
 
 describe('돈통 클래스 테스트', () => {
   let moneyBox;
@@ -6,10 +7,10 @@ describe('돈통 클래스 테스트', () => {
 
   function setMockDistributeStrategy() {
     mockCoinStatusList = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 5 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 4 },
-      { name: 'FIFTY_WON', value: 50, count: 1 },
-      { name: 'TEN_WON', value: 10, count: 5 },
+      { name: MONEY_NAME_STRING.COIN_500_WON, value: 500, count: 5 },
+      { name: MONEY_NAME_STRING.COIN_100_WON, value: 100, count: 4 },
+      { name: MONEY_NAME_STRING.COIN_50_WON, value: 50, count: 1 },
+      { name: MONEY_NAME_STRING.COIN_10_WON, value: 10, count: 5 },
     ];
 
     const mockCoinDistributeStrategy = {

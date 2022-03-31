@@ -1,5 +1,6 @@
 import { Coin, distributeStrategy } from './interface';
 import { pickNumberInRange } from '../utils';
+import { MONEY_NAME_STRING } from '../constants';
 
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);
@@ -10,10 +11,10 @@ function getRandomCoin(moneyLeft: number, value: number): number {
 const RandomStrategy: distributeStrategy = {
   distribute(inputMoney: number): Coin[] {
     const coinStatusList: Coin[] = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 0 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 0 },
-      { name: 'FIFTY_WON', value: 50, count: 0 },
-      { name: 'TEN_WON', value: 10, count: 0 },
+      { name: MONEY_NAME_STRING.COIN_500_WON, value: 500, count: 0 },
+      { name: MONEY_NAME_STRING.COIN_100_WON, value: 100, count: 0 },
+      { name: MONEY_NAME_STRING.COIN_50_WON, value: 50, count: 0 },
+      { name: MONEY_NAME_STRING.COIN_10_WON, value: 10, count: 0 },
     ];
     let moneyLeft = inputMoney;
 
