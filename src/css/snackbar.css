@@ -1,7 +1,7 @@
 .snackbar {
-  position: absolute;
-  width: 90%;
-  bottom: 0px;
+  position: fixed;
+  width: 540px;
+  bottom: 0;
   opacity: 0;
   padding: 15px 20px;
   background-color: #3f3f3f;
