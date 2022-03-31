@@ -146,20 +146,13 @@ describe('상품 수정 테스트', () => {
     cy.checkInvalidInputCount(expectedInvalidInputCount);
   });
 
-  it.only('추가된 상품의 수량이 1개로 나누어떨어지지 않으면 수정 버튼을 눌러도 상품 정보를 수정할 수 없다.', () => {
+  it('추가된 상품의 수량이 1개로 나누어떨어지지 않으면 수정 버튼을 눌러도 상품 정보를 수정할 수 없다.', () => {
     const editedItemQuantity = 10.5;
     const expectedInvalidInputCount = 1;
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.get('.edit-item-button').click();
     cy.get('.item-info-input-cell').eq(2).clear().type(editedItemQuantity);
-    cy.get('.confirm-item-button')
-      .click()
-      .then(() => {
-        expect(alertStub).to.be.calledWith('상품 수량은 1개로 나누어떨어져야 합니다.');
-      });
+    cy.get('.confirm-item-button').click();
 
     cy.checkInvalidInputCount(expectedInvalidInputCount);
   });

@@ -4,8 +4,9 @@ export const ITEM_ERROR_MESSAGE = {
   ITEM_NAME_MAX_LENGTH: '상품명은 최대 10글자까지 가능합니다.',
   ALREADY_EXIST: '이미 등록된 상품입니다. 수정을 원한다면 수정 기능을 이용해주세요.',
   EXCEED_PRICE_RANGE: '상품 가격은 100원 이상, 10,000원 이하여야 합니다.',
-  NOT_DIVIDED_BY_UNIT: '상품 가격은 10원으로 나누어 떨어져야 합니다.',
+  NOT_DIVIDED_BY_PRICE_UNIT: '상품 가격은 10원으로 나누어떨어져야 합니다.',
   EXCEED_QUANTITY_RANGE: '상품 수량은 최소 1개부터 최대 20개까지 넣을 수 있습니다.',
+  NOT_DIVIDED_BY_QUANTITY_UNIT: '상품 수량은 1개로 나누어떨어져야 합니다.',
 };
 
 export const CASH_ERROR_MESSAGE = {

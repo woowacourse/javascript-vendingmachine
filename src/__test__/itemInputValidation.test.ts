@@ -70,7 +70,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     const itemQuantity = 10;
 
     expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
-      ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT
+      ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_PRICE_UNIT
     );
   });
 

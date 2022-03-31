@@ -4,7 +4,7 @@ export const generateItemManageTabContentTemplate = (itemList) => `
       <div class="input-form-container">
         <input class="item-info-input" type="text" placeholder="상품명" minlength="1" maxlength="10" autofocus/>
         <input class="item-info-input" type="number" placeholder="가격" min="100" max="10000" step="10"/>
-        <input class="item-info-input" type="number" placeholder="수량" min="1" max="20"/>
+        <input class="item-info-input" type="number" placeholder="수량" min="1" max="20" step="1"/>
         <button class="input-form-button">추가</button>
       </div>
     </form>
@@ -26,7 +26,7 @@ export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQu
     <tr data-item-name="${itemName}">
       <td><input class="item-info-input-cell" value="${itemName}" type="text" minlength="1" maxlength="10" disabled/></td>
       <td><input class="item-info-input-cell" value="${itemPrice}" type="number" min="100" max="10000" step="10" disabled/></td>
-      <td><input class="item-info-input-cell" value="${itemQuantity}" type="number" min="1" max="20" disabled/></td>
+      <td><input class="item-info-input-cell" value="${itemQuantity}" type="number" min="1" max="20" step="1" disabled/></td>
       <td class="item-button-cell">
         <div>
           <button type="button" class="default-button edit-item-button">수정</button>

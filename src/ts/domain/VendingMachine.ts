@@ -88,11 +88,15 @@ class VendingMachine implements VendingMachineInterface {
       { testCase: this.isExceedPriceRange, errorMessage: ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE },
       {
         testCase: this.isNotDividedByPriceUnit,
-        errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
+        errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_PRICE_UNIT,
       },
       {
         testCase: this.isExceedQuantityRange,
         errorMessage: ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE,
+      },
+      {
+        testCase: this.isNotDividedByQuantityUnit,
+        errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_QUANTITY_UNIT,
       },
     ];
 
@@ -134,6 +138,7 @@ class VendingMachine implements VendingMachineInterface {
   }) {
     return isNaN(itemPrice) || isNaN(itemQuantity);
   }
+
   private isExceedMaxNameLength({
     itemInfo: { itemName },
   }: {
@@ -142,6 +147,7 @@ class VendingMachine implements VendingMachineInterface {
   }) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
+
   private isAlreadyExist({
     itemInfo: { itemName },
     isAddMode,
@@ -151,6 +157,7 @@ class VendingMachine implements VendingMachineInterface {
   }) {
     return isAddMode && this._itemList.some((savedItem) => savedItem.itemName === itemName);
   }
+
   private isExceedPriceRange({
     itemInfo: { itemPrice },
   }: {
@@ -159,6 +166,7 @@ class VendingMachine implements VendingMachineInterface {
   }) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
   }
+
   private isNotDividedByPriceUnit({
     itemInfo: { itemPrice },
   }: {
@@ -167,6 +175,7 @@ class VendingMachine implements VendingMachineInterface {
   }) {
     return itemPrice % ITEM.PRICE_UNIT !== 0;
   }
+
   private isExceedQuantityRange({
     itemInfo: { itemQuantity },
   }: {
@@ -176,15 +185,27 @@ class VendingMachine implements VendingMachineInterface {
     return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;
   }
 
+  private isNotDividedByQuantityUnit({
+    itemInfo: { itemQuantity },
+  }: {
+    itemInfo: itemInfoType;
+    isAddMode: boolean;
+  }) {
+    return itemQuantity % ITEM.QUANTITY_UNIT !== 0;
+  }
+
   private isNotNumberTypeCash(rechargedCash: number) {
     return isNaN(rechargedCash);
   }
+
   private isLowerThanMinRange(rechargedCash: number) {
     return rechargedCash < CASH.MIN;
   }
+
   private isExceedTotalAmountRange(rechargedCash: number) {
     return rechargedCash > CASH.MAX - this.calculateTotalCoinAmount();
   }
+
   private isNotDividedByUnitCash(rechargedCash: number) {
     return rechargedCash % CASH.UNIT !== 0;
   }
