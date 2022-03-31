@@ -29,13 +29,8 @@ class Charge {
   handleInputAmount = (e: Event) => {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
-    try {
-      verifyCharge(charge);
-      this.convertRandomCharge(charge);
-    } catch ({ message }) {
-      alert(message);
-      return;
-    }
+    verifyCharge(charge);
+    this.convertRandomCharge(charge);
   };
 
   convertRandomCharge(charge: number) {

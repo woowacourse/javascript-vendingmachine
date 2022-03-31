@@ -32,7 +32,6 @@ class Product {
     const productNameList = 
       this.productList.map((product: productProps) => product.productName);
 
-    try {
       validateProductName(productName);
       validateProductPrice(+productPrice);
       valudateProductQuantity(+productQuantity);
@@ -46,10 +45,6 @@ class Product {
         productPrice: +productPrice,
         productQuantity: +productQuantity, 
       });
-    } catch ({ message }) {
-      alert(message);
-      return;
-    }
   };
 
   handleControlProduct = (event: { target: HTMLTableElement }) => {
@@ -88,21 +83,16 @@ class Product {
       .map((product: productProps) => product.productName)
       .filter((productName) => productName !== beforeProductName);
 
-    try {
-      validateProductName(productName);
-      validateProductPrice(+productPrice);
-      valudateProductQuantity(+productQuantity);
-      validateSameProductName(productName, productNameList);
-      this.changeEditProductInfo({
-        target: event.target,
-        productName: productName,
-        productPrice: +productPrice,
-        productQuantity: +productQuantity,
-      });
-    } catch ({ message }) {
-      alert(message);
-      return;
-    }
+    validateProductName(productName);
+    validateProductPrice(+productPrice);
+    valudateProductQuantity(+productQuantity);
+    validateSameProductName(productName, productNameList);
+    this.changeEditProductInfo({
+      target: event.target,
+      productName: productName,
+      productPrice: +productPrice,
+      productQuantity: +productQuantity,
+    });
   };
 
   changeEditProductInfo = ({ target, productName, productPrice, productQuantity }: changeEditProductInfoProps) => {

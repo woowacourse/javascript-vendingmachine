@@ -12,7 +12,6 @@ class Vendingmachine {
 
   constructor() {
     this.vendingmachineWrap = selectDom("#app");
-    console.log(this.vendingmachineWrap);
     this.vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
       `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
