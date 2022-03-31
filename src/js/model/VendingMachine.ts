@@ -13,14 +13,16 @@ import {
 class VendingMachine {
   private products: Array<Product>;
   private changes: Coin;
+  private userChanges: Coin;
   private totalMoney: number;
   private userMoney: number;
   private availableCoinTypeList: Array<number>;
 
   constructor() {
     this.products = [];
-    this.availableCoinTypeList = [500, 100, 50, 10];
+    this.availableCoinTypeList = [500, 100, 50, 10, 0];
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    this.userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.totalMoney = 0;
     this.userMoney = 0;
   }
@@ -31,6 +33,10 @@ class VendingMachine {
 
   getChanges() {
     return this.changes;
+  }
+
+  getUserChanges() {
+    return this.userChanges;
   }
 
   getTotalMoney() {
@@ -75,8 +81,41 @@ class VendingMachine {
     this.userMoney += money;
   }
 
+  returnChanges() {
+    const coin = this.getChangeCoin(this.userMoney);
+    this.userMoney -= coin;
+
+    switch (coin) {
+      case 500:
+        this.changes.coin500 -= 1;
+        this.userChanges.coin500 += 1;
+        break;
+      case 100:
+        this.changes.coin100 -= 1;
+        this.userChanges.coin100 += 1;
+        break;
+      case 50:
+        this.changes.coin50 -= 1;
+        this.userChanges.coin50 += 1;
+        break;
+      case 10:
+        this.changes.coin10 -= 1;
+        this.userChanges.coin10 += 1;
+        break;
+      case 0:
+        if (this.userMoney > 0) {
+          throw new Error('자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.');
+        }
+        break;
+    }
+
+    if (this.userMoney >= RULES.MINIMUM_CHANGE) {
+      this.returnChanges();
+    }
+  }
+
   private makeChangesToCoin(money: number) {
-    const coin = this.getChangeCoin(money);
+    const coin = this.getRandomChangeCoin(money);
     money -= coin;
 
     switch (coin) {
@@ -100,6 +139,43 @@ class VendingMachine {
   }
 
   private getChangeCoin(money: number) {
+    const coins = this.availableCoinTypeList.filter(coin => {
+      if (money < coin) {
+        return false;
+      }
+
+      switch (coin) {
+        case 500:
+          if (this.changes.coin500 > 0) {
+            return true;
+          }
+          break;
+        case 100:
+          if (this.changes.coin100 > 0) {
+            return true;
+          }
+          break;
+        case 50:
+          if (this.changes.coin50 > 0) {
+            return true;
+          }
+          break;
+        case 10:
+          if (this.changes.coin10 > 0) {
+            return true;
+          }
+          break;
+        case 0:
+          return true;
+      }
+
+      return false;
+    });
+
+    return coins[0];
+  }
+
+  private getRandomChangeCoin(money: number) {
     const coins = this.availableCoinTypeList.filter(coin => coin <= money);
     const index = getRandomInt(coins.length);
     return coins[index];
