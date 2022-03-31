@@ -39,7 +39,7 @@ class AddChangeComponent {
   };
 
   private template = () => `
-  <div id="change-add-container">
+  <div id="change-add-container" class="single-input-container">
       <p>자판기가 보유할 금액을 입력해주세요</p>
       <form id="change-add-form">
       <input

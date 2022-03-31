@@ -73,6 +73,10 @@ input:focus {
   width: 300px;
 }
 
+.single-input-container {
+  margin: auto;
+}
+
 button {
   cursor: pointer;
   width: 117px;
@@ -94,10 +98,6 @@ h4 {
   text-align: center;
   letter-spacing: 0.15px;
   color: var(--primary-text-color);
-}
-
-#change-add-container {
-  margin: auto;
 }
 
 #product-list-container {
@@ -165,8 +165,15 @@ li {
   justify-content: center;
 }
 
-.product-control-buttons button {
+.product-modify-button,
+.product-remove-button {
   width: 40%;
+  height: 30px;
+  margin-top: -2px;
+}
+
+.product-purchase-button {
+  width: 90%;
   height: 30px;
   margin-top: -2px;
 }
