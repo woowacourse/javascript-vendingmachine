@@ -5,13 +5,17 @@ import Coin from './models/Coin.ts';
 import ProductManager from './models/ProductManger.ts';
 import ChargeView from './views/ChargeView.js';
 import ProductManageView from './views/ProductManageView.js';
+import ProductPurchaseView from './views/ProductPurchaseView.js';
+import ProductPurchase from './models/ProductPurchase.js';
 
 export default class Controller {
   constructor() {
-    this.productManager = new ProductManager();
-    this.productManageView = new ProductManageView();
-    this.chargeView = new ChargeView();
     this.coin = new Coin();
+    this.productManager = new ProductManager();
+    this.productPurchase = new ProductPurchase();
+    this.chargeView = new ChargeView();
+    this.productManageView = new ProductManageView();
+    this.productPurchaseView = new ProductPurchaseView();
 
     on(SECTION_CONTAINER, [
       ['@render', this.#renderSavedData],
@@ -19,6 +23,7 @@ export default class Controller {
       ['@modify', this.#modifySavedData],
       ['@delete', this.#deleteSavedData],
       ['@charge', this.#handleChargeCoin],
+      ['@amount', this.#handleAmount],
     ]);
   }
 
@@ -28,15 +33,16 @@ export default class Controller {
     switch (hash) {
       case '#!manage':
         this.productManageView.initManageDOM();
-        const savedProductList = this.productManager.getProducts();
-        if (savedProductList.length !== 0) {
-          this.productManageView.render(savedProductList);
-        }
+        this.productManageView.render(this.productManager.getProducts());
         break;
       case '#!charge':
         this.chargeView.initChargeDOM();
         this.chargeView.renderCurrentAmount(this.coin.getAmount());
         this.chargeView.renderHaveCoins(this.coin.getCoins());
+        break;
+      case '#!purchase':
+        this.productPurchaseView.initPurchaseDOM();
+        this.productPurchaseView.render(this.productManager.getProducts());
     }
   };
 
@@ -64,5 +70,12 @@ export default class Controller {
     this.chargeView.renderCurrentAmount(this.coin.getAmount());
     this.chargeView.resetChargeInput();
     this.chargeView.renderHaveCoins(this.coin.getCoins());
+  };
+
+  #handleAmount = (e) => {
+    const { userAmount } = e.detail;
+    this.productPurchase.addUserAmount(userAmount);
+    this.productPurchaseView.renderAmount(this.productPurchase.getUserAmount());
+    this.productPurchaseView.resetAmountInput();
   };
 }
