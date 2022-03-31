@@ -3,7 +3,7 @@ import { $ } from '../utils';
 import { validateHoldingAmountToAdd } from '../validation';
 import HoldingAmountStore from '../Store/HoldingAmountStore';
 
-export default class HoldingAmountPageView {
+export default class HoldingAmountManagementPageView {
   renderMethodList;
 
   $addFormSection;

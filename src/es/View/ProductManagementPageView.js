@@ -3,7 +3,7 @@ import ProductStore from '../Store/ProductStore';
 import { validateProduct } from '../validation';
 import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
 
-export default class ProductPageView {
+export default class ProductManagementPageView {
   renderMethodList;
 
   $addFormSection;
