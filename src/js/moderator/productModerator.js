@@ -18,10 +18,6 @@ class ProductModerator {
     this.productPageView.initProductsStatus(products);
   };
 
-  unmount = () => {
-    this.productPageView.unmount();
-  };
-
   addProduct = ({ name, price, count }) => {
     try {
       const product = this.productProcessMachine.add({ name, price, count });

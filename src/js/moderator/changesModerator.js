@@ -18,10 +18,6 @@ class ChangesModerator {
     this.changePageView.renderChangeStatus(coinStatus);
   };
 
-  unmount = () => {
-    this.changePageView.unmount();
-  };
-
   chargeChange = ({ money }) => {
     try {
       this.changeProcessMachine.charge(money);

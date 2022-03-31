@@ -37,10 +37,6 @@ class ChangePageView {
     on(this.$formContainer, "submit", this.changesSubmitHandler);
   };
 
-  unmount = () => {
-    remove(this.$formContainer, "submit", this.changesSubmitHandler);
-  };
-
   changesSubmitHandler = (e) => {
     e.preventDefault();
     emit(EVENT_TYPE.CHARGE, { money: this.$changesInput.valueAsNumber });

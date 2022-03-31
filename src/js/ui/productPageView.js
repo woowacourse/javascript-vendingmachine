@@ -52,11 +52,6 @@ class ProductPageView {
     on(this.$productStatusContainer, "click", this.onClick);
   };
 
-  unmount = () => {
-    remove(this.$formContainer, "submit", this.productSubmitHandler);
-    remove(this.$productStatusContainer, "click", this.onClick);
-  };
-
   productSubmitHandler = (e) => {
     e.preventDefault();
     if (this.edited === true) return;

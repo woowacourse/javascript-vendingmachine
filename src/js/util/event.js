@@ -7,8 +7,4 @@ export const { on, emit, remove } = {
     const customEvent = new CustomEvent(eventName, { detail: data });
     dispatchEvent(customEvent);
   },
-
-  remove: (element, eventName, callback) => {
-    element?.removeEventListener(eventName, callback);
-  },
 };
