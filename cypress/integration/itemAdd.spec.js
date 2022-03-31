@@ -84,17 +84,7 @@ describe('상품 추가 테스트', () => {
     cy.checkItemNotAdded();
   });
 
-  it('상품 가격이 10원으로 나누어떨어지지 않으면 추가 버튼을 눌러도 상품이 추가되지 않는다.', () => {
-    const invalidItemPrice = 101;
-    const expectedInvalidInputCount = 1;
-
-    cy.addItem(itemName, invalidItemPrice, itemQuantity);
-
-    cy.checkInvalidInputCount(expectedInvalidInputCount);
-    cy.checkItemNotAdded();
-  });
-
-  it('상품수량이 1개보다 작으면 추가 번튼을 눌러도 상품이 추가되지 않는다.', () => {
+  it('상품수량이 1개보다 작으면 추가 버튼을 눌러도 상품이 추가되지 않는다.', () => {
     const invalidItemQuantity = 0;
     const expectedInvalidInputCount = 1;
 
@@ -104,7 +94,7 @@ describe('상품 추가 테스트', () => {
     cy.checkItemNotAdded();
   });
 
-  it('상품수량이 20개보다 작으면 추가 번튼을 눌러도 상품이 추가되지 않는다.', () => {
+  it('상품수량이 20개보다 크면 추가 버튼을 눌러도 상품이 추가되지 않는다.', () => {
     const invalidItemQuantity = 21;
     const expectedInvalidInputCount = 1;
 
