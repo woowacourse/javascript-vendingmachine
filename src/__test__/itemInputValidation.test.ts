@@ -4,7 +4,7 @@ import { ITEM_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 describe('상품 추가할 때, 입력값 유효성 확인', () => {
   const vendingMachine = new VendingMachine();
 
-  test('입력값은 공백이 아니어야 한다.', () => {
+  test('상품 이름이 빈 값이면 에러가 발생한다.', () => {
     const itemName = '';
     const itemPrice = 1000;
     const itemQuantity = 20;
@@ -14,8 +14,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('가격과 수량은 숫자 타입이어야 한다.', () => {
-    const itemName = 'asdfasdf';
+  test('가격과 수량은 숫자 타입이 아니면 에러가 발생한다.', () => {
+    const itemName = '콜라';
     const itemPrice = NaN;
     const itemQuantity = NaN;
 
@@ -24,8 +24,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품명은 최대 10글자까지 가능하다.', () => {
-    const itemName = 'asdfasdfasdf';
+  test('상품명이 10글자가 넘으면 에러가 발생한다.', () => {
+    const itemName = '12345678901';
     const itemPrice = 1000;
     const itemQuantity = 10;
 
@@ -34,8 +34,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 가격은 100원 이상이어야 한다.', () => {
-    const itemName = 'asdfasdf';
+  test('상품 가격이 100원보다 작으면 에러가 발생한다.', () => {
+    const itemName = '콜라';
     const itemPrice = 99;
     const itemQuantity = 10;
 
@@ -44,8 +44,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 가격은 10,000원 이하이어야 한다.', () => {
-    const itemName = 'asdfasdf';
+  test('상품 가격이 10,000원보다 크면 에러가 발생한다.', () => {
+    const itemName = '콜라';
     const itemPrice = 10001;
     const itemQuantity = 10;
 
@@ -55,7 +55,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
   });
 
   test('상품 가격은 100원 이상, 10,000원 이하여야 한다.', () => {
-    const itemName = 'asdfasdf';
+    const itemName = '콜라';
     const itemPrice = 10000;
     const itemQuantity = 10;
 
@@ -64,8 +64,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     ).not.toThrow();
   });
 
-  test('10원으로 나누어 떨어져야 한다.', () => {
-    const itemName = 'asdfasdf';
+  test('상품 가격이 10원으로 나누어떨어지지 않으면 에러가 발생한다.', () => {
+    const itemName = '콜라';
     const itemPrice = 1001;
     const itemQuantity = 10;
 
@@ -74,8 +74,8 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('한 제품당 수량은 최대 20개까지 넣을 수 있다.', () => {
-    const itemName = 'asdfasdf';
+  test('상품 수량이 20개 보다 많으면 에러가 발생한다.', () => {
+    const itemName = '콜라';
     const itemPrice = 1000;
     const itemQuantity = 21;
 
