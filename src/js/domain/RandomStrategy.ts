@@ -1,6 +1,6 @@
 import { Coin, distributeStrategy } from './interface';
 
-import { pickNumberInRange } from '../utils';
+import { pickNumberInRange, deepCopy } from '../utils';
 import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../constants';
 
 function getRandomCoin(moneyLeft: number, value: number): number {
@@ -21,7 +21,7 @@ const RandomStrategy: distributeStrategy = {
     let moneyLeft = inputMoney;
 
     const distributedCoinStatusList = coinStatusList.map((coin) => {
-      const cloneCoinObject = { ...coin };
+      const cloneCoinObject = deepCopy(coin);
 
       if (cloneCoinObject.name === 'TEN_WON') {
         cloneCoinObject.count = moneyLeft / cloneCoinObject.value;

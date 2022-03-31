@@ -3,6 +3,7 @@ import { Coin, CoinStatus, distributeStrategy } from './interface';
 import RandomStrategy from './RandomStrategy';
 
 import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../constants';
+import { deepCopy } from '../utils';
 
 export default class MoneyBox {
   private _coinStatusList: Coin[];
@@ -48,7 +49,7 @@ export default class MoneyBox {
     const distributedCoinStatusList = this.coinDistributeStrategy.distribute(inputMoney);
 
     this._coinStatusList = this._coinStatusList.map((coin, index) => {
-      const cloneCoinObject = { ...coin };
+      const cloneCoinObject = deepCopy(coin);
 
       cloneCoinObject.count += distributedCoinStatusList[index].count;
       return cloneCoinObject;

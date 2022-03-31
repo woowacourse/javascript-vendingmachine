@@ -18,3 +18,18 @@ export function generateUniqueId(list) {
 
   return newId;
 }
+
+export function deepCopy(obj) {
+  let cloneObject = {};
+
+  for (let key in obj) {
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      cloneObject[key] = deepCopy(obj[key]);
+      continue;
+    }
+
+    cloneObject[key] = obj[key];
+  }
+
+  return cloneObject;
+}
