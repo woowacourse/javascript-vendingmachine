@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable max-lines-per-function */
 import { ERROR_MESSAGE, PRODUCT_RULES } from '../../constants';
 import VendingMachineProduct from '../VendingMachineProduct';
 

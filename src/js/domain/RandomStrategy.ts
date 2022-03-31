@@ -10,7 +10,6 @@ function getRandomCoin(moneyLeft: number, value: number): number {
 }
 
 const RandomStrategy: distributeStrategy = {
-  // eslint-disable-next-line max-lines-per-function
   distribute(inputMoney: number): Coin[] {
     const coinStatusList: Coin[] = [
       { name: COIN_500.NAME, value: COIN_500.VALUE, count: 0 },

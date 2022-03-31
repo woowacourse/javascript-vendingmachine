@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import VendingMachineProduct from '../VendingMachineProduct';
 import VendingMachine from '../VendingMachine';
 import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../../constants';

@@ -1,4 +1,9 @@
-import { Coin, CoinStatus, ProductData, VendingMachineProductDictionary } from './interface';
+import {
+  Coin,
+  CoinStatus,
+  ProductData,
+  VendingMachineProductDictionary,
+} from './interface';
 
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
