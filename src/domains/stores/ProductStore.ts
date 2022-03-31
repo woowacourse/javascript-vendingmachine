@@ -4,7 +4,7 @@ import { PRODUCT_ACTION } from '../actions';
 class ProductStore {
   static _instance: null | object = null;
 
-  static get instance(): object {
+  static get instance() {
     if (!ProductStore._instance) {
       ProductStore._instance = new ProductStore();
     }
@@ -16,23 +16,23 @@ class ProductStore {
 
   #subscribers: CustomElement<Action>[] = [];
 
-  subscribe(element: CustomElement<Action>): void {
+  subscribe(element: CustomElement<Action>) {
     this.#subscribers.push(element);
   }
 
-  dispatch(action: Action): void {
+  dispatch(action: Action) {
     this.updateProducts(action);
     this.notifySubscribers(action);
   }
 
-  updateProducts(action: Action): void {
+  updateProducts(action: Action) {
     const newProducts = this.generateNewProducts(this.#products, action);
 
     this.#products = newProducts;
   }
 
   // eslint-disable-next-line max-lines-per-function
-  generateNewProducts(oldProducts: Product[], { type, detail }: Action): Product[] {
+  generateNewProducts(oldProducts: Product[], { type, detail }: Action) {
     const newProducts = [...oldProducts];
 
     switch (type) {
@@ -56,11 +56,11 @@ class ProductStore {
     return newProducts;
   }
 
-  findProductIndex(productName): number {
+  findProductIndex(productName) {
     return this.#products.findIndex((product) => product.name === productName);
   }
 
-  notifySubscribers(action: Action): void {
+  notifySubscribers(action: Action) {
     this.#subscribers.forEach((subscriber) => subscriber.rerender(action));
   }
 

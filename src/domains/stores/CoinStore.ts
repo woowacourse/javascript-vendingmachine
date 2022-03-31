@@ -6,7 +6,7 @@ import { pickNumberInList } from '../../utils';
 class CoinStore {
   static _instance: null | object = null;
 
-  static get instance(): object {
+  static get instance() {
     if (!CoinStore._instance) {
       CoinStore._instance = new CoinStore();
     }
@@ -27,20 +27,20 @@ class CoinStore {
 
   #coinsCountSubscribers: CustomElement<CoinsCount>[] = [];
 
-  subscribeMoney(element: CustomElement<number>): void {
+  subscribeMoney(element: CustomElement<number>) {
     this.#moneySubscribers.push(element);
   }
 
-  subscribeCoinsCount(element: CustomElement<CoinsCount>): void {
+  subscribeCoinsCount(element: CustomElement<CoinsCount>) {
     this.#coinsCountSubscribers.push(element);
   }
 
-  dispatch(action: Action): void {
+  dispatch(action: Action) {
     this.updateMoneyOrCoinsCount(action);
     this.notifySubscribers(action);
   }
 
-  updateMoneyOrCoinsCount(action: Action): void {
+  updateMoneyOrCoinsCount(action: Action) {
     const { type, detail } = action;
 
     switch (type) {
@@ -54,7 +54,7 @@ class CoinStore {
     }
   }
 
-  generateNewCoinsCount(oldCoinsCount: CoinsCount, detail: number): CoinsCount {
+  generateNewCoinsCount(oldCoinsCount: CoinsCount, detail: number) {
     const newCoinsCount = { ...oldCoinsCount };
     let coinList = [500, 100, 50, 10];
     let money = detail;
@@ -78,7 +78,7 @@ class CoinStore {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers({ type }: Action): void {
+  notifySubscribers({ type }: Action) {
     switch (type) {
       case COIN_ACTION.MONEY_CHARGE:
         this.#moneySubscribers.forEach((subscriber) => {
