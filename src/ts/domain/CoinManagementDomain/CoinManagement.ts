@@ -40,6 +40,17 @@ export default class CoinManagementDomain {
     }
   }
 
+  subCoins(coins: Coins) {
+    let totalCash = 0;
+
+    Object.keys(this.#coins).forEach(type => {
+      this.#coins[type] -= coins[type];
+      totalCash += coins[type] * Number(type);
+    });
+
+    this.addCash(-totalCash);
+  }
+
   validateCashInput(cash: number) {
     validateCash(cash);
   }
