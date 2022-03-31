@@ -1,11 +1,11 @@
 import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from '../constant/errorMessage';
 import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
-type itemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
+type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
 
 interface VendingMachineInterface {
-  addItem: (itemInfo: itemInfoType) => Object;
-  editItem: (itemInfo: itemInfoType, itemIndex: number) => void;
+  addItem: (itemInfo: ItemInfoType) => Object;
+  editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
   deleteItem: (itemName: string) => void;
 
   chargeCoin: (rechargeCoin: number) => void;
@@ -13,7 +13,7 @@ interface VendingMachineInterface {
 }
 
 class VendingMachine implements VendingMachineInterface {
-  private _itemList: itemInfoType[];
+  private _itemList: ItemInfoType[];
   private _coinCollection: Object;
 
   constructor() {
@@ -34,7 +34,7 @@ class VendingMachine implements VendingMachineInterface {
     return this._coinCollection;
   }
 
-  addItem(itemInfo: itemInfoType) {
+  addItem(itemInfo: ItemInfoType) {
     this._itemList = [...this._itemList, itemInfo];
     return itemInfo;
   }
@@ -43,7 +43,7 @@ class VendingMachine implements VendingMachineInterface {
     this._itemList = this._itemList.filter((savedItem) => savedItem.itemName !== itemName);
   }
 
-  editItem(itemInfo: itemInfoType, itemIndex: number) {
+  editItem(itemInfo: ItemInfoType, itemIndex: number) {
     this._itemList[itemIndex] = itemInfo;
   }
 
@@ -76,7 +76,7 @@ class VendingMachine implements VendingMachineInterface {
     );
   }
 
-  validateItemInput(itemInfo: itemInfoType, isAddMode = true, itemIndex = null) {
+  validateItemInput(itemInfo: ItemInfoType, isAddMode = true, itemIndex = null) {
     const testCases = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
@@ -126,14 +126,14 @@ class VendingMachine implements VendingMachineInterface {
     });
   }
 
-  private isBlank({ itemInfo: { itemName } }: { itemInfo: itemInfoType; isAddMode: boolean }) {
+  private isBlank({ itemInfo: { itemName } }: { itemInfo: ItemInfoType; isAddMode: boolean }) {
     return itemName.length === 0;
   }
 
   private isNotNumberType({
     itemInfo: { itemPrice, itemQuantity },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -143,7 +143,7 @@ class VendingMachine implements VendingMachineInterface {
   private isExceedMaxNameLength({
     itemInfo: { itemName },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -155,7 +155,7 @@ class VendingMachine implements VendingMachineInterface {
     isAddMode,
     itemIndex,
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -171,7 +171,7 @@ class VendingMachine implements VendingMachineInterface {
   private isExceedPriceRange({
     itemInfo: { itemPrice },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -181,7 +181,7 @@ class VendingMachine implements VendingMachineInterface {
   private isNotDividedByPriceUnit({
     itemInfo: { itemPrice },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -191,7 +191,7 @@ class VendingMachine implements VendingMachineInterface {
   private isExceedQuantityRange({
     itemInfo: { itemQuantity },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
@@ -201,7 +201,7 @@ class VendingMachine implements VendingMachineInterface {
   private isNotDividedByQuantityUnit({
     itemInfo: { itemQuantity },
   }: {
-    itemInfo: itemInfoType;
+    itemInfo: ItemInfoType;
     isAddMode: boolean;
     itemIndex: number;
   }) {
