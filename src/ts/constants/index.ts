@@ -1,16 +1,21 @@
 const MAX_NAME_LENGTH = 10;
+const MAX_QUANTITY = 20;
+
+const coinType: [500, 100, 50, 10] = [500, 100, 50, 10];
+
 const PRICE_RULE = {
   MIN: 100,
   MAX: 10_000,
   UNIT: 10,
 };
-const MAX_QUANTITY = 20;
-
-const coinType: [500, 100, 50, 10] = [500, 100, 50, 10];
-
 const CASH_RULE = {
   MIN: 1,
   MAX: 100_000,
+  UNIT: 10,
+};
+const PURCHASE_CASH_RULE = {
+  MIN: 1,
+  MAX: 10_000,
   UNIT: 10,
 };
 
@@ -27,6 +32,9 @@ const MESSAGE = {
   ERROR_INVALID_CASH: `금액은 ${CASH_RULE.MAX.toLocaleString()}원 이하여야 하며, ${
     CASH_RULE.UNIT
   }으로 나누어 떨어져야 합니다.`,
+  ERROR_INVALID_PURCHASE_CASH: `금액은 ${PURCHASE_CASH_RULE.MAX.toLocaleString()}원 이하여야 하며, ${
+    PURCHASE_CASH_RULE.UNIT
+  }으로 나누어 떨어져야 합니다.`,
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
 };
 
@@ -37,4 +45,5 @@ export {
   MAX_QUANTITY,
   coinType,
   CASH_RULE,
+  PURCHASE_CASH_RULE,
 };

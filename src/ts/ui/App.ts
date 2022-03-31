@@ -1,19 +1,23 @@
 import ProductManagementDomain from '../domain/ProductManagementDomain/ProductManagement';
 import CoinManagementDomain from '../domain/CoinManagementDomain/CoinManagement';
+import PurchaseCashDomain from '../domain/PurchaseCashDomain/PurchaseCash';
 import { $, $$ } from '../utils/dom';
 import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
-import ProductPurchaseUI from './ProductPurchase';
+import ProductPurchaseUI from './ProductPurchaseUI';
 
 export default class App {
   constructor(
     private readonly productDomain = new ProductManagementDomain(),
     private readonly coinDomain = new CoinManagementDomain(),
+    private readonly purchaseCashDomain = new PurchaseCashDomain(),
     private readonly productManagementUI = new ProductManagementUI(
       productDomain,
     ),
     private readonly coinManagementUI = new CoinManagementUI(coinDomain),
-    private readonly productPurchaseUI = new ProductPurchaseUI(),
+    private readonly productPurchaseUI = new ProductPurchaseUI(
+      purchaseCashDomain,
+    ),
   ) {
     this.productManagementUI.render();
 
