@@ -1,4 +1,4 @@
-import { on, emit, remove } from "../util/event";
+import { on, emit } from "../util/event";
 import { $, createElement } from "../util/dom";
 import productTemplate from "../template/product.template.js";
 import { EVENT_TYPE } from "../constant";

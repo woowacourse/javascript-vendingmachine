@@ -1,6 +1,6 @@
 import changesTemplate from "../template/changes.template";
 import { $, createElement } from "../util/dom";
-import { emit, on, remove } from "../util/event";
+import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 
 class ChangePageView {
