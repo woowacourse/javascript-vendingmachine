@@ -11,13 +11,13 @@
 .item-info-input-cell {
   width: 100%;
   text-align: center;
-  background-color: #ffffff;
-  color: #949494;
+  background-color: var(--item-info-input-cell-background-color);
+  color: var(--item-info-input-cell-text-color);
 }
 
 .item-info-input-cell:disabled {
   border: none;
-  color: #000000;
+  color: var(--item-info-input-cell-disabled-text-color);
 }
 
 .edit-item-button {

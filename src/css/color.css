@@ -1,6 +1,20 @@
 :root {
-    --table-border-color: #dcdcdc;
-    --default-button-bg-color: #f5f5f5e3;
-    --default-button-hover-color: #eeeeee;
-    --input-form-button-bg-color: 
+  --main-background-color: #e5e5e5;
+  --input-border-color: #b4b4b4;
+  --app-background-color: #fff;
+  --default-button-background-color: #f5f5f5e3;
+  --default-button-hover-color: #eee;
+  --input-form-button-background-color: #00bcd4;
+  --input-form-button-text-color: #fff;
+  --input-form-button-hover-color: #00b3ca;
+  --nav-tab-button-background-color: #f5f5f5;
+  --nav-tab-button-text-color: #000;
+  --nav-tab-button-hover-color: #ebebeb;
+  --nav-tab-button-selected-background-color: #00bcd429;
+  --nav-tab-button-selected-hover-color: #00bbd459;
+  --tab-content-box-shadow-color: #00bbd459;
+  --table-border-color: #dcdcdc;
+  --item-info-input-cell-background-color: #fff;
+  --item-info-input-cell-text-color: #949494;
+  --item-info-input-cell-disabled-text-color: #000;
 }
