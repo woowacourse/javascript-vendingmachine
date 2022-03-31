@@ -27,12 +27,13 @@ class ProductStore {
 
   updateProducts(action: Action): void {
     const newProducts = this.generateNewProducts(this.#products, action);
+
     this.#products = newProducts;
   }
 
   // eslint-disable-next-line max-lines-per-function
   generateNewProducts(oldProducts: Product[], { type, detail }: Action): Product[] {
-    const newProducts = oldProducts;
+    const newProducts = [...oldProducts];
 
     switch (type) {
       case PRODUCT_ACTION.ADD: {
