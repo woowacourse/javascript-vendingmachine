@@ -5,7 +5,7 @@ routes();
 
 const productManageButton = document.querySelector('#product-manage-button');
 const changeAddButton = document.querySelector('#change-add-button');
-// const btn3 = document.querySelector('#product-purchase-button');
+const productPurchaseButton = document.querySelector('#product-purchase-button');
 
 productManageButton.addEventListener('click', () => {
   const { hash, pathname } = window.location;
@@ -24,6 +24,16 @@ changeAddButton.addEventListener('click', () => {
   if (hash === path) return;
 
   history.pushState({}, '잔돈 채우기', pathname + '#!/change-add');
+  routes();
+});
+
+productPurchaseButton.addEventListener('click', () => {
+  const { hash, pathname } = window.location;
+  const path: string = '#!/product-purchase';
+
+  if (hash === path) return;
+
+  history.pushState({}, '상품 구매', pathname + '#!/product-purchase');
   routes();
 });
 
