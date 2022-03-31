@@ -10,23 +10,25 @@ interface CoinType {
 }
 
 class Charge {
-  main: HTMLElement;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
   coinObj: CoinType;
   totalCharge: number;
+  chargeContainer: HTMLElement;
 
   constructor() {
-    this.main = $(".main");
-    this.coinObj = { 10: 0, 50: 0, 100: 0, 500: 0 };
     this.totalCharge = 0;
-  }
+    this.coinObj = { 10: 0, 50: 0, 100: 0, 500: 0 };
 
-  bindChargeDom() {
+    this.chargeContainer = $(".charge-manange__container");
+    this.chargeContainer.replaceChildren();
+    this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
+
     this.chargeForm = $("#charge-control-form");
     this.chargeInput = $(".charge-control-input");
     this.currentContainCharge = $("#current-contain-charge");
+
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
 
@@ -73,10 +75,8 @@ class Charge {
     );
   }
 
-  render() {
-    this.main.replaceChildren();
-    this.main.insertAdjacentHTML("beforeend", chargeTemplate());
-    this.bindChargeDom();
+  show() {
+    this.chargeContainer.classList.remove("hide");
   }
 }
 

@@ -9,10 +9,20 @@ class App {
   menuTab: MenuTab;
   charge: Charge;
   product: Product;
+  manageContainers: NodeList;
 
   constructor() {
     this.app = $("#app");
-    this.app.insertAdjacentHTML("beforeend", `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`);
+    this.app.insertAdjacentHTML(
+      "beforeend",
+      `<h1>🍿 자판기 🍿</h1>
+      ${menuTabTemplate}
+      <main>
+        <section class="product-manange__container container"></section>
+        <section class="charge-manange__container container"></section>
+      </main>`,
+    );
+    this.manageContainers = $$(".container");
 
     this.mountComponent();
     this.convertTemplate(location.hash || "#product");
@@ -43,10 +53,16 @@ class App {
     );
   }
 
+  hideContainers() {
+    this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
+  }
+
   convertTemplate = (path: string) => {
+    this.hideContainers();
+
     const routes = {
-      "#charge": () => this.charge.render(),
-      "#product": () => this.product.render(),
+      "#charge": () => this.charge.show(),
+      "#product": () => this.product.show(),
       "#purchase": () => "",
     };
 

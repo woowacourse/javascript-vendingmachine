@@ -4,20 +4,21 @@ import { verifyProductInfo } from "../../utils/validation";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
 class Product {
-  main: HTMLElement;
+  productContainer: HTMLElement;
   productControlInputs: NodeList;
   productAddButton: HTMLElement;
   productTable: HTMLElement;
   productNameTdList: NodeList | null;
 
   constructor() {
-    this.main = $(".main");
-  }
+    this.productContainer = $(".product-manange__container");
+    this.productContainer.replaceChildren();
+    this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
 
-  bindProductDom() {
     this.productControlInputs = $$(".product-control-input");
     this.productAddButton = $("#product-add-button");
     this.productTable = $("#product-control-table");
+
     this.productAddButton.addEventListener("click", this.handleAddProduct);
     this.productTable.addEventListener("click", this.handleRemoveProduct);
     this.productTable.addEventListener("click", this.handleEditProduct);
@@ -87,10 +88,8 @@ class Product {
     target.closest("tr").innerHTML = addProductTemplate(productName, productPrice, productQuantity);
   };
 
-  render() {
-    this.main.replaceChildren();
-    this.main.insertAdjacentHTML("beforeend", productTemplate());
-    this.bindProductDom();
+  show() {
+    this.productContainer.classList.remove("hide");
   }
 }
 
