@@ -1,5 +1,3 @@
-export const BASE_URL = 'javascript-vendingmachine';
-
 export const COIN = {
   DEFAULT_COUNT: 0,
 };

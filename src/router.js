@@ -1,5 +1,4 @@
 import { $, $$ } from './utils/dom';
-// import { BASE_URL } from './constants';
 
 const $nav = $('nav');
 const $navButtons = $$('button', $nav);
