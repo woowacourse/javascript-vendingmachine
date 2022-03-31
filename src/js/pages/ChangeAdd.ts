@@ -18,11 +18,18 @@ export default class ChangeAdd {
   }
 
   render() {
-    this.$inputSection.insertAdjacentHTML('beforeend', template.changeAddContainer());
+    this.$inputSection.insertAdjacentHTML(
+      'beforeend',
+      template.moneyAddContainer({
+        labelText: '자판기가 보유할 금액을 입력해주세요',
+        buttonText: '충전',
+        resultText: '현재 보유 금액',
+      }),
+    );
     this.$contentsContainer.insertAdjacentHTML('beforeend', template.changeListWrapper());
 
-    this.$changeAddForm = this.$inputSection.querySelector('#change-add-form');
-    this.$totalChange = this.$inputSection.querySelector('#total-change');
+    this.$changeAddForm = this.$inputSection.querySelector('#money-add-form');
+    this.$totalChange = this.$inputSection.querySelector('#total-money');
     this.$changeList = this.$contentsContainer.querySelector('#change-list');
 
     this.$amountCoin500 = this.$changeList.querySelector('#amount-coin-500');
@@ -37,7 +44,7 @@ export default class ChangeAdd {
 
   onSubmitChangeAdd = (e: SubmitEvent) => {
     e.preventDefault();
-    const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
+    const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#money-add-input')).value);
 
     try {
       vendingMachine.addChange(inputChange);

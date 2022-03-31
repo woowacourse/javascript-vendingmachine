@@ -19,9 +19,19 @@ export default class ProductPurchase {
 
   render() {
     console.log('productPurchase render');
-    this.$inputSection.insertAdjacentHTML('beforeend', template.changeAddContainer());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.productListContainer());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.changeListWrapper());
+    this.$inputSection.insertAdjacentHTML(
+      'beforeend',
+      template.moneyAddContainer({
+        labelText: '상품을 구매할 금액을 투입해주세요',
+        buttonText: '투입',
+        resultText: '투입한 금액',
+      }),
+    );
+    this.$contentsContainer.insertAdjacentHTML(
+      'beforeend',
+      template.productListContainer() + template.changeListWrapper(),
+    );
+
     this.$productList = this.$contentsContainer.querySelector('#product-list');
     this.$changeList = this.$contentsContainer.querySelector('#change-list');
 

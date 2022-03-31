@@ -1,4 +1,4 @@
-import changeAddContainer from './changeAddContainer';
+import moneyAddContainer from './moneyAddContainer';
 import changeListWrapper from './changeListWrapper';
 import modifyProductItem from './modifyProductItem';
 import productItem from './productItem';
@@ -6,7 +6,7 @@ import productListContainer from './productListContainer';
 import productManageContainer from './productManageContainer';
 
 export default {
-  changeAddContainer,
+  moneyAddContainer,
   changeListWrapper,
   modifyProductItem,
   productItem,

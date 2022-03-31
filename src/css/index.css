@@ -68,7 +68,7 @@ input:focus {
   border: 1px solid var(--input-border-focus-color);
 }
 
-#change-add-input {
+#money-add-input {
   width: 300px;
 }
 
@@ -96,13 +96,13 @@ h4 {
   color: var(--primary-text-color);
 }
 
-#change-add-container {
+#money-add-container {
   margin: auto;
 }
 
 #product-list-container {
   width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 30px;
 }
 
 #product-list-wrapper {
