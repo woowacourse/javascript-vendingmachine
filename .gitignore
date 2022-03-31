@@ -1,2 +1,12 @@
 # Dependency directories
 node_modules/
+
+cypress/fixtures
+
+cypress/plugins
+
+cypress/screenshots
+
+cypress/videos
+
+dist

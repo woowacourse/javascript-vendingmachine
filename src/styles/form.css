@@ -1,0 +1,35 @@
+@import url('./color.css');
+.input-form {
+  width: 400px;
+}
+.input-form label {
+  color: var(--label-font-color);
+}
+
+.input-form .input-wrapper {
+  display: flex;
+  gap: 4px;
+}
+.input-form input {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--input-border-color);
+  padding: 7px 5px;
+  flex: 1;
+}
+.input-form .submit-button {
+  width: 56px;
+  background-color: var(--button-skyblue-background-color);
+  color: var(--button-skyblue-font-color);
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.input-form .submit-button:hover {
+  opacity: 0.8;
+}
+
+.input-form * {
+  margin-top: 5px;
+}

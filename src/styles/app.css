@@ -1,0 +1,66 @@
+@import url('./color.css');
+body {
+  padding: 64px 0;
+  background-color: var(--body-background-color);
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid var(--app-border-color);
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+nav {
+  display: flex;
+  width: 359px;
+  margin-bottom: 50px;
+  gap: 4px;
+}
+button {
+  width: 100%;
+  cursor: pointer;
+}
+
+button.gray-button {
+  background-color: var(--button-gray-background-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+a.tab-button.checked {
+  background-color: var(--button-hover-background-color);
+}
+
+button:hover {
+  background-color: var(--button-hover-background-color);
+}
+
+#return-change-button {
+  width: 100px;
+}
+
+a.tab-button {
+  width: 100%;
+  background-color: var(--button-gray-background-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #000000;
+  text-align: center;
+}
+a.tab-button:hover {
+  background-color: var(--button-hover-background-color);
+}
+.hide {
+  display: none;
+  visibility: none;
+  opacity: 0;
+}
