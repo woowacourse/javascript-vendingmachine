@@ -42,6 +42,7 @@ export default class Controller {
         break;
       case '#!purchase':
         this.productPurchaseView.initPurchaseDOM();
+        this.productPurchaseView.renderAmount(this.productPurchase.getUserAmount());
         this.productPurchaseView.render(this.productManager.getProducts());
     }
   };
