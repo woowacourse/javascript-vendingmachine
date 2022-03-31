@@ -18,6 +18,13 @@ test('자판기 보유 금액은 최대 100,000원 이다.', () => {
   }).toThrowError('돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.');
 });
 
+test('자판기에 10원단위 잔돈을 입력할 수 있다.', () => {
+  const coinValut = new CoinVault();
+  expect(() => {
+    coinValut.chargeMoney(1230);
+  }).not.toThrowError();
+});
+
 test('자판기 잔돈이 10원 단위가 아닐시 에러 메세지를 보여준다', () => {
   const coinValut = new CoinVault();
   expect(() => {
