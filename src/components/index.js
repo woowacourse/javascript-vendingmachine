@@ -1,3 +1,5 @@
+import { accessTokenStorage } from '../stores/authStorage';
+import LoginComponent from './loginComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
 import RechargeChangeComponent from './RechargeChangeComponent';
@@ -6,6 +8,7 @@ class VendingMachineComponent {
   #ProductManagementComponent;
   #PurchaseProductComponent;
   #RechargeChangeComponent;
+  #LoginComponent;
 
   $app;
   constructor(hashRoute) {
@@ -21,35 +24,70 @@ class VendingMachineComponent {
       rechargeChange: this.$app.querySelector('#recharge-change-tab'),
       purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
     };
+    this.$nav = document.querySelector('nav');
+    this.$loginUserHref = document.querySelector('.login-user-href');
+    this.$userProfileContainer = document.querySelector('.user-profile-container');
   }
 
   initChildComponents() {
     this.#ProductManagementComponent = new ProductManagementComponent(this.$app);
     this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
+    this.#LoginComponent = new LoginComponent(this.$app);
   }
 
   showSectionByRoute(route) {
-    if (route === '') {
-      this.#RechargeChangeComponent.hide();
-      this.#PurchaseProductComponent.hide();
+    if (this.checkLoginStatus()) {
+      this.$nav.classList.remove('hide');
+      this.$loginUserHref.classList.add('hide');
+      this.$userProfileContainer.classList.remove('hide');
 
-      this.#ProductManagementComponent.show();
-      this.focusTabButton('manageProduct');
+      if (route === 'manage') {
+        this.#RechargeChangeComponent.hide();
+        this.#PurchaseProductComponent.hide();
+        this.#LoginComponent.hide();
+
+        this.#ProductManagementComponent.show();
+        this.focusTabButton('manageProduct');
+      }
+      if (route === 'recharge') {
+        this.#PurchaseProductComponent.hide();
+        this.#ProductManagementComponent.hide();
+        this.#LoginComponent.hide();
+
+        this.#RechargeChangeComponent.show();
+        this.focusTabButton('rechargeChange');
+      }
+      if (route === '') {
+        this.#ProductManagementComponent.hide();
+        this.#RechargeChangeComponent.hide();
+        this.#LoginComponent.hide();
+
+        this.#PurchaseProductComponent.show();
+        this.focusTabButton('purchaseProduct');
+      }
     }
-    if (route === 'recharge') {
-      this.#PurchaseProductComponent.hide();
-      this.#ProductManagementComponent.hide();
 
-      this.#RechargeChangeComponent.show();
-      this.focusTabButton('rechargeChange');
-    }
-    if (route === 'purchase') {
-      this.#ProductManagementComponent.hide();
-      this.#RechargeChangeComponent.hide();
+    if (!this.checkLoginStatus()) {
+      this.$nav.classList.add('hide');
+      this.$loginUserHref.classList.remove('hide');
+      this.$userProfileContainer.classList.add('hide');
 
-      this.#PurchaseProductComponent.show();
-      this.focusTabButton('purchaseProduct');
+      if (route === '') {
+        this.#ProductManagementComponent.hide();
+        this.#RechargeChangeComponent.hide();
+        this.#LoginComponent.hide();
+
+        this.#PurchaseProductComponent.show();
+      }
+
+      if (route === 'login') {
+        this.#RechargeChangeComponent.hide();
+        this.#ProductManagementComponent.hide();
+        this.#PurchaseProductComponent.hide();
+
+        this.#LoginComponent.show();
+      }
     }
   }
 
@@ -61,6 +99,14 @@ class VendingMachineComponent {
       }
       node.classList.remove('checked');
     });
+  }
+
+  checkLoginStatus() {
+    const accessToken = accessTokenStorage.getAccessTokenStorage();
+    if (accessToken) {
+      return true;
+    }
+    return false;
   }
 }
 

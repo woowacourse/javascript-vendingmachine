@@ -9,12 +9,26 @@
   <body>
     <div id="app">
       <h1>🍿 자판기 🍿</h1>
+      <header>
+        <a href="#login" class="login-user-href">
+          <button type="button" id="login-button" class="gray-button">로그인</button>
+        </a>
+        <div class="user-profile-container">
+          <button id="user-profile">U</button>
+          <div id="user-href-container">
+            <button id="logout-button" class="gray-button">로그아웃</button>
+            <a href="#edit-user-info" id="edit-user-href" class="gray-button">
+              <button class="gray-button">회원정보수정</button>
+            </a>
+          </div>
+        </div>
+      </header>
       <nav>
-        <a href="#" class="tab-button gray-button" id="manage-product-tab">상품 관리</a>
+        <a href="#manage" class="tab-button gray-button" id="manage-product-tab">상품 관리</a>
         <a href="#recharge" class="tab-button gray-button" id="recharge-change-tab">잔돈 충전</a>
-        <a href="#purchase" class="tab-button gray-button" id="purchase-product-tab">상품 구매</a>
+        <a href="#" class="tab-button gray-button" id="purchase-product-tab">상품 구매</a>
       </nav>
     </div>
-    <div class="snack-bar">aaa</div>
+    <div class="snack-bar"></div>
   </body>
 </html>
