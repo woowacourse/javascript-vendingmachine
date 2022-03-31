@@ -1,3 +1,5 @@
+import { PRODUCT } from "../../utils/constants";
+
 const productTemplate = () => {
   return `
   <div>
@@ -5,7 +7,8 @@ const productTemplate = () => {
       <label>추가할 상품 정보를 입력해주세요.</label>
         <div>
           <input placeholder="상품명" class="product-manange__name-input product-input" />
-          <input type="number" placeholder="가격" class="product-manange__price-input product-input" />
+          <input type="number" placeholder="가격" class="product-manange__price-input product-input" 
+          min=${PRODUCT.MIN_PRICE} max=${PRODUCT.MAX_PRICE} step=${PRODUCT.UNIT} />
           <input type="number" placeholder="수량" class="product-manange__quantity-input product-input" />
           <button type="submit" class="product-manange__add-button">추가</button>
         </div>

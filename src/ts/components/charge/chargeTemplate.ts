@@ -1,10 +1,13 @@
+import { CHARGE } from "../../utils/constants";
+
 const chargeTemplate = () => {
   return `
   <div>
     <form class="charge-manange__form">
       <label>자판기가 보유할 금액을 입력해주세요.</label>
         <div>
-          <input type="number" placeholder="금액" value="" class="charge-manange__input" />
+          <input type="number" placeholder="금액" class="charge-manange__input" 
+          min=${CHARGE.MIN_PRICE} max=${CHARGE.MAX_PRICE} step=${CHARGE.UNIT} />
           <button type="submit" class="charge-manange__add-button">충전</button>
         </div>
     </form>  
