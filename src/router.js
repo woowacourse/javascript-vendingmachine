@@ -20,6 +20,8 @@ const renderProductManageContainer = () => {
 };
 
 const handleProductManageButtonClick = (event) => {
+  if (!$productManageContainer.getAttribute('hidden')) return;
+
   const route = event.target.getAttribute('route');
 
   window.history.pushState({}, null, route);
@@ -38,6 +40,8 @@ const renderCoinChargeContainer = () => {
 };
 
 const handleCoinChargeButtonClick = (event) => {
+  if (!$coinChargeContainer.getAttribute('hidden')) return;
+
   const route = event.target.getAttribute('route');
 
   window.history.pushState({}, null, route);
