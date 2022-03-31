@@ -17,7 +17,7 @@ export default class Coin implements CoinInterface {
 
   addAmount(chargedAmount: number): void {
     const currentAmount = this.getAmount() + chargedAmount;
-    validChargeAmount(chargedAmount, currentAmount);
+    if (!validChargeAmount(chargedAmount, currentAmount)) return;
     this.makeRandomCoins(chargedAmount);
   }
 

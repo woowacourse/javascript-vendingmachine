@@ -46,4 +46,5 @@ export const validChargeAmount = (amount, totalAmount) => {
   if (isOverMaxNumber(totalAmount, COIN.MAX_AMOUNT)) {
     throw new Error(ERROR_MESSAGE.OVER_MAX_AMOUNT);
   }
+  return true;
 };

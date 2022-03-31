@@ -9,7 +9,7 @@ export default class ProductManager implements ProductManageInterface {
   }
 
   addProduct(product: Product): void {
-    validProductInfo(product, this.#products);
+    if (!validProductInfo(product, this.#products)) return;
     this.#products.push(product);
   }
 
@@ -20,7 +20,7 @@ export default class ProductManager implements ProductManageInterface {
   modifyProduct(index: number, product: Product): void {
     const productsList = [...this.#products];
     productsList.splice(index, 1);
-    validProductInfo(product, productsList);
+    if (!validProductInfo(product, productsList)) return;
     this.#products.splice(index, 1, product);
   }
 
