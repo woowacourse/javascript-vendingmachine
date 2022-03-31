@@ -2,7 +2,7 @@ import Subject from '../core/Subject';
 import { deepClone } from '../utils/commons';
 import { createRandomCoins } from '../utils/coinUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
-import { ERROR_MESSAGE } from '../constant/constant';
+import { ERROR_MESSAGE, EMPTY_COIN } from '../constant/constant';
 
 export interface Item {
   name: string;
@@ -21,15 +21,10 @@ export interface VendingMachineState {
   items: Item[];
   coins: Coins;
 }
-
 export default class VendingMachine {
   state: VendingMachineState;
 
   constructor(initialItems: Item[], initialCoins: Coins) {
-    this.init(initialItems, initialCoins);
-  }
-
-  init(initialItems: Item[], initialCoins: Coins): void {
     this.state = Subject.observable({
       items: initialItems,
       coins: initialCoins,
@@ -84,12 +79,7 @@ export default class VendingMachine {
     validate(amountValidator, amount, this.getTotalMoney());
 
     const randomCoins = createRandomCoins(amount);
-    const updatedCoins: Coins = {
-      10: 0,
-      50: 0,
-      100: 0,
-      500: 0,
-    };
+    const updatedCoins: Coins = EMPTY_COIN;
 
     Object.keys(this.state.coins).forEach((key) => {
       updatedCoins[key] = this.state.coins[key] + randomCoins[key];
@@ -107,9 +97,4 @@ export default class VendingMachine {
   }
 }
 
-export const vendingMachine = new VendingMachine([], {
-  10: 0,
-  50: 0,
-  100: 0,
-  500: 0,
-});
+export const vendingMachine = new VendingMachine([], EMPTY_COIN);

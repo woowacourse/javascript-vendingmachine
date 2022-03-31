@@ -32,6 +32,13 @@ export const MONEY_UNIT = 10;
 
 export const COINS = [10, 50, 100, 500];
 
+export const EMPTY_COIN = {
+  10: 0,
+  50: 0,
+  100: 0,
+  500: 0,
+};
+
 export const AMOUNT = {
   MIN: 10,
   MAX: 100000,

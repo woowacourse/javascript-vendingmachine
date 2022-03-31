@@ -1,11 +1,11 @@
 import VendingMachine from '../domains/VendingMachine';
-import { ITEM, AMOUNT, MONEY_UNIT } from '../constant/constant';
+import { ITEM, AMOUNT, MONEY_UNIT, EMPTY_COIN } from '../constant/constant';
 
-const vendingMachine = new VendingMachine([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+let vendingMachine;
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine.init([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], EMPTY_COIN);
   });
 
   describe('addItem', () => {
@@ -104,6 +104,7 @@ describe('vendingMachine', () => {
         ]);
       });
     });
+
     describe('실패 시', () => {
       test('itemList에 포함되지 없는 값을 업데이트 할 때 Error를 throw한다.', () => {
         expect(() => {
@@ -137,7 +138,7 @@ describe('vendingMachine', () => {
     });
   });
 
-  describe('remove', () => {
+  describe('removeItem', () => {
     describe('성공 시', () => {
       test('상품을 삭제할 수 있다', () => {
         vendingMachine.addItem({ name: '콜라', price: 1500, quantity: 5 });
@@ -178,7 +179,7 @@ describe('vendingMachine', () => {
 
 describe('vendingMachine', () => {
   beforeEach(() => {
-    vendingMachine.init([], { 10: 0, 50: 0, 100: 0, 500: 0 });
+    vendingMachine = new VendingMachine([], EMPTY_COIN);
   });
 
   describe('addCoin', () => {
