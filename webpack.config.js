@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+  mode: process.env.NODE_ENV,
   entry: './src/index.ts',
   resolve: {
     extensions: ['.js', '.css', '.ts'],
