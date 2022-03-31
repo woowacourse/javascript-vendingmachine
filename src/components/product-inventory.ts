@@ -10,31 +10,30 @@ import { validateProduct } from '../validation/validators';
 @customElement('product-inventory')
 class ProductInventory extends Component {
   productItemTemplate({ name, price, quantity, isEditing }: ProductItem) {
+    if (isEditing) {
+      return `
+        <tr>
+          <td><input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}"/></td>
+          <td><input class="form-control" placeholder="가격" value="${price}"/></td>
+          <td><input class="form-control" placeholder="수량" value="${quantity}"/></td>
+          <td class="has-btn">
+            <div class="btn-group">
+              <button class="btn xs mr-2 btn-primary btn-confirm">확인</button>
+              <button class="btn xs btn-outline-primary btn-cancel">취소</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
     return `
       <tr>
-        <td>${
-          isEditing
-            ? `<input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}"/>`
-            : name
-        }</td>
-        <td>${
-          isEditing
-            ? `<input class="form-control" placeholder="가격" value="${price}"/>`
-            : `${price.toLocaleString('ko-kr')}원`
-        }</td>
-        <td>${
-          isEditing
-            ? `<input class="form-control" placeholder="수량" value="${quantity}"/>`
-            : `${quantity.toLocaleString('ko-kr')}개`
-        }</td>
+        <td>${name}</td>
+        <td>${price.toLocaleString('ko-kr')}원</td>
+        <td>${quantity.toLocaleString('ko-kr')}개</td>
         <td class="has-btn">
           <div class="btn-group">
-            <button class="btn xs mr-2 ${
-              isEditing ? 'btn-primary btn-confirm' : 'btn-secondary btn-edit'
-            }">${isEditing ? '확인' : '수정'}</button>
-            <button class="btn xs ${
-              isEditing ? 'btn-outline-primary btn-cancel' : 'btn-secondary btn-delete'
-            }">${isEditing ? '취소' : '삭제'}</button>
+            <button class="btn xs mr-2 btn-secondary btn-edit">수정</button>
+            <button class="btn xs btn-secondary btn-delete">삭제</button>
           </div>
         </td>
       </tr>
