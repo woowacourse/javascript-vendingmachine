@@ -41,8 +41,8 @@ const PurchaseDialog = props => {
   })();
   const fragment = new DocumentFragment();
   const div = document.createElement('div');
-  div.classList.add('dialog');
 
+  div.classList.add('dialog');
   div.insertAdjacentHTML('beforeend', template(props));
   fragment.appendChild(div);
   body.appendChild(fragment);
@@ -63,12 +63,7 @@ const PurchaseDialog = props => {
 
     const quantity = selectQuantity.valueAsNumber;
     const newAmount = amount - quantity;
-
-    const product = {
-      name,
-      price,
-      amount: newAmount,
-    };
+    const product = { name, price, amount: newAmount };
 
     callbackSubmitQuantity({ quantity, product, ul, oldLi });
     div.remove();

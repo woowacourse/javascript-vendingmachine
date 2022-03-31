@@ -8,9 +8,11 @@
   z-index: 99;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .dialog-contents {
+  cursor: default;
   z-index: 100;
   position: fixed;
   bottom: 0;
@@ -57,6 +59,7 @@
 #select-quantity {
   width: 60px;
   text-align: center;
+  cursor: default;
 }
 
 .select-quantity-box label {
