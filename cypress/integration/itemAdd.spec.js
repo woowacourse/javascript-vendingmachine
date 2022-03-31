@@ -1,6 +1,6 @@
 import { ITEM_ERROR_MESSAGE } from '../../src/ts/constant/errorMessage';
 
-describe('상품 관리 탭 테스트', () => {
+describe('상품 추가 테스트', () => {
   const itemName = '콜라';
   const itemPrice = 1000;
   const itemQuantity = 10;
@@ -9,7 +9,7 @@ describe('상품 관리 탭 테스트', () => {
     cy.visit('/#item-manage');
   });
 
-  it.only('올바른 상품명, 가격, 수량을 입력하고 추가 버튼을 누르면 상품을 추가할 수 있다.', () => {
+  it('올바른 상품명, 가격, 수량을 입력하고 추가 버튼을 누르면 상품을 추가할 수 있다.', () => {
     cy.addItem(itemName, itemPrice, itemQuantity);
 
     cy.checkAddedItem(itemName);
@@ -122,23 +122,5 @@ describe('상품 관리 탭 테스트', () => {
 
     cy.checkInvalidInputCount(expectedInvalidInputCount);
     cy.checkItemNotAdded();
-  });
-
-  it('추가한 상품에 수정 버튼을 누르면 상품 정보를 수정할 수 있다.', () => {
-    cy.addItem(itemName, itemPrice, itemQuantity);
-
-    cy.get('.edit-item-button').click();
-    cy.get('.item-info-input-cell').eq(0).clear().type('사이다');
-    cy.get('.confirm-item-button').click();
-
-    cy.get('tr').eq(1).should('have.attr', 'data-item-name', '사이다');
-  });
-
-  it('추가한 상품에 삭제 버튼을 누르면 상품을 삭제할 수 있다.', () => {
-    cy.addItem(itemName, itemPrice, itemQuantity);
-
-    cy.get('.delete-item-button').click();
-
-    cy.get('tr').should('have.length', 1);
   });
 });

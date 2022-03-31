@@ -1,6 +1,6 @@
 import { CASH_ERROR_MESSAGE } from '../../src/ts/constant/errorMessage';
 
-describe('잔돈 충전 탭 테스트', () => {
+describe('잔돈 충전 테스트', () => {
   const initialChargedAmount = 0;
   const expectedInvalidInputCount = 1;
 
