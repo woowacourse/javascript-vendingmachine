@@ -138,19 +138,19 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td id="five-hundred-coin-remain"></td>
+          <td id="five-hundred-coin-remain">0개</td>
         </tr>
         <tr>
           <td>100원</td>
-          <td id="one-hundred-coin-remain"></td>
+          <td id="one-hundred-coin-remain">0개</td>
         </tr>
         <tr>
           <td>50원</td>
-          <td id="fifty-coin-remain"></td>
+          <td id="fifty-coin-remain">0개</td>
         </tr>
         <tr>
           <td>10원</td>
-          <td id="ten-coin-remain"></td>
+          <td id="ten-coin-remain">0개</td>
         </tr>
       </tbody>
     </table>
