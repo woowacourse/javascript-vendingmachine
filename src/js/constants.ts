@@ -8,6 +8,7 @@ const RULES = {
   CHANGE_UNITS: [500, 100, 50, 10],
   MIN_INPUT_MONEY: 0,
   MAX_VENDING_MACHINE_CHANGE: 100000,
+  MAX_USER_MONEY: 10000,
   NOT_EXIST_INDEX: -1,
 };
 
@@ -19,6 +20,7 @@ const ERROR_MESSAGE = {
   }원으로 나누어 떨어져야 합니다.`,
   PRODUCT_AMOUNT: `한 제품당 수량은 최대 ${RULES.MAX_PRODUCT_AMOUNT}개 입니다.`,
   TOO_MUCH_VENDING_MACHINE_CHANGE: `자판기가 보유할 수 있는 최대 금액은 ${RULES.MAX_VENDING_MACHINE_CHANGE.toLocaleString()}원 입니다.`,
+  TOO_MUCH_USER_MONEY: `최대 투입 금액은 ${RULES.MAX_USER_MONEY.toLocaleString()}원 입니다.`,
   IS_NOT_UNIT_OF_TEN: `투입할 금액의 단위는 ${RULES.MINIMUM_CHANGE}원입니다.`,
   IS_NOT_POSITIVE_INTEGER: `투입할 금액은 ${RULES.MIN_INPUT_MONEY}보다 큰 금액이어야 합니다.`,
 };

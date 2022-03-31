@@ -8,7 +8,7 @@ const purchaseProductItem = (product: Product) => {
     <span class="product-amount product-block">${amount}</span>
     <span class="product-block">
       <button type="button" class="product-purchase-submit-button" data-name="${name}">
-        확인
+        구매
       </button>
     </span>
   `;

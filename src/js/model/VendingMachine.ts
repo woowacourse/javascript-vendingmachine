@@ -14,11 +14,13 @@ class VendingMachine {
   private changes: Coin;
   private products: Array<Product>;
   private totalMoney: number;
+  private userMoney: number;
 
   constructor() {
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.products = [];
     this.totalMoney = 0;
+    this.userMoney = 0;
   }
 
   getChanges() {
@@ -31,6 +33,10 @@ class VendingMachine {
 
   getTotalMoney() {
     return this.totalMoney;
+  }
+
+  getUserMoney() {
+    return this.userMoney;
   }
 
   addChange(money: number) {
@@ -80,6 +86,25 @@ class VendingMachine {
     const coins = RULES.CHANGE_UNITS.filter(coin => coin <= money);
     const index = getRandomInt(coins.length);
     return coins[index];
+  }
+
+  putMoney(money: number) {
+    this.checkUserMoneyValidate(money);
+    this.userMoney += money;
+  }
+
+  private checkUserMoneyValidate(money: number) {
+    if (!isPositiveInteger(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    }
+
+    if (!isUnitOfTen(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    }
+
+    if (this.userMoney + money > RULES.MAX_USER_MONEY) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_USER_MONEY);
+    }
   }
 
   addProduct(product: Product) {
