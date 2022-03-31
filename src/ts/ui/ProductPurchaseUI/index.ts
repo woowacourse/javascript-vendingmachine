@@ -1,4 +1,6 @@
 import { $, replaceHTML } from '../../utils/dom';
+import { viewPainter } from '../ViewPainter';
+import PurchaseCashChargeUI from './PurchaseCashChargeUI';
 
 export default class ProductPurchaseUI {
   private purchaseCashDomain;
@@ -46,5 +48,10 @@ export default class ProductPurchaseUI {
     `;
   }
 
-  private bindDOM() {}
+  private bindDOM() {
+    const purchaseCashChargeUI = new PurchaseCashChargeUI(
+      this.purchaseCashDomain,
+    );
+    viewPainter.purchaseCashChargeUI = purchaseCashChargeUI;
+  }
 }
