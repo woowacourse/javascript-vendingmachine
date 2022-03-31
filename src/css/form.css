@@ -33,6 +33,11 @@ input {
   color: #424242;
 }
 
+#manage-tab-title, #change-tab-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 #add-change-form {
   width: 100%;
   display: flex;
