@@ -76,7 +76,7 @@ class VendingMachine implements VendingMachineInterface {
     );
   }
 
-  validateItemInput(itemInfo: itemInfoType, isAddMode = true) {
+  validateItemInput(itemInfo: itemInfoType, isAddMode = true, itemIndex = null) {
     const testCases = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
@@ -101,7 +101,7 @@ class VendingMachine implements VendingMachineInterface {
     ];
 
     testCases.every(({ testCase, errorMessage }) => {
-      if (testCase({ itemInfo, isAddMode })) throw new Error(errorMessage);
+      if (testCase({ itemInfo, isAddMode, itemIndex })) throw new Error(errorMessage);
       return true;
     });
   }
@@ -135,6 +135,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return isNaN(itemPrice) || isNaN(itemQuantity);
   }
@@ -144,6 +145,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
@@ -151,11 +153,19 @@ class VendingMachine implements VendingMachineInterface {
   private isAlreadyExist({
     itemInfo: { itemName },
     isAddMode,
+    itemIndex,
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
-    return isAddMode && this._itemList.some((savedItem) => savedItem.itemName === itemName);
+    return this._itemList.some((savedItem, savedItemIndex) => {
+      if (!isAddMode && itemIndex === savedItemIndex) {
+        return false;
+      }
+
+      return savedItem.itemName === itemName;
+    });
   }
 
   private isExceedPriceRange({
@@ -163,6 +173,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
   }
@@ -172,6 +183,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return itemPrice % ITEM.PRICE_UNIT !== 0;
   }
@@ -181,6 +193,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;
   }
@@ -190,6 +203,7 @@ class VendingMachine implements VendingMachineInterface {
   }: {
     itemInfo: itemInfoType;
     isAddMode: boolean;
+    itemIndex: number;
   }) {
     return itemQuantity % ITEM.QUANTITY_UNIT !== 0;
   }
