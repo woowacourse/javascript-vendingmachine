@@ -27,7 +27,6 @@ describe('상품 추가 시 유효성 검사를 한다.', () => {
   test('상품명은 최소 1글자, 최대 10글자까지 가능하다.', () => {
     const productName = '사이다';
     const { hasError } = validateProductName(productName, productList);
-    console.log(productList, validateProductName(productName, productList));
     expect(hasError).toBe(false);
   });
 
