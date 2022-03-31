@@ -97,7 +97,7 @@ describe('상품 관리 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.NAME_LENGTH);
   });
 
-  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 에러를 발생시키지 않는다(10글자).', () => {
+  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 정상 작동한다(10글자).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -108,7 +108,7 @@ describe('상품 관리 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.NAME_LENGTH);
   });
 
-  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 에러를 발생시키지 않는다(9글자).', () => {
+  it('상품 정보를 수정할 시, 상품명이 10글자 이하이면 정상 작동한다(9글자).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -130,7 +130,7 @@ describe('상품 관리 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 에러를 발생시키지 않는다(100원).', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 정상 작동한다(100원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -141,7 +141,7 @@ describe('상품 관리 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 에러를 발생시키지 않는다(101원).', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 100원 이상이면 정상 작동한다(101원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -163,7 +163,7 @@ describe('상품 관리 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 에러를 발생시키지 않는다(10,000원).', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 정상 작동한다(10,000원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -174,7 +174,7 @@ describe('상품 관리 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 에러를 발생시키지 않는다(9,999원).', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 10,000원 이하라면 정상 작동한다(9,999원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -196,7 +196,7 @@ describe('상품 관리 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_UNIT);
   });
 
-  it('상품 정보를 수정할 시, 상품 가격이 10의 배수이면 에러를 발생시키지 않는다(1,510원).', () => {
+  it('상품 정보를 수정할 시, 상품 가격이 10의 배수이면 정상 작동한다(1,510원).', () => {
     const validProduct = { name: '코카콜라', price: 1000, quantity: 10 };
     vendingMachine.addProduct(validProduct);
 
@@ -277,7 +277,7 @@ describe('잔돈 충전 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.UNDER_MIN_RECHARGING_MONEY);
   });
 
-  it('충전할 금액이 10의 배수이면 에러를 발생시키지 않는다(1,510원).', () => {
+  it('충전할 금액이 10의 배수이면 정상 작동한다(1,510원).', () => {
     const insertedMoney = 1510;
 
     expect(() => {
@@ -295,7 +295,7 @@ describe('잔돈 충전 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   });
 
-  it('보유한 금액이 100,000원 이하이면 에러를 발생시키지 않는다(100,000원).', () => {
+  it('보유한 금액이 100,000원 이하이면 정상 작동한다(100,000원).', () => {
     vendingMachine.rechargeMoney(50000);
     vendingMachine.rechargeMoney(30000);
 
@@ -304,7 +304,7 @@ describe('잔돈 충전 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   });
 
-  it('보유한 금액이 100,000원 이하이면 에러를 발생시키지 않는다(999,990원).', () => {
+  it('보유한 금액이 100,000원 이하이면 정상 작동한다(999,990원).', () => {
     vendingMachine.rechargeMoney(50000);
     vendingMachine.rechargeMoney(30000);
 
