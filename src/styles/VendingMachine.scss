@@ -1,0 +1,41 @@
+#add-product-form-section {
+  position: relative;
+
+  .add-product-input-wrap {
+    display: grid;
+    grid-template-columns: minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%);
+    grid-column-gap: 0.5rem;
+
+    > * {
+      position: relative;
+      display: block;
+    }
+  }
+}
+
+#add-holding-amount-form-section {
+  #add-holding-amount-form {
+    margin-bottom: 1rem;
+
+    .add-holding-amount-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+
+      > input {
+        grid-column: 1 / 3;
+      }
+
+      > button {
+        grid-column: 3 / 3;
+      }
+    }
+  }
+}
+
+#holding-amount-table-section {
+  > table {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
