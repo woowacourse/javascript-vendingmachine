@@ -9,3 +9,5 @@ node_modules/
 
 # git commit message template
 .gitmessage
+
+/dist
