@@ -4,7 +4,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.ts',
+  entry: {
+    index: './src/js/index.ts',
+    manager: './src/js/manager.js',
+    login: './src/js/login.js',
+    signup: './src/js/signup/signup.js',
+  },
   resolve: {
     extensions: ['.js', '.css', '.ts'],
   },
@@ -13,7 +18,7 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -41,12 +46,39 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'html-loader',
+        },
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
+      hash: true,
+      chunks: ['index'],
       template: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'manager.html',
+      hash: true,
+      chunks: ['manager'],
+      template: './manager.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'login.html',
+      hash: true,
+      chunks: ['login'],
+      template: './login.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'signup.html',
+      hash: true,
+      chunks: ['signup'],
+      template: './signup.html',
     }),
   ],
 };
