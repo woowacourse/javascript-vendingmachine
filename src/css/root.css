@@ -1,0 +1,15 @@
+:root {
+  --cyan-dark: #00aac3;
+  --cyan: #00bcd4;
+  --cyan-light: rgba(0, 188, 212, 0.16);
+
+  --gray-700: #ebebeb;
+  --gray-600: #f5f5f5;
+  --gray-500: #f9f9f9;
+
+  --white: #ffffff;
+
+  --border: rgba(0, 0, 0, 0.12);
+  --border-table: #dcdcdc;
+  --border-input: #b4b4b4;
+}
