@@ -10,18 +10,18 @@ import { Coins } from '../utils/interface';
 import { getRandomNumZeroToMax } from '../utils/domain.utils';
 
 export class CoinVault {
-  private coinsQuantity: Coins;
+  #coinsQuantity: Coins;
 
   constructor() {
-    this.coinsQuantity = { ...COINS_INIT_QUANTITY };
+    this.#coinsQuantity = { ...COINS_INIT_QUANTITY };
   }
 
   getCoins(): Coins {
-    return this.coinsQuantity;
+    return this.#coinsQuantity;
   }
 
   getBalance() {
-    return [...Object.entries(this.coinsQuantity)].reduce(
+    return [...Object.entries(this.#coinsQuantity)].reduce(
       (previous, [key, value]) => previous + COINS_PRICE_TABLE[key] * value,
       0
     );
@@ -34,7 +34,7 @@ export class CoinVault {
 
   private addCoins(coins: Coins) {
     [...Object.entries(coins)].forEach(([key, value]) => {
-      this.coinsQuantity[key] += value;
+      this.#coinsQuantity[key] += value;
     });
   }
 

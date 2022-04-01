@@ -2,33 +2,33 @@ import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductCatalogTable {
-  private productCatalog: ProductCatalog;
-  private target: HTMLDivElement;
-  private productTableBody: HTMLTableElement;
+  #productCatalog: ProductCatalog;
+  #target: HTMLDivElement;
+  #productTableBody: HTMLTableElement;
 
   constructor(props) {
-    this.target = props.target;
-    this.productCatalog = props.productCatalog;
+    this.#target = props.target;
+    this.#productCatalog = props.productCatalog;
 
-    this.target.addEventListener('productAdded', this.render);
+    this.#target.addEventListener('productAdded', this.render);
   }
 
   render = () => {
     if (this.isRerender()) {
-      this.productTableBody.textContent = '';
-      this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
+      this.#productTableBody.textContent = '';
+      this.#productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
 
       return;
     }
 
-    this.target.insertAdjacentHTML('beforeend', this.template());
+    this.#target.insertAdjacentHTML('beforeend', this.template());
 
-    this.productTableBody = document.querySelector('#product-table-body');
-    this.productTableBody.addEventListener('click', this.handleProductStateManage);
+    this.#productTableBody = document.querySelector('#product-table-body');
+    this.#productTableBody.addEventListener('click', this.handleProductStateManage);
   };
 
   private isRerender(): boolean {
-    return this.productTableBody !== undefined;
+    return this.#productTableBody !== undefined;
   }
 
   private template(): string {
@@ -50,7 +50,7 @@ export class ProductCatalogTable {
   }
 
   private tableBodyTemplate(): string {
-    return this.productCatalog
+    return this.#productCatalog
       .getProductList()
       .map((product) => this.tableRowTemplate(product))
       .join('');
@@ -132,7 +132,7 @@ export class ProductCatalogTable {
   private deleteProduct(tableRow: HTMLTableRowElement) {
     if (window.confirm('진짜 지우실건가요?')) {
       tableRow.remove();
-      this.productCatalog.deleteProduct(tableRow.id);
+      this.#productCatalog.deleteProduct(tableRow.id);
     }
   }
 
@@ -146,7 +146,7 @@ export class ProductCatalogTable {
       tableRow.querySelector('.product-quantity input') as HTMLInputElement
     ).valueAsNumber;
 
-    this.productCatalog.editProduct(targetProductName, {
+    this.#productCatalog.editProduct(targetProductName, {
       name: editedProductName,
       price: editedProductPrice,
       quantity: editedProductQuantity,

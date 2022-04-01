@@ -1,9 +1,9 @@
 import { ERROR_MESSAGE, PRODUCT_CONDITION } from '../utils/constants';
 
 export class Product {
-  private name: string;
-  private price: number;
-  private quantity: number;
+  #name: string;
+  #price: number;
+  #quantity: number;
 
   constructor(name: string, price: number, quantity: number) {
     if (this.validateAllProp(name, price, quantity)) {
@@ -14,27 +14,27 @@ export class Product {
   }
 
   getName() {
-    return this.name;
+    return this.#name;
   }
 
   getPrice() {
-    return this.price;
+    return this.#price;
   }
 
   getQuantity() {
-    return this.quantity;
+    return this.#quantity;
   }
 
   setName(name: string) {
-    this.name = name;
+    this.#name = name;
   }
 
   setPrice(price: number) {
-    this.price = price;
+    this.#price = price;
   }
 
   setQuantity(quantity: number) {
-    this.quantity = quantity;
+    this.#quantity = quantity;
   }
 
   validateName(name: string) {
@@ -70,6 +70,6 @@ export class Product {
   }
 
   getAllProperties() {
-    return { name: this.name, price: this.price, quantity: this.quantity };
+    return { name: this.#name, price: this.#price, quantity: this.#quantity };
   }
 }

@@ -4,21 +4,21 @@ import { ProductProps } from '../utils/interface';
 import { Product } from './Product';
 
 export class ProductCatalog {
-  private productList: Product[];
+  #productList: Product[];
 
   constructor() {
-    this.productList = [];
+    this.#productList = [];
   }
 
   getProductList() {
-    return this.productList;
+    return this.#productList;
   }
 
   addProduct(product: ProductProps) {
     const { name, price, quantity } = product;
     if (this.isSameProductExist(name)) return;
 
-    this.productList = [...this.productList, new Product(name, price, quantity)];
+    this.#productList = [...this.#productList, new Product(name, price, quantity)];
   }
 
   isSameProductExist(name: string): boolean {
@@ -28,11 +28,11 @@ export class ProductCatalog {
   }
 
   findProduct(name: string): Product {
-    return this.productList.find((product) => product.getName() === name);
+    return this.#productList.find((product) => product.getName() === name);
   }
 
   deleteProduct(name: string) {
-    this.productList = this.productList.filter((product) => product.getName() !== name);
+    this.#productList = this.#productList.filter((product) => product.getName() !== name);
   }
 
   editProduct(targetProductName: string, editedProductProps: ProductProps) {

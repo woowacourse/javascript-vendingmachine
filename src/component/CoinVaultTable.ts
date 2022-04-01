@@ -2,22 +2,22 @@ import { CoinVault } from '../domain/CoinVault';
 import { Coins } from '../utils/interface';
 
 export class CoinVaultTable {
-  private target: HTMLDivElement;
-  private coinVault: CoinVault;
-  private coin500Quantity: HTMLSpanElement;
-  private coin100Quantity: HTMLSpanElement;
-  private coin50Quantity: HTMLSpanElement;
-  private coin10Quantity: HTMLSpanElement;
+  #target: HTMLDivElement;
+  #coinVault: CoinVault;
+  #coin500Quantity: HTMLSpanElement;
+  #coin100Quantity: HTMLSpanElement;
+  #coin50Quantity: HTMLSpanElement;
+  #coin10Quantity: HTMLSpanElement;
 
   constructor(props) {
-    this.target = props.target;
-    this.coinVault = props.coinVault;
+    this.#target = props.target;
+    this.#coinVault = props.coinVault;
 
-    this.target.addEventListener('coinCharged', this.updateCoinVaultTableTemplate);
+    this.#target.addEventListener('coinCharged', this.updateCoinVaultTableTemplate);
   }
 
   render() {
-    this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getCoins()));
+    this.#target.insertAdjacentHTML('beforeend', this.template(this.#coinVault.getCoins()));
     this.selectDom();
   }
 
@@ -56,18 +56,18 @@ export class CoinVaultTable {
   }
 
   private selectDom() {
-    this.coin500Quantity = document.querySelector('#coin500-quantity');
-    this.coin100Quantity = document.querySelector('#coin100-quantity');
-    this.coin50Quantity = document.querySelector('#coin50-quantity');
-    this.coin10Quantity = document.querySelector('#coin10-quantity');
+    this.#coin500Quantity = document.querySelector('#coin500-quantity');
+    this.#coin100Quantity = document.querySelector('#coin100-quantity');
+    this.#coin50Quantity = document.querySelector('#coin50-quantity');
+    this.#coin10Quantity = document.querySelector('#coin10-quantity');
   }
 
   private updateCoinVaultTableTemplate = () => {
-    const { coin500, coin100, coin50, coin10 } = this.coinVault.getCoins();
+    const { coin500, coin100, coin50, coin10 } = this.#coinVault.getCoins();
 
-    this.coin500Quantity.textContent = `${coin500}`;
-    this.coin100Quantity.textContent = `${coin100}`;
-    this.coin50Quantity.textContent = `${coin50}`;
-    this.coin10Quantity.textContent = `${coin10}`;
+    this.#coin500Quantity.textContent = `${coin500}`;
+    this.#coin100Quantity.textContent = `${coin100}`;
+    this.#coin50Quantity.textContent = `${coin50}`;
+    this.#coin10Quantity.textContent = `${coin10}`;
   };
 }

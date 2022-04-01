@@ -1,20 +1,20 @@
 import { CoinVault } from '../domain/CoinVault';
 
 export class BalanceChargeInput {
-  private target: HTMLDivElement;
-  private coinVault: CoinVault;
-  private submitBtn: HTMLButtonElement;
-  private chargeBalanceInput: HTMLInputElement;
-  private chargeBalanceInputForm: HTMLFormElement;
-  private currentBalance: HTMLSpanElement;
+  #target: HTMLDivElement;
+  #coinVault: CoinVault;
+  #submitBtn: HTMLButtonElement;
+  #chargeBalanceInput: HTMLInputElement;
+  #chargeBalanceInputForm: HTMLFormElement;
+  #currentBalance: HTMLSpanElement;
 
   constructor(props) {
-    this.target = props.target;
-    this.coinVault = props.coinVault;
+    this.#target = props.target;
+    this.#coinVault = props.coinVault;
   }
 
   render() {
-    this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getBalance()));
+    this.#target.insertAdjacentHTML('beforeend', this.template(this.#coinVault.getBalance()));
     this.selectDom();
     this.bindEvent();
   }
@@ -31,33 +31,33 @@ export class BalanceChargeInput {
   }
 
   private selectDom() {
-    this.chargeBalanceInputForm = document.querySelector('#charge-balance-input-container');
-    this.chargeBalanceInput = document.querySelector('#charge-balance-input');
-    this.submitBtn = document.querySelector('#charge-balance-submit-btn');
-    this.currentBalance = document.querySelector('#current-balance');
+    this.#chargeBalanceInputForm = document.querySelector('#charge-balance-input-container');
+    this.#chargeBalanceInput = document.querySelector('#charge-balance-input');
+    this.#submitBtn = document.querySelector('#charge-balance-submit-btn');
+    this.#currentBalance = document.querySelector('#current-balance');
   }
 
   private bindEvent() {
-    this.submitBtn.addEventListener('click', this.handleChargeBalance);
+    this.#submitBtn.addEventListener('click', this.handleChargeBalance);
   }
 
   private handleChargeBalance = (e: Event) => {
     e.preventDefault();
 
     try {
-      this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
+      this.#coinVault.chargeMoney(Number(this.#chargeBalanceInput.value));
     } catch (err) {
-      this.chargeBalanceInputForm.reset();
+      this.#chargeBalanceInputForm.reset();
       alert(err.message);
 
       return;
     }
 
     this.updateCurrentBalance();
-    this.target.dispatchEvent(new CustomEvent('coinCharged'));
+    this.#target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
   private updateCurrentBalance() {
-    this.currentBalance.textContent = `${this.coinVault.getBalance()}`;
+    this.#currentBalance.textContent = `${this.#coinVault.getBalance()}`;
   }
 }

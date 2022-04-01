@@ -1,21 +1,21 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductInformationInput {
-  private productCatalog: ProductCatalog;
-  private target: HTMLDivElement;
-  private productInformationForm: HTMLFormElement;
-  private productNameInput: HTMLInputElement;
-  private productPriceInput: HTMLInputElement;
-  private productQuantityInput: HTMLInputElement;
-  private submitButton: HTMLButtonElement;
+  #productCatalog: ProductCatalog;
+  #target: HTMLDivElement;
+  #productInformationForm: HTMLFormElement;
+  #productNameInput: HTMLInputElement;
+  #productPriceInput: HTMLInputElement;
+  #productQuantityInput: HTMLInputElement;
+  #submitButton: HTMLButtonElement;
 
   constructor(props) {
-    this.target = props.target;
-    this.productCatalog = props.productCatalog;
+    this.#target = props.target;
+    this.#productCatalog = props.productCatalog;
   }
 
   render() {
-    this.target.insertAdjacentHTML('beforeend', this.template());
+    this.#target.insertAdjacentHTML('beforeend', this.template());
     this.selectDom();
     this.bindEvent();
   }
@@ -33,34 +33,34 @@ export class ProductInformationInput {
   }
 
   private selectDom() {
-    this.productInformationForm = document.querySelector('#product-information-input');
-    this.productNameInput = document.querySelector('#product-name-input');
-    this.productPriceInput = document.querySelector('#product-price-input');
-    this.productQuantityInput = document.querySelector('#product-quantity-input');
-    this.submitButton = document.querySelector('#product-information-submit-btn');
+    this.#productInformationForm = document.querySelector('#product-information-input');
+    this.#productNameInput = document.querySelector('#product-name-input');
+    this.#productPriceInput = document.querySelector('#product-price-input');
+    this.#productQuantityInput = document.querySelector('#product-quantity-input');
+    this.#submitButton = document.querySelector('#product-information-submit-btn');
   }
 
   private bindEvent() {
-    this.submitButton.addEventListener('click', this.handleAddProduct);
+    this.#submitButton.addEventListener('click', this.handleAddProduct);
   }
 
   private handleAddProduct = (e) => {
     e.preventDefault();
 
-    const name = this.productNameInput.value;
-    const price = this.productPriceInput.valueAsNumber;
-    const quantity = this.productQuantityInput.valueAsNumber;
+    const name = this.#productNameInput.value;
+    const price = this.#productPriceInput.valueAsNumber;
+    const quantity = this.#productQuantityInput.valueAsNumber;
 
     try {
-      this.productCatalog.addProduct({ name, price, quantity });
+      this.#productCatalog.addProduct({ name, price, quantity });
     } catch (err) {
       alert(err.message);
 
       return;
     } finally {
-      this.productInformationForm.reset();
+      this.#productInformationForm.reset();
     }
 
-    this.target.dispatchEvent(new CustomEvent('productAdded'));
+    this.#target.dispatchEvent(new CustomEvent('productAdded'));
   };
 }
