@@ -12,7 +12,7 @@ describe('잔돈을 충전할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('충전할 금액은 10원 이상이여야 한다.', () => {
+  test('충전할 금액은 10원 이상이어야 한다.', () => {
     const cashInput = 9;
 
     expect(() => vendingMachine.validateCashInput(cashInput)).toThrow(
