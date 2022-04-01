@@ -8,17 +8,29 @@ const nameInput = $('#name-input');
 const passwordInput = $('#password-input');
 const passwordCheckInput = $('#password-check');
 
-signUpForm.addEventListener('submit', (e) => {
+signUpForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const name = nameInput.value;
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  const passwordCheck = passwordCheckInput.value;
+  const nameValue = nameInput.value;
+  const emailValue = emailInput.value;
+  const passwordValue = passwordInput.value;
+  const passwordCheckValue = passwordCheckInput.value;
 
   try {
-    validPassword(password, passwordCheck);
-    console.log(password);
+    validPassword(passwordValue, passwordCheckValue);
+    const response = await fetch('http://localhost:3000/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: nameValue,
+        email: emailValue,
+        password: passwordValue,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    location.href = 'http://localhost:9000/login.html';
   } catch (error) {
     alert(error.message);
   }
