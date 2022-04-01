@@ -5,7 +5,7 @@ import {
   GetTotalChanges,
   GenerateCoins,
   ChangesDomain,
-} from "../interface/changes.interface";
+} from "../interface/vending-changes.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
 export class ChangesProcessMachine implements ChangesDomain {

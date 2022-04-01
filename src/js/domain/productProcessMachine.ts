@@ -4,6 +4,8 @@ import {
   Add,
   Delete,
   GetProducts,
+  Product,
+  Buy,
 } from "../interface/product.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
 
@@ -37,6 +39,17 @@ export class ProductProcessMachine implements ProductDomain {
 
   delete: Delete = (idx) => {
     this.products.splice(idx, 1);
+  };
+
+  buy: Buy = (name) => {
+    const targetProduct = this.findProductByName(name);
+    targetProduct.count -= 1;
+
+    return targetProduct;
+  };
+
+  findProductByName = (name: string): Product => {
+    return this.products.find((product) => product.name === name);
   };
 
   updateStatus = (idx: number, status: number | string, key: string) => {
