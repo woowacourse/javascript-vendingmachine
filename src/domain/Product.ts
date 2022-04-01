@@ -37,6 +37,10 @@ export class Product {
     this.#quantity = quantity;
   }
 
+  decreaseQuantity(quantity: number = 1) {
+    this.#quantity -= quantity;
+  }
+
   isValidatedName(name: string) {
     if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT);

@@ -2,7 +2,8 @@ import { ERROR_MESSAGE } from '../utils/constants';
 
 interface UserMoneyInterface {
   getMoney(): number;
-  setMoney(money: number): void;
+  setMoney(value: number);
+  addMoney(money: number): void;
   isValidatedMoney(money: number): true | Error;
 }
 
@@ -10,14 +11,18 @@ export class UserMoney implements UserMoneyInterface {
   #value: number;
 
   constructor() {
-    this.#value = 0;
+    this.setMoney(0);
   }
 
   getMoney() {
     return this.#value;
   }
 
-  setMoney(money: number) {
+  setMoney(value: number) {
+    this.#value = value;
+  }
+
+  addMoney(money: number) {
     this.#value += money;
   }
 

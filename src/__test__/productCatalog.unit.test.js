@@ -53,17 +53,23 @@ describe('상품CRUD unit 테스트', () => {
     expect(productCatalog.findProduct('코카콜라')).toBeNull;
   });
 
-  // test('상품을 구매할 수 있다', () => {
-  //   const userMoney = new UserMoney();
-  //   userMoney.setMoney(1000);
+  test('상품을 구매할 수 있다', () => {
+    const userMoney = new UserMoney();
+    userMoney.setMoney(1000);
 
-  //   productCatalog.addProduct({ name: '코카콜라', price: 1000, quantity: 20 });
+    productCatalog.addProduct({ name: '코카콜라', price: 1000, quantity: 20 });
 
-  //   const remainder = productCatalog.buyProduct('코카콜라', userMoney.getMoney());
-  //   productCatalog
-  //     .findProduct('코카콜라')
-  //     .toStrictEqual({ name: '코카콜라', price: 1000, quantity: 19 });
-  // });
+    const remainder = productCatalog.buyProduct('코카콜라', userMoney.getMoney());
+    userMoney.setMoney(remainder);
+
+    expect(userMoney.getMoney()).toBe(0);
+
+    expect(productCatalog.findProduct('코카콜라').getAllProperties()).toStrictEqual({
+      name: '코카콜라',
+      price: 1000,
+      quantity: 19,
+    });
+  });
 });
 
 describe('상품 CRUD 예외사항 테스트', () => {

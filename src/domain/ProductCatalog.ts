@@ -10,7 +10,7 @@ interface ProductCatalogInterface {
   findProduct(name: string): Product;
   deleteProduct(name: string): void;
   editProduct(targetProductName: string, editedProductProps: ProductProps): void;
-  // buyProduct(name: string, userMoney: number): number;
+  buyProduct(name: string, userMoney: number): number;
 }
 
 export class ProductCatalog implements ProductCatalogInterface {
@@ -45,13 +45,20 @@ export class ProductCatalog implements ProductCatalogInterface {
     });
   }
 
-  findProduct(name: string): Product {
-    return this.#productList.find((product) => product.getName() === name);
+  findProduct(name: string, targetList: Product[] = this.#productList): Product {
+    return targetList.find((product) => product.getName() === name);
   }
 
-  // buyProduct(name: string, userMoney: number): number {
-  //   return remainder;
-  // }
+  buyProduct(name: string, userMoney: number): number {
+    const deepCopiedProductList = this.#deepCopy(this.#productList);
+
+    const targetProduct = this.findProduct(name, deepCopiedProductList);
+    targetProduct.decreaseQuantity();
+
+    this.#productList = deepCopiedProductList;
+
+    return userMoney - targetProduct.getPrice();
+  }
 
   deleteProduct(name: string): void {
     this.#productList = this.#productList.filter((product) => product.getName() !== name);

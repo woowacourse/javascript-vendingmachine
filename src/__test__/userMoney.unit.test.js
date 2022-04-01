@@ -16,15 +16,15 @@ describe('사용자가 사용할 금액 투입 테스트', () => {
   test('사용자가 사용할 금액을 투입할 수 있다', () => {
     expect(userMoney.getMoney()).toStrictEqual(0);
 
-    userMoney.setMoney(1000);
+    userMoney.addMoney(1000);
     expect(userMoney.getMoney()).toStrictEqual(1000);
   });
 
   test('사용자가 사용할 금액을 누적으로 투입할 수 있다', () => {
     expect(userMoney.getMoney()).toStrictEqual(0);
 
-    userMoney.setMoney(1000);
-    userMoney.setMoney(1000);
+    userMoney.addMoney(1000);
+    userMoney.addMoney(1000);
     expect(userMoney.getMoney()).toStrictEqual(2000);
   });
 });
