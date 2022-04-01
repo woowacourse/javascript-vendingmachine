@@ -1,5 +1,5 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
-import { changeEditProductInfoProps, productProps } from "../../utils/interface";
+import { ChangeEditProductInfoProps, ProductProps } from "../../utils/interface";
 import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
 
 class ProductView {
@@ -11,7 +11,7 @@ class ProductView {
     this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
-  addProduct({ productName, productPrice, productQuantity }: productProps) {
+  addProduct({ productName, productPrice, productQuantity }: ProductProps) {
       this.productTable.insertAdjacentHTML(
       "beforeend",
       addProductTemplate({
@@ -37,8 +37,8 @@ class ProductView {
     });
   }
 
-  editProduct({target, productName, productPrice, productQuantity}: changeEditProductInfoProps) {
-      target.closest("tr").innerHTML = addProductTemplate({
+  editProduct({target, productName, productPrice, productQuantity}: ChangeEditProductInfoProps) {
+    target.closest("tr").innerHTML = addProductTemplate({
       productName: productName,
       productPrice: productPrice,
       productQuantity: productQuantity
@@ -61,9 +61,9 @@ class ProductView {
   }
 
   showProductList(productList) {
-      this.productTable.insertAdjacentHTML(
+    this.productTable.insertAdjacentHTML(
       "beforeend",
-      productList.map((product: productProps) =>  addProductTemplate(product)).join(' ')
+      productList.map((product: ProductProps) =>  addProductTemplate(product)).join(' ')
     );
   };
 

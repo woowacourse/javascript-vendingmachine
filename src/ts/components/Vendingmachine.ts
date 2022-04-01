@@ -56,4 +56,5 @@ class Vendingmachine {
   };
 }
 
+
 export default Vendingmachine;

@@ -1,10 +1,10 @@
-interface productProps {
+interface ProductProps {
   productName: string;
   productPrice: number;
   productQuantity: number;
 };
 
-interface changeEditProductInfoProps {
+interface ChangeEditProductInfoProps {
   target: HTMLElement;
   productName: string;
   productPrice: number;
@@ -18,4 +18,4 @@ interface CoinType {
   500: number;
 }
 
-export { productProps, changeEditProductInfoProps, CoinType };
+export { ProductProps, ChangeEditProductInfoProps, CoinType };

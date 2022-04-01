@@ -1,18 +1,18 @@
 import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
-import { changeEditProductInfoProps, productProps } from "../../utils/interface";
-import { validateProductName, validateProductPrice, valudateProductQuantity, validateSameProductName } from "../../utils/validation";
+import ProductInfo from "./ProductInfo";
 import ProductView from "./ProductView";
+
 class Product {
+  productInfo: ProductInfo;
   productView: ProductView;
   productInfoInputs: HTMLElement[];
   productAddButton: HTMLElement;
   productTable: HTMLElement;
-  productList: productProps[] | null;
 
   constructor() {
+    this.productInfo = new ProductInfo();
     this.productView = new ProductView();
     this.productView.renderProductView();
-    this.productList = this.getProductList();
   }
 
   bindProductDom() {
@@ -29,22 +29,16 @@ class Product {
     event.preventDefault();
     const [productName, productPrice, productQuantity] = 
       this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
-    const productNameList = 
-      this.productList.map((product: productProps) => product.productName);
 
-      validateProductName(productName);
-      validateProductPrice(+productPrice);
-      valudateProductQuantity(+productQuantity);
-      validateSameProductName(productName, productNameList);
-      this.productList = [...this.productList, { productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }];
-      this.setProductList();
-      this.productView.changeProductInfoInputEmpty();
-      this.productView.focusProductNameInput();
-      this.productView.addProduct({         
-        productName: productName,
-        productPrice: +productPrice,
-        productQuantity: +productQuantity, 
-      });
+    this.productInfo.validateProductInfo({ productName, productPrice, productQuantity });
+    this.productInfo.addProductList({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
+    this.productView.changeProductInfoInputEmpty();
+    this.productView.focusProductNameInput();
+    this.productView.addProduct({ 
+      productName: productName,
+      productPrice: +productPrice,
+      productQuantity: +productQuantity, 
+    });
   };
 
   handleControlProduct = (event: { target: HTMLTableElement }) => {
@@ -63,8 +57,7 @@ class Product {
     };
     
     const [productNameTd] = Array.from(event.target.closest("tr").children);
-    this.productList = this.productList.filter((product) => product.productName !== productNameTd.textContent);
-    this.setProductList();
+    this.productInfo.removeProduct(productNameTd.textContent);
     this.productView.removeProduct(event.target);
   };
 
@@ -79,47 +72,20 @@ class Product {
       (input: HTMLInputElement) => input.value
     );
     const beforeProductName = selectDom(".product-name", event.target.closest("tr")).dataset.name;
-    const productNameList = this.productList
-      .map((product: productProps) => product.productName)
-      .filter((productName) => productName !== beforeProductName);
 
-    validateProductName(productName);
-    validateProductPrice(+productPrice);
-    valudateProductQuantity(+productQuantity);
-    validateSameProductName(productName, productNameList);
-    this.changeEditProductInfo({
-      target: event.target,
-      productName: productName,
-      productPrice: +productPrice,
-      productQuantity: +productQuantity,
-    });
-  };
-
-  changeEditProductInfo = ({ target, productName, productPrice, productQuantity }: changeEditProductInfoProps) => {
-    this.productView.editProduct({target, productName, productPrice, productQuantity});
-
+    this.productInfo.validateEditProductInfo({ productName, productPrice, productQuantity, beforeProductName });
+    this.productView.editProduct({target: event.target, productName: productName, productPrice: +productPrice, productQuantity: +productQuantity});
+    
     const changeProductIndex = 
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)
       .indexOf(productName);
-
-    this.productList[changeProductIndex].productName = productName;
-    this.productList[changeProductIndex].productPrice = productPrice;
-    this.productList[changeProductIndex].productQuantity = productQuantity;
-    this.setProductList();
+    this.productInfo.editProduct({ productName, productPrice, productQuantity, changeProductIndex });
   };
-
-  setProductList() {
-    localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
-  }
-
-  getProductList() {
-    return JSON.parse(localStorage.getItem("PRODUCTS")) || [];
-  }
 
   render() {
     this.productView.renderProductView();
-    this.productView.showProductList(this.productList);
+    this.productView.showProductList(this.productInfo.getProductList());
     this.bindProductDom();
   }
 }

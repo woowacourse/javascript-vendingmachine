@@ -1,4 +1,4 @@
-import { productProps } from "../../utils/interface";
+import { ProductProps } from "../../utils/interface";
 
 const productTemplate = () => {
   return `
@@ -32,7 +32,7 @@ const addProductTemplate = ({
   productName,
   productPrice,
   productQuantity
-}: productProps) => {
+}: ProductProps) => {
   return `
     <tr>
       <td class="product-name">${productName}</td>
@@ -49,7 +49,7 @@ const editProductTemplate = ({
   productName,
   productPrice,
   productQuantity
-}: productProps) => {
+}: ProductProps) => {
   return `
     <td class="product-name" data-name="${productName}" ><input class="product-edit-input" value="${productName}" /></td>
     <td><input class="product-edit-input" value='${productPrice}' /></td>

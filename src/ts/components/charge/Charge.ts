@@ -1,19 +1,18 @@
-import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
+import { selectDom, addEvent } from "../../utils/dom";
 import { CoinType } from "../../utils/interface";
 import { verifyCharge } from "../../utils/validation";
+import ChargeInfo from "./ChargeInfo";
 import ChargeView from "./ChargeView";
 class Charge {
+  chargeInfo: ChargeInfo;
   chargeView: ChargeView;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
-  coinsKindCount: CoinType;
-  totalCharge: number;
 
   constructor() {
+    this.chargeInfo = new ChargeInfo();
     this.chargeView = new ChargeView();
-    this.coinsKindCount = this.getCoinList();
-    this.totalCharge = this.getTotalCharge();
   }
 
   bindChargeDom() {
@@ -27,52 +26,13 @@ class Charge {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
     verifyCharge(charge);
-    this.convertRandomCharge(charge);
+    this.chargeInfo.convertRandomCharge(charge);
+    this.chargeView.showRandomChargeResult(this.chargeInfo.getCoinList(), this.chargeInfo.getTotalCharge());
   };
-
-  convertRandomCharge(charge: number) {
-    let totalAmount = 0;
-    this.totalCharge += charge;
-    while (totalAmount !== charge) {
-      const randomCoin = this.pickNumberInList();
-      totalAmount += randomCoin;
-      if (totalAmount > charge) {
-        totalAmount -= randomCoin;
-      } else if (totalAmount <= charge) {
-        this.coinsKindCount[randomCoin]++;
-      }
-    }
-
-    this.chargeView.showRandomChargeResult(this.coinsKindCount, this.totalCharge);
-    this.setCoinList();
-    this.setTotalCharge();
-  }
-
-  pickNumberInList(): number {
-    const coinList = [10, 50, 100, 500];
-    const randomNumber = Math.floor(Math.random() * coinList.length);
-    return coinList[randomNumber];
-  }
-
-  setCoinList() {
-    localStorage.setItem("COIN_LIST", JSON.stringify(this.coinsKindCount));
-  }
-
-  getCoinList() {
-    return JSON.parse(localStorage.getItem("COIN_LIST")) || { 10: 0, 50: 0, 100: 0, 500: 0 };
-  }
-
-  setTotalCharge() {
-    localStorage.setItem("TOTAL_CHARGE", JSON.stringify(this.totalCharge));
-  }
-
-  getTotalCharge() {
-    return JSON.parse(localStorage.getItem("TOTAL_CHARGE")) || 0;
-  }
 
   render() {
     this.chargeView.renderChargeView();
-    this.chargeView.showRandomChargeResult(this.coinsKindCount, this.totalCharge);
+    this.chargeView.showRandomChargeResult(this.chargeInfo.getCoinList(), this.chargeInfo.getTotalCharge());
     this.bindChargeDom();
   }
 }
