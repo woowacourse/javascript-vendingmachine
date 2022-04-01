@@ -16,13 +16,9 @@ describe('자판기 클래스 테스트', () => {
 
   describe('상품 추가 기능 테스트', () => {
     test('상품의 이름, 가격, 수량을 입력하면 새로운 상품을 상품목록에 추가한다.', () => {
-      const mockVendingMachineProduct = new VendingMachineProduct(
-        initialProduct
-      );
+      const mockVendingMachineProduct = new VendingMachineProduct(initialProduct);
 
-      expect(vendingMachine.productList[productId]).toEqual(
-        mockVendingMachineProduct
-      );
+      expect(vendingMachine.productList[productId]).toEqual(mockVendingMachineProduct);
     });
 
     test('동일한 이름의 상품을 추가하는 경우 오류가 발생한다.', () => {
@@ -69,9 +65,9 @@ describe('자판기 클래스 테스트', () => {
       const newProductData = { name: '사이다', price: 2500, stock: 10 };
       const invalidId = 'invalidId';
 
-      expect(() =>
-        vendingMachine.updateProduct(invalidId, newProductData)
-      ).toThrow(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+      expect(() => vendingMachine.updateProduct(invalidId, newProductData)).toThrow(
+        ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID
+      );
     });
   });
 
@@ -132,6 +128,32 @@ describe('자판기 클래스 테스트', () => {
       expect(() => vendingMachine.addChange(secondInputMoney)).toThrow(
         ERROR_MESSAGE.EXCEED_MAX_TOTAL_CHANGE
       );
+    });
+  });
+
+  describe('금액 투입 기능 테스트', () => {
+    test('금액 투입을 입력하면 자판기에 해당 금액이 저장된다.', () => {
+      const money = 3000;
+      vendingMachine.insertMoney(money);
+      expect(vendingMachine.totalMoney).toBe(money);
+    });
+
+    test('금액은 누적으로 투입할 수 있다.', () => {
+      const initialInputMoney = 3000;
+      const secondInputMoney = 4500;
+      vendingMachine.insertMoney(initialInputMoney);
+      vendingMachine.insertMoney(secondInputMoney);
+      expect(vendingMachine.totalMoney).toBe(initialInputMoney + secondInputMoney);
+    });
+
+    test('10원 단위로 떨어지지 않는 금액을 투입하면 에러가 발생한다.', () => {
+      const invalidMoney = 1211;
+      expect(() => vendingMachine.insertMoney(invalidMoney)).toThrow();
+    });
+
+    test('투입 금액이 10,000원 이상이면 에러가 발생한다.', () => {
+      const invalidMoney = 10010;
+      expect(() => vendingMachine.insertMoney(invalidMoney)).toThrow();
     });
   });
 });

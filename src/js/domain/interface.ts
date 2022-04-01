@@ -41,7 +41,7 @@ export interface Validator<T> {
   errorMsg: string;
 }
 
-export interface changeValidationData {
+export interface moneyValidationData {
   money: number;
-  totalChange: number;
+  totalMoney: number;
 }

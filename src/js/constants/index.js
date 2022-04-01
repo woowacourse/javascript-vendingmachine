@@ -10,6 +10,7 @@ export const PRODUCT_RULES = {
 export const VENDING_MACHINE_RULES = {
   CHANGE_UNIT: 10,
   MAX_TOTAL_CHANGE: 100000,
+  MAX_TOTAL_INPUT_MONEY: 10000,
 };
 export const ERROR_MESSAGE = {
   CONTAIN_EMPTY_FIELD_IN_FORM: '상품명, 가격, 수량을 모두 입력해주세요.',
@@ -28,6 +29,8 @@ export const ERROR_MESSAGE = {
   BELOW_MIN_CHANGE: '충전 금액은 0원 이하일 수 없습니다.',
   INVALID_UNIT_CHANGE: `충전 금액은 ${VENDING_MACHINE_RULES.CHANGE_UNIT}원 단위이어야 합니다.`,
   EXCEED_MAX_TOTAL_CHANGE: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과할 수 없습니다.`,
+
+  EXCEED_MAX_TOTAL_MONEY: `최대 충전 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY}원을 초과할 수 없습니다.`,
 };
 
 export function confirmMessage(name) {
