@@ -9,6 +9,9 @@ class AuthStore implements AuthStoreInterface {
     if (actionType === 'login') {
       this.login(payload);
     }
+    if (actionType === 'logout') {
+      this.logOut();
+    }
   }
 
   async signInUserInfo(payload) {
@@ -66,6 +69,11 @@ class AuthStore implements AuthStoreInterface {
     } catch ({ message }) {
       alert(message);
     }
+  }
+
+  logOut() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:9000/#';
   }
 }
 

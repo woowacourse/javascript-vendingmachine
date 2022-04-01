@@ -1,4 +1,5 @@
 import { accessTokenStorage } from '../stores/localStorage';
+import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
@@ -9,6 +10,7 @@ class VendingMachineComponent {
   #ProductManagementComponent;
   #PurchaseProductComponent;
   #RechargeChangeComponent;
+  #HeaderComponent;
   #LoginComponent;
   #signInComponent;
 
@@ -18,7 +20,6 @@ class VendingMachineComponent {
     this.initDOM();
     this.initChildComponents();
     this.showSectionByRoute(hashRoute);
-    this.bindEventListener();
   }
 
   initDOM() {
@@ -28,29 +29,26 @@ class VendingMachineComponent {
       purchaseProduct: this.$app.querySelector('#purchase-product-tab'),
     };
     this.$nav = document.querySelector('nav');
-    this.$header = document.querySelector('header');
     this.$title = document.querySelector('h1');
-    this.$loginUserHref = document.querySelector('.login-user-href');
-    this.$userProfileContainer = document.querySelector('.user-profile-container');
   }
 
   initChildComponents() {
+    this.#HeaderComponent = new HeaderComponent(this.$app);
     this.#ProductManagementComponent = new ProductManagementComponent(this.$app);
     this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
     this.#LoginComponent = new LoginComponent(this.$app);
     this.#signInComponent = new SignInComponent(this.$app);
-    this.$logoutButton = this.$app.querySelector('#logout-button');
   }
 
   showSectionByRoute(route) {
-    this.$header.classList.remove('hide');
+    this.#HeaderComponent.headerShow();
     this.$title.textContent = '🍿 자판기 🍿';
 
     if (this.checkLoginStatus()) {
       this.$nav.classList.remove('hide');
-      this.$loginUserHref.classList.add('hide');
-      this.$userProfileContainer.classList.remove('hide');
+      this.#HeaderComponent.loginUserHide();
+      this.#HeaderComponent.userProfileShow();
 
       this.#LoginComponent.hide();
       this.#signInComponent.hide();
@@ -82,8 +80,8 @@ class VendingMachineComponent {
 
     if (!this.checkLoginStatus()) {
       this.$nav.classList.add('hide');
-      this.$loginUserHref.classList.remove('hide');
-      this.$userProfileContainer.classList.add('hide');
+      this.#HeaderComponent.loginUserShow();
+      this.#HeaderComponent.userProfileHide();
 
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
@@ -97,7 +95,7 @@ class VendingMachineComponent {
 
       if (route === 'login') {
         this.$title.textContent = '로그인';
-        this.$header.classList.add('hide');
+        this.#HeaderComponent.headerHide();
 
         this.#PurchaseProductComponent.hide();
         this.#signInComponent.hide();
@@ -107,7 +105,7 @@ class VendingMachineComponent {
 
       if (route === 'signin') {
         this.$title.textContent = '회원가입';
-        this.$header.classList.add('hide');
+        this.#HeaderComponent.headerHide();
 
         this.#LoginComponent.hide();
 
@@ -133,16 +131,6 @@ class VendingMachineComponent {
     }
     return false;
   }
-
-  bindEventListener() {
-    this.$logoutButton.addEventListener('click', this.onLogOutButtonClick);
-  }
-
-  onLogOutButtonClick = e => {
-    e.preventDefault();
-    localStorage.clear();
-    window.location.reload();
-  };
 }
 
 export default VendingMachineComponent;
