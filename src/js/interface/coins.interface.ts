@@ -9,5 +9,6 @@ export interface CoinInterface {
   setAmount: (chargedAmount: number) => void;
   getAmount: () => number;
   getCoins: () => Coins;
+  addCoinCount: (index: number) => number;
   makeRandomCoins: (amount: number) => void;
 }

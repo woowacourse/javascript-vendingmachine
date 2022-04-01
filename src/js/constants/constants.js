@@ -16,7 +16,7 @@ export const PRODUCT = {
 };
 
 export const COIN = {
-  UNIT_LIST: [500, 100, 50, 10],
+  UNIT_LIST: [10, 50, 100, 500],
   MIN_UNIT: 10,
   MAX_AMOUNT: 100000,
 };

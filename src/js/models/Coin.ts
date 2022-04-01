@@ -32,16 +32,35 @@ export default class Coin implements CoinInterface {
     return this.coins;
   }
 
-  // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
-  // 뽑은 숫자 만큼 동전을 추가한다.
-  // 나머지 금액은 10원 동전으로 바꾼다.
+  // 뽑을 수 있는 동전리스트 인덱스 범위를 찾는다. ex) 잔돈이 120원 일 경우 [10, 50, 100] 중 랜덤 인덱스
+  // 해당 동전의 카운트를 증가한다
+  // 0원이 될때까지 반복한다
+  addCoinCount(index: number) {
+    const coinCount = getRandomNumber(index);
+    const coin = COIN.UNIT_LIST[coinCount];
+    this.coins[coin] += 1;
+    return coin;
+  }
+
   makeRandomCoins(amount: number): void {
     let currentAmount = amount;
-    COIN.UNIT_LIST.forEach((coin) => {
-      const maxCoinCount = currentAmount / coin;
-      const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
-      currentAmount -= coinCount * coin;
-      this.coins[coin] += coinCount;
-    });
+
+    while (currentAmount > 0) {
+      if (currentAmount >= COIN.UNIT_LIST[3]) {
+        currentAmount -= this.addCoinCount(3);
+        continue;
+      }
+      if (currentAmount >= COIN.UNIT_LIST[2]) {
+        currentAmount -= this.addCoinCount(2);
+        continue;
+      }
+      if (currentAmount >= COIN.UNIT_LIST[1]) {
+        currentAmount -= this.addCoinCount(1);
+        continue;
+      }
+      // 잔돈이 50 보다 작을 경우 전부 다 10원으로 충전한다
+      this.coins[COIN.UNIT_LIST[0]] += currentAmount / COIN.UNIT_LIST[0];
+      break;
+    }
   }
 }
