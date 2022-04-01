@@ -10,4 +10,5 @@
   --dialog-button-hover-color: rgba(0, 188, 212, 0.5);
   --primary-text-color: rgba(0, 0, 0, 0.87);
   --list-border-color: #dcdcdc;
+  --input-disabled-bg-color: #ccc;
 }

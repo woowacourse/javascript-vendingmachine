@@ -1,4 +1,5 @@
 import ChangeAdd from './pages/ChangeAdd';
+import Login from './pages/Login';
 import ProductManage from './pages/ProductManage';
 import ProductPurchase from './pages/ProductPurchase';
 
@@ -14,6 +15,7 @@ const router = () => {
   const productManage = new ProductManage();
   const changeAdd = new ChangeAdd();
   const productPurchase = new ProductPurchase();
+  const login = new Login();
   let prevPath = '';
 
   return () => {
@@ -34,6 +36,9 @@ const router = () => {
         break;
       case '#!/product-purchase':
         productPurchase.render();
+        break;
+      case '#!/login':
+        login.render();
     }
   };
 };
