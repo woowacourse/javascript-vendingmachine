@@ -46,4 +46,4 @@ export const MONEY_NAME_STRING = {
   COIN_100_WON: 'ONE_HUNDRED_WON',
   COIN_50_WON: 'FIFTY_WON',
   COIN_10_WON: 'TEN_WON',
-};
+} as const;
