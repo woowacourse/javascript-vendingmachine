@@ -18,6 +18,7 @@ class VendingMachineComponent {
     this.initDOM();
     this.initChildComponents();
     this.showSectionByRoute(hashRoute);
+    this.bindEventListener();
   }
 
   initDOM() {
@@ -39,6 +40,7 @@ class VendingMachineComponent {
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
     this.#LoginComponent = new LoginComponent(this.$app);
     this.#signInComponent = new SignInComponent(this.$app);
+    this.$logoutButton = this.$app.querySelector('#logout-button');
   }
 
   showSectionByRoute(route) {
@@ -131,6 +133,16 @@ class VendingMachineComponent {
     }
     return false;
   }
+
+  bindEventListener() {
+    this.$logoutButton.addEventListener('click', this.onLogOutButtonClick);
+  }
+
+  onLogOutButtonClick = e => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+  };
 }
 
 export default VendingMachineComponent;
