@@ -81,4 +81,13 @@ describe('자판기 기본 기능 테스트', () => {
       expect(() => vendingMachine.inputChanges(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     });
   });
+
+  describe('상품 구매 페이지 기능 테스트', () => {
+    it('자판기에 투입된 총 금액이 10,000원을 넘으면, 오류를 발생시킨다.', () => {
+      const money = 10010;
+      expect(() => vendingMachine.inputUserMoney(money)).toThrowError(
+        ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY,
+      );
+    });
+  });
 });
