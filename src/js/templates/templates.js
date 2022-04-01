@@ -18,6 +18,7 @@ export const CATEGORY_TEMPLATE = {
           placeholder="가격"
           min="100"
           max="10000"
+          step="10"
           required
           aria-labelledby="product-information"
         />
@@ -65,6 +66,7 @@ export const CATEGORY_TEMPLATE = {
           placeholder="금액"
           min="10"
           max="100000"
+          step="10"
           required
         />
         <button class="hover-button">구입</button>
@@ -106,7 +108,7 @@ export const CATEGORY_TEMPLATE = {
     <form class="purchase-form form">
       <label for="product-purchased">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
-        <input id="product-purchased" type="number" class="input-width" placeholder="금액" />
+        <input id="product-purchased" type="number" step="10" class="input-width" placeholder="금액" />
         <button class="hover-button">투입</button>
       </div>
       <p class="current-amount">투입한 금액: 3000원</p>
@@ -170,8 +172,8 @@ export const tableTemplate = ({ name, price, quantity }) => {
 export const tableInputTemplate = ({ name, price, quantity }) => {
   return `
     <td><input id="modify-name" type="text" class="modify-input" placeholder="상품명" value=${name} /></td>
-    <td><input id="modify-price" type="number" class="modify-input" placeholder="가격" value=${price} /></td>
-    <td><input id="modify-quantity" type="number" class="modify-input" placeholder="수량" value=${quantity} /></td>
+    <td><input id="modify-price" type="number" min="100" max="10000" step="10" class="modify-input" placeholder="가격" value=${price} /></td>
+    <td><input id="modify-quantity" type="number" min="1" max="20" class="modify-input" placeholder="수량" value=${quantity} /></td>
     <td><button class="confirm-button" type="button">확인</button></td>
   `;
 };
