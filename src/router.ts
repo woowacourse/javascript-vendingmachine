@@ -1,8 +1,3 @@
-import { ACTION, PATH_TO_TAB_DIC } from './constants';
-import createAction from './flux/createAction';
-import Store from './flux/store';
-import { Tab } from './types';
-
 class Router {
   static _instance?: Router;
 
@@ -26,7 +21,7 @@ class Router {
   }
 
   private onLoad() {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
+    this.onLocationChange();
   }
 
   static pushState(url: string) {
@@ -35,13 +30,32 @@ class Router {
   }
 
   onLocationChange = () => {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
-  };
+    if (this.pageContainer === undefined) return;
 
-  static activeTab(): Tab {
-    const { pathname } = window.location;
-    return PATH_TO_TAB_DIC[pathname];
-  }
+    switch (window.location.pathname) {
+      case '/product-manage-tab':
+        this.pageContainer.replaceChildren();
+        this.pageContainer.insertAdjacentHTML(
+          'beforeend',
+          '<product-manage-page></product-manage-page>'
+        );
+        break;
+      case '/charge-money-tab':
+        this.pageContainer.replaceChildren();
+        this.pageContainer.insertAdjacentHTML(
+          'beforeend',
+          '<charge-money-page></charge-money-page>'
+        );
+        break;
+      case '/purchase-product-tab':
+        this.pageContainer.replaceChildren();
+        this.pageContainer.insertAdjacentHTML(
+          'beforeend',
+          '<purchase-product-page></purchase-product-page>'
+        );
+        break;
+    }
+  };
 }
 
 export default Router;

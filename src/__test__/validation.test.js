@@ -8,7 +8,6 @@ import {
 } from '../validation/validators';
 
 const store = new Store({
-  activeTab: 'product-manage-tab',
   chargedMoney: 0,
   chargedCoins: COIN_UNITS,
   productList: [

@@ -1,22 +1,21 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
 import Router from '../router';
-import { EventOnElement, Tab } from '../types';
+import { EventOnElement } from '../types';
 
 @customElement('vendingmachine-navigation')
 class Navigation extends Component {
-  template(activeTab: Tab): string {
+  template(): string {
     return `
       <nav class="d-flex justify-content-center">
         <button class="btn btn-secondary mr-1 ${
-          activeTab === Tab.ProductManageTab ? 'active' : ''
+          window.location.pathname === '/product-manage-tab' ? 'active' : ''
         }" data-destination="product-manage-tab">상품 관리</button>
         <button class="btn btn-secondary mr-1 ${
-          activeTab === Tab.ChargeMoneyTab ? 'active' : ''
+          window.location.pathname === '/charge-money-tab' ? 'active' : ''
         }" data-destination="charge-money-tab">잔돈 충전</button>
         <button class="btn btn-secondary ${
-          activeTab === Tab.PurchaseProductTab ? 'active' : ''
+          window.location.pathname === '/purchase-product-tab' ? 'active' : ''
         }" data-destination="purchase-product-tab">상품 구매</button>
       </nav>
     `;
@@ -29,6 +28,7 @@ class Navigation extends Component {
   onClickNavTab = ({ target }: EventOnElement) => {
     const destination = target.dataset.destination as string;
     Router.pushState(destination);
+    this.render();
   };
 
   mount() {
@@ -36,8 +36,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const { activeTab } = Store.instance.getState();
-    this.innerHTML = this.template(activeTab);
+    this.innerHTML = this.template();
   }
 }
 

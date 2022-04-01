@@ -13,7 +13,6 @@ export const ACTION = {
 export const COIN_UNITS = [500, 100, 50, 10];
 
 export const initialState: AppState = {
-  activeTab: Tab.ProductManageTab,
   chargedMoney: 0,
   chargedCoins: {
     500: 0,
@@ -25,13 +24,6 @@ export const initialState: AppState = {
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
-
-export const PATH_TO_TAB_DIC: Record<string, Tab> = {
-  '/': Tab.ProductManageTab,
-  '/product-manage-tab': Tab.ProductManageTab,
-  '/charge-money-tab': Tab.ChargeMoneyTab,
-  '/purchase-product-tab': Tab.PurchaseProductTab,
-};
 
 export const MAX_LENGTH_OF_PRODUCT_NAME = 10;
 export const MIN_PRODUCT_PRICE = 100;

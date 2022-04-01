@@ -1,12 +1,9 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { Tab } from '../types';
 
 @customElement('purchase-product-page')
 class PurchaseProductPage extends Component {
-  template(activeTab: Tab): string {
-    if (this.localName !== activeTab) return '';
+  template(): string {
     return '<h3 class="text-center">🤖 페이지 건설중...</h3>';
   }
 
@@ -15,8 +12,7 @@ class PurchaseProductPage extends Component {
   }
 
   render(): void {
-    const { activeTab } = Store.instance.getState();
-    this.innerHTML = this.template(activeTab);
+    this.innerHTML = this.template();
   }
 }
 
