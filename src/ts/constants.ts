@@ -19,6 +19,8 @@ export const ERROR_MESSAGE = {
   INSERT_MONEY_UNIT: '투입할 금액은 10의 배수여야 합니다.',
   EXCEED_INSERTED_HOLDING_MONEY: '투입할 수 있는 최대 금액은 1만원입니다.',
   UNDER_MIN_INSERTED_HOLDING_MONEY: '투입 금액은 10원 이상이어야 합니다.',
+  SOLD_OUT: '해당 상품에 재고가 없습니다.',
+  INSUFFICIENT_MONEY: '해당 상품을 구입하기에 투입한 돈이 충분하지 않습니다.',
 };
 
 export const SUCCESS_MESSAGE = {
@@ -26,6 +28,7 @@ export const SUCCESS_MESSAGE = {
   PRODUCT_EDITED: '선택하신 상품 정보가 수정되었습니다.',
   PRODUCT_DELETED: '선택하신 상품 정보가 삭제되었습니다.',
   MONEY_RECHARGED: '충전하신 금액만큼 동전을 보충하였습니다.',
+  PURCHASE: '해당 상품을 구매하였습니다.',
 };
 
 export const CONFIRM_MESSAGE = {

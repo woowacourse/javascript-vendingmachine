@@ -352,3 +352,42 @@ describe('투입 금액 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.EXCEED_INSERTED_HOLDING_MONEY);
   });
 });
+
+describe('상품 구매 테스트', () => {
+  const vendingMachine = new VendingMachine();
+
+  afterEach(() => {
+    vendingMachine.resetProducts();
+    vendingMachine.resetInsertedMoney();
+  });
+
+  it('재고가 없는 상품에 대해 구매 버튼을 누른 경우, 에러를 발생시킨다.', () => {
+    const product = { name: '코카콜라', price: 1000, quantity: 0 };
+    vendingMachine.addProduct(product);
+    vendingMachine.addInsertedMoney(5000);
+
+    expect(() => {
+      vendingMachine.decreaseProductQuantity(product.name);
+    }).toThrowError(ERROR_MESSAGE.SOLD_OUT);
+  });
+
+  it('선택한 상품을 구입하기에 충분한 돈이 없는데도 구매 버튼을 누르면, 에러를 발생시킨다', () => {
+    const product = { name: '코카콜라', price: 1000, quantity: 3 };
+    vendingMachine.addProduct(product);
+    vendingMachine.addInsertedMoney(500);
+
+    expect(() => {
+      vendingMachine.deductInsertedMoney(product.name);
+    }).toThrowError(ERROR_MESSAGE.INSUFFICIENT_MONEY);
+  });
+
+  it('재고가 있는 상품을 구매할 돈이 있는 상황에서, 구매 버튼을 누르면, 상품이 구입된다.', () => {
+    const product = { name: '코카콜라', price: 1000, quantity: 3 };
+    vendingMachine.addProduct(product);
+    vendingMachine.addInsertedMoney(5000);
+    const index = vendingMachine.findIndexByName(product.name);
+
+    vendingMachine.decreaseProductQuantity(product.name);
+    expect(vendingMachine.products[index].quantity).toBe(product.quantity - 1);
+  });
+});

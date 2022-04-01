@@ -8,7 +8,7 @@ import {
   checkMoneyValidation,
 } from './validator';
 import { getRandomNumber } from '../utils';
-import { STORAGE_ID } from '../constants';
+import { ERROR_MESSAGE, STORAGE_ID } from '../constants';
 
 export interface VendingMachineInterface {
   products: ProductType[];
@@ -22,6 +22,9 @@ export interface VendingMachineInterface {
   getHoldingMoney(): number;
   getCoin(value: number): MoneyType;
   addInsertedMoney(money: number): number;
+  decreaseProductQuantity(name: string): void;
+  deductInsertedMoney(name: string): number;
+  findIndexByName(name: string): number;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -62,7 +65,7 @@ export default class VendingMachine implements VendingMachineInterface {
 
   public resetInsertedMoney = () => {
     this._insertedMoney = 0;
-  }
+  };
 
   public rechargeMoney = (money: number) => {
     checkMoneyValidation(money, money + this.getHoldingMoney());
@@ -102,14 +105,41 @@ export default class VendingMachine implements VendingMachineInterface {
   };
 
   public editProduct = (name: string, product: ProductType) => {
-    const indexToEdit = this._products.findIndex((product) => product.name === name);
+    const targetIndex = this.findIndexByName(name);
 
-    if (this._products[indexToEdit].name !== product.name) {
+    if (this._products[targetIndex].name !== product.name) {
       checkDuplicatedProduct(this._products, product.name);
     }
-    this._products[indexToEdit].setProduct(product);
+    this._products[targetIndex].setProduct(product);
 
     localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
+  };
+
+  public decreaseProductQuantity = (name: string) => {
+    const targetIndex = this.findIndexByName(name);
+    if (this._products[targetIndex].quantity <= 0) {
+      throw new Error(ERROR_MESSAGE.SOLD_OUT);
+    }
+
+    this._products[targetIndex].quantity -= 1;
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
+  };
+
+  public deductInsertedMoney = (name: string) => {
+    const targetPrice = this._products[this.findIndexByName(name)].price;
+    if (this._insertedMoney - targetPrice < 0) {
+      throw new Error(ERROR_MESSAGE.INSUFFICIENT_MONEY);
+    }
+    this._insertedMoney -= targetPrice;
+
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
+
+    return this._insertedMoney;
+  };
+
+  public findIndexByName = (name: string) => {
+    return this._products.findIndex((product) => product.name === name);
   };
 
   private getProductsFromStorage = (key: string) => {
