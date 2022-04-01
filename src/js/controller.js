@@ -7,6 +7,7 @@ import ChargeView from './views/ChargeView.js';
 import ProductManageView from './views/ProductManageView.js';
 import ProductPurchaseView from './views/ProductPurchaseView.js';
 import ProductPurchase from './models/ProductPurchase.js';
+import { handleSnackbarMessage } from './utils/snackbar.js';
 
 export default class Controller {
   constructor() {
@@ -54,17 +55,20 @@ export default class Controller {
     this.productManager.addProduct(product);
     this.productManageView.render(product);
     this.productManageView.resetProductInput();
+    handleSnackbarMessage('상품을 추가했습니다.');
   };
 
   #modifySavedData = (e) => {
     const { index, product } = e.detail;
     this.productManager.modifyProduct(index, product);
     this.productManageView.renderModifiedProduct(index, product);
+    handleSnackbarMessage('상품 정보를 수정했습니다.');
   };
 
   #deleteSavedData = (e) => {
     const { index } = e.detail;
     this.productManager.deleteProduct(index);
+    handleSnackbarMessage('상품을 삭제했습니다.');
   };
 
   #handleChargeCoin = (e) => {
@@ -73,6 +77,7 @@ export default class Controller {
     this.chargeView.renderCurrentAmount(this.coin.getAmount());
     this.chargeView.resetChargeInput();
     this.chargeView.renderHaveCoins(this.coin.getCoins());
+    handleSnackbarMessage(`잔돈을 충전했습니다.`);
   };
 
   #handleAmount = (e) => {
@@ -80,6 +85,7 @@ export default class Controller {
     this.productPurchase.addUserAmount(userAmount);
     this.productPurchaseView.renderAmount(this.productPurchase.getUserAmount());
     this.productPurchaseView.resetAmountInput();
+    handleSnackbarMessage(`금액을 투입했습니다.`);
   };
 
   #purchaseSelectedProduct = (e) => {
@@ -88,6 +94,7 @@ export default class Controller {
     const userAmount = this.productPurchase.spendAmount(price);
     this.productPurchaseView.renderAmount(userAmount);
     this.productPurchaseView.renderModifiedProductInfo(index);
+    handleSnackbarMessage('상품을 구매했습니다.');
   };
 
   #handleReturnCoin = (e) => {
@@ -97,5 +104,6 @@ export default class Controller {
     this.productPurchase.setUserAmount(currentAmount);
     this.productPurchaseView.renderAmount(currentAmount);
     this.productPurchaseView.renderHaveCoins(remainCoins);
+    handleSnackbarMessage('남은 금액을 반환했습니다.');
   };
 }
