@@ -93,16 +93,18 @@ class ProductManagement extends CustomElement {
   }
 
   notify(action: string, _: never, product: Product) {
-    if (action === 'add') {
-      this.insertItem(product);
-    }
+    switch (action) {
+      case 'add':
+        this.insertItem(product);
+        return;
 
-    if (action === 'update') {
-      this.updateItem(product);
-    }
+      case 'update':
+        this.updateItem(product);
+        return;
 
-    if (action === 'delete') {
-      this.deleteItem(product);
+      case 'delete':
+        this.deleteItem(product);
+        return;
     }
   }
 
