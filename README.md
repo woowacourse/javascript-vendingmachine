@@ -44,3 +44,13 @@ npm run build
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/javascript-vendingmachine/blob/main/LICENSE) licensed.
+
+<!-- const success = new CustomEvent('success', {});
+
+addProduct && dispatchEvent()
+
+table.addEventListener('success', () => {
+  render
+})
+
+new custome event 생성(단순한 이벤트객체) -> table에서 eventlistener 달고 -> addProduct 성공시 dispatchEvent -->
