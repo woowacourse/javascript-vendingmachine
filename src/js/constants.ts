@@ -25,6 +25,7 @@ const ERROR_MESSAGE = {
   TOO_MUCH_VENDING_MACHINE_INPUT_MONEY: '자판기에 투입할 수 있는 최대 금액은 10,000원 입니다.',
   IS_NOT_UNIT_OF_TEN: '투입할 금액의 단위는 10원입니다.',
   IS_NOT_POSITIVE_INTEGER: '투입할 금액은 0보다 큰 금액이어야 합니다.',
+  NOT_ENOUGH_RETURN_CHANGE: '자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.',
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';

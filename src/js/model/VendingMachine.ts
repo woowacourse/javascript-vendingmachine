@@ -105,7 +105,7 @@ class VendingMachine {
         break;
       case 0:
         if (this.userMoney > 0) {
-          throw new Error('자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.');
+          throw new Error(ERROR_MESSAGE.NOT_ENOUGH_RETURN_CHANGE);
         }
         break;
     }
