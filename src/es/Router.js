@@ -31,7 +31,7 @@ export default class Router {
   }
 
   pageRender(searchUrl) {
-    const { page = 'product' } = getSearchParamsObject(searchUrl);
+    const { page = 'productManagement' } = getSearchParamsObject(searchUrl);
 
     this.pageHeader.render({ currentPage: page });
     !!this.pageList[page] && this.pageList[page].loadPage();
