@@ -3,8 +3,8 @@ import { selectDom, selectDoms } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class CoinRechargeTab extends VendingMachineTab {
-  constructor(vendingMachine) {
-    super(vendingMachine);
+  constructor(vendingMachine, tabHash) {
+    super(vendingMachine, tabHash);
 
     this.coinRechargeTabButton = selectDom('#coin-recharge-tab-button');
     this.cashChargeForm = null;

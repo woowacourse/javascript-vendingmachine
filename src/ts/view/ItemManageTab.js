@@ -7,8 +7,8 @@ import { selectDom, selectDoms } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class ItemManageTab extends VendingMachineTab {
-  constructor(vendingMachine) {
-    super(vendingMachine);
+  constructor(vendingMachine, tabHash) {
+    super(vendingMachine, tabHash);
 
     this.itemManageTabButton = selectDom('#item-manage-tab-button');
     this.itemInfoForm = null;

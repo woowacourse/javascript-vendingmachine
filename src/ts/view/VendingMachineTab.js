@@ -1,8 +1,9 @@
 import { selectDom, selectDoms } from '../utils';
 
 class VendingMachineTab {
-  constructor(vendingMachine) {
+  constructor(vendingMachine, tabHash) {
     this.vendingMachine = vendingMachine;
+    this.tabHash = tabHash;
 
     this.navTabButtonList = selectDoms('.nav-tab-button');
     this.tabContent = selectDom('#tab-content');
