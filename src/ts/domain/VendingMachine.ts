@@ -5,6 +5,11 @@ type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number 
 
 type Coin = 500 | 100 | 50 | 10;
 
+interface TestCase {
+  testCase: Function;
+  errorMessage: string;
+}
+
 interface VendingMachineInterface {
   addItem: (itemInfo: ItemInfoType) => Object;
   editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
@@ -75,7 +80,7 @@ class VendingMachine implements VendingMachineInterface {
   }
 
   validateItemInput(itemInfo: ItemInfoType, isAddMode = true, itemIndex = null) {
-    const testCases = [
+    const testCases: TestCase[] = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
       {
@@ -105,7 +110,7 @@ class VendingMachine implements VendingMachineInterface {
   }
 
   validateCashInput(rechargedCash: number) {
-    const testCases = [
+    const testCases: TestCase[] = [
       { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
       { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
       {
