@@ -30,7 +30,7 @@ class Product {
     const [productName, productPrice, productQuantity] = 
       this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
 
-    this.productInfo.validateProductInfo({ productName, productPrice, productQuantity });
+    this.productInfo.validateProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
     this.productInfo.addProductList({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
     this.productView.changeProductInfoInputEmpty();
     this.productView.focusProductNameInput();
@@ -73,14 +73,14 @@ class Product {
     );
     const beforeProductName = selectDom(".product-name", event.target.closest("tr")).dataset.name;
 
-    this.productInfo.validateEditProductInfo({ productName, productPrice, productQuantity, beforeProductName });
+    this.productInfo.validateEditProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, beforeProductName });
     this.productView.editProduct({target: event.target, productName: productName, productPrice: +productPrice, productQuantity: +productQuantity});
     
     const changeProductIndex = 
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)
       .indexOf(productName);
-    this.productInfo.editProduct({ productName, productPrice, productQuantity, changeProductIndex });
+    this.productInfo.editProduct({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, changeProductIndex: changeProductIndex });
   };
 
   render() {

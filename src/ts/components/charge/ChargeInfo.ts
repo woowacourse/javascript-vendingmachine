@@ -1,6 +1,6 @@
-import { CoinType } from "../../utils/interface";
+import { ChargeInfoProps, CoinType } from "../../utils/interface";
 
-class ChargeInfo {
+class ChargeInfo implements ChargeInfoProps {
   private coinsKindCount: CoinType;
   private totalCharge: number;
 
@@ -26,7 +26,7 @@ class ChargeInfo {
     this.setTotalCharge();
   }
 
-  pickNumberInList(): number {
+  pickNumberInList() {
     const coinList = [10, 50, 100, 500];
     const randomNumber = Math.floor(Math.random() * coinList.length);
     return coinList[randomNumber];

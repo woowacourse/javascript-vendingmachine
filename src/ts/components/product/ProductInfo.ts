@@ -1,14 +1,14 @@
-import { ProductProps } from "../../utils/interface";
+import { ProductInfoProps, ProductProps, ValidateProductProps, ProductEditProps } from "../../utils/interface";
 import { validateProductName, validateProductPrice, valudateProductQuantity, validateSameProductName } from "../../utils/validation";
 
-class ProductInfo{
+class ProductInfo implements ProductInfoProps{
   private productList: ProductProps[] | null;
 
   constructor() {
     this.productList = this.getProductList();
   }
 
-  validateProductInfo({ productName, productPrice, productQuantity }) {
+  validateProductInfo({ productName, productPrice, productQuantity }: ProductProps) {
     const productNameList = this.productList.map((product: ProductProps) => product.productName);
 
     validateProductName(productName);
@@ -17,7 +17,7 @@ class ProductInfo{
     validateSameProductName(productName, productNameList);
   }
 
-  validateEditProductInfo({ productName, productPrice, productQuantity, beforeProductName }) {
+  validateEditProductInfo({ productName, productPrice, productQuantity, beforeProductName }: ValidateProductProps) {
     const productNameList = this.productList
       .map((product: ProductProps) => product.productName)
       .filter((productName) => productName !== beforeProductName);
@@ -38,7 +38,7 @@ class ProductInfo{
     localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
   }
 
-  editProduct({ productName, productPrice, productQuantity, changeProductIndex }) {
+  editProduct({ productName, productPrice, productQuantity, changeProductIndex }: ProductEditProps) {
     this.productList[changeProductIndex].productName = productName;
     this.productList[changeProductIndex].productPrice = productPrice;
     this.productList[changeProductIndex].productQuantity = productQuantity;

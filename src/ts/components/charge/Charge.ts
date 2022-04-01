@@ -1,5 +1,4 @@
 import { selectDom, addEvent } from "../../utils/dom";
-import { CoinType } from "../../utils/interface";
 import { verifyCharge } from "../../utils/validation";
 import ChargeInfo from "./ChargeInfo";
 import ChargeView from "./ChargeView";

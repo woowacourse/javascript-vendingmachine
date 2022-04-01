@@ -1,8 +1,47 @@
+interface ProductInfoProps {
+  validateProductInfo: (args: ProductProps) => void;
+  validateEditProductInfo: (args: ValidateProductProps) => void;
+  addProductList: (args: ProductProps) => void;
+  removeProduct: (args: string) => void;
+  editProduct: (args: ProductEditProps) => void;
+  getProductList: () => ProductProps | [];
+}
+
+interface ChargeInfoProps {
+  convertRandomCharge: (args: number) => void
+  pickNumberInList: () => number;
+  setCoinList: () => void;
+  getCoinList: () => CoinType;
+  setTotalCharge: () => void;
+  getTotalCharge: () => number;
+}
+
+interface PurchaseInfoProps{
+  returnCharge: () => void;
+  purchaseProduct: (args: number) => void;
+  setInsertMoney: () => void;
+  getInsertMoney: () => number;
+}
+
 interface ProductProps {
   productName: string;
   productPrice: number;
   productQuantity: number;
 };
+
+interface ValidateProductProps {
+  productName: string;
+  productPrice: number;
+  productQuantity: number;
+  beforeProductName: string;
+}
+
+interface ProductEditProps {
+  productName: string;
+  productPrice: number;
+  productQuantity: number;
+  changeProductIndex: number;
+}
 
 interface ChangeEditProductInfoProps {
   target: HTMLElement;
@@ -18,4 +57,6 @@ interface CoinType {
   500: number;
 }
 
-export { ProductProps, ChangeEditProductInfoProps, CoinType };
+type Coins = 500 | 100 | 50 | 10;
+
+export { ProductInfoProps, ChargeInfoProps, PurchaseInfoProps, ProductProps, ChangeEditProductInfoProps, ProductEditProps, ValidateProductProps, CoinType };
