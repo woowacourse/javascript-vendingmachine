@@ -1,10 +1,11 @@
 import './css/index.css';
-import checkRoute from './ts/app';
+// import checkRoute from './ts/app';
+import app from './ts/app';
 
 addEventListener('DOMContentLoaded', () => {
-  checkRoute();
+  app.checkRoute();
 });
 
 addEventListener('popstate', () => {
-  checkRoute();
+  app.checkRoute();
 });

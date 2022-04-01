@@ -4,33 +4,35 @@ import VendingMachine from './domain/VendingMachine';
 import { VendingMachineInterface, VendingMachineTabInterface } from './types';
 import { HASH } from './constant/hash';
 
-const initApp = function () {
-  const vendingMachine: VendingMachineInterface = new VendingMachine();
-  const itemManageTab: VendingMachineTabInterface = new ItemManageTab(
-    vendingMachine,
+class App {
+  private vendingMachine: VendingMachineInterface = new VendingMachine();
+
+  private itemManageTab: VendingMachineTabInterface = new ItemManageTab(
+    this.vendingMachine,
     HASH.ITEM_MANAGE
   );
-  const coinRechargeTab: VendingMachineTabInterface = new CoinRechargeTab(
-    vendingMachine,
+
+  private coinRechargeTab: VendingMachineTabInterface = new CoinRechargeTab(
+    this.vendingMachine,
     HASH.COIN_RECHARGE
   );
 
-  const tabs: VendingMachineTabInterface[] = [itemManageTab, coinRechargeTab];
+  private tabs: VendingMachineTabInterface[] = [this.itemManageTab, this.coinRechargeTab];
 
-  return function () {
+  checkRoute() {
     const currentHash = window.location.hash;
 
     if (!currentHash) {
-      itemManageTab.renderInitialTabState();
+      this.itemManageTab.renderInitialTabState();
       return;
     }
 
-    tabs.forEach((tab) => {
+    this.tabs.forEach((tab) => {
       if (currentHash === tab.tabHash) {
         tab.renderInitialTabState();
       }
     });
-  };
-};
+  }
+}
 
-export default initApp();
+export default new App();
