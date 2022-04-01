@@ -3,6 +3,17 @@ import { ITEM } from '../constant/rule';
 
 type itemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
 
+type TestCaseParamType = {
+  itemInfo: itemInfoType;
+  itemIndex: number;
+  isAddMode: boolean;
+};
+
+type TestCaseType = {
+  testCase: ({}: TestCaseParamType) => boolean;
+  errorMessage: string;
+};
+
 interface ItemManageInterface {
   addItem: (itemInfo: itemInfoType) => Object;
   editItem: (itemInfo: itemInfoType, itemIndex: number) => void;
@@ -34,7 +45,7 @@ class ItemManage implements ItemManageInterface {
   }
 
   validateItemInput(itemInfo: itemInfoType, itemIndex = 0, isAddMode = true) {
-    const testCases = [
+    const testCases: TestCaseType[] = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
       { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
       {
@@ -68,15 +79,7 @@ class ItemManage implements ItemManageInterface {
   private isExceedMaxNameLength({ itemInfo: { itemName } }: { itemInfo: itemInfoType }) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
-  private isAlreadyExist({
-    itemInfo: { itemName },
-    itemIndex,
-    isAddMode,
-  }: {
-    itemInfo: itemInfoType;
-    itemIndex: number;
-    isAddMode: boolean;
-  }) {
+  private isAlreadyExist({ itemInfo: { itemName }, itemIndex, isAddMode }: TestCaseParamType) {
     const isExistItemName = this._itemList.some((savedItem) => savedItem.itemName === itemName);
     if (isAddMode) return isExistItemName;
     return this._itemList[itemIndex].itemName !== itemName && isExistItemName;
