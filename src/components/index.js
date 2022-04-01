@@ -1,4 +1,4 @@
-import { accessTokenStorage } from '../stores/authStorage';
+import { accessTokenStorage } from '../stores/localStorage';
 import LoginComponent from './loginComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import PurchaseProductComponent from './PurchaseProductComponent';
@@ -82,6 +82,7 @@ class VendingMachineComponent {
       this.$nav.classList.add('hide');
       this.$loginUserHref.classList.remove('hide');
       this.$userProfileContainer.classList.add('hide');
+
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
 
@@ -94,19 +95,19 @@ class VendingMachineComponent {
 
       if (route === 'login') {
         this.$title.textContent = '로그인';
+        this.$header.classList.add('hide');
 
         this.#PurchaseProductComponent.hide();
         this.#signInComponent.hide();
-        this.$header.classList.add('hide');
 
         this.#LoginComponent.show();
       }
 
-      if (route === 'signIn') {
+      if (route === 'signin') {
         this.$title.textContent = '회원가입';
+        this.$header.classList.add('hide');
 
         this.#LoginComponent.hide();
-        this.$header.classList.add('hide');
 
         this.#signInComponent.show();
       }

@@ -1,8 +1,11 @@
+import { checkSignInInput } from '../utils/validation';
+
 class SignInComponent {
   constructor($parent) {
     this.$parent = $parent;
     this.mount();
     this.initDOM();
+    this.bindEventHandler();
   }
 
   mount() {
@@ -10,7 +13,14 @@ class SignInComponent {
   }
 
   initDOM() {
-    this.$signinContainer = this.$parent.querySelector('#signin-container');
+    this.$signInContainer = this.$parent.querySelector('#sign-in-container');
+    this.$signInForm = this.$parent.querySelector('#sign-in-form');
+    this.$signInEmailInput = this.$parent.querySelector('#sign-in-email-input');
+    this.$signInNameInput = this.$parent.querySelector('#sign-in-name-input');
+    this.$signInPasswordInput = this.$parent.querySelector('#sign-in-password-input');
+    this.$signInPasswordInputConfirm = this.$parent.querySelector(
+      '#sign-in-password-confirm-input',
+    );
   }
 
   generateTemplate() {
@@ -51,11 +61,38 @@ class SignInComponent {
   }
 
   show() {
-    this.$signinContainer.classList.remove('hide');
+    this.$signInContainer.classList.remove('hide');
   }
 
   hide() {
-    this.$signinContainer.classList.add('hide');
+    this.$signInContainer.classList.add('hide');
   }
+
+  bindEventHandler() {
+    this.$signInForm.addEventListener('submit', this.onSubmitSignInForm);
+  }
+
+  onSubmitSignInForm = e => {
+    e.preventDefault();
+
+    const { value: userEmailInput } = this.$signInEmailInput;
+    const { value: userNameInput } = this.$signInNameInput;
+    const { value: userPasswordInput } = this.$signInPasswordInput;
+    const { value: userPasswordConfirmInput } = this.$signInPasswordInputConfirm;
+
+    try {
+      if (
+        checkSignInInput({
+          emailInput: userEmailInput,
+          nameInput: userNameInput,
+          passwordInput: userPasswordInput,
+          passwordConfirmInput: userPasswordConfirmInput,
+        })
+      ) {
+      }
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
 }
 export default SignInComponent;

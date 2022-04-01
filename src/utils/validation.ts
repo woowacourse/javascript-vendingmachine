@@ -6,6 +6,7 @@ import {
   NAME_LENGTH_LIMIT,
   PRICE_RANGE,
   QUANTITY_RANGE,
+  USER_NAME_RANGE,
 } from './constants';
 
 export const isOverNameLimitLength = (nameInput: string) => nameInput.length > NAME_LENGTH_LIMIT;
@@ -69,6 +70,45 @@ export const checkInputChargeInput = (chargeInput: number) => {
   }
   if (isOutOfChargeRange(chargeInput)) {
     throw new Error(ERROR_MSG.CHARGE_OUT_OF_RANGE);
+  }
+  return true;
+};
+
+export const isNotMatchEmailForm = (emailInput: string) =>
+  !/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(
+    emailInput,
+  );
+export const isOutOfUserNameRange = (userNameInput: string) =>
+  userNameInput.length < USER_NAME_RANGE.MIN || userNameInput.length > USER_NAME_RANGE.MAX;
+
+export const isNotMatchPasswordForm = (passwordInput: string) =>
+  !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*?]).{8,20}$/.test(passwordInput);
+
+export const isSamePasswordInput = (passwordInput: string, passwordConfirmInput: string) =>
+  passwordInput != passwordConfirmInput;
+
+export const checkSignInInput = ({
+  emailInput,
+  nameInput,
+  passwordInput,
+  passwordConfirmInput,
+}: {
+  emailInput: string;
+  nameInput: string;
+  passwordInput: string;
+  passwordConfirmInput: string;
+}) => {
+  if (isNotMatchEmailForm(emailInput)) {
+    throw new Error(ERROR_MSG.NOT_MATCH_EMAIL_FORM);
+  }
+  if (isOutOfUserNameRange(nameInput)) {
+    throw new Error(ERROR_MSG.OVER_USER_NAME_RANGE);
+  }
+  if (isNotMatchPasswordForm(passwordInput)) {
+    throw new Error(ERROR_MSG.NOT_MATCH_PASSWORD_FORM);
+  }
+  if (isSamePasswordInput(passwordInput, passwordConfirmInput)) {
+    throw new Error(ERROR_MSG.NOT_SAME_PASSWORD);
   }
   return true;
 };

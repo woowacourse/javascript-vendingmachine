@@ -36,7 +36,7 @@ class LoginComponent {
           <button class="submit-button login-submit-button">확인</button>
         </form>
         <div>
-          아직 회원이 아니신가요? <a href="#signIn" id="signup-href">회원가입</a>
+          아직 회원이 아니신가요? <a href="#signin" id="signup-href">회원가입</a>
         </div>
     </section>`;
   }

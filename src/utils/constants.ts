@@ -35,6 +35,11 @@ export const ERROR_MSG = {
   CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
   CHARGE_OUT_OF_RANGE: '구매 금액은 10이상 10,000이하의 금액을 투입하여야 합니다.',
   OVER_CHARGE_INPUT: '금액이 부족합니다! 돈을 추가 투입해주세요',
+  NOT_MATCH_EMAIL_FORM: '이메일의 형식에 맞게 입력해주세요',
+  OVER_USER_NAME_RANGE: '이름은 최소 2글자 최대 6글자여야 합니다',
+  NOT_MATCH_PASSWORD_FORM:
+    '비밀번호는 영문자, 숫자, 특수기호로 이루어진 8 ~ 20글자 사이여야 합니다',
+  NOT_SAME_PASSWORD: '비밀번호와 비밀번호 확인 란에 똑같은 값이 입력되어야 합니다',
 };
 
 export const NAME_LENGTH_LIMIT = 10;
@@ -59,6 +64,11 @@ export const CHANGE_RANGE: TRange = {
 export const CHARGE_RANGE: TRange = {
   MIN: 10,
   MAX: 10000,
+};
+
+export const USER_NAME_RANGE: TRange = {
+  MIN: 2,
+  MAX: 6,
 };
 
 export const ACTION_TYPES: {
