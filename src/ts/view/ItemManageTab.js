@@ -1,16 +1,17 @@
+import VendingMachineTab from './VendingMachineTab';
 import {
   generateConfirmMessage,
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
 } from '../template';
 import { selectDom, selectDoms } from '../utils';
-import VendingMachineTab from './VendingMachineTab';
+import { ID, CLASS } from '../constant/selector';
 
 class ItemManageTab extends VendingMachineTab {
   constructor(vendingMachine, tabHash) {
     super(vendingMachine, tabHash);
 
-    this.itemManageTabButton = selectDom('#item-manage-tab-button');
+    this.itemManageTabButton = selectDom(`#${ID.ITEM_MANAGE_TAB_BUTTON}`);
     this.itemInfoForm = null;
     this.itemInfoInputs = null;
     this.itemStatusTable = null;
@@ -24,9 +25,9 @@ class ItemManageTab extends VendingMachineTab {
       this.itemManageTabButton
     );
 
-    this.itemInfoForm = selectDom('#item-info-form', this.tabContent);
-    this.itemInfoInputs = selectDoms('.item-info-input', this.itemInfoForm);
-    this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
+    this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.tabContent);
+    this.itemInfoInputs = selectDoms(`.${CLASS.ITEM_INFO_INPUT}`, this.itemInfoForm);
+    this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`, this.tabContent);
 
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
@@ -38,7 +39,7 @@ class ItemManageTab extends VendingMachineTab {
       dataset: { hash },
     },
   }) => {
-    if (this.itemManageTabButton.classList.contains('selected')) {
+    if (this.itemManageTabButton.classList.contains(`${CLASS.SELECTED}`)) {
       return;
     }
     this.changeHashUrl(hash);
@@ -96,8 +97,8 @@ class ItemManageTab extends VendingMachineTab {
   };
 
   #handleEditButtonClickEvent(targetItem) {
-    const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
-    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
+    const itemInfoInputCellList = selectDoms(`.${CLASS.ITEM_INFO_INPUT_CELL}`, targetItem);
+    const itemButtonCellList = selectDoms(`.${CLASS.ITEM_BUTTON_CELL}`, targetItem);
 
     itemInfoInputCellList[0].focus();
     this.#toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
@@ -111,9 +112,9 @@ class ItemManageTab extends VendingMachineTab {
   }
 
   #handleConfirmButtonClickEvent(targetItem) {
-    const itemInfoInputCellList = selectDoms('.item-info-input-cell', targetItem);
+    const itemInfoInputCellList = selectDoms(`.${CLASS.ITEM_INFO_INPUT_CELL}`, targetItem);
     const itemInfo = this.#convertToItemInfoObject(Array.from(itemInfoInputCellList));
-    const itemButtonCellList = selectDoms('.item-button-cell', targetItem);
+    const itemButtonCellList = selectDoms(`.${CLASS.ITEM_BUTTON_CELL}`, targetItem);
     const itemIndex = targetItem.rowIndex - 1;
 
     try {
@@ -131,7 +132,7 @@ class ItemManageTab extends VendingMachineTab {
     itemInfoInputCellList.forEach((itemInfoInputCell) => {
       itemInfoInputCell.disabled = isDisabled;
     });
-    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle('hide'));
+    itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle(CLASS.HIDE));
   }
 
   #convertToItemInfoObject(itemInfoInputCellArray) {
@@ -154,15 +155,15 @@ class ItemManageTab extends VendingMachineTab {
   }
 
   #isEditItemButton(target) {
-    return target.classList.contains('edit-item-button');
+    return target.classList.contains(CLASS.EDIT_ITEM_BUTTON);
   }
 
   #isDeleteItemButton(target) {
-    return target.classList.contains('delete-item-button');
+    return target.classList.contains(CLASS.DELETE_ITEM_BUTTON);
   }
 
   #isConfirmItemButton(target) {
-    return target.classList.contains('confirm-item-button');
+    return target.classList.contains(CLASS.CONFIRM_ITEM_BUTTON);
   }
 }
 

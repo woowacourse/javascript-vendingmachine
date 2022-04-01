@@ -1,12 +1,13 @@
+import VendingMachineTab from './VendingMachineTab';
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms } from '../utils';
-import VendingMachineTab from './VendingMachineTab';
+import { ID, CLASS } from '../constant/selector';
 
 class CoinRechargeTab extends VendingMachineTab {
   constructor(vendingMachine, tabHash) {
     super(vendingMachine, tabHash);
 
-    this.coinRechargeTabButton = selectDom('#coin-recharge-tab-button');
+    this.coinRechargeTabButton = selectDom(`#${ID.COIN_RECHARGE_TAB_BUTTON}`);
     this.cashChargeForm = null;
     this.cashChargeInput = null;
     this.chargedAmountText = null;
@@ -23,10 +24,10 @@ class CoinRechargeTab extends VendingMachineTab {
       this.coinRechargeTabButton
     );
 
-    this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
-    this.cashChargeInput = selectDom('.cash-charge-input', this.cashChargeForm);
-    this.chargedAmountText = selectDom('#charged-amount', this.tabContent);
-    this.coinCountList = selectDoms('.coin-count', this.tabContent);
+    this.cashChargeForm = selectDom(`#${ID.CASH_CHARGE_FORM}`, this.tabContent);
+    this.cashChargeInput = selectDom(`.${CLASS.CASH_CHARGE_INPUT}`, this.cashChargeForm);
+    this.chargedAmountText = selectDom(`#${ID.CHARGED_AMOUNT}`, this.tabContent);
+    this.coinCountList = selectDoms(`.${CLASS.COIN_COUNT}`, this.tabContent);
 
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
   }
@@ -36,7 +37,7 @@ class CoinRechargeTab extends VendingMachineTab {
       dataset: { hash },
     },
   }) => {
-    if (this.coinRechargeTabButton.classList.contains('selected')) {
+    if (this.coinRechargeTabButton.classList.contains(CLASS.SELECTED)) {
       return;
     }
     this.changeHashUrl(hash);

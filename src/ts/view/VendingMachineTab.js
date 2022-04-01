@@ -1,12 +1,13 @@
 import { selectDom, selectDoms } from '../utils';
+import { ID, CLASS } from '../constant/selector';
 
 class VendingMachineTab {
   constructor(vendingMachine, tabHash) {
     this.vendingMachine = vendingMachine;
     this.tabHash = tabHash;
 
-    this.navTabButtonList = selectDoms('.nav-tab-button');
-    this.tabContent = selectDom('#tab-content');
+    this.navTabButtonList = selectDoms(`.${CLASS.NAV_TAB_BUTTON}`);
+    this.tabContent = selectDom(`#${ID.TAB_CONTENT}`);
   }
 
   changeTabContent(contentTemplate, targetTabButton) {
@@ -14,7 +15,7 @@ class VendingMachineTab {
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
 
     this.navTabButtonList.forEach((navTabButton) =>
-      navTabButton.classList.toggle('selected', targetTabButton === navTabButton)
+      navTabButton.classList.toggle(`${CLASS.SELECTED}`, targetTabButton === navTabButton)
     );
   }
 
