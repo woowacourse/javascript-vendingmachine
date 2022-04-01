@@ -24,14 +24,14 @@ export default class ProductManageView {
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
-    this.renderInitialProductManage();
+    this.renderProductManageTab();
   }
 
   public renderProductManageTab = () => {
+    this.$currentProductTable.textContent = '';
     const tableTemplate = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
       .join('');
-    this.$currentProductTable.textContent = '';
     this.$currentProductTable.insertAdjacentHTML('beforeend', tableTemplate);
 
     this.$productNameInput.focus();
@@ -164,11 +164,4 @@ export default class ProductManageView {
     const targetDelete = $(`tr[data-name='${name}']`);
     this.$currentProductTable.removeChild(targetDelete);
   }
-
-  private renderInitialProductManage = () => {
-    const template = this.vendingMachine.products
-      .map((product) => this.getProductTemplate(product))
-      .join('');
-    this.$currentProductTable.insertAdjacentHTML('beforeend', template);
-  };
 }

@@ -31,20 +31,55 @@ export default class PurchaseView {
 
     // 투입버튼 이벤트 바인딩
     this.$insertMoneyForm.addEventListener('submit', this.handleInsertMoneyForm);
+
+    this.$purchasableProductTable.addEventListener('click', this.handlePurchaseButton);
+
     // 반환버튼 이벤트 바인딩
     this.$refundButton.addEventListener('click', this.handleRefundButton);
   }
 
   public renderPurchaseTab = () => {
-    // this.renderInsertedMoney();
     this.renderPurchaseTable();
     this.renderRefundTable();
+    this.$insertMoneyInput.focus();
   };
 
-  private renderInsertedMoney = (money: number) => {};
-
   private renderPurchaseTable = () => {
-    // 구매버튼 이벤트 바인딩(테이블에서 위임)
+    this.$purchasableProductTable.textContent = '';
+    const template = this.vendingMachine.products
+      .map((product) => this.getProductTemplate(product))
+      .join('');
+    this.$purchasableProductTable.insertAdjacentHTML('beforeend', template);
+  };
+
+  private getProductTemplate = ({ name, price, quantity }) => {
+    return `
+      <tr class="product-row" data-name="${name}">
+        <td class="product-row-name">${name}</td>
+        <td class="product-row-price">${price}</td>
+        <td class="product-row-quantity">${quantity}</td>
+        <td>
+          <button class="small-button purchase-button" data-name="${name}">구매</button>
+        </td>
+      </tr>
+      `;
+  };
+
+  private handlePurchaseButton = (event: PointerEvent) => {
+    const target = <HTMLButtonElement>event.target;
+    if (!target.classList.contains('purchase-button')) {
+      return;
+    }
+    const productName = target.dataset.name;
+    try {
+      const currentInsertedMoney = String(this.vendingMachine.deductInsertedMoney(productName));
+      this.renderInsertedMoney(currentInsertedMoney);
+      this.vendingMachine.decreaseProductQuantity(productName);
+      this.renderPurchaseTable();
+      renderToastModal('success', SUCCESS_MESSAGE.PURCHASE);
+    } catch (error) {
+      renderToastModal('error', error.message);
+    }
   };
 
   private renderRefundTable = () => {};
@@ -52,12 +87,17 @@ export default class PurchaseView {
   private handleInsertMoneyForm = (event: SubmitEvent) => {
     event.preventDefault();
     try {
-      this.$currentInsertedMoney.textContent = String(
+      const insertedMoney = String(
         this.vendingMachine.addInsertedMoney(+this.$insertMoneyInput.value),
       );
+      this.renderInsertedMoney(insertedMoney);
     } catch (error) {
       renderToastModal('error', error.message);
     }
+  };
+
+  private renderInsertedMoney = (money: string) => {
+    this.$currentInsertedMoney.textContent = money;
   };
 
   private handleRefundButton = () => {};
