@@ -10,19 +10,18 @@ export default class ProductManageView {
 
   #bindMangeEvent() {
     this.$productTbody.addEventListener('click', (e) => {
-      const { target } = e;
-      const className = target.classList.value;
+      const { className } = e.target;
 
       switch (className) {
         case 'modify-button':
-          this.#modifyProductInfo(target.closest('tr'));
+          this.#modifyProductInfo(e.target.closest('tr'));
           break;
         case 'confirm-button':
-          this.#confirmProductInfo(target.closest('tr'));
+          this.#confirmProductInfo(e.target.closest('tr'));
           break;
         case 'delete-button':
           if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
-            this.#deleteProductInfo(target.closest('tr'));
+            this.#deleteProductInfo(e.target.closest('tr'));
           }
           break;
         default:
