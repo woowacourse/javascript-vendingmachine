@@ -4,6 +4,7 @@ import { $, $$ } from '../utils/dom';
 import CoinManagementComponent from './CoinManagementComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import ProductPurchaseComponent from './ProductPurchaseComponent';
+import MoneyManagement from '../domain/MoneyManagement';
 
 const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
@@ -11,6 +12,7 @@ const basePath =
 export default class App {
   private productManagement;
   private coinManagement;
+  private moneyManagement;
   private productManagementComponent;
   private coinManagementComponent;
   private productPurchaseComponent;
@@ -18,6 +20,7 @@ export default class App {
   constructor() {
     this.productManagement = new ProductManagement();
     this.coinManagement = new CoinManagement();
+    this.moneyManagement = new MoneyManagement();
 
     this.productManagementComponent = new ProductManagementComponent(
       this.productManagement,
@@ -25,7 +28,9 @@ export default class App {
     this.coinManagementComponent = new CoinManagementComponent(
       this.coinManagement,
     );
-    this.productPurchaseComponent = new ProductPurchaseComponent();
+    this.productPurchaseComponent = new ProductPurchaseComponent(
+      this.moneyManagement,
+    );
 
     this.productManagementComponent.render();
 
