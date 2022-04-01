@@ -78,6 +78,7 @@ class VendingMachine {
   }
 
   inputUserMoney(money: number) {
+    this.checkInputMoneyValidate(money);
     this.userMoney += money;
   }
 
@@ -210,6 +211,20 @@ class VendingMachine {
 
     if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
+    }
+  }
+
+  private checkInputMoneyValidate(money: number) {
+    if (!isPositiveInteger(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    }
+
+    if (!isUnitOfTen(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    }
+
+    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
     }
   }
 }
