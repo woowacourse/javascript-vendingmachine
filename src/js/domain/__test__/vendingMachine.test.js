@@ -151,7 +151,7 @@ describe('자판기 클래스 테스트', () => {
       expect(() => vendingMachine.insertMoney(invalidMoney)).toThrow();
     });
 
-    test('투입 금액이 10,000원 이상이면 에러가 발생한다.', () => {
+    test('투입 금액이 10,000원을 초과하면 에러가 발생한다.', () => {
       const invalidMoney = 10010;
       expect(() => vendingMachine.insertMoney(invalidMoney)).toThrow();
     });

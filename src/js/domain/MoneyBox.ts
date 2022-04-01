@@ -49,8 +49,10 @@ export default class MoneyBox {
   addChange(money: number): void {
     const newCoins = this.#coinDistributeStrategy.distribute(money);
 
-    this.#coinStatusList.forEach((coin, index) => {
-      coin.count += newCoins[index].count;
+    this.#coinStatusList = this.#coinStatusList.map((coin, index) => {
+      const coinObj = { ...coin };
+      coinObj.count += newCoins[index].count;
+      return coinObj;
     });
   }
 }
