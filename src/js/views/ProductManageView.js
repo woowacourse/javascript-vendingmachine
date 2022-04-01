@@ -14,7 +14,7 @@ export default class ProductManageView {
 
       switch (className) {
         case 'modify-button':
-          this.#modifyProductInfo(e.target.closest('tr'));
+          this.#modifyProductInfo(e.target);
           break;
         case 'confirm-button':
           this.#confirmProductInfo(e.target.closest('tr'));
@@ -41,21 +41,21 @@ export default class ProductManageView {
     emit(SECTION_CONTAINER, '@manage', { product });
   }
 
-  #modifyProductInfo(selectedProduct) {
+  #modifyProductInfo(selectedProductButton) {
     const product = {
-      name: selectedProduct.children[0].textContent,
-      price: selectedProduct.children[1].textContent,
-      quantity: selectedProduct.children[2].textContent,
+      name: selectedProductButton.dataset.name,
+      price: selectedProductButton.dataset.price,
+      quantity: selectedProductButton.dataset.quantity,
     };
-    replaceElement(selectedProduct, tableInputTemplate(product));
+    replaceElement(selectedProductButton.closest('tr'), tableInputTemplate(product));
   }
 
   #confirmProductInfo(selectedProduct) {
     const index = selectedProduct.rowIndex - 1;
     const product = {
-      name: selectedProduct.children[0].firstChild.value.trim(),
-      price: selectedProduct.children[1].firstChild.valueAsNumber,
-      quantity: selectedProduct.children[2].firstChild.valueAsNumber,
+      name: selectedProduct.querySelector('#modify-name').value.trim(),
+      price: selectedProduct.querySelector('#modify-price').valueAsNumber,
+      quantity: selectedProduct.querySelector('#modify-quantity').valueAsNumber,
     };
     emit(SECTION_CONTAINER, '@modify', { index, product });
   }
