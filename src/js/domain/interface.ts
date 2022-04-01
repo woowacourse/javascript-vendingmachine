@@ -1,5 +1,8 @@
 import VendingMachineProduct from './VendingMachineProduct';
 
+type CoinName = 'FIVE_HUNDRED_WON' | 'ONE_HUNDRED_WON' | 'FIFTY_WON' | 'TEN_WON';
+type CoinValue = 500 | 100 | 50 | 10;
+
 export interface ProductData {
   name: string;
   price: number;
@@ -11,9 +14,15 @@ export interface VendingMachineProductDictionary {
 }
 
 export interface Coin {
-  name: string;
-  value: number;
+  name: CoinName;
+  value: CoinValue;
   count: number;
+}
+
+export interface InitCoin {
+  name: CoinName;
+  value: CoinValue;
+  count: 0;
 }
 
 export interface CoinStatus {
