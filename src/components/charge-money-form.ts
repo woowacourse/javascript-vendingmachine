@@ -4,7 +4,11 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString, convertToInteger } from '../utils';
+import {
+  consoleErrorWithConditionalAlert,
+  convertToLocaleString,
+  convertToInteger,
+} from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateChargeCoins } from '../validation/validators';
 
