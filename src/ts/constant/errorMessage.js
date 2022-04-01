@@ -14,3 +14,9 @@ export const CASH_ERROR_MESSAGE = {
   EXCEED_TOTAL_AMOUNT_RANGE: '보유할 수 있는 최소 금액은 0원, 최대 금액은 100,000원입니다.',
   NOT_DIVIDED_BY_UNIT: '잔돈은 10원으로 나누어 떨어져야 합니다.',
 };
+
+export const MONEY_ERROR_MESSAGE = {
+  NOT_NUMBER_TYPE: '숫자를 입력해주세요.',
+  EXCEED_TOTAL_AMOUNT_RANGE: '투입할 수 있는 최소 금액은 10원, 최대 금액은 10,000원입니다.',
+  NOT_DIVIDED_BY_UNIT: '투입한 금액은 10원으로 나누어 떨어져야 합니다.',
+};
