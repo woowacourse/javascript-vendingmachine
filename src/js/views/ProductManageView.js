@@ -11,19 +11,21 @@ export default class ProductManageView {
   #bindMangeEvent() {
     this.$productTbody.addEventListener('click', (e) => {
       const { target } = e;
+      const className = target.classList.value;
 
-      if (target.classList.contains('modify-button')) {
-        this.#modifyProductInfo(target.closest('tr'));
-        return;
-      }
-      if (target.classList.contains('confirm-button')) {
-        this.#confirmProductInfo(target.closest('tr'));
-        return;
-      }
-      if (target.classList.contains('delete-button')) {
-        if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
-          this.#deleteProductInfo(target.closest('tr'));
-        }
+      switch (className) {
+        case 'modify-button':
+          this.#modifyProductInfo(target.closest('tr'));
+          break;
+        case 'confirm-button':
+          this.#confirmProductInfo(target.closest('tr'));
+          break;
+        case 'delete-button':
+          if (window.confirm(CONFIRM_DELETE_MESSAGE)) {
+            this.#deleteProductInfo(target.closest('tr'));
+          }
+          break;
+        default:
       }
     });
   }
