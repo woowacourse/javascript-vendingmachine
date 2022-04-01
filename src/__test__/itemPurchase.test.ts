@@ -30,3 +30,37 @@ describe('잔돈 반환 테스트', () => {
     expect(vendingMachine.change[COIN_500]).toBe(3);
   });
 });
+
+const validatePurchasingBehavior = (
+  itemQuantity: number,
+  itemPrice: number,
+  remainedMoneyInput: number
+) => {
+  if (itemQuantity === 0) {
+    throw new Error('재고가 없습니다. 해당 상품은 더 이상 구매할 수 없습니다.');
+  }
+
+  if (itemPrice > remainedMoneyInput) {
+    throw new Error('잔돈이 부족합니다. 해당 상품 구매를 원하신다면 금액을 투입해 주세요.');
+  }
+};
+
+describe('구매 가능 여부 확인', () => {
+  test('수량이 남아 있지 않은 상품은 구매할 수 없다.', () => {
+    const itemQuantity = 0;
+    const itemPrice = 1000;
+    const remainedMoneyInput = 1000;
+    expect(() => validatePurchasingBehavior(itemQuantity, itemPrice, remainedMoneyInput)).toThrow(
+      '재고가 없습니다. 해당 상품은 더 이상 구매할 수 없습니다.'
+    );
+  });
+
+  test('남은 투입 금액보다 가격이 비싸면 구매할 수 없다.', () => {
+    const itemQuantity = 1;
+    const itemPrice = 1000;
+    const remainedMoneyInput = 990;
+    expect(() => validatePurchasingBehavior(itemQuantity, itemPrice, remainedMoneyInput)).toThrow(
+      '잔돈이 부족합니다. 해당 상품 구매를 원하신다면 금액을 투입해 주세요.'
+    );
+  });
+});
