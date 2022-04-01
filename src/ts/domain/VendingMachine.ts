@@ -5,6 +5,14 @@ type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number 
 
 type Coin = 500 | 100 | 50 | 10;
 
+type ItemInputValidationInfo = {
+  itemInfo: ItemInfoType;
+  isAddMode: boolean;
+  itemIndex?: number;
+};
+
+type ValidationInfo = ItemInputValidationInfo | number;
+
 interface TestCase {
   testCase: Function;
   errorMessage: string;
@@ -28,6 +36,42 @@ class VendingMachine implements VendingMachineInterface {
     [COIN_50]: 0,
     [COIN_10]: 0,
   };
+
+  private itemInputTestCases: TestCase[] = [
+    { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
+    { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
+    {
+      testCase: this.isExceedMaxNameLength,
+      errorMessage: ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH,
+    },
+    { testCase: this.isAlreadyExist.bind(this), errorMessage: ITEM_ERROR_MESSAGE.ALREADY_EXIST },
+    { testCase: this.isExceedPriceRange, errorMessage: ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE },
+    {
+      testCase: this.isNotDividedByPriceUnit,
+      errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_PRICE_UNIT,
+    },
+    {
+      testCase: this.isExceedQuantityRange,
+      errorMessage: ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE,
+    },
+    {
+      testCase: this.isNotDividedByQuantityUnit,
+      errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_QUANTITY_UNIT,
+    },
+  ];
+
+  private cashInputTestCases: TestCase[] = [
+    { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
+    { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
+    {
+      testCase: this.isExceedTotalAmountRange.bind(this),
+      errorMessage: CASH_ERROR_MESSAGE.EXCEED_TOTAL_AMOUNT_RANGE,
+    },
+    {
+      testCase: this.isNotDividedByUnitCash,
+      errorMessage: CASH_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
+    },
+  ];
 
   get itemList(): ItemInfoType[] {
     return this._itemList;
@@ -79,54 +123,25 @@ class VendingMachine implements VendingMachineInterface {
     );
   }
 
-  validateItemInput(itemInfo: ItemInfoType, isAddMode = true, itemIndex = null) {
-    const testCases: TestCase[] = [
-      { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
-      { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
-      {
-        testCase: this.isExceedMaxNameLength,
-        errorMessage: ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH,
-      },
-      { testCase: this.isAlreadyExist.bind(this), errorMessage: ITEM_ERROR_MESSAGE.ALREADY_EXIST },
-      { testCase: this.isExceedPriceRange, errorMessage: ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE },
-      {
-        testCase: this.isNotDividedByPriceUnit,
-        errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_PRICE_UNIT,
-      },
-      {
-        testCase: this.isExceedQuantityRange,
-        errorMessage: ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE,
-      },
-      {
-        testCase: this.isNotDividedByQuantityUnit,
-        errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_QUANTITY_UNIT,
-      },
-    ];
-
+  validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
     testCases.every(({ testCase, errorMessage }) => {
-      if (testCase({ itemInfo, isAddMode, itemIndex })) throw new Error(errorMessage);
+      if (testCase(validationInfo)) throw new Error(errorMessage);
       return true;
     });
   }
 
-  validateCashInput(rechargedCash: number) {
-    const testCases: TestCase[] = [
-      { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
-      { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
-      {
-        testCase: this.isExceedTotalAmountRange.bind(this),
-        errorMessage: CASH_ERROR_MESSAGE.EXCEED_TOTAL_AMOUNT_RANGE,
-      },
-      {
-        testCase: this.isNotDividedByUnitCash,
-        errorMessage: CASH_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
-      },
-    ];
+  validateItemInput(
+    itemInfo: ItemInfoType,
+    isAddMode: boolean = true,
+    itemIndex: number | null = null
+  ) {
+    const validationInfo: ValidationInfo = { itemInfo, isAddMode, itemIndex };
 
-    testCases.every(({ testCase, errorMessage }) => {
-      if (testCase(rechargedCash)) throw new Error(errorMessage);
-      return true;
-    });
+    this.validateTestCase(this.itemInputTestCases, validationInfo);
+  }
+
+  validateCashInput(rechargedCash: number) {
+    this.validateTestCase(this.cashInputTestCases, rechargedCash);
   }
 
   private isBlank({ itemInfo: { itemName } }: { itemInfo: ItemInfoType; isAddMode: boolean }) {
