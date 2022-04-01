@@ -19,7 +19,7 @@
         <a class="nav-button changes-charge-button" href="#!changesCharge">
           잔돈 충전
         </a>
-        <a class="nav-button product-purchase-button" type="button">
+        <a class="nav-button product-purchase-button" href="#!productPurchase" type="button">
           상품 구매
         </a>
       </nav>
@@ -273,6 +273,170 @@
           </tbody>
         </table>
       </section>
+    </template>
+
+    <template id="amount-input-template">
+      <form id="amount-form" class="form">
+        <label for="amount-input">상품을 구매할 금액을 투입해주세요</label>
+        <div class="input-container">
+          <input id="amount-input" class="input" placeholder="금액" type="number">
+          <button id="charge-amount-button" class="button">투입</button>
+        </div>
+        <p id="have-amount"></p>
+      </form>
+      <style>
+        #amount-input {
+          width: 300px;
+        }
+
+        #amount-form {
+          width: 400px;
+          margin: 0 auto;
+        }
+
+        #have-amount {
+          margin-top: 5px;
+        }
+
+        .input-container {
+          display: flex;
+          gap: 6px;
+        }
+
+        .button {
+          color: white;
+          background-color: var(--default-button-color);
+          width: 56px;
+          height: 38px;
+          padding: 0;
+          margin-left: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        .button:hover {
+          background-color: var(--hover-button-color);
+        }
+
+        .input {
+          height: 36px;
+          border-radius: 4px;
+          padding-left: 8px;
+          border: 1px solid var(--input-border-color);
+        }
+
+        .form {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+      </style>
+
+    </template>
+
+    <template id="product-purchase-template">
+      <style>
+        table {
+          width: 470px;
+          border-collapse: collapse;
+          margin-bottom: 60px;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+
+        .process-button {
+          background-color: var(--process-button-color);
+          width: 50px;
+          height: 32px;
+          border-radius: 4px;
+          border: none;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+  
+        .process-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+      </style>
+      <h2>상품 현황</h2>
+      <table>
+        <colgroup>
+          <col width="25%"></col>
+          <col width="25%"></col>
+          <col width="25%"></col>
+          <col width="25%"></col>
+        </colgroup>
+        <thead id="table-head">
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>구매</th>
+          </tr>
+        </thead>
+        <tbody id="product-purchase-table-body">
+
+        </tbody>
+      </table>
+    </template>
+
+    <template id="product-purchase-item-template">
+      <tr is="product-purchase-item">
+        <td id="item-name"></td>
+        <td id="item-price"></td>
+        <td id="item-count"></td>
+        <td><button id="purchase-button" class="process-button">구매</button></td>
+      </tr>
+    </template>
+
+    <template id="coin-return-table">
+      <style>
+        table {
+          width: 200px;
+          border-collapse: collapse;
+          margin: 0 auto;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+
+        .process-button {
+          background-color: var(--process-button-color);
+          width: 50px;
+          height: 32px;
+          border-radius: 4px;
+          border: none;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+  
+        .process-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+      </style>
+      <h2>잔돈 반환</h2>
+      <table>
+        <colgroup>
+          <col width="50%"></col>
+          <col width="50%"></col>
+        </colgroup>
+        <thead id="table-head">
+          <tr>
+            <th>동전</th>
+            <th>개수</th>
+          </tr>
+        </thead>
+        <tbody id="product-purchase-table-body">
+
+        </tbody>
+      </table>
     </template>
   </body>
 </html>

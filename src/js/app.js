@@ -1,5 +1,6 @@
 import "./pages/product-manage.page";
 import "./pages/changes-manage.page";
+import "./pages/product-purchase.page";
 
 class App {
   constructor() {
@@ -19,6 +20,10 @@ class App {
     if (target.classList.contains("changes-charge-button")) {
       this.$page.innerHTML = "<changes-manage></changes-manage>";
     }
+
+    if (target.classList.contains("product-purchase-button")) {
+      this.$page.innerHTML = "<product-purchase></product-purchase>";
+    }
   };
 
   onChangePage = () => {
@@ -30,6 +35,10 @@ class App {
 
     if (hash === "#!changesCharge") {
       this.$page.innerHTML = "<changes-manage></changes-manage>";
+    }
+
+    if (hash === "#!productPurchase") {
+      this.$page.innerHTML = "<product-purchase></product-purchase>";
     }
   };
 }
