@@ -160,7 +160,7 @@ export const tableTemplate = ({ name, price, quantity }) => {
       <td>${price}</td>
       <td>${quantity}</td>
       <td>
-        <button class="modify-button" type="button" data-name=${name} data-price=${price} data-quantity=${quantity}>수정</button> 
+        <button class="modify-button" type="button" data-name=${name} data-price=${price} data-quantity=${quantity}>수정</button>
         <button class="delete-button" type="button">삭제</button>
       </td>
     </tr>

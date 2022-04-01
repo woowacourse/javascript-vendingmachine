@@ -7,14 +7,6 @@ export default class ChargeView {
     on(SECTION_CONTAINER, 'submit', this.#onSubmitChargeAmount.bind(this));
   }
 
-  #onSubmitChargeAmount(e) {
-    e.preventDefault();
-    if (e.target.id !== 'charge-form') return;
-
-    const amount = this.$chargeAmountInput.valueAsNumber;
-    emit(SECTION_CONTAINER, '@charge', { amount });
-  }
-
   initChargeDOM() {
     this.$chargeAmountInput = $('#charge-amount-input');
     this.$currentAmount = $('.current-amount');
@@ -37,5 +29,13 @@ export default class ChargeView {
 
   resetChargeInput() {
     this.$chargeAmountInput.value = '';
+  }
+
+  #onSubmitChargeAmount(e) {
+    e.preventDefault();
+    if (e.target.id !== 'charge-form') return;
+
+    const amount = this.$chargeAmountInput.valueAsNumber;
+    emit(SECTION_CONTAINER, '@charge', { amount });
   }
 }

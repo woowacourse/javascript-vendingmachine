@@ -8,6 +8,35 @@ export default class ProductManageView {
     on(SECTION_CONTAINER, 'submit', this.#onSubmitProductInfo.bind(this));
   }
 
+  initManageDOM() {
+    this.$productNameInput = $('#product-name-input');
+    this.$productPriceInput = $('#product-price-input');
+    this.$productQuantityInput = $('#product-quantity-input');
+    this.$productTbody = $('#product-tbody');
+
+    this.#bindMangeEvent();
+  }
+
+  renderModifiedProduct(index, product) {
+    replaceElement(this.$productTbody.children[index], tableTemplate(product));
+  }
+
+  render(productList) {
+    if (Array.isArray(productList)) {
+      productList.forEach((product) => {
+        this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(product));
+      });
+      return;
+    }
+    this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(productList));
+  }
+
+  resetProductInput() {
+    this.$productNameInput.value = '';
+    this.$productPriceInput.value = '';
+    this.$productQuantityInput.value = '';
+  }
+
   #bindMangeEvent() {
     this.$productTbody.addEventListener('click', (e) => {
       const { className } = e.target;
@@ -64,34 +93,5 @@ export default class ProductManageView {
     const index = selectedProduct.rowIndex - 1;
     this.$productTbody.removeChild(selectedProduct);
     emit(SECTION_CONTAINER, '@delete', { index });
-  }
-
-  renderModifiedProduct(index, product) {
-    replaceElement(this.$productTbody.children[index], tableTemplate(product));
-  }
-
-  initManageDOM() {
-    this.$productNameInput = $('#product-name-input');
-    this.$productPriceInput = $('#product-price-input');
-    this.$productQuantityInput = $('#product-quantity-input');
-    this.$productTbody = $('#product-tbody');
-
-    this.#bindMangeEvent();
-  }
-
-  render(productList) {
-    if (Array.isArray(productList)) {
-      productList.forEach((product) => {
-        this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(product));
-      });
-      return;
-    }
-    this.$productTbody.insertAdjacentHTML('beforeend', tableTemplate(productList));
-  }
-
-  resetProductInput() {
-    this.$productNameInput.value = '';
-    this.$productPriceInput.value = '';
-    this.$productQuantityInput.value = '';
   }
 }
