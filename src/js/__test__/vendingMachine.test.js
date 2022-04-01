@@ -89,5 +89,14 @@ describe('자판기 기본 기능 테스트', () => {
         ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY,
       );
     });
+    it('자판기에 투입하려는 금액이 0원을 넘지 못하면, 오류를 발생시킨다.', () => {
+      const money = 0;
+      expect(() => vendingMachine.inputUserMoney(money)).toThrowError(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    });
+
+    it('자판기에 투입하려는 금액이 10원으로 나누어 떨어지지 않으면, 오류를 발생시킨다.', () => {
+      const money = 9;
+      expect(() => vendingMachine.inputUserMoney(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    });
   });
 });
