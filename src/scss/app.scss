@@ -4,13 +4,16 @@
   width: 600px;
   min-height: 675px;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 32px 0;
   background-color: $color-app-background;
   border: 1px solid $color-app-border;
   border-radius: 4px;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -52,6 +55,10 @@ input {
     &.active {
       background: $color-brand-secondary;
     }
+
+    &:hover {
+      background-color: $color-brand-secondary;
+    }
   }
 }
 
@@ -91,4 +98,14 @@ input {
 
 .input-section {
   margin-bottom: 48px;
+}
+
+.signin-button {
+  position: absolute;
+  margin-top: 12px;
+  margin-left: 460px;
+}
+
+.hide {
+  display: none !important;
 }

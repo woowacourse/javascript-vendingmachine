@@ -8,34 +8,120 @@
 
   <body>
     <div id="app">
-      <h1 class="title">🍿 자판기 🍿</h1>
-      <nav class="nav">
-        <button
-          type="button"
-          class="nav__button active"
-          name="product-management"
-          data-pathname="/"
-        >
-          상품 관리
-        </button>
-        <button
-          type="button"
-          class="nav__button"
-          name="coin-charge"
-          data-pathname="/charge"
-        >
-          잔돈 충전
-        </button>
-        <button
-          type="button"
-          class="nav__button"
-          name="product-purchase"
-          data-pathname="/purchase"
-        >
-          상품 구매
-        </button>
-      </nav>
-      <main id="main-content"></main>
+      <div id="main">
+        <button type="button" class="signin-button nav__button">로그인</button>
+        <button type="button" class="thumbnail" hidden></button>
+        <h1 class="title">🍿 자판기 🍿</h1>
+        <nav class="nav">
+          <button
+            type="button"
+            class="nav__button active"
+            name="product-management"
+            data-pathname="/"
+          >
+            상품 관리
+          </button>
+          <button
+            type="button"
+            class="nav__button"
+            name="coin-charge"
+            data-pathname="/charge"
+          >
+            잔돈 충전
+          </button>
+          <button
+            type="button"
+            class="nav__button"
+            name="product-purchase"
+            data-pathname="/purchase"
+          >
+            상품 구매
+          </button>
+        </nav>
+        <div id="main-content"></div>
+      </div>
+      <div id="sign-in" class="hide">
+        <h1 class="sign-in__title">로그인</h1>
+        <form class="sign-in__form">
+          <label
+            class="sign-in__description input-description"
+            for="sign-in-email"
+          >
+            이메일
+          </label>
+          <input
+            id="sign-in-email"
+            class="sign-in__input"
+            placeholder="woowacourse@gmail.com"
+          />
+          <label
+            class="sign-in__description input-description"
+            for="sign-in-password"
+          >
+            비밀번호
+          </label>
+          <input
+            id="sign-in-password"
+            class="sign-in__input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <button class="sign-in__button">확인</button>
+        </form>
+        <span>
+          아직 회원이 아니신가요?
+          <button class="sign-in__link-sign-up">회원가입</button>
+        </span>
+      </div>
+      <div id="sign-up" class="hide">
+        <h1 class="sign-up__title">회원가입</h1>
+        <form class="sign-up__form">
+          <label
+            class="sign-up__description input-description"
+            for="sign-up-email"
+          >
+            이메일
+          </label>
+          <input
+            id="sign-up-email"
+            class="sign-up__input"
+            placeholder="이메일 주소를 입력해주세요"
+          />
+          <label
+            class="sign-up__description input-description"
+            for="sign-up-name"
+          >
+            이름
+          </label>
+          <input
+            id="sign-up-name"
+            class="sign-up__input"
+            placeholder="이름을 입력해주세요"
+          />
+          <label
+            class="sign-up__description input-description"
+            for="sign-up-password"
+          >
+            비밀번호
+          </label>
+          <input
+            id="sign-up-password"
+            class="sign-up__input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <label
+            class="sign-up__description input-description"
+            for="sign-up-confirm-password"
+          >
+            비밀번호 확인
+          </label>
+          <input
+            id="sign-up-confirm-password"
+            class="sign-up__input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <button class="sign-up__button">확인</button>
+        </form>
+      </div>
     </div>
     <div id="snackbar"></div>
   </body>
