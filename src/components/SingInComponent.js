@@ -1,5 +1,6 @@
 import { checkSignInInput } from '../utils/validation';
-
+import AuthStore from '../stores/authStore';
+import { AuthActionTypes } from '../utils/constants';
 class SignInComponent {
   constructor($parent) {
     this.$parent = $parent;
@@ -89,6 +90,14 @@ class SignInComponent {
           passwordConfirmInput: userPasswordConfirmInput,
         })
       ) {
+        AuthStore.mutateState({
+          actionType: AuthActionTypes.SIGN_IN,
+          payload: {
+            email: userEmailInput,
+            name: userNameInput,
+            password: userPasswordInput,
+          },
+        });
       }
     } catch ({ message }) {
       alert(message);

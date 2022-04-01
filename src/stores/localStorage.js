@@ -1,17 +1,17 @@
 export const accessTokenStorage = {
-  setAccessTokenStorage(token) {
+  setAccessToken(token) {
     localStorage.setItem('accessToken', JSON.stringify(token));
   },
-  getAccessTokenStorage() {
+  getAccessToken() {
     return JSON.parse(localStorage.getItem('accessToken'));
   },
 };
 
 export const userIdStorage = {
-  setUserIdStorage(userId) {
+  setUserId(userId) {
     localStorage.setItem('userId', JSON.stringify(userId));
   },
-  getUserIdStorage() {
+  getUserId() {
     return JSON.parse(localStorage.getItem('userId'));
   },
 };

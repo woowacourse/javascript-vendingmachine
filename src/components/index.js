@@ -125,7 +125,7 @@ class VendingMachineComponent {
   }
 
   checkLoginStatus() {
-    const accessToken = accessTokenStorage.getAccessTokenStorage();
+    const accessToken = accessTokenStorage.getAccessToken();
     if (accessToken) {
       return true;
     }

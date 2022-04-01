@@ -1,5 +1,5 @@
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
-import { TAction, TStateKey } from '../stores/types';
+import { AuthActionType, TAction, TStateKey } from '../stores/types';
 import { TMention, TRange } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
@@ -100,3 +100,15 @@ export const NOTICE_MENTION: TMention = {
 };
 
 export const SNACKBAR_DELAY_TIME = 1000;
+
+export const AuthActionTypes: {
+  LOGIN: AuthActionType;
+  LOGOUT: AuthActionType;
+  SIGN_IN: AuthActionType;
+  EDIT_USER_INFO: AuthActionType;
+} = {
+  LOGIN: 'login',
+  LOGOUT: 'logout',
+  SIGN_IN: 'signIn',
+  EDIT_USER_INFO: 'editUserInfo',
+};
