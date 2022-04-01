@@ -1,7 +1,13 @@
 import { Coin } from '../domain/Coin';
 import Product from '../domain/Product';
 
-class CustomElement extends HTMLElement {
+export interface Notification {
+  action: string;
+  amount: Coin;
+  product?: Product;
+}
+
+export class CustomElement extends HTMLElement {
   connectedCallback() {
     this.render();
     this.setEvent();
@@ -17,7 +23,5 @@ class CustomElement extends HTMLElement {
 
   setEvent() {}
 
-  notify(action: string, amount: Coin, product?: Product) {}
+  notify(notification: Notification) {}
 }
-
-export default CustomElement;

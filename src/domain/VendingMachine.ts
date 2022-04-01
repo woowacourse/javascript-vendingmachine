@@ -1,6 +1,6 @@
 import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
-import CustomElement from '../ui/CustomElement';
+import { CustomElement } from '../ui/CustomElement';
 import { on, $ } from '../utils';
 import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
 import { Coin } from './Coin';
@@ -48,7 +48,7 @@ class VendingMachine implements VendingMachineProperty {
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify(action, this.amount, product));
+    targets.forEach((target) => target.element.notify({ action, amount: this.amount, product }));
   }
 
   observe(key: string, element: CustomElement) {

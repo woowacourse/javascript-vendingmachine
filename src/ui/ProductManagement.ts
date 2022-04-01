@@ -1,4 +1,4 @@
-import CustomElement from './CustomElement';
+import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
@@ -92,7 +92,7 @@ class ProductManagement extends CustomElement {
     emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
   }
 
-  notify(action: string, _: never, product: Product) {
+  notify({ action, product }: Notification) {
     switch (action) {
       case 'add':
         this.insertItem(product);
