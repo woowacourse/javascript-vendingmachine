@@ -47,12 +47,12 @@ export class ProductInformationInput {
   private handleAddProduct = (e) => {
     e.preventDefault();
 
-    const productName = this.productNameInput.value;
-    const productPrice = this.productPriceInput.valueAsNumber;
-    const productQuantity = this.productQuantityInput.valueAsNumber;
+    const name = this.productNameInput.value;
+    const price = this.productPriceInput.valueAsNumber;
+    const quantity = this.productQuantityInput.valueAsNumber;
 
     try {
-      this.productCatalog.addProduct(productName, productPrice, productQuantity);
+      this.productCatalog.addProduct({ name, price, quantity });
     } catch (err) {
       alert(err.message);
 

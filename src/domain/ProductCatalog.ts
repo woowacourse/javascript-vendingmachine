@@ -1,4 +1,6 @@
 import { ERROR_MESSAGE } from '../utils/constants';
+import { ProductProps } from '../utils/interface';
+
 import { Product } from './Product';
 
 export class ProductCatalog {
@@ -12,36 +14,36 @@ export class ProductCatalog {
     return this.productList;
   }
 
-  addProduct(name: string, price: number, quantity: number) {
-    const product = this.findProduct(name);
-
-    if (this.isSameProductExist(product, price)) {
-      this.accumulateQuantity(product, quantity);
-
-      return;
-    }
+  addProduct(product: ProductProps) {
+    const { name, price, quantity } = product;
+    if (this.isSameProductExist(name)) return;
 
     this.productList = [...this.productList, new Product(name, price, quantity)];
   }
 
-  isSameProductExist(product: Product, price: number): boolean {
-    if (!product) return false;
-    if (product.getPrice() !== price)
-      throw Error(ERROR_MESSAGE.SAME_PRODUCT_NAME_NOT_SAME_PRODUCT_PRICE);
+  isSameProductExist(name: string): boolean {
+    if (this.findProduct(name)) throw Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST);
 
-    return true;
+    return false;
   }
 
   findProduct(name: string): Product {
     return this.productList.find((product) => product.getName() === name);
   }
 
-  private accumulateQuantity(product: Product, quantity: number) {
-    product.validateQuantity(product.getQuantity() + quantity);
-    product.setQuantity(product.getQuantity() + quantity);
-  }
-
   deleteProduct(name: string) {
     this.productList = this.productList.filter((product) => product.getName() !== name);
+  }
+
+  editProduct(targetProductName: string, editedProductProps: ProductProps) {
+    const targetProduct = this.findProduct(targetProductName);
+
+    const { name, price, quantity } = editedProductProps;
+
+    if (targetProduct.validateAllProp(name, price, quantity)) {
+      targetProduct.setName(name);
+      targetProduct.setPrice(price);
+      targetProduct.setQuantity(quantity);
+    }
   }
 }

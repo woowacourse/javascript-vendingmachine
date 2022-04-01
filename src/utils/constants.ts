@@ -29,8 +29,7 @@ export const ERROR_MESSAGE = {
   OVER_BALANCE_LIMIT: '돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.',
   OVER_PRODUCT_NAME_LENGTH_LIMIT: '10글자 미만의 상품명을 넣어주세요~',
   OVER_PRODUCT_QUANTITY_LIMIT: '수량은 최대 20개까지만 가능합니다~',
-  SAME_PRODUCT_NAME_NOT_SAME_PRODUCT_PRICE:
-    '이미 존재하는 상품이름을 사용하시려면 가격이 동일해야합니다.',
+  DUPLICATE_PRODUCT_NAME_EXIST: '중복된 상품명입니다',
 };
 
 export const URL_PATH = {

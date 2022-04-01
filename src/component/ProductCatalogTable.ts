@@ -88,7 +88,7 @@ export class ProductCatalogTable {
       const tableRow = e.target.closest('tr');
 
       try {
-        this.saveEditedProductState(tableRow);
+        this.saveEditedProduct(tableRow);
       } catch (err) {
         alert(err.message);
 
@@ -136,8 +136,8 @@ export class ProductCatalogTable {
     }
   }
 
-  private saveEditedProductState(tableRow: HTMLTableRowElement) {
-    const targetProduct = this.productCatalog.findProduct(tableRow.id);
+  private saveEditedProduct(tableRow: HTMLTableRowElement) {
+    const targetProductName = tableRow.id;
     const editedProductName = (tableRow.querySelector('.product-name input') as HTMLInputElement)
       .value;
     const editedProductPrice = (tableRow.querySelector('.product-price input') as HTMLInputElement)
@@ -146,13 +146,11 @@ export class ProductCatalogTable {
       tableRow.querySelector('.product-quantity input') as HTMLInputElement
     ).valueAsNumber;
 
-    if (
-      targetProduct.validateAllProp(editedProductName, editedProductPrice, editedProductQuantity)
-    ) {
-      targetProduct.setName(editedProductName);
-      targetProduct.setPrice(editedProductPrice);
-      targetProduct.setQuantity(editedProductQuantity);
-    }
+    this.productCatalog.editProduct(targetProductName, {
+      name: editedProductName,
+      price: editedProductPrice,
+      quantity: editedProductQuantity,
+    });
   }
 
   private confirmEditProduct(tableRow: HTMLTableRowElement) {

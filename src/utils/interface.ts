@@ -4,3 +4,9 @@ export interface Coins {
   coin50: number;
   coin10: number;
 }
+
+export interface ProductProps {
+  name: string;
+  quantity: number;
+  price: number;
+}
