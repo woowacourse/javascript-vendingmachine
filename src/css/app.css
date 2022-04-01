@@ -1,0 +1,154 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  margin: 32px 0;
+  min-height: 675px;
+  width: 600px;
+  align-items: center;
+}
+
+.nav-container {
+  margin-top: 32px;
+}
+
+.nav-button {
+  width: 200px;
+  background: var(--color-nav-button-bg);
+  width: 118px;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+
+.nav-button.nav-button-clicked {
+  background-color: var(--color-nav-button-clicked);
+}
+
+.input-container {
+  margin-top: 52px;
+}
+
+.input-container > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container > form > label {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.add-item-input {
+  width: 120px;
+  height: 36px;
+}
+
+.submit-button {
+  background-color: var(--color-submit-button-bg);
+  padding: 6px;
+  width: 56px;
+  height: 36px;
+  color: var(--color-submit-button-font-color);
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: 16px;
+}
+
+.submit-button:hover {
+  background-color: var(--color-submit-button-hover);
+}
+
+.submit-button:active {
+  background-color: var(--color-submit-button-active);
+}
+
+.table-container {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container > table {
+  margin-top: 16px;
+}
+
+.table-container > table td {
+  text-align: center;
+}
+
+.item-table-change-button,
+.item-table-delete-button {
+  width: 50px;
+  height: 32px;
+}
+
+.item-table-purchase-button {
+  width: 100px;
+  height: 32px;
+}
+
+.table-container > table tr {
+  display: grid;
+  align-items: center;
+  grid-gap: 0;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.item-table {
+  width: 480px;
+}
+
+.item-table tr {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 45px;
+}
+
+.coin-table {
+  width: 240px;
+}
+
+.coin-table tr {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 45px;
+}
+
+.table-container > table tr:first-child {
+  border-top: 1px solid #dcdcdc;
+}
+
+.charge-money-input {
+  width: 300px;
+  height: 36px;
+}
+
+.input-container p {
+  margin-top: 16px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display-none {
+  display: none;
+}
+
+.return-money-button {
+  width: 100px;
+  height: 32px;
+  margin-top: 24px;
+}
+
+.table-item-input {
+  width: 90px;
+  text-align: center;
+}
+
+.item-table-confirm-button {
+  width: 100px;
+  height: 32px;
+}
