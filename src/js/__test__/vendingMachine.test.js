@@ -98,5 +98,13 @@ describe('자판기 기본 기능 테스트', () => {
       const money = 9;
       expect(() => vendingMachine.inputUserMoney(money)).toThrowError(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     });
+
+    it('잔돈을 반환할때 자판기에 충전된 잔돈이 유저가 투입한 금액에 비해 부족하면, 오류를 발생시킨다.', () => {
+      const inputChanges = 1000;
+      const inputMoney = 2000;
+      vendingMachine.inputChanges(inputChanges);
+      vendingMachine.inputUserMoney(inputMoney);
+      expect(() => vendingMachine.returnChanges()).toThrowError(ERROR_MESSAGE.NOT_ENOUGH_RETURN_CHANGE);
+    });
   });
 });
