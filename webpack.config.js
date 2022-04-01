@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+const dotenv = require('dotenv');
 
 module.exports = (env, options) => {
+  dotenv.config({ path: `.env.${options.mode}` });
   return {
     mode: options.mode,
     entry: './src/index.ts',

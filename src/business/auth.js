@@ -1,5 +1,7 @@
 import { fetcher } from '../lib/fetcher';
 import { checkJoinPossible } from '../utils/validation';
+import globalStore from '../stores/globalStore';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../utils/constants';
 
 export const loginUser = async (emailValue, passwordValue) => {
   try {
@@ -22,7 +24,7 @@ export const loginUser = async (emailValue, passwordValue) => {
 export const joinUser = async (email, name, password, passwordReenter) => {
   try {
     if (checkJoinPossible(name, password, passwordReenter)) {
-      const data = await fetcher({
+      const { accessToken, user } = await fetcher({
         path: '/register',
         option: {
           method: 'POST',
@@ -33,6 +35,20 @@ export const joinUser = async (email, name, password, passwordReenter) => {
         },
       });
       // data로 setting
+      // console.log(data);
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.SET_LOGGED_USER,
+        payload: { user },
+        stateKey: GLOBAL_STATE_KEYS.LOGGED_USER,
+      });
+
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.SET_IS_LOGGED_IN,
+        payload: { isLoggedIn: true },
+        stateKey: GLOBAL_STATE_KEYS.IS_LOGGED_IN,
+      });
+
+      localStorage.setItem('logged-user', JSON.stringify(accessToken));
     }
   } catch ({ message }) {
     alert(message);

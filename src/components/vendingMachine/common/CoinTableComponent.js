@@ -1,5 +1,5 @@
-import vendingMachineStore from '../../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import vendingMachineStore from '../../../stores/vendingMachineStore';
+import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
 
 class CoinTableComponent {
   constructor($parent, { tableId, tableCaption }) {

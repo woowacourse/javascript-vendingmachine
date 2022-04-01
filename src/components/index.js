@@ -1,23 +1,57 @@
-import router from '../router';
-import { AUTH_ROUTE_NAME, VENDING_MACHINE_ROUTE_NAME } from '../utils/constants';
-import AuthComponent from './AuthComponent';
-import VendingMachineComponent from './VendingMachineComponent';
+import router, { ROUTE_NAME } from '../lib/router';
+import globalStore from '../stores/globalStore';
+import { GLOBAL_STATE_KEYS } from '../utils/constants';
+import EditComponent from './auth/EditComponent';
+import JoinComponent from './auth/JoinComponent';
+import LoginComponent from './auth/LoginComponent';
+import ManageComponent from './vendingMachine/ManageComponent';
+import PurchaseComponent from './vendingMachine/PurchaseComponent';
+import RechargeComponent from './vendingMachine/RechargeComponent';
 
 class AppComponent {
-  #currentSectionName;
+  routerComponent = {
+    [ROUTE_NAME.MANAGE]: new ManageComponent(),
+    [ROUTE_NAME.RECHARGE]: new RechargeComponent(),
+    [ROUTE_NAME.PURCHASE]: new PurchaseComponent(),
+    [ROUTE_NAME.LOGIN]: new LoginComponent(),
+    [ROUTE_NAME.JOIN]: new JoinComponent(),
+    [ROUTE_NAME.EDIT]: new EditComponent(),
+  };
 
-  #VendingMachineComponent;
-  #AuthComponent;
+  constructor() {
+    this.initDOM();
+    this.bindEventHandler();
+    this.subscribeStore();
+    this.render(globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this));
+  }
 
-  constructor(currentRouteName) {
-    this.#VendingMachineComponent = new VendingMachineComponent({
-      onClickNavigation: this.onClickNavigation,
+  initDOM() {
+    this.$navTab = document.querySelector('#tab-nav');
+    this.$loginButton = document.querySelector('#login-button');
+  }
+
+  bindEventHandler() {
+    this.$navTab.addEventListener('click', this.onClickNavigation);
+    this.$loginButton.addEventListener('click', this.onClickLoginOrEditButton);
+  }
+
+  subscribeStore() {
+    globalStore.subscribe(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
+  }
+
+  wakeUp() {
+    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
+    this.render(currentRouteName);
+  }
+
+  render(currentRouteName) {
+    Object.entries(this.routerComponent).forEach(([routeName, component]) => {
+      if (routeName === currentRouteName) {
+        component.showSection(currentRouteName);
+        return;
+      }
+      component.hideSection();
     });
-    this.#AuthComponent = new AuthComponent({
-      onClickLoginOrEditButton: this.onClickLoginOrEditButton,
-      onClickJoinButton: this.onClickJoinButton,
-    });
-    this.showSection(currentRouteName);
   }
 
   onClickNavigation = e => {
@@ -25,48 +59,19 @@ class AppComponent {
       target: { id },
     } = e;
 
-    if (
-      id === 'manage-product-tab' &&
-      this.#currentSectionName !== VENDING_MACHINE_ROUTE_NAME.MANAGE
-    ) {
-      router.pushState({ path: VENDING_MACHINE_ROUTE_NAME.MANAGE }, 'home');
-      this.showSection(VENDING_MACHINE_ROUTE_NAME.MANAGE);
+    if (id === 'manage-product-tab') {
+      router.pushState({ path: ROUTE_NAME.MANAGE }, 'home');
     }
-    if (
-      id === 'recharge-change-tab' &&
-      this.#currentSectionName !== VENDING_MACHINE_ROUTE_NAME.RECHARGE
-    ) {
-      router.pushState({ path: VENDING_MACHINE_ROUTE_NAME.RECHARGE }, 'recharge');
-      this.showSection(VENDING_MACHINE_ROUTE_NAME.RECHARGE);
+    if (id === 'recharge-change-tab') {
+      router.pushState({ path: ROUTE_NAME.RECHARGE }, 'recharge');
     }
-    if (
-      id === 'purchase-product-tab' &&
-      this.#currentSectionName !== VENDING_MACHINE_ROUTE_NAME.PURCHASE
-    ) {
-      router.pushState({ path: VENDING_MACHINE_ROUTE_NAME.PURCHASE }, 'purchase');
-      this.showSection(VENDING_MACHINE_ROUTE_NAME.PURCHASE);
+    if (id === 'purchase-product-tab') {
+      router.pushState({ path: ROUTE_NAME.PURCHASE }, 'purchase');
     }
   };
 
   onClickLoginOrEditButton = () => {
-    router.pushState({ path: AUTH_ROUTE_NAME.LOGIN }, 'login');
-    this.showSection(AUTH_ROUTE_NAME.LOGIN);
+    router.pushState({ path: ROUTE_NAME.LOGIN }, 'login');
   };
-
-  onClickJoinButton = () => {
-    router.pushState({ path: AUTH_ROUTE_NAME.JOIN }, 'join');
-    this.showSection(AUTH_ROUTE_NAME.JOIN);
-  };
-
-  showSection(name) {
-    if (Object.values(VENDING_MACHINE_ROUTE_NAME).includes(name)) {
-      this.#AuthComponent.hide();
-      this.#VendingMachineComponent.showSection(name);
-    }
-    if (Object.values(AUTH_ROUTE_NAME).includes(name)) {
-      this.#VendingMachineComponent.hide();
-      this.#AuthComponent.showSection(name);
-    }
-  }
 }
 export default AppComponent;

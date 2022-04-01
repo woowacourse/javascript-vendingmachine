@@ -1,6 +1,6 @@
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
-import vendingMachineStore from '../../stores/vendingMachineStore';
-import { checkProductInput } from '../../utils/validation';
+import vendingMachineStore from '../../../stores/vendingMachineStore';
+import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
+import { checkProductInput } from '../../../utils/validation';
 
 class ProductTableComponent {
   constructor($parent, { tableId, tableCaption }) {
@@ -19,20 +19,20 @@ class ProductTableComponent {
 
   generateTemplate() {
     return `<table id="${this.tableId}" class="product-list">
-        <caption>
-         ${this.tableCaption}
-        </caption>
-        <tbody class="product-list-table-body">
-        <tr>
-          <th>상품명</th>
-          <th>가격</th>
-          <th>수량</th>
-          <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-        </tr>
-        </tbody>
-      </table>
-      <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
-      `;
+          <caption>
+           ${this.tableCaption}
+          </caption>
+          <tbody class="product-list-table-body">
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+          </tr>
+          </tbody>
+        </table>
+        <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
+        `;
   }
 
   initDOM() {
@@ -62,63 +62,63 @@ class ProductTableComponent {
       this.$emptyImg.classList.add('hide');
     }
     this.$tableBody.innerHTML = `<tr>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>수량</th>
-        <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-    </tr>
-    ${this.generateProductListTemplate(productList)}`;
+          <th>상품명</th>
+          <th>가격</th>
+          <th>수량</th>
+          <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+      </tr>
+      ${this.generateProductListTemplate(productList)}`;
   }
 
   generateProductListTemplate(productList) {
     return productList.reduce((prev, product) => {
       const { id, name, price, quantity } = product.getProductInfo();
       return `${prev}
-        <tr class="product-row">
-          <td class="product-row-name" data-product-name='${name}'>${name}</td>
-          <td class="product-row-price" data-product-price='${price}'>${price}</td>
-          <td class="product-row-quantity" data-product-quantity='${quantity}'>${quantity}</td>
-          <td>
-            ${this.generateButton(id)}
-          </td>
-      </tr>
-      `;
+          <tr class="product-row">
+            <td class="product-row-name" data-product-name='${name}'>${name}</td>
+            <td class="product-row-price" data-product-price='${price}'>${price}</td>
+            <td class="product-row-quantity" data-product-quantity='${quantity}'>${quantity}</td>
+            <td>
+              ${this.generateButton(id)}
+            </td>
+        </tr>
+        `;
     }, '');
   }
 
   generateButton(id) {
     if (this.tableId === 'current-product-list') {
       return `<button
-        type="button"
-        class="product-edit-button gray-button"
-        data-product-id="${id}"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="product-delete-button gray-button"
-        data-product-id="${id}"
-      >
-        삭제
-      </button>
-      <button
-        type="button"
-        class="product-confirm-button gray-button hide"
-        data-product-id="${id}"
-      >
-        확인
-      </button>`;
+          type="button"
+          class="product-edit-button gray-button"
+          data-product-id="${id}"
+        >
+          수정
+        </button>
+        <button
+          type="button"
+          class="product-delete-button gray-button"
+          data-product-id="${id}"
+        >
+          삭제
+        </button>
+        <button
+          type="button"
+          class="product-confirm-button gray-button hide"
+          data-product-id="${id}"
+        >
+          확인
+        </button>`;
     }
     /** 구매 기능 요구사항도 이번 스텝에 포함되는 줄 알고 미리 작성.. 했네요 .. */
     if (this.tableId === 'purchase-product-list') {
       return `  <button
-        type="button"
-        class="product-purchase-button gray-button"
-        data-product-id="${id}"
-      >
-        구매
-      </button>`;
+          type="button"
+          class="product-purchase-button gray-button"
+          data-product-id="${id}"
+        >
+          구매
+        </button>`;
     }
     return '';
   }
