@@ -16,11 +16,11 @@ export default class View {
   currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
-    this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
-    this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
-    this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
-    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-button');
+    this.$$tabResultContainers = $$('.tab-result-container');
+    this.$tabProductManageButton = $('#tab-product-manage');
+    this.$tabRechargeButton = $('#tab-recharge');
+    this.$tabPurchaseProductButton = $('#tab-purchase-product');
+    this.$$tabButtons = $$('.tab-button');
 
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);

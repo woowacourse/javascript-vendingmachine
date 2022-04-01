@@ -34,11 +34,11 @@ export default class ProductManageView implements ProductManageViewInterface {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$productManageForm = <HTMLFormElement>$('.product-manage-form');
-    this.$productNameInput = <HTMLInputElement & HTMLFormElement>$('#product-name', this.$productManageForm);
-    this.$productPriceInput = <HTMLInputElement & HTMLFormElement>$('#product-price', this.$productManageForm);
-    this.$productQuantityInput = <HTMLInputElement & HTMLFormElement>$('#product-quantity', this.$productManageForm);
-    this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
+    this.$productManageForm = $('.product-manage-form');
+    this.$productNameInput = $('#product-name', this.$productManageForm);
+    this.$productPriceInput = $('#product-price', this.$productManageForm);
+    this.$productQuantityInput = $('#product-quantity', this.$productManageForm);
+    this.$currentProductTable = $('#current-product-table');
     this.vendingMachine = vendingMachine;
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
@@ -191,13 +191,13 @@ export default class ProductManageView implements ProductManageViewInterface {
     
     allProducts.forEach((product, index) => {
       (<HTMLTableCellElement>(
-        $('.product-row-name', <HTMLElement>$$productRows[index])
+        $('.product-row-name', $$productRows[index])
       )).textContent = product.name;
       (<HTMLTableCellElement>(
-        $('.product-row-price', <HTMLElement>$$productRows[index])
+        $('.product-row-price', $$productRows[index])
       )).textContent = String(product.price);
       (<HTMLTableCellElement>(
-        $('.product-row-quantity', <HTMLElement>$$productRows[index])
+        $('.product-row-quantity', $$productRows[index])
       )).textContent = String(product.quantity);
     });
     

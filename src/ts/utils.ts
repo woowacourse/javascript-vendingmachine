@@ -1,7 +1,7 @@
-export const $ = <E extends Element>(selector: string, baseElement: E | Document = document): E | null =>
+export const $ = <E extends Element, P extends Element>(selector: string, baseElement: P | Document = document): E | null =>
   baseElement.querySelector(selector);
 
-export const $$ = <E extends Element>(selector: string, baseElement: E | Document = document): NodeListOf<E> =>
+export const $$ = <E extends Element, P extends Element>(selector: string, baseElement: P | Document = document): NodeListOf<E> =>
   baseElement.querySelectorAll(selector);
 
 export const getRandomNumber = (min: number, max: number) => {
