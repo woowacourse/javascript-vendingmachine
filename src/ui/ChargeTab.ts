@@ -2,8 +2,8 @@ import CustomElement from './CustomElement';
 import TEMPLATE from '../templates';
 import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
+import { Coin } from '../domain/Coin';
 import storage from '../storage';
-import Coin from '../domain/Coin';
 import { COINS, ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {
@@ -17,9 +17,9 @@ class ChargeTab extends CustomElement {
     const amount = storage.getLocalStorage('amount');
 
     $('.charge-amount', this).textContent = markUnit(
-      COINS.map((coin, i) => coin * amount[i]).reduce((acc, cur) => acc + cur, 0),
+      Object.entries(amount).reduce((previous, [key, value]) => previous + value.count * Number(key), 0),
     );
-    COINS.forEach((coin, i) => ($(`.coin-${coin}-quantity`).textContent = String(amount[i])));
+    COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = String(amount[coin].count)));
   }
 
   template() {
@@ -40,7 +40,7 @@ class ChargeTab extends CustomElement {
 
   notify(_: never, amount: Coin, __: never) {
     $('.charge-amount', this).textContent = markUnit(amount.getAmount());
-    COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount[coin]));
+    COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount.counter[coin].count));
   }
 }
 

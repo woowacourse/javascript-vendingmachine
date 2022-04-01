@@ -3,7 +3,7 @@ import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
 import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
-import Coin from './Coin';
+import { Coin } from './Coin';
 import Product from './Product';
 
 interface VendingMachineProperty {
@@ -26,7 +26,7 @@ class VendingMachine implements VendingMachineProperty {
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
-    this.amount = new Coin(...storage.getLocalStorage('amount'));
+    this.amount = new Coin(storage.getLocalStorage('amount'));
     this.products = storage.getLocalStorage('products').map((product) => new Product(product, product.id));
   }
 
@@ -95,7 +95,7 @@ class VendingMachine implements VendingMachineProperty {
       validateChange(inputMoney, this.amount.getAmount());
 
       this.amount.genarateRandomCoin(inputMoney);
-      storage.setLocalStorage('amount', this.amount);
+      storage.setLocalStorage('amount', this.amount.counter);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
     } catch (error) {
       alert(error.message);
