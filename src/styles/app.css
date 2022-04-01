@@ -1,17 +1,23 @@
 @import url('./color.css');
+a {
+  color: #3581d7;
+  cursor: pointer;
+}
+
 body {
   padding: 64px 0;
   background-color: var(--body-background-color);
 }
+
 #app {
   position: relative;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   max-width: 600px;
+  min-height: 600px;
   margin: 0 auto;
   border: 1px solid var(--app-border-color);
   background-color: #fff;

@@ -20,13 +20,14 @@ class VendingMachineComponent {
   }
 
   initDOM() {
+    this.$pageTitle = this.$app.querySelector('#page-title');
     this.$tabNav = this.$app.querySelector('#tab-nav');
+    this.$loginButton = this.$app.querySelector('#login-button');
     this.tabButtonMap = {
       [VENDING_MACHINE_ROUTE_NAME.MANAGE]: this.$app.querySelector('#manage-product-tab'),
       [VENDING_MACHINE_ROUTE_NAME.RECHARGE]: this.$app.querySelector('#recharge-change-tab'),
       [VENDING_MACHINE_ROUTE_NAME.PURCHASE]: this.$app.querySelector('#purchase-product-tab'),
     };
-    this.$loginButton = this.$app.querySelector('#login-tab');
   }
 
   initChildComponents() {
@@ -40,7 +41,9 @@ class VendingMachineComponent {
   }
 
   showSection(name) {
+    this.$pageTitle.textContent = '🍿 자판기 🍿';
     this.$tabNav.classList.remove('hide');
+    this.$loginButton.classList.remove('hide');
 
     if (name === VENDING_MACHINE_ROUTE_NAME.MANAGE) {
       this.showManageSection();

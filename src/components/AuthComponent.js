@@ -48,17 +48,23 @@ class AuthComponent {
   }
 
   showSection(name) {
+    this.$loginButton.classList.add('hide');
+    this.$tabNav.classList.add('hide');
+
     if (name === AUTH_ROUTE_NAME.LOGIN) {
+      this.$pageTitle.textContent = '로그인';
       this.form.$loginForm.classList.remove('hide');
       this.form.$joinForm.classList.add('hide');
       this.form.$editForm.classList.add('hide');
     }
     if (name === AUTH_ROUTE_NAME.JOIN) {
+      this.$pageTitle.textContent = '회원가입';
       this.form.$joinForm.classList.remove('hide');
       this.form.$loginForm.classList.add('hide');
       this.form.$editForm.classList.add('hide');
     }
     if (name === AUTH_ROUTE_NAME.EDIT) {
+      this.$pageTitle.textContent = '정보수정';
       this.form.$editForm.classList.remove('hide');
       this.form.$loginForm.classList.add('hide');
       this.form.$joinForm.classList.add('hide');
@@ -71,36 +77,54 @@ class AuthComponent {
 
   /** sementic 한 input으로 */
   generateTemplate() {
-    return `
-    <section>
+    return `${this.#generateLoginTemplate()}${this.#generateJoinTemplate()}${this.#generateEditTemplate()}`;
+  }
+
+  #generateLoginTemplate() {
+    return `<section>
     <form class="input-form hide" id="login-form"> 
-    <input id="email-login-input" placeholder="이메일 주소를 입력해주세요" type="email"></input>
-    <input id="password-login-input" placeholder="비밀번호를 입력해주세요" type="password"></input>
-    <button class="submit-button">확인</button>
+    <labe id="email-login-input">이메일</label>
+    <input class="auth-input" id="email-login-input" placeholder="이메일 주소를 입력해주세요" type="email"></input>
+    <label id="password-login-input">비밀번호</label>
+    <input class="auth-input" id="password-login-input" placeholder="비밀번호를 입력해주세요" type="password"></input>
+    <button class="submit-button auth-input">확인</button>
     <div>아직 회원이 아니신가요? <a id="join-button">회원가입</a></div>
     </form>
     </section>
+    `;
+  }
 
-    <section>
-    <form class="input-form hide" id="join-form"> 
-    <input type="email" id="email-join-input" placeholder="이메일 주소를 입력해주세요" required></input>
-    <input type="name" id="name-join-input" placeholder="이름을 입력해주세요" required></input>
-    <input type="password" id="password-join-input" placeholder="비밀번호를 입력해주세요" required></input>
-    <input type="password" id="password-reenter-join-input" placeholder="비밀번호를 다시 입력해주세요" required></input>
+  #generateJoinTemplate() {
+    return `<section>
+    <form class="input-form hide" id="join-form">
+    <label id="email-join-input">이메일</label>
+    <input type="email" class="auth-input" id="email-join-input" placeholder="이메일 주소를 입력해주세요" required></input>
+    <label id="name-join-input">이름</label>
+    <input type="name" class="auth-input" id="name-join-input" placeholder="이름을 입력해주세요" required></input>
+    <label id="name-join-input">비밀번호</label>
+    <input type="password" class="auth-input" id="password-join-input" placeholder="비밀번호를 입력해주세요" required></input>
+    <label id="name-join-input">비밀번호 확인</label>
+    <input type="password" class="auth-input" id="password-reenter-join-input" placeholder="비밀번호를 다시 입력해주세요" required></input>
     <button class="submit-button" required>확인</button>
     </form>
     </section>
+   `;
+  }
 
-    <section>
+  #generateEditTemplate() {
+    return ` <section>
     <form class="input-form hide" id="edit-form"> 
-    <input></input>
-    <input></input>
-    <input></input>
-    <input></input>
-    <button class="submit-button">확인</button>
+    <label id="email-join-input">이메일</label>
+    <input type="email" class="auth-input" id="email-join-input" placeholder="이메일 주소를 입력해주세요" required></input>
+    <label id="name-join-input">이름</label>
+    <input type="name" class="auth-input" id="name-join-input" placeholder="이름을 입력해주세요" required></input>
+    <label id="name-join-input">비밀번호</label>
+    <input type="password" class="auth-input" id="password-join-input" placeholder="비밀번호를 입력해주세요" required></input>
+    <label id="name-join-input">비밀번호 확인</label>
+    <input type="password" class="auth-input" id="password-reenter-join-input" placeholder="비밀번호를 다시 입력해주세요" required></input>
+    <button class="submit-button" required>확인</button>
     </form>
-    </section>
-  `;
+    </section>`;
   }
 
   onSubmitLoginForm = async e => {

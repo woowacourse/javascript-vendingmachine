@@ -37,3 +37,8 @@
 .input-form * {
   margin-top: 5px;
 }
+
+.input-form .auth-input {
+  margin-bottom: 10px;
+  padding: 10px 5px;
+}
