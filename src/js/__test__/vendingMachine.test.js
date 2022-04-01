@@ -106,5 +106,14 @@ describe('자판기 기본 기능 테스트', () => {
       vendingMachine.inputUserMoney(inputMoney);
       expect(() => vendingMachine.returnChanges()).toThrowError(ERROR_MESSAGE.NOT_ENOUGH_RETURN_CHANGE);
     });
+
+    it('상품을 구매할때 가격보다 투입한 금액이 적으면, 오류를 발생시킨다.', () => {
+      const inputMoney = 2000;
+      const newProduct = { name: 'testItem', price: 2010, amount: 1 };
+
+      vendingMachine.addProduct(newProduct);
+      vendingMachine.inputUserMoney(inputMoney);
+      expect(() => vendingMachine.purchaseProduct(newProduct.name)).toThrowError(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
+    });
   });
 });
