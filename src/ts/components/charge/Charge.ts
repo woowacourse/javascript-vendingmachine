@@ -1,11 +1,9 @@
 import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
 import { CoinType } from "../../utils/interface";
 import { verifyCharge } from "../../utils/validation";
-import { chargeTemplate } from "./chargeTemplate";
 import ChargeView from "./ChargeView";
 class Charge {
   chargeView: ChargeView;
-  vendingmachineFunctionWrap: HTMLElement;
   chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
@@ -14,7 +12,6 @@ class Charge {
 
   constructor() {
     this.chargeView = new ChargeView();
-    this.vendingmachineFunctionWrap = selectDom(".main");
     this.coinsKindCount = this.getCoinList();
     this.totalCharge = this.getTotalCharge();
   }

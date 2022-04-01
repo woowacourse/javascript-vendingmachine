@@ -5,14 +5,13 @@ import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 import Product from "./product/Product";
 
 class Vendingmachine {
-  vendingmachineWrap: HTMLElement;
   menuTab: MenuTab;
   product: Product;
   charge: Charge;
 
   constructor() {
-    this.vendingmachineWrap = selectDom("#app");
-    this.vendingmachineWrap.insertAdjacentHTML(
+    const vendingmachineWrap = selectDom("#app");
+    vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
       `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
     );
