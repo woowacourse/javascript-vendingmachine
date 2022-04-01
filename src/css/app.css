@@ -50,15 +50,15 @@
   background-color: var(--color-dark-white);
 }
 
-.menu-list li a {
+.a-none-deco {
   display: block;
   text-decoration-line: none;
 }
 
-.menu-list li a:link,
-.menu-list li a:visited,
-.menu-list li a:hover,
-.menu-list li a:active {
+.a-none-deco:link,
+.a-none-deco:visited,
+.a-none-deco:hover,
+.a-none-deco:active {
   color: black;
 }
 
