@@ -11,7 +11,7 @@ export interface IProduct {
   editProductInfo: (args: { name: string; price: number; quantity: number }) => void;
 }
 
-export type TCoinWalletKey = 'coin500' | 'coin100' | 'coin50' | 'coin10';
+export type TCoinWalletKey = keyof TCoinWallet;
 
 export type TCoinWallet = {
   coin500: number;

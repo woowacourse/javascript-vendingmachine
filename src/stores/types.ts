@@ -1,11 +1,16 @@
+import { StringLiteral } from '@babel/types';
 import { ICoinWallet, IProduct, TCoinWallet } from '../domains/types';
 import { ACTION_TYPES } from '../utils/constants';
 
-export type TAction = 'addProduct' | 'editProduct' | 'deleteProduct' | 'rechargeChange';
+export type TVendingMachineAction =
+  | 'addProduct'
+  | 'editProduct'
+  | 'deleteProduct'
+  | 'rechargeChange';
 
-export type TStateKey = 'PRODUCT_LIST' | 'COIN_WALLET' | 'INPUT_CHARGE';
+export type TVendingMachineStateKey = keyof TVendingMachineState;
 
-export type TState = {
+export type TVendingMachineState = {
   PRODUCT_LIST: Array<IProduct>;
   COIN_WALLET: ICoinWallet;
   INPUT_CHARGE: number;
@@ -22,17 +27,50 @@ export interface IVendingMachineStore {
     payload,
     stateKey,
   }: {
-    actionType: TAction;
+    actionType: TVendingMachineAction;
     payload: any;
-    stateKey: TStateKey;
+    stateKey: TVendingMachineStateKey;
   }) => void;
 
-  subscribe: (stateType: TStateKey, component: any) => void;
+  subscribe: (stateType: TVendingMachineStateKey, component: any) => void;
 
   getState: (
-    stateType: TStateKey,
+    stateType: TVendingMachineStateKey,
     component: any,
   ) => Array<IProduct> | ICoinWallet | number | undefined;
 
-  notifySubscribedView: (stateType: TStateKey) => void;
+  notifySubscribedView: (stateType: TVendingMachineStateKey) => void;
+}
+
+export type TGlobalAction = 'joinUser' | 'loginUser';
+
+export type TUser = {
+  id: number;
+  email: string;
+  name: String;
+};
+
+export type TGlobalStateKey = keyof TGlobalState;
+
+export type TGlobalState = {
+  LOGGED_USER: TUser;
+  IS_LOGGED_IN: boolean;
+};
+
+export interface IGlobalStore {
+  mutateState: ({
+    actionType,
+    payload,
+    stateKey,
+  }: {
+    actionType: TGlobalAction;
+    payload: any;
+    stateKey: TGlobalStateKey;
+  }) => void;
+
+  subscribe: (stateType: TGlobalStateKey, component: any) => void;
+
+  getState: (stateType: TGlobalStateKey, component: any) => TUser | boolean | undefined;
+
+  notifySubscribedView: (stateType: TGlobalStateKey) => void;
 }
