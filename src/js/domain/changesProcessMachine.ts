@@ -20,6 +20,19 @@ export class ChangesProcessMachine implements ChangesDomain {
     this.accumulateCoins(newCoins);
   };
 
+  return = (money: number): Coins => {
+    const returnedCoins = this.returnCoins(money);
+    this.decreaseChargedCoins(returnedCoins);
+
+    return returnedCoins;
+  };
+
+  decreaseChargedCoins = (returnCoins: Coins) => {
+    Object.entries(returnCoins).forEach(([coin, amount]) => {
+      this.coins[coin] -= amount;
+    });
+  };
+
   accumulateCoins = (newCoins: Coins): void => {
     this.coins = Object.entries(newCoins).reduce((acc, [coin, count]) => {
       return { ...acc, [coin]: this.coins[coin] + count };
@@ -48,6 +61,36 @@ export class ChangesProcessMachine implements ChangesDomain {
     return Object.entries(this.coins).reduce((acc, [coin, count]) => {
       return acc + Number(coin) * count;
     }, 0);
+  };
+
+  returnCoins = (amount: number): Coins => {
+    let remainingAmount = amount;
+
+    const sortedCoin = Object.keys(this.coins).sort(
+      (a: string, b: string) => Number(b) - Number(a)
+    );
+
+    return sortedCoin.reduce((acc: Partial<Coins>, coin: string) => {
+      const maxAvailableAmount = Math.floor(remainingAmount / Number(coin));
+      const coinAmount = this.coins[coin];
+      const amount = this.calculateAvailableAmount(
+        maxAvailableAmount,
+        coinAmount
+      );
+      remainingAmount -= amount * Number(coin);
+      return { ...acc, [coin]: amount };
+    }, {}) as Coins;
+  };
+
+  calculateAvailableAmount = (
+    maxAvailableAmount: number,
+    coinAmount: number
+  ) => {
+    if (coinAmount > maxAvailableAmount) {
+      return maxAvailableAmount;
+    }
+
+    return coinAmount;
   };
 
   checkDividedByMinimumCoin = (money: number): void => {

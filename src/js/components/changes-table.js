@@ -16,7 +16,7 @@ class ChangesTable extends HTMLElement {
     this.$coin100 = this.shadowRoot.querySelector("#coin-100");
     this.$coin50 = this.shadowRoot.querySelector("#coin-50");
     this.$coin10 = this.shadowRoot.querySelector("#coin-10");
-    addEvent(this.$page, "@charge", () => this.renderTableStatus());
+    addEvent(this.$page, "@mutateChanges", () => this.renderTableStatus());
   }
 
   renderTableStatus = () => {

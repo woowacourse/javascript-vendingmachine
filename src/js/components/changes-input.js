@@ -26,7 +26,7 @@ class ChangesInput extends HTMLElement {
 
       this.renderHaveChanges();
 
-      emit(this.$page, "@charge");
+      emit(this.$page, "@mutateChanges");
     } catch (err) {
       alert(err.message);
     }
