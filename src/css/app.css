@@ -95,6 +95,17 @@ col {
   background: var(--secondary);
 }
 
+.long-button {
+  background: var(--secondary-lighten);
+  color: var(--black);
+  width: 100px;
+  margin: 23px;
+}
+
+.long-button:hover {
+  background: var(--secondary);
+}
+
 .edit-confirm-button {
   width: 100px;
   height: 32px;
