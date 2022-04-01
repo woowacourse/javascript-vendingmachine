@@ -1,10 +1,11 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
+import './purchase-product-form';
 
 @customElement('purchase-product-page')
 class PurchaseProductPage extends Component {
   template(): string {
-    return '<h3 class="text-center">🤖 페이지 건설중...</h3>';
+    return '<purchase-product-form></purchase-product-form>';
   }
 
   mount() {
