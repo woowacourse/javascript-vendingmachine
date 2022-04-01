@@ -25,8 +25,6 @@ export const template = {
             </tr>
         </thead>
         <tbody>
-            <tr>
-            </tr>
         </tbody>
     </table>
   </section>

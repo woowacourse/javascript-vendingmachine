@@ -1,5 +1,6 @@
 :root {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 24px;
   font-family: 'NanumBarunGothic';
 }
 
@@ -7,15 +8,81 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  line-height: 140%;
 }
 
 body {
   background-color: $color-alabaster;
 }
 
-input[type='number'],
-input[type='text'] {
+#app {
+  width: 37.5rem;
+  min-height: 42.1875rem;
+  margin: 2rem auto;
+  background-color: $color-white;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2.75rem 4rem 0;
+
+  > .icon-button-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.75rem;
+  }
+
+  > .user-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.75rem;
+  }
+
+  > h1.title {
+    font-size: 2.125rem;
+    line-height: 2.25rem;
+    font-weight: bold;
+    margin: 0 auto 2rem;
+  }
+
+  > .nav {
+    align-self: center;
+    margin-bottom: 1.5rem;
+
+    > ul {
+      display: flex;
+      gap: 0.25rem;
+      width: 22.5rem;
+      height: 2.25rem;
+
+      li {
+        flex-grow: 1;
+        padding: 0.5rem 0;
+        font-size: 1rem;
+
+        &.selected {
+          background-color: $color-robins-egg-blue-20;
+
+          &:hover {
+            background-color: rgba(0, 188, 212, 0.25);
+          }
+        }
+      }
+    }
+  }
+}
+
+.main {
+  padding: 1.5rem 4rem 2.25rem;
+}
+
+input {
   width: 100%;
   border: 1px solid $color-nobel;
   padding: 0.5rem;
@@ -30,20 +97,32 @@ input[type='text'] {
 }
 
 .button {
+  width: 6.25rem;
+  font-size: 0.875rem;
   background: $color-concrete;
   padding: 0.5rem;
   border: none;
   border-radius: 5px;
+  text-align: center;
   cursor: pointer;
 
   &.accent {
     background-color: $brand-color-accent;
     color: $brand-color-accent-font;
+    font-weight: bold;
   }
 
   &:hover {
     filter: brightness(0.95);
   }
+}
+
+.text-button {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: #3581D7;
+  cursor: pointer;
 }
 
 .button-group {
@@ -61,12 +140,12 @@ input[type='text'] {
   text-align: center;
   border-collapse: collapse;
   border-top: 1px solid $color-alto;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1rem;
 
   caption {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: bold;
-    padding: 1.2rem;
+    padding: 1rem 0;
   }
 
   tr {
@@ -79,65 +158,63 @@ input[type='text'] {
 
   th,
   td {
-    padding: 0.7rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.5rem;
     border: none;
     border-bottom: 1px solid $color-alto;
   }
 }
 
-#app {
-  background-color: $color-white;
-  width: 42.85rem;
-  margin: 5rem auto;
-  padding: 2.85rem 5.7rem;
-}
+.table-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 1.25rem;
 
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-
-  > h1.title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    margin-bottom: 2.2rem;
-  }
-
-  > .nav {
-    > ul {
-      display: flex;
-      gap: 1rem;
-
-      li {
-        display: block;
-        flex-grow: 1;
-        background-color: $color-concrete;
-        border-radius: 0.4rem;
-        padding: 0.8rem;
-        cursor: pointer;
-
-        &.selected {
-          background-color: $color-robins-egg-blue-20;
-          color: $color-black;
-        }
-
-        &:hover {
-          filter: brightness(0.95);
-        }
-      }
-    }
+  &:last-child {
+    padding-bottom: 0;
   }
 }
 
 .form-section {
-  margin-bottom: 3rem;
+  padding: 0 1rem 1.5rem;
 
   form {
     > label {
       display: block;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
   }
 }
 
-.table-section {
+.user-information-form-section {
+  display: flex;
+  flex-direction: column;
+  width: 18.75rem;
+  margin: 0 auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  input {
+    margin-top: 0.25rem;
+  }
+
+  label {
+    margin-bottom: 1rem;
+
+    &:last-of-type {
+      margin-bottom: 1.875rem;
+    }
+  }
 }
