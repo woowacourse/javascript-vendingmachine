@@ -102,7 +102,7 @@
         </div>
       </section>
 
-      <section class="tab-result-container" id="/javascript-vendingmachine/#!/purchase-product">
+      <section class="tab-result-container hide" id="/javascript-vendingmachine/#!/purchase-product">
         <h2 hidden>상품 구매</h2>
         <div class="tab-result-wrapper">
           <div>
@@ -112,7 +112,7 @@
               </div>
               <input class="long-input" id="insert-money-input" placeholder="금액" type="number" step="10" max="10000" min="10" required />
               <button class="short-button">투입</button>
-              <div class="holding-money-wrapper">투입한 금액: <span id="current-inserted-money"></span>원</div>
+              <div class="holding-money-wrapper">투입한 금액: <span id="current-inserted-money">0</span>원</div>
             </form>
           </div>
 
@@ -156,19 +156,19 @@
               <tbody>
                 <tr>
                   <td>500원</td>
-                  <td><span id="coin-500"></span>개</td>
+                  <td><span id="purchase-tab-coin-500"></span>개</td>
                 </tr>
                 <tr>
                   <td>100원</td>
-                  <td><span id="coin-100"></span>개</td>
+                  <td><span id="purchase-tab-coin-100"></span>개</td>
                 </tr>
                 <tr>
                   <td>50원</td>
-                  <td><span id="coin-50"></span>개</td>
+                  <td><span id="purchase-tab-coin-50"></span>개</td>
                 </tr>
                 <tr>
                   <td>10원</td>
-                  <td><span id="coin-10"></span>개</td>
+                  <td><span id="purchase-tab-coin-10"></span>개</td>
                 </tr>
               </tbody>
             </table>

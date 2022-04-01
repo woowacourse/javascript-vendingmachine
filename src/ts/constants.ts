@@ -16,6 +16,9 @@ export const ERROR_MESSAGE = {
   EXCEED_HOLDING_MONEY: '보유할 수 있는 최대 금액은 10만원입니다.',
   UNDER_MIN_RECHARGING_MONEY: '충전할 금액은 10원 이상이어야 합니다.',
   NOT_INTEGER: '정수를 입력하셔야 합니다.',
+  INSERT_MONEY_UNIT: '투입할 금액은 10의 배수여야 합니다.',
+  EXCEED_INSERTED_HOLDING_MONEY: '투입할 수 있는 최대 금액은 1만원입니다.',
+  UNDER_MIN_INSERTED_HOLDING_MONEY: '투입 금액은 10원 이상이어야 합니다.',
 };
 
 export const SUCCESS_MESSAGE = {
@@ -37,6 +40,8 @@ export const VENDING_MACHINE_RULE = {
   UNIT: 10,
   MAX_HOLDING_MONEY: 100000,
   MIN_RECHARGING_MONEY: 10,
+  MAX_INSERTED_HOLDING_MONEY: 10000,
+  MIN_INSERTING_MONEY: 10,
 };
 
 export const STORAGE_ID = {

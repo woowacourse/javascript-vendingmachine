@@ -9,7 +9,7 @@ describe('상품 관리 테스트', () => {
   const vendingMachine = new VendingMachine();
 
   afterEach(() => {
-    vendingMachine.products = [];
+    vendingMachine.resetProducts();
   });
 
   it('상품을 자판기에 추가할 수 있다.', () => {
@@ -245,12 +245,7 @@ describe('잔돈 충전 테스트', () => {
   const vendingMachine = new VendingMachine();
 
   afterEach(() => {
-    vendingMachine.moneys = [
-      new Money(500, 0),
-      new Money(100, 0),
-      new Money(50, 0),
-      new Money(10, 0),
-    ];
+    vendingMachine.resetMoneys();
   });
 
   it('잔돈을 충전하면, 충전된 금액과 생성된 동전들의 금액의 합이 같아야 한다.', () => {
@@ -311,5 +306,49 @@ describe('잔돈 충전 테스트', () => {
     expect(() => {
       vendingMachine.rechargeMoney(19990);
     }).not.toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
+  });
+});
+
+describe('투입 금액 테스트', () => {
+  const vendingMachine = new VendingMachine();
+
+  afterEach(() => {
+    vendingMachine.resetInsertedMoney();
+  });
+
+  it('투입한 금액이 10의 배수가 아니면 에러를 발생시킨다(153원).', () => {
+    expect(() => {
+      vendingMachine.addInsertedMoney(153);
+    }).toThrowError(ERROR_MESSAGE.INSERT_MONEY_UNIT);
+  });
+
+  it('투입한 금액이 10의 배수이면 정상 작동한다(150원).', () => {
+    expect(() => {
+      vendingMachine.addInsertedMoney(150);
+    }).not.toThrowError(ERROR_MESSAGE.INSERT_MONEY_UNIT);
+  });
+
+  it('투입하여 누적된 금액이 10,000원을 초과하면 에러를 발생시킨다(10,010원).', () => {
+    vendingMachine.addInsertedMoney(10000);
+
+    expect(() => {
+      vendingMachine.addInsertedMoney(10);
+    }).toThrowError(ERROR_MESSAGE.EXCEED_INSERTED_HOLDING_MONEY);
+  });
+
+  it('투입하여 누적된 금액이 10,000원 이하이면 정상 작동한다(10,000원).', () => {
+    vendingMachine.addInsertedMoney(9000);
+
+    expect(() => {
+      vendingMachine.addInsertedMoney(1000);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_INSERTED_HOLDING_MONEY);
+  });
+
+  it('투입하여 누적된 금액이 10,000원 이하이면 정상 작동한다(9,990원).', () => {
+    vendingMachine.addInsertedMoney(9000);
+
+    expect(() => {
+      vendingMachine.addInsertedMoney(990);
+    }).not.toThrowError(ERROR_MESSAGE.EXCEED_INSERTED_HOLDING_MONEY);
   });
 });

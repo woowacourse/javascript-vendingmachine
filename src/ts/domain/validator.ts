@@ -8,7 +8,7 @@ const isOverNameMinLength = (name: string) => name.length > VENDING_MACHINE_RULE
 const isOutOfPriceRange = (price: number) =>
   price < VENDING_MACHINE_RULE.MIN_PRICE || price > VENDING_MACHINE_RULE.MAX_PRICE;
 
-const isInvalidUnit = (price: number) => price % VENDING_MACHINE_RULE.UNIT !== 0;
+const isInvalidUnit = (price: number, unit: number) => price % unit !== 0;
 
 const isOverMaxValue = (value: number, max: number) => value > max;
 
@@ -24,7 +24,7 @@ export const checkProductValidation = (product: ProductType) => {
   if (isOutOfPriceRange(product.price)) {
     throw new Error(ERROR_MESSAGE.PRICE_RANGE);
   }
-  if (isInvalidUnit(product.price)) {
+  if (isInvalidUnit(product.price, VENDING_MACHINE_RULE.UNIT)) {
     throw new Error(ERROR_MESSAGE.PRICE_UNIT);
   }
   if (isOverMaxValue(product.quantity, VENDING_MACHINE_RULE.MAX_QUANTITY)) {
@@ -42,7 +42,7 @@ export const checkDuplicatedProduct = (products: ProductType[], name: string) =>
 };
 
 export const checkMoneyValidation = (money: number, holdingMoney: number) => {
-  if (isInvalidUnit(money)) {
+  if (isInvalidUnit(money, VENDING_MACHINE_RULE.UNIT)) {
     throw new Error(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
   }
   if (isOverMaxValue(holdingMoney, VENDING_MACHINE_RULE.MAX_HOLDING_MONEY)) {
@@ -50,5 +50,17 @@ export const checkMoneyValidation = (money: number, holdingMoney: number) => {
   }
   if (isUnderMinValue(money, VENDING_MACHINE_RULE.MIN_RECHARGING_MONEY)) {
     throw new Error(ERROR_MESSAGE.UNDER_MIN_RECHARGING_MONEY);
+  }
+};
+
+export const checkInsertedMoneyValidation = (money: number, holdingMoney: number) => {
+  if (isInvalidUnit(money, VENDING_MACHINE_RULE.UNIT)) {
+    throw new Error(ERROR_MESSAGE.INSERT_MONEY_UNIT);
+  }
+  if (isOverMaxValue(money + holdingMoney, VENDING_MACHINE_RULE.MAX_INSERTED_HOLDING_MONEY)) {
+    throw new Error(ERROR_MESSAGE.EXCEED_INSERTED_HOLDING_MONEY);
+  }
+  if (isUnderMinValue(money, VENDING_MACHINE_RULE.MIN_INSERTING_MONEY)) {
+    throw new Error(ERROR_MESSAGE.UNDER_MIN_INSERTED_HOLDING_MONEY);
   }
 };
