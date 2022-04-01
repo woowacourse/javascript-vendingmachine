@@ -1,8 +1,8 @@
 import { CoinType } from "../../utils/interface";
 
 class ChargeInfo {
-  coinsKindCount: CoinType;
-  totalCharge: number;
+  private coinsKindCount: CoinType;
+  private totalCharge: number;
 
   constructor() {
     this.coinsKindCount = this.getCoinList();
