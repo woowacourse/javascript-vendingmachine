@@ -7,10 +7,14 @@ export const ERROR_MESSAGE = {
   DIVIDED_BY_MINIMUM_COIN: "투입된 금액은 10으로 나누어 떨어져야합니다.",
   MAXIMUM_CHANGES: "최대 잔액은 100000원 입니다.",
   MINIMUM_CHANGES: "금액은 0원보다 높아야합니다.",
+  MAXIMUM_USER_INPUT: "금액은 최대 10000원까지 투입할수 있습니다",
+  NO_PRODUCT: "상품의 재고가 없습니다",
+  LACK_OF_BALANCE: "잔액이 부족합니다",
 };
 
 export const VENDING_MACHINE_NUMBER = {
   MAXIMUM_CHANGES: 100000,
+  MAXIMUM_USER_INPUT: 10000,
   MAXIMUM_PRICE: 10000,
   MINIMUM_PRICE: 100,
   MINIMUM_COIN: 10,
