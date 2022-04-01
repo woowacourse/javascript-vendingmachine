@@ -6,6 +6,7 @@ import template from '../template';
 
 export default class ProductPurchase {
   private tabName = 'ProductPurchase';
+  $headerTitle: HTMLElement;
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $moneyAddForm: HTMLElement;
@@ -44,6 +45,9 @@ export default class ProductPurchase {
           tabName: this.tabName,
         }),
     );
+
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$headerTitle.textContent = '🍿 자판기 🍿';
 
     this.$moneyAddForm = this.$inputSection.querySelector('#money-add-form');
     this.$totalChange = this.$inputSection.querySelector('#total-money');

@@ -1,8 +1,5 @@
 const revisionMembershipContainer = () => {
   return `
-        <header>
-            <h1>회원 정보 수정</h1>
-        </header>
         <div id="revision-container" class="account-container">
             <form id="revision-form" class="account-form">
                 <div class="login-block">

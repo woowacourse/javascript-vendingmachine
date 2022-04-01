@@ -1,6 +1,8 @@
 import './css/index';
 import routes from './js/routes';
 
+// const { pathname } = window.location;
+// history.pushState({}, '상품 구매', pathname + '#!/product-purchase');
 routes();
 
 const productManageButton = document.querySelector('#product-manage-button');

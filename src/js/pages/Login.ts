@@ -1,12 +1,16 @@
 import template from '../template';
 
 export default class Login {
-  $app: HTMLElement;
+  $headerTitle: HTMLElement;
+  $contentsContainer: HTMLElement;
+
   constructor() {
-    this.$app = document.querySelector('#app');
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$contentsContainer = document.querySelector('.contents-container');
   }
 
   render() {
-    this.$app.insertAdjacentHTML('beforeend', template.loginContainer());
+    this.$contentsContainer.insertAdjacentHTML('beforeend', template.loginContainer());
+    this.$headerTitle.textContent = '로그인';
   }
 }

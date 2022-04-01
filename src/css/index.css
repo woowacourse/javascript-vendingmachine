@@ -218,3 +218,7 @@ li {
   top: 0;
   margin: 10px;
 }
+
+.hide {
+  display: none;
+}

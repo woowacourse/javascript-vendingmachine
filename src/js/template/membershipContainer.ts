@@ -1,8 +1,5 @@
 const membershipContainer = () => {
   return `
-    <header>
-        <h1>회원가입</h1>
-    </header>
     <div id="membership-container" class="account-container">
         <form id="membership-form" class="account-form">
             <div class="login-block">

@@ -3,6 +3,7 @@ import template from '../template';
 
 export default class ChangeAdd {
   private tabName: 'ChangeAdd';
+  $headerTitle: HTMLElement;
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $changeAddForm: HTMLElement;
@@ -34,6 +35,9 @@ export default class ChangeAdd {
         tabName: this.tabName,
       }),
     );
+
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$headerTitle.textContent = '🍿 자판기 🍿';
 
     this.$changeAddForm = this.$inputSection.querySelector('#money-add-form');
     this.$totalChange = this.$inputSection.querySelector('#total-money');

@@ -5,6 +5,7 @@ import template from '../template/index';
 
 export default class ProductManage {
   private tabName = 'ProductManage';
+  $headerTitle: HTMLElement;
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $productAddForm: HTMLElement;
@@ -21,6 +22,9 @@ export default class ProductManage {
       'beforeend',
       template.productListContainer({ tabName: this.tabName, title: '상품 현황' }),
     );
+
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$headerTitle.textContent = '🍿 자판기 🍿';
 
     this.$productAddForm = this.$inputSection.querySelector('#product-add-form');
     this.$productList = this.$contentsContainer.querySelector('#product-list');

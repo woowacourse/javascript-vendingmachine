@@ -1,8 +1,5 @@
 const loginContainer = () => {
   return `
-    <header>
-        <h1>로그인</h1>
-    </header>
     <div id="login-container" class="account-container">
         <form id="login-form" class="account-form">
             <div class="login-block">
