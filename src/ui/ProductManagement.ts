@@ -60,12 +60,12 @@ class ProductManagement extends CustomElement {
 
   showForm(e: MouseEvent & { target: HTMLButtonElement }) {
     const productItem = e.target.closest('.product-item') as HTMLElement;
-    const { productName, productId } = productItem.dataset;
-    const values = [...productItem.getElementsByTagName('td')].slice(0, 3).map((td) => td.textContent);
 
-    const name = values[0];
-    const price = deleteSeparator(values[1]);
-    const quantity = values[2];
+    const { productName, productId } = productItem.dataset;
+    const [name, separatedPrice, quantity] = [...productItem.getElementsByTagName('td')]
+      .slice(0, 3)
+      .map((td) => td.textContent);
+    const price = deleteSeparator(separatedPrice);
 
     productItem.innerHTML = `
       <tr class="product-item" data-product-name="${productName}" data-product-id="${productId}">
