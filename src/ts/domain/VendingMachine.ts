@@ -1,31 +1,6 @@
+import { ItemInfoType, Coin, ValidationInfo, TestCase, VendingMachineInterface } from '../types';
 import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from '../constant/errorMessage';
 import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
-
-type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
-
-type Coin = 500 | 100 | 50 | 10;
-
-type ItemInputValidationInfo = {
-  itemInfo: ItemInfoType;
-  isAddMode: boolean;
-  itemIndex?: number;
-};
-
-type ValidationInfo = ItemInputValidationInfo | number;
-
-interface TestCase {
-  testCase: Function;
-  errorMessage: string;
-}
-
-interface VendingMachineInterface {
-  addItem: (itemInfo: ItemInfoType) => Object;
-  editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
-  deleteItem: (itemName: string) => void;
-
-  chargeCoin: (rechargeCoin: number) => void;
-  calculateTotalCoinAmount: () => number;
-}
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[] = [];
