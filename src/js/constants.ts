@@ -26,6 +26,7 @@ const ERROR_MESSAGE = {
   IS_NOT_UNIT_OF_TEN: '투입할 금액의 단위는 10원입니다.',
   IS_NOT_POSITIVE_INTEGER: '투입할 금액은 0보다 큰 금액이어야 합니다.',
   NOT_ENOUGH_RETURN_CHANGE: '자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.',
+  NOT_ENOUGH_MONEY: '투입된 금액이 부족합니다.',
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
