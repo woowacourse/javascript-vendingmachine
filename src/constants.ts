@@ -25,3 +25,7 @@ export const ERROR_MESSAGE = {
   INCORRECT_UNIT_CHARGE_MONEY: `금액은 ${CONFIGURATION.PRICE.UNIT}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
   OVER_AMOUNT: `현재 보유 금액은 ${markUnit(CONFIGURATION.AMOUNT.MAX)}원을 초과할 수 없습니다!`,
 };
+
+export const CONFIRM_MESSAGE = {
+  DELETE: '해당 상품을 삭제하시겠습니까?',
+};

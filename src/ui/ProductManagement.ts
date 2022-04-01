@@ -4,7 +4,7 @@ import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
-import { ELEMENT_KEY } from '../constants';
+import { ELEMENT_KEY, CONFIRM_MESSAGE } from '../constants';
 
 class ProductManagement extends CustomElement {
   connectedCallback() {
@@ -51,7 +51,7 @@ class ProductManagement extends CustomElement {
       this.showForm(e);
     }
 
-    if (e.target.classList.contains('product-item__delete-button') && confirm('해당 상품을 삭제하시겠습니까?')) {
+    if (e.target.classList.contains('product-item__delete-button') && confirm(CONFIRM_MESSAGE.DELETE)) {
       const productName = (e.target.closest('.product-item') as HTMLElement).dataset.productName;
 
       emit('#product-list-table', '@delete', { productName }, this);
