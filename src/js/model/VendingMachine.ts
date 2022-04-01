@@ -6,6 +6,8 @@ import {
   isValidProductNameLength,
   isUnitOfTen,
   isPositiveInteger,
+  isValidPutMoney,
+  isValidChangeCoins,
 } from './validator';
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
@@ -39,21 +41,49 @@ class VendingMachine {
     return this.userMoney;
   }
 
-  // TODO: 유저 잔돈 반환
   getUserChanges() {
-    // this.userMoney
-    // this.changes
-    const userMoney = this.userMoney;
-    const changesList = [500, 100, 50, 10];
-    const userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    const { userChanges, userMoney } = this.getUserChangeCoins(this.userMoney);
+    this.checkUserChangeValidate(this.userMoney, userChanges);
+    this.userMoney = userMoney;
 
-    // const coin = this.getUserChangeCoin(userMoney);
+    return userChanges;
+  }
+  private checkUserChangeValidate(userMoney: number, userChanges: Coin) {
+    if (!isValidPutMoney(userMoney)) {
+      throw new Error(ERROR_MESSAGE.EMPTY_PUT_MONEY);
+    }
+
+    if (!isValidChangeCoins(userChanges)) {
+      throw new Error(ERROR_MESSAGE.EMPTY_CHANGES);
+    }
   }
 
-  // getUserChangeCoin(money: number) {
-  //   const coins = RULES.CHANGE_UNITS.filter(coin => coin <= money);
-  //   console.log(coins);
-  // }
+  getUserChangeCoins(userMoney: number) {
+    const coinBox = RULES.CHANGE_UNITS;
+    const userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+
+    coinBox.forEach(coin => {
+      const changeKey = `coin${coin}`;
+      const changeAmount = this.changes[changeKey];
+      const count = Math.floor(userMoney / coin);
+
+      if (userMoney <= 0 || changeAmount <= 0) return;
+
+      if (count >= changeAmount) {
+        this.changes[changeKey] -= changeAmount;
+        userChanges[changeKey] += changeAmount;
+        userMoney -= changeAmount * coin;
+      }
+
+      if (count < changeAmount) {
+        this.changes[changeKey] -= count;
+        userChanges[changeKey] += count;
+        userMoney -= count * coin;
+      }
+    });
+
+    return { userChanges, userMoney };
+  }
 
   addChange(money: number) {
     this.checkChangeValidate(money);

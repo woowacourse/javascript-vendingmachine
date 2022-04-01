@@ -1,6 +1,6 @@
 import PurchaseDialog from '../components/PurchaseDialog';
 import { ERROR_MESSAGE } from '../constants';
-import { Product } from '../interfaces/VendingMachine.interface';
+import { Product, Coin } from '../interfaces/VendingMachine.interface';
 import vendingMachine from '../model/VendingMachine';
 import template from '../template';
 
@@ -62,7 +62,6 @@ export default class ProductPurchase {
 
     this.renderProducts();
     this.refreshUserMoney();
-    this.refreshChange();
   }
 
   callbackSubmitQuantity = props => {
@@ -115,8 +114,13 @@ export default class ProductPurchase {
   };
 
   onReturnChange = (e: PointerEvent) => {
-    console.log('click');
-    // const userChanges = vendingMachine.getUserChanges();
+    try {
+      const userChanges = vendingMachine.getUserChanges();
+      this.refreshUserChange(userChanges);
+      this.refreshUserMoney();
+    } catch (message) {
+      alert(message);
+    }
   };
 
   renderProducts() {
@@ -136,9 +140,8 @@ export default class ProductPurchase {
     this.$productList.appendChild(fragment);
   }
 
-  refreshChange() {
-    // this.$totalChange.textContent = vendingMachine.getTotalMoney().toString();
-    const { coin10, coin50, coin100, coin500 } = vendingMachine.getChanges();
+  refreshUserChange(userChanges: Coin) {
+    const { coin10, coin50, coin100, coin500 } = userChanges;
 
     this.$amountCoin500.textContent = coin500 + '개';
     this.$amountCoin100.textContent = coin100 + '개';

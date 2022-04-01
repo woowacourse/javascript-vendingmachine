@@ -25,6 +25,8 @@ const ERROR_MESSAGE = {
   IS_NOT_POSITIVE_INTEGER: `투입할 금액은 ${RULES.MIN_INPUT_MONEY}보다 큰 금액이어야 합니다.`,
   TOO_SHORT_MONEY: '돈이 부족합니다. 구매할 금액을 더 투입해주세요.',
   SOLD_OUT_PRODUCT: '품절된 상품입니다.',
+  EMPTY_PUT_MONEY: '금액을 투입해 주세요.',
+  EMPTY_CHANGES: '반환할 잔돈이 없습니다.',
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
