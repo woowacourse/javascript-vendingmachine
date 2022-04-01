@@ -33,9 +33,13 @@ export class CoinVault {
   }
 
   private addCoins(coins: Coins) {
+    const coinsQuantity = { ...this.#coinsQuantity };
+
     [...Object.entries(coins)].forEach(([key, value]) => {
-      this.#coinsQuantity[key] += value;
+      coinsQuantity[key] += value;
     });
+
+    this.#coinsQuantity = coinsQuantity;
   }
 
   private validateMoney(money: number) {

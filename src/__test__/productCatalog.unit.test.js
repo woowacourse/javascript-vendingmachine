@@ -1,4 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog.ts';
+import { UserMoney } from '../domain/UserMoney';
 
 import { ERROR_MESSAGE } from '../utils/constants.ts';
 
@@ -19,6 +20,73 @@ describe('상품CRUD unit 테스트', () => {
       price: 1000,
       quantity: 20,
     });
+  });
+
+  test('상품을 수정할 수 있다.', () => {
+    productCatalog.addProduct({
+      name: '코카콜라',
+      price: 1000,
+      quantity: 10,
+    });
+    productCatalog.editProduct('코카콜라', { name: '펩시', price: 500, quantity: 10 });
+
+    expect(productCatalog.findProduct('펩시').getAllProperties()).toStrictEqual({
+      name: '펩시',
+      price: 500,
+      quantity: 10,
+    });
+  });
+
+  test('상품을 삭제할 수 있다', () => {
+    productCatalog.addProduct({
+      name: '코카콜라',
+      price: 1000,
+      quantity: 20,
+    });
+    expect(productCatalog.findProduct('코카콜라').getAllProperties()).toStrictEqual({
+      name: '코카콜라',
+      price: 1000,
+      quantity: 20,
+    });
+
+    productCatalog.deleteProduct('코카콜라');
+    expect(productCatalog.findProduct('코카콜라')).toBeNull;
+  });
+
+  // test('상품을 구매할 수 있다', () => {
+  //   const userMoney = new UserMoney();
+  //   userMoney.setMoney(1000);
+
+  //   productCatalog.addProduct({ name: '코카콜라', price: 1000, quantity: 20 });
+
+  //   const remainder = productCatalog.buyProduct('코카콜라', userMoney.getMoney());
+  //   productCatalog
+  //     .findProduct('코카콜라')
+  //     .toStrictEqual({ name: '코카콜라', price: 1000, quantity: 19 });
+  // });
+});
+
+describe('상품 CRUD 예외사항 테스트', () => {
+  let productCatalog;
+
+  beforeEach(() => {
+    productCatalog = new ProductCatalog();
+  });
+
+  test('이미 존재하는 상품을 추가할 수 없다', () => {
+    productCatalog.addProduct({
+      name: '코카콜라',
+      price: 1000,
+      quantity: 20,
+    });
+
+    expect(() =>
+      productCatalog.addProduct({
+        name: '코카콜라',
+        price: 1000,
+        quantity: 20,
+      })
+    ).toThrowError(new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST));
   });
 
   test('상품명은 최대 10글자까지 가능하다.', () => {
@@ -69,52 +137,5 @@ describe('상품CRUD unit 테스트', () => {
         quantity: 21,
       })
     ).toThrowError(new Error(ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT));
-  });
-
-  test('상품을 수정할 수 있다.', () => {
-    productCatalog.addProduct({
-      name: '코카콜라',
-      price: 1000,
-      quantity: 10,
-    });
-    productCatalog.editProduct('코카콜라', { name: '펩시', price: 500, quantity: 10 });
-
-    expect(productCatalog.findProduct('펩시').getAllProperties()).toStrictEqual({
-      name: '펩시',
-      price: 500,
-      quantity: 10,
-    });
-  });
-
-  test('상품을 삭제할 수 있다', () => {
-    productCatalog.addProduct({
-      name: '코카콜라',
-      price: 1000,
-      quantity: 20,
-    });
-    expect(productCatalog.findProduct('코카콜라').getAllProperties()).toStrictEqual({
-      name: '코카콜라',
-      price: 1000,
-      quantity: 20,
-    });
-
-    productCatalog.deleteProduct('코카콜라');
-    expect(productCatalog.findProduct('코카콜라')).toBeNull;
-  });
-
-  test('이미 존재하는 상품을 추가할 수 없다', () => {
-    productCatalog.addProduct({
-      name: '코카콜라',
-      price: 1000,
-      quantity: 20,
-    });
-
-    expect(() =>
-      productCatalog.addProduct({
-        name: '코카콜라',
-        price: 1000,
-        quantity: 20,
-      })
-    ).toThrowError(new Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST));
   });
 });

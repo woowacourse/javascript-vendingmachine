@@ -3,7 +3,17 @@ import { ProductProps } from '../utils/interface';
 
 import { Product } from './Product';
 
-export class ProductCatalog {
+interface ProductCatalogInterface {
+  getProductList(): Product[];
+  addProduct(product: ProductProps): void;
+  isSameProductExist(name: string): false | Error;
+  findProduct(name: string): Product;
+  deleteProduct(name: string): void;
+  editProduct(targetProductName: string, editedProductProps: ProductProps): void;
+  // buyProduct(name: string, userMoney: number): number;
+}
+
+export class ProductCatalog implements ProductCatalogInterface {
   #productList: Product[];
 
   constructor() {
@@ -14,24 +24,36 @@ export class ProductCatalog {
     return this.#productList;
   }
 
-  addProduct(product: ProductProps) {
+  addProduct(product: ProductProps): void {
     const { name, price, quantity } = product;
     if (this.isSameProductExist(name)) return;
+    const deepCopiedProductList = this.#deepCopy(this.#productList);
 
-    this.#productList = [...this.#productList, new Product(name, price, quantity)];
+    this.#productList = [...deepCopiedProductList, new Product(name, price, quantity)];
   }
 
-  isSameProductExist(name: string): boolean {
+  isSameProductExist(name: string): false | Error {
     if (this.findProduct(name)) throw Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST);
 
     return false;
+  }
+
+  #deepCopy(productList: Array<Product>): Array<Product> {
+    return productList.map((product: Product): Product => {
+      const { name, price, quantity } = product.getAllProperties();
+      return new Product(name, price, quantity);
+    });
   }
 
   findProduct(name: string): Product {
     return this.#productList.find((product) => product.getName() === name);
   }
 
-  deleteProduct(name: string) {
+  // buyProduct(name: string, userMoney: number): number {
+  //   return remainder;
+  // }
+
+  deleteProduct(name: string): void {
     this.#productList = this.#productList.filter((product) => product.getName() !== name);
   }
 

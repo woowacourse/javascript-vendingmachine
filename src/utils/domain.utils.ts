@@ -1,3 +1,5 @@
-export const getRandomNumZeroToMax = (max: number): number => {
-  return Math.floor(Math.random() * max);
-};
+// import { Product } from '../domain/Product';
+
+export const getRandomNumZeroToMax = (max: number): number => Math.floor(Math.random() * max);
+
+// export const;
