@@ -1,4 +1,4 @@
-import { ChangeEditProductInfoProps, ProductProps } from "../../utils/interface";
+import { ProductProps } from "../../utils/interface";
 import { validateProductName, validateProductPrice, valudateProductQuantity, validateSameProductName } from "../../utils/validation";
 
 class ProductInfo{
