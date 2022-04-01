@@ -20,7 +20,7 @@ class VendingMachineTab {
   }
 
   changeHashUrl(hash) {
-    history.pushState({ hash }, null, hash);
+    window.history.pushState({ hash }, null, hash);
   }
 }
 

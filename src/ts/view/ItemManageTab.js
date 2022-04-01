@@ -77,7 +77,7 @@ class ItemManageTab extends VendingMachineTab {
 
     if (
       this.#isDeleteItemButton(target) &&
-      confirm(generateConfirmMessage(targetItem.dataset.itemName))
+      window.confirm(generateConfirmMessage(targetItem.dataset.itemName))
     ) {
       this.#handleDeleteButtonClickEvent(targetItem);
       return;

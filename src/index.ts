@@ -2,10 +2,10 @@ import './css/index.css';
 // import checkRoute from './ts/app';
 import app from './ts/app';
 
-addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
   app.checkRoute();
 });
 
-addEventListener('popstate', () => {
+window.addEventListener('popstate', () => {
   app.checkRoute();
 });
