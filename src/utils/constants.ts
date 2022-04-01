@@ -25,10 +25,12 @@ export const COIN_VAULT_CONDITION = {
 export const ERROR_MESSAGE = {
   NOT_DIVIDED_BY_COIN_UNIT: '상평통보는 안 받습니다. 10원단위로 넣어주세요!',
   NOT_DIVIDED_BY_PRODUCT_PRICE_UNIT: '10원단위로 가격을 입력해주세요~',
+  INVALID_USER_MONEY: '10원단위로 나누어 떨어지는 금액만 투입 가능합니다~',
   NOT_WITHIN_PRODUCT_PRICE_RANGE: '100원 이상, 10,000원 이하의 가격을 입력주세요~',
   OVER_BALANCE_LIMIT: '돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.',
   OVER_PRODUCT_NAME_LENGTH_LIMIT: '10글자 미만의 상품명을 넣어주세요~',
   OVER_PRODUCT_QUANTITY_LIMIT: '수량은 최대 20개까지만 가능합니다~',
+  OVER_USER_MONEY_LIMIT: '10,000원까지만 투입 가능합니다',
   DUPLICATE_PRODUCT_NAME_EXIST: '중복된 상품명입니다',
 };
 

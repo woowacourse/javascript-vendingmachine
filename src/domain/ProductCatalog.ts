@@ -40,7 +40,7 @@ export class ProductCatalog {
 
     const { name, price, quantity } = editedProductProps;
 
-    if (targetProduct.validateAllProp(name, price, quantity)) {
+    if (targetProduct.isValidatedAllProp(name, price, quantity)) {
       targetProduct.setName(name);
       targetProduct.setPrice(price);
       targetProduct.setQuantity(quantity);

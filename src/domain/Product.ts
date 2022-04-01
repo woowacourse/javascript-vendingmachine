@@ -6,7 +6,7 @@ export class Product {
   #quantity: number;
 
   constructor(name: string, price: number, quantity: number) {
-    if (this.validateAllProp(name, price, quantity)) {
+    if (this.isValidatedAllProp(name, price, quantity)) {
       this.setName(name);
       this.setPrice(price);
       this.setQuantity(quantity);
@@ -37,7 +37,7 @@ export class Product {
     this.#quantity = quantity;
   }
 
-  validateName(name: string) {
+  isValidatedName(name: string) {
     if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT);
     }
@@ -45,7 +45,7 @@ export class Product {
     return true;
   }
 
-  validatePrice(price: number) {
+  isValidatedPrice(price: number) {
     if (price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE) {
       throw new Error(ERROR_MESSAGE.NOT_WITHIN_PRODUCT_PRICE_RANGE);
     }
@@ -57,7 +57,7 @@ export class Product {
     return true;
   }
 
-  validateQuantity(quantity: number) {
+  isValidatedQuantity(quantity: number) {
     if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT);
     }
@@ -65,8 +65,12 @@ export class Product {
     return true;
   }
 
-  validateAllProp(name: string, price: number, quantity: number): boolean {
-    return this.validateName(name) && this.validatePrice(price) && this.validateQuantity(quantity);
+  isValidatedAllProp(name: string, price: number, quantity: number): boolean {
+    return (
+      this.isValidatedName(name) &&
+      this.isValidatedPrice(price) &&
+      this.isValidatedQuantity(quantity)
+    );
   }
 
   getAllProperties() {

@@ -1,7 +1,9 @@
+import { ERROR_MESSAGE } from '../utils/constants';
+
 interface UserMoneyInterface {
   getMoney(): number;
   setMoney(money: number): void;
-  // validateMoney(money: number): true | Error;
+  isValidatedMoney(money: number): true | Error;
 }
 
 export class UserMoney implements UserMoneyInterface {
@@ -16,12 +18,13 @@ export class UserMoney implements UserMoneyInterface {
   }
 
   setMoney(money: number) {
-    if (money) {
-      this.#value += money;
+    this.#value += money;
+  }
 
-      return;
-    }
+  isValidatedMoney(money: number): true | Error {
+    if (money % 10 != 0) throw Error(ERROR_MESSAGE.INVALID_USER_MONEY);
+    if (money + this.#value > 10_000) throw Error(ERROR_MESSAGE.OVER_USER_MONEY_LIMIT);
 
-    this.#value = money;
+    return true;
   }
 }
