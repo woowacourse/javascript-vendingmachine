@@ -1,8 +1,12 @@
+import AuthStore from '../stores/authStore';
+import { AuthActionTypes } from '../utils/constants';
+
 class LoginComponent {
   constructor($parent) {
     this.$parent = $parent;
     this.mount();
     this.initDOM();
+    this.bindEventHandler();
   }
 
   mount() {
@@ -11,6 +15,9 @@ class LoginComponent {
 
   initDOM() {
     this.$loginContainer = this.$parent.querySelector('#login-container');
+    this.$loginForm = this.$parent.querySelector('#login-form');
+    this.$loginEmailInput = this.$parent.querySelector('#login-email-input');
+    this.$loginPasswordInput = this.$parent.querySelector('#login-password-input');
   }
 
   generateTemplate() {
@@ -48,6 +55,29 @@ class LoginComponent {
   hide() {
     this.$loginContainer.classList.add('hide');
   }
+
+  bindEventHandler() {
+    this.$loginForm.addEventListener('submit', this.onSubmitLoginForm);
+  }
+
+  onSubmitLoginForm = e => {
+    e.preventDefault();
+
+    const { value: userEmail } = this.$loginEmailInput;
+    const { value: userPassword } = this.$loginPasswordInput;
+
+    try {
+      AuthStore.mutateState({
+        actionType: AuthActionTypes.LOGIN,
+        payload: {
+          email: userEmail,
+          password: userPassword,
+        },
+      });
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
 }
 
 export default LoginComponent;

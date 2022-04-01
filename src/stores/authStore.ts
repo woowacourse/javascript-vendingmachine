@@ -6,6 +6,9 @@ class AuthStore implements AuthStoreInterface {
     if (actionType === 'signIn') {
       this.signInUserInfo(payload);
     }
+    if (actionType === 'login') {
+      this.login(payload);
+    }
   }
 
   async signInUserInfo(payload) {
@@ -18,11 +21,44 @@ class AuthStore implements AuthStoreInterface {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: userData,
-      }).then(res => res.json());
+      });
+
+      if (response.status === 400) {
+        throw new Error('회원가입에 실패하였습니다!');
+      }
+
       const {
         accessToken,
         user: { id },
-      } = response;
+      } = await response.json();
+
+      accessTokenStorage.setAccessToken(accessToken);
+      userIdStorage.setUserId(id);
+      window.location.href = 'http://localhost:9000/#';
+    } catch ({ message }) {
+      alert(message);
+    }
+  }
+
+  async login(payload) {
+    const { email, password } = payload;
+
+    const loginData = JSON.stringify({ email, password });
+
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: loginData,
+      });
+      if (response.status === 400) {
+        throw new Error('아이디와 비밀번호를 다시 확인해주세요');
+      }
+
+      const {
+        accessToken,
+        user: { id },
+      } = await response.json();
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
