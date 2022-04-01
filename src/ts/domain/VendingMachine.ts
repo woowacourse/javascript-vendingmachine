@@ -2,13 +2,18 @@ import ProductType from '../type/ProductType';
 import MoneyType from '../type/MoneyType';
 import Product from './Product';
 import Money from './Money';
-import { checkDuplicatedProduct, checkMoneyValidation } from './validator';
+import {
+  checkDuplicatedProduct,
+  checkInsertedMoneyValidation,
+  checkMoneyValidation,
+} from './validator';
 import { getRandomNumber } from '../utils';
 import { STORAGE_ID } from '../constants';
 
 export interface VendingMachineInterface {
   products: ProductType[];
   moneys: MoneyType[];
+  insertedMoney: number;
   addProduct(product: ProductType): ProductType;
   deleteProduct(name: string): void;
   getProduct(name: string): ProductType;
@@ -16,68 +21,95 @@ export interface VendingMachineInterface {
   rechargeMoney(money: number): void;
   getHoldingMoney(): number;
   getCoin(value: number): MoneyType;
+  addInsertedMoney(money: number): number;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
-  products: ProductType[];
-  moneys: MoneyType[];
+  private _products: ProductType[];
+  private _moneys: MoneyType[];
+  private _insertedMoney: number;
 
   constructor() {
-    this.products = this.getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
-    this.moneys = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
+    this._products = this.getProductsFromStorage(STORAGE_ID.PRODUCTS) || [];
+    this._moneys = this.getMoneyFromStorage(STORAGE_ID.MONEY) || [
       new Money(500, 0),
       new Money(100, 0),
       new Money(50, 0),
       new Money(10, 0),
     ];
+    this._insertedMoney = 0;
+  }
+
+  public get products(): ProductType[] {
+    return this._products;
+  }
+
+  public get moneys(): MoneyType[] {
+    return this.moneys;
+  }
+
+  public get insertedMoney(): number {
+    return this._insertedMoney;
+  }
+
+  public resetProducts = () => {
+    this._products = [];
+  };
+
+  public resetMoneys = () => {
+    this._moneys = [new Money(500, 0), new Money(100, 0), new Money(50, 0), new Money(10, 0)];
+  };
+
+  public resetInsertedMoney = () => {
+    this._insertedMoney = 0;
   }
 
   public rechargeMoney = (money: number) => {
     checkMoneyValidation(money, money + this.getHoldingMoney());
     this.generateRandomCoins(money);
 
-    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.moneys));
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this._moneys));
   };
 
   public getHoldingMoney = () => {
-    return this.moneys.reduce((holdingMoney: number, currentMoney: MoneyType) => {
+    return this._moneys.reduce((holdingMoney: number, currentMoney: MoneyType) => {
       return holdingMoney + currentMoney.value * currentMoney.count;
     }, 0);
   };
 
   public getCoin = (value: number) => {
-    return this.moneys.find((coin) => coin.value === value);
+    return this._moneys.find((coin) => coin.value === value);
   };
 
   public getProduct = (name: string) => {
-    return this.products.find((product) => product.name === name);
+    return this._products.find((product) => product.name === name);
   };
 
   public addProduct = (newProduct: ProductType) => {
     const productToAdd = new Product(newProduct);
-    checkDuplicatedProduct(this.products, productToAdd.name);
-    this.products.push(productToAdd);
+    checkDuplicatedProduct(this._products, productToAdd.name);
+    this._products.push(productToAdd);
 
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
 
     return productToAdd;
   };
 
   public deleteProduct = (name: string) => {
-    this.products = this.products.filter((product) => product.name !== name);
+    this._products = this._products.filter((product) => product.name !== name);
 
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
   };
 
   public editProduct = (name: string, product: ProductType) => {
-    const indexToEdit = this.products.findIndex((product) => product.name === name);
+    const indexToEdit = this._products.findIndex((product) => product.name === name);
 
-    if (this.products[indexToEdit].name !== product.name) {
-      checkDuplicatedProduct(this.products, product.name);
+    if (this._products[indexToEdit].name !== product.name) {
+      checkDuplicatedProduct(this._products, product.name);
     }
-    this.products[indexToEdit].setProduct(product);
+    this._products[indexToEdit].setProduct(product);
 
-    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this.products));
+    localStorage.setItem(STORAGE_ID.PRODUCTS, JSON.stringify(this._products));
   };
 
   private getProductsFromStorage = (key: string) => {
@@ -103,11 +135,18 @@ export default class VendingMachine implements VendingMachineInterface {
   private generateRandomCoins = (money: number) => {
     while (money !== 0) {
       const moneyRandomIndex = getRandomNumber(0, 3);
-      const coinValue = this.moneys[moneyRandomIndex].value;
+      const coinValue = this._moneys[moneyRandomIndex].value;
       if (coinValue <= money) {
-        this.moneys[moneyRandomIndex].increaseCount();
+        this._moneys[moneyRandomIndex].increaseCount();
         money -= coinValue;
       }
     }
+  };
+
+  public addInsertedMoney = (money: number) => {
+    checkInsertedMoneyValidation(money, this._insertedMoney);
+    this._insertedMoney = <number>this._insertedMoney + money;
+
+    return this._insertedMoney;
   };
 }

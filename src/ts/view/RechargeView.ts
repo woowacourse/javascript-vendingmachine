@@ -3,20 +3,7 @@ import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $ } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
 
-export interface RechargeViewInterface {
-  $rechargeForm: HTMLFormElement;
-  $currentHoldingMoney: HTMLSpanElement;
-  $rechargeInput: HTMLInputElement;
-  $coin500: HTMLSpanElement;
-  $coin100: HTMLSpanElement;
-  $coin50: HTMLSpanElement;
-  $coin10: HTMLSpanElement;
-  vendingMachine: VendingMachineInterface;
-
-  renderRecharge(): void;
-}
-
-export default class RechargeView implements RechargeViewInterface {
+export default class RechargeView {
   $rechargeForm: HTMLFormElement;
   $rechargeInput: HTMLInputElement;
   $currentHoldingMoney: HTMLSpanElement;
@@ -39,7 +26,7 @@ export default class RechargeView implements RechargeViewInterface {
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
   }
 
-  public renderRecharge = () => {
+  public renderRechargeTab = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
     this.$rechargeInput.focus();
@@ -62,7 +49,7 @@ export default class RechargeView implements RechargeViewInterface {
 
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
-      this.renderRecharge();
+      this.renderRechargeTab();
       this.$rechargeInput.value = '';
       renderToastModal('success', SUCCESS_MESSAGE.MONEY_RECHARGED);
     } catch (error) {

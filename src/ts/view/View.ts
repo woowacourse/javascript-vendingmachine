@@ -1,8 +1,9 @@
 import { $, $$ } from '../utils';
 import { PATH_ID, STORAGE_ID } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
-import RechargeView, { RechargeViewInterface } from './RechargeView';
+import ProductManageView from './ProductManageView';
+import RechargeView from './RechargeView';
+import PurchaseView from './PurchaseView';
 
 export default class View {
   $notFound: HTMLDivElement;
@@ -13,14 +14,16 @@ export default class View {
   $tabPurchaseProductButton: HTMLInputElement;
   $$tabButtons: NodeListOf<HTMLInputElement>;
   vendingMachine: VendingMachineInterface;
-  productManageView: ProductManageViewInterface;
-  rechargeView: RechargeViewInterface;
+  productManageView: ProductManageView;
+  rechargeView: RechargeView;
+  purchaseView: PurchaseView;
   currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
+    this.purchaseView = new PurchaseView(this.vendingMachine);
 
     this.$notFound = <HTMLDivElement>$('#not-found');
     this.$navTab = <HTMLDivElement>$('.nav-tab');
@@ -65,13 +68,13 @@ export default class View {
   private renderUpdatedView = (url: string) => {
     switch (url) {
       case PATH_ID.PRODUCT_MANAGE:
-        this.productManageView.renderProductManage();
+        this.productManageView.renderProductManageTab();
         break;
       case PATH_ID.RECHARGE:
-        this.rechargeView.renderRecharge();
+        this.rechargeView.renderRechargeTab();
         break;
       case PATH_ID.PURCHASE_PRODUCT:
-        // this.purchaseView.renderPurchase();
+        this.purchaseView.renderPurchaseTab();
         break;
       default:
         break;

@@ -1,43 +1,33 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, $$ } from '../utils';
+import { $ } from '../utils';
 import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
 import { renderToastModal } from '../components/ToastNotification';
 
-export interface ProductManageViewInterface {
-  $productNameInput: HTMLInputElement;
-  $productPriceInput: HTMLInputElement;
-  $productQuantityInput: HTMLInputElement;
-  $productManageForm: HTMLFormElement;
+export default class ProductManageView {
   vendingMachine: VendingMachineInterface;
-
-  renderProductManage(): void;
-}
-
-export default class ProductManageView implements ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
   $productPriceInput: HTMLInputElement;
   $productQuantityInput: HTMLInputElement;
   $productManageForm: HTMLFormElement;
   $currentProductTable: HTMLTableSectionElement;
   $toastModal: HTMLElement;
-  vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
+    this.vendingMachine = vendingMachine;
     this.$productNameInput = <HTMLInputElement>$('#product-name');
     this.$productPriceInput = <HTMLInputElement>$('#product-price');
     this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
     this.$productManageForm = <HTMLFormElement>$('#product-manage-form');
     this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
     this.$toastModal = <HTMLElement>$('toast-modal');
-    this.vendingMachine = vendingMachine;
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
     this.renderInitialProductManage();
   }
 
-  public renderProductManage = () => {
+  public renderProductManageTab = () => {
     const tableTemplate = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
       .join('');
