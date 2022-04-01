@@ -1,7 +1,6 @@
 import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
-import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 
 class ProductListComponent {
   parentElement: HTMLElement;
@@ -21,6 +20,18 @@ class ProductListComponent {
   private onClickPurchaseButton = (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-purchase-button') {
       return;
+    }
+
+    const parentList = (<HTMLElement>e.target).closest('li');
+    const productName = (<HTMLInputElement>parentList.querySelector('.product-name')).textContent;
+    const $productAmount = <HTMLInputElement>parentList.querySelector('.product-amount');
+    const productAmount = $productAmount.textContent;
+
+    try {
+      vendingMachine.purchaseProduct(productName);
+      $productAmount.textContent = (Number(productAmount) - 1).toString();
+    } catch (message) {
+      alert(message);
     }
   };
 

@@ -31,7 +31,6 @@ export default class ProductPurchase {
 
   private stateChange = () => {
     this.InputMoneyComponent.refreshChange();
-    this.PurchasableProductListComponent.refreshComponent();
     this.ReturnChangeComponent.refreshChange();
   };
 }
