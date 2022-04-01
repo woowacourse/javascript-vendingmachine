@@ -23,6 +23,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 #page-tab-container {
@@ -127,4 +128,10 @@ tr {
 
 #have-changes {
   margin-top: 5px;
+}
+
+.signup-menu-button {
+  position: absolute;
+  right: 80px;
+  top: 20px;
 }

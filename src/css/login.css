@@ -1,0 +1,48 @@
+:root {
+  --input-border-color: #b4b4b4;
+  --default-button-color: #00bcd4;
+  --hover-button-color: #80deea;
+}
+
+a {
+  text-decoration: none;
+}
+
+#login-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 7px;
+}
+
+.button {
+  color: white;
+  background-color: var(--default-button-color);
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--hover-button-color);
+}
+
+.input {
+  height: 36px;
+  border-radius: 4px;
+  padding-left: 8px;
+  border: 1px solid var(--input-border-color);
+  margin-bottom: 23px;
+}
