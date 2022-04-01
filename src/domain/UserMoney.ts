@@ -1,7 +1,27 @@
-// interface UserMoneyInterface {
-//   x: number;
-//   getMoney(): number;
-//   setMoney(money: number): void;
-// }
+interface UserMoneyInterface {
+  getMoney(): number;
+  setMoney(money: number): void;
+  // validateMoney(money: number): true | Error;
+}
 
-// class UserMoney implements UserMoneyInterface {}
+export class UserMoney implements UserMoneyInterface {
+  #value: number;
+
+  constructor() {
+    this.#value = 0;
+  }
+
+  getMoney() {
+    return this.#value;
+  }
+
+  setMoney(money: number) {
+    if (money) {
+      this.#value += money;
+
+      return;
+    }
+
+    this.#value = money;
+  }
+}

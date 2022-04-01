@@ -8,6 +8,6 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
-  testMatch: ['<rootDir>/**/*.test.(js|ts)'],
+  testMatch: ['<rootDir>/**/userMoney.unit.test.(js|ts)'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };
