@@ -223,7 +223,7 @@ class VendingMachine {
       throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     }
 
-    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
+    if (this.userMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
     }
   }
