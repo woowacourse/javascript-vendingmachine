@@ -36,7 +36,7 @@ class ProductCurrentSituation extends CustomElement {
     switch (type) {
       case PRODUCT_ACTION.ADD:
         $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
-        this.setEventAfterRerender(detail);
+        this.setEventAfterProductAddRerender(detail);
         break;
       case PRODUCT_ACTION.MODIFY: {
         const { oldProductName, newProductInfo } = detail;
@@ -88,7 +88,7 @@ class ProductCurrentSituation extends CustomElement {
     `;
   }
 
-  setEventAfterRerender({ name }) {
+  setEventAfterProductAddRerender({ name }) {
     const $tbodyRow = $(`[data-product-name="${name}"]`);
 
     $tbodyRow.scrollIntoView();
@@ -96,9 +96,9 @@ class ProductCurrentSituation extends CustomElement {
     $('.table__product-modify-button', $tbodyRow).addEventListener('click', () =>
       this.handleProductModifyButtonClick($tbodyRow),
     );
-    $('.table__product-delete-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductDeleteButtonClick(name),
-    );
+    $('.table__product-delete-button', $tbodyRow).addEventListener('click', () => {
+      this.handleProductDeleteButtonClick($tbodyRow.dataset);
+    });
 
     $$('.product-modify-td input', $tbodyRow).forEach((input) =>
       input.addEventListener('keydown', (event) => this.handleProductModifyEnter(event, $tbodyRow)),
@@ -111,6 +111,12 @@ class ProductCurrentSituation extends CustomElement {
   handleProductModifyButtonClick = ($tbodyRow) => {
     $$('.product-td', $tbodyRow).forEach((td) => td.setAttribute('hidden', true));
     $$('.product-modify-td', $tbodyRow).forEach((td) => td.removeAttribute('hidden'));
+  };
+
+  handleProductDeleteButtonClick = ({ productName }) => {
+    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
   };
 
   handleProductModifyEnter = (event, $tbodyRow) => {
@@ -147,12 +153,6 @@ class ProductCurrentSituation extends CustomElement {
 
     ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }
-
-  handleProductDeleteButtonClick = (productName) => {
-    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
-
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
-  };
 }
 
 customElements.define('product-current-situation', ProductCurrentSituation);
