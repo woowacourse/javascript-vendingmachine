@@ -1,13 +1,22 @@
 import { CASH_ERROR_MESSAGE } from '../constant/errorMessage';
 import { CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
+export type CoinCollectionType = {
+  [COIN_500]: number;
+  [COIN_100]: number;
+  [COIN_50]: number;
+  [COIN_10]: number;
+};
+
+type TestCaseType = { testCase: (rechargedCash: number) => boolean; errorMessage: string };
+
 interface CoinRechargeInterface {
   chargeCoin: (rechargeCoin: number) => void;
   calculateTotalCoinAmount: () => number;
 }
 
 class CoinRecharge implements CoinRechargeInterface {
-  private _coinCollection: Object;
+  private _coinCollection: CoinCollectionType;
 
   constructor() {
     this._coinCollection = {
@@ -18,7 +27,7 @@ class CoinRecharge implements CoinRechargeInterface {
     };
   }
 
-  get coinCollection(): Object {
+  get coinCollection(): CoinCollectionType {
     return this._coinCollection;
   }
 
@@ -54,7 +63,7 @@ class CoinRecharge implements CoinRechargeInterface {
   }
 
   validateCashInput(rechargedCash: number) {
-    const testCases = [
+    const testCases: TestCaseType[] = [
       { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
       { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
       {

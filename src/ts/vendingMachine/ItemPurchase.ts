@@ -1,7 +1,41 @@
+import type { CoinCollectionType } from './CoinRecharge';
 import { MONEY_ERROR_MESSAGE } from '../constant/errorMessage';
-import { MONEY } from '../constant/rule';
+import { COIN_10, COIN_100, COIN_50, COIN_500, MONEY } from '../constant/rule';
 
 class ItemPurchase {
+  change: CoinCollectionType;
+
+  constructor() {
+    this.change = {
+      [COIN_500]: 0,
+      [COIN_100]: 0,
+      [COIN_50]: 0,
+      [COIN_10]: 0,
+    };
+  }
+
+  giveChange(moneyInput: number, coinCollection: CoinCollectionType) {
+    let remainedMoney = moneyInput;
+    const coins = { ...coinCollection };
+
+    Object.keys(coins)
+      .sort((a, b) => Number(b) - Number(a))
+      .forEach((coin) => {
+        const coinValue = Number(coin);
+        while (coinValue <= remainedMoney) {
+          if (coins[coinValue] === 0) break;
+          this.change[coinValue]++;
+          remainedMoney -= coinValue;
+          coins[coinValue] -= 1;
+        }
+      });
+    return remainedMoney;
+  }
+
+  calculateTotalChange(change: CoinCollectionType) {
+    return Object.entries(change).reduce((prev, [key, value]) => prev + Number(key) * value, 0);
+  }
+
   validateMoneyInput(moneyInput: number) {
     if (this.isNotNumberTypeMoney(moneyInput)) {
       throw new Error(MONEY_ERROR_MESSAGE.NOT_NUMBER_TYPE);
