@@ -1,4 +1,4 @@
-import ProductStore from '../store/ProductStore';
+import ProductStore from 'Store/ProductStore';
 
 describe('상품 정보 관리 로직 테스트', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
-import { $, getSearchParamsParse, getSearchParamsObject } from '../utils';
-import Header from './Header';
+import { $, getSearchParamsParse, getSearchParamsObject } from 'Utils';
+import Header from 'Layout/Header';
 
 export default class Router {
   pathname = window.location.pathname.slice(0, -1);

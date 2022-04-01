@@ -7,8 +7,8 @@ module.exports = {
   mode: 'development',
   entry: './src/index.ts',
   resolve: {
-    extensions: ['.js', '.ts', '.css', '.scss'],
-    alias: {},
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    extensions: ['.ts', '.js', '.scss', '.css'],
   },
   devServer: {
     port: 9000,

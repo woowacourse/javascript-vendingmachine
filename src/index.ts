@@ -1,7 +1,7 @@
-import './styles';
-import ProductPage from './es/display/pages/ProductPage';
-import HoldingAmountPage from './es/display/pages/HoldingAmountPage';
-import Router from './es/display/Router';
+import 'Styles';
+import ProductPage from 'Pages/ProductPage';
+import HoldingAmountPage from 'Pages/HoldingAmountPage';
+import Router from 'Router';
 
 new Router({
   product: new ProductPage(),

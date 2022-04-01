@@ -1,7 +1,7 @@
-import { $ } from '../../utils';
-import { validateHoldingAmountToAdd } from '../../utils/VendingMachine/validator';
-import HoldingAmountStore from '../../store/HoldingAmountStore';
-import { template } from '../template';
+import { $ } from 'Utils';
+import { validateHoldingAmountToAdd } from 'Utils/VendingMachine/validator';
+import HoldingAmountStore from 'Store/HoldingAmountStore';
+import { template } from 'Layout/template';
 
 export default class HoldingAmountPage {
   renderMethodList;

@@ -1,4 +1,4 @@
-import { $ } from '../utils';
+import { $ } from 'Utils';
 
 export default class Header {
   $container = $('header');

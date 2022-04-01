@@ -1,4 +1,4 @@
-import { COIN_TYPE } from '../constants';
+import { COIN_TYPE } from 'Constants';
 
 export const template = {
   productPage: `

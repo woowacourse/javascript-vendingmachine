@@ -1,5 +1,5 @@
-import { COIN_TYPE } from '../constants';
-import { getRandomNumber } from '../utils';
+import { getRandomNumber } from 'Utils';
+import { COIN_TYPE } from 'Constants';
 import Store from './Abstract';
 
 type IState = Record<'coins', Array<number>>;

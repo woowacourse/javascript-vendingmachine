@@ -1,7 +1,7 @@
-import { $, $$ } from '../../utils';
-import { validateProduct } from '../../utils/VendingMachine/validator';
-import ProductStore from '../../store/ProductStore';
-import { template } from '../template';
+import { $, $$ } from 'Utils';
+import { validateProduct } from 'Utils/VendingMachine/validator';
+import ProductStore from 'Store/ProductStore';
+import { template } from 'Layout/template';
 
 export default class ProductPage {
   renderMethodList;
