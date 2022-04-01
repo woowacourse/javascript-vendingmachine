@@ -75,7 +75,7 @@ col {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .short-button {

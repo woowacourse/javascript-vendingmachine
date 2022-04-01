@@ -38,19 +38,12 @@ export default class ProductManageView implements ProductManageViewInterface {
   }
 
   public renderProductManage = () => {
-    const $$productRows = $$('.product-row');
-    const allProducts = this.vendingMachine.products;
-    allProducts.forEach((product, index) => {
-      (<HTMLTableCellElement>(
-        $('.product-row-name', <HTMLElement>$$productRows[index])
-      )).textContent = product.name;
-      (<HTMLTableCellElement>(
-        $('.product-row-price', <HTMLElement>$$productRows[index])
-      )).textContent = String(product.price);
-      (<HTMLTableCellElement>(
-        $('.product-row-quantity', <HTMLElement>$$productRows[index])
-      )).textContent = String(product.quantity);
-    });
+    const tableTemplate = this.vendingMachine.products
+      .map((product) => this.getProductTemplate(product))
+      .join('');
+    this.$currentProductTable.textContent = '';
+    this.$currentProductTable.insertAdjacentHTML('beforeend', tableTemplate);
+
     this.$productNameInput.focus();
   };
 

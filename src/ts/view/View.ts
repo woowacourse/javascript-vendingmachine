@@ -5,6 +5,7 @@ import ProductManageView, { ProductManageViewInterface } from './ProductManageVi
 import RechargeView, { RechargeViewInterface } from './RechargeView';
 
 export default class View {
+  $notFound: HTMLDivElement;
   $navTab: HTMLDivElement;
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
   $tabProductManageButton: HTMLInputElement;
@@ -21,6 +22,7 @@ export default class View {
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
 
+    this.$notFound = <HTMLDivElement>$('#not-found');
     this.$navTab = <HTMLDivElement>$('.nav-tab');
     this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
     this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
@@ -39,37 +41,40 @@ export default class View {
     );
   }
 
-  public renderTabs = (id: string) => {
-    this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
-      if (container.id === id) {
-        container.classList.remove('hide');
-        this.$$tabButtons[index].checked = true;
-        this.renderUpdatedView(id);
-        return;
-      }
-      container.classList.add('hide');
-    });
-    localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
-  };
-
   private handleClickTabButton(url: string) {
     const detail = url;
     const event = new CustomEvent('@route-tab', { detail });
     this.$navTab.dispatchEvent(event);
   }
 
-  private renderUpdatedView = (id: string) => {
-    const containerBranch = {
-      [PATH_ID.PRODUCT_MANAGE]: () => {
+  public renderTabs = (url: string) => {
+    this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
+      if (container.id === url) {
+        container.classList.remove('hide');
+        this.$$tabButtons[index].checked = true;
+        localStorage.setItem(STORAGE_ID.CURRENT_TAB, url);
+        return;
+      }
+      container.classList.add('hide');
+    });
+
+    this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
+    this.renderUpdatedView(url);
+  };
+
+  private renderUpdatedView = (url: string) => {
+    switch (url) {
+      case PATH_ID.PRODUCT_MANAGE:
         this.productManageView.renderProductManage();
-      },
-      [PATH_ID.RECHARGE]: () => {
+        break;
+      case PATH_ID.RECHARGE:
         this.rechargeView.renderRecharge();
-      },
-      [PATH_ID.PURCHASE_PRODUCT]: () => {
-        // this.renderPurchaseProduct();
-      },
-    };
-    containerBranch[id]();
+        break;
+      case PATH_ID.PURCHASE_PRODUCT:
+        // this.purchaseView.renderPurchase();
+        break;
+      default:
+        break;
+    }
   };
 }

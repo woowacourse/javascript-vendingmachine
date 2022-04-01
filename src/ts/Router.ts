@@ -13,10 +13,12 @@ export default class Router {
     this.view.renderTabs(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
-      this.tabRouter(event.state.url, true);
+      const url = event.state ? event.state.url : PATH_ID.NOT_FOUND;
+      this.tabRouter(url, true);
     });
     this.view.$navTab.addEventListener('@route-tab', (event: CustomEvent) => {
-      this.tabRouter(event.detail, false);
+      const url = event.detail;
+      this.tabRouter(url, false);
     });
   }
 
@@ -24,17 +26,6 @@ export default class Router {
     if (!isPopState && url !== location.pathname + location.hash) {
       history.pushState({ url }, null, url);
     }
-    const routes = {
-      [PATH_ID.PRODUCT_MANAGE]: () => {
-        this.view.renderTabs(PATH_ID.PRODUCT_MANAGE);
-      },
-      [PATH_ID.RECHARGE]: () => {
-        this.view.renderTabs(PATH_ID.RECHARGE);
-      },
-      [PATH_ID.PURCHASE_PRODUCT]: () => {
-        this.view.renderTabs(PATH_ID.PURCHASE_PRODUCT);
-      },
-    };
-    routes[url]();
+    this.view.renderTabs(url);
   };
 }

@@ -115,7 +115,6 @@ customElements.define('toast-modal', ToastNotification);
 let hideTimeout = null;
 
 function hideToast(toastDiv: HTMLDivElement) {
-  console.log(hideTimeout);
   clearTimeout(hideTimeout);
 
   hideTimeout = setTimeout(() => {
