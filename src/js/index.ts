@@ -1,5 +1,5 @@
 import '../css/index.css';
 import './route/route.js';
-import Controller from './Controller.js';
+import ProductManage from './controller/ProductManage.js';
 
-new Controller();
+new ProductManage();
