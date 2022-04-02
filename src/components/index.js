@@ -1,4 +1,5 @@
 import { accessTokenStorage } from '../stores/localStorage';
+import EditUserInfoComponent from './EditUserInfoComponent';
 import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
 import ProductManagementComponent from './ProductManagementComponent';
@@ -12,7 +13,8 @@ class VendingMachineComponent {
   #RechargeChangeComponent;
   #HeaderComponent;
   #LoginComponent;
-  #signInComponent;
+  #SignInComponent;
+  #EditUserComponent;
 
   $app;
   constructor(hashRoute) {
@@ -38,7 +40,8 @@ class VendingMachineComponent {
     this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
     this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
     this.#LoginComponent = new LoginComponent(this.$app);
-    this.#signInComponent = new SignInComponent(this.$app);
+    this.#SignInComponent = new SignInComponent(this.$app);
+    this.#EditUserComponent = new EditUserInfoComponent(this.$app);
   }
 
   showSectionByRoute(route) {
@@ -51,12 +54,13 @@ class VendingMachineComponent {
       this.#HeaderComponent.userProfileShow();
 
       this.#LoginComponent.hide();
-      this.#signInComponent.hide();
+      this.#SignInComponent.hide();
 
       if (route === 'manage') {
         this.#RechargeChangeComponent.hide();
         this.#PurchaseProductComponent.hide();
         this.#LoginComponent.hide();
+        this.#EditUserComponent.hide();
 
         this.#ProductManagementComponent.show();
         this.focusTabButton('manageProduct');
@@ -65,6 +69,7 @@ class VendingMachineComponent {
         this.#PurchaseProductComponent.hide();
         this.#ProductManagementComponent.hide();
         this.#LoginComponent.hide();
+        this.#EditUserComponent.hide();
 
         this.#RechargeChangeComponent.show();
         this.focusTabButton('rechargeChange');
@@ -72,9 +77,23 @@ class VendingMachineComponent {
       if (route === '') {
         this.#ProductManagementComponent.hide();
         this.#RechargeChangeComponent.hide();
+        this.#EditUserComponent.hide();
 
         this.#PurchaseProductComponent.show();
         this.focusTabButton('purchaseProduct');
+      }
+      if (route === 'edit-user-info') {
+        this.$title.textContent = '회원 정보 수정';
+        this.#ProductManagementComponent.hide();
+        this.#RechargeChangeComponent.hide();
+        this.#PurchaseProductComponent.hide();
+
+        this.#HeaderComponent.loginUserHide();
+        this.#HeaderComponent.userProfileHide();
+
+        this.$nav.classList.add('hide');
+
+        this.#EditUserComponent.show();
       }
     }
 
@@ -85,10 +104,11 @@ class VendingMachineComponent {
 
       this.#ProductManagementComponent.hide();
       this.#RechargeChangeComponent.hide();
+      this.#EditUserComponent.hide();
 
       if (route === '') {
         this.#LoginComponent.hide();
-        this.#signInComponent.hide();
+        this.#SignInComponent.hide();
 
         this.#PurchaseProductComponent.show();
       }
@@ -98,7 +118,7 @@ class VendingMachineComponent {
         this.#HeaderComponent.headerHide();
 
         this.#PurchaseProductComponent.hide();
-        this.#signInComponent.hide();
+        this.#SignInComponent.hide();
 
         this.#LoginComponent.show();
       }
@@ -108,8 +128,9 @@ class VendingMachineComponent {
         this.#HeaderComponent.headerHide();
 
         this.#LoginComponent.hide();
+        this.#PurchaseProductComponent.hide();
 
-        this.#signInComponent.show();
+        this.#SignInComponent.show();
       }
     }
   }
