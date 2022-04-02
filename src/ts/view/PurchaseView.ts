@@ -13,6 +13,8 @@ export default class PurchaseView {
   $coin100: HTMLSpanElement;
   $coin50: HTMLSpanElement;
   $coin10: HTMLSpanElement;
+  $paperMoney: HTMLSpanElement;
+  $paperMoneyWrapper: HTMLDivElement;
   $refundButton: HTMLButtonElement;
 
   constructor(vendingMachine: VendingMachineInterface) {
@@ -27,6 +29,8 @@ export default class PurchaseView {
     this.$coin100 = $('#purchase-tab-coin-100');
     this.$coin50 = $('#purchase-tab-coin-50');
     this.$coin10 = $('#purchase-tab-coin-10');
+    this.$paperMoney = $('#paper-money');
+    this.$paperMoneyWrapper = <HTMLDivElement>$('.paper-money-wrapper');
     this.$refundButton = <HTMLButtonElement>$('#refund-button');
 
     // 투입버튼 이벤트 바인딩
@@ -111,8 +115,10 @@ export default class PurchaseView {
 
     const coinValues = [500, 100, 50, 10];
     const refundableCoins = this.vendingMachine.getRefundableCoins(coinValues);
+    const paperMoneyCount = Math.floor(this.vendingMachine.insertedMoney / 1000);
 
-    this.renderRefundableCoinTable(refundableCoins);
+    this.$paperMoneyWrapper.classList.toggle('hide', paperMoneyCount === 0);
+    this.renderRefundableCoinTable(refundableCoins, paperMoneyCount);
     this.renderRefundMoneyToastModal(refundableCoins, coinValues);
     this.renderInsertedMoney('0');
 
@@ -120,16 +126,15 @@ export default class PurchaseView {
     this.vendingMachine.resetInsertedMoney();
   };
 
-  private renderRefundableCoinTable = ([
-    coin500Count,
-    coin100Count,
-    coin50Count,
-    coin10Count,
-  ]: number[]) => {
+  private renderRefundableCoinTable = (
+    [coin500Count, coin100Count, coin50Count, coin10Count]: number[],
+    paperMoneyCount = 0,
+  ) => {
     this.$coin500.textContent = String(coin500Count);
     this.$coin100.textContent = String(coin100Count);
     this.$coin50.textContent = String(coin50Count);
     this.$coin10.textContent = String(coin10Count);
+    this.$paperMoney.textContent = String(paperMoneyCount);
   };
 
   private renderRefundMoneyToastModal = (refundableCoins: number[], coinValues: number[]) => {

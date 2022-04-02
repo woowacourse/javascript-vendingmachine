@@ -110,3 +110,7 @@ col {
   width: 100px;
   height: 32px;
 }
+
+.paper-money-wrapper {
+  margin-top: 20px;
+}
