@@ -1,4 +1,5 @@
 import { $, getInnerInputValues } from '../utils';
+import { login } from '../utils/auth';
 
 const pageTemplate = `
   <section class="user-information-form-section">
@@ -23,6 +24,7 @@ export default class LoginPageView {
 
   onSubmitLoginForm = (event) => {
     event.preventDefault();
-    console.log(getInnerInputValues(event.target));
+    const loginInfo = getInnerInputValues(event.target);
+    login(loginInfo);
   };
 }

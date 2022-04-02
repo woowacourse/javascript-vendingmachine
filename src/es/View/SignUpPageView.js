@@ -1,4 +1,5 @@
 import { $, getInnerInputValues } from '../utils';
+import { signUp } from '../utils/auth';
 
 const pageTemplate = `
   <section class="user-information-form-section">
@@ -28,6 +29,11 @@ export default class SignUpPageView {
 
   onSubmitSignUpForm = (event) => {
     event.preventDefault();
-    console.log(getInnerInputValues(event.target));
+    const { email, name, password, passwordConfirm } = getInnerInputValues(event.target);
+    if (password !== passwordConfirm) {
+      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      return;
+    }
+    signUp({ email, name, password });
   };
 }
