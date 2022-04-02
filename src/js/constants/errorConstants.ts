@@ -20,7 +20,12 @@ export const ERROR_MESSAGE = {
   INPUT_MONEY: {
     NOT_INTEGER: `정수가 아닌 숫자는 금액으로 입력할 수 없습니다.`,
     UNDER_MIN: `${MONEY.MIN}원이하의 금액은 투입할 수 없습니다.`,
-    OVER_MAX: `${MONEY.CHARGE_MAX.toLocaleString('ko-KR')}원 보다 많은 금액을 투입할 수 없습니다.`,
+    OVER_CHARGE_MAX: `${MONEY.CHARGE_MAX.toLocaleString(
+      'ko-KR'
+    )}원 보다 많은 금액을 투입할 수 없습니다.`,
+    OVER_INPUT_MAX: `${MONEY.INPUT_MAX.toLocaleString(
+      'ko-KR'
+    )}원 보다 많은 금액을 투입할 수 없습니다.`,
     INVALID_UNIT: `${MONEY.UNIT}원 단위의 금액만 투입할 수 있습니다.`,
   },
 };

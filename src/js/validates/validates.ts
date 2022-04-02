@@ -48,7 +48,22 @@ export const validateChargeMoney = (inputMoney: number) => {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   }
   if (inputMoney > MONEY.CHARGE_MAX) {
-    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_MAX);
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_CHARGE_MAX);
+  }
+  if (inputMoney % MONEY.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
+  }
+};
+
+export const validateInputMoney = (inputMoney: number) => {
+  if (!Number.isInteger(inputMoney)) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
+  }
+  if (inputMoney <= MONEY.MIN) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
+  }
+  if (inputMoney > MONEY.INPUT_MAX) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_INPUT_MAX);
   }
   if (inputMoney % MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
