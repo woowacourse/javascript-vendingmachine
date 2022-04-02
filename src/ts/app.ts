@@ -6,6 +6,8 @@ import ChargeMoneyInputComponent from './components/ChargeMoneyManageComponents/
 import ChargeMoneyStateComponent from './components/ChargeMoneyManageComponents/ChargeMoneyStateComponent';
 import VendingMachineChargeMoneyManager from './domains/VendingMachineChargeMoneyManager';
 import VendingMachineProductManager from './domains/VendingMachineProductManager';
+import ConsumerChargeMoneyInputComponent from './components/PurchaseProductManageComponents/ConsumerChargeMoneyInputComponent';
+import VendingMachineConsumerMoneyManager from './domains/VendingMachineConsumerMoneyManager';
 
 const startApp = () => {
   new NavigatorComponent();
@@ -15,11 +17,16 @@ const startApp = () => {
   const vendingMachineChargeMoneyManager =
     new VendingMachineChargeMoneyManager();
 
+  const vendingMachineConsumerMoneyManager =
+    new VendingMachineConsumerMoneyManager();
+
   new ProductInputComponent(vendingMachineProductManager);
   new ProductStateComponent(vendingMachineProductManager);
 
   new ChargeMoneyInputComponent(vendingMachineChargeMoneyManager);
   new ChargeMoneyStateComponent();
+
+  new ConsumerChargeMoneyInputComponent(vendingMachineConsumerMoneyManager);
 };
 
 export default startApp;
