@@ -2,12 +2,12 @@ import { COIN_TYPE } from '../constants';
 import { getRandomNumber } from '../utils';
 import { IStore } from './Interface';
 
-interface IHoldingAmountStoreState {
+interface IVendingMachineChargeStoreState {
   coins: Array<number>;
 }
 
-class HoldingAmountStore implements IStore {
-  private state: IHoldingAmountStoreState = {
+class VendingMachineChargeStore implements IStore {
+  private state: IVendingMachineChargeStoreState = {
     coins: [0, 0, 0, 0],
   };
 
@@ -17,14 +17,14 @@ class HoldingAmountStore implements IStore {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: IHoldingAmountStoreState) {
+  setState(newState: IVendingMachineChargeStoreState) {
     const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
   }
 
-  getState(): IHoldingAmountStoreState {
+  getState(): IVendingMachineChargeStoreState {
     return { ...this.state };
   }
 
@@ -68,4 +68,4 @@ class HoldingAmountStore implements IStore {
   }
 }
 
-export default new HoldingAmountStore();
+export default new VendingMachineChargeStore();

@@ -14,11 +14,11 @@
   }
 }
 
-#add-holding-amount-form-section {
-  #add-holding-amount-form {
+#vendingmachine-charge-form-section {
+  #vendingmachine-charge-form {
     margin-bottom: 1rem;
 
-    .add-holding-amount-wrap {
+    .vendingmachine-charge-wrap {
       height: 2.25rem;
       display: grid;
       grid-template-columns: minmax(auto, 28%) minmax(auto, 28%) minmax(auto, 28%) minmax(auto, 16%);
@@ -36,7 +36,7 @@
   }
 }
 
-#holding-amount-table-section {
+#vendingmachine-charge-table-section {
   > table {
     width: 50%;
   }

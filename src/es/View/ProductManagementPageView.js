@@ -21,7 +21,7 @@ export default class ProductManagementPageView {
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.productPage;
+    $('main').innerHTML = template.productManagementPage;
 
     this.setDom();
     this.render({

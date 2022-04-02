@@ -1,39 +1,33 @@
 import { template } from './template';
 import { $ } from '../utils';
 import { validateHoldingAmountToAdd } from '../validation';
-import HoldingAmountStore from '../Store/HoldingAmountStore';
+import VendingMachineChargeStore from '../Store/VendingMachineChargeStore';
 
-export default class HoldingAmountManagementPageView {
+export default class VendingMachineChargeManagementPageView {
   renderMethodList;
 
-  $addFormSection;
-  $addForm;
-
-  $tableSection;
-  $table;
+  $vendingMachineChargeForm;
+  $vendingMachineChargeCoinTable;
 
   constructor() {
-    HoldingAmountStore.addSubscriber(this.render);
+    VendingMachineChargeStore.addSubscriber(this.render);
     this.setRenderMethodList();
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.holdingAmountPage;
+    $('main').innerHTML = template.vendingMachineChargeManagementPage;
 
     this.setDom();
     this.render({
-      state: HoldingAmountStore.getState(),
+      state: VendingMachineChargeStore.getState(),
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
   };
 
   setDom() {
-    this.$addFormSection = $('#add-holding-amount-form-section');
-    this.$addForm = $('#add-holding-amount-form', this.$addFormSection);
-
-    this.$tableSection = $('#holding-amount-table-section');
-    this.$table = $('#holding-amount-table', this.$tableSection);
+    this.$vendingMachineChargeForm = $('#vendingmachine-charge-form');
+    this.$vendingMachineChargeCoinTable = $('#holding-amount-table');
   }
 
   setRenderMethodList() {
@@ -43,7 +37,7 @@ export default class HoldingAmountManagementPageView {
   }
 
   setEvents() {
-    this.$addForm.addEventListener('submit', this.onSubmitAddHoldingAmountForm);
+    this.$vendingMachineChargeForm.addEventListener('submit', this.onSubmitVendingMachineChargeForm);
   }
 
   render = ({ state, changeStates }) => {
@@ -54,10 +48,10 @@ export default class HoldingAmountManagementPageView {
     renderMethods.forEach(renderMethod => renderMethod(state));
   };
 
-  onSubmitAddHoldingAmountForm(event) {
+  onSubmitVendingMachineChargeForm(event) {
     event.preventDefault();
     const $input = $('input[name="add-holding-amount"]', event.target);
-    const totalAmount = HoldingAmountStore.getTotalAmount();
+    const totalAmount = VendingMachineChargeStore.getTotalAmount();
 
     try {
       validateHoldingAmountToAdd(Number($input.value), totalAmount);
@@ -66,17 +60,14 @@ export default class HoldingAmountManagementPageView {
       return;
     }
 
-    HoldingAmountStore.addAmount($input.value);
+    VendingMachineChargeStore.addAmount($input.value);
     $input.value = '';
   }
 
   drawTotalHoldingAmount = () => {
-    const totalAmount = HoldingAmountStore.getTotalAmount();
+    const totalAmount = VendingMachineChargeStore.getTotalAmount();
 
-    $(
-      '#total-holding-amount',
-      this.$addFormSection,
-    ).innerText = `${totalAmount.toLocaleString()}원`;
+    $('#total-vendingmachine-charge').innerText = `${totalAmount.toLocaleString()}원`;
   };
 
   drawHoldingAmountList = ({ coins }) => {

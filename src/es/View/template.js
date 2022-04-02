@@ -1,7 +1,7 @@
 import { COIN_TYPE } from '../constants';
 
 export const template = {
-  productPage: `
+  productManagementPage: `
   <section id="add-product-form-section" class="form-section">
     <form id="add-product-form">
         <label form="add-product-form">추가할 상품 정보를 입력해주세요.</label>
@@ -29,19 +29,19 @@ export const template = {
     </table>
   </section>
   `,
-  holdingAmountPage: `
-  <section id="add-holding-amount-form-section" class="form-section">
-    <form id="add-holding-amount-form">
-        <label form="add-holding-amount-form">자판기가 보유할 금액을 입력해주세요</label>
-        <div class="add-holding-amount-wrap">
-            <input type="number" name="add-holding-amount" placeholder="금액" form="add-holding-amount-form" required>
-            <button id="add-holding-amount-submit-button" class="button accent">추가</button>
+  vendingMachineChargeManagementPage: `
+  <section id="vendingmachine-charge-form-section" class="form-section">
+    <form id="vendingmachine-charge-form">
+        <label form="vendingmachine-charge-form">자판기가 보유할 금액을 입력해주세요</label>
+        <div class="vendingmachine-charge-wrap">
+            <input type="number" name="vendingmachine-charge" placeholder="금액" form="vendingmachine-charge-form" required>
+            <button id="vendingmachine-charge-submit-button" class="button accent">추가</button>
         </div>
     </form>
-    <p class="holding-amount">현재 보유 금액: <span id="total-holding-amount">0원</span></p>
+    <p>현재 보유 금액: <span id="total-vendingmachine-charge">0원</span></p>
   </section>
-  <section id="holding-amount-table-section" class="table-section">
-    <table id="holding-amount-table" class="table">
+  <section id="vendingmachine-charge-table-section" class="table-section">
+    <table id="vendingmachine-charge-table" class="table">
         <caption>자판기가 보유한 동전</caption>
         <thead>
             <tr><th>동전</th><th>개수</th></tr>
