@@ -8,7 +8,7 @@
 
   <body>
     <div id="app">
-      <a class="signup-menu-button nav-button" href="./login.html">로그인</a>
+      <login-status class="login-menu-button"></login-status>
       <h1>🍿 자판기 🍿</h1>
       <nav id="page-tab-container">
         <a
@@ -456,6 +456,93 @@
       </table>
       <button id="return-button" class="process-button">반환</button>
 
+    </template>
+
+    <template id="user-profile-template">
+      <style>
+        #user-profile {
+          width: 50px;
+          height: 50px;
+          background-color: #D6F4F8;
+          border-radius: 50%;
+          line-height: 50px;
+          font-size: 20px;
+          margin: 0 auto;
+          cursor: pointer;
+          box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 5%), 0px 3px 14px 2px rgb(0 0 0 / 5%);
+        }
+
+        ul{
+          list-style: none;
+          padding: 0;
+          margin: 10px auto 0px auto;
+          border-radius: 8px;
+          box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+        }
+
+        li {
+          padding: 10px 20px;
+          cursor: pointer;
+          height: 40px;
+          line-height: 40px;
+          color: #333;
+        }
+
+        li:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        li:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+
+        li:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+
+        a {
+          color: #333;
+          text-decoration: none;
+        }
+
+        .hidden {
+          visibility: hidden;
+        }
+      </style>
+      <div id="user-profile"></div>
+      <ul class="user-menu-list hidden">
+        <li>
+          <a href="">회원 정보 수정</a>
+        </li>
+        <li id="logout-button">로그아웃</li>
+      </ul>
+    </template>
+
+    <template id="login-menu-button-template">
+      <style>
+        .nav-button {
+          display: block;
+          background-color: var(--nav-button-color);
+          width: 117px;
+          height: 36px;
+          cursor: pointer;
+          border: none;
+          border-radius: 4px;
+        }
+        
+        .nav-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+
+        a {
+          text-decoration: none;
+          color: black;
+          line-height: 40px;
+        }
+      </style>
+      <a class="nav-button" href="./login.html">로그인</a>
     </template>
   </body>
 </html>

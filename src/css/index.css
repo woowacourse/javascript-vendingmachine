@@ -35,19 +35,6 @@ a {
   margin-bottom: 70px;
 }
 
-.nav-button {
-  background-color: var(--nav-button-color);
-  width: 117px;
-  height: 36px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-}
-
-.nav-button:hover {
-  background-color: var(--nav-button-hover-color);
-}
-
 .input {
   height: 36px;
   border-radius: 4px;
@@ -130,8 +117,25 @@ tr {
   margin-top: 5px;
 }
 
-.signup-menu-button {
+.login-menu-button {
   position: absolute;
-  right: 80px;
+  right: 40px;
   top: 20px;
+}
+
+.nav-button {
+  background-color: var(--nav-button-color);
+  width: 117px;
+  height: 36px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.nav-button:hover {
+  background-color: var(--nav-button-hover-color);
+}
+
+.hidden {
+  display: none;
 }
