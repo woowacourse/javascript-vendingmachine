@@ -13,11 +13,9 @@ class PurchaseComponent {
     this.mount();
     this.initDOM();
     this.initChildComponents();
-    this.subscribeStore();
     this.bindEventHandler();
-    this.renderMoneyAmount(
-      vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this),
-    );
+    this.subscribeStore();
+    this.initRender();
   }
 
   mount() {
@@ -61,20 +59,25 @@ class PurchaseComponent {
     });
   }
 
-  subscribeStore() {
-    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
-  }
-
   bindEventHandler() {
     this.$moneyForm.addEventListener('submit', this.#onSubmitMoneyForm);
   }
 
-  wakeUp(stateKey) {
-    const inputCharge = vendingMachineStore.getState(stateKey, this);
-    this.renderMoneyAmount(inputCharge);
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
   }
 
-  renderMoneyAmount(money) {
+  initRender() {
+    const moneyInput = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE);
+    this.render(moneyInput);
+  }
+
+  wakeUp(stateKey) {
+    const inputCharge = vendingMachineStore.getState(stateKey);
+    this.render(inputCharge);
+  }
+
+  render(money) {
     this.$moneyTotal.textContent = money;
   }
 

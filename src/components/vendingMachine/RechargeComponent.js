@@ -11,10 +11,9 @@ class RechargeComponent {
     this.mount();
     this.initDOM();
     this.initChildComponents();
-    this.subscribeStore();
     this.bindEventHandler();
-
-    this.render(vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this));
+    this.subscribeStore();
+    this.initRender();
   }
 
   mount() {
@@ -54,16 +53,21 @@ class RechargeComponent {
     });
   }
 
-  subscribeStore() {
-    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
-  }
-
   bindEventHandler() {
     this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
   }
 
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+  }
+
+  initRender() {
+    const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
+    this.render(coinWallet);
+  }
+
   wakeUp(stateKey) {
-    const coinWallet = vendingMachineStore.getState(stateKey, this);
+    const coinWallet = vendingMachineStore.getState(stateKey);
     this.render(coinWallet);
   }
 

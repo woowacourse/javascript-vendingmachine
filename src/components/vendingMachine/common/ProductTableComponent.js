@@ -12,6 +12,7 @@ class ProductTableComponent {
     this.initDOM();
     this.subscribeStore();
     this.bindEventHandler();
+    this.initRender();
   }
 
   mount() {
@@ -42,17 +43,22 @@ class ProductTableComponent {
     this.$emptyImg = this.$parent.querySelector('.empty-img');
   }
 
+  bindEventHandler() {
+    this.$productTable.addEventListener('click', this.onClickTable);
+  }
+
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
   }
 
-  wakeUp() {
-    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
+  initRender() {
+    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
     this.render(productList);
   }
 
-  bindEventHandler() {
-    this.$productTable.addEventListener('click', this.onClickTable);
+  wakeUp() {
+    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
+    this.render(productList);
   }
 
   render(productList) {

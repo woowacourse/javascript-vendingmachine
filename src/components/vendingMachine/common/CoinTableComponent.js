@@ -9,8 +9,9 @@ class CoinTableComponent {
     this.tableCaption = tableCaption;
     this.mount();
     this.initDOM();
-    this.subscribeStore();
     this.bindEventHandler();
+    this.subscribeStore();
+    this.initRender();
   }
 
   mount() {
@@ -67,6 +68,10 @@ class CoinTableComponent {
     this.$returnButton = this.$parent.querySelector('#return-coin-button');
   }
 
+  bindEventHandler() {
+    this.$returnButton?.addEventListener('click', this.#onClickReturnButton);
+  }
+
   subscribeStore() {
     if (this.tableId === 'recharge-coin-table') {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
@@ -76,23 +81,31 @@ class CoinTableComponent {
     }
   }
 
-  bindEventHandler() {
-    this.$returnButton?.addEventListener('click', this.#onClickReturnButton);
+  initRender() {
+    if (this.tableId === 'recharge-coin-table') {
+      const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
+      this.render(coinWallet);
+    }
+
+    if (this.tableId === 'return-coin-table') {
+      const returnCoinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN);
+      this.render(returnCoinWallet);
+    }
   }
 
   wakeUp(stateType) {
     if (stateType === VENDING_MACHINE_STATE_KEYS.COIN_WALLET) {
-      const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
-      this.renderCoinTable(coinWallet);
+      const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
+      this.render(coinWallet);
     }
 
     if (stateType === VENDING_MACHINE_STATE_KEYS.RETURN_COIN) {
       const returnCoinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN);
-      this.renderCoinTable(returnCoinWallet);
+      this.render(returnCoinWallet);
     }
   }
 
-  renderCoinTable(coinWallet) {
+  render(coinWallet) {
     const { coin500, coin100, coin50, coin10 } = coinWallet.getCoinWalletInfo();
     this.$tableData500.textContent = `${coin500}`;
     this.$tableData100.textContent = `${coin100}`;

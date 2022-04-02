@@ -12,7 +12,7 @@ class EditComponent {
     this.initDOM();
     this.bindEventHandler();
     this.subscribeStore();
-    this.render(globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this));
+    this.initRender();
   }
 
   mount() {
@@ -38,8 +38,13 @@ class EditComponent {
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
   }
 
+  initRender() {
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
+    this.render(authInformation);
+  }
+
   wakeUp() {
-    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
     this.render(authInformation);
   }
 
@@ -92,7 +97,7 @@ class EditComponent {
 
   onSubmitEditForm = async e => {
     e.preventDefault();
-    const { loggedUser } = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+    const { loggedUser } = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
 
     const { value: emailValue } = this.$emailEditInput;
     const { value: nameValue } = this.$nameEditInput;

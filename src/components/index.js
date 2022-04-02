@@ -23,10 +23,7 @@ class AppComponent {
     this.initDOM();
     this.bindEventHandler();
     this.subscribeStore();
-    this.render(
-      globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION),
-      globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME),
-    );
+    this.initRender();
   }
 
   initDOM() {
@@ -58,9 +55,15 @@ class AppComponent {
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
   }
 
+  initRender() {
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
+    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME);
+    this.render(authInformation, currentRouteName);
+  }
+
   wakeUp() {
-    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
-    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
+    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME);
     this.render(authInformation, currentRouteName);
   }
 
