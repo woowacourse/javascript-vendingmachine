@@ -49,6 +49,12 @@ export default class ProductInputComponent {
           newProduct,
         },
       });
+
+      emit(this.$productAddButton, '@consumerProductState', {
+        detail: {
+          newProduct,
+        },
+      });
     } catch ({ message }) {
       focusWrongInput({
         message,

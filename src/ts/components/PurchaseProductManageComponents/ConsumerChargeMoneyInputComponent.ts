@@ -17,7 +17,23 @@ export default class ConsumerChargeMoneyInputComponent {
       'submit',
       this.onSubmitConsumerChargeMoneyButton
     );
+
+    on(
+      $<HTMLElement>('.consumer-product-table__tbody'),
+      '@subtractConsumerChargeMoney',
+      this.subtractChargeMoney
+    );
   }
+
+  subtractChargeMoney = ({ detail: { subtractPrice } }) => {
+    this.vendingMachineConsumerMoneyManager.subtractConsumerChargeMoney(
+      subtractPrice
+    );
+
+    this.$consumerTotalChargeMoney.textContent = String(
+      Number(this.$consumerTotalChargeMoney.textContent) - subtractPrice
+    );
+  };
 
   onSubmitConsumerChargeMoneyButton = (event: Event) => {
     event.preventDefault();

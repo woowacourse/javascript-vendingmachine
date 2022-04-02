@@ -10,4 +10,5 @@ export interface ProductManager {
   getProducts(): Product[];
   editProduct(name: string, targetProduct: Product): void;
   deleteProduct(name: string): void;
+  editQuantity(editProduct: Product): void;
 }

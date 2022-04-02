@@ -7,7 +7,7 @@
 import VendingMachineConsumerMoneyManager from '../ts/domains/VendingMachineConsumerMoneyManager';
 import {
   checkValidConsumerChargeMoney,
-  checkConsumerChargeMoneyLessThenPurchaseMoney,
+  checkCanSubtractConsumerChargeMoney,
 } from '../ts/validation/checkConsumerChargeMoney';
 
 test('최초 상품 구매를 위한 금액은 0원이며, 각 동전의 개수가 0개인지 확인한다.', () => {
@@ -67,11 +67,10 @@ test('누적 금액보다 상품의 가격이 비쌀 경우 에러가 발생한�
   const productPrice = 1100;
 
   expect(() => {
-    checkConsumerChargeMoneyLessThenPurchaseMoney(
-      consumerChargeMoney,
-      productPrice
-    );
-  }).toThrowError();
+    checkCanSubtractConsumerChargeMoney(consumerChargeMoney, productPrice);
+  }).toThrowError(
+    '투입된 금액이 부족합니다. 금액을 확인후 금액을 추가로 투입해주세요.'
+  );
 });
 
 test('보유할 수 있는 최대 누적 금액인 10000원을 초과할 경우 에러가 발생한다.', () => {

@@ -40,4 +40,12 @@ export default class VendingMachineProductManager implements ProductManager {
       (product) => product.name !== deleteProductName
     );
   }
+
+  editQuantity(editProduct: Product): void {
+    const editIndex = this.products.findIndex(
+      (product) => product.name === editProduct.name
+    );
+
+    this.products.splice(editIndex, 1, editProduct);
+  }
 }

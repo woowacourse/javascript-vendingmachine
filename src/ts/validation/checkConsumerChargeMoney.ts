@@ -18,11 +18,13 @@ export const checkValidConsumerChargeMoney = (money: number): void => {
   }
 };
 
-export const checkConsumerChargeMoneyLessThenPurchaseMoney = (
+export const checkCanSubtractConsumerChargeMoney = (
   consumerChargeMoney: number,
   productPrice: number
 ): void => {
   if (consumerChargeMoney < productPrice) {
-    throw new Error('');
+    throw new Error(
+      '투입된 금액이 부족합니다. 금액을 확인후 금액을 추가로 투입해주세요.'
+    );
   }
 };

@@ -1,7 +1,7 @@
 import { Product } from '../../types/vendingMachineProductManager';
 
 import renderSnackBar from '../../dom/snackBar';
-import { on, $, focusEditInput } from '../../dom/domHelper';
+import { on, $, focusEditInput, $$ } from '../../dom/domHelper';
 import focusWrongInput from '../../dom/checkErrorMessage';
 
 import { DELETE_PRODUCT_CONFIRM_MESSAGE } from '../../constants/errorMessage';
@@ -26,9 +26,25 @@ export default class ProductStateComponent {
       '@productInputSubmit',
       this.addProduct
     );
+    on(
+      $<HTMLElement>('.consumer-product-table__tbody'),
+      '@subtractProductQuantity',
+      this.subtractProductQuantity
+    );
     on(this.productTableTbody, 'click', this.onClickProductList);
     on(this.productTableTbody, 'keyup', this.onKeyupProductList);
   }
+
+  private subtractProductQuantity = ({ detail: { editProduct } }): void => {
+    this.vendingMachineProductManager.editQuantity(editProduct);
+
+    const target = Array.from($$('.product-table__info-tr')).find(
+      (product) => product.dataset.productName === editProduct.name
+    );
+
+    target.querySelector('.product-table__product-quantity').textContent =
+      editProduct.quantity;
+  };
 
   private addProduct = ({ detail: { newProduct } }): void => {
     this.productTableTbody.insertAdjacentHTML(
