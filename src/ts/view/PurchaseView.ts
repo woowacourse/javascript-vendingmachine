@@ -91,6 +91,8 @@ export default class PurchaseView {
         this.vendingMachine.addInsertedMoney(+this.$insertMoneyInput.value),
       );
       this.renderInsertedMoney(insertedMoney);
+      this.$insertMoneyInput.value = '';
+      renderToastModal('success', SUCCESS_MESSAGE.MONEY_INSERTED);
     } catch (error) {
       renderToastModal('error', error.message);
     }
@@ -100,5 +102,52 @@ export default class PurchaseView {
     this.$currentInsertedMoney.textContent = money;
   };
 
-  private handleRefundButton = () => {};
+  private handleRefundButton = () => {
+    if (this.vendingMachine.insertedMoney === 0) {
+      renderToastModal('error', '투입된 돈이 없으므로, 잔돈을 반환할 수 없습니다.');
+      this.renderRefundableCoinTable([0, 0, 0, 0]);
+      return;
+    }
+
+    const coinMoney = this.vendingMachine.insertedMoney % 1000;
+    const getRefundableCoin = (value: number) => {
+      return this.vendingMachine.getCoin(value).count - Math.floor(coinMoney / value) >= 0
+        ? Math.floor(coinMoney / value)
+        : this.vendingMachine.getCoin(value).count;
+    };
+
+    this.vendingMachine.resetInsertedMoney();
+    this.renderInsertedMoney('0');
+
+    const nonRefundableCoinMoney =
+      coinMoney -
+      [500, 100, 50, 10].reduce((totalMoney: number, value: number) => {
+        return totalMoney + getRefundableCoin(value) * value;
+      }, 0);
+    this.renderRefundMoneyToastModal(nonRefundableCoinMoney);
+
+    const refundableCoins = [500, 100, 50, 10].map((value) => getRefundableCoin(value));
+    this.vendingMachine.deductRefundableCoins(refundableCoins);
+    this.renderRefundableCoinTable(refundableCoins);
+  };
+
+  private renderRefundableCoinTable = ([
+    coin500Count,
+    coin100Count,
+    coin50Count,
+    coin10Count,
+  ]: number[]) => {
+    this.$coin500.textContent = String(coin500Count);
+    this.$coin100.textContent = String(coin100Count);
+    this.$coin50.textContent = String(coin50Count);
+    this.$coin10.textContent = String(coin10Count);
+  };
+
+  private renderRefundMoneyToastModal = (nonRefundableCoinMoney: number) => {
+    if (nonRefundableCoinMoney > 0) {
+      renderToastModal('error', `${nonRefundableCoinMoney}원은 반환하지 못하였습니다.`);
+    } else {
+      renderToastModal('success', `모든 잔돈을 반환하였습니다.`);
+    }
+  };
 }

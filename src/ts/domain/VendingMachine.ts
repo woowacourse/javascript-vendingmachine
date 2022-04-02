@@ -25,6 +25,8 @@ export interface VendingMachineInterface {
   decreaseProductQuantity(name: string): void;
   deductInsertedMoney(name: string): number;
   findIndexByName(name: string): number;
+  resetInsertedMoney(): void;
+  deductRefundableCoins(refundableCoins: number[]): void;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -48,7 +50,7 @@ export default class VendingMachine implements VendingMachineInterface {
   }
 
   public get moneys(): MoneyType[] {
-    return this.moneys;
+    return this._moneys;
   }
 
   public get insertedMoney(): number {
@@ -178,5 +180,18 @@ export default class VendingMachine implements VendingMachineInterface {
     this._insertedMoney = <number>this._insertedMoney + money;
 
     return this._insertedMoney;
+  };
+
+  public deductRefundableCoins = ([
+    coin500Count,
+    coin100Count,
+    coin50Count,
+    coin10Count,
+  ]: number[]) => {
+    this.getCoin(500).deductCount(coin500Count);
+    this.getCoin(100).deductCount(coin100Count);
+    this.getCoin(50).deductCount(coin50Count);
+    this.getCoin(10).deductCount(coin10Count);
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this._moneys));
   };
 }

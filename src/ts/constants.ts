@@ -29,6 +29,7 @@ export const SUCCESS_MESSAGE = {
   PRODUCT_DELETED: '선택하신 상품 정보가 삭제되었습니다.',
   MONEY_RECHARGED: '충전하신 금액만큼 동전을 보충하였습니다.',
   PURCHASE: '해당 상품을 구매하였습니다.',
+  MONEY_INSERTED: '입력하신 금액이 투입되었습니다.',
 };
 
 export const CONFIRM_MESSAGE = {

@@ -17,6 +17,10 @@ export default class Money implements MoneyType {
     return this._count;
   }
 
+  public deductCount(refundableCount: number) {
+    this._count = this._count - refundableCount;
+  }
+
   public increaseCount() {
     this._count += 1;
   }
