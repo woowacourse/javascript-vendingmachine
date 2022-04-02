@@ -10,6 +10,10 @@
     <div id="app">
       <login-status class="login-menu-button"></login-status>
       <h1>🍿 자판기 🍿</h1>
+      <page-by-login></page-by-login>
+    </div>
+
+    <template id="nav-button-container">
       <nav id="page-tab-container">
         <a
           class="nav-button product-management-button"
@@ -26,7 +30,7 @@
       </nav>
       <div id="page"></div>
       <div id="snackbar"></div>
-    </div>
+    </template>
 
     <template id="product-input-template">
       <style>
@@ -543,7 +547,7 @@
           line-height: 40px;
         }
       </style>
-      <a class="nav-button" href="./login.html">로그인</a>
+      <a class="nav-button" id="login-button" href="./login.html">로그인</a>
     </template>
   </body>
 </html>

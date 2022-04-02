@@ -1,6 +1,7 @@
 import "./pages/product-manage.page";
 import "./pages/changes-manage.page";
 import "./pages/product-purchase.page";
+import "./components/page-by-login";
 
 class App {
   constructor() {
@@ -43,4 +44,7 @@ class App {
   };
 }
 
-new App();
+const user = JSON.parse(localStorage.getItem("user-info"));
+if (user) {
+  new App();
+}
