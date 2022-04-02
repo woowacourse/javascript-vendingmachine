@@ -13,6 +13,6 @@ export interface InitialCoins {
 export interface ChargeMoneyManager {
   getCoins(): Coins;
   getTotalAmount(): number;
-  addCoins(newCoins: number): void;
-  // getReturnCoins(): Coins;
+  addCoins(newCoinsQuantity: Coins): void;
+  getReturnCoins(userMoney: number): Coins;
 }
