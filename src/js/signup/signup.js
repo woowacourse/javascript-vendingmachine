@@ -1,6 +1,7 @@
 import '../../css/index.css';
 import { $ } from '../utils/dom';
 import { validPassword } from './validPassword';
+import { handleSnackbarMessage } from '../utils/snackbar.js';
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');
@@ -30,8 +31,8 @@ signUpForm.addEventListener('submit', async (e) => {
       },
     });
 
-    location.href = 'http://localhost:9000/login.html';
+    location.href = './login.html';
   } catch (error) {
-    alert(error.message);
+    handleSnackbarMessage(error.message);
   }
 });
