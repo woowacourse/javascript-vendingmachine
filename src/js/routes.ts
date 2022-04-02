@@ -1,4 +1,5 @@
 import ChangeAdd from './pages/ChangeAdd';
+import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
 import ProductManage from './pages/ProductManage';
 import ProductPurchase from './pages/ProductPurchase';
@@ -36,6 +37,7 @@ const router = () => {
   const productPurchase = new ProductPurchase();
   const login = new Login();
   const signup = new Signup();
+  const editProfile = new EditProfile();
   let prevPath = '';
 
   return () => {
@@ -64,6 +66,9 @@ const router = () => {
         break;
       case '#!/signup':
         signup.render();
+        break;
+      case '#!/edit-profile':
+        editProfile.render();
         break;
     }
   };

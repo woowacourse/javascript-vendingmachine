@@ -1,15 +1,10 @@
 {
   "users": [
     {
-      "email": "as@coke.com",
-      "password": "$2a$10$XXviR75nPCCATV8dNOP2zOvmkBMSBIuyth.M1cQxjdJ6M86XsMEYG",
-      "id": 1
-    },
-    {
       "email": "coke@a.com",
-      "password": "$2a$10$/STlDXD1A2HWTTFmZ10qKeprb2iC36v63Mi5U0B2NS8.vbPdh9VjO",
-      "name": "coke",
-      "id": 2
+      "name": "cokee",
+      "password": "$2a$10$EEsmEKXtPjdUxAKgPHfGReC815cMjndgeIww6SozQr1aMbGKv9/X6",
+      "id": 1
     }
   ]
 }

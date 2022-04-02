@@ -6,8 +6,8 @@ import productItem from './productItem';
 import productListContainer from './productListContainer';
 import productManageContainer from './productManageContainer';
 import purchaseProductItem from './purchaseProductItem';
-import revisionMembershipContainer from './revisionMembershipContainer';
 import signupContainer from './signupContainer';
+import editProfileContainer from './editProfileContainer';
 
 export default {
   changeListWrapper,
@@ -18,6 +18,6 @@ export default {
   productListContainer,
   productManageContainer,
   purchaseProductItem,
-  revisionMembershipContainer,
   signupContainer,
+  editProfileContainer,
 };
