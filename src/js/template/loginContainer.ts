@@ -12,7 +12,7 @@ const loginContainer = () => {
             </div>
             <input type="submit" id="login-submit" value="확인"/>
         </form>
-        <p class="login-p">아직 회원이 아니신가요? <a href="#!/membership">회원가입</a></p>
+        <p class="login-p">아직 회원이 아니신가요? <a href="#!/signup">회원가입</a></p>
     </div>
     `;
 };

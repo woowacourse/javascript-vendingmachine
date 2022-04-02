@@ -2,6 +2,7 @@ import ChangeAdd from './pages/ChangeAdd';
 import Login from './pages/Login';
 import ProductManage from './pages/ProductManage';
 import ProductPurchase from './pages/ProductPurchase';
+import Signup from './pages/Signup';
 
 const clearPurchaseBody = () => {
   const $inputSection = document.querySelector('.input-section');
@@ -34,6 +35,7 @@ const router = () => {
   const changeAdd = new ChangeAdd();
   const productPurchase = new ProductPurchase();
   const login = new Login();
+  const signup = new Signup();
   let prevPath = '';
 
   return () => {
@@ -59,6 +61,10 @@ const router = () => {
         break;
       case '#!/login':
         login.render();
+        break;
+      case '#!/signup':
+        signup.render();
+        break;
     }
   };
 };
