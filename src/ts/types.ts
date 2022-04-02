@@ -28,8 +28,10 @@ export type Hash = '' | '#item-manage' | '#coin-recharge' | '#item-purchase';
 
 export interface VendingMachineTabInterface {
   vendingMachine: VendingMachineInterface;
-  tabHash: string;
+  tabHash: Hash;
+  navTabButtonList: NodeList;
+  tabContent: HTMLElement;
   changeTabContent(contentTemplate: string, targetTabButton: HTMLButtonElement): void;
   changeHashUrl(hash: Hash): void;
-  renderInitialTabState();
+  renderInitialTabState(): void;
 }
