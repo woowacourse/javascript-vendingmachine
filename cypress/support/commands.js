@@ -1,25 +1,27 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('addProduct', ({ name, price, stock }) => {
+  cy.get('#manage-tab-menu').click();
+  cy.get('#add-product-name-input').type(name);
+  cy.get('#add-product-price-input').type(price);
+  cy.get('#add-product-stock-input').type(stock);
+  cy.get('.submit-button').click();
+});
+
+Cypress.Commands.add('updateProduct', (targetProperty, newData) => {
+  cy.get('#manage-tab-menu').click();
+
+  cy.get('.update-product-button').first().click();
+  cy.get(`.update-product-${targetProperty}-input`).first().clear().type(newData);
+  cy.get('.confirm-update-button').first().click();
+});
+
+Cypress.Commands.add('addChange', (money) => {
+  cy.get('#charge-tab-menu').click();
+  cy.get('#money-input').type(money);
+  cy.get('.submit-button').click();
+});
+
+Cypress.Commands.add('addMoneyInsert', (moneyInsert) => {
+  cy.get('#purchase-tab-menu').click();
+  cy.get('#money-insert-input').type(moneyInsert);
+  cy.get('.submit-button').click();
+});
