@@ -1,5 +1,6 @@
 import { joinUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import globalStore from '../../stores/globalStore';
 import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class JoinComponent {
@@ -98,6 +99,7 @@ class JoinComponent {
       this.clearForm();
     }
   };
+
   clearForm() {
     this.$emailJoinInput.value = '';
     this.$nameJoinInput.value = '';

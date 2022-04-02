@@ -18,11 +18,10 @@ export const loginUser = async (emailValue, passwordValue) => {
 
     globalStore.mutateState({
       actionType: ACTION_TYPES.LOGIN_USER,
-      payload: { loggedUser: user },
+      payload: { loggedUser: user, isLoggedIn: true },
       stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
     });
 
-    localStorage.setItem('logged-user', JSON.stringify(user));
     localStorage.setItem('access-token', JSON.stringify(accessToken));
 
     return true;
@@ -44,6 +43,36 @@ export const joinUser = async (email, name, password, passwordReenter) => {
           body: JSON.stringify({ email, password, name }),
         },
       });
+
+      return true;
+    }
+  } catch ({ message }) {
+    alert(message);
+  }
+};
+
+export const editUser = async (loggedUser, email, name, password, passwordReenter) => {
+  const { id } = loggedUser;
+  try {
+    if (checkJoinPossible(name, password, passwordReenter)) {
+      await fetcher({
+        path: `/users/${id}`,
+        option: {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password, name }),
+        },
+      });
+
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.EDIT_USER,
+        payload: { loggedUser: null, isLoggedIn: false },
+        stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
+      });
+
+      localStorage.removeItem('access-token');
 
       return true;
     }

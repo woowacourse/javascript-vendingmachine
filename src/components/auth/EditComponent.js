@@ -1,5 +1,7 @@
+import { editUser } from '../../business/auth';
+import router, { ROUTE_NAME } from '../../lib/router';
 import globalStore from '../../stores/globalStore';
-import { GLOBAL_STATE_KEYS } from '../../utils/constants';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class EditComponent {
   $app;
@@ -38,6 +40,11 @@ class EditComponent {
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
   }
 
+  wakeUp() {
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+    this.render(authInformation);
+  }
+
   render(authInformation) {
     const { loggedUser } = authInformation;
 
@@ -46,8 +53,8 @@ class EditComponent {
 
       this.$emailEditInput.value = email;
       this.$nameEditInput.value = name;
-      this.$passwordEditInput = '';
-      this.$passwordReenterEditInput = '';
+      this.$passwordEditInput.value = '';
+      this.$passwordReenterEditInput.value = '';
     }
   }
 
@@ -89,8 +96,44 @@ class EditComponent {
   </section>`;
   }
 
-  onSubmitEditForm = e => {
+  onSubmitEditForm = async e => {
     e.preventDefault();
+    const { loggedUser } = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+
+    const { value: emailValue } = this.$emailEditInput;
+    const { value: nameValue } = this.$nameEditInput;
+    const { value: passwordValue } = this.$passwordEditInput;
+    const { value: passwordReenterValue } = this.$passwordReenterEditInput;
+
+    const flag = await editUser(
+      loggedUser,
+      emailValue,
+      nameValue,
+      passwordValue,
+      passwordReenterValue,
+    );
+
+    if (flag) {
+      alert('수정에 성공하셨습니다.');
+
+      router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
+
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.CHANGE_ROUTE,
+        payload: {
+          currentRouteName: ROUTE_NAME.LOGIN,
+        },
+        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+      });
+
+      this.clearForm();
+    }
   };
+  clearForm() {
+    this.$emailEditInput.value = '';
+    this.$nameEditInput.value = '';
+    this.$passwordEditInput.value = '';
+    this.$passwordReenterEditInput.value = '';
+  }
 }
 export default EditComponent;

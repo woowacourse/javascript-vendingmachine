@@ -72,6 +72,7 @@ export const ACTION_TYPES: {
   DELETE_PRODUCT: TVendingMachineAction;
   RECHARGE_CHANGE: TVendingMachineAction;
   LOGIN_USER: TGlobalAction;
+  EDIT_USER: TGlobalAction;
   CHANGE_ROUTE: TGlobalAction;
 } = {
   ADD_PRODUCT: 'addProduct',
@@ -79,5 +80,6 @@ export const ACTION_TYPES: {
   DELETE_PRODUCT: 'deleteProduct',
   RECHARGE_CHANGE: 'rechargeChange',
   LOGIN_USER: 'loginUser',
+  EDIT_USER: 'editUser',
   CHANGE_ROUTE: 'changeRoute',
 };
