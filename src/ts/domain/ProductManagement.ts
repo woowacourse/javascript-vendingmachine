@@ -5,9 +5,7 @@ export default class ProductManagement {
   #products: ProductImpl[];
 
   constructor() {
-    this.#products = [
-      new ProductImpl({ name: '콜라', price: 1000, quantity: 10 }),
-    ];
+    this.#products = [];
   }
 
   get products() {

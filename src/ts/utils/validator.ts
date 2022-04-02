@@ -1,5 +1,3 @@
-import { CASH_RULE, MESSAGE } from '../constants';
-
 interface Rule {
   MIN: number;
   MAX: number;
