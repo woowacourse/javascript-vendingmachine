@@ -1,13 +1,6 @@
 import { $ } from '../utils';
 
 const pageTemplate = `
-  <header class="header">
-  <div class="icon-button-area">
-      <button class="button" data-route="?">🍿 메인으로</button>
-  </div>
-  <h1 class="title">회원가입</h1>
-  </header>
-  <main class="main">
   <section class="user-information-form-section">
       <form id="signup-form" >
           <label>이메일<br>
@@ -25,11 +18,10 @@ const pageTemplate = `
           <button class="button accent">확인</button>
       </form>
   </section>
-  </main>
 `;
 
 export default class SignUpPageView {
   loadPage = () => {
-    $('#app').innerHTML = pageTemplate;
+    $('.main').innerHTML = pageTemplate;
   };
 }

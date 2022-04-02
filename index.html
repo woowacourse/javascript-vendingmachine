@@ -10,18 +10,18 @@
 <body>
     <div id="app">
         <header class="header">
-            <div class="icon-button-area hidden">
-                <button class="button" data-route="?">🍿 메인으로</button>
+            <div class="icon-button-area">
+                <button id="go-main-button" class="button" data-page="">🍿 메인으로</button>
             </div>
             <div class="user-area">
-                <button class="button" data-route="?page=login">로그인</button>
+                <button id="login-button" class="button" data-page="login">로그인</button>
             </div>
             <h1 class="title">🍿 자판기 🍿</h1>
             <nav class="nav">
                 <ul>
-                    <li class="button nav-menu selected" data-route="?page=productManagement">상품 관리</li>
-                    <li class="button nav-menu" data-route="?page=vendingMachineChargeManagement">잔돈 충전</li>
-                    <li class="button nav-menu" data-route="?page=productPurchase">상품 구매</li>
+                    <li class="button nav-menu selected" data-page="productManagement">상품 관리</li>
+                    <li class="button nav-menu" data-page="vendingMachineChargeManagement">잔돈 충전</li>
+                    <li class="button nav-menu" data-page="productPurchase">상품 구매</li>
                 </ul>
             </nav>
         </header>

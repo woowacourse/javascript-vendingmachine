@@ -14,10 +14,14 @@ export default class Router {
 
   setEvents() {
     $('#app').addEventListener('click', event => {
-      const routeURL = event.target.dataset.route;
-      if (!routeURL) return;
+      const { page } = event.target.dataset;
+      if (!page) {
+        this.pushState('?');
+        return;
+      }
 
-      this.pushState(routeURL);
+      const params = new URLSearchParams({ page });
+      this.pushState(`?${params.toString()}`);
     });
 
     window.addEventListener('popstate', () => {
