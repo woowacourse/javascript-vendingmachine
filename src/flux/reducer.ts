@@ -57,11 +57,6 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.chargedMoney += payload;
       break;
     }
-    case ACTION.CHARGE_COINS: {
-      newState.chargedCoins = mergeCoins(newState.chargedCoins, moneyToCoin(payload));
-      newState.chargedMoney += payload;
-      break;
-    }
     case ACTION.CHANGE_ACTIVE_TAB: {
       newState.activeTab = payload;
       break;
