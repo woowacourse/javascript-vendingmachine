@@ -2,8 +2,6 @@ import { SECTION_CONTAINER } from '../constants/constants.js';
 import { $, replaceElement } from '../utils/dom.js';
 import { CATEGORY_TEMPLATE } from '../templates/templates.js';
 
-const { accessToken } = JSON.parse(localStorage.getItem('user'));
-
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,
   '#!charge': CATEGORY_TEMPLATE.CHARGE,
@@ -23,8 +21,9 @@ const selectTab = (hash) => {
 };
 
 export const initHashContents = (hash) => {
+  const manager = JSON.parse(localStorage.getItem('user'));
   const content = routes[hash] ?? '';
-  if (!accessToken) {
+  if (manager) {
     selectTab(hash);
   }
   replaceElement(SECTION_CONTAINER, content);

@@ -75,3 +75,59 @@
   font-size: 11px;
   margin-bottom: 7px;
 }
+
+.option-list-style {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 2px 2px 3px var(--color-light-gray);
+}
+
+.fadeout-animation {
+  animation: just-fadeout 0.5s;
+}
+
+.fadein-animation {
+  animation: just-fadein 0.5s;
+}
+
+@keyframes just-fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes just-fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modify-info-link,
+.logout-button {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
+  background-color: white;
+  border: 1px solid var(--color-light-gray);
+}
+
+.modify-info-link {
+  border-radius: 4px 4px 0 0;
+}
+
+.logout-button {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+}

@@ -7,12 +7,16 @@
   </head>
   <body>
     <div id="app">
-      <a
-        href="/modify.html"
-        id="manager-name"
-        class="manager-button sign-up-button button a-none-deco"
-        >우</a
-      >
+      <button
+        type="button"
+        for="select-box"
+        id="manager-name-button"
+        class="manager-button sign-up-button button"
+      ></button>
+      <ul id="option-list" class="display-none option-list-style fadeout-animation">
+        <li><a class="a-none-deco modify-info-link">정보수정</a></li>
+        <li><button id="logout" type="button" class="logout-button">로그아웃</button></li>
+      </ul>
       <h1 class="vending-machine-header">🍿 자판기 🍿</h1>
       <nav id="menu-category">
         <ul class="menu-list">
