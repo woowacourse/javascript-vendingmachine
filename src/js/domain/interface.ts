@@ -55,3 +55,8 @@ export interface changeValidationData {
   money: number;
   totalChange: number;
 }
+
+export interface moneyInsertValidationData {
+  money: number;
+  moneyInsert: number;
+}

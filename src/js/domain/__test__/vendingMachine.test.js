@@ -129,4 +129,48 @@ describe('자판기 클래스 테스트', () => {
       );
     });
   });
+
+  describe('상품 구매 기능 테스트', () => {
+    describe('금액 투입 테스트', () => {
+      test('금액을 투입하면 투입한 금액을 확인할 수 있다.', () => {
+        const moneyInsertInput = 1000;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+        expect(vendingMachine.moneyInsert).toEqual(moneyInsertInput);
+      });
+
+      test('투입 금액이 0원 이하면 오류가 발생한다.', () => {
+        const moneyInsertInput = 0;
+
+        expect(() => vendingMachine.addMoneyInsert(moneyInsertInput)).toThrow(
+          ERROR_MESSAGE.MONEY_INSERT.BELOW_MIN
+        );
+      });
+
+      test(`투입 금액이 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
+        const moneyInsertInput = 1025;
+
+        expect(() => vendingMachine.addMoneyInsert(moneyInsertInput)).toThrow(
+          ERROR_MESSAGE.MONEY_INSERT.INVALID_UNIT
+        );
+      });
+
+      test(`충전 금액이  ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과하면 오류가 발생한다.`, () => {
+        const moneyInsertInput = 10010;
+
+        expect(() => vendingMachine.addMoneyInsert(moneyInsertInput)).toThrow(
+          ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
+        );
+      });
+
+      test(`충전 금액과 보유 금액의 합이 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과하면 오류가 발생한다.`, () => {
+        const firstMoneyInsertInput = 5000;
+        vendingMachine.addMoneyInsert(firstMoneyInsertInput);
+
+        const secondMoneyInsertInput = 5010;
+        expect(() => vendingMachine.addMoneyInsert(secondMoneyInsertInput)).toThrow(
+          ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
+        );
+      });
+    });
+  });
 });

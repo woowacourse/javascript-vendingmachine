@@ -10,6 +10,9 @@ export const PRODUCT_RULES = {
 export const VENDING_MACHINE_RULES = {
   CHANGE_UNIT: 10,
   MAX_TOTAL_CHANGE: 100000,
+
+  MONEY_INSERT_UNIT: 10,
+  MAX_TOTAL_MONEY_INSERT: 10000,
 };
 
 export const ERROR_MESSAGE = {
@@ -36,6 +39,12 @@ export const ERROR_MESSAGE = {
     BELOW_MIN: '충전 금액은 0원 이하일 수 없습니다.',
     INVALID_UNIT: `충전 금액은 ${VENDING_MACHINE_RULES.CHANGE_UNIT}원 단위이어야 합니다.`,
     EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과할 수 없습니다.`,
+  },
+
+  MONEY_INSERT: {
+    BELOW_MIN: '투입 금액은 0원 이하일 수 없습니다.',
+    INVALID_UNIT: `투입 금액은 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위이어야 합니다.`,
+    EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과할 수 없습니다.`,
   },
 };
 

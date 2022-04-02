@@ -1,5 +1,10 @@
 import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../constants';
-import { changeValidationData, ProductData, Validator } from './interface';
+import {
+  changeValidationData,
+  moneyInsertValidationData,
+  ProductData,
+  Validator,
+} from './interface';
 
 // product data validation
 export function hasEmptyInput({ name, price, stock }: ProductData): boolean {
@@ -26,17 +31,31 @@ export function isNotIntegerStock({ stock }: ProductData): boolean {
   return !Number.isInteger(stock);
 }
 
-// change data validation
-export function isBelowMinCharge({ money }: changeValidationData): boolean {
+// change, moneyInsert data validation
+export function isBelowMinCharge({
+  money,
+}: changeValidationData | moneyInsertValidationData): boolean {
   return money <= 0;
 }
 
-export function inValidUnitChange({ money }: changeValidationData): boolean {
+export function inValidUnitChange({
+  money,
+}: changeValidationData | moneyInsertValidationData): boolean {
   return money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0;
 }
 
-export function isExceedMaxTotalChange({ money, totalChange }: changeValidationData): boolean {
+export function isExceedMaxTotalChange({
+  money,
+  totalChange,
+}: changeValidationData): boolean {
   return totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE;
+}
+
+export function isExceedMaxTotalMoneyInsert({
+  money,
+  moneyInsert,
+}: moneyInsertValidationData): boolean {
+  return moneyInsert + money > VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT;
 }
 
 // validator function

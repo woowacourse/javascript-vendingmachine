@@ -1,4 +1,9 @@
-import { Coin, CoinStatus, ProductData, VendingMachineProductDictionary } from './interface';
+import {
+  Coin,
+  CoinStatus,
+  ProductData,
+  VendingMachineProductDictionary,
+} from './interface';
 
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
@@ -9,16 +14,19 @@ import {
   inValidUnitChange,
   isBelowMinCharge,
   isExceedMaxTotalChange,
+  isExceedMaxTotalMoneyInsert,
   validateData,
 } from './validator';
 
 export default class VendingMachine {
   #productList: VendingMachineProductDictionary;
   #moneyBox: MoneyBox;
+  #moneyInsert: number;
 
   constructor() {
     this.#productList = {};
     this.#moneyBox = new MoneyBox();
+    this.#moneyInsert = 0;
   }
 
   get productList(): VendingMachineProductDictionary {
@@ -31,6 +39,10 @@ export default class VendingMachine {
 
   get coinStatus(): CoinStatus {
     return this.#moneyBox.coinStatus;
+  }
+
+  get moneyInsert(): number {
+    return this.#moneyInsert;
   }
 
   addChange(money: number): never | Coin[] {
@@ -64,6 +76,11 @@ export default class VendingMachine {
     delete this.#productList[productId];
   }
 
+  addMoneyInsert(money: number) {
+    this.#validateMoneyInsert(money);
+    this.#moneyInsert += money;
+  }
+
   #validateChange(money: number): never | void {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.CHANGE.BELOW_MIN },
@@ -75,6 +92,18 @@ export default class VendingMachine {
     ];
 
     validateData({ money, totalChange: this.totalChange }, changeValidator);
+  }
+
+  #validateMoneyInsert(money: number) {
+    const moneyInsertValidator = [
+      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.MONEY_INSERT.BELOW_MIN },
+      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.MONEY_INSERT.INVALID_UNIT },
+      {
+        testFunc: isExceedMaxTotalMoneyInsert,
+        errorMsg: ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL,
+      },
+    ];
+    validateData({ money, moneyInsert: this.moneyInsert }, moneyInsertValidator);
   }
 
   #validateUniqueProductName(name): never | void {
