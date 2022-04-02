@@ -25,6 +25,10 @@ export class Router {
       this.app.balanceChargeView.eraseAll();
       this.app.balanceChargeView.renderAll();
     }
+    if (savedData.state.path === '/productPurchase') {
+      this.app.productPurchaseView.eraseAll();
+      this.app.productPurchaseView.renderAll();
+    }
   };
 
   pushHistory(e: Event) {
@@ -34,6 +38,9 @@ export class Router {
     }
     if (e.type === 'balanceChargeTabClick') {
       path = '/balanceCharge';
+    }
+    if (e.type === 'productPurchaseTabClick') {
+      path = '/productPurchase';
     }
     this.pushHistoryPath(path);
   }

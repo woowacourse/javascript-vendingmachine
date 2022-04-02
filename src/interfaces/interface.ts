@@ -11,3 +11,12 @@ export interface ProductState {
   price: number;
   quantity: number;
 }
+
+import { CoinVault } from '../domain/CoinVault';
+import { ProductCatalog } from '../domain/ProductCatalog';
+
+export interface AppProps {
+  contentsContainer: HTMLDivElement;
+  coinVault: CoinVault;
+  productCatalog: ProductCatalog;
+}

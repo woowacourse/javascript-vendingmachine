@@ -1,5 +1,6 @@
 import { ProductInformationInput } from '../component/ProductInformationInput';
 import { ProductCatalogTable } from '../component/ProductCatalogTable';
+import { AppProps } from '../interfaces/interface';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductManageView {
@@ -7,20 +8,18 @@ export class ProductManageView {
   productCatalogTable: ProductCatalogTable;
   contentsContainer: HTMLDivElement;
   productCatalog: ProductCatalog;
-  props: object;
 
-  constructor() {
-    this.productCatalog = new ProductCatalog();
-    this.contentsContainer = document.querySelector('#contents-container');
-
-    const props = {
-      target: this.contentsContainer,
-      productCatalog: this.productCatalog,
+  constructor(AppProps: AppProps) {
+    this.contentsContainer = AppProps.contentsContainer;
+    const productManageProps = {
+      target: AppProps.contentsContainer,
+      productCatalog: AppProps.productCatalog,
     };
-    this.productInformationInput = new ProductInformationInput(props);
-    this.productCatalogTable = new ProductCatalogTable(props);
 
-    props.target.addEventListener('productManageTabClick', this.showProductManageTab);
+    this.productInformationInput = new ProductInformationInput(productManageProps);
+    this.productCatalogTable = new ProductCatalogTable(productManageProps);
+
+    this.contentsContainer.addEventListener('productManageTabClick', this.showProductManageTab);
   }
 
   showProductManageTab = () => {
