@@ -4,10 +4,11 @@
 //   - [ ] 최대 투입 금액은 10,000원이다. // utils
 // - [ ] 금액은 누적으로 투입할 수 있다. // domain 누적 되는지 확인
 // - [ ] 사용자가 버튼을 클릭했을 때 해당 행위가 정상적으로 동작하거나, 실패하였음을 snackbar를 통해 보여준다.
-import VendingMachineConsumerMoneyManager, {
+import VendingMachineConsumerMoneyManager from '../ts/domains/VendingMachineConsumerMoneyManager';
+import {
   checkValidConsumerChargeMoney,
   checkConsumerChargeMoneyLessThenPurchaseMoney,
-} from '../ts/domains/VendingMachineConsumerMoneyManager';
+} from '../ts/validation/checkConsumerChargeMoney';
 
 test('최초 상품 구매를 위한 금액은 0원이며, 각 동전의 개수가 0개인지 확인한다.', () => {
   const vendingMachineConsumerMoneyManager =
