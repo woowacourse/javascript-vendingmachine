@@ -1,4 +1,5 @@
 import AuthStore from '../stores/authStore';
+import { userInfoStorage } from '../stores/localStorage';
 
 class HeaderComponent {
   constructor($parent) {
@@ -20,6 +21,7 @@ class HeaderComponent {
     this.$userProfile = this.$parent.querySelector('#user-profile');
     this.$userHref = this.$parent.querySelector('#user-href-container');
   }
+
   generateTemplate() {
     return `<header>
       <a href="#login" class="login-user-href">
@@ -52,6 +54,7 @@ class HeaderComponent {
 
   userProfileShow() {
     this.$userProfileContainer.classList.remove('hide');
+    this.renderUserProfile();
   }
   userProfileHide() {
     this.$userProfileContainer.classList.add('hide');
@@ -60,6 +63,12 @@ class HeaderComponent {
   bindEventListener() {
     this.$logoutButton.addEventListener('click', this.onLogOutButtonClick);
     this.$userProfile.addEventListener('click', this.onUserProfileClick);
+  }
+
+  renderUserProfile() {
+    const userInfo = userInfoStorage.getUserInfo();
+    const { userName } = userInfo;
+    this.$userProfile.textContent = [...userName].shift();
   }
 
   onLogOutButtonClick = e => {

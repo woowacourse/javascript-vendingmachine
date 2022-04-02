@@ -15,3 +15,12 @@ export const userIdStorage = {
     return JSON.parse(localStorage.getItem('userId'));
   },
 };
+
+export const userInfoStorage = {
+  setUserInfo(userInfo) {
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+  },
+  getUserInfo() {
+    return JSON.parse(localStorage.getItem('userInfo'));
+  },
+};

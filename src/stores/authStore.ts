@@ -1,5 +1,5 @@
 import { AuthActionType, AuthStoreInterface } from './types';
-import { accessTokenStorage, userIdStorage } from './localStorage';
+import { accessTokenStorage, userIdStorage, userInfoStorage } from './localStorage';
 
 class AuthStore implements AuthStoreInterface {
   mutateState({ actionType, payload }: { actionType: AuthActionType; payload: unknown }) {
@@ -65,7 +65,7 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
-
+      await this.getLoginUserInfo();
       window.location.replace('http://localhost:9000/#');
       window.location.reload();
     } catch ({ message }) {
@@ -77,6 +77,25 @@ class AuthStore implements AuthStoreInterface {
     localStorage.clear();
     window.location.href = 'http://localhost:9000/#';
     window.location.reload();
+  }
+
+  async getLoginUserInfo() {
+    const userId = userIdStorage.getUserId();
+    if (userId.length === 0) {
+      return false;
+    }
+    try {
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(res => res.json());
+
+      const { email, name } = response;
+      const userInfo = { userEmail: email, userName: name };
+      userInfoStorage.setUserInfo(userInfo);
+    } catch ({ message }) {
+      alert(message);
+    }
   }
 }
 
