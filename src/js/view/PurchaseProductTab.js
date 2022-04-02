@@ -30,15 +30,19 @@ export default class PurchaseProductTab {
     );
     this.#coinStatusTable = selectDom('.coin-status-table', this.#purchaseContainer);
 
-    this.#moneyInsertForm.addEventListener('submit', this.#handleMoneyInsert);
-    this.#productStatusTable.addEventListener('click', this.#handlePurchase);
-    this.#returnChangeButton.addEventListener('click', this.#handleChangeReturn);
+    this.#attachEventListeners();
     this.#renderInitialProducts();
   }
 
   get tabElements() {
     this.#renderInitialProducts();
     return this.#purchaseContainer;
+  }
+
+  #attachEventListeners() {
+    this.#moneyInsertForm.addEventListener('submit', this.#handleMoneyInsert);
+    this.#productStatusTable.addEventListener('click', this.#handlePurchase);
+    this.#returnChangeButton.addEventListener('click', this.#handleChangeReturn);
   }
 
   #renderInitialProducts() {
@@ -74,34 +78,38 @@ export default class PurchaseProductTab {
     if (!target.classList.contains('purchase-product-button')) return;
 
     const targetTableRow = target.closest('tr');
-    const stock = selectDom('.product-stock', targetTableRow);
 
     const { productId: id } = target.dataset;
 
     try {
       this.#vendingMachine.purchaseProduct(id);
-      this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
-
-      const updatedProduct = this.#vendingMachine.productList[id];
-      if (!updatedProduct) {
-        targetTableRow.remove();
-        return;
-      }
-      stock.textContent = updatedProduct.stock;
+      this.#renderProductPurchase(id, targetTableRow);
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
   };
+
+  #renderProductPurchase(id, tableRow) {
+    this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
+    const stockTableData = selectDom('.product-stock', tableRow);
+    const updatedProduct = this.#vendingMachine.productList[id];
+    if (!updatedProduct) {
+      tableRow.remove();
+      return;
+    }
+    stockTableData.textContent = updatedProduct.stock;
+  }
 
   #handleChangeReturn = () => {
     try {
       const returnCoins = this.#vendingMachine.returnChange();
 
       returnCoins.forEach(({ name, count }) => {
-        selectDom(
+        const coinTableData = selectDom(
           `td[data-coin-name="${name}"]`,
           this.#coinStatusTable
-        ).textContent = `${count}개`;
+        );
+        coinTableData.textContent = `${count}개`;
       });
 
       this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
