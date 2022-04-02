@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "json-server": "json-server db.json -m ./node_modules/json-server-auth",
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
