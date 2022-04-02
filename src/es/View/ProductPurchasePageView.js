@@ -17,12 +17,11 @@ export default class ProductPurchasePageView {
   }
 
   loadPage = () => {
-    console.log('load');
     $('main').innerHTML = template.productPurchasePage;
 
     this.setDom();
     this.render({
-      state: ProductStore.getState(),
+      state: { ...ProductStore.getState(), ...CustomerChargeStore.getState() },
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
@@ -67,7 +66,6 @@ export default class ProductPurchasePageView {
   }
 
   render = ({ state, changeStates }) => {
-    console.log(changeStates);
     const renderMethods = changeStates.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
