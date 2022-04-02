@@ -15,7 +15,7 @@ export type RouteChangeDetailType = {
   $navButton: HTMLButtonElement;
 };
 
-export type ChargeMoneyDetailType = {
+export type MoneyDetailType = {
   inputMoney: number;
 };
 

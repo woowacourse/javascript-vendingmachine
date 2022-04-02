@@ -23,4 +23,5 @@ export type CustomEventType =
   | 'CHARGE_MONEY'
   | 'ADD_ITEM'
   | 'TABLE_ITEM_CHANGE'
-  | 'TABLE_ITEM_DELETE';
+  | 'TABLE_ITEM_DELETE'
+  | 'PURCHASE_MONEY_INPUT';

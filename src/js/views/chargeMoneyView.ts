@@ -18,13 +18,11 @@ export default class ChargeMoneyView {
     );
   }
 
-  handleSubmitChargeMoney(event: Event) {
+  handleSubmitChargeMoney() {
     try {
-      event.preventDefault();
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
       validateInputMoney(inputMoney);
-      this.clearInput();
 
       emitCustomEvent('CHARGE_MONEY', { detail: { inputMoney } });
     } catch (error) {
@@ -37,10 +35,6 @@ export default class ChargeMoneyView {
     this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
 
     this.bindEvents();
-  }
-
-  repaintCurrentMoney(money: number) {
-    $(SELECTOR.ID.CURRENT_MONEY).textContent = money;
   }
 
   repaintCoinsTable(coins: CoinsType) {

@@ -1,7 +1,7 @@
 import PurchaseItemView from '../views/purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { CoinsType } from '../types';
-import { $ } from '../utils/common';
+import { CoinsType, MoneyDetailType } from '../types';
+import { onCustomEvent } from '../utils/common';
 import { Controller } from '../types/interface';
 
 export default class PurchaseItemController implements Controller {
@@ -15,17 +15,24 @@ export default class PurchaseItemController implements Controller {
     this.purchaseItemView = new PurchaseItemView();
 
     this.coins = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-    this.inputMoney = 0;
+
+    this.bindEvents();
   }
 
   bindEvents() {
-    $('.submit-button').addEventListener('click', event => event.preventDefault());
+    onCustomEvent('PURCHASE_MONEY_INPUT', this.handlePurchaseMoneyInput.bind(this));
+  }
+
+  handlePurchaseMoneyInput(event: CustomEvent) {
+    const { inputMoney }: MoneyDetailType = event.detail;
+
+    this.vendingMachine.chargePurchaseInputMoney(inputMoney);
   }
 
   loadPage() {
     const items = this.vendingMachine.getItems();
-    this.purchaseItemView.render(items, this.coins, this.inputMoney);
+    const inputMoney = this.vendingMachine.getPurchaseInputMoney();
 
-    this.bindEvents();
+    this.purchaseItemView.render(items, this.coins, inputMoney);
   }
 }

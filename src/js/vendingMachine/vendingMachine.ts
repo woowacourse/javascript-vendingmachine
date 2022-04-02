@@ -5,7 +5,8 @@ import { ItemType, CoinsType } from '../types';
 export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private inputMoney = 0;
+  private currentOwnMoney = 0;
+  private purchaseInputMoney = 0;
 
   getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
@@ -23,12 +24,20 @@ export default class VendingMachine {
     this.coins = newCoins;
   }
 
-  getInputMoney(): number {
-    return this.inputMoney;
+  getCurrentOwnMoney(): number {
+    return this.currentOwnMoney;
   }
 
-  setInputMoney(inputMoney: number) {
-    this.inputMoney = inputMoney;
+  setCurrentOwnMoney(currentOwnMoney: number) {
+    this.currentOwnMoney = currentOwnMoney;
+  }
+
+  getPurchaseInputMoney(): number {
+    return this.purchaseInputMoney;
+  }
+
+  setPurchaseInputMoney(purchaseInputMoney: number) {
+    this.purchaseInputMoney = purchaseInputMoney;
   }
 
   getTotalMoney(coins: CoinsType): number {
@@ -71,10 +80,15 @@ export default class VendingMachine {
     return newCoins;
   }
 
-  chargeMoney(money: number) {
+  chargeOwnMoney(money: number) {
     const newCoins = this.generateRandomCoins(money);
-    const newMoney = this.getInputMoney() + money;
+    const newMoney = this.getCurrentOwnMoney() + money;
     this.setCoins(newCoins);
-    this.setInputMoney(newMoney);
+    this.setCurrentOwnMoney(newMoney);
+  }
+
+  chargePurchaseInputMoney(inputMoney: number) {
+    const newMoney = this.getPurchaseInputMoney() + inputMoney;
+    this.setPurchaseInputMoney(newMoney);
   }
 }

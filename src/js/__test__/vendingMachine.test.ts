@@ -52,7 +52,7 @@ describe('자판기 테스트', () => {
       const validInputMoney = 610;
       let totalMoney = 0;
 
-      vendingMachine.chargeMoney(validInputMoney);
+      vendingMachine.chargeOwnMoney(validInputMoney);
       const coins = vendingMachine.getCoins();
       Object.keys(coins).forEach(key => {
         totalMoney += COINS[key] * coins[key];

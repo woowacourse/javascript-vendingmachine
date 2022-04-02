@@ -10,6 +10,7 @@ export const SELECTOR: SelectorType = {
     ADD_ITEM_PRICE: '#add-item-price',
     ADD_ITEM_QUANTITY: '#add-item-quantity',
     ADD_ITEM_FORM: '#add-item-form',
+    PURCHASE_ITEM_FORM: '#purchase-item-form',
   },
   CLASS: {
     CHARGE_MONEY_INPUT: '.charge-money-input',
@@ -21,6 +22,7 @@ export const SELECTOR: SelectorType = {
     ITEM_TABLE_CONFIRM_BUTTON: '.item-table-confirm-button',
     ITEM_TABLE_DELETE_BUTTON: '.item-table-delete-button',
     ITEM_TABLE_CHANGE_BUTTON: '.item-table-change-button',
+    PURCHASE_ITEM_INPUT: '.purchase-item-input',
   },
   ID_STRING: {
     ITEM_MANGE_TAB: 'item-manage-tab',

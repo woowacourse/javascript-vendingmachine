@@ -1,6 +1,6 @@
 import ChargeMoneyView from '../views/chargeMoneyView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { ChargeMoneyDetailType } from '../types';
+import { MoneyDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent } from '../utils/common';
 
@@ -20,17 +20,16 @@ export default class ChargeMoneyController implements Controller {
   }
 
   handleChargeMoney(event: CustomEvent) {
-    const { inputMoney }: ChargeMoneyDetailType = event.detail;
+    const { inputMoney }: MoneyDetailType = event.detail;
 
-    this.vendingMachine.chargeMoney(inputMoney);
+    this.vendingMachine.chargeOwnMoney(inputMoney);
 
-    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.getInputMoney());
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
   }
 
   loadPage() {
     const coins = this.vendingMachine.getCoins();
-    const totalMoney = this.vendingMachine.getInputMoney();
+    const totalMoney = this.vendingMachine.getCurrentOwnMoney();
 
     this.chargeMoneyView.render(coins, totalMoney);
   }
