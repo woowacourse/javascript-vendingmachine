@@ -28,9 +28,7 @@ const MESSAGE = {
   }으로 나누어 떨어져야 합니다.`,
   ERROR_OVER_MAX_QUANTITY: `상품 수량은 1개 이상 ${MAX_QUANTITY}개 이하로 입력해주세요.`,
   ERROR_EMPTY_VALUE: '상품 정보를 공백 없이 입력해주세요.',
-  ERROR_INVALID_CASH: `금액은 ${CASH_RULE.MAX.toLocaleString()}원 이하여야 하며, ${CASH_RULE.UNIT.toLocaleString()}으로 나누어 떨어져야 합니다.`,
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
-  ERROR_INVALID_MONEY: `금액은 ${MONEY_RULE.MAX.toLocaleString()}원 이하여야 하며, ${MONEY_RULE.UNIT.toLocaleString()}으로 나누어 떨어져야 합니다.`,
   NOT_ENOUGH_COINS: '동전이 부족하여 모두 반환되지 못 하였습니다.',
 };
 

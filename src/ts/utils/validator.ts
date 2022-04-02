@@ -1,3 +1,5 @@
+import { CASH_RULE, MESSAGE } from '../constants';
+
 interface Rule {
   MIN: number;
   MAX: number;
@@ -11,4 +13,13 @@ const isInvalidNumber = (num: number, rule: Rule) => {
   return !(isRanged && isDivisible);
 };
 
-export { isInvalidNumber };
+const validateNumber = (number: number, rule: Rule) => {
+  if (isInvalidNumber(number, rule)) {
+    throw new Error(
+      `금액은 ${rule.MAX.toLocaleString()}원 이하여야 하며, ${rule.UNIT.toLocaleString()}으로 나누어 떨어져야 합니다.`,
+    );
+  }
+  return true;
+};
+
+export { isInvalidNumber, validateNumber };

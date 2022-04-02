@@ -1,5 +1,6 @@
+import { MONEY_RULE } from '../../constants';
 import { $ } from '../../utils/dom';
-import { validateCash } from '../CoinManagementComponent/validator';
+import { validateNumber } from '../../utils/validator';
 
 export default class MoneyChargeComponent {
   private moneyManagement;
@@ -21,7 +22,7 @@ export default class MoneyChargeComponent {
     const money = moneyInput.valueAsNumber;
 
     try {
-      validateCash(money);
+      validateNumber(money, MONEY_RULE);
     } catch ({ message }) {
       alert(message);
       return;
