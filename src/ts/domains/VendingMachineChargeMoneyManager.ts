@@ -53,4 +53,6 @@ export default class VendingMachineChargeMoneyManager
       }
     );
   }
+
+  getReturnCoins(): Coins {}
 }
