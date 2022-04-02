@@ -19,7 +19,11 @@ class PageByLogin extends HTMLElement {
   };
 
   renderPurchaseContainer() {
-    this.innerHTML = "<product-purchase></product-purchase>";
+    this.innerHTML = `
+    <div id="page">
+      <product-purchase></product-purchase>
+    </div>
+    `;
   }
 
   renderNavButtonContainer() {

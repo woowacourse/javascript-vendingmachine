@@ -12,9 +12,15 @@ class Login {
   onSubmit = async (e) => {
     e.preventDefault();
 
+    const email = this.$loginEmailInput.value;
+    const password = this.$loginPasswordInput.value;
+
     const response = await fetch("http://localhost:3000/login", {
       method: "POST",
-      body: new URLSearchParams(new FormData(this.$loginForm)),
+      body: new URLSearchParams({
+        email,
+        password,
+      }),
     });
 
     const body = await response.json();

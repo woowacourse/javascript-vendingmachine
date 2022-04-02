@@ -1,7 +1,6 @@
 import "./pages/product-manage.page";
 import "./pages/changes-manage.page";
 import "./pages/product-purchase.page";
-import "./components/page-by-login";
 
 class App {
   constructor() {

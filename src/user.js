@@ -23,6 +23,7 @@ class UserEditForm {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    const name = this.$editUserName.value;
     const password = this.$editUserPassword.value;
     const confirmPassword = this.$editUserPasswordConfirm.value;
 
@@ -33,8 +34,12 @@ class UserEditForm {
     const response = await fetch(
       `http://localhost:3000/users/${this.user.id}`,
       {
-        method: "PUT",
-        body: new URLSearchParams(new FormData(this.$editUserForm)),
+        method: "PATCH",
+        body: new URLSearchParams({
+          name,
+          email: this.user.email,
+          password,
+        }),
       }
     );
 
@@ -50,13 +55,14 @@ class UserEditForm {
     }
 
     const user = {
-      key: body.accessToken,
+      key: this.user.key,
       name: body.name,
       id: body.id,
       email: body.email,
     };
 
     localStorage.setItem("user-info", JSON.stringify(user));
+    location.href = "./";
   };
 }
 

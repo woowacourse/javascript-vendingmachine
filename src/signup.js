@@ -15,6 +15,8 @@ class SignUp {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    const email = this.$signupEmail.value;
+    const name = this.$signupName.value;
     const password = this.$signupPassword.value;
     const confirmPassword = this.$signupPasswordConfirm.value;
 
@@ -24,7 +26,11 @@ class SignUp {
 
     const response = await fetch("http://localhost:3000/register", {
       method: "POST",
-      body: new URLSearchParams(new FormData(this.$signupForm)),
+      body: new URLSearchParams({
+        name,
+        email,
+        password,
+      }),
     });
     const body = await response.json();
 
