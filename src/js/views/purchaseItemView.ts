@@ -3,7 +3,7 @@ import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/constants';
 import { CoinsType, ItemType } from '../types';
 import { emitCustomEvent } from '../utils/common';
-import { validateInputMoney } from '../validates/validates';
+import { validateInputPurchaseMoney } from '../validates/validates';
 
 export default class PurchaseItemView {
   $content: HTMLDivElement;
@@ -23,7 +23,7 @@ export default class PurchaseItemView {
     try {
       const inputMoney: number = $(SELECTOR.CLASS.PURCHASE_ITEM_INPUT).valueAsNumber;
 
-      validateInputMoney(inputMoney);
+      validateInputPurchaseMoney(inputMoney);
       emitCustomEvent('PURCHASE_MONEY_INPUT', { detail: { inputMoney } });
     } catch (error) {
       alert(error.message);

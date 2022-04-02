@@ -1,5 +1,5 @@
 import { ItemType } from '../types';
-import { ERROR_MESSAGE, ITEM, MONEY } from '../constants/constants';
+import { ERROR_MESSAGE, ITEM, OWN_MONEY, PURCHASE_MONEY } from '../constants/constants';
 
 export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   if (name.length === 0) {
@@ -33,17 +33,32 @@ export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   }
 };
 
-export const validateInputMoney = (inputMoney: number) => {
+export const validateInputOwnMoney = (inputMoney: number) => {
   if (!Number.isInteger(inputMoney)) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY_NOT_INTEGER);
   }
-  if (inputMoney <= MONEY.MIN) {
+  if (inputMoney <= OWN_MONEY.MIN) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY_UNDER_MIN);
   }
-  if (inputMoney > MONEY.MAX) {
+  if (inputMoney > OWN_MONEY.MAX) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY_OVER_MAX);
   }
-  if (inputMoney % MONEY.UNIT !== 0) {
+  if (inputMoney % OWN_MONEY.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY_INVALID_UNIT);
+  }
+};
+
+export const validateInputPurchaseMoney = (inputMoney: number) => {
+  if (!Number.isInteger(inputMoney)) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY_NOT_INTEGER);
+  }
+  if (inputMoney <= PURCHASE_MONEY.MIN) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY_UNDER_MIN);
+  }
+  if (inputMoney > PURCHASE_MONEY.MAX) {
+    throw new Error(ERROR_MESSAGE.INPUT_PURCHASE_MONEY_OVER_MAX);
+  }
+  if (inputMoney % PURCHASE_MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY_INVALID_UNIT);
   }
 };

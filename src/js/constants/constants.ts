@@ -68,6 +68,8 @@ export enum ERROR_MESSAGE {
   INPUT_MONEY_UNDER_MIN = '0원이하의 금액은 투입할 수 없습니다.',
   INPUT_MONEY_OVER_MAX = '100,000원 보다 많은 금액을 투입할 수 없습니다.',
   INPUT_MONEY_INVALID_UNIT = '10원 단위의 금액만 투입할 수 있습니다.',
+
+  INPUT_PURCHASE_MONEY_OVER_MAX = '10,000원 보다 많은 금액을 투입할 수 없습니다.',
 }
 
 export const CONFIRM_MESSAGE = {
@@ -89,9 +91,15 @@ export const ITEM = {
   },
 };
 
-export const MONEY = {
+export const OWN_MONEY = {
   MIN: 0,
   MAX: 100000,
+  UNIT: 10,
+};
+
+export const PURCHASE_MONEY = {
+  MIN: 0,
+  MAX: 10000,
   UNIT: 10,
 };
 
