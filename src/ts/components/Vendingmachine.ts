@@ -1,13 +1,15 @@
-import { selectDom, selectDomAll } from "../utils/dom";
 import Charge from "./charge/Charge";
 import MenuTab from "./menuTab/MenuTab";
-import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 import Product from "./product/Product";
+import Purchase from "./purchase/Purchase";
+import { selectDom, selectDomAll } from "../utils/dom";
+import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 
 class Vendingmachine {
   menuTab: MenuTab;
   product: Product;
   charge: Charge;
+  purchase: Purchase;
 
   constructor() {
     const vendingmachineWrap = selectDom("#app");
@@ -25,6 +27,7 @@ class Vendingmachine {
     this.menuTab = new MenuTab(this.convertTemplate);
     this.product = new Product();
     this.charge = new Charge();
+    this.purchase = new Purchase();
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
@@ -49,7 +52,7 @@ class Vendingmachine {
     const routes = {
       "#product": () => this.product.render(),
       "#charge": () => this.charge.render(),
-      "#purchase": () => "",
+      "#purchase": () => this.purchase.render(),
     };
 
     routes[path]();

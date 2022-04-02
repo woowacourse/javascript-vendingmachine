@@ -69,7 +69,7 @@ class ProductView {
 
   renderProductView() {
     this.vendingmachineFunctionWrap.replaceChildren();
-    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", productTemplate());
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", productTemplate);
     this.productTable = selectDom("#product-control-table");
   }
 }

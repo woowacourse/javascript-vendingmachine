@@ -1,0 +1,30 @@
+.product-control-input {
+  width: 120px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #8b8b8b;
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.product-control-form {
+  display: flex;
+}
+
+#product-control-table {
+  width: 470px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+}
+
+.product-confirm-button {
+  width: 100px;
+}
+
+.product-edit-input {
+  width: 70px;
+  height: 22px;
+}

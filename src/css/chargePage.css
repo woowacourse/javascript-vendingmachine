@@ -1,0 +1,18 @@
+.charge-control-input {
+  width: 300px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #8b8b8b;
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+#charge-control-table {
+  width: 236px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+  margin: auto;
+}

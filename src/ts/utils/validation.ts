@@ -52,7 +52,7 @@ const validateSameProductName = (productName: string, productNameList: string[])
 const verifyCharge = (charge: number | null) => {
   if (charge < CHARGE.MIN_PRICE || charge > CHARGE.MAX_PRICE) {
     throw new Error(
-      `최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`
+      `최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 투입할 수 있습니다.`
     );
   }
 
@@ -66,6 +66,8 @@ const verifyCharge = (charge: number | null) => {
     throw new Error("금액을 입력해주세요.");
   }
 };
+
+
 
 export { 
   validateProductName,
