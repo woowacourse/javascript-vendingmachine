@@ -17,7 +17,7 @@ export default class AddChangeTab {
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
     this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
-    this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
+    this.#coinStatusTable = selectDom('.coin-status-table', this.#addChangeContainer);
 
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }

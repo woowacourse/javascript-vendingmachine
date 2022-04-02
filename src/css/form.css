@@ -1,3 +1,9 @@
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 fieldset {
   border: none;
   display: flex;
@@ -33,31 +39,15 @@ input {
   color: #424242;
 }
 
-#add-product-form-section, #add-change-form-section {
-  display:flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#manage-tab-title, #change-tab-title {
-  text-align: center;
-}
-
-#add-product-form{
+form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#add-change-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 5px;
-}
-
-#add-change-form input {
+#add-change-form input,
+#money-insert-form input {
   width: 300px;
 }
 

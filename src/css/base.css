@@ -38,6 +38,10 @@ body {
   gap: 52px;
 }
 
+.tab-title{
+  text-align: center;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -82,3 +86,4 @@ input[type='number'] {
   align-items: center;
   gap: 20px;
 }
+

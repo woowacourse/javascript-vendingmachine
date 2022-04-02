@@ -33,7 +33,7 @@ export default class ManageProductTab {
       '#add-product-stock-input',
       this.#manageContainer
     );
-    this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
+    this.#productStatusTable = selectDom('.product-status-table', this.#manageContainer);
 
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);

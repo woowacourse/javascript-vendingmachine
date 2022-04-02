@@ -36,25 +36,25 @@ table {
   width: 100%;
 }
 
-#product-status-table tr input {
+.product-status-table tr input {
   width: 90%;
   margin: auto;
   font-size: 1rem;
 }
 
-#product-status-table th:nth-child(1) {
+.product-status-table th:nth-child(1) {
   width: 160px;
 }
-#product-status-table th:nth-child(2) {
+.product-status-table th:nth-child(2) {
   width: 60px;
 }
-#product-status-table th:nth-child(3) {
+.product-status-table th:nth-child(3) {
   width: 50px;
 }
-#product-status-table th:nth-child(4) {
+.product-status-table th:nth-child(4) {
   width: 140px;
 }
 
-#coin-status-table td {
+.coin-status-table td {
   width: 100px;
 }
