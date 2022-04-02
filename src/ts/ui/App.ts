@@ -31,6 +31,7 @@ export default class App {
       'click',
       this.signUpClickHandler,
     );
+    $('.thumbnail').addEventListener('click', this.thumbnailClickHandler);
   }
 
   private navClickHandler = ({ target }) => {
@@ -69,6 +70,15 @@ export default class App {
 
     this.signUpUI.render();
   };
+
+  private thumbnailClickHandler() {
+    const $selectBox = $('.select-box');
+
+    $selectBox.classList.toggle('active');
+    setTimeout(() => {
+      $selectBox.classList.toggle('hide');
+    }, 300);
+  }
 
   private activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {

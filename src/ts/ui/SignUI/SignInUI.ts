@@ -50,6 +50,7 @@ export default class SignInUI {
           $input.value = '';
         });
         showSnackbar(MESSAGE.SUCCESS_LOGIN);
+        viewPainter.renderUser(userInfo.name);
         viewPainter.renderMainUI(this.userDomain.isLogin);
         history.replaceState({}, '', `${basePath}/`);
       })

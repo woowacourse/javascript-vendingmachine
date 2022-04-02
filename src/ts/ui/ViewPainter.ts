@@ -44,6 +44,10 @@ class ViewPainter {
   renderPurchaseCash() {
     this.#purchaseCashChargeUI.render();
   }
+
+  renderUser(name: string) {
+    this.#mainUI.renderUserUI(name);
+  }
 }
 
 export const viewPainter = new ViewPainter();

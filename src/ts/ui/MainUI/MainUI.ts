@@ -10,6 +10,9 @@ export default class MainUI {
   private readonly $main = $('#main');
   private readonly $signIn = $('#sign-in');
   private readonly $signUp = $('#sign-up');
+  private readonly $nav = $('.nav');
+  private readonly $signinButton = $('.signin-button');
+  private readonly $thumbnail = $('.thumbnail');
 
   private readonly productDomain = new ProductManagementDomain();
   private readonly coinDomain = new CoinManagementDomain();
@@ -46,5 +49,13 @@ export default class MainUI {
 
   renderProductPurchaseUI() {
     this.productPurchaseUI.render();
+  }
+
+  renderUserUI(name: string) {
+    this.$thumbnail.textContent = name.substr(0, 1);
+
+    [this.$nav, this.$signinButton, this.$thumbnail].forEach($button => {
+      $button.toggleAttribute('hidden');
+    });
   }
 }
