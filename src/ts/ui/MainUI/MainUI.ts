@@ -10,6 +10,7 @@ export default class MainUI {
   private readonly $main = $('#main');
   private readonly $signIn = $('#sign-in');
   private readonly $signUp = $('#sign-up');
+
   private readonly productDomain = new ProductManagementDomain();
   private readonly coinDomain = new CoinManagementDomain();
   private readonly purchaseCashDomain = new PurchaseCashDomain();
@@ -23,11 +24,15 @@ export default class MainUI {
     this.purchaseCashDomain,
   );
 
-  renderInitPage() {
+  renderInitPage(isLogin: boolean = false) {
     this.$main.classList.remove('hide');
     this.$signIn.classList.add('hide');
     this.$signUp.classList.add('hide');
 
+    if (isLogin) {
+      this.renderProductManagementUI();
+      return;
+    }
     this.renderProductPurchaseUI();
   }
 

@@ -3,6 +3,7 @@ class ViewPainter {
   #productInventoryUI;
   #coinHoldingsUI;
   #purchaseCashChargeUI;
+  #signInUI;
 
   set mainUI(mainUI) {
     this.#mainUI = mainUI;
@@ -20,8 +21,16 @@ class ViewPainter {
     this.#purchaseCashChargeUI = purchaseCashChargeUI;
   }
 
-  renderMainUI() {
-    this.#mainUI.renderInitPage();
+  set signInUI(signInUI) {
+    this.#signInUI = signInUI;
+  }
+
+  renderMainUI(isLogin: boolean) {
+    this.#mainUI.renderInitPage(isLogin);
+  }
+
+  renderSignInUI() {
+    this.#signInUI.render();
   }
 
   renderProducts() {
