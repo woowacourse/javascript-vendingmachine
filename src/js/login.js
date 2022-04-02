@@ -1,4 +1,5 @@
 import '../css/index.css';
+import { SNACKBAR_MESSAGE } from './constants/constants';
 import { $ } from './utils/dom';
 import { handleSnackbarMessage } from './utils/snackbar';
 
@@ -29,5 +30,5 @@ loginForm.addEventListener('submit', async (e) => {
     location.href = './manager.html';
     return;
   }
-  handleSnackbarMessage('존재하지 않는 회원입니다.');
+  handleSnackbarMessage(SNACKBAR_MESSAGE.NOT_USER);
 });

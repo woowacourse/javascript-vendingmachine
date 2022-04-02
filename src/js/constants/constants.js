@@ -34,6 +34,7 @@ export const ERROR_MESSAGE = {
   DUPLICATE_PRODUCT: '중복된 상품 입니다. 다른 상품을 입력해 주세요.',
   OVER_MAX_AMOUNT: `최대 보유 금액은 ${COIN.MAX_AMOUNT}원 을 넘을 수 없습니다.`,
   OVER_USER_AMOUNT: `투입 금액이 부족하여 선택한 상품을 구매할 수 없습니다`,
+  NOT_MATCH_PASSWORD: '비밀번호와 비밀번호 확인이 일치하지않습니다.',
 };
 
 export const SNACKBAR_MESSAGE = {
@@ -44,4 +45,5 @@ export const SNACKBAR_MESSAGE = {
   CHARGE_USER_AMOUNT: '금액을 투입했습니다.',
   PURCHASE_PRODUCT: '상품을 구매했습니다.',
   RETURN_AMOUNT: '남은 금액을 반환했습니다.',
+  NOT_USER: '존재하지 않는 회원입니다.',
 };
