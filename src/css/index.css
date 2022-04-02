@@ -1,0 +1,151 @@
+:root {
+  --color-white-gray: #f5f5f5;
+  --color-light-gray: #ebebeb;
+  --color-middle-gray: #8a8a8a;
+  --color-white-skyblue: #00bcd41f;
+  --color-middle-skyblue: #00bcd4;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  padding: 0;
+}
+
+button {
+  border: none;
+}
+
+.hide {
+  display: none;
+}
+
+.menu-nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.button {
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1.25px;
+}
+
+.menu-nav__button {
+  width: 120px;
+  height: 36px;
+  background: var(--color-white-gray);
+  margin: 0 4px;
+}
+
+.menu-nav__button:hover {
+  background: var(--color-light-gray);
+}
+
+.active {
+  background: var(--color-white-skyblue);
+}
+
+.product-input {
+  width: 120px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid var(--color-middle-gray);
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.product-manage__edit-button,
+.product-manage__remove-button,
+.product-manage__confirm-button {
+  cursor: pointer;
+  background: var(--color-white-gray);
+  border-radius: 5px;
+  height: 32px;
+}
+
+.product-manage__edit-button,
+.product-manage__remove-button {
+  width: 50px;
+}
+
+.product-manage__confirm-button {
+  width: 100px;
+}
+
+.product-manage__edit-button:hover,
+.product-manage__remove-button:hover,
+.product-manage__confirm-button:hover {
+  background: var(--color-light-gray);
+}
+
+.edit-input {
+  width: 50px;
+}
+
+.charge-manange__input {
+  width: 300px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid var(--color-middle-gray);
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.product-manange__add-button,
+.charge-manange__add-button {
+  width: 56px;
+  height: 38px;
+  cursor: pointer;
+  background: var(--color-middle-skyblue);
+  border-radius: 5px;
+  border: none;
+  margin-left: 16px;
+  color: white;
+  font-size: 16px;
+}
+
+.product-manange__title,
+.charge-manange__title {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.product-manange__table {
+  width: 470px;
+  text-align: center;
+  border-top: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
+  border-collapse: collapse;
+}
+
+.charge-manange__table {
+  width: 236px;
+  text-align: center;
+  border-top: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.product-manange__table td,
+.product-manange__table th,
+.charge-manange__table td,
+.charge-manange__table th {
+  width: 118px;
+  height: 40px;
+  border-top: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
+}

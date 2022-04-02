@@ -1,0 +1,41 @@
+import { $, $$ } from "../../utils/dom";
+import { ConvertTemplate } from "../App";
+
+class MenuTabComponent {
+  convertTemplate: ConvertTemplate;
+  menuNav: HTMLElement;
+  menuNavButtons: NodeList;
+
+  constructor({ convertTemplate }) {
+    this.convertTemplate = convertTemplate;
+    this.menuNav = $(".menu-nav");
+    this.menuNavButtons = $$(".menu-nav__button");
+
+    this.menuNav.addEventListener("click", this.handleMenuTab);
+    window.addEventListener("popstate", this.handlePopState);
+    this.changeTabStyle();
+  }
+
+  handleMenuTab = ({ target }) => {
+    if (!target.classList.contains("menu-nav__button")) {
+      return;
+    }
+
+    history.pushState({ path: target.dataset.menu }, null, target.dataset.menu);
+    this.convertTemplate(location.hash);
+    this.changeTabStyle();
+  };
+
+  handlePopState = () => {
+    this.convertTemplate(location.hash || "#product");
+    this.changeTabStyle();
+  };
+
+  changeTabStyle() {
+    this.menuNavButtons.forEach((button: HTMLButtonElement) =>
+      button.dataset.menu === location.hash ? button.classList.add("active") : button.classList.remove("active"),
+    );
+  }
+}
+
+export default MenuTabComponent;
