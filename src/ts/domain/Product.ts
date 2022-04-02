@@ -1,4 +1,4 @@
-import { ProductInfo } from './types';
+import type { ProductInfo } from './types';
 
 export default class ProductImpl {
   #product: ProductInfo;

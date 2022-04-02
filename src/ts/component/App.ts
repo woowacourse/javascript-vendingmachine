@@ -22,6 +22,7 @@ export default class App {
     ),
     private readonly productPurchaseComponent = new ProductPurchaseComponent(
       productManagement,
+      coinManagement,
       moneyManagement,
     ),
   ) {

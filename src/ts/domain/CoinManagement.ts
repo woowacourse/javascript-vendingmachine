@@ -1,8 +1,6 @@
 import { coinType } from '../constants';
 import { getRandomIndex } from '../utils';
-
-type CoinUnionType = typeof coinType[number];
-type Coins = { [K in CoinUnionType]: number } | {};
+import type { Coins, CoinUnionType } from './types';
 
 export default class CoinManagement {
   #totalCash: number;
@@ -37,5 +35,13 @@ export default class CoinManagement {
       this.#coins[type] += 1;
       cash -= type;
     }
+  }
+
+  subtractCoins(returnableCoin) {
+    coinType.forEach(type => (this.#coins[type] -= returnableCoin[type]));
+    this.#totalCash -= coinType.reduce(
+      (acc, current) => acc + returnableCoin[current] * current,
+      0,
+    );
   }
 }

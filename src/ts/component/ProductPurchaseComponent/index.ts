@@ -1,19 +1,24 @@
+import CoinManagement from '../../domain/CoinManagement';
 import MoneyManagement from '../../domain/MoneyManagement';
 import ProductManagement from '../../domain/ProductManagement';
 import { $, replaceHTML } from '../../utils/dom';
+import CoinReturnComponent from './CoinReturnComponent';
 import MoneyChargeComponent from './MoneyChargeComponent';
 import ProductMenuComponent from './ProductMenuComponent';
 
 export default class ProductPurchaseComponent {
   #productManagement: ProductManagement;
+  #coinManagement: CoinManagement;
   #moneyManagement: MoneyManagement;
 
   constructor(
     productManagement: ProductManagement,
+    coinManagement: CoinManagement,
     moneyManagement: MoneyManagement,
   ) {
     this.#productManagement = productManagement;
     this.#moneyManagement = moneyManagement;
+    this.#coinManagement = coinManagement;
   }
 
   render() {
@@ -50,7 +55,11 @@ export default class ProductPurchaseComponent {
           <h2 class="product-menu__title section-title">구매 가능상품 현황</h2>
           <div class="product-menu__container grid-container"></div>
         </section>
-        <section class="coin-return"></section>
+        <section class="coin-return">
+          <h2 class="coin-return__title section-title">잔돈 반환</h2>
+          <div class="coin-return__container grid-container"></div>
+          <button class="coin-return__button">반환</button>
+        </section>
       </div>
     `;
   }
@@ -58,5 +67,6 @@ export default class ProductPurchaseComponent {
   private bindDOM() {
     new MoneyChargeComponent(this.#moneyManagement);
     new ProductMenuComponent(this.#productManagement, this.#moneyManagement);
+    new CoinReturnComponent(this.#coinManagement, this.#moneyManagement);
   }
 }

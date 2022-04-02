@@ -1,5 +1,5 @@
 import ProductImpl from './Product';
-import { ProductInfo } from './types';
+import type { ProductInfo } from './types';
 
 export default class ProductManagement {
   #products: ProductImpl[];
