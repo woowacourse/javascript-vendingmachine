@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString } from '../utils';
+import { convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
 
 @customElement('purchase-product-inventory')
@@ -60,8 +60,9 @@ class PurchaseProductInventory extends Component {
 
     try {
       this.purchaseProduct(name);
+      showSnack(`${name} 구매 완료!`);
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      showSnack(e.message);
     }
   };
 

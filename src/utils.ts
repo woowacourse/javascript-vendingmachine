@@ -62,3 +62,14 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
 export const convertToLocaleString = (number: number): string => {
   return number.toLocaleString('ko-kr');
 };
+
+export const showSnack = (message: string) => {
+  const $snackbar = document.querySelector('.snack-bar') as HTMLElement;
+  $snackbar.textContent = message;
+
+  $snackbar?.classList.add('show');
+
+  setTimeout(() => {
+    $snackbar?.classList.toggle('show');
+  }, 2500);
+};

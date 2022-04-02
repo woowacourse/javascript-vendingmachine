@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString } from '../utils';
+import { convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateReturnChanges } from '../validation/validators';
 
@@ -52,7 +52,7 @@ class PurchaseReturnInventory extends Component {
     try {
       this.returnChanges(insertedMoney, chargedCoins);
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      showSnack(e.message);
     }
   };
 

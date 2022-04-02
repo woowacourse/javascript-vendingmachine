@@ -3,7 +3,7 @@ import { ACTION } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
-import { consoleErrorWithConditionalAlert, convertToLocaleString } from '../utils';
+import { convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateInsertMoney } from '../validation/validators';
 
@@ -34,7 +34,7 @@ class PurchaseProductForm extends Component {
     try {
       this.insertMoney(money);
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      showSnack(e.message);
       $moneyInput.focus();
       $moneyInput.value = '';
     }
