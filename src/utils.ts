@@ -1,5 +1,5 @@
 import { VALIDATION_ERROR_NAME } from './constants';
-import { Indexable } from './types';
+import { CoinRecord, Indexable } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
@@ -55,4 +55,12 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
     }
     return _obj;
   }, initialObj);
+};
+
+export const coinToMoney = (coins: CoinRecord) => {
+  return Object.keys(coins)
+    .map(Number)
+    .reduce((acc, unit) => {
+      return acc + coins[unit] * unit;
+    }, 0);
 };

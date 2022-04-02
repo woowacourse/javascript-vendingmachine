@@ -1,6 +1,6 @@
 import { ACTION, COIN } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
-import { convertArrToObj, deepCopy, shuffle } from '../utils';
+import { coinToMoney, convertArrToObj, deepCopy, shuffle } from '../utils';
 
 function moneyToCoin(money: number) {
   const coins = convertArrToObj(COIN.UNITS, 0);
@@ -73,6 +73,24 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.insertedMoney -= price;
       newState.productList = newState.productList.filter((item) => item.quantity > 0);
       break;
+    }
+    case ACTION.RELEASE_COIN: {
+      let { insertedMoney } = newState;
+      const chargedCoins = { ...newState.chargedCoins };
+      const units = [...COIN.UNITS].sort((a, b) => b - a);
+      const changes: CoinRecord = units.reduce((acc, unit) => {
+        if (insertedMoney === 0) return acc;
+        const quotient = Math.floor(insertedMoney / unit);
+        const min = Math.min(quotient, chargedCoins[unit]);
+        insertedMoney -= min * unit;
+        chargedCoins[unit] -= min;
+        acc[unit] = min;
+        return acc;
+      }, convertArrToObj(COIN.UNITS, 0));
+      newState.chargedMoney = coinToMoney(chargedCoins);
+      newState.chargedCoins = chargedCoins;
+      newState.changes = changes;
+      newState.insertedMoney = insertedMoney;
     }
   }
   return newState;

@@ -36,6 +36,7 @@ export const ACTION = {
   CHANGE_ACTIVE_TAB: 'change-active-tab',
   INSERT_MONEY: 'insert-money',
   PURCHASE_PRODUCT: 'purchase-product',
+  RELEASE_COIN: 'release-coin',
 };
 
 export const initialState: AppState = {
@@ -49,6 +50,12 @@ export const initialState: AppState = {
   },
   productList: [],
   insertedMoney: 0,
+  changes: {
+    500: 0,
+    100: 0,
+    50: 0,
+    10: 0,
+  },
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';

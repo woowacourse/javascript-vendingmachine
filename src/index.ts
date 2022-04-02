@@ -5,6 +5,7 @@ import './components/charge-money-tab';
 import './components/purchase-product-tab';
 import './components/insert-money-form';
 import './components/product-menu';
+import './components/release-coin';
 import Router from './router';
 
 new Router();

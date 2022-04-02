@@ -11,7 +11,8 @@ class PurchaseProductTab extends Component {
     if (this.localName !== activeTab) return '';
     return `
       <insert-money-form class="mb-12"></insert-money-form>
-      <product-menu></product-menu>
+      <product-menu class="mb-15"></product-menu>
+      <release-coin></release-coin>
     `;
   }
 

@@ -11,6 +11,7 @@
 @import './product-inventory';
 @import './insert-money-form';
 @import './product-menu';
+@import './release-coin';
 
 * {
   box-sizing: border-box;
@@ -56,4 +57,9 @@ table {
   td.has-btn {
     padding: 4px 0;
   }
+}
+
+.v-center {
+  display: block;
+  margin: 0 auto;
 }
