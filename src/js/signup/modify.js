@@ -2,7 +2,7 @@ import '../../css/index.css';
 import { $ } from '../utils/dom';
 import { validPassword } from './validPassword';
 
-const { accessToken, user, id } = JSON.parse(localStorage.getItem('user'));
+const { user } = JSON.parse(localStorage.getItem('user'));
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');
