@@ -12,31 +12,30 @@ import routes from './routes';
 
 // const activeLogin = () => {
 //   // const accountNavContainer = document.querySelector('#account-nav-container');
-//   const headerNav = document.querySelector('#header-nav');
+//   const $headerNav = document.querySelector('#header-nav');
 //   console.log('----------------', isLogged());
 //   // accountNavContainer.classList.toggle('hide');
-//   headerNav.classList.toggle('hide', !isLogged());
+//   $headerNav.classList.toggle('hide', !isLogged());
 // };
 
 const useRouter = () => {
+  const $headerNav = document.querySelector('#header-nav');
+  const $inputSection = document.querySelector('.input-section');
+  const $contentsContainer = document.querySelector('.contents-container');
   let prevPath = '';
-
-  const clearPageBody = () => {
-    const $inputSection = document.querySelector('.input-section');
-    const $contentsContainer = document.querySelector('.contents-container');
-
-    $inputSection.replaceChildren();
-    $contentsContainer.replaceChildren();
-  };
 
   const isLogged = () => !!localStorage.getItem('id');
 
   const activeLogin = () => {
     // const accountNavContainer = document.querySelector('#account-nav-container');
-    const headerNav = document.querySelector('#header-nav');
     console.log('----------------', isLogged());
     // accountNavContainer.classList.toggle('hide');
-    headerNav.classList.toggle('hide', !isLogged());
+    $headerNav.classList.toggle('hide', !isLogged());
+  };
+
+  const clearPageBody = () => {
+    $inputSection.replaceChildren();
+    $contentsContainer.replaceChildren();
   };
 
   return {
