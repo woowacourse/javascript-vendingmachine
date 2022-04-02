@@ -153,3 +153,48 @@ describe('잔돈 충전 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   });
 });
+
+describe('상품 구매 테스트', () => {
+  const vendingMachine = new VendingMachine();
+
+  it('상품을 구매할 금액은 10의 배수여야 한다.', () => {
+    const invalidUnitMoney = 105;
+
+    expect(() => {
+      vendingMachine.addPurchaseMoney(invalidUnitMoney);
+    }).toThrowError(ERROR_MESSAGE.MONTY_UNIT);
+  });
+
+  it('상품을 구매할 금액은 10원 이상 10,000원 이하이어야 한다.', () => {
+    const maxMoney = 10000;
+    const overMaxMoney = 10010;
+    const minMoney = 10;
+    const underMinMoney = 9;
+
+    expect(vendingMachine.addPurchaseMoney(maxMoney)).toEqual(vendingMachine.purchaseMoney.money);
+
+    expect(() => {
+      vendingMachine.addPurchaseMoney(overMaxMoney);
+    }).toThrowError(ERROR_MESSAGE.EXCEED_PURCHASE_MONEY);
+
+    expect(vendingMachine.addPurchaseMoney(minMoney)).toEqual(vendingMachine.purchaseMoney.money);
+
+    expect(() => {
+      vendingMachine.addPurchaseMoney(underMinMoney);
+    }).toThrowError(ERROR_MESSAGE.UNDER_MIN_PURCHASE_MONEY);
+  });
+
+  it('상품 금액은 투입할 때마다 누적돼야 한다.', () => {
+    const vendingMachine = new VendingMachine();
+
+    const money100 = 100;
+    const money200 = 200;
+    const money300 = 300;
+
+    vendingMachine.addPurchaseMoney(money100);
+    vendingMachine.addPurchaseMoney(money200);
+    vendingMachine.addPurchaseMoney(money300);
+
+    expect(vendingMachine.purchaseMoney.money).toEqual(money100 + money200 + money300);
+  });
+});

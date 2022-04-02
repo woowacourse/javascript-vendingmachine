@@ -1,9 +1,7 @@
 import ProductType from '../type/ProductType';
 import { checkProductValidation } from './validator';
 
-interface ProductInterface extends ProductType {}
-
-export default class Product implements ProductInterface {
+export default class Product implements ProductType {
   name: string;
   price: number;
   quantity: number;

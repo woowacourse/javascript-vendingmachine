@@ -3,6 +3,7 @@ import { PATH_ID, STORAGE_ID, FLAG } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
 import RechargeView, { RechargeViewInterface } from './RechargeView';
+import PurchaseProductView, { PurchaseProductViewInterface } from './PurchaseProductView';
 
 export default class View {
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
@@ -13,6 +14,7 @@ export default class View {
   vendingMachine: VendingMachineInterface;
   productManageView: ProductManageViewInterface;
   rechargeView: RechargeViewInterface;
+  purchaseProductView: PurchaseProductViewInterface;
   currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
@@ -25,7 +27,8 @@ export default class View {
     this.vendingMachine = vendingMachine;
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
-    
+    this.purchaseProductView = new PurchaseProductView(this.vendingMachine);
+
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
 
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
@@ -53,7 +56,7 @@ export default class View {
       }
       container.classList.add('hide');
     });
-    
+
     localStorage.setItem(STORAGE_ID.CURRENT_TAB, id);
   };
 
@@ -69,7 +72,7 @@ export default class View {
         // this.renderPurchaseProduct();
       },
     };
-    
+
     if (containerBranch[id]) {
       containerBranch[id]();
     }
@@ -78,7 +81,7 @@ export default class View {
   tabRouter = (tabKey: string, isPopState = false) => {
     if (!isPopState && this.isSamePage(tabKey)) return;
     if (!isPopState) history.pushState({ url: tabKey }, null, tabKey);
-    
+
     const routes = {
       [PATH_ID.PRODUCT_MANAGE]: () => {
         this.renderTabs(PATH_ID.PRODUCT_MANAGE);
@@ -90,7 +93,7 @@ export default class View {
         this.renderTabs(PATH_ID.PURCHASE_PRODUCT);
       },
     };
-    
+
     routes[tabKey]();
   };
 

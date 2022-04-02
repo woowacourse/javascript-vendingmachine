@@ -41,14 +41,26 @@ export const checkDuplicatedProduct = (products: ProductType[], name: string) =>
   }
 };
 
-export const checkMoneyValidation = (money: number, holdingMoney: number) => {
-  if (isInvalidUnit(money)) {
-    throw new Error(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
-  }
+export const checkRechargeMoney = (money: number, holdingMoney: number) => {
   if (isOverMaxValue(holdingMoney, VENDING_MACHINE_RULE.MAX_HOLDING_MONEY)) {
     throw new Error(ERROR_MESSAGE.EXCEED_HOLDING_MONEY);
   }
   if (isUnderMinValue(money, VENDING_MACHINE_RULE.MIN_RECHARGING_MONEY)) {
     throw new Error(ERROR_MESSAGE.UNDER_MIN_RECHARGING_MONEY);
+  }
+  if (isInvalidUnit(money)) {
+    throw new Error(ERROR_MESSAGE.RECHARGE_MONEY_UNIT);
+  }
+};
+
+export const checkPurchaseMoney = (money: number) => {
+  if (isOverMaxValue(money, VENDING_MACHINE_RULE.MAX_PURCHASE_MONEY)) {
+    throw new Error(ERROR_MESSAGE.EXCEED_PURCHASE_MONEY);
+  }
+  if (isUnderMinValue(money, VENDING_MACHINE_RULE.MIN_PURCHASE_MONEY)) {
+    throw new Error(ERROR_MESSAGE.UNDER_MIN_PURCHASE_MONEY);
+  }
+  if (isInvalidUnit(money)) {
+    throw new Error(ERROR_MESSAGE.MONTY_UNIT);
   }
 };
