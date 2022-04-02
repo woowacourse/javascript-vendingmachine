@@ -19,19 +19,4 @@
   add-product-form .input-container label {
     font-size: 14px;
   }
-
-  product-inventory {
-    padding: 0px 64px;
-  }
-}
-
-product-inventory table {
-  @for $i from 1 through 3 {
-    th:nth-child(#{$i}) {
-      width: 20%;
-    }
-  }
-  th:nth-child(4) {
-    width: 40%;
-  }
 }
