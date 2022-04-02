@@ -16,12 +16,20 @@ export interface TestCase {
 }
 
 export interface VendingMachineInterface {
-  addItem: (itemInfo: ItemInfoType) => Object;
+  itemList;
+
+  addItem: (itemInfo: ItemInfoType) => ItemInfoType;
   editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
   deleteItem: (itemName: string) => void;
 
   chargeCoin: (rechargeCoin: number) => void;
   calculateTotalCoinAmount: () => number;
+
+  validateItemInput: (
+    itemInfo: ItemInfoType,
+    isAddMode?: boolean,
+    itemIndex?: number | null
+  ) => void;
 }
 
 export type Hash = '' | '#item-manage' | '#coin-recharge' | '#item-purchase';
@@ -31,7 +39,7 @@ export interface VendingMachineTabInterface {
   tabHash: Hash;
   navTabButtonList: NodeList;
   tabContent: HTMLElement;
-  changeTabContent(contentTemplate: string, targetTabButton: HTMLButtonElement): void;
+  changeTabContent(contentTemplate: string, targetTabButton: HTMLElement): void;
   changeHashUrl(hash: Hash): void;
   renderInitialTabState(): void;
 }

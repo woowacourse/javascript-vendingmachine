@@ -1,7 +1,7 @@
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemManageTab from './view/ItemManageTab';
 import VendingMachine from './domain/VendingMachine';
-import { VendingMachineInterface, VendingMachineTabInterface } from './types';
+import { VendingMachineInterface, Hash, VendingMachineTabInterface } from './types';
 import { HASH } from './constant/hash';
 
 class App {
@@ -9,7 +9,7 @@ class App {
 
   private itemManageTab: VendingMachineTabInterface = new ItemManageTab(
     this.vendingMachine,
-    HASH.ITEM_MANAGE
+    HASH.ITEM_MANAGE as Hash
   );
 
   private coinRechargeTab: VendingMachineTabInterface = new CoinRechargeTab(

@@ -21,7 +21,7 @@ class VendingMachineTab implements VendingMachineTabInterface {
 
   renderInitialTabState(): void {}
 
-  changeTabContent(contentTemplate: string, targetTabButton: HTMLButtonElement): void {
+  changeTabContent(contentTemplate: string, targetTabButton: HTMLElement): void {
     this.tabContent.replaceChildren();
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
 

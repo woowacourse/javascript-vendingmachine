@@ -48,11 +48,11 @@ class VendingMachine implements VendingMachineInterface {
     },
   ];
 
-  get itemList(): ItemInfoType[] {
+  public get itemList(): ItemInfoType[] {
     return this._itemList;
   }
 
-  get coinCollection(): Record<Coin, number> {
+  public get coinCollection(): Record<Coin, number> {
     return this._coinCollection;
   }
 
@@ -105,11 +105,7 @@ class VendingMachine implements VendingMachineInterface {
     });
   }
 
-  validateItemInput(
-    itemInfo: ItemInfoType,
-    isAddMode: boolean = true,
-    itemIndex: number | null = null
-  ) {
+  validateItemInput(itemInfo: ItemInfoType, isAddMode = true, itemIndex: number | null = null) {
     const validationInfo: ValidationInfo = { itemInfo, isAddMode, itemIndex };
 
     this.validateTestCase(this.itemInputTestCases, validationInfo);
