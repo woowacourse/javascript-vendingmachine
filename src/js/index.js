@@ -8,4 +8,4 @@ if (manager) {
   location.href = './manager.html';
 }
 
-location.href = '/#!purchase';
+location.href = './#!purchase';

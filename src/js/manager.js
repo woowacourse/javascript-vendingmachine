@@ -32,5 +32,5 @@ function makeAnimation() {
 
 function logout() {
   localStorage.removeItem('user');
-  location.href = '/';
+  location.href = './index.html';
 }
