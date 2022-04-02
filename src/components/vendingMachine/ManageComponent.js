@@ -19,9 +19,7 @@ class ManageComponent {
   }
 
   initDOM() {
-    this.$pageTitle = this.$app.querySelector('#page-title');
-    this.$tabNav = this.$app.querySelector('#tab-nav');
-    this.$loginButton = this.$app.querySelector('#login-button');
+    /** 상위 컴포넌트가 관리하는 뷰 영역을 참조하게 된다. */
     this.$manageTab = this.$app.querySelector('#manage-product-tab');
     this.$notAccess = this.$app.querySelector('#not-access-section');
 
@@ -60,9 +58,6 @@ class ManageComponent {
 
   showSection(isLoggedIn) {
     this.$manageTab.classList.add('checked');
-    this.$pageTitle.textContent = '🍿 자판기 🍿';
-    this.$tabNav.classList.remove('hide');
-    this.$loginButton.classList.remove('hide');
 
     if (isLoggedIn) {
       this.$manageProductContainer.classList.remove('hide');

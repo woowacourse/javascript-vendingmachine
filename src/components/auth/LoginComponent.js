@@ -18,17 +18,13 @@ class LoginComponent {
   }
 
   initDOM() {
-    this.$loginForm = this.$app.querySelector('#login-form');
+    /** 상위 컴포넌트가 관리하는 뷰 영역을 참조한다. */
+    this.$notAccess = this.$app.querySelector('#not-access-section');
 
+    this.$loginForm = this.$app.querySelector('#login-form');
     this.$emailLoginInput = this.$app.querySelector('#email-login-input');
     this.$passwordLoginInput = this.$app.querySelector('#password-login-input');
-
-    this.$loginButton = this.$app.querySelector('#login-button');
     this.$joinButton = this.$app.querySelector('#join-button');
-
-    this.$pageTitle = this.$app.querySelector('#page-title');
-    this.$tabNav = this.$app.querySelector('#tab-nav');
-    this.$notAccess = this.$app.querySelector('#not-access-section');
   }
 
   bindEventHandler() {
@@ -37,10 +33,6 @@ class LoginComponent {
   }
 
   showSection(isLoggedIn) {
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
-    this.$pageTitle.textContent = '로그인';
-
     if (isLoggedIn) {
       this.$loginForm.classList.add('hide');
       this.$notAccess.classList.remove('hide');

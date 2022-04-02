@@ -10,9 +10,7 @@ class PurchaseComponent {
   }
 
   initDOM() {
-    this.$pageTitle = this.$app.querySelector('#page-title');
-    this.$tabNav = this.$app.querySelector('#tab-nav');
-    this.$loginButton = this.$app.querySelector('#login-button');
+    /** 상위 컴포넌트가 관리하는 뷰 영역을 참조하게 된다. */
     this.$purchaseTab = this.$app.querySelector('#purchase-product-tab');
     this.$notAccess = this.$app.querySelector('#not-access-section');
 
@@ -28,9 +26,7 @@ class PurchaseComponent {
 
   showSection() {
     this.$purchaseTab.classList.add('checked');
-    this.$pageTitle.textContent = '🍿 자판기 🍿';
-    this.$tabNav.classList.remove('hide');
-    this.$loginButton.classList.remove('hide');
+
     this.$purchaseProductContainer.classList.remove('hide');
     this.$notAccess.classList.add('hide');
   }

@@ -18,17 +18,14 @@ class JoinComponent {
   }
 
   initDOM() {
-    this.$joinForm = this.$app.querySelector('#join-form');
+    /** 상위 컴포넌트가 관리하는 뷰 영역을 참조한다. */
+    this.$notAccess = this.$app.querySelector('#not-access-section');
 
+    this.$joinForm = this.$app.querySelector('#join-form');
     this.$emailJoinInput = this.$app.querySelector('#email-join-input');
     this.$nameJoinInput = this.$app.querySelector('#name-join-input');
     this.$passwordJoinInput = this.$app.querySelector('#password-join-input');
     this.$passwordReenterJoinInput = this.$app.querySelector('#password-reenter-join-input');
-
-    this.$loginButton = this.$app.querySelector('#login-button');
-    this.$pageTitle = this.$app.querySelector('#page-title');
-    this.$tabNav = this.$app.querySelector('#tab-nav');
-    this.$notAccess = this.$app.querySelector('#not-access-section');
   }
 
   bindEventHandler() {
@@ -36,10 +33,6 @@ class JoinComponent {
   }
 
   showSection(isLoggedIn) {
-    this.$pageTitle.textContent = '회원가입';
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
-
     if (isLoggedIn) {
       this.$joinForm.classList.add('hide');
       this.$notAccess.classList.remove('hide');

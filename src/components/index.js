@@ -23,9 +23,6 @@ class AppComponent {
     this.initDOM();
     this.bindEventHandler();
     this.subscribeStore();
-    /** 초기렌더링 인자들 미리 받아서 지역변수화 할까?
-     *
-     */
     this.render(
       globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this),
       globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this),
@@ -34,16 +31,23 @@ class AppComponent {
 
   initDOM() {
     this.$navTab = document.querySelector('#tab-nav');
+    this.$pageTitle = document.querySelector('#page-title');
+
     this.$loginButton = document.querySelector('#login-button');
     this.$logoutButton = document.querySelector('#logout-button');
 
     this.$applicationHeader = document.querySelector('#application-header');
+
+    this.$manageTab = document.querySelector('#manage-product-tab');
+    this.$rechargeTab = document.querySelector('#recharge-change-tab');
+    this.$purchaseTab = document.querySelector('#purchase-product-tab');
   }
 
   bindEventHandler() {
     window.addEventListener('popstate', this.onPopState);
 
     this.$navTab.addEventListener('click', this.onClickNavigation);
+
     this.$loginButton.addEventListener('click', this.onClickLoginOrEditButton);
     this.$applicationHeader.addEventListener('click', this.onClickApplicationHeader);
     this.$logoutButton.addEventListener('click', this.onClickLogout);
@@ -63,11 +67,42 @@ class AppComponent {
   render(authInformation, currentRouteName) {
     const { loggedUser, isLoggedIn } = authInformation;
 
+    this.#renderHeaderSection(currentRouteName);
+
     this.#renderLogoutButton(isLoggedIn);
 
     this.#renderChildComponents(isLoggedIn, currentRouteName);
 
     this.#renderLoginOrProfileButton(loggedUser);
+  }
+
+  /** loginButton, navTab, pageTitle 등 여러 페이지가 공유하는 DOM을 각 페이지에 맞게 조작하여 렌더링한다. */
+  #renderHeaderSection(currentRouteName) {
+    if (
+      currentRouteName === ROUTE_NAME.MANAGE ||
+      currentRouteName === ROUTE_NAME.RECHARGE ||
+      currentRouteName === ROUTE_NAME.PURCHASE
+    ) {
+      this.$loginButton.classList.remove('hide');
+      this.$navTab.classList.remove('hide');
+      this.$pageTitle.textContent = '🍿 자판기 🍿';
+      return;
+    }
+
+    this.$loginButton.classList.add('hide');
+    this.$navTab.classList.add('hide');
+
+    if (currentRouteName === ROUTE_NAME.LOGIN) {
+      this.$pageTitle.textContent = '로그인';
+    }
+
+    if (currentRouteName === ROUTE_NAME.JOIN) {
+      this.$pageTitle.textContent = '회원가입';
+    }
+
+    if (currentRouteName === ROUTE_NAME.EDIT) {
+      this.$pageTitle.textContent = '정보수정';
+    }
   }
 
   #renderLogoutButton(isLoggedIn) {

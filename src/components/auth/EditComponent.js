@@ -20,12 +20,10 @@ class EditComponent {
   }
 
   initDOM() {
-    this.$editForm = this.$app.querySelector('#edit-form');
-    this.$loginButton = this.$app.querySelector('#login-button');
-    this.$pageTitle = this.$app.querySelector('#page-title');
-    this.$tabNav = this.$app.querySelector('#tab-nav');
+    /** 상위 컴포넌트가 관리하는 뷰 영역을 참조한다. */
     this.$notAccess = this.$app.querySelector('#not-access-section');
 
+    this.$editForm = this.$app.querySelector('#edit-form');
     this.$emailEditInput = this.$app.querySelector('#email-edit-input');
     this.$nameEditInput = this.$app.querySelector('#name-edit-input');
     this.$passwordEditInput = this.$app.querySelector('#password-edit-input');
@@ -59,10 +57,6 @@ class EditComponent {
   }
 
   showSection(isLoggedIn) {
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
-    this.$pageTitle.textContent = '정보수정';
-
     if (isLoggedIn) {
       this.$editForm.classList.remove('hide');
       this.$notAccess.classList.add('hide');
