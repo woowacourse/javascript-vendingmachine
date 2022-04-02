@@ -82,14 +82,10 @@ export default class VendingMachine {
   }
 
   purchaseProduct(productId) {
-    if (!this.#productList[productId]) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
-    }
-    const { name, price, stock } = this.#productList[productId];
+    const product = this.#productList[productId];
+    this.#validatePurchase(product);
 
-    if (price > this.#moneyInsert) {
-      throw new Error(ERROR_MESSAGE.PURCHASE.INSUFFICIENT_MONEY);
-    }
+    const { name, price, stock } = product;
 
     this.#moneyInsert -= price;
     if (stock === 1) {
@@ -99,6 +95,14 @@ export default class VendingMachine {
 
     const newData: ProductData = { name, price, stock: stock - 1 };
     this.#productList[productId].modify(newData);
+  }
+
+  #validatePurchase(product) {
+    if (!product) throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
+
+    if (product.price > this.#moneyInsert) {
+      throw new Error(ERROR_MESSAGE.PURCHASE.INSUFFICIENT_MONEY);
+    }
   }
 
   returnChange() {
