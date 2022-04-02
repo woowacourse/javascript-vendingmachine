@@ -2,17 +2,66 @@ const loginTemplate = document.createElement('template');
 
 loginTemplate.innerHTML = `
   <style>
+    section {
+      font-family: 'Roboto', sans-serif;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      background: var(--primary);
+      border-radius: 4px;
+      height: 36px;
+      border-style: none;
+      color: var(--white);
+      margin: 20px 0;
+    }
+
+    button:hover {
+      background: var(--primary-darken);
+      cursor: pointer;
+    }
+
+    input {
+      padding: 0 8px;
+      border: 1px solid var(--secondary);
+      box-sizing: border-box;
+      border-radius: 4px;
+      height: 36px;
+      line-height: 36px;
+      font-weight: 400;
+      font-size: 16px;
+      margin: 7px 0;
+    }
+
+    input::placeholder {
+      color: var(--secondary-darken);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    .signup-link {
+
+    }
   </style>
 
   <section>
-    <h2 hidden>로그인</h2>
+    <h1>로그인</h1>
     <form>
       <label>이메일</label>
-      <input type="email" />
+      <input type="email" placeholder="woowacourse@gmail.com" />
       <label>비밀번호</label>
-      <input type="password" />
+      <input type="password" placeholder="비밀번호를 입력해주세요" />
       <button type="submit">로그인</button>
     </form>
+    <span>아직 회원이 아닌가요?<a href="/">회원가입</a></span>
   </section>
 `;
 
