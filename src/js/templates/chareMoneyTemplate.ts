@@ -13,7 +13,7 @@ export const sectionTemplate = {
         <button class="submit-button">충전</button>
        </div>
       </form>
-      <p>현재 보유 금액: <span id="current-money">${currentMoney}</span>원</p>
+      <p>현재 보유 금액: <span id="current-charge-money">${currentMoney}</span>원</p>
     </section>
     `;
   },

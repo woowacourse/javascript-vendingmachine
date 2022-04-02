@@ -41,7 +41,7 @@ export const validateInputMoney = (inputMoney: number) => {
   if (inputMoney <= MONEY.MIN) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   }
-  if (inputMoney > MONEY.MAX) {
+  if (inputMoney > MONEY.CHARGE_MAX) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_MAX);
   }
   if (inputMoney % MONEY.UNIT !== 0) {

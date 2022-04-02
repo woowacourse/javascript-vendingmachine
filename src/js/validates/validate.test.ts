@@ -114,7 +114,7 @@ describe('입력된 충전할 돈이 주어지면', () => {
   });
 
   test('돈이 100,000보다 크다면 에러를 throw한다.', () => {
-    const money = MONEY.MAX + 1;
+    const money = MONEY.CHARGE_MAX + 1;
 
     expect(() => {
       validateInputMoney(money);

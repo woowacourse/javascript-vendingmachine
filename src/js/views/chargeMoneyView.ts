@@ -39,7 +39,7 @@ export default class ChargeMoneyView {
   }
 
   private repaintCurrentMoney(coinsSum: number) {
-    $(SELECTOR.ID.CURRENT_MONEY).textContent = coinsSum;
+    $(SELECTOR.ID.CURRENT_CHARGE_MONEY).textContent = coinsSum;
   }
 
   private repaintCoinsTable(coins: CoinsType) {

@@ -22,6 +22,7 @@ export const COINS = {
 
 export const MONEY = {
   MIN: 0,
-  MAX: 100000,
+  CHARGE_MAX: 100000,
+  INPUT_MAX: 10000,
   UNIT: 10,
 };

@@ -3,7 +3,7 @@ export const SELECTOR = {
     APP: '#app',
     CONTENT: '#content',
     CHARGE_MONEY_FORM: '#charge-money-form',
-    CURRENT_MONEY: '#current-money',
+    CURRENT_CHARGE_MONEY: '#current-charge-money',
     ADD_ITEM_NAME: '#add-item-name',
     ADD_ITEM_PRICE: '#add-item-price',
     ADD_ITEM_QUANTITY: '#add-item-quantity',
