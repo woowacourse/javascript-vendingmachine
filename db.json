@@ -2,9 +2,15 @@
   "users": [
     {
       "email": "hwangstar156@gmail.com",
-      "password": "$2a$10$M0l2uxmoDn1.f.qfi6nuvuyQ7zyW.1/bC5L2FPwDuiP/t1CDppdaC",
-      "name": "황정민",
+      "name": "밍밍",
+      "password": "$2a$10$OYHHFqDLnc49l/KpaDZdCue3ynHVcCtG3Y1D.kmBosH5jyQijj/dC",
       "id": 1
+    },
+    {
+      "email": "hwangstar1@gmail.com",
+      "name": "스밍2",
+      "password": "$2a$10$sbClLCXniKxJooPvSt7sdOq1YFJzxNYCugYZaCpgG4x61HZzXg1y2",
+      "id": 2
     }
   ]
 }

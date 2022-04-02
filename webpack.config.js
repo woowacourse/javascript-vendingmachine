@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     index: "./src/index.ts",
     login: "./src/login.js",
+    user: "./src/user.js",
     signup: "./src/signup.js",
   },
   resolve: {
@@ -63,6 +64,13 @@ module.exports = {
       filename: "login.html",
       chunks: ["login"],
       template: "./login.html",
+    }),
+    new HtmlWebpackPlugin({
+      title: "user",
+      hash: true,
+      filename: "user.html",
+      chunks: ["user"],
+      template: "./user.html",
     }),
     new HtmlWebpackPlugin({
       title: "signup",

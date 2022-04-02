@@ -46,3 +46,8 @@ label {
   border: 1px solid var(--input-border-color);
   margin-bottom: 23px;
 }
+
+.input:disabled {
+  background: #e0e0e0;
+  color: #8b8b8b;
+}
