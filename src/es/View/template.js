@@ -56,15 +56,15 @@ export const template = {
   </section>
   `,
   productPurchasePage: `
-  <section id="add-amount-for-purchase-form-section" class="form-section">
-    <form id="add-amount-for-purchase-form">
-        <label form="add-amount-for-purchase-form">상품을 구매할 금액을 투입해주세요</label>
-        <div class="add-amount-for-purchase-wrap">
-            <input type="number" name="add-amount-for-purchase" placeholder="금액" form="add-amount-for-purchase-form" required>
-            <button id="add-amount-for-purchase-submit-button" class="button accent">투입</button>
+  <section id="customer-charge-form-section" class="form-section">
+    <form id="customer-charge-form">
+        <label form="customer-charge-form">상품을 구매할 금액을 투입해주세요</label>
+        <div class="customer-charge-wrap">
+            <input type="number" name="customerCharge" placeholder="금액" form="customer-charge-form" required>
+            <button id="customer-charge-submit-button" class="button accent">투입</button>
         </div>
     </form>
-    <p class="amount-for-purchase">투입한 금액: <span id="total-amount-for-purchase">0원</span></p>
+    <p>투입한 금액: <span id="total-customer-charge">0원</span></p>
   </section>
   <section id="product-table-section" class="table-section">
   <table id="product-table" class="table">
