@@ -56,6 +56,9 @@ export const ERROR_MESSAGE = {
   },
 };
 
+export const NOT_ENOUGH_CHANGE_MESSAGE =
+  '자판기가 보유한 잔돈이 부족합니다. 관리자에게 문의해주세요.';
+
 export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';
 
 export const MONEY_NAME_STRING = {

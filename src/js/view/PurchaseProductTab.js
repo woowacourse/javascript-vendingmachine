@@ -1,3 +1,4 @@
+import { NOT_ENOUGH_CHANGE_MESSAGE } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
 import { purchaseProductTableRowTemplate, purchaseTabTemplate } from './template';
 
@@ -113,6 +114,10 @@ export default class PurchaseProductTab {
       });
 
       this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
+
+      if (this.#vendingMachine.moneyInsert !== '0') {
+        this.#snackbar.addToMessageList(NOT_ENOUGH_CHANGE_MESSAGE);
+      }
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
