@@ -1,5 +1,7 @@
-const signupTemplate = document.createElement('template');
-signupTemplate.innerHTML = `
+// TODO: 회원가입 컴포넌트와 동일함. 회원정보수정 기능으로 변경할 것
+
+const profileEditTemplate = document.createElement('template');
+profileEditTemplate.innerHTML = `
   <style>
     section {
       font-family: 'Roboto', sans-serif;
@@ -48,7 +50,7 @@ signupTemplate.innerHTML = `
   </style>
 
   <section>
-    <h1>회원가입</h1>
+    <h1>회원 정보 수정</h1>
     <form>
       <label>이메일</label>
       <input type="email" placeholder="이메일 주소를 입력해주세요" />
@@ -60,14 +62,20 @@ signupTemplate.innerHTML = `
       <input type="password" placeholder="비밀번호를 입력해주세요" />
       <button type="submit">확인</button>
     </form>
+    <h3>👋🏼 <span id="welcome-name"></span>님 안녕하세요.</h3>
+    <h4>이름</h4>
+    <p id="name">마르코</p>
+    <h4>이메일</h4>
+    <p id="email">nextjws@gmail.com</p>
+    <button id="logout-button">로그아웃</button>
   </section>
 `;
 
-class Signup extends HTMLElement {
+class ProfileEdit extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(signupTemplate.content.cloneNode(true));
+    this.shadowRoot.appendChild(profileEditTemplate.content.cloneNode(true));
   }
 
   connectedCallback() {
@@ -120,4 +128,4 @@ class Signup extends HTMLElement {
   };
 }
 
-customElements.define('sign-up', Signup);
+customElements.define('profile-edit', ProfileEdit);

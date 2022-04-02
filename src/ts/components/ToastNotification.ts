@@ -75,7 +75,7 @@ template.innerHTML = `
       }
     }
   </style>
-  <div class="toast toast--visible">
+  <div class="toast">
   </div>
 `;
 

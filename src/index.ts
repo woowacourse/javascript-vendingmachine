@@ -6,7 +6,8 @@ import Router from './ts/router';
 import './ts/components/ToastNotification';
 import './ts/components/Signup';
 import './ts/components/Login';
-import './ts/components/Profile';
+import './ts/components/ProfileEdit';
+import './ts/components/UserMenu';
 
 const vendingMachine = new VendingMachine();
 const view = new View(vendingMachine);

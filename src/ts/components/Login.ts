@@ -59,7 +59,7 @@ loginTemplate.innerHTML = `
       <input type="email" placeholder="woowacourse@gmail.com" />
       <label>비밀번호</label>
       <input type="password" placeholder="비밀번호를 입력해주세요" />
-      <button type="submit">로그인</button>
+      <button type="submit">확인</button>
     </form>
     <span>아직 회원이 아닌가요?<a href="/">회원가입</a></span>
   </section>
