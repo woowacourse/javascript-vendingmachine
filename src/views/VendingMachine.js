@@ -7,8 +7,25 @@ import './components/NavBar';
 
 export default class VendingMachine extends Component {
   template() {
+    const { isloggedin, username } = this.props;
+    const login = JSON.parse(isloggedin);
+
+    if (!login) {
+      return `
+      <a href="#user-login">login</a>
+      <header>
+        <h1 class="title">🍿 자판기 🍿</h1>
+      </header>
+      <item-purchase class="page" path="#item-purchase"></item-purchase>
+      `;
+    }
+
     return `
-      <a id="login-button" href="#user-login">로그인</a>
+      <button class="drop-button">${username[0]}</button>
+      <div id="user-dropdown" class="dropdown">
+        <a href="#">회원정보 수정</a>
+        <a href="/" id="logout">로그아웃</a>
+      </div>
       <header>
         <h1 class="title">🍿 자판기 🍿</h1>
       </header>
@@ -22,6 +39,12 @@ export default class VendingMachine extends Component {
         </page-router>
       </div>
     `;
+  }
+
+  setEvent() {
+    this.addEvent('click', '#logout', () => {
+      localStorage.removeItem('user');
+    });
   }
 }
 

@@ -1,8 +1,16 @@
 import Component from '../../core/Component';
 import { registerUser } from '../../auth/register';
+import { setData } from '../../utils/commons';
 
 class UserRegisterPage extends Component {
   template() {
+    const { isloggedin } = this.props;
+    const login = JSON.parse(isloggedin);
+
+    if (login) {
+      return `<p>이미 로그인 하셨습니다</p>`;
+    }
+
     return `
       <div>
         <form id="register-form">
@@ -44,6 +52,10 @@ class UserRegisterPage extends Component {
         return;
       }
 
+      setData('user', {
+        accessToken: response.accessToken,
+        id: response.user.id,
+      });
       window.location.href = 'http://localhost:9000/';
     });
   }
