@@ -4,11 +4,11 @@ const loginContainer = () => {
         <form id="login-form" class="account-form">
             <div class="login-block">
                 <label>이메일</label>
-                <input type="text" class="login-input" placeholder="woowacourse@gmail.com" required/>
+                <input type="email" id="login-email" class="login-input" placeholder="woowacourse@gmail.com" required/>
             </div>
             <div class="login-block">
                 <label>비밀번호</label>
-                <input type="text" class="login-input" placeholder="비밀번호를 입력해주세요" required/>
+                <input type="text" id="login-password" class="login-input" placeholder="비밀번호를 입력해주세요" required/>
             </div>
             <input type="submit" id="login-submit" value="확인"/>
         </form>

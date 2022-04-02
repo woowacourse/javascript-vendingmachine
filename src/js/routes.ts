@@ -11,6 +11,24 @@ const clearPurchaseBody = () => {
   $contentsContainer.replaceChildren();
 };
 
+const isLogged = () => {
+  return localStorage.getItem('id');
+};
+
+const activeLogin = () => {
+  const accountNavContainer = document.querySelector('#account-nav-container');
+  const headerNav = document.querySelector('#header-nav');
+
+  if (isLogged()) {
+    accountNavContainer.classList.add('hide');
+    headerNav.classList.remove('hide');
+    return;
+  }
+
+  accountNavContainer.classList.remove('hide');
+  headerNav.classList.add('hide');
+};
+
 const router = () => {
   const productManage = new ProductManage();
   const changeAdd = new ChangeAdd();
@@ -21,6 +39,8 @@ const router = () => {
   return () => {
     const { hash } = window.location;
     const isSamePage = prevPath === hash;
+
+    activeLogin();
 
     if (isSamePage) return;
 
