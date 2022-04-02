@@ -1,4 +1,4 @@
-import { AppState, Tab } from './types';
+import { AppState } from './types';
 import { convertToLocaleString } from './utils';
 
 export const ACTION = {
@@ -8,12 +8,14 @@ export const ACTION = {
   CHANGE_EDIT_MODE: 'change-edit-mode',
   CHARGE_COINS: 'charge-coins',
   CHANGE_ACTIVE_TAB: 'change-active-tab',
+  INSERT_MONEY: 'insert-money',
 };
 
 export const COIN_UNITS = [500, 100, 50, 10];
 
 export const initialState: AppState = {
   chargedMoney: 0,
+  insertedMoney: 0,
   chargedCoins: {
     500: 0,
     100: 0,

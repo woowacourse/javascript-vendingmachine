@@ -9,6 +9,7 @@ export type Action = {
 
 export type AppState = {
   chargedMoney: number;
+  insertedMoney: number;
   chargedCoins: CoinRecord;
   productList: Array<ProductItem>;
 };

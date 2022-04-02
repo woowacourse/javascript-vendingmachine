@@ -1,6 +1,6 @@
 import { ACTION, COIN_UNITS } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
-import { convertArrToObj, deepCopy, shuffle } from '../utils';
+import { convertArrToObj, convertToInteger, deepCopy, shuffle } from '../utils';
 
 function exchangeMoneyToCoin(money: number) {
   const coins = convertArrToObj(COIN_UNITS, 0);
@@ -53,8 +53,11 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.chargedMoney += payload;
       break;
     }
+    case ACTION.INSERT_MONEY: {
+      newState.insertedMoney += convertToInteger(payload);
+      break;
+    }
   }
-
   return newState;
 };
 

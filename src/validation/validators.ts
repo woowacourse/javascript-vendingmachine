@@ -68,3 +68,20 @@ export const validateChargeCoins = (money: string, chargedMoney: number) => {
     return new ValidationResult(true, ERROR_MESSAGE.OVER_MAX_CHARGE_MONEY);
   return new ValidationResult(false);
 };
+
+export const validateInsertMoney = (money: string, totalMoney: number) => {
+  if (!money) return new ValidationResult(true, '투입하신 금액이 비어있습니다.');
+
+  if (!isInteger(money)) return new ValidationResult(true, '투입하신 금액은 숫자이어야 합니다.');
+
+  const moneyNum = convertToInteger(money, 0);
+  if (moneyNum <= 0) return new ValidationResult(true, '투입하신 금액은 양수이어야 합니다.');
+
+  if (moneyNum % MIN_COIN_UNIT)
+    return new ValidationResult(true, '투입하신 금액은 10으로 나누어 떨어져야 합니다.');
+
+  if (moneyNum + totalMoney > 10000)
+    return new ValidationResult(true, '금액은 최대 10,000원까지만 투입 가능합니다.');
+
+  return new ValidationResult(false);
+};

@@ -11,7 +11,6 @@ class PurchaseProductPage extends Component {
       <purchase-product-form class="mb-12"></purchase-product-form>
       <purchase-product-inventory class="mb-15"></purchase-product-inventory>
       <purchase-return-inventory class="mb-4"></purchase-return-inventory>
-
       `;
   }
 
