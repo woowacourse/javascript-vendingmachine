@@ -9,6 +9,7 @@ module.exports = {
     manager: './src/js/manager.js',
     login: './src/js/login.js',
     signup: './src/js/signup/signup.js',
+    modify: './src/js/signup/modify.js',
   },
   resolve: {
     extensions: ['.js', '.css', '.ts'],
@@ -79,6 +80,12 @@ module.exports = {
       hash: true,
       chunks: ['signup'],
       template: './signup.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'modify.html',
+      hash: true,
+      chunks: ['modify'],
+      template: './modify.html',
     }),
   ],
 };
