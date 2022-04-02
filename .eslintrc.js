@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'cypress/globals': true,
   },
   settings: {
     'import/resolver': {
@@ -21,7 +22,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'cypress'],
   rules: {
     // 'max-lines-per-function': ['error', 20],
     'no-var': 'error',
