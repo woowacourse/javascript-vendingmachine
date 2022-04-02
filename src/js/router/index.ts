@@ -8,9 +8,7 @@ import routes from './routes';
 //   (): void;
 // }
 
-// const isLogged = () => {
-//   return !!localStorage.getItem('id');
-// };
+// const isLogged = () => !!localStorage.getItem('id');
 
 // const activeLogin = () => {
 //   // const accountNavContainer = document.querySelector('#account-nav-container');
@@ -31,13 +29,23 @@ const useRouter = () => {
     $contentsContainer.replaceChildren();
   };
 
+  const isLogged = () => !!localStorage.getItem('id');
+
+  const activeLogin = () => {
+    // const accountNavContainer = document.querySelector('#account-nav-container');
+    const headerNav = document.querySelector('#header-nav');
+    console.log('----------------', isLogged());
+    // accountNavContainer.classList.toggle('hide');
+    headerNav.classList.toggle('hide', !isLogged());
+  };
+
   return {
     to: (_path: string) => {
       const { hash, pathname } = window.location;
       const { path, title, page } = routes[_path];
       const isSamePage = prevPath === _path;
 
-      // activeLogin();
+      activeLogin();
 
       if (isSamePage) {
         console.log('같은 페이지');
