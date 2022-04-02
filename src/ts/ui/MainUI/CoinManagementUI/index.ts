@@ -1,7 +1,7 @@
-import { $, replaceHTML } from '../../utils/dom';
+import { $, replaceHTML } from '../../../utils/dom';
 import CoinHoldingsUI from './CoinHoldingsUI';
 import CoinChargeUI from './CoinChargeUI';
-import { viewPainter } from '../ViewPainter';
+import { viewPainter } from '../../ViewPainter';
 
 export default class CoinManagementUI {
   private coinDomain;

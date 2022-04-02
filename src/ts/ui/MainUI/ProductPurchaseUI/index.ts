@@ -1,5 +1,5 @@
-import { $, replaceHTML } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 import ProductStatusUI from './ProductStatusUI';
 import PurchaseCashChargeUI from './PurchaseCashChargeUI';
 import ReturnCoinUI from './ReturnCoinUI';

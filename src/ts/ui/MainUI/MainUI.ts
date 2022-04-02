@@ -1,0 +1,45 @@
+import CoinManagementDomain from '../../domain/CoinManagementDomain/CoinManagement';
+import ProductManagementDomain from '../../domain/ProductManagementDomain/ProductManagement';
+import PurchaseCashDomain from '../../domain/PurchaseCashDomain/PurchaseCash';
+import { $ } from '../../utils/dom';
+import CoinManagementUI from './CoinManagementUI';
+import ProductManagementUI from './ProductManagementUI';
+import ProductPurchaseUI from './ProductPurchaseUI';
+
+export default class MainUI {
+  private readonly $main = $('#main');
+  private readonly $signIn = $('#sign-in');
+  private readonly $signUp = $('#sign-up');
+  private readonly productDomain = new ProductManagementDomain();
+  private readonly coinDomain = new CoinManagementDomain();
+  private readonly purchaseCashDomain = new PurchaseCashDomain();
+  private readonly productManagementUI = new ProductManagementUI(
+    this.productDomain,
+  );
+  private readonly coinManagementUI = new CoinManagementUI(this.coinDomain);
+  private readonly productPurchaseUI = new ProductPurchaseUI(
+    this.productDomain,
+    this.coinDomain,
+    this.purchaseCashDomain,
+  );
+
+  renderInitPage() {
+    this.$main.classList.remove('hide');
+    this.$signIn.classList.add('hide');
+    this.$signUp.classList.add('hide');
+
+    this.renderProductManagementUI();
+  }
+
+  renderProductManagementUI() {
+    this.productManagementUI.render();
+  }
+
+  renderCoinManagementUI() {
+    this.coinManagementUI.render();
+  }
+
+  renderProductPurchaseUI() {
+    this.productPurchaseUI.render();
+  }
+}

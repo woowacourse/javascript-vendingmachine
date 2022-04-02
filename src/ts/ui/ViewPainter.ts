@@ -1,7 +1,12 @@
 class ViewPainter {
+  #mainUI;
   #productInventoryUI;
   #coinHoldingsUI;
   #purchaseCashChargeUI;
+
+  set mainUI(mainUI) {
+    this.#mainUI = mainUI;
+  }
 
   set productInventoryUI(productInventoryUI) {
     this.#productInventoryUI = productInventoryUI;
@@ -13,6 +18,10 @@ class ViewPainter {
 
   set purchaseCashChargeUI(purchaseCashChargeUI) {
     this.#purchaseCashChargeUI = purchaseCashChargeUI;
+  }
+
+  renderMainUI() {
+    this.#mainUI.renderInitPage();
   }
 
   renderProducts() {

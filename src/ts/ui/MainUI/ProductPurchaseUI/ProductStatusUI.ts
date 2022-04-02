@@ -1,7 +1,7 @@
-import { MESSAGE } from '../../constants';
-import { showSnackbar } from '../../utils';
-import { $, replaceHTML } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import { MESSAGE } from '../../../constants';
+import { showSnackbar } from '../../../utils';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 
 export default class ProductStatusUI {
   private $container: HTMLElement;

@@ -1,5 +1,5 @@
-import { $, replaceHTML } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
 

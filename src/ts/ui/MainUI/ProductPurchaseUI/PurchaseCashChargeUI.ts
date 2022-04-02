@@ -1,6 +1,6 @@
-import { MESSAGE } from '../../constants';
-import { showSnackbar } from '../../utils';
-import { $ } from '../../utils/dom';
+import { MESSAGE } from '../../../constants';
+import { showSnackbar } from '../../../utils';
+import { $ } from '../../../utils/dom';
 
 export default class PurchaseCashChargeUI {
   private purchaseCashDomain;

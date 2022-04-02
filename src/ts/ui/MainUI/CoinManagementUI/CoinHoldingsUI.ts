@@ -1,4 +1,4 @@
-import { $, replaceHTML } from '../../utils/dom';
+import { $, replaceHTML } from '../../../utils/dom';
 
 export default class CoinHoldingsUI {
   private coinDomain;
