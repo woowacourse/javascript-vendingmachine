@@ -71,7 +71,7 @@ class ItemManageTab extends VendingMachineTab {
       itemInfoInput.value = '';
     });
 
-    const itemNameInput = this.itemInfoInputs[0] as HTMLInputElement;
+    const itemNameInput = this.itemInfoInputs[0];
     itemNameInput.focus();
   };
 
@@ -121,7 +121,7 @@ class ItemManageTab extends VendingMachineTab {
       targetItem
     );
 
-    (itemInfoInputCellList[0] as HTMLInputElement).focus();
+    itemInfoInputCellList[0].focus();
     this.toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
   }
 
@@ -167,9 +167,9 @@ class ItemManageTab extends VendingMachineTab {
     itemButtonCellList.forEach((itemButtonCell) => itemButtonCell.classList.toggle(CLASS.HIDE));
   }
 
-  private convertToItemInfoObject(itemInfoInputCellArray: Element[]): ItemInfoType {
+  private convertToItemInfoObject(itemInfoInputCellArray: HTMLInputElement[]): ItemInfoType {
     const [itemName, itemPrice, itemQuantity] = itemInfoInputCellArray.map(
-      (itemInfoInputCell) => (itemInfoInputCell as HTMLInputElement).value
+      (itemInfoInputCell) => itemInfoInputCell.value
     );
 
     return {
