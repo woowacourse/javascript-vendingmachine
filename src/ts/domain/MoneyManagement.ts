@@ -1,4 +1,4 @@
-import { coinType } from '../constants';
+import { coinType, MESSAGE } from '../constants';
 import type { Coins, CoinUnionType } from './types';
 
 export default class MoneyManagement {
@@ -38,6 +38,8 @@ export default class MoneyManagement {
       returnableCoins[type] += returnableCoin;
       this.#money -= returnableCoin * type;
     });
+
+    if (this.#money > 0) alert(MESSAGE.NOT_ENOUGH_COINS);
 
     return returnableCoins;
   }
