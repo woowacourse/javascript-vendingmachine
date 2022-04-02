@@ -5,8 +5,6 @@ const loginForm = $('#login-form');
 const emailInput = $('#email-input');
 const passwordInput = $('#password-input');
 
-// { accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC50IiwiaWF0IjoxNjQ4NTUxOTI1LCJleHAiOjE2NDg1NTU1MjUsInN1YiI6IjUifQ.26PM49a7CbUPOz9fVu1nz7Qcc6svWjvM8Qwll4P_Gsk" user: {email: "test@test.t", id: 5} }
-
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const loginEmailValue = emailInput.value;
@@ -23,7 +21,6 @@ loginForm.addEventListener('submit', async (e) => {
     },
   });
 
-  // accessToken -> localStorage storage
   const dataResult = await response.json();
   localStorage.setItem('user', JSON.stringify(dataResult));
 
