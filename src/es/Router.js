@@ -15,10 +15,11 @@ export default class Router {
   setEvents() {
     $('#app').addEventListener('click', event => {
       const { page } = event.target.dataset;
-      if (!page) {
+      if (page === '') {
         this.pushState('?');
         return;
       }
+      if (!page) return;
 
       const params = new URLSearchParams({ page });
       this.pushState(`?${params.toString()}`);
