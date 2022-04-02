@@ -66,6 +66,12 @@ button:hover {
   margin-bottom: 20px;
 }
 
+.sign-in-submit-button {
+  width: 100% !important;
+  height: 36px;
+  margin-bottom: 20px;
+}
+
 a.tab-button {
   width: 100%;
   background-color: var(--button-gray-background-color);

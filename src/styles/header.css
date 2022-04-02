@@ -35,7 +35,16 @@ header {
   display: flex;
   flex-direction: column;
 
+  visibility: hidden;
+  transform: translate3d(0, 100%, 0);
+
   margin-top: 10px;
+}
+
+#user-href-container.is-active {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition: transform 300ms ease-in-out;
 }
 
 #edit-user-href {

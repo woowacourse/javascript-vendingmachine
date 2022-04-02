@@ -17,6 +17,8 @@ class HeaderComponent {
     this.$loginUserHref = this.$parent.querySelector('.login-user-href');
     this.$userProfileContainer = this.$parent.querySelector('.user-profile-container');
     this.$logoutButton = this.$parent.querySelector('#logout-button');
+    this.$userProfile = this.$parent.querySelector('#user-profile');
+    this.$userHref = this.$parent.querySelector('#user-href-container');
   }
   generateTemplate() {
     return `<header>
@@ -57,16 +59,21 @@ class HeaderComponent {
 
   bindEventListener() {
     this.$logoutButton.addEventListener('click', this.onLogOutButtonClick);
+    this.$userProfile.addEventListener('click', this.onUserProfileClick);
   }
 
   onLogOutButtonClick = e => {
-    console.log(e);
     e.preventDefault();
 
     AuthStore.mutateState({
       actionType: 'logout',
       payload: '',
     });
+  };
+
+  onUserProfileClick = e => {
+    e.preventDefault();
+    this.$userHref.classList.toggle('is-active');
   };
 }
 

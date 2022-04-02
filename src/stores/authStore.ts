@@ -65,7 +65,9 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
-      window.location.href = 'http://localhost:9000/#';
+
+      window.location.replace('http://localhost:9000/#');
+      window.location.reload();
     } catch ({ message }) {
       alert(message);
     }
@@ -74,6 +76,7 @@ class AuthStore implements AuthStoreInterface {
   logOut() {
     localStorage.clear();
     window.location.href = 'http://localhost:9000/#';
+    window.location.reload();
   }
 }
 
