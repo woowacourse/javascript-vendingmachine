@@ -34,6 +34,8 @@ class AppComponent {
   initDOM() {
     this.$navTab = document.querySelector('#tab-nav');
     this.$loginButton = document.querySelector('#login-button');
+
+    this.$applicationHeader = document.querySelector('#application-header');
   }
 
   bindEventHandler() {
@@ -41,6 +43,7 @@ class AppComponent {
 
     this.$navTab.addEventListener('click', this.onClickNavigation);
     this.$loginButton.addEventListener('click', this.onClickLoginOrEditButton);
+    this.$applicationHeader.addEventListener('click', this.onClickApplicationHeader);
   }
 
   subscribeStore() {
@@ -52,12 +55,6 @@ class AppComponent {
     const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
     const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
     this.render(authInformation, currentRouteName);
-    // if (stateKey === GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME) {
-    //   this.renderCurrentPage(globalStore.getState(stateKey, this));
-    // }
-    // if (stateKey === GLOBAL_STATE_KEYS.AUTH_INFORMATION) {
-    //   this.renderLoginButton(globalStore.getState(stateKey, this));
-    // }
   }
 
   render(authInformation, currentRouteName) {
@@ -79,27 +76,6 @@ class AppComponent {
     this.$loginButton.classList.remove('profile');
     this.$loginButton.textContent = '로그인';
   }
-
-  // renderCurrentPage(currentRouteName) {
-  //   Object.entries(this.routerComponent).forEach(([routeName, component]) => {
-  //     if (routeName === currentRouteName) {
-  //       component.showSection(currentRouteName);
-  //       return;
-  //     }
-  //     component.hideSection();
-  //   });
-  // }
-
-  // renderLoginButton(authInformation) {
-  //   const { loggedUser } = authInformation;
-  //   if (loggedUser) {
-  //     this.$loginButton.classList.add('profile');
-  //     this.$loginButton.textContent = loggedUser.name.slice(0, 1);
-  //     return;
-  //   }
-  //   this.$loginButton.classList.remove('profile');
-  //   this.$loginButton.textContent = '로그인';
-  // }
 
   onClickNavigation = e => {
     const {
@@ -165,6 +141,17 @@ class AppComponent {
     globalStore.mutateState({
       actionType: ACTION_TYPES.CHANGE_ROUTE,
       payload: { currentRouteName: state?.path ?? ROUTE_NAME.MANAGE },
+      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+    });
+  };
+
+  onClickApplicationHeader = () => {
+    router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+    globalStore.mutateState({
+      actionType: ACTION_TYPES.CHANGE_ROUTE,
+      payload: {
+        currentRouteName: ROUTE_NAME.MANAGE,
+      },
       stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
     });
   };

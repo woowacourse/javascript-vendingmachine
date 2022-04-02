@@ -1,11 +1,13 @@
 @import url('./color.css');
+
 a {
   color: #3581d7;
   cursor: pointer;
 }
 
 body {
-  padding: 64px 0;
+  margin: 0;
+  padding: 0;
   background-color: var(--body-background-color);
 }
 
