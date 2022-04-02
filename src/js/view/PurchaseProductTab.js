@@ -77,20 +77,32 @@ export default class PurchaseProductTab {
     try {
       this.#vendingMachine.purchaseProduct(id);
       this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
-      stock.textContent = this.#vendingMachine.productList[id].stock;
+
+      const updatedProduct = this.#vendingMachine.productList[id];
+      if (!updatedProduct) {
+        targetTableRow.remove();
+        return;
+      }
+      stock.textContent = updatedProduct.stock;
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
   };
 
   #handleChangeReturn = () => {
-    const returnCoins = this.#vendingMachine.returnChange();
+    try {
+      const returnCoins = this.#vendingMachine.returnChange();
 
-    returnCoins.forEach(({ name, count }) => {
-      selectDom(
-        `td[data-coin-name="${name}"]`,
-        this.#coinStatusTable
-      ).textContent = `${count}개`;
-    });
+      returnCoins.forEach(({ name, count }) => {
+        selectDom(
+          `td[data-coin-name="${name}"]`,
+          this.#coinStatusTable
+        ).textContent = `${count}개`;
+      });
+
+      this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
+    } catch ({ message }) {
+      this.#snackbar.addToMessageList(message);
+    }
   };
 }

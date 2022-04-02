@@ -57,7 +57,7 @@ export const addChangeTabTemplate = /* html */ `
     </div>
     <label for="change">자판기가 보유할 금액을 입력해주세요</label>
     <div>
-      <input type="number" id="money-input" placeholder="금액" name="change"/>
+      <input type="number" id="money-input" placeholder="금액" name="change" min="10" max="100000" step="10" required/>
       <button type="submit" class="submit-button">충전</button>
     </div>
   </form>
@@ -134,7 +134,7 @@ export const purchaseTabTemplate = /* html */ `
     </div>
     <label for="money-insert">상품을 구매할 금액을 입력해주세요</label>
     <div>
-      <input type="number" id="money-insert-input" placeholder="금액" name="money-insert"/>
+      <input type="number" id="money-insert-input" placeholder="금액" name="money-insert" min="10" max="10000" step="10" required/>
       <button type="submit" class="submit-button">투입</button>
     </div>
   </form>
