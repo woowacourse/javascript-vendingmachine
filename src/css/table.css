@@ -1,0 +1,72 @@
+.table-section {
+  width: 100%;
+}
+
+caption {
+  margin-bottom: 16px;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+td,
+th {
+  padding: 8px 0;
+
+  border-bottom: 1px solid var(--table-border-color);
+
+  text-align: center;
+}
+
+td {
+  height: 65px;
+}
+
+th {
+  border-top: 1px solid var(--table-border-color);
+}
+
+table {
+  margin: 0 auto;
+
+  border-collapse: collapse;
+}
+
+.table-button-wrapper {
+  width: 90px;
+
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  margin: auto;
+}
+
+.confirm-update-button {
+  width: 100%;
+}
+
+#product-status-table tr input {
+  width: 90%;
+
+  margin: auto;
+
+  font-size: 1rem;
+}
+
+#product-status-table th:nth-child(1) {
+  width: 160px;
+}
+#product-status-table th:nth-child(2) {
+  width: 60px;
+}
+#product-status-table th:nth-child(3) {
+  width: 50px;
+}
+#product-status-table th:nth-child(4) {
+  width: 140px;
+}
+
+#coin-status-table td {
+  width: 100px;
+}

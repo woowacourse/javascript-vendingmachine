@@ -1,0 +1,21 @@
+:root {
+  --default--white-color: #ffffff;
+  --default--black-color: #000000;
+  --default-bg-color: #f9f9f9;
+  --default-button-bg-color: #f5f5f5;
+  --default-button-hover-bg-color: #00bcd429;
+
+  --main-bg-color: #ffffff;
+  --main-border-color: #0000001f;
+
+  --input-border-color: #b4b4b4;
+
+  --submit-button-bg-color: #00bcd4;
+  --submit-button-hover-bg-color: #80deea;
+  --submit-button-hover-text-color: #424242;
+
+  --tab-menu-button-bg-color: #f5f5f5;
+  --tab-menu-button-stress-bg-color: #00bcd429;
+
+  --table-border-color: #dcdcdc;
+}

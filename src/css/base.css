@@ -1,0 +1,87 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  word-break: keep-all;
+  line-height: 1.5;
+  /* 다양한 환경에서 동일한 글꼴 환경 세팅 */
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--default-bg-color);
+}
+
+#app {
+  width: 600px;
+  min-height: 675px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+
+  margin-top: 32px;
+  padding: 45px 60px;
+
+  background-color: var(--default--white-color);
+  border: 1px solid var(--main-border-color);
+}
+
+main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+}
+
+button {
+  background-color: var(--default-button-bg-color);
+  border: none;
+  border-radius: 4px;
+
+  padding: 8px;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--default-button-hover-bg-color);
+}
+
+input:focus {
+  outline: none;
+}
+
+/* 숫자 입력란 화살표 숨김 */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.not-found-section {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
