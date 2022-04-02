@@ -4,6 +4,7 @@ import VendingMachine from './ts/domain/VendingMachine';
 import Router from './ts/router';
 
 import './ts/components/ToastNotification';
+import './ts/components/Signup';
 
 const vendingMachine = new VendingMachine();
 const view = new View(vendingMachine);

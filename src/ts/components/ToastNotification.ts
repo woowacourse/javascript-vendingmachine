@@ -1,5 +1,3 @@
-import { $ } from '../utils';
-
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
@@ -81,7 +79,7 @@ template.innerHTML = `
   </div>
 `;
 
-export default class ToastNotification extends HTMLElement {
+class ToastNotification extends HTMLElement {
   static get observedAttributes() {
     return ['state', 'message'];
   }
@@ -122,7 +120,7 @@ function hideToast(toastDiv: HTMLDivElement) {
   }, 2000);
 }
 
-const $toastModal = $('toast-modal');
+const $toastModal = document.querySelector('toast-modal');
 
 export const renderToastModal = (state: string, message: string) => {
   $toastModal.setAttribute('state', state);

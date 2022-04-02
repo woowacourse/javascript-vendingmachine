@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "email": "sadfas@asdf.com",
+      "password": "$2a$10$CHhjIN1MxrLxhpEV1c4.X.4vbOa.vYazG5cPp3TzlZG8gmCzkUYdq",
+      "name": "마르코",
+      "id": 1
+    }
+  ]
+}
