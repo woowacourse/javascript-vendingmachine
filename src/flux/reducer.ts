@@ -74,6 +74,17 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.insertedMoney = returnMoney;
       break;
     }
+    case ACTION.PURCHASE_PRODUCT: {
+      const productIndex = state.productList.findIndex((product) => product.name === payload);
+      newState.productList[productIndex].quantity--;
+      newState.insertedMoney -= newState.productList[productIndex].price;
+
+      if (newState.productList[productIndex].quantity === 0) {
+        newState.productList.splice(productIndex, 1);
+      }
+
+      break;
+    }
   }
 
   return newState;

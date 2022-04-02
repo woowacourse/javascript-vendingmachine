@@ -10,6 +10,7 @@ export const ACTION = {
   CHANGE_ACTIVE_TAB: 'change-active-tab',
   INSERT_MONEY: 'insert-money',
   RETURN_CHANGES: 'return-changes',
+  PURCHASE_PRODUCT: 'purchase-product',
 };
 
 export const COIN_UNITS = [500, 100, 50, 10];

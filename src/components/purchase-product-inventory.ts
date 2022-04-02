@@ -1,8 +1,11 @@
 import Component from '../abstract/component';
+import { ACTION } from '../constants';
 import { customElement } from '../decorators/decortators';
+import createAction from '../flux/createAction';
 import Store from '../flux/store';
-import { ProductItem } from '../types';
-import { convertToLocaleString } from '../utils';
+import { EventOnElement, ProductItem } from '../types';
+import { consoleErrorWithConditionalAlert, convertToLocaleString } from '../utils';
+import ValidationError from '../validation/validation-error';
 
 @customElement('purchase-product-inventory')
 class PurchaseProductInventory extends Component {
@@ -43,6 +46,38 @@ class PurchaseProductInventory extends Component {
         </tbody>
       </table>
     `;
+  }
+
+  setEvent() {
+    this.addEvent('click', '.has-btn button', this.onClickPurchaseBtn);
+  }
+
+  onClickPurchaseBtn = ({ target }: EventOnElement) => {
+    const tds = this.findTds(target);
+    if (!tds) return;
+    const { $name } = tds;
+    const name = $name.textContent?.trim() as string;
+
+    try {
+      this.purchaseProduct(name);
+    } catch (e: any) {
+      consoleErrorWithConditionalAlert(e);
+    }
+  };
+
+  purchaseProduct(name: string) {
+    const { productList, insertedMoney } = Store.instance.getState();
+    const { price } = productList.find((product) => product.name === name) as ProductItem;
+
+    if (price > insertedMoney) throw new ValidationError('금액이 부족합니다.');
+
+    Store.instance.dispatch(createAction(ACTION.PURCHASE_PRODUCT, name));
+  }
+  findTds(target: HTMLElement) {
+    const children = target.closest('tr')?.children;
+    if (!children) return null;
+    const [$name, $price, $quantity] = children;
+    return { $name, $price, $quantity };
   }
 
   mount() {
