@@ -10,28 +10,21 @@ const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
 export default class App {
-  private productManagement;
-  private coinManagement;
-  private moneyManagement;
-  private productManagementComponent;
-  private coinManagementComponent;
-  private productPurchaseComponent;
-
-  constructor() {
-    this.productManagement = new ProductManagement();
-    this.coinManagement = new CoinManagement();
-    this.moneyManagement = new MoneyManagement();
-
-    this.productManagementComponent = new ProductManagementComponent(
-      this.productManagement,
-    );
-    this.coinManagementComponent = new CoinManagementComponent(
-      this.coinManagement,
-    );
-    this.productPurchaseComponent = new ProductPurchaseComponent(
-      this.moneyManagement,
-    );
-
+  constructor(
+    private readonly productManagement = new ProductManagement(),
+    private readonly coinManagement = new CoinManagement(),
+    private readonly moneyManagement = new MoneyManagement(),
+    private readonly productManagementComponent = new ProductManagementComponent(
+      productManagement,
+    ),
+    private readonly coinManagementComponent = new CoinManagementComponent(
+      coinManagement,
+    ),
+    private readonly productPurchaseComponent = new ProductPurchaseComponent(
+      productManagement,
+      moneyManagement,
+    ),
+  ) {
     this.productManagementComponent.render();
 
     $('.nav').addEventListener('click', this.navClickHandler);

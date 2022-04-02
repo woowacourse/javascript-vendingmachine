@@ -5,7 +5,9 @@ export default class ProductManagement {
   #products: ProductImpl[];
 
   constructor() {
-    this.#products = [];
+    this.#products = [
+      new ProductImpl({ name: '콜라', price: 1000, quantity: 10 }),
+    ];
   }
 
   get products() {
@@ -26,6 +28,17 @@ export default class ProductManagement {
     this.#products.forEach(product => {
       if (product.name === prevProductName) {
         product.editProduct(newProduct);
+      }
+    });
+  }
+
+  buyProduct(productName) {
+    this.#products.forEach(product => {
+      if (product.name !== productName) return;
+      product.buyProduct();
+
+      if (product.quantity === 0) {
+        this.deleteProduct(productName);
       }
     });
   }

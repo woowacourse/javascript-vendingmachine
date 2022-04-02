@@ -7,3 +7,10 @@
     margin-bottom: 20px;
   }
 }
+
+.product-menu {
+  &__container {
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 60px;
+  }
+}

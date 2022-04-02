@@ -1,10 +1,18 @@
+import MoneyManagement from '../../domain/MoneyManagement';
+import ProductManagement from '../../domain/ProductManagement';
 import { $, replaceHTML } from '../../utils/dom';
 import MoneyChargeComponent from './MoneyChargeComponent';
+import ProductMenuComponent from './ProductMenuComponent';
 
 export default class ProductPurchaseComponent {
-  #moneyManagement;
+  #productManagement: ProductManagement;
+  #moneyManagement: MoneyManagement;
 
-  constructor(moneyManagement) {
+  constructor(
+    productManagement: ProductManagement,
+    moneyManagement: MoneyManagement,
+  ) {
+    this.#productManagement = productManagement;
     this.#moneyManagement = moneyManagement;
   }
 
@@ -16,7 +24,7 @@ export default class ProductPurchaseComponent {
   private template() {
     return `
       <div>
-        <section class="money-charge">
+        <section class="money-charge input-section">
           <h2 hidden>충전할 금액 입력</h2>
           <form class="money-charge__form">
             <label
@@ -38,7 +46,10 @@ export default class ProductPurchaseComponent {
             this.#moneyManagement.money
           }</span>원</p>
         </section>
-        <section class="product-menu"></section>
+        <section class="product-menu">
+          <h2 class="product-menu__title section-title">구매 가능상품 현황</h2>
+          <div class="product-menu__container grid-container"></div>
+        </section>
         <section class="coin-return"></section>
       </div>
     `;
@@ -46,5 +57,6 @@ export default class ProductPurchaseComponent {
 
   private bindDOM() {
     new MoneyChargeComponent(this.#moneyManagement);
+    new ProductMenuComponent(this.#productManagement, this.#moneyManagement);
   }
 }
