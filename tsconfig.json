@@ -3,7 +3,6 @@
     "module": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceMap": true,
-    "types": ["cypress"]
+    "sourceMap": true
   }
 }
