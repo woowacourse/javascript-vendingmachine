@@ -3,6 +3,7 @@ import { CHARGE_MONEY } from '../ts/constants/chargeMoney';
 import { COINS } from '../ts/constants/chargeMoney';
 
 import VendingMachineChargeMoneyManager from '../ts/domains/VendingMachineChargeMoneyManager';
+import { checkCanAddMoney } from '../ts/validation/checkChargeMoney';
 
 describe('잔돈 관리 도메인 테스트', () => {
   const chargeCoins = {
@@ -36,14 +37,11 @@ describe('잔돈 관리 도메인 테스트', () => {
     };
 
     vendingMachineChargeMoneyManager.addCoins(chargeCoins);
+    const totalChargeMoney = vendingMachineChargeMoneyManager.getTotalAmount();
 
     expect(() => {
-      vendingMachineChargeMoneyManager.addCoins(newChargeCoins);
-    }).toThrowError(
-      ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(
-        vendingMachineChargeMoneyManager.getTotalAmount()
-      )
-    );
+      checkCanAddMoney(totalChargeMoney, newChargeCoins);
+    }).toThrowError(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(totalChargeMoney));
   });
 });
 
@@ -57,24 +55,35 @@ test('반환 금액이 자판기가 보유하고 있는 최소 동전 개수로 
   const vendingMachineChargeMoneyManager =
     new VendingMachineChargeMoneyManager();
 
-  const userChargeMoney = 1740;
+  const userChargeMoney = 1000;
   const chargeCoins = {
-    QUANTITY_COIN_500: 3,
+    QUANTITY_COIN_500: 1,
     QUANTITY_COIN_100: 4,
-    QUANTITY_COIN_50: 3,
-    QUANTITY_COIN_10: 4,
+    QUANTITY_COIN_50: 4,
+    QUANTITY_COIN_10: 10,
   };
   const returnCoins = {
-    QUANTITY_COIN_500: 3,
-    QUANTITY_COIN_100: 2,
-    QUANTITY_COIN_50: 0,
-    QUANTITY_COIN_10: 4,
+    QUANTITY_COIN_500: 1,
+    QUANTITY_COIN_100: 4,
+    QUANTITY_COIN_50: 2,
+    QUANTITY_COIN_10: 0,
   };
 
   vendingMachineChargeMoneyManager.addCoins(chargeCoins);
 
-  expect(vendingMachineChargeMoneyManager.getReturnCoins(userChargeMoney)).toBe(
-    returnCoins
+  const returnCoinsQuantity =
+    vendingMachineChargeMoneyManager.getReturnCoins(userChargeMoney);
+  expect(returnCoinsQuantity.QUANTITY_COIN_500).toBe(
+    returnCoins.QUANTITY_COIN_500
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_100).toBe(
+    returnCoins.QUANTITY_COIN_100
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_50).toBe(
+    returnCoins.QUANTITY_COIN_50
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_10).toBe(
+    returnCoins.QUANTITY_COIN_10
   );
 });
 
@@ -82,23 +91,35 @@ test('반환 금액이 자판기가 보유하고 있는 동전의 개수를 초�
   const vendingMachineChargeMoneyManager =
     new VendingMachineChargeMoneyManager();
 
-  const userChargeMoney = 1740;
+  const userChargeMoney = 1000;
   const chargeCoins = {
     QUANTITY_COIN_500: 1,
-    QUANTITY_COIN_100: 4,
-    QUANTITY_COIN_50: 3,
-    QUANTITY_COIN_10: 4,
+    QUANTITY_COIN_100: 2,
+    QUANTITY_COIN_50: 4,
+    QUANTITY_COIN_10: 5,
   };
   const returnCoins = {
     QUANTITY_COIN_500: 1,
     QUANTITY_COIN_100: 2,
-    QUANTITY_COIN_50: 3,
-    QUANTITY_COIN_10: 4,
+    QUANTITY_COIN_50: 4,
+    QUANTITY_COIN_10: 5,
   };
 
   vendingMachineChargeMoneyManager.addCoins(chargeCoins);
 
-  expect(vendingMachineChargeMoneyManager.getReturnCoins(userChargeMoney)).toBe(
-    returnCoins
+  const returnCoinsQuantity =
+    vendingMachineChargeMoneyManager.getReturnCoins(userChargeMoney);
+
+  expect(returnCoinsQuantity.QUANTITY_COIN_500).toBe(
+    returnCoins.QUANTITY_COIN_500
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_100).toBe(
+    returnCoins.QUANTITY_COIN_100
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_50).toBe(
+    returnCoins.QUANTITY_COIN_50
+  );
+  expect(returnCoinsQuantity.QUANTITY_COIN_10).toBe(
+    returnCoins.QUANTITY_COIN_10
   );
 });

@@ -14,5 +14,5 @@ export interface ChargeMoneyManager {
   getCoins(): Coins;
   getTotalAmount(): number;
   addCoins(newCoinsQuantity: Coins): void;
-  getReturnCoins(userMoney: number): Coins;
+  getReturnCoins(userReturnMoney: number): Coins;
 }
