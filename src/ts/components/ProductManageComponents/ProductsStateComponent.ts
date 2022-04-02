@@ -120,14 +120,6 @@ export default class ProductStateComponent {
   };
 
   private onClickProductList = ({ target }): void => {
-    if (
-      !target.matches('.product-table__confirm-button') &&
-      !target.matches('.product-table__edit-button') &&
-      !target.matches('.product-table__delete-button')
-    ) {
-      return;
-    }
-
     if (target.matches('.product-table__confirm-button')) {
       this.approveEditProduct(target);
 
