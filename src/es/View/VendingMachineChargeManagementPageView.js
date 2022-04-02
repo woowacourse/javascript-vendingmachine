@@ -1,6 +1,6 @@
 import { template } from './template';
 import { $ } from '../utils';
-import { validateHoldingAmountToAdd } from '../validation';
+import { validateHoldingAmountToAdd } from '../validator';
 import VendingMachineChargeStore from '../Store/VendingMachineChargeStore';
 
 export default class VendingMachineChargeManagementPageView {
@@ -32,7 +32,7 @@ export default class VendingMachineChargeManagementPageView {
 
   setRenderMethodList() {
     this.renderMethodList = {
-      coins: [this.drawTotalHoldingAmount, this.drawHoldingAmountList],
+      coins: [this.updateTotalVendingMachineCharge, this.updateVendingMachineChargeCoinTable],
     };
   }
 
@@ -50,27 +50,27 @@ export default class VendingMachineChargeManagementPageView {
 
   onSubmitVendingMachineChargeForm(event) {
     event.preventDefault();
-    const $input = $('input[name="add-holding-amount"]', event.target);
+    const $vendingMachineChargeInput = $('input', event.target);
     const totalAmount = VendingMachineChargeStore.getTotalAmount();
 
     try {
-      validateHoldingAmountToAdd(Number($input.value), totalAmount);
+      validateHoldingAmountToAdd(Number($vendingMachineChargeInput.value), totalAmount);
     } catch (error) {
       alert(error.message);
       return;
     }
 
-    VendingMachineChargeStore.addAmount($input.value);
-    $input.value = '';
+    VendingMachineChargeStore.addCharge($vendingMachineChargeInput.value);
+    $vendingMachineChargeInput.value = '';
   }
 
-  drawTotalHoldingAmount = () => {
+  updateTotalVendingMachineCharge = () => {
     const totalAmount = VendingMachineChargeStore.getTotalAmount();
 
     $('#total-vendingmachine-charge').innerText = `${totalAmount.toLocaleString()}원`;
   };
 
-  drawHoldingAmountList = ({ coins }) => {
-    $('tbody', this.$table).innerHTML = template.holdingAmountTableRows(coins);
+  updateVendingMachineChargeCoinTable = ({ coins }) => {
+    $('tbody', this.$table).innerHTML = template.vendingMachineChargeCoinTableRows(coins);
   };
 }

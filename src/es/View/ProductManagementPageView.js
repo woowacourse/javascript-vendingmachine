@@ -1,6 +1,6 @@
 import { template } from './template';
 import ProductStore from '../Store/ProductStore';
-import { validateProduct } from '../validation';
+import { validateProduct } from '../validator';
 import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
 
 export default class ProductManagementPageView {

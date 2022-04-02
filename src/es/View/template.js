@@ -144,7 +144,7 @@ export const template = {
       </tr>`,
       )
       .join(''),
-  holdingAmountTableRows: coins =>
+  vendingMachineChargeCoinTableRows: coins =>
     coins
       .map(
         (coin, index) => `

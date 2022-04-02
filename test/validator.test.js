@@ -1,5 +1,5 @@
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from '../src/es/utils';
-import { validateProduct, validateHoldingAmountToAdd } from '../src/es/validation';
+import { validateProduct, validateHoldingAmountToAdd } from '../src/es/validator';
 import { ERROR_MESSAGE } from '../src/es/constants';
 
 describe('검증 유틸리티 테스트', () => {

@@ -56,7 +56,7 @@ class VendingMachineChargeStore implements IStore {
     return returnCoins;
   }
 
-  addAmount(amount: number): void {
+  addCharge(amount: number): void {
     const coinsToAdd: Array<number> = this.getRandomCoinsFromAmount(amount);
     const totalCoins: Array<number> = this.state.coins.map(
       (value, index) => value + coinsToAdd[index],
