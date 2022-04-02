@@ -27,6 +27,7 @@ export interface VendingMachineInterface {
   findIndexByName(name: string): number;
   resetInsertedMoney(): void;
   deductRefundableCoins(refundableCoins: number[]): void;
+  getRefundableCoins(coinValues: number[]): number[];
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -193,5 +194,20 @@ export default class VendingMachine implements VendingMachineInterface {
     this.getCoin(50).deductCount(coin50Count);
     this.getCoin(10).deductCount(coin10Count);
     localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this._moneys));
+  };
+
+  public getRefundableCoins = (coinValues: number[]) => {
+    let targetAmount = this._insertedMoney % 1000;
+    const getRefundableCoin = (value: number) => {
+      const coinCount =
+        this.getCoin(value).count >= Math.floor(targetAmount / value)
+          ? Math.floor(targetAmount / value)
+          : this.getCoin(value).count;
+      targetAmount = targetAmount - value * coinCount; // 0
+
+      return coinCount;
+    };
+
+    return coinValues.map((value) => getRefundableCoin(value));
   };
 }

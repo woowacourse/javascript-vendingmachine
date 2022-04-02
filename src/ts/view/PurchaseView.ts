@@ -109,26 +109,15 @@ export default class PurchaseView {
       return;
     }
 
-    const coinMoney = this.vendingMachine.insertedMoney % 1000;
-    const getRefundableCoin = (value: number) => {
-      return this.vendingMachine.getCoin(value).count - Math.floor(coinMoney / value) >= 0
-        ? Math.floor(coinMoney / value)
-        : this.vendingMachine.getCoin(value).count;
-    };
+    const coinValues = [500, 100, 50, 10];
+    const refundableCoins = this.vendingMachine.getRefundableCoins(coinValues);
 
-    this.vendingMachine.resetInsertedMoney();
+    this.renderRefundableCoinTable(refundableCoins);
+    this.renderRefundMoneyToastModal(refundableCoins, coinValues);
     this.renderInsertedMoney('0');
 
-    const nonRefundableCoinMoney =
-      coinMoney -
-      [500, 100, 50, 10].reduce((totalMoney: number, value: number) => {
-        return totalMoney + getRefundableCoin(value) * value;
-      }, 0);
-    this.renderRefundMoneyToastModal(nonRefundableCoinMoney);
-
-    const refundableCoins = [500, 100, 50, 10].map((value) => getRefundableCoin(value));
     this.vendingMachine.deductRefundableCoins(refundableCoins);
-    this.renderRefundableCoinTable(refundableCoins);
+    this.vendingMachine.resetInsertedMoney();
   };
 
   private renderRefundableCoinTable = ([
@@ -143,7 +132,14 @@ export default class PurchaseView {
     this.$coin10.textContent = String(coin10Count);
   };
 
-  private renderRefundMoneyToastModal = (nonRefundableCoinMoney: number) => {
+  private renderRefundMoneyToastModal = (refundableCoins: number[], coinValues: number[]) => {
+    const nonRefundableCoinMoney =
+      (this.vendingMachine.insertedMoney % 1000) -
+      refundableCoins.reduce(
+        (totalMoney, coinCount, index) => totalMoney + coinCount * coinValues[index],
+        0,
+      );
+
     if (nonRefundableCoinMoney > 0) {
       renderToastModal('error', `${nonRefundableCoinMoney}원은 반환하지 못하였습니다.`);
     } else {
