@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { ACTION } from '../constants';
+import { ACTION, ERROR_MESSAGE } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
@@ -60,7 +60,7 @@ class PurchaseProductInventory extends Component {
 
     try {
       this.purchaseProduct(name);
-      showSnack(`${name} 구매 완료!`);
+      showSnack(`${name} 구매 완료`);
     } catch (e: any) {
       showSnack(e.message);
     }
@@ -70,7 +70,7 @@ class PurchaseProductInventory extends Component {
     const { productList, insertedMoney } = Store.instance.getState();
     const { price } = productList.find((product) => product.name === name) as ProductItem;
 
-    if (price > insertedMoney) throw new ValidationError('금액이 부족합니다.');
+    if (price > insertedMoney) throw new ValidationError(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
 
     Store.instance.dispatch(createAction(ACTION.PURCHASE_PRODUCT, name));
   }

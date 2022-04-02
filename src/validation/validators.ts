@@ -70,24 +70,24 @@ export const validateChargeCoins = (money: string, chargedMoney: number) => {
 };
 
 export const validateInsertMoney = (money: string, totalMoney: number) => {
-  if (!money) return new ValidationResult(true, '투입하신 금액이 비어있습니다.');
+  if (!money) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_INSERT_MONEY);
 
-  if (!isInteger(money)) return new ValidationResult(true, '투입하신 금액은 숫자이어야 합니다.');
+  if (!isInteger(money)) return new ValidationResult(true, ERROR_MESSAGE.NOT_NUMBER_INSERT_MONEY);
 
   const moneyNum = convertToInteger(money, 0);
-  if (moneyNum <= 0) return new ValidationResult(true, '투입하신 금액은 양수이어야 합니다.');
+  if (moneyNum <= 0) return new ValidationResult(true, ERROR_MESSAGE.NEGATIVE_INSERT_MONEY);
 
   if (moneyNum % MIN_COIN_UNIT)
-    return new ValidationResult(true, '투입하신 금액은 10으로 나누어 떨어져야 합니다.');
+    return new ValidationResult(true, ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_INSERT_MONEY);
 
   if (moneyNum + totalMoney > 10000)
-    return new ValidationResult(true, '금액은 최대 10,000원까지만 투입 가능합니다.');
+    return new ValidationResult(true, ERROR_MESSAGE.OVER_MAX_INSERT_MONEY);
 
   return new ValidationResult(false);
 };
 
-export const validateReturnChanges = (insertedMoney: number, chargedCoins: CoinRecord) => {
-  if (insertedMoney === 0) return new ValidationResult(true, '투입하신 금액이 없습니다.');
+export const validateReturnChanges = (insertedMoney: number) => {
+  if (insertedMoney === 0) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_INSERT_MONEY);
 
   return new ValidationResult(false);
 };

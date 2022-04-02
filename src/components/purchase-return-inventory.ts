@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { ACTION, COIN_UNITS } from '../constants';
+import { ACTION, COIN_UNITS, ERROR_MESSAGE } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
@@ -64,7 +64,7 @@ class PurchaseReturnInventory extends Component {
 
     const { insertedMoney: afterReturn } = Store.instance.getState();
     if (afterReturn > 0) {
-      alert('잔돈이 부족합니다. 관리자에게 문의해주세요.');
+      showSnack(ERROR_MESSAGE.NOT_ENOUGH_CHANGES);
     }
   }
 
