@@ -1,16 +1,63 @@
 const signupTemplate = document.createElement('template');
 signupTemplate.innerHTML = `
   <style>
+  section {
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button {
+    background: var(--primary);
+    border-radius: 4px;
+    height: 36px;
+    border-style: none;
+    color: var(--white);
+    margin: 20px 0;
+  }
+
+  button:hover {
+    background: var(--primary-darken);
+    cursor: pointer;
+  }
+
+  input {
+    padding: 0 8px;
+    border: 1px solid var(--secondary);
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 36px;
+    line-height: 36px;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 7px 0;
+  }
+
+  input::placeholder {
+    color: var(--secondary-darken);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+
   </style>
 
   <section>
-    <h2 hidden>회원가입</h2>
+    <h1>회원가입</h1>
     <form>
-      <label>이름</label>
-      <input type="text" />
       <label>이메일</label>
       <input type="email" />
+      <label>이름</label>
+      <input type="text" />
       <label>비밀번호</label>
+      <input type="password" />
+      <label>비밀번호 확인</label>
       <input type="password" />
       <button type="submit">회원가입</button>
     </form>
