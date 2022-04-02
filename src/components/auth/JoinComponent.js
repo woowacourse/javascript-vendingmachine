@@ -1,7 +1,7 @@
 import { joinUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
 import globalStore from '../../stores/globalStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
+import { GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class JoinComponent {
   $app;
@@ -81,13 +81,7 @@ class JoinComponent {
 
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
 
-      globalStore.mutateState({
-        actionType: ACTION_TYPES.CHANGE_ROUTE,
-        payload: {
-          currentRouteName: ROUTE_NAME.LOGIN,
-        },
-        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-      });
+      globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.LOGIN);
 
       this.clearForm();
     }

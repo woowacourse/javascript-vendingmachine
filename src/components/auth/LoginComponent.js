@@ -1,7 +1,7 @@
 import { loginUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
 import globalStore from '../../stores/globalStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
+import { GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class LoginComponent {
   $app;
@@ -71,13 +71,8 @@ class LoginComponent {
     if (flag) {
       router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
 
-      globalStore.mutateState({
-        actionType: ACTION_TYPES.CHANGE_ROUTE,
-        payload: {
-          currentRouteName: ROUTE_NAME.MANAGE,
-        },
-        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-      });
+      globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
+
       this.clearForm();
     }
   };
@@ -85,13 +80,7 @@ class LoginComponent {
   onClickJoinButton = () => {
     router.pushState({ path: ROUTE_NAME.JOIN }, ROUTE_NAME.JOIN);
 
-    globalStore.mutateState({
-      actionType: ACTION_TYPES.CHANGE_ROUTE,
-      payload: {
-        currentRouteName: ROUTE_NAME.JOIN,
-      },
-      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-    });
+    globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.JOIN);
   };
 
   clearForm() {

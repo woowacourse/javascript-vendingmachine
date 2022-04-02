@@ -1,6 +1,6 @@
-import globalStore from '../../stores/globalStore';
+import { rechargeCoin } from '../../business/vendingMachine';
 import vendingMachineStore from '../../stores/vendingMachineStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
 import { checkChangeInput } from '../../utils/validation';
 import CoinTableComponent from './common/CoinTableComponent';
 
@@ -58,13 +58,13 @@ class RechargeComponent {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
   }
 
+  bindEventHandler() {
+    this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
+  }
+
   wakeUp(stateKey) {
     const coinWallet = vendingMachineStore.getState(stateKey, this);
     this.render(coinWallet);
-  }
-
-  bindEventHandler() {
-    this.$rechargeChangeForm.addEventListener('submit', this.onSubmitRechargeChangeForm);
   }
 
   render(coinWallet) {
@@ -96,11 +96,7 @@ class RechargeComponent {
     const { valueAsNumber: changeInput } = this.$rechargeChangeInput;
     try {
       if (checkChangeInput(changeInput)) {
-        vendingMachineStore.mutateState({
-          actionType: ACTION_TYPES.RECHARGE_CHANGE,
-          payload: { changeInput },
-          stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
-        });
+        rechargeCoin({ changeInput });
       }
       this.clearInputForm();
     } catch ({ message }) {

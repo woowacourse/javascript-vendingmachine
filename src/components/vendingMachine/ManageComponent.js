@@ -1,5 +1,4 @@
-import vendingMachineStore from '../../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { addProduct } from '../../business/vendingMachine';
 import { checkProductInput } from '../../utils/validation';
 import ProductTableComponent from './common/ProductTableComponent';
 
@@ -89,15 +88,12 @@ class ManageComponent {
           quantityInput: productQuantityInputValue,
         })
       ) {
-        vendingMachineStore.mutateState({
-          actionType: ACTION_TYPES.ADD_PRODUCT,
-          payload: {
-            name: productNameInputValue,
-            price: productPriceInputValue,
-            quantity: productQuantityInputValue,
-          },
-          stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
+        addProduct({
+          name: productNameInputValue,
+          price: productPriceInputValue,
+          quantity: productQuantityInputValue,
         });
+
         this.clearInputForm();
       }
     } catch ({ message }) {

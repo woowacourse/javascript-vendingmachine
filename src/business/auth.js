@@ -16,17 +16,16 @@ export const loginUser = async (emailValue, passwordValue) => {
       },
     });
 
-    globalStore.mutateState({
-      actionType: ACTION_TYPES.LOGIN_USER,
-      payload: { loggedUser: user, isLoggedIn: true },
-      stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
+    globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
+      loggedUser: user,
+      isLoggedIn: true,
     });
 
     localStorage.setItem('access-token', JSON.stringify(accessToken));
 
     return true;
-  } catch (error) {
-    alert(error);
+  } catch ({ message }) {
+    alert(message);
   }
 };
 
@@ -66,10 +65,9 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
         },
       });
 
-      globalStore.mutateState({
-        actionType: ACTION_TYPES.LOGOUT_USER,
-        payload: {},
-        stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
+      globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
+        loggedUser: null,
+        isLoggedIn: false,
       });
 
       localStorage.removeItem('access-token');
@@ -82,10 +80,9 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
 };
 
 export const logoutUser = () => {
-  globalStore.mutateState({
-    actionType: ACTION_TYPES.LOGOUT_USER,
-    payload: {},
-    stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
+  globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
+    loggedUser: null,
+    isLoggedIn: false,
   });
 
   localStorage.removeItem('access-token');
