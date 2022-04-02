@@ -38,6 +38,7 @@ export const URL_PATH = {
   HOME: '/',
   PRODUCT_MANAGE: '/productManage',
   BALANCE_CHAREGE: '/balanceCharge',
+  PRODUCT_PURCHASE: '/productPurchase',
 } as const;
 
 export const CHEAPEST_PAPER_MONEY_UNIT = 1000;

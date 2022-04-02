@@ -21,7 +21,7 @@ export class BalanceChargeInput {
 
   private template(balance: number): string {
     return `
-      <form id="charge-balance-input-container">
+      <form id="charge-balance-input-form">
         <label id="charge-balance-input-label" for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
         <input id="charge-balance-input" class="input" type="text" placeholder="금액" />
         <button id="charge-balance-submit-btn" class="submit-button button" type="submit">충전</button>
@@ -31,7 +31,7 @@ export class BalanceChargeInput {
   }
 
   private selectDom() {
-    this.#chargeBalanceInputForm = document.querySelector('#charge-balance-input-container');
+    this.#chargeBalanceInputForm = document.querySelector('#charge-balance-input-form');
     this.#chargeBalanceInput = document.querySelector('#charge-balance-input');
     this.#submitBtn = document.querySelector('#charge-balance-submit-btn');
     this.#currentBalance = document.querySelector('#current-balance');

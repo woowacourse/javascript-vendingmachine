@@ -1,15 +1,10 @@
 @import './productManage.css';
 @import './balanceCharge.css';
+@import './auth.css';
 @import './root.css';
 
 .hide {
   display: none;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 #contents-container {
@@ -21,10 +16,22 @@
   row-gap: 40px;
 }
 
+#login-button {
+  position: absolute;
+  right: 10px;
+}
+#auth-section {
+}
+
+#vending-machine-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .submit-button {
   background-color: var(--cyan-light);
   color: var(--white);
-  width: 70px;
   height: 37px;
 }
 
@@ -47,7 +54,6 @@
   border: solid 1.5px;
   border-radius: 10px;
   border-color: var(--gray);
-  width: 160px;
   height: 30px;
   padding-left: 8px;
 }

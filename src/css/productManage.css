@@ -1,5 +1,5 @@
 /* 공통 사용 */
-#product-information-input {
+#product-information-form {
   display: grid;
   margin-top: 13px;
   grid-template-areas:
@@ -7,6 +7,10 @@
     'nm pr qt . bt';
   grid-row-gap: 13px;
   grid-column-gap: 7px;
+}
+
+#product-information-form > .submit-button {
+  width: 70px;
 }
 
 #product-input-label {

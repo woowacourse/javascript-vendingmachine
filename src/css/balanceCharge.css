@@ -1,4 +1,4 @@
-#charge-balance-input-container {
+#charge-balance-input-form {
   display: grid;
   margin-top: 13px;
   grid-template-areas:
@@ -7,6 +7,10 @@
     'cb cb cb';
   grid-row-gap: 13px;
   grid-column-gap: 7px;
+}
+
+#charge-balance-input-form > .submit-button {
+  width: 70px;
 }
 
 #charge-balance-input-label {

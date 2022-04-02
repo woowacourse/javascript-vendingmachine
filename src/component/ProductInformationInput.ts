@@ -22,7 +22,7 @@ export class ProductInformationInput {
 
   private template(): string {
     return `
-      <form id="product-information-input">
+      <form id="product-information-form">
         <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
         <input id="product-name-input" class="input" type="text" placeholder="상품명" />
         <input id="product-price-input" class="input" type="number" placeholder="가격" />
@@ -33,7 +33,7 @@ export class ProductInformationInput {
   }
 
   private selectDom() {
-    this.#productInformationForm = document.querySelector('#product-information-input');
+    this.#productInformationForm = document.querySelector('#product-information-form');
     this.#productNameInput = document.querySelector('#product-name-input');
     this.#productPriceInput = document.querySelector('#product-price-input');
     this.#productQuantityInput = document.querySelector('#product-quantity-input');
