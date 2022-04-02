@@ -1,4 +1,5 @@
 import Component from '../abstract/component';
+import { COIN_UNITS } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';
@@ -7,17 +8,14 @@ import { convertToLocaleString } from '../utils';
 @customElement('changes-inventory')
 class ChangesInventory extends Component {
   coinsTemplate(coins: CoinRecord) {
-    return Object.keys(coins)
-      .map(Number)
-      .map((unit) => {
-        return `
+    return COIN_UNITS.map((unit) => {
+      return `
         <tr>
           <td>${convertToLocaleString(unit)}원</td>
           <td>${convertToLocaleString(coins[unit])}개</td>
         </tr>
       `;
-      })
-      .join('');
+    }).join('');
   }
 
   template(coins: CoinRecord): string {

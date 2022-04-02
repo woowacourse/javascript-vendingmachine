@@ -57,7 +57,25 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.insertedMoney += convertToInteger(payload);
       break;
     }
+    case ACTION.RETURN_CHANGES: {
+      let returnMoney = newState.insertedMoney;
+
+      COIN_UNITS.forEach((coin) => {
+        if (returnMoney < 0) {
+          return;
+        }
+        const useCoinAmount = Math.min(Math.floor(returnMoney / coin), newState.chargedCoins[coin]);
+        returnMoney -= useCoinAmount * coin;
+        newState.chargedMoney -= useCoinAmount * coin;
+        newState.chargedCoins[coin] -= useCoinAmount;
+        newState.returnCoins[coin] = useCoinAmount;
+      });
+
+      newState.insertedMoney = returnMoney;
+      break;
+    }
   }
+
   return newState;
 };
 

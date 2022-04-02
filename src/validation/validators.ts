@@ -8,7 +8,7 @@ import {
   MIN_PRODUCT_PRICE,
   MIN_PRODUCT_QUANTITY,
 } from '../constants';
-import { ProductItem, RawProductItem } from '../types';
+import { CoinRecord, ProductItem, RawProductItem } from '../types';
 import { convertToInteger } from '../utils';
 import ValidationResult from './validation-result';
 
@@ -82,6 +82,12 @@ export const validateInsertMoney = (money: string, totalMoney: number) => {
 
   if (moneyNum + totalMoney > 10000)
     return new ValidationResult(true, '금액은 최대 10,000원까지만 투입 가능합니다.');
+
+  return new ValidationResult(false);
+};
+
+export const validateReturnChanges = (insertedMoney: number, chargedCoins: CoinRecord) => {
+  if (insertedMoney === 0) return new ValidationResult(true, '투입하신 금액이 없습니다.');
 
   return new ValidationResult(false);
 };

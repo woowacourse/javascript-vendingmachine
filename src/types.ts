@@ -11,6 +11,7 @@ export type AppState = {
   chargedMoney: number;
   insertedMoney: number;
   chargedCoins: CoinRecord;
+  returnCoins: CoinRecord;
   productList: Array<ProductItem>;
 };
 

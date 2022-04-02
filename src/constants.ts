@@ -9,6 +9,7 @@ export const ACTION = {
   CHARGE_COINS: 'charge-coins',
   CHANGE_ACTIVE_TAB: 'change-active-tab',
   INSERT_MONEY: 'insert-money',
+  RETURN_CHANGES: 'return-changes',
 };
 
 export const COIN_UNITS = [500, 100, 50, 10];
@@ -17,6 +18,12 @@ export const initialState: AppState = {
   chargedMoney: 0,
   insertedMoney: 0,
   chargedCoins: {
+    500: 0,
+    100: 0,
+    50: 0,
+    10: 0,
+  },
+  returnCoins: {
     500: 0,
     100: 0,
     50: 0,
