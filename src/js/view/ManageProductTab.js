@@ -40,7 +40,22 @@ export default class ManageProductTab {
   }
 
   get tabElements() {
+    this.#renderInitialProducts();
     return this.#manageContainer;
+  }
+
+  #renderInitialProducts() {
+    const { productList } = this.#vendingMachine;
+    const productTableRows = [...Object.entries(productList)].reduce(
+      (htmlString, [id, { name, price, stock }]) =>
+        `${htmlString}${productTableRowTemplate({ name, price, stock, id })}`,
+      ''
+    );
+    this.#manageContainer
+      .querySelectorAll('.product-table-row')
+      .forEach((element) => element.remove());
+
+    this.#productStatusTable.insertAdjacentHTML('beforeend', productTableRows);
   }
 
   #handleAddProductForm = (e) => {

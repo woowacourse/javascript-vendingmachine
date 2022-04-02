@@ -48,6 +48,10 @@ export default class PurchaseProductTab {
         `${htmlString}${purchaseProductTableRowTemplate({ name, price, stock, id })}`,
       ''
     );
+
+    this.#purchaseContainer
+      .querySelectorAll('.product-table-row')
+      .forEach((element) => element.remove());
     this.#productStatusTable.insertAdjacentHTML('beforeend', productTableRows);
   }
 

@@ -140,10 +140,46 @@ describe('기능 디테일 테스트', () => {
     cy.get('#total-insert').should('have.text', '1000');
   });
 
-  it.only('투입 금액이 0일 때 잔돈 반환 클릭 시 스낵바로 오류를 표시한다.', () => {
+  it('투입 금액이 0일 때 잔돈 반환 클릭 시 스낵바로 오류를 표시한다.', () => {
     cy.get('#purchase-tab-menu').click();
     cy.get('#return-change-button').click();
 
     cy.get('.snackbar').should('have.text', ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT);
+  });
+
+  it('상품을 구매한 뒤 상품 관리 탭으로 이동하면 갱신된 상품 정보가 표시된다.', () => {
+    cy.get('#add-product-name-input').type('아메리카노');
+    cy.get('#add-product-price-input').type('1000');
+    cy.get('#add-product-stock-input').type('5');
+    cy.get('.submit-button').click();
+
+    cy.get('#purchase-tab-menu').click();
+    cy.get('#money-insert-input').type('2000');
+    cy.get('.submit-button').click();
+
+    cy.get('.purchase-product-button').first().click();
+
+    cy.get('#manage-tab-menu').click();
+
+    cy.get('.product-stock').first().should('have.text', '4');
+  });
+
+  it.only('상품을 구매한 뒤 상품 관리 탭에서 정보를 수정하면 상품 구매 탭에서 갱신된 상품 정보가 표시된다.', () => {
+    cy.get('#add-product-name-input').type('아메리카노');
+    cy.get('#add-product-price-input').type('1000');
+    cy.get('#add-product-stock-input').type('5');
+    cy.get('.submit-button').click();
+
+    cy.get('#purchase-tab-menu').click();
+
+    cy.get('#manage-tab-menu').click();
+
+    cy.get('.update-product-button').first().click();
+    cy.get('.update-product-price-input').first().clear().type('3000');
+    cy.get('.confirm-update-button').first().click();
+
+    cy.get('#purchase-tab-menu').click();
+
+    cy.get('.product-price').first().should('have.text', '3000');
   });
 });

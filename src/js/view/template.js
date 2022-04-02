@@ -91,7 +91,7 @@ export const addChangeTabTemplate = /* html */ `
 `;
 
 export const productTableRowTemplate = ({ name, price, stock, id }) => /* html */ `
-<tr>
+<tr class="product-table-row">
   <td class="product-name">${name}</td>
   <td class="product-price">${price}</td>
   <td class="product-stock">${stock}</td>
@@ -185,7 +185,7 @@ export const purchaseProductTableRowTemplate = ({
   stock,
   id,
 }) => /* html */ `
-  <tr>
+  <tr class="product-table-row">
     <td class="product-name">${name}</td>
     <td class="product-price">${price}</td>
     <td class="product-stock">${stock}</td>
