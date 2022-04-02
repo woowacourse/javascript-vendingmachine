@@ -183,16 +183,18 @@
         data-pathname="/purchase-product"
       >
         <h2 hidden>상품 구입</h2>
-        <section class="purchase-form-section">
-          <h3 hidden>상품을 구입할 금액</h3>
-          <form class="purchase-form-section__form">
-            <label for="purchase-money"
+        <section class="consumer-charge-money-form-section">
+          <h3 hidden>상품을 구입할 금액 충전</h3>
+          <form class="consumer-charge-money-form-section__form">
+            <label for="consumer-charge-money"
               >상품을 구입할 금액을 투입해주세요.</label
             >
-            <div class="purchase-form-section__purchase-money-input-wrapper">
+            <div
+              class="purchase-form-section__consumer-charge-money-input-wrapper"
+            >
               <input
-                class="input purchase-form-section__purchase-money-input"
-                name="purchase-money"
+                class="input purchase-form-section__consumer-charge-money-input"
+                name="consumer-charge-money"
                 placeholder="금액"
                 type="number"
                 step="10"
@@ -201,14 +203,20 @@
                 autofocus
                 required
               />
-              <button class="purchase-form-section__button" type="submit">
+              <button
+                class="consumer-charge-money-form-section__button"
+                type="submit"
+              >
                 투입
               </button>
             </div>
           </form>
           <p>
             투입한 금액:
-            <span class="purchase-form-section__total-purchase-money">0</span>원
+            <span
+              class="consumer-charge-money-form-section__total-consumer-charge-money"
+              >0</span
+            >원
           </p>
         </section>
         <section class="product-state-section">

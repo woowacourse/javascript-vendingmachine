@@ -1,10 +1,10 @@
-interface PurchaseManager {
-  addPurchaseMoney(money: number): void;
-  subtractPurchaseMoney(subtractMoney: number): void;
-  getPurchaseMoney(): number;
+interface ConsumerMoneyManager {
+  addConsumerChargeMoney(money: number): void;
+  subtractConsumerChargeMoney(subtractMoney: number): void;
+  getConsumerChargeMoney(): number;
 }
 
-export const checkValidPurchaseMoney = (money: number): void => {
+export const checkValidConsumerChargeMoney = (money: number): void => {
   if (Number.isNaN(money)) {
     throw new Error(
       '충전 금액을 잘못 입력하셨습니다. 충전 금액은 최소 10원 이상 10000원 이하로 입력해주세요.'
@@ -25,26 +25,28 @@ export const checkValidPurchaseMoney = (money: number): void => {
 };
 
 export const checkConsumerChargeMoneyLessThenPurchaseMoney = (
-  consumerChargeMoney,
-  productPrice
-) => {
+  consumerChargeMoney: number,
+  productPrice: number
+): void => {
   if (consumerChargeMoney < productPrice) {
     throw new Error('');
   }
 };
 
-export default class VendingMachinePurchaseManager implements PurchaseManager {
-  private purchaseMoney = 0;
+export default class VendingMachineConsumerMoneyManager
+  implements ConsumerMoneyManager
+{
+  private consumerChargeMoney = 0;
 
-  addPurchaseMoney(money: number): void {
-    this.purchaseMoney += money;
+  addConsumerChargeMoney(money: number): void {
+    this.consumerChargeMoney += money;
   }
 
-  subtractPurchaseMoney(subtractMoney: number): void {
-    this.purchaseMoney -= subtractMoney;
+  subtractConsumerChargeMoney(subtractMoney: number): void {
+    this.consumerChargeMoney -= subtractMoney;
   }
 
-  getPurchaseMoney(): number {
-    return this.purchaseMoney;
+  getConsumerChargeMoney(): number {
+    return this.consumerChargeMoney;
   }
 }

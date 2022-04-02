@@ -80,7 +80,7 @@ h1 {
   color: #8b8b8b;
 }
 
-.purchase-form-section__button,
+.consumer-charge-money-form-section__button,
 .charge-form-section__button,
 .product-info-form__add-button {
   width: 56px;
@@ -90,7 +90,7 @@ h1 {
   margin-left: 12px;
 }
 
-.purchase-form-section__button:hover,
+.consumer-charge-money-form-section__button:hover,
 .charge-form-section__button:hover,
 .product-info-form__add-button:hover {
   opacity: 0.7;
@@ -159,13 +159,13 @@ h1 {
 /* ******************* */
 /* charge-money-section */
 /* ******************* */
-.purchase-form-section,
+.consumer-charge-money-form-section,
 .charge-form-section {
   padding: 0 43px 0 56px;
   margin-bottom: 48px;
 }
 
-.purchase-form-section__form,
+.consumer-charge-money-form-section__form,
 .charge-form-section__form {
   display: flex;
   flex-direction: column;
@@ -173,12 +173,12 @@ h1 {
   margin-bottom: 16px;
 }
 
-.purchase-form-section__purchase-money-input-wrapper,
+.purchase-form-section__consumer-charge-money-input-wrapper,
 .charge-form-section__charge-money-input-wrapper {
   display: flex;
 }
 
-.purchase-form-section__purchase-money-input,
+.purchase-form-section__consumer-charge-money-input,
 .charge-form-section__charge-money-input {
   flex-grow: 1;
   padding: 8px 15.5px 4px;
@@ -186,7 +186,7 @@ h1 {
   border-radius: 4px;
 }
 
-.purchase-form-section__button,
+.consumer-charge-money-form-section__button,
 .charge-form-section__button {
   display: block;
 }
