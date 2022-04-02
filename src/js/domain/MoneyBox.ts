@@ -55,4 +55,23 @@ export default class MoneyBox {
       return coinObj;
     });
   }
+
+  giveChange(money: number): CoinStatus {
+    let inputMoney = money;
+    const obj = this.#coinStatusList.reduce(
+      (totalStatus, { name, value, count }, idx) => {
+        totalStatus[name] = Math.min(Math.floor(inputMoney / value), count);
+        inputMoney -= totalStatus[name] * value;
+        this.#coinStatusList[idx].count -= totalStatus[name];
+        return totalStatus;
+      },
+      {
+        FIVE_HUNDRED_WON: 0,
+        ONE_HUNDRED_WON: 0,
+        FIFTY_WON: 0,
+        TEN_WON: 0,
+      }
+    );
+    return obj;
+  }
 }
