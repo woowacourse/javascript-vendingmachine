@@ -19,8 +19,8 @@ export default class VendingMachine {
     return this.coinManager.coins;
   }
 
-  get money() {
-    return this.coinManager.money;
+  get coinsSum() {
+    return this.coinManager.coinsSum;
   }
 
   addItem(item: ItemType) {

@@ -4,19 +4,17 @@ import { generateRandom } from '../utils/common';
 
 export default class CoinManager {
   private _coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private _money = 0;
 
   get coins() {
     return this._coins;
   }
 
-  get money() {
-    return this._money;
+  get coinsSum() {
+    return this.getSumCoins(this._coins);
   }
 
   chargeCoin(inputMoney: number) {
     this.addRandomCoins(inputMoney);
-    this._money += inputMoney;
   }
 
   private addRandomCoins(money: number) {
@@ -31,5 +29,14 @@ export default class CoinManager {
       restMoney -= randomNumber * COINS[key];
       this.coins[key] += randomNumber;
     });
+  }
+
+  private getSumCoins(coins: CoinsType) {
+    const initialAmount = 0;
+
+    return Object.keys(coins).reduce(
+      (previous, current) => previous + COINS[current] * this._coins[current],
+      initialAmount
+    );
   }
 }
