@@ -5,9 +5,14 @@ interface ProductInfo {
   price: number;
   quantity: number;
 }
+interface UserInfo {
+  email: string;
+  name: string;
+  password: string;
+}
 
 type ProductInfoUnionType = keyof ProductInfo;
 type CoinUnionType = typeof coinType[number];
 type Coins = { [K in CoinUnionType]: number } | {};
 
-export { ProductInfo, ProductInfoUnionType, CoinUnionType, Coins };
+export { ProductInfo, UserInfo, ProductInfoUnionType, CoinUnionType, Coins };

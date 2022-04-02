@@ -1,16 +1,24 @@
 import { $, $$ } from '../utils/dom';
 import MainUI from './MainUI/MainUI';
+import SignUpUI from './SignUI/SignUpUI';
 import { viewPainter } from './ViewPainter';
 
 const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
 export default class App {
-  constructor(private readonly mainUI = new MainUI()) {
+  constructor(
+    private readonly mainUI = new MainUI(),
+    private readonly signUpUI = new SignUpUI(),
+  ) {
     this.mainUI.renderInitPage();
 
     $('.nav').addEventListener('click', this.navClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
+    $('.sign-in__link-sign-up').addEventListener(
+      'click',
+      this.signUpClickHandler,
+    );
 
     viewPainter.mainUI = this.mainUI;
   }
@@ -35,6 +43,14 @@ export default class App {
     this.renderPage(pathname);
   };
 
+  private signUpClickHandler = () => {
+    const pathname = `${basePath}/signup`;
+
+    history.pushState({}, '', pathname);
+
+    this.signUpUI.render();
+  };
+
   private activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
       if ($button.dataset.pathname === pathname) {
@@ -57,6 +73,9 @@ export default class App {
         break;
       case '/purchase':
         this.mainUI.renderProductPurchaseUI();
+        break;
+      case '/signup':
+        this.signUpUI.render();
     }
   }
 }

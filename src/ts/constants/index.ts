@@ -19,6 +19,12 @@ const PURCHASE_CASH_RULE = {
   UNIT: 10,
 };
 
+const USER_INFO_RULE = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
+  MIN_PASSWORD_LENGTH: 8,
+};
+
 const MESSAGE = {
   ERROR_SAME_PRODUCT: '이미 동일한 이름의 상품이 존재합니다.',
   ERROR_OVER_MAX_LENGTH: `상품명을 ${MAX_NAME_LENGTH}글자 이하로 입력해주세요.`,
@@ -44,6 +50,10 @@ const MESSAGE = {
   SUCCESS_CHARGE_PURCHASE_CASH: '투입되었습니다.',
   SUCCESS_RETURN_COINS: '반환되었습니다.',
   FAIL_RETURN_COINS: '반환할 돈이 없습니다.',
+  SUCCESS_LOGIN: '로그인에 성공하였습니다. 메인 화면으로 이동합니다.',
+  FAIL_LOGIN: '로그인에 실패하였습니다. 다시 시도해주세요.',
+  SUCCESS_SIGNUP: '회원가입에 성공하였습니다. 로그인 화면으로 이동합니다.',
+  FAIL_SIGNUP: '회원가입에 실패하였습니다. 다시 시도해주세요.',
 };
 
 export {
@@ -54,4 +64,5 @@ export {
   coinType,
   CASH_RULE,
   PURCHASE_CASH_RULE,
+  USER_INFO_RULE,
 };
