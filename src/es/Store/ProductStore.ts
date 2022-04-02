@@ -16,7 +16,7 @@ class ProductStore implements IStore {
   }
 
   setState(newState: IProductStoreState) {
-    const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
+    const changeStates: Array<string> = Object.keys(newState);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));

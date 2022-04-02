@@ -18,7 +18,7 @@ class VendingMachineChargeStore implements IStore {
   }
 
   setState(newState: IVendingMachineChargeStoreState) {
-    const changeStates: Array<string> = Object.entries(newState).map(([key]) => key);
+    const changeStates: Array<string> = Object.keys(newState);
 
     this.state = { ...this.state, ...newState };
     this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
