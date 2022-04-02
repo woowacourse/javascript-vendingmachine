@@ -49,6 +49,7 @@ export default class ProductPurchasePageView {
     event.preventDefault();
     const { customerCharge } = getInnerInputValues(event.target);
     CustomerChargeStore.addCharge(customerCharge);
+    $('input', event.target).value = '';
   };
 
   onClickTableInnerButton = (event) => {
@@ -61,7 +62,16 @@ export default class ProductPurchasePageView {
   onClickPurchaseButton(event) {
     const $tableRow = event.target.closest('tr');
     if (!$tableRow) return;
+
     const productIndex = $tableRow.dataset.primaryKey;
+    const { price } = ProductStore.getState().products[productIndex];
+
+    if (price > CustomerChargeStore.getState().customerCharge) {
+      alert('Too expensive, put more money! 😥');
+      return;
+    }
+
+    CustomerChargeStore.subtractCharge(price);
     ProductStore.takeOutProductByIndex(productIndex);
   }
 
