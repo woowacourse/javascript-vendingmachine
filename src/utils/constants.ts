@@ -1,5 +1,11 @@
+import {
+  TVendingMachineStateKey,
+  TVendingMachineAction,
+  TGlobalAction,
+  TGlobalStateKey,
+  TUser,
+} from './../stores/types';
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
-import { TAction, TStateKey } from '../stores/types';
 import { TRange } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
@@ -12,13 +18,21 @@ export const COIN_VALUES: TCoinWallet = {
 export const COIN_KEYS: Array<TCoinWalletKey> = ['coin500', 'coin100', 'coin50', 'coin10'];
 
 export const VENDING_MACHINE_STATE_KEYS: {
-  PRODUCT_LIST: TStateKey;
-  COIN_WALLET: TStateKey;
-  INPUT_CHARGE: TStateKey;
+  PRODUCT_LIST: TVendingMachineStateKey;
+  COIN_WALLET: TVendingMachineStateKey;
+  INPUT_CHARGE: TVendingMachineStateKey;
 } = {
   PRODUCT_LIST: 'PRODUCT_LIST',
   COIN_WALLET: 'COIN_WALLET',
   INPUT_CHARGE: 'INPUT_CHARGE',
+};
+
+export const GLOBAL_STATE_KEYS: {
+  AUTH_INFORMATION: TGlobalStateKey;
+  CURRENT_ROUTE_NAME: TGlobalStateKey;
+} = {
+  AUTH_INFORMATION: 'AUTH_INFORMATION',
+  CURRENT_ROUTE_NAME: 'CURRENT_ROUTE_NAME',
 };
 
 export const ERROR_MSG = {
@@ -53,25 +67,17 @@ export const CHANGE_RANGE: TRange = {
 };
 
 export const ACTION_TYPES: {
-  ADD_PRODUCT: TAction;
-  EDIT_PRODUCT: TAction;
-  DELETE_PRODUCT: TAction;
-  RECHARGE_CHANGE: TAction;
+  ADD_PRODUCT: TVendingMachineAction;
+  EDIT_PRODUCT: TVendingMachineAction;
+  DELETE_PRODUCT: TVendingMachineAction;
+  RECHARGE_CHANGE: TVendingMachineAction;
+  LOGIN_USER: TGlobalAction;
+  CHANGE_ROUTE: TGlobalAction;
 } = {
   ADD_PRODUCT: 'addProduct',
   EDIT_PRODUCT: 'editProduct',
   DELETE_PRODUCT: 'deleteProduct',
   RECHARGE_CHANGE: 'rechargeChange',
-};
-
-export const VENDING_MACHINE_ROUTE_NAME = {
-  MANAGE: 'home',
-  RECHARGE: 'recharge',
-  PURCHASE: 'purchase',
-};
-
-export const AUTH_ROUTE_NAME = {
-  LOGIN: 'login',
-  JOIN: 'join',
-  EDIT: 'edit',
+  LOGIN_USER: 'loginUser',
+  CHANGE_ROUTE: 'changeRoute',
 };

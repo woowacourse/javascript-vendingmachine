@@ -16,11 +16,12 @@ export type TVendingMachineState = {
   INPUT_CHARGE: number;
 };
 
-export type TSubscribedComponents = {
+export type TVendingMachineStateComponents = {
   PRODUCT_LIST: Array<any>;
   COIN_WALLET: Array<any>;
   INPUT_CHARGE: Array<any>;
 };
+
 export interface IVendingMachineStore {
   mutateState: ({
     actionType,
@@ -42,19 +43,27 @@ export interface IVendingMachineStore {
   notifySubscribedView: (stateType: TVendingMachineStateKey) => void;
 }
 
-export type TGlobalAction = 'joinUser' | 'loginUser';
+export type TGlobalStateComponents = {
+  AUTH_INFORMATION: Array<any>;
+  CURRENT_ROUTE_NAME: Array<any>;
+};
+
+export type TGlobalAction = 'loginUser' | 'changeRoute';
 
 export type TUser = {
   id: number;
   email: string;
-  name: String;
-};
+  name: string;
+} | null;
 
 export type TGlobalStateKey = keyof TGlobalState;
 
 export type TGlobalState = {
-  LOGGED_USER: TUser;
-  IS_LOGGED_IN: boolean;
+  AUTH_INFORMATION: {
+    loggedUser: TUser;
+    isLoggedIn: boolean;
+  };
+  CURRENT_ROUTE_NAME: string;
 };
 
 export interface IGlobalStore {
@@ -70,7 +79,16 @@ export interface IGlobalStore {
 
   subscribe: (stateType: TGlobalStateKey, component: any) => void;
 
-  getState: (stateType: TGlobalStateKey, component: any) => TUser | boolean | undefined;
+  getState: (
+    stateType: TGlobalStateKey,
+    component: any,
+  ) =>
+    | {
+        loggedUser: TUser;
+        isLoggedIn: boolean;
+      }
+    | string
+    | undefined;
 
   notifySubscribedView: (stateType: TGlobalStateKey) => void;
 }

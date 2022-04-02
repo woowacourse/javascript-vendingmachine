@@ -1,12 +1,18 @@
 import CoinWallet from '../domains/coinWallet';
 import Product from '../domains/product';
 import { ERROR_MSG, ACTION_TYPES } from '../utils/constants';
-import { IVendingMachineStore, TAction, TState, TStateKey, TSubscribedComponents } from './types';
+import {
+  IVendingMachineStore,
+  TVendingMachineAction,
+  TVendingMachineState,
+  TVendingMachineStateComponents,
+  TVendingMachineStateKey,
+} from './types';
 
 class VendingMachineStore implements IVendingMachineStore {
-  subscribedComponents: TSubscribedComponents;
+  subscribedComponents: TVendingMachineStateComponents;
 
-  state: TState;
+  state: TVendingMachineState;
 
   constructor() {
     this.subscribedComponents = {
@@ -26,27 +32,27 @@ class VendingMachineStore implements IVendingMachineStore {
     payload,
     stateKey,
   }: {
-    actionType: TAction;
+    actionType: TVendingMachineAction;
     payload: unknown;
-    stateKey: TStateKey;
+    stateKey: TVendingMachineStateKey;
   }) {
     this.reducer[actionType](payload);
     this.notifySubscribedView(stateKey);
   }
 
-  subscribe(stateType: TStateKey, component: unknown) {
+  subscribe(stateType: TVendingMachineStateKey, component: unknown) {
     this.subscribedComponents[stateType].push(component);
   }
 
-  getState(stateType: TStateKey, component: unknown) {
+  getState(stateType: TVendingMachineStateKey, component: unknown) {
     if (this.subscribedComponents[stateType].includes(component)) {
       return this.state[stateType];
     }
     throw new Error(ERROR_MSG.CAN_NOT_REFERENCE_STATE);
   }
 
-  notifySubscribedView(stateType: TStateKey) {
-    this.subscribedComponents[stateType].forEach(component => component.wakeUp());
+  notifySubscribedView(stateType: TVendingMachineStateKey) {
+    this.subscribedComponents[stateType].forEach(component => component.wakeUp(stateType));
   }
 
   reducer = {
@@ -55,16 +61,11 @@ class VendingMachineStore implements IVendingMachineStore {
 
       const product = new Product(name, price, quantity);
 
-      /** 무언가.. 객체를 직접 변경하는 것 같죠..? 얕은 복사를 수행한 배열 데이터를 조작하여 그 배열 데이터를 set 해주어야 할 것 같은데 */
       this.state.PRODUCT_LIST.push(product);
-
-      /** 아래 방법으로 수행하는 것과 위 방법으로 수행하는 것 - 둘은 어떤 문제를 막고 어떤 문제를 발생시킬 수 있나요.? */
-      // this.state.PRODUCT_LIST = [...this.state.PRODUCT_LIST,product];
     },
     [ACTION_TYPES.EDIT_PRODUCT]: payload => {
       const { id, name, price, quantity } = payload;
 
-      /** 무언가.. 객체를 직접 변경하는 것 같죠..? 얕은 복사를 수행한 배열 데이터를 조작하여 그 배열 데이터를 set 해주어야 할 것 같은데 */
       const editProduct = this.state.PRODUCT_LIST.find(
         product => product.getProductInfo().id === id,
       );

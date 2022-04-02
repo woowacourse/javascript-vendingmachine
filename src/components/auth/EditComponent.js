@@ -17,17 +17,27 @@ class EditComponent {
     this.$loginButton = this.$app.querySelector('#login-button');
     this.$pageTitle = this.$app.querySelector('#page-title');
     this.$tabNav = this.$app.querySelector('#tab-nav');
+    this.$notAccess = this.$app.querySelector('#not-access-section');
   }
 
   bindEventHandler() {
     this.$editForm.addEventListener('submit', this.onSubmitEditForm);
   }
 
-  showSection() {
+  showSection(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$loginButton.classList.add('hide');
+      this.$tabNav.classList.add('hide');
+      this.$pageTitle.textContent = '정보수정';
+      this.$editForm.classList.remove('hide');
+      this.$notAccess.classList.add('hide');
+      return;
+    }
     this.$loginButton.classList.add('hide');
     this.$tabNav.classList.add('hide');
     this.$pageTitle.textContent = '정보수정';
-    this.$editForm.classList.remove('hide');
+    this.$editForm.classList.add('hide');
+    this.$notAccess.classList.remove('hide');
   }
 
   hideSection() {

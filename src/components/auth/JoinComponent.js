@@ -1,5 +1,6 @@
 import { joinUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class JoinComponent {
   $app;
@@ -26,17 +27,27 @@ class JoinComponent {
     this.$loginButton = this.$app.querySelector('#login-button');
     this.$pageTitle = this.$app.querySelector('#page-title');
     this.$tabNav = this.$app.querySelector('#tab-nav');
+    this.$notAccess = this.$app.querySelector('#not-access-section');
   }
 
   bindEventHandler() {
     this.$joinForm.addEventListener('submit', this.onSubmitJoinForm);
   }
 
-  showSection() {
+  showSection(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$pageTitle.textContent = '회원가입';
+      this.$loginButton.classList.add('hide');
+      this.$tabNav.classList.add('hide');
+      this.$joinForm.classList.add('hide');
+      this.$notAccess.classList.remove('hide');
+      return;
+    }
     this.$pageTitle.textContent = '회원가입';
     this.$loginButton.classList.add('hide');
     this.$tabNav.classList.add('hide');
     this.$joinForm.classList.remove('hide');
+    this.$notAccess.classList.add('hide');
   }
 
   hideSection() {
@@ -70,9 +81,29 @@ class JoinComponent {
     const { value: passwordValue } = this.$passwordJoinInput;
     const { value: passwordReenterValue } = this.$passwordReenterJoinInput;
 
-    await joinUser(emailValue, nameValue, passwordValue, passwordReenterValue);
+    const flag = await joinUser(emailValue, nameValue, passwordValue, passwordReenterValue);
 
-    router.pushState({ path: ROUTE_NAME.MANAGE }, 'manage');
+    if (flag) {
+      alert('회원가입의 성공하셨습니다.');
+
+      router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
+
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.CHANGE_ROUTE,
+        payload: {
+          currentRouteName: ROUTE_NAME.LOGIN,
+        },
+        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+      });
+
+      this.clearForm();
+    }
   };
+  clearForm() {
+    this.$emailJoinInput.value = '';
+    this.$nameJoinInput.value = '';
+    this.$passwordJoinInput.value = '';
+    this.$passwordReenterJoinInput.value = '';
+  }
 }
 export default JoinComponent;

@@ -1,5 +1,7 @@
 import { loginUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import globalStore from '../../stores/globalStore';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
 
 class LoginComponent {
   $app;
@@ -26,6 +28,7 @@ class LoginComponent {
 
     this.$pageTitle = this.$app.querySelector('#page-title');
     this.$tabNav = this.$app.querySelector('#tab-nav');
+    this.$notAccess = this.$app.querySelector('#not-access-section');
   }
 
   bindEventHandler() {
@@ -33,11 +36,20 @@ class LoginComponent {
     this.$loginForm.addEventListener('submit', this.onSubmitLoginForm);
   }
 
-  showSection() {
+  showSection(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$loginButton.classList.add('hide');
+      this.$tabNav.classList.add('hide');
+      this.$pageTitle.textContent = '로그인';
+      this.$loginForm.classList.add('hide');
+      this.$notAccess.classList.remove('hide');
+      return;
+    }
     this.$loginButton.classList.add('hide');
     this.$tabNav.classList.add('hide');
     this.$pageTitle.textContent = '로그인';
     this.$loginForm.classList.remove('hide');
+    this.$notAccess.classList.add('hide');
   }
 
   hideSection() {
@@ -48,9 +60,9 @@ class LoginComponent {
     return `<section>
     <form class="input-form hide" id="login-form"> 
     <label for="email-login-input">이메일</label>
-    <input class="auth-input" id="email-login-input" placeholder="이메일 주소를 입력해주세요" type="email"></input>
+    <input class="auth-input" id="email-login-input" placeholder="이메일 주소를 입력해주세요" type="email" required></input>
     <label for="password-login-input">비밀번호</label>
-    <input class="auth-input" id="password-login-input" placeholder="비밀번호를 입력해주세요" type="password"></input>
+    <input class="auth-input" id="password-login-input" placeholder="비밀번호를 입력해주세요" type="password" required></input>
     <button class="submit-button auth-input">확인</button>
     <div>아직 회원이 아니신가요? <a id="join-button">회원가입</a></div>
     </form>
@@ -63,11 +75,37 @@ class LoginComponent {
     const { value: emailValue } = this.$emailLoginInput;
     const { value: passwordValue } = this.$passwordLoginInput;
 
-    await loginUser(emailValue, passwordValue);
+    const flag = await loginUser(emailValue, passwordValue);
+
+    if (flag) {
+      router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+
+      globalStore.mutateState({
+        actionType: ACTION_TYPES.CHANGE_ROUTE,
+        payload: {
+          currentRouteName: ROUTE_NAME.MANAGE,
+        },
+        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+      });
+      this.clearForm();
+    }
   };
 
   onClickJoinButton = () => {
-    router.pushState({ path: ROUTE_NAME.JOIN }, 'join');
+    router.pushState({ path: ROUTE_NAME.JOIN }, ROUTE_NAME.JOIN);
+
+    globalStore.mutateState({
+      actionType: ACTION_TYPES.CHANGE_ROUTE,
+      payload: {
+        currentRouteName: ROUTE_NAME.JOIN,
+      },
+      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+    });
   };
+
+  clearForm() {
+    this.$emailLoginInput.value = '';
+    this.$passwordLoginInput.value = '';
+  }
 }
 export default LoginComponent;

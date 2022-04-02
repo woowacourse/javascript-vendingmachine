@@ -1,5 +1,6 @@
+import globalStore from '../../stores/globalStore';
 import vendingMachineStore from '../../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
 import { checkChangeInput } from '../../utils/validation';
 import CoinTableComponent from './common/CoinTableComponent';
 
@@ -12,6 +13,8 @@ class RechargeComponent {
     this.initChildComponents();
     this.subscribeStore();
     this.bindEventHandler();
+
+    this.render(vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this));
   }
 
   mount() {
@@ -23,6 +26,7 @@ class RechargeComponent {
     this.$tabNav = this.$app.querySelector('#tab-nav');
     this.$loginButton = this.$app.querySelector('#login-button');
     this.$rechargeTab = this.$app.querySelector('#recharge-change-tab');
+    this.$notAccess = this.$app.querySelector('#not-access-section');
 
     this.$rechargeChangeContainer = this.$app.querySelector('#recharge-change-container');
     this.$rechargeChangeForm = this.$app.querySelector('#recharge-change-form');
@@ -41,7 +45,8 @@ class RechargeComponent {
         </div>
         <div class="total-amount">투입한 금액: <span id="change-total-amount">0</span>원</div>
         </form>
-    </section>`;
+    </section>
+    `;
   }
 
   initChildComponents() {
@@ -55,9 +60,11 @@ class RechargeComponent {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
   }
 
-  wakeUp() {
-    const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
-    this.render(coinWallet);
+  wakeUp(stateKey) {
+    if (stateKey === VENDING_MACHINE_STATE_KEYS.COIN_WALLET) {
+      const coinWallet = vendingMachineStore.getState(stateKey, this);
+      this.renderCoinTotalAmount(coinWallet);
+    }
   }
 
   bindEventHandler() {
@@ -69,12 +76,23 @@ class RechargeComponent {
     this.$rechargeChangeTotal.textContent = coinTotalAmount;
   }
 
-  showSection() {
+  showSection(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$rechargeTab.classList.add('checked');
+      this.$pageTitle.textContent = '🍿 자판기 🍿';
+      this.$tabNav.classList.remove('hide');
+      this.$loginButton.classList.remove('hide');
+      this.$rechargeChangeContainer.classList.remove('hide');
+      this.$notAccess.classList.add('hide');
+
+      return;
+    }
     this.$rechargeTab.classList.add('checked');
     this.$pageTitle.textContent = '🍿 자판기 🍿';
     this.$tabNav.classList.remove('hide');
     this.$loginButton.classList.remove('hide');
-    this.$rechargeChangeContainer.classList.remove('hide');
+    this.$rechargeChangeContainer.classList.add('hide');
+    this.$notAccess.classList.remove('hide');
   }
 
   hideSection() {

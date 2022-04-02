@@ -1,8 +1,5 @@
-import globalStore from '../stores/globalStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../utils/constants';
-
 export const ROUTE_NAME = {
-  MANAGE: 'home',
+  MANAGE: 'manage',
   RECHARGE: 'recharge',
   PURCHASE: 'purchase',
   LOGIN: 'login',
@@ -20,50 +17,11 @@ export const ROUTE = {
 };
 
 class Router {
-  constructor() {
-    this.setInitialState();
-    this.bindEventHandler();
-  }
-
-  setInitialState() {
-    globalStore.mutateState({
-      actionType: ACTION_TYPES.CHANGE_ROUTE,
-      payload: {
-        currentRouteName: Object.keys(ROUTE).find(
-          routeName => ROUTE[routeName] === window.location.pathname,
-        ),
-      },
-      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-    });
-  }
-
-  bindEventHandler() {
-    window.addEventListener('popstate', this.onPopState);
-  }
-
   pushState(data, name) {
     if (window.location.pathname !== ROUTE[name]) {
       history.pushState(data, '', ROUTE[name]);
-
-      globalStore.mutateState({
-        actionType: ACTION_TYPES.CHANGE_ROUTE,
-        payload: {
-          currentRouteName: name,
-        },
-        stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-      });
     }
   }
-
-  onPopState = e => {
-    const { state } = e;
-
-    globalStore.mutateState({
-      actionType: ACTION_TYPES.CHANGE_ROUTE,
-      payload: { currentRouteName: state?.path ?? ROUTE_NAME.MANAGE },
-      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
-    });
-  };
 }
 
 export default new Router();
