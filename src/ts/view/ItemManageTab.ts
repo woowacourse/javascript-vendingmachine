@@ -121,8 +121,8 @@ class ItemManageTab extends VendingMachineTab {
       targetItem
     );
 
-    itemInfoInputCellList[0].focus();
     this.toggleEditMode(itemInfoInputCellList, itemButtonCellList, false);
+    itemInfoInputCellList[0].focus();
   }
 
   private handleDeleteButtonClickEvent(targetItem: HTMLTableRowElement) {
