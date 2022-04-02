@@ -14,9 +14,9 @@ export default class Router {
   constructor() {
     this.#vendingMachine = new VendingMachine();
     this.#renderList = {
-      '#/manage': new ManageProductTab(this.#vendingMachine),
-      '#/charge': new AddChangeTab(this.#vendingMachine),
-      '#/purchase': new PurchaseProductTab(),
+      '#/manage': () => new ManageProductTab(this.#vendingMachine),
+      '#/charge': () => new AddChangeTab(this.#vendingMachine),
+      '#/purchase': () => new PurchaseProductTab(this.#vendingMachine),
     };
     this.#app = selectDom('#app');
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
@@ -38,7 +38,7 @@ export default class Router {
       return;
     }
 
-    this.#app.replaceChild(this.#renderList[path].tabElements, main);
+    this.#app.replaceChild(this.#renderList[path]().tabElements, main);
   };
 
   #updateCurrentTabMenu(path) {
@@ -55,7 +55,9 @@ export default class Router {
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
+    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) {
+      return;
+    }
 
     window.history.pushState({}, null, newHash);
     this.#render();
