@@ -50,14 +50,14 @@ class PurchaseReturnInventory extends Component {
   onClickReturnBtn = () => {
     const { insertedMoney, chargedCoins } = Store.instance.getState();
     try {
-      this.returnChanges(insertedMoney, chargedCoins);
+      this.returnChanges(insertedMoney);
     } catch (e: any) {
       showSnack(e.message);
     }
   };
 
-  returnChanges(insertedMoney: number, chargedCoins: CoinRecord) {
-    const { hasError, errorMessage } = validateReturnChanges(insertedMoney, chargedCoins);
+  returnChanges(insertedMoney: number) {
+    const { hasError, errorMessage } = validateReturnChanges(insertedMoney);
     if (hasError) throw new ValidationError(errorMessage);
 
     Store.instance.dispatch(createAction(ACTION.RETURN_CHANGES, undefined));
