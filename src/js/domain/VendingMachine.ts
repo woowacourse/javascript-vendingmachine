@@ -81,6 +81,26 @@ export default class VendingMachine {
     this.#moneyInsert += money;
   }
 
+  purchaseProduct(productId) {
+    if (!this.#productList[productId]) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
+    }
+    const { name, price, stock } = this.#productList[productId];
+
+    if (price > this.#moneyInsert) {
+      throw new Error(ERROR_MESSAGE.PURCHASE.INSUFFICIENT_MONEY);
+    }
+
+    this.#moneyInsert -= price;
+    if (stock === 1) {
+      delete this.#productList[productId];
+      return;
+    }
+
+    const newData: ProductData = { name, price, stock: stock - 1 };
+    this.#productList[productId].modify(newData);
+  }
+
   #validateChange(money: number): never | void {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.CHANGE.BELOW_MIN },

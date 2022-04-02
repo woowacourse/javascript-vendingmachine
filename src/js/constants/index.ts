@@ -33,7 +33,7 @@ export const ERROR_MESSAGE = {
     OUT_OF_RANGE: `상품 수량은 ${PRODUCT_RULES.MIN_STOCK}개 미만이거나 ${PRODUCT_RULES.MAX_STOCK}개 초과할 수 없습니다.`,
   },
 
-  PRODUCT_ID_NOT_FOUND: '존재하지 않는 상품 아이디입니다.',
+  PRODUCT_ID_NOT_FOUND: '존재하지 않는 상품입니다.',
 
   CHANGE: {
     BELOW_MIN: '충전 금액은 0원 이하일 수 없습니다.',
@@ -45,6 +45,10 @@ export const ERROR_MESSAGE = {
     BELOW_MIN: '투입 금액은 0원 이하일 수 없습니다.',
     INVALID_UNIT: `투입 금액은 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위이어야 합니다.`,
     EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과할 수 없습니다.`,
+  },
+
+  PURCHASE: {
+    INSUFFICIENT_MONEY: '구매하려는 상품 가격보다 투입 금액이 적습니다.',
   },
 };
 

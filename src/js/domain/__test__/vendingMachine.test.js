@@ -130,7 +130,7 @@ describe('자판기 클래스 테스트', () => {
     });
   });
 
-  describe('상품 구매 기능 테스트', () => {
+  describe('상품 구매 관련 기능 테스트', () => {
     describe('금액 투입 테스트', () => {
       test('금액을 투입하면 투입한 금액을 확인할 수 있다.', () => {
         const moneyInsertInput = 1000;
@@ -169,6 +169,58 @@ describe('자판기 클래스 테스트', () => {
         const secondMoneyInsertInput = 5010;
         expect(() => vendingMachine.addMoneyInsert(secondMoneyInsertInput)).toThrow(
           ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
+        );
+      });
+    });
+    describe('상품 구매 테스트', () => {
+      test('상품을 구매하면 해당 상품의 재고가 1만큼 감소한다.', () => {
+        const moneyInsertInput = 2500;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        const initialStock = vendingMachine.productList[productId].stock;
+
+        vendingMachine.purchaseProduct(productId);
+
+        expect(vendingMachine.productList[productId].stock).toEqual(initialStock - 1);
+      });
+
+      test('상품을 구매하면 투입된 금액이 해당 상품의 가격만큼 감소한다.', () => {
+        const moneyInsertInput = 2500;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        vendingMachine.purchaseProduct(productId);
+        expect(vendingMachine.moneyInsert).toEqual(
+          moneyInsertInput - vendingMachine.productList[productId].price
+        );
+      });
+
+      test('재고가 1개인 상품을 구매하면 목록해서 상품이 삭제된다', () => {
+        const product = { name: '아메리카노', price: 2500, stock: 1 };
+        const id = vendingMachine.addProduct(product);
+        const moneyInsertInput = 2500;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        vendingMachine.purchaseProduct(id);
+
+        expect(vendingMachine.productList[id]).toBeUndefined();
+      });
+
+      test('남은 투입 금액이 구매하려는 상품 가격보다 적은 경우 오류를 반환한다.', () => {
+        const insufficientMoneyInsertInput = 2000;
+        vendingMachine.addMoneyInsert(insufficientMoneyInsertInput);
+
+        expect(() => vendingMachine.purchaseProduct(productId)).toThrow(
+          ERROR_MESSAGE.PURCHASE.INSUFFICIENT_MONEY
+        );
+      });
+
+      test('존재하지 않는 상품을 구매하면 오류를 반환한다.', () => {
+        const moneyInsertInput = 2500;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+        const invalidId = 'invalid';
+
+        expect(() => vendingMachine.purchaseProduct(invalidId)).toThrow(
+          ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND
         );
       });
     });
