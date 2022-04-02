@@ -1,12 +1,4 @@
-import { ACTION_TYPES } from './../utils/constants';
-import { ERROR_MSG } from '../utils/constants';
-import {
-  IGlobalStore,
-  TGlobalState,
-  TGlobalStateComponents,
-  TGlobalAction,
-  TGlobalStateKey,
-} from './types';
+import { IGlobalStore, TGlobalState, TGlobalStateComponents, TGlobalStateKey } from './types';
 
 import { ROUTE } from '../lib/router';
 
@@ -31,58 +23,27 @@ class GlobalStore implements IGlobalStore {
     };
   }
 
-  mutateState({
-    actionType,
-    payload,
-    stateKey,
-  }: {
-    actionType: TGlobalAction;
-    payload: unknown;
-    stateKey: TGlobalStateKey;
-  }) {
-    const reducer = this.reducer[actionType];
-
-    if (reducer) {
-      reducer(payload);
-      this.notifySubscribedView(stateKey);
+  setState(key, valueOrFunction) {
+    if (typeof valueOrFunction === 'function') {
+      this.state[key] = valueOrFunction(this.state[key]);
     }
+    if (typeof valueOrFunction !== 'function') {
+      this.state[key] = valueOrFunction;
+    }
+    this.notifySubscribedView(key);
   }
 
   subscribe(stateType: TGlobalStateKey, component: unknown) {
     this.subscribedComponents[stateType].push(component);
   }
 
-  getState(stateKey: TGlobalStateKey, component: unknown) {
-    if (this.subscribedComponents[stateKey].includes(component)) {
-      return this.state[stateKey];
-    }
-    throw new Error(ERROR_MSG.CAN_NOT_REFERENCE_STATE);
+  getState(stateKey: TGlobalStateKey) {
+    return this.state[stateKey];
   }
 
   notifySubscribedView(stateKey: TGlobalStateKey) {
     this.subscribedComponents[stateKey].forEach(component => component.wakeUp(stateKey));
   }
-
-  reducer = {
-    [ACTION_TYPES.LOGIN_USER]: payload => {
-      const { loggedUser, isLoggedIn } = payload;
-
-      this.state.AUTH_INFORMATION.loggedUser = loggedUser;
-      this.state.AUTH_INFORMATION.isLoggedIn = isLoggedIn;
-
-      localStorage.setItem('logged-user', JSON.stringify(loggedUser));
-    },
-    [ACTION_TYPES.CHANGE_ROUTE]: payload => {
-      const { currentRouteName } = payload;
-      this.state.CURRENT_ROUTE_NAME = currentRouteName;
-    },
-    [ACTION_TYPES.LOGOUT_USER]: payload => {
-      this.state.AUTH_INFORMATION.loggedUser = null;
-      this.state.AUTH_INFORMATION.isLoggedIn = false;
-
-      localStorage.removeItem('logged-user');
-    },
-  };
 }
 
 export default new GlobalStore();

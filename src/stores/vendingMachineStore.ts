@@ -1,9 +1,6 @@
 import CoinWallet from '../domains/coinWallet';
-import Product from '../domains/product';
-import { ERROR_MSG, ACTION_TYPES } from '../utils/constants';
 import {
   IVendingMachineStore,
-  TVendingMachineAction,
   TVendingMachineState,
   TVendingMachineStateComponents,
   TVendingMachineStateKey,
@@ -19,73 +16,37 @@ class VendingMachineStore implements IVendingMachineStore {
       PRODUCT_LIST: [],
       COIN_WALLET: [],
       INPUT_CHARGE: [],
+      RETURN_COIN: [],
     };
     this.state = {
       PRODUCT_LIST: [],
       COIN_WALLET: new CoinWallet(),
       INPUT_CHARGE: 0,
+      RETURN_COIN: new CoinWallet(),
     };
-  }
-
-  mutateState({
-    actionType,
-    payload,
-    stateKey,
-  }: {
-    actionType: TVendingMachineAction;
-    payload: unknown;
-    stateKey: TVendingMachineStateKey;
-  }) {
-    this.reducer[actionType](payload);
-    this.notifySubscribedView(stateKey);
   }
 
   subscribe(stateType: TVendingMachineStateKey, component: unknown) {
     this.subscribedComponents[stateType].push(component);
   }
 
-  getState(stateType: TVendingMachineStateKey, component: unknown) {
-    if (this.subscribedComponents[stateType].includes(component)) {
-      return this.state[stateType];
+  setState(key, valueOrFunction) {
+    if (typeof valueOrFunction === 'function') {
+      this.state[key] = valueOrFunction(this.state[key]);
     }
-    throw new Error(ERROR_MSG.CAN_NOT_REFERENCE_STATE);
+    if (typeof valueOrFunction !== 'function') {
+      this.state[key] = valueOrFunction;
+    }
+    this.notifySubscribedView(key);
+  }
+
+  getState(stateType: TVendingMachineStateKey) {
+    return this.state[stateType];
   }
 
   notifySubscribedView(stateType: TVendingMachineStateKey) {
     this.subscribedComponents[stateType].forEach(component => component.wakeUp(stateType));
   }
-
-  reducer = {
-    [ACTION_TYPES.ADD_PRODUCT]: payload => {
-      const { name, price, quantity } = payload;
-
-      const product = new Product(name, price, quantity);
-
-      this.state.PRODUCT_LIST.push(product);
-    },
-    [ACTION_TYPES.EDIT_PRODUCT]: payload => {
-      const { id, name, price, quantity } = payload;
-
-      const editProduct = this.state.PRODUCT_LIST.find(
-        product => product.getProductInfo().id === id,
-      );
-      editProduct.editProductInfo({ name, price, quantity });
-    },
-    [ACTION_TYPES.DELETE_PRODUCT]: payload => {
-      const { id } = payload;
-
-      const deletedProductList = this.state.PRODUCT_LIST.filter(product => {
-        const { id: productId } = product.getProductInfo();
-        return productId !== id;
-      });
-      this.state.PRODUCT_LIST = deletedProductList;
-    },
-    [ACTION_TYPES.RECHARGE_CHANGE]: payload => {
-      const { changeInput } = payload;
-
-      this.state.COIN_WALLET.rechargeCoinWallet(changeInput);
-    },
-  };
 }
 
 export default new VendingMachineStore();
