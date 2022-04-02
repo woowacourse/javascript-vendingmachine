@@ -106,7 +106,15 @@ export default class VendingMachine {
       throw new Error(ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT);
     }
 
-    return this.#moneyBox.returnChange(this.#moneyInsert);
+    const changeCoins = this.#moneyBox.returnChange(this.#moneyInsert);
+    const totalChangeAmount = changeCoins.reduce(
+      (totalReturn, { value, count }) => totalReturn + value * count,
+      0
+    );
+
+    this.#moneyInsert -= totalChangeAmount;
+
+    return changeCoins;
   }
 
   #validateChange(money: number): never | void {

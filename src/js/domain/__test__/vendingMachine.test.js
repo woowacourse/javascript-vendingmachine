@@ -256,6 +256,18 @@ describe('자판기 클래스 테스트', () => {
         expect(totalChangeAmount).toEqual(moneyInsert);
       });
 
+      test('잔돈을 모두 반환하면 투입 금액이 0이 된다.', () => {
+        const inputMoney = 5000;
+        vendingMachine.addChange(inputMoney);
+
+        const moneyInsertInput = 1000;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        vendingMachine.returnChange();
+
+        expect(vendingMachine.moneyInsert).toEqual(0);
+      });
+
       test('충전된 잔돈이 남은 투입 금액보다 적으면 남은 잔돈을 전부 반환한다.', () => {
         const moneyInsertInput = 3000;
         vendingMachine.addMoneyInsert(moneyInsertInput);
@@ -270,6 +282,18 @@ describe('자판기 클래스 테스트', () => {
         );
 
         expect(totalChangeAmount).toEqual(inputMoney);
+      });
+
+      test('충전된 잔돈이 남은 투입 금액보다 적으면 반환 후 투입 금액이 반환 금액만큼 감소한다.', () => {
+        const inputMoney = 2000;
+        vendingMachine.addChange(inputMoney);
+
+        const moneyInsertInput = 3000;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        vendingMachine.returnChange();
+
+        expect(vendingMachine.moneyInsert).toEqual(moneyInsertInput - inputMoney);
       });
 
       test('반환할 투입 금액이 없으면 오류를 반환한다.', () => {
