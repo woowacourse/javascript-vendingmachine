@@ -6,7 +6,7 @@ export type TProduct = {
 };
 
 export interface IProduct {
-  purchaseProduct: () => void;
+  purchaseProduct: (money: number) => void;
   getProductInfo: () => TProduct;
   editProductInfo: (args: { name: string; price: number; quantity: number }) => void;
 }
@@ -28,4 +28,5 @@ export interface ICoinWallet {
   pickRandomCoinKey: () => TCoinWalletKey;
   findMaxCoinKey: (change: number) => TCoinWalletKey;
   getCoinWalletInfo: () => TCoinWallet;
+  setCoinWalletInfo: (coinWalletInfo: TCoinWallet) => void;
 }
