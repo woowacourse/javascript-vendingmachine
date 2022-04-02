@@ -2,6 +2,8 @@ import { $, $$, on } from '../dom/domHelper';
 
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
+  private $$navButtons = $$<HTMLButtonElement>('.nav__button');
+  private $$manageComponents = $$<HTMLElement>('.manage-component');
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
@@ -13,7 +15,8 @@ export default class NavigatorComponent {
     const target = event.target as HTMLElement;
     if (
       !target.matches('.nav__product-button') &&
-      !target.matches('.nav__charge-button')
+      !target.matches('.nav__charge-button') &&
+      !target.matches('.nav__purchase-button')
     ) {
       return;
     }
@@ -22,10 +25,10 @@ export default class NavigatorComponent {
     this.changeComponent();
   };
 
-  private changeComponent(): void {
+  private changeComponent = (): void => {
     const { pathname } = window.location;
 
-    $$<HTMLButtonElement>('.nav__button').forEach((button) => {
+    this.$$navButtons.forEach((button) => {
       if (pathname !== button.dataset.pathname) {
         button.classList.remove('nav__button--focused');
       }
@@ -35,7 +38,7 @@ export default class NavigatorComponent {
       }
     });
 
-    $$<HTMLElement>('.manage-component').forEach((section) => {
+    this.$$manageComponents.forEach((section) => {
       if (pathname !== section.dataset.pathname) {
         section.classList.add('hide');
       }
@@ -44,5 +47,5 @@ export default class NavigatorComponent {
         section.classList.remove('hide');
       }
     });
-  }
+  };
 }
