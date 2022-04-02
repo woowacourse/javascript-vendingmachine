@@ -28,7 +28,7 @@ export default class MainUI {
     this.$signIn.classList.add('hide');
     this.$signUp.classList.add('hide');
 
-    this.renderProductManagementUI();
+    this.renderProductPurchaseUI();
   }
 
   renderProductManagementUI() {
