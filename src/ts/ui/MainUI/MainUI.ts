@@ -27,12 +27,12 @@ export default class MainUI {
     this.purchaseCashDomain,
   );
 
-  renderInitPage(isLogin: boolean = false) {
+  renderInitPage(isSignIn: boolean = false) {
     this.$main.classList.remove('hide');
     this.$signIn.classList.add('hide');
     this.$signUp.classList.add('hide');
 
-    if (isLogin) {
+    if (isSignIn) {
       this.renderProductManagementUI();
       return;
     }
@@ -51,7 +51,7 @@ export default class MainUI {
     this.productPurchaseUI.render();
   }
 
-  renderUserUI(name: string) {
+  renderUserUI(name: string = '') {
     this.$thumbnail.textContent = name.substr(0, 1);
 
     [this.$nav, this.$signinButton, this.$thumbnail].forEach($button => {

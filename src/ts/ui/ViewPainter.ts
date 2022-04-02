@@ -25,8 +25,8 @@ class ViewPainter {
     this.#signInUI = signInUI;
   }
 
-  renderMainUI(isLogin: boolean) {
-    this.#mainUI.renderInitPage(isLogin);
+  renderMainUI(isSignIn: boolean) {
+    this.#mainUI.renderInitPage(isSignIn);
   }
 
   renderSignInUI() {

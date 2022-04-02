@@ -93,7 +93,7 @@ export default class App {
   private renderPage(pathname) {
     this.mainUI.renderInitPage();
     if (
-      !this.userDomain.isLogin &&
+      !this.userDomain.isSignIn &&
       pathname !== '/signin' &&
       pathname !== '/signup'
     )

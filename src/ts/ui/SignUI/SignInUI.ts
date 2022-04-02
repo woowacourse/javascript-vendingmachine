@@ -44,18 +44,18 @@ export default class SignInUI {
     request('signin', user)
       .then(response => {
         const { user: userInfo, accessToken } = response;
-        this.userDomain.login(userInfo, accessToken);
+        this.userDomain.signIn(userInfo, accessToken);
 
         $$('.sign-in__input').forEach(($input: HTMLInputElement) => {
           $input.value = '';
         });
-        showSnackbar(MESSAGE.SUCCESS_LOGIN);
+        showSnackbar(MESSAGE.SUCCESS_SIGNIN);
         viewPainter.renderUser(userInfo.name);
-        viewPainter.renderMainUI(this.userDomain.isLogin);
+        viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);
       })
       .catch(() => {
-        showSnackbar(MESSAGE.FAIL_LOGIN);
+        showSnackbar(MESSAGE.FAIL_SIGNIN);
       });
   }
 }
