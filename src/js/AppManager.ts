@@ -18,9 +18,11 @@ export default class AppManager {
     this.initDom();
 
     this.vendingMachine = new VendingMachine();
+
     this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
+
     this.router = new Router(
       this.manageItemController,
       this.chargeMoneyController,
