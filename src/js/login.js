@@ -27,6 +27,9 @@ loginForm.addEventListener('submit', async (e) => {
   const dataResult = await response.json();
   localStorage.setItem('user', JSON.stringify(dataResult));
 
-  // 이제 user 정보 페이지로 리디렉션 시키면
-  location.href = 'http://localhost:9000/manager.html';
+  if (dataResult.accessToken) {
+    location.href = './manager.html';
+    return;
+  }
+  alert('존재하지 않는 회원입니다.');
 });
