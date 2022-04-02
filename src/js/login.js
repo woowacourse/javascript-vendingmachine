@@ -1,5 +1,6 @@
 import '../css/index.css';
 import { $ } from './utils/dom';
+import { handleSnackbarMessage } from './utils/snackbar';
 
 const loginForm = $('#login-form');
 const emailInput = $('#email-input');
@@ -28,5 +29,5 @@ loginForm.addEventListener('submit', async (e) => {
     location.href = './manager.html';
     return;
   }
-  alert('존재하지 않는 회원입니다.');
+  handleSnackbarMessage('존재하지 않는 회원입니다.');
 });
