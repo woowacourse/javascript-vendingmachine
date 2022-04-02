@@ -138,6 +138,18 @@ describe('자판기 클래스 테스트', () => {
         expect(vendingMachine.moneyInsert).toEqual(moneyInsertInput);
       });
 
+      test('금액을 여러 번 투입하면 누적된 투입 금액을 확인할 수 있다.', () => {
+        const firstMoneyInsertInput = 1000;
+        vendingMachine.addMoneyInsert(firstMoneyInsertInput);
+
+        const secondMoneyInsertInput = 2000;
+        vendingMachine.addMoneyInsert(secondMoneyInsertInput);
+
+        expect(vendingMachine.moneyInsert).toEqual(
+          firstMoneyInsertInput + secondMoneyInsertInput
+        );
+      });
+
       test('투입 금액이 0원 이하면 오류가 발생한다.', () => {
         const moneyInsertInput = 0;
 
