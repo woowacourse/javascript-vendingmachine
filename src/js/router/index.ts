@@ -34,17 +34,16 @@ const useRouter = () => {
       const { path, title, page } = routes[_path];
       const isSamePage = prevPath === _path;
 
-      activeLogin(_path);
-
       if (isSamePage) {
         console.log('같은 페이지');
         return;
       }
 
       clearPageBody();
+      activeLogin(_path);
       history.pushState({ path, prevPath, hash, _path }, title, pathname + path);
-      page.render();
       prevPath = _path;
+      page.render();
     },
     back: () => {
       const { hash } = window.location;
