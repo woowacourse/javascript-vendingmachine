@@ -1,23 +1,28 @@
 import VendingMachineTab from './VendingMachineTab';
+import { Coin, Hash, VendingMachineInterface } from '../types';
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
 
 class CoinRechargeTab extends VendingMachineTab {
-  constructor(vendingMachine, tabHash) {
+  coinRechargeTabButton: HTMLElement | null = selectDom(`#${ID.COIN_RECHARGE_TAB_BUTTON}`);
+
+  cashChargeForm: HTMLElement | null = null;
+
+  cashChargeInput: HTMLInputElement | null = null;
+
+  chargedAmountText: HTMLElement | null = null;
+
+  coinCountList: NodeListOf<HTMLElement> | null = null;
+
+  constructor(vendingMachine: VendingMachineInterface, tabHash: Hash) {
     super(vendingMachine, tabHash);
 
-    this.coinRechargeTabButton = selectDom(`#${ID.COIN_RECHARGE_TAB_BUTTON}`);
-    this.cashChargeForm = null;
-    this.cashChargeInput = null;
-    this.chargedAmountText = null;
-    this.coinCountList = null;
-
-    this.coinRechargeTabButton.addEventListener('click', this.#onClickCoinRechargeTabButton);
+    this.coinRechargeTabButton.addEventListener('click', this.onClickCoinRechargeTabButton);
   }
 
-  renderInitialTabState() {
-    const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
+  renderInitialTabState(): void {
+    const totalCoinAmount: number = this.vendingMachine.calculateTotalCoinAmount();
 
     this.changeTabContent(
       generateCoinRechargeTabContentTemplate(totalCoinAmount, this.vendingMachine.coinCollection),
@@ -29,14 +34,13 @@ class CoinRechargeTab extends VendingMachineTab {
     this.chargedAmountText = selectDom(`#${ID.CHARGED_AMOUNT}`, this.tabContent);
     this.coinCountList = selectDoms(`.${CLASS.COIN_COUNT}`, this.tabContent);
 
-    this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
+    this.cashChargeForm.addEventListener('submit', this.onSubmitCashChargeForm);
   }
 
-  #onClickCoinRechargeTabButton = ({
-    target: {
-      dataset: { hash },
-    },
-  }) => {
+  private onClickCoinRechargeTabButton = ({ target }: MouseEvent): void => {
+    const targetElement = target as HTMLElement;
+    const hash = targetElement.dataset.hash as Hash;
+
     if (this.coinRechargeTabButton.classList.contains(CLASS.SELECTED)) {
       return;
     }
@@ -44,7 +48,7 @@ class CoinRechargeTab extends VendingMachineTab {
     this.renderInitialTabState();
   };
 
-  #onSubmitCashChargeForm = (e) => {
+  private onSubmitCashChargeForm = (e: SubmitEvent): void => {
     e.preventDefault();
 
     const chargedCash = this.cashChargeInput.valueAsNumber;
@@ -55,14 +59,17 @@ class CoinRechargeTab extends VendingMachineTab {
       return alert(error.message);
     }
 
-    this.#renderChargedCoinState(
+    this.renderChargedCoinState(
       this.vendingMachine.chargeCoin(chargedCash),
       this.vendingMachine.coinCollection
     );
   };
 
-  #renderChargedCoinState(totalCoinAmount, currentCoinCollection) {
-    this.chargedAmountText.textContent = totalCoinAmount;
+  private renderChargedCoinState(
+    totalCoinAmount: number,
+    currentCoinCollection: Record<Coin, number>
+  ): void {
+    this.chargedAmountText.textContent = String(totalCoinAmount);
     this.coinCountList.forEach((coinCount) => {
       coinCount.textContent = `${currentCoinCollection[coinCount.dataset.coinValue]}개`;
     });

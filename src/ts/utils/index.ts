@@ -1,7 +1,7 @@
-export const selectDom = (
+export const selectDom = <E extends Element>(
   selector: string,
   parent: HTMLElement | Document = document
-): HTMLElement => parent.querySelector(selector);
+): E | null => parent.querySelector(selector);
 
 export const selectDoms = <E extends Element>(
   selector: string,

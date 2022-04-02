@@ -14,7 +14,7 @@ class App {
 
   private coinRechargeTab: VendingMachineTabInterface = new CoinRechargeTab(
     this.vendingMachine,
-    HASH.COIN_RECHARGE
+    HASH.COIN_RECHARGE as Hash
   );
 
   private tabs: VendingMachineTabInterface[] = [this.itemManageTab, this.coinRechargeTab];

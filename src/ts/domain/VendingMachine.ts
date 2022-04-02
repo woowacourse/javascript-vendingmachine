@@ -69,7 +69,7 @@ class VendingMachine implements VendingMachineInterface {
     this._itemList[itemIndex] = itemInfo;
   }
 
-  chargeCoin(rechargeCoin) {
+  chargeCoin(rechargeCoin: number): number {
     let candidateCoins = [COIN_500, COIN_100, COIN_50, COIN_10];
     let remainCoin = rechargeCoin;
 
@@ -91,7 +91,7 @@ class VendingMachine implements VendingMachineInterface {
     return this.calculateTotalCoinAmount();
   }
 
-  calculateTotalCoinAmount() {
+  calculateTotalCoinAmount(): number {
     return Object.entries(this._coinCollection).reduce(
       (prev, [key, value]) => prev + Number(key) * value,
       0
