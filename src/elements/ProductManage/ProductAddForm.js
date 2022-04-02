@@ -14,7 +14,7 @@ class ProductAddForm extends CustomElement {
           <input class="product-name-input" placeholder="상품명" maxlength="10" required>
           <input type="number" class="product-price-input" placeholder="가격" min="100" max="10000" required>
           <input type="number" class="product-quantity-input" placeholder="수량" min="1" max="20" required>
-          <button class="product-add-button">추가</button>
+          <button class="product-add-button button">추가</button>
         </div>
       </form>
     `;

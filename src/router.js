@@ -24,7 +24,6 @@ const renderAppHeight = (isLongApp) => {
 
 const renderTargetContainer = (currentHash) => {
   routes.forEach(({ hash, target, isLongApp }) => {
-    console.log(hash, target, isLongApp);
     const $menu = $nav.querySelector(`[href='${hash}']`);
     if (currentHash === hash) {
       target.show();

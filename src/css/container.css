@@ -9,20 +9,26 @@
   height: 36px;
 }
 
+.button {
+  background: var(--cyan);
+  color: var(--white);
+}
+
+.button:hover {
+  background: var(--cyan-dark);
+}
+
 .product-add-button,
 .coin-charge-button,
 .purchase-money-button {
   width: 56px;
   height: 36px;
   margin-left: 14px;
-  background: var(--cyan);
-  color: var(--white);
 }
 
-.product-add-button:hover,
-.coin-charge-button:hover,
-.purchase-money-button:hover {
-  background: var(--cyan-dark);
+.login-button {
+  width: 300px;
+  height: 36px;
 }
 
 h2 {
@@ -68,8 +74,7 @@ td {
   margin: 16px auto 0;
 }
 
-.coin-charge-label,
-.purchase-money-label {
+label {
   display: block;
   margin-bottom: 4px;
 }
@@ -84,4 +89,23 @@ td {
 .coin-current-situation,
 .product-return-change-situation {
   width: 238px;
+}
+
+.long-input {
+  width: 300px;
+  height: 36px;
+  border-radius: 4px;
+}
+
+.login-form {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.password-label {
+  margin-top: 16px;
+}
+
+.login-button {
+  margin-top: 30px;
 }
