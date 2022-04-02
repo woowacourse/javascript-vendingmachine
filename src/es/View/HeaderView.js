@@ -8,9 +8,9 @@ export default class HeaderView {
   }
 
   drawNavigationMenu({ currentPage }) {
-    // $('.nav .selected').classList.remove('selected');
+    $('.nav .selected').classList.remove('selected');
 
-    // const selectedMenu = $(`.nav-menu[data-route*="${currentPage}"]`);
-    // selectedMenu.classList.add('selected');
+    const selectedMenu = $(`.nav-menu[data-route*="${currentPage}"]`);
+    selectedMenu.classList.add('selected');
   }
 }

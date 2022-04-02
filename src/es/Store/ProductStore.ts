@@ -32,7 +32,7 @@ class ProductStore implements IStore {
     });
   }
 
-  updateProduct(index, product: IProduct): void {
+  updateProduct(index: number, product: IProduct): void {
     const updateProducts = [...this.state.products];
 
     updateProducts.splice(index, 1, product);
@@ -65,6 +65,12 @@ class ProductStore implements IStore {
     if (confirm('이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?')) {
       this.updateProduct(productIndex, product);
     }
+  }
+
+  takeOutProductByIndex(index: number, count = 1) {
+    const updatedProduct = this.state.products[index];
+    updatedProduct.quantity -= count;
+    this.updateProduct(index, updatedProduct);
   }
 }
 

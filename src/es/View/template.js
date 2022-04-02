@@ -55,6 +55,47 @@ export const template = {
     </table>
   </section>
   `,
+  productPurchasePage: `
+  <section id="add-amount-for-purchase-form-section" class="form-section">
+    <form id="add-amount-for-purchase-form">
+        <label form="add-amount-for-purchase-form">상품을 구매할 금액을 투입해주세요</label>
+        <div class="add-amount-for-purchase-wrap">
+            <input type="number" name="add-amount-for-purchase" placeholder="금액" form="add-amount-for-purchase-form" required>
+            <button id="add-amount-for-purchase-submit-button" class="button accent">투입</button>
+        </div>
+    </form>
+    <p class="amount-for-purchase">투입한 금액: <span id="total-amount-for-purchase">0원</span></p>
+  </section>
+  <section id="product-table-section" class="table-section">
+  <table id="product-table" class="table">
+      <caption>구매 가능 상품 현황</caption>
+      <thead>
+          <tr>
+              <th width="25%">상품명</th>
+              <th width="25%">가격</th>
+              <th width="25%">수량</th>
+              <th width="35%">구매</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+  </table>
+  </section>
+  <section id="change-table-section" class="table-section">
+  <table id="change-table" class="table">
+      <caption>잔돈 반환</caption>
+      <thead>
+          <tr><th>동전</th><th>개수</th></tr>
+      </thead>
+      <tbody>
+          <tr><td>500원</td><td>0개</td></tr>
+          <tr><td>100원</td><td>0개</td></tr>
+          <tr><td>50원</td><td>0개</td></tr>
+          <tr><td>10원</td><td>0개</td></tr>
+      </tbody>
+  </table>
+  <button class="button">반환</button>
+</section>
+  `,
   productTableRowInners: ({ name, price, quantity }) => `
     <td>${name}</td>
     <td>${price.toLocaleString()}</td>
@@ -85,7 +126,24 @@ export const template = {
         <button class="button product-update-cancel-button" name="product-update-cancel" type="button">취소</button>
       </div>
     </td>
-`,
+  `,
+  productPurchaseTableRowInners: ({ name, price, quantity }) => `
+  <td>${name}</td>
+  <td>${price.toLocaleString()}</td>
+  <td>${quantity}</td>
+  <td>
+    <button class="button product-purchase-button" name="product-purchase" type="button">구매</button>
+  </td>
+  `,
+  productPurchaseTableRows: products =>
+    products
+      .map(
+        ({ name, price, quantity }, index) => `
+      <tr data-primary-key="${index}">
+        ${template.productPurchaseTableRowInners({ name, price, quantity })}
+      </tr>`,
+      )
+      .join(''),
   holdingAmountTableRows: coins =>
     coins
       .map(

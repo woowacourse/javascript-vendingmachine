@@ -97,7 +97,7 @@ export default class ProductManagementPageView {
       return;
     }
     this.isTableUpdating = !this.isTableUpdating;
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
@@ -107,7 +107,7 @@ export default class ProductManagementPageView {
   }
 
   onClickUpdateConfirmButton({ target: $target }) {
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
     const productIndex = $tableRow.dataset.primaryKey;
     const product = getInnerInputValues($tableRow);
@@ -123,7 +123,7 @@ export default class ProductManagementPageView {
   }
 
   onClickUpdateCancelButton({ target: $target }) {
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
@@ -136,7 +136,7 @@ export default class ProductManagementPageView {
   onClickDeleteButton({ target: $target }) {
     if (!confirm('정말 해당 상품을 삭제하시겠습니까?')) return;
 
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
