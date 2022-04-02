@@ -7,6 +7,11 @@ export default class Coin implements CoinInterface {
   #coins: Coins;
 
   constructor() {
+    const coinsData = localStorage.getItem('coins');
+    if (coinsData) {
+      this.#coins = JSON.parse(coinsData);
+      return;
+    }
     this.#coins = {
       500: 0,
       100: 0,
@@ -15,10 +20,28 @@ export default class Coin implements CoinInterface {
     };
   }
 
+  // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
+  // 뽑은 숫자 만큼 동전을 추가한다.
+  // 나머지 금액은 10원 동전으로 바꾼다.
+  #makeRandomCoins(amount: number): void {
+    let currentAmount = amount;
+    COIN.UNIT_LIST.forEach((coin) => {
+      const maxCoinCount = Math.floor(currentAmount / coin);
+      const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
+      currentAmount -= coinCount * coin;
+      this.#coins[coin] += coinCount;
+    });
+  }
+
+  #setCoinsInLocalStorage(): void {
+    localStorage.setItem('coins', JSON.stringify(this.#coins));
+  }
+
   addAmount(chargedAmount: number): void {
     const currentAmount = this.getAmount() + chargedAmount;
     if (!validAmount(chargedAmount, currentAmount)) return;
-    this.makeRandomCoins(chargedAmount);
+    this.#makeRandomCoins(chargedAmount);
+    this.#setCoinsInLocalStorage();
   }
 
   getAmount(): number {
@@ -30,19 +53,6 @@ export default class Coin implements CoinInterface {
 
   getCoins(): Coins {
     return this.#coins;
-  }
-
-  // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
-  // 뽑은 숫자 만큼 동전을 추가한다.
-  // 나머지 금액은 10원 동전으로 바꾼다.
-  makeRandomCoins(amount: number): void {
-    let currentAmount = amount;
-    COIN.UNIT_LIST.forEach((coin) => {
-      const maxCoinCount = Math.floor(currentAmount / coin);
-      const coinCount = coin === COIN.MIN_UNIT ? maxCoinCount : getRandomNumber(maxCoinCount);
-      currentAmount -= coinCount * coin;
-      this.#coins[coin] += coinCount;
-    });
   }
 
   returnCoin(userAmount: number): [Coins, number] {
@@ -60,6 +70,7 @@ export default class Coin implements CoinInterface {
       remainCoins[coin] = coinCount;
       currentAmount -= coinCount * coin;
     });
+    this.#setCoinsInLocalStorage();
     return [remainCoins, currentAmount];
   }
 }
