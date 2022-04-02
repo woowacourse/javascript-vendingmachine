@@ -63,6 +63,7 @@ const reducer = (state: AppState, { type, payload }: Action) => {
     }
     case ACTION.INSERT_MONEY: {
       newState.insertedMoney += payload;
+      break;
     }
   }
   return newState;
