@@ -7,14 +7,17 @@ window.addEventListener('popstate', function () {
 
 class App {
   $headerNav: HTMLElement;
-  $accountNavContainer: HTMLElement;
+  $accountLoginButton: HTMLButtonElement;
+  $dropdownSelect: HTMLSelectElement;
 
   constructor() {
     this.$headerNav = document.querySelector('#header-nav');
-    this.$accountNavContainer = document.querySelector('#account-nav-container');
+    this.$accountLoginButton = document.querySelector('#account-login-button');
+    this.$dropdownSelect = document.querySelector('#dropdown-select');
 
-    this.$accountNavContainer.addEventListener('click', this.onClickLogin);
+    this.$accountLoginButton.addEventListener('click', this.onClickLogin);
     this.$headerNav.addEventListener('click', this.onClickTab);
+    this.$dropdownSelect.addEventListener('change', this.onSelectNav);
 
     const { hash } = window.location;
     hash === '' ? router.to('#!/product-purchase') : router.to(hash);
@@ -24,6 +27,23 @@ class App {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     router.to('#!/login');
+  };
+
+  onSelectNav = (e: Event) => {
+    console.log(e);
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
+    const { value } = e.target;
+    e.target.selectedIndex = 0;
+
+    if (value === 'edit-profile') {
+      router.to('#!/edit-profile');
+    }
+
+    if (value === 'logout') {
+      localStorage.clear();
+      router.to('#!/product-purchase');
+    }
   };
 
   onClickTab = (e: PointerEvent) => {

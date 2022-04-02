@@ -1,35 +1,25 @@
 import routes from './routes';
 
-// type GreetFunction = (_path: string) => void;
-// interface FunctionA {
-//   (_path: string): void;
-// }
-// interface FunctionB {
-//   (): void;
-// }
-
-// const isLogged = () => !!localStorage.getItem('id');
-
-// const activeLogin = () => {
-//   // const accountNavContainer = document.querySelector('#account-nav-container');
-//   const $headerNav = document.querySelector('#header-nav');
-//   console.log('----------------', isLogged());
-//   // accountNavContainer.classList.toggle('hide');
-//   $headerNav.classList.toggle('hide', !isLogged());
-// };
-
 const useRouter = () => {
   const $headerNav = document.querySelector('#header-nav');
   const $inputSection = document.querySelector('.input-section');
   const $contentsContainer = document.querySelector('.contents-container');
+  const $accountLoginButton = document.querySelector('#account-login-button');
+  const $accountDropdownContainer = document.querySelector('#account-dropdown-container');
   let prevPath = '';
 
   const isLogged = () => !!localStorage.getItem('id');
 
-  const activeLogin = () => {
-    // const accountNavContainer = document.querySelector('#account-nav-container');
-    console.log('----------------', isLogged());
-    // accountNavContainer.classList.toggle('hide');
+  const activeLogin = (path: string) => {
+    if (path === '#!/login' || path === '#!/edit-profile' || path === '#!/signup') {
+      $accountLoginButton.classList.add('hide');
+      $accountDropdownContainer.classList.add('hide');
+      $headerNav.classList.add('hide');
+      return;
+    }
+
+    $accountLoginButton.classList.toggle('hide', isLogged());
+    $accountDropdownContainer.classList.toggle('hide', !isLogged());
     $headerNav.classList.toggle('hide', !isLogged());
   };
 
@@ -44,7 +34,7 @@ const useRouter = () => {
       const { path, title, page } = routes[_path];
       const isSamePage = prevPath === _path;
 
-      activeLogin();
+      activeLogin(_path);
 
       if (isSamePage) {
         console.log('같은 페이지');
@@ -60,8 +50,9 @@ const useRouter = () => {
       const { hash } = window.location;
       const { page } = routes[hash];
 
-      prevPath = hash;
       clearPageBody();
+      activeLogin(hash);
+      prevPath = hash;
       page.render();
     },
   };
