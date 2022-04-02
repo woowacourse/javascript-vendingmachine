@@ -134,7 +134,7 @@ export const purchaseTabTemplate = /* html */ `
     </div>
     <label for="money-insert">상품을 구매할 금액을 입력해주세요</label>
     <div>
-      <input type="number" id="money-insert" placeholder="금액" name="money-insert"/>
+      <input type="number" id="money-insert-input" placeholder="금액" name="money-insert"/>
       <button type="submit" class="submit-button">투입</button>
     </div>
   </form>
@@ -150,16 +150,6 @@ export const purchaseTabTemplate = /* html */ `
     <th>수량</th>
     <th>관리</th>
   </tr>
-  <tr>
-  <td class="product-name">콜라</td>
-  <td class="product-price">1000</td>
-  <td class="product-stock">10</td>
-  <td>
-    <div class="table-button-wrapper">
-      <button type="button" class="purchase-product-button" data-product-id="">구매</button>
-    </div>
-  </td>
-</tr>
 </table>
 <table class="coin-status-table">
   <caption>
@@ -186,8 +176,26 @@ export const purchaseTabTemplate = /* html */ `
     <td data-coin-name='${MONEY_NAME_STRING.COIN_10_WON}'>0개</td>
   </tr>
 </table>
-<button type="button" class="update-product-button" data-product-id="">반환</button>
+<button type="button" id="return-change-button">반환</button>
 `;
+
+export const purchaseProductTableRowTemplate = ({
+  name,
+  price,
+  stock,
+  id,
+}) => /* html */ `
+  <tr>
+    <td class="product-name">${name}</td>
+    <td class="product-price">${price}</td>
+    <td class="product-stock">${stock}</td>
+    <td>
+      <div class="table-button-wrapper">
+        <button type="button" class="purchase-product-button" data-product-id="${id}">구매</button>
+      </div>
+    </td>
+  </tr>
+  `;
 
 export const notFoundTabTemplate = /* html */ `
 <section title="존재하지 않는 페이지" class="not-found-section">

@@ -18,7 +18,7 @@ class App {
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
       '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
-      '#/purchase': new PurchaseProductTab(),
+      '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
     };
     this.#appContainer = selectDom('#app');
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');

@@ -23,6 +23,7 @@ export default class AddChangeTab {
   }
 
   get tabElements() {
+    this.#renderCoinStatus();
     return this.#addChangeContainer;
   }
 

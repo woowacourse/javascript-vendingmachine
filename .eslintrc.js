@@ -13,7 +13,8 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'plugin:jest/recommended',
+    'plugin:cypress/recommended',
+    // 'plugin:jest/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
