@@ -1,4 +1,6 @@
+import { MESSAGE } from '../constants';
 import UserDomain from '../domain/UserDomain/User';
+import { showSnackbar } from '../utils';
 import { $, $$ } from '../utils/dom';
 import MainUI from './MainUI/MainUI';
 import SignInUI from './SignUI/SignInUI';
@@ -32,6 +34,7 @@ export default class App {
       this.signUpClickHandler,
     );
     $('.thumbnail').addEventListener('click', this.thumbnailClickHandler);
+    $('.select-box').addEventListener('click', this.selectBoxClickHandler);
   }
 
   private navClickHandler = ({ target }) => {
@@ -79,6 +82,24 @@ export default class App {
       $selectBox.classList.toggle('hide');
     }, 300);
   }
+
+  private selectBoxClickHandler = (e: Event) => {
+    if (!(e.target instanceof HTMLButtonElement)) return;
+
+    switch (e.target.name) {
+      case 'edit-button':
+        // 회원정보 수정 화면 렌더링
+        break;
+      case 'signout-button':
+        if (!confirm(MESSAGE.CONFIRM_SIGNOUT)) return;
+
+        this.userDomain.signOut();
+        this.mainUI.renderInitPage();
+        this.mainUI.renderUserUI();
+        this.thumbnailClickHandler();
+        showSnackbar(MESSAGE.SUCCESS_SIGNOUT);
+    }
+  };
 
   private activateClickedButton(pathname) {
     $$('.nav__button').forEach($button => {
