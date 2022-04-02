@@ -9,7 +9,7 @@ import './product-inventory';
 class PurchaseProductTab extends Component {
   template(activeTab: Tab): string {
     if (this.localName !== activeTab) return '';
-    return '<h3 class="text-center">🤖 페이지 건설중...</h3>';
+    return '<insert-money-form></insert-money-form>';
   }
 
   mount() {

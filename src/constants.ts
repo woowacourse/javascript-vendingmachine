@@ -23,6 +23,10 @@ export const MONEY = {
   MAX: 100000,
 };
 
+export const INSERT_MONEY = {
+  MAX: 10000,
+};
+
 export const ACTION = {
   ADD_PRODUCT: 'add-product',
   EDIT_PRODUCT: 'edit-product',
@@ -30,6 +34,7 @@ export const ACTION = {
   CHANGE_EDIT_MODE: 'change-edit-mode',
   CHARGE_COINS: 'charge-coins',
   CHANGE_ACTIVE_TAB: 'change-active-tab',
+  INSERT_MONEY: 'insert-money',
 };
 
 export const initialState: AppState = {
@@ -42,6 +47,7 @@ export const initialState: AppState = {
     10: 0,
   },
   productList: [],
+  insertedMoney: 0,
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
@@ -82,4 +88,12 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   OVER_MAX_CHARGE_MONEY: `잔돈으로 보유할 수 있는 최대 금액은 ${MONEY.MAX.toLocaleString(
     'ko-kr'
   )}원입니다.`,
+
+  EMPTY_INSERT_MONEY: '충전 금액을 입력해주세요.',
+  NOT_NUMBER_INSERT_MONEY: '충전 금액은 숫자이어야 합니다',
+  NEGATIVE_INSERT_MONEY: '충전 금액은 양수이어야 합니다.',
+  NOT_DIVIDED_BY_TEN_INSERT_MONEY: `충전 금액은 ${COIN.MIN_UNIT.toLocaleString(
+    'ko-kr'
+  )}원 단위이어야 합니다`,
+  OVER_MAX_INSERT_MONEY: `최대 투입 금액은 ${INSERT_MONEY.MAX.toLocaleString('ko-kr')}원입니다.`,
 };

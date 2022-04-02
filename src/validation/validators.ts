@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, PRODUCT, COIN, MONEY } from '../constants';
+import { ERROR_MESSAGE, PRODUCT, COIN, MONEY, INSERT_MONEY } from '../constants';
 import { ProductItem, RawProductItem } from '../types';
 import { toInt } from '../utils';
 import ValidationResult from './validation-result';
@@ -76,6 +76,24 @@ export const validateChargeCoins = (money: string, chargedMoney: number) => {
 
   if (MONEY.MAX < moneyNum + chargedMoney)
     return new ValidationResult(true, ERROR_MESSAGE.OVER_MAX_CHARGE_MONEY);
+
+  return new ValidationResult(false);
+};
+
+export const validateInsertMoney = (money: string, insertedMoney: number) => {
+  const isEmptyMoney = !money;
+  if (isEmptyMoney) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_INSERT_MONEY);
+
+  if (!isInteger(money)) return new ValidationResult(true, ERROR_MESSAGE.NOT_NUMBER_INSERT_MONEY);
+
+  const moneyNum = toInt(money, 0);
+  if (moneyNum <= 0) return new ValidationResult(true, ERROR_MESSAGE.NEGATIVE_INSERT_MONEY);
+
+  if (moneyNum % COIN.MIN_UNIT)
+    return new ValidationResult(true, ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_INSERT_MONEY);
+
+  if (INSERT_MONEY.MAX < moneyNum + insertedMoney)
+    return new ValidationResult(true, ERROR_MESSAGE.OVER_MAX_INSERT_MONEY);
 
   return new ValidationResult(false);
 };

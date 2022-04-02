@@ -66,6 +66,9 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.activeTab = payload;
       break;
     }
+    case ACTION.INSERT_MONEY: {
+      newState.insertedMoney += payload;
+    }
   }
   return newState;
 };

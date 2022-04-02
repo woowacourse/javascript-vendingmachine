@@ -12,6 +12,7 @@ export type AppState = {
   chargedMoney: number;
   chargedCoins: CoinRecord;
   productList: Array<ProductItem>;
+  insertedMoney: number;
 };
 
 export interface ComponentConstructor {
