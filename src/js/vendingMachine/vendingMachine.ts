@@ -4,12 +4,15 @@ import ItemManager from './itemManager';
 import {
   checkDuplicatedItem,
   validateAddItemInput,
-  validateChargeMoney,
+  validateChargeCoins,
+  validateInputMoney,
 } from '../validates/validates';
+import MoneyManager from './moneyManager';
 
 export default class VendingMachine {
   private itemManager = new ItemManager();
   private coinManager = new CoinManager();
+  private moneyManager = new MoneyManager();
 
   get items() {
     return this.itemManager.items;
@@ -21,6 +24,14 @@ export default class VendingMachine {
 
   get coinsSum() {
     return this.coinManager.coinsSum;
+  }
+
+  get InitialCoins() {
+    return this.coinManager.initialCoins;
+  }
+
+  get money() {
+    return this.moneyManager.money;
   }
 
   addItem(item: ItemType) {
@@ -45,8 +56,13 @@ export default class VendingMachine {
     this.itemManager.deleteItem(targetItem);
   }
 
+  chargeCoins(inputMoney: number) {
+    validateChargeCoins(inputMoney);
+    this.coinManager.chargeCoins(inputMoney);
+  }
+
   chargeMoney(inputMoney: number) {
-    validateChargeMoney(inputMoney);
-    this.coinManager.chargeCoin(inputMoney);
+    validateInputMoney(inputMoney);
+    this.moneyManager.chargeMoney(inputMoney);
   }
 }

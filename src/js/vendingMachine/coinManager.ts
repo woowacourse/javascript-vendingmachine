@@ -1,9 +1,13 @@
 import { CoinsType } from '../types/types';
-import { COINS } from '../constants/vendingMachineConstants';
+import { COINS, InitialCoins } from '../constants/vendingMachineConstants';
 import { generateRandom } from '../utils/common';
 
 export default class CoinManager {
-  private _coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
+  private _coins: CoinsType = InitialCoins;
+
+  get initialCoins() {
+    return InitialCoins;
+  }
 
   get coins() {
     return this._coins;
@@ -13,7 +17,7 @@ export default class CoinManager {
     return this.getSumCoins(this._coins);
   }
 
-  chargeCoin(inputMoney: number) {
+  chargeCoins(inputMoney: number) {
     this.addRandomCoins(inputMoney);
   }
 

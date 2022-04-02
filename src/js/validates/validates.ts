@@ -40,7 +40,7 @@ export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, target
   }
 };
 
-export const validateChargeMoney = (inputMoney: number) => {
+export const validateChargeCoins = (inputMoney: number) => {
   if (!Number.isInteger(inputMoney)) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
   }

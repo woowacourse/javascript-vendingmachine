@@ -13,7 +13,7 @@ describe('잔돈 충전', () => {
     const validInputMoney = 610;
     let totalMoney = 0;
 
-    vendingMachine.chargeCoin(validInputMoney);
+    vendingMachine.chargeCoins(validInputMoney);
 
     const { coins } = vendingMachine;
 

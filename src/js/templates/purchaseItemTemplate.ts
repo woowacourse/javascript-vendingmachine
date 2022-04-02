@@ -6,14 +6,14 @@ const sectionTemplate = {
     return `
     <section class="input-container">
       <h2 hidden>상품 구매</h2>
-      <form>
+      <form id="input-money-submit">
         <label>상품을 구매할 금액을 투입해주세요</label>
         <div>
-          <input class="charge-money-input" placeholder="금액" />
+          <input class="charge-money-input" placeholder="금액" type="number" />
           <button class="submit-button">충전</button>
         </div>
       </form>
-      <p>투입한 금액: <span>${inputMoney}</span>원</p>
+      <p>투입한 금액: <span id="current-input-money">${inputMoney}</span>원</p>
     </section>
     `;
   },

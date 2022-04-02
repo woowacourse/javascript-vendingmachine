@@ -24,7 +24,7 @@ export default class ChargeMoneyView {
       event.preventDefault();
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
-      this.vendingMachine.chargeMoney(inputMoney);
+      this.vendingMachine.chargeCoins(inputMoney);
 
       this.repaintCurrentMoney(this.vendingMachine.coinsSum);
       this.repaintCoinsTable(this.vendingMachine.coins);

@@ -11,10 +11,33 @@ export default class PurchaseItemView {
   }
 
   render() {
-    const { items } = this.vendingMachine;
-    const coins = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-    const inputMoney = 0;
+    const { items, InitialCoins, money } = this.vendingMachine;
+
     this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, coins, inputMoney));
+    this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, InitialCoins, money));
+
+    $('#input-money-submit').addEventListener('submit', this.handleSubmitEvent.bind(this));
+  }
+
+  private handleSubmitEvent(event) {
+    try {
+      event.preventDefault();
+      const inputMoney = $('.charge-money-input').valueAsNumber;
+
+      this.vendingMachine.chargeMoney(inputMoney);
+
+      this.repaintCurrentMoney(this.vendingMachine.money);
+      this.clearInput();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  private repaintCurrentMoney(money: number) {
+    $('#current-input-money').textContent = money;
+  }
+
+  private clearInput() {
+    $('.charge-money-input').value = '';
   }
 }
