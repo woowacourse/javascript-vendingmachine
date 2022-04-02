@@ -1,4 +1,4 @@
-import { editUser } from '../../business/auth';
+import { editUser, logoutUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
 import globalStore from '../../stores/globalStore';
 import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../../utils/constants';
@@ -129,6 +129,7 @@ class EditComponent {
       this.clearForm();
     }
   };
+
   clearForm() {
     this.$emailEditInput.value = '';
     this.$nameEditInput.value = '';

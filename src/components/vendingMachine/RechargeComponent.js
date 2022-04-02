@@ -61,10 +61,8 @@ class RechargeComponent {
   }
 
   wakeUp(stateKey) {
-    if (stateKey === VENDING_MACHINE_STATE_KEYS.COIN_WALLET) {
-      const coinWallet = vendingMachineStore.getState(stateKey, this);
-      this.renderCoinTotalAmount(coinWallet);
-    }
+    const coinWallet = vendingMachineStore.getState(stateKey, this);
+    this.render(coinWallet);
   }
 
   bindEventHandler() {

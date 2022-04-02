@@ -75,14 +75,13 @@ a.tab-button:hover {
   opacity: 0;
 }
 
-a.login-button {
-  width: 80px;
+.user-button-container {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 10px;
 }
 
-a.login-button.profile {
+a.profile {
   border-radius: 50%;
   background-color: rgba(0, 150, 255, 0.3);
   width: 20px;

@@ -1,3 +1,4 @@
+import { logoutUser } from '../business/auth';
 import router, { ROUTE_NAME } from '../lib/router';
 import globalStore from '../stores/globalStore';
 import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../utils/constants';
@@ -34,6 +35,7 @@ class AppComponent {
   initDOM() {
     this.$navTab = document.querySelector('#tab-nav');
     this.$loginButton = document.querySelector('#login-button');
+    this.$logoutButton = document.querySelector('#logout-button');
 
     this.$applicationHeader = document.querySelector('#application-header');
   }
@@ -44,6 +46,7 @@ class AppComponent {
     this.$navTab.addEventListener('click', this.onClickNavigation);
     this.$loginButton.addEventListener('click', this.onClickLoginOrEditButton);
     this.$applicationHeader.addEventListener('click', this.onClickApplicationHeader);
+    this.$logoutButton.addEventListener('click', this.onClickLogout);
   }
 
   subscribeStore() {
@@ -60,6 +63,22 @@ class AppComponent {
   render(authInformation, currentRouteName) {
     const { loggedUser, isLoggedIn } = authInformation;
 
+    this.#renderLogoutButton(isLoggedIn);
+
+    this.#renderChildComponents(isLoggedIn, currentRouteName);
+
+    this.#renderLoginOrProfileButton(loggedUser);
+  }
+
+  #renderLogoutButton(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$logoutButton.classList.remove('hide');
+      return;
+    }
+    this.$logoutButton.classList.add('hide');
+  }
+
+  #renderChildComponents(isLoggedIn, currentRouteName) {
     Object.entries(this.routerComponent).forEach(([routeName, component]) => {
       if (routeName === currentRouteName) {
         component.showSection(isLoggedIn);
@@ -67,7 +86,9 @@ class AppComponent {
       }
       component.hideSection();
     });
+  }
 
+  #renderLoginOrProfileButton(loggedUser) {
     if (loggedUser) {
       this.$loginButton.classList.add('profile');
       this.$loginButton.textContent = loggedUser.name.slice(0, 1);
@@ -147,6 +168,20 @@ class AppComponent {
 
   onClickApplicationHeader = () => {
     router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+    globalStore.mutateState({
+      actionType: ACTION_TYPES.CHANGE_ROUTE,
+      payload: {
+        currentRouteName: ROUTE_NAME.MANAGE,
+      },
+      stateKey: GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME,
+    });
+  };
+
+  onClickLogout = () => {
+    logoutUser();
+
+    router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+
     globalStore.mutateState({
       actionType: ACTION_TYPES.CHANGE_ROUTE,
       payload: {

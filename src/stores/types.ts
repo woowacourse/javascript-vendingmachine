@@ -48,7 +48,7 @@ export type TGlobalStateComponents = {
   CURRENT_ROUTE_NAME: Array<any>;
 };
 
-export type TGlobalAction = 'loginUser' | 'changeRoute' | 'editUser';
+export type TGlobalAction = 'loginUser' | 'changeRoute' | 'logoutUser';
 
 export type TUser = {
   id: number;

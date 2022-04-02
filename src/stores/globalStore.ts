@@ -76,11 +76,9 @@ class GlobalStore implements IGlobalStore {
       const { currentRouteName } = payload;
       this.state.CURRENT_ROUTE_NAME = currentRouteName;
     },
-    [ACTION_TYPES.EDIT_USER]: payload => {
-      const { loggedUser, isLoggedIn } = payload;
-
-      this.state.AUTH_INFORMATION.loggedUser = loggedUser;
-      this.state.AUTH_INFORMATION.isLoggedIn = isLoggedIn;
+    [ACTION_TYPES.LOGOUT_USER]: payload => {
+      this.state.AUTH_INFORMATION.loggedUser = null;
+      this.state.AUTH_INFORMATION.isLoggedIn = false;
 
       localStorage.removeItem('logged-user');
     },

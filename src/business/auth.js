@@ -67,8 +67,8 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
       });
 
       globalStore.mutateState({
-        actionType: ACTION_TYPES.EDIT_USER,
-        payload: { loggedUser: null, isLoggedIn: false },
+        actionType: ACTION_TYPES.LOGOUT_USER,
+        payload: {},
         stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
       });
 
@@ -79,4 +79,14 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
   } catch ({ message }) {
     alert(message);
   }
+};
+
+export const logoutUser = () => {
+  globalStore.mutateState({
+    actionType: ACTION_TYPES.LOGOUT_USER,
+    payload: {},
+    stateKey: GLOBAL_STATE_KEYS.AUTH_INFORMATION,
+  });
+
+  localStorage.removeItem('access-token');
 };
