@@ -1,4 +1,4 @@
-import routes from '../routes';
+import router from '../router/index';
 import template from '../template';
 
 export default class Login {
@@ -53,9 +53,7 @@ export default class Login {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('id', id);
 
-      const { pathname } = window.location;
-      history.pushState({}, '상품 관리하기', pathname + '#!/product-manage');
-      routes();
+      router.to('#!/product-manage');
     } catch (e) {
       alert(e);
     }
