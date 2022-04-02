@@ -9,9 +9,7 @@ import ProductComponent from "./product/ProductComponent";
 import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 
-export interface ConvertTemplate {
-  (path: string): void;
-}
+export type Path = "#product" | "#charge" | "purchase";
 
 class App {
   app: HTMLElement;
@@ -39,7 +37,7 @@ class App {
 
     this.productManager = new ProductManager();
     this.chargeManager = new ChargeManager();
-    this.menuTabComponent = new MenuTabComponent({ convertTemplate: this.convertTemplate });
+    this.menuTabComponent = new MenuTabComponent(this.convertTemplate);
     this.productComponent = new ProductComponent({ productManager: this.productManager });
     this.chargeComponent = new ChargeComponent({ chargeManager: this.chargeManager });
     this.purchaseComponent = new PurchaseComponent();
@@ -47,14 +45,15 @@ class App {
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
     }
-    this.convertTemplate(location.hash || "#product");
+
+    this.convertTemplate("#product");
   }
 
   hideContainers() {
     this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
   }
 
-  convertTemplate = (path: string) => {
+  convertTemplate = (path: Path): void => {
     this.hideContainers();
 
     const routes = {

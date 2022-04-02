@@ -1,13 +1,13 @@
 import { $, $$ } from "../../utils/dom";
-import { ConvertTemplate } from "../App";
+import { Path } from "../App";
+
+type ConvertTemplate = (path: Path) => void;
 
 class MenuTabComponent {
-  convertTemplate: ConvertTemplate;
   menuNav: HTMLElement;
   menuNavButtons: NodeList;
 
-  constructor({ convertTemplate }) {
-    this.convertTemplate = convertTemplate;
+  constructor(private convertTemplate: ConvertTemplate) {
     this.menuNav = $(".menu-nav");
     this.menuNavButtons = $$(".menu-nav__button");
 
@@ -22,12 +22,12 @@ class MenuTabComponent {
     }
 
     history.pushState({ path: target.dataset.menu }, null, target.dataset.menu);
-    this.convertTemplate(location.hash);
+    this.convertTemplate(target.dataset.menu);
     this.changeTabStyle();
   };
 
   handlePopState = () => {
-    this.convertTemplate(location.hash || "#product");
+    this.convertTemplate((location.hash as Path) || "#product");
     this.changeTabStyle();
   };
 
