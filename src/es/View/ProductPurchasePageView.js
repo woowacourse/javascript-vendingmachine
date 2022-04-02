@@ -1,21 +1,23 @@
 import ProductStore from '../Store/ProductStore';
-import { $ } from '../utils';
+import CustomerChargeStore from '../Store/CustomerChargeStore';
+import { $, getInnerInputValues } from '../utils';
 import { template } from './template';
 
 export default class ProductPurchasePageView {
   renderMethodList;
 
-  $addFormSection;
-  $addForm;
-  $tableSection;
-  $table;
+  $customerChargeForm;
+  $productTableSection;
+  $productTable;
 
   constructor() {
     ProductStore.addSubscriber(this.render);
+    CustomerChargeStore.addSubscriber(this.render);
     this.setRenderMethodList();
   }
 
   loadPage = () => {
+    console.log('load');
     $('main').innerHTML = template.productPurchasePage;
 
     this.setDom();
@@ -27,19 +29,28 @@ export default class ProductPurchasePageView {
   };
 
   setDom() {
-    this.$tableSection = $('#product-table-section');
-    this.$table = $('#product-table', this.$tableSection);
+    this.$customerChargeForm = $('#customer-charge-form');
+    this.$productTableSection = $('#product-table-section');
+    this.$productTable = $('#product-table', this.$productTableSection);
   }
 
   setRenderMethodList() {
     this.renderMethodList = {
-      products: [this.drawProductList],
+      products: [this.updateProductList],
+      customerCharge: [this.updateTotalCustomerCharge],
     };
   }
 
   setEvents() {
-    this.$table.addEventListener('click', this.onClickTableInnerButton);
+    this.$customerChargeForm.addEventListener('submit', this.onSubmitCustomerChargeForm);
+    this.$productTable.addEventListener('click', this.onClickTableInnerButton);
   }
+
+  onSubmitCustomerChargeForm = (event) => {
+    event.preventDefault();
+    const { customerCharge } = getInnerInputValues(event.target);
+    CustomerChargeStore.addCharge(customerCharge);
+  };
 
   onClickTableInnerButton = (event) => {
     if (event.target.type !== 'button') return;
@@ -56,6 +67,7 @@ export default class ProductPurchasePageView {
   }
 
   render = ({ state, changeStates }) => {
+    console.log(changeStates);
     const renderMethods = changeStates.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
@@ -63,8 +75,12 @@ export default class ProductPurchasePageView {
     renderMethods.forEach(renderMethod => renderMethod(state));
   };
 
-  drawProductList = ({ products }) => {
+  updateTotalCustomerCharge = ({ customerCharge }) => {
+    $('#total-customer-charge').innerText = `${customerCharge}원`;
+  };
+
+  updateProductList = ({ products }) => {
     const productItem = template.productPurchaseTableRows(products);
-    $('tbody', this.$table).innerHTML = productItem;
+    $('tbody', this.$productTable).innerHTML = productItem;
   };
 }
