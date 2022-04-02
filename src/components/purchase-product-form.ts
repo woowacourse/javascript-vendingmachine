@@ -16,7 +16,7 @@ class PurchaseProductForm extends Component {
         <label for="purchase-money-input">상품을 구매할 금액을 투입해주세요</label>
         <div class="d-flex mb-4">
           <input placeholder="금액" name="purchase-money-input" class="form-control mr-4" />
-          <button type="button" class="btn btn-primary">추가</button>
+          <button type="button" class="btn btn-primary">투입</button>
         </div>
         <label class="mb-0">투입한 금액: ${convertToLocaleString(insertedMoney)}원</label>
       </form>
