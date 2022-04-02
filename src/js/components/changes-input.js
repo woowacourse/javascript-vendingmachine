@@ -5,6 +5,7 @@ class ChangesInput extends HTMLElement {
   constructor() {
     super();
     this.$page = document.querySelector("#page");
+    this.$snackbar = document.querySelector("#snackbar");
     this.attachShadow({ mode: "open" });
     this.render();
   }
@@ -28,7 +29,11 @@ class ChangesInput extends HTMLElement {
 
       emit(this.$page, "@mutateChanges");
     } catch (err) {
-      alert(err.message);
+      this.$snackbar.innerText = err.message;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
     }
   };
 

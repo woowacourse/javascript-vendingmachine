@@ -4,11 +4,12 @@ class ProductEditForm extends HTMLTableRowElement {
   constructor() {
     super();
     this.$page = document.querySelector("#page");
+    this.$snackbar = document.querySelector("#snackbar");
+
     this.$saveButton = this.querySelector(".save-button");
     this.$editNameInput = this.querySelector("#edit-name-input");
     this.$editPriceInput = this.querySelector("#edit-price-input");
     this.$editCountInput = this.querySelector("#edit-count-input");
-
     this.$saveButton.addEventListener("click", this.onEdit);
     this.$page.addEventListener("@renderedit", (e) =>
       this.renderEditForm(e.detail)
@@ -37,7 +38,11 @@ class ProductEditForm extends HTMLTableRowElement {
       });
       this.classList.add("hidden");
     } catch (err) {
-      alert(err.message);
+      this.$snackbar.innerText = err.message;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
     }
   };
 

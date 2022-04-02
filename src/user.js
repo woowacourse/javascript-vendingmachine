@@ -9,6 +9,8 @@ class UserEditForm {
     this.$editUserPasswordConfirm = document.querySelector(
       "#edit-user-password-confirm"
     );
+    this.$snackbar = document.querySelector("#snackbar");
+
     this.$editUserForm.addEventListener("submit", this.onSubmit);
     this.user = JSON.parse(localStorage.getItem("user-info"));
     this.setEditUserInputValue();
@@ -39,7 +41,11 @@ class UserEditForm {
     const body = await response.json();
 
     if (!response.ok) {
-      alert(body);
+      this.$snackbar.innerText = body;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
       return;
     }
 

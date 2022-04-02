@@ -6,6 +6,7 @@ class ProductInput extends HTMLElement {
   constructor() {
     super();
     this.$page = document.querySelector("#page");
+    this.$snackbar = document.querySelector("#snackbar");
     this.attachShadow({ mode: "open" });
     this.render();
   }
@@ -49,7 +50,11 @@ class ProductInput extends HTMLElement {
       this.$productPriceInput.value = "";
       this.$productCountInput.value = "";
     } catch (err) {
-      alert(err.message);
+      this.$snackbar.innerText = err.message;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
     }
   };
 

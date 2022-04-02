@@ -6,6 +6,7 @@ class SignUp {
     this.$signupEmail = document.querySelector("#signup-email");
     this.$signupName = document.querySelector("#signup-name");
     this.$signupPassword = document.querySelector("#signup-password");
+    this.$snackbar = document.querySelector("#snackbar");
     this.$signupPasswordConfirm = document.querySelector(
       "#signup-password-confirm"
     );
@@ -26,9 +27,13 @@ class SignUp {
       body: new URLSearchParams(new FormData(this.$signupForm)),
     });
     const body = await response.json();
-    console.log(body);
+
     if (!response.ok) {
-      alert(body);
+      this.$snackbar.innerText = body;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
       return;
     }
 

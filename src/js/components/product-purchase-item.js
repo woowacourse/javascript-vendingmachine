@@ -7,6 +7,7 @@ class ProductPurchaseItem extends HTMLTableRowElement {
     super();
     this.init();
     this.$page = document.querySelector("#page");
+    this.$snackbar = document.querySelector("#snackbar");
     this.updatedProduct({
       name: this.name,
       price: this.price,
@@ -45,7 +46,11 @@ class ProductPurchaseItem extends HTMLTableRowElement {
       this.updatedProduct(updatedProduct);
       emit(this.$page, "@updateamount");
     } catch (err) {
-      alert(err.message);
+      this.$snackbar.innerText = err.message;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
     }
   };
 

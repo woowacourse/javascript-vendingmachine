@@ -4,6 +4,7 @@ class Login {
   constructor() {
     this.$loginEmailInput = document.querySelector("#login-email-input");
     this.$loginPasswordInput = document.querySelector("#login-password-input");
+    this.$snackbar = document.querySelector("#snackbar");
     this.$loginForm = document.querySelector("#login-form");
     this.$loginForm.addEventListener("submit", this.onSubmit);
   }
@@ -19,7 +20,11 @@ class Login {
     const body = await response.json();
 
     if (!response.ok) {
-      alert(body);
+      this.$snackbar.innerText = body;
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+      }, 1000);
       return;
     }
 
