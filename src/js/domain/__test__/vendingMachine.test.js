@@ -184,6 +184,7 @@ describe('자판기 클래스 테스트', () => {
         );
       });
     });
+
     describe('상품 구매 테스트', () => {
       test('상품을 구매하면 해당 상품의 재고가 1만큼 감소한다.', () => {
         const moneyInsertInput = 2500;
@@ -233,6 +234,47 @@ describe('자판기 클래스 테스트', () => {
 
         expect(() => vendingMachine.purchaseProduct(invalidId)).toThrow(
           ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND
+        );
+      });
+    });
+
+    describe('잔돈 반환 테스트', () => {
+      test('잔돈을 반환하면 남은 투입 금액과 동일한 금액의 동전을 반환한다.', () => {
+        const moneyInsertInput = 1000;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+        const { moneyInsert } = vendingMachine;
+
+        const inputMoney = 5000;
+        vendingMachine.addChange(inputMoney);
+
+        const change = vendingMachine.returnChange();
+        const totalChangeAmount = change.reduce(
+          (totalReturn, { value, count }) => totalReturn + value * count,
+          0
+        );
+
+        expect(totalChangeAmount).toEqual(moneyInsert);
+      });
+
+      test('충전된 잔돈이 남은 투입 금액보다 적으면 남은 잔돈을 전부 반환한다.', () => {
+        const moneyInsertInput = 3000;
+        vendingMachine.addMoneyInsert(moneyInsertInput);
+
+        const inputMoney = 1000;
+        vendingMachine.addChange(inputMoney);
+
+        const change = vendingMachine.returnChange();
+        const totalChangeAmount = change.reduce(
+          (totalReturn, { value, count }) => totalReturn + value * count,
+          0
+        );
+
+        expect(totalChangeAmount).toEqual(inputMoney);
+      });
+
+      test('반환할 투입 금액이 없으면 오류를 반환한다.', () => {
+        expect(() => vendingMachine.returnChange()).toThrow(
+          ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT
         );
       });
     });

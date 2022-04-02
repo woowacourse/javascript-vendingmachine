@@ -50,6 +50,10 @@ export const ERROR_MESSAGE = {
   PURCHASE: {
     INSUFFICIENT_MONEY: '구매하려는 상품 가격보다 투입 금액이 적습니다.',
   },
+
+  RETURN_CHANGE: {
+    NO_MONEY_INSERT: '반환할 금액이 없습니다.',
+  },
 };
 
 export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';

@@ -101,6 +101,14 @@ export default class VendingMachine {
     this.#productList[productId].modify(newData);
   }
 
+  returnChange() {
+    if (this.#moneyInsert === 0) {
+      throw new Error(ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT);
+    }
+
+    return this.#moneyBox.returnChange(this.#moneyInsert);
+  }
+
   #validateChange(money: number): never | void {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.CHANGE.BELOW_MIN },

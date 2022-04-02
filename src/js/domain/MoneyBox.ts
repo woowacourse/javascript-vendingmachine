@@ -56,4 +56,23 @@ export default class MoneyBox {
       return addedCoin;
     });
   }
+
+  returnChange(inputMoney: number) {
+    const newCoinStatusList = [...this.#coinStatusList];
+    let moneyLeft = inputMoney;
+
+    const returnCoinList = this.#coinStatusList.map(
+      ({ name, value, count: currentCount }, index) => {
+        const returnCount = Math.min(Math.floor(moneyLeft / value), currentCount);
+
+        newCoinStatusList[index].count = currentCount - returnCount;
+        moneyLeft -= value * returnCount;
+
+        return { name, value, count: returnCount };
+      }
+    );
+
+    this.#coinStatusList = newCoinStatusList;
+    return returnCoinList;
+  }
 }
