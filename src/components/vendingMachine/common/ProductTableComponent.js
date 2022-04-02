@@ -1,5 +1,6 @@
+import { deleteProduct, editProduct, purchaseProduct } from '../../../business/vendingMachine';
 import vendingMachineStore from '../../../stores/vendingMachineStore';
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
+import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
 import { checkProductInput } from '../../../utils/validation';
 
 class ProductTableComponent {
@@ -143,6 +144,9 @@ class ProductTableComponent {
     if (classList.contains('product-confirm-button')) {
       this.onClickConfirmButton(parentElement, classList, productId);
     }
+    if (classList.contains('product-purchase-button')) {
+      this.onClickPurchaseButton(productId);
+    }
   };
 
   onClickEditButton = (parentElement, editButtonClassList) => {
@@ -171,16 +175,13 @@ class ProductTableComponent {
           quantityInput: quantity,
         })
       ) {
-        vendingMachineStore.mutateState({
-          actionType: ACTION_TYPES.EDIT_PRODUCT,
-          payload: {
-            id: productId,
-            name,
-            price,
-            quantity,
-          },
-          stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
+        editProduct({
+          id: productId,
+          name,
+          price,
+          quantity,
         });
+
         this.showEditAndDeleteButton(parentElement, confirmButtonClassList);
       }
     } catch ({ message }) {
@@ -190,16 +191,19 @@ class ProductTableComponent {
 
   onClickDeleteButton(productId) {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      vendingMachineStore.mutateState({
-        actionType: ACTION_TYPES.DELETE_PRODUCT,
-        payload: { id: productId },
-        stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
-      });
+      deleteProduct({ id: productId });
+    }
+  }
+
+  onClickPurchaseButton(productId) {
+    try {
+      purchaseProduct({ productId });
+    } catch ({ message }) {
+      alert(message);
     }
   }
 
   showConfirmButton(parentElement, editButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const deleteButton = parentElement.querySelector('.product-delete-button');
     const confirmButton = parentElement.querySelector('.product-confirm-button');
 
@@ -209,7 +213,6 @@ class ProductTableComponent {
   }
 
   showEditAndDeleteButton(parentElement, confirmButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const editButton = parentElement.querySelector('.product-edit-button');
     const deleteButton = parentElement.querySelector('.product-delete-button');
 

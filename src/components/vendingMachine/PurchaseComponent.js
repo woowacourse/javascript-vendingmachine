@@ -1,8 +1,23 @@
+import { inputMoney } from '../../business/vendingMachine';
+import vendingMachineStore from '../../stores/vendingMachineStore';
+import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import { checkChangeInput } from '../../utils/validation';
+import CoinTableComponent from './common/CoinTableComponent';
+import ProductTableComponent from './common/ProductTableComponent';
+
 class PurchaseComponent {
+  #currentProductListComponent;
+  #returnCoinTableComponent;
   constructor() {
     this.$app = document.querySelector('#app');
     this.mount();
     this.initDOM();
+    this.initChildComponents();
+    this.subscribeStore();
+    this.bindEventHandler();
+    this.renderMoneyAmount(
+      vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this),
+    );
   }
 
   mount() {
@@ -15,13 +30,52 @@ class PurchaseComponent {
     this.$notAccess = this.$app.querySelector('#not-access-section');
 
     this.$purchaseProductContainer = this.$app.querySelector('#purchase-product-container');
+    this.$moneyForm = this.$app.querySelector('#money-form');
+    this.$moneyInput = this.$app.querySelector('#money-input');
+    this.$moneyTotal = this.$app.querySelector('#money-amount');
   }
 
   generateTemplate() {
     return `<section id="purchase-product-container" aria-labelledby="purchase-product-title" class="hide">
+    <form id="money-form" class="input-form">
+    <label for="money-form">상품을 구매할 금액을 투입해주세요</label>
+    <div class="input-wrapper">
+      <input id="money-input" type="number" placeholder="금액" />
+      <button class="submit-button">투입</button>
+    </div>
+    <div class="total-amount">투입한 금액: <span id="money-amount">0</span>원</div>
+    </form>
             <h2 id="purchase-product-title" hidden>상품을 구매하는 섹션</h2>
-            <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
           </section>`;
+  }
+
+  initChildComponents() {
+    this.#currentProductListComponent = new ProductTableComponent(this.$purchaseProductContainer, {
+      tableId: 'purchase-product-list',
+      tableCaption: '상품 구매',
+    });
+
+    this.#returnCoinTableComponent = new CoinTableComponent(this.$purchaseProductContainer, {
+      tableId: 'return-coin-table',
+      tableCaption: '잔돈 반환',
+    });
+  }
+
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
+  }
+
+  bindEventHandler() {
+    this.$moneyForm.addEventListener('submit', this.#onSubmitMoneyForm);
+  }
+
+  wakeUp(stateKey) {
+    const inputCharge = vendingMachineStore.getState(stateKey, this);
+    this.renderMoneyAmount(inputCharge);
+  }
+
+  renderMoneyAmount(money) {
+    this.$moneyTotal.textContent = money;
   }
 
   showSection() {
@@ -34,6 +88,27 @@ class PurchaseComponent {
   hideSection() {
     this.$purchaseTab.classList.remove('checked');
     this.$purchaseProductContainer.classList.add('hide');
+  }
+
+  #onSubmitMoneyForm = e => {
+    e.preventDefault();
+
+    const { valueAsNumber: moneyInput } = this.$moneyInput;
+    try {
+      if (checkChangeInput(moneyInput)) {
+        inputMoney({ moneyInput });
+
+        this.clearInputForm();
+      }
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
+
+  clearInputForm() {
+    this.$moneyInput.value = '';
+
+    this.$moneyInput.blur();
   }
 }
 
