@@ -93,7 +93,7 @@ export const template = {
           <tr><td>10원</td><td>0개</td></tr>
       </tbody>
   </table>
-  <button class="button">반환</button>
+  <button id="return-change-button" class="button">반환</button>
 </section>
   `,
   productTableRowInners: ({ name, price, quantity }) => `
@@ -144,7 +144,7 @@ export const template = {
       </tr>`,
       )
       .join(''),
-  vendingMachineChargeCoinTableRows: coins =>
+  coinTableRows: coins =>
     coins
       .map(
         (coin, index) => `

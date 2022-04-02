@@ -1,7 +1,9 @@
 import ProductStore from '../Store/ProductStore';
+import VendingMachineChargeStore from '../Store/VendingMachineChargeStore';
 import CustomerChargeStore from '../Store/CustomerChargeStore';
 import { $, getInnerInputValues } from '../utils';
 import { template } from './template';
+import { COIN_TYPE } from '../constants';
 
 export default class ProductPurchasePageView {
   renderMethodList;
@@ -31,6 +33,10 @@ export default class ProductPurchasePageView {
     this.$customerChargeForm = $('#customer-charge-form');
     this.$productTableSection = $('#product-table-section');
     this.$productTable = $('#product-table', this.$productTableSection);
+
+    this.$changeTableSection = $('#change-table-section');
+    this.$changeTable = $('#change-table', this.$changeTableSection);
+    this.$returnChangeButton = $('#return-change-button', this.$changeTableSection);
   }
 
   setRenderMethodList() {
@@ -43,6 +49,7 @@ export default class ProductPurchasePageView {
   setEvents() {
     this.$customerChargeForm.addEventListener('submit', this.onSubmitCustomerChargeForm);
     this.$productTable.addEventListener('click', this.onClickTableInnerButton);
+    this.$returnChangeButton.addEventListener('click', this.onClickReturnChangeButton);
   }
 
   onSubmitCustomerChargeForm = (event) => {
@@ -59,7 +66,7 @@ export default class ProductPurchasePageView {
     }
   };
 
-  onClickPurchaseButton(event) {
+  onClickPurchaseButton = (event) => {
     const $tableRow = event.target.closest('tr');
     if (!$tableRow) return;
 
@@ -73,7 +80,31 @@ export default class ProductPurchasePageView {
 
     CustomerChargeStore.subtractCharge(price);
     ProductStore.takeOutProductByIndex(productIndex);
-  }
+  };
+
+  onClickReturnChangeButton = (event) => {
+    const { coins: vendingMachineCoins } = VendingMachineChargeStore.getState();
+    const { customerCharge } = CustomerChargeStore.getState();
+    if (VendingMachineChargeStore.getTotalAmount() <= customerCharge) {
+      CustomerChargeStore.subtractCharge(customerCharge);
+      VendingMachineChargeStore.subtractCoins(vendingMachineCoins);
+      this.updateChangeTable({ ReturnedCoins: vendingMachineCoins });
+      return;
+    }
+
+    const coinsToBeReturned = [0, 0, 0, 0];
+    let leftCharge = customerCharge;
+    COIN_TYPE.forEach((coin, index) => {
+      const maxQuantity = Math.floor(leftCharge / coin);
+      const returnQuantity = maxQuantity > vendingMachineCoins[index] ? vendingMachineCoins[index] : maxQuantity;
+      coinsToBeReturned[index] = returnQuantity;
+      leftCharge -= returnQuantity * coin;
+    });
+
+    CustomerChargeStore.subtractCharge(customerCharge - leftCharge);
+    VendingMachineChargeStore.subtractCoins(coinsToBeReturned);
+    this.updateChangeTable({ ReturnedCoins: coinsToBeReturned });
+  };
 
   render = ({ state, changeStates }) => {
     const renderMethods = changeStates.reduce((previous, stateKey) => {
@@ -90,5 +121,9 @@ export default class ProductPurchasePageView {
   updateProductList = ({ products }) => {
     const productItem = template.productPurchaseTableRows(products);
     $('tbody', this.$productTable).innerHTML = productItem;
+  };
+
+  updateChangeTable = ({ ReturnedCoins }) => {
+    $('tbody', this.$changeTable).innerHTML = template.coinTableRows(ReturnedCoins);
   };
 }

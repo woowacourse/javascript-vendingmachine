@@ -66,6 +66,13 @@ class VendingMachineChargeStore implements IStore {
       coins: totalCoins,
     });
   }
+
+  subtractCoins(coinsToBeReturned: Array<number>) {
+    const subtractedCoins: Array<number> = this.state.coins.map((coin, index) => coin - coinsToBeReturned[index]);
+    this.setState({
+      coins: subtractedCoins,
+    });
+  }
 }
 
 export default new VendingMachineChargeStore();

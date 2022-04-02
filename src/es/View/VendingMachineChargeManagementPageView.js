@@ -28,6 +28,9 @@ export default class VendingMachineChargeManagementPageView {
   setDom() {
     this.$vendingMachineChargeForm = $('#vendingmachine-charge-form');
     this.$vendingMachineChargeCoinTable = $('#holding-amount-table');
+
+    this.$vendingMachineChargeTable = $('#vendingmachine-charge-table');
+    this.$totalVendingMachineCharge = $('#total-vendingmachine-charge');
   }
 
   setRenderMethodList() {
@@ -67,10 +70,10 @@ export default class VendingMachineChargeManagementPageView {
   updateTotalVendingMachineCharge = () => {
     const totalAmount = VendingMachineChargeStore.getTotalAmount();
 
-    $('#total-vendingmachine-charge').innerText = `${totalAmount.toLocaleString()}원`;
+    this.$totalVendingMachineCharge.innerText = `${totalAmount.toLocaleString()}원`;
   };
 
   updateVendingMachineChargeCoinTable = ({ coins }) => {
-    $('tbody', this.$table).innerHTML = template.vendingMachineChargeCoinTableRows(coins);
+    $('tbody', this.$vendingMachineChargeTable).innerHTML = template.coinTableRows(coins);
   };
 }
