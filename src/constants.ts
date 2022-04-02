@@ -35,6 +35,7 @@ export const ACTION = {
   CHARGE_COINS: 'charge-coins',
   CHANGE_ACTIVE_TAB: 'change-active-tab',
   INSERT_MONEY: 'insert-money',
+  PURCHASE_PRODUCT: 'purchase-product',
 };
 
 export const initialState: AppState = {
@@ -96,4 +97,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
     'ko-kr'
   )}원 단위이어야 합니다`,
   OVER_MAX_INSERT_MONEY: `최대 투입 금액은 ${INSERT_MONEY.MAX.toLocaleString('ko-kr')}원입니다.`,
+
+  NO_STOCK: '재고가 없습니다',
+  NOT_ENOUGH_MONEY: '금액이 부족합니다',
 };

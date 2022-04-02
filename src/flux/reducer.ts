@@ -65,6 +65,14 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.insertedMoney += payload;
       break;
     }
+    case ACTION.PURCHASE_PRODUCT: {
+      const { name } = payload;
+      const productIdx = newState.productList.findIndex((item) => item.name === name);
+      const { price } = newState.productList[productIdx];
+      newState.productList[productIdx].quantity -= 1;
+      newState.insertedMoney -= price;
+      newState.productList = newState.productList.filter((item) => item.quantity > 0);
+    }
   }
   return newState;
 };

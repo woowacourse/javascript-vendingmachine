@@ -97,3 +97,15 @@ export const validateInsertMoney = (money: string, insertedMoney: number) => {
 
   return new ValidationResult(false);
 };
+
+export const validatePurchaseProduct = (product: ProductItem, insertedMoney: number) => {
+  const { price, quantity } = product;
+  if (insertedMoney < price) {
+    return new ValidationResult(true, ERROR_MESSAGE.NOT_ENOUGH_MONEY);
+  }
+  if (quantity === 0) {
+    return new ValidationResult(true, ERROR_MESSAGE.NO_STOCK);
+  }
+
+  return new ValidationResult(false);
+};
