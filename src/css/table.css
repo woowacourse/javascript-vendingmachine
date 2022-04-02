@@ -1,5 +1,9 @@
 .table-section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 caption {
@@ -40,6 +44,10 @@ table {
   width: 100%;
 }
 
+.purchase-product-button {
+  width: 100%;
+}
+
 #product-status-table tr input {
   width: 90%;
   margin: auto;
@@ -61,4 +69,10 @@ table {
 
 #coin-status-table td {
   width: 100px;
+}
+
+#give-change-button {
+  width: 100px;
+  height: 32px;
+  margin: 0 auto;
 }

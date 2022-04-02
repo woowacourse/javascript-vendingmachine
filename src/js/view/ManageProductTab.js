@@ -15,6 +15,7 @@ export default class ManageProductTab {
   #addProductStockInput;
   #productStatusTable;
 
+  // eslint-disable-next-line max-lines-per-function
   constructor(machine) {
     this.#vendingMachine = machine;
     this.#manageContainer = createMainElement(manageProductTemplate);
@@ -32,12 +33,24 @@ export default class ManageProductTab {
       this.#manageContainer
     );
     this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
+    this.#renderInitProductList();
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
 
   get tabElements() {
     return this.#manageContainer;
+  }
+
+  #renderInitProductList() {
+    Object.entries(this.#vendingMachine.productList).forEach(
+      ([id, { name, price, stock }]) => {
+        this.#productStatusTable.insertAdjacentHTML(
+          'beforeend',
+          productTableRow({ name, price, stock, id })
+        );
+      }
+    );
   }
 
   #handleAddProductForm = (e) => {

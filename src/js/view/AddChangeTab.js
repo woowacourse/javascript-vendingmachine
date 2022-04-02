@@ -18,6 +18,7 @@ export default class AddChangeTab {
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
+    this.#renderCoinStatus();
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
@@ -39,7 +40,8 @@ export default class AddChangeTab {
   };
 
   #renderCoinStatus() {
-    const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
+    const coinCountElements =
+      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
     const { coinStatus } = this.#vendingMachine;
 
     this.#totalChange.textContent = this.#vendingMachine.totalChange;

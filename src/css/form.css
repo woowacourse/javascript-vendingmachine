@@ -27,7 +27,7 @@ input {
   color: #424242;
 }
 
-#add-change-form {
+.input-money-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,6 @@ input {
   margin-bottom: 5px;
 }
 
-#add-change-form input {
+.input-money-form input {
   width: 300px;
 }
