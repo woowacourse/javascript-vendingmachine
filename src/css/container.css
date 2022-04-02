@@ -10,7 +10,8 @@
 }
 
 .product-add-button,
-.coin-charge-button {
+.coin-charge-button,
+.purchase-money-button {
   width: 56px;
   height: 36px;
   margin-left: 14px;
@@ -19,7 +20,8 @@
 }
 
 .product-add-button:hover,
-.coin-charge-button:hover {
+.coin-charge-button:hover,
+.purchase-money-button:hover {
   background: var(--cyan-dark);
 }
 
@@ -55,22 +57,31 @@ td {
   margin-right: 6px;
 }
 
-.table__product-modify-confirm-button {
+.table__product-modify-confirm-button,
+.product-return-change-button {
   width: 100px;
   height: 32px;
 }
 
-.coin-charge-label {
+.product-return-change-button {
+  display: block;
+  margin: 16px auto 0;
+}
+
+.coin-charge-label,
+.purchase-money-label {
   display: block;
   margin-bottom: 4px;
 }
 
-#coin-input {
+#coin-input,
+#purchase-money-input {
   width: 300px;
   height: 36px;
   margin-bottom: 16px;
 }
 
-.coin-current-situation {
+.coin-current-situation,
+.product-return-change-situation {
   width: 238px;
 }
