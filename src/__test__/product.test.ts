@@ -31,6 +31,6 @@ describe('Product 작동 테스트', () => {
 
     const product = new Product(productName, productPrice, productQuantity);
 
-    expect(() => product.purchaseProduct()).toThrow();
+    expect(() => product.purchaseProduct(5000)).toThrow();
   });
 });
