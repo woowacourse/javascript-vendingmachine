@@ -72,6 +72,7 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.productList[productIdx].quantity -= 1;
       newState.insertedMoney -= price;
       newState.productList = newState.productList.filter((item) => item.quantity > 0);
+      break;
     }
   }
   return newState;
