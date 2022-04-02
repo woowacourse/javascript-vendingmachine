@@ -11,6 +11,18 @@
       "password": "$2a$10$SN6Pyeg/5IcOvvEU9gSg.u.1dNav5q.qtkDX7Df/TS63brBfR3yb2",
       "name": "마르코",
       "id": 2
+    },
+    {
+      "email": "haha@gamilc.com",
+      "password": "$2a$10$hnWu07kUqAUZReUrOZwLyOE8Ys4mNoZv3b/1WQlyK4E4Dm7Aj4Fp6",
+      "name": "하하",
+      "id": 3
+    },
+    {
+      "email": "marco@gmail.com",
+      "password": "$2a$10$A.dhG9EcPC83DR5lvxRhhuFiLK4qR8RHNfCvbg/kDmYTF8gGDTjLS",
+      "name": "마르코",
+      "id": 4
     }
   ]
 }
