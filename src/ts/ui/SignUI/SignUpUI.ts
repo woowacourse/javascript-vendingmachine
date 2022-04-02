@@ -3,6 +3,7 @@ import { request } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
+import { basePath } from '../App';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignUpUI {
@@ -47,6 +48,10 @@ export default class SignUpUI {
       return;
     }
 
+    this.signUp(user);
+  };
+
+  private signUp(user: { email: string; name: string; password: string }) {
     request('signup', user)
       .then(() => {
         $$('.sign-up__input').forEach(($input: HTMLInputElement) => {
@@ -54,9 +59,10 @@ export default class SignUpUI {
         });
         showSnackbar(MESSAGE.SUCCESS_SIGNUP);
         viewPainter.renderSignInUI();
+        history.pushState({}, '', `${basePath}/signin`);
       })
       .catch(() => {
         showSnackbar(MESSAGE.FAIL_SIGNUP);
       });
-  };
+  }
 }
