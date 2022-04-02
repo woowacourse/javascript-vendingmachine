@@ -9,7 +9,7 @@ import ProductPurchaseView from './views/ProductPurchaseView.js';
 import ProductPurchase from './models/ProductPurchase.js';
 import { handleSnackbarMessage } from './utils/snackbar.js';
 
-export default class Controller {
+class Controller {
   constructor() {
     this.coin = new Coin();
     this.productManager = new ProductManager();
@@ -107,3 +107,5 @@ export default class Controller {
     handleSnackbarMessage(SNACKBAR_MESSAGE.RETURN_AMOUNT);
   };
 }
+
+const controller = new Controller();
