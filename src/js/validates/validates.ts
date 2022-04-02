@@ -34,7 +34,13 @@ export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   }
 };
 
-export const validateInputMoney = (inputMoney: number) => {
+export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, targetIndex: number) => {
+  if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
+    throw new Error(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
+  }
+};
+
+export const validateChargeMoney = (inputMoney: number) => {
   if (!Number.isInteger(inputMoney)) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
   }
@@ -46,11 +52,5 @@ export const validateInputMoney = (inputMoney: number) => {
   }
   if (inputMoney % MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
-  }
-};
-
-export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, targetIndex: number) => {
-  if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
-    throw new Error(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
   }
 };

@@ -4,7 +4,7 @@ import ItemManager from './itemManager';
 import {
   checkDuplicatedItem,
   validateAddItemInput,
-  validateInputMoney,
+  validateChargeMoney,
 } from '../validates/validates';
 
 export default class VendingMachine {
@@ -46,7 +46,7 @@ export default class VendingMachine {
   }
 
   chargeMoney(inputMoney: number) {
-    validateInputMoney(inputMoney);
+    validateChargeMoney(inputMoney);
     this.coinManager.chargeCoin(inputMoney);
   }
 }
