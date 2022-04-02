@@ -1,0 +1,47 @@
+.default-button {
+  background-color: var(--default-button-background-color);
+  color: #000;
+  font-weight: 500;
+}
+
+.default-button:hover {
+  background-color: var(--default-button-hover-color);
+}
+
+.input-form-button {
+  margin-left: 8px;
+  flex-shrink: 0;
+  padding: 8px 16px;
+
+  background-color: var(--input-form-button-background-color);
+  color: var(--input-form-button-text-color);
+  font-weight: 700;
+}
+
+.input-form-button:hover {
+  background-color: var(--input-form-button-hover-color);
+}
+
+.nav-tab-button {
+  width: 117px;
+  height: 36px;
+  background-color: var(--nav-tab-button-background-color);
+  color: var(--nav-tab-button-text-color);
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.nav-tab-button.selected {
+  background-color: var(--nav-tab-button-selected-background-color);
+}
+.nav-tab-button:hover {
+  background-color: var(--nav-tab-button-hover-color);
+}
+
+.nav-tab-button.selected:hover {
+  background-color: var(--nav-tab-button-selected-hover-color);
+}

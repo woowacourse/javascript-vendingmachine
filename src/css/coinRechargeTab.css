@@ -1,0 +1,21 @@
+#cash-charge-form {
+  width: 80%;
+}
+
+.cash-charge-input {
+  width: 100%;
+}
+
+.vendingmachine-total-amount {
+  width: 80%;
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.vendingmachine-coin-table {
+  margin-top: 48px;
+  min-width: 300px;
+}

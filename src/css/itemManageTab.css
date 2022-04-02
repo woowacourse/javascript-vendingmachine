@@ -1,0 +1,29 @@
+.item-info-input {
+  width: 30%;
+  margin-right: 4px;
+}
+
+.table-container {
+  margin-top: 48px;
+  overflow-y: auto;
+}
+
+.item-info-input-cell {
+  width: 100%;
+  text-align: center;
+  background-color: var(--item-info-input-cell-background-color);
+  color: var(--item-info-input-cell-text-color);
+}
+
+.item-info-input-cell:disabled {
+  border: none;
+  color: var(--item-info-input-cell-disabled-text-color);
+}
+
+.edit-item-button {
+  margin-right: 8px;
+}
+
+.confirm-item-button {
+  width: 100%;
+}
