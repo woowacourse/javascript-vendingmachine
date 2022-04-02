@@ -35,17 +35,16 @@ class JoinComponent {
   }
 
   showSection(isLoggedIn) {
+    this.$pageTitle.textContent = '회원가입';
+    this.$loginButton.classList.add('hide');
+    this.$tabNav.classList.add('hide');
+
     if (isLoggedIn) {
-      this.$pageTitle.textContent = '회원가입';
-      this.$loginButton.classList.add('hide');
-      this.$tabNav.classList.add('hide');
       this.$joinForm.classList.add('hide');
       this.$notAccess.classList.remove('hide');
       return;
     }
-    this.$pageTitle.textContent = '회원가입';
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
+
     this.$joinForm.classList.remove('hide');
     this.$notAccess.classList.add('hide');
   }

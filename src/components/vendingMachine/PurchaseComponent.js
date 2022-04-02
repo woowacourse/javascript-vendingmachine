@@ -14,6 +14,7 @@ class PurchaseComponent {
     this.$tabNav = this.$app.querySelector('#tab-nav');
     this.$loginButton = this.$app.querySelector('#login-button');
     this.$purchaseTab = this.$app.querySelector('#purchase-product-tab');
+    this.$notAccess = this.$app.querySelector('#not-access-section');
 
     this.$purchaseProductContainer = this.$app.querySelector('#purchase-product-container');
   }
@@ -31,6 +32,7 @@ class PurchaseComponent {
     this.$tabNav.classList.remove('hide');
     this.$loginButton.classList.remove('hide');
     this.$purchaseProductContainer.classList.remove('hide');
+    this.$notAccess.classList.add('hide');
   }
 
   hideSection() {

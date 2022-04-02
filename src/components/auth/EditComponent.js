@@ -1,3 +1,6 @@
+import globalStore from '../../stores/globalStore';
+import { GLOBAL_STATE_KEYS } from '../../utils/constants';
+
 class EditComponent {
   $app;
   constructor(handlers) {
@@ -6,6 +9,8 @@ class EditComponent {
     this.mount();
     this.initDOM();
     this.bindEventHandler();
+    this.subscribeStore();
+    this.render(globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this));
   }
 
   mount() {
@@ -18,24 +23,44 @@ class EditComponent {
     this.$pageTitle = this.$app.querySelector('#page-title');
     this.$tabNav = this.$app.querySelector('#tab-nav');
     this.$notAccess = this.$app.querySelector('#not-access-section');
+
+    this.$emailEditInput = this.$app.querySelector('#email-edit-input');
+    this.$nameEditInput = this.$app.querySelector('#name-edit-input');
+    this.$passwordEditInput = this.$app.querySelector('#password-edit-input');
+    this.$passwordReenterEditInput = this.$app.querySelector('#password-reenter-edit-input');
   }
 
   bindEventHandler() {
     this.$editForm.addEventListener('submit', this.onSubmitEditForm);
   }
 
+  subscribeStore() {
+    globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+  }
+
+  render(authInformation) {
+    const { loggedUser } = authInformation;
+
+    if (loggedUser) {
+      const { name, email } = loggedUser;
+
+      this.$emailEditInput.value = email;
+      this.$nameEditInput.value = name;
+      this.$passwordEditInput = '';
+      this.$passwordReenterEditInput = '';
+    }
+  }
+
   showSection(isLoggedIn) {
+    this.$loginButton.classList.add('hide');
+    this.$tabNav.classList.add('hide');
+    this.$pageTitle.textContent = '정보수정';
+
     if (isLoggedIn) {
-      this.$loginButton.classList.add('hide');
-      this.$tabNav.classList.add('hide');
-      this.$pageTitle.textContent = '정보수정';
       this.$editForm.classList.remove('hide');
       this.$notAccess.classList.add('hide');
       return;
     }
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
-    this.$pageTitle.textContent = '정보수정';
     this.$editForm.classList.add('hide');
     this.$notAccess.classList.remove('hide');
   }

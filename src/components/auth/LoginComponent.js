@@ -37,17 +37,16 @@ class LoginComponent {
   }
 
   showSection(isLoggedIn) {
+    this.$loginButton.classList.add('hide');
+    this.$tabNav.classList.add('hide');
+    this.$pageTitle.textContent = '로그인';
+
     if (isLoggedIn) {
-      this.$loginButton.classList.add('hide');
-      this.$tabNav.classList.add('hide');
-      this.$pageTitle.textContent = '로그인';
       this.$loginForm.classList.add('hide');
       this.$notAccess.classList.remove('hide');
       return;
     }
-    this.$loginButton.classList.add('hide');
-    this.$tabNav.classList.add('hide');
-    this.$pageTitle.textContent = '로그인';
+
     this.$loginForm.classList.remove('hide');
     this.$notAccess.classList.add('hide');
   }

@@ -59,19 +59,17 @@ class ManageComponent {
   }
 
   showSection(isLoggedIn) {
-    if (isLoggedIn) {
-      this.$manageTab.classList.add('checked');
-      this.$pageTitle.textContent = '🍿 자판기 🍿';
-      this.$tabNav.classList.remove('hide');
-      this.$loginButton.classList.remove('hide');
-      this.$manageProductContainer.classList.remove('hide');
-      this.$notAccess.classList.add('hide');
-      return;
-    }
     this.$manageTab.classList.add('checked');
     this.$pageTitle.textContent = '🍿 자판기 🍿';
     this.$tabNav.classList.remove('hide');
     this.$loginButton.classList.remove('hide');
+
+    if (isLoggedIn) {
+      this.$manageProductContainer.classList.remove('hide');
+      this.$notAccess.classList.add('hide');
+      return;
+    }
+
     this.$manageProductContainer.classList.add('hide');
     this.$notAccess.classList.remove('hide');
   }

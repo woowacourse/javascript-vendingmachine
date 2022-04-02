@@ -77,20 +77,17 @@ class RechargeComponent {
   }
 
   showSection(isLoggedIn) {
-    if (isLoggedIn) {
-      this.$rechargeTab.classList.add('checked');
-      this.$pageTitle.textContent = '🍿 자판기 🍿';
-      this.$tabNav.classList.remove('hide');
-      this.$loginButton.classList.remove('hide');
-      this.$rechargeChangeContainer.classList.remove('hide');
-      this.$notAccess.classList.add('hide');
-
-      return;
-    }
     this.$rechargeTab.classList.add('checked');
     this.$pageTitle.textContent = '🍿 자판기 🍿';
     this.$tabNav.classList.remove('hide');
     this.$loginButton.classList.remove('hide');
+
+    if (isLoggedIn) {
+      this.$rechargeChangeContainer.classList.remove('hide');
+      this.$notAccess.classList.add('hide');
+      return;
+    }
+
     this.$rechargeChangeContainer.classList.add('hide');
     this.$notAccess.classList.remove('hide');
   }
