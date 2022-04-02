@@ -3,6 +3,8 @@ import CoinManager from './coinManager';
 import ItemManager from './itemManager';
 import {
   checkDuplicatedItem,
+  checkItemExist,
+  checkPurchaseAvailable,
   validateAddItemInput,
   validateChargeCoins,
   validateInputMoney,
@@ -58,11 +60,23 @@ export default class VendingMachine {
 
   chargeCoins(inputMoney: number) {
     validateChargeCoins(inputMoney);
+
     this.coinManager.chargeCoins(inputMoney);
   }
 
   chargeMoney(inputMoney: number) {
     validateInputMoney(inputMoney);
+
     this.moneyManager.chargeMoney(inputMoney);
+  }
+
+  purchaseItem(name: string, price: number) {
+    checkItemExist(this.itemManager.getItemWithName(name).quantity);
+    checkPurchaseAvailable(this.moneyManager.money, price);
+
+    this.itemManager.purchaseItem(name);
+    this.moneyManager.deductMoney(price);
+
+    return this.itemManager.getItemWithName(name).quantity;
   }
 }

@@ -22,7 +22,7 @@ const sectionTemplate = {
     return `
     <section class="table-container">
       <h2>구매 가능 상품 현황</h2>
-      <table class="item-table">
+      <table id="purchase-item-table" class="item-table">
         <tr>
           <th>상품명</th>
           <th>가격</th>
@@ -33,11 +33,11 @@ const sectionTemplate = {
           .map(item => {
             return `
           <tr>
-            <td>${item.name}</td>
-            <td>${item.price}</td>
-            <td>${item.quantity}</td>
+            <td class="table-item-name">${item.name}</td>
+            <td class="table-item-price">${item.price}</td>
+            <td class="table-item-quantity">${item.quantity}</td>
             <td>
-              <button class="item-table-purchase-button">구매</button>
+              <button class="item-table-purchase-button" data-name=${item.name} data-price=${item.price}>구매</button>
             </td>
           </tr>`;
           })

@@ -28,4 +28,8 @@ export const ERROR_MESSAGE = {
     )}원 보다 많은 금액을 투입할 수 없습니다.`,
     INVALID_UNIT: `${MONEY.UNIT}원 단위의 금액만 투입할 수 있습니다.`,
   },
+  ITEM_PURCHASE: {
+    NO_STOCK: '구매 가능한 수량이 없습니다.',
+    NO_MONEY: '상품을 구매하기에 돈이 부족합니다.',
+  },
 };

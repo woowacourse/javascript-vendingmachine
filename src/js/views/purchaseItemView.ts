@@ -16,10 +16,11 @@ export default class PurchaseItemView {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, InitialCoins, money));
 
-    $('#input-money-submit').addEventListener('submit', this.handleSubmitEvent.bind(this));
+    $('#input-money-submit').addEventListener('submit', this.handleMoneySubmitEvent.bind(this));
+    $('#purchase-item-table').addEventListener('click', this.handleTableClickEvent.bind(this));
   }
 
-  private handleSubmitEvent(event) {
+  private handleMoneySubmitEvent(event) {
     try {
       event.preventDefault();
       const inputMoney = $('.charge-money-input').valueAsNumber;
@@ -31,6 +32,29 @@ export default class PurchaseItemView {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  private handleTableClickEvent(event) {
+    try {
+      if (!event.target.classList.contains('item-table-purchase-button')) return;
+      if (!window.confirm('구매하시겠습니까?')) return;
+
+      const { name, price } = event.target.dataset;
+      const remainQuantity = this.vendingMachine.purchaseItem(name, price);
+
+      this.repaintItemQuantity(event.target, remainQuantity);
+      this.repaintCurrentMoney(this.vendingMachine.money);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  private repaintItemQuantity($targetButton, quantity) {
+    const $tableItemQuantity = $targetButton
+      .closest('tr')
+      .getElementsByClassName('table-item-quantity');
+
+    $tableItemQuantity[0].innerHTML = quantity;
   }
 
   private repaintCurrentMoney(money: number) {

@@ -48,3 +48,34 @@ describe('상품 이름, 가격, 수량이 주어질 때', () => {
     expect(itemManager.items).toEqual([]);
   });
 });
+
+describe('구매할 상품의 이름이 주어지면', () => {
+  test('해당하는 상품을 반활할 수 있다.', () => {
+    const itemManager = new ItemManager();
+    const name = '콜라';
+    const price = 1200;
+    const quantity = 10;
+
+    itemManager.addItem({ name, price, quantity });
+
+    const targetItem = itemManager.getItemWithName(name);
+
+    expect({
+      name: targetItem.name,
+      price: targetItem.price,
+      quantity: targetItem.quantity,
+    }).toEqual({ name, price, quantity });
+  });
+
+  test('해당하는 상품의 수량을 1만큼 감소시킬 수 있다.', () => {
+    const itemManager = new ItemManager();
+    const name = '콜라';
+    const price = 1200;
+    const quantity = 10;
+
+    itemManager.addItem({ name, price, quantity });
+    itemManager.purchaseItem(name);
+
+    expect(itemManager.getItemWithName(name).quantity).toBe(quantity - 1);
+  });
+});

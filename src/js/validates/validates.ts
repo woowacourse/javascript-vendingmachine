@@ -69,3 +69,15 @@ export const validateInputMoney = (inputMoney: number) => {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
   }
 };
+
+export const checkItemExist = (quantity: number) => {
+  if (quantity <= 0) {
+    throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_STOCK);
+  }
+};
+
+export const checkPurchaseAvailable = (money: number, price: number) => {
+  if (money < price) {
+    throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_MONEY);
+  }
+};

@@ -8,6 +8,10 @@ export default class ItemManager {
     return this._items;
   }
 
+  getItemWithName(name: string) {
+    return this._items.find(item => item.name === name);
+  }
+
   addItem({ name, price, quantity }: ItemType) {
     this._items.push(new Item(name, price, quantity));
   }
@@ -18,5 +22,10 @@ export default class ItemManager {
 
   deleteItem(targetItem: ItemType) {
     this._items = this._items.filter(item => item.name !== targetItem.name);
+  }
+
+  purchaseItem(itemName: string) {
+    const targetItem = this._items.find(item => item.name === itemName);
+    targetItem.subtractQuantity();
   }
 }

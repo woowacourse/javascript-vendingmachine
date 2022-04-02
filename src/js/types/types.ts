@@ -1,8 +1,9 @@
-export type ItemType = {
+export interface ItemType {
   name: string;
   price: number;
   quantity: number;
-};
+  subtractQuantity?(): void;
+}
 
 export type CoinsType = {
   fiveHundred: number;

@@ -22,4 +22,8 @@ export default class Item implements ItemType {
   get quantity() {
     return this._quantity;
   }
+
+  subtractQuantity() {
+    this._quantity -= 1;
+  }
 }
