@@ -1,53 +1,49 @@
-const signupTemplate = document.createElement('template');
-signupTemplate.innerHTML = `
+const loginTemplate = document.createElement('template');
+
+loginTemplate.innerHTML = `
   <style>
   </style>
 
   <section>
-    <h2 hidden>회원가입</h2>
+    <h2 hidden>로그인</h2>
     <form>
-      <label>이름</label>
-      <input type="text" />
       <label>이메일</label>
       <input type="email" />
       <label>비밀번호</label>
       <input type="password" />
-      <button type="submit">회원가입</button>
+      <button type="submit">로그인</button>
     </form>
   </section>
 `;
 
-class Signup extends HTMLElement {
+class Login extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(signupTemplate.content.cloneNode(true));
+    this.shadowRoot.appendChild(loginTemplate.content.cloneNode(true));
   }
 
   connectedCallback() {
     // 이벤트 추가
-    this.shadowRoot.querySelector('form').addEventListener('submit', this.signup);
+    this.shadowRoot.querySelector('form').addEventListener('submit', this.login);
   }
 
   disconnectedCallback() {
     // 이벤트 삭제
-    this.shadowRoot.querySelector('form').removeEventListener('submit', this.signup);
+    this.shadowRoot.querySelector('form').removeEventListener('submit', this.login);
   }
 
-  signup = (event: SubmitEvent) => {
+  login = (event: SubmitEvent) => {
     event.preventDefault();
-    const name = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='text']")).value;
     const email = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='email']")).value;
     const password = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='password']"))
       .value;
 
-    const url = 'http://localhost:3000/signup/';
+    const url = 'http://localhost:3000/login/';
     const data = {
       email,
       password,
-      name,
     };
-
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -57,7 +53,7 @@ class Signup extends HTMLElement {
     })
       .then((res) => {
         if (!res.ok) {
-          alert('회원가입 잘 쓰세요.>ㅇ<');
+          alert('로그인 정보 잘 쓰세요.>ㅇ<');
           return;
         }
         return res.json();
@@ -74,4 +70,4 @@ class Signup extends HTMLElement {
   };
 }
 
-customElements.define('sign-up', Signup);
+customElements.define('log-in', Login);
