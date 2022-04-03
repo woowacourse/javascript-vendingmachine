@@ -86,10 +86,6 @@ export default class VendingMachine {
     this.moneyManager.deductMoney(this.coinManager.getSumCoins(coins));
     const restMoney = this.moneyManager.money;
 
-    if (restMoney > 0) {
-      alert('반환할 동전이 부족합니다.');
-    }
-
     return { coins, restMoney };
   }
 }

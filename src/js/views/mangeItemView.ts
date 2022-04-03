@@ -3,6 +3,7 @@ import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemp
 import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 import { SELECTOR } from '../constants/viewConstants';
 import { ItemType } from '../types/types';
+import showSnackbar from '../utils/snackbar';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
@@ -31,7 +32,7 @@ export default class ManageItemView {
       this.clearInput();
       this.appendItemTableRow(item);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -76,7 +77,7 @@ export default class ManageItemView {
       this.vendingMachine.changeItem(targetRowIndex, item);
       this.repaintItemTableRow($targetTableRow, item);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 

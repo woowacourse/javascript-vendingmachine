@@ -2,6 +2,7 @@ import { $ } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { CoinsType } from '../types/types';
 import { SELECTOR } from '../constants/viewConstants';
+import showSnackbar from '../utils/snackbar';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ChargeMoneyView {
@@ -30,7 +31,7 @@ export default class ChargeMoneyView {
       this.repaintCoinsTable(this.vendingMachine.coins);
       this.clearInput();
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 

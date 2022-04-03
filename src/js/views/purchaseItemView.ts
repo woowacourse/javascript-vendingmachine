@@ -2,6 +2,7 @@ import { $ } from '../utils/common';
 import { purchaseItemTemplate, sectionTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/viewConstants';
 import VendingMachine from '../vendingMachine/vendingMachine';
+import showSnackbar from '../utils/snackbar';
 
 export default class PurchaseItemView {
   private $content: HTMLDivElement;
@@ -34,7 +35,7 @@ export default class PurchaseItemView {
       this.repaintCurrentMoney(this.vendingMachine.money);
       this.clearInput();
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -49,7 +50,7 @@ export default class PurchaseItemView {
       this.repaintItemQuantity(event.target, remainQuantity);
       this.repaintCurrentMoney(this.vendingMachine.money);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -60,8 +61,12 @@ export default class PurchaseItemView {
 
       this.repaintCoinsTable(coins);
       this.repaintCurrentMoney(restMoney);
+
+      if (restMoney > 0) {
+        throw new Error('반환할 동전이 부족합니다.');
+      }
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 

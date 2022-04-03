@@ -6,4 +6,5 @@ export const initialTemplate = `
     <button id="item-purchase-tab" class="nav-button">상품 구매</button>
   </div>
   <div id="content"></div>
+  <div id="snackbar"></div>
 `;
