@@ -12,6 +12,7 @@ const pageTemplate = `
               <input type="text" name="name" placeholder="이름을 입력해주세요">
           </label>
           <label>비밀번호<br>
+              <p class="input-guide">대문자 알파벳, 소문자 알파벳, 숫자를 각각 1자 이상 포함하는 전체 8자 이상의 비밀번호를 입력하세요.</p>
               <input type="password" name="password" placeholder="비밀번호를 입력해주세요">
           </label>
           <label>비밀번호 확인<br>
