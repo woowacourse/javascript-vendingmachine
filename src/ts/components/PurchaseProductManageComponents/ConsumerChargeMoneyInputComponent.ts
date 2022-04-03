@@ -23,7 +23,16 @@ export default class ConsumerChargeMoneyInputComponent {
       '@subtractConsumerChargeMoney',
       this.subtractChargeMoney
     );
+    on(
+      $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
+      '@initTotalChargeMoney',
+      this.initTotalConsumerChargeMoney
+    );
   }
+
+  initTotalConsumerChargeMoney = () => {
+    this.$consumerTotalChargeMoney.textContent = '0';
+  };
 
   subtractChargeMoney = ({ detail: { subtractPrice } }) => {
     this.vendingMachineConsumerMoneyManager.subtractConsumerChargeMoney(

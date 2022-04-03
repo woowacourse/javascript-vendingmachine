@@ -20,4 +20,8 @@ export default class VendingMachineConsumerMoneyManager
   getConsumerChargeMoney(): number {
     return this.consumerChargeMoney;
   }
+
+  initConsumerChargeMoney(): void {
+    this.consumerChargeMoney = 0;
+  }
 }

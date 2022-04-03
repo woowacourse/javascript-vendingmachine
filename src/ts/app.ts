@@ -9,6 +9,7 @@ import VendingMachineProductManager from './domains/VendingMachineProductManager
 import ConsumerChargeMoneyInputComponent from './components/PurchaseProductManageComponents/ConsumerChargeMoneyInputComponent';
 import VendingMachineConsumerMoneyManager from './domains/VendingMachineConsumerMoneyManager';
 import ConsumerProductStateComponent from './components/PurchaseProductManageComponents/ConsumerProductStateComponent';
+import ConsumerReturnCoinStateComponent from './components/PurchaseProductManageComponents/ConsumerReturnCoinStateComponent';
 
 const startApp = () => {
   new NavigatorComponent();
@@ -25,10 +26,14 @@ const startApp = () => {
   new ProductStateComponent(vendingMachineProductManager);
 
   new ChargeMoneyInputComponent(vendingMachineChargeMoneyManager);
-  new ChargeMoneyStateComponent();
+  new ChargeMoneyStateComponent(vendingMachineChargeMoneyManager);
 
   new ConsumerChargeMoneyInputComponent(vendingMachineConsumerMoneyManager);
   new ConsumerProductStateComponent(vendingMachineConsumerMoneyManager);
+  new ConsumerReturnCoinStateComponent(
+    vendingMachineChargeMoneyManager,
+    vendingMachineConsumerMoneyManager
+  );
 };
 
 export default startApp;

@@ -40,7 +40,18 @@ export default class ChargeMoneyInputComponent {
 
   constructor(private vendingMachineChargeMoneyManager) {
     on(this.$chargeButton, 'click', this.onSubmitChargeButton);
+
+    on(
+      $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
+      '@replaceTotalChargeMoney',
+      this.replaceTotalChargeMoney
+    );
   }
+
+  private replaceTotalChargeMoney = () => {
+    this.$totalChargeMoney.textContent =
+      this.vendingMachineChargeMoneyManager.getTotalAmount();
+  };
 
   private onSubmitChargeButton = (event: Event): void => {
     event.preventDefault();

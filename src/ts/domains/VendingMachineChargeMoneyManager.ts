@@ -32,12 +32,15 @@ export default class VendingMachineChargeMoneyManager
 
   getReturnCoins(userReturnMoney: number): Coins {
     let userMoney = userReturnMoney;
-    const returnCoinsQuantity: Coins = {
+    let returnCoinsQuantity: Coins = {
       ...COINS.INITIAL_QUANTITY_STATE,
     };
 
     if (userMoney >= this.getTotalAmount()) {
-      return this.coinsQuantity;
+      returnCoinsQuantity = this.coinsQuantity;
+      this.coinsQuantity = { ...COINS.INITIAL_QUANTITY_STATE };
+
+      return returnCoinsQuantity;
     }
 
     while (userMoney > 0) {

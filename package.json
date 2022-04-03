@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cypress:open": "cypress open",
+    "cypress:test": "npm run cypress:run",
     "cypress:run": "cypress run --browser chrome",
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",

@@ -46,9 +46,9 @@ describe('상품 구매 하기 E2E 테스트', () => {
 
   it('사용자가 구매하고 싶은 상품의 구매 버튼을 클릭하면, 해당하는 상품의 가격만큼 투입한 금액이 차감되고, 해당하는 상품의 수량은 -1 된 수량이 표시된다.', () => {
     cy.get('.product-table__purchase-button').click();
-    cy.get('.product-table__purchase-product-count').should(
+    cy.get('.product-table__purchase-product-quantity').should(
       'have.text',
-      '11개'
+      '11'
     );
   });
 
