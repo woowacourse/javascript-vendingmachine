@@ -1,7 +1,9 @@
 import { $, $$ } from './utils';
 
+type Path = '/javascript-vendingmachine/' | '/javascript-vendingmachine/charge' | '/javascript-vendingmachine/purchase';
+
 interface IRouter {
-  path: string;
+  path: Path;
   component: Element;
 }
 
@@ -11,18 +13,18 @@ const baseURL = '/javascript-vendingmachine';
 nav.addEventListener('click', (e) => {
   if ((e.target as HTMLButtonElement).type === undefined) return;
 
-  const route = (e.target as HTMLButtonElement).getAttribute('route');
+  const route = (e.target as HTMLButtonElement).getAttribute('route') as Path;
   historyRouterPush(route);
 });
 
-const historyRouterPush = (pathname: string) => {
+const historyRouterPush = (pathname: Path) => {
   if (pathname === window.location.pathname) return;
 
   history.pushState({ pathname }, '', pathname);
   render(pathname);
 };
 
-const render = (path: string) => {
+const render = (path: Path) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
   $(`[route='${path}']`, nav)?.classList.add('focus-button');
 
@@ -34,17 +36,17 @@ const render = (path: string) => {
 };
 
 const routers: IRouter[] = [
-  { path: baseURL + '/', component: $('product-management') },
-  { path: baseURL + '/charge', component: $('charge-tab') },
-  { path: baseURL + '/purchase', component: $('purchase-tab') },
+  { path: `${baseURL}/`, component: $('product-management') },
+  { path: `${baseURL}/charge`, component: $('charge-tab') },
+  { path: `${baseURL}/purchase`, component: $('purchase-tab') },
 ];
 
 window.addEventListener('popstate', function () {
-  render(window.location.pathname);
+  render(window.location.pathname as Path);
 });
 
 if (window.location.pathname === '/') {
   window.location.pathname = baseURL + '/';
 }
 
-render(window.location.pathname);
+render(window.location.pathname as Path);
