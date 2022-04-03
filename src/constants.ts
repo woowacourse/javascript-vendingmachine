@@ -17,6 +17,7 @@ export const CONFIGURATION = {
 export const ELEMENT_KEY = {
   PRODUCT: 'subscribeProductManagement',
   CHARGE: 'subscribeChargeTab',
+  PURCHASE: 'subscribePurchaseTab',
 };
 
 export const ERROR_MESSAGE = {
