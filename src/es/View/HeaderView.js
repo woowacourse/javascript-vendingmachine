@@ -22,11 +22,7 @@ export default class HeaderView {
       $('#member-menu', this.$userArea).classList.toggle('hidden');
     }
     if (event.target.dataset.page === 'logout') {
-      console.log('로그아웃해야겠어');
       logout();
-    }
-    if (event.target.dataset.page === 'editMemberInfo') {
-      console.log('정보수정할래');
     }
   }
 
@@ -82,7 +78,7 @@ export default class HeaderView {
       this.$userArea.innerHTML = `
         <button type="button" id="user-thumbnail-button" name="thumbnail-button" class="thumbnail-button">${User.name[0]}</button>
         <ul id="member-menu" class="hidden">
-          <li data-page="editMemberInfo">회원 정보 수정</li>
+          <li data-page="updateMyInfo">회원 정보 수정</li>
           <li data-page="logout">로그아웃</li>
         </ul>
       `;

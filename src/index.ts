@@ -6,6 +6,7 @@ import ProductPurchasePageView from './es/View/ProductPurchasePageView';
 import LoginPageView from './es/View/LoginPageView';
 import SignUpPageView from './es/View/SignUpPageView';
 import { requestUserInfo } from './es/utils/auth';
+import UpdateMyInfoPageView from './es/View/UpdateMyInfoPageView';
 
 function initialize() {
   new Router({
@@ -14,6 +15,7 @@ function initialize() {
     productPurchase: new ProductPurchasePageView(),
     login: new LoginPageView(),
     signUp: new SignUpPageView(),
+    updateMyInfo: new UpdateMyInfoPageView(),
   });
 }
 

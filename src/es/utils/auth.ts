@@ -90,9 +90,39 @@ function requestUserInfo(userAuth) {
     .catch(error => console.error('에러', error));
 }
 
+function updateUserInfo(newUserInfo) {
+  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+  if (!userAuth) return;
+
+  const { id } = userAuth;
+  const accessToken = `Bearer ${userAuth.accessToken}`;
+
+  fetch(userInfoURL(id), {
+    method: 'PUT',
+    body: JSON.stringify(newUserInfo),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken,
+    },
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('사용자 정보 업데이트 오류');
+      }
+      return res.json();
+    })
+    .then(response => {
+      const { email, name } = response;
+      User.setUser({ id, email, name });
+      location.replace('../');
+    })
+    .catch(error => console.error('에러', error));
+}
+
 export {
   signUp,
   login,
   logout,
   requestUserInfo,
+  updateUserInfo,
 };
