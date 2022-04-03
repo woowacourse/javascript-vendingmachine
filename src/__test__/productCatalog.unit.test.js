@@ -1,5 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog.ts';
-import { UserMoney } from '../domain/UserMoney';
+import { PurchaseMoney } from '../domain/PurchaseMoney';
 
 import { ERROR_MESSAGE } from '../utils/constants.ts';
 
@@ -54,15 +54,15 @@ describe('상품CRUD unit 테스트', () => {
   });
 
   test('상품을 구매할 수 있다', () => {
-    const userMoney = new UserMoney();
-    userMoney.setMoney(1000);
+    const purchaseMoney = new PurchaseMoney();
+    purchaseMoney.setMoney(1000);
 
     productCatalog.addProduct({ name: '코카콜라', price: 1000, quantity: 20 });
 
-    const remainder = productCatalog.buyProduct('코카콜라', userMoney.getMoney());
-    userMoney.setMoney(remainder);
+    const remainder = productCatalog.buyProduct('코카콜라', purchaseMoney.getMoney());
+    purchaseMoney.setMoney(remainder);
 
-    expect(userMoney.getMoney()).toBe(0);
+    expect(purchaseMoney.getMoney()).toBe(0);
 
     expect(productCatalog.findProduct('코카콜라').getAllProperties()).toStrictEqual({
       name: '코카콜라',

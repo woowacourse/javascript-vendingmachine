@@ -14,7 +14,7 @@ interface CoinVaultInterface {
   getCoins(): Coins;
   getBalance();
   chargeMoney(money: number);
-  returnCoins(userMoney: number): [Coins, number];
+  returnCoins(purhcaseMoney: number): [Coins, number];
 }
 
 export class CoinVault implements CoinVaultInterface {
@@ -37,7 +37,7 @@ export class CoinVault implements CoinVaultInterface {
 
   chargeMoney(money: number): void {
     this.#validateMoney(money);
-    this.#addCoins(this.#generateRandomCoins(money));
+    this.#addCoins(this.generateRandomCoins(money));
   }
 
   #addCoins(coins: Coins): void {
@@ -59,7 +59,7 @@ export class CoinVault implements CoinVaultInterface {
     }
   }
 
-  #generateRandomCoins(money: number): Coins {
+  generateRandomCoins(money: number): Coins {
     let balance = money;
     const generatedCoins = { ...COINS_INIT_QUANTITY };
 
@@ -79,9 +79,9 @@ export class CoinVault implements CoinVaultInterface {
     return generatedCoins;
   }
 
-  returnCoins(userMoney: number): [Coins, number] {
+  returnCoins(purhcaseMoney: number): [Coins, number] {
     const returnedCoins = { ...COINS_INIT_QUANTITY };
-    let remainder = userMoney % CHEAPEST_PAPER_MONEY_UNIT;
+    let remainder = purhcaseMoney % CHEAPEST_PAPER_MONEY_UNIT;
 
     Object.entries(this.#coinsQuantity).forEach(([key, quantity]) => {
       const coinUnit = COINS_UNIT_TABLE[key];

@@ -10,7 +10,7 @@ interface ProductCatalogInterface {
   findProduct(name: ProductProps['name']): Product;
   deleteProduct(name: ProductProps['name']): void;
   editProduct(targetProductName: ProductProps['name'], editedProductProps: ProductProps): void;
-  buyProduct(name: ProductProps['name'], userMoney: number): number;
+  buyProduct(name: ProductProps['name'], purchaseMoney: number): number;
 }
 
 export class ProductCatalog implements ProductCatalogInterface {
@@ -47,7 +47,7 @@ export class ProductCatalog implements ProductCatalogInterface {
     return targetList.find((product) => product.getName() === name);
   }
 
-  buyProduct(name: ProductProps['name'], userMoney: number): number {
+  buyProduct(name: ProductProps['name'], purchaseMoney: number): number {
     const deepCopiedProductList = this.#deepCopy(this.#productList);
 
     const targetProduct = this.findProduct(name, deepCopiedProductList);
@@ -55,7 +55,7 @@ export class ProductCatalog implements ProductCatalogInterface {
 
     this.#productList = deepCopiedProductList;
 
-    const exchange = userMoney - targetProduct.getPrice();
+    const exchange = purchaseMoney - targetProduct.getPrice();
 
     return exchange;
   }

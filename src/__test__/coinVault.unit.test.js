@@ -78,7 +78,7 @@ describe('잔돈 반환 테스트', () => {
   });
 
   test('현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다,단 지폐를 잔돈으로 반환하지 않는다', () => {
-    const userMoney = 1100;
+    const purchaseMoney = 1100;
     const returnedCoins = {
       coin500: 0,
       coin100: 1,
@@ -88,11 +88,11 @@ describe('잔돈 반환 테스트', () => {
     const remainder = 0;
 
     coinVault.chargeMoney(100);
-    expect(coinVault.returnCoins(userMoney)).toStrictEqual([returnedCoins, remainder]);
+    expect(coinVault.returnCoins(purchaseMoney)).toStrictEqual([returnedCoins, remainder]);
   });
 
   test('잔돈을 반환할 수 없는 경우 잔돈으로 반환할 수 있는 금액만 반환한다', () => {
-    const userMoney = 1480;
+    const purchaseMoney = 1480;
     const returnedCoins = {
       coin500: 0,
       coin100: 3,
@@ -102,6 +102,6 @@ describe('잔돈 반환 테스트', () => {
     const remainder = 60;
 
     coinVault.chargeMoney(420);
-    expect(coinVault.returnCoins(userMoney)).toStrictEqual([returnedCoins, remainder]);
+    expect(coinVault.returnCoins(purchaseMoney)).toStrictEqual([returnedCoins, remainder]);
   });
 });
