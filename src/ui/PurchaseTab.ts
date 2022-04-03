@@ -29,6 +29,7 @@ class PurchaseTab extends CustomElement {
 
   setEvent() {
     addEvent(this, 'submit', '.purchase-form', (e) => this.handleMoneyInput(e));
+    addEvent(this, 'click', '.product-item', (e) => this.handlePurchaseProduct(e));
   }
 
   handleMoneyInput(e) {
@@ -39,11 +40,21 @@ class PurchaseTab extends CustomElement {
     emit('.purchase-form', '@input', moneyInput, this);
   }
 
+  handlePurchaseProduct(e) {
+    if (e.target.classList.contains('product-item__purchase-button')) {
+      const productName = e.target.closest('.product-item').dataset.productName;
+
+      emit('#purchase-product-list-table', '@purchase', productName, this);
+    }
+  }
+
   notify({ action, data }) {
     switch (action) {
       case 'input':
-        console.log(data);
         this.updateUserInputMoney(data);
+        break;
+      case 'purchase':
+        this.purchaseItem(data);
         break;
     }
   }
@@ -65,6 +76,19 @@ class PurchaseTab extends CustomElement {
 
   updateUserInputMoney(money) {
     $('.purchase-form__money-input-amount', this).textContent = markUnit(money);
+  }
+
+  purchaseItem({ id, quantity, userMoney }) {
+    const product = $(`[data-product-id="${id}"]`, this);
+    const targetProductQuantity = product.children[2];
+
+    $('.purchase-form__money-input-amount', this).textContent = markUnit(userMoney);
+
+    targetProductQuantity.textContent = quantity;
+
+    if (Number(targetProductQuantity.textContent) === 0) {
+      product.remove();
+    }
   }
 }
 

@@ -6,15 +6,15 @@ class MoneyInput {
   }
 
   addMoney(money: number) {
-    this.amount += Number(money);
+    this.amount += money;
   }
 
   subtractMoney(money: number) {
-    this.amount -= Number(money);
+    this.amount -= money;
   }
 
   getAmount() {
-    return Number(this.amount);
+    return this.amount;
   }
 }
 

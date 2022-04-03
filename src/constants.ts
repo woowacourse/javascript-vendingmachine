@@ -38,4 +38,5 @@ export const ERROR_MESSAGE = {
   OVER_AMOUNT: `현재 보유 금액은 ${markUnit(CONFIGURATION.AMOUNT.MAX)}원을 초과할 수 없습니다!`,
   OVER_INPUT_MONEY: `투입 금액은 ${markUnit(CONFIGURATION.INPUT.MAX)}원을 초과할 수 없습니다!`,
   INCORRECT_UNIT_INPUT_MONEY: `금액은 ${CONFIGURATION.INPUT.MIN}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
+  NOT_ENOUGH_MONEY: `금액이 부족합니다.`,
 };

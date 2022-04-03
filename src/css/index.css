@@ -77,3 +77,15 @@ input::-webkit-inner-spin-button {
 .hidden {
   display: none;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: var(--primary-font-color);
+}
+
+a:visited {
+  color: var(--primary-font-color);
+}

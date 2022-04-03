@@ -2,10 +2,17 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateProduct, validateChange, validateUpdateProduct, validateInputMoney } from '../validator';
+import {
+  validateProduct,
+  validateChange,
+  validateUpdateProduct,
+  validateInputMoney,
+  validatePurchaseProduct,
+} from '../validator';
 import Coin from './Coin';
 import { Product } from './Product';
 import MoneyInput from './MoneyInput';
+import PurchaseTab from '../ui/PurchaseTab';
 
 interface IVendingMachine {
   amount: Coin;
@@ -46,9 +53,10 @@ class VendingMachine implements IVendingMachine {
 
   subscribePurchaseTab() {
     on('.purchase-form', '@input', (e) => this.inputMoney(e.detail), $('purchase-tab'));
+    on('#purchase-product-list-table', '@purchase', (e) => this.purchaseProduct(e.detail), $('purchase-tab'));
   }
 
-  dispatch(key: string, action: string, data?: Product | number) {
+  dispatch(key: string, action: string, data?: Product | number | Object) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
     const amount = this.amount;
@@ -114,6 +122,29 @@ class VendingMachine implements IVendingMachine {
       const userMoney = this.moneyInput.getAmount();
       storage.setLocalStorage('userMoney', userMoney);
       this.dispatch(ELEMENT_KEY.PURCHASE, 'input', userMoney);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  purchaseProduct(targetName: string) {
+    try {
+      validatePurchaseProduct(targetName, this.products, this.moneyInput.getAmount());
+
+      const targetProduct = this.products.find((product) => product.name === targetName);
+      targetProduct.purchase();
+      this.moneyInput.subtractMoney(targetProduct.price);
+
+      if (targetProduct.quantity === 0) {
+        this.products = this.products.filter((product) => product.name !== targetName);
+      }
+
+      const userMoney = this.moneyInput.getAmount();
+      storage.setLocalStorage('products', this.products);
+      storage.setLocalStorage('userMoney', userMoney);
+
+      const { id, quantity } = targetProduct;
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', { id, quantity, userMoney });
     } catch (error) {
       alert(error.message);
     }

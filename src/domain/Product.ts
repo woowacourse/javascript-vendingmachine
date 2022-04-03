@@ -20,6 +20,10 @@ class Product implements IProduct {
     this.price = product.price;
     this.quantity = product.quantity;
   }
+
+  purchase() {
+    this.quantity -= 1;
+  }
 }
 
 export { IProduct, Product };
