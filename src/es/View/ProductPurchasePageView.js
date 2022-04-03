@@ -1,9 +1,6 @@
-import ProductStore from '../Store/ProductStore';
-import VendingMachineChargeStore from '../Store/VendingMachineChargeStore';
-import CustomerChargeStore from '../Store/CustomerChargeStore';
 import { $, getInnerInputValues } from '../utils';
 import { template } from './template';
-import { COIN_TYPE } from '../constants';
+import ProductPurchasePageManager from '../Manager/ProductPurchasePageManager';
 
 export default class ProductPurchasePageView {
   renderMethodList;
@@ -13,8 +10,7 @@ export default class ProductPurchasePageView {
   $productTable;
 
   constructor() {
-    ProductStore.addSubscriber(this.render);
-    CustomerChargeStore.addSubscriber(this.render);
+    ProductPurchasePageManager.addSubscriber(this.render);
     this.setRenderMethodList();
   }
 
@@ -23,7 +19,7 @@ export default class ProductPurchasePageView {
 
     this.setDom();
     this.render({
-      state: { ...ProductStore.getState(), ...CustomerChargeStore.getState() },
+      state: { ...ProductPurchasePageManager.getState() },
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
@@ -42,7 +38,8 @@ export default class ProductPurchasePageView {
   setRenderMethodList() {
     this.renderMethodList = {
       products: [this.updateProductList],
-      customerCharge: [this.updateTotalCustomerCharge],
+      vendingMachineChargeCoins: [],
+      customerChargeAmount: [this.updateTotalCustomerCharge],
     };
   }
 
@@ -55,7 +52,7 @@ export default class ProductPurchasePageView {
   onSubmitCustomerChargeForm = (event) => {
     event.preventDefault();
     const { customerCharge } = getInnerInputValues(event.target);
-    CustomerChargeStore.addCharge(customerCharge);
+    ProductPurchasePageManager.addCustomerCharge(customerCharge);
     $('input', event.target).value = '';
   };
 
@@ -71,42 +68,20 @@ export default class ProductPurchasePageView {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const { price } = ProductStore.getState().products[productIndex];
-
-    if (price > CustomerChargeStore.getState().customerCharge) {
-      alert('Too expensive, put more money! 😥');
-      return;
+    try {
+      ProductPurchasePageManager.purchaseProductByIndex(productIndex);
+    } catch (err) {
+      alert(err.message);
     }
-
-    CustomerChargeStore.subtractCharge(price);
-    ProductStore.takeOutProductByIndex(productIndex);
   };
 
-  onClickReturnChangeButton = (event) => {
-    const { coins: vendingMachineCoins } = VendingMachineChargeStore.getState();
-    const { customerCharge } = CustomerChargeStore.getState();
-    if (VendingMachineChargeStore.getTotalAmount() <= customerCharge) {
-      CustomerChargeStore.subtractCharge(customerCharge);
-      VendingMachineChargeStore.subtractCoins(vendingMachineCoins);
-      this.updateChangeTable({ ReturnedCoins: vendingMachineCoins });
-      return;
-    }
-
-    const coinsToBeReturned = [0, 0, 0, 0];
-    let leftCharge = customerCharge;
-    COIN_TYPE.forEach((coin, index) => {
-      const maxQuantity = Math.floor(leftCharge / coin);
-      const returnQuantity = maxQuantity > vendingMachineCoins[index] ? vendingMachineCoins[index] : maxQuantity;
-      coinsToBeReturned[index] = returnQuantity;
-      leftCharge -= returnQuantity * coin;
-    });
-
-    CustomerChargeStore.subtractCharge(customerCharge - leftCharge);
-    VendingMachineChargeStore.subtractCoins(coinsToBeReturned);
+  onClickReturnChangeButton = () => {
+    const coinsToBeReturned = ProductPurchasePageManager.returnChanges();
     this.updateChangeTable({ ReturnedCoins: coinsToBeReturned });
   };
 
   render = ({ state, changeStates }) => {
+    console.log(changeStates);
     const renderMethods = changeStates.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
@@ -114,8 +89,8 @@ export default class ProductPurchasePageView {
     renderMethods.forEach(renderMethod => renderMethod(state));
   };
 
-  updateTotalCustomerCharge = ({ customerCharge }) => {
-    $('#total-customer-charge').innerText = `${customerCharge}원`;
+  updateTotalCustomerCharge = ({ customerChargeAmount }) => {
+    $('#total-customer-charge').innerText = `${customerChargeAmount}원`;
   };
 
   updateProductList = ({ products }) => {

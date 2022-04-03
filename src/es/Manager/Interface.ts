@@ -1,4 +1,4 @@
-export interface IStore {
+export interface IPageManager {
   addSubscriber(subscriber: object): void;
   setState(newState: object): void;
   getState(): object;

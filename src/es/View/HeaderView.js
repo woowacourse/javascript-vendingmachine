@@ -1,3 +1,4 @@
+import User from '../data/User';
 import { $ } from '../utils';
 
 export default class HeaderView {
@@ -26,18 +27,22 @@ export default class HeaderView {
   }
 
   updateMenuButton({ currentPage }) {
+    if (User.isMember) {
+      this.showNavigationMenu();
+      this.updateNavigationSelectedMenu(currentPage);
+    } else {
+      this.showLoginButton();
+      this.hideNavigationMenu();
+    }
+
     switch (currentPage) {
       case 'login':
       case 'signUp':
         this.hideLoginButton();
         this.showGoMainButton();
-        this.hideNavigationMenu();
         break;
       default:
-        this.showLoginButton();
         this.hideGoMainButton();
-        this.showNavigationMenu();
-        this.updateNavigationSelectedMenu(currentPage);
     }
   }
 

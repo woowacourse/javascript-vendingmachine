@@ -1,38 +1,36 @@
 import { COIN_TYPE } from '../constants';
 import { getRandomNumber } from '../utils';
-import { IStore } from './Interface';
+import { IPageManager } from './Interface';
+import VendingMachineCharge from '../data/VendingMachineCharge';
 
 interface IVendingMachineChargeStoreState {
   coins: Array<number>;
 }
 
-class VendingMachineChargeStore implements IStore {
-  private state: IVendingMachineChargeStoreState = {
-    coins: [0, 0, 0, 0],
-  };
-
+class VendingMachineChargeManagementPageManager implements IPageManager {
   private subscribers = [];
 
   addSubscriber(subscriber: object) {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: IVendingMachineChargeStoreState) {
+  setState(newState) {
     const changeStates: Array<string> = Object.keys(newState);
 
-    this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
+    const state = { ...this.getState(), ...newState };
+    if (changeStates.includes('coins')) VendingMachineCharge.setCoins(newState.coins);
+
+    this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
   getState(): IVendingMachineChargeStoreState {
-    return { ...this.state };
+    return {
+      coins: VendingMachineCharge.coins,
+    };
   }
 
   getTotalAmount(): number {
-    return this.state.coins.reduce(
-      (previous, coin, index) => (previous += COIN_TYPE[index] * coin),
-      0,
-    );
+    return VendingMachineCharge.getTotalAmount();
   }
 
   getMaxCoinIndex(baseAmount) {
@@ -58,7 +56,7 @@ class VendingMachineChargeStore implements IStore {
 
   addCharge(amount: number): void {
     const coinsToAdd: Array<number> = this.getRandomCoinsFromAmount(amount);
-    const totalCoins: Array<number> = this.state.coins.map(
+    const totalCoins: Array<number> = VendingMachineCharge.coins.map(
       (value, index) => value + coinsToAdd[index],
     );
 
@@ -68,11 +66,11 @@ class VendingMachineChargeStore implements IStore {
   }
 
   subtractCoins(coinsToBeReturned: Array<number>) {
-    const subtractedCoins: Array<number> = this.state.coins.map((coin, index) => coin - coinsToBeReturned[index]);
+    const subtractedCoins: Array<number> = VendingMachineCharge.coins.map((coin, index) => coin - coinsToBeReturned[index]);
     this.setState({
       coins: subtractedCoins,
     });
   }
 }
 
-export default new VendingMachineChargeStore();
+export default new VendingMachineChargeManagementPageManager();

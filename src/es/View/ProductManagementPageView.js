@@ -1,7 +1,7 @@
 import { template } from './template';
-import ProductStore from '../Store/ProductStore';
 import { validateProduct } from '../validator';
 import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
+import ProductManagementPageManager from '../Manager/ProductManagementPageManager';
 
 export default class ProductManagementPageView {
   renderMethodList;
@@ -14,7 +14,7 @@ export default class ProductManagementPageView {
   isTableUpdating;
 
   constructor() {
-    ProductStore.addSubscriber(this.render);
+    ProductManagementPageManager.addSubscriber(this.render);
     this.setRenderMethodList();
 
     this.isTableUpdating = false;
@@ -25,7 +25,7 @@ export default class ProductManagementPageView {
 
     this.setDom();
     this.render({
-      state: ProductStore.getState(),
+      state: ProductManagementPageManager.getState(),
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
@@ -69,7 +69,7 @@ export default class ProductManagementPageView {
       return;
     }
 
-    ProductStore.addOrUpdateProduct(product);
+    ProductManagementPageManager.addOrUpdateProduct(product);
     clearInnerInputValues(event.target);
   };
 
@@ -101,7 +101,7 @@ export default class ProductManagementPageView {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const { products } = ProductStore.getState();
+    const { products } = ProductManagementPageManager.getState();
 
     $tableRow.innerHTML = template.productTableRowUpdate(products[productIndex]);
   }
@@ -118,7 +118,7 @@ export default class ProductManagementPageView {
       alert(error.message);
       return;
     }
-    ProductStore.updateProduct(productIndex, product);
+    ProductManagementPageManager.updateProduct(productIndex, product);
     this.isTableUpdating = !this.isTableUpdating;
   }
 
@@ -127,7 +127,7 @@ export default class ProductManagementPageView {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const { products } = ProductStore.getState();
+    const { products } = ProductManagementPageManager.getState();
 
     $tableRow.innerHTML = template.productTableRowInners(products[productIndex]);
     this.isTableUpdating = !this.isTableUpdating;
@@ -140,7 +140,7 @@ export default class ProductManagementPageView {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    ProductStore.removeProductByIndex(productIndex);
+    ProductManagementPageManager.removeProductByIndex(productIndex);
   }
 
   drawProductList = ({ products }) => {

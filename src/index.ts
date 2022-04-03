@@ -6,6 +6,7 @@ import ProductPurchasePageView from './es/View/ProductPurchasePageView';
 import LoginPageView from './es/View/LoginPageView';
 import SignUpPageView from './es/View/SignUpPageView';
 import { requestUserInfo } from './es/utils/auth';
+import User from './es/data/User';
 
 function checkUser() {
   const userAuth = JSON.parse(localStorage.getItem('userAuth'));
@@ -19,6 +20,13 @@ function checkUser() {
 }
 
 checkUser();
+
+// 테스트용
+User.setUser({
+  id: 0,
+  email: '가나다@가나다.com',
+  name: '가나다',
+});
 
 new Router({
   productManagement: new ProductManagementPageView(),

@@ -1,14 +1,11 @@
-import { IStore, IProduct } from './Interface';
+import Products from '../data/Products';
+import { IPageManager, IProduct } from '../Manager/Interface';
 
 interface IProductStoreState {
   products: Array<IProduct>;
 }
 
-class ProductStore implements IStore {
-  private state: IProductStoreState = {
-    products: [],
-  };
-
+class ProductManagementPageManager implements IPageManager {
   private subscribers = [];
 
   addSubscriber(subscriber: object) {
@@ -18,22 +15,26 @@ class ProductStore implements IStore {
   setState(newState: IProductStoreState) {
     const changeStates: Array<string> = Object.keys(newState);
 
-    this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changeStates }));
+    const state = { ...this.getState(), ...newState };
+    if (changeStates.includes('products')) Products.setProducts(newState.products);
+
+    this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
   getState(): IProductStoreState {
-    return { ...this.state };
+    return {
+      products: Products.products,
+    };
   }
 
   addProduct(product: IProduct): void {
     this.setState({
-      products: [...this.state.products, product],
+      products: [...Products.products, product],
     });
   }
 
   updateProduct(index: number, product: IProduct): void {
-    const updateProducts = [...this.state.products];
+    const updateProducts = [...Products.products];
 
     updateProducts.splice(index, 1, product);
     this.setState({
@@ -42,7 +43,7 @@ class ProductStore implements IStore {
   }
 
   removeProductByIndex(index: number): void {
-    const updateProducts = [...this.state.products];
+    const updateProducts = [...Products.products];
 
     updateProducts.splice(index, 1);
     this.setState({
@@ -51,7 +52,7 @@ class ProductStore implements IStore {
   }
 
   findProductIndexByName(name: string): number {
-    return this.state.products.findIndex(product => product.name === name);
+    return Products.products.findIndex(product => product.name === name);
   }
 
   addOrUpdateProduct(product) {
@@ -66,12 +67,6 @@ class ProductStore implements IStore {
       this.updateProduct(productIndex, product);
     }
   }
-
-  takeOutProductByIndex(index: number, count = 1) {
-    const updatedProduct = this.state.products[index];
-    updatedProduct.quantity -= count;
-    this.updateProduct(index, updatedProduct);
-  }
 }
 
-export default new ProductStore();
+export default new ProductManagementPageManager();

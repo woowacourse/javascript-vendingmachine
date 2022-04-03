@@ -1,7 +1,7 @@
 import { template } from './template';
 import { $ } from '../utils';
 import { validateHoldingAmountToAdd } from '../validator';
-import VendingMachineChargeStore from '../Store/VendingMachineChargeStore';
+import VendingMachineChargeManagementPageManager from '../Manager/VendingMachineChargeManagementPageManager';
 
 export default class VendingMachineChargeManagementPageView {
   renderMethodList;
@@ -10,7 +10,7 @@ export default class VendingMachineChargeManagementPageView {
   $vendingMachineChargeCoinTable;
 
   constructor() {
-    VendingMachineChargeStore.addSubscriber(this.render);
+    VendingMachineChargeManagementPageManager.addSubscriber(this.render);
     this.setRenderMethodList();
   }
 
@@ -19,7 +19,7 @@ export default class VendingMachineChargeManagementPageView {
 
     this.setDom();
     this.render({
-      state: VendingMachineChargeStore.getState(),
+      state: VendingMachineChargeManagementPageManager.getState(),
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
@@ -54,7 +54,7 @@ export default class VendingMachineChargeManagementPageView {
   onSubmitVendingMachineChargeForm(event) {
     event.preventDefault();
     const $vendingMachineChargeInput = $('input', event.target);
-    const totalAmount = VendingMachineChargeStore.getTotalAmount();
+    const totalAmount = VendingMachineChargeManagementPageManager.getTotalAmount();
 
     try {
       validateHoldingAmountToAdd(Number($vendingMachineChargeInput.value), totalAmount);
@@ -63,12 +63,12 @@ export default class VendingMachineChargeManagementPageView {
       return;
     }
 
-    VendingMachineChargeStore.addCharge($vendingMachineChargeInput.value);
+    VendingMachineChargeManagementPageManager.addCharge($vendingMachineChargeInput.value);
     $vendingMachineChargeInput.value = '';
   }
 
   updateTotalVendingMachineCharge = () => {
-    const totalAmount = VendingMachineChargeStore.getTotalAmount();
+    const totalAmount = VendingMachineChargeManagementPageManager.getTotalAmount();
 
     this.$totalVendingMachineCharge.innerText = `${totalAmount.toLocaleString()}원`;
   };
