@@ -1,6 +1,7 @@
-import { $, getInnerInputValues } from '../utils';
+import { $, clearInnerInputValues, getInnerInputValues } from '../utils';
 import { template } from './template';
 import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
+import { validateCustomerChargeToAdd } from '../validator';
 
 class ProductPurchasePageView {
   renderMethodList;
@@ -52,8 +53,14 @@ class ProductPurchasePageView {
   onSubmitCustomerChargeForm = (event) => {
     event.preventDefault();
     const { customerCharge } = getInnerInputValues(event.target);
+    try {
+      validateCustomerChargeToAdd(customerCharge);
+    } catch (err) {
+      alert(err.message);
+      return;
+    }
     ProductPurchasePageManager.addCustomerCharge(customerCharge);
-    $('input', event.target).value = '';
+    clearInnerInputValues(event.target);
   };
 
   onClickTableInnerButton = (event) => {
