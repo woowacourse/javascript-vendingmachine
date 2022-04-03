@@ -1,4 +1,5 @@
 :root {
+  --color-white: #fff;
   --color-white-gray: #f5f5f5;
   --color-light-gray: #ebebeb;
   --color-middle-gray: #8a8a8a;
@@ -6,15 +7,23 @@
   --color-middle-skyblue: #00bcd4;
 }
 
+body {
+  background: var(--color-light-gray);
+}
 #app {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: var(--color-white);
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 50px;
 }
 
 input {
   padding: 0;
+  margin: 0;
 }
 
 button {
@@ -25,27 +34,27 @@ button {
   display: none;
 }
 
+.button {
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1.25px;
+}
+
 .menu-nav {
   display: flex;
   justify-content: center;
   margin-bottom: 48px;
 }
 
-.button {
-  cursor: pointer;
-  border-radius: 4px;
-  border: none;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1.25px;
-}
-
 .menu-nav__button {
   width: 120px;
   height: 36px;
   background: var(--color-white-gray);
-  margin: 0 4px;
+  margin: 0 3px;
 }
 
 .menu-nav__button:hover {
@@ -92,6 +101,16 @@ button {
 
 .edit-input {
   width: 50px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.edit-input::-webkit-outer-spin-button,
+.edit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.edit-input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .charge-manange__input {
@@ -113,7 +132,7 @@ button {
   border-radius: 5px;
   border: none;
   margin-left: 16px;
-  color: white;
+  color: var(--color-white);
   font-size: 16px;
 }
 
@@ -123,8 +142,13 @@ button {
   margin-top: 40px;
 }
 
-.product-manange__table {
-  width: 470px;
+.product-manage__table-container {
+  height: 300px;
+  overflow: scroll;
+}
+
+.product-manange__table,
+.charge-manange__table {
   text-align: center;
   border-top: 1px solid var(--color-light-gray);
   border-bottom: 1px solid var(--color-light-gray);
@@ -132,11 +156,6 @@ button {
 }
 
 .charge-manange__table {
-  width: 236px;
-  text-align: center;
-  border-top: 1px solid var(--color-light-gray);
-  border-bottom: 1px solid var(--color-light-gray);
-  border-collapse: collapse;
   margin: auto;
 }
 
