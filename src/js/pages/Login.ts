@@ -37,25 +37,20 @@ export default class Login {
         headers: { 'Content-Type': 'application/json' },
         body: data,
       });
-
-      console.log(response);
+      const res = await response.json();
 
       if (!response.ok) {
-        throw new Error('잘못 입력 했습니다.');
+        throw new Error(res);
       }
 
-      const {
-        accessToken,
-        user: { id },
-      } = await response.json();
+      const { accessToken, user } = res;
 
-      console.log(accessToken, id);
       localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('id', id);
+      localStorage.setItem('user', JSON.stringify(user));
 
       router.to('#!/product-manage');
-    } catch (e) {
-      alert(e);
+    } catch (message) {
+      alert(message);
     }
   };
 }

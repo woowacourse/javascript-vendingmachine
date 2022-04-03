@@ -25,7 +25,6 @@ export default class ProductPurchase {
   }
 
   render() {
-    console.log('productPurchase render');
     this.$inputSection.insertAdjacentHTML(
       'beforeend',
       template.moneyAddContainer({

@@ -6,9 +6,8 @@ const useRouter = () => {
   const $contentsContainer = document.querySelector('.contents-container');
   const $accountLoginButton = document.querySelector('#account-login-button');
   const $accountDropdownContainer = document.querySelector('#account-dropdown-container');
+  const $namethumbnail = $accountDropdownContainer.querySelector('#name-thumbnail');
   let prevPath = '';
-
-  const isLogged = () => !!localStorage.getItem('id');
 
   const activeLogin = (path: string) => {
     if (path === '#!/login' || path === '#!/edit-profile' || path === '#!/signup') {
@@ -18,9 +17,14 @@ const useRouter = () => {
       return;
     }
 
-    $accountLoginButton.classList.toggle('hide', isLogged());
-    $accountDropdownContainer.classList.toggle('hide', !isLogged());
-    $headerNav.classList.toggle('hide', !isLogged());
+    const user = JSON.parse(localStorage.getItem('user'));
+    const _isLogged = !!user;
+
+    if (_isLogged) $namethumbnail.textContent = user.name[0];
+
+    $accountLoginButton.classList.toggle('hide', _isLogged);
+    $accountDropdownContainer.classList.toggle('hide', !_isLogged);
+    $headerNav.classList.toggle('hide', !_isLogged);
   };
 
   const clearPageBody = () => {

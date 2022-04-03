@@ -57,3 +57,17 @@
 .login-p a {
   text-decoration-line: none;
 }
+
+.valid-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.hints {
+  padding: 0;
+  margin: 0;
+  color: red;
+}

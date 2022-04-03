@@ -30,7 +30,6 @@ class App {
   };
 
   onSelectNav = (e: Event) => {
-    console.log(e);
     if (!(e.target instanceof HTMLSelectElement)) return;
 
     const { value } = e.target;
