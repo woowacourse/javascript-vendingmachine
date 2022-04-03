@@ -1,8 +1,11 @@
+import { getUserInfo } from './member';
+
 class Router {
   static _instance?: Router;
 
   pageContainer?: HTMLElement;
   memberContainer?: HTMLElement;
+  loginHeader?: HTMLElement;
 
   constructor() {
     if (Router._instance) {
@@ -12,6 +15,7 @@ class Router {
     window.addEventListener('popstate', this.onLocationChange);
     this.pageContainer = document.querySelector('.tab-container') as HTMLElement;
     this.memberContainer = document.querySelector('.member-container') as HTMLElement;
+    this.loginHeader = document.querySelector('.login-header') as HTMLElement;
     this.onLoad();
   }
 
@@ -31,9 +35,18 @@ class Router {
     window.dispatchEvent(new Event('pushstate'));
   }
 
-  onLocationChange = () => {
+  onLocationChange = async () => {
     if (this.pageContainer === undefined) return;
     if (this.memberContainer === undefined) return;
+    if (this.loginHeader === undefined) return;
+
+    const isLogin = !!(await getUserInfo());
+
+    if (isLogin) {
+      this.loginHeader.innerHTML = '<login-info></login=info>';
+    } else {
+      this.loginHeader.innerHTML = '<login-header></login=header>';
+    }
 
     switch (window.location.pathname) {
       case '/product-manage-tab':
@@ -81,6 +94,7 @@ class Router {
 
         this.memberContainer.insertAdjacentHTML('beforeend', '<sign-up-form></sign-up-form>');
         break;
+
       default:
         document.querySelector('header')?.classList.remove('hide');
         this.memberContainer.replaceChildren();

@@ -34,8 +34,8 @@ export async function login(email: BodyInit, password: BodyInit) {
     id: info.user.id,
     name: info.user.name,
   };
-
   localStorage.setItem('user-info', JSON.stringify(user));
+
   showSnack('로그인 완료');
   Router.pushState('/');
 }
@@ -61,4 +61,24 @@ export async function signUp(email: string, name: string, password: string) {
   }
   showSnack('가입이 완료되었습니다.');
   Router.pushState('/');
+}
+
+export async function getUserInfo() {
+  const userInfo = await localStorage.getItem('user-info');
+
+  if (!userInfo) {
+    return undefined;
+  }
+  const user = JSON.parse(userInfo);
+
+  const response = await fetch(`http://localhost:3000/600/users/${user.id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${user.key}`,
+    },
+  });
+
+  const body = await response.json();
+
+  return body;
 }

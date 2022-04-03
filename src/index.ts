@@ -6,6 +6,7 @@ import './components/purchase-product-page';
 import './components/login-header';
 import './components/login-form';
 import './components/sign-up-form';
+import './components/login-info';
 import Router from './router';
 
 new Router();

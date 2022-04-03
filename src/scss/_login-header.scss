@@ -1,3 +1,5 @@
+@import './variables';
+
 #app {
   position: relative;
   login-header {
@@ -7,6 +9,19 @@
       right: 11px;
       padding: 9px 0px;
       width: auto;
+    }
+  }
+  login-info {
+    button {
+      position: absolute;
+      top: 21px;
+      right: 11px;
+      color: $color-black-900;
+      background-color: $color-cyan-700;
+      padding: 8px 12px;
+      width: auto;
+      font-weight: bold;
+      border-radius: 100%;
     }
   }
 }
