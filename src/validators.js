@@ -21,6 +21,8 @@ const isUnderMinPrice = (price) => price < PRODUCT.PRICE.MIN;
 
 const isOverMaxPrice = (price) => price > PRODUCT.PRICE.MAX;
 
+const isOverPurchaseInputMaxPrice = (price) => price > PRODUCT.PRICE.PURCHASE_INPUT_MAX;
+
 const isUnderMinQuantity = (quantity) => quantity < PRODUCT.QUANTITY.MIN;
 
 const isOverMaxQuantity = (quantity) => quantity > PRODUCT.QUANTITY.MAX;
@@ -82,6 +84,18 @@ export const checkCoinValidation = (coinInputValue) => {
     throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MONEY);
   }
   if (cannotDividedByTen(coinInputValue)) {
+    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+  }
+};
+
+export const checkPurchaseMoneyValidation = (purchaseMoneyInputValue) => {
+  if (isUnderMinPrice(purchaseMoneyInputValue)) {
+    throw new Error(ERROR_MESSAGE.IS_UNDER_PRODUCT_MIN_PRICE);
+  }
+  if (isOverPurchaseInputMaxPrice(purchaseMoneyInputValue)) {
+    throw new Error(ERROR_MESSAGE.IS_OVER_PRODUCT_MAX_PRICE);
+  }
+  if (cannotDividedByTen(purchaseMoneyInputValue)) {
     throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
   }
 };

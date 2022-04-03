@@ -6,10 +6,6 @@ import { $ } from '../../utils/dom';
 import { checkCoinValidation } from '../../validators';
 
 class CoinChargeForm extends CustomElement {
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
   template() {
     return `
       <form class="coin-charge-form">

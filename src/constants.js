@@ -14,6 +14,7 @@ export const PRODUCT = {
   PRICE: {
     MIN: 100,
     MAX: 10000,
+    PURCHASE_INPUT_MAX: 100000,
   },
   QUANTITY: {
     MIN: 1,
@@ -43,4 +44,7 @@ export const ERROR_MESSAGE = {
 
   MONEY_CANNOT_DIVIDED_BY_TEN: '금액에 1원 단위가 입력되었습니다! 10원 단위로 입력해 주세요!',
   IS_OVER_MAX_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${MONEY.MAX.toLocaleString()}원을 초과하였습니다! 현재 보유 금액을 확인한 후 입력해 주세요!`,
+
+  IS_UNDER_PRODUCT_MIN_PRICE: `최소 상품 가격인 ${PRODUCT.PRICE.MIN}원 미만으로 입력되었습니다! 상품을 구매하고 싶으시면, ${PRODUCT.PRICE.MIN}원 이상으로 입력해 주세요!`,
+  IS_OVER_PRODUCT_MAX_PRICE: `돈은 한번에 최대 ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}만큼 투입할 수 있습니다! ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}원 이하로 투입해주세요!`,
 };

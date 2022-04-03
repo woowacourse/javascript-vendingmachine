@@ -1,4 +1,6 @@
+import { $ } from '../../utils/dom';
 import CustomElement from '../../abstracts/CustomElement';
+import { checkPurchaseMoneyValidation } from '../../validators';
 
 class PurchaseMoneyForm extends CustomElement {
   template() {
@@ -10,6 +12,25 @@ class PurchaseMoneyForm extends CustomElement {
       </form>
     `;
   }
+
+  setEvent() {
+    $('.purchase-money-form').addEventListener('submit', this.handlePurchaseMoneyButtonSubmit);
+  }
+
+  handlePurchaseMoneyButtonSubmit = (event) => {
+    event.preventDefault();
+
+    // 입력된다. (유효성 검사)
+    const $purchaseMoneyInput = $('#purchase-money-input');
+    const purchaseMoneyInputValue = $purchaseMoneyInput.valueAsNumber;
+
+    try {
+      checkPurchaseMoneyValidation(purchaseMoneyInputValue);
+    } catch (error) {
+      alert(error.message);
+    }
+    // 투입 금액을 추가한다.
+  };
 }
 
 customElements.define('purchase-money-form', PurchaseMoneyForm);
