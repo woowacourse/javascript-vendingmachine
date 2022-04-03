@@ -12,7 +12,8 @@
     "deploy": "gh-pages -d dist",
     "json-server": "json-server db.json --middlewares ./auth-middleware.js --routes routes.json",
     "cypress:run": "cypress run --browser chrome",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "heroku-prebuild": "npm install"
   },
   "repository": {
     "type": "git",
