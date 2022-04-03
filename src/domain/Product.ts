@@ -1,12 +1,28 @@
 import { ERROR_MESSAGE, PRODUCT_CONDITION } from '../utils/constants';
+import { ProductProps } from '../utils/interface';
 
-export class Product {
-  #name: string;
-  #price: number;
-  #quantity: number;
+interface ProductInterface {
+  getName();
+  getPrice();
+  getQuantity();
+  getAllProperties();
+  setName(name: ProductProps['name']);
+  setPrice(price: ProductProps['price']);
+  setQuantity(quantity: ProductProps['quantity']);
+  decreaseQuantity(quantity: ProductProps['quantity']);
+  isValidatedName(name: ProductProps['name']);
+  isValidatedPrice(price: ProductProps['price']);
+  isValidatedQuantity(quantity: ProductProps['price']);
+  isValidatedAllProp({ name, price, quantity }: ProductProps): boolean;
+}
 
-  constructor(name: string, price: number, quantity: number) {
-    if (this.isValidatedAllProp(name, price, quantity)) {
+export class Product implements ProductInterface {
+  #name: ProductProps['name'];
+  #price: ProductProps['price'];
+  #quantity: ProductProps['quantity'];
+
+  constructor({ name, price, quantity }: ProductProps) {
+    if (this.isValidatedAllProp({ name, price, quantity })) {
       this.setName(name);
       this.setPrice(price);
       this.setQuantity(quantity);
@@ -25,23 +41,27 @@ export class Product {
     return this.#quantity;
   }
 
-  setName(name: string) {
+  getAllProperties() {
+    return { name: this.#name, price: this.#price, quantity: this.#quantity };
+  }
+
+  setName(name: ProductProps['name']) {
     this.#name = name;
   }
 
-  setPrice(price: number) {
+  setPrice(price: ProductProps['price']) {
     this.#price = price;
   }
 
-  setQuantity(quantity: number) {
+  setQuantity(quantity: ProductProps['quantity']) {
     this.#quantity = quantity;
   }
 
-  decreaseQuantity(quantity: number = 1) {
+  decreaseQuantity(quantity: ProductProps['quantity'] = 1) {
     this.#quantity -= quantity;
   }
 
-  isValidatedName(name: string) {
+  isValidatedName(name: ProductProps['name']) {
     if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT);
     }
@@ -49,7 +69,7 @@ export class Product {
     return true;
   }
 
-  isValidatedPrice(price: number) {
+  isValidatedPrice(price: ProductProps['price']) {
     if (price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE) {
       throw new Error(ERROR_MESSAGE.NOT_WITHIN_PRODUCT_PRICE_RANGE);
     }
@@ -61,7 +81,7 @@ export class Product {
     return true;
   }
 
-  isValidatedQuantity(quantity: number) {
+  isValidatedQuantity(quantity: ProductProps['quantity']) {
     if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT);
     }
@@ -69,15 +89,11 @@ export class Product {
     return true;
   }
 
-  isValidatedAllProp(name: string, price: number, quantity: number): boolean {
+  isValidatedAllProp({ name, price, quantity }: ProductProps): boolean {
     return (
       this.isValidatedName(name) &&
       this.isValidatedPrice(price) &&
       this.isValidatedQuantity(quantity)
     );
-  }
-
-  getAllProperties() {
-    return { name: this.#name, price: this.#price, quantity: this.#quantity };
   }
 }
