@@ -1,6 +1,7 @@
 import User from '../data/User';
 import { $, getInnerInputValues } from '../utils';
 import { updateUserInfo } from '../utils/auth';
+import { validateUserInfo } from '../validator';
 
 const pageTemplate = ({ email, name }) => `
   <section class="user-information-form-section">
@@ -35,8 +36,10 @@ class UpdateMyInfoPageView {
   onSubmitUpdateMyInfoForm = (event) => {
     event.preventDefault();
     const { email, name, password, passwordConfirm } = getInnerInputValues(event.target);
-    if (password !== passwordConfirm) {
-      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+    try {
+      validateUserInfo({ email, name, password, passwordConfirm });
+    } catch (err) {
+      alert(err.message);
       return;
     }
     updateUserInfo({ email, name, password });
