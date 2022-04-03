@@ -2,14 +2,15 @@
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --watch --no-cache",
-    "start": "webpack serve --open",
+    "start:run": "webpack serve --open",
+    "start": "node server.js",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "server": "json-server db.json -m ./node_modules/json-server-auth",
+    "json-server": "json-server db.json --middlewares ./auth-middleware.js --routes routes.json",
     "cypress:run": "cypress run --browser chrome",
     "cypress:open": "cypress open"
   },

@@ -1,3 +1,76 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": 0,
+      "name": "쩡대리",
+      "email": "dev-jeong01@email.com",
+      "password": "12345"
+    },
+    {
+      "name": "쩡대리1-수정됨",
+      "email": "dev-jeong02ㅇㅇㅇ@email.com",
+      "password": "12345",
+      "id": 1
+    },
+    {
+      "id": 3,
+      "name": "쩡대리3",
+      "email": "dev-jeong04@email.com",
+      "password": "12345"
+    },
+    {
+      "name": "쩡대리5",
+      "email": "dev-jeong05@email.com",
+      "password": "12345",
+      "id": 4
+    },
+    {
+      "name": "쩡대리133-수정됨",
+      "email": "dev-jeong02ㅇㅇㅇ@email.com",
+      "password": "12345",
+      "id": 5
+    },
+    {
+      "name": "쩡대리999-수정됨",
+      "email": "dev-jeong02ㅇㅇㅇ@email.com",
+      "password": "12345",
+      "id": 6
+    },
+    {
+      "name": "쩡대리-수정됨",
+      "email": "dev-jeong02999ㅇㅇㅇ@email.com",
+      "password": "12345",
+      "id": 7
+    },
+    {
+      "name": "쩡8999대리-수정됨",
+      "email": "dev-jedssong@email.com",
+      "password": "$2a$10$zGbliRQDMlwEi9q/JH.zIOLYMwqbYdPqzOibc667tw97l1JMcaGrC",
+      "id": 9
+    },
+    {
+      "name": "쩡대리222",
+      "email": "dev-jeong0ㅇㅇㅇ@email.com",
+      "password": "12345999",
+      "id": 10
+    },
+    {
+      "email": "dev-jeong@email.com",
+      "password": "$2a$10$LDy0JWaX1.vKP9WBxLCBR.ssVLu3R8sSX7Rba/AHm.SVO.die3TeW",
+      "name": "쩡8888대리-수정됨",
+      "id": 11
+    },
+    {
+      "email": "dev-jessong@email.com",
+      "password": "$2a$10$zhy6/PTaTEqEcEMk8Q.tAeL6ZoPjhY..2HpLMDMqQY3e6E1RoCzXG",
+      "name": "쩡8888대리-수정됨",
+      "id": 12
+    },
+    {
+      "email": "dev-jeasddssong@email.com",
+      "password": "$2a$10$FQtOgMeGmHeN2Efj2/gNPuT3V0bIpfH/yGYSxAAJ0Ucy8amm6YqVS",
+      "name": "쩡89대리-수정됨",
+      "id": 13
+    }
+  ]
 }
