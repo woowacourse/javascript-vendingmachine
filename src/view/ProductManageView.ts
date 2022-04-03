@@ -18,12 +18,14 @@ export class ProductManageView {
   init() {
     this.#contentsContainer.textContent = '';
 
-    this.props = {
+    this.#productInformationInput = new ProductInformationInput({
       target: this.#contentsContainer,
       productCatalog: this.#productCatalog,
-    };
-    this.#productInformationInput = new ProductInformationInput(this.props);
-    this.#productCatalogTable = new ProductCatalogTable(this.props);
+    });
+    this.#productCatalogTable = new ProductCatalogTable({
+      target: this.#contentsContainer,
+      productCatalog: this.#productCatalog,
+    });
   }
 
   renderAll() {

@@ -1,4 +1,4 @@
-import { Product } from '../domain/Product';
+import { ProductProps } from '../utils/interface';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductCatalogTable {
@@ -6,30 +6,32 @@ export class ProductCatalogTable {
   #target: HTMLDivElement;
   #productTableBody: HTMLTableElement;
 
-  constructor(props) {
-    this.#target = props.target;
-    this.#productCatalog = props.productCatalog;
+  constructor({ target, productCatalog }) {
+    this.#target = target;
+    this.#productCatalog = productCatalog;
 
-    this.#target.addEventListener('productAdded', this.render);
+    this.#target.addEventListener('productAdded', this.renderAddedProduct);
   }
 
   render = () => {
-    if (this.isRerender()) {
-      this.#productTableBody.textContent = '';
-      this.#productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
-
-      return;
-    }
-
     this.#target.insertAdjacentHTML('beforeend', this.template());
 
-    this.#productTableBody = document.querySelector('#product-table-body');
-    this.#productTableBody.addEventListener('click', this.handleProductStateManage);
+    this.#selectDOM();
+    this.#bindEvent();
   };
 
-  private isRerender(): boolean {
-    return this.#productTableBody !== undefined;
+  #selectDOM() {
+    this.#productTableBody = document.querySelector('#product-table-body');
   }
+
+  #bindEvent() {
+    this.#productTableBody.addEventListener('click', this.handleProductStateManage);
+  }
+
+  renderAddedProduct = (e) => {
+    const addedProduct = e.detail;
+    this.#productTableBody.insertAdjacentHTML('beforeend', this.tableRowTemplate(addedProduct));
+  };
 
   private template(): string {
     return `
@@ -52,15 +54,21 @@ export class ProductCatalogTable {
   private tableBodyTemplate(): string {
     return this.#productCatalog
       .getProductList()
-      .map((product) => this.tableRowTemplate(product))
+      .map((product) => {
+        const name = product.getName();
+        const price = product.getPrice();
+        const quantity = product.getQuantity();
+
+        return this.tableRowTemplate({ name, price, quantity });
+      })
       .join('');
   }
 
-  private tableRowTemplate(product: Product): string {
-    return `<tr id="${product.getName()}">
-      <td class="product-name product-prop"><span>${product.getName()}</span></td>
-      <td class="product-price product-prop"><span>${product.getPrice()}</span></td>
-      <td class="product-quantity product-prop"><span>${product.getQuantity()}</span></td>
+  private tableRowTemplate({ name, price, quantity }: ProductProps): string {
+    return `<tr id="${name}">
+      <td class="product-name product-prop"><span>${name}</span></td>
+      <td class="product-price product-prop"><span>${price}</span></td>
+      <td class="product-quantity product-prop"><span>${quantity}</span></td>
       <td class="edit-button-container">
         <button class="edit-button button" type="button">수정</button>
         <button class="delete-button button" type="button">삭제</button>

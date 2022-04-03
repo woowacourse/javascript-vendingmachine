@@ -9,9 +9,9 @@ export class ProductInformationInput {
   #productQuantityInput: HTMLInputElement;
   #submitButton: HTMLButtonElement;
 
-  constructor(props) {
-    this.#target = props.target;
-    this.#productCatalog = props.productCatalog;
+  constructor({ target, productCatalog }) {
+    this.#target = target;
+    this.#productCatalog = productCatalog;
   }
 
   render() {
@@ -61,6 +61,8 @@ export class ProductInformationInput {
       this.#productInformationForm.reset();
     }
 
-    this.#target.dispatchEvent(new CustomEvent('productAdded'));
+    this.#target.dispatchEvent(
+      new CustomEvent('productAdded', { detail: { name, price, quantity } })
+    );
   };
 }
