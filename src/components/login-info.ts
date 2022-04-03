@@ -1,6 +1,8 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import { getUserInfo } from '../member';
+import Router from '../router';
+import { showSnack } from '../utils';
 
 @customElement('login-info')
 class LoginInfo extends Component {
@@ -16,10 +18,17 @@ class LoginInfo extends Component {
 
   setEvent() {
     this.addEvent('click', '.login-info', this.onClickUserInfo);
+    this.addEvent('click', '.log-out', this.onClickLogOut);
   }
 
   onClickUserInfo = () => {
     this.querySelector('section')?.classList.toggle('hide');
+  };
+
+  onClickLogOut = () => {
+    localStorage.removeItem('user-info');
+    Router.pushState('/');
+    showSnack('로그아웃 되었습니다.');
   };
 
   async getFirstSpelling() {

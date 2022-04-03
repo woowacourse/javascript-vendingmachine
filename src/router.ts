@@ -97,6 +97,7 @@ class Router {
 
       default:
         document.querySelector('header')?.classList.remove('hide');
+        this.pageContainer.replaceChildren();
         this.memberContainer.replaceChildren();
     }
   };
