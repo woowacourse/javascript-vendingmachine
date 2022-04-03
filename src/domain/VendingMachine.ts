@@ -2,14 +2,15 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { productValidator, changeValidator, updateProductValidator } from '../validator';
-import { ERROR_MESSAGE } from '../constants';
+import { validateProduct, validateChange, validateUpdateProduct, validateInputMoney } from '../validator';
 import Coin from './Coin';
 import { Product } from './Product';
+import MoneyInput from './MoneyInput';
 
 interface IVendingMachine {
   amount: Coin;
   products: Product[];
+  moneyInput: MoneyInput;
 }
 
 class VendingMachine implements IVendingMachine {
@@ -24,11 +25,13 @@ class VendingMachine implements IVendingMachine {
 
   amount: Coin;
   products: Product[];
+  moneyInput: MoneyInput;
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
     this.amount = new Coin(...storage.getAmount());
     this.products = storage.getProducts().map((product) => new Product(product, product.id));
+    this.moneyInput = new MoneyInput(storage.getUserMoney());
   }
 
   subscribeProductManagement() {
@@ -41,13 +44,15 @@ class VendingMachine implements IVendingMachine {
     on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
   }
 
-  subscribePurchaseTab() {}
+  subscribePurchaseTab() {
+    on('.purchase-form', '@input', (e) => this.inputMoney(e.detail), $('purchase-tab'));
+  }
 
-  dispatch(key: string, action: string, product?: Product) {
+  dispatch(key: string, action: string, data?: Product | number) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
     const amount = this.amount;
-    targets.forEach((target) => target.element.notify({ action, amount, product }));
+    targets.forEach((target) => target.element.notify({ action, amount, data }));
   }
 
   observe(key: string, element: CustomElement) {
@@ -55,39 +60,9 @@ class VendingMachine implements IVendingMachine {
     this[key]();
   }
 
-  validateProduct(product: Product, products: Product[]) {
-    if (productValidator.isDuplicated(product.name, products)) {
-      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
-    }
-
-    if (productValidator.isIncorrectUnit(product.price)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
-    }
-  }
-
-  validateUpdateProduct(targetName: string, name: string, price: number, products: Product[]) {
-    if (updateProductValidator.isDuplicated(targetName, name, products)) {
-      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
-    }
-
-    if (updateProductValidator.isIncorrectUnit(price)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
-    }
-  }
-
-  validateChange(inputMoney: number, currentChange: number) {
-    if (changeValidator.isOverMax(inputMoney, currentChange)) {
-      throw new Error(ERROR_MESSAGE.OVER_AMOUNT);
-    }
-
-    if (changeValidator.isIncorrectUnit(inputMoney)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
-    }
-  }
-
   addProduct(product: Product) {
     try {
-      this.validateProduct(product, this.products);
+      validateProduct(product, this.products);
       const newProduct = new Product(product);
 
       this.products.push(newProduct);
@@ -100,7 +75,7 @@ class VendingMachine implements IVendingMachine {
 
   updateProduct({ targetName, name, price, quantity }) {
     try {
-      this.validateUpdateProduct(targetName, name, price, this.products);
+      validateUpdateProduct(targetName, name, price, this.products);
       const currentProduct = this.products.find((product) => product.name === targetName);
 
       currentProduct.update({ name, price, quantity } as Product);
@@ -121,11 +96,24 @@ class VendingMachine implements IVendingMachine {
 
   charge(inputMoney: number) {
     try {
-      this.validateChange(inputMoney, this.amount.getAmount());
+      validateChange(inputMoney, this.amount.getAmount());
 
       this.amount.generateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  inputMoney(money: number) {
+    try {
+      validateInputMoney(money, this.moneyInput.getAmount());
+
+      this.moneyInput.addMoney(money);
+      const userMoney = this.moneyInput.getAmount();
+      storage.setLocalStorage('userMoney', userMoney);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'input', userMoney);
     } catch (error) {
       alert(error.message);
     }

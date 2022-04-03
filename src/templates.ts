@@ -73,7 +73,7 @@ const TEMPLATE = {
   <h2 hidden>잔돈 충전 화면</h2>
   <form class="purchase-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
-    <input type="number" name="purchase" placeholder="금액" min="${CONFIGURATION.INPUT.MIN}" max="${CONFIGURATION.INPUT.MAX}" required />
+    <input type="number" name="moneyInput" placeholder="금액" min="${CONFIGURATION.INPUT.MIN}" max="${CONFIGURATION.INPUT.MAX}" required />
     <button type="submit" class="purchase-form__money-input-button submit-button">투입</button>
     <p>투입한 금액: <span class="purchase-form__money-input-amount">0</span>원</p>
   </form>

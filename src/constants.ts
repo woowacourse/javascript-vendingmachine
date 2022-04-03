@@ -36,4 +36,6 @@ export const ERROR_MESSAGE = {
   INCORRECT_UNIT_PRODUCT_PRICE: `상품 가격은 ${CONFIGURATION.PRICE.UNIT}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
   INCORRECT_UNIT_CHARGE_MONEY: `금액은 ${CONFIGURATION.PRICE.UNIT}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
   OVER_AMOUNT: `현재 보유 금액은 ${markUnit(CONFIGURATION.AMOUNT.MAX)}원을 초과할 수 없습니다!`,
+  OVER_INPUT_MONEY: `투입 금액은 ${markUnit(CONFIGURATION.INPUT.MAX)}원을 초과할 수 없습니다!`,
+  INCORRECT_UNIT_INPUT_MONEY: `금액은 ${CONFIGURATION.INPUT.MIN}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
 };

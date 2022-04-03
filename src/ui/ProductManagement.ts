@@ -88,7 +88,7 @@ class ProductManagement extends CustomElement {
     emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
   }
 
-  notify({ action, product }) {
+  notify({ action, data: product }) {
     switch (action) {
       case 'add':
         this.insertItem(product);
