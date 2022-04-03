@@ -1,8 +1,10 @@
+import { API } from '../../../apis';
 import { $, replaceHTML } from '../../utils/dom';
 
 export default class LoginComponenet {
   render() {
     replaceHTML($('#app'), this.#template());
+    $('.login-form').addEventListener('submit', this.loginHandler);
   }
 
   #template() {
@@ -18,4 +20,20 @@ export default class LoginComponenet {
       </form>
     `;
   }
+
+  loginHandler = async e => {
+    e.preventDefault();
+    if (!(e.target instanceof HTMLFormElement)) return;
+
+    const { emailInput, pwInput } = e.target.elements;
+    const response = await API.login({
+      email: emailInput.value,
+      password: pwInput.value,
+    });
+
+    if (typeof response === 'string') return;
+
+    document.cookie = `user_id=${response.user.id}`;
+    document.cookie = `access_token=${response.accessToken}`;
+  };
 }

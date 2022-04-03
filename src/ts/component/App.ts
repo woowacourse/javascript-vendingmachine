@@ -29,11 +29,12 @@ export default class App {
     private readonly loginComponent = new LoginComponenet(),
   ) {
     this.productManagementComponent.render();
-    this.loginComponent.render();
 
     $('.nav').addEventListener('click', this.navClickHandler);
     $('.login-button').addEventListener('click', this.loginClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
+
+    this.loginComponent.render();
   }
 
   private loginClickHandler = e => {
