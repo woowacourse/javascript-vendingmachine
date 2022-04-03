@@ -1,9 +1,12 @@
-import { PurchaseInfoProps } from "../../utils/interface";
+import { ProductProps, PurchaseInfoProps } from "../../utils/interface";
+import { validatePossiblePurchaseProduct } from "../../utils/validation";
 
 class PurchaseInfo implements PurchaseInfoProps{
+  productList: ProductProps[];
   insertMoney: number;
 
   constructor() {
+    this.productList = this.getProductList();
     this.insertMoney = this.getInsertMoney();
   }
 
@@ -11,8 +14,12 @@ class PurchaseInfo implements PurchaseInfoProps{
   
   }
 
-  purchaseProduct() {
-  
+  purchaseProduct({ productName, productPrice }) {
+    validatePossiblePurchaseProduct({ totalMoney: this.insertMoney, productPrice: productPrice });
+    this.productList.find((product) => product.productName === productName).productQuantity -= 1;
+    this.insertMoney -= productPrice;
+    this.setProductList();
+    this.setInsertMoney();
   }
 
   plusInsertMoney(money: number) {
@@ -26,6 +33,14 @@ class PurchaseInfo implements PurchaseInfoProps{
 
   getInsertMoney() {
     return JSON.parse(localStorage.getItem("INSERT_MONEY")) || 0;
+  }
+
+  setProductList() {
+    localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
+  }
+
+  getProductList() {
+    return JSON.parse(localStorage.getItem("PRODUCTS")) || [];
   }
 }
 

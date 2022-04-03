@@ -18,9 +18,11 @@ interface ChargeInfoProps {
 
 interface PurchaseInfoProps{
   returnCharge: () => void;
-  purchaseProduct: (args: number) => void;
+  purchaseProduct: ({ productName, productPrice }: ProductProps) => void;
   setInsertMoney: () => void;
   getInsertMoney: () => number;
+  setProductList: () => void;
+  getProductList: () => ProductProps | [];
 }
 
 interface ProductProps {
@@ -50,6 +52,11 @@ interface ChangeEditProductInfoProps {
   productQuantity: number;
 }
 
+interface EditInsertMoneyProps {
+  totalMoney: number;
+  productPrice: number;
+}
+
 interface CoinType {
   10: number;
   50: number;
@@ -59,4 +66,14 @@ interface CoinType {
 
 type Coins = 500 | 100 | 50 | 10;
 
-export { ProductInfoProps, ChargeInfoProps, PurchaseInfoProps, ProductProps, ChangeEditProductInfoProps, ProductEditProps, ValidateProductProps, CoinType };
+export { 
+  ProductInfoProps,
+  ChargeInfoProps,
+  PurchaseInfoProps,
+  ProductProps,
+  ChangeEditProductInfoProps,
+  ProductEditProps,
+  EditInsertMoneyProps,
+  ValidateProductProps,
+  CoinType
+};

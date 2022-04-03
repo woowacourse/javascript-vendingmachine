@@ -60,7 +60,7 @@ class ProductView {
     this.productInfoInputs.forEach((input: HTMLInputElement) => (input.value = ""));
   }
 
-  showProductList(productList) {
+  showProductList(productList: ProductProps[]) {
     this.productTable.insertAdjacentHTML(
       "beforeend",
       productList.map((product: ProductProps) =>  addProductTemplate(product)).join(' ')

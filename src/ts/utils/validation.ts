@@ -1,4 +1,5 @@
 import { PRODUCT, CHARGE } from "./constants";
+import { EditInsertMoneyProps } from "./interface";
 
 const validateProductName = (productName: string | null) => {
   if (productName.trim() === "") {
@@ -34,7 +35,7 @@ const valudateProductQuantity = (productQuantity: number | null) => {
     productQuantity < PRODUCT.MIN_QUANTITY
   ) {
     throw new Error(
-      `제품당 수량은 최소 ${PRODUCT.MAX_QUANTITY}개부터 최대 ${PRODUCT.MIN_QUANTITY}개까지 가능합니다.`
+      `제품당 수량은 최소 ${PRODUCT.MIN_QUANTITY}개부터 최대 ${PRODUCT.MAX_QUANTITY}개까지 가능합니다.`
     );
   }
 
@@ -67,12 +68,17 @@ const verifyCharge = (charge: number | null) => {
   }
 };
 
-
+const validatePossiblePurchaseProduct = ({ totalMoney, productPrice }: EditInsertMoneyProps) => {
+  if (totalMoney < productPrice) {
+    throw new Error("보유한 금액이 부족합니다. 구매를 원하시면 금액을 더 투입해주세요.")
+  }
+};
 
 export { 
   validateProductName,
   validateProductPrice,
   valudateProductQuantity,
   validateSameProductName,
-  verifyCharge
+  verifyCharge,
+  validatePossiblePurchaseProduct
 };

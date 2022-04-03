@@ -74,8 +74,8 @@ button {
 #product-control-table th,
 #charge-control-table td,
 #charge-control-table th,
-#purchase-product-table td,
-#purchase-product-table th,
+#purchase-possible-product-table td,
+#purchase-possible-product-table th,
 #return-charge-table td,
 #return-charge-table th {
   width: 118px;
