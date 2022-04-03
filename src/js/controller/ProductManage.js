@@ -2,14 +2,16 @@ import { SECTION_CONTAINER } from '../constants/constants.js';
 import { on } from '../utils/event.js';
 import { initHashContents } from '../views/menuCategoryView.js';
 import Charge from './Charge.js';
+import ProductPurchase from './ProductPurchase.js';
 import ProductManager from '../models/ProductManger.ts';
 import ProductManageView from '../views/ProductManageView.js';
 
 export default class ProductManage {
   constructor() {
     this.productManager = new ProductManager();
-    this.productManageView = new ProductManageView();
+    this.productPurchase = new ProductPurchase();
     this.charge = new Charge();
+    this.productManageView = new ProductManageView();
 
     on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
     on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
@@ -32,6 +34,9 @@ export default class ProductManage {
         break;
       case '#!charge':
         this.charge.initCharge();
+        break;
+      case '#!purchase':
+        this.productPurchase.initPurchase();
         break;
       default:
     }
