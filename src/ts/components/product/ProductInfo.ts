@@ -30,18 +30,23 @@ class ProductInfo implements ProductInfoProps{
 
   addProductList({ productName, productPrice, productQuantity }: ProductProps) {
     this.productList = [...this.productList, { productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }];
-    localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
+    this.setProductList();
   }
 
   removeProduct(removeProductText: string) {
     this.productList = this.productList.filter((product) => product.productName !== removeProductText);
-    localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
+    this.setProductList();
   }
 
   editProduct({ productName, productPrice, productQuantity, changeProductIndex }: ProductEditProps) {
     this.productList[changeProductIndex].productName = productName;
     this.productList[changeProductIndex].productPrice = productPrice;
     this.productList[changeProductIndex].productQuantity = productQuantity;
+    this.setProductList();
+  }
+
+  setProductList() {
+    localStorage.setItem("PRODUCTS", JSON.stringify(this.productList));
   }
 
   getProductList() {
