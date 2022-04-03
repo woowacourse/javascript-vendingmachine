@@ -2,11 +2,11 @@ import { COIN_TYPE } from '../constants';
 import CustomerCharge from '../data/CustomerCharge';
 import Products from '../data/Products';
 import VendingMachineCharge from '../data/VendingMachineCharge';
-import { IProduct, IPageManager } from './Interface';
+import { IProduct, IPageManager, TCoins } from '../interface';
 
-interface IProductPurchasePageManager {
+interface IProductPurchaseState {
   products: Array<IProduct>,
-  vendingMachineChargeCoins: Array<number>,
+  vendingMachineChargeCoins: TCoins,
   customerChargeAmount: number,
 }
 
@@ -17,7 +17,7 @@ class ProductPurchasePageManager implements IPageManager {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState) {
+  setState(newState: Partial<IProductPurchaseState>) {
     const changeStates: Array<string> = Object.keys(newState);
 
     const state = { ...this.getState(), ...newState };
@@ -28,7 +28,7 @@ class ProductPurchasePageManager implements IPageManager {
     this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
-  getState(): IProductPurchasePageManager {
+  getState(): IProductPurchaseState {
     return {
       products: Products.products,
       vendingMachineChargeCoins: VendingMachineCharge.coins,
@@ -73,15 +73,15 @@ class ProductPurchasePageManager implements IPageManager {
     });
   }
 
-  subtractVendingMachineChargeCoins(coinsToBeReturned: Array<number>) {
-    const subtractedCoins: Array<number>
+  subtractVendingMachineChargeCoins(coinsToBeReturned: TCoins) {
+    const subtractedCoins: TCoins
       = VendingMachineCharge.coins.map((coin, index) => coin - coinsToBeReturned[index]);
     this.setState({
       vendingMachineChargeCoins: subtractedCoins,
     });
   }
 
-  calculateCoinsToBeReturned() {
+  calculateCoinsToBeReturned(): TCoins {
     if (VendingMachineCharge.getTotalAmount() <= CustomerCharge.amount) {
       return VendingMachineCharge.coins;
     }
@@ -98,7 +98,7 @@ class ProductPurchasePageManager implements IPageManager {
     return coinsToBeReturned;
   }
 
-  returnChanges() {
+  returnChanges(): TCoins {
     const coinsToBeReturned = this.calculateCoinsToBeReturned();
     const amountToBeReturned = coinsToBeReturned.reduce(
       (previous, coin, index) => (previous += COIN_TYPE[index] * coin),

@@ -1,10 +1,10 @@
 import { COIN_TYPE } from '../constants';
 import { getRandomNumber } from '../utils';
-import { IPageManager } from './Interface';
+import { IPageManager, TCoins } from '../interface';
 import VendingMachineCharge from '../data/VendingMachineCharge';
 
-interface IVendingMachineChargeStoreState {
-  coins: Array<number>;
+interface IVendingMachineChargeManagementState {
+  coins: TCoins;
 }
 
 class VendingMachineChargeManagementPageManager implements IPageManager {
@@ -14,7 +14,7 @@ class VendingMachineChargeManagementPageManager implements IPageManager {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState) {
+  setState(newState: Partial<IVendingMachineChargeManagementState>) {
     const changeStates: Array<string> = Object.keys(newState);
 
     const state = { ...this.getState(), ...newState };
@@ -23,7 +23,7 @@ class VendingMachineChargeManagementPageManager implements IPageManager {
     this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
-  getState(): IVendingMachineChargeStoreState {
+  getState(): IVendingMachineChargeManagementState {
     return {
       coins: VendingMachineCharge.coins,
     };
@@ -33,11 +33,11 @@ class VendingMachineChargeManagementPageManager implements IPageManager {
     return VendingMachineCharge.getTotalAmount();
   }
 
-  getMaxCoinIndex(baseAmount) {
+  getMaxCoinIndex(baseAmount: number) {
     return COIN_TYPE.findIndex(coin => baseAmount >= coin);
   }
 
-  getRandomCoinsFromAmount(amount: number): Array<number> {
+  getRandomCoinsFromAmount(amount: number): TCoins {
     let leftAmount: number = amount;
     const returnCoins = [0, 0, 0, 0];
 
@@ -55,8 +55,8 @@ class VendingMachineChargeManagementPageManager implements IPageManager {
   }
 
   addCharge(amount: number): void {
-    const coinsToAdd: Array<number> = this.getRandomCoinsFromAmount(amount);
-    const totalCoins: Array<number> = VendingMachineCharge.coins.map(
+    const coinsToAdd: TCoins = this.getRandomCoinsFromAmount(amount);
+    const totalCoins: TCoins = VendingMachineCharge.coins.map(
       (value, index) => value + coinsToAdd[index],
     );
 
@@ -65,8 +65,8 @@ class VendingMachineChargeManagementPageManager implements IPageManager {
     });
   }
 
-  subtractCoins(coinsToBeReturned: Array<number>) {
-    const subtractedCoins: Array<number> = VendingMachineCharge.coins.map((coin, index) => coin - coinsToBeReturned[index]);
+  subtractCoins(coinsToBeReturned: TCoins) {
+    const subtractedCoins: TCoins = VendingMachineCharge.coins.map((coin, index) => coin - coinsToBeReturned[index]);
     this.setState({
       coins: subtractedCoins,
     });

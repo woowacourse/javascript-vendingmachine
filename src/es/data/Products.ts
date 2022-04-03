@@ -1,4 +1,4 @@
-import { IProduct } from '../manager/Interface';
+import { IProduct } from '../interface';
 
 class Products {
   products: Array<IProduct> = [];

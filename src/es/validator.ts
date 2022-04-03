@@ -1,4 +1,4 @@
-import { IProduct } from './manager/Interface';
+import { IProduct } from './interface';
 import { VENDING_MACHINE_CONDITION, ERROR_MESSAGE, USER_INFO_CONDITION } from './constants';
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from './utils';
 

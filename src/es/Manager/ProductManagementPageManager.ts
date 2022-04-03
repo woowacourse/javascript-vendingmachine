@@ -1,7 +1,7 @@
 import Products from '../data/Products';
-import { IPageManager, IProduct } from './Interface';
+import { IPageManager, IProduct } from '../interface';
 
-interface IProductStoreState {
+interface IProductManagementState {
   products: Array<IProduct>;
 }
 
@@ -12,7 +12,7 @@ class ProductManagementPageManager implements IPageManager {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: IProductStoreState) {
+  setState(newState: Partial<IProductManagementState>) {
     const changeStates: Array<string> = Object.keys(newState);
 
     const state = { ...this.getState(), ...newState };
@@ -21,7 +21,7 @@ class ProductManagementPageManager implements IPageManager {
     this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
-  getState(): IProductStoreState {
+  getState(): IProductManagementState {
     return {
       products: Products.products,
     };
@@ -52,7 +52,7 @@ class ProductManagementPageManager implements IPageManager {
   }
 
   findProductIndexByName(name: string): number {
-    return Products.products.findIndex(product => product.name === name);
+    return Products.products.findIndex((product: IProduct) => product.name === name);
   }
 
   addOrUpdateProduct(product) {

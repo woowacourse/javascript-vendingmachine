@@ -3,4 +3,5 @@ class CustomerCharge {
 
   setAmount(amount) { this.amount = amount; }
 }
+
 export default new CustomerCharge();

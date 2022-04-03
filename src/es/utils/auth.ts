@@ -1,17 +1,24 @@
 import User from '../data/User';
+import { IUser } from '../interface';
 import { loadMainPage } from '../routes';
 
-interface UserInfo {
+interface SignInfo {
   email: string;
   password: string;
   name? :string;
+}
+
+interface AuthInfo {
+  accessToken: string,
+  id: number
+  expiration: number,
 }
 
 const signUpURL = 'http://localhost:3000/signup/';
 const loginURL = 'http://localhost:3000/login/';
 const userInfoURL = (id) => `http://localhost:3000/600/users/${id}`;
 
-function signUp(signUpInfo: UserInfo) {
+function signUp(signUpInfo: SignInfo) {
   fetch(signUpURL, {
     method: 'POST',
     body: JSON.stringify(signUpInfo),
@@ -25,8 +32,8 @@ function signUp(signUpInfo: UserInfo) {
     return res.json();
   })
     .then(response => {
-      const { id, email, name } = response.user;
-      const userAuth = {
+      const { id, email, name }: IUser = response.user;
+      const userAuth: AuthInfo = {
         accessToken: response.accessToken,
         id,
         expiration: Date.now() + 1000 * 60 * 60,
@@ -38,7 +45,7 @@ function signUp(signUpInfo: UserInfo) {
     .catch(error => console.error('에러', error.message));
 }
 
-function login(loginInfo: UserInfo) {
+function login(loginInfo: SignInfo) {
   fetch(loginURL, {
     method: 'POST',
     body: JSON.stringify(loginInfo),
@@ -52,8 +59,8 @@ function login(loginInfo: UserInfo) {
     return res.json();
   })
     .then(response => {
-      const { id, email, name } = response.user;
-      const userAuth = {
+      const { id, email, name }: IUser = response.user;
+      const userAuth: AuthInfo = {
         accessToken: response.accessToken,
         id,
         expiration: Date.now() + 1000 * 60 * 60,
@@ -89,14 +96,14 @@ function requestUserInfo(userAuth) {
       return res.json();
     })
     .then(response => {
-      const { email, name } = response;
+      const { email, name }: Partial<IUser> = response;
       User.setUser({ id, email, name });
     })
     .catch(error => console.error('에러', error.message));
 }
 
 function updateUserInfo(newUserInfo) {
-  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+  const userAuth: AuthInfo = JSON.parse(localStorage.getItem('userAuth'));
   if (!userAuth) return;
 
   const { id } = userAuth;
@@ -117,15 +124,15 @@ function updateUserInfo(newUserInfo) {
       return res.json();
     })
     .then(response => {
-      const { email, name } = response;
+      const { email, name }: Partial<IUser> = response;
       User.setUser({ id, email, name });
       loadMainPage();
     })
     .catch(error => console.error('에러', error.message));
 }
 
-function getSavedUserInfo() {
-  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+function getSavedUserInfo(): AuthInfo | null {
+  const userAuth: AuthInfo | null = JSON.parse(localStorage.getItem('userAuth'));
   if (userAuth?.expiration < Date.now()) {
     localStorage.removeItem('userAuth');
   }

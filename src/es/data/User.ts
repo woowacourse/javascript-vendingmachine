@@ -1,9 +1,4 @@
-interface IUser {
-  isMember? : boolean,
-  id: number,
-  email: string,
-  name: string,
-}
+import { IUser } from '../interface';
 
 class User implements IUser {
   isMember;

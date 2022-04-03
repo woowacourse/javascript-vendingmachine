@@ -9,3 +9,12 @@ export interface IProduct {
   price: number;
   quantity: number;
 }
+
+export type TCoins = Array<number>;
+
+export interface IUser {
+  isMember? : boolean,
+  id: number,
+  email: string,
+  name: string,
+}
