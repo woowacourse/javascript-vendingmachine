@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch --no-cache",
+    "test:unit": "jest --watch --no-cache",
     "test:e2e": "cypress run --browser chrome",
     "cypress:open": "cypress open",
     "start": "webpack serve --open",
