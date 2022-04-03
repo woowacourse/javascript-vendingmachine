@@ -3,6 +3,9 @@ import { markUnit } from './utils';
 export const COINS = [10, 50, 100, 500];
 
 export const CONFIGURATION = {
+  NAME: {
+    MAX_LENGTH: 10,
+  },
   AMOUNT: {
     UNIT: 10,
     MAX: 100000,
@@ -10,6 +13,14 @@ export const CONFIGURATION = {
   PRICE: {
     UNIT: 10,
     MIN: 100,
+    MAX: 10000,
+  },
+  QUANTITY: {
+    MIN: 1,
+    MAX: 20,
+  },
+  INPUT: {
+    MIN: 10,
     MAX: 10000,
   },
 };

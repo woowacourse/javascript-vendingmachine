@@ -41,6 +41,8 @@ class VendingMachine implements IVendingMachine {
     on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
   }
 
+  subscribePurchaseTab() {}
+
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
@@ -120,7 +122,7 @@ class VendingMachine implements IVendingMachine {
     try {
       this.validateChange(inputMoney, this.amount.getAmount());
 
-      this.amount.genarateRandomCoin(inputMoney);
+      this.amount.generateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
     } catch (error) {

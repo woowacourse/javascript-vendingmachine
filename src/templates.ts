@@ -1,3 +1,5 @@
+import { CONFIGURATION } from './constants';
+
 const TEMPLATE = {
   PRODUCT_MANAGEMENT: `
     <section class="tab__product-manage-tab">
@@ -5,9 +7,9 @@ const TEMPLATE = {
       <form class="product-manage-form">
         <fieldset>
           <legend>추가할 상품 정보를 입력해주세요.</legend>
-          <input type="text" name="name" placeholder="상품명" maxlength="10" required />
-          <input type="number" name="price" placeholder="가격" min="100" max="10000" required />
-          <input type="number" name="quantity" placeholder="수량" min="1" max="20" required />
+          <input type="text" name="name" placeholder="상품명" maxlength="${CONFIGURATION.NAME.MAX_LENGTH}" required />
+          <input type="number" name="price" placeholder="가격" min="${CONFIGURATION.PRICE.MIN}" max="${CONFIGURATION.PRICE.MAX}" required />
+          <input type="number" name="quantity" placeholder="수량" min="${CONFIGURATION.QUANTITY.MIN}" max="${CONFIGURATION.QUANTITY.MAX}" required />
           <button type="submit" class="product-manage-form__add-button submit-button">추가</button>
         </fieldset>
       </form>
@@ -32,7 +34,7 @@ const TEMPLATE = {
       <h2 hidden>잔돈 충전 화면</h2>
       <form class="charge-form">
         <label>자판기가 보유할 금액을 입력해주세요.</label>
-        <input type="number" name="change" placeholder="금액" min="10" max="100000" required />
+        <input type="number" name="change" placeholder="금액" min="${CONFIGURATION.AMOUNT.UNIT}" max="${CONFIGURATION.AMOUNT.MAX}" required />
         <button type="submit" class="charge-form__purchase-button submit-button">충전</button>
       </form>
       <p>현재 보유 금액: <span class="charge-amount">0</span>원</p>
@@ -71,7 +73,7 @@ const TEMPLATE = {
   <h2 hidden>잔돈 충전 화면</h2>
   <form class="purchase-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
-    <input type="number" name="purchase" placeholder="금액" min="10" max="10000" required />
+    <input type="number" name="purchase" placeholder="금액" min="${CONFIGURATION.INPUT.MIN}" max="${CONFIGURATION.INPUT.MAX}" required />
     <button type="submit" class="purchase-form__money-input-button submit-button">투입</button>
     <p>투입한 금액: <span class="purchase-form__money-input-amount">0</span>원</p>
   </form>
