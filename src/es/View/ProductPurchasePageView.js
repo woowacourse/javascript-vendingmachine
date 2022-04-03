@@ -2,6 +2,7 @@ import { $, clearInnerInputValues, getInnerInputValues } from '../utils';
 import { template } from './template';
 import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
 import { validateCustomerChargeToAdd } from '../validator';
+import { showSnackBar } from '../utils/index';
 
 class ProductPurchasePageView {
   renderMethodList;
@@ -56,11 +57,12 @@ class ProductPurchasePageView {
     try {
       validateCustomerChargeToAdd(customerCharge);
     } catch (err) {
-      alert(err.message);
+      showSnackBar(err.message);
       return;
     }
     ProductPurchasePageManager.addCustomerCharge(customerCharge);
     clearInnerInputValues(event.target);
+    showSnackBar('상품 구매 금액 충전 성공! 😆');
   };
 
   onClickTableInnerButton = (event) => {
@@ -75,16 +77,24 @@ class ProductPurchasePageView {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
+    let productName = '';
     try {
-      ProductPurchasePageManager.purchaseProductByIndex(productIndex);
+      productName = ProductPurchasePageManager.purchaseProductByIndex(productIndex);
     } catch (err) {
-      alert(err.message);
+      showSnackBar(err.message);
+      return;
     }
+    showSnackBar(`${productName} 구입 성공! 😆`);
   };
 
   onClickReturnChangeButton = () => {
     const coinsToBeReturned = ProductPurchasePageManager.returnChanges();
     this.updateChangeTable({ ReturnedCoins: coinsToBeReturned });
+    if (ProductPurchasePageManager.getState().customerChargeAmount > 0) {
+      showSnackBar('미안해요. 잔돈이 부족해서 다 돌려줄 수가 없어요. 😥');
+      return;
+    }
+    showSnackBar('잔돈 반환 성공! 😆');
   };
 
   render = ({ state, changeStates }) => {

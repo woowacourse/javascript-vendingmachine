@@ -53,13 +53,14 @@ class ProductPurchasePageManager implements IPageManager {
     });
   }
 
-  purchaseProductByIndex(index: number) {
-    const { price } = Products.products[index];
+  purchaseProductByIndex(index: number): string {
+    const { name, price } = Products.products[index];
     if (price > CustomerCharge.amount) {
-      throw new Error('Too expensive, put more money! 😥');
+      throw new Error('돈이 부족해요! 😥');
     }
     this.subtractCustomerCharge(price);
     this.takeOutProductByIndex(index);
+    return name;
   }
 
   takeOutProductByIndex(index: number, count = 1) {
