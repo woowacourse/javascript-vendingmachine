@@ -50,14 +50,6 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "testPathIgnorePatterns": [
-      "<rootDir>/cypress/"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   }
