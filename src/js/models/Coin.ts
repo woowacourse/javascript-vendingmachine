@@ -17,7 +17,7 @@ interface CoinInterface {
   makeRandomCoins: (amount: number) => void;
 }
 
-export default class Coin implements CoinInterface {
+export default class CoinModel implements CoinInterface {
   #amount: number;
   #coins: Coins;
 

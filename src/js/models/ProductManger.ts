@@ -13,7 +13,7 @@ interface ProductManageInterface {
   deleteProduct: (index: number) => void;
 }
 
-export default class ProductManager implements ProductManageInterface {
+export default class ProductManagerModel implements ProductManageInterface {
   #products: Product[];
 
   constructor() {
