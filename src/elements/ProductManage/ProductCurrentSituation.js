@@ -69,7 +69,7 @@ class ProductCurrentSituation extends CustomElement {
 
         <td class="product-td product-price-td">${price}</td>
         <td class="product-modify-td product-price-td" hidden>
-          <input type="number" class="product-price-input" placeholder="가격" value="${price}" min="100" max="10000" required>
+          <input type="number" class="product-price-input" placeholder="가격" value="${price}" min="100" max="10000" step="10" required>
         </td>
       
         <td class="product-td product-quantity-td">${quantity}</td>

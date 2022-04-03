@@ -15,7 +15,7 @@ class CoinChargeForm extends CustomElement {
     return `
       <form class="coin-charge-form">
         <label class="coin-charge-label" for="coin-input">자판기가 보유할 금액을 입력해주세요.</label>
-        <input type="number" id="coin-input" placeholder="금액" required>
+        <input type="number" id="coin-input" placeholder="금액" step="10" required>
         <button class="coin-charge-button">충전</button>
       </form>
       <p>현재 보유 금액: <span class="money">0</span>원</p>
@@ -49,7 +49,6 @@ class CoinChargeForm extends CustomElement {
 
   initCoinInput($coinInput) {
     $coinInput.value = '';
-
     $coinInput.focus();
   }
 
