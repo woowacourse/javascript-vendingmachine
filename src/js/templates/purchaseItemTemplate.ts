@@ -1,7 +1,7 @@
 import { COINS } from '../constants/vendingMachineConstants';
 import { CoinsType, ItemType } from '../types/types';
 
-const sectionTemplate = {
+export const sectionTemplate = {
   inputContainer(inputMoney: number) {
     return `
     <section class="input-container">
@@ -51,24 +51,30 @@ const sectionTemplate = {
     return `
     <section class="table-container">
       <h2>잔돈 반환</h2>
-      <table class="coin-table">
-          <tr>
-            <th>동전</th>
-            <th>개수</th>
-          </tr>
-          ${Object.keys(coins)
-            .map(coinKey => {
-              return `
-              <tr>
-                <td>${COINS[coinKey]}원</td>
-                <td>${coins[coinKey]}개</td>
-              </tr>
-            `;
-            })
-            .join('')}
-        </table>
-      <button class="return-money-button">반환</button>
+      <table id="change-coins-table" class="coin-table">
+        ${this.changeCoinsTable(coins)}
+      </table>
+      <button class="return-change-button">반환</button>
     </section>
+    `;
+  },
+
+  changeCoinsTable(coins: CoinsType) {
+    return `
+    <tr>
+      <th>동전</th>
+      <th>개수</th>
+    </tr>
+    ${Object.keys(coins)
+      .map(coinKey => {
+        return `
+        <tr>
+          <td>${COINS[coinKey]}원</td>
+          <td>${coins[coinKey]}개</td>
+        </tr>
+      `;
+      })
+      .join('')}
     `;
   },
 };

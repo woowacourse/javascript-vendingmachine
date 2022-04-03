@@ -1,4 +1,4 @@
-import { ItemType } from '../types/types';
+import { CoinsType, ItemType } from '../types/types';
 import CoinManager from './coinManager';
 import ItemManager from './itemManager';
 import {
@@ -78,5 +78,18 @@ export default class VendingMachine {
     this.moneyManager.deductMoney(price);
 
     return this.itemManager.getItemWithName(name).quantity;
+  }
+
+  returnChangeCoins() {
+    const { money } = this.moneyManager;
+    const coins = this.coinManager.exchangeCoins(money) as CoinsType;
+    this.moneyManager.deductMoney(this.coinManager.getSumCoins(coins));
+    const restMoney = this.moneyManager.money;
+
+    if (restMoney > 0) {
+      alert('반환할 동전이 부족합니다.');
+    }
+
+    return { coins, restMoney };
   }
 }

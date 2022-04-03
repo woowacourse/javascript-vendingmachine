@@ -1,3 +1,5 @@
+import { CoinsType } from '../types/types';
+
 export const ITEM = {
   NAME: {
     MAX_LENGTH: 10,
@@ -13,14 +15,14 @@ export const ITEM = {
   },
 };
 
-export const InitialCoins = {
+export const InitialCoins: CoinsType = {
   fiveHundred: 0,
   hundred: 0,
   fifty: 0,
   ten: 0,
 };
 
-export const COINS = {
+export const COINS: CoinsType = {
   fiveHundred: 500,
   hundred: 100,
   fifty: 50,

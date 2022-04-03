@@ -5,12 +5,12 @@ export interface ItemType {
   subtractQuantity?(): void;
 }
 
-export type CoinsType = {
+export interface CoinsType {
   fiveHundred: number;
   hundred: number;
   fifty: number;
   ten: number;
-};
+}
 
 export type RouteChangeDetailType = {
   $navButton: HTMLButtonElement;

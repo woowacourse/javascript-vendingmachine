@@ -1,5 +1,5 @@
 import { $ } from '../utils/common';
-import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
+import { purchaseItemTemplate, sectionTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/viewConstants';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
@@ -18,6 +18,10 @@ export default class PurchaseItemView {
 
     $('#input-money-submit').addEventListener('submit', this.handleMoneySubmitEvent.bind(this));
     $('#purchase-item-table').addEventListener('click', this.handleTableClickEvent.bind(this));
+    $('.return-change-button').addEventListener(
+      'click',
+      this.handleReturnChangeButtonClick.bind(this)
+    );
   }
 
   private handleMoneySubmitEvent(event) {
@@ -47,6 +51,26 @@ export default class PurchaseItemView {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  private handleReturnChangeButtonClick() {
+    try {
+      if (!window.confirm('잔돈을 반환하시겠습니까?')) return;
+      const { coins, restMoney } = this.vendingMachine.returnChangeCoins();
+
+      this.repaintCoinsTable(coins);
+      this.repaintCurrentMoney(restMoney);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  private repaintCoinsTable(coins) {
+    $('#change-coins-table').replaceChildren();
+    $('#change-coins-table').insertAdjacentHTML(
+      'beforeend',
+      sectionTemplate.changeCoinsTable(coins)
+    );
   }
 
   private repaintItemQuantity($targetButton, quantity) {
