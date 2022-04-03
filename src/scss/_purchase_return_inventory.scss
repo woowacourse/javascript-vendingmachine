@@ -8,5 +8,7 @@ purchase-return-inventory table td {
 }
 
 .return-button {
+  display: flex;
+  justify-content: center;
   padding: 0px 69px;
 }
