@@ -1,0 +1,23 @@
+.purchase-form label {
+  display: block;
+}
+
+.purchase-form input {
+  width: 300px;
+}
+
+.purchase-return-button {
+  background: var(--button-bg-color);
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  height: 36px;
+}
+
+.tab__purchase-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
