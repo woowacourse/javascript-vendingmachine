@@ -1,7 +1,7 @@
 import { Product } from '../../types/vendingMachineProductManager';
 
 import renderSnackBar from '../../dom/snackBar';
-import { on, $, focusEditInput, $$ } from '../../dom/domHelper';
+import { on, $, focusEditInput, $$, emit } from '../../dom/domHelper';
 import focusWrongInput from '../../dom/checkErrorMessage';
 
 import { DELETE_PRODUCT_CONFIRM_MESSAGE } from '../../constants/errorMessage';
@@ -17,7 +17,7 @@ import {
 } from './productStateTemplates';
 
 export default class ProductStateComponent {
-  private productTableTbody = $<HTMLElement>('.product-table tbody');
+  private $productTableTbody = $<HTMLElement>('.product-table tbody');
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
   constructor(private vendingMachineProductManager) {
@@ -31,8 +31,8 @@ export default class ProductStateComponent {
       '@subtractProductQuantity',
       this.subtractProductQuantity
     );
-    on(this.productTableTbody, 'click', this.onClickProductList);
-    on(this.productTableTbody, 'keyup', this.onKeyupProductList);
+    on(this.$productTableTbody, 'click', this.onClickProductList);
+    on(this.$productTableTbody, 'keyup', this.onKeyupProductList);
   }
 
   private subtractProductQuantity = ({ detail: { editProduct } }): void => {
@@ -47,7 +47,7 @@ export default class ProductStateComponent {
   };
 
   private addProduct = ({ detail: { newProduct } }): void => {
-    this.productTableTbody.insertAdjacentHTML(
+    this.$productTableTbody.insertAdjacentHTML(
       'beforeend',
       generateTemplate(newProduct)
     );
@@ -82,6 +82,13 @@ export default class ProductStateComponent {
         parentElement.dataset.productName,
         editedProduct
       );
+
+      emit(this.$productTableTbody, '@editProduct', {
+        detail: {
+          previousProductName: parentElement.dataset.productName,
+          editedProduct,
+        },
+      });
 
       parentElement.innerHTML = generateTemplate(editedProduct);
       parentElement.dataset.productName = $editProductNameInput.value;

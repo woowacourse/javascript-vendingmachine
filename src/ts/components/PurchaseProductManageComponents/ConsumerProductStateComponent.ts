@@ -1,9 +1,9 @@
-import { on, $, emit } from '../../dom/domHelper';
+import { on, $, $$, emit } from '../../dom/domHelper';
 import { checkCanSubtractConsumerChargeMoney } from '../../validation/checkConsumerChargeMoney';
 import renderSnackBar from '../../dom/snackBar';
 
 const generateAddProductTemplate = ({ name, price, quantity }) => `
-  <tr class="product-table__info-tr">
+  <tr class="product-table__info-tr consumer-product-table__info-tr">
     <td class="product-table__purchase-product-name">${name}</td>
     <td class="product-table__purchase-product-price">${price}</td>
     <td>
@@ -19,6 +19,7 @@ export default class ConsumerProductStateComponent {
   private $productAddButton = $<HTMLButtonElement>(
     '.product-info-form__add-button'
   );
+
   private $productTableTbody = $<HTMLElement>('.consumer-product-table__tbody');
   private $snackBarContainer = $<HTMLLabelElement>('.snack-bar-container');
 
@@ -29,7 +30,37 @@ export default class ConsumerProductStateComponent {
       this.addConsumerProduct
     );
     on(this.$productTableTbody, 'click', this.onClickPurchaseButton);
+    on(
+      $<HTMLElement>('.product-table tbody'),
+      '@editProduct',
+      this.editProduct
+    );
   }
+
+  editProduct = ({ detail: { editedProduct, previousProductName } }) => {
+    const currentProducts = Array.from(
+      $$<HTMLElement>('.product-table__purchase-product-name')
+    );
+
+    const target = currentProducts.find(
+      (product) => product.textContent === previousProductName
+    );
+
+    const parentTarget = target.closest('.consumer-product-table__info-tr');
+    const targetProductName = parentTarget.querySelector(
+      '.product-table__purchase-product-name'
+    );
+    const targetProductPrice = parentTarget.querySelector(
+      '.product-table__purchase-product-price'
+    );
+    const targetProductQuantity = parentTarget.querySelector(
+      '.product-table__purchase-product-quantity'
+    );
+
+    targetProductName.textContent = editedProduct.name;
+    targetProductPrice.textContent = editedProduct.price;
+    targetProductQuantity.textContent = editedProduct.quantity;
+  };
 
   onClickPurchaseButton = ({ target }) => {
     if (!target.matches('.product-table__purchase-button')) return;
