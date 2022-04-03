@@ -1,0 +1,16 @@
+@import './variables';
+
+#app {
+  .signup-form,
+  .modify-member-form,
+  .login-form {
+    padding: 0px 143px 0px 157px;
+    flex-direction: column;
+  }
+  button {
+    width: 300px;
+  }
+  .input-email {
+    background-color: $color-gray-800;
+  }
+}

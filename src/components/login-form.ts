@@ -1,0 +1,23 @@
+import Component from '../abstract/component';
+import { customElement } from '../decorators/decortators';
+
+@customElement('login-form')
+class LoginForm extends Component {
+  template(): string {
+    return `
+    <h1 class="mb-12">로그인</h1>
+    <form onsubmit="return false">
+      <div class="login-form d-flex">
+        <label for="email" class="mb-1">이메일</label>
+        <input placeholder="woowacourse@gmail.com" name="email" class="form-control mb-4" />
+        <label for="password" class="mb-1">비밀번호</label>
+        <input placeholder="비밀번호를 입력해 주세요" name="password" class="form-control mb-8" />
+        <button type="button" class="btn btn-primary mb-3">확인</button>
+        <label>아직 회원이 아니신가요? 회원가입</label> 
+      </div>
+    </form>
+    `;
+  }
+}
+
+export default LoginForm;
