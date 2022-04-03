@@ -5,6 +5,7 @@ import { ItemType, CoinsType } from '../types';
 export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
+  private change: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
   private currentOwnMoney = 0;
   private purchaseInputMoney = 0;
 
@@ -38,6 +39,14 @@ export default class VendingMachine {
 
   setPurchaseInputMoney(purchaseInputMoney: number) {
     this.purchaseInputMoney = purchaseInputMoney;
+  }
+
+  getChange() {
+    return { ...this.change };
+  }
+
+  setChange(change) {
+    this.change = change;
   }
 
   getTotalMoney(coins: CoinsType): number {
@@ -90,5 +99,30 @@ export default class VendingMachine {
   chargePurchaseInputMoney(inputMoney: number) {
     const newMoney = this.getPurchaseInputMoney() + inputMoney;
     this.setPurchaseInputMoney(newMoney);
+  }
+
+  giveChange() {
+    const coins = this.getCoins();
+    let purchaseMoney = this.getPurchaseInputMoney();
+    let ownMoney = this.getCurrentOwnMoney();
+    const change = this.getChange();
+
+    Object.keys(coins).forEach(key => {
+      let coinCount = Math.floor(purchaseMoney / COINS[key]);
+      if (coins[key] < coinCount) {
+        coinCount = coins[key];
+      }
+
+      if (ownMoney >= coinCount * COINS[key]) {
+        coins[key] -= coinCount;
+        change[key] = coinCount;
+        purchaseMoney -= coinCount * COINS[key];
+        ownMoney -= coinCount * COINS[key];
+      }
+    });
+    this.setCoins(coins);
+    this.setPurchaseInputMoney(purchaseMoney);
+    this.setChange(change);
+    this.setCurrentOwnMoney(ownMoney);
   }
 }

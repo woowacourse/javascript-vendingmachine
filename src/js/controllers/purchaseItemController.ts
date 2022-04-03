@@ -27,12 +27,15 @@ export default class PurchaseItemController implements Controller {
     const { inputMoney }: MoneyDetailType = event.detail;
 
     this.vendingMachine.chargePurchaseInputMoney(inputMoney);
+
+    this.vendingMachine.giveChange();
   }
 
   loadPage() {
     const items = this.vendingMachine.getItems();
     const inputMoney = this.vendingMachine.getPurchaseInputMoney();
+    const coins = this.vendingMachine.getChange();
 
-    this.purchaseItemView.render(items, this.coins, inputMoney);
+    this.purchaseItemView.render(items, coins, inputMoney);
   }
 }
