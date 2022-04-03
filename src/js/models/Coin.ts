@@ -62,19 +62,14 @@ export default class Coin implements CoinInterface {
     while (currentAmount > 0) {
       if (currentAmount >= COIN.UNIT_LIST[3]) {
         currentAmount -= this.addCoinCount(3);
-        continue;
-      }
-      if (currentAmount >= COIN.UNIT_LIST[2]) {
+      } else if (currentAmount >= COIN.UNIT_LIST[2]) {
         currentAmount -= this.addCoinCount(2);
-        continue;
-      }
-      if (currentAmount >= COIN.UNIT_LIST[1]) {
+      } else if (currentAmount >= COIN.UNIT_LIST[1]) {
         currentAmount -= this.addCoinCount(1);
-        continue;
+      } else {
+        this.#coins[COIN.UNIT_LIST[0]] += currentAmount / COIN.UNIT_LIST[0];
+        break;
       }
-      // 잔돈이 50 보다 작을 경우 전부 다 10원으로 충전한다
-      this.#coins[COIN.UNIT_LIST[0]] += currentAmount / COIN.UNIT_LIST[0];
-      break;
     }
   }
 }

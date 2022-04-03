@@ -5,6 +5,11 @@ import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
 
 export default class ProductManageView {
   constructor() {
+    this.$productNameInput = '';
+    this.$productPriceInput = '';
+    this.$productQuantityInput = '';
+    this.$productTbody = '';
+
     on(SECTION_CONTAINER, 'submit', this.#onSubmitProductInfo.bind(this));
   }
 

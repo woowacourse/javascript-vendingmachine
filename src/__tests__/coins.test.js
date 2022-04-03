@@ -42,7 +42,7 @@ describe('잔돈 충전 테스트', () => {
     expect(() => coin.setAmount(underAmount)).toThrowError(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   });
 
-  it('100,000원 미만으로 잔돈 충전을 할 수 없다.', () => {
+  it('잔돈 충전 금액은 100,000원 초과 할 수 없다.', () => {
     const coin = new Coin();
     const overAmount = 100010;
     expect(() => coin.setAmount(overAmount)).toThrowError(ERROR_MESSAGE.OVER_MAX_AMOUNT);
@@ -52,9 +52,9 @@ describe('잔돈 충전 테스트', () => {
     const coin = new Coin();
     const amount = 1000;
     coin.setAmount(amount);
-    const coinValues = Object.values(coin.getCoins()).reverse();
+    const coinValues = Object.values(coin.getCoins());
     const totalAmount = coinValues.reduce((acc, cur, idx) => {
-      return acc + cur * [500, 100, 50, 10][idx];
+      return acc + cur * COIN.UNIT_LIST[idx];
     }, 0);
     expect(coin.getAmount()).toEqual(totalAmount);
   });
