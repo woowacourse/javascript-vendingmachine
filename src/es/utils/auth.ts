@@ -1,3 +1,5 @@
+import User from '../data/User';
+
 interface UserInfo {
   email: string;
   password: string;
@@ -6,6 +8,7 @@ interface UserInfo {
 
 const signUpURL = 'http://localhost:3000/signup/';
 const loginURL = 'http://localhost:3000/login/';
+const userInfoURL = (id) => `http://localhost:3000/600/users/${id}`;
 
 function signUp(signUpInfo: UserInfo) {
   fetch(signUpURL, {
@@ -24,8 +27,10 @@ function signUp(signUpInfo: UserInfo) {
       const userAuth = {
         accessToken: response.accessToken,
         id: response.user.id,
+        expiration: Date.now() + 1000 * 60 * 60,
       };
       localStorage.setItem('userAuth', JSON.stringify(userAuth));
+      location.replace('../');
     })
     .catch(error => console.error('에러', error));
 }
@@ -47,6 +52,7 @@ function login(loginInfo: UserInfo) {
       const userAuth = {
         accessToken: response.accessToken,
         id: response.user.id,
+        expiration: Date.now() + 1000 * 60 * 60,
       };
       localStorage.setItem('userAuth', JSON.stringify(userAuth));
       location.replace('../');
@@ -54,7 +60,32 @@ function login(loginInfo: UserInfo) {
     .catch(error => console.error('에러', error));
 }
 
+function requestUserInfo(userAuth) {
+  const { id } = userAuth;
+  const accessToken = `Bearer ${userAuth.accessToken}`;
+
+  fetch(userInfoURL(id), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken,
+    },
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('사용자 정보 읽기 오류');
+      }
+      return res.json();
+    })
+    .then(response => {
+      const { email, name } = response;
+      User.setUser({ id, email, name });
+    })
+    .catch(error => console.error('에러', error));
+}
+
 export {
   signUp,
   login,
+  requestUserInfo,
 };

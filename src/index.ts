@@ -5,6 +5,20 @@ import Router from './es/Router';
 import ProductPurchasePageView from './es/View/ProductPurchasePageView';
 import LoginPageView from './es/View/LoginPageView';
 import SignUpPageView from './es/View/SignUpPageView';
+import { requestUserInfo } from './es/utils/auth';
+
+function checkUser() {
+  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+  if (!userAuth) return;
+  if (userAuth.expiration < Date.now()) {
+    localStorage.removeItem('userAuth');
+    return;
+  }
+
+  requestUserInfo(userAuth);
+}
+
+checkUser();
 
 new Router({
   productManagement: new ProductManagementPageView(),
