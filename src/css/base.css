@@ -88,8 +88,12 @@ input[type='number'] {
   gap: 20px;
 }
 
-#login-button {
+#login-link-button, #user-button {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+#user-button {
+  background-color: transparent;
 }

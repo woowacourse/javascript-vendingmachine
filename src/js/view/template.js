@@ -124,7 +124,7 @@ export const productUpdateTableRowTemplate = ({ name, price, stock, id }) => /* 
 
 export const purchaseTabTemplate = /* html */ `
 <section class="form-section" aria-labelledby="purchase-tab-title">
-  <h2 class="tab-title" id="purchaseTabTemplate">상품 구매하기</h2>
+  <h2 class="tab-title" id="purchase-tab-title">상품 구매하기</h2>
   
   <form id="money-insert-form">
     <div class="instructions">
@@ -202,3 +202,89 @@ export const notFoundTabTemplate = /* html */ `
   <h2>🛒 Page Not Found</h2>
   <a href="#/manage" class="tab-menu-button">시작 페이지로</a>
 </section>`;
+
+export const navigationTemplate = /* html */ `
+  <nav id="tab-menu-navigation">
+    <a id="manage-tab-menu" class="tab-menu-button" href="#/manage">상품 관리</a>
+    <a id="charge-tab-menu" class="tab-menu-button" href="#/charge">잔돈 충전</a>
+    <a id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
+      상품 구매
+    </a>
+  </nav>
+`;
+
+export const loginPageTemplate = /* html */ `
+  <h2>로그인</h2>
+  <form class="auth-form">
+    <label for="email">이메일</label>
+    <input
+      type="email"
+      name="email"
+      id="email-input"
+      placeholder="이메일을 입력해주세요."
+    />
+    <label for="password">비밀번호</label>
+    <input
+      type="password"
+      name="password"
+      id="password-input"
+      placeholder="비밀번호를 입력해주세요."
+    />
+    <button type="submit" class="submit-button">로그인</button>
+    <p>아직 회원이 아니신가요? <a href="#/register" id="register-page-link">회원가입</a></p>
+  </form>
+`;
+
+export const registerPageTemplate = /* html */ `
+  <h2>회원가입</h2>
+  <form class="auth-form">
+    <label for="email">이메일</label>
+    <input
+      type="email"
+      name="email"
+      id="email-input"
+      placeholder="이메일을 입력해주세요."
+    />
+    <label for="name">이메일</label>
+    <input
+      type="text"
+      name="name"
+      id="name-input"
+      placeholder="이름을 입력해주세요."
+    />
+    <label for="password">비밀번호</label>
+    <input
+      type="password"
+      name="password"
+      id="password-input"
+      placeholder="비밀번호를 입력해주세요."
+    />
+    <label for="password-confirm">비밀번호 확인</label>
+    <input
+      type="password"
+      name="password-confirm"
+      id="password-confirm-input"
+      placeholder="비밀번호를 다시 입력해주세요."
+    />
+    <button type="submit" class="submit-button">회원가입</button>
+    <p>이미 회원이신가요? <a href="#/login">로그인</a></p>
+  </form>
+`;
+
+export const loginLinkButtonTemplate = /* html */ `
+<a class="tab-menu-button" id="login-link-button" href="#/login">로그인</a>
+`;
+
+const getUserImage = (userName) => /* html */ `
+<svg width="50px" height="50px" id="user-button-image" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 50 50">
+  <circle cx="25" cy="25" r="25" fill="#d6f4f8" stroke-width="0" />
+  <text id="user-name-text" x="50%" y="36" text-anchor="middle" font-size="36">
+    ${userName[0]}
+  </text>
+</svg>
+`;
+
+export const userButtonTemplate = (userName) => /* html */ `
+  <button id="user-button">${getUserImage(userName)}</button>
+`;

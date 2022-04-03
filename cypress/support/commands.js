@@ -25,3 +25,12 @@ Cypress.Commands.add('addMoneyInsert', (moneyInsert) => {
   cy.get('#money-insert-input').type(moneyInsert);
   cy.get('.submit-button').click();
 });
+
+Cypress.Commands.add('registerNewUser', (userData) => {
+  const { email, name, password } = userData;
+  cy.get('#email-input').type(email);
+  cy.get('#name-input').type(name);
+  cy.get('#password-input').type(password);
+  cy.get('#password-confirm-input').type(password);
+  cy.get('.submit-button').click();
+});

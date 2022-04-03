@@ -8,3 +8,13 @@ export function createMainElement(template) {
 
   return mainElement;
 }
+
+export function getInputValuesFromForm(form) {
+  const inputArray = [...document.querySelectorAll('input', form)];
+
+  const inputData = inputArray.reduce((dataObject, { name, value }) => {
+    dataObject[name] = value;
+    return dataObject;
+  }, {});
+  return inputData;
+}

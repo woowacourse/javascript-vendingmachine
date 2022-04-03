@@ -1,7 +1,7 @@
-#auth-form {
+.auth-form {
   width: 70%;
 }
 
-#auth-form input {
+.auth-form input {
   width: 100%
 }
