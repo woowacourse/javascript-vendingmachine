@@ -14,3 +14,15 @@
     background-color: $color-gray-800;
   }
 }
+
+.login-form {
+  .sign-up-link {
+    color: $color-blue;
+    font-weight: bold;
+  }
+
+  .sign-up-link:hover {
+    cursor: pointer;
+    color: $color-primary;
+  }
+}
