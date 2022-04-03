@@ -1,16 +1,18 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import { getUserInfo } from '../member';
+import { getUserInfo, updateInfo } from '../member';
+import { showSnack } from '../utils';
+import { validateSignUp } from '../validation/validators';
 
 @customElement('modify-member-form')
 class ModifyMemberForm extends Component {
-  template(name: string): string {
+  template(email: string, name: string): string {
     return `
     <h1 class="mb-12">회원 정보 수정</h1>
     <form onsubmit="return false">
       <div class="modify-member-form d-flex">
         <label for="email" class="mb-1">이메일</label>
-        <input type="email" placeholder="woowacourse@gmail.com" name="email" class="input-email form-control mb-4" disabled/>
+        <input type="email" placeholder="${email}" name="email" class="input-email form-control mb-4" disabled/>
         <label for="name" class="mb-1">이름</label>
         <input type="name" placeholder="${name}" name="name" class="form-control mb-4" />
         <label for="password" class="mb-1">비밀번호</label>
@@ -23,13 +25,34 @@ class ModifyMemberForm extends Component {
     `;
   }
 
+  setEvent() {
+    this.addEvent('click', 'button', this.onClickModifyBtn);
+  }
+
+  onClickModifyBtn = async () => {
+    const [_, $name, $password, $confirmPassword] = this.querySelectorAll('input');
+    const [name, password, confirmPassword] = [
+      $name.value,
+      $password.value,
+      $confirmPassword.value,
+    ];
+    const { hasError, errorMessage } = validateSignUp(name, password, confirmPassword);
+
+    if (hasError) {
+      showSnack(errorMessage);
+      return;
+    }
+
+    await updateInfo(name, password);
+  };
+
   mount() {
     this.render();
   }
 
   async render() {
-    const { name } = await getUserInfo();
-    this.innerHTML = this.template(name);
+    const { email, name } = await getUserInfo();
+    this.innerHTML = this.template(email, name);
   }
 }
 

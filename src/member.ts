@@ -53,12 +53,39 @@ export async function signUp(email: string, name: string, password: string) {
     }),
   });
   const info = await response.json();
-
   if (!response.ok) {
     showSnack(info);
     return;
   }
   showSnack('가입이 완료되었습니다.');
+  Router.pushState('/');
+}
+
+export async function updateInfo(name: string, password: string) {
+  const userInfo = await localStorage.getItem('user-info');
+  if (!userInfo) {
+    return undefined;
+  }
+  const user = JSON.parse(userInfo);
+
+  const response = await fetch(`http://localhost:3000/600/users/${user.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.key}`,
+    },
+    body: JSON.stringify({
+      name,
+      password,
+    }),
+  });
+  const info = await response.json();
+
+  if (!response.ok) {
+    showSnack(info);
+    return;
+  }
+  showSnack('정보가 변경되었습니다.');
   Router.pushState('/');
 }
 
