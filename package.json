@@ -1,11 +1,13 @@
 {
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
-  "description": "",
+  "description": "<우아한테크코스 4기 프론트엔드> level 1 - 자판기",
   "main": "index.js",
   "scripts": {
     "json-server": "json-server db.json -m ./node_modules/json-server-auth",
-    "test": "jest --watch --no-cache",
+    "jest": "jest --watch --no-cache",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --browser chrome",
     "start": "webpack serve --open",
     "build": "webpack",
     "predeploy": "npm run build",
@@ -29,6 +31,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
+    "cypress": "^9.5.3",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
