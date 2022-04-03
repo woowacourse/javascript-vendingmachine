@@ -1,4 +1,5 @@
 import User from '../data/User';
+import { loadMainPage } from '../routes';
 
 interface UserInfo {
   email: string;
@@ -9,62 +10,6 @@ interface UserInfo {
 const signUpURL = 'http://localhost:3000/signup/';
 const loginURL = 'http://localhost:3000/login/';
 const userInfoURL = (id) => `http://localhost:3000/600/users/${id}`;
-
-function signUp(signUpInfo: UserInfo) {
-  fetch(signUpURL, {
-    method: 'POST',
-    body: JSON.stringify(signUpInfo),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then(res => {
-    if (!res.ok) {
-      throw new Error('회원가입 오류');
-    }
-    return res.json();
-  })
-    .then(response => {
-      const userAuth = {
-        accessToken: response.accessToken,
-        id: response.user.id,
-        expiration: Date.now() + 1000 * 60 * 60,
-      };
-      localStorage.setItem('userAuth', JSON.stringify(userAuth));
-      location.replace('../');
-    })
-    .catch(error => console.error('에러', error));
-}
-
-function login(loginInfo: UserInfo) {
-  fetch(loginURL, {
-    method: 'POST',
-    body: JSON.stringify(loginInfo),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then(res => {
-    if (!res.ok) {
-      throw new Error('로그인 정보 오류');
-    }
-    return res.json();
-  })
-    .then(response => {
-      const userAuth = {
-        accessToken: response.accessToken,
-        id: response.user.id,
-        expiration: Date.now() + 1000 * 60 * 60,
-      };
-      localStorage.setItem('userAuth', JSON.stringify(userAuth));
-      location.replace('../');
-    })
-    .catch(error => console.error('에러', error));
-}
-
-function logout() {
-  localStorage.removeItem('userAuth');
-  User.initialize();
-  location.replace('../');
-}
 
 function requestUserInfo(userAuth) {
   const { id } = userAuth;
@@ -90,6 +35,67 @@ function requestUserInfo(userAuth) {
     .catch(error => console.error('에러', error));
 }
 
+function signUp(signUpInfo: UserInfo) {
+  fetch(signUpURL, {
+    method: 'POST',
+    body: JSON.stringify(signUpInfo),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error('회원가입 오류');
+    }
+    return res.json();
+  })
+    .then(response => {
+      const { id, email, name } = response.user;
+      const userAuth = {
+        accessToken: response.accessToken,
+        id,
+        expiration: Date.now() + 1000 * 60 * 60,
+      };
+      localStorage.setItem('userAuth', JSON.stringify(userAuth));
+      User.setUser({ id, email, name });
+      loadMainPage();
+    })
+    .catch(error => console.error('에러', error));
+}
+
+function login(loginInfo: UserInfo) {
+  fetch(loginURL, {
+    method: 'POST',
+    body: JSON.stringify(loginInfo),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error('로그인 정보 오류');
+    }
+    return res.json();
+  })
+    .then(response => {
+      const { id, email, name } = response.user;
+      const userAuth = {
+        accessToken: response.accessToken,
+        id,
+        expiration: Date.now() + 1000 * 60 * 60,
+      };
+      localStorage.setItem('userAuth', JSON.stringify(userAuth));
+      User.setUser({ id, email, name });
+      loadMainPage();
+    })
+    .catch(error => console.error('에러', error));
+}
+
+const logout = () => {
+  console.log('logout');
+  localStorage.removeItem('userAuth');
+  User.initialize();
+  loadMainPage();
+};
+
 function updateUserInfo(newUserInfo) {
   const userAuth = JSON.parse(localStorage.getItem('userAuth'));
   if (!userAuth) return;
@@ -114,9 +120,17 @@ function updateUserInfo(newUserInfo) {
     .then(response => {
       const { email, name } = response;
       User.setUser({ id, email, name });
-      location.replace('../');
+      loadMainPage();
     })
     .catch(error => console.error('에러', error));
+}
+
+function getSavedUserInfo() {
+  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+  if (userAuth?.expiration < Date.now()) {
+    localStorage.removeItem('userAuth');
+  }
+  return userAuth;
 }
 
 export {
@@ -125,4 +139,5 @@ export {
   logout,
   requestUserInfo,
   updateUserInfo,
+  getSavedUserInfo,
 };

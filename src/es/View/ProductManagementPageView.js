@@ -1,9 +1,9 @@
 import { template } from './template';
 import { validateProduct } from '../validator';
 import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
-import ProductManagementPageManager from '../Manager/ProductManagementPageManager';
+import ProductManagementPageManager from '../manager/ProductManagementPageManager';
 
-export default class ProductManagementPageView {
+class ProductManagementPageView {
   renderMethodList;
 
   $addFormSection;
@@ -148,3 +148,5 @@ export default class ProductManagementPageView {
     $('tbody', this.$table).innerHTML = productItem;
   };
 }
+
+export default new ProductManagementPageView();

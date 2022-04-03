@@ -2,7 +2,7 @@ import User from '../data/User';
 import { $ } from '../utils';
 import { logout } from '../utils/auth';
 
-export default class HeaderView {
+class HeaderView {
   $container = $('header');
   $title = $('.title', this.$container);
   $goMainButton = $('#go-main-button', this.$container);
@@ -10,9 +10,9 @@ export default class HeaderView {
   $loginButton = $('#login-button', this.$userArea);
   $nav = $('.nav', this.$container);
 
-  render(state) {
-    this.updateTitle(state);
-    this.updateMenuButton(state);
+  updateOnPageChange(page) {
+    this.updateTitle(page);
+    this.updateMenuButton(page);
     this.$userArea.addEventListener('click', this.onClickUserArea);
   }
 
@@ -21,43 +21,61 @@ export default class HeaderView {
     if (event.target.name === 'thumbnail-button') {
       $('#member-menu', this.$userArea).classList.toggle('hidden');
     }
-    if (event.target.dataset.page === 'logout') {
+    if (event.target.id === 'logout-button') {
       logout();
     }
   }
 
-  updateTitle({ currentPage }) {
-    switch (currentPage) {
+  updateTitle(page) {
+    switch (page) {
       case 'login':
         this.$title.innerText = '로그인';
         break;
       case 'signUp':
         this.$title.innerText = '회원가입';
         break;
+      case 'updateMyInfo':
+        this.$title.innerText = '회원 정보 수정';
+        break;
       default:
         this.$title.innerText = '🍿 자판기 🍿';
     }
   }
 
-  updateMenuButton({ currentPage }) {
+  updateMenuButton(page) {
     this.updateUserArea();
 
-    if (User.isMember) {
+    if (User.isMember && page !== 'updateMyInfo') {
       this.showNavigationMenu();
-      this.updateNavigationSelectedMenu(currentPage);
+      this.updateNavigationSelectedMenu(page);
     } else {
       this.hideNavigationMenu();
     }
 
-    switch (currentPage) {
+    switch (page) {
       case 'login':
       case 'signUp':
+      case 'updateMyInfo':
         this.showGoMainButton();
         this.hideUserArea();
         break;
       default:
         this.hideGoMainButton();
         this.showUserArea();
+    }
+  }
+
+  updateUserArea() {
+    if (User.isMember) {
+      this.$userArea.innerHTML = `
+        <button type="button" id="user-thumbnail-button" name="thumbnail-button" class="thumbnail-button">${User.name[0]}</button>
+        <ul id="member-menu" class="hidden">
+          <li data-page="updateMyInfo">회원 정보 수정</li>
+          <li id="logout-button">로그아웃</li>
+        </ul>
+      `;
+    } else {
+      this.$userArea.innerHTML = '<button id="login-button" class="button" data-page="login">로그인</button>';
     }
   }
 
@@ -70,20 +88,6 @@ export default class HeaderView {
   hideUserArea() {
     if (!this.$userArea.classList.contains('hidden')) {
       this.$userArea.classList.add('hidden');
-    }
-  }
-
-  updateUserArea() {
-    if (User.isMember) {
-      this.$userArea.innerHTML = `
-        <button type="button" id="user-thumbnail-button" name="thumbnail-button" class="thumbnail-button">${User.name[0]}</button>
-        <ul id="member-menu" class="hidden">
-          <li data-page="updateMyInfo">회원 정보 수정</li>
-          <li data-page="logout">로그아웃</li>
-        </ul>
-      `;
-    } else {
-      this.$userArea.innerHTML = '<button id="login-button" class="button" data-page="login">로그인</button>';
     }
   }
 
@@ -111,8 +115,10 @@ export default class HeaderView {
     }
   }
 
-  updateNavigationSelectedMenu(currentPage) {
+  updateNavigationSelectedMenu(page) {
     $('.selected', this.$nav)?.classList.remove('selected');
-    $(`.nav-menu[data-page*="${currentPage}"]`)?.classList.add('selected');
+    $(`.nav-menu[data-page*="${page}"]`)?.classList.add('selected');
   }
 }
+
+export default new HeaderView();

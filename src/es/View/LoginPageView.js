@@ -16,7 +16,7 @@ const pageTemplate = `
   </section>
 `;
 
-export default class LoginPageView {
+class LoginPageView {
   loadPage = () => {
     $('.main').innerHTML = pageTemplate;
     $('#login-form').addEventListener('submit', this.onSubmitLoginForm);
@@ -28,3 +28,5 @@ export default class LoginPageView {
     login(loginInfo);
   };
 }
+
+export default new LoginPageView();

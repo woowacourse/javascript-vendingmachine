@@ -21,7 +21,7 @@ const pageTemplate = `
   </section>
 `;
 
-export default class SignUpPageView {
+class SignUpPageView {
   loadPage = () => {
     $('.main').innerHTML = pageTemplate;
     $('#signup-form').addEventListener('submit', this.onSubmitSignUpForm);
@@ -37,3 +37,5 @@ export default class SignUpPageView {
     signUp({ email, name, password });
   };
 }
+
+export default new SignUpPageView();

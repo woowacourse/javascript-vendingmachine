@@ -1,9 +1,9 @@
 import { template } from './template';
 import { $ } from '../utils';
 import { validateHoldingAmountToAdd } from '../validator';
-import VendingMachineChargeManagementPageManager from '../Manager/VendingMachineChargeManagementPageManager';
+import VendingMachineChargeManagementPageManager from '../manager/VendingMachineChargeManagementPageManager';
 
-export default class VendingMachineChargeManagementPageView {
+class VendingMachineChargeManagementPageView {
   renderMethodList;
 
   $vendingMachineChargeForm;
@@ -77,3 +77,5 @@ export default class VendingMachineChargeManagementPageView {
     $('tbody', this.$vendingMachineChargeTable).innerHTML = template.coinTableRows(coins);
   };
 }
+
+export default new VendingMachineChargeManagementPageView();

@@ -22,7 +22,7 @@ const pageTemplate = ({ email, name }) => `
   </section>
 `;
 
-export default class UpdateMyInfoPageView {
+class UpdateMyInfoPageView {
   loadPage = () => {
     $('.main').innerHTML = pageTemplate({
       email: User.email,
@@ -41,3 +41,5 @@ export default class UpdateMyInfoPageView {
     updateUserInfo({ email, name, password });
   };
 }
+
+export default new UpdateMyInfoPageView();

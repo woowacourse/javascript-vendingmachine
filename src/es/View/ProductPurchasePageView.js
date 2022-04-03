@@ -1,8 +1,8 @@
 import { $, getInnerInputValues } from '../utils';
 import { template } from './template';
-import ProductPurchasePageManager from '../Manager/ProductPurchasePageManager';
+import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
 
-export default class ProductPurchasePageView {
+class ProductPurchasePageView {
   renderMethodList;
 
   $customerChargeForm;
@@ -102,3 +102,5 @@ export default class ProductPurchasePageView {
     $('tbody', this.$changeTable).innerHTML = template.coinTableRows(ReturnedCoins);
   };
 }
+
+export default new ProductPurchasePageView();

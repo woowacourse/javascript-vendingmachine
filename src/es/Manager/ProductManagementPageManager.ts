@@ -1,5 +1,5 @@
 import Products from '../data/Products';
-import { IPageManager, IProduct } from '../Manager/Interface';
+import { IPageManager, IProduct } from './Interface';
 
 interface IProductStoreState {
   products: Array<IProduct>;
