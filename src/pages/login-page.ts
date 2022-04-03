@@ -6,7 +6,7 @@ class LoginPage extends Component {
   template(): string {
     return `
       <header class="mb-12">
-        <h1 class="mb-8">로그인</h1>
+        <h1>로그인</h1>
       </header>
       <form>
         <fieldset class="mb-4">
