@@ -15,6 +15,10 @@ class User implements IUser {
   name;
 
   constructor() {
+    this.initialize();
+  }
+
+  initialize() {
     this.isMember = false;
     this.id = null;
     this.email = null;

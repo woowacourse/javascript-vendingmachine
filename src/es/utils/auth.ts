@@ -60,6 +60,12 @@ function login(loginInfo: UserInfo) {
     .catch(error => console.error('에러', error));
 }
 
+function logout() {
+  localStorage.removeItem('userAuth');
+  User.initialize();
+  location.replace('../');
+}
+
 function requestUserInfo(userAuth) {
   const { id } = userAuth;
   const accessToken = `Bearer ${userAuth.accessToken}`;
@@ -87,5 +93,6 @@ function requestUserInfo(userAuth) {
 export {
   signUp,
   login,
+  logout,
   requestUserInfo,
 };

@@ -1,5 +1,6 @@
 import User from '../data/User';
 import { $ } from '../utils';
+import { logout } from '../utils/auth';
 
 export default class HeaderView {
   $container = $('header');
@@ -10,16 +11,22 @@ export default class HeaderView {
   $nav = $('.nav', this.$container);
 
   render(state) {
-    console.log('header render');
     this.updateTitle(state);
     this.updateMenuButton(state);
     this.$userArea.addEventListener('click', this.onClickUserArea);
   }
 
   onClickUserArea(event) {
-    if (event.target.type !== 'button') return;
+    if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'LI') return;
     if (event.target.name === 'thumbnail-button') {
       $('#member-menu', this.$userArea).classList.toggle('hidden');
+    }
+    if (event.target.dataset.page === 'logout') {
+      console.log('로그아웃해야겠어');
+      logout();
+    }
+    if (event.target.dataset.page === 'editMemberInfo') {
+      console.log('정보수정할래');
     }
   }
 
@@ -76,7 +83,7 @@ export default class HeaderView {
         <button type="button" id="user-thumbnail-button" name="thumbnail-button" class="thumbnail-button">${User.name[0]}</button>
         <ul id="member-menu" class="hidden">
           <li data-page="editMemberInfo">회원 정보 수정</li>
-          <li data-page="">로그아웃</li>
+          <li data-page="logout">로그아웃</li>
         </ul>
       `;
     } else {
