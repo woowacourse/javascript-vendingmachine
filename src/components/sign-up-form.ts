@@ -2,6 +2,7 @@ import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import { signUp } from '../member';
 import { showSnack } from '../utils';
+import { validateSignUp } from '../validation/validators';
 
 @customElement('sign-up-form')
 class SignUpFrom extends Component {
@@ -37,10 +38,12 @@ class SignUpFrom extends Component {
       $confirmPassword.value,
     ];
 
-    if (password !== confirmPassword) {
-      showSnack('비밀번호를 다시 확인해주세요.');
+    const { hasError, errorMessage } = validateSignUp(name, password, confirmPassword);
+    if (hasError) {
+      showSnack(errorMessage);
       return;
     }
+
     signUp(email, name, password);
   };
 }

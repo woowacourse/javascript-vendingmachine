@@ -25,7 +25,7 @@ export async function login(email: BodyInit, password: BodyInit) {
   const info = await response.json();
 
   if (!response.ok) {
-    alert(info);
+    showSnack(info);
     return;
   }
 
@@ -47,16 +47,15 @@ export async function signUp(email: string, name: string, password: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name,
       email,
+      name,
       password,
     }),
   });
-
   const info = await response.json();
 
   if (!response.ok) {
-    alert(info);
+    showSnack(info);
     return;
   }
   showSnack('가입이 완료되었습니다.');

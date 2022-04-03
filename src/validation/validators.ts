@@ -8,12 +8,28 @@ import {
   MIN_PRODUCT_PRICE,
   MIN_PRODUCT_QUANTITY,
 } from '../constants';
-import { CoinRecord, ProductItem, RawProductItem } from '../types';
+import { ProductItem, RawProductItem } from '../types';
 import { convertToInteger } from '../utils';
 import ValidationResult from './validation-result';
 
 const isInteger = (str: string) => {
   return /^-?[0-9]+$/g.test(str);
+};
+
+const checkPassword = (password: string, confirmPassword: string): string => {
+  const number = password.search(/[0-9]/g);
+  const character = password.search(/[a-z]/gi);
+  const symbol = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+  if (password !== confirmPassword) {
+    return '비밀번호가 다릅니다. 다시 확인해주세요.';
+  } else if (number < 0 || character < 0 || symbol < 0) {
+    return '영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.';
+  } else if (/(\w)\1\1\1/.test(password)) {
+    return '같은 문자를 4번 이상 사용하실 수 없습니다.';
+  } else if (password.search(/\s/) != -1) {
+    return '비밀번호는 공백 없이 입력해주세요.';
+  }
+  return 'pass';
 };
 
 export const validateProductName = (name: string, productList: Array<ProductItem>) => {
@@ -88,6 +104,16 @@ export const validateInsertMoney = (money: string, totalMoney: number) => {
 
 export const validateReturnChanges = (insertedMoney: number) => {
   if (insertedMoney === 0) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_INSERT_MONEY);
+
+  return new ValidationResult(false);
+};
+
+export const validateSignUp = (name: string, password: string, confirmPassword: string) => {
+  if (name.length < 2 || name.length > 6)
+    return new ValidationResult(true, '이름은 2글자 ~ 6글자 이내이어야 합니다.');
+
+  const errorCheck = checkPassword(password, confirmPassword);
+  if (errorCheck !== 'pass') return new ValidationResult(true, errorCheck);
 
   return new ValidationResult(false);
 };
