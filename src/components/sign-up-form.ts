@@ -1,7 +1,7 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 
-@customElement('signup-form')
+@customElement('sign-up-form')
 class SignUpFrom extends Component {
   template(): string {
     return `
