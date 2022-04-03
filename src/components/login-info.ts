@@ -18,11 +18,16 @@ class LoginInfo extends Component {
 
   setEvent() {
     this.addEvent('click', '.login-info', this.onClickUserInfo);
+    this.addEvent('click', '.modify-member-info', this.onClickModifyInfo);
     this.addEvent('click', '.log-out', this.onClickLogOut);
   }
 
   onClickUserInfo = () => {
     this.querySelector('section')?.classList.toggle('hide');
+  };
+
+  onClickModifyInfo = () => {
+    Router.pushState('/modify-member-form');
   };
 
   onClickLogOut = () => {

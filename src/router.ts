@@ -95,6 +95,17 @@ class Router {
         this.memberContainer.insertAdjacentHTML('beforeend', '<sign-up-form></sign-up-form>');
         break;
 
+      case '/modify-member-form':
+        this.pageContainer.replaceChildren();
+        this.memberContainer.replaceChildren();
+        document.querySelector('header')?.classList.add('hide');
+
+        this.memberContainer.insertAdjacentHTML(
+          'beforeend',
+          '<modify-member-form></modify-member-form>'
+        );
+        break;
+
       default:
         document.querySelector('header')?.classList.remove('hide');
         this.pageContainer.replaceChildren();

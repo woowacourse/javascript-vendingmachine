@@ -7,6 +7,7 @@ import './components/login-header';
 import './components/login-form';
 import './components/sign-up-form';
 import './components/login-info';
+import './components/modify-member-form';
 import Router from './router';
 
 new Router();
