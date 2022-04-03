@@ -3,8 +3,8 @@ export default class Authorization {
   #userId;
 
   constructor() {
-    this.#isLoggedIn = false;
     this.#userId = JSON.parse(window.sessionStorage.getItem('userId'));
+    this.#isLoggedIn = !!this.#userId;
   }
 
   get isLoggedIn() {
