@@ -47,7 +47,7 @@ export default class VendingMachine implements VendingMachineInterface {
   getPurchaseMoneyFromStorage = (key: string): PurchaseMoneyInterface => {
     const purchaseMoneyFromStorage = JSON.parse(localStorage.getItem(key));
 
-    return new PurchaseMoney(purchaseMoneyFromStorage ? purchaseMoneyFromStorage.purchaseMoney : 0);
+    return new PurchaseMoney(purchaseMoneyFromStorage ? purchaseMoneyFromStorage.money : 0);
   };
 
   getProductsFromStorage = (key: string): ProductType[] => {
@@ -126,6 +126,10 @@ export default class VendingMachine implements VendingMachineInterface {
   };
 
   addPurchaseMoney = (money: number): number => {
-    return this.purchaseMoney.increaseMoney(money);
+    const increasedMoney = this.purchaseMoney.increaseMoney(money);
+
+    localStorage.setItem(STORAGE_ID.PURCHASE_MONEY, JSON.stringify(this.purchaseMoney));
+
+    return increasedMoney;
   };
 }

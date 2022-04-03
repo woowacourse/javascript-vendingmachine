@@ -69,7 +69,7 @@ export default class View {
         this.rechargeView.renderRecharge();
       },
       [PATH_ID.PURCHASE_PRODUCT]: () => {
-        // this.renderPurchaseProduct();
+        this.purchaseProductView.renderPurchaseProduct();
       },
     };
 
