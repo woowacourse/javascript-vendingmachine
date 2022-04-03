@@ -7,11 +7,11 @@ import { clearInput } from "../../utils/common";
 class ProductComponent {
   productManager: ProductManager;
   productContainer: HTMLElement;
-  productAddButton: HTMLElement;
-  productTable: HTMLElement;
-  productNameInput: HTMLElement;
-  productPriceInput: HTMLElement;
-  productQuantityInput: HTMLElement;
+  productAddButton: HTMLButtonElement;
+  productTable: HTMLTableElement;
+  productNameInput: HTMLInputElement;
+  productPriceInput: HTMLInputElement;
+  productQuantityInput: HTMLInputElement;
 
   constructor({ productManager }) {
     this.productManager = productManager;
@@ -31,15 +31,15 @@ class ProductComponent {
 
   handleAddProduct = (e: Event) => {
     e.preventDefault();
-    const name = (<HTMLInputElement>this.productNameInput).value.trim();
-    const price = (<HTMLInputElement>this.productPriceInput).valueAsNumber;
-    const quantity = (<HTMLInputElement>this.productQuantityInput).valueAsNumber;
+    const name = this.productNameInput.value.trim();
+    const price = this.productPriceInput.valueAsNumber;
+    const quantity = this.productQuantityInput.valueAsNumber;
 
     try {
       this.productManager.addProduct({ name, price, quantity });
       this.productTable.insertAdjacentHTML("beforeend", addProductTemplate({ name, price, quantity }));
-      clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
       this.productNameInput.focus();
+      clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
     } catch ({ message }) {
       alert(message);
     }

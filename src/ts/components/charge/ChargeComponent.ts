@@ -4,9 +4,9 @@ import ChargeManager from "../../mananger/ChargeManager";
 
 class ChargeComponent {
   chargeContainer: HTMLElement;
-  chargeForm: HTMLElement;
-  chargeInput: HTMLElement;
-  chargeHoldingAmount: HTMLElement;
+  chargeForm: HTMLFormElement;
+  chargeInput: HTMLInputElement;
+  chargeAmount: HTMLSpanElement;
   chargeManager: ChargeManager;
   chargeCoin500: HTMLElement;
   chargeCoin100: HTMLElement;
@@ -21,7 +21,7 @@ class ChargeComponent {
 
     this.chargeForm = $(".charge-manange__form");
     this.chargeInput = $(".charge-manange__input");
-    this.chargeHoldingAmount = $(".charge-manange__holding-amount");
+    this.chargeAmount = $(".charge-manange__amount");
     this.chargeCoin500 = $(".charge-manange__table-coin--500");
     this.chargeCoin100 = $(".charge-manange__table-coin--100");
     this.chargeCoin50 = $(".charge-manange__table-coin--50");
@@ -32,20 +32,20 @@ class ChargeComponent {
 
   handleAddCharge = (e) => {
     e.preventDefault();
-    const charge = (<HTMLInputElement>this.chargeInput).valueAsNumber;
+    const charge = this.chargeInput.valueAsNumber;
 
     try {
       const randomCoins = this.chargeManager.getRandomCoins(charge);
       this.chargeManager.addCoins(randomCoins);
       this.renderRandomCoins();
-      this.renderHoldingAmount();
+      this.renderAmount();
     } catch ({ message }) {
       alert(message);
     }
   };
 
-  renderHoldingAmount() {
-    this.chargeHoldingAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
+  renderAmount() {
+    this.chargeAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
   renderRandomCoins() {

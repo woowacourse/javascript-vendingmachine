@@ -13,7 +13,7 @@ const chargeTemplate = () => {
     </form>  
   </div>
   <div>
-    <p>현재 보유 금액: <span class="charge-manange__holding-amount">0</span>원</p>
+    <p>현재 보유 금액: <span class="charge-manange__amount">0</span>원</p>
   </div>
   <div>
     <h1 class="charge-manange__title">자판기가 보유한 동전</h1>

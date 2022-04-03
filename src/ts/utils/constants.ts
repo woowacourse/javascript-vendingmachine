@@ -13,6 +13,11 @@ const CHARGE = {
   UNIT: 10,
 };
 
+const PURCAHSE = {
+  MAX_AMOUNT: 10000,
+  UNIT: 10,
+};
+
 const ERROR_MESSAGES = {
   EMPTY_PRODUCT_NAME: "상품명을 입력해주세요.",
   EMPTY_PRODUCT_QUANTITY: "제품 수량을 입력해주세요.",
@@ -31,4 +36,4 @@ const INFOMATION_MESSAGES = {
   ASK_DELETE: "정말 삭제하시겠습니까?",
 };
 
-export { PRODUCT, CHARGE, ERROR_MESSAGES, INFOMATION_MESSAGES };
+export { PRODUCT, CHARGE, PURCAHSE, ERROR_MESSAGES, INFOMATION_MESSAGES };

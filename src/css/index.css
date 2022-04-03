@@ -113,7 +113,8 @@ button {
   -moz-appearance: textfield;
 }
 
-.charge-manange__input {
+.charge-manange__input,
+.purchase-form__input {
   width: 300px;
   height: 36px;
   border-radius: 5px;
@@ -124,7 +125,8 @@ button {
 }
 
 .product-manange__add-button,
-.charge-manange__add-button {
+.charge-manange__add-button,
+.purchase-form__add-button {
   width: 56px;
   height: 38px;
   cursor: pointer;
