@@ -1,3 +1,5 @@
+import { showSnackbar } from "../components/snackbar/snackbar";
+
 const selectDom = (selector: string, element: HTMLElement | Document = document): HTMLElement | null => {
   return element.querySelector(selector);
 }
@@ -11,7 +13,7 @@ const addEvent = (target: HTMLElement, eventName: string, handler) => {
   try {
     handler(event);
   } catch ({ message }) {
-    alert(message);
+    showSnackbar(message);
     return;
   }
   });

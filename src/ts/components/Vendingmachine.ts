@@ -15,7 +15,7 @@ class Vendingmachine {
     const vendingmachineWrap = selectDom("#app");
     vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
-      `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
+      `<aside id="snackbar-wrap"></aside> <h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
     );
 
     this.mountComponent();

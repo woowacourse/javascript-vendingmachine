@@ -6,12 +6,16 @@ class PurchaseInfo implements PurchaseInfoProps{
   insertMoney: number;
 
   constructor() {
-    this.productList = this.getProductList();
+    this.updateProductList();
     this.insertMoney = this.getInsertMoney();
   }
 
   returnCharge() {
   
+  }
+
+  updateProductList() {
+    this.productList = this.getProductList();
   }
 
   purchaseProduct({ productName, productPrice }) {

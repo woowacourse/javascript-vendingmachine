@@ -103,3 +103,29 @@ button {
 .product-confirm-button:hover {
   background: #ebebeb;
 }
+
+#snackbar-wrap {
+  width: 302px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+}
+
+.snackbar {
+  width: 300px;
+  height: 60px;
+  background-color: #5c5c5c;
+}
+
+.snackbar-text {
+  color: #ebebeb;
+  line-height: 22px;
+  padding: 8px 8px 6px 10px;
+}
+
+.snackbar-animation {
+  animation: 2s showSnack;
+}
+
+@keyframes showSnack { from { opacity: 0; } to { opacity: 1; } }

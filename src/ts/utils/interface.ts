@@ -18,6 +18,7 @@ interface ChargeInfoProps {
 
 interface PurchaseInfoProps{
   returnCharge: () => void;
+  updateProductList: () => void;
   purchaseProduct: ({ productName, productPrice }: ProductProps) => void;
   setInsertMoney: () => void;
   getInsertMoney: () => number;

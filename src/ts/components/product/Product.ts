@@ -1,4 +1,6 @@
 import { selectDom, selectDomAll, addEvent } from "../../utils/dom";
+import { showSnackbar } from "../snackbar/snackbar";
+import { deleteProductText, editProductInfoText, registerProductText } from "../snackbar/snackbarTemplate";
 import ProductInfo from "./ProductInfo";
 import ProductView from "./ProductView";
 
@@ -25,22 +27,6 @@ class Product {
     this.productView.focusProductNameInput();
   }
 
-  handleAddProduct = (event: Event) => {
-    event.preventDefault();
-    const [productName, productPrice, productQuantity] = 
-      this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
-
-    this.productInfo.validateProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
-    this.productInfo.addProductList({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
-    this.productView.changeProductInfoInputEmpty();
-    this.productView.focusProductNameInput();
-    this.productView.addProduct({ 
-      productName: productName,
-      productPrice: +productPrice,
-      productQuantity: +productQuantity, 
-    });
-  };
-
   handleControlProduct = (event: { target: HTMLTableElement }) => {
     if (event.target.classList.contains("product-remove-button")) {
       this.handleRemoveProduct(event);
@@ -51,12 +37,30 @@ class Product {
     }
   }
 
+  handleAddProduct = (event: Event) => {
+    event.preventDefault();
+    const [productName, productPrice, productQuantity] = 
+      this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
+
+    this.productInfo.validateProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
+    showSnackbar(registerProductText({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }));
+    this.productInfo.addProductList({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
+    this.productView.changeProductInfoInputEmpty();
+    this.productView.focusProductNameInput();
+    this.productView.addProduct({ 
+      productName: productName,
+      productPrice: +productPrice,
+      productQuantity: +productQuantity, 
+    });
+  };
+
   handleRemoveProduct = (event: { target: HTMLTableElement }) => {
     if (!confirm("정말 삭제하시겠습니까?")) {
       return;
     };
     
     const [productNameTd] = Array.from(event.target.closest("tr").children);
+    showSnackbar(deleteProductText(productNameTd.textContent));
     this.productInfo.removeProduct(productNameTd.textContent);
     this.productView.removeProduct(event.target);
   };
@@ -74,8 +78,8 @@ class Product {
     const beforeProductName = selectDom(".product-name", event.target.closest("tr")).dataset.name;
 
     this.productInfo.validateEditProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, beforeProductName });
+    showSnackbar(editProductInfoText({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }));
     this.productView.editProduct({target: event.target, productName: productName, productPrice: +productPrice, productQuantity: +productQuantity});
-    
     const changeProductIndex = 
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)

@@ -1,5 +1,7 @@
 import { selectDom, addEvent } from "../../utils/dom";
-import { verifyCharge } from "../../utils/validation";
+import { validateCharge } from "../../utils/validation";
+import { showSnackbar } from "../snackbar/snackbar";
+import { insertMoneyText } from "../snackbar/snackbarTemplate";
 import ChargeInfo from "./ChargeInfo";
 import ChargeView from "./ChargeView";
 class Charge {
@@ -24,7 +26,8 @@ class Charge {
   handleInputAmount = (e: Event) => {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
-    verifyCharge(charge);
+    validateCharge(charge);
+    showSnackbar(insertMoneyText(charge))
     this.chargeInfo.convertRandomCharge(charge);
     this.chargeView.showRandomChargeResult(this.chargeInfo.getCoinList(), this.chargeInfo.getTotalCharge());
   };
