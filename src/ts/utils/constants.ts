@@ -11,8 +11,7 @@ const CHARGE = {
   MIN_PRICE: 10,
   MAX_PRICE: 100000,
   UNIT: 10,
+  RETURN_CHARGE_UNIT: 1000,
 };
-
-
 
 export { PRODUCT, CHARGE };

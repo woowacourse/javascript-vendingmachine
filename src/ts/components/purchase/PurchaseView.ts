@@ -1,5 +1,5 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
-import { EditInsertMoneyProps, ProductProps } from "../../utils/interface";
+import { CoinType, EditInsertMoneyProps, ProductProps } from "../../utils/interface";
 import { purchasePossibleProductTemplate, purchaseTemplate } from "./purchaseTemplate";
 
 class PurchaseView {
@@ -7,16 +7,15 @@ class PurchaseView {
 
   constructor() {
     this.vendingmachineFunctionWrap = selectDom(".main");
-
   }
 
   showInsertMoney(totalMoney: number) {
-    const insertMoneyText = selectDom("#insert-money-text");
+    const insertMoneyText = selectDom("#insert-money-text", this.vendingmachineFunctionWrap);
     insertMoneyText.textContent = `${totalMoney}`;
   }
 
   showPurchasePossibleProduct(productList: ProductProps[]) {
-    const purchasePossibleProductTable = selectDom("#purchase-possible-product-table");
+    const purchasePossibleProductTable = selectDom("#purchase-possible-product-table", this.vendingmachineFunctionWrap);
     purchasePossibleProductTable.insertAdjacentHTML(
       "beforeend",
       productList.map((product) => purchasePossibleProductTemplate(product)).join(" ")
@@ -25,7 +24,7 @@ class PurchaseView {
 
   editPurchaseProductQuantity(productName: string) {
     const [, , productQuantity, purchaseButton] = Array.from(
-      selectDomAll(".product-name")
+      selectDomAll(".product-name", this.vendingmachineFunctionWrap)
         .find((productNameTd) => productNameTd.textContent === productName)
         .closest("tr")
         .children)
@@ -34,6 +33,13 @@ class PurchaseView {
     if (+productQuantity.textContent === 0) {
       purchaseButton.textContent = "품절";
     }
+  }
+
+  showReturnCharge(returnCoinsKindCount: CoinType) {
+    const returnChargeCoinCount = selectDomAll(".return-coin-count", this.vendingmachineFunctionWrap);
+    const returnCoinsResult = Object.values(returnCoinsKindCount).reverse();
+    returnChargeCoinCount.forEach((returnCoinCount, index) =>
+      (returnCoinCount.innerText = `${returnCoinsResult[index]}개`));
   }
 
   renderPurchaseView() {
