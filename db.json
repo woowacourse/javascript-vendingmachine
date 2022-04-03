@@ -1,3 +1,10 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "604jhy@naver.com",
+      "password": "$2a$10$zlRvd/OM9KEpBo8bkk2ryesXL58tgXsD0XDUMmcbtIU2HMLk6HI92",
+      "name": "장호영",
+      "id": 1
+    }
+  ]
 }

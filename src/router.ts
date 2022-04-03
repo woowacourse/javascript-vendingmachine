@@ -81,6 +81,9 @@ class Router {
 
         this.memberContainer.insertAdjacentHTML('beforeend', '<sign-up-form></sign-up-form>');
         break;
+      default:
+        document.querySelector('header')?.classList.remove('hide');
+        this.memberContainer.replaceChildren();
     }
   };
 }
