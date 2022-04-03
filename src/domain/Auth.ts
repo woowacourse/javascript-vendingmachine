@@ -55,6 +55,10 @@ export class Auth implements AuthInterface {
     }
   };
 
+  logout() {
+    localStorage.removeItem('accessToken');
+  }
+
   isValidatedName(name: string): true | Error {
     if (
       name.length < AUTH_CONDITION.MIN_USER_NAME_LENGTH ||
