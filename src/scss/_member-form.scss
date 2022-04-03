@@ -7,9 +7,7 @@
     padding: 0px 143px 0px 157px;
     flex-direction: column;
   }
-  button {
-    width: 300px;
-  }
+
   .input-email {
     background-color: $color-gray-800;
   }
@@ -24,5 +22,13 @@
   .sign-up-link:hover {
     cursor: pointer;
     color: $color-primary;
+  }
+}
+
+.signup-form,
+.login-form,
+.modify-member-form {
+  button {
+    width: 300px;
   }
 }
