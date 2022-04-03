@@ -37,7 +37,7 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
     this.#productTableBody.insertAdjacentHTML('beforeend', this.#tableRowTemplate(addedProduct));
   };
 
-  #template(): string {
+  #template() {
     return `
     <div class="table-container">
       <h2>상품 현황</h2>

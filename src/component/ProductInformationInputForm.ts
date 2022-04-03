@@ -24,7 +24,7 @@ export class ProductInformationInputForm implements ProductInformationInputFormI
     this.#bindEvent();
   }
 
-  #template(): string {
+  #template() {
     return `
       <form id="product-information-input-form">
         <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
@@ -57,16 +57,14 @@ export class ProductInformationInputForm implements ProductInformationInputFormI
 
     try {
       this.#productCatalog.addProduct({ name, price, quantity });
+
+      this.#target.dispatchEvent(
+        new CustomEvent('productAdded', { detail: { name, price, quantity } })
+      );
     } catch (err) {
       alert(err.message);
-
-      return;
     } finally {
       this.#productInformationInputForm.reset();
     }
-
-    this.#target.dispatchEvent(
-      new CustomEvent('productAdded', { detail: { name, price, quantity } })
-    );
   };
 }

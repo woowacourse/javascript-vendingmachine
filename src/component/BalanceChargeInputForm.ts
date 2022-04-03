@@ -23,14 +23,16 @@ export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
     this.#bindEvent();
   }
 
-  #template(balance: number): string {
+  #template(balance: number) {
     return `
-      <form id="charge-balance-input-form">
-        <label id="charge-balance-input-label" for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
-        <input id="charge-balance-input" class="input" type="text" placeholder="금액" />
-        <button id="charge-balance-submit-btn" class="submit-button button" type="submit">충전</button>
+      <div>
+        <form id="charge-balance-input-form">
+          <label id="charge-balance-input-label" for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
+          <input id="charge-balance-input" class="input" type="text" placeholder="금액" />
+          <button id="charge-balance-submit-btn" class="submit-button button" type="submit">충전</button>
+        </form>
         <div id="current-balance-container">현재보유금액 : <span id="current-balance">${balance}</span>원</div>
-      </form>
+      </div>
     `;
   }
 

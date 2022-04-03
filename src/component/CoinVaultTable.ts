@@ -25,7 +25,7 @@ export class CoinVaultTable implements CoinVaultTableInterface {
     this.#selectDom();
   }
 
-  #template(coinsQuantity: Coins): string {
+  #template(coinsQuantity: Coins) {
     return `
       <div class="table-container">
         <h2>자판기가 보유한 동전</h2>
