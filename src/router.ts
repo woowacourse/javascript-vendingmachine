@@ -82,6 +82,7 @@ class Router {
       case '/login-form':
         this.pageContainer.replaceChildren();
         this.memberContainer.replaceChildren();
+        this.loginHeader.replaceChildren();
         document.querySelector('header')?.classList.add('hide');
 
         this.memberContainer.insertAdjacentHTML('beforeend', '<login-form></login-form>');
