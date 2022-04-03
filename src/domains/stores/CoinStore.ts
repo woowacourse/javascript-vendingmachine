@@ -1,7 +1,7 @@
 import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
-import { createAction } from '../actions';
+import { COIN_ACTION, createAction } from '../actions';
 
 class CoinStore {
   #coinsCount: CoinsCount = {
@@ -10,6 +10,7 @@ class CoinStore {
     50: COIN.DEFAULT_COUNT,
     10: COIN.DEFAULT_COUNT,
     sum: MONEY.DEFAULT,
+    money_input: MONEY.DEFAULT,
   };
 
   #subscribers: CustomElement[] = [];
@@ -20,9 +21,21 @@ class CoinStore {
 
   dispatchAction(actionType: string, detail: number) {
     const action: Action = createAction(actionType, detail);
-
-    this.updateCoinsCount(action);
+    switch (actionType) {
+      case COIN_ACTION.COIN_CHARGE: {
+        this.updateCoinsCount(action);
+        break;
+      }
+      case COIN_ACTION.PURCHASE_MONEY_INPUT: {
+        this.updatePurchaseMoneyInput(detail);
+        break;
+      }
+    }
     this.notifySubscribers();
+  }
+
+  updatePurchaseMoneyInput(detail) {
+    this.#coinsCount.money_input += detail;
   }
 
   updateCoinsCount(action: Action) {
@@ -33,7 +46,7 @@ class CoinStore {
   generateRandomCoins(oldCoinsCount: CoinsCount, detail: number) {
     const newCoinsCount = oldCoinsCount;
     let coinList = [500, 100, 50, 10];
-    let money = detail; // 들어온 돈
+    let money = detail;
 
     while (money) {
       const randomCoin = pickNumberInList(coinList);

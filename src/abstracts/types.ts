@@ -22,6 +22,7 @@ export type ProductActionType = {
 
 export type CoinActionType = {
   COIN_CHARGE: string;
+  PURCHASE_MONEY_INPUT: string;
 };
 
 export type CoinsCount = {
@@ -30,6 +31,7 @@ export type CoinsCount = {
   50: number;
   10: number;
   sum: number;
+  money_input: number;
 };
 
 export interface CustomElement extends HTMLElement {
