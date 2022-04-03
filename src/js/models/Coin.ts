@@ -1,7 +1,21 @@
 import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
 import { validChargeAmount } from '../utils/validation.js';
-import { Coins, CoinInterface } from '../interface/coins.interface';
+
+interface Coins {
+  500: number;
+  100: number;
+  50: number;
+  10: number;
+}
+
+interface CoinInterface {
+  setAmount: (chargedAmount: number) => void;
+  getAmount: () => number;
+  getCoins: () => Coins;
+  addCoinCount: (index: number) => number;
+  makeRandomCoins: (amount: number) => void;
+}
 
 export default class Coin implements CoinInterface {
   private amount: number;

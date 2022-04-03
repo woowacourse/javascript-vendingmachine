@@ -1,5 +1,17 @@
 import { validProductInfo } from '../utils/validation.js';
-import { Product, ProductManageInterface } from '../interface/productManage.interface';
+
+interface Product {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface ProductManageInterface {
+  addProduct: (product: Product) => void;
+  getProducts: () => Product[];
+  modifyProduct: (index: number, product: Product) => void;
+  deleteProduct: (index: number) => void;
+}
 
 export default class ProductManager implements ProductManageInterface {
   private products: Product[];
