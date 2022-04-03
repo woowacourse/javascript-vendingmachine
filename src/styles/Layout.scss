@@ -190,6 +190,16 @@ input {
   }
 }
 
+.thumbnail-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: #D6F4F8;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .user-information-form-section {
   display: flex;
   flex-direction: column;
