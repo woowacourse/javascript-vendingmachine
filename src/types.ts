@@ -8,7 +8,7 @@ export type Action = {
 };
 
 export type AppState = {
-  activeTab: Tab;
+  currentPath: string;
   chargedMoney: number;
   chargedCoins: CoinRecord;
   productList: Array<ProductItem>;
@@ -42,8 +42,12 @@ export type CoinRecord = { [key: number]: number };
 
 export type EventOnElement = Override<Event, { target: HTMLElement }>;
 
-export enum Tab {
-  ProductManageTab = 'product-manage-tab',
-  ChargeMoneyTab = 'charge-money-tab',
-  PurchaseProductTab = 'purchase-product-tab',
+export enum WhiteList {
+  Home = '/',
+  VendingMachinePage = '/vending-machine',
+  ProductManage = '/vending-machine/product-manage',
+  ChargeMoney = '/vending-machine/charge-money',
+  PurchaseProduct = '/vending-machine/purchase-product',
+  LoginPage = '/login',
+  MyAccountPage = '/my-account',
 }

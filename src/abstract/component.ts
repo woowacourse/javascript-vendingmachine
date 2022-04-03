@@ -23,6 +23,13 @@ abstract class Component extends HTMLElement {
     return;
   }
 
+  shouldRender() {
+    if (!this.dataset.to) return true;
+    const pathArr = JSON.parse(this.dataset.to) as Array<string>;
+    const { currentPath } = Store.instance.getState();
+    return pathArr.some((path) => path === currentPath);
+  }
+
   render() {
     return;
   }

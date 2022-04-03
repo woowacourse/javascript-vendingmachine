@@ -12,6 +12,8 @@
 @import './components/purchase-product/insert-money-form';
 @import './components/purchase-product/product-menu';
 @import './components/purchase-product/release-coin';
+@import './components/login-btn';
+@import './pages/login-page';
 
 * {
   box-sizing: border-box;
@@ -22,12 +24,14 @@ body {
 }
 
 #app {
+  position: relative;
   width: 602px;
   margin: 32px auto 0 auto;
   background-color: $color-white;
   border: 1px solid $color-gray-500;
   border-radius: 4px;
   padding: 44px 0px;
+  min-height: 675px;
 }
 
 .w-100 {
@@ -62,4 +66,9 @@ table {
 .v-center {
   display: block;
   margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: $color-blue;
 }

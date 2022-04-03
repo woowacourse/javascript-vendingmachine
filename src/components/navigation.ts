@@ -2,22 +2,22 @@ import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import Router from '../router';
-import { EventOnElement, Tab } from '../types';
+import { EventOnElement, WhiteList } from '../types';
 
 @customElement('vendingmachine-navigation')
 class Navigation extends Component {
-  template(activeTab: Tab): string {
+  template(currentPath: string): string {
     return `
       <nav class="d-flex justify-content-center">
         <button class="btn btn-secondary mr-1 ${
-          activeTab === Tab.ProductManageTab ? 'active' : ''
-        }" data-destination="product-manage-tab">상품 관리</button>
+          currentPath === WhiteList.ProductManage ? 'active' : ''
+        }" data-destination="${WhiteList.ProductManage}">상품 관리</button>
         <button class="btn btn-secondary mr-1 ${
-          activeTab === Tab.ChargeMoneyTab ? 'active' : ''
-        }" data-destination="charge-money-tab">잔돈 충전</button>
+          currentPath === WhiteList.ChargeMoney ? 'active' : ''
+        }" data-destination="${WhiteList.ChargeMoney}">잔돈 충전</button>
         <button class="btn btn-secondary ${
-          activeTab === Tab.PurchaseProductTab ? 'active' : ''
-        }" data-destination="purchase-product-tab">상품 구매</button>
+          currentPath === WhiteList.PurchaseProduct ? 'active' : ''
+        }" data-destination="${WhiteList.PurchaseProduct}">상품 구매</button>
       </nav>
     `;
   }
@@ -36,8 +36,8 @@ class Navigation extends Component {
   }
 
   render() {
-    const { activeTab } = Store.instance.getState();
-    this.innerHTML = this.template(activeTab);
+    const { currentPath } = Store.instance.getState();
+    this.innerHTML = this.template(currentPath);
   }
 }
 

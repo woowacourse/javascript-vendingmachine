@@ -1,4 +1,4 @@
-import { AppState, Tab } from './types';
+import { AppState } from './types';
 
 export const COIN = {
   MIN_UNIT: 10,
@@ -33,14 +33,14 @@ export const ACTION = {
   DELETE_PRODUCT: 'delete-product',
   CHANGE_EDIT_MODE: 'change-edit-mode',
   CHARGE_COINS: 'charge-coins',
-  CHANGE_ACTIVE_TAB: 'change-active-tab',
+  CHANGE_CURRENT_PATH: 'change-current-path',
   INSERT_MONEY: 'insert-money',
   PURCHASE_PRODUCT: 'purchase-product',
   RELEASE_COIN: 'release-coin',
 };
 
 export const initialState: AppState = {
-  activeTab: Tab.ProductManageTab,
+  currentPath: '/vending-machine',
   chargedMoney: 0,
   chargedCoins: {
     500: 0,
@@ -59,13 +59,6 @@ export const initialState: AppState = {
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
-
-export const PATH_TO_TAB_DIC: Record<string, Tab> = {
-  '/': Tab.ProductManageTab,
-  '/product-manage-tab': Tab.ProductManageTab,
-  '/charge-money-tab': Tab.ChargeMoneyTab,
-  '/purchase-product-tab': Tab.PurchaseProductTab,
-};
 
 export const ERROR_MESSAGE: { [k in string]: string } = {
   EMPTY_PRODUCT_NAME: '상품명을 입력해 주세요',

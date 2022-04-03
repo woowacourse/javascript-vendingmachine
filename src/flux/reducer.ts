@@ -57,8 +57,8 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.chargedMoney += payload;
       break;
     }
-    case ACTION.CHANGE_ACTIVE_TAB: {
-      newState.activeTab = payload;
+    case ACTION.CHANGE_CURRENT_PATH: {
+      newState.currentPath = payload;
       break;
     }
     case ACTION.INSERT_MONEY: {

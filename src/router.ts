@@ -1,12 +1,9 @@
-import { ACTION, PATH_TO_TAB_DIC } from './constants';
+import { ACTION } from './constants';
 import createAction from './flux/createAction';
 import Store from './flux/store';
-import { Tab } from './types';
 
 class Router {
   static _instance?: Router;
-
-  tabContainer?: HTMLElement;
 
   constructor() {
     if (Router._instance) {
@@ -14,7 +11,6 @@ class Router {
     }
     window.addEventListener('pushstate', this.onLocationChange);
     window.addEventListener('popstate', this.onLocationChange);
-    this.tabContainer = document.querySelector('.tab-container') as HTMLElement;
     this.onLoad();
   }
 
@@ -26,7 +22,8 @@ class Router {
   }
 
   private onLoad() {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
+    const { pathname } = window.location;
+    Store.instance.dispatch(createAction(ACTION.CHANGE_CURRENT_PATH, pathname));
   }
 
   static pushState(url: string) {
@@ -35,13 +32,9 @@ class Router {
   }
 
   onLocationChange = () => {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
-  };
-
-  static activeTab(): Tab {
     const { pathname } = window.location;
-    return PATH_TO_TAB_DIC[pathname];
-  }
+    Store.instance.dispatch(createAction(ACTION.CHANGE_CURRENT_PATH, pathname));
+  };
 }
 
 export default Router;
