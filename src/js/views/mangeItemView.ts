@@ -1,4 +1,4 @@
-import { $, $$, emitCustomEvent } from '../utils/common';
+import { $, $$, emitCustomEvent, showSnackBar } from '../utils/common';
 import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
 import { validateAddItemInput } from '../validates/validates';
 import { SELECTOR, CONFIRM_MESSAGE } from '../constants/constants';
@@ -47,6 +47,7 @@ export default class ManageItemView {
       if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
         this.handleTableItemDelete(item);
         $targetTableRow.remove();
+        showSnackBar('상품이 삭제되었습니다.');
       }
     });
   }

@@ -1,5 +1,6 @@
 export const initialTemplate: string = `
   <h1>🍿 자판기 🍿</h1>
+  <div id="snackbar"></div>
   <div class="nav-container">
     <button id="item-manage-tab" class="nav-button nav-button-clicked">상품 관리</button>
     <button id="money-charge-tab" class="nav-button">잔돈 충전</button>

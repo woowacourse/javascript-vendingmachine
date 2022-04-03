@@ -1,7 +1,7 @@
 import PurchaseItemView from '../views/purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import { CoinsType, MoneyDetailType } from '../types';
-import { onCustomEvent } from '../utils/common';
+import { onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 
 export default class PurchaseItemController implements Controller {
@@ -14,21 +14,26 @@ export default class PurchaseItemController implements Controller {
     this.vendingMachine = vendingMachine;
     this.purchaseItemView = new PurchaseItemView();
 
-    this.coins = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-
     this.bindEvents();
   }
 
   bindEvents() {
     onCustomEvent('PURCHASE_MONEY_INPUT', this.handlePurchaseMoneyInput.bind(this));
+    onCustomEvent('RETURN_MONEY', () => {
+      try {
+        this.vendingMachine.giveChange();
+        showSnackBar('잔돈이 반환되었습니다.');
+        this.loadPage();
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   }
 
   handlePurchaseMoneyInput(event: CustomEvent) {
     const { inputMoney }: MoneyDetailType = event.detail;
 
     this.vendingMachine.chargePurchaseInputMoney(inputMoney);
-
-    this.vendingMachine.giveChange();
   }
 
   loadPage() {

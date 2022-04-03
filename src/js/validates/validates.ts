@@ -68,3 +68,12 @@ export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, target
     throw new Error(ERROR_MESSAGE.ITEM_NAME_DUPLICATED);
   }
 };
+
+export const validateReturnChange = (purchaseMoney, ownMoney) => {
+  if (purchaseMoney === 0) {
+    throw new Error('투입된 금액이 없습니다.');
+  }
+  if (ownMoney === 0) {
+    throw new Error('자판기에 잔돈이 없습니다.');
+  }
+};

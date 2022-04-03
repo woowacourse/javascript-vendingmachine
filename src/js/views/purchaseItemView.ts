@@ -1,4 +1,4 @@
-import { $ } from '../utils/common';
+import { $, showSnackBar } from '../utils/common';
 import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
 import { SELECTOR } from '../constants/constants';
 import { CoinsType, ItemType } from '../types';
@@ -19,15 +19,27 @@ export default class PurchaseItemView {
     );
   }
 
-  handleSubmitPurchaseMoneyInput(event: Event) {
+  bindReturnMoneyClickEvent() {
+    $('.return-money-button').addEventListener(
+      'click',
+      this.handleClickReturnMoneyButton.bind(this),
+    );
+  }
+
+  handleSubmitPurchaseMoneyInput() {
     try {
       const inputMoney: number = $(SELECTOR.CLASS.PURCHASE_ITEM_INPUT).valueAsNumber;
 
       validateInputPurchaseMoney(inputMoney);
       emitCustomEvent('PURCHASE_MONEY_INPUT', { detail: { inputMoney } });
+      showSnackBar('금액을 투입하였습니다.');
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  handleClickReturnMoneyButton() {
+    emitCustomEvent('RETURN_MONEY');
   }
 
   render(items: ItemType[], coins: CoinsType, inputMoney: number) {
@@ -35,5 +47,6 @@ export default class PurchaseItemView {
     this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, coins, inputMoney));
 
     this.bindSubmitEvent();
+    this.bindReturnMoneyClickEvent();
   }
 }

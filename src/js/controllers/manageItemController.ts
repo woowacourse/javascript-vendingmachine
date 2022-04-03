@@ -3,7 +3,7 @@ import VendingMachine from '../vendingMachine/vendingMachine';
 import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types';
 import { Controller } from '../types/interface';
-import { onCustomEvent } from '../utils/common';
+import { onCustomEvent, showSnackBar } from '../utils/common';
 
 export default class ManageItemController implements Controller {
   private vendingMachine: VendingMachine;
@@ -32,6 +32,8 @@ export default class ManageItemController implements Controller {
 
       this.manageItemView.clearInput();
       this.manageItemView.repaintItemTable(this.vendingMachine.getItems());
+
+      showSnackBar('상품이 추가되었습니다.');
     } catch (error) {
       alert(error.message);
     }
@@ -46,6 +48,8 @@ export default class ManageItemController implements Controller {
       this.vendingMachine.changeItem(targetRowIndex, item);
 
       this.manageItemView.repaintItemTableRow($targetTableRow, item);
+
+      showSnackBar('상품이 수정되었습니다.');
     } catch (error) {
       alert(error.message);
     }

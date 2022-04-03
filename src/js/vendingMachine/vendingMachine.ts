@@ -1,6 +1,7 @@
 import { COINS } from '../constants/constants';
 import { generateRandom } from '../utils/common';
 import { ItemType, CoinsType } from '../types';
+import { validateReturnChange } from '../validates/validates';
 
 export default class VendingMachine {
   private items: ItemType[] = [];
@@ -102,17 +103,18 @@ export default class VendingMachine {
   }
 
   giveChange() {
-    const coins = this.getCoins();
     let purchaseMoney = this.getPurchaseInputMoney();
     let ownMoney = this.getCurrentOwnMoney();
+    const coins = this.getCoins();
     const change = this.getChange();
+
+    validateReturnChange(purchaseMoney, ownMoney);
 
     Object.keys(coins).forEach(key => {
       let coinCount = Math.floor(purchaseMoney / COINS[key]);
       if (coins[key] < coinCount) {
         coinCount = coins[key];
       }
-
       if (ownMoney >= coinCount * COINS[key]) {
         coins[key] -= coinCount;
         change[key] = coinCount;

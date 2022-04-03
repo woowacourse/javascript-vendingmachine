@@ -1,4 +1,4 @@
-import { $, emitCustomEvent } from '../utils/common';
+import { $, emitCustomEvent, showSnackBar } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { validateInputOwnMoney } from '../validates/validates';
 import { CoinsType } from '../types';
@@ -25,6 +25,7 @@ export default class ChargeMoneyView {
       validateInputOwnMoney(inputMoney);
 
       emitCustomEvent('CHARGE_MONEY', { detail: { inputMoney } });
+      showSnackBar('잔돈이 충전되었습니다.');
     } catch (error) {
       alert(error.message);
     }
