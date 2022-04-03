@@ -12,16 +12,36 @@
     }
   }
   login-info {
-    button {
+    button.login-info {
+      color: $color-black-900;
+      font-weight: bold;
       position: absolute;
       top: 21px;
       right: 11px;
-      color: $color-black-900;
       background-color: $color-cyan-700;
       padding: 8px 12px;
       width: auto;
-      font-weight: bold;
       border-radius: 100%;
+    }
+
+    section {
+      background-color: $color-cyan-900;
+      border-radius: 20px;
+      padding: 5px 10px;
+      position: absolute;
+      right: 11px;
+      top: 60px;
+    }
+
+    option {
+      text-align: center;
+      color: $color-black-900;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    option:hover {
+      color: $color-gray-700;
     }
   }
 }

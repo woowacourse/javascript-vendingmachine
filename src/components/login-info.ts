@@ -6,16 +6,28 @@ import { getUserInfo } from '../member';
 class LoginInfo extends Component {
   template(thumbnail = 'A'): string {
     return `
-    <button type="button" class="btn btn-primary">${thumbnail}</button>
+    <button type="button" class="btn btn-primary login-info">${thumbnail}</button>
+    <section class="hide">
+      <option class="modify-member-info mb-2"> 회원 정보 수정 </option>
+      <option class="log-out"> 로그아웃 </option>
+    </section>
     `;
   }
+
+  setEvent() {
+    this.addEvent('click', '.login-info', this.onClickUserInfo);
+  }
+
+  onClickUserInfo = () => {
+    this.querySelector('section')?.classList.toggle('hide');
+  };
 
   async getFirstSpelling() {
     const userInfo = await getUserInfo();
     return userInfo.name[0];
   }
 
-  async mount() {
+  mount() {
     this.render();
   }
 
