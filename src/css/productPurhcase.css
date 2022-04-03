@@ -1,0 +1,23 @@
+#purchase-money-input-form {
+  display: grid;
+  margin-top: 13px;
+  grid-template-areas:
+    'lb lb lb'
+    'mi . bt';
+  grid-row-gap: 13px;
+  grid-column-gap: 7px;
+}
+
+#purchase-money-input-label {
+  grid-area: lb;
+}
+
+#purchase-money-input {
+  width: 330px;
+  grid-area: mi;
+}
+
+#purchase-money-submit-btn {
+  width: 70px;
+  grid-area: bt;
+}

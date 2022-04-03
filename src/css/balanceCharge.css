@@ -3,8 +3,7 @@
   margin-top: 13px;
   grid-template-areas:
     'lb lb lb'
-    'bi . bt'
-    'cb cb cb';
+    'bi . bt';
   grid-row-gap: 13px;
   grid-column-gap: 7px;
 }
@@ -24,10 +23,6 @@
 
 #charge-balance-submit-btn {
   grid-area: bt;
-}
-
-#current-balance-container {
-  grid-area: cb;
 }
 
 #coin-vault-table {

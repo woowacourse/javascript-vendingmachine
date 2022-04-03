@@ -88,16 +88,15 @@ export class NavView {
   };
 
   #handleShowProductPurhcaseTab = () => {
-    // this.#productPurchaseView.init();
-    // this.#productPurchaseView.renderAll();
+    this.#productPurchaseView.init();
+    this.#productPurchaseView.renderAll();
 
     const path = URL_PATH.PRODUCT_PURCHASE;
     this.#handleUrlPath(path);
   };
 
   #renderHome() {
-    const path = URL_PATH.PRODUCT_PURCHASE;
-    history.pushState({ path }, null, path);
+    this.#handleShowProductPurhcaseTab();
   }
 
   #handleUrlPath(path: string) {

@@ -1,8 +1,14 @@
 import { ProductInformationInputForm } from '../component/ProductInformationInputForm';
 import { ProductCatalogTable } from '../component/ProductCatalogTable';
+
 import { ProductCatalog } from '../domain/ProductCatalog';
 
-export class ProductManageView {
+interface ProductManageViewInterface {
+  init();
+  renderAll();
+}
+
+export class ProductManageView implements ProductManageViewInterface {
   #productInformationInputForm: ProductInformationInputForm;
   #productCatalogTable: ProductCatalogTable;
   #productCatalog: ProductCatalog;
