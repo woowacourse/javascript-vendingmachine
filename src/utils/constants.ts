@@ -1,3 +1,10 @@
+export const AUTH_CONDITION = {
+  MIN_USER_NAME_LENGTH: 2,
+  MAX_USER_NAME_LENGTH: 6,
+  MIN_USER_PASSWORD_LENGTH: 8,
+  MAX_USER_PASSWORD_LENGTH: 16,
+} as const;
+
 export const CHEAPEST_COIN = 10;
 
 export const COIN_CONDITION = {
@@ -26,6 +33,8 @@ export const ERROR_MESSAGE = {
   NOT_DIVIDED_BY_COIN_UNIT: '상평통보는 안 받습니다. 10원단위로 넣어주세요!',
   NOT_DIVIDED_BY_PRODUCT_PRICE_UNIT: '10원단위로 가격을 입력해주세요~',
   INVALID_USER_MONEY: '10원단위로 나누어 떨어지는 금액만 투입 가능합니다~',
+  INVALID_USER_NAME_LENGTH: '이름은 2~6글자까지 가능합니다~',
+  INVALID_USER_PASSWORD: '비밀번호는 8~16자 영어, 숫자, 특수문자로 구성되있어야 합니다~',
   NOT_WITHIN_PRODUCT_PRICE_RANGE: '100원 이상, 10,000원 이하의 가격을 입력주세요~',
   OVER_BALANCE_LIMIT: '돈통이 가득찼어요! 100,000원 까지만 보관 가능합니다.',
   OVER_PRODUCT_NAME_LENGTH_LIMIT: '10글자 미만의 상품명을 넣어주세요~',
