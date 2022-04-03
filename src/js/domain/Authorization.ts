@@ -1,14 +1,20 @@
 export default class Authorization {
   #isLoggedIn;
   #userId;
+  #name;
 
   constructor() {
-    this.#userId = JSON.parse(window.sessionStorage.getItem('userId'));
+    this.#userId = window.sessionStorage.getItem('userId');
+    this.#name = window.sessionStorage.getItem('name');
     this.#isLoggedIn = !!this.#userId;
   }
 
   get isLoggedIn() {
     return this.#isLoggedIn;
+  }
+
+  get userName() {
+    return this.#name;
   }
 
   async register(userInputData) {
@@ -23,10 +29,10 @@ export default class Authorization {
 
     const {
       accessToken,
-      user: { id: userId },
+      user: { id: userId, name },
     } = response;
 
-    this.#saveUserData({ accessToken, userId });
+    this.#saveUserData({ accessToken, userId, name });
     this.#isLoggedIn = true;
   }
 
@@ -42,10 +48,10 @@ export default class Authorization {
 
     const {
       accessToken,
-      user: { id: userId },
+      user: { id: userId, name },
     } = response;
 
-    this.#saveUserData({ accessToken, userId });
+    this.#saveUserData({ accessToken, userId, name });
     this.#isLoggedIn = true;
   }
 
@@ -61,10 +67,10 @@ export default class Authorization {
 
     const {
       accessToken,
-      user: { id: userId },
+      user: { id: userId, name },
     } = response;
 
-    this.#saveUserData({ accessToken, userId });
+    this.#saveUserData({ accessToken, userId, name });
     this.#isLoggedIn = true;
   }
 
@@ -76,10 +82,12 @@ export default class Authorization {
     this.#isLoggedIn = false;
   }
 
-  #saveUserData({ accessToken, userId }) {
+  #saveUserData({ accessToken, userId, name }) {
     window.sessionStorage.setItem('accessToken', accessToken);
     window.sessionStorage.setItem('userId', userId);
+    window.sessionStorage.setItem('name', name);
 
     this.#userId = userId;
+    this.#name = name;
   }
 }

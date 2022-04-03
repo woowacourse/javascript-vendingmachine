@@ -87,7 +87,10 @@ class App {
     selectDom('#login-link-button', this.#appContainer)?.remove();
 
     if (this.#authorization.isLoggedIn) {
-      this.#appContainer.insertAdjacentHTML('afterbegin', userButtonTemplate('test'));
+      this.#appContainer.insertAdjacentHTML(
+        'afterbegin',
+        userButtonTemplate(this.#authorization.userName)
+      );
       selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
       selectDom('#user-button-select-box')?.remove();
       return;
