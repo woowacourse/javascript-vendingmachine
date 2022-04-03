@@ -108,10 +108,10 @@ export const CATEGORY_TEMPLATE = {
     <form id="purchase-form" class="form">
       <label>상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
-        <input id="product-purchase-input" type="number" step="10" min="10" max="10000" class="input-width" placeholder="금액" />
+        <input id="product-purchase-input" class="input-width" type="number" step="10" min="10" max="10000" required placeholder="금액" />
         <button class="hover-button">투입</button>
       </div>
-      <p class="current-amount">투입한 금액: 3000원</p>
+      <p class="current-amount"></p>
     </form>
     <table class="table">
       <caption class="caption">

@@ -1,3 +1,5 @@
+import { validPurchaseAmount } from '../utils/validation.js';
+
 interface PurchaseAmountInterface {
   setAmount: (amount: number) => void;
   getAmount: () => number;
@@ -20,7 +22,13 @@ export default class PurchaseAmount implements PurchaseAmountInterface {
     return this.#amount;
   }
 
-  addAmount(inputAmount: number): void {}
+  addAmount(inputAmount: number): void {
+    const addedAmount = this.#amount + inputAmount;
+    this.setAmount(addedAmount);
+  }
 
-  deductAmount(productPrice: number) {}
+  deductAmount(productPrice: number) {
+    const deductedAmount = this.#amount - productPrice;
+    this.setAmount(deductedAmount);
+  }
 }

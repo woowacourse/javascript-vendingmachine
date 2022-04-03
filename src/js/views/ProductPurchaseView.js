@@ -9,6 +9,11 @@ export default class ProductPurchaseView {
 
   initPurchaseDom() {
     this.$productPurchaseInput = $('#product-purchase-input');
+    this.$currentAmount = $('.current-amount');
+  }
+
+  renderTotalAmount(amount) {
+    this.$currentAmount.textContent = `투입한 금액: ${amount}원`;
   }
 
   #onSubmitPurchaseAmount(e) {
