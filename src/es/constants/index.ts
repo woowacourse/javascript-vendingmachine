@@ -37,7 +37,7 @@ const ERROR_MESSAGE = {
 
   USER_NAME_LENGTH: `이름은 ${USER_INFO_CONDITION.MIN_NAME_LENGTH}자에서 ${USER_INFO_CONDITION.MAX_NAME_LENGTH}자까지 입력할 수 있습니다.`,
   PASSWORD_CONFIRM: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
-  PASSWORD_CONDITION: '비밀번호는 8자 이상이고 숫자 1개, 소문자 알파벳 1개, 대문자 알파벳 1개를 포함해야합니다.',
+  PASSWORD_CONDITION: '비밀번호는 숫자, 소문자 알파벳, 대문자 알파벳 각각 1자 이상을 포함하여 전체 8자 이상이어야 합니다.',
 };
 
 export {
