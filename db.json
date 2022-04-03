@@ -1,3 +1,10 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "woowa@woowacourse.com",
+      "password": "$2a$10$R.km1PyUVtjg92im3B7x8.OwfOja7NndEx8cAo9gzdvfxuNcXwJiO",
+      "name": "테스트용",
+      "id": 1
+    }
+  ]
 }
