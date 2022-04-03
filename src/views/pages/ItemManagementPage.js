@@ -4,10 +4,6 @@ import '../components/ItemRow';
 import { ITEM, MONEY_UNIT } from '../../constant/constant';
 
 class ItemManagementPage extends Component {
-  setup() {
-    this.state = { editItems: [] };
-  }
-
   template() {
     const items = vendingMachine.useStore((state) => state.items);
 

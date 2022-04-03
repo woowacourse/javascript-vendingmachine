@@ -1,5 +1,5 @@
 import { Coins } from '../domains/VendingMachine';
-import { COINS } from '../constant/constant';
+import { COINS, EMPTY_COIN } from '../constant/constant';
 
 const getRandomCoin = (): number => {
   const coinValueList = COINS;
@@ -9,12 +9,7 @@ const getRandomCoin = (): number => {
 };
 
 export const createRandomCoins = (amount: number): Coins => {
-  const coins: Coins = {
-    500: 0,
-    100: 0,
-    50: 0,
-    10: 0,
-  };
+  const coins: Coins = { ...EMPTY_COIN };
   let sum = 0;
 
   while (sum !== amount) {

@@ -42,13 +42,7 @@ export const deepEqual = (a: any, b: any): boolean => {
 };
 
 export const deepClone = <T>(obj: T): T => {
-  if (
-    obj === null ||
-    obj === undefined ||
-    Number.isNaN(obj) ||
-    typeof obj !== 'object'
-  )
-    return obj;
+  if (typeof obj !== 'object') return obj;
 
   if (Array.isArray(obj)) {
     return (obj as any[]).map((elem) => deepClone(elem)) as any as T;

@@ -11,6 +11,9 @@ class UserLoginPage extends Component {
     }
 
     return `
+      <header>
+        <h1 class="title">로그인</h1>
+      </header>
       <div>
         <form id="login-form">
           <label for="email">이메일</label>

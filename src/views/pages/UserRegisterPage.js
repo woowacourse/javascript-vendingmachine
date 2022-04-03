@@ -12,6 +12,9 @@ class UserRegisterPage extends Component {
     }
 
     return `
+      <header>
+        <h1 class="title">회원가입</h1>
+      </header>
       <div>
         <form id="register-form">
           <label for="email">이메일</label>
