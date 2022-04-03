@@ -6,32 +6,30 @@ import ProductPurchasePageView from './es/View/ProductPurchasePageView';
 import LoginPageView from './es/View/LoginPageView';
 import SignUpPageView from './es/View/SignUpPageView';
 import { requestUserInfo } from './es/utils/auth';
-import User from './es/data/User';
+
+function initialize() {
+  new Router({
+    productManagement: new ProductManagementPageView(),
+    vendingMachineChargeManagement: new VendingMachineChargeManagementPageView(),
+    productPurchase: new ProductPurchasePageView(),
+    login: new LoginPageView(),
+    signUp: new SignUpPageView(),
+  });
+}
 
 function checkUser() {
   const userAuth = JSON.parse(localStorage.getItem('userAuth'));
-  if (!userAuth) return;
+  if (!userAuth) {
+    initialize();
+    return;
+  }
   if (userAuth.expiration < Date.now()) {
     localStorage.removeItem('userAuth');
+    initialize();
     return;
   }
 
-  requestUserInfo(userAuth);
+  requestUserInfo(userAuth).then(() => initialize());
 }
 
 checkUser();
-
-// 테스트용
-User.setUser({
-  id: 0,
-  email: '가나다@가나다.com',
-  name: '가나다',
-});
-
-new Router({
-  productManagement: new ProductManagementPageView(),
-  vendingMachineChargeManagement: new VendingMachineChargeManagementPageView(),
-  productPurchase: new ProductPurchasePageView(),
-  login: new LoginPageView(),
-  signUp: new SignUpPageView(),
-});

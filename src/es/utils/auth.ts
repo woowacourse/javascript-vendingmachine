@@ -64,7 +64,7 @@ function requestUserInfo(userAuth) {
   const { id } = userAuth;
   const accessToken = `Bearer ${userAuth.accessToken}`;
 
-  fetch(userInfoURL(id), {
+  return fetch(userInfoURL(id), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
