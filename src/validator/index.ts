@@ -1,7 +1,7 @@
 import { Product } from '../domain/Product';
-import { CONFIGURATION } from '../constants';
+import { ERROR_MESSAGE, CONFIGURATION } from '../constants';
 
-export const productValidator = {
+const productValidator = {
   isDuplicated(name: string, products: Product[]) {
     return products.some((product) => product.name === name);
   },
@@ -11,7 +11,17 @@ export const productValidator = {
   },
 };
 
-export const changeValidator = {
+export const validateProduct = (product: Product, products: Product[]) => {
+  if (productValidator.isDuplicated(product.name, products)) {
+    throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
+  }
+
+  if (productValidator.isIncorrectUnit(product.price)) {
+    throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
+  }
+};
+
+const changeValidator = {
   isOverMax(inputMoney: number, currentChange: number) {
     return inputMoney + currentChange > CONFIGURATION.AMOUNT.MAX;
   },
@@ -21,7 +31,17 @@ export const changeValidator = {
   },
 };
 
-export const updateProductValidator = {
+export const validateChange = (inputMoney: number, currentChange: number) => {
+  if (changeValidator.isOverMax(inputMoney, currentChange)) {
+    throw new Error(ERROR_MESSAGE.OVER_AMOUNT);
+  }
+
+  if (changeValidator.isIncorrectUnit(inputMoney)) {
+    throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
+  }
+};
+
+const updateProductValidator = {
   isDuplicated(targetName: string, name: string, products: Product[]) {
     if (targetName === name) {
       return false;
@@ -34,4 +54,14 @@ export const updateProductValidator = {
   isIncorrectUnit(price: number) {
     return price % CONFIGURATION.PRICE.UNIT !== 0;
   },
+};
+
+export const validateUpdateProduct = (targetName: string, name: string, price: number, products: Product[]) => {
+  if (updateProductValidator.isDuplicated(targetName, name, products)) {
+    throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
+  }
+
+  if (updateProductValidator.isIncorrectUnit(price)) {
+    throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
+  }
 };
