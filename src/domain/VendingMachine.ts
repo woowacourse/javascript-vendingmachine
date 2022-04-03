@@ -46,7 +46,8 @@ class VendingMachine implements IVendingMachine {
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify(action, this.amount, product));
+    const amount = this.amount;
+    targets.forEach((target) => target.element.notify({ action, amount, product }));
   }
 
   observe(key: string, element: CustomElement) {

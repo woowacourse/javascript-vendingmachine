@@ -38,7 +38,7 @@ class ChargeTab extends CustomElement {
     emit('.charge-form', '@charge', { change }, this);
   }
 
-  notify(_: never, amount: Coin, __: never) {
+  notify({ amount }) {
     $('.charge-amount', this).textContent = markUnit(amount.getAmount());
     COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount[coin]));
   }

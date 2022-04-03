@@ -17,7 +17,7 @@ class CustomElement extends HTMLElement {
 
   setEvent() {}
 
-  notify(action: string, amount: Coin, product?: Product) {}
+  notify({}) {}
 }
 
 export default CustomElement;
