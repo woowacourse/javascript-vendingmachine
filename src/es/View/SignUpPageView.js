@@ -1,4 +1,4 @@
-import { $, getInnerInputValues } from '../utils';
+import { $, getInnerInputValues, showSnackBar } from '../utils';
 import { signUp } from '../utils/auth';
 import { validateUserInfo } from '../validator';
 
@@ -35,7 +35,7 @@ class SignUpPageView {
     try {
       validateUserInfo({ email, name, password, passwordConfirm });
     } catch (err) {
-      alert(err.message);
+      showSnackBar(err.message);
       return;
     }
     signUp({ email, name, password });

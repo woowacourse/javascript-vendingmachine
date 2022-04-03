@@ -2,6 +2,7 @@ import User from '../data/User';
 import { $, getInnerInputValues } from '../utils';
 import { updateUserInfo } from '../utils/auth';
 import { validateUserInfo } from '../validator';
+import { showSnackBar } from '../utils/index';
 
 const pageTemplate = ({ email, name }) => `
   <section class="user-information-form-section">
@@ -39,7 +40,7 @@ class UpdateMyInfoPageView {
     try {
       validateUserInfo({ email, name, password, passwordConfirm });
     } catch (err) {
-      alert(err.message);
+      showSnackBar(err.message);
       return;
     }
     updateUserInfo({ email, name, password });

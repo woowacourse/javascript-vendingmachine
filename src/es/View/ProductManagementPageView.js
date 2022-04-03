@@ -1,6 +1,6 @@
 import { template } from './template';
 import { validateProduct } from '../validator';
-import { $, getInnerInputValues, clearInnerInputValues } from '../utils';
+import { $, getInnerInputValues, clearInnerInputValues, showSnackBar } from '../utils';
 import ProductManagementPageManager from '../manager/ProductManagementPageManager';
 
 class ProductManagementPageView {
@@ -65,7 +65,7 @@ class ProductManagementPageView {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
       return;
     }
 
@@ -93,7 +93,7 @@ class ProductManagementPageView {
 
   onClickUpdateButton({ target: $target }) {
     if (this.isTableUpdating) {
-      alert('한 번에 하나의 상품만 수정 가능합니다.');
+      showSnackBar('한 번에 하나의 상품만 수정 가능합니다.');
       return;
     }
     this.isTableUpdating = !this.isTableUpdating;
@@ -115,7 +115,7 @@ class ProductManagementPageView {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
       return;
     }
     ProductManagementPageManager.updateProduct(productIndex, product);

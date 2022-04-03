@@ -1,5 +1,5 @@
 import { template } from './template';
-import { $ } from '../utils';
+import { $, showSnackBar } from '../utils';
 import { validateHoldingAmountToAdd } from '../validator';
 import VendingMachineChargeManagementPageManager from '../manager/VendingMachineChargeManagementPageManager';
 
@@ -59,7 +59,7 @@ class VendingMachineChargeManagementPageView {
     try {
       validateHoldingAmountToAdd(Number($vendingMachineChargeInput.value), totalAmount);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
       return;
     }
 
