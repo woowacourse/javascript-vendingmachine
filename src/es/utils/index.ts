@@ -12,15 +12,6 @@ export const isStringLengthInRange = (value: string, min: number, max: number) =
 
 export const isCorrectNumberUnit = (value: number, unit: number) => value % unit === 0;
 
-export const getSearchParamsObject = (searchUrl = '') => {
-  const searchString = `?${searchUrl.split('?')[1]}`;
-  const searchParams = new URLSearchParams(searchString);
-  return Array.from(searchParams.keys()).reduce((previous, key) => {
-    previous[key] = searchParams.get(key);
-    return previous;
-  }, {});
-};
-
 export const getInnerInputValues = ($target) => {
   const $$inputs = Array.from($$('input', $target));
   return $$inputs.reduce((previous, inputElement) => {

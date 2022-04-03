@@ -11,30 +11,6 @@ const signUpURL = 'http://localhost:3000/signup/';
 const loginURL = 'http://localhost:3000/login/';
 const userInfoURL = (id) => `http://localhost:3000/600/users/${id}`;
 
-function requestUserInfo(userAuth) {
-  const { id } = userAuth;
-  const accessToken = `Bearer ${userAuth.accessToken}`;
-
-  return fetch(userInfoURL(id), {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: accessToken,
-    },
-  })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error('사용자 정보 읽기 오류');
-      }
-      return res.json();
-    })
-    .then(response => {
-      const { email, name } = response;
-      User.setUser({ id, email, name });
-    })
-    .catch(error => console.error('에러', error));
-}
-
 function signUp(signUpInfo: UserInfo) {
   fetch(signUpURL, {
     method: 'POST',
@@ -59,7 +35,7 @@ function signUp(signUpInfo: UserInfo) {
       User.setUser({ id, email, name });
       loadMainPage();
     })
-    .catch(error => console.error('에러', error));
+    .catch(error => console.error('에러', error.message));
 }
 
 function login(loginInfo: UserInfo) {
@@ -86,15 +62,38 @@ function login(loginInfo: UserInfo) {
       User.setUser({ id, email, name });
       loadMainPage();
     })
-    .catch(error => console.error('에러', error));
+    .catch(error => console.error('에러', error.message));
 }
 
 const logout = () => {
-  console.log('logout');
   localStorage.removeItem('userAuth');
   User.initialize();
   loadMainPage();
 };
+
+function requestUserInfo(userAuth) {
+  const { id } = userAuth;
+  const accessToken = `Bearer ${userAuth.accessToken}`;
+
+  return fetch(userInfoURL(id), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken,
+    },
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('사용자 정보 읽기 오류');
+      }
+      return res.json();
+    })
+    .then(response => {
+      const { email, name } = response;
+      User.setUser({ id, email, name });
+    })
+    .catch(error => console.error('에러', error.message));
+}
 
 function updateUserInfo(newUserInfo) {
   const userAuth = JSON.parse(localStorage.getItem('userAuth'));
@@ -122,7 +121,7 @@ function updateUserInfo(newUserInfo) {
       User.setUser({ id, email, name });
       loadMainPage();
     })
-    .catch(error => console.error('에러', error));
+    .catch(error => console.error('에러', error.message));
 }
 
 function getSavedUserInfo() {

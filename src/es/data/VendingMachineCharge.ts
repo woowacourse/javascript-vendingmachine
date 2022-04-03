@@ -5,7 +5,6 @@ class VendingMachineCharge {
 
   setCoins(coins) {
     this.coins = coins;
-    console.log(this.coins);
   }
 
   getTotalAmount(): number {

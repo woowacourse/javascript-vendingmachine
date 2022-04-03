@@ -5,7 +5,6 @@ class Products {
 
   setProducts(products) {
     this.products = products;
-    console.log(this.products);
   }
 }
 

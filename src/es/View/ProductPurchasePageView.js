@@ -81,7 +81,6 @@ class ProductPurchasePageView {
   };
 
   render = ({ state, changeStates }) => {
-    console.log(changeStates);
     const renderMethods = changeStates.reduce((previous, stateKey) => {
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
