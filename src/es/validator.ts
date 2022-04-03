@@ -1,8 +1,8 @@
 import { IProduct } from './manager/Interface';
-import { VENDING_MACHINE, ERROR_MESSAGE } from './constants';
+import { VENDING_MACHINE_CONDITION, ERROR_MESSAGE, USER_INFO_CONDITION } from './constants';
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from './utils';
 
-export const validateProduct = (product: IProduct) => {
+const validateProduct = (product: IProduct) => {
   const { name, price, quantity } = product;
 
   const {
@@ -13,7 +13,7 @@ export const validateProduct = (product: IProduct) => {
     MONEY_UNIT,
     MIN_PRODUCT_QUANTITY,
     MAX_PRODUCT_QUANTITY,
-  } = VENDING_MACHINE;
+  } = VENDING_MACHINE_CONDITION;
 
   if (name === '') throw new Error(ERROR_MESSAGE.PRODUCT_NAME_REQUIRED);
   if (!isStringLengthInRange(name, MIN_PRODUCT_NAME_LENGTH, MAX_PRODUCT_NAME_LENGTH))
@@ -35,8 +35,8 @@ export const validateProduct = (product: IProduct) => {
   return true;
 };
 
-export const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmount: number) => {
-  const { MAX_HOLDING_AMOUNT, MONEY_UNIT } = VENDING_MACHINE;
+const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmount: number) => {
+  const { MAX_HOLDING_AMOUNT, MONEY_UNIT } = VENDING_MACHINE_CONDITION;
 
   if (!Number.isInteger(holdingAmountToAdd))
     throw new Error(ERROR_MESSAGE.HOLDING_AMOUNT_ONLY_NUMBER);
@@ -46,4 +46,23 @@ export const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmou
     throw new Error(ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_LIMIT);
 
   return true;
+};
+
+function validateUserInfo(userInfo) {
+  const { name, password, passwordConfirm } = userInfo;
+  const { MIN_NAME_LENGTH, MAX_NAME_LENGTH } = USER_INFO_CONDITION;
+
+  if (!isStringLengthInRange(name, MIN_NAME_LENGTH, MAX_NAME_LENGTH))
+    throw new Error(ERROR_MESSAGE.USER_NAME_LENGTH);
+  if (!USER_INFO_CONDITION.PASSWORD_REGEXP.test(password))
+    throw new Error(ERROR_MESSAGE.PASSWORD_CONDITION);
+  if (password !== passwordConfirm) {
+    throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
+  }
+}
+
+export {
+  validateProduct,
+  validateHoldingAmountToAdd,
+  validateUserInfo,
 };
