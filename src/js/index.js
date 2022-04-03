@@ -8,6 +8,7 @@ import {
   loginLinkButtonTemplate,
   navigationTemplate,
   notFoundTabTemplate,
+  userButtonSelectBoxTemplate,
   userButtonTemplate,
 } from './view/template';
 import Snackbar from './view/Snackbar';
@@ -27,7 +28,7 @@ class App {
     this.#vendingMachine = new VendingMachine();
     this.#authorization = new Authorization();
     this.#renderList = {
-      '#/login': new LoginPage(),
+      '#/login': new LoginPage(this.#authorization, this.snackBar),
       '#/register': new RegisterPage(this.#authorization, this.snackBar),
       '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
       '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
@@ -38,9 +39,6 @@ class App {
 
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
-
-    // this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
-    // this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
   }
 
   #render = () => {
@@ -74,6 +72,7 @@ class App {
     if (!this.#tabMenuNavigation) {
       this.#headerContainer.insertAdjacentHTML('beforeend', navigationTemplate);
       this.#tabMenuNavigation = selectDom('#tab-menu-navigation', this.#headerContainer);
+      this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
     }
 
     const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
@@ -89,10 +88,30 @@ class App {
 
     if (this.#authorization.isLoggedIn) {
       this.#appContainer.insertAdjacentHTML('afterbegin', userButtonTemplate('test'));
+      selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
+      selectDom('#user-button-select-box')?.remove();
       return;
     }
     this.#appContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
   }
+
+  #renderSelectBox = ({ target }) => {
+    target.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
+    selectDom('#logout-button').addEventListener('click', this.#handleLogout);
+    target.removeEventListener('click', this.#renderSelectBox);
+    target.addEventListener('click', this.#closeSelectBox);
+  };
+
+  #closeSelectBox = ({ target }) => {
+    selectDom('#user-button-select-box').remove();
+    target.removeEventListener('click', this.#closeSelectBox);
+    target.addEventListener('click', this.#renderSelectBox);
+  };
+
+  #handleLogout = () => {
+    this.#authorization.logout();
+    window.location.href = '/';
+  };
 
   #handleTabMenuChange = (e) => {
     e.preventDefault();

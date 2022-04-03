@@ -288,3 +288,14 @@ const getUserImage = (userName) => /* html */ `
 export const userButtonTemplate = (userName) => /* html */ `
   <button id="user-button">${getUserImage(userName)}</button>
 `;
+
+export const userButtonSelectBoxTemplate = /* html */ `
+  <ul id="user-button-select-box">
+    <li class="select-box-item" >
+      <a href="#/user-info" id="user-info-link">사용자 정보</a>
+    </li>
+    <li class="select-box-item">
+      <button type="button" id="logout-button">로그아웃</button>
+    </li>
+  </ul>
+`;

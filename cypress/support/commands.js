@@ -27,10 +27,44 @@ Cypress.Commands.add('addMoneyInsert', (moneyInsert) => {
 });
 
 Cypress.Commands.add('registerNewUser', (userData) => {
+  cy.intercept({
+    method: 'POST',
+    url: '**/users',
+  }).as('registerRequest');
+
   const { email, name, password } = userData;
+
+  cy.get('#login-link-button').click();
+  cy.get('#register-page-link').click();
+
   cy.get('#email-input').type(email);
   cy.get('#name-input').type(name);
   cy.get('#password-input').type(password);
   cy.get('#password-confirm-input').type(password);
+
   cy.get('.submit-button').click();
+  cy.wait('@registerRequest');
+});
+
+Cypress.Commands.add('loginWithNewUser', (userData) => {
+  cy.intercept({
+    method: 'POST',
+    url: '**/signin',
+  }).as('signInRequest');
+
+  cy.registerNewUser(userData);
+
+  cy.window().then((win) => {
+    win.sessionStorage.clear();
+    win.location.reload();
+  });
+
+  cy.get('#login-link-button').click();
+
+  const { email, password } = userData;
+  cy.get('#email-input').type(email);
+  cy.get('#password-input').type(password);
+  cy.get('.submit-button').click();
+
+  cy.wait('@signInRequest');
 });
