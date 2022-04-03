@@ -1,4 +1,5 @@
 import Component from '../abstract/component';
+import { COIN } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';
@@ -6,8 +7,8 @@ import { CoinRecord } from '../types';
 @customElement('changes-inventory')
 class ChangesInventory extends Component {
   coinsTemplate(coins: CoinRecord) {
-    return Object.keys(coins)
-      .map(Number)
+    const units = [...COIN.UNITS].sort((a, b) => b - a);
+    return units
       .map((unit) => {
         return `
         <tr>
