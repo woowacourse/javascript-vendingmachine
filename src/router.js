@@ -32,13 +32,18 @@ const render = (currentTarget, prevTarget) => {
 };
 
 const handleAdministratorMenuClick = (event) => {
+  if (event.target.classList.contains('clicked')) return;
+
   const currentRoute = event.target.getAttribute('route');
   const currentTarget = findTarget(currentRoute);
-  const prevTarget = findTarget(window.location.pathname);
+  const prevRoute = window.location.pathname;
+  const prevTarget = findTarget(prevRoute);
 
-  if (currentTarget.$button.classList.contains('clicked')) return;
+  if (!window.history.state) {
+    window.history.pushState({ prevRoute: currentRoute }, null, prevRoute);
+  }
 
-  window.history.pushState({ prevRoute: window.location.pathname }, null, currentRoute);
+  window.history.pushState({ prevRoute }, null, currentRoute);
 
   render(currentTarget, prevTarget);
 };
