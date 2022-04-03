@@ -14,29 +14,29 @@ interface ProductManageInterface {
 }
 
 export default class ProductManager implements ProductManageInterface {
-  private products: Product[];
+  #products: Product[];
 
   constructor() {
-    this.products = [];
+    this.#products = [];
   }
 
   addProduct(product: Product): void {
-    validProductInfo(product, this.products);
-    this.products.push(product);
+    validProductInfo(product, this.#products);
+    this.#products.push(product);
   }
 
   getProducts(): Product[] {
-    return this.products;
+    return this.#products;
   }
 
   modifyProduct(index: number, product: Product): void {
-    const productsList = [...this.products];
+    const productsList = [...this.#products];
     productsList.splice(index, 1);
     validProductInfo(product, productsList);
-    this.products.splice(index, 1, product);
+    this.#products.splice(index, 1, product);
   }
 
   deleteProduct(index: number): void {
-    this.products.splice(index, 1);
+    this.#products.splice(index, 1);
   }
 }
