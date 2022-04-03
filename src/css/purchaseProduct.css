@@ -10,3 +10,8 @@
 .change-table {
   margin-top: 12px;
 }
+
+button.purchase-button {
+  width: 100px;
+  height: 32px;
+}
