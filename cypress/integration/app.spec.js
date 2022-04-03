@@ -3,6 +3,21 @@ import { ERROR_MESSAGE, NOT_ENOUGH_CHANGE_MESSAGE } from '../../src/js/constants
 const baseUrl = 'http://localhost:9000';
 
 describe('핵심 기능 플로우 테스트', () => {
+  function createRandomUserData() {
+    return { email: `${Date.now()}@test.com`, name: 'test', password: '1234' };
+  }
+
+  before(() => {
+    cy.visit(baseUrl);
+    cy.window()
+      .then((win) => {
+        win.sessionStorage.clear();
+      })
+      .then((win) => win.location.reload());
+    const userData = createRandomUserData();
+    cy.loginWithNewUser(userData);
+  });
+
   beforeEach(() => {
     cy.visit(baseUrl);
   });
@@ -252,7 +267,7 @@ describe('핵심 기능 플로우 테스트', () => {
         );
       });
 
-      it.only('반환할 잔돈이 부족할 때 잔돈을 반환하면 스낵바에 오류가 표시된다.', () => {
+      it('반환할 잔돈이 부족할 때 잔돈을 반환하면 스낵바에 오류가 표시된다.', () => {
         // given
         const moneyInsert = '10000';
         cy.addMoneyInsert(moneyInsert);
