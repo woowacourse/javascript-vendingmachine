@@ -24,3 +24,12 @@ export const clearInnerInputValues = ($target) => {
   const $$inputs = Array.from($$('input', $target));
   $$inputs.forEach($input => ($input.value = ''));
 };
+
+export const showSnackBar = (message: string) => {
+  const $snackBar = $('.snackbar');
+  $snackBar.innerText = message;
+  $snackBar.classList.toggle('show');
+  setTimeout(() => {
+    $snackBar.classList.toggle('show');
+  }, 3000);
+};
