@@ -5,6 +5,6 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
   },
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/**/*.test.(js|ts)'],
+  testMatch: ['<rootDir>/**/test/jest/*.test.(js|ts)'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };

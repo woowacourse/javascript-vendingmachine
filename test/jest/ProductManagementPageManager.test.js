@@ -1,4 +1,4 @@
-import ProductManagementPageManager from '../src/es/manager/ProductManagementPageManager'
+import ProductManagementPageManager from '../../src/es/manager/ProductManagementPageManager'
 
 describe('상품 정보 관리 로직 테스트', () => {
   beforeEach(() => {

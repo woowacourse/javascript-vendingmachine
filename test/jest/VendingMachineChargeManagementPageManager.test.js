@@ -1,4 +1,4 @@
-import VendingMachineChargeManagementPageManager from '../src/es/manager/VendingMachineChargeManagementPageManager';
+import VendingMachineChargeManagementPageManager from '../../src/es/manager/VendingMachineChargeManagementPageManager';
 
 describe('자판기 보유 동전 관리 로직 테스트', () => {
   beforeEach(() => {
