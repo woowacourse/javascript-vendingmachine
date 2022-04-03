@@ -1,9 +1,9 @@
-import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { Tab } from '../types';
-import './add-product-form';
-import './product-inventory';
+import Component from '../../abstract/component';
+import { customElement } from '../../decorators/decortators';
+import Store from '../../flux/store';
+import { Tab } from '../../types';
+import '../product-manage/add-product-form';
+import '../product-manage/product-inventory';
 
 @customElement('purchase-product-tab')
 class PurchaseProductTab extends Component {

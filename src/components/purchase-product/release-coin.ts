@@ -1,9 +1,9 @@
-import Component from '../abstract/component';
-import { ACTION, COIN } from '../constants';
-import { customElement } from '../decorators/decortators';
-import createAction from '../flux/createAction';
-import Store from '../flux/store';
-import { CoinRecord } from '../types';
+import Component from '../../abstract/component';
+import { ACTION, COIN } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import createAction from '../../flux/createAction';
+import Store from '../../flux/store';
+import { CoinRecord } from '../../types';
 
 @customElement('release-coin')
 class ReleaseCoin extends Component {

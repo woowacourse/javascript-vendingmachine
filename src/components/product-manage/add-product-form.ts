@@ -1,12 +1,12 @@
-import Component from '../abstract/component';
-import { ACTION } from '../constants';
-import { customElement } from '../decorators/decortators';
-import createAction from '../flux/createAction';
-import Store from '../flux/store';
-import { RawProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../utils';
-import ValidationError from '../validation/validation-error';
-import { validateProduct } from '../validation/validators';
+import Component from '../../abstract/component';
+import { ACTION } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import createAction from '../../flux/createAction';
+import Store from '../../flux/store';
+import { RawProductItem } from '../../types';
+import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
+import ValidationError from '../../validation/validation-error';
+import { validateProduct } from '../../validation/validators';
 
 @customElement('add-product-form')
 class AddProductForm extends Component {

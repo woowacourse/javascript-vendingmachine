@@ -1,11 +1,11 @@
-import Component from '../abstract/component';
-import { ACTION } from '../constants';
-import { customElement } from '../decorators/decortators';
-import createAction from '../flux/createAction';
-import Store from '../flux/store';
-import { EventOnElement, ProductItem } from '../types';
-import { toInt } from '../utils';
-import { validateProduct } from '../validation/validators';
+import Component from '../../abstract/component';
+import { ACTION } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import createAction from '../../flux/createAction';
+import Store from '../../flux/store';
+import { EventOnElement, ProductItem } from '../../types';
+import { toInt } from '../../utils';
+import { validateProduct } from '../../validation/validators';
 
 @customElement('product-inventory')
 class ProductInventory extends Component {

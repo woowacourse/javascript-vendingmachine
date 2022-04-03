@@ -1,8 +1,8 @@
-import Component from '../abstract/component';
-import { COIN } from '../constants';
-import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { CoinRecord } from '../types';
+import Component from '../../abstract/component';
+import { COIN } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import Store from '../../flux/store';
+import { CoinRecord } from '../../types';
 
 @customElement('changes-inventory')
 class ChangesInventory extends Component {

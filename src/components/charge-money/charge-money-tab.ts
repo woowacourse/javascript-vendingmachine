@@ -1,9 +1,9 @@
-import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
+import Component from '../../abstract/component';
+import { customElement } from '../../decorators/decortators';
 import './charge-money-form';
 import './changes-inventory';
-import { Tab } from '../types';
-import Store from '../flux/store';
+import { Tab } from '../../types';
+import Store from '../../flux/store';
 
 @customElement('charge-money-tab')
 class ChargeMoneyTab extends Component {

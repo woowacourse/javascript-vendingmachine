@@ -1,17 +1,17 @@
 @import './variables';
 @import './spacing';
-@import './add-product-form';
 @import './button';
 @import './form';
 @import './typhography';
 @import './flex';
 @import './header';
-@import './charge-money-form';
-@import './changes-inventory';
-@import './product-inventory';
-@import './insert-money-form';
-@import './product-menu';
-@import './release-coin';
+@import './components/product-manage/add-product-form';
+@import './components/product-manage/product-inventory';
+@import './components/charge-money/charge-money-form';
+@import './components/charge-money/changes-inventory';
+@import './components/purchase-product/insert-money-form';
+@import './components/purchase-product/product-menu';
+@import './components/purchase-product/release-coin';
 
 * {
   box-sizing: border-box;

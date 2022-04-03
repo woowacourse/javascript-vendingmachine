@@ -1,12 +1,12 @@
-import Component from '../abstract/component';
-import { ACTION } from '../constants';
-import { customElement } from '../decorators/decortators';
-import createAction from '../flux/createAction';
-import Store from '../flux/store';
-import { EventOnElement } from '../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../utils';
-import ValidationError from '../validation/validation-error';
-import { validateChargeCoins } from '../validation/validators';
+import Component from '../../abstract/component';
+import { ACTION } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import createAction from '../../flux/createAction';
+import Store from '../../flux/store';
+import { EventOnElement } from '../../types';
+import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
+import ValidationError from '../../validation/validation-error';
+import { validateChargeCoins } from '../../validation/validators';
 
 @customElement('charge-money-form')
 class ChargeMoneyForm extends Component {

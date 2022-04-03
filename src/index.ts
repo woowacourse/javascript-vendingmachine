@@ -1,11 +1,11 @@
 import './scss/style.scss';
 import './components/navigation';
-import './components/product-manage-tab';
-import './components/charge-money-tab';
-import './components/purchase-product-tab';
-import './components/insert-money-form';
-import './components/product-menu';
-import './components/release-coin';
+import './components/product-manage/product-manage-tab';
+import './components/charge-money/charge-money-tab';
+import './components/purchase-product/purchase-product-tab';
+import './components/purchase-product/insert-money-form';
+import './components/purchase-product/product-menu';
+import './components/purchase-product/release-coin';
 import Router from './router';
 
 new Router();
