@@ -45,7 +45,9 @@ export default class ConsumerChargeMoneyInputComponent {
       consumerChargeMoney
     );
 
-    this.$consumerTotalChargeMoney.textContent = String(consumerChargeMoney);
+    this.$consumerTotalChargeMoney.textContent = String(
+      consumerChargeMoney + Number(this.$consumerTotalChargeMoney.textContent)
+    );
     this.$consumerChargeMoneyInput.value = '';
   };
 }
