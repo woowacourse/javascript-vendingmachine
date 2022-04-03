@@ -84,7 +84,7 @@ export const CATEGORY_TEMPLATE = {
         </tr>
       </thead>
       <tbody>
-        <tr></tr>
+        <tr>
           <td>500원</td>
           <td id="five-hundred-coin"></td>
         </tr>
@@ -108,7 +108,7 @@ export const CATEGORY_TEMPLATE = {
     <form id="purchase-form" class="form">
       <label>상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
-        <input id="product-purchase-input" type="number" step="10" class="input-width" placeholder="금액" />
+        <input id="product-purchase-input" type="number" step="10" min="10" max="10000" class="input-width" placeholder="금액" />
         <button class="hover-button">투입</button>
       </div>
       <p class="current-amount">투입한 금액: 3000원</p>
@@ -125,14 +125,7 @@ export const CATEGORY_TEMPLATE = {
           <th>구매</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>콜라</td>
-          <td>1000</td>
-          <td>10</td>
-          <td><button type="button">구매</button></td>
-        </tr>
-      </tbody>
+      <tbody id="product-purchase-tbody"></tbody>
     </table>
     <table class="table">
       <caption class="caption">
@@ -147,7 +140,19 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td>5개</td>
+          <td id="five-hundred-coin"></td>
+        </tr>
+        <tr>
+          <td>100원</td>
+          <td id="one-hundred-coin"></td>
+        </tr>
+        <tr>
+          <td>50원</td>
+          <td id="fifty-coin"></td>
+        </tr>
+        <tr>
+          <td>10원</td>
+          <td id="ten-coin"></td>
         </tr>
       </tbody>
     </table>

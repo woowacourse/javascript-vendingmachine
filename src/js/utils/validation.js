@@ -47,3 +47,9 @@ export const validChargeAmount = (amount, totalAmount) => {
     throw new Error(ERROR_MESSAGE.OVER_MAX_AMOUNT);
   }
 };
+
+export const validPurchaseAmount = (amount) => {
+  if (isDivideUnit(amount, COIN.MIN_UNIT)) {
+    throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
+  }
+};
