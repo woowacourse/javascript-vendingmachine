@@ -42,6 +42,10 @@ const MESSAGE = {
     PURCHASE_CASH_RULE.UNIT
   }으로 나누어 떨어져야 합니다.`,
   ERROR_LACK_CASH: '금액이 부족합니다.',
+  ERROR_USER_INFO_EMPTY: '모든 값을 입력해주세요.',
+  ERROR_USER_NAME_LENGTH: `사용자 이름은 ${USER_INFO_RULE.MIN_NAME_LENGTH}~${USER_INFO_RULE.MAX_NAME_LENGTH}자 이내여야 합니다.`,
+  ERROR_USER_PASSWORD_LENGTH: `비밀번호는 ${USER_INFO_RULE.MIN_PASSWORD_LENGTH}자 이상이어야 합니다.`,
+  ERROR_USER_CONFIRM_PASSWORD: '비밀번호가 다릅니다. 다시 입력해주세요.',
   CONFIRM_DELETE_PRODUCT: '을(를) 삭제하시겠습니까?',
   CONFIRM_SIGNOUT: '로그아웃하시겠습니까?',
   SUCCESS_ADD_PRODUCT: '추가되었습니다.',
