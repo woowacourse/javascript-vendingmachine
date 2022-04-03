@@ -10,12 +10,12 @@ class LoginPage extends Component {
       </header>
       <form>
         <fieldset class="mb-4">
-          <label id="email">이메일</label>
-          <input name="email" placeholder="woowacourse@gmail.com" class="form-control" />
+          <label for="email">이메일</label>
+          <input id="email" name="email" placeholder="woowacourse@gmail.com" class="form-control" />
         </fieldset>
         <fieldset>
-          <label id="password">비밀번호</label>
-          <input name="password" placeholder="비밀번호를 입력해주세요" class="form-control" />
+          <label for="password">비밀번호</label>
+          <input id="password" name="password" placeholder="비밀번호를 입력해주세요" class="form-control" />
         </fieldset>
         <button class="btn btn-primary full">확인</button>
       </form>
