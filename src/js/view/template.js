@@ -199,8 +199,8 @@ export const purchaseProductTableRowTemplate = ({
 
 export const notFoundTabTemplate = /* html */ `
 <section title="존재하지 않는 페이지" class="not-found-section">
-  <h2>🛒 Page Not Found</h2>
-  <a href="#/manage" class="tab-menu-button">시작 페이지로</a>
+  <h2>🚫 <br> 페이지가 존재하지 않거나 <br> 접근 권한이 없습니다.</h2>
+  <a href="/" class="tab-menu-button">시작 페이지로</a>
 </section>`;
 
 export const navigationTemplate = /* html */ `
@@ -300,9 +300,7 @@ export const userButtonSelectBoxTemplate = /* html */ `
   </ul>
 `;
 
-export const UserInfoPageTemplate = (data) => {
-  console.log(data);
-  return /* html */ `
+export const UserInfoPageTemplate = ({ email, name }) => /* html */ `
   <h2>회원 정보 수정</h2>
   <form class="auth-form">
     <label for="email">이메일</label>
@@ -310,7 +308,7 @@ export const UserInfoPageTemplate = (data) => {
       type="email"
       name="email"
       id="email-input"
-      value="${data.email}"
+      value="${email}"
       disabled
     />
     <label for="name">이름</label>
@@ -318,7 +316,7 @@ export const UserInfoPageTemplate = (data) => {
       type="text"
       name="name"
       id="name-input"
-      value="${data.name}"
+      value="${name}"
     />
     <label for="password">비밀번호</label>
     <input
@@ -337,4 +335,3 @@ export const UserInfoPageTemplate = (data) => {
     <button type="submit" class="submit-button">수정하기</button>
   </form>
 `;
-};

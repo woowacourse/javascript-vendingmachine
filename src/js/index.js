@@ -19,7 +19,8 @@ import UserInfoPage from './view/UserInfoPage';
 class App {
   #vendingMachine;
   #authorization;
-  #renderList;
+  #userRenderList;
+  #nonUserRenderList;
   #headerContainer;
   #appContainer;
   #tabMenuNavigation;
@@ -28,12 +29,15 @@ class App {
     this.snackBar = new Snackbar();
     this.#vendingMachine = new VendingMachine();
     this.#authorization = new Authorization();
-    this.#renderList = {
-      '#/login': new LoginPage(this.#authorization, this.snackBar),
-      '#/register': new RegisterPage(this.#authorization, this.snackBar),
+    this.#userRenderList = {
       '#/user-info': new UserInfoPage(this.#authorization, this.snackBar),
       '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
       '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
+      '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
+    };
+    this.#nonUserRenderList = {
+      '#/login': new LoginPage(this.#authorization, this.snackBar),
+      '#/register': new RegisterPage(this.#authorization, this.snackBar),
       '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
     };
     this.#headerContainer = selectDom('header');
@@ -44,31 +48,33 @@ class App {
   }
 
   #render = () => {
-    const path =
-      window.location.hash ||
-      (this.#authorization.isLoggedIn ? '#/manage' : '#/purchase');
-
-    this.#renderNav(path);
-    this.#updateUserButton();
-
-    if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTabTemplate);
-      this.#appContainer.replaceChild(notFoundContainer, selectDom('main'));
+    if (this.#authorization.isLoggedIn) {
+      this.#renderUser();
       return;
     }
-
-    this.#appContainer.replaceChild(
-      this.#renderList[path].tabElements,
-      selectDom('main')
-    );
+    this.#renderNonUser();
   };
 
-  #renderNav(path) {
-    if (!this.#authorization.isLoggedIn) {
-      selectDom('#tab-menu-navigation')?.remove();
-      return;
-    }
+  #renderUser() {
+    const path = window.location.hash || '#/manage';
+    this.#renderNav(path);
+    selectDom('#login-link-button', this.#appContainer)?.remove();
+    this.#updateUserButton();
 
+    this.#renderTab(this.#userRenderList, path);
+  }
+
+  #renderNonUser() {
+    const path = window.location.hash || '#/purchase';
+    selectDom('#tab-menu-navigation')?.remove();
+    selectDom('#user-button', this.#appContainer)?.remove();
+    if (!selectDom('#login-link-button', this.#appContainer)) {
+      this.#appContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
+    }
+    this.#renderTab(this.#nonUserRenderList, path);
+  }
+
+  #renderNav(path) {
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
 
     if (!this.#tabMenuNavigation) {
@@ -84,20 +90,23 @@ class App {
     currentMenuButton?.classList.add('current');
   }
 
-  #updateUserButton() {
-    selectDom('#user-button', this.#appContainer)?.remove();
-    selectDom('#login-link-button', this.#appContainer)?.remove();
-
-    if (this.#authorization.isLoggedIn) {
-      this.#appContainer.insertAdjacentHTML(
-        'afterbegin',
-        userButtonTemplate(this.#authorization.name)
-      );
-      selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
-      selectDom('#user-button-select-box')?.remove();
+  #renderTab(routeList, path) {
+    if (!routeList[path]) {
+      const notFoundContainer = createMainElement(notFoundTabTemplate);
+      this.#appContainer.replaceChild(notFoundContainer, selectDom('main'));
       return;
     }
-    this.#appContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
+
+    this.#appContainer.replaceChild(routeList[path].tabElements, selectDom('main'));
+  }
+
+  #updateUserButton() {
+    this.#appContainer.insertAdjacentHTML(
+      'afterbegin',
+      userButtonTemplate(this.#authorization.name)
+    );
+    selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
+    selectDom('#user-button-select-box')?.remove();
   }
 
   #renderSelectBox = ({ target }) => {
@@ -124,7 +133,11 @@ class App {
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) {
+    if (
+      (!Object.keys(this.#userRenderList).includes(newHash) &&
+        !Object.keys(this.#nonUserRenderList).includes(newHash)) ||
+      newHash === previousHash
+    ) {
       return;
     }
 

@@ -88,6 +88,10 @@ input[type='number'] {
   gap: 20px;
 }
 
+.not-found-section h2 {
+  text-align: center;
+}
+
 #login-link-button, #user-button {
   position: absolute;
   top: 20px;
