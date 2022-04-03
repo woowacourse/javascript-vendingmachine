@@ -57,9 +57,9 @@ describe('검증 유틸리티 테스트', () => {
 });
 
 describe('상품 정보 입력값에 대한 유효성 검사 테스트', () => {
-  test('1-1. 상품 정보가 올바르게 들어오는 경우 true를 반환한다.', () => {
+  test('1-1. 상품 정보가 올바르게 들어오는 경우, 에러를 반환하지 않는다.', () => {
     const inputValue = { name: '감자', price: 1000, quantity: 5 };
-    expect(validateProduct(inputValue)).toBeTruthy();
+    expect(() => validateProduct(inputValue)).not.toThrowError();
   });
 
   test('1-2. 상품명이 비어있을 시 오류를 반환한다.', () => {
@@ -99,10 +99,10 @@ describe('상품 정보 입력값에 대한 유효성 검사 테스트', () => {
 });
 
 describe('자판기 동전 충전 시 입력값에 대한 유효성 검사 테스트', () => {
-  test('1-1. 동전 충전 금액이 올바르게 들어오는 경우 true를 반환한다.', () => {
+  test('1-1. 동전 충전 금액이 올바르게 들어오는 경우, 에러를 반환하지 않는다.', () => {
     const inputValue = 5000;
     const totalAmount = 0;
-    expect(validateHoldingAmountToAdd(inputValue, totalAmount)).toBeTruthy();
+    expect(() => validateHoldingAmountToAdd(inputValue, totalAmount)).not.toThrowError();
   });
 
   test('1-2. 동전 충전 금액이 숫자가 아닐 시 오류를 반환한다.', () => {
