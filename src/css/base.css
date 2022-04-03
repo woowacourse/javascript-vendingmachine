@@ -36,9 +36,10 @@ body {
   align-items: center;
   padding: 45px 60px;
   gap: 52px;
+  position: relative;
 }
 
-.tab-title{
+.tab-title {
   text-align: center;
 }
 
@@ -87,3 +88,8 @@ input[type='number'] {
   gap: 20px;
 }
 
+#login-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
