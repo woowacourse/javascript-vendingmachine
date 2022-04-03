@@ -11,9 +11,11 @@
   background-color: $color-app-background;
   border: 1px solid $color-app-border;
   border-radius: 4px;
+  position: absolute;
 }
 
 input {
+  width: 300px;
   padding: 0 10px;
   height: 36px;
   border: 1px solid $color-input-background;
@@ -91,4 +93,19 @@ input {
 
 .input-section {
   margin-bottom: 48px;
+}
+
+.user-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+}
+
+.user-thumbnail {
+  display: none;
 }

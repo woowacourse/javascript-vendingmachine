@@ -5,6 +5,7 @@ import CoinManagementComponent from './CoinManagementComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import ProductPurchaseComponent from './ProductPurchaseComponent';
 import MoneyManagement from '../domain/MoneyManagement';
+import LoginComponenet from './LoginComponent';
 
 const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
@@ -25,12 +26,25 @@ export default class App {
       coinManagement,
       moneyManagement,
     ),
+    private readonly loginComponent = new LoginComponenet(),
   ) {
     this.productManagementComponent.render();
+    this.loginComponent.render();
 
     $('.nav').addEventListener('click', this.navClickHandler);
+    $('.login-button').addEventListener('click', this.loginClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
   }
+
+  private loginClickHandler = e => {
+    console.log('e.target', e.target);
+    if (!(e.target instanceof HTMLButtonElement)) return;
+    const pathname = `${basePath}${e.target.dataset.pathname}`;
+
+    history.pushState({}, '', pathname || '/');
+
+    this.renderMainContent(pathname);
+  };
 
   private navClickHandler = ({ target }) => {
     if (target.tagName !== 'BUTTON') return;
@@ -77,6 +91,9 @@ export default class App {
         break;
       case `${basePath}/purchase`:
         this.productPurchaseComponent.render();
+        break;
+      case `${basePath}/login`:
+        this.loginComponent.render();
     }
   }
 }
