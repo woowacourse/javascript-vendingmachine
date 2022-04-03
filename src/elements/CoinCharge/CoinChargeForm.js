@@ -34,7 +34,7 @@ class CoinChargeForm extends CustomElement {
 
     try {
       this.chargeCoin(coinInputValue);
-      this.initiaCoinInput($coinInput);
+      this.initCoinInput($coinInput);
     } catch (error) {
       alert(error.message);
     }
@@ -47,7 +47,7 @@ class CoinChargeForm extends CustomElement {
     CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
   }
 
-  initiaCoinInput($coinInput) {
+  initCoinInput($coinInput) {
     $coinInput.value = '';
 
     $coinInput.focus();
