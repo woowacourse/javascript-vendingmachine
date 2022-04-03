@@ -141,6 +141,64 @@
           <button class="sign-up__button">확인</button>
         </form>
       </div>
+      <div id="user-info-edit" class="hide">
+        <h1 class="user-info-edit__title">회원 정보 수정</h1>
+        <form class="user-info-edit__form">
+          <label
+            class="user-info-edit__description input-description"
+            for="user-info-edit-email"
+          >
+            이메일
+          </label>
+          <input
+            id="user-info-edit-email"
+            class="user-info-edit__input"
+            name="email"
+            type="email"
+            placeholder="이메일 주소를 입력해주세요"
+            readonly
+          />
+          <label
+            class="user-info-edit__description input-description"
+            for="user-info-edit-name"
+          >
+            이름
+          </label>
+          <input
+            id="user-info-edit-name"
+            class="user-info-edit__input"
+            name="name"
+            placeholder="이름을 입력해주세요"
+          />
+          <label
+            class="user-info-edit__description input-description"
+            for="user-info-edit-password"
+          >
+            비밀번호
+          </label>
+          <input
+            id="user-info-edit-password"
+            class="user-info-edit__input"
+            name="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <label
+            class="user-info-edit__description input-description"
+            for="user-info-edit-confirm-password"
+          >
+            비밀번호 확인
+          </label>
+          <input
+            id="user-info-edit-confirm-password"
+            class="user-info-edit__input"
+            name="confirm-password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <button class="user-info-edit__button">확인</button>
+        </form>
+      </div>
     </div>
     <div id="snackbar"></div>
   </body>

@@ -24,4 +24,26 @@ const request = async (purpose: RequestType, user: object) => {
   return resInfo;
 };
 
-export { request };
+const requestUpdate = async (user: object, id: string) => {
+  const url = `http://localhost:3000/users/${id}`;
+  let resInfo;
+
+  await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(user),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(async response => {
+    if (!response.ok) {
+      throw new Error();
+    }
+    await response.json().then(res => {
+      resInfo = res;
+    });
+  });
+
+  return resInfo;
+};
+
+export { request, requestUpdate };

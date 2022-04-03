@@ -9,6 +9,7 @@ export default class SignInUI {
   private readonly $main = $('#main');
   private readonly $signIn = $('#sign-in');
   private readonly $signUp = $('#sign-up');
+  private readonly $userInfoEdit = $('#user-info-edit');
   private readonly userDomain;
 
   constructor(userDomain) {
@@ -20,6 +21,7 @@ export default class SignInUI {
     this.$main.classList.add('hide');
     this.$signIn.classList.remove('hide');
     this.$signUp.classList.add('hide');
+    this.$userInfoEdit.classList.add('hide');
 
     $('#sign-in-email').focus();
   }
@@ -50,7 +52,7 @@ export default class SignInUI {
           $input.value = '';
         });
         showSnackbar(MESSAGE.SUCCESS_SIGNIN);
-        viewPainter.renderUser(userInfo.name);
+        viewPainter.renderUserUI(userInfo.name);
         viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);
       })

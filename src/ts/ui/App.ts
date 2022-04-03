@@ -5,6 +5,7 @@ import { $, $$ } from '../utils/dom';
 import MainUI from './MainUI/MainUI';
 import SignInUI from './SignUI/SignInUI';
 import SignUpUI from './SignUI/SignUpUI';
+import UserInfoEditUI from './SignUI/UserInfoEditUI';
 import { viewPainter } from './ViewPainter';
 
 export const basePath =
@@ -16,6 +17,7 @@ export default class App {
     private readonly mainUI = new MainUI(),
     private readonly signInUI = new SignInUI(userDomain),
     private readonly signUpUI = new SignUpUI(),
+    private readonly userInfoEditUI = new UserInfoEditUI(userDomain),
   ) {
     this.mainUI.renderInitPage();
 
@@ -88,7 +90,10 @@ export default class App {
 
     switch (e.target.name) {
       case 'edit-button':
-        // 회원정보 수정 화면 렌더링
+        const pathname = `${basePath}/edit`;
+        history.pushState({}, '', pathname);
+
+        this.userInfoEditUI.render();
         break;
       case 'signout-button':
         if (!confirm(MESSAGE.CONFIRM_SIGNOUT)) return;
@@ -135,6 +140,9 @@ export default class App {
         break;
       case '/signup':
         this.signUpUI.render();
+        break;
+      case '/edit':
+        this.userInfoEditUI.render();
     }
   }
 }

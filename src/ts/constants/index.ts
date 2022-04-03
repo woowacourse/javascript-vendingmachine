@@ -55,6 +55,9 @@ const MESSAGE = {
   FAIL_SIGNIN: '로그인에 실패하였습니다. 다시 시도해주세요.',
   SUCCESS_SIGNUP: '회원가입에 성공하였습니다. 로그인 화면으로 이동합니다.',
   FAIL_SIGNUP: '회원가입에 실패하였습니다. 다시 시도해주세요.',
+  SUCCESS_EDIT_USER_INFO:
+    '회원정보 수정에 성공하였습니다. 메인 화면으로 이동합니다.',
+  FAIL_EDIT_USER_INFO: '회원정보 수정에 실패하였습니다. 다시 시도해주세요.',
   SUCCESS_SIGNOUT: '로그아웃되었습니다.',
 };
 

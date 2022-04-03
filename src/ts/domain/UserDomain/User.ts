@@ -13,10 +13,10 @@ export default class UserDomain {
     return this.#accessToken;
   }
 
-  signIn(user: UserInfo, accessToken) {
+  signIn(user: UserInfo, accessToken: string) {
     this.isSignIn = true;
     this.#userInfo = user;
-    this.#accessToken = accessToken;
+    this.#accessToken = accessToken ?? this.#accessToken;
   }
 
   signOut() {

@@ -45,8 +45,12 @@ class ViewPainter {
     this.#purchaseCashChargeUI.render();
   }
 
-  renderUser(name: string) {
+  renderUserUI(name: string) {
     this.#mainUI.renderUserUI(name);
+  }
+
+  renderUserName(name: string) {
+    this.#mainUI.renderUserName(name);
   }
 }
 

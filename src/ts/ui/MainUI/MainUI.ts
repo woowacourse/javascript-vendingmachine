@@ -10,6 +10,7 @@ export default class MainUI {
   private readonly $main = $('#main');
   private readonly $signIn = $('#sign-in');
   private readonly $signUp = $('#sign-up');
+  private readonly $userInfoEdit = $('#user-info-edit');
   private readonly $nav = $('.nav');
   private readonly $signinButton = $('.signin-button');
   private readonly $thumbnail = $('.thumbnail');
@@ -31,6 +32,7 @@ export default class MainUI {
     this.$main.classList.remove('hide');
     this.$signIn.classList.add('hide');
     this.$signUp.classList.add('hide');
+    this.$userInfoEdit.classList.add('hide');
 
     if (isSignIn) {
       this.renderProductManagementUI();
@@ -52,10 +54,13 @@ export default class MainUI {
   }
 
   renderUserUI(name: string = '') {
-    this.$thumbnail.textContent = name.substr(0, 1);
-
+    this.renderUserName(name);
     [this.$nav, this.$signinButton, this.$thumbnail].forEach($button => {
       $button.toggleAttribute('hidden');
     });
+  }
+
+  renderUserName(name: string = '') {
+    this.$thumbnail.textContent = name.substr(0, 1);
   }
 }

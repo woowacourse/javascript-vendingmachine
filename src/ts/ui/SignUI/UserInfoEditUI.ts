@@ -1,28 +1,32 @@
 import { MESSAGE } from '../../constants';
-import { request } from '../../domain/UserDomain/request';
+import { requestUpdate } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { basePath } from '../App';
 import { viewPainter } from '../ViewPainter';
 
-export default class SignUpUI {
+export default class UserInfoEditUI {
   private readonly $main = $('#main');
   private readonly $signIn = $('#sign-in');
   private readonly $signUp = $('#sign-up');
   private readonly $userInfoEdit = $('#user-info-edit');
+  private readonly userDomain;
 
-  constructor() {
-    $('.sign-up__form').addEventListener('submit', this.submitHandler);
+  constructor(userDomain) {
+    this.userDomain = userDomain;
+    $('.user-info-edit__form').addEventListener('submit', this.submitHandler);
   }
 
   render() {
     this.$main.classList.add('hide');
     this.$signIn.classList.add('hide');
-    this.$signUp.classList.remove('hide');
-    this.$userInfoEdit.classList.add('hide');
+    this.$signUp.classList.add('hide');
+    this.$userInfoEdit.classList.remove('hide');
 
-    $('#sign-up-email').focus();
+    ($('#user-info-edit-email') as HTMLInputElement).value =
+      this.userDomain.userInfo.email;
+    $('#user-info-edit-name').focus();
   }
 
   private submitHandler = (e: SubmitEvent) => {
@@ -50,21 +54,32 @@ export default class SignUpUI {
       return;
     }
 
-    this.signUp(user);
+    this.editUserInfo(user);
   };
 
-  private signUp(user: { email: string; name: string; password: string }) {
-    request('signup', user)
-      .then(() => {
-        $$('.sign-up__input').forEach(($input: HTMLInputElement) => {
+  private editUserInfo(user: {
+    email: string;
+    name: string;
+    password: string;
+  }) {
+    requestUpdate(user, this.userDomain.userInfo.id)
+      .then(response => {
+        this.userDomain.signIn(response);
+
+        $$('.user-info-edit__input').forEach(($input: HTMLInputElement) => {
           $input.value = '';
         });
-        showSnackbar(MESSAGE.SUCCESS_SIGNUP);
-        viewPainter.renderSignInUI();
-        history.pushState({}, '', `${basePath}/signin`);
+        const $selectBox = $('.select-box');
+        $selectBox.classList.add('hide');
+        $selectBox.classList.remove('active');
+
+        showSnackbar(MESSAGE.SUCCESS_EDIT_USER_INFO);
+        viewPainter.renderUserName(response.name);
+        viewPainter.renderMainUI(this.userDomain.isSignIn);
+        history.replaceState({}, '', `${basePath}/`);
       })
       .catch(() => {
-        showSnackbar(MESSAGE.FAIL_SIGNUP);
+        showSnackbar(MESSAGE.FAIL_EDIT_USER_INFO);
       });
   }
 }
