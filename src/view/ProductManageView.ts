@@ -1,9 +1,9 @@
-import { ProductInformationInput } from '../component/ProductInformationInput';
+import { ProductInformationInputForm } from '../component/ProductInformationInputForm';
 import { ProductCatalogTable } from '../component/ProductCatalogTable';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductManageView {
-  #productInformationInput: ProductInformationInput;
+  #productInformationInputForm: ProductInformationInputForm;
   #productCatalogTable: ProductCatalogTable;
   #productCatalog: ProductCatalog;
   #contentsContainer: HTMLDivElement;
@@ -18,7 +18,7 @@ export class ProductManageView {
   init() {
     this.#contentsContainer.textContent = '';
 
-    this.#productInformationInput = new ProductInformationInput({
+    this.#productInformationInputForm = new ProductInformationInputForm({
       target: this.#contentsContainer,
       productCatalog: this.#productCatalog,
     });
@@ -31,7 +31,7 @@ export class ProductManageView {
   renderAll() {
     this.#contentsContainer.textContent = '';
 
-    this.#productInformationInput.render();
+    this.#productInformationInputForm.render();
     this.#productCatalogTable.render();
   }
 }

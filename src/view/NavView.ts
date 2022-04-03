@@ -4,9 +4,10 @@ import { ProductPurchaseView } from './ProductPurchaseView';
 import { URL_PATH } from '../utils/constants';
 
 // 임시
-import { LoginView } from './LoginView';
-import { SignupView } from './SignupView';
-import { UserInfoEditView } from './userInfoEditView';
+// import { LoginView } from './LoginView';
+// import { SignupView } from './SignupView';
+// import { UserInfoEditView } from './userInfoEditView';
+// 임시 종료
 
 export class NavView {
   #productManageNavBtn: HTMLButtonElement;
@@ -26,13 +27,13 @@ export class NavView {
     /**
      * 임시
      */
-    new LoginView(document.querySelector('#auth-section')).render();
-    new SignupView(document.querySelector('#auth-section')).render();
-    new UserInfoEditView(document.querySelector('#auth-section')).render();
-
+    // new LoginView(document.querySelector('#auth-section')).render();
+    // new SignupView(document.querySelector('#auth-section')).render();
+    // new UserInfoEditView(document.querySelector('#auth-section')).render();
     /**
      * 임시 종료
      */
+
     this.#productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.#balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
     this.#productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
@@ -45,7 +46,7 @@ export class NavView {
       this.#handlePopstate(savedData);
     });
 
-    // this.#renderHome();
+    this.#renderHome();
   }
 
   #handlePopstate = (savedData) => {
@@ -95,9 +96,7 @@ export class NavView {
   };
 
   #renderHome() {
-    this.#contentsContainer.textContent = '';
-
-    const path = URL_PATH.HOME;
+    const path = URL_PATH.PRODUCT_PURCHASE;
     history.pushState({ path }, null, path);
   }
 

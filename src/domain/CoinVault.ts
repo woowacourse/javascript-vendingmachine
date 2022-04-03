@@ -36,11 +36,11 @@ export class CoinVault implements CoinVaultInterface {
   }
 
   chargeMoney(money: number): void {
-    this.validateMoney(money);
-    this.addCoins(this.generateRandomCoins(money));
+    this.#validateMoney(money);
+    this.#addCoins(this.#generateRandomCoins(money));
   }
 
-  private addCoins(coins: Coins): void {
+  #addCoins(coins: Coins): void {
     const coinsQuantity = { ...this.#coinsQuantity };
 
     Object.entries(coins).forEach(([key, value]) => {
@@ -50,7 +50,7 @@ export class CoinVault implements CoinVaultInterface {
     this.#coinsQuantity = coinsQuantity;
   }
 
-  private validateMoney(money: number) {
+  #validateMoney(money: number) {
     if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
       throw new Error(ERROR_MESSAGE.OVER_BALANCE_LIMIT);
     }
@@ -59,7 +59,7 @@ export class CoinVault implements CoinVaultInterface {
     }
   }
 
-  private generateRandomCoins(money: number): Coins {
+  #generateRandomCoins(money: number): Coins {
     let balance = money;
     const generatedCoins = { ...COINS_INIT_QUANTITY };
 

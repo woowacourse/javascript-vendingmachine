@@ -1,10 +1,10 @@
-import { BalanceChargeInput } from '../component/BalanceChargeInput';
+import { BalanceChargeInputForm } from '../component/BalanceChargeInputForm';
 import { CoinVaultTable } from '../component/CoinVaultTable';
 
 import { CoinVault } from '../domain/CoinVault';
 
 export class BalanceChargeView {
-  #balanceChargeInput: BalanceChargeInput;
+  #balanceChargeInputForm: BalanceChargeInputForm;
   #coinVaultTable: CoinVaultTable;
   #coinVault: CoinVault;
   #contentsContainer: HTMLDivElement;
@@ -23,12 +23,12 @@ export class BalanceChargeView {
       target: this.#contentsContainer,
       coinVault: this.#coinVault,
     };
-    this.#balanceChargeInput = new BalanceChargeInput(this.#props);
+    this.#balanceChargeInputForm = new BalanceChargeInputForm(this.#props);
     this.#coinVaultTable = new CoinVaultTable(this.#props);
   }
 
   renderAll() {
-    this.#balanceChargeInput.render();
+    this.#balanceChargeInputForm.render();
     this.#coinVaultTable.render();
   }
 }

@@ -1,7 +1,11 @@
 import { ProductProps } from '../utils/interface';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
-export class ProductCatalogTable {
+interface ProductCatalogTableInterface {
+  render();
+}
+
+export class ProductCatalogTable implements ProductCatalogTableInterface {
   #productCatalog: ProductCatalog;
   #target: HTMLDivElement;
   #productTableBody: HTMLTableElement;
@@ -10,11 +14,11 @@ export class ProductCatalogTable {
     this.#target = target;
     this.#productCatalog = productCatalog;
 
-    this.#target.addEventListener('productAdded', this.renderAddedProduct);
+    this.#target.addEventListener('productAdded', this.#renderAddedProduct);
   }
 
   render = () => {
-    this.#target.insertAdjacentHTML('beforeend', this.template());
+    this.#target.insertAdjacentHTML('beforeend', this.#template());
 
     this.#selectDOM();
     this.#bindEvent();
@@ -25,15 +29,15 @@ export class ProductCatalogTable {
   }
 
   #bindEvent() {
-    this.#productTableBody.addEventListener('click', this.handleProductStateManage);
+    this.#productTableBody.addEventListener('click', this.#handleProductStateManage);
   }
 
-  renderAddedProduct = (e) => {
+  #renderAddedProduct = (e) => {
     const addedProduct = e.detail;
-    this.#productTableBody.insertAdjacentHTML('beforeend', this.tableRowTemplate(addedProduct));
+    this.#productTableBody.insertAdjacentHTML('beforeend', this.#tableRowTemplate(addedProduct));
   };
 
-  private template(): string {
+  #template(): string {
     return `
     <div class="table-container">
       <h2>상품 현황</h2>
@@ -45,13 +49,13 @@ export class ProductCatalogTable {
             <th>수량</th>
           </tr>
         </thead>
-        <tbody id="product-table-body">${this.tableBodyTemplate()}</tbody>
+        <tbody id="product-table-body">${this.#tableBodyTemplate()}</tbody>
       </table>
     </div>
   `;
   }
 
-  private tableBodyTemplate(): string {
+  #tableBodyTemplate(): string {
     return this.#productCatalog
       .getProductList()
       .map((product) => {
@@ -59,12 +63,12 @@ export class ProductCatalogTable {
         const price = product.getPrice();
         const quantity = product.getQuantity();
 
-        return this.tableRowTemplate({ name, price, quantity });
+        return this.#tableRowTemplate({ name, price, quantity });
       })
       .join('');
   }
 
-  private tableRowTemplate({ name, price, quantity }: ProductProps): string {
+  #tableRowTemplate({ name, price, quantity }: ProductProps): string {
     return `<tr id="${name}">
       <td class="product-name product-prop"><span>${name}</span></td>
       <td class="product-price product-prop"><span>${price}</span></td>
@@ -77,17 +81,17 @@ export class ProductCatalogTable {
     </tr>`;
   }
 
-  private handleProductStateManage = (e) => {
+  #handleProductStateManage = (e) => {
     if (e.target.classList.contains('edit-button')) {
       const tableRow = e.target.closest('tr');
-      this.renderEditProduct(tableRow);
+      this.#renderEditProduct(tableRow);
 
       return;
     }
 
     if (e.target.classList.contains('delete-button')) {
       const tableRow = e.target.closest('tr');
-      this.deleteProduct(tableRow);
+      this.#deleteProduct(tableRow);
 
       return;
     }
@@ -96,19 +100,19 @@ export class ProductCatalogTable {
       const tableRow = e.target.closest('tr');
 
       try {
-        this.saveEditedProduct(tableRow);
+        this.#saveEditedProduct(tableRow);
       } catch (err) {
         alert(err.message);
 
         return;
       }
 
-      this.confirmEditProduct(tableRow);
-      this.toggleEditBtn(tableRow);
+      this.#confirmEditProduct(tableRow);
+      this.#toggleEditBtn(tableRow);
     }
   };
 
-  private renderEditProduct = (tableRow: HTMLTableRowElement) => {
+  #renderEditProduct = (tableRow: HTMLTableRowElement) => {
     const productRowItems = tableRow.querySelectorAll('.product-prop');
 
     productRowItems.forEach((tableDatum) => {
@@ -116,15 +120,15 @@ export class ProductCatalogTable {
       const content = productSpanElement.textContent;
 
       tableDatum.replaceChild(
-        this.createProductInputElement(tableDatum, content),
+        this.#createProductInputElement(tableDatum, content),
         productSpanElement
       );
     });
 
-    this.toggleEditBtn(tableRow);
+    this.#toggleEditBtn(tableRow);
   };
 
-  private createProductInputElement(tableDatum: Element, content: string): HTMLInputElement {
+  #createProductInputElement(tableDatum: Element, content: string): HTMLInputElement {
     const productInputElement = document.createElement('input');
 
     productInputElement.setAttribute(
@@ -137,14 +141,14 @@ export class ProductCatalogTable {
     return productInputElement;
   }
 
-  private deleteProduct(tableRow: HTMLTableRowElement) {
+  #deleteProduct(tableRow: HTMLTableRowElement) {
     if (window.confirm('진짜 지우실건가요?')) {
       tableRow.remove();
       this.#productCatalog.deleteProduct(tableRow.id);
     }
   }
 
-  private saveEditedProduct(tableRow: HTMLTableRowElement) {
+  #saveEditedProduct(tableRow: HTMLTableRowElement) {
     const targetProductName = tableRow.id;
     const editedProductName = (tableRow.querySelector('.product-name input') as HTMLInputElement)
       .value;
@@ -161,27 +165,27 @@ export class ProductCatalogTable {
     });
   }
 
-  private confirmEditProduct(tableRow: HTMLTableRowElement) {
+  #confirmEditProduct(tableRow: HTMLTableRowElement) {
     const productProp = tableRow.querySelectorAll('.product-prop');
 
     productProp.forEach((tableDatum) => {
       const productInputElement = tableDatum.querySelector('input');
       const editedValue = productInputElement.value;
 
-      tableDatum.replaceChild(this.createProductSpanElement(editedValue), productInputElement);
+      tableDatum.replaceChild(this.#createProductSpanElement(editedValue), productInputElement);
     });
 
     tableRow.id = `${tableRow.querySelector('.product-name').textContent}`;
   }
 
-  private createProductSpanElement(editedValue: string): HTMLSpanElement {
+  #createProductSpanElement(editedValue: string): HTMLSpanElement {
     const productSpanElement = document.createElement('span');
     productSpanElement.innerText = editedValue;
 
     return productSpanElement;
   }
 
-  private toggleEditBtn(tableRow: HTMLTableRowElement) {
+  #toggleEditBtn(tableRow: HTMLTableRowElement) {
     [...tableRow.querySelector('.edit-button-container').children].forEach((btn) =>
       btn.classList.toggle('hide')
     );

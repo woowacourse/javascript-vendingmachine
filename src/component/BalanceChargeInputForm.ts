@@ -1,6 +1,10 @@
 import { CoinVault } from '../domain/CoinVault';
 
-export class BalanceChargeInput {
+interface BalanceChargeInputFormInterface {
+  render();
+}
+
+export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
   #target: HTMLDivElement;
   #coinVault: CoinVault;
   #submitBtn: HTMLButtonElement;
@@ -14,12 +18,12 @@ export class BalanceChargeInput {
   }
 
   render() {
-    this.#target.insertAdjacentHTML('beforeend', this.template(this.#coinVault.getBalance()));
-    this.selectDom();
-    this.bindEvent();
+    this.#target.insertAdjacentHTML('beforeend', this.#template(this.#coinVault.getBalance()));
+    this.#selectDom();
+    this.#bindEvent();
   }
 
-  private template(balance: number): string {
+  #template(balance: number): string {
     return `
       <form id="charge-balance-input-form">
         <label id="charge-balance-input-label" for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
@@ -30,18 +34,18 @@ export class BalanceChargeInput {
     `;
   }
 
-  private selectDom() {
+  #selectDom() {
     this.#chargeBalanceInputForm = document.querySelector('#charge-balance-input-form');
     this.#chargeBalanceInput = document.querySelector('#charge-balance-input');
     this.#submitBtn = document.querySelector('#charge-balance-submit-btn');
     this.#currentBalance = document.querySelector('#current-balance');
   }
 
-  private bindEvent() {
-    this.#submitBtn.addEventListener('click', this.handleChargeBalance);
+  #bindEvent() {
+    this.#submitBtn.addEventListener('click', this.#handleChargeBalance);
   }
 
-  private handleChargeBalance = (e: Event) => {
+  #handleChargeBalance = (e: Event) => {
     e.preventDefault();
 
     try {
@@ -53,11 +57,11 @@ export class BalanceChargeInput {
       return;
     }
 
-    this.updateCurrentBalance();
+    this.#updateCurrentBalance();
     this.#target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
-  private updateCurrentBalance() {
+  #updateCurrentBalance() {
     this.#currentBalance.textContent = `${this.#coinVault.getBalance()}`;
   }
 }

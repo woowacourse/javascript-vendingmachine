@@ -1,9 +1,13 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 
-export class ProductInformationInput {
+interface ProductInformationInputFormInterface {
+  render();
+}
+
+export class ProductInformationInputForm implements ProductInformationInputFormInterface {
   #productCatalog: ProductCatalog;
   #target: HTMLDivElement;
-  #productInformationForm: HTMLFormElement;
+  #productInformationInputForm: HTMLFormElement;
   #productNameInput: HTMLInputElement;
   #productPriceInput: HTMLInputElement;
   #productQuantityInput: HTMLInputElement;
@@ -15,14 +19,14 @@ export class ProductInformationInput {
   }
 
   render() {
-    this.#target.insertAdjacentHTML('beforeend', this.template());
-    this.selectDom();
-    this.bindEvent();
+    this.#target.insertAdjacentHTML('beforeend', this.#template());
+    this.#selectDom();
+    this.#bindEvent();
   }
 
-  private template(): string {
+  #template(): string {
     return `
-      <form id="product-information-form">
+      <form id="product-information-input-form">
         <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
         <input id="product-name-input" class="input" type="text" placeholder="상품명" />
         <input id="product-price-input" class="input" type="number" placeholder="가격" />
@@ -32,19 +36,19 @@ export class ProductInformationInput {
     `;
   }
 
-  private selectDom() {
-    this.#productInformationForm = document.querySelector('#product-information-form');
+  #selectDom() {
+    this.#productInformationInputForm = document.querySelector('#product-information-input-form');
     this.#productNameInput = document.querySelector('#product-name-input');
     this.#productPriceInput = document.querySelector('#product-price-input');
     this.#productQuantityInput = document.querySelector('#product-quantity-input');
     this.#submitButton = document.querySelector('#product-information-submit-btn');
   }
 
-  private bindEvent() {
-    this.#submitButton.addEventListener('click', this.handleAddProduct);
+  #bindEvent() {
+    this.#submitButton.addEventListener('click', this.#handleAddProduct);
   }
 
-  private handleAddProduct = (e) => {
+  #handleAddProduct = (e) => {
     e.preventDefault();
 
     const name = this.#productNameInput.value;
@@ -58,7 +62,7 @@ export class ProductInformationInput {
 
       return;
     } finally {
-      this.#productInformationForm.reset();
+      this.#productInformationInputForm.reset();
     }
 
     this.#target.dispatchEvent(
