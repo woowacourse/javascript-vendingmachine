@@ -84,11 +84,32 @@ describe('사용자 인증 테스트', () => {
     cy.get('#logout-button').click();
   });
 
-  it.only('로그인을 하면 탭 메뉴가 표시된다.', () => {
+  it('로그인을 하면 탭 메뉴가 표시된다.', () => {
     const userData = createRandomUserData();
 
     cy.loginWithNewUser(userData);
 
     cy.get('#tab-menu-navigation').should('exist');
   });
+
+  // it.only('로그인을 했을 때 사용자 이름을 수정할 수 있다.', () => {
+  //   cy.intercept({
+  //     method: 'PATCH',
+  //     url: '**/users/*',
+  //   }).as('updateUserRequest');
+  //   const userData = createRandomUserData();
+  //   const newName = `${userData.name}1`;
+
+  //   cy.loginWithNewUser(userData);
+
+  //   cy.get('#user-button').click();
+  //   cy.get('#user-info-link').click();
+
+  //   cy.get('#name-input').type(newName);
+  //   cy.get('.submit-button').click();
+
+  //   cy.wait('@updateUserRequest');
+
+  //   cy.get('#name-input').should('have.value', newName);
+  // });
 });

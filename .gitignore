@@ -6,3 +6,4 @@ dist
 .gitmessage.txt
 
 cypress/screenshots/
+cypress/videos/

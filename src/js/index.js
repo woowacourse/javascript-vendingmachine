@@ -14,6 +14,7 @@ import {
 import Snackbar from './view/Snackbar';
 import LoginPage from './view/LoginPage';
 import RegisterPage from './view/RegisterPage';
+import UserInfoPage from './view/UserInfoPage';
 
 class App {
   #vendingMachine;
@@ -30,6 +31,7 @@ class App {
     this.#renderList = {
       '#/login': new LoginPage(this.#authorization, this.snackBar),
       '#/register': new RegisterPage(this.#authorization, this.snackBar),
+      '#/user-info': new UserInfoPage(this.#authorization, this.snackBar),
       '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
       '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
       '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
@@ -89,7 +91,7 @@ class App {
     if (this.#authorization.isLoggedIn) {
       this.#appContainer.insertAdjacentHTML(
         'afterbegin',
-        userButtonTemplate(this.#authorization.userName)
+        userButtonTemplate(this.#authorization.name)
       );
       selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
       selectDom('#user-button-select-box')?.remove();

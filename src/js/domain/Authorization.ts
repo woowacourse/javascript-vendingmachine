@@ -2,10 +2,12 @@ export default class Authorization {
   #isLoggedIn;
   #userId;
   #name;
+  #email;
 
   constructor() {
     this.#userId = window.sessionStorage.getItem('userId');
     this.#name = window.sessionStorage.getItem('name');
+    this.#email = window.sessionStorage.getItem('email');
     this.#isLoggedIn = !!this.#userId;
   }
 
@@ -13,8 +15,12 @@ export default class Authorization {
     return this.#isLoggedIn;
   }
 
-  get userName() {
+  get name() {
     return this.#name;
+  }
+
+  get email() {
+    return this.#email;
   }
 
   async register(userInputData) {
@@ -28,11 +34,10 @@ export default class Authorization {
     ).then((res) => res.json());
 
     const {
-      accessToken,
-      user: { id: userId, name },
+      user: { id: userId, name, email },
     } = response;
 
-    this.#saveUserData({ accessToken, userId, name });
+    this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
@@ -46,12 +51,9 @@ export default class Authorization {
       }
     ).then((res) => res.json());
 
-    const {
-      accessToken,
-      user: { id: userId, name },
-    } = response;
+    const { id: userId, name, email } = response;
 
-    this.#saveUserData({ accessToken, userId, name });
+    this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
@@ -66,11 +68,10 @@ export default class Authorization {
     ).then((res) => res.json());
 
     const {
-      accessToken,
-      user: { id: userId, name },
+      user: { id: userId, name, email },
     } = response;
 
-    this.#saveUserData({ accessToken, userId, name });
+    this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
@@ -82,12 +83,13 @@ export default class Authorization {
     this.#isLoggedIn = false;
   }
 
-  #saveUserData({ accessToken, userId, name }) {
-    window.sessionStorage.setItem('accessToken', accessToken);
+  #saveUserData({ userId, name, email }) {
     window.sessionStorage.setItem('userId', userId);
     window.sessionStorage.setItem('name', name);
+    window.sessionStorage.setItem('email', email);
 
     this.#userId = userId;
     this.#name = name;
+    this.#email = email;
   }
 }
