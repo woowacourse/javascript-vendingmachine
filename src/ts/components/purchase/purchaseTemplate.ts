@@ -2,7 +2,7 @@ import { PURCAHSE } from "../../utils/constants";
 
 const purchaseTemplate = () => {
   return `
-  <div>
+  <section>
     <form class="purchase-form">
       <label>상품을 구매할 금액을 투입해주세요.</label>
         <div>
@@ -10,10 +10,8 @@ const purchaseTemplate = () => {
           <button type="submit" class="purchase-form__add-button">투입</button>
         </div>
     </form>  
-  </div> 
-  <div>
     <p>투입한 금액: <span class="purchase-form__amount">0</span>원</p>
-  </div>
+  </section> 
   `;
 };
 

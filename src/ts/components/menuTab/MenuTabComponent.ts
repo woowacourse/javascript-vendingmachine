@@ -11,8 +11,8 @@ class MenuTabComponent {
     this.menuNav = $(".menu-nav");
     this.menuNavButtons = $$(".menu-nav__button");
 
-    this.menuNav.addEventListener("click", this.handleMenuTab);
     window.addEventListener("popstate", this.handlePopState);
+    this.menuNav.addEventListener("click", this.handleMenuTab);
     this.changeTabStyle();
   }
 

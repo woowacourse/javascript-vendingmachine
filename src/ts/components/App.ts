@@ -40,10 +40,14 @@ class App {
     this.menuTabComponent = new MenuTabComponent(this.convertTemplate);
     this.productComponent = new ProductComponent({ productManager: this.productManager });
     this.chargeComponent = new ChargeComponent({ chargeManager: this.chargeManager });
-    this.purchaseComponent = new PurchaseComponent();
+    this.purchaseComponent = new PurchaseComponent({
+      productManager: this.productManager,
+      chargeManager: this.chargeManager,
+    });
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
+      this.convertTemplate("#product");
     }
 
     this.convertTemplate((location.hash as Path) || "#product");

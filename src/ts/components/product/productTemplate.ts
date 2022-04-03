@@ -2,7 +2,7 @@ import { PRODUCT } from "../../utils/constants";
 
 const productTemplate = () => {
   return `
-  <div>
+  <section>
     <form class="product-manange__form">
       <label>추가할 상품 정보를 입력해주세요.</label>
         <div>
@@ -13,8 +13,8 @@ const productTemplate = () => {
           <button type="submit" class="product-manange__add-button">추가</button>
         </div>
     </form>  
-  </div>
-  <div>
+  </section>
+  <section>
     <h1 class="product-manange__title">상품 현황</h1>
     <div class="product-manage__table-container">
     <table class="product-manange__table">
@@ -26,19 +26,19 @@ const productTemplate = () => {
       </tr>
     </table>
     </div>
-  </div>`;
+  </section>`;
 };
 
 const addProductTemplate = ({ name, price, quantity }) => {
   return `
-  <tr data-name=${name}>
-      <td>${name}</td>
-      <td>${price}</td>
-      <td>${quantity}</td>
-      <td>
-        <button type="button" class="product-manage__edit-button product-manage__option">수정</button>
-        <button type="button" class="product-manage__remove-button product-manage__option">제거</button>
-      </td>
+  <tr data-name=${name} class="added">
+    <td>${name}</td>
+    <td>${price}</td>
+    <td>${quantity}</td>
+    <td>
+      <button type="button" class="product-manage__edit-button product-manage__option">수정</button>
+      <button type="button" class="product-manage__remove-button product-manage__option">제거</button>
+    </td>
   </tr>`;
 };
 

@@ -100,7 +100,6 @@ button {
 }
 
 .edit-input {
-  width: 50px;
   height: 30px;
   font-size: 15px;
 }
@@ -111,6 +110,16 @@ button {
 }
 .edit-input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.product-manage__edit-input--name {
+  width: 80px;
+}
+.product-manage__edit-input--price {
+  width: 60px;
+}
+.product-manage__edit-input--quantity {
+  width: 40px;
 }
 
 .charge-manange__input,

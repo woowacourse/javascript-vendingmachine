@@ -30,7 +30,7 @@ class ChargeComponent {
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
 
-  handleAddCharge = (e) => {
+  handleAddCharge = (e: Event) => {
     e.preventDefault();
     const charge = this.chargeInput.valueAsNumber;
 

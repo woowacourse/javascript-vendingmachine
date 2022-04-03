@@ -1,5 +1,5 @@
 import { Product } from "../mananger/ProductManager";
-import { PRODUCT, CHARGE, ERROR_MESSAGES } from "./constants";
+import { PRODUCT, CHARGE, ERROR_MESSAGES, PURCAHSE } from "./constants";
 
 const verifyProductName = (name: string) => {
   if (name === "") {
@@ -49,4 +49,20 @@ const verifyCharge = (charge: number) => {
   }
 };
 
-export { verifyProductName, verifyProductPrice, verifyProductQuantity, verifyDuplicateName, verifyCharge };
+const verifyPurchaseAmount = (amount: number) => {
+  if (amount > PURCAHSE.MAX_AMOUNT) {
+    throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
+  }
+  if (amount % PURCAHSE.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_QUANTITY_UNIT);
+  }
+};
+
+export {
+  verifyProductName,
+  verifyProductPrice,
+  verifyProductQuantity,
+  verifyDuplicateName,
+  verifyCharge,
+  verifyPurchaseAmount,
+};
