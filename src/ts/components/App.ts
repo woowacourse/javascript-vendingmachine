@@ -46,7 +46,7 @@ class App {
       history.pushState({ path: "#product" }, null, "#product");
     }
 
-    this.convertTemplate("#product");
+    this.convertTemplate((location.hash as Path) || "#product");
   }
 
   hideContainers() {

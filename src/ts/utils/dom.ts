@@ -1,7 +1,7 @@
-const $ = (selector: string, element: HTMLElement | Document = document) =>
-  element.querySelector(selector) as HTMLElement;
+const $ = <E extends Element>(selector: string, element: E | Document = document): E | null =>
+  element.querySelector(selector);
 
-const $$ = (selector: string, element: HTMLElement | Document = document) =>
-  element.querySelectorAll(selector) as NodeList;
+const $$ = <E extends Element>(selector: string, element: E | Document = document): NodeListOf<E> =>
+  element.querySelectorAll(selector);
 
 export { $, $$ };
