@@ -1,9 +1,8 @@
 type RequestType = 'signin' | 'signup';
+const baseUrl = 'https://heroku-vending-lv1.herokuapp.com';
 
 const request = async (purpose: RequestType, user: object) => {
-  const url = `http://localhost:3000/${
-    purpose === 'signup' ? 'register' : 'login'
-  }`;
+  const url = `${baseUrl}/${purpose === 'signup' ? 'register' : 'login'}`;
   let resInfo;
 
   await fetch(url, {
@@ -25,7 +24,7 @@ const request = async (purpose: RequestType, user: object) => {
 };
 
 const requestUpdate = async (user: object, id: string) => {
-  const url = `http://localhost:3000/users/${id}`;
+  const url = `${baseUrl}/users/${id}`;
   let resInfo;
 
   await fetch(url, {
