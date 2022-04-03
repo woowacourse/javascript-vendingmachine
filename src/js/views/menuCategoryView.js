@@ -1,6 +1,6 @@
 import { SECTION_CONTAINER } from '../constants/constants.js';
 import { $, replaceElement } from '../utils/dom.js';
-import { CATEGORY_TEMPLATE } from '../templates/templates.js';
+import { CATEGORY_TEMPLATE } from './template.js';
 
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,
