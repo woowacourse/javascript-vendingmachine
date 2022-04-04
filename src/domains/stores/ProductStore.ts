@@ -41,6 +41,11 @@ class ProductStore {
         newProducts.splice(productIndex, 1);
         break;
       }
+      case PRODUCT_ACTION.PURCHASE: {
+        const productIndex = this.findProductIndex(detail as string);
+        newProducts[productIndex].quantity -= 1;
+        break;
+      }
     }
 
     return newProducts;

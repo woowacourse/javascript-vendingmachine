@@ -18,6 +18,7 @@ export type ProductActionType = {
   ADD: string;
   MODIFY: string;
   DELETE: string;
+  PURCHASE: string;
 };
 
 export type CoinActionType = {

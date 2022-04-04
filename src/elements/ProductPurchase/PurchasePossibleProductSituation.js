@@ -57,10 +57,20 @@ class PurchasePossibleProductSituation extends CustomElement {
         this.setEventAfterRerender(newProductInfo.name);
         break;
       }
-      case PRODUCT_ACTION.DELETE:
+      case PRODUCT_ACTION.DELETE: {
         $(`[data-purchase-product-name="${detail}"]`).remove();
+        break;
+      }
+      case PRODUCT_ACTION.PURCHASE: {
+        const $tbodyRow = $(`[data-purchase-product-name="${detail}"]`);
+        this.updateProductQuantity($tbodyRow);
+      }
     }
   }
+
+  updateProductQuantity = ($tbodyRow) => {
+    $('.product-quantity-td', $tbodyRow).textContent -= 1;
+  };
 
   tableBodyRowTemplate({ name, price, quantity }) {
     return ` 
@@ -88,6 +98,7 @@ class PurchasePossibleProductSituation extends CustomElement {
   handleProductPurchaseButtonClick = ($tbodyRow) => {
     const moneyInput = CoinStoreInstance.coinsCount.money_input;
     const productPrice = Number($('.product-price-td', $tbodyRow).textContent);
+    const { purchaseProductName } = $tbodyRow.dataset;
 
     // 상품을 살 수 있는지 체크
     try {
@@ -98,6 +109,7 @@ class PurchasePossibleProductSituation extends CustomElement {
     }
 
     // 수량 -1에 대한 액션
+    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.PURCHASE, purchaseProductName);
     // 투입한 금액 업데이트에 대한 액션
     CoinStoreInstance.dispatchAction(COIN_ACTION.UPDATE_MONEY_INPUT, productPrice);
   };

@@ -9,6 +9,7 @@ export const PRODUCT_ACTION: ProductActionType = {
   ADD: 'product-add',
   MODIFY: 'product-modify',
   DELETE: 'product-delete',
+  PURCHASE: 'product-purchase',
 };
 
 export const COIN_ACTION: CoinActionType = {

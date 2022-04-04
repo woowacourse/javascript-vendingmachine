@@ -56,10 +56,20 @@ class ProductCurrentSituation extends CustomElement {
         this.setEventAfterRerender(newProductInfo.name);
         break;
       }
-      case PRODUCT_ACTION.DELETE:
+      case PRODUCT_ACTION.DELETE: {
         $(`[data-product-name="${detail}"]`).remove();
+        break;
+      }
+      case PRODUCT_ACTION.PURCHASE: {
+        const $tbodyRow = $(`[data-product-name="${detail}"]`);
+        this.updateProductQuantity($tbodyRow);
+      }
     }
   }
+
+  updateProductQuantity = ($tbodyRow) => {
+    $('.product-quantity-td', $tbodyRow).textContent -= 1;
+  };
 
   tableBodyRowTemplate({ name, price, quantity }) {
     return ` 
