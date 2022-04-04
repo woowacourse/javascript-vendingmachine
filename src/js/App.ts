@@ -41,4 +41,9 @@ export default class App {
         this.mainView.renderMainPageSection(url);
     }
   }
+
+  initialRender() {
+    window.history.pushState(null, null, `${URL.BASE_URL}/#${URL.MAIN}/#${URL.PURCHASE_ITEM}`);
+    this.renderPage();
+  }
 }

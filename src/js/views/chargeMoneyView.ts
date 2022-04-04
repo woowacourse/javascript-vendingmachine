@@ -1,5 +1,5 @@
 import { $ } from '../utils/common';
-import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
+import { chargeMoneyTemplate, sectionTemplate } from '../templates/chargeMoneyTemplate';
 import { CoinsType } from '../types/types';
 import { SELECTOR } from '../constants/viewConstants';
 import showSnackbar from '../utils/snackbar';

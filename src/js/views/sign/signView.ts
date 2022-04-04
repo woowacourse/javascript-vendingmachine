@@ -4,16 +4,19 @@ import { $, emit } from '../../utils/common';
 import { SELECTOR } from '../../constants/viewConstants';
 import SignInView from './signInView';
 import SignUpView from './signUpView';
+import EditProfileView from './editProfileView';
 
 export default class SignView {
   private $app: HTMLElement;
   signInView: SignInView;
   singUpView: SignUpView;
+  editProfileView: EditProfileView;
 
   constructor() {
     this.$app = $(SELECTOR.ID.APP);
     this.signInView = new SignInView();
     this.singUpView = new SignUpView();
+    this.editProfileView = new EditProfileView();
 
     window.addEventListener(
       CUSTOM_EVENT.OFFER_SIGNUP_CLICK,
@@ -34,6 +37,9 @@ export default class SignView {
         break;
       case URL.SING_UP:
         this.singUpView.render();
+        break;
+      case URL.EDIT_PROFILE:
+        this.editProfileView.render();
         break;
       default:
         this.signInView.render();

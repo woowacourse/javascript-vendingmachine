@@ -1,6 +1,7 @@
 @import './app.css';
 @import './snackbar.css';
 @import './sign.css';
+@import './menu.css';
 
 :root {
   --color-nav-button-bg: #f5f5f5;

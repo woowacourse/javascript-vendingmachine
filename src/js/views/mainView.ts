@@ -7,6 +7,7 @@ import ChargeMoneyView from './chargeMoneyView';
 import PurchaseItemView from './purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import AuthManager from '../auth/authManager';
+import UserMenuView from './userMenuView';
 
 export default class MainView {
   private $app: HTMLElement;
@@ -14,6 +15,7 @@ export default class MainView {
   private manageItemView: ManageItemView;
   private chargeMoneyView: ChargeMoneyView;
   private purchaseItemView: PurchaseItemView;
+  private userMenuView: UserMenuView;
 
   constructor() {
     this.$app = $(SELECTOR.ID.APP);
@@ -21,6 +23,7 @@ export default class MainView {
     this.manageItemView = new ManageItemView(this.vendingMachine);
     this.chargeMoneyView = new ChargeMoneyView(this.vendingMachine);
     this.purchaseItemView = new PurchaseItemView(this.vendingMachine);
+    this.userMenuView = new UserMenuView();
   }
 
   render() {
@@ -76,12 +79,35 @@ export default class MainView {
 
   private handleSignButtonClick(event) {
     const $signButton = event.target;
-    const { url } = $signButton.dataset;
 
     if ($signButton.classList.contains('sign-in')) {
-      emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
-      emit({ eventName: CUSTOM_EVENT.RENDER_PAGE, detail: {} });
+      this.handleSiginClick($signButton);
+      return;
     }
+    if ($signButton.classList.contains('thumbnail')) {
+      this.handleThumbnailClick($signButton);
+      return;
+    }
+    if ($signButton.classList.contains('thumbnail-active')) {
+      this.handleThumbnailClse($signButton);
+    }
+  }
+
+  private handleSiginClick($signButton) {
+    const { url } = $signButton.dataset;
+
+    emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
+    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE, detail: {} });
+  }
+
+  private handleThumbnailClick($signButton) {
+    $signButton.classList.replace('thumbnail', 'thumbnail-active');
+    this.userMenuView.showMenu();
+  }
+
+  private handleThumbnailClse($signButton) {
+    $signButton.classList.replace('thumbnail-active', 'thumbnail');
+    this.userMenuView.hideMeny();
   }
 
   private checkSignIn() {

@@ -9,6 +9,7 @@ export const URL = {
   PURCHASE_ITEM: `purchaseItem`,
   SIGN_IN: 'signIn',
   SING_UP: 'singUp',
+  EDIT_PROFILE: 'editProfile',
 };
 
 export const CUSTOM_EVENT = {
