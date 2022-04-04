@@ -60,4 +60,18 @@ describe('구매 가능 여부 확인', () => {
       vendingMachine.validatePurchasingBehavior(itemQuantity, itemPrice, remainedMoneyInput)
     ).not.toThrow();
   });
+
+  describe('금액 투입 테스트', () => {
+    const vendingMachine = new ItemPurchase();
+
+    test('금액을 누적하여 투입할 수 있다.', () => {
+      const inputMoney = 3000;
+      const prevTotalMoneyAmount = vendingMachine.insertMoney(inputMoney);
+
+      const nextInputMoney = 1000;
+      expect(vendingMachine.insertMoney(nextInputMoney)).toBe(
+        prevTotalMoneyAmount + nextInputMoney
+      );
+    });
+  });
 });

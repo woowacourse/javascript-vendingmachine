@@ -25,6 +25,11 @@ class ItemPurchase {
     return this._money;
   }
 
+  insertMoney(nextInputMoney: number): number {
+    this._money += nextInputMoney;
+    return this._money;
+  }
+
   giveChange(moneyInput: number, coinCollection: CoinCollectionType) {
     let remainedMoney = moneyInput;
     const coins = { ...coinCollection };
