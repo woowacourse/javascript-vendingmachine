@@ -1,6 +1,7 @@
 import {
   ERROR_MESSAGE,
   MAX_CHARGABLE_MONEY,
+  MAX_INSERT_MONEY,
   MAX_LENGTH_OF_PRODUCT_NAME,
   MAX_PRODUCT_PRICE,
   MAX_PRODUCT_QUANTITY,
@@ -112,7 +113,7 @@ export const validateInsertMoney = (money: string, totalMoney: number) => {
   if (moneyNum % MIN_COIN_UNIT)
     return new ValidationResult(true, ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_INSERT_MONEY);
 
-  if (moneyNum + totalMoney > 10000)
+  if (moneyNum + totalMoney > MAX_INSERT_MONEY)
     return new ValidationResult(true, ERROR_MESSAGE.OVER_MAX_INSERT_MONEY);
 
   return new ValidationResult(false);
