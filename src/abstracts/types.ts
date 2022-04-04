@@ -23,6 +23,7 @@ export type ProductActionType = {
 export type CoinActionType = {
   COIN_CHARGE: string;
   PURCHASE_MONEY_INPUT: string;
+  UPDATE_MONEY_INPUT: string;
 };
 
 export type CoinsCount = {

@@ -33,6 +33,8 @@ const isOverMaxMoney = (inputMoney) => {
   return currentMoney + inputMoney > MONEY.MAX;
 };
 
+const isProductPriceMoreExpensive = (moneyInput, productPrice) => productPrice > moneyInput;
+
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
     throw new Error(ERROR_MESSAGE.IS_BLANK_PRODUCT_NAME);
@@ -97,5 +99,11 @@ export const checkPurchaseMoneyValidation = (purchaseMoneyInputValue) => {
   }
   if (cannotDividedByTen(purchaseMoneyInputValue)) {
     throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+  }
+};
+
+export const checkCanPurchaseValidation = (moneyInput, productPrice) => {
+  if (isProductPriceMoreExpensive(moneyInput, productPrice)) {
+    throw new Error(ERROR_MESSAGE.IS_OVER_MONEY_INPUT);
   }
 };

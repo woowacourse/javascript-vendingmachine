@@ -47,4 +47,6 @@ export const ERROR_MESSAGE = {
 
   IS_UNDER_PRODUCT_MIN_PRICE: `최소 상품 가격인 ${PRODUCT.PRICE.MIN}원 미만으로 입력되었습니다! 상품을 구매하고 싶으시면, ${PRODUCT.PRICE.MIN}원 이상으로 입력해 주세요!`,
   IS_OVER_PRODUCT_MAX_PRICE: `돈은 한번에 최대 ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}만큼 투입할 수 있습니다! ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}원 이하로 투입해주세요!`,
+
+  IS_OVER_MONEY_INPUT: `상품의 가격이 투입된 돈보다 더 비쌉니다. 상품을 구매하고 싶으시면, 돈을 더 투입해주세요.`,
 };

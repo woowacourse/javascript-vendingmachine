@@ -1,7 +1,9 @@
 import CustomElement from '../../abstracts/CustomElement';
 import ProductStoreInstance from '../../domains/stores/ProductStore';
 import { $ } from '../../utils/dom';
-import { PRODUCT_ACTION } from '../../domains/actions';
+import { PRODUCT_ACTION, COIN_ACTION } from '../../domains/actions';
+import { checkCanPurchaseValidation } from '../../validators';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
 
 class PurchasePossibleProductSituation extends CustomElement {
   connectedCallback() {
@@ -84,7 +86,20 @@ class PurchasePossibleProductSituation extends CustomElement {
   }
 
   handleProductPurchaseButtonClick = ($tbodyRow) => {
-    console.log($tbodyRow);
+    const moneyInput = CoinStoreInstance.coinsCount.money_input;
+    const productPrice = Number($('.product-price-td', $tbodyRow).textContent);
+
+    // 상품을 살 수 있는지 체크
+    try {
+      checkCanPurchaseValidation(moneyInput, productPrice);
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+
+    // 수량 -1에 대한 액션
+    // 투입한 금액 업데이트에 대한 액션
+    CoinStoreInstance.dispatchAction(COIN_ACTION.UPDATE_MONEY_INPUT, productPrice);
   };
 }
 
