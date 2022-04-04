@@ -115,7 +115,7 @@ export default class PurchaseProductTab {
 
       this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
 
-      if (this.#vendingMachine.moneyInsert !== '0') {
+      if (this.#vendingMachine.moneyInsert !== 0) {
         this.#snackbar.addToMessageList(NOT_ENOUGH_CHANGE_MESSAGE);
       }
     } catch ({ message }) {
