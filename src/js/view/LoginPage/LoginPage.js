@@ -27,7 +27,7 @@ export default class LoginPage {
     try {
       await this.#authorization.login({ email, password });
 
-      window.location.href = '#/manage';
+      window.location.href = '#/product';
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }

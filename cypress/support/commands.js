@@ -1,5 +1,5 @@
 Cypress.Commands.add('addProduct', ({ name, price, stock }) => {
-  cy.get('#manage-tab-menu').click();
+  cy.get('#product-tab-menu').click();
   cy.get('#add-product-name-input').type(name);
   cy.get('#add-product-price-input').type(price);
   cy.get('#add-product-stock-input').type(stock);
@@ -7,7 +7,7 @@ Cypress.Commands.add('addProduct', ({ name, price, stock }) => {
 });
 
 Cypress.Commands.add('updateProduct', (targetProperty, newData) => {
-  cy.get('#manage-tab-menu').click();
+  cy.get('#product-tab-menu').click();
 
   cy.get('.update-product-button').first().click();
   cy.get(`.update-product-${targetProperty}-input`).first().clear().type(newData);

@@ -35,7 +35,7 @@ export const notFoundTabTemplate = /* html */ `
 
 export const navigationTemplate = /* html */ `
   <nav id="tab-menu-navigation">
-    <a id="manage-tab-menu" class="tab-menu-button" href="#/product">상품 관리</a>
+    <a id="product-tab-menu" class="tab-menu-button" href="#/product">상품 관리</a>
     <a id="charge-tab-menu" class="tab-menu-button" href="#/charge">잔돈 충전</a>
     <a id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
       상품 구매

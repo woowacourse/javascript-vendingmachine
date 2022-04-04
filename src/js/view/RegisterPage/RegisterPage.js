@@ -34,7 +34,7 @@ export default class RegisterPage {
     try {
       await this.#authorization.register({ email, name, password, passwordConfirm });
 
-      window.location.href = '#/manage';
+      window.location.href = '#/product';
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
