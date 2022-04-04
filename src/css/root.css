@@ -7,4 +7,5 @@
   --secondary-darken: #8b8b8b;
   --white: #fff;
   --black: #000;
+  --dimmer: rgba(0, 0, 0, 0.5);
 }

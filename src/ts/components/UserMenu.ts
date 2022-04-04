@@ -2,6 +2,8 @@
 // - [ ] 로그인한 유저의 이름 중 첫번째 글자를 썸네일처럼 만든다.
 // - [ ] 로그인한 유저의 썸네일을 클릭하면 select box로 `회원정보수정`과 `로그아웃` 메뉴가 표시된다.
 
+import { $ } from '../utils';
+
 const userMenuTemplate = document.createElement('template');
 userMenuTemplate.innerHTML = `
   <style>
@@ -71,6 +73,7 @@ class UserMenu extends HTMLElement {
 
   connectedCallback() {
     // 이벤트 추가
+    this.checkLoginStatus();
     this.renderUserMenu();
     this.shadowRoot.querySelector('#logout-button').addEventListener('click', this.logout);
   }
@@ -80,9 +83,49 @@ class UserMenu extends HTMLElement {
     this.shadowRoot.querySelector('#logout-button').removeEventListener('click', this.logout);
   }
 
+  checkLoginStatus = () => {
+    const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+    if (!userAuth) {
+      alert('user-menu 에서 알림 : 현재 비로그인 상태');
+      return;
+    }
+    const id = userAuth.id;
+    const accessToken = `Bearer ${userAuth.accessToken}`;
+
+    const url = `https://json-server-marco.herokuapp.com/users/${id}`;
+
+    // 로그인
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          alert('로그인 안 돼셨어요.>ㅇ<');
+          this.renderLoginButton();
+          return;
+        }
+        return res.json();
+      })
+      .then((response) => this.renderUserThumbnail(response.name[0]))
+      .catch((error) => console.error('에러', error));
+  };
+
+  renderLoginButton = () => {
+    $('.app');
+  };
+
+  renderUserThumbnail = (firstName: string) => {
+    console.log(firstName);
+  };
+
   renderUserMenu = () => {
     const userAuth = JSON.parse(localStorage.getItem('userAuth'));
     if (!userAuth) {
+      alert('user-menu 에서 알림 : 현재 비로그인 상태');
       return;
     }
     const id = userAuth.id;
