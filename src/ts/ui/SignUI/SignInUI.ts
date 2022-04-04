@@ -1,5 +1,5 @@
 import { MESSAGE } from '../../constants/message';
-import { request } from '../../domain/UserDomain/request';
+import { requestSign } from '../../domain/UserDomain/request';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { basePath } from '../App';
@@ -43,7 +43,7 @@ export default class SignInUI {
   };
 
   private signIn(user) {
-    request('signin', user)
+    requestSign('signin', user)
       .then(response => {
         const { user: userInfo, accessToken } = response;
         this.userDomain.signIn(userInfo, accessToken);

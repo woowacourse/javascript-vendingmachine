@@ -1,7 +1,7 @@
 type RequestType = 'signin' | 'signup';
 const baseUrl = 'https://heroku-vending-lv1.herokuapp.com';
 
-const request = async (purpose: RequestType, user: object) => {
+const requestSign = async (purpose: RequestType, user: object) => {
   const url = `${baseUrl}/${purpose === 'signup' ? 'register' : 'login'}`;
   let resInfo;
 
@@ -45,4 +45,4 @@ const requestUpdate = async (user: object, id: string) => {
   return resInfo;
 };
 
-export { request, requestUpdate };
+export { requestSign, requestUpdate };

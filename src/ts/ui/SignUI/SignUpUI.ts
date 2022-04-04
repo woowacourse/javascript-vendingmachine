@@ -1,5 +1,5 @@
 import { MESSAGE } from '../../constants/message';
-import { request } from '../../domain/UserDomain/request';
+import { requestSign } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
@@ -54,7 +54,7 @@ export default class SignUpUI {
   };
 
   private signUp(user: { email: string; name: string; password: string }) {
-    request('signup', user)
+    requestSign('signup', user)
       .then(() => {
         $$('.sign-up__input').forEach(($input: HTMLInputElement) => {
           $input.value = '';
