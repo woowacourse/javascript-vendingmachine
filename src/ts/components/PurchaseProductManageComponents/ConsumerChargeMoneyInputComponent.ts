@@ -1,11 +1,14 @@
 import { $, on } from '../../dom/domHelper';
+import renderSnackBar from '../../dom/snackBar';
+import { checkValidConsumerChargeMoney } from '../../validation/checkConsumerChargeMoney';
 
 export default class ConsumerChargeMoneyInputComponent {
+  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
   private $consumerChargeMoneyInput = $<HTMLInputElement>(
     '.purchase-form-section__consumer-charge-money-input'
   );
-  private $consumerCHargeMoneyForm = $<HTMLFormElement>(
-    '.consumer-charge-money-form-section__form'
+  private $consumerChargeMoneyButton = $<HTMLButtonElement>(
+    '.consumer-charge-money-form-section__button'
   );
   private $consumerTotalChargeMoney = $<HTMLSpanElement>(
     '.consumer-charge-money-form-section__total-consumer-charge-money'
@@ -13,11 +16,10 @@ export default class ConsumerChargeMoneyInputComponent {
 
   constructor(private vendingMachineConsumerMoneyManager) {
     on(
-      this.$consumerCHargeMoneyForm,
-      'submit',
-      this.onSubmitConsumerChargeMoneyButton
+      this.$consumerChargeMoneyButton,
+      'click',
+      this.onClickConsumerChargeMoneyButton
     );
-
     on(
       $<HTMLElement>('.consumer-product-table__tbody'),
       '@subtractConsumerChargeMoney',
@@ -44,19 +46,30 @@ export default class ConsumerChargeMoneyInputComponent {
     );
   };
 
-  onSubmitConsumerChargeMoneyButton = (event: Event) => {
+  onClickConsumerChargeMoneyButton = (event: Event) => {
     event.preventDefault();
 
-    const { valueAsNumber: consumerChargeMoney } =
-      this.$consumerChargeMoneyInput;
+    try {
+      const { valueAsNumber: consumerChargeMoney } =
+        this.$consumerChargeMoneyInput;
 
-    this.vendingMachineConsumerMoneyManager.addConsumerChargeMoney(
-      consumerChargeMoney
-    );
+      checkValidConsumerChargeMoney(consumerChargeMoney);
 
-    this.$consumerTotalChargeMoney.textContent = String(
-      consumerChargeMoney + Number(this.$consumerTotalChargeMoney.textContent)
-    );
-    this.$consumerChargeMoneyInput.value = '';
+      this.vendingMachineConsumerMoneyManager.addConsumerChargeMoney(
+        consumerChargeMoney
+      );
+
+      this.$consumerTotalChargeMoney.textContent = String(
+        consumerChargeMoney + Number(this.$consumerTotalChargeMoney.textContent)
+      );
+      this.$consumerChargeMoneyInput.value = '';
+      renderSnackBar(
+        this.$snackBarContainer,
+        `${consumerChargeMoney}원이 투입 되었습니다. 현재 투입된 총 금액은 ${this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney()}원 입니다.`,
+        'success'
+      );
+    } catch ({ message }) {
+      renderSnackBar(this.$snackBarContainer, message, 'error');
+    }
   };
 }

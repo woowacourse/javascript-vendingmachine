@@ -117,6 +117,12 @@ export default class ConsumerProductStateComponent {
         },
       });
 
+      renderSnackBar(
+        this.$snackBarContainer,
+        `${targetPurchaseProductName} 1개를 구입 하셨습니다. 이용해주셔서 감사합니다.`,
+        'success'
+      );
+
       if (Number($targetPurchaseProductQuantity.textContent) <= 0) {
         target.disabled = true;
         target.classList.add('disabled');
@@ -124,7 +130,7 @@ export default class ConsumerProductStateComponent {
         return;
       }
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   };
 
