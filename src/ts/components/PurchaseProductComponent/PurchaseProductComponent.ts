@@ -21,6 +21,7 @@ const generateTemplate = ({
 `;
 
 export default class PurchaseProductComponent {
+  private $app = $('#app');
   private $purchasableProductTableBody = $(
     '.purchase-section .product-table tbody'
   );
@@ -31,15 +32,31 @@ export default class PurchaseProductComponent {
   private $totalMoney: HTMLSpanElement = $(
     '.money-for-purchase-section__total-money'
   );
+  private $returnButton = $(
+    '.money-for-purchase-return-button'
+  ) as HTMLButtonElement;
+  private $coin500 = $(
+    '.return-coin-quantity-section .coin-quantity-table__coin-500'
+  );
+  private $coin100 = $(
+    '.return-coin-quantity-section .coin-quantity-table__coin-100'
+  );
+  private $coin50 = $(
+    '.return-coin-quantity-section .coin-quantity-table__coin-50'
+  );
+  private $coin10 = $(
+    '.return-coin-quantity-section .coin-quantity-table__coin-10'
+  );
 
   constructor(
     private productManager,
     private coinManager,
     private purchaseManager
   ) {
-    on(window, '@purchaseTabClicked', this.render);
+    on(this.$app, '@purchaseTabClicked', this.render);
     on(this.$moneyInputForm, 'submit', this.onSubmitMoneyForPurchase);
     on(this.$purchasableProductTableBody, 'click', this.onPurchaseProduct);
+    on(this.$returnButton, 'click', this.onClickReturnCoinsButton);
   }
 
   render = () => {
@@ -87,12 +104,21 @@ export default class PurchaseProductComponent {
       renderSnackBar(message);
     }
   };
-}
 
-// const checkCanPurchaseProduct = () => {};
-// const { COIN_500, COIN_100, COIN_50, COIN_10 } =
-// this.coinManager.getCoins();
-// this.$coin500.textContent = COIN_500;
-// this.$coin100.textContent = COIN_100;
-// this.$coin50.textContent = COIN_50;
-// this.$coin10.textContent = COIN_10;
+  onClickReturnCoinsButton = (e) => {
+    e.preventDefault();
+
+    this.renderReturnedCoins(
+      this.coinManager.returnCoins(this.purchaseManager.getMoney())
+    );
+    this.purchaseManager.reset();
+    this.renderTotalMoney();
+  };
+
+  renderReturnedCoins({ COIN_500, COIN_100, COIN_50, COIN_10 }) {
+    this.$coin500.textContent = COIN_500;
+    this.$coin100.textContent = COIN_100;
+    this.$coin50.textContent = COIN_50;
+    this.$coin10.textContent = COIN_10;
+  }
+}

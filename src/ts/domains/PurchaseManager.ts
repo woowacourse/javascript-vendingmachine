@@ -12,4 +12,8 @@ export default class PurchaseManager {
   spendMoney(money) {
     this.userInputMoney -= money;
   }
+
+  reset() {
+    this.userInputMoney = 0;
+  }
 }

@@ -7,15 +7,13 @@ export default class CoinsStateComponent {
   private $coin50: HTMLSpanElement = $('.coin-quantity-table__coin-50');
   private $coin10: HTMLSpanElement = $('.coin-quantity-table__coin-10');
 
-  constructor() {
+  constructor(private vendingMachineCoinManager) {
     on($('.charge-form-section__form'), '@chargeInputSubmit', this.render);
   }
 
-  private render = ({
-    detail: {
-      coins: { COIN_500, COIN_100, COIN_50, COIN_10 },
-    },
-  }) => {
+  render = () => {
+    const { COIN_500, COIN_100, COIN_50, COIN_10 } =
+      this.vendingMachineCoinManager.getCoins();
     this.$coin500.textContent = COIN_500;
     this.$coin100.textContent = COIN_100;
     this.$coin50.textContent = COIN_50;

@@ -56,18 +56,18 @@ export default class ProductStateComponent {
   private $productTableTbody: HTMLElement = $('.product-table tbody');
 
   constructor(private vendingMachineProductManager) {
-    on($('.products-form__button'), '@productInputSubmit', this.onAddProduct);
+    on($('.products-form__button'), '@productInputSubmit', this.render);
     on(this.$productTableTbody, 'click', this.onClickEditButton);
     on(this.$productTableTbody, 'click', this.onClickDeleteButton);
     on(this.$productTableTbody, 'click', this.onClickEditSubmitButton);
     on(this.$productTableTbody, 'keyup', this.onKeyupEditInput);
   }
 
-  private onAddProduct = ({ detail: { newProduct } }): void => {
-    this.$productTableTbody.insertAdjacentHTML(
-      'beforeend',
-      generateTemplate(newProduct)
-    );
+  render = () => {
+    this.$productTableTbody.innerHTML = this.vendingMachineProductManager
+      .getProducts()
+      .map((product) => generateTemplate(product))
+      .join('');
   };
 
   private editProduct(target) {

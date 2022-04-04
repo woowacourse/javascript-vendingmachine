@@ -45,8 +45,7 @@ export default class CoinInputComponent {
         generateRandomCoins(this.$coinInput.valueAsNumber)
       );
 
-      this.$totalCoin.textContent =
-        this.vendingMachineCoinManager.getTotalAmount();
+      this.renderTotalCoins();
 
       emit(this.$chargeForm, '@chargeInputSubmit', {
         detail: {
@@ -60,4 +59,9 @@ export default class CoinInputComponent {
       renderSnackBar(message);
     }
   };
+
+  renderTotalCoins() {
+    this.$totalCoin.textContent =
+      this.vendingMachineCoinManager.getTotalAmount();
+  }
 }

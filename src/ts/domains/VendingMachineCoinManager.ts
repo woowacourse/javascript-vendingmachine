@@ -25,4 +25,20 @@ export default class VendingMachineCoinManager implements CoinManager {
       this.coins[coin] += count;
     });
   }
+
+  returnCoins(money: number) {
+    const coins = [500, 100, 50, 10];
+    return coins.reduce(
+      (returnedCoins, coin) => {
+        while (money >= coin && this.coins[`COIN_${coin}`]) {
+          money -= coin;
+          returnedCoins[`COIN_${coin}`] += 1;
+          this.coins[`COIN_${coin}`] -= 1;
+        }
+
+        return returnedCoins;
+      },
+      { ...COINS.INITIAL_STATE }
+    );
+  }
 }

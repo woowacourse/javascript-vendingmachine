@@ -12,6 +12,7 @@ const render = (clickedTab: string, tab: string) => {
 };
 
 export default class NavigatorComponent {
+  private $app = $('#app');
   private $navList = $('.nav__list');
   private $tabs = $$('.nav__button');
 
@@ -27,7 +28,7 @@ export default class NavigatorComponent {
     if (e.target.classList.contains('nav__button')) {
       this.changeTab(e.target.dataset.tab);
       window.history.pushState(null, null, e.target.dataset.tab);
-      emit(window, `@${e.target.dataset.tab}TabClicked`);
+      emit(this.$app, `@${e.target.dataset.tab}TabClicked`);
     }
   };
 
