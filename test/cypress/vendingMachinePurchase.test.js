@@ -67,7 +67,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
   }
 
   context('상품 구매 금액 충전에 대한 테스트', () => {
-    it('상품 구매 금액을 충전할 수 있다. 충전을 성공하면 투입한 금액이 충전금만큼 증가하고 성공 안내 snack bar가 나타난다..', () => {
+    it('상품 구매 금액을 충전할 수 있다. 충전을 성공하면 투입한 금액이 충전금만큼 증가하고 성공 안내 snack bar가 나타난다.', () => {
       const firstCustomerCharge = 5000;
       const secondCustomerCharge = 2000;
 
