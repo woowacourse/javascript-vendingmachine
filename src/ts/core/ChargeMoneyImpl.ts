@@ -9,6 +9,9 @@ class ChargeMoneyImpl implements ChargeMoney {
   constructor(coins: Array<Coin>) {
     this.coins = coins;
     window.addEventListener('load', () => {
+      $('#tab__charge-button').addEventListener('click', () => {
+        this.drawCoins.bind(this);
+      });
       $('#charge-money-form').addEventListener(
         'submit',
         this.handleChargeMoney.bind(this),

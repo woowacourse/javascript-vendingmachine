@@ -19,7 +19,7 @@ class ProductBuyImpl implements ProductBuy {
     window.addEventListener('load', () => {
       $('#tab__buy-button').addEventListener(
         'click',
-        this.drawProductList.bind(this),
+        this.updateResources.bind(this),
       );
       $('#charge-money-form', this.$buy).addEventListener(
         'submit',
@@ -29,7 +29,17 @@ class ProductBuyImpl implements ProductBuy {
         'click',
         this.handleBuyProduct.bind(this),
       );
+      $('.return-button', this.$buy).addEventListener(
+        'click',
+        this.returnMoney.bind(this),
+      );
     });
+  }
+
+  updateResources() {
+    console.log('click');
+    this.drawProductList();
+    this.drawCoins();
   }
 
   handleChargeMoney(e) {
@@ -38,14 +48,11 @@ class ProductBuyImpl implements ProductBuy {
 
     if (isValidInputMoney(inputMoney)) {
       this.totalMoney += inputMoney;
-      $(
-        '.input-money-indicator',
-      ).textContent = `투입한 금액: ${this.totalMoney}원`;
+      this.drawTotoalMoney();
     }
   }
 
   handleBuyProduct(e) {
-    console.log(e.target);
     if (!e.target.classList.contains('buy-button')) {
       return;
     }
@@ -57,7 +64,19 @@ class ProductBuyImpl implements ProductBuy {
     }
   }
 
-  chargeMoney(coinList: number[]): void {}
+  returnMoney(): void {
+    for (let i = this.coins.length - 1; i > 0; i--) {
+      while (
+        this.totalMoney >= this.coins[i].amount &&
+        this.coins[i].count >= 1
+      ) {
+        this.totalMoney -= this.coins[i].amount;
+        this.coins[i].count -= 1;
+      }
+    }
+    this.drawCoins();
+    this.drawTotoalMoney();
+  }
 
   drawProductList(): void {
     console.log(this.products);
@@ -81,7 +100,18 @@ class ProductBuyImpl implements ProductBuy {
     $('#product-list', this.$buy).insertAdjacentHTML('beforeend', template);
   }
 
-  drawCoins(): void {}
+  drawCoins(): void {
+    console.log(this.coins);
+    this.coins.forEach(({ amount, count }) => {
+      $(`#coin-${amount}-count`, this.$buy).innerText = `${count}개`;
+    });
+  }
+
+  drawTotoalMoney(): void {
+    $(
+      '.input-money-indicator',
+    ).textContent = `투입한 금액: ${this.totalMoney}원`;
+  }
 
   getProductInfoModify(productNode) {
     const name = $('.product-info-name', productNode).value;
@@ -101,13 +131,10 @@ class ProductBuyImpl implements ProductBuy {
     return this.products.findIndex((product: Product) => product.name === name);
   }
 
-  modifyProduct({ name, price, quantity }: Product, index: number): void {
+  modifyProduct({ price, quantity }: Product, index: number): void {
     quantity -= 1;
     this.totalMoney -= price;
-    $(
-      '.input-money-indicator',
-    ).textContent = `투입한 금액: ${this.totalMoney}원`;
-    this.products[index] = { name, price, quantity };
+    this.drawTotoalMoney();
   }
 }
 

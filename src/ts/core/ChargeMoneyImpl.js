@@ -7,6 +7,9 @@ var ChargeMoneyImpl = /** @class */ (function () {
         var _this = this;
         this.coins = coins;
         window.addEventListener('load', function () {
+            (0, dom_1.$)('#tab__charge-button').addEventListener('click', function () {
+                _this.drawCoins.bind(_this);
+            });
             (0, dom_1.$)('#charge-money-form').addEventListener('submit', _this.handleChargeMoney.bind(_this));
         });
     }

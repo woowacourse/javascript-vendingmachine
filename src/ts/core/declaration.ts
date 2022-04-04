@@ -18,7 +18,7 @@ export interface ChargeMoney {
 }
 
 export interface ProductBuy {
-  chargeMoney(coinList: Array<number>): void;
+  returnMoney(): void;
   drawProductList(): void;
   drawCoins(): void;
   getProductIndex(name: string): number;
