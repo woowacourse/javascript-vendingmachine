@@ -34,8 +34,50 @@ class CoinStore {
         this.updatePurchaseMoneyInput(action);
         break;
       }
+      case COIN_ACTION.RETURN_CHANGE: {
+        this.returnChange();
+        break;
+      }
     }
-    this.notifySubscribers();
+    this.notifySubscribers(action);
+  }
+
+  returnChange() {
+    const coinKind = [500, 100, 50, 10];
+    const coinCurrentSituation = [
+      this.#coinsCount[500],
+      this.#coinsCount[100],
+      this.#coinsCount[50],
+      this.#coinsCount[10],
+    ];
+    let moneyInput = this.#coinsCount.money_input;
+    let holdingMoneySum = this.#coinsCount.sum;
+
+    coinKind.forEach((coin, idx) => {
+      const needCount = Math.floor(moneyInput / coin);
+      if (needCount > coinCurrentSituation[idx]) {
+        moneyInput -= coin * coinCurrentSituation[idx];
+        holdingMoneySum -= coin * coinCurrentSituation[idx];
+        coinCurrentSituation[idx] = 0;
+      } else if (needCount <= coinCurrentSituation[idx]) {
+        moneyInput -= coin * needCount;
+        holdingMoneySum -= coin * needCount;
+        coinCurrentSituation[idx] -= needCount;
+      }
+    });
+
+    this.updateCoinsCountAfterReturnChange(coinCurrentSituation, holdingMoneySum, moneyInput);
+  }
+
+  updateCoinsCountAfterReturnChange(coinCurrentSituation, holdingMoneySum, moneyInput) {
+    this.#coinsCount = {
+      500: coinCurrentSituation[0],
+      100: coinCurrentSituation[1],
+      50: coinCurrentSituation[2],
+      10: coinCurrentSituation[3],
+      sum: holdingMoneySum,
+      money_input: moneyInput,
+    };
   }
 
   updatePurchaseMoneyInput(action) {
@@ -78,9 +120,9 @@ class CoinStore {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers() {
+  notifySubscribers(action) {
     this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#coinsCount);
+      subscriber.rerender(this.#coinsCount, action);
     });
   }
 

@@ -1,6 +1,14 @@
 import CustomElement from '../../abstracts/CustomElement';
+import { $ } from '../../utils/dom';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
+import { COIN_ACTION } from '../../domains/actions';
 
 class ProductReturnChange extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    CoinStoreInstance.subscribe(this);
+  }
+
   template() {
     return `
       <h2>잔돈 반환</h2>
@@ -33,6 +41,31 @@ class ProductReturnChange extends CustomElement {
       </table>
       <button class="product-return-change-button">반환</button>
     `;
+  }
+
+  setEvent() {
+    $('.product-return-change-button').addEventListener('click', this.handleReturnChangeButtonClick);
+  }
+
+  handleReturnChangeButtonClick = () => {
+    const oldCoinsCount = CoinStoreInstance.coinsCount;
+    CoinStoreInstance.dispatchAction(COIN_ACTION.RETURN_CHANGE, oldCoinsCount);
+  };
+
+  rerender(newCoinsCount, action) {
+    if (action.type !== COIN_ACTION.RETURN_CHANGE) return;
+    const oldCoinsCount = action.detail;
+    const returnCoinCount = {
+      500: oldCoinsCount[500] - newCoinsCount[500],
+      100: oldCoinsCount[100] - newCoinsCount[100],
+      50: oldCoinsCount[50] - newCoinsCount[50],
+      10: oldCoinsCount[10] - newCoinsCount[10],
+    };
+    const $productReturnChangeTable = $('.product-return-change-situation');
+    $('.change-500-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[500]}개`;
+    $('.change-100-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[100]}개`;
+    $('.change-50-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[50]}개`;
+    $('.change-10-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[10]}개`;
   }
 }
 
