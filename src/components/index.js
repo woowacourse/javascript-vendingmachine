@@ -68,6 +68,7 @@ class AppComponent {
     this.render(authInformation, currentRouteName);
   }
 
+  /** loginButton, navTab, pageTitle 등 여러 페이지가 공유하는 DOM을 각 페이지에 맞게 조작하여 렌더링한다. */
   render(authInformation, currentRouteName) {
     const { loggedUser, isLoggedIn } = authInformation;
 
@@ -77,10 +78,9 @@ class AppComponent {
 
     this.#renderChildComponents(isLoggedIn, currentRouteName);
 
-    this.#renderLoginOrProfileButton(loggedUser);
+    this.#renderLoginOrProfileButton(isLoggedIn, loggedUser);
   }
 
-  /** loginButton, navTab, pageTitle 등 여러 페이지가 공유하는 DOM을 각 페이지에 맞게 조작하여 렌더링한다. */
   #renderHeaderSection(currentRouteName) {
     if (
       currentRouteName === ROUTE_NAME.MANAGE ||
@@ -127,8 +127,8 @@ class AppComponent {
     });
   }
 
-  #renderLoginOrProfileButton(loggedUser) {
-    if (loggedUser) {
+  #renderLoginOrProfileButton(isLoggedIn, loggedUser) {
+    if (isLoggedIn) {
       this.$loginButton.classList.add('profile');
       this.$loginButton.textContent = loggedUser.name.slice(0, 1);
       return;
