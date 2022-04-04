@@ -14,3 +14,9 @@ export interface ChargeMoney {
   handleChargeMoney(e: Event): void;
   drawCoins(): void;
 }
+
+export interface ProductBuy {
+  chargeMoney(coinList: Array<number>): void;
+  drawProductList(): void;
+  drawCoins(): void;
+}

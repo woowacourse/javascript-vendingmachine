@@ -4,6 +4,7 @@ var ProductManageImpl_1 = require("../core/ProductManageImpl");
 var ChargeMoneyImpl_1 = require("../core/ChargeMoneyImpl");
 var dom_1 = require("../util/dom");
 var index_1 = require("../constants/index");
+var ProductBuyImpl_1 = require("../core/ProductBuyImpl");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
         this.products = [];
@@ -15,6 +16,7 @@ var VendingMachine = /** @class */ (function () {
         ];
         new ProductManageImpl_1["default"](this.products);
         new ChargeMoneyImpl_1["default"](this.coins);
+        new ProductBuyImpl_1["default"](this.products, this.coins);
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));
     }

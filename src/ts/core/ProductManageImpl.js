@@ -78,10 +78,7 @@ var ProductManageImpl = /** @class */ (function () {
         this.products[index] = productInfo;
     };
     ProductManageImpl.prototype.deleteProduct = function (name) {
-        if (this.products.splice(this.getProductIndex(name), 1).length === 0) {
-            return false;
-        }
-        return true;
+        this.products.splice(this.getProductIndex(name), 1);
     };
     ProductManageImpl.prototype.getProductIndex = function (name) {
         return this.products.findIndex(function (product) { return product.name === name; });

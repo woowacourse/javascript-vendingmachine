@@ -28,7 +28,7 @@
 }
 
 .input-form__submit-button {
-  padding: 6px 6px 6px 8px; 
+  padding: 6px 6px 6px 8px;
   width: 56px;
   height: 100%;
   background: var(--submit-button-color);
@@ -56,7 +56,8 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
-.app__main.manage .product-table {
+.app__main.manage .product-table,
+.app__main.buy .product-table {
   width: 80%;
   margin: 0 auto;
   border-collapse: collapse;
@@ -94,13 +95,15 @@
   background-color: var(--tab-background-color);
 }
 
-.modify-button, 
+.modify-button,
 .delete-button {
   display: inline-block;
   width: 50px;
 }
 
-.confirm-button {
+.confirm-button,
+.return-button,
+.buy-button {
   width: 100px;
   margin: 0 auto;
 }
@@ -110,7 +113,7 @@
 .product-info .confirm-button,
 .product-info.modify .modify-button,
 .product-info.modify .delete-button {
-  display: none; 
+  display: none;
 }
 
 .product-info.modify .confirm-button {

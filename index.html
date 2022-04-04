@@ -13,13 +13,28 @@
 
       <header>
         <nav id="tab" class="tab">
-          <button type="button" class="tab__item button" data-name="manage">
+          <button
+            type="button"
+            id="tab__manage-button"
+            class="tab__item button"
+            data-name="manage"
+          >
             상품 관리
           </button>
-          <button type="button" class="tab__item button" data-name="charge">
+          <button
+            type="button"
+            id="tab__charge-button"
+            class="tab__item button"
+            data-name="charge"
+          >
             잔돈 충전
           </button>
-          <button type="button" class="tab__item button" data-name="buy">
+          <button
+            type="button"
+            id="tab__buy-button"
+            class="tab__item button"
+            data-name="buy"
+          >
             상품 구매
           </button>
         </nav>
@@ -102,7 +117,7 @@
 
         <section class="table-wrap">
           <h2 class="table-wrap__title">자판기가 보유한 동전</h2>
-          <table class="product-table">
+          <table class="product-table coin-table">
             <thead>
               <tr>
                 <td>동전</td>
@@ -128,6 +143,75 @@
               </tr>
             </tbody>
           </table>
+        </section>
+      </main>
+
+      <main class="app__main buy">
+        <form id="charge-money-form" class="input-form">
+          <label class="input-description"
+            >상품을 구매할 금액을 투입해주세요.</label
+          >
+          <div class="input-container">
+            <input
+              id="charge-money-input"
+              class="input-form__input"
+              placeholder="금액"
+              type="number"
+              required="required"
+              min="1000"
+              max="100000"
+            />
+            <button type="submit" class="input-form__submit-button button">
+              투입
+            </button>
+          </div>
+          <p class="input-money-indicator">투입한 금액: 0원</p>
+        </form>
+
+        <section class="table-wrap">
+          <h2 class="table-wrap__title">구매 가능 상품 현황</h2>
+          <table class="product-table">
+            <thead>
+              <tr>
+                <td>상품명</td>
+                <td>가격</td>
+                <td>수량</td>
+                <td>구매</td>
+              </tr>
+            </thead>
+            <tbody id="product-list"></tbody>
+          </table>
+
+          <h2 class="table-wrap__title">잔돈 반환</h2>
+          <table class="product-table coin-table">
+            <thead>
+              <tr>
+                <td>동전</td>
+                <td>개수</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="product-info">
+                <td class="product-info__text">500원</td>
+                <td id="coin-500-count" class="product-info__text">0개</td>
+              </tr>
+              <tr class="product-info">
+                <td class="product-info__text">100원</td>
+                <td id="coin-100-count" class="product-info__text">0개</td>
+              </tr>
+              <tr class="product-info">
+                <td class="product-info__text">50원</td>
+                <td id="coin-50-count" class="product-info__text">0개</td>
+              </tr>
+              <tr class="product-info">
+                <td class="product-info__text">10원</td>
+                <td id="coin-10-count" class="product-info__text">0개</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="button-container">
+            <button class="return-button button">반환</button>
+          </div>
         </section>
       </main>
     </div>

@@ -3,6 +3,7 @@ import ChargeMoneyImpl from '../core/ChargeMoneyImpl';
 import { Product, Coin } from './declaration';
 import { $ } from '../util/dom';
 import { COINS } from '../constants/index';
+import ProductBuyImpl from '../core/ProductBuyImpl';
 
 class VendingMachine {
   private products: Array<Product> = [];
@@ -16,6 +17,7 @@ class VendingMachine {
   constructor() {
     new ProductManageImpl(this.products);
     new ChargeMoneyImpl(this.coins);
+    new ProductBuyImpl(this.products, this.coins);
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }

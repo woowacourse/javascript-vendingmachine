@@ -3,6 +3,7 @@
 
 @import './screen/productManage.css';
 @import './screen/moneyCharge.css';
+@import './screen/ProductBuy.css';
 
 body {
   display: flex;
@@ -11,11 +12,11 @@ body {
 }
 
 .app {
-  padding-top: 44px;
+  padding: 44px 0;
   width: 600px;
-  height: 675px;
+  min-height: 675px;
   border: 1px solid var(--app-border-color);
-  box-sizing: border-box;
+  box-sizing: content-box;
   border-radius: 4px;
 }
 
@@ -46,9 +47,9 @@ body {
   margin: 0 4px;
 }
 
-.app.manage .tab__item[data-name="manage"],
-.app.charge .tab__item[data-name="charge"], 
-.app.buy .tab__item[data-name="buy"] {
+.app.manage .tab__item[data-name='manage'],
+.app.charge .tab__item[data-name='charge'],
+.app.buy .tab__item[data-name='buy'] {
   background-color: var(--tab-active-background-color);
 }
 
@@ -57,7 +58,7 @@ body {
 }
 
 .app.manage .app__main.manage,
-.app.charge .app__main.charge, 
+.app.charge .app__main.charge,
 .app.buy .app__main.buy {
   display: flex;
 }

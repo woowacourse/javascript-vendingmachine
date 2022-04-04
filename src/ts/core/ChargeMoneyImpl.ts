@@ -1,7 +1,7 @@
 import { $ } from '../util/dom';
 import { ChargeMoney } from './declaration';
 import { Coin } from '../resource/declaration';
-import { isValidMoney } from '../validation/isValidMoney';
+import { isValidChargeMoney } from '../validation/isValidChargeMoney';
 
 class ChargeMoneyImpl implements ChargeMoney {
   private coins: Array<Coin>;
@@ -21,7 +21,7 @@ class ChargeMoneyImpl implements ChargeMoney {
 
     const inputMoney = Number($('#charge-money-input').value);
 
-    if (isValidMoney(inputMoney, this.coins)) {
+    if (isValidChargeMoney(inputMoney, this.coins)) {
       const coinList = this.generateRandomCoins(inputMoney);
       this.chargeMoney(coinList);
       this.drawCoins();
