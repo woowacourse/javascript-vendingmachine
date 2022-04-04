@@ -14,6 +14,12 @@ const targets = [
     $container: $('coin-charge-container'),
     $focusInput: $('#coin-input'),
   },
+  {
+    route: `${BASE_URL}/product-purchase/`,
+    $button: $('.nav__product-purchase-button'),
+    $container: $('product-purchase-container'),
+    $focusInput: $('#money-input'),
+  },
 ];
 
 const findTarget = (route) => {

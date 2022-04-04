@@ -7,7 +7,7 @@ class AdministratorMenu extends CustomElement {
       <nav>
         <button class="nav__product-manage-button clicked" route="${BASE_URL}/">상품 관리</button>
         <button class="nav__coin-charge-button" route="${BASE_URL}/coin-charge/">잔돈 충전</button>
-        <button class="nav__product-purchase-button">상품 구매</button>
+        <button class="nav__product-purchase-button" route="${BASE_URL}/product-purchase/">상품 구매</button>
       </nav>
     `;
   }
