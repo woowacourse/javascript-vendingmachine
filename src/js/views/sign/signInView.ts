@@ -3,6 +3,7 @@ import { $, emit } from '../../utils/common';
 import { authUtils } from '../../auth/authUtils';
 import { SELECTOR } from '../../constants/viewConstants';
 import { CUSTOM_EVENT } from '../../constants/appContants';
+import showSnackbar from '../../utils/snackbar';
 
 export default class SignInView {
   render() {
@@ -15,13 +16,16 @@ export default class SignInView {
   }
 
   async handleSignInSubmit(event) {
-    event.preventDefault();
-    const email = $('#email-input').value;
-    const password = $('#password-input').value;
+    try {
+      event.preventDefault();
+      const email = $('#email-input').value;
+      const password = $('#password-input').value;
 
-    await authUtils.getUserData({ email, password });
-
-    console.log(email, password);
+      const userData = await authUtils.signIn({ email, password });
+      console.log(userData);
+    } catch (error) {
+      showSnackbar(error.message);
+    }
   }
 
   handleOfferSignUpClick(event) {

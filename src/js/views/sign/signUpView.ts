@@ -1,5 +1,7 @@
+import { authUtils } from '../../auth/authUtils';
 import { signUpTemplate } from '../../templates/signUpTemplate';
 import { $ } from '../../utils/common';
+import showSnackbar from '../../utils/snackbar';
 
 export default class SignUpView {
   render() {
@@ -10,13 +12,18 @@ export default class SignUpView {
     $('#signup-submit').addEventListener('submit', this.handleSignUpSubmit.bind(this));
   }
 
-  handleSignUpSubmit(event) {
-    event.preventDefault();
-    const email = $('#email-input').value;
-    const name = $('#name-input').value;
-    const password = $('#password-input').value;
-    const confirmPassword = $('#password-confirm-input').value;
+  async handleSignUpSubmit(event) {
+    try {
+      event.preventDefault();
+      const email = $('#email-input').value;
+      const name = $('#name-input').value;
+      const password = $('#password-input').value;
+      const confirmPassword = $('#password-confirm-input').value;
 
-    console.log(email, name, password, confirmPassword);
+      const userData = await authUtils.singUp({ email, name, password });
+      console.log(userData.accessToken);
+    } catch (error) {
+      showSnackbar(error.message);
+    }
   }
 }

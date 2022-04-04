@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "email": "rkadndud06@naver.com",
+      "password": "$2a$10$iv6T280ZhMC2ydiIBUNar.cHlwFxUKIV4AtlAancUIyE5karFVaiC",
+      "name": "감우영",
+      "id": 1
+    },
+    {
+      "email": "dndud5548@gmail.com",
+      "password": "$2a$10$OSTgP7PPZhPwI3eiyJSyteM3nWhfDflBunwasc9QmMjRyq59sEoRW",
+      "name": "감우영",
+      "id": 2
+    }
+  ]
+}
