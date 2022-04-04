@@ -23,7 +23,7 @@ class ItemManageTab extends VendingMachineTab {
     this.itemManageTabButton?.addEventListener('click', this.onClickItemManageTabButton);
   }
 
-  renderInitialTabState() {
+  renderInitialTabState(): void {
     this.changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
       this.itemManageTabButton

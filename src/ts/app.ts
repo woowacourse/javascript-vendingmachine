@@ -1,5 +1,6 @@
-import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemManageTab from './view/ItemManageTab';
+import CoinRechargeTab from './view/CoinRechargeTab';
+import ItemPurchaseTab from './view/ItemPurchaseTab';
 import VendingMachine from './domain/VendingMachine';
 import { VendingMachineInterface, Hash, VendingMachineTabInterface } from './types';
 import { HASH } from './constant/hash';
@@ -17,13 +18,22 @@ class App {
     HASH.COIN_RECHARGE as Hash
   );
 
-  private tabs: VendingMachineTabInterface[] = [this.itemManageTab, this.coinRechargeTab];
+  private itemPurchaseTab: VendingMachineTabInterface = new ItemPurchaseTab(
+    this.vendingMachine,
+    HASH.ITEM_PURCHASE as Hash
+  );
+
+  private tabs: VendingMachineTabInterface[] = [
+    this.itemManageTab,
+    this.coinRechargeTab,
+    this.itemPurchaseTab,
+  ];
 
   checkRoute() {
     const currentHash = window.location.hash;
 
     if (!currentHash) {
-      this.itemManageTab.renderInitialTabState();
+      this.itemPurchaseTab.renderInitialTabState();
       return;
     }
 

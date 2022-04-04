@@ -2,6 +2,7 @@ export const ID = {
   TAB_CONTENT: 'tab-content',
   ITEM_MANAGE_TAB_BUTTON: 'item-manage-tab-button',
   COIN_RECHARGE_TAB_BUTTON: 'coin-recharge-tab-button',
+  ITEM_PURCHASE_TAB_BUTTON: 'item-purchase-tab-button',
   ITEM_INFO_FORM: 'item-info-form',
   CASH_CHARGE_FORM: 'cash-charge-form',
   CHARGED_AMOUNT: 'charged-amount',
