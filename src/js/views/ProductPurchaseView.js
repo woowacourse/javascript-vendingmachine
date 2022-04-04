@@ -34,6 +34,16 @@ export default class ProductPurchaseView {
         this.#onClickPurchaseButton(e.target);
       }
     });
+
+    this.$snackbar = $('#snackbar');
+    this.$snackbarButton = $('#snackbar-button');
+
+    this.$snackbarButton.addEventListener('click', () => {
+      this.$snackbar.classList.toggle('show');
+      setTimeout(() => {
+        this.$snackbar.classList.toggle('show');
+      }, 3000);
+    });
   }
 
   renderTotalAmount(amount) {
