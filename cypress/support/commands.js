@@ -87,3 +87,12 @@ Cypress.Commands.add('logout', () => {
     })
     .then((win) => win.location.reload());
 });
+
+Cypress.Commands.add('updatePassword', (newPassword, newPasswordConfirm) => {
+  cy.get('#password-input').clear().type(newPassword);
+  cy.get('#password-confirm-input')
+    .clear()
+    .type(newPasswordConfirm || newPassword);
+
+  cy.get('.submit-button').click();
+});

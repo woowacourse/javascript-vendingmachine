@@ -35,13 +35,13 @@ export default class UserInfoPage {
       'password-confirm': passwordConfirm,
     } = getInputValuesFromForm(e.target);
 
-    if (password && password !== passwordConfirm) {
-      this.#snackbar.addMessageToList('비밀번호가 일치하지 않습니다.');
-      return;
-    }
     try {
-      const updateData = { email, name };
-      if (password) updateData[password] = password;
+      const updateData = { email, name, password, passwordConfirm };
+      if (password) {
+        updateData[password] = password;
+        updateData[passwordConfirm] = passwordConfirm;
+      }
+
       await this.#authorization.update(updateData);
 
       window.location.reload();

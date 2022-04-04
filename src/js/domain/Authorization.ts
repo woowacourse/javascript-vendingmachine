@@ -14,7 +14,12 @@ export default class Authorization {
   #email;
 
   constructor() {
+    this.#userId = null;
+    this.#name = null;
+    this.#email = null;
+
     this.#getUserData();
+
     this.#isLoggedIn = !!this.#userId;
   }
 
@@ -58,6 +63,7 @@ export default class Authorization {
   }
 
   async update(userInputData) {
+    this.#validateUpdateData(userInputData);
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -67,7 +73,6 @@ export default class Authorization {
     const { id: userId, name, email } = await response.json();
 
     this.#saveUserData({ userId, name, email });
-    this.#isLoggedIn = true;
   }
 
   async login(userInputData) {
@@ -129,5 +134,27 @@ export default class Authorization {
     ];
 
     validateData(registerData, registerDataValidator);
+  }
+
+  #validateUpdateData(updateData) {
+    const updateDataValidator = [
+      {
+        testFunc: isOutOfRangeUserNameLength,
+        errorMsg: ERROR_MESSAGE.USER_DATA.NAME_LENGTH_OUT_OF_RANGE,
+      },
+    ];
+    if (updateData.password) {
+      updateDataValidator.push(
+        {
+          testFunc: isInvalidPassword,
+          errorMsg: ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD,
+        },
+        {
+          testFunc: isDifferentPassword,
+          errorMsg: ERROR_MESSAGE.USER_DATA.NO_MATCH_PASSWORD,
+        }
+      );
+    }
+    validateData(updateData, updateDataValidator);
   }
 }
