@@ -11,13 +11,17 @@ h1 {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 #app {
   width: 40%;
   min-width: 465px;
   margin: 1rem auto;
 }
 
-.container {
+.section-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -44,6 +48,11 @@ section {
   align-content: center;
   gap: 60px;
   margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
 }
 
 input[type='number']::-webkit-outer-spin-button,
@@ -77,6 +86,41 @@ input {
 input:focus {
   outline: 1px solid var(--input-outline-focus-color);
   border: 1px solid var(--input-border-focus-color);
+}
+
+.hide {
+  display: none;
+}
+
+#login-input-container {
+  width: 60%;
+  text-align: center;
+  margin: auto;
+}
+
+#login-input-container h1 {
+  margin: 30px;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  text-align: left;
+}
+
+#login-form input {
+  display: block;
+  margin: 0 0 20px;
+  padding: 5px;
+  width: auto;
+}
+
+#login-form #login-button {
+  margin-top: 30px;
+  padding: 0;
+  height: 35px;
 }
 
 .single-input {
