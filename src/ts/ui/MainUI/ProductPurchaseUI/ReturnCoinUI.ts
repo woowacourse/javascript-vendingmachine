@@ -1,4 +1,4 @@
-import { MESSAGE } from '../../../constants';
+import { COIN_TYPE, MESSAGE } from '../../../constants';
 import { showSnackbar } from '../../../utils';
 import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -10,7 +10,13 @@ export default class ReturnCoinUI {
   constructor(coinDomain, purchaseCashDomain) {
     this.coinDomain = coinDomain;
     this.purchaseCashDomain = purchaseCashDomain;
-    this.render(this.purchaseCashDomain.returnCoins(this.coinDomain.coins));
+
+    const emptyCoins = COIN_TYPE.reduce((obj, type) => {
+      obj[type] = 0;
+      return obj;
+    }, {});
+    this.render(emptyCoins);
+
     $('.return-coin__button').addEventListener(
       'click',
       this.returnButtonClickHandler,
