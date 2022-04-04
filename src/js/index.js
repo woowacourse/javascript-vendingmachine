@@ -24,6 +24,7 @@ class App {
   #headerContainer;
   #appContainer;
   #tabMenuNavigation;
+  #userButton;
 
   constructor() {
     this.snackBar = new Snackbar();
@@ -42,6 +43,7 @@ class App {
     };
     this.#headerContainer = selectDom('header');
     this.#appContainer = selectDom('#app');
+    this.#userButton = selectDom('#user-button');
 
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
@@ -101,25 +103,27 @@ class App {
   }
 
   #updateUserButton() {
+    this.#userButton?.remove();
+    selectDom('#user-button-select-box')?.remove();
+
     this.#appContainer.insertAdjacentHTML(
       'afterbegin',
       userButtonTemplate(this.#authorization.name)
     );
-    selectDom('#user-button').addEventListener('click', this.#renderSelectBox);
-    selectDom('#user-button-select-box')?.remove();
+    this.#userButton = selectDom('#user-button');
+
+    this.#userButton.addEventListener('click', this.#handleSelectBoxToggle);
   }
 
-  #renderSelectBox = ({ target }) => {
-    target.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
-    selectDom('#logout-button').addEventListener('click', this.#handleLogout);
-    target.removeEventListener('click', this.#renderSelectBox);
-    target.addEventListener('click', this.#closeSelectBox);
-  };
+  #handleSelectBoxToggle = () => {
+    const selectBox = selectDom('#user-button-select-box');
 
-  #closeSelectBox = ({ target }) => {
-    selectDom('#user-button-select-box').remove();
-    target.removeEventListener('click', this.#closeSelectBox);
-    target.addEventListener('click', this.#renderSelectBox);
+    if (selectBox) {
+      selectBox?.remove();
+      return;
+    }
+
+    this.#userButton.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
   };
 
   #handleLogout = () => {
