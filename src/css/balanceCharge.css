@@ -31,3 +31,13 @@
   border-collapse: collapse;
   text-align: center;
 }
+
+#coin-vault-table td {
+  padding: 10px 0;
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+}
+
+#coin-vault-table th {
+  padding: 10px 0;
+}
