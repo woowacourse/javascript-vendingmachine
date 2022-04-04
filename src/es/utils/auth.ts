@@ -1,6 +1,7 @@
 import User from '../data/User';
 import { IUser } from '../interface';
 import { loadMainPage } from '../routes';
+import { showSnackBar } from './index';
 
 interface SignInfo {
   email: string;
@@ -25,9 +26,10 @@ function signUp(signUpInfo: SignInfo) {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(res => {
+  }).then(async res => {
     if (!res.ok) {
-      throw new Error('회원가입 오류');
+      const message = await res.text();
+      throw new Error(message.slice(1, -1));
     }
     return res.json();
   })
@@ -42,7 +44,11 @@ function signUp(signUpInfo: SignInfo) {
       User.setUser({ id, email, name });
       loadMainPage();
     })
-    .catch(error => console.error('에러', error.message));
+    .catch(err => {
+      if (err.message === 'Email already exists') {
+        showSnackBar('이미 가입한 이메일입니다.');
+      }
+    });
 }
 
 function login(loginInfo: SignInfo) {
@@ -52,9 +58,10 @@ function login(loginInfo: SignInfo) {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(res => {
+  }).then(async res => {
     if (!res.ok) {
-      throw new Error('로그인 정보 오류');
+      const message = await res.text();
+      throw new Error(message.slice(1, -1));
     }
     return res.json();
   })
@@ -69,7 +76,18 @@ function login(loginInfo: SignInfo) {
       User.setUser({ id, email, name });
       loadMainPage();
     })
-    .catch(error => console.error('에러', error.message));
+    .catch(err => {
+      switch (err.message) {
+        case 'Cannot find user':
+          showSnackBar('등록되지 않은 이메일입니다.');
+          break;
+        case 'Incorrect password':
+          showSnackBar('잘못된 비밀번호입니다.');
+          break;
+        default:
+          break;
+      }
+    });
 }
 
 const logout = () => {
@@ -89,9 +107,10 @@ function requestUserInfo(userAuth) {
       Authorization: accessToken,
     },
   })
-    .then(res => {
+    .then(async res => {
       if (!res.ok) {
-        throw new Error('사용자 정보 읽기 오류');
+        const message = await res.text();
+        throw new Error(message.slice(1, -1));
       }
       return res.json();
     })
@@ -117,9 +136,10 @@ function updateUserInfo(newUserInfo) {
       Authorization: accessToken,
     },
   })
-    .then(res => {
+    .then(async res => {
       if (!res.ok) {
-        throw new Error('사용자 정보 업데이트 오류');
+        const message = await res.text();
+        throw new Error(message.slice(1, -1));
       }
       return res.json();
     })
