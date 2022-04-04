@@ -30,10 +30,6 @@ button {
   border: none;
 }
 
-.hide {
-  display: none;
-}
-
 .button {
   cursor: pointer;
   border-radius: 4px;
@@ -65,6 +61,21 @@ button {
   background: var(--color-white-skyblue);
 }
 
+.product-manange__container,
+.charge-manange__container,
+.purchase-manange__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-manange__container.hide,
+.charge-manange__container.hide,
+.purchase-manange__container.hide {
+  display: none;
+}
+
 .product-input {
   width: 120px;
   height: 36px;
@@ -77,7 +88,8 @@ button {
 
 .product-manage__edit-button,
 .product-manage__remove-button,
-.product-manage__confirm-button {
+.product-manage__confirm-button,
+.purchase-table__purchase-button {
   cursor: pointer;
   background: var(--color-white-gray);
   border-radius: 5px;
@@ -89,13 +101,15 @@ button {
   width: 50px;
 }
 
-.product-manage__confirm-button {
+.product-manage__confirm-button,
+.purchase-table__purchase-button {
   width: 100px;
 }
 
 .product-manage__edit-button:hover,
 .product-manage__remove-button:hover,
-.product-manage__confirm-button:hover {
+.product-manage__confirm-button:hover,
+.purchase-table__purchase-button:hover {
   background: var(--color-light-gray);
 }
 
@@ -148,18 +162,21 @@ button {
 }
 
 .product-manange__title,
-.charge-manange__title {
+.charge-manange__title,
+.purchase-table__title {
   text-align: center;
   margin-top: 40px;
 }
 
-.product-manage__table-container {
+.product-manage__table-container,
+.purchase-table__container {
   height: 300px;
   overflow: scroll;
 }
 
 .product-manange__table,
-.charge-manange__table {
+.charge-manange__table,
+.purchase-table {
   text-align: center;
   border-top: 1px solid var(--color-light-gray);
   border-bottom: 1px solid var(--color-light-gray);
@@ -173,7 +190,9 @@ button {
 .product-manange__table td,
 .product-manange__table th,
 .charge-manange__table td,
-.charge-manange__table th {
+.charge-manange__table th,
+.purchase-table td,
+.purchase-table th {
   width: 118px;
   height: 40px;
   border-top: 1px solid var(--color-light-gray);

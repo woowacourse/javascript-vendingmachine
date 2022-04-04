@@ -1,5 +1,5 @@
 import { $ } from "../../utils/dom";
-import { purchaseTemplate } from "./purchaseTemplate";
+import { productListTemplate, purchaseTemplate } from "./purchaseTemplate";
 import ChargeManager from "../../mananger/ChargeManager";
 import ProductManager from "../../mananger/ProductManager";
 
@@ -9,7 +9,9 @@ class PurchaseComponent {
   purchaseContainer: HTMLElement;
   purchaseForm: HTMLFormElement;
   purchaseAmountInput: HTMLInputElement;
-  purchaseAmount: HTMLSpanElement;
+  purchaseAmountText: HTMLSpanElement;
+  purchaseTable: HTMLTableElement;
+  purchaseTableBody: HTMLTableElement;
 
   constructor({ productManager, chargeManager }) {
     this.productManager = productManager;
@@ -19,8 +21,10 @@ class PurchaseComponent {
     this.purchaseContainer.insertAdjacentHTML("beforeend", purchaseTemplate());
 
     this.purchaseForm = $(".purchase-form");
-    this.purchaseAmount = $(".purchase-form__amount");
+    this.purchaseAmountText = $(".purchase-form__amount");
     this.purchaseAmountInput = $(".purchase-form__input");
+    this.purchaseTable = $(".purchase-table");
+    this.purchaseTableBody = $(".purchase-table__body");
 
     this.purchaseForm.addEventListener("submit", this.handleAddAmount);
   }
@@ -38,12 +42,18 @@ class PurchaseComponent {
   };
 
   renderAmount() {
-    this.purchaseAmount.textContent = `${this.productManager.getPurchaseAmount()}`;
+    this.purchaseAmountText.textContent = `${this.productManager.getPurchaseAmount()}`;
+  }
+
+  renderProducts() {
+    this.purchaseTableBody.replaceChildren("");
+    this.purchaseTableBody.insertAdjacentHTML("beforeend", productListTemplate(this.productManager.getProducts()));
   }
 
   show() {
     this.purchaseContainer.classList.remove("hide");
     this.purchaseAmountInput.focus();
+    this.renderProducts();
   }
 }
 

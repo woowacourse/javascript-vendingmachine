@@ -31,7 +31,7 @@ const productTemplate = () => {
 
 const addProductTemplate = ({ name, price, quantity }) => {
   return `
-  <tr data-name=${name} class="added">
+  <tr data-name=${name}>
     <td>${name}</td>
     <td>${price}</td>
     <td>${quantity}</td>

@@ -6,7 +6,7 @@ class ChargeComponent {
   chargeContainer: HTMLElement;
   chargeForm: HTMLFormElement;
   chargeInput: HTMLInputElement;
-  chargeAmount: HTMLSpanElement;
+  chargeAmountText: HTMLSpanElement;
   chargeManager: ChargeManager;
   chargeCoin500: HTMLElement;
   chargeCoin100: HTMLElement;
@@ -21,7 +21,7 @@ class ChargeComponent {
 
     this.chargeForm = $(".charge-manange__form");
     this.chargeInput = $(".charge-manange__input");
-    this.chargeAmount = $(".charge-manange__amount");
+    this.chargeAmountText = $(".charge-manange__amount");
     this.chargeCoin500 = $(".charge-manange__table-coin--500");
     this.chargeCoin100 = $(".charge-manange__table-coin--100");
     this.chargeCoin50 = $(".charge-manange__table-coin--50");
@@ -45,7 +45,7 @@ class ChargeComponent {
   };
 
   renderAmount() {
-    this.chargeAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
+    this.chargeAmountText.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
   renderRandomCoins() {
