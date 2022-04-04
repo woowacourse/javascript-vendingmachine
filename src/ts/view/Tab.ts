@@ -1,4 +1,4 @@
-import { View, DomainView } from '../../index.d';
+import { View, DomainView, TabName } from '../../index.d';
 import { $ } from '../util/index';
 import ProductManage from './ProductManage';
 import ChargeMoney from './ChargeMoney';
@@ -27,7 +27,7 @@ export default class Tab implements View {
   private handleClickTabs(e: Event): void {
     if (e.target === e.currentTarget) return;
 
-    const tabName = (e.target as HTMLElement).dataset.name;
+    const tabName = (e.target as HTMLElement).dataset.name as unknown as TabName;
 
     if (this.$app.classList.contains(tabName)) return;
 
@@ -37,11 +37,11 @@ export default class Tab implements View {
 
   private handlePopstate(): void {
     if (window.location.hash) {
-      this.switchTab(window.location.hash.slice(1));
+      this.switchTab(window.location.hash.slice(1) as unknown as TabName);
     }
   }
 
-  private switchTab(tabName: string): void {
+  private switchTab(tabName: TabName): void {
     this.$app.classList.remove('productManage', 'chargeMoney', 'buyProduct');
     this.$app.classList.add(tabName);
     this[tabName].render();

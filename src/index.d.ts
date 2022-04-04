@@ -44,3 +44,5 @@ export interface View {
 export interface DomainView extends View {
   render(): void;
 }
+
+export type TabName = 'productManage' | 'chargeMoney' | 'buyProduct';
