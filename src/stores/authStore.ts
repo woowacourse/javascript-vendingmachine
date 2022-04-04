@@ -12,6 +12,9 @@ class AuthStore implements AuthStoreInterface {
     if (actionType === 'logout') {
       this.logOut();
     }
+    if (actionType === 'editUserInfo') {
+      this.editUserInfo(payload);
+    }
   }
 
   async signInUserInfo(payload) {
@@ -88,11 +91,37 @@ class AuthStore implements AuthStoreInterface {
       const response = await fetch(`http://localhost:3000/users/${userId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json());
+      });
 
-      const { email, name } = response;
+      if (response.status === 400) {
+        throw new Error('로그인유저의 정보를 가져오는 것에 실패했습니다');
+      }
+      const { email, name } = await response.json();
       const userInfo = { userEmail: email, userName: name };
       userInfoStorage.setUserInfo(userInfo);
+    } catch ({ message }) {
+      alert(message);
+    }
+  }
+
+  async editUserInfo(payload) {
+    const userId = userIdStorage.getUserId();
+    const { name, password } = payload;
+
+    try {
+      const editedData = JSON.stringify({ name, password });
+
+      const editResponse = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: editedData,
+      });
+
+      if (editResponse.status === 400) {
+        throw new Error('회원 정보 수정에 실패하였습니다');
+      }
+
+      window.location.href = 'http://localhost:9000/#';
     } catch ({ message }) {
       alert(message);
     }

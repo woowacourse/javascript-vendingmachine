@@ -112,3 +112,24 @@ export const checkSignInInput = ({
   }
   return true;
 };
+
+export const checkEditUserInput = ({
+  nameInput,
+  passwordInput,
+  passwordConfirmInput,
+}: {
+  nameInput: string;
+  passwordInput: string;
+  passwordConfirmInput: string;
+}) => {
+  if (isOutOfUserNameRange(nameInput)) {
+    throw new Error(ERROR_MSG.OVER_USER_NAME_RANGE);
+  }
+  if (isNotMatchPasswordForm(passwordInput)) {
+    throw new Error(ERROR_MSG.NOT_MATCH_PASSWORD_FORM);
+  }
+  if (isSamePasswordInput(passwordInput, passwordConfirmInput)) {
+    throw new Error(ERROR_MSG.NOT_SAME_PASSWORD);
+  }
+  return true;
+};
