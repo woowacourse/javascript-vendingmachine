@@ -111,7 +111,7 @@ class ProfileEdit extends HTMLElement {
     })
       .then((res) => {
         if (!res.ok) {
-          alert('회원가입 잘 쓰세요.>ㅇ<');
+          console.log('회원정보 수정 실패');
           return;
         }
         return res.json();
@@ -122,7 +122,8 @@ class ProfileEdit extends HTMLElement {
           id: response.user.id,
         };
         localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        // location.replace('../user.html');
+        console.log('회원정보 수정 성공');
+        // TODO 회원정보 수정 성공 후 라우트
       })
       .catch((error) => console.error('에러', error));
   };

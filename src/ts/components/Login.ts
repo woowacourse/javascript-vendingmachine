@@ -160,7 +160,7 @@ class Login extends HTMLElement {
     })
       .then((res) => {
         if (!res.ok) {
-          alert('로그인 정보 잘 쓰세요.>ㅇ<');
+          console.log('login, 로그인 실패');
           return;
         }
         return res.json();
@@ -170,10 +170,16 @@ class Login extends HTMLElement {
           accessToken: response.accessToken,
           id: response.user.id,
         };
+        console.log('login, 로그인 성공');
         localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        // location.replace('../user.html');
+        this.emitRouteLogin();
       })
       .catch((error) => console.error('에러', error));
+  };
+
+  emitRouteLogin = () => {
+    const event = new CustomEvent('@route-login', {});
+    window.dispatchEvent(event);
   };
 }
 

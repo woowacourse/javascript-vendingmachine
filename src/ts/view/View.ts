@@ -45,12 +45,25 @@ export default class View {
       this.handleClickTabButton(PATH_ID.PURCHASE_PRODUCT),
     );
 
-    // 웹컴포넌트
-    window.addEventListener('@render-log-in', this.renderLoginModal);
+    // 웹컴포넌트에서 보낸 커스텀 이벤트
+    window.addEventListener('@render-login', this.renderLoginModal);
   }
 
   private renderLoginModal = (event) => {
-    this.$app.appendChild(event.detail);
+    document.body.appendChild(event.detail);
+  };
+
+  public renderUserPrivatePage = () => {
+    console.log('renderUserPrivatePage');
+    $('.nav-tab').classList.remove('hide');
+    $('log-in').remove();
+    $('user-menu').setAttribute('auth', 'login');
+  };
+
+  public renderPublicPage = () => {
+    console.log('renderPublicPage');
+    $('.nav-tab').classList.add('hide');
+    $('user-menu').setAttribute('auth', 'logout');
   };
 
   private handleClickTabButton = (url: string) => {

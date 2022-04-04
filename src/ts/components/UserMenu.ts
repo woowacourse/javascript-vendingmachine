@@ -2,12 +2,10 @@
 // - [ ] 로그인한 유저의 이름 중 첫번째 글자를 썸네일처럼 만든다.
 // - [ ] 로그인한 유저의 썸네일을 클릭하면 select box로 `회원정보수정`과 `로그아웃` 메뉴가 표시된다.
 
-import { $ } from '../utils';
-
 const userMenuTemplate = document.createElement('template');
 userMenuTemplate.innerHTML = `
   <style>
-    section {
+    #thumbnail {
       font-family: 'Roboto', sans-serif;
       margin: 10px;
       display: flex;
@@ -57,50 +55,128 @@ userMenuTemplate.innerHTML = `
       top: 0;
       right: 10px;
     }
-  </style>
 
+    #menu-wrapper {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    #thumbnail {
+      border-radius: 100%;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary);
+      font-weight: bold;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      color: #fff;
+    }
+
+    #thumbnail:hover {
+      background-color: var(--primary-darken);
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #menu {
+      background: var(--secondary);
+      color: var(--white);
+      border-radius: 5px;
+      padding: 0;
+      width: 120px;
+      position: absolute;
+      right: 0;
+    }
+
+    .menu-item {
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .menu-item:hover {
+      background-color: var(--secondary-darken);
+      border-radius: 5px;
+    }
+
+    hr {
+      border: 1px solid var(--white);
+      margin: 0;
+    }
+  </style>
   <button id="login-button">로그인</button>
-  <section class="">
-    <h2 hidden>유저 메뉴</h2>
-    <h3>👋🏼 <span id="welcome-name"></span>님 안녕하세요.</h3>
-    <h4>이름</h4>
-    <p id="name">마르코</p>
-    <h4>이메일</h4>
-    <p id="email">nextjws@gmail.com</p>
-    <button id="logout-button">로그아웃</button>
-  </section>
+  <div id="menu-wrapper" class="hide">
+    <div id="thumbnail">
+    </div>
+    <div class="hide" id="menu">
+      <div class="menu-item" id="profile-edit-button">회원정보 수정</div>
+      <hr>
+      <div class="menu-item" id="logout-button">로그아웃</div>
+    </div>
+  </div>
 `;
 
 class UserMenu extends HTMLElement {
+  loginButton: HTMLButtonElement;
+  thumbnail: HTMLDivElement;
+  profileEditButton: HTMLButtonElement;
+  logoutButton: HTMLButtonElement;
+  menuWrapper: HTMLDivElement;
+  menu: HTMLDivElement;
+
+  static get observedAttributes() {
+    return ['auth'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(userMenuTemplate.content.cloneNode(true));
+
+    this.loginButton = this.shadowRoot.querySelector('#login-button');
+    this.thumbnail = this.shadowRoot.querySelector('#thumbnail');
+    this.profileEditButton = this.shadowRoot.querySelector('#profile-edit-button');
+    this.logoutButton = this.shadowRoot.querySelector('#logout-button');
+    this.menuWrapper = this.shadowRoot.querySelector('#menu-wrapper');
+    this.menu = this.shadowRoot.querySelector('#menu');
   }
 
   connectedCallback() {
-    // 이벤트 추가
-    this.checkLoginStatus();
-    this.renderUserMenu();
-    this.shadowRoot.querySelector('#logout-button').addEventListener('click', this.logout);
-    this.shadowRoot.querySelector('#login-button').addEventListener('click', this.renderLoginModal);
+    this.loginButton.addEventListener('click', this.renderLoginModal);
+    this.thumbnail.addEventListener('click', this.toggleMenu);
+    this.profileEditButton.addEventListener('click', this.renderProfileEdit);
+    this.logoutButton.addEventListener('click', this.logout);
   }
 
   disconnectedCallback() {
-    // 이벤트 삭제
-    this.shadowRoot.querySelector('#logout-button').removeEventListener('click', this.logout);
+    this.shadowRoot.removeEventListener('click', this.renderLoginModal);
+    this.thumbnail.removeEventListener('click', this.toggleMenu);
+    this.profileEditButton.removeEventListener('click', this.renderProfileEdit);
+    this.logoutButton.removeEventListener('click', this.logout);
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    this.checkLoginStatus();
   }
 
   renderLoginModal = () => {
     const detail = document.createElement('log-in');
-    const event = new CustomEvent('@render-log-in', { detail });
+    const event = new CustomEvent('@render-login', { detail });
     window.dispatchEvent(event);
   };
 
   checkLoginStatus = () => {
     const userAuth = JSON.parse(localStorage.getItem('userAuth'));
     if (!userAuth) {
-      alert('user-menu 에서 알림 : 현재 비로그인 상태');
+      console.log('user-menu, 로컬스토리지 없음, 로그인 실패');
+      this.renderLoginButton();
+
       return;
     }
     const id = userAuth.id;
@@ -118,66 +194,43 @@ class UserMenu extends HTMLElement {
     })
       .then((res) => {
         if (!res.ok) {
-          alert('로그인 안 돼셨어요.>ㅇ<');
+          console.log('user-menu, 로컬스토리지 있으나 시간만료, 로그인 실패');
           this.renderLoginButton();
           return;
         }
         return res.json();
       })
-      .then((response) => this.renderUserThumbnail(response.name[0]))
+      .then((response) => {
+        console.log('user-menu, 로그인 성공');
+        this.renderUserThumbnail(response.name[0]);
+      })
       .catch((error) => console.error('에러', error));
   };
 
   renderLoginButton = () => {
-    $('.app');
+    this.loginButton.classList.remove('hide');
+    this.menuWrapper.classList.add('hide');
   };
 
   renderUserThumbnail = (firstName: string) => {
-    console.log(firstName);
+    this.thumbnail.textContent = firstName;
+    this.loginButton.classList.add('hide');
+    this.menuWrapper.classList.remove('hide');
+    this.menu.classList.add('hide');
   };
 
-  renderUserMenu = () => {
-    const userAuth = JSON.parse(localStorage.getItem('userAuth'));
-    if (!userAuth) {
-      alert('user-menu 에서 알림 : 현재 비로그인 상태');
-      return;
-    }
-    const id = userAuth.id;
-    const accessToken = `Bearer ${userAuth.accessToken}`;
+  toggleMenu = () => {
+    this.menu.classList.toggle('hide');
+  };
 
-    const url = `https://json-server-marco.herokuapp.com/users/${id}`;
-
-    const renderUpdatedUserInfo = (response) => {
-      console.log(response);
-      const name = response.name;
-      this.shadowRoot.getElementById('name').textContent = name;
-      this.shadowRoot.getElementById('welcome-name').textContent = name;
-      const email = response.email;
-      this.shadowRoot.getElementById('email').textContent = email;
-    };
-
-    // 로그인
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          alert('로그인 안 돼셨어요.>ㅇ<');
-          return;
-        }
-        return res.json();
-      })
-      .then((response) => renderUpdatedUserInfo(response))
-      .catch((error) => console.error('에러', error));
+  renderProfileEdit = () => {
+    console.log('회원정보 수정 버튼 호출');
   };
 
   logout = () => {
     localStorage.removeItem('userAuth');
-    // location.replace('../index.html');
+    const event = new CustomEvent('@route-logout', {});
+    window.dispatchEvent(event);
   };
 }
 

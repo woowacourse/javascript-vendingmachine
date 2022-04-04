@@ -20,7 +20,21 @@ export default class Router {
       const url = event.detail;
       this.tabRouter(url, false);
     });
+
+    // 웹컴포넌트에서 보낸 커스텀 이벤트
+    window.addEventListener('@route-login', this.routeLogin);
+    window.addEventListener('@route-logout', this.routeLogout);
   }
+
+  private routeLogin = () => {
+    this.tabRouter(PATH_ID.PRODUCT_MANAGE, false);
+    this.view.renderUserPrivatePage();
+  };
+
+  private routeLogout = () => {
+    this.tabRouter(PATH_ID.PURCHASE_PRODUCT, false);
+    this.view.renderPublicPage();
+  };
 
   private tabRouter = (url: string, isPopState = false) => {
     if (!isPopState && url !== location.pathname + location.hash) {
