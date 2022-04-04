@@ -1,4 +1,5 @@
 import { returnCoin } from '../../../business/vendingMachine';
+import { showToast } from '../../../lib/toast';
 import vendingMachineStore from '../../../stores/vendingMachineStore';
 import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
 
@@ -116,8 +117,9 @@ class CoinTableComponent {
   #onClickReturnButton = () => {
     try {
       returnCoin();
+      showToast({ isErrorMessage: false, message: '동전 반환에 성공하셨습니다.' });
     } catch ({ message }) {
-      alert(message);
+      showToast({ isErrorMessage: true, message });
     }
   };
 }

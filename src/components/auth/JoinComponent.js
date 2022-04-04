@@ -77,8 +77,6 @@ class JoinComponent {
     const flag = await joinUser(emailValue, nameValue, passwordValue, passwordReenterValue);
 
     if (flag) {
-      alert('회원가입의 성공하셨습니다.');
-
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
 
       globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.LOGIN);

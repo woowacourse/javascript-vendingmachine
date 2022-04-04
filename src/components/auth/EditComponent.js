@@ -113,8 +113,6 @@ class EditComponent {
     );
 
     if (flag) {
-      alert('수정에 성공하셨습니다.');
-
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
 
       globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.LOGIN);

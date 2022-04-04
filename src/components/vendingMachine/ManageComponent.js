@@ -1,4 +1,5 @@
 import { addProduct } from '../../business/vendingMachine';
+import { showToast } from '../../lib/toast';
 import { checkProductInput } from '../../utils/validation';
 import ProductTableComponent from './common/ProductTableComponent';
 
@@ -95,9 +96,11 @@ class ManageComponent {
         });
 
         this.clearInputForm();
+
+        showToast({ isErrorMessage: false, message: '상품 추가에 성공하였습니다.' });
       }
     } catch ({ message }) {
-      alert(message);
+      showToast({ isErrorMessage: true, message });
     }
   };
   clearInputForm() {

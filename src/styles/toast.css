@@ -1,0 +1,38 @@
+#toast {
+  min-width: 270px;
+  padding: 30px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+
+  border-radius: 4px;
+
+  color: white;
+  font-weight: bold;
+  background-color: #07bc0c;
+
+  display: none;
+}
+
+#toast.error {
+  background-color: #f44336;
+}
+
+#toast.show {
+  display: block;
+  animation: show-animation 3s ease forwards;
+}
+
+@keyframes show-animation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

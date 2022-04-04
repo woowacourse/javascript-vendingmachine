@@ -1,5 +1,6 @@
 import { logoutUser } from '../business/auth';
 import router, { ROUTE_NAME } from '../lib/router';
+import { showToast } from '../lib/toast';
 import globalStore from '../stores/globalStore';
 import { GLOBAL_STATE_KEYS } from '../utils/constants';
 import EditComponent from './auth/EditComponent';
@@ -189,6 +190,8 @@ class AppComponent {
     router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
 
     globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
+
+    showToast({ isErrorMessage: false, message: '로그아웃에 성공하셨습니다.' });
   };
 }
 export default AppComponent;

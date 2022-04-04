@@ -1,4 +1,5 @@
 import { deleteProduct, editProduct, purchaseProduct } from '../../../business/vendingMachine';
+import { showToast } from '../../../lib/toast';
 import vendingMachineStore from '../../../stores/vendingMachineStore';
 import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
 import { checkProductInput } from '../../../utils/validation';
@@ -189,23 +190,30 @@ class ProductTableComponent {
         });
 
         this.showEditAndDeleteButton(parentElement, confirmButtonClassList);
+        showToast({ isErrorMessage: false, message: '상품 수정에 성공하셨습니다.' });
       }
     } catch ({ message }) {
-      alert(message);
+      showToast({ isErrorMessage: true, message });
     }
   };
 
   onClickDeleteButton(productId) {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      deleteProduct({ id: productId });
+      try {
+        deleteProduct({ id: productId });
+        showToast({ isErrorMessage: false, message: '상품 삭제에 성공하셨습니다.' });
+      } catch ({ message }) {
+        showToast({ isErrorMessage: true, message });
+      }
     }
   }
 
   onClickPurchaseButton(productId) {
     try {
       purchaseProduct({ productId });
+      showToast({ isErrorMessage: false, message: '상품 구매에 성공하셨습니다.' });
     } catch ({ message }) {
-      alert(message);
+      showToast({ isErrorMessage: true, message });
     }
   }
 

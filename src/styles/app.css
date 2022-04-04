@@ -24,6 +24,8 @@ body {
   border: 1px solid var(--app-border-color);
   background-color: #fff;
   border-radius: 4px;
+
+  padding: 20px 0 60px 0;
 }
 
 nav {
@@ -32,6 +34,7 @@ nav {
   margin-bottom: 50px;
   gap: 4px;
 }
+
 button {
   width: 100%;
   cursor: pointer;
@@ -66,9 +69,11 @@ a.tab-button {
   color: #000000;
   text-align: center;
 }
+
 a.tab-button:hover {
   background-color: var(--button-hover-background-color);
 }
+
 .hide {
   display: none;
   visibility: none;

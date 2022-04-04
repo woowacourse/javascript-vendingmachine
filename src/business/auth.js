@@ -1,7 +1,8 @@
 import { fetcher } from '../lib/fetcher';
 import { checkJoinPossible } from '../utils/validation';
 import globalStore from '../stores/globalStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS } from '../utils/constants';
+import { ACTION_TYPES, GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
+import { showToast } from '../lib/toast';
 
 export const loginUser = async (emailValue, passwordValue) => {
   try {
@@ -21,12 +22,25 @@ export const loginUser = async (emailValue, passwordValue) => {
       isLoggedIn: true,
     });
 
-    localStorage.setItem('access-token', JSON.stringify(accessToken));
+    localStorage.setItem(WEB_STORAGE_KEY.ACCESS_TOKEN, JSON.stringify(accessToken));
+    localStorage.setItem(WEB_STORAGE_KEY.USER, JSON.stringify(user));
+
+    showToast({ isErrorMessage: false, message: '로그인에 성공하셨습니다.' });
 
     return true;
   } catch ({ message }) {
-    alert(message);
+    showToast({ isErrorMessage: true, message });
   }
+};
+
+export const logoutUser = () => {
+  globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
+    loggedUser: null,
+    isLoggedIn: false,
+  });
+
+  localStorage.removeItem(WEB_STORAGE_KEY.ACCESS_TOKEN);
+  localStorage.removeItem(WEB_STORAGE_KEY.USER);
 };
 
 export const joinUser = async (email, name, password, passwordReenter) => {
@@ -43,10 +57,12 @@ export const joinUser = async (email, name, password, passwordReenter) => {
         },
       });
 
+      showToast({ isErrorMessage: false, message: '회원가입에 성공하셨습니다.' });
+
       return true;
     }
   } catch ({ message }) {
-    alert(message);
+    showToast({ isErrorMessage: true, message });
   }
 };
 
@@ -65,25 +81,13 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
         },
       });
 
-      globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
-        loggedUser: null,
-        isLoggedIn: false,
-      });
+      logoutUser();
 
-      localStorage.removeItem('access-token');
+      showToast({ isErrorMessage: false, message: '유저 정보 수정에 성공하였습니다.' });
 
       return true;
     }
   } catch ({ message }) {
-    alert(message);
+    showToast({ isErrorMessage: true, message });
   }
-};
-
-export const logoutUser = () => {
-  globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
-    loggedUser: null,
-    isLoggedIn: false,
-  });
-
-  localStorage.removeItem('access-token');
 };
