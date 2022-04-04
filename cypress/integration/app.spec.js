@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:9000';
 
 describe('핵심 기능 플로우 테스트', () => {
   function createRandomUserData() {
-    return { email: `${Date.now()}@test.com`, name: 'test', password: '1234' };
+    return { email: `${Date.now()}@test.com`, name: 'test', password: 'abcd1234!!' };
   }
 
   before(() => {
