@@ -36,6 +36,7 @@ class ModifyMemberForm extends Component {
       $password.value,
       $confirmPassword.value,
     ];
+
     const { hasError, errorMessage } = validateSignUp(name, password, confirmPassword);
 
     if (hasError) {

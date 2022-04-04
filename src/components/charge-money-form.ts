@@ -34,6 +34,7 @@ class ChargeMoneyForm extends Component {
   onClickChargeBtn = ({ target }: EventOnElement) => {
     const $input = target.previousElementSibling as HTMLInputElement;
     const money: string = $input.value;
+
     try {
       this.chargeCoins(money);
     } catch (e: any) {
@@ -47,6 +48,7 @@ class ChargeMoneyForm extends Component {
     const { chargedMoney } = Store.instance.getState();
     const { hasError, errorMessage } = validateChargeCoins(money, chargedMoney);
     if (hasError) throw new ValidationError(errorMessage);
+
     Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, convertToInteger(money)));
   }
 

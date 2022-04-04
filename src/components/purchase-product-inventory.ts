@@ -55,6 +55,7 @@ class PurchaseProductInventory extends Component {
   onClickPurchaseBtn = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
     const name = $name.textContent?.trim() as string;
 
@@ -74,9 +75,11 @@ class PurchaseProductInventory extends Component {
 
     Store.instance.dispatch(createAction(ACTION.PURCHASE_PRODUCT, name));
   }
+
   findTds(target: HTMLElement) {
     const children = target.closest('tr')?.children;
     if (!children) return null;
+
     const [$name, $price, $quantity] = children;
     return { $name, $price, $quantity };
   }

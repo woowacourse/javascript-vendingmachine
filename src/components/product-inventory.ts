@@ -76,7 +76,9 @@ class ProductInventory extends Component {
   changeToEditMode = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
+
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: $name.textContent, isEditing: true })
     );
@@ -85,13 +87,14 @@ class ProductInventory extends Component {
   editProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
-    const { $name, $price, $quantity } = tds;
 
+    const { $name, $price, $quantity } = tds;
     const originalName = ($name.childNodes[0] as HTMLInputElement).dataset.originalName as string;
     const name = ($name.childNodes[0] as HTMLInputElement).value;
     const price = ($price.childNodes[0] as HTMLInputElement).value;
     const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
     const productList = Store.instance.getState().productList;
+
     const errorList = validateProduct(
       { name, price, quantity },
       productList.filter((item) => !(item.name === originalName && item.name === name))

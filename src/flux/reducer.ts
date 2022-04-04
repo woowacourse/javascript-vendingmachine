@@ -35,12 +35,14 @@ const reducer = (state: AppState, { type, payload }: Action) => {
     case ACTION.CHANGE_EDIT_MODE: {
       const { name, isEditing } = payload;
       const index = newState.productList.findIndex((item) => item.name === name);
+
       newState.productList[index].isEditing = isEditing;
       break;
     }
     case ACTION.EDIT_PRODUCT: {
       const { originalName, name, price, quantity } = payload;
       const index = newState.productList.findIndex((item) => item.name === originalName);
+
       newState.productList[index] = { name, price, quantity, isEditing: false };
       break;
     }
@@ -61,9 +63,7 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       let returnMoney = newState.insertedMoney;
 
       COIN_UNITS.forEach((coin) => {
-        if (returnMoney < 0) {
-          return;
-        }
+        if (returnMoney < 0) return;
         const useCoinAmount = Math.min(Math.floor(returnMoney / coin), newState.chargedCoins[coin]);
         returnMoney -= useCoinAmount * coin;
         newState.chargedMoney -= useCoinAmount * coin;

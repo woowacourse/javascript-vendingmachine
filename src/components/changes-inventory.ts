@@ -45,6 +45,7 @@ class ChangesInventory extends Component {
   render() {
     const { chargedCoins } = Store.instance.getState();
     const tbody = this.querySelector('tbody');
+
     if (!tbody) return;
     tbody.innerHTML = this.coinsTemplate(chargedCoins);
   }

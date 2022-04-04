@@ -23,11 +23,13 @@ const randomIndexFromArr = (arr: number[]): number => {
 const randomIndexesFromRange = (size: number): number[] => {
   const randomIndexes: number[] = [];
   let arr = [...Array(size).keys()];
+
   while (arr.length > 0) {
     const randomValue = randomIndexFromArr(arr);
     randomIndexes.push(randomValue);
     arr = arr.filter((v) => v !== randomValue);
   }
+
   return randomIndexes;
 };
 
@@ -56,6 +58,7 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
       copy[key] = deepCopy(obj[key]);
     }
   }
+
   return copy;
 };
 
@@ -66,7 +69,6 @@ export const convertToLocaleString = (number: number): string => {
 export const showSnack = (message: string) => {
   const $snackbar = document.querySelector('.snack-bar') as HTMLElement;
   $snackbar.textContent = message;
-
   $snackbar?.classList.add('show');
 
   setTimeout(() => {

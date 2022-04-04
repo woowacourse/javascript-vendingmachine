@@ -48,7 +48,7 @@ class PurchaseReturnInventory extends Component {
   }
 
   onClickReturnBtn = () => {
-    const { insertedMoney, chargedCoins } = Store.instance.getState();
+    const { insertedMoney } = Store.instance.getState();
     try {
       this.returnChanges(insertedMoney);
     } catch (e: any) {
@@ -77,6 +77,7 @@ class PurchaseReturnInventory extends Component {
     const { returnCoins } = Store.instance.getState();
     const tbody = this.querySelector('tbody');
     if (!tbody) return;
+
     tbody.innerHTML = this.coinsTemplate(returnCoins);
   }
 }

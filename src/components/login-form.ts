@@ -31,6 +31,7 @@ class LoginForm extends Component {
     const [$email, $password] = this.querySelectorAll('input');
     const email = $email.value;
     const password = $password.value;
+
     login(email, password);
   };
 
