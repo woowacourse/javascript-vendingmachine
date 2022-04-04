@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, USER_REGISTER_RULES } from '../../src/js/constants';
-import createRandomUserData from './createRandomUserData';
+import createRandomUserData from '../support/createRandomUserData';
 
 const baseUrl = 'http://localhost:9000';
 

@@ -3,7 +3,7 @@ import {
   NOT_ENOUGH_CHANGE_MESSAGE,
   VENDING_MACHINE_RULES,
 } from '../../src/js/constants';
-import createRandomUserData from './createRandomUserData';
+import createRandomUserData from '../support/createRandomUserData';
 
 const baseUrl = 'http://localhost:9000';
 
