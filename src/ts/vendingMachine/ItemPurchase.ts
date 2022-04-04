@@ -25,8 +25,8 @@ class ItemPurchase {
     return this._money;
   }
 
-  insertMoney(nextInputMoney: number): number {
-    this._money += nextInputMoney;
+  insertMoney(moneyInput: number): number {
+    this._money += moneyInput;
     return this._money;
   }
 

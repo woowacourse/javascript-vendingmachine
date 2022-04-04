@@ -31,6 +31,20 @@ class ItemPurchaseTab extends VendingMachineTab {
 
   #onSubmitItemPurchaseForm = (e) => {
     e.preventDefault();
+
+    const moneyInput = this.itemPurchaseInput.valueAsNumber;
+
+    try {
+      this.vendingMachine.validateMoneyInput(moneyInput);
+    } catch (error) {
+      alert(error.message);
+      this.itemPurchaseInput.value = '';
+      this.itemPurchaseInput.focus();
+      return;
+    }
+
+    this.vendingMachine.insertMoney(moneyInput);
+    this.inputAmountText.textContent = this.vendingMachine.money;
   };
 }
 
