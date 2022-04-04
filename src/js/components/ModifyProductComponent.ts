@@ -43,7 +43,7 @@ class ModifyProductComponent {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
-    li.insertAdjacentHTML('beforeend', component(product));
+    li.insertAdjacentHTML('beforeend', component(product, true));
     fragment.appendChild(li);
 
     return fragment;
