@@ -53,3 +53,9 @@ export const validPurchaseAmount = (amount) => {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   }
 };
+
+export const validAffordablePrice = (amount, price) => {
+  if (amount < price) {
+    throw new Error(ERROR_MESSAGE.SHORTAGE_OF_MONEY);
+  }
+};

@@ -1,5 +1,5 @@
 import { SECTION_CONTAINER } from '../constants/constants.js';
-import { $, replaceElement } from '../utils/dom.js';
+import { $ } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
 
 const purchaseTemplate = ({ name, price, quantity }) => {
@@ -68,19 +68,12 @@ export default class ProductPurchaseView {
 
   #onClickPurchaseButton(target) {
     const index = target.closest('tr').rowIndex - 1;
-
-    if (target.dataset.quantity === '1') {
-      emit(SECTION_CONTAINER, '@soldOut', { index });
-      return;
-    }
-
     const product = {
       name: target.dataset.name,
       price: target.dataset.price,
       quantity: target.dataset.quantity - 1,
     };
-    replaceElement(target.closest('tr'), purchaseTemplate(product));
 
-    emit(SECTION_CONTAINER, '@quantity', { index, product });
+    emit(SECTION_CONTAINER, '@buy', { index, product });
   }
 }
