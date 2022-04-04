@@ -51,9 +51,16 @@ userMenuTemplate.innerHTML = `
       flex-direction: column;
       width: 300px;
     }
+
+    #login-button {
+      position: absolute;
+      top: 0;
+      right: 10px;
+    }
   </style>
 
-  <section>
+  <button id="login-button">로그인</button>
+  <section class="">
     <h2 hidden>유저 메뉴</h2>
     <h3>👋🏼 <span id="welcome-name"></span>님 안녕하세요.</h3>
     <h4>이름</h4>
@@ -76,12 +83,19 @@ class UserMenu extends HTMLElement {
     this.checkLoginStatus();
     this.renderUserMenu();
     this.shadowRoot.querySelector('#logout-button').addEventListener('click', this.logout);
+    this.shadowRoot.querySelector('#login-button').addEventListener('click', this.renderLoginModal);
   }
 
   disconnectedCallback() {
     // 이벤트 삭제
     this.shadowRoot.querySelector('#logout-button').removeEventListener('click', this.logout);
   }
+
+  renderLoginModal = () => {
+    const detail = document.createElement('log-in');
+    const event = new CustomEvent('@render-log-in', { detail });
+    window.dispatchEvent(event);
+  };
 
   checkLoginStatus = () => {
     const userAuth = JSON.parse(localStorage.getItem('userAuth'));

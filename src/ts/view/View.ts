@@ -6,6 +6,7 @@ import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
 
 export default class View {
+  $app: HTMLDivElement;
   $notFound: HTMLDivElement;
   $navTab: HTMLDivElement;
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
@@ -25,6 +26,7 @@ export default class View {
     this.rechargeView = new RechargeView(this.vendingMachine);
     this.purchaseView = new PurchaseView(this.vendingMachine);
 
+    this.$app = <HTMLDivElement>$('#app');
     this.$notFound = <HTMLDivElement>$('#not-found');
     this.$navTab = <HTMLDivElement>$('.nav-tab');
     this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
@@ -42,13 +44,20 @@ export default class View {
     this.$tabPurchaseProductButton.addEventListener('click', () =>
       this.handleClickTabButton(PATH_ID.PURCHASE_PRODUCT),
     );
+
+    // 웹컴포넌트
+    window.addEventListener('@render-log-in', this.renderLoginModal);
   }
 
-  private handleClickTabButton(url: string) {
+  private renderLoginModal = (event) => {
+    this.$app.appendChild(event.detail);
+  };
+
+  private handleClickTabButton = (url: string) => {
     const detail = url;
     const event = new CustomEvent('@route-tab', { detail });
     this.$navTab.dispatchEvent(event);
-  }
+  };
 
   public renderTabs = (url: string) => {
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
