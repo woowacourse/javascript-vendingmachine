@@ -1,6 +1,9 @@
-import { template } from './template';
+import pageTemplate from './template/page';
+import template from './template';
+
 import { $, showSnackBar } from '../utils';
 import { validateHoldingAmountToAdd } from '../validator';
+
 import VendingMachineChargeManagementPageManager from '../manager/VendingMachineChargeManagementPageManager';
 
 class VendingMachineChargeManagementPageView {
@@ -15,7 +18,7 @@ class VendingMachineChargeManagementPageView {
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.vendingMachineChargeManagementPage;
+    $('main').innerHTML = pageTemplate.vendingMachineChargeManagementPage;
 
     this.setDOM();
     this.render({

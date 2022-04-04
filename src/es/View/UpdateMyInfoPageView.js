@@ -1,36 +1,15 @@
-import User from '../data/User';
-import { $, getInnerInputValues } from '../utils';
-import { updateUserInfo } from '../utils/auth';
-import { validateUserInfo } from '../validator';
-import { showSnackBar } from '../utils/index';
+import pageTemplate from './template/page';
 
-const pageTemplate = ({ email, name }) => `
-  <section class="user-information-form-section">
-      <form id="update-my-info-form" >
-          <label>이메일<br>
-              <input type="email" name="email" value=${email} disabled>
-          </label>
-          <label>이름<br>
-              <input type="text" name="name" value=${name} placeholder="이름을 입력해주세요">
-          </label>
-          <label>비밀번호<br>
-              <p class="input-guide">대문자 알파벳, 소문자 알파벳, 숫자를 각각 1자 이상 포함하는 전체 8자 이상의 비밀번호를 입력하세요.</p>
-              <input type="password" name="password" placeholder="비밀번호를 입력해주세요">
-          </label>
-          <label>비밀번호 확인<br>
-              <input type="password" name="passwordConfirm" placeholder="비밀번호를 입력해주세요">
-          </label>
-          <button class="button accent">확인</button>
-      </form>
-  </section>
-`;
+import { $, getInnerInputValues, showSnackBar } from '../utils';
+import { updateUserInfo } from '../utils/auth';
+
+import { validateUserInfo } from '../validator';
+
+import User from '../data/User';
 
 class UpdateMyInfoPageView {
   loadPage = () => {
-    $('.main').innerHTML = pageTemplate({
-      email: User.email,
-      name: User.name,
-    });
+    $('.main').innerHTML = pageTemplate.updateMyInfoPage({ email: User.email, name: User.name });
     $('#update-my-info-form').addEventListener('submit', this.onSubmitUpdateMyInfoForm);
   };
 

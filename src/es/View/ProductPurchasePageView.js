@@ -1,9 +1,11 @@
-import { $, clearInnerInputValues, getInnerInputValues } from '../utils';
-import { template } from './template';
-import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
+import template from './template';
+import pageTemplate from './template/page';
+
+import { $, clearInnerInputValues, getInnerInputValues, showSnackBar } from '../utils';
 import { validateCustomerChargeToAdd } from '../validator';
-import { showSnackBar } from '../utils/index';
 import { GUIDE_MESSAGE } from '../constants';
+
+import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
 
 class ProductPurchasePageView {
   renderMethodList;
@@ -18,7 +20,7 @@ class ProductPurchasePageView {
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.productPurchasePage;
+    $('main').innerHTML = pageTemplate.productPurchasePage;
 
     this.setDOM();
     this.render({

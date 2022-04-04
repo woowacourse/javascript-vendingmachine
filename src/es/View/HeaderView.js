@@ -1,6 +1,9 @@
-import User from '../data/User';
+import template from './template';
+
 import { $ } from '../utils';
 import { logout } from '../utils/auth';
+
+import User from '../data/User';
 
 class HeaderView {
   $container = $('header');
@@ -10,10 +13,13 @@ class HeaderView {
   $loginButton = $('#login-button', this.$userArea);
   $nav = $('.nav', this.$container);
 
+  constructor() {
+    this.$userArea.addEventListener('click', this.onClickUserArea);
+  }
+
   updateOnPageChange(page) {
     this.updateTitle(page);
     this.updateMenuButton(page);
-    this.$userArea.addEventListener('click', this.onClickUserArea);
   }
 
   onClickUserArea(event) {
@@ -67,15 +73,9 @@ class HeaderView {
 
   updateUserArea() {
     if (User.isMember) {
-      this.$userArea.innerHTML = `
-        <button type="button" id="user-thumbnail-button" name="thumbnail-button" class="thumbnail-button">${User.name[0]}</button>
-        <ul id="member-menu" class="hidden">
-          <li data-page="updateMyInfo">회원 정보 수정</li>
-          <li id="logout-button">로그아웃</li>
-        </ul>
-      `;
+      this.$userArea.innerHTML = template.userAreaContentForMember(User.name);
     } else {
-      this.$userArea.innerHTML = '<button id="login-button" class="button" data-page="login">로그인</button>';
+      this.$userArea.innerHTML = template.userAreaContentForNonMember;
     }
   }
 

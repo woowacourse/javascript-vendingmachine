@@ -1,8 +1,11 @@
-import { template } from './template';
+import pageTemplate from './template/page';
+import template from './template';
+
 import { validateProduct } from '../validator';
 import { $, getInnerInputValues, clearInnerInputValues, showSnackBar } from '../utils';
-import ProductManagementPageManager from '../manager/ProductManagementPageManager';
 import { GUIDE_MESSAGE } from '../constants';
+
+import ProductManagementPageManager from '../manager/ProductManagementPageManager';
 
 class ProductManagementPageView {
   renderMethodList;
@@ -22,7 +25,7 @@ class ProductManagementPageView {
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.productManagementPage;
+    $('main').innerHTML = pageTemplate.productManagementPage;
 
     this.setDOM();
     this.render({
