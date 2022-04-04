@@ -4,9 +4,9 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductStatusUI {
-  private $container: HTMLElement;
-  private productDomain;
-  private purchaseCashDomain;
+  private readonly $container: HTMLElement;
+  private readonly productDomain;
+  private readonly purchaseCashDomain;
 
   constructor(productDomain, purchaseCashDomain) {
     this.$container = $('.product-status__container');

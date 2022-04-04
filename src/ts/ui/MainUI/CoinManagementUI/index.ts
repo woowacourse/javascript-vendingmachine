@@ -4,7 +4,7 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class CoinManagementUI {
-  private coinDomain;
+  private readonly coinDomain;
 
   constructor(coinDomain) {
     this.coinDomain = coinDomain;

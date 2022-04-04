@@ -5,7 +5,7 @@ import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class CoinChargeUI {
-  private coinDomain;
+  private readonly coinDomain;
 
   constructor(coinDomain) {
     this.coinDomain = coinDomain;

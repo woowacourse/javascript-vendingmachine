@@ -5,9 +5,9 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductPurchaseUI {
-  private productDomain;
-  private coinDomain;
-  private purchaseCashDomain;
+  private readonly productDomain;
+  private readonly coinDomain;
+  private readonly purchaseCashDomain;
 
   constructor(productDomain, coinDomain, purchaseCashDomain) {
     this.productDomain = productDomain;

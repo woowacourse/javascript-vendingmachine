@@ -4,7 +4,7 @@ import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 
 export default class PurchaseCashChargeUI {
-  private purchaseCashDomain;
+  private readonly purchaseCashDomain;
 
   constructor(purchaseCashDomain) {
     this.purchaseCashDomain = purchaseCashDomain;

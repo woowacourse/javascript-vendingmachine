@@ -5,8 +5,8 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ReturnCoinUI {
-  private coinDomain;
-  private purchaseCashDomain;
+  private readonly coinDomain;
+  private readonly purchaseCashDomain;
 
   constructor(coinDomain, purchaseCashDomain) {
     this.coinDomain = coinDomain;

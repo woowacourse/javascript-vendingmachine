@@ -4,8 +4,8 @@ import { $, $$, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductInventoryUI {
-  private $container: HTMLElement;
-  private productDomain;
+  private readonly $container: HTMLElement;
+  private readonly productDomain;
 
   constructor(productDomain) {
     this.$container = $('.product-inventory__container');

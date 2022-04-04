@@ -9,7 +9,7 @@ type Inputs = {
 };
 
 export default class ProductAdditionUI {
-  private productDomain;
+  private readonly productDomain;
 
   constructor(productDomain) {
     this.productDomain = productDomain;

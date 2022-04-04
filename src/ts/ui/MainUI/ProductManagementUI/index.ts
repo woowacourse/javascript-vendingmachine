@@ -4,7 +4,7 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductManagementUI {
-  private productDomain;
+  private readonly productDomain;
 
   constructor(productDomain) {
     this.productDomain = productDomain;

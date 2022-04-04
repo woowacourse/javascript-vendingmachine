@@ -1,7 +1,7 @@
 import { $, replaceHTML } from '../../../utils/dom';
 
 export default class CoinHoldingsUI {
-  private coinDomain;
+  private readonly coinDomain;
 
   constructor(coinDomain) {
     this.coinDomain = coinDomain;
