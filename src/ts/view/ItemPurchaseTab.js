@@ -1,5 +1,5 @@
 import { generateItemPurchaseContentTemplate } from '../template';
-import { selectDom } from '../utils';
+import { selectDom, selectDoms } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class ItemPurchaseTab extends VendingMachineTab {
@@ -23,8 +23,10 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.itemPurchaseForm = selectDom('#item-purchase-form', this.tabContent);
     this.itemPurchaseInput = selectDom('.item-purchase-input', this.itemPurchaseForm);
     this.inputAmountText = selectDom('#input-amount', this.tabContent);
+    this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
 
     this.itemPurchaseForm.addEventListener('submit', this.#onSubmitItemPurchaseForm);
+    this.itemStatusTable.addEventListener('click', this.#onClickPurchaseItemButton);
 
     this.itemPurchaseInput.focus();
   }
@@ -42,9 +44,36 @@ class ItemPurchaseTab extends VendingMachineTab {
       this.itemPurchaseInput.focus();
       return;
     }
-
     this.vendingMachine.insertMoney(moneyInput);
     this.inputAmountText.textContent = this.vendingMachine.money;
+  };
+
+  #onClickPurchaseItemButton = ({ target }) => {
+    if (target.classList.contains('purchase-item-button')) {
+      const targetItem = target.closest('tr');
+      const targetItemInfoIndex = this.itemManage.itemList.findIndex(
+        (itemInfo) => itemInfo.itemName === targetItem.dataset.itemName
+      );
+      const { itemQuantity, itemPrice } = this.itemManage.itemList[targetItemInfoIndex];
+
+      try {
+        this.vendingMachine.validatePurchasingBehavior(
+          itemQuantity,
+          itemPrice,
+          this.vendingMachine.money
+        );
+      } catch (error) {
+        alert(error.message);
+        return;
+      }
+
+      this.vendingMachine.purchaseItem(itemPrice);
+      this.itemManage.itemList[targetItemInfoIndex].itemQuantity -= 1;
+
+      const itemQuantityCell = selectDom('.item-quantity', targetItem);
+      itemQuantityCell.textContent = itemQuantity - 1;
+      this.inputAmountText.textContent = this.vendingMachine.money;
+    }
   };
 }
 

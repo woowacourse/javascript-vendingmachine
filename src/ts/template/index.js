@@ -129,7 +129,7 @@ export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, item
   <tr data-item-name="${itemName}">
     <td>${itemName}</td>
     <td>${itemPrice}</td>
-    <td>${itemQuantity}</td>
+    <td class="item-quantity">${itemQuantity}</td>
     <td class="item-button-cell">
         <button type="button" class="default-button purchase-item-button">구매</button>
     </td>

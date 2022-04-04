@@ -25,9 +25,12 @@ class ItemPurchase {
     return this._money;
   }
 
-  insertMoney(moneyInput: number): number {
+  insertMoney(moneyInput: number) {
     this._money += moneyInput;
-    return this._money;
+  }
+
+  purchaseItem(itemPrice: number) {
+    this._money -= itemPrice;
   }
 
   giveChange(moneyInput: number, coinCollection: CoinCollectionType) {
