@@ -24,9 +24,9 @@ const customRouter = jsonServer.rewriter({
     "/findUser\\?name=:name": "/users/?name=:name"
 })
 
-app.db = router.db
+server.db = router.db
 
-app.use(cors())
+server.use(cors())
 server.use(auth)
 server.use(customRouter)
 server.use(router)
