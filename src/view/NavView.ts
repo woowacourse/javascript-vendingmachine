@@ -57,39 +57,61 @@ export class NavView {
     }
 
     if (savedData.state.path === URL_PATH.PRODUCT_MANAGE) {
-      this.#productManageView.init();
-      this.#productManageView.renderAll();
+      this.#productManageView.show();
+      this.#balanceChargeView.hide();
+      this.#productPurchaseView.hide();
 
       return;
     }
 
     if (savedData.state.path === URL_PATH.BALANCE_CHAREGE) {
-      this.#balanceChargeView.init();
-      this.#balanceChargeView.renderAll();
+      this.#balanceChargeView.show();
+      this.#productPurchaseView.hide();
+      this.#productManageView.hide();
 
       return;
     }
   };
 
   #handleShowProductManageTab = () => {
-    this.#productManageView.init();
-    this.#productManageView.renderAll();
+    if (!this.#productManageView.getIsRendered()) {
+      this.#productManageView.renderAll();
+      this.#productManageView.setIsRendered(true);
+    }
+
+    this.#productManageView.show();
+    this.#balanceChargeView.hide();
+    this.#productPurchaseView.hide();
 
     const path = URL_PATH.PRODUCT_MANAGE;
     this.#handleUrlPath(path);
   };
 
   #handleShowBalanceChargeTab = () => {
-    this.#balanceChargeView.init();
-    this.#balanceChargeView.renderAll();
+    if (!this.#balanceChargeView.getIsRendered()) {
+      this.#balanceChargeView.renderAll();
+      this.#balanceChargeView.setIsRendered(true);
+    }
+
+    this.#balanceChargeView.show();
+    this.#productPurchaseView.hide();
+    this.#productManageView.hide();
 
     const path = URL_PATH.BALANCE_CHAREGE;
     this.#handleUrlPath(path);
   };
 
   #handleShowProductPurhcaseTab = () => {
-    this.#productPurchaseView.init();
-    this.#productPurchaseView.renderAll();
+    // 렌더링이 되어있지 않다면 렌더링을 해주고
+    // 되어있다면 class hide show만 조정
+    if (!this.#productPurchaseView.getIsRendered()) {
+      this.#productPurchaseView.renderAll();
+      this.#productPurchaseView.setIsRendered(true);
+    }
+
+    this.#productPurchaseView.show();
+    this.#balanceChargeView.hide();
+    this.#productManageView.hide();
 
     const path = URL_PATH.PRODUCT_PURCHASE;
     this.#handleUrlPath(path);

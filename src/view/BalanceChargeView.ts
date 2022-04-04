@@ -7,24 +7,38 @@ export class BalanceChargeView {
   #balanceChargeInputForm: BalanceChargeInputForm;
   #coinVaultTable: CoinVaultTable;
   #coinVault: CoinVault;
-  #contentsContainer: HTMLDivElement;
-  #props: object;
+  #balanceChargeContainer: HTMLDivElement;
+  #isRendered: boolean;
 
   constructor() {
-    this.#coinVault = new CoinVault();
+    this.#isRendered = false;
+    this.#balanceChargeContainer = document.querySelector('#balance-charge-container');
 
-    this.#contentsContainer = document.querySelector('#contents-container');
+    this.#coinVault = new CoinVault();
+    this.#balanceChargeInputForm = new BalanceChargeInputForm({
+      target: this.#balanceChargeContainer,
+      coinVault: this.#coinVault,
+    });
+    this.#coinVaultTable = new CoinVaultTable({
+      target: this.#balanceChargeContainer,
+      coinVault: this.#coinVault,
+    });
   }
 
-  init() {
-    this.#contentsContainer.textContent = '';
+  getIsRendered() {
+    return this.#isRendered;
+  }
 
-    this.#props = {
-      target: this.#contentsContainer,
-      coinVault: this.#coinVault,
-    };
-    this.#balanceChargeInputForm = new BalanceChargeInputForm(this.#props);
-    this.#coinVaultTable = new CoinVaultTable(this.#props);
+  setIsRendered(status: boolean) {
+    this.#isRendered = status;
+  }
+
+  show() {
+    this.#balanceChargeContainer.classList.remove('hide');
+  }
+
+  hide() {
+    this.#balanceChargeContainer.classList.add('hide');
   }
 
   renderAll() {

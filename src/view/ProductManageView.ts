@@ -4,7 +4,9 @@ import { ProductCatalogTable } from '../component/ProductCatalogTable';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 interface ProductManageViewInterface {
-  init();
+  getIsRendered();
+  setIsRendered(status: boolean);
+  show();
   renderAll();
 }
 
@@ -12,31 +14,42 @@ export class ProductManageView implements ProductManageViewInterface {
   #productInformationInputForm: ProductInformationInputForm;
   #productCatalogTable: ProductCatalogTable;
   #productCatalog: ProductCatalog;
-  #contentsContainer: HTMLDivElement;
-  props: object;
+  #productManageContainer: HTMLDivElement;
+  #isRendered: boolean;
 
   constructor() {
+    this.#isRendered = false;
+    this.#productManageContainer = document.querySelector('#product-manage-container');
+
     this.#productCatalog = new ProductCatalog();
 
-    this.#contentsContainer = document.querySelector('#contents-container');
-  }
-
-  init() {
-    this.#contentsContainer.textContent = '';
-
     this.#productInformationInputForm = new ProductInformationInputForm({
-      target: this.#contentsContainer,
+      target: this.#productManageContainer,
       productCatalog: this.#productCatalog,
     });
     this.#productCatalogTable = new ProductCatalogTable({
-      target: this.#contentsContainer,
+      target: this.#productManageContainer,
       productCatalog: this.#productCatalog,
     });
   }
 
-  renderAll() {
-    this.#contentsContainer.textContent = '';
+  getIsRendered() {
+    return this.#isRendered;
+  }
 
+  setIsRendered(status: boolean) {
+    this.#isRendered = status;
+  }
+
+  show() {
+    this.#productManageContainer.classList.remove('hide');
+  }
+
+  hide() {
+    this.#productManageContainer.classList.add('hide');
+  }
+
+  renderAll() {
     this.#productInformationInputForm.render();
     this.#productCatalogTable.render();
   }

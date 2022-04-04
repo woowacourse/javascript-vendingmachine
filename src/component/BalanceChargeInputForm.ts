@@ -12,9 +12,9 @@ export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
   #chargeBalanceInputForm: HTMLFormElement;
   #currentBalance: HTMLSpanElement;
 
-  constructor(props) {
-    this.#target = props.target;
-    this.#coinVault = props.coinVault;
+  constructor({ target, coinVault }) {
+    this.#target = target;
+    this.#coinVault = coinVault;
   }
 
   render() {

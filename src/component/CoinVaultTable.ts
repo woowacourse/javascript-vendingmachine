@@ -13,9 +13,9 @@ export class CoinVaultTable implements CoinVaultTableInterface {
   #coin50Quantity: HTMLSpanElement;
   #coin10Quantity: HTMLSpanElement;
 
-  constructor(props) {
-    this.#target = props.target;
-    this.#coinVault = props.coinVault;
+  constructor({ target, coinVault }) {
+    this.#target = target;
+    this.#coinVault = coinVault;
 
     this.#target.addEventListener('coinCharged', this.#updateCoinVaultTableTemplate);
   }

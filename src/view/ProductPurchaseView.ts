@@ -1,27 +1,48 @@
 import { PurchaseMoneyInputForm } from '../component/PurchaseMoneyInputForm';
 
+import { PurchaseMoney } from '../domain/PurchaseMoney';
+
 interface ProductPurchaseViewInterface {
-  init();
+  getIsRendered();
+  setIsRendered(status: boolean);
+  show();
   renderAll();
 }
 
 export class ProductPurchaseView implements ProductPurchaseViewInterface {
-  #contentsContainer: HTMLDivElement;
+  #productPurchaseContainer: HTMLDivElement;
   #purchaseMoneyInputForm: PurchaseMoneyInputForm;
+  #purchaseMoney: PurchaseMoney;
+  #isRendered: boolean;
 
   constructor() {
-    this.#contentsContainer = document.querySelector('#contents-container');
+    this.#isRendered = false;
+    this.#productPurchaseContainer = document.querySelector('#product-purchase-container');
+
+    this.#purchaseMoney = new PurchaseMoney();
+    this.#purchaseMoneyInputForm = new PurchaseMoneyInputForm({
+      target: this.#productPurchaseContainer,
+      purchaseMoney: this.#purchaseMoney,
+    });
   }
 
-  init() {
-    this.#contentsContainer.textContent = '';
+  getIsRendered() {
+    return this.#isRendered;
+  }
 
-    this.#purchaseMoneyInputForm = new PurchaseMoneyInputForm(this.#contentsContainer);
+  setIsRendered(status: boolean) {
+    this.#isRendered = status;
+  }
+
+  show() {
+    this.#productPurchaseContainer.classList.remove('hide');
+  }
+
+  hide() {
+    this.#productPurchaseContainer.classList.add('hide');
   }
 
   renderAll() {
-    this.#contentsContainer.textContent = '';
-
     this.#purchaseMoneyInputForm.render();
   }
 }
