@@ -1,4 +1,6 @@
+import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
+import snackbar from '../utils/snackbar';
 
 class AddChangeComponent {
   $changeAddForm: HTMLElement;
@@ -24,8 +26,9 @@ class AddChangeComponent {
     try {
       vendingMachine.inputChanges(inputChange);
       this.noticeStateChanged();
+      snackbar.push(ALERT_MESSAGE.ADD_CHARGE_SUCCESS(inputChange));
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
   };
 

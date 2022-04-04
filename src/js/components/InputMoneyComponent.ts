@@ -1,4 +1,6 @@
+import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
+import snackbar from '../utils/snackbar';
 
 class InputMoneyComponent {
   $inputMoneyForm: HTMLElement;
@@ -24,8 +26,9 @@ class InputMoneyComponent {
     try {
       vendingMachine.inputUserMoney(inputMoney);
       this.noticeStateChanged();
+      snackbar.push(ALERT_MESSAGE.INPUT_MONEY_SUCCESS(inputMoney));
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
   };
 

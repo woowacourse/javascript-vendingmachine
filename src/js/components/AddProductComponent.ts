@@ -1,5 +1,7 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
+import snackbar from '../utils/snackbar';
+import { ALERT_MESSAGE } from '../constants';
 
 class AddProductComponent {
   parentElement: HTMLElement;
@@ -31,8 +33,9 @@ class AddProductComponent {
     try {
       vendingMachine.addProduct(newProduct);
       this.noticeStateChanged('add', newProduct);
+      snackbar.push(ALERT_MESSAGE.ADD_PRODUCT_SUCCESS(name));
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
   };
 

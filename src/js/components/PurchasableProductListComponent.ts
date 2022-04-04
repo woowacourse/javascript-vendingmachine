@@ -1,6 +1,8 @@
 import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
+import snackbar from '../utils/snackbar';
+import { ALERT_MESSAGE } from '../constants';
 
 class ProductListComponent {
   parentElement: HTMLElement;
@@ -30,8 +32,9 @@ class ProductListComponent {
     try {
       vendingMachine.purchaseProduct(productName);
       $productAmount.textContent = (Number(productAmount) - 1).toString();
+      snackbar.push(ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName));
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
   };
 

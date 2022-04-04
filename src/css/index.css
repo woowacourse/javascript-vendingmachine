@@ -1,5 +1,6 @@
 @import './global.css';
 @import './font.css';
+@import './snackbar.css';
 
 body {
   width: 100vw;

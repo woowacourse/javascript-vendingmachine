@@ -2,7 +2,8 @@ import vendingMachine from '../model/VendingMachine';
 import ModifyProductComponent from './ModifyProductComponent';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
-import { REMOVE_CONFIRM_MESSAGE } from '../constants';
+import { ALERT_MESSAGE, REMOVE_CONFIRM_MESSAGE } from '../constants';
+import snackbar from '../utils/snackbar';
 
 class ProductListComponent {
   ModifyProductComponent: ModifyProductComponent;
@@ -53,6 +54,7 @@ class ProductListComponent {
 
     vendingMachine.removeProduct(name);
     parentList.remove();
+    snackbar.push(ALERT_MESSAGE.DELETE_PRODUCT_SUCCESS(name));
   };
 
   private replaceList = (product: Product, component: Function) => {

@@ -29,6 +29,16 @@ const ERROR_MESSAGE = {
   NOT_ENOUGH_MONEY: '투입된 금액이 부족합니다.',
 };
 
+const ALERT_MESSAGE = {
+  ADD_CHARGE_SUCCESS: (money: number) => `자판기에 잔돈 ${money}원을 추가하였습니다.`,
+  ADD_PRODUCT_SUCCESS: (productName: string) => `자판기에 상품 '${productName}'을 추가하였습니다.`,
+  MODIFY_PRODUCT_SUCCESS: (productName: string) => `상품 '${productName}'의 정보를 수정하였습니다.`,
+  DELETE_PRODUCT_SUCCESS: (productName: string) => `상품 '${productName}'를 삭제하였습니다.`,
+  PURCHASE_PRODUCT_SUCCESS: (productName: string) => `'${productName}'를 구입하였습니다.`,
+  INPUT_MONEY_SUCCESS: (money: number) => `자판기에 ${money}원을 투입하였습니다.`,
+  RETURN_CHARGE_SUCCESS: () => `잔돈을 반환하였습니다.`,
+};
+
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 
-export { PATH_NAME, RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE };
+export { PATH_NAME, RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE, ALERT_MESSAGE };

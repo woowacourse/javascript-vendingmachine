@@ -1,4 +1,6 @@
+import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
+import snackbar from '../utils/snackbar';
 
 class ReturnChangeComponent {
   $changeList: HTMLElement;
@@ -29,8 +31,9 @@ class ReturnChangeComponent {
   private onClickReturnButton = () => {
     try {
       vendingMachine.returnChanges();
+      snackbar.push(ALERT_MESSAGE.RETURN_CHARGE_SUCCESS());
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
 
     this.noticeStateChanged();

@@ -1,6 +1,8 @@
 import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
+import { ALERT_MESSAGE } from '../constants';
+import snackbar from '../utils/snackbar';
 
 class ModifyProductComponent {
   name: string;
@@ -36,8 +38,9 @@ class ModifyProductComponent {
     try {
       vendingMachine.modifyProduct(prevName, product);
       ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
+      snackbar.push(ALERT_MESSAGE.MODIFY_PRODUCT_SUCCESS(product.name));
     } catch (message) {
-      alert(message);
+      snackbar.push(message, true);
     }
   };
 
