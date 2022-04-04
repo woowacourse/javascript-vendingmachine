@@ -1,3 +1,4 @@
+import { DEFAULT_ROUTE } from '../../constants';
 import { createMainElement, getInputValuesFromForm, selectDom } from '../../utils/dom';
 import registerPageTemplate from './RegisterPageTemplate';
 
@@ -34,7 +35,7 @@ export default class RegisterPage {
     try {
       await this.#authorization.register({ email, name, password, passwordConfirm });
 
-      window.location.href = '#/product';
+      window.location.href = DEFAULT_ROUTE.USER;
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }

@@ -92,3 +92,8 @@ export const POST_REQUEST_OPTIONS = {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
 };
+
+export const DEFAULT_ROUTE = {
+  USER: '#/product',
+  NON_USER: '#/purchase',
+};

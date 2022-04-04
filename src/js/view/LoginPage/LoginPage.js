@@ -1,3 +1,4 @@
+import { DEFAULT_ROUTE } from '../../constants';
 import { createMainElement, getInputValuesFromForm } from '../../utils/dom';
 import loginPageTemplate from './LoginPageTemplate';
 
@@ -27,7 +28,7 @@ export default class LoginPage {
     try {
       await this.#authorization.login({ email, password });
 
-      window.location.href = '#/product';
+      window.location.href = DEFAULT_ROUTE.USER;
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }

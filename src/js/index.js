@@ -21,6 +21,7 @@ import {
 } from './view/generalTemplate';
 
 import Snackbar from './view/Snackbar';
+import { DEFAULT_ROUTE } from './constants';
 
 class App {
   #vendingMachine;
@@ -64,7 +65,7 @@ class App {
   };
 
   #renderUser() {
-    const path = window.location.hash || '#/product';
+    const path = window.location.hash || DEFAULT_ROUTE.USER;
     this.#renderNav(path);
     selectDom('#login-link-button', this.#appContainer)?.remove();
     this.#updateUserButton();
@@ -73,7 +74,7 @@ class App {
   }
 
   #renderNonUser() {
-    const path = window.location.hash || '#/purchase';
+    const path = window.location.hash || DEFAULT_ROUTE.NON_USER;
     selectDom('#tab-menu-navigation')?.remove();
     selectDom('#user-button', this.#appContainer)?.remove();
     if (!selectDom('#login-link-button', this.#appContainer)) {
