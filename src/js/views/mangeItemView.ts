@@ -7,17 +7,15 @@ import showSnackbar from '../utils/snackbar';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
-  private $content: HTMLDivElement;
-
   constructor(private readonly vendingMachine: VendingMachine) {
     this.vendingMachine = vendingMachine;
-    this.$content = $(SELECTOR.ID.CONTENT);
   }
 
   render() {
+    const $content = $(SELECTOR.ID.CONTENT);
     const { items } = this.vendingMachine;
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
+    $content.replaceChildren();
+    $content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
 
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
     $(SELECTOR.CLASS.ITEM_TABLE).addEventListener('click', this.handleTableClickEvent.bind(this));

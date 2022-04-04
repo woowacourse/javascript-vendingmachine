@@ -13,7 +13,8 @@ export interface CoinsType {
 }
 
 export type RouteChangeDetailType = {
-  $navButton: HTMLButtonElement;
+  url: string;
+  page: string;
 };
 
 export type ChargeMoneyDetailType = {

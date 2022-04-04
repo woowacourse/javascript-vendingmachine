@@ -5,17 +5,16 @@ import VendingMachine from '../vendingMachine/vendingMachine';
 import showSnackbar from '../utils/snackbar';
 
 export default class PurchaseItemView {
-  private $content: HTMLDivElement;
-
   constructor(private readonly vendingMachine: VendingMachine) {
-    this.$content = $(SELECTOR.ID.CONTENT);
+    this.vendingMachine = vendingMachine;
   }
 
   render() {
+    const $content = $(SELECTOR.ID.CONTENT);
     const { items, InitialCoins, money } = this.vendingMachine;
 
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, InitialCoins, money));
+    $content.replaceChildren();
+    $content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, InitialCoins, money));
 
     $('#input-money-submit').addEventListener('submit', this.handleMoneySubmitEvent.bind(this));
     $('#purchase-item-table').addEventListener('click', this.handleTableClickEvent.bind(this));

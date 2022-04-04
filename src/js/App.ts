@@ -1,66 +1,44 @@
-import ManageItemView from './views/mangeItemView';
-import ChargeMoneyView from './views/chargeMoneyView';
-import PurchaseItemView from './views/purchaseItemView';
-import VendingMachine from './vendingMachine/vendingMachine';
-import AppView from './views/AppView';
+import MainView from './views/mainView';
 import { URL, CUSTOM_EVENT } from './constants/appContants';
-import { SELECTOR } from './constants/viewConstants';
 import { RouteChangeDetailType } from './types/types';
+import SignView from './views/sign/signView';
 
 export default class App {
-  appView: AppView;
-  vendingMachine: VendingMachine;
-  manageItemView: ManageItemView;
-  chargeMoneyView: ChargeMoneyView;
-  purchaseItemView: PurchaseItemView;
+  mainView: MainView;
+  signView: SignView;
 
   constructor() {
-    this.appView = new AppView();
-    this.vendingMachine = new VendingMachine();
-    this.manageItemView = new ManageItemView(this.vendingMachine);
-    this.chargeMoneyView = new ChargeMoneyView(this.vendingMachine);
-    this.purchaseItemView = new PurchaseItemView(this.vendingMachine);
+    this.mainView = new MainView();
+    this.signView = new SignView();
 
     window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
-    window.addEventListener('popstate', this.route.bind(this));
+    window.addEventListener(CUSTOM_EVENT.RENDER_PAGE, this.renderPage.bind(this));
+    window.addEventListener('popstate', this.renderPage.bind(this));
   }
 
   handleRouteChange(event: CustomEvent) {
-    const { $navButton }: RouteChangeDetailType = event.detail;
+    const { page, url }: RouteChangeDetailType = event.detail;
 
-    switch ($navButton.id) {
-      case SELECTOR.ID_STRING.ITEM_MANGE_TAB:
-        window.history.pushState(null, null, URL.MANAGE_ITEM);
-        break;
-      case SELECTOR.ID_STRING.MONEY_CHARGE_TAB:
-        window.history.pushState(null, null, URL.CHARGE_MONEY);
-        break;
-      case SELECTOR.ID_STRING.ITEM_PURCHASE_TAB:
-        window.history.pushState(null, null, URL.PURCHASE_ITEM);
-    }
-
-    this.route();
+    window.history.pushState(null, null, `${URL.BASE_URL}/#${page}/#${url}`);
   }
 
-  route() {
-    const { pathname } = window.location;
+  renderPage() {
+    const pathList = window.location.href.split('/#');
+    const page = pathList[1] ?? URL.MAIN;
+    const url = pathList[2] ?? URL.PURCHASE_ITEM;
 
-    switch (pathname) {
-      case `${URL.BASE_URL}/${URL.MANAGE_ITEM}`:
-        this.manageItemView.render();
-        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+    switch (page) {
+      case URL.MAIN:
+        this.mainView.render();
+        this.mainView.renderMainPageSection(url);
         break;
-      case `${URL.BASE_URL}/${URL.CHARGE_MONEY}`:
-        this.chargeMoneyView.render();
-        this.appView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
-        break;
-      case `${URL.BASE_URL}/${URL.PURCHASE_ITEM}`:
-        this.purchaseItemView.render();
-        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+      case URL.SIGN:
+        this.signView.render();
+        this.signView.renderSignPageSection(url);
         break;
       default:
-        this.manageItemView.render();
-        this.appView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+        this.mainView.render();
+        this.mainView.renderMainPageSection(url);
     }
   }
 }

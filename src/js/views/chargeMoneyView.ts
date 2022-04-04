@@ -6,16 +6,15 @@ import showSnackbar from '../utils/snackbar';
 import VendingMachine from '../vendingMachine/vendingMachine';
 
 export default class ChargeMoneyView {
-  private $content: HTMLDivElement;
-
   constructor(private readonly vendingMachine: VendingMachine) {
-    this.$content = $(SELECTOR.ID.CONTENT);
+    this.vendingMachine = vendingMachine;
   }
 
   render() {
+    const $content = $(SELECTOR.ID.CONTENT);
     const { coins, coinsSum } = this.vendingMachine;
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, coinsSum));
+    $content.replaceChildren();
+    $content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, coinsSum));
 
     $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
   }
