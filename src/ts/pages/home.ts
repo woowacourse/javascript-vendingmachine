@@ -6,10 +6,12 @@ import { basePath } from '../component/App';
 import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';
+import { getCookie } from '../utils';
+import { API } from '../../apis';
 
 export default class HomePage {
   constructor(
-    private readonly routerPage,
+    private readonly routePage,
     private readonly activateClickedButton,
     private readonly productManagement = new ProductManagement(),
     private readonly coinManagement = new CoinManagement(),
@@ -26,16 +28,63 @@ export default class HomePage {
       moneyManagement,
     ),
   ) {
+    this.routePage = routePage;
     this.activateClickedButton = activateClickedButton;
-    this.render();
-    $('.nav').addEventListener('click', this.navClickHandler);
-    $('.login-button').addEventListener('click', this.loginButtonHandler);
   }
 
   render() {
     replaceHTML($('#app'), this.#template());
     this.renderMainContent(location.pathname);
+
+    $('.nav').addEventListener('click', this.navClickHandler);
+    $('.login-button').addEventListener('click', this.loginButtonHandler);
+
+    this.isLogined();
   }
+
+  async isLogined() {
+    const userId = getCookie('user_id');
+    const accessToken = getCookie('access_token');
+
+    const user = await API.getUser(userId, accessToken);
+
+    if (typeof user === 'string') return;
+
+    $('.login-button').classList.add('display-none');
+    $('.logined-user-tab').classList.remove('display-none');
+
+    [$('.user-thumbnail').innerText] = user.name;
+
+    $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
+  }
+
+  selectChangeHandler = e => {
+    const selectValue = e.target.options[e.target.selectedIndex].value;
+    console.log('selectValue', selectValue);
+    switch (selectValue) {
+      case '회원 정보 수정':
+        this.editClickHandler();
+        break;
+      case '로그아웃':
+        this.logoutHandler();
+        break;
+    }
+    e.target.selectedIndex = 0;
+  };
+
+  editClickHandler = () => {
+    history.pushState({}, '', '/user-edit');
+    this.routePage('/user-edit');
+  };
+
+  logoutHandler = () => {
+    document.cookie = 'user_id=';
+    document.cookie = 'access_token=';
+
+    location.reload();
+    // $('.user-thumbnail').classList.add('display-none');
+    // $('.login-button').classList.remove('display-none');
+  };
 
   #template() {
     return `
@@ -43,7 +92,11 @@ export default class HomePage {
       <button class="login-button user-button" data-pathname="/login">
         로그인
       </button>
-      <button class="user-thumbnail user-button">김</button>
+      <select class="logined-user-tab user-button display-none">
+        <option class="user-thumbnail" value="" selected >김</option>
+        <option class="user-edit-button" value="회원 정보 수정">회원 정보 수정</option>
+        <option class="logout-button" value="로그아웃">로그아웃</option>
+      </select>
       <nav class="nav">
         <button
           type="button"
@@ -105,6 +158,6 @@ export default class HomePage {
 
     history.pushState({}, '', pathname || '/');
 
-    this.routerPage(pathname);
+    this.routePage(pathname);
   };
 }
