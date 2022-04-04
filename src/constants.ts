@@ -1,5 +1,9 @@
 import { AppState } from './types';
 
+export const API_URL = 'https://vending-maching-auth-api.herokuapp.com';
+
+export const ACCESS_TOKEN_KEY = 'vending-machine-token-key';
+
 export const COIN = {
   MIN_UNIT: 10,
   UNITS: [500, 100, 50, 10],

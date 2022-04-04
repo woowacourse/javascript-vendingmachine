@@ -51,3 +51,23 @@ export enum WhiteList {
   LoginPage = '/login',
   MyAccountPage = '/my-account',
 }
+
+export type UserInfo = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type Feedback = {
+  inputValue: string;
+  hasError: boolean;
+  errorMessage: string;
+};
+
+export type FieldSet = {
+  label: string;
+  name: string;
+  placeholder: string;
+  feedback: Feedback;
+  type: 'text' | 'password';
+};

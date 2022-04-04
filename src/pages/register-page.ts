@@ -1,5 +1,7 @@
 import Component from '../abstract/component';
+import { API_URL } from '../constants';
 import { customElement } from '../decorators/decortators';
+import { UserInfo, Feedback, FieldSet } from '../types';
 import {
   validateEmail,
   validateName,
@@ -7,25 +9,11 @@ import {
   validateRePassword,
 } from '../validation/validators';
 
-type Feedback = {
-  inputValue: string;
-  hasError: boolean;
-  errorMessage: string;
-};
-
 type FeedbackRecord = {
   email: Feedback;
   name: Feedback;
   password: Feedback;
   repassword: Feedback;
-};
-
-type FieldSet = {
-  label: string;
-  name: string;
-  placeholder: string;
-  feedback: Feedback;
-  type: 'text' | 'password';
 };
 
 @customElement('register-page')
@@ -52,13 +40,8 @@ class RegisterPage extends Component {
       errorMessage: '',
     },
   };
-  private feedbacks: FeedbackRecord = this.initialFeedbacks;
 
-  connectedCallback() {
-    super.connectedCallback();
-    console.log('register connectedCallback is called');
-    this.feedbacks = { ...this.initialFeedbacks };
-  }
+  private feedbacks = { ...this.initialFeedbacks };
 
   fieldsetTemplate({ label, name, placeholder, feedback, type }: FieldSet) {
     return `
@@ -81,7 +64,7 @@ class RegisterPage extends Component {
         ${this.fieldsetTemplate({
           label: '이메일',
           name: 'email',
-          placeholder: 'woowacourse@gmail.com',
+          placeholder: '이메일 주소를 입력해주세요',
           feedback: feedbacks.email,
           type: 'text',
         })}
@@ -112,56 +95,104 @@ class RegisterPage extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', 'button', this.register);
+    this.addEvent('click', 'button', this.onClickRegisterBtn);
   }
 
-  register = () => {
-    this.feedbacks = { ...this.initialFeedbacks };
+  setFeedbacks(feedbacks: FeedbackRecord) {
+    this.feedbacks = { ...feedbacks };
+    this.render();
+  }
+
+  onClickRegisterBtn = () => {
+    const feedbacks = this.validate();
+    this.setFeedbacks(feedbacks);
+    const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
+      (key) => feedbacks[key].hasError
+    );
+    if (!hasError) {
+      const [name, email, password] = [
+        feedbacks.name.inputValue,
+        feedbacks.email.inputValue,
+        feedbacks.password.inputValue,
+      ];
+      this.register({ name, email, password });
+    }
+  };
+
+  validate() {
+    const feedbacks = { ...this.initialFeedbacks };
     const inputNames = ['email', 'name', 'password', 'repassword'];
     const inputs: Array<HTMLInputElement> = inputNames.map(
       (name) => this.querySelector(`input[name="${name}"]`) as HTMLInputElement
     );
     const [email, name, password, repassword] = inputs.map(($input) => $input.value.trim());
 
-    this.feedbacks.email.inputValue = email;
+    feedbacks.email.inputValue = email;
     const { hasError: emailHasError, errorMessage: emailErrorMessage } = validateEmail(email);
     if (emailHasError)
-      this.feedbacks.email = {
-        ...this.feedbacks.email,
+      feedbacks.email = {
+        ...feedbacks.email,
         hasError: emailHasError,
         errorMessage: emailErrorMessage,
       };
 
-    this.feedbacks.name.inputValue = name;
+    feedbacks.name.inputValue = name;
     const { hasError: nameHasError, errorMessage: nameErrorMessage } = validateName(name);
     if (nameHasError)
-      this.feedbacks.name = {
-        ...this.feedbacks.name,
+      feedbacks.name = {
+        ...feedbacks.name,
         hasError: nameHasError,
         errorMessage: nameErrorMessage,
       };
 
-    this.feedbacks.password.inputValue = password;
+    feedbacks.password.inputValue = password;
     const { hasError: passwordHasError, errorMessage: passwordErrorMessage } =
       validatePassword(password);
     if (passwordHasError)
-      this.feedbacks.password = {
-        ...this.feedbacks.password,
+      feedbacks.password = {
+        ...feedbacks.password,
         hasError: passwordHasError,
         errorMessage: passwordErrorMessage,
       };
 
-    this.feedbacks.repassword.inputValue = repassword;
+    feedbacks.repassword.inputValue = repassword;
     const { hasError: repasswordHasError, errorMessage: repasswordErrorMessage } =
       validateRePassword(password, repassword);
     if (repasswordHasError)
-      this.feedbacks.repassword = {
-        ...this.feedbacks.repassword,
+      feedbacks.repassword = {
+        ...feedbacks.repassword,
         hasError: repasswordHasError,
         errorMessage: repasswordErrorMessage,
       };
 
-    this.render();
+    return feedbacks;
+  }
+
+  register = ({ name, email, password }: UserInfo) => {
+    fetch(`${API_URL}/register`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((body) => {
+        const { errorMessage } = body;
+        if (errorMessage) {
+          alert(errorMessage);
+          return;
+        }
+        alert('회원가입 완료!');
+        location.href = `${location.origin}/login`;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   mount() {
