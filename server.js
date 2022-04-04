@@ -1,5 +1,6 @@
 const jsonServer = require('json-server')
 const server = jsonServer.create()
+const auth = require('json-server-auth')
 
 const path = require('path')
 
@@ -22,8 +23,9 @@ const customRouter = jsonServer.rewriter({
     "/findUser\\?name=:name": "/users/?name=:name"
 })
 
-server.use(customRouter)
 
+server.use(auth)
+server.use(customRouter)
 server.use(router)
 
 server.listen(port, () => {
