@@ -92,6 +92,12 @@ export default class ProductStateComponent {
 
       parentElement.innerHTML = generateTemplate(editedProduct);
       parentElement.dataset.productName = $editProductNameInput.value;
+
+      renderSnackBar(
+        this.$snackBarContainer,
+        `상품이 정상적으로 수정되셨습니다. 수정된 상품을 확인해주세요.`,
+        'success'
+      );
     } catch ({ message }) {
       focusWrongInput({
         message,
@@ -99,7 +105,7 @@ export default class ProductStateComponent {
         $priceInput: $editProductPriceInput,
         $quantityInput: $editProductQuantityInput,
       });
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   }
 
@@ -133,6 +139,12 @@ export default class ProductStateComponent {
     this.vendingMachineProductManager.deleteProduct(targetProductName);
 
     grandParentElement.removeChild(parentElement);
+
+    renderSnackBar(
+      this.$snackBarContainer,
+      '상품이 정상적으로 삭제되었습니다.',
+      'success'
+    );
 
     emit(this.$productTableTbody, '@deleteProduct', {
       detail: {

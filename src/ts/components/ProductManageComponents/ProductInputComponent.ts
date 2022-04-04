@@ -27,14 +27,18 @@ export default class ProductInputComponent {
     event.preventDefault();
 
     try {
-      checkValidLengthProductName(this.$nameInput.value.trim());
-      checkValidProductPrice(this.$priceInput.valueAsNumber);
-      checkValidProductQuantity(this.$quantityInput.valueAsNumber);
+      const productName = this.$nameInput.value.trim();
+      const productPrice = this.$priceInput.valueAsNumber;
+      const productQuantity = this.$quantityInput.valueAsNumber;
+
+      checkValidLengthProductName(productName);
+      checkValidProductPrice(productPrice);
+      checkValidProductQuantity(productQuantity);
 
       const newProduct = {
-        name: this.$nameInput.value.trim(),
-        price: this.$priceInput.valueAsNumber,
-        quantity: this.$quantityInput.valueAsNumber,
+        name: productName,
+        price: productPrice,
+        quantity: productQuantity,
       };
 
       this.vendingMachineProductManagement.addProduct(newProduct);
@@ -44,12 +48,17 @@ export default class ProductInputComponent {
       this.$quantityInput.value = '';
       this.$nameInput.focus();
 
+      renderSnackBar(
+        this.$snackBarContainer,
+        `품명: ${productName}<br>가격: ${productPrice}<br>수량: ${productQuantity}<br>상품이 등록되셨습니다. 등록된 상품을 확인해주세요.`,
+        'success'
+      );
+
       emit(this.$productAddButton, '@productInputSubmit', {
         detail: {
           newProduct,
         },
       });
-
       emit(this.$productAddButton, '@consumerProductState', {
         detail: {
           newProduct,
@@ -62,7 +71,7 @@ export default class ProductInputComponent {
         $priceInput: this.$priceInput,
         $quantityInput: this.$quantityInput,
       });
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   };
 }
