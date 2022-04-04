@@ -55,11 +55,13 @@ const productManangeListTemplate = (list: Product[]) => {
 
 const editProductTemplate = ({ name, price, quantity }) => {
   return `
-  <td><input class="product-manage__edit-input--name edit-input" value='${name}' /></td>
-  <td><input class="product-manage__edit-input--price edit-input" value='${price}' 
-    min=${PRODUCT.MIN_PRICE} max=${PRODUCT.MAX_PRICE} step=${PRODUCT.UNIT} type="number" /></td>
-  <td><input class="product-manage__edit-input--quantity edit-input" value='${quantity}'type="number" /></td>
-  <td><button type="button" class="product-manage__confirm-button product-manage__option">확인</button></td>
+  <tr data-name=${name}>
+    <td><input class="product-manage__edit-input--name edit-input" value='${name}' /></td>
+    <td><input class="product-manage__edit-input--price edit-input" value='${price}' 
+      min=${PRODUCT.MIN_PRICE} max=${PRODUCT.MAX_PRICE} step=${PRODUCT.UNIT} type="number" /></td>
+    <td><input class="product-manage__edit-input--quantity edit-input" value='${quantity}'type="number" /></td>
+    <td><button type="button" class="product-manage__confirm-button product-manage__option">확인</button></td>
+  </tr>
   `;
 };
 

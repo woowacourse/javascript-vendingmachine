@@ -87,12 +87,18 @@ class ProductComponent {
 
   editProduct(selectedRow) {
     const [name, price, quantity] = selectedRow.children;
+    const newRow = document.createElement("template");
 
-    selectedRow.innerHTML = editProductTemplate({
-      name: name.textContent,
-      price: price.textContent,
-      quantity: quantity.textContent,
-    });
+    newRow.insertAdjacentHTML(
+      "beforeend",
+      editProductTemplate({
+        name: name.textContent,
+        price: price.textContent,
+        quantity: quantity.textContent,
+      }),
+    );
+
+    selectedRow.replaceWith(newRow.firstElementChild);
   }
 
   confirmProduct(selectedRow) {
