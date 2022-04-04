@@ -15,13 +15,13 @@ export default class ProductManage {
     this.productPurchase = new ProductPurchase(this.productManagerModel, this.coinModel);
     this.productManageView = new ProductManageView();
 
-    on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
+    on(SECTION_CONTAINER, '@render', this.#renderSavedProducts.bind(this));
     on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
-    on(SECTION_CONTAINER, '@modify', this.#modifySavedData.bind(this));
-    on(SECTION_CONTAINER, '@delete', this.#deleteSavedData.bind(this));
+    on(SECTION_CONTAINER, '@modify', this.#modifyProduct.bind(this));
+    on(SECTION_CONTAINER, '@delete', this.#deleteProduct.bind(this));
   }
 
-  #renderSavedData(e) {
+  #renderSavedProducts(e) {
     const { hash } = e.detail;
     initHashContents(hash);
     const savedProductList = this.productManagerModel.getProducts();
@@ -54,7 +54,7 @@ export default class ProductManage {
     }
   }
 
-  #modifySavedData(e) {
+  #modifyProduct(e) {
     try {
       const { index, product } = e.detail;
       this.productManagerModel.modifyProduct(index, product);
@@ -64,7 +64,7 @@ export default class ProductManage {
     }
   }
 
-  #deleteSavedData(e) {
+  #deleteProduct(e) {
     const { index } = e.detail;
     this.productManagerModel.deleteProduct(index);
   }
