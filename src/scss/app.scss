@@ -109,3 +109,21 @@ input {
 .user-thumbnail {
   display: none;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  &__input {
+    margin-bottom: 16px;
+  }
+
+  &__input:last-of-type {
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    width: 300px;
+    margin-left: 0;
+    margin-bottom: 14px;
+  }
+}

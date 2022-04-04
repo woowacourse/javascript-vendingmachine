@@ -5,12 +5,15 @@ import CoinManagementComponent from './CoinManagementComponent';
 import ProductManagementComponent from './ProductManagementComponent';
 import ProductPurchaseComponent from './ProductPurchaseComponent';
 import MoneyManagement from '../domain/MoneyManagement';
-import LoginComponenet from './LoginComponent';
+import SignupComponent from './SignupComponent';
+import LoginComponent from './LoginComponent';
 
-const basePath =
+export const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
 export default class App {
+  private readonly loginComponent: LoginComponent;
+
   constructor(
     private readonly productManagement = new ProductManagement(),
     private readonly coinManagement = new CoinManagement(),
@@ -26,19 +29,22 @@ export default class App {
       coinManagement,
       moneyManagement,
     ),
-    private readonly loginComponent = new LoginComponenet(),
+    private readonly signupComponent = new SignupComponent(),
   ) {
     this.productManagementComponent.render();
+    this.loginComponent = new LoginComponent(this.renderMainContent);
+
+    console.log('signupComponent', this.signupComponent);
+    console.log('loginComponent', this.loginComponent);
 
     $('.nav').addEventListener('click', this.navClickHandler);
-    $('.login-button').addEventListener('click', this.loginClickHandler);
+    $('.login-button').addEventListener('click', this.loginButtonHandler);
     window.addEventListener('popstate', this.popStateHandler);
 
     this.loginComponent.render();
   }
 
-  private loginClickHandler = e => {
-    console.log('e.target', e.target);
+  private loginButtonHandler = e => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
@@ -59,7 +65,10 @@ export default class App {
   };
 
   private popStateHandler = () => {
-    this.activateClickedButton(location.pathname);
+    if (location.pathname === `${basePath}/`) {
+      this.activateClickedButton(location.pathname);
+    }
+    console.log('location.pathname', location.pathname);
     this.renderMainContent(location.pathname);
   };
 
@@ -82,7 +91,7 @@ export default class App {
     return buttonPathname === pathname;
   }
 
-  private renderMainContent(pathname) {
+  renderMainContent = pathname => {
     switch (pathname) {
       case `${basePath}/`:
         this.productManagementComponent.render();
@@ -95,6 +104,9 @@ export default class App {
         break;
       case `${basePath}/login`:
         this.loginComponent.render();
+        break;
+      case `${basePath}/signup`:
+        this.signupComponent.render();
     }
-  }
+  };
 }
