@@ -7,7 +7,7 @@ const purchaseTemplate = ({ name, price, quantity }) => {
     <tr>
       <td>${name}</td>
       <td>${price}</td>
-      <td class="product-quantity">${quantity}</td>
+      <td>${quantity}</td>
       <td>
         <button class="purchase-button" type="button" data-name=${name} data-price=${price} data-quantity=${quantity}>구매</button>
       </td>
@@ -31,7 +31,7 @@ export default class ProductPurchaseView {
 
     this.$purchaseTbody.addEventListener('click', (e) => {
       if (e.target.classList.contains('purchase-button')) {
-        this.#onClickPurchaseButton(e);
+        this.#onClickPurchaseButton(e.target);
       }
     });
   }
@@ -41,6 +41,7 @@ export default class ProductPurchaseView {
   }
 
   renderProducts(products) {
+    this.$purchaseTbody.replaceChildren();
     products.forEach((product) => {
       this.$purchaseTbody.insertAdjacentHTML('beforeend', purchaseTemplate(product));
     });
@@ -65,12 +66,21 @@ export default class ProductPurchaseView {
     emit(SECTION_CONTAINER, '@purchase', { inputAmount });
   }
 
-  #onClickPurchaseButton(e) {
+  #onClickPurchaseButton(target) {
+    const index = target.closest('tr').rowIndex - 1;
+
+    if (target.dataset.quantity === '1') {
+      emit(SECTION_CONTAINER, '@soldOut', { index });
+      return;
+    }
+
     const product = {
-      name: e.target.dataset.name,
-      price: e.target.dataset.price,
-      quantity: e.target.dataset.quantity - 1,
+      name: target.dataset.name,
+      price: target.dataset.price,
+      quantity: target.dataset.quantity - 1,
     };
-    replaceElement(e.target.closest('tr'), purchaseTemplate(product));
+    replaceElement(target.closest('tr'), purchaseTemplate(product));
+
+    emit(SECTION_CONTAINER, '@quantity', { index, product });
   }
 }

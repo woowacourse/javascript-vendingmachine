@@ -13,6 +13,8 @@ export default class ProductPurchase {
     this.productPurchaseView = new ProductPurchaseView();
 
     on(SECTION_CONTAINER, '@purchase', this.#handlePurchaseAmount.bind(this));
+    on(SECTION_CONTAINER, '@quantity', this.#modifyProductQuantity.bind(this));
+    on(SECTION_CONTAINER, '@soldOut', this.#deleteSoldOutProduct.bind(this));
   }
 
   initPurchase() {
@@ -30,5 +32,20 @@ export default class ProductPurchase {
     this.purchaseAmountModel.addAmount(inputAmount);
     this.productPurchaseView.renderTotalAmount(this.purchaseAmountModel.getAmount());
     this.productPurchaseView.resetAmountInput();
+  }
+
+  #modifyProductQuantity(e) {
+    try {
+      const { index, product } = e.detail;
+      this.productModel.modifyProduct(index, product);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  #deleteSoldOutProduct(e) {
+    const { index } = e.detail;
+    this.productModel.deleteProduct(index);
+    this.productPurchaseView.renderProducts(this.productModel.getProducts());
   }
 }
