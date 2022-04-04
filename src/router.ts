@@ -6,6 +6,7 @@ class Router {
   pageContainer?: HTMLElement;
   memberContainer?: HTMLElement;
   loginHeader?: HTMLElement;
+  header?: HTMLElement;
 
   constructor() {
     if (Router._instance) {
@@ -13,9 +14,12 @@ class Router {
     }
     window.addEventListener('pushstate', this.onLocationChange);
     window.addEventListener('popstate', this.onLocationChange);
+
     this.pageContainer = document.querySelector('.tab-container') as HTMLElement;
     this.memberContainer = document.querySelector('.member-container') as HTMLElement;
     this.loginHeader = document.querySelector('.login-header') as HTMLElement;
+    this.header = document.querySelector('header') as HTMLElement;
+
     this.onLoad();
   }
 
@@ -36,10 +40,13 @@ class Router {
   }
 
   onLocationChange = async () => {
-    if (this.pageContainer === undefined) return;
-    if (this.memberContainer === undefined) return;
-    if (this.loginHeader === undefined) return;
-
+    if (
+      this.pageContainer === undefined ||
+      this.memberContainer === undefined ||
+      this.loginHeader === undefined ||
+      this.header === undefined
+    )
+      return;
     const isLogin = !!(await getUserInfo());
 
     if (isLogin) {
@@ -48,69 +55,56 @@ class Router {
       this.loginHeader.innerHTML = '<login-header></login=header>';
     }
 
-    switch (window.location.pathname) {
-      case '/product-manage-tab':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
-        document.querySelector('header')?.classList.remove('hide');
+    this.pageContainer.replaceChildren();
+    this.memberContainer.replaceChildren();
 
+    switch (window.location.pathname) {
+      case '/product-manage-tab': {
+        this.header.classList.remove('hide');
         this.pageContainer.insertAdjacentHTML(
           'beforeend',
           '<product-manage-page></product-manage-page>'
         );
         break;
-      case '/charge-money-tab':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
-        document.querySelector('header')?.classList.remove('hide');
-
+      }
+      case '/charge-money-tab': {
+        this.header.classList.remove('hide');
         this.pageContainer.insertAdjacentHTML(
           'beforeend',
           '<charge-money-page></charge-money-page>'
         );
         break;
-      case '/purchase-product-tab':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
-        document.querySelector('header')?.classList.remove('hide');
-
+      }
+      case '/purchase-product-tab': {
+        this.header.classList.remove('hide');
         this.pageContainer.insertAdjacentHTML(
           'beforeend',
           '<purchase-product-page></purchase-product-page>'
         );
         break;
-      case '/login-form':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
+      }
+      case '/login-form': {
         this.loginHeader.replaceChildren();
-        document.querySelector('header')?.classList.add('hide');
-
+        this.header.classList.add('hide');
         this.memberContainer.insertAdjacentHTML('beforeend', '<login-form></login-form>');
         break;
-
-      case '/sign-up-form':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
-        document.querySelector('header')?.classList.add('hide');
-
+      }
+      case '/sign-up-form': {
+        this.header.classList.add('hide');
         this.memberContainer.insertAdjacentHTML('beforeend', '<sign-up-form></sign-up-form>');
         break;
-
-      case '/modify-member-form':
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
-        document.querySelector('header')?.classList.add('hide');
-
+      }
+      case '/modify-member-form': {
+        this.header.classList.add('hide');
         this.memberContainer.insertAdjacentHTML(
           'beforeend',
           '<modify-member-form></modify-member-form>'
         );
         break;
-
-      default:
-        document.querySelector('header')?.classList.remove('hide');
-        this.pageContainer.replaceChildren();
-        this.memberContainer.replaceChildren();
+      }
+      default: {
+        this.header.classList.remove('hide');
+      }
     }
   };
 }
