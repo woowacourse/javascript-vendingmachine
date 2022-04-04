@@ -24,6 +24,10 @@ input {
   &::placeholder {
     color: $color-input-placeholder;
   }
+
+  &:disabled {
+    background-color: $color-input-disabled;
+  }
 }
 
 .input-description {
@@ -106,7 +110,7 @@ input {
   height: 36px;
 }
 
-.user-thumbnail {
+.display-none {
   display: none;
 }
 
@@ -126,4 +130,27 @@ input {
     margin-left: 0;
     margin-bottom: 14px;
   }
+}
+
+select {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: $color-button-black-color;
+  border: 0;
+  background-color: $color-brand-secondary;
+  outline: 0;
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+option:first-of-type {
+  display: none;
 }

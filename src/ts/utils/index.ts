@@ -10,4 +10,14 @@ const removeNBSP = (str: string) => {
   return str.replace(String.fromCharCode(160), ' ');
 };
 
-export { getRandomIndex, insertNBSP, removeNBSP };
+const getCookie = (name: string) => {
+  const matches = document.cookie.match(
+    new RegExp(
+      `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+    ),
+  );
+
+  return matches && decodeURIComponent(matches[1]);
+};
+
+export { getRandomIndex, insertNBSP, removeNBSP, getCookie };

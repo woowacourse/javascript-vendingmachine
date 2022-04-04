@@ -2,6 +2,7 @@ import { $$ } from '../utils/dom';
 import SignupPage from '../pages/signup';
 import LoginPage from '../pages/login';
 import HomePage from '../pages/home';
+import UserEditPage from '../pages/user-edit';
 
 export const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
@@ -10,12 +11,15 @@ export default class App {
   private readonly loginPage: LoginPage;
   private readonly homePage: HomePage;
   private readonly signupPage: SignupPage;
+  private readonly userEditPage: UserEditPage;
 
   constructor() {
     this.loginPage = new LoginPage(this.routePage);
     this.homePage = new HomePage(this.routePage, this.activateClickedButton);
     this.signupPage = new SignupPage(this.routePage);
+    this.userEditPage = new UserEditPage(this.routePage);
 
+    this.homePage.render();
     window.addEventListener('popstate', this.popStateHandler);
   }
 
@@ -55,6 +59,9 @@ export default class App {
         break;
       case `${basePath}/signup`:
         this.signupPage.render();
+        break;
+      case `${basePath}/user-edit`:
+        this.userEditPage.render();
     }
   };
 }
