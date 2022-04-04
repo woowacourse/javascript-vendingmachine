@@ -73,7 +73,9 @@ export default class Signup {
       this.checkAccountValidate(name, password, password2);
 
       const data = JSON.stringify({ email, name, password });
-      const response = await fetch('http://localhost:3000/signup', {
+      // https://vendingmachine-coke-test.herokuapp.com
+      // const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('https://vendingmachine-coke-test.herokuapp.com/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: data,

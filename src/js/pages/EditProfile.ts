@@ -83,8 +83,9 @@ export default class EditProfile {
       this.checkAccountValidate(name, password, password2);
 
       const data = JSON.stringify({ email, name, password });
-
-      const response = await fetch(`http://localhost:3000/users/${this.user.id}`, {
+      // https://vendingmachine-coke-test.herokuapp.com
+      // const response = await fetch(`http://localhost:3000/users/${this.user.id}`, {
+      const response = await fetch(`https://vendingmachine-coke-test.herokuapp.com/users/${this.user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: data,

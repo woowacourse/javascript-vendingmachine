@@ -1,6 +1,7 @@
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const auth = require('json-server-auth')
+const cors = require("cors")
 
 const path = require('path')
 
@@ -23,7 +24,9 @@ const customRouter = jsonServer.rewriter({
     "/findUser\\?name=:name": "/users/?name=:name"
 })
 
+app.db = router.db
 
+app.use(cors())
 server.use(auth)
 server.use(customRouter)
 server.use(router)
