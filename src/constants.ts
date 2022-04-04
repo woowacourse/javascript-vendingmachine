@@ -42,6 +42,7 @@ export const MIN_COIN_UNIT = 10;
 export const MIN_PRODUCT_QUANTITY = 1;
 export const MAX_PRODUCT_QUANTITY = 20;
 export const MAX_CHARGABLE_MONEY = 100000;
+export const MAX_INSERT_MONEY = 10000;
 
 export const ERROR_MESSAGE: { [k in string]: string } = {
   DUPLICATE_PRDUCT_NAME: '이미 등록된 상품입니다',
@@ -79,7 +80,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   )}원입니다.`,
   OVER_MAX_LENGTH_PRODUCT_NAME: `상품명은 ${MAX_LENGTH_OF_PRODUCT_NAME}글자 이내이어야 합니다`,
   OVER_MAX_INSERT_MONEY: `금액은 최대 ${convertToLocaleString(
-    MAX_CHARGABLE_MONEY
+    MAX_INSERT_MONEY
   )}원까지만 투입 가능합니다.`,
 
   NOT_ENOUGH_CHANGES: '잔돈이 부족합니다. 관리자에게 문의해주세요.',
