@@ -124,6 +124,7 @@ class App {
     }
 
     this.#userButton.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
+    selectDom('#logout-button').addEventListener('click', this.#handleLogout);
   };
 
   #handleLogout = () => {
