@@ -20,7 +20,7 @@ export default class ProductManage implements DomainView {
     this.vendingMachine = VendingMachineImpl.getInstance();
   }
 
-  render() {
+  render(): void {
     const template = this.vendingMachine.productCollection.products
       .map(
         ({ name, price, quantity }: Product) =>
@@ -43,12 +43,12 @@ export default class ProductManage implements DomainView {
     this.$productContainer.insertAdjacentHTML('beforeend', template);
   }
 
-  bindEvent() {
+  bindEvent(): void {
     this.$addProductForm.addEventListener('submit', this.handleSubmitForm.bind(this));
     this.$productContainer.addEventListener('click', this.handleClickButtons.bind(this));
   }
 
-  private handleSubmitForm(e: Event) {
+  private handleSubmitForm(e: Event): void {
     e.preventDefault();
 
     try {
@@ -65,7 +65,7 @@ export default class ProductManage implements DomainView {
     }
   }
 
-  private handleClickButtons(e: Event) {
+  private handleClickButtons(e: Event): void {
     const target = e.target as HTMLElement;
 
     if (target.classList.contains('modify-button')) target.closest('tr').classList.add('modify');
@@ -73,7 +73,7 @@ export default class ProductManage implements DomainView {
     else if (target.classList.contains('confirm-button')) this.modifyProduct(target.closest('tr'));
   }
 
-  private deleteProduct(productRow: HTMLElement) {
+  private deleteProduct(productRow: HTMLElement): void {
     try {
       const productName = ($('.product-info-name', productRow) as HTMLInputElement).value as unknown as ProductName;
       this.vendingMachine.deleteProduct(productName);
@@ -83,7 +83,7 @@ export default class ProductManage implements DomainView {
     }
   }
 
-  private modifyProduct(productRow: HTMLElement) {
+  private modifyProduct(productRow: HTMLElement): void {
     try {
       const newProduct: Product = {
         name: ($('.product-info-name', productRow) as HTMLInputElement).value, 

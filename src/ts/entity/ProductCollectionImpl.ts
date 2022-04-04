@@ -7,19 +7,19 @@ export default class ProductCollectionImpl implements ProductCollection {
     this.products = [];
   }
 
-  add(product: Product) {
+  add(product: Product): void {
     this.products.push(product);
   }
 
-  modify(product: Product, originProductName: ProductName) {
+  modify(product: Product, originProductName: ProductName): void {
     this.products[this.getIndex(originProductName)] = product;
   } 
 
-  delete(name: ProductName) {
+  delete(name: ProductName): void {
     this.products.splice(this.getIndex(name), 1);
   }
 
-  getIndex(name: ProductName) {
+  getIndex(name: ProductName): number {
     return this.products.findIndex((product: Product) => (product.name as unknown as ProductName) === name);
   }
 }
