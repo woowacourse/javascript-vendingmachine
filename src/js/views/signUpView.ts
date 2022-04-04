@@ -3,13 +3,13 @@ import { SELECTOR } from '../constants/constants';
 import { signUpTemplate } from '../templates/signUpTemplate';
 
 export default class SignUpView {
-  $app: HTMLDivElement;
+  $content: HTMLDivElement;
   constructor() {
-    this.$app = $(SELECTOR.ID.APP);
+    this.$content = $(SELECTOR.ID.CONTENT);
   }
   render() {
     console.log('SignUpView Render');
-    this.$app.replaceChildren();
-    this.$app.insertAdjacentHTML('beforeend', signUpTemplate);
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', signUpTemplate);
   }
 }

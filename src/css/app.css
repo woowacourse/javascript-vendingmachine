@@ -8,6 +8,14 @@
   padding: 12px 12px 36px 12px;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 .title {
   margin-top: 32px;
 }

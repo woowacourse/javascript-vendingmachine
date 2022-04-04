@@ -12,7 +12,7 @@ export type CoinsType = {
 };
 
 export type RouteChangeDetailType = {
-  $navButton: HTMLButtonElement;
+  $button: HTMLButtonElement;
 };
 
 export type MoneyDetailType = {

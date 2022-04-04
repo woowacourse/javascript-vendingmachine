@@ -7,15 +7,42 @@ export default class LogInController implements Controller {
 
   constructor() {
     this.logInView = new LogInView();
+
+    this.bindEvents();
   }
 
   bindEvents() {
     console.log('로그인 커스텀 이벤트 바인딩!');
+    onCustomEvent('LOG_IN', this.handleLogIn.bind(this));
   }
 
   loadPage() {
     this.logInView.render();
+  }
 
-    this.bindEvents();
+  handleLogIn() {
+    const data = JSON.stringify({
+      email: 'olivier@mail.com',
+      password: 'bestPassw0rd',
+    });
+    fetch('http://localhost:3000/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: data,
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
   }
 }
+
+// const data = JSON.stringify({
+//   email: 'olivier@mail.com',
+//   password: 'bestPassw0rd',
+// });
+// fetch('http://localhost:3000/signup', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: data,
+// })
+//   .then(res => res.json())
+//   .then(res => console.log(res));
