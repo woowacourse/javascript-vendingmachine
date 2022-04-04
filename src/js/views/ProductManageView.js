@@ -94,6 +94,7 @@ export default class ProductManageView {
       price: this.$productPriceInput.valueAsNumber,
       quantity: this.$productQuantityInput.valueAsNumber,
     };
+    this.$productNameInput.focus();
     emit(SECTION_CONTAINER, '@manage', { product });
   }
 
