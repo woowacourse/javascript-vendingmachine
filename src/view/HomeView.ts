@@ -36,6 +36,10 @@ export class HomeView {
     this.target.dispatchEvent(new CustomEvent('productPurchaseTabClick'));
   };
 
+  handleShowSingInTab = () => {
+    console.log('1');
+  };
+
   contentsContainer: HTMLDivElement;
   renderHome() {
     this.contentsContainer = document.querySelector('#contents-container');

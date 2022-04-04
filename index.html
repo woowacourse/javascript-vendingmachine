@@ -7,7 +7,8 @@
   </head>
 
   <body>
-    <div id="app">
+    <div class="app">
+      <button type="submit" class="sign-in-button tab-button button">로그인</button>
       <h1>🍿 자판기 🍿</h1>
       <nav>
         <button id="product-manage-nav-button" type="button" class="tab-button button">
@@ -21,6 +22,64 @@
         </button>
       </nav>
       <div id="contents-container"></div>
+    </div>
+    <div class="customer-manage-app hide">
+      <div class="sign-in">
+        <h1>로그인</h1>
+        <div>
+          <label for="email-input">이메일</label>
+          <input type="email" name="email-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">비밀번호</label>
+          <input type="password" name="password-input" class="input" />
+        </div>
+        <button class="submit-button button">확인</button>
+        <div>
+          <p>아직 회원이 아니신가요?</p>
+          <p>회원가입</p>
+        </div>
+      </div>
+      <div class="sign-up">
+        <h1>회원가입</h1>
+        <div>
+          <label for="email-input">이메일</label>
+          <input type="email" name="email-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">이름</label>
+          <input type="email" name="email-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">비밀번호</label>
+          <input type="password" name="password-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">비밀번호 확인</label>
+          <input type="password" name="password-input" class="input" />
+        </div>
+        <button class="submit-button button">확인</button>
+      </div>
+      <div class="change-customer-information">
+        <h1>회원정보 수정</h1>
+        <div>
+          <label for="email-input">이메일</label>
+          <input type="email" name="email-input" class="input" disabled />
+        </div>
+        <div>
+          <label for="email-input">이름</label>
+          <input type="email" name="email-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">비밀번호</label>
+          <input type="password" name="password-input" class="input" />
+        </div>
+        <div>
+          <label for="email-input">비밀번호 확인</label>
+          <input type="password" name="password-input" class="input" />
+        </div>
+        <button class="submit-button button">확인</button>
+      </div>
     </div>
   </body>
 </html>

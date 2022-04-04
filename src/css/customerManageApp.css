@@ -1,0 +1,10 @@
+.customer-manage-app {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-up,
+.sign-in,
+.change-customer-information {
+  height: 600px;
+}

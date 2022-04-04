@@ -11,6 +11,9 @@ export class Router {
   }
 
   handlePopstate = (savedData) => {
+    this.app.app.classList.remove('hide');
+    this.app.customerManageApp.classList.add('hide');
+
     if (savedData.state === null) {
       return;
     }
@@ -29,6 +32,9 @@ export class Router {
       this.app.productPurchaseView.eraseAll();
       this.app.productPurchaseView.renderAll();
     }
+    if (savedData.state.path === '/signIn') {
+      this.app.customerInformationView.renderSignIn();
+    }
   };
 
   pushHistory(e: Event) {
@@ -41,6 +47,9 @@ export class Router {
     }
     if (e.type === 'productPurchaseTabClick') {
       path = '/productPurchase';
+    }
+    if (e.type === 'signInClick') {
+      path = '/signIn';
     }
     this.pushHistoryPath(path);
   }

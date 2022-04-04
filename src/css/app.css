@@ -2,12 +2,13 @@
 @import './balanceCharge.css';
 @import './productPurchase.css';
 @import './root.css';
+@import './customerManageApp.css';
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
-#app {
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +63,7 @@
   text-align: center;
 }
 
-.login-button {
+.sign-in-button {
   position: fixed;
   top: 10px;
   right: 20px;
