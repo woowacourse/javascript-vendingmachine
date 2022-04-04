@@ -41,14 +41,17 @@ export default class ChargeTab {
   };
 
   #renderCoinStatus() {
-    const coinCountElements =
-      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
-    const { coinStatus } = this.#vendingMachine;
+    const { coinStatusList } = this.#vendingMachine;
+
+    coinStatusList.forEach(({ name, count }) => {
+      const coinTableData = selectDom(
+        `td[data-coin-name="${name}"]`,
+        this.#coinStatusTable
+      );
+      coinTableData.textContent = `${count}개`;
+    });
 
     this.#totalChange.textContent = this.#vendingMachine.totalChange;
-    coinCountElements.forEach((element) => {
-      element.textContent = `${coinStatus[element.dataset.coinName]}개`;
-    });
   }
 
   #resetInput() {

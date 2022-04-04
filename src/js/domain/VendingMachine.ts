@@ -1,4 +1,4 @@
-import { CoinStatus, ProductData, VendingMachineProductDictionary } from './interface';
+import { ProductData, VendingMachineProductDictionary } from './interface';
 import { Coin } from './types';
 
 import VendingMachineProduct from './VendingMachineProduct';
@@ -34,8 +34,8 @@ export default class VendingMachine {
     return this.#moneyBox.totalChange;
   }
 
-  get coinStatus(): CoinStatus {
-    return this.#moneyBox.coinStatus;
+  get coinStatusList(): Coin[] {
+    return this.#moneyBox.coinStatusList;
   }
 
   get userMoney(): number {

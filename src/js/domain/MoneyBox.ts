@@ -1,4 +1,4 @@
-import { CoinStatus, distributeStrategy } from './interface';
+import { distributeStrategy } from './interface';
 import RandomStrategy from './RandomStrategy';
 import { MONEY_NAME_STRING } from '../constants';
 import { Coin } from './types';
@@ -26,21 +26,6 @@ export default class MoneyBox {
     return this.#coinStatusList.reduce(
       (totalAmount, { value, count }) => totalAmount + value * count,
       0
-    );
-  }
-
-  get coinStatus(): CoinStatus {
-    return this.#coinStatusList.reduce(
-      (totalStatus, { name, count }) => {
-        totalStatus[name] = count;
-        return totalStatus;
-      },
-      {
-        FIVE_HUNDRED_WON: 0,
-        ONE_HUNDRED_WON: 0,
-        FIFTY_WON: 0,
-        TEN_WON: 0,
-      }
     );
   }
 

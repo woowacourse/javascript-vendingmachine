@@ -11,13 +11,6 @@ export interface VendingMachineProductDictionary {
   [id: string]: VendingMachineProduct;
 }
 
-export interface CoinStatus {
-  FIVE_HUNDRED_WON: number;
-  ONE_HUNDRED_WON: number;
-  FIFTY_WON: number;
-  TEN_WON: number;
-}
-
 export interface distributeStrategy {
   distribute(inputMoney: number): Coin[];
 }
