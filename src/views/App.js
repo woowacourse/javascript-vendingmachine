@@ -4,26 +4,28 @@ import './VendingMachine';
 import './pages/NotFoundPage';
 import './pages/UserLoginPage';
 import './pages/UserRegisterPage';
+import './pages/UserEditPage';
 
 import { getData } from '../utils/commons';
 
 export default class App extends Component {
   setup() {
     const data = getData('user');
-    this.state = { isLoggedIn: !!data, userName: data?.user.name };
+    this.state = { isLoggedIn: !!data, userData: data?.user };
   }
 
   template() {
-    const { isLoggedIn, userName } = this.state;
+    const { isLoggedIn, userData } = this.state;
 
     return `
       <main class="app-container">
         <page-router>
-          <vending-machine path="#item-management" isLoggedIn=${isLoggedIn} userName=${userName}></vending-machine>
-          <vending-machine path="#change-charge" isLoggedIn=${isLoggedIn} userName=${userName}></vending-machine>
-          <vending-machine path="#item-purchase" isLoggedIn=${isLoggedIn} userName=${userName}></vending-machine>
-          <user-login path="#user-login" isLoggedIn=${isLoggedIn} userName=${userName}></user-login>
-          <user-register path="#register" isLoggedIn=${isLoggedIn} userName=${userName}></user-register>
+          <vending-machine path="#item-management" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
+          <vending-machine path="#change-charge" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
+          <vending-machine path="#item-purchase" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
+          <user-login path="#user-login" isLoggedIn=${isLoggedIn}></user-login>
+          <user-register path="#register" isLoggedIn=${isLoggedIn}></user-register>
+          <user-edit path="#user-edit" isLoggedIn=${isLoggedIn} userId=${userData?.id}></user-edit>
           <not-found path="*"></not-found>
         </page-router>
       </main>

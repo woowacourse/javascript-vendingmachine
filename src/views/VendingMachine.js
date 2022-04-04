@@ -23,7 +23,7 @@ export default class VendingMachine extends Component {
     return `
       <button class="drop-button">${username[0]}</button>
       <div id="user-dropdown" class="dropdown">
-        <a href="#">회원정보 수정</a>
+        <a href="#user-edit" id="user-edit">회원정보 수정</a>
         <a href="/" id="logout">로그아웃</a>
       </div>
       <header>

@@ -1,5 +1,6 @@
 import Component from '../../core/Component';
 import { loginUser } from '../../auth/login';
+import { setData } from '../../utils/commons';
 
 class UserLoginPage extends Component {
   template() {
@@ -43,7 +44,8 @@ class UserLoginPage extends Component {
 
         return;
       }
-      localStorage.setItem('user', JSON.stringify(response));
+
+      setData('user', response);
 
       window.location.href = 'http://localhost:9000';
     });

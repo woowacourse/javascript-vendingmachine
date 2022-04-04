@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { registerUser } from '../../auth/register';
 import { setData } from '../../utils/commons';
+import { isPasswordDifferent } from '../../auth/validate';
 
 class UserRegisterPage extends Component {
   template() {
@@ -38,7 +39,7 @@ class UserRegisterPage extends Component {
       const { email, userName, password, passwordCheck } =
         event.target.elements;
 
-      if (password.value !== passwordCheck.value) {
+      if (isPasswordDifferent(password.value, passwordCheck.value)) {
         alert('패스워드를 확인해 주세요');
 
         return;
@@ -49,16 +50,14 @@ class UserRegisterPage extends Component {
         name: userName.value,
         password: password.value,
       });
+
       if (!response.accessToken) {
         alert(response);
 
         return;
       }
 
-      setData('user', {
-        accessToken: response.accessToken,
-        id: response.user.id,
-      });
+      setData('user', response);
       window.location.href = 'http://localhost:9000/';
     });
   }
