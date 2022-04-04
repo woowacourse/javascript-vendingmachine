@@ -1,16 +1,12 @@
-import { MESSAGE } from '../../constants/message';
+import { basePath } from '../App';
 import { requestUpdate } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
+import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
-import { basePath } from '../App';
 import { viewPainter } from '../ViewPainter';
 
 export default class UserInfoEditUI {
-  private readonly $main = $('#main');
-  private readonly $signIn = $('#sign-in');
-  private readonly $signUp = $('#sign-up');
-  private readonly $userInfoEdit = $('#user-info-edit');
   private readonly userDomain;
 
   constructor(userDomain) {
@@ -19,10 +15,10 @@ export default class UserInfoEditUI {
   }
 
   render() {
-    this.$main.classList.add('hide');
-    this.$signIn.classList.add('hide');
-    this.$signUp.classList.add('hide');
-    this.$userInfoEdit.classList.remove('hide');
+    $('#main').classList.add('hide');
+    $('#sign-in').classList.add('hide');
+    $('#sign-up').classList.add('hide');
+    $('#user-info-edit').classList.remove('hide');
 
     ($('#user-info-edit-email') as HTMLInputElement).value =
       this.userDomain.userInfo.email;

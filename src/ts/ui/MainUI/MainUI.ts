@@ -1,20 +1,12 @@
 import CoinManagementDomain from '../../domain/CoinManagementDomain/CoinManagement';
 import ProductManagementDomain from '../../domain/ProductManagementDomain/ProductManagement';
 import PurchaseCashDomain from '../../domain/PurchaseCashDomain/PurchaseCash';
-import { $ } from '../../utils/dom';
 import CoinManagementUI from './CoinManagementUI';
 import ProductManagementUI from './ProductManagementUI';
 import ProductPurchaseUI from './ProductPurchaseUI';
+import { $ } from '../../utils/dom';
 
 export default class MainUI {
-  private readonly $main = $('#main');
-  private readonly $signIn = $('#sign-in');
-  private readonly $signUp = $('#sign-up');
-  private readonly $userInfoEdit = $('#user-info-edit');
-  private readonly $nav = $('.nav');
-  private readonly $signinButton = $('.signin-button');
-  private readonly $thumbnail = $('.thumbnail');
-
   private readonly productDomain = new ProductManagementDomain();
   private readonly coinDomain = new CoinManagementDomain();
   private readonly purchaseCashDomain = new PurchaseCashDomain();
@@ -29,10 +21,10 @@ export default class MainUI {
   );
 
   renderInitPage(isSignIn: boolean = false) {
-    this.$main.classList.remove('hide');
-    this.$signIn.classList.add('hide');
-    this.$signUp.classList.add('hide');
-    this.$userInfoEdit.classList.add('hide');
+    $('#main').classList.remove('hide');
+    $('#sign-in').classList.add('hide');
+    $('#sign-up').classList.add('hide');
+    $('#user-info-edit').classList.add('hide');
 
     if (isSignIn) {
       this.renderProductManagementUI();
@@ -55,12 +47,12 @@ export default class MainUI {
 
   renderUserUI(name: string = '') {
     this.renderUserName(name);
-    [this.$nav, this.$signinButton, this.$thumbnail].forEach($button => {
+    [$('.nav'), $('.signin-button'), $('.thumbnail')].forEach($button => {
       $button.toggleAttribute('hidden');
     });
   }
 
   renderUserName(name: string = '') {
-    this.$thumbnail.textContent = name.substr(0, 1);
+    $('.thumbnail').textContent = name.substring(0, 1);
   }
 }

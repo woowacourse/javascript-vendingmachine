@@ -1,15 +1,11 @@
-import { MESSAGE } from '../../constants/message';
+import { basePath } from '../App';
 import { requestSign } from '../../domain/UserDomain/request';
+import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
-import { basePath } from '../App';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignInUI {
-  private readonly $main = $('#main');
-  private readonly $signIn = $('#sign-in');
-  private readonly $signUp = $('#sign-up');
-  private readonly $userInfoEdit = $('#user-info-edit');
   private readonly userDomain;
 
   constructor(userDomain) {
@@ -18,10 +14,10 @@ export default class SignInUI {
   }
 
   render() {
-    this.$main.classList.add('hide');
-    this.$signIn.classList.remove('hide');
-    this.$signUp.classList.add('hide');
-    this.$userInfoEdit.classList.add('hide');
+    $('#main').classList.add('hide');
+    $('#sign-in').classList.remove('hide');
+    $('#sign-up').classList.add('hide');
+    $('#user-info-edit').classList.add('hide');
 
     $('#sign-in-email').focus();
   }
@@ -42,7 +38,7 @@ export default class SignInUI {
     this.signIn(user);
   };
 
-  private signIn(user) {
+  private signIn(user: { email: string; password: string }) {
     requestSign('signin', user)
       .then(response => {
         const { user: userInfo, accessToken } = response;

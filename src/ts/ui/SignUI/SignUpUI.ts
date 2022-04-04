@@ -1,26 +1,21 @@
-import { MESSAGE } from '../../constants/message';
+import { basePath } from '../App';
 import { requestSign } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
+import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
-import { basePath } from '../App';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignUpUI {
-  private readonly $main = $('#main');
-  private readonly $signIn = $('#sign-in');
-  private readonly $signUp = $('#sign-up');
-  private readonly $userInfoEdit = $('#user-info-edit');
-
   constructor() {
     $('.sign-up__form').addEventListener('submit', this.submitHandler);
   }
 
   render() {
-    this.$main.classList.add('hide');
-    this.$signIn.classList.add('hide');
-    this.$signUp.classList.remove('hide');
-    this.$userInfoEdit.classList.add('hide');
+    $('#main').classList.add('hide');
+    $('#sign-in').classList.add('hide');
+    $('#sign-up').classList.remove('hide');
+    $('#user-info-edit').classList.add('hide');
 
     $('#sign-up-email').focus();
   }
