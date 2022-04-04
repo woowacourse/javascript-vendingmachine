@@ -213,7 +213,7 @@ describe('핵심 기능 플로우 테스트', () => {
     });
 
     describe('예외 처리 테스트', () => {
-      it(`${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 이하의 금액을 투입하면 투입에 실패해야 한다.`, () => {
+      it(`${VENDING_MACHINE_RULES.USER_MONEY_UNIT}원 이하의 금액을 투입하면 투입에 실패해야 한다.`, () => {
         // given
         const smallInput = '9';
 
@@ -224,7 +224,7 @@ describe('핵심 기능 플로우 테스트', () => {
         cy.get('#total-insert').should('have.text', '0');
       });
 
-      it(`${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원 이상의 금액을 투입하면 투입에 실패해야 한다.`, () => {
+      it(`${VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY}원 이상의 금액을 투입하면 투입에 실패해야 한다.`, () => {
         // given
         const largeInput = '10010';
 
@@ -235,7 +235,7 @@ describe('핵심 기능 플로우 테스트', () => {
         cy.get('#total-insert').should('have.text', '0');
       });
 
-      it(`${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위가 아닌 금액을 투입하면 투입에 실패해야 한다.`, () => {
+      it(`${VENDING_MACHINE_RULES.USER_MONEY_UNIT}원 단위가 아닌 금액을 투입하면 투입에 실패해야 한다.`, () => {
         // given
         const invalidInput = '11';
 
@@ -246,7 +246,7 @@ describe('핵심 기능 플로우 테스트', () => {
         cy.get('#total-insert').should('have.text', '0');
       });
 
-      it(`기존 투입 금액과 현재 투입 금액의 합이 ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과하면 투입에 실패해야 한다.`, () => {
+      it(`기존 투입 금액과 현재 투입 금액의 합이 ${VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY}원을 초과하면 투입에 실패해야 한다.`, () => {
         // given
         const firstUserMoney = '10000';
         const secondUserMoney = '10';
@@ -267,7 +267,7 @@ describe('핵심 기능 플로우 테스트', () => {
         // then
         cy.get('.snackbar').should(
           'have.text',
-          ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT
+          ERROR_MESSAGE.RETURN_CHANGE.NO_USER_MONEY
         );
       });
 

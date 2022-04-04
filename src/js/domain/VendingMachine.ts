@@ -96,7 +96,7 @@ export default class VendingMachine {
 
   returnChange(): Coin[] {
     if (this.#userMoney === 0) {
-      throw new Error(ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT);
+      throw new Error(ERROR_MESSAGE.RETURN_CHANGE.NO_USER_MONEY);
     }
 
     const changeCoins = this.#moneyBox.returnChange(this.#userMoney);
@@ -137,11 +137,11 @@ export default class VendingMachine {
 
   #validateUserMoney(money: number) {
     const userMoneyValidator = [
-      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.MONEY_INSERT.BELOW_MIN },
-      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.MONEY_INSERT.INVALID_UNIT },
+      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.USER_MONEY.BELOW_MIN },
+      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.USER_MONEY.INVALID_UNIT },
       {
         testFunc: isExceedMaxTotalUserMoney,
-        errorMsg: ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL,
+        errorMsg: ERROR_MESSAGE.USER_MONEY.EXCEED_MAX_TOTAL,
       },
     ];
     validateData({ money, userMoney: this.userMoney }, userMoneyValidator);

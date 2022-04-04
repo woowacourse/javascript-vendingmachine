@@ -182,23 +182,23 @@ describe('자판기 클래스 테스트', () => {
         const userMoneyInput = 0;
 
         expect(() => addUserMoney(userMoneyInput)).toThrow(
-          ERROR_MESSAGE.MONEY_INSERT.BELOW_MIN
+          ERROR_MESSAGE.USER_MONEY.BELOW_MIN
         );
       });
 
-      test(`투입 금액이 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
+      test(`투입 금액이 ${VENDING_MACHINE_RULES.USER_MONEY_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
         const userMoneyInput = 1025;
 
         expect(() => addUserMoney(userMoneyInput)).toThrow(
-          ERROR_MESSAGE.MONEY_INSERT.INVALID_UNIT
+          ERROR_MESSAGE.USER_MONEY.INVALID_UNIT
         );
       });
 
-      test(`투입 금액이  ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과하면 오류가 발생한다.`, () => {
+      test(`투입 금액이  ${VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY}원을 초과하면 오류가 발생한다.`, () => {
         const userMoneyInput = 10010;
 
         expect(() => addUserMoney(userMoneyInput)).toThrow(
-          ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
+          ERROR_MESSAGE.USER_MONEY.EXCEED_MAX_TOTAL
         );
       });
 
@@ -208,7 +208,7 @@ describe('자판기 클래스 테스트', () => {
 
         const secondUserMoneyInput = 5010;
         expect(() => addUserMoney(secondUserMoneyInput)).toThrow(
-          ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
+          ERROR_MESSAGE.USER_MONEY.EXCEED_MAX_TOTAL
         );
       });
     });
@@ -248,7 +248,7 @@ describe('자판기 클래스 테스트', () => {
       test('남은 투입 금액이 구매하려는 상품 가격보다 적은 경우 오류를 반환한다.', () => {
         const expensiveProductData = {
           name: '아메리카노',
-          price: userMoneyInput + VENDING_MACHINE_RULES.MONEY_INSERT_UNIT,
+          price: userMoneyInput + VENDING_MACHINE_RULES.USER_MONEY_UNIT,
           stock: 1,
         };
         const expensiveProductId = addProduct(expensiveProductData);
@@ -330,7 +330,7 @@ describe('자판기 클래스 테스트', () => {
 
       test('반환할 투입 금액이 없으면 오류를 반환한다.', () => {
         expect(() => vendingMachine.returnChange()).toThrow(
-          ERROR_MESSAGE.RETURN_CHANGE.NO_MONEY_INSERT
+          ERROR_MESSAGE.RETURN_CHANGE.NO_USER_MONEY
         );
       });
     });

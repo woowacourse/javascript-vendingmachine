@@ -79,7 +79,7 @@ export function isExceedMaxTotalUserMoney({
   money,
   userMoney,
 }: userMoneyValidationData): boolean {
-  return userMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT;
+  return userMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY;
 }
 
 // validator function

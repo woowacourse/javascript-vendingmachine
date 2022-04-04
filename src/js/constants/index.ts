@@ -11,8 +11,8 @@ export const VENDING_MACHINE_RULES = {
   CHANGE_UNIT: 10,
   MAX_TOTAL_CHANGE: 100000,
 
-  MONEY_INSERT_UNIT: 10,
-  MAX_TOTAL_MONEY_INSERT: 10000,
+  USER_MONEY_UNIT: 10,
+  MAX_TOTAL_USER_MONEY: 10000,
 };
 
 export const USER_REGISTER_RULES = {
@@ -47,10 +47,10 @@ export const ERROR_MESSAGE = {
     EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과할 수 없습니다.`,
   },
 
-  MONEY_INSERT: {
+  USER_MONEY: {
     BELOW_MIN: '투입 금액은 0원 이하일 수 없습니다.',
-    INVALID_UNIT: `투입 금액은 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위이어야 합니다.`,
-    EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과할 수 없습니다.`,
+    INVALID_UNIT: `투입 금액은 ${VENDING_MACHINE_RULES.USER_MONEY_UNIT}원 단위이어야 합니다.`,
+    EXCEED_MAX_TOTAL: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY}원을 초과할 수 없습니다.`,
   },
 
   PURCHASE: {
@@ -58,7 +58,7 @@ export const ERROR_MESSAGE = {
   },
 
   RETURN_CHANGE: {
-    NO_MONEY_INSERT: '반환할 금액이 없습니다.',
+    NO_USER_MONEY: '반환할 금액이 없습니다.',
   },
 
   USER_DATA: {
