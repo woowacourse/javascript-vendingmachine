@@ -64,7 +64,8 @@ td {
 }
 
 .table__product-modify-confirm-button,
-.product-return-change-button {
+.product-return-change-button,
+.table__product-purchase-button {
   width: 100px;
   height: 32px;
 }
