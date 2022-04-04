@@ -1,6 +1,6 @@
 import { $, $$ } from '../dom';
 import { MAIN_PAGE } from '../constants';
-import { on } from '../events';
+import { emit, on } from '../events';
 
 const render = (clickedTab: string, tab: string) => {
   $(`.nav__${tab}-button`).className =
@@ -27,6 +27,7 @@ export default class NavigatorComponent {
     if (e.target.classList.contains('nav__button')) {
       this.changeTab(e.target.dataset.tab);
       window.history.pushState(null, null, e.target.dataset.tab);
+      emit(window, `@${e.target.dataset.tab}TabClicked`);
     }
   };
 

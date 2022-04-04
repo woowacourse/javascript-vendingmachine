@@ -8,7 +8,7 @@ export default class CoinsStateComponent {
   private $coin10: HTMLSpanElement = $('.coin-quantity-table__coin-10');
 
   constructor() {
-    on($('.charge-form-section__button'), '@chargeInputSubmit', this.render);
+    on($('.charge-form-section__form'), '@chargeInputSubmit', this.render);
   }
 
   private render = ({

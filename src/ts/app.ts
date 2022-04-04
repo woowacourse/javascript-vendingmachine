@@ -1,17 +1,19 @@
-import CoinInputComponent from './components/CoinManageComponent/CoinInputComponent';
-import CoinsStateComponent from './components/CoinManageComponent/CoinsStateComponent';
+import CoinComponent from './components/CoinComponent/CoinComponent';
 import NavigatorComponent from './components/NavigatorComponent';
-import ProductInputComponent from './components/ProductManageComponent/ProductInputComponent';
-import ProductStateComponent from './components/ProductManageComponent/ProductsStateComponent';
+import ProductComponent from './components/ProductsComponent/ProductsComponent';
+import PurchaseProductComponent from './components/PurchaseProductComponent/PurchaseProductComponent';
+import PurchaseManager from './domains/PurchaseManager';
 import VendingMachineCoinManager from './domains/VendingMachineCoinManager';
 import VendingMachineProductManager from './domains/VendingMachineProductManager';
 
-export default function startApp() {
+const startApp = () => {
   const productManager = new VendingMachineProductManager();
   const coinManager = new VendingMachineCoinManager();
+  const purchaseManager = new PurchaseManager();
   new NavigatorComponent();
-  new ProductInputComponent(productManager);
-  new ProductStateComponent(productManager);
-  new CoinInputComponent(coinManager);
-  new CoinsStateComponent();
-}
+  new ProductComponent(productManager);
+  new CoinComponent(coinManager);
+  new PurchaseProductComponent(productManager, coinManager, purchaseManager);
+};
+
+export default startApp;

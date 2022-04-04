@@ -1,6 +1,6 @@
 #app {
   width: 600px;
-  height: 675px;
+  min-height: 675px;
   background-color: white;
   border-radius: 4px;
   margin: 0 auto;
@@ -19,6 +19,22 @@ h1 {
 
 .hide {
   display: none;
+}
+
+/* ******************** */
+/* primary-buttons */
+/* ******************** */
+
+.primary-button {
+  width: 56px;
+  height: 36px;
+  background-color: var(--color-primary);
+  color: #fff;
+  margin-left: 12px;
+}
+
+.button-opacity-07:hover {
+  opacity: 0.7;
 }
 
 .nav {
@@ -80,23 +96,10 @@ h1 {
   color: #8b8b8b;
 }
 
-.charge-form-section__button,
-.products-form__button {
-  width: 56px;
-  height: 36px;
-  background-color: var(--color-primary);
-  color: #fff;
-  margin-left: 12px;
-}
-
-.charge-form-section__button:hover,
-.products-form__button:hover {
-  opacity: 0.7;
-}
-
 /* ********************* */
 /* product-state-section */
 /* ********************* */
+.purchasable-product-state-section,
 .product-state-section {
   max-height: 340px;
   overflow: auto;
@@ -122,15 +125,12 @@ h1 {
   gap: 0 5px;
 }
 
-.product-table__confirm-button,
-.product-table__delete-button,
-.product-table__edit-button {
+.table-button {
   width: 100px;
   height: 32px;
 }
 
-.product-table__edit-button:hover,
-.product-table__confirm-button:hover {
+.table-button:hover {
   background-color: var(--color-light-skyblue);
 }
 
@@ -149,11 +149,13 @@ h1 {
 /* ******************* */
 /* charge-coin-section */
 /* ******************* */
+.money-for-purchase-form-section,
 .charge-form-section {
   padding: 0 43px 0 56px;
   margin-bottom: 48px;
 }
 
+.money-for-purchase-form,
 .charge-form-section__form {
   display: flex;
   flex-direction: column;
@@ -161,14 +163,12 @@ h1 {
   margin-bottom: 16px;
 }
 
+.money-for-purchase-form-section__money-input-wrapper,
 .charge-form-section__coin-input-wrapper {
   display: flex;
 }
 
-.charge-form-section__coin-input-wrapper label {
-  display: block;
-}
-
+.money-for-purchase-form-section__money-input,
 .charge-form-section__coin-input {
   flex-grow: 1;
   padding: 8px 15.5px 4px;
@@ -176,6 +176,7 @@ h1 {
   border-radius: 4px;
 }
 
+.money-for-purchase-form-section__button,
 .charge-form-section__button {
   display: block;
 }
@@ -193,4 +194,23 @@ h1 {
 .coin-quantity-table td,
 .coin-quantity-table th {
   padding: 8px 0;
+}
+
+/* ************************* */
+/* purchase-products-section */
+/* ************************* */
+
+.return-coin-quantity-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.money-for-purchase-return-button {
+  margin: 10px auto;
+  width: 100px;
+  height: 36px;
+}
+
+.money-for-purchase-return-button:hover {
+  background-color: var(--color-light-skyblue);
 }

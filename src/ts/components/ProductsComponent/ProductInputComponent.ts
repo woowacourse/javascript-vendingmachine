@@ -13,7 +13,6 @@ export default class ProductInputComponent {
   private $quantityInput = $(
     '.products-form__quantity-input'
   ) as HTMLInputElement;
-  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineProductManagement) {
     on($('.products-form__button'), 'click', this.onSubmitProductInputsButton);
@@ -52,7 +51,7 @@ export default class ProductInputComponent {
         $priceInput: this.$priceInput,
         $quantityInput: this.$quantityInput,
       });
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(message);
     }
   };
 }

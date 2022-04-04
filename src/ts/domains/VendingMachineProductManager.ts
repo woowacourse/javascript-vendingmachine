@@ -34,6 +34,21 @@ export default class VendingMachineProductManager implements ProductManager {
       (product) => product.name !== deleteProductName
     );
   }
+
+  sellProduct(productName) {
+    const targetProduct = this.products.find(
+      (product) => product.name === productName
+    );
+    targetProduct.quantity -= 1;
+  }
+
+  getProductPrice(productName) {
+    return this.getTargetProduct(productName).price;
+  }
+
+  getProductQuantity(productName) {
+    return this.getTargetProduct(productName).quantity;
+  }
 }
 
 export const productManager = new VendingMachineProductManager();
