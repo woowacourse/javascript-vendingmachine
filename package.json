@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start:run": "webpack serve --open",
-    "start": "node src/server.js",
+    "start": "node app/server.js",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
