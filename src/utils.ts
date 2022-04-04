@@ -64,3 +64,17 @@ export const coinToMoney = (coins: CoinRecord) => {
       return acc + coins[unit] * unit;
     }, 0);
 };
+
+export const findMaxRepeatingLetterCount = (_str: string) => {
+  const str = _str.trim();
+  let [start, end, max] = [0, 0, 0];
+  while (end < str.length) {
+    if (str[start] === str[end]) {
+      max = Math.max(max, end - start + 1);
+      end += 1;
+    } else {
+      start = end;
+    }
+  }
+  return max;
+};

@@ -9,6 +9,7 @@ import './components/purchase-product/release-coin';
 import './components/login-btn';
 import './pages/vendingmachine-page';
 import './pages/login-page';
+import './pages/register-page';
 import Router from './router';
 
 new Router();

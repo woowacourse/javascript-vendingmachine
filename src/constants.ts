@@ -27,6 +27,17 @@ export const INSERT_MONEY = {
   MAX: 10000,
 };
 
+export const NAME = {
+  MIN_LENGTH: 2,
+  MAX_LENGTH: 6,
+};
+
+export const PASSWORD = {
+  MIN_LENGTH: 8,
+  MAX_REPEAT: 2,
+  MAX_CONSECUTIVE_NUMBER: 3,
+};
+
 export const ACTION = {
   ADD_PRODUCT: 'add-product',
   EDIT_PRODUCT: 'edit-product',
@@ -100,4 +111,20 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
 
   NO_STOCK: '재고가 없습니다',
   NOT_ENOUGH_MONEY: '금액이 부족합니다',
+
+  EMPTY_EMAIL: '이메일을 입력해 주세요',
+  INVALID_FORMAT_EMAIL: '올바른 이메일 양식을 입력해 주세요',
+
+  EMPTY_NAME: '이름을 입력해 주세요',
+  INVALID_LENGTH_NAME: `이름은 ${NAME.MIN_LENGTH} ~ ${NAME.MAX_LENGTH}글자 까지만 가능합니다`,
+
+  EMPTY_PASSWORD: '비밀번호를 입력해 주세요',
+  INVALID_LENGTH_PASSWORD: `비밀번호는 ${PASSWORD.MIN_LENGTH}자 이상이어야 합니다`,
+  NOT_HAS_LETTER_PASSWORD: '비밀번호는 최소 하나 이상의 문자열을 포함해야 합니다',
+  NOT_HAS_NUMBER_PASSWORD: '비밀번호는 최소 하나 이상의 숫자를 포함해야 합니다',
+  NOT_HAS_SPECIAL_CHARACTER_PASSWORD: '비밀번호는 최소 하나이상의 특수문자를 포함해야 합니다',
+  NOT_HAS_UPPERCASE_PASSWORD: '비밀번호는 최소 하나 이상의 대문자를 포함해야 합니다',
+  REPEAT_LETTER_PASSWORD: `같은 문자를 ${PASSWORD.MAX_REPEAT}번 반복하면 안됩니다`,
+  CONSECUTIVE_NUMBER_PASSWORD: `연속된 숫자가 ${PASSWORD.MAX_CONSECUTIVE_NUMBER}개를 초과하면 안됩니다`,
+  NOT_MATCH_PASSWORD: '비밀번호가 일치하지 않습니다',
 };
