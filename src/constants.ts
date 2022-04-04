@@ -2,6 +2,8 @@ import { markUnit } from './utils';
 
 export const COINS = [10, 50, 100, 500];
 
+export const COINS_REVERSE = [500, 100, 50, 10];
+
 export const CONFIGURATION = {
   NAME: {
     MAX_LENGTH: 10,

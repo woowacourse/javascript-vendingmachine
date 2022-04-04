@@ -27,6 +27,10 @@ class Coin {
       }
     }
   }
+
+  subtractCoin(value, count) {
+    this[value] -= count;
+  }
 }
 
 export default Coin;

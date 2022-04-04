@@ -6,6 +6,7 @@ import storage from '../storage';
 import { Product } from '../domain/Product';
 import { addEvent, emit, markUnit } from '../utils';
 import { $ } from '../utils';
+import { COINS } from '../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {
@@ -30,6 +31,7 @@ class PurchaseTab extends CustomElement {
   setEvent() {
     addEvent(this, 'submit', '.purchase-form', (e) => this.handleMoneyInput(e));
     addEvent(this, 'click', '.product-item', (e) => this.handlePurchaseProduct(e));
+    addEvent(this, 'click', '.purchase-return-button', (e) => this.handleChangeReturn(e));
   }
 
   handleMoneyInput(e) {
@@ -48,6 +50,10 @@ class PurchaseTab extends CustomElement {
     }
   }
 
+  handleChangeReturn(e) {
+    emit('.purchase-return-button', '@return', {}, this);
+  }
+
   notify({ action, data }) {
     switch (action) {
       case 'input':
@@ -55,6 +61,9 @@ class PurchaseTab extends CustomElement {
         break;
       case 'purchase':
         this.purchaseItem(data);
+        break;
+      case 'return':
+        this.updatePurchasePage(data);
         break;
     }
   }
@@ -89,6 +98,12 @@ class PurchaseTab extends CustomElement {
     if (Number(targetProductQuantity.textContent) === 0) {
       product.remove();
     }
+  }
+
+  updatePurchasePage({ userMoney, change }) {
+    $('.purchase-form__money-input-amount', this).textContent = markUnit(userMoney);
+
+    COINS.forEach((coin) => ($(`.purchase-coin-${coin}-quantity`).textContent = String(change[coin])));
   }
 }
 

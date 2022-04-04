@@ -1,4 +1,4 @@
-import { ELEMENT_KEY } from '../constants';
+import { COINS_REVERSE, ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $ } from '../utils';
@@ -12,12 +12,13 @@ import {
 import Coin from './Coin';
 import { Product } from './Product';
 import MoneyInput from './MoneyInput';
-import PurchaseTab from '../ui/PurchaseTab';
+import Change from './Change';
 
 interface IVendingMachine {
   amount: Coin;
   products: Product[];
   moneyInput: MoneyInput;
+  change: Change;
 }
 
 class VendingMachine implements IVendingMachine {
@@ -33,6 +34,7 @@ class VendingMachine implements IVendingMachine {
   amount: Coin;
   products: Product[];
   moneyInput: MoneyInput;
+  change: Change;
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
@@ -54,9 +56,10 @@ class VendingMachine implements IVendingMachine {
   subscribePurchaseTab() {
     on('.purchase-form', '@input', (e) => this.inputMoney(e.detail), $('purchase-tab'));
     on('#purchase-product-list-table', '@purchase', (e) => this.purchaseProduct(e.detail), $('purchase-tab'));
+    on('.purchase-return-button', '@return', (e) => this.returnChange(), $('purchase-tab'));
   }
 
-  dispatch(key: string, action: string, data?: Product | number | Object) {
+  dispatch(key: string, action: string, data?: Product | number | Coin | Object) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
     const amount = this.amount;
@@ -108,7 +111,7 @@ class VendingMachine implements IVendingMachine {
 
       this.amount.generateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
-      this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+      this.dispatch(ELEMENT_KEY.CHARGE, 'update', this.amount);
     } catch (error) {
       alert(error.message);
     }
@@ -145,6 +148,24 @@ class VendingMachine implements IVendingMachine {
 
       const { id, quantity } = targetProduct;
       this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', { id, quantity, userMoney });
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  returnChange() {
+    // 잔돈 반환 에러 처리 로직
+    try {
+      const userInputMoney = this.moneyInput;
+      const chargedCoin = this.amount;
+      const change = new Change();
+
+      change.calculateReturnChange({ userInputMoney, chargedCoin, change });
+      const userMoney = userInputMoney.getAmount();
+      storage.setLocalStorage('userMoney', userMoney);
+      storage.setLocalStorage('amount', chargedCoin);
+
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'return', { userMoney, change });
     } catch (error) {
       alert(error.message);
     }
