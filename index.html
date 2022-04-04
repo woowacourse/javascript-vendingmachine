@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script defer src="bundle.js"></script>
   </head>
 
   <body>
@@ -37,12 +36,14 @@
             />
             <input
               type="number"
+              step="10"
               id="product-price-input"
               class="input-form__input"
               placeholder="가격"
             />
             <input
               type="number"
+              step="10"
               id="product-quantity-input"
               class="input-form__input"
               placeholder="수량"
@@ -77,6 +78,7 @@
           <div class="input-container">
             <input
               type="number"
+              step="10"
               id="charge-money-input"
               class="input-form__input"
               placeholder="금액"
