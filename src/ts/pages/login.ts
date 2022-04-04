@@ -1,11 +1,12 @@
-import { API } from '../../../apis';
-import { $, replaceHTML } from '../../utils/dom';
-import { basePath } from '../App';
+import { API } from '../../apis';
+import { $, replaceHTML } from '../utils/dom';
+import { basePath } from '../component/App';
 
-export default class LoginComponent {
-  constructor(private readonly renderMainContent) {
-    this.renderMainContent = renderMainContent;
+export default class LoginPage {
+  constructor(private readonly routePage) {
+    this.routePage = routePage;
   }
+
   render() {
     replaceHTML($('#app'), this.#template());
     $('.login-form').addEventListener('submit', this.loginHandler);
@@ -40,6 +41,9 @@ export default class LoginComponent {
 
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;
+
+    history.pushState({}, '', `${basePath}/`);
+    this.routePage(`${basePath}/`);
   };
 
   signupButtonHandler = e => {
@@ -48,6 +52,6 @@ export default class LoginComponent {
 
     history.pushState({}, '', pathname || '/');
 
-    this.renderMainContent(pathname);
+    this.routePage(pathname);
   };
 }

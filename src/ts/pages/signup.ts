@@ -1,7 +1,12 @@
-import { API } from '../../../apis';
-import { $, replaceHTML } from '../../utils/dom';
+import { API } from '../../apis';
+import { basePath } from '../component/App';
+import { $, replaceHTML } from '../utils/dom';
 
-export default class SignupComponent {
+export default class SignupPage {
+  constructor(private readonly routePage) {
+    this.routePage = routePage;
+  }
+
   render() {
     replaceHTML($('#app'), this.#template());
     $('.signup-form').addEventListener('submit', this.signupHandler);
@@ -28,15 +33,18 @@ export default class SignupComponent {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const { emailInput, pwInput } = e.target.elements;
-    const response = await API.login({
+    const { emailInput, nameInput, pwInput } = e.target.elements;
+    const response = await API.signup({
       email: emailInput.value,
+      name: nameInput.value,
       password: pwInput.value,
     });
 
     if (typeof response === 'string') return;
 
-    document.cookie = `user_id=${response.user.id}`;
-    document.cookie = `access_token=${response.accessToken}`;
+    alert(`${nameInput.value}님 회원가입에 성공했습니다.`);
+
+    history.pushState({}, '', `${basePath}/`);
+    this.routePage(`${basePath}/`);
   };
 }
