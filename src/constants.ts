@@ -99,4 +99,5 @@ export const MEMBER = {
   PLEASE_PASSWORD: '비밀번호를 입력해주세요.',
   SUCCESS_LOGIN: '로그인 완료',
   SUCCESS_MODIFY_INFO: '정보가 변경되었습니다.',
+  SUCCESS_LOG_OUT: '로그아웃 되었습니다.',
 };

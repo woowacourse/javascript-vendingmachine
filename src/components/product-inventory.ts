@@ -120,9 +120,11 @@ class ProductInventory extends Component {
   cancelProductEditing = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
     const $nameInput = $name.childNodes[0] as HTMLInputElement;
     const originalName = $nameInput.dataset.originalName as string;
+
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: originalName, isEditing: false })
     );
@@ -131,15 +133,19 @@ class ProductInventory extends Component {
   deleteProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
     const result = window.confirm(CONFIRM_MESSAGE.DELETE_PRODUCT);
+
     if (!result) return;
+
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
   };
 
   findTds(target: HTMLElement) {
     const children = target.closest('tr')?.children;
     if (!children) return null;
+
     const [$name, $price, $quantity] = children;
     return { $name, $price, $quantity };
   }
@@ -153,7 +159,9 @@ class ProductInventory extends Component {
     const tbody = this.querySelector('tbody');
     const { productList } = Store.instance.getState();
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
+
     if (!tbody) return;
+
     tbody.innerHTML = productListTemplate;
   }
 }

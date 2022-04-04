@@ -1,4 +1,5 @@
 import Component from '../abstract/component';
+import { MEMBER } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { getUserInfo } from '../member';
 import Router from '../router';
@@ -33,7 +34,7 @@ class LoginInfo extends Component {
   onClickLogOut = () => {
     localStorage.removeItem('user-info');
     Router.pushState('/');
-    showSnack('로그아웃 되었습니다.');
+    showSnack(MEMBER.SUCCESS_LOG_OUT);
   };
 
   async getFirstSpelling() {
