@@ -1,3 +1,5 @@
+import { DEFAULT_ROUTE } from '../constants';
+
 export const loginLinkButtonTemplate = /* html */ `
 <a class="tab-menu-button" id="login-link-button" href="#/login">로그인</a>
 `;
@@ -30,7 +32,7 @@ export const userButtonSelectBoxTemplate = /* html */ `
 export const notFoundTabTemplate = /* html */ `
 <section title="존재하지 않는 페이지" class="not-found-section">
   <h2>🚫 <br> 페이지가 존재하지 않거나 <br> 접근 권한이 없습니다.</h2>
-  <a href="/" class="tab-menu-button">시작 페이지로</a>
+  <a href="${DEFAULT_ROUTE.NON_USER}" class="tab-menu-button">시작 페이지로</a>
 </section>`;
 
 export const navigationTemplate = /* html */ `
