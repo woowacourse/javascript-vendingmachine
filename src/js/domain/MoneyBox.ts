@@ -1,6 +1,7 @@
-import { Coin, CoinStatus, distributeStrategy } from './interface';
+import { CoinStatus, distributeStrategy } from './interface';
 import RandomStrategy from './RandomStrategy';
 import { MONEY_NAME_STRING } from '../constants';
+import { Coin } from './types';
 
 export default class MoneyBox {
   #coinStatusList: Coin[];
@@ -47,7 +48,7 @@ export default class MoneyBox {
     return this.#coinStatusList;
   }
 
-  addChange(inputMoney: number): void {
+  addChange(inputMoney: number) {
     const newCoins = this.#coinDistributeStrategy.distribute(inputMoney);
 
     this.#coinStatusList = this.#coinStatusList.map((coin, index) => {
@@ -57,20 +58,20 @@ export default class MoneyBox {
     });
   }
 
-  returnChange(inputMoney: number) {
-    const newCoinStatusList = [...this.#coinStatusList];
+  returnChange(inputMoney: number): Coin[] {
+    const newCoinStatusList: Coin[] = [...this.#coinStatusList];
     let moneyLeft = inputMoney;
 
-    const returnCoinList = this.#coinStatusList.map(
-      ({ name, value, count: currentCount }, index) => {
-        const returnCount = Math.min(Math.floor(moneyLeft / value), currentCount);
+    const returnCoinList: Coin[] = this.#coinStatusList.map((coin, index): Coin => {
+      const coinCopy = { ...coin };
+      const returnCount = Math.min(Math.floor(moneyLeft / coin.value), coin.count);
 
-        newCoinStatusList[index].count = currentCount - returnCount;
-        moneyLeft -= value * returnCount;
+      newCoinStatusList[index].count = coin.count - returnCount;
+      moneyLeft -= coin.value * returnCount;
+      coinCopy.count = returnCount;
 
-        return { name, value, count: returnCount };
-      }
-    );
+      return coinCopy;
+    });
 
     this.#coinStatusList = newCoinStatusList;
     return returnCoinList;

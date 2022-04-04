@@ -126,15 +126,15 @@ export const purchaseTabTemplate = /* html */ `
 <section class="form-section" aria-labelledby="purchase-tab-title">
   <h2 class="tab-title" id="purchase-tab-title">상품 구매하기</h2>
   
-  <form id="money-insert-form">
+  <form id="user-money-form">
     <div class="instructions">
       <h3>🛒금액 투입 시 유의 사항</h3>
       <ul class="instructions-list">
       </ul>
     </div>
-    <label for="money-insert">상품을 구매할 금액을 입력해주세요</label>
+    <label for="user-money">상품을 구매할 금액을 입력해주세요</label>
     <div>
-      <input type="number" id="money-insert-input" placeholder="금액" name="money-insert" min="10" max="10000" step="10" required/>
+      <input type="number" id="user-money-input" placeholder="금액" name="user-money" min="10" max="10000" step="10" required/>
       <button type="submit" class="submit-button">투입</button>
     </div>
   </form>

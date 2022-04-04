@@ -1,5 +1,5 @@
+import { Coin } from './types';
 import VendingMachineProduct from './VendingMachineProduct';
-import { MONEY_NAME_STRING } from '../constants';
 
 export interface ProductData {
   name: string;
@@ -10,30 +10,6 @@ export interface ProductData {
 export interface VendingMachineProductDictionary {
   [id: string]: VendingMachineProduct;
 }
-
-type FiveHundredCoin = {
-  name: typeof MONEY_NAME_STRING.COIN_500_WON;
-  value: 500;
-};
-
-type OneHundredCoin = {
-  name: typeof MONEY_NAME_STRING.COIN_100_WON;
-  value: 100;
-};
-
-type FiftyCoin = {
-  name: typeof MONEY_NAME_STRING.COIN_50_WON;
-  value: 50;
-};
-
-type TenCoin = {
-  name: typeof MONEY_NAME_STRING.COIN_10_WON;
-  value: 10;
-};
-
-export type Coin = (FiveHundredCoin | OneHundredCoin | FiftyCoin | TenCoin) & {
-  count: number;
-};
 
 export interface CoinStatus {
   FIVE_HUNDRED_WON: number;
@@ -46,6 +22,26 @@ export interface distributeStrategy {
   distribute(inputMoney: number): Coin[];
 }
 
+export interface UserRegisterData {
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface UserUpdateData {
+  email: string;
+  name: string;
+  password?: string;
+  passwordConfirm?: string;
+}
+
+export interface SavedUserData {
+  userId: number;
+  email: string;
+  name: string;
+}
+
 export interface Validator<T> {
   testFunc: (data: T) => boolean;
   errorMsg: string;
@@ -56,7 +52,7 @@ export interface changeValidationData {
   totalChange: number;
 }
 
-export interface moneyInsertValidationData {
+export interface userMoneyValidationData {
   money: number;
-  moneyInsert: number;
+  userMoney: number;
 }

@@ -1,17 +1,11 @@
 import { PRODUCT_RULES, USER_REGISTER_RULES, VENDING_MACHINE_RULES } from '../constants';
 import {
   changeValidationData,
-  moneyInsertValidationData,
+  userMoneyValidationData,
   ProductData,
+  UserRegisterData,
   Validator,
 } from './interface';
-
-interface UserRegisterData {
-  email: string;
-  name: string;
-  password: string;
-  passwordConfirm: string;
-}
 
 // general data validation
 export function hasEmptyInput(data: ProductData | UserRegisterData): boolean {
@@ -61,16 +55,16 @@ export function isNotIntegerStock({ stock }: ProductData): boolean {
   return !Number.isInteger(stock);
 }
 
-// change, moneyInsert data validation
+// change, userMoney data validation
 export function isBelowMinCharge({
   money,
-}: changeValidationData | moneyInsertValidationData): boolean {
+}: changeValidationData | userMoneyValidationData): boolean {
   return money <= 0;
 }
 
 export function inValidUnitChange({
   money,
-}: changeValidationData | moneyInsertValidationData): boolean {
+}: changeValidationData | userMoneyValidationData): boolean {
   return money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0;
 }
 
@@ -81,11 +75,11 @@ export function isExceedMaxTotalChange({
   return totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE;
 }
 
-export function isExceedMaxTotalMoneyInsert({
+export function isExceedMaxTotalUserMoney({
   money,
-  moneyInsert,
-}: moneyInsertValidationData): boolean {
-  return moneyInsert + money > VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT;
+  userMoney,
+}: userMoneyValidationData): boolean {
+  return userMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT;
 }
 
 // validator function

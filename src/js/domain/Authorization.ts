@@ -1,4 +1,5 @@
 import { AUTH_URL_BASE, ERROR_MESSAGE, POST_REQUEST_OPTIONS } from '../constants';
+import { SavedUserData, UserRegisterData, UserUpdateData } from './interface';
 import {
   hasEmptyInput,
   isDifferentPassword,
@@ -35,7 +36,7 @@ export default class Authorization {
     return this.#email;
   }
 
-  async register(userInputData) {
+  async register(userInputData: UserRegisterData) {
     this.#validateRegisterData(userInputData);
 
     const registerData = userInputData;
@@ -56,7 +57,7 @@ export default class Authorization {
     this.#isLoggedIn = true;
   }
 
-  async update(userInputData) {
+  async update(userInputData: UserUpdateData) {
     this.#validateUpdateData(userInputData);
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
@@ -119,7 +120,7 @@ export default class Authorization {
     this.#email = email;
   }
 
-  #saveUserData({ userId, name, email }) {
+  #saveUserData({ userId, name, email }: SavedUserData) {
     window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
     this.#userId = userId;
@@ -127,7 +128,7 @@ export default class Authorization {
     this.#email = email;
   }
 
-  #validateRegisterData(registerData) {
+  #validateRegisterData(registerData: UserRegisterData) {
     const registerDataValidator = [
       {
         testFunc: hasEmptyInput,
@@ -147,7 +148,7 @@ export default class Authorization {
     validateData(registerData, registerDataValidator);
   }
 
-  #validateUpdateData(updateData) {
+  #validateUpdateData(updateData: UserUpdateData) {
     const updateDataValidator = [
       {
         testFunc: isOutOfRangeUserNameLength,

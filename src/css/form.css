@@ -47,7 +47,7 @@ form {
 }
 
 #add-change-form input,
-#money-insert-form input {
+#user-money-form input {
   width: 300px;
 }
 

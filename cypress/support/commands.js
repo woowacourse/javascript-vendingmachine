@@ -20,9 +20,9 @@ Cypress.Commands.add('addChange', (money) => {
   cy.get('.submit-button').click();
 });
 
-Cypress.Commands.add('addMoneyInsert', (moneyInsert) => {
+Cypress.Commands.add('addUserMoney', (userMoney) => {
   cy.get('#purchase-tab-menu').click();
-  cy.get('#money-insert-input').type(moneyInsert);
+  cy.get('#user-money-input').type(userMoney);
   cy.get('.submit-button').click();
 });
 

@@ -1,6 +1,7 @@
-import { Coin, distributeStrategy } from './interface';
+import { distributeStrategy } from './interface';
 import { pickNumberInRange } from '../utils';
 import { MONEY_NAME_STRING } from '../constants';
+import { Coin } from './types';
 
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);

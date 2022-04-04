@@ -6,9 +6,9 @@ export default class PurchaseProductTab {
   #vendingMachine;
   #snackbar;
   #purchaseContainer;
-  #moneyInsertForm;
-  #moneyInsertInput;
-  #totalMoneyInsert;
+  #userMoneyForm;
+  #userMoneyInput;
+  #totalUserMoney;
   #productStatusTable;
   #returnChangeButton;
   #coinStatusTable;
@@ -18,9 +18,9 @@ export default class PurchaseProductTab {
     this.#snackbar = snackbar;
 
     this.#purchaseContainer = createMainElement(purchaseTabTemplate);
-    this.#moneyInsertForm = selectDom('#money-insert-form', this.#purchaseContainer);
-    this.#moneyInsertInput = selectDom('#money-insert-input', this.#moneyInsertForm);
-    this.#totalMoneyInsert = selectDom('#total-insert', this.#purchaseContainer);
+    this.#userMoneyForm = selectDom('#user-money-form', this.#purchaseContainer);
+    this.#userMoneyInput = selectDom('#user-money-input', this.#userMoneyForm);
+    this.#totalUserMoney = selectDom('#total-insert', this.#purchaseContainer);
     this.#productStatusTable = selectDom(
       '.product-status-table',
       this.#purchaseContainer
@@ -41,7 +41,7 @@ export default class PurchaseProductTab {
   }
 
   #attachEventListeners() {
-    this.#moneyInsertForm.addEventListener('submit', this.#handleMoneyInsert);
+    this.#userMoneyForm.addEventListener('submit', this.#handleUserMoney);
     this.#productStatusTable.addEventListener('click', this.#handlePurchase);
     this.#returnChangeButton.addEventListener('click', this.#handleChangeReturn);
   }
@@ -60,16 +60,16 @@ export default class PurchaseProductTab {
     this.#productStatusTable.insertAdjacentHTML('beforeend', productTableRows);
   }
 
-  #handleMoneyInsert = (e) => {
+  #handleUserMoney = (e) => {
     e.preventDefault();
 
-    const moneyInsert = this.#moneyInsertInput.valueAsNumber;
+    const userMoney = this.#userMoneyInput.valueAsNumber;
 
     try {
-      this.#vendingMachine.addMoneyInsert(moneyInsert);
+      this.#vendingMachine.addUserMoney(userMoney);
 
-      this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
-      this.#moneyInsertInput.value = '';
+      this.#totalUserMoney.textContent = this.#vendingMachine.userMoney;
+      this.#userMoneyInput.value = '';
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
@@ -91,7 +91,7 @@ export default class PurchaseProductTab {
   };
 
   #renderProductPurchase(id, tableRow) {
-    this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
+    this.#totalUserMoney.textContent = this.#vendingMachine.userMoney;
     const stockTableData = selectDom('.product-stock', tableRow);
     const updatedProduct = this.#vendingMachine.productList[id];
     if (!updatedProduct) {
@@ -113,9 +113,9 @@ export default class PurchaseProductTab {
         coinTableData.textContent = `${count}개`;
       });
 
-      this.#totalMoneyInsert.textContent = this.#vendingMachine.moneyInsert;
+      this.#totalUserMoney.textContent = this.#vendingMachine.userMoney;
 
-      if (this.#vendingMachine.moneyInsert !== 0) {
+      if (this.#vendingMachine.userMoney !== 0) {
         this.#snackbar.addToMessageList(NOT_ENOUGH_CHANGE_MESSAGE);
       }
     } catch ({ message }) {

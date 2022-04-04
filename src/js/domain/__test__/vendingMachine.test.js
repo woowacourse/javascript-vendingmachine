@@ -150,8 +150,8 @@ describe('자판기 클래스 테스트', () => {
       vendingMachine.addChange(money);
     }
 
-    function addMoneyInsert(moneyInsert) {
-      vendingMachine.addMoneyInsert(moneyInsert);
+    function addUserMoney(userMoney) {
+      vendingMachine.addUserMoney(userMoney);
     }
 
     beforeEach(() => {
@@ -161,63 +161,63 @@ describe('자판기 클래스 테스트', () => {
 
     describe('3-1. 금액 투입 테스트', () => {
       test('금액을 투입하면 투입한 금액을 확인할 수 있다.', () => {
-        const moneyInsertInput = 1000;
-        addMoneyInsert(moneyInsertInput);
-        expect(vendingMachine.moneyInsert).toEqual(moneyInsertInput);
+        const userMoneyInput = 1000;
+        addUserMoney(userMoneyInput);
+        expect(vendingMachine.userMoney).toEqual(userMoneyInput);
       });
 
       test('금액을 여러 번 투입하면 누적된 투입 금액을 확인할 수 있다.', () => {
-        const firstMoneyInsertInput = 1000;
-        addMoneyInsert(firstMoneyInsertInput);
+        const firstUserMoneyInput = 1000;
+        addUserMoney(firstUserMoneyInput);
 
-        const secondMoneyInsertInput = 2000;
-        addMoneyInsert(secondMoneyInsertInput);
+        const secondUserMoneyInput = 2000;
+        addUserMoney(secondUserMoneyInput);
 
-        expect(vendingMachine.moneyInsert).toEqual(
-          firstMoneyInsertInput + secondMoneyInsertInput
+        expect(vendingMachine.userMoney).toEqual(
+          firstUserMoneyInput + secondUserMoneyInput
         );
       });
 
       test('투입 금액이 0원 이하면 오류가 발생한다.', () => {
-        const moneyInsertInput = 0;
+        const userMoneyInput = 0;
 
-        expect(() => addMoneyInsert(moneyInsertInput)).toThrow(
+        expect(() => addUserMoney(userMoneyInput)).toThrow(
           ERROR_MESSAGE.MONEY_INSERT.BELOW_MIN
         );
       });
 
       test(`투입 금액이 ${VENDING_MACHINE_RULES.MONEY_INSERT_UNIT}원 단위가 아니면 오류가 발생한다.`, () => {
-        const moneyInsertInput = 1025;
+        const userMoneyInput = 1025;
 
-        expect(() => addMoneyInsert(moneyInsertInput)).toThrow(
+        expect(() => addUserMoney(userMoneyInput)).toThrow(
           ERROR_MESSAGE.MONEY_INSERT.INVALID_UNIT
         );
       });
 
       test(`투입 금액이  ${VENDING_MACHINE_RULES.MAX_TOTAL_MONEY_INSERT}원을 초과하면 오류가 발생한다.`, () => {
-        const moneyInsertInput = 10010;
+        const userMoneyInput = 10010;
 
-        expect(() => addMoneyInsert(moneyInsertInput)).toThrow(
+        expect(() => addUserMoney(userMoneyInput)).toThrow(
           ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
         );
       });
 
       test(`투입 금액과 보유 금액의 합이 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과하면 오류가 발생한다.`, () => {
-        const firstMoneyInsertInput = 5000;
-        addMoneyInsert(firstMoneyInsertInput);
+        const firstUserMoneyInput = 5000;
+        addUserMoney(firstUserMoneyInput);
 
-        const secondMoneyInsertInput = 5010;
-        expect(() => addMoneyInsert(secondMoneyInsertInput)).toThrow(
+        const secondUserMoneyInput = 5010;
+        expect(() => addUserMoney(secondUserMoneyInput)).toThrow(
           ERROR_MESSAGE.MONEY_INSERT.EXCEED_MAX_TOTAL
         );
       });
     });
 
     describe('3-2. 상품 구매 테스트', () => {
-      const moneyInsertInput = 2500;
+      const userMoneyInput = 2500;
 
       beforeEach(() => {
-        addMoneyInsert(moneyInsertInput);
+        addUserMoney(userMoneyInput);
       });
 
       test('상품을 구매하면 해당 상품의 재고가 1만큼 감소한다.', () => {
@@ -231,8 +231,8 @@ describe('자판기 클래스 테스트', () => {
       test('상품을 구매하면 투입된 금액이 해당 상품의 가격만큼 감소한다.', () => {
         vendingMachine.purchaseProduct(productId);
 
-        expect(vendingMachine.moneyInsert).toEqual(
-          moneyInsertInput - vendingMachine.productList[productId].price
+        expect(vendingMachine.userMoney).toEqual(
+          userMoneyInput - vendingMachine.productList[productId].price
         );
       });
 
@@ -248,7 +248,7 @@ describe('자판기 클래스 테스트', () => {
       test('남은 투입 금액이 구매하려는 상품 가격보다 적은 경우 오류를 반환한다.', () => {
         const expensiveProductData = {
           name: '아메리카노',
-          price: moneyInsertInput + VENDING_MACHINE_RULES.MONEY_INSERT_UNIT,
+          price: userMoneyInput + VENDING_MACHINE_RULES.MONEY_INSERT_UNIT,
           stock: 1,
         };
         const expensiveProductId = addProduct(expensiveProductData);
@@ -268,9 +268,9 @@ describe('자판기 클래스 테스트', () => {
     });
 
     describe('3-3. 잔돈 반환 테스트', () => {
-      function setReturnChangeCase(changeInput, moneyInsertInput) {
+      function setReturnChangeCase(changeInput, userMoneyInput) {
         addChange(changeInput);
-        addMoneyInsert(moneyInsertInput);
+        addUserMoney(userMoneyInput);
       }
 
       function calculateTotalReturnChange(changeCoins) {
@@ -282,34 +282,34 @@ describe('자판기 클래스 테스트', () => {
 
       test('잔돈을 반환하면 남은 투입 금액과 동일한 금액의 동전을 반환한다.', () => {
         const changeInput = 5000;
-        const moneyInsertInput = 1000;
+        const userMoneyInput = 1000;
 
-        setReturnChangeCase(changeInput, moneyInsertInput);
+        setReturnChangeCase(changeInput, userMoneyInput);
 
-        const { moneyInsert } = vendingMachine;
+        const { userMoney } = vendingMachine;
 
         const change = vendingMachine.returnChange();
         const totalChangeAmount = calculateTotalReturnChange(change);
 
-        expect(totalChangeAmount).toEqual(moneyInsert);
+        expect(totalChangeAmount).toEqual(userMoney);
       });
 
       test('잔돈을 모두 반환하면 투입 금액이 0이 된다.', () => {
         const changeInput = 5000;
-        const moneyInsertInput = 1000;
+        const userMoneyInput = 1000;
 
-        setReturnChangeCase(changeInput, moneyInsertInput);
+        setReturnChangeCase(changeInput, userMoneyInput);
 
         vendingMachine.returnChange();
 
-        expect(vendingMachine.moneyInsert).toEqual(0);
+        expect(vendingMachine.userMoney).toEqual(0);
       });
 
       test('충전된 잔돈이 남은 투입 금액보다 적으면 남은 잔돈을 전부 반환한다.', () => {
         const changeInput = 1000;
-        const moneyInsertInput = 3000;
+        const userMoneyInput = 3000;
 
-        setReturnChangeCase(changeInput, moneyInsertInput);
+        setReturnChangeCase(changeInput, userMoneyInput);
 
         const change = vendingMachine.returnChange();
         const totalChangeAmount = calculateTotalReturnChange(change);
@@ -319,13 +319,13 @@ describe('자판기 클래스 테스트', () => {
 
       test('충전된 잔돈이 남은 투입 금액보다 적으면 반환 후 투입 금액이 반환 금액만큼 감소한다.', () => {
         const changeInput = 1000;
-        const moneyInsertInput = 3000;
+        const userMoneyInput = 3000;
 
-        setReturnChangeCase(changeInput, moneyInsertInput);
+        setReturnChangeCase(changeInput, userMoneyInput);
 
         vendingMachine.returnChange();
 
-        expect(vendingMachine.moneyInsert).toEqual(moneyInsertInput - changeInput);
+        expect(vendingMachine.userMoney).toEqual(userMoneyInput - changeInput);
       });
 
       test('반환할 투입 금액이 없으면 오류를 반환한다.', () => {
