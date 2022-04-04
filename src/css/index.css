@@ -4,7 +4,6 @@
 
 body {
   width: 100vw;
-  height: 100vh;
   margin: 0;
 }
 
@@ -13,17 +12,25 @@ h1 {
 }
 
 #app {
+  width: 40%;
+  min-width: 465px;
+  margin: 1rem auto;
+}
+
+.container {
   display: flex;
   flex-direction: column;
-  width: 30%;
-  min-width: 465px;
-  margin: auto;
   gap: 20px;
+}
+
+.user-menu {
+  position: relative;
+  text-align: right;
 }
 
 header {
   text-align: center;
-  margin: 40px 0 0;
+  margin: 0;
 }
 
 nav {
