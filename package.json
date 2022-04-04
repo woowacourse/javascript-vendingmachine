@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start:run": "webpack serve --open",
-    "start": "node app/server.js",
+    "start": "node server.js",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
@@ -38,8 +38,6 @@
     "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
-    "json-server": "^0.17.0",
-    "json-server-auth": "^2.1.0",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.6",
@@ -51,5 +49,9 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://intae92.github.io/javascript-vendingmachine"
+  "homepage": "https://intae92.github.io/javascript-vendingmachine",
+  "dependencies": {
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0"
+  }
 }
