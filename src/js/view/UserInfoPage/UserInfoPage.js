@@ -1,4 +1,5 @@
 import { createMainElement, getInputValuesFromForm, selectDom } from '../../utils/dom';
+import { USER_DATA_CHANGED_MESSAGE } from '../../constants';
 import userInfoPageTemplate from './UserInfoPageTemplate';
 
 export default class UserInfoPage {
@@ -44,7 +45,7 @@ export default class UserInfoPage {
 
       await this.#authorization.update(updateData);
 
-      window.location.reload();
+      this.#snackbar.addToMessageList(USER_DATA_CHANGED_MESSAGE);
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }

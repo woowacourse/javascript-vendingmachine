@@ -72,6 +72,8 @@ export const ERROR_MESSAGE = {
   },
 };
 
+export const USER_DATA_CHANGED_MESSAGE = '개인 정보 수정이 완료되었습니다.';
+
 export const NOT_ENOUGH_CHANGE_MESSAGE =
   '자판기가 보유한 잔돈이 부족합니다. 관리자에게 문의해주세요.';
 
