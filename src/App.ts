@@ -18,7 +18,6 @@ export class App {
 
   constructor() {
     this.contentsContainer = document.querySelector('#contents-container');
-
     this.coinVault = new CoinVault();
     this.productCatalog = new ProductCatalog();
 

@@ -11,9 +11,11 @@ import { ERR_COIN_VAULT } from '../constants/errorMessage';
 
 export class CoinVault {
   private coinsQuantity: Coins;
+  private customerInput: number;
 
   constructor() {
     this.coinsQuantity = { ...COINS_INIT_QUANTITY };
+    this.customerInput = 0;
   }
 
   addCoins(coins: Coins) {
@@ -33,7 +35,7 @@ export class CoinVault {
     );
   }
 
-  chargeMoney(money: number) {
+  chargeChanges(money: number) {
     try {
       this.validateMoney(money);
       this.addCoins(this.generateRandomCoins(money));
@@ -69,5 +71,18 @@ export class CoinVault {
     });
 
     return generatedCoins;
+  }
+
+  chargeCustomerInput(money: number) {
+    try {
+      this.validateMoney(money);
+      this.customerInput += money;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  getCustomerInput() {
+    return this.customerInput;
   }
 }
