@@ -1,4 +1,4 @@
-import { coinType } from '../constants';
+import { COIN_TYPE } from '../constants';
 
 interface ProductInfo {
   name: string;
@@ -12,7 +12,7 @@ interface UserInfo {
 }
 
 type ProductInfoUnionType = keyof ProductInfo;
-type CoinUnionType = typeof coinType[number];
+type CoinUnionType = typeof COIN_TYPE[number];
 type Coins = { [K in CoinUnionType]: number } | {};
 
 export { ProductInfo, UserInfo, ProductInfoUnionType, CoinUnionType, Coins };

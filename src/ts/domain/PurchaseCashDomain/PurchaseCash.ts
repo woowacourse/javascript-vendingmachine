@@ -1,4 +1,4 @@
-import { coinType } from '../../constants';
+import { COIN_TYPE } from '../../constants';
 import { Coins } from '../types';
 import { validatePurchaseCash } from './validator';
 
@@ -24,7 +24,7 @@ export default class PurchaseCashDomain {
   returnCoins(haveCoins: Coins): Coins {
     const coins: Coins = {};
 
-    coinType.forEach(type => {
+    COIN_TYPE.forEach(type => {
       const count = Math.min(Math.floor(this.#cash / type), haveCoins[type]);
       coins[type] = count;
       this.addCash(-(count * type));

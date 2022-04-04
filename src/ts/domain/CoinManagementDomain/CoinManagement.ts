@@ -1,4 +1,4 @@
-import { coinType } from '../../constants';
+import { COIN_TYPE } from '../../constants';
 import { getRandomIndex } from '../../utils';
 import { Coins, CoinUnionType } from '../types';
 import { validateCash } from './validator';
@@ -10,7 +10,7 @@ export default class CoinManagementDomain {
   constructor() {
     this.#totalCash = 0;
     this.#coins = {};
-    coinType.forEach(type => {
+    COIN_TYPE.forEach(type => {
       this.#coins[type] = 0;
     });
   }
@@ -30,8 +30,8 @@ export default class CoinManagementDomain {
 
   private addCoins(cash: number) {
     while (cash > 0) {
-      const randomIndex = getRandomIndex<CoinUnionType>(coinType);
-      const type = coinType[randomIndex];
+      const randomIndex = getRandomIndex<CoinUnionType>(COIN_TYPE);
+      const type = COIN_TYPE[randomIndex];
 
       if (type > cash) continue;
 

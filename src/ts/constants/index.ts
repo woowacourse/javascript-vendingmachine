@@ -1,7 +1,7 @@
 const MAX_NAME_LENGTH = 10;
 const MAX_QUANTITY = 20;
 
-const coinType: [500, 100, 50, 10] = [500, 100, 50, 10];
+const COIN_TYPE: [500, 100, 50, 10] = [500, 100, 50, 10];
 
 const PRICE_RULE = {
   MIN: 100,
@@ -70,7 +70,7 @@ export {
   MAX_NAME_LENGTH,
   PRICE_RULE,
   MAX_QUANTITY,
-  coinType,
+  COIN_TYPE,
   CASH_RULE,
   PURCHASE_CASH_RULE,
   USER_INFO_RULE,
