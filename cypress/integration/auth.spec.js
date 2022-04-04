@@ -1,19 +1,17 @@
+import { ERROR_MESSAGE } from '../../src/js/constants';
+
 const baseUrl = 'http://localhost:9000';
 
 describe('사용자 인증 테스트', () => {
   function createRandomUserData() {
-    return { email: `${Date.now()}@test.com`, name: 'test', password: '1234' };
+    return { email: `${Date.now()}@test.com`, name: 'test', password: 'abcd1234!!' };
   }
 
   beforeEach(() => {
     cy.visit(baseUrl);
 
     // 모든 테스트 시작 전 로그아웃
-    cy.window()
-      .then((win) => {
-        win.sessionStorage.clear();
-      })
-      .then((win) => win.location.reload());
+    cy.logout();
   });
 
   it('처음 접속하면 상품 구매 탭이 표시된다.', () => {
@@ -38,9 +36,6 @@ describe('사용자 인증 테스트', () => {
   });
 
   it('회원가입을 마치면 상품관리 페이지로 이동된다.', () => {
-    cy.get('#login-link-button').click();
-    cy.get('#register-page-link').click();
-
     const userData = createRandomUserData();
     cy.registerNewUser(userData);
 
@@ -48,9 +43,6 @@ describe('사용자 인증 테스트', () => {
   });
 
   it('회원가입을 마치면 로그인 버튼이 사라져야 한다.', () => {
-    cy.get('#login-link-button').click();
-    cy.get('#register-page-link').click();
-
     const userData = createRandomUserData();
     cy.registerNewUser(userData);
 
@@ -58,9 +50,6 @@ describe('사용자 인증 테스트', () => {
   });
 
   it('회원가입을 마치면 탭 메뉴가 표시된다.', () => {
-    cy.get('#login-link-button').click();
-    cy.get('#register-page-link').click();
-
     const userData = createRandomUserData();
     cy.registerNewUser(userData);
 
@@ -112,4 +101,116 @@ describe('사용자 인증 테스트', () => {
 
   //   cy.get('#name-input').should('have.value', newName);
   // });
+
+  describe('회원가입 시 오류 테스트', () => {
+    it('모든 칸을 채우지 않으면 모든 칸을 작성하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      delete userData.name;
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should(
+        'have.text',
+        ERROR_MESSAGE.USER_DATA.MISSING_REQUIRED_DATA
+      );
+    });
+
+    it('2자 미만의 이름을 입력하면 이름 길이 오류 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.name = '블';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should(
+        'have.text',
+        ERROR_MESSAGE.USER_DATA.NAME_LENGTH_OUT_OF_RANGE
+      );
+    });
+
+    it('6자 초과의 이름을 입력하면 이름 길이 오류 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.name = '블링블링블링블';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should(
+        'have.text',
+        ERROR_MESSAGE.USER_DATA.NAME_LENGTH_OUT_OF_RANGE
+      );
+    });
+
+    it('8자 미만의 비밀번호를 입력하면 비밀번호 규칙을 확인하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.password = 'abcd12!';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD);
+    });
+
+    it('20자 초과의 비밀번호를 입력하면 비밀번호 규칙을 확인하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.password = 'abcde12345!!!!!@@@@@@';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD);
+    });
+
+    it('특수 문자를 포함하지 않은 비밀번호를 입력하면 비밀번호 규칙을 확인하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.password = 'abcde123';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD);
+    });
+
+    it('숫자를 포함하지 않은 비밀번호를 입력하면 비밀번호 규칙을 확인하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.password = 'abcde!!!';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD);
+    });
+
+    it('영소문자를 포함하지 않은 비밀번호를 입력하면 비밀번호 규칙을 확인하라는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.password = '12345!!!';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.INVALID_PASSWORD);
+    });
+
+    it('비밀번호와 비밀번호 확인이 일치하지 않으면 일치하지 않는다는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.passwordConfirm = 'abcd1234!!!';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.NO_MATCH_PASSWORD);
+    });
+
+    it('비밀번호와 비밀번호 확인이 일치하지 않으면 일치하지 않는다는 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+      userData.passwordConfirm = 'abcd1234!!!';
+
+      cy.validateRegister(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.NO_MATCH_PASSWORD);
+    });
+
+    it.only('가입한 이메일로 다시 가입하려고 하면 오류 메시지가 표시된다.', () => {
+      const userData = createRandomUserData();
+
+      cy.registerNewUser(userData);
+      cy.logout();
+
+      cy.registerNewUser(userData);
+
+      cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.DUPLICATE_EMAIL);
+    });
+  });
 });

@@ -46,6 +46,20 @@ Cypress.Commands.add('registerNewUser', (userData) => {
   cy.wait('@registerRequest');
 });
 
+Cypress.Commands.add('validateRegister', (userData) => {
+  const { email, name, password, passwordConfirm } = userData;
+
+  cy.get('#login-link-button').click();
+  cy.get('#register-page-link').click();
+
+  if (email) cy.get('#email-input').type(email);
+  if (name) cy.get('#name-input').type(name);
+  if (password) cy.get('#password-input').type(password);
+  if (password) cy.get('#password-confirm-input').type(passwordConfirm || password);
+
+  cy.get('.submit-button').click();
+});
+
 Cypress.Commands.add('loginWithNewUser', (userData) => {
   cy.intercept({
     method: 'POST',
@@ -54,10 +68,7 @@ Cypress.Commands.add('loginWithNewUser', (userData) => {
 
   cy.registerNewUser(userData);
 
-  cy.window().then((win) => {
-    win.sessionStorage.clear();
-    win.location.reload();
-  });
+  cy.logout();
 
   cy.get('#login-link-button').click();
 
@@ -67,4 +78,12 @@ Cypress.Commands.add('loginWithNewUser', (userData) => {
   cy.get('.submit-button').click();
 
   cy.wait('@signInRequest');
+});
+
+Cypress.Commands.add('logout', () => {
+  cy.window()
+    .then((win) => {
+      win.sessionStorage.clear();
+    })
+    .then((win) => win.location.reload());
 });

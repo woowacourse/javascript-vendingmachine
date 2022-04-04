@@ -31,12 +31,8 @@ export default class RegisterPage {
       'password-confirm': passwordConfirm,
     } = getInputValuesFromForm(e.target);
 
-    if (password !== passwordConfirm) {
-      this.#snackbar.addMessageToList('비밀번호가 일치하지 않습니다.');
-      return;
-    }
     try {
-      await this.#authorization.register({ email, name, password });
+      await this.#authorization.register({ email, name, password, passwordConfirm });
 
       window.location.href = '#/manage';
     } catch ({ message }) {

@@ -15,6 +15,12 @@ export const VENDING_MACHINE_RULES = {
   MAX_TOTAL_MONEY_INSERT: 10000,
 };
 
+export const USER_REGISTER_RULES = {
+  NAME_MIN_LENGTH: 2,
+  NAME_MAX_LENGTH: 6,
+  PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()[\]{}\-:;',?/~^+=<>]).{8,20}$/,
+};
+
 export const ERROR_MESSAGE = {
   CONTAIN_EMPTY_FIELD_IN_FORM: '상품명, 가격, 수량을 모두 입력해주세요.',
 
@@ -53,6 +59,15 @@ export const ERROR_MESSAGE = {
 
   RETURN_CHANGE: {
     NO_MONEY_INSERT: '반환할 금액이 없습니다.',
+  },
+
+  USER_DATA: {
+    MISSING_REQUIRED_DATA: '모든 항목은 필수적으로 작성해야 합니다.',
+    NAME_LENGTH_OUT_OF_RANGE: `이름은 ${USER_REGISTER_RULES.NAME_MIN_LENGTH}자-${USER_REGISTER_RULES.NAME_MAX_LENGTH}자여야 합니다.`,
+    INVALID_PASSWORD: '비밀번호가 올바르지 않습니다. 비밀번호 규칙을 다시 확인 해주세요.',
+    NO_MATCH_PASSWORD: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
+    DUPLICATE_EMAIL: '이미 가입 내역이 존재하는 이메일입니다.',
+    SERVER_FAILURE: '서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
   },
 };
 

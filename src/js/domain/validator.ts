@@ -1,4 +1,4 @@
-import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../constants';
+import { PRODUCT_RULES, USER_REGISTER_RULES, VENDING_MACHINE_RULES } from '../constants';
 import {
   changeValidationData,
   moneyInsertValidationData,
@@ -6,11 +6,41 @@ import {
   Validator,
 } from './interface';
 
-// product data validation
-export function hasEmptyInput({ name, price, stock }: ProductData): boolean {
-  return !name || !price || !stock;
+interface UserRegisterData {
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
 }
 
+// general data validation
+export function hasEmptyInput(data: ProductData | UserRegisterData): boolean {
+  return Object.keys(data).some((key) => {
+    if (typeof data[key] === 'string') return !data[key].trim();
+    return !data[key];
+  });
+}
+
+// user data validation
+export function isOutOfRangeUserNameLength({ name }: UserRegisterData): boolean {
+  return (
+    name.length < USER_REGISTER_RULES.NAME_MIN_LENGTH ||
+    name.length > USER_REGISTER_RULES.NAME_MAX_LENGTH
+  );
+}
+
+export function isInvalidPassword({ password }: UserRegisterData): boolean {
+  return !USER_REGISTER_RULES.PASSWORD_REGEX.test(password);
+}
+
+export function isDifferentPassword({
+  password,
+  passwordConfirm,
+}: UserRegisterData): boolean {
+  return password !== passwordConfirm;
+}
+
+// product data validation
 export function isOverMaxLengthName({ name }: ProductData): boolean {
   return name.length > PRODUCT_RULES.MAX_NAME_LENGTH;
 }
