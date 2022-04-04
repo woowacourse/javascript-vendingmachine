@@ -39,19 +39,19 @@ export class CoinVaultTable implements CoinVaultTableInterface {
           <tbody>
             <tr>
               <td>500원</td>
-              <td><span id="coin500-quantity">${coinsQuantity.coin500}</span>개</td>
+              <td><span class="coin500-quantity">${coinsQuantity.coin500}</span>개</td>
             </tr>
             <tr>
               <td>100원</td>
-              <td><span id="coin100-quantity">${coinsQuantity.coin100}</span>개</td>
+              <td><span class="coin100-quantity">${coinsQuantity.coin100}</span>개</td>
             </tr>
             <tr>
               <td>50원</td>
-              <td><span id="coin50-quantity">${coinsQuantity.coin50}</span>개</td>
+              <td><span class="coin50-quantity">${coinsQuantity.coin50}</span>개</td>
             </tr>
             <tr>
               <td>10원</td>
-              <td><span id="coin10-quantity">${coinsQuantity.coin10}</span>개</td>
+              <td><span class="coin10-quantity">${coinsQuantity.coin10}</span>개</td>
             </tr>
           </tbody>
         </table>
@@ -60,10 +60,10 @@ export class CoinVaultTable implements CoinVaultTableInterface {
   }
 
   #selectDom() {
-    this.#coin500Quantity = document.querySelector('#coin500-quantity');
-    this.#coin100Quantity = document.querySelector('#coin100-quantity');
-    this.#coin50Quantity = document.querySelector('#coin50-quantity');
-    this.#coin10Quantity = document.querySelector('#coin10-quantity');
+    this.#coin500Quantity = document.querySelector('.coin500-quantity');
+    this.#coin100Quantity = document.querySelector('.coin100-quantity');
+    this.#coin50Quantity = document.querySelector('.coin50-quantity');
+    this.#coin10Quantity = document.querySelector('.coin10-quantity');
   }
 
   #updateCoinVaultTableTemplate = () => {
