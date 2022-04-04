@@ -1,4 +1,4 @@
-import { accessTokenStorage } from '../stores/localStorage';
+import { accessTokenStorage, userIdStorage, userInfoStorage } from '../stores/localStorage';
 import EditUserInfoComponent from './EditUserInfoComponent';
 import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
@@ -94,6 +94,7 @@ class VendingMachineComponent {
         this.$nav.classList.add('hide');
 
         this.#EditUserComponent.show();
+        this.#EditUserComponent.renderUserInfo();
       }
     }
 
