@@ -1,3 +1,4 @@
+import api from '../Api';
 import router from '../router';
 import template from '../template';
 import {
@@ -83,30 +84,13 @@ export default class EditProfile {
       this.checkAccountValidate(name, password, password2);
 
       const data = JSON.stringify({ email, name, password });
-      // https://vendingmachine-coke-test.herokuapp.com
-      // const response = await fetch(`http://localhost:3000/users/${this.user.id}`, {
-      const response = await fetch(`https://vendingmachine-coke-test.herokuapp.com/users/${this.user.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: data,
+
+      api.putEditProfile({ id: this.user.id, data }).then(res => {
+        const { email, name, id } = res;
+
+        localStorage.setItem('user', JSON.stringify({ email, name, id }));
+        router.to('#!/product-manage');
       });
-      const res = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 404) throw new Error('잘못된 id 입니다.');
-
-        throw new Error(res);
-      }
-
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          email: res.email,
-          name: res.name,
-          id: res.id,
-        }),
-      );
-      router.to('#!/product-manage');
     } catch (message) {
       alert(message);
     }

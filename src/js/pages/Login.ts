@@ -1,3 +1,4 @@
+import api from '../Api';
 import router from '../router/index';
 import template from '../template';
 
@@ -32,25 +33,14 @@ export default class Login {
     });
 
     try {
-      // https://vendingmachine-coke-test.herokuapp.com/login
-      // const response = await fetch('http://localhost:3000/login', {
-      const response = await fetch('https://vendingmachine-coke-test.herokuapp.com/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: data,
+      api.postUserLogin(data).then(res => {
+        const { accessToken, user } = res;
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        router.to('#!/product-manage');
       });
-      const res = await response.json();
-
-      if (!response.ok) {
-        throw new Error(res);
-      }
-
-      const { accessToken, user } = res;
-
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('user', JSON.stringify(user));
-
-      router.to('#!/product-manage');
     } catch (message) {
       alert(message);
     }

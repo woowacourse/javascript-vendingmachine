@@ -1,3 +1,4 @@
+import api from '../Api';
 import router from '../router/index';
 import template from '../template';
 import {
@@ -73,25 +74,15 @@ export default class Signup {
       this.checkAccountValidate(name, password, password2);
 
       const data = JSON.stringify({ email, name, password });
-      // https://vendingmachine-coke-test.herokuapp.com
-      // const response = await fetch('http://localhost:3000/signup', {
-      const response = await fetch('https://vendingmachine-coke-test.herokuapp.com/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: data,
+
+      api.postSingup(data).then(res => {
+        const { accessToken, user } = res;
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        router.to('#!/product-manage');
       });
-      const res = await response.json();
-
-      if (!response.ok) {
-        throw new Error(res);
-      }
-
-      const { accessToken, user } = res;
-
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('user', JSON.stringify(user));
-
-      router.to('#!/product-manage');
     } catch (message) {
       alert(message);
     }
