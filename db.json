@@ -5,6 +5,12 @@
       "password": "$2a$10$R.km1PyUVtjg92im3B7x8.OwfOja7NndEx8cAo9gzdvfxuNcXwJiO",
       "name": "테스트용",
       "id": 1
+    },
+    {
+      "email": "tester@test.com",
+      "password": "$2a$10$hg1xGIaSCheXMgpEgri/Su8QlimTtUsuBcfUhBP/DS2CBRNkGIeNq",
+      "name": "테스트",
+      "id": 2
     }
   ]
 }
