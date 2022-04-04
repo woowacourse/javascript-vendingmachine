@@ -1,4 +1,4 @@
-import { authUtils } from '../../auth/authUtils';
+import AuthManager from '../../auth/authManager';
 import { signUpTemplate } from '../../templates/signUpTemplate';
 import { $ } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
@@ -20,7 +20,7 @@ export default class SignUpView {
       const password = $('#password-input').value;
       const confirmPassword = $('#password-confirm-input').value;
 
-      const userData = await authUtils.singUp({ email, name, password });
+      const userData = await AuthManager.shared().singUp({ email, name, password });
       console.log(userData.accessToken);
     } catch (error) {
       showSnackbar(error.message);

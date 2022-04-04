@@ -1,6 +1,6 @@
 import singInTemplate from '../../templates/signInTemplate';
 import { $, emit } from '../../utils/common';
-import { authUtils } from '../../auth/authUtils';
+import AuthManager from '../../auth/authManager';
 import { SELECTOR } from '../../constants/viewConstants';
 import { CUSTOM_EVENT } from '../../constants/appContants';
 import showSnackbar from '../../utils/snackbar';
@@ -21,7 +21,7 @@ export default class SignInView {
       const email = $('#email-input').value;
       const password = $('#password-input').value;
 
-      const userData = await authUtils.signIn({ email, password });
+      const userData = await AuthManager.shared().signIn({ email, password });
       console.log(userData);
     } catch (error) {
       showSnackbar(error.message);
