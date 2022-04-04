@@ -8,13 +8,18 @@
 </head>
 
 <body>
-    <main id="app">
-        <h1>🍿 자판기 🍿</h1>
-        <nav>
-            <button id="item-manage-tab-button" class="nav-tab-button selected" type="button" data-hash="#item-manage">상품 관리</button>
-            <button id="coin-recharge-tab-button" class="nav-tab-button" type="button" data-hash="#coin-recharge">잔돈 충전</button>
-            <button id="item-purchase-tab-button" class="nav-tab-button" type="button" data-hash="#item-purchase">상품 구매</button>
-        </nav>
+    <header>
+      <div id="authentication-container">
+        <button class="login-button default-button ">로그인</button>
+      </div>
+      <h1>🍿 자판기 🍿</h1>
+      <nav>
+          <button id="item-manage-tab-button" class="nav-tab-button selected" type="button" data-hash="#item-manage">상품 관리</button>
+          <button id="coin-recharge-tab-button" class="nav-tab-button" type="button" data-hash="#coin-recharge">잔돈 충전</button>
+          <button id="item-purchase-tab-button" class="nav-tab-button" type="button" data-hash="#item-purchase">상품 구매</button>
+      </nav>
+    </header>
+    <main>
         <section id="tab-content"></section>
     </main>
 </body>

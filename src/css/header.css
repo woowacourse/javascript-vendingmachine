@@ -1,0 +1,9 @@
+#authentication-container {
+  align-self: flex-end;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+  margin: 12px 11px 0 0;
+}

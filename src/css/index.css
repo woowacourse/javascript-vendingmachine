@@ -1,5 +1,6 @@
 @import './color.css';
 @import './app.css';
+@import './header.css';
 @import './table.css';
 @import './buttonStyle.css';
 @import './itemManageTab.css';
@@ -17,11 +18,33 @@ ul {
   list-style: none;
 }
 
-html,
-body {
-  height: 100%;
+html {
+  min-height: 100%;
   -webkit-font-smoothing: antialiased;
   background-color: var(--main-background-color);
+}
+
+body {
+  margin: 32px auto;
+  width: fit-content;
+  min-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--app-background-color);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input,
