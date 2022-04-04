@@ -15,6 +15,8 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
     { name: '사이다', price: 1200, quantity: 20 }
   ]
 
+  const dummyVendingMachineCharge = 5000;
+
   const login = (userInfo) => {
     cy.get('#login-button').click();
     cy.get('[name="email"]').type(userInfo.email);
@@ -59,35 +61,35 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
     dummyProducts.forEach((product) => addProduct(product));
 
     goVendingMachineChargeManagementPage();
-    addVendingMachineCharge(10000);
+    addVendingMachineCharge(dummyVendingMachineCharge);
 
     logout();
   }
 
   context('상품 구매 금액 충전에 대한 테스트', () => {
     it('상품 구매 금액을 충전할 수 있다. 충전을 성공하면 투입한 금액이 충전금만큼 증가하고 성공 안내 snack bar가 나타난다..', () => {
-      const firstCharge = 5000;
-      const secondCharge = 2000;
+      const firstCustomerCharge = 5000;
+      const secondCustomerCharge = 2000;
 
-      addCustomerCharge(firstCharge);
-      cy.get('#total-customer-charge').should('have.text', `${firstCharge.toLocaleString()}원`);
+      addCustomerCharge(firstCustomerCharge);
+      cy.get('#total-customer-charge').should('have.text', `${firstCustomerCharge.toLocaleString()}원`);
 
-      addCustomerCharge(secondCharge);
-      cy.get('#total-customer-charge').should('have.text', `${(firstCharge + secondCharge).toLocaleString()}원`);
+      addCustomerCharge(secondCustomerCharge);
+      cy.get('#total-customer-charge').should('have.text', `${(firstCustomerCharge + secondCustomerCharge).toLocaleString()}원`);
       cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.CUSTOMER_CHARGE_SUCCESS);
     })
 
     it('상품 구매 금액은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.', () => {
-      const charge = 1055;
+      const customerCharge = 1055;
 
-      addCustomerCharge(charge);
+      addCustomerCharge(customerCharge);
       cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.CUSTOMER_CHARGE_WRONG_UNIT);
     })
 
     it('상품 구매 금액은 한 번에 최대 10,000원까지 충전할 수 있다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.', () => {
-      const charge = 10050;
+      const customerCharge = 10050;
 
-      addCustomerCharge(charge);
+      addCustomerCharge(customerCharge);
       cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.CUSTOMER_CHARGE_WRONG_LIMIT);
     })
 
@@ -126,5 +128,31 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
     })
   })
   
+  context('잔돈 반환에 대한 테스트', () => {
+    it('잔돈 반환에 성공하면, 안내 snack bar가 나타난다.', () => {
+      // given
+      const customerCharge = dummyVendingMachineCharge - 1000;
+      initialSettingForPurchase();
 
+      // when
+      addCustomerCharge(customerCharge);
+      cy.get('#return-change-button').click();
+
+      // then
+      cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.RETURN_CHANGES_SUCCESS);
+    })
+
+    it('자판기 잔돈이 부족하여 고객의 잔돈을 모두 돌려주지 못 하면, 안내 snack bar가 나타난다.', () => {
+      // given
+      const customerCharge = dummyVendingMachineCharge + 1000;
+      initialSettingForPurchase();
+
+      // when
+      addCustomerCharge(customerCharge);
+      cy.get('#return-change-button').click();
+
+      // then
+      cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.RETURN_INSUFFICIENT_CHANGES);
+    })
+  })
 })
