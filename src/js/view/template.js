@@ -12,7 +12,7 @@ export const TEMPLATE = {
       </form>
     </section>
     <section class="table-section" title="상품 현황">
-      <table id="product-status-table">
+      <table id="product-status-table" class="product-table">
         <caption>
           상품 현황
         </caption>
@@ -28,16 +28,16 @@ export const TEMPLATE = {
   ADD_CHANGE: `
     <section title="잔돈 충전">
       <form id="add-change-form">
-        <label for="">자판기가 보유할 금액을 입력해주세요</label>
+        <label for="change-input">자판기가 보유할 금액을 입력해주세요</label>
         <div>
-          <input type="number" id="money-input" placeholder="금액" />
+          <input type="number" id="change-input" placeholder="금액" />
           <button type="submit" class="submit-button">충전</button>
         </div>
       </form>
       <p>현재 보유 금액: <span id="total-change">0</span>원</p>
     </section>
-    <section class="table-section" title="자판기 현황">
-      <table id="coin-status-table">
+    <section class="table-section" title="자판기가 보유한 동전">
+      <table id="coin-status-table" class="coin-table">
         <caption>
           자판기가 보유한 동전
         </caption>
@@ -94,7 +94,78 @@ export const TEMPLATE = {
       </td>
     </tr>
   `,
-  PURCHASE: `<div>아직 공사중입니다 🚫 </div>`,
+  PURCHASE: `
+    <section title="상품 구매">
+      <form id="add-money-form">
+        <label for="money-input">상품을 구매할 금액을 투입해주세요</label>
+        <div>
+          <input type="number" id="money-input" placeholder="금액" />
+          <button type="submit" class="submit-button">투입</button>
+        </div>
+      </form>
+      <p>투입한 금액: <span id="total-input-money">0</span>원</p>
+    </section>
+    <section class="table-section" title="구매 가능 상품 현황">
+      <table id="purchaseable-product-status-table" class="product-table" >
+        <caption>
+          구매 가능 상품 현황
+        </caption>
+        <tr>
+          <th>상품명</th>
+          <th>가격</th>
+          <th>수량</th>
+          <th>관리</th>
+        </tr>
+        <tr>
+          <td class="product-name">콜라</td>
+          <td class="product-price">1500</td>
+          <td class="product-stock">20</td>
+          <td>
+            <div class="table-button-wrapper">
+              <button type="button" class="purchase-product-button">구매</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+        <td class="product-name">사이다</td>
+        <td class="product-price">1000</td>
+        <td class="product-stock">10</td>
+        <td>
+          <div class="table-button-wrapper">
+            <button type="button" class="purchase-product-button">구매</button>
+          </div>
+        </td>
+      </tr>
+      </table>
+    </section>
+    <section class="table-section" title="잔돈 반환">
+      <table id="coin-status-table" class="coin-table">
+        <caption>
+          잔돈 반환
+        </caption>
+        <tr>
+          <th>동전</th>
+          <th>개수</th>
+        </tr>
+        <tr>
+          <td>500원</td>
+          <td data-coin-name='FIVE_HUNDRED_WON'>0개</td>
+        </tr>
+        <tr>
+          <td>100원</td>
+          <td data-coin-name='ONE_HUNDRED_WON'>0개</td>
+        </tr>
+        <tr>
+          <td>50원</td>
+          <td data-coin-name='FIFTY_WON'>0개</td>
+        </tr>
+        <tr>
+          <td>10원</td>
+          <td data-coin-name='TEN_WON'>0개</td>
+        </tr>
+      </table>
+      <button type="button" id="return-button">반환</button>
+    </section>`,
   NOT_FOUND: `
     <section title="존재하지 않는 페이지" class="not-found-section">
       <h2>🛒 Page Not Found</h2>

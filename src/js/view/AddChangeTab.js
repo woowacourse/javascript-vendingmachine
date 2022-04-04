@@ -5,7 +5,7 @@ export default class AddChangeTab {
   #vendingMachine;
   #addChangeContainer;
   #addChangeForm;
-  #moneyInput;
+  #changeInput;
   #totalChange;
   #coinStatusTable;
 
@@ -15,7 +15,7 @@ export default class AddChangeTab {
 
     this.#addChangeContainer = createMainElement(TEMPLATE.ADD_CHANGE);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
-    this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
+    this.#changeInput = selectDom('#change-input', this.#addChangeContainer);
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
@@ -29,7 +29,7 @@ export default class AddChangeTab {
 
   #handleAddChange = (e) => {
     e.preventDefault();
-    const money = this.#moneyInput.valueAsNumber;
+    const money = this.#changeInput.valueAsNumber;
 
     try {
       this.#vendingMachine.addChange(money);
@@ -52,6 +52,6 @@ export default class AddChangeTab {
   }
 
   #resetInput() {
-    this.#moneyInput.value = '';
+    this.#changeInput.value = '';
   }
 }
