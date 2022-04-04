@@ -3,7 +3,7 @@ import { UserInfo } from '../types';
 export default class UserDomain {
   #accessToken: string;
   #userInfo: UserInfo;
-  isSignIn = false;
+  #isSignIn = false;
 
   get userInfo() {
     return this.#userInfo;
@@ -13,14 +13,18 @@ export default class UserDomain {
     return this.#accessToken;
   }
 
+  get isSignIn() {
+    return this.#isSignIn;
+  }
+
   signIn(user: UserInfo, accessToken: string) {
-    this.isSignIn = true;
+    this.#isSignIn = true;
     this.#userInfo = user;
     this.#accessToken = accessToken ?? this.#accessToken;
   }
 
   signOut() {
-    this.isSignIn = false;
+    this.#isSignIn = false;
     this.#userInfo = { email: '', name: '', password: '' };
     this.#accessToken = '';
   }
