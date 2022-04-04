@@ -63,13 +63,17 @@ class PurchasePossibleProductSituation extends CustomElement {
       }
       case PRODUCT_ACTION.PURCHASE: {
         const $tbodyRow = $(`[data-purchase-product-name="${detail}"]`);
-        this.updateProductQuantity($tbodyRow);
+        this.updateProductQuantity($tbodyRow, detail);
       }
     }
   }
 
-  updateProductQuantity = ($tbodyRow) => {
-    $('.product-quantity-td', $tbodyRow).textContent -= 1;
+  updateProductQuantity = ($tbodyRow, detail) => {
+    const $productQuantityTd = $('.product-quantity-td', $tbodyRow);
+    $productQuantityTd.textContent -= 1;
+    if (Number($productQuantityTd.textContent) === 0) {
+      ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, detail);
+    }
   };
 
   tableBodyRowTemplate({ name, price, quantity }) {
