@@ -4,33 +4,6 @@ import { COIN_10, COIN_100, COIN_50, COIN_500 } from '../ts/constant/rule';
 import { PURCHASE_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 import ItemPurchase from '../ts/vendingMachine/ItemPurchase';
 
-describe('잔돈 반환 테스트', () => {
-  const vendingMachine = new ItemPurchase();
-  test('잔돈을 반환하면, 잔돈(vendingMachine.change)과 반환하지 못한 나머지 금액을 알 수 있다.', () => {
-    const coinCollection: CoinCollectionType = {
-      [COIN_500]: 0,
-      [COIN_100]: 5,
-      [COIN_50]: 1,
-      [COIN_10]: 1,
-    };
-    const remainedMoneyInput = 1000;
-    const remainedMoney = vendingMachine.giveChange(remainedMoneyInput, coinCollection);
-    expect(vendingMachine.calculateTotalChange()).toBe(remainedMoneyInput - remainedMoney);
-  });
-
-  test('현재 보유한 최소 개수의 동전을 계산해서 잔돈(vendingMachine.change)을 갱신한다.', () => {
-    const coinCollection: CoinCollectionType = {
-      [COIN_500]: 3,
-      [COIN_100]: 15,
-      [COIN_50]: 10,
-      [COIN_10]: 10,
-    };
-    const remainedMoneyInput = 1500;
-    vendingMachine.giveChange(remainedMoneyInput, coinCollection);
-    expect(vendingMachine.change[COIN_500]).toBe(3);
-  });
-});
-
 describe('구매 가능 여부 확인', () => {
   const vendingMachine = new ItemPurchase();
 
@@ -83,5 +56,34 @@ describe('구매 가능 여부 확인', () => {
       vendingMachine.purchaseItem(itemPrice);
       expect(vendingMachine.money).toBe(prevMoneyAmount + inputMoney - itemPrice);
     });
+  });
+});
+
+describe('잔돈 반환 테스트', () => {
+  const vendingMachine = new ItemPurchase();
+  test('잔돈을 반환하면, 잔돈(vendingMachine.change)과 반환하지 못한 나머지 금액을 알 수 있다.', () => {
+    const coinCollection: CoinCollectionType = {
+      [COIN_500]: 0,
+      [COIN_100]: 5,
+      [COIN_50]: 1,
+      [COIN_10]: 1,
+    };
+    const remainedMoneyInput = 1000;
+    vendingMachine.insertMoney(remainedMoneyInput);
+    vendingMachine.calculateChange(coinCollection);
+    expect(vendingMachine.calculateTotalChange()).toBe(remainedMoneyInput - vendingMachine.money);
+  });
+
+  test('현재 보유한 최소 개수의 동전을 계산해서 잔돈(vendingMachine.change)을 갱신한다.', () => {
+    const coinCollection: CoinCollectionType = {
+      [COIN_500]: 3,
+      [COIN_100]: 15,
+      [COIN_50]: 10,
+      [COIN_10]: 10,
+    };
+    const remainedMoneyInput = 1500;
+    vendingMachine.insertMoney(remainedMoneyInput);
+    vendingMachine.calculateChange(coinCollection);
+    expect(vendingMachine.change[COIN_500]).toBe(3);
   });
 });

@@ -24,4 +24,7 @@ export const MONEY_ERROR_MESSAGE = {
 export const PURCHASE_ERROR_MESSAGE = {
   OUT_OF_STOCK: '재고가 없습니다. 해당 상품은 더 이상 구매할 수 없습니다.',
   NOT_ENOUGH_MONEY: '잔돈이 부족합니다. 해당 상품 구매를 원하신다면 금액을 투입해 주세요.',
+  CANNOT_GIVE_BACK_CHANGE: '반환할 금액이 없습니다.',
+  CANNOT_GIVE_BACK_CHANGE_ALL: '일부만 반환되었습니다. 자판기 관리자에게 문의해주세요.',
+  GIVE_BACK_CHANGE_SUCCESS: '모두 반환되었습니다.',
 };

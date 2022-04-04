@@ -44,6 +44,10 @@ class ItemManage implements ItemManageInterface {
     this._itemList[itemIndex] = itemInfo;
   }
 
+  decreaseItemQuantity(targetItemIndex: number) {
+    this._itemList[targetItemIndex].itemQuantity -= 1;
+  }
+
   validateItemInput(itemInfo: itemInfoType, itemIndex = 0, isAddMode = true) {
     const testCases: TestCaseType[] = [
       { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },

@@ -1,3 +1,4 @@
+import { PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 import { generateItemPurchaseContentTemplate } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
@@ -78,7 +79,7 @@ class ItemPurchaseTab extends VendingMachineTab {
       }
 
       this.vendingMachine.purchaseItem(itemPrice);
-      this.itemManage.itemList[targetItemInfoIndex].itemQuantity -= 1;
+      this.itemManage.decreaseItemQuantity(targetItemInfoIndex);
 
       const itemQuantityCell = selectDom('.item-quantity', targetItem);
       itemQuantityCell.textContent = itemQuantity - 1;
@@ -87,15 +88,28 @@ class ItemPurchaseTab extends VendingMachineTab {
   };
 
   #onClickChangeButton = () => {
+    if (this.vendingMachine.money === 0) {
+      alert(PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE);
+      return;
+    }
+
     this.coinRecharge.updateCoinCollection(
       this.vendingMachine.calculateChange(this.coinRecharge.coinCollection)
     );
 
-    this.coinCountList = selectDoms('.coin-count', this.changeTable);
-    this.coinCountList.forEach((coinCount) => {
+    const coinCountList = selectDoms('.coin-count', this.changeTable);
+    coinCountList.forEach((coinCount) => {
       coinCount.textContent = `${this.vendingMachine.change[coinCount.dataset.coinValue]}개`;
     });
-    this.inputAmountText.textContent = this.vendingMachine.money;
+
+    const remainedMoney = this.vendingMachine.money;
+    this.inputAmountText.textContent = remainedMoney;
+
+    if (remainedMoney !== 0) {
+      alert(PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE_ALL);
+      return;
+    }
+    alert(PURCHASE_ERROR_MESSAGE.GIVE_BACK_CHANGE_SUCCESS);
   };
 }
 
