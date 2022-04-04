@@ -1,4 +1,4 @@
-import { EMPTY_COIN } from '../../constant/constant';
+import { EMPTY_COIN, MONEY, MONEY_UNIT } from '../../constant/constant';
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { sortCoins } from '../../utils/coinUtil';
@@ -28,9 +28,9 @@ class ItemPurchasePage extends Component {
             name="amount"
             placeholder="금액"
             type="number"
-            min="10"
-            max="10000"
-            step="10"
+            min=${MONEY.MIN}
+            max=${MONEY.MAX}
+            step=${MONEY_UNIT}
             required
             autofocus
           >

@@ -1,5 +1,3 @@
-import { showSnackBar } from '../utils/domUtil';
-
 export const loginUser = async ({ email, password }) => {
   const response = await fetch('http://localhost:3000/login', {
     method: 'POST',

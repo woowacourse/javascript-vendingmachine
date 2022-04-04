@@ -45,6 +45,20 @@ export const AMOUNT = {
   MAX_TOTAL_MONEY: 100000,
 };
 
+export const MONEY = {
+  MIN: 10,
+  MAX: 10000,
+};
+
+export const NAME = {
+  MIN_LENGTH: 2,
+  MAX_LENGTH: 6,
+};
+
+export const PASSWORD = {
+  PATTERN: `^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}`,
+};
+
 export const ERROR_MESSAGE = {
   NOT_FOUND: '존재하지 않는 이이탬입니다.',
   NAME_ALREADY_USED:
@@ -56,6 +70,7 @@ export const ERROR_MESSAGE = {
   WRONG_AMOUNT_RANGE: `${AMOUNT.MIN}~${AMOUNT.MAX} 범위의 금액을 입력해주세요`,
   WRONG_AMOUNT_UNIT: `입력 금액은 ${MONEY_UNIT}원 단위여야 합니다`,
   OVERFLOW_TOTAL_MONEY: `총액은 최대 ${AMOUNT.MAX_TOTAL_MONEY}까지 가능합니다`,
+  CHECK_PASSWORD: '비밀번호를 확인해주세요',
 };
 
 export const CONFIRM_MESSAGE = {

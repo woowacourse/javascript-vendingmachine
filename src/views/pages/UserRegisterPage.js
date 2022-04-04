@@ -3,6 +3,7 @@ import { registerUser } from '../../auth/register';
 import { setData } from '../../utils/storageUtil';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
+import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';
 
 class UserRegisterPage extends Component {
   template() {
@@ -22,11 +23,11 @@ class UserRegisterPage extends Component {
           <label for="email">이메일</label>
           <input type="email" class="register-input styled-input" placeholder="이메일 주소를 입력해주세요" name="email" required>
           <label for="user-name">이름</label>
-          <input type="text" class="register-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" required>
+          <input type="text" class="register-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength=${NAME.MIN_LENGTH} maxlength=${NAME.MAX_LENGTH} required>
           <label for="password">비밀번호</label>
-          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
+          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern=${PASSWORD.PATTERN} required>
           <label for="password-check">비밀번호 확인</label>
-          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
+          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" pattern=${PASSWORD.PATTERN} required>
           <button type="submit" class="register-button styled-button emphasized">확인</button>
         </form>
       </div>
@@ -43,7 +44,7 @@ class UserRegisterPage extends Component {
         event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        showSnackBar(snackbar, '패스워드를 확인해 주세요');
+        showSnackBar(snackbar, ERROR_MESSAGE.CHECK_PASSWORD);
 
         return;
       }

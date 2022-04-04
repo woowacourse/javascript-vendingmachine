@@ -4,6 +4,7 @@ import { loginUser } from '../../auth/login';
 import { editUser, deleteUser } from '../../auth/edit';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
+import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';
 
 class UserEditPage extends Component {
   setup() {
@@ -29,11 +30,11 @@ class UserEditPage extends Component {
           <label for="email">이메일</label>
           <input type="email" class="edit-input styled-input" name="email" value=${this.state.email} required disabled>
           <label for="user-name">이름</label>
-          <input type="text" class="edit-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" value=${this.state.name} required>
+          <input type="text" class="edit-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength=${NAME.MIN_LENGTH} maxlength=${NAME.MAX_LENGTH} value=${this.state.name} required>
           <label for="password">비밀번호</label>
-          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
+          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern=${PASSWORD.PATTERN} required>
           <label for="password-check">비밀번호 확인</label>
-          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
+          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" pattern=${PASSWORD.PATTERN} required>
           <button type="submit" class="edit-button styled-button emphasized">확인</button>
         </form>
         <button id="withdraw-button" class="withdraw">탈퇴하기</button>
@@ -50,7 +51,7 @@ class UserEditPage extends Component {
       const { userName, password, passwordCheck } = event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        showSnackBar(snackbar, '비밀번호를 확인해주세요');
+        showSnackBar(snackbar, ERROR_MESSAGE.CHECK_PASSWORD);
 
         return;
       }
