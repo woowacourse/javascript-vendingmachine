@@ -28,12 +28,14 @@ const findTarget = (route) => {
 
 const render = (currentTarget, prevTarget) => {
   currentTarget.$button.classList.add('clicked');
+  currentTarget.$container.classList.add('container');
   currentTarget.$container.show();
   currentTarget.$focusInput.focus();
 
   if (!prevTarget) return;
 
   prevTarget.$button.classList.remove('clicked');
+  prevTarget.$container.classList.remove('container');
   prevTarget.$container.hide();
 };
 
