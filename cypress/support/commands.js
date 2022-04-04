@@ -49,7 +49,7 @@ Cypress.Commands.add('registerNewUser', (userData) => {
 Cypress.Commands.add('loginWithNewUser', (userData) => {
   cy.intercept({
     method: 'POST',
-    url: '**/signin',
+    url: '**/login',
   }).as('signInRequest');
 
   cy.registerNewUser(userData);

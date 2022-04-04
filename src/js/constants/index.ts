@@ -67,3 +67,10 @@ export const MONEY_NAME_STRING = {
   COIN_50_WON: 'FIFTY_WON',
   COIN_10_WON: 'TEN_WON',
 } as const;
+
+export const AUTH_URL_BASE = 'https://vendingmachine-auth-server.herokuapp.com';
+
+export const POST_REQUEST_OPTIONS = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+};

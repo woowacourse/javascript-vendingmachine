@@ -1,3 +1,5 @@
+import { AUTH_URL_BASE, POST_REQUEST_OPTIONS } from '../constants';
+
 export default class Authorization {
   #isLoggedIn;
   #userId;
@@ -5,9 +7,7 @@ export default class Authorization {
   #email;
 
   constructor() {
-    this.#userId = window.sessionStorage.getItem('userId');
-    this.#name = window.sessionStorage.getItem('name');
-    this.#email = window.sessionStorage.getItem('email');
+    this.#getUserData();
     this.#isLoggedIn = !!this.#userId;
   }
 
@@ -24,69 +24,67 @@ export default class Authorization {
   }
 
   async register(userInputData) {
-    const response = await fetch(
-      'https://vendingmachine-auth-server.herokuapp.com/users',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userInputData),
-      }
-    ).then((res) => res.json());
+    const response = await fetch(`${AUTH_URL_BASE}/users`, {
+      ...POST_REQUEST_OPTIONS,
+      body: JSON.stringify(userInputData),
+    });
 
     const {
       user: { id: userId, name, email },
-    } = response;
+    } = await response.json();
 
     this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
   async update(userInputData) {
-    const response = await fetch(
-      `https://vendingmachine-auth-server.herokuapp.com/users/${this.#userId}`,
-      {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userInputData),
-      }
-    ).then((res) => res.json());
+    const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userInputData),
+    });
 
-    const { id: userId, name, email } = response;
+    const { id: userId, name, email } = await response.json();
 
     this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
   async login(userInputData) {
-    const response = await fetch(
-      'https://vendingmachine-auth-server.herokuapp.com/signin',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userInputData),
-      }
-    ).then((res) => res.json());
+    const response = await fetch(`${AUTH_URL_BASE}/login`, {
+      ...POST_REQUEST_OPTIONS,
+      body: JSON.stringify(userInputData),
+    });
 
     const {
       user: { id: userId, name, email },
-    } = response;
+    } = await response.json();
 
     this.#saveUserData({ userId, name, email });
     this.#isLoggedIn = true;
   }
 
   logout() {
-    window.sessionStorage.removeItem('accessToken');
-    window.sessionStorage.removeItem('userId');
+    window.sessionStorage.removeItem('userData');
 
     this.#userId = null;
     this.#isLoggedIn = false;
   }
 
+  #getUserData() {
+    const savedUserData = JSON.parse(window.sessionStorage.getItem('userData'));
+
+    if (!savedUserData) return;
+
+    const { userId, name, email } = savedUserData;
+
+    this.#userId = userId;
+    this.#name = name;
+    this.#email = email;
+  }
+
   #saveUserData({ userId, name, email }) {
-    window.sessionStorage.setItem('userId', userId);
-    window.sessionStorage.setItem('name', name);
-    window.sessionStorage.setItem('email', email);
+    window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
     this.#userId = userId;
     this.#name = name;
