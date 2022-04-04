@@ -9,6 +9,7 @@ class PurchaseComponent {
   purchaseContainer: HTMLElement;
   purchaseForm: HTMLFormElement;
   purchaseAmountInput: HTMLInputElement;
+  purchaseAmount: HTMLSpanElement;
 
   constructor({ productManager, chargeManager }) {
     this.productManager = productManager;
@@ -18,6 +19,7 @@ class PurchaseComponent {
     this.purchaseContainer.insertAdjacentHTML("beforeend", purchaseTemplate());
 
     this.purchaseForm = $(".purchase-form");
+    this.purchaseAmount = $(".purchase-form__amount");
     this.purchaseAmountInput = $(".purchase-form__input");
 
     this.purchaseForm.addEventListener("submit", this.handleAddAmount);
@@ -25,14 +27,19 @@ class PurchaseComponent {
 
   handleAddAmount = (e: Event) => {
     e.preventDefault();
-    const purchaseAmount = this.purchaseAmountInput.valueAsNumber;
+    const amount = this.purchaseAmountInput.valueAsNumber;
 
     try {
-      this.productManager.addPurchaseAmount(purchaseAmount);
+      this.productManager.addPurchaseAmount(amount);
+      this.renderAmount();
     } catch ({ message }) {
       alert(message);
     }
   };
+
+  renderAmount() {
+    this.purchaseAmount.textContent = `${this.productManager.getPurchaseAmount()}`;
+  }
 
   show() {
     this.purchaseContainer.classList.remove("hide");

@@ -8,9 +8,11 @@ import {
 
 interface ProductManagerInterface {
   getProducts(): Product[];
+  getPurchaseAmount(): number;
   addProduct(product: Product): void;
   removeProduct(name: string): void;
   editProduct(editProduct: Product, prevName: string): void;
+  addPurchaseAmount(amount: number): void;
 }
 
 export interface Product {
@@ -56,6 +58,8 @@ class ProductManager implements ProductManagerInterface {
 
   addPurchaseAmount(amount: number) {
     verifyPurchaseAmount(amount);
+
+    this.purchaseAmount += amount;
   }
 }
 
