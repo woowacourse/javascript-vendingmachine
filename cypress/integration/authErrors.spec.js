@@ -1,10 +1,7 @@
 import { ERROR_MESSAGE, USER_REGISTER_RULES } from '../../src/js/constants';
+import createRandomUserData from './createRandomUserData';
 
 const baseUrl = 'http://localhost:9000';
-
-function createRandomUserData() {
-  return { email: `${Date.now()}@test.com`, name: 'test', password: 'abcd1234!!' };
-}
 
 describe('사용자 인증 오류 테스트', () => {
   describe('회원가입 시 오류 테스트', () => {

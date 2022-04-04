@@ -1,8 +1,6 @@
-const baseUrl = 'http://localhost:9000';
+import createRandomUserData from './createRandomUserData';
 
-function createRandomUserData() {
-  return { email: `${Date.now()}@test.com`, name: 'test', password: 'abcd1234!!' };
-}
+const baseUrl = 'http://localhost:9000';
 
 describe('사용자 인증 기본 기능 테스트', () => {
   beforeEach(() => {
