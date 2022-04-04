@@ -1,4 +1,5 @@
-import { MESSAGE, USER_INFO_RULE } from '../../constants';
+import { USER_INFO_RULE } from '../../constants';
+import { MESSAGE } from '../../constants/message';
 import { UserInfo } from '../types';
 
 const validateUserInfo = (user: UserInfo, confirmPassword: string) => {

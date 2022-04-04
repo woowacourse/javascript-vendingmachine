@@ -1,9 +1,5 @@
-import {
-  MAX_NAME_LENGTH,
-  MAX_QUANTITY,
-  MESSAGE,
-  PRICE_RULE,
-} from '../constants';
+import { MAX_NAME_LENGTH, MAX_QUANTITY, PRICE_RULE } from '../constants';
+import { MESSAGE } from '../constants/message';
 import ProductManagementDomain from '../domain/ProductManagementDomain/ProductManagement';
 
 describe('상품 도메인 추가/수정/삭제 테스트', () => {

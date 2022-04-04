@@ -1,4 +1,5 @@
-import { CASH_RULE, MESSAGE } from '../../constants';
+import { CASH_RULE } from '../../constants';
+import { MESSAGE } from '../../constants/message';
 import { isInvalidNumber } from '../../utils/validator';
 
 const validateCash = (cash: number) => {

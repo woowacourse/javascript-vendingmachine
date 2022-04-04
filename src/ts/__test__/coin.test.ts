@@ -1,5 +1,6 @@
 import CoinManagementDomain from '../domain/CoinManagementDomain/CoinManagement';
-import { CASH_RULE, MESSAGE } from '../constants';
+import { CASH_RULE } from '../constants';
+import { MESSAGE } from '../constants/message';
 
 describe('잔돈 도메인 동전 생성 테스트', () => {
   it('금액을 입력 받으면, 랜덤으로 동전이 생성되어 총액에 더해진다.', () => {

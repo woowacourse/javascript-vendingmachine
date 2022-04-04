@@ -1,4 +1,5 @@
-import { COIN_TYPE, MESSAGE } from '../../../constants';
+import { COIN_TYPE } from '../../../constants';
+import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';

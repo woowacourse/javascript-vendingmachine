@@ -1,9 +1,5 @@
-import {
-  MAX_NAME_LENGTH,
-  MAX_QUANTITY,
-  MESSAGE,
-  PRICE_RULE,
-} from '../../constants';
+import { MAX_NAME_LENGTH, MAX_QUANTITY, PRICE_RULE } from '../../constants';
+import { MESSAGE } from '../../constants/message';
 import { isInvalidNumber } from '../../utils/validator';
 import Product from '../Product';
 import { ProductInfo, ProductInfoUnionType } from '../types';

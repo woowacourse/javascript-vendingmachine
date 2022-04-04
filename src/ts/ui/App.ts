@@ -1,4 +1,4 @@
-import { MESSAGE } from '../constants';
+import { MESSAGE } from '../constants/message';
 import UserDomain from '../domain/UserDomain/User';
 import { showSnackbar } from '../utils';
 import { $, $$ } from '../utils/dom';

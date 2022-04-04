@@ -1,8 +1,5 @@
-import {
-  MESSAGE,
-  PURCHASE_CASH_RULE,
-  USER_INFO_RULE,
-} from '../../src/ts/constants';
+import { PURCHASE_CASH_RULE, USER_INFO_RULE } from '../../src/ts/constants';
+import { MESSAGE } from '../../src/ts/constants/message';
 
 describe('손님 입장에서 UI 정상 동작 테스트', () => {
   beforeEach(() => {

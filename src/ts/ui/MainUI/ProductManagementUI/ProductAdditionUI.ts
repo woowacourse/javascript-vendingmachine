@@ -2,7 +2,7 @@ import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 import { ProductInfoUnionType } from '../../../domain/types';
 import { showSnackbar } from '../../../utils';
-import { MESSAGE } from '../../../constants';
+import { MESSAGE } from '../../../constants/message';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
