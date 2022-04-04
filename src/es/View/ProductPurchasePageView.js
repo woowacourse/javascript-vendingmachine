@@ -107,7 +107,7 @@ class ProductPurchasePageView {
   };
 
   updateTotalCustomerCharge = ({ customerChargeAmount }) => {
-    $('#total-customer-charge').innerText = `${customerChargeAmount}원`;
+    $('#total-customer-charge').innerText = `${customerChargeAmount.toLocaleString()}원`;
   };
 
   updateProductList = ({ products }) => {
