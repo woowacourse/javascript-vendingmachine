@@ -1,4 +1,5 @@
 import api from '../Api';
+import snackbar from '../components/Snackbar';
 import router from '../router/index';
 import template from '../template';
 
@@ -42,7 +43,7 @@ export default class Login {
         router.to('#!/product-manage');
       });
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 }

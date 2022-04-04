@@ -2,6 +2,7 @@ import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
 import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 import template from '../template/index';
+import snackbar from '../components/Snackbar';
 
 export default class ProductManage {
   private tabName = 'ProductManage';
@@ -49,7 +50,7 @@ export default class ProductManage {
       vendingMachine.addProduct(newProduct);
       this.renderProductItem(newProduct);
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 
@@ -91,7 +92,7 @@ export default class ProductManage {
       const newLi = this.replaceList(product, template.productItem);
       ul.replaceChild(newLi, oldLi);
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 

@@ -1,4 +1,5 @@
 import api from '../Api';
+import snackbar from '../components/Snackbar';
 import router from '../router';
 import template from '../template';
 import {
@@ -92,7 +93,7 @@ export default class EditProfile {
         router.to('#!/product-manage');
       });
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 

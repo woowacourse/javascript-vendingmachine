@@ -1,3 +1,5 @@
+import snackbar from './components/Snackbar';
+
 const HOME_URL = 'https://vendingmachine-coke-test.herokuapp.com';
 const DEV_URL = 'http://localhost:3000';
 
@@ -18,7 +20,7 @@ class Api {
 
       return res;
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 
@@ -39,7 +41,7 @@ class Api {
 
       return res;
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 
@@ -58,7 +60,7 @@ class Api {
 
       return res;
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 }

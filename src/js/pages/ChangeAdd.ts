@@ -1,3 +1,4 @@
+import snackbar from '../components/Snackbar';
 import vendingMachine from '../model/VendingMachine';
 import template from '../template';
 
@@ -61,7 +62,7 @@ export default class ChangeAdd {
       vendingMachine.addChange(inputChange);
       this.refreshChange();
     } catch (message) {
-      alert(message);
+      snackbar(message);
     }
   };
 
