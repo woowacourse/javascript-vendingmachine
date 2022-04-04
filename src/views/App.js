@@ -18,14 +18,14 @@ export default class App extends Component {
     const { isLoggedIn, userData } = this.state;
 
     return `
-      <main class="app-container">
+      <main>
         <page-router>
-          <vending-machine path="#item-management" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
-          <vending-machine path="#change-charge" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
-          <vending-machine path="#item-purchase" isLoggedIn=${isLoggedIn} userName=${userData?.name}></vending-machine>
-          <user-login path="#user-login" isLoggedIn=${isLoggedIn}></user-login>
-          <user-register path="#register" isLoggedIn=${isLoggedIn}></user-register>
-          <user-edit path="#user-edit" isLoggedIn=${isLoggedIn} userId=${userData?.id}></user-edit>
+          <vending-machine path="#item-management" isLoggedIn=${isLoggedIn} userName=${userData?.name} class="app-container"></vending-machine>
+          <vending-machine path="#change-charge" isLoggedIn=${isLoggedIn} userName=${userData?.name} class="app-container"></vending-machine>
+          <vending-machine path="#item-purchase" isLoggedIn=${isLoggedIn} userName=${userData?.name} class="app-container"></vending-machine>
+          <user-login path="#user-login" isLoggedIn=${isLoggedIn} class="app-container"></user-login>
+          <user-register path="#register" isLoggedIn=${isLoggedIn} class="app-container"></user-register>
+          <user-edit path="#user-edit" isLoggedIn=${isLoggedIn} userId=${userData?.id} class="app-container"></user-edit>
           <not-found path="*"></not-found>
         </page-router>
       </main>

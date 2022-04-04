@@ -1,0 +1,27 @@
+.add-money-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 372px;
+}
+
+.add-money-amount {
+  width: 292px;
+  height: 28px;
+}
+
+.add-money-button {
+  width: 56px;
+  height: 36px;
+  align-self: flex-end;
+}
+
+.item-buy-button,
+.return-button {
+  width: 100px;
+  height: 32px;
+}
+
+.return-button {
+  margin: 16px auto 0;
+}

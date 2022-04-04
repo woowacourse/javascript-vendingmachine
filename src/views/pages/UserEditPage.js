@@ -24,18 +24,18 @@ class UserEditPage extends Component {
       </header>
       <section>
         <h2 hidden>회원 정보 수정 폼</h2>
-        <form id="user-edit-form">
+        <form id="user-edit-form" class="user-edit-form">
           <label for="email">이메일</label>
-          <input type="email" placeholder="이메일 주소를 입력해주세요" name="email" value=${this.state.email} required>
+          <input type="email" class="edit-input styled-input" placeholder="이메일 주소를 입력해주세요" name="email" value=${this.state.email} required>
           <label for="user-name">이름</label>
-          <input type="text" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" value=${this.state.name} required>
+          <input type="text" class="edit-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" value=${this.state.name} required>
           <label for="password">비밀번호</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
+          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
           <label for="password-check">비밀번호 확인</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
-          <button type="submit">확인</button>
+          <input type="password" class="edit-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
+          <button type="submit" class="edit-button styled-button emphasized">확인</button>
         </form>
-        <button id="withdraw-button">탈퇴하기</button>
+        <button id="withdraw-button" class="withdraw">탈퇴하기</button>
       </section>
     `;
   }

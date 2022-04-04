@@ -1,0 +1,15 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.login-input{
+  height: 28px;
+}
+
+.login-confirm-button {
+  height: 36px;
+}

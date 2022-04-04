@@ -106,7 +106,7 @@ class ItemPurchasePage extends Component {
             .join('')}
         </tbody>
       </table>
-      <button id="return-button" class="styled-button">반환</button>
+      <button id="return-button" class="return-button styled-button">반환</button>
     </section>
   `;
   }

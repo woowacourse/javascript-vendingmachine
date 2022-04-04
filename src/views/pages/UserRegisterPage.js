@@ -17,16 +17,16 @@ class UserRegisterPage extends Component {
         <h1 class="title">회원가입</h1>
       </header>
       <div>
-        <form id="register-form">
+        <form id="register-form" class="register-form">
           <label for="email">이메일</label>
-          <input type="email" placeholder="이메일 주소를 입력해주세요" name="email" required>
+          <input type="email" class="register-input styled-input" placeholder="이메일 주소를 입력해주세요" name="email" required>
           <label for="user-name">이름</label>
-          <input type="text" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" required>
+          <input type="text" class="register-input styled-input" placeholder="이름을 입력해주세요" name="userName" minlength="2" maxlength="6" required>
           <label for="password">비밀번호</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
+          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="password" pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}" required>
           <label for="password-check">비밀번호 확인</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
-          <button type="submit">확인</button>
+          <input type="password" class="register-input styled-input" placeholder="비밀번호를 입력해주세요" name="passwordCheck" required>
+          <button type="submit" class="register-button styled-button emphasized">확인</button>
         </form>
       </div>
     `;
