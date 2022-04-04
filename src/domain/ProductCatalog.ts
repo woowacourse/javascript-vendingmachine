@@ -36,4 +36,21 @@ export class ProductCatalog {
   deleteProductByName(name: string) {
     this.productList = this.productList.filter((product) => product.getName() !== name);
   }
+
+  purchaseProductByName(name: string) {
+    const productIndex = this.findExistingProductIndex(name);
+    const target = this.productList[productIndex];
+    try {
+      validateProductQuantity(target.getQuantity() - 1);
+      target.setQuantity(target.getQuantity() - 1);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  getProductQuantityByName(name: string): number {
+    const productIndex = this.findExistingProductIndex(name);
+    const target = this.productList[productIndex];
+    return target.getQuantity();
+  }
 }

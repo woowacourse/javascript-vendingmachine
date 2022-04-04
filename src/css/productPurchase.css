@@ -25,3 +25,11 @@
 #current-balance-container {
   grid-area: cb;
 }
+
+.purchase-button {
+  background-color: var(--gray-light);
+  color: var(--black);
+
+  width: 100px;
+  height: 37px;
+}

@@ -36,5 +36,8 @@ export function validateProductQuantity(quantity: number) {
   if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
     throw new Error(ERR_PRODUCT.EXCEED_MAX_QUANTITY);
   }
+  if (quantity < 0) {
+    throw new Error(ERR_PRODUCT.NEGATIVE_QUANTITY);
+  }
   return;
 }

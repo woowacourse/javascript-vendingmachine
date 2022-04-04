@@ -1,3 +1,4 @@
+import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../interfaces/interface';
 import { validateAllProductProps } from '../utils/domain.utils';
@@ -57,7 +58,7 @@ export class ProductCatalogTable {
       .join('');
   }
 
-  tableRowTemplate(product): string {
+  tableRowTemplate(product: Product): string {
     return `<tr id = '${product.getName()}'>
   <td class='product-name product-prop'><span>${product.getName()}</span></td>
   <td class='product-price product-prop'><span>${product.getPrice()}</span></td>
