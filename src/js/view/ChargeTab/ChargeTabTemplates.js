@@ -1,7 +1,7 @@
 import { MONEY_NAME_STRING } from '../../constants';
 
 const chargeTabTemplate = /* html */ `
-<section class="form=section" aria-labelledby="charge-tab-title">
+<section class="form-section" aria-labelledby="charge-tab-title">
   <h2 class="tab-title" id="charge-tab-title">잔돈 충전하기</h2>
   <form id="add-change-form">
     <div class="instructions">
@@ -12,7 +12,7 @@ const chargeTabTemplate = /* html */ `
       </ul>
     </div>
     <label for="change">자판기가 보유할 금액을 입력해주세요</label>
-    <div>
+    <div class="input-form-wrapper">
       <input type="number" id="money-input" placeholder="금액" name="change" min="10" max="100000" step="10" required/>
       <button type="submit" class="submit-button">충전</button>
     </div>
