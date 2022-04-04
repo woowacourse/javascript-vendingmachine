@@ -14,7 +14,7 @@ export default class PurchaseCashChargeUI {
     $('.purchase-cash-charge__input').focus();
   }
 
-  private submitHandler = (e: Event) => {
+  private submitHandler = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;

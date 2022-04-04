@@ -17,7 +17,7 @@ export default class ProductAdditionUI {
     $('.product-addition__input').focus();
   }
 
-  private submitHandler = (e: Event) => {
+  private submitHandler = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;
