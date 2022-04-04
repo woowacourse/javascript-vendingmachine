@@ -47,16 +47,21 @@ export default class View {
 
     // 웹컴포넌트에서 보낸 커스텀 이벤트
     window.addEventListener('@render-login', this.renderLoginModal);
+    window.addEventListener('@render-signup', this.renderSignupModal);
   }
 
   private renderLoginModal = (event) => {
     document.body.appendChild(event.detail);
   };
 
+  private renderSignupModal = () => {
+    $('log-in').remove();
+    document.body.appendChild(document.createElement('sign-up'));
+  };
+
   public renderUserPrivatePage = () => {
     console.log('renderUserPrivatePage');
     $('.nav-tab').classList.remove('hide');
-    $('log-in').remove();
     $('user-menu').setAttribute('auth', 'login');
   };
 

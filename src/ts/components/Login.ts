@@ -88,8 +88,10 @@ loginTemplate.innerHTML = `
       width: 300px;
     }
 
-    .signup-link {
-
+    #signup-span {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline
     }
 
   </style>
@@ -107,7 +109,7 @@ loginTemplate.innerHTML = `
           <input type="password" placeholder="비밀번호를 입력해주세요" />
           <button type="submit">확인</button>
         </form>
-        <span>아직 회원이 아닌가요?<a href="/">회원가입</a></span>
+        <span>아직 회원이 아닌가요?<span id="signup-span">회원가입</span></span>
       </section>
     </div>
   </div>
@@ -124,6 +126,7 @@ class Login extends HTMLElement {
     this.shadowRoot.querySelector('form').addEventListener('submit', this.login);
     this.shadowRoot.querySelector('.x-shape').addEventListener('click', this.closeModal);
     this.shadowRoot.addEventListener('click', this.closeModalDimmer);
+    this.shadowRoot.querySelector('#signup-span').addEventListener('click', this.emitRenderSignup);
   }
 
   disconnectedCallback() {
@@ -178,7 +181,13 @@ class Login extends HTMLElement {
   };
 
   emitRouteLogin = () => {
+    this.remove();
     const event = new CustomEvent('@route-login', {});
+    window.dispatchEvent(event);
+  };
+
+  emitRenderSignup = () => {
+    const event = new CustomEvent('@render-signup', {});
     window.dispatchEvent(event);
   };
 }
