@@ -5,16 +5,21 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
     cy.visit('/');
   });
 
-  const login = () => {
+  const userInfoForSuccessfulLogin = {
+    email: 'woowa@woowacourse.com',
+    password: 'testTEST1234',
+  }
+
+  const login = (userInfo) => {
     cy.get('#login-button').click();
-    cy.get('[name="email"]').type('woowa@woowacourse.com');
-    cy.get('[name="password"]').type('testTEST1234');
+    cy.get('[name="email"]').type(userInfo.email);
+    cy.get('[name="password"]').type(userInfo.password);
     cy.get('#login-form').submit();
   }
 
   context('상품 관리에 대한 테스트', () => {
     const goProductManagementPage = () => {
-      login();
+      login(userInfoForSuccessfulLogin);
       cy.get('[data-page="productManagement"]').click();
     }
 
@@ -146,8 +151,8 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
   })
 
   context('잔돈 충전에 대한 테스트', () => {
-    const goProductManagementPage = () => {
-      login();
+    const goVendingMachineChargeManagementPage = () => {
+      login(userInfoForSuccessfulLogin);
       cy.get('[data-page="vendingMachineChargeManagement"]').click();
     }
 
@@ -160,7 +165,7 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
       const firstCharge = 5000;
       const secondCharge = 2000;
 
-      goProductManagementPage();
+      goVendingMachineChargeManagementPage();
       addVendingMachineCharge(firstCharge);
       cy.get('#total-vendingmachine-charge').should('have.text', `${firstCharge.toLocaleString()}원`);
 
@@ -171,7 +176,7 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
     it(`자판기 잔돈 충전금은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
       const charge = 1055;
 
-      goProductManagementPage();
+      goVendingMachineChargeManagementPage();
       addVendingMachineCharge(charge);
 
       cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_UNIT);
@@ -181,7 +186,7 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
       const firstCharge = 90000;
       const secondCharge = 10100;
 
-      goProductManagementPage();
+      goVendingMachineChargeManagementPage();
       addVendingMachineCharge(firstCharge);
       addVendingMachineCharge(secondCharge);
 
