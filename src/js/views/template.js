@@ -86,19 +86,19 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td id="five-hundred-coin"></td>
+          <td class="five-hundred-coin"></td>
         </tr>
         <tr>
           <td>100원</td>
-          <td id="one-hundred-coin"></td>
+          <td class="one-hundred-coin"></td>
         </tr>
         <tr>
           <td>50원</td>
-          <td id="fifty-coin"></td>
+          <td class="fifty-coin"></td>
         </tr>
         <tr>
           <td>10원</td>
-          <td id="ten-coin"></td>
+          <td class="ten-coin"></td>
         </tr>
       </tbody>
     </table>
@@ -140,19 +140,19 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td id="returned-five-hundred-coin"></td>
+          <td class="returned-five-hundred-coin"></td>
         </tr>
         <tr>
           <td>100원</td>
-          <td id="returned-one-hundred-coin"></td>
+          <td class="returned-one-hundred-coin"></td>
         </tr>
         <tr>
           <td>50원</td>
-          <td id="returned-fifty-coin"></td>
+          <td class="returned-fifty-coin"></td>
         </tr>
         <tr>
           <td>10원</td>
-          <td id="returned-ten-coin"></td>
+          <td class="returned-ten-coin"></td>
         </tr>
       </tbody>
     </table>

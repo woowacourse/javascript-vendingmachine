@@ -10,10 +10,10 @@ export default class ChargeView {
   initChargeDOM() {
     this.$chargeAmountInput = $('#charge-amount-input');
     this.$currentAmount = $('.current-amount');
-    this.$fiveHundredCoin = $('#five-hundred-coin');
-    this.$oneHundredCoin = $('#one-hundred-coin');
-    this.$fiftyCoin = $('#fifty-coin');
-    this.$tenCoin = $('#ten-coin');
+    this.$fiveHundredCoin = $('.five-hundred-coin');
+    this.$oneHundredCoin = $('.one-hundred-coin');
+    this.$fiftyCoin = $('.fifty-coin');
+    this.$tenCoin = $('.ten-coin');
   }
 
   renderHaveCoins(coins) {
