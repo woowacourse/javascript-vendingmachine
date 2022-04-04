@@ -62,6 +62,10 @@ class CoinRecharge implements CoinRechargeInterface {
     );
   }
 
+  updateCoinCollection(newCoinCollection: CoinCollectionType) {
+    this._coinCollection = { ...newCoinCollection };
+  }
+
   validateCashInput(rechargedCash: number) {
     const testCases: TestCaseType[] = [
       { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },

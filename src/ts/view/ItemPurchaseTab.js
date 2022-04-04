@@ -8,6 +8,13 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.itemManage = itemManage;
     this.coinRecharge = coinRecharge;
     this.itemPurchaseTabButton = selectDom('#item-purchase-tab-button');
+
+    this.itemPurchaseForm = null;
+    this.itemPurchaseInput = null;
+    this.inputAmountText = null;
+    this.itemStatusTable = null;
+    this.changeTable = null;
+    this.changeButton = null;
   }
 
   renderInitialItemPurchaseTabState() {
@@ -24,9 +31,12 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.itemPurchaseInput = selectDom('.item-purchase-input', this.itemPurchaseForm);
     this.inputAmountText = selectDom('#input-amount', this.tabContent);
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
+    this.changeTable = selectDom('.change-table', this.tabContent);
+    this.changeButton = selectDom('.give-change-button', this.tabContent);
 
     this.itemPurchaseForm.addEventListener('submit', this.#onSubmitItemPurchaseForm);
     this.itemStatusTable.addEventListener('click', this.#onClickPurchaseItemButton);
+    this.changeButton.addEventListener('click', this.#onClickChangeButton);
 
     this.itemPurchaseInput.focus();
   }
@@ -74,6 +84,18 @@ class ItemPurchaseTab extends VendingMachineTab {
       itemQuantityCell.textContent = itemQuantity - 1;
       this.inputAmountText.textContent = this.vendingMachine.money;
     }
+  };
+
+  #onClickChangeButton = () => {
+    this.coinRecharge.updateCoinCollection(
+      this.vendingMachine.calculateChange(this.coinRecharge.coinCollection)
+    );
+
+    this.coinCountList = selectDoms('.coin-count', this.changeTable);
+    this.coinCountList.forEach((coinCount) => {
+      coinCount.textContent = `${this.vendingMachine.change[coinCount.dataset.coinValue]}개`;
+    });
+    this.inputAmountText.textContent = this.vendingMachine.money;
   };
 }
 

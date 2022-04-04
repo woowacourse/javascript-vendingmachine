@@ -33,22 +33,21 @@ class ItemPurchase {
     this._money -= itemPrice;
   }
 
-  giveChange(moneyInput: number, coinCollection: CoinCollectionType) {
-    let remainedMoney = moneyInput;
+  calculateChange(coinCollection: CoinCollectionType) {
     const coins = { ...coinCollection };
 
     Object.keys(coins)
       .sort((a, b) => Number(b) - Number(a))
       .forEach((coin) => {
         const coinValue = Number(coin);
-        while (coinValue <= remainedMoney) {
+        while (coinValue <= this._money) {
           if (coins[coinValue] === 0) break;
           this._change[coinValue]++;
-          remainedMoney -= coinValue;
+          this._money -= coinValue;
           coins[coinValue] -= 1;
         }
       });
-    return remainedMoney;
+    return coins;
   }
 
   calculateTotalChange() {
