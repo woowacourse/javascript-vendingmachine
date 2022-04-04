@@ -1,5 +1,5 @@
-import { MESSAGE } from '../../../constants/message';
 import { validateCash } from '../../../domain/CoinManagementDomain/validator';
+import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';

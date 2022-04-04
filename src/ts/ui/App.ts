@@ -1,11 +1,11 @@
-import { MESSAGE } from '../constants/message';
 import UserDomain from '../domain/UserDomain/User';
-import { showSnackbar } from '../utils';
-import { $, $$ } from '../utils/dom';
 import MainUI from './MainUI/MainUI';
 import SignInUI from './SignUI/SignInUI';
 import SignUpUI from './SignUI/SignUpUI';
 import UserInfoEditUI from './SignUI/UserInfoEditUI';
+import { MESSAGE } from '../constants/message';
+import { showSnackbar } from '../utils';
+import { $, $$ } from '../utils/dom';
 import { viewPainter } from './ViewPainter';
 
 export const basePath =
@@ -85,7 +85,7 @@ export default class App {
     }, 300);
   }
 
-  private selectBoxClickHandler = (e: Event) => {
+  private selectBoxClickHandler = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     switch (e.target.name) {

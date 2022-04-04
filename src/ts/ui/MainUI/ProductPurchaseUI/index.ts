@@ -1,8 +1,8 @@
-import { $, replaceHTML } from '../../../utils/dom';
-import { viewPainter } from '../../ViewPainter';
 import ProductStatusUI from './ProductStatusUI';
 import PurchaseCashChargeUI from './PurchaseCashChargeUI';
 import ReturnCoinUI from './ReturnCoinUI';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 
 export default class ProductPurchaseUI {
   private productDomain;

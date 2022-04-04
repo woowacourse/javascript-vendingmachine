@@ -1,7 +1,7 @@
-import { $, replaceHTML } from '../../../utils/dom';
-import { viewPainter } from '../../ViewPainter';
 import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 
 export default class ProductManagementUI {
   private productDomain;

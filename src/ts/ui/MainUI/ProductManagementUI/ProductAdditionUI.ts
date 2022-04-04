@@ -1,8 +1,8 @@
-import { $ } from '../../../utils/dom';
-import { viewPainter } from '../../ViewPainter';
 import { ProductInfoUnionType } from '../../../domain/types';
-import { showSnackbar } from '../../../utils';
 import { MESSAGE } from '../../../constants/message';
+import { $ } from '../../../utils/dom';
+import { showSnackbar } from '../../../utils';
+import { viewPainter } from '../../ViewPainter';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;

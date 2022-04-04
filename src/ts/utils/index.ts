@@ -4,7 +4,7 @@ const getRandomIndex = <T>(array: T[]) => {
   return Math.floor(Math.random() * array.length);
 };
 
-const showSnackbar = message => {
+const showSnackbar = (message: string) => {
   const $snackbar = $('#snackbar');
   $snackbar.textContent = message;
   $snackbar.classList.toggle('show');
