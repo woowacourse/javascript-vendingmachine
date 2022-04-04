@@ -923,6 +923,13 @@ var ChargeMoney = /** @class */ (function () {
         this.$coin10 = (0,_util_index__WEBPACK_IMPORTED_MODULE_0__.$)('#coin-10-count');
         this.vendingMachine = _interactor_VendingMachineImpl__WEBPACK_IMPORTED_MODULE_1__["default"].getInstance();
     }
+    ChargeMoney.prototype.render = function () {
+        this.$coin10.innerText = "".concat(this.vendingMachine.coinCollection.coins[0].count, "\uAC1C");
+        this.$coin50.innerText = "".concat(this.vendingMachine.coinCollection.coins[1].count, "\uAC1C");
+        this.$coin100.innerText = "".concat(this.vendingMachine.coinCollection.coins[2].count, "\uAC1C");
+        this.$coin500.innerText = "".concat(this.vendingMachine.coinCollection.coins[3].count, "\uAC1C");
+        this.$totalAmount.innerText = String(this.vendingMachine.coinCollection.calculateTotalAmount());
+    };
     ChargeMoney.prototype.bindEvent = function () {
         this.$chargeMoneyForm.addEventListener('submit', this.handleSubmitForm.bind(this));
     };
@@ -937,14 +944,6 @@ var ChargeMoney = /** @class */ (function () {
             var message = _a.message;
             alert(message);
         }
-    };
-    ChargeMoney.prototype.render = function () {
-        var _this = this;
-        this.vendingMachine.coinCollection.coins.forEach(function (_a) {
-            var amount = _a.amount, count = _a.count;
-            _this["$coin".concat(amount)].innerText = "".concat(count, "\uAC1C");
-        });
-        this.$totalAmount.innerText = String(this.vendingMachine.coinCollection.calculateTotalAmount());
     };
     return ChargeMoney;
 }());
@@ -978,6 +977,16 @@ var ProductManage = /** @class */ (function () {
         this.$additionalProductQuantity = (0,_util_index__WEBPACK_IMPORTED_MODULE_0__.$)('#product-quantity-input');
         this.vendingMachine = _interactor_VendingMachineImpl__WEBPACK_IMPORTED_MODULE_2__["default"].getInstance();
     }
+    ProductManage.prototype.render = function () {
+        var template = this.vendingMachine.productCollection.products
+            .map(function (_a) {
+            var name = _a.name, price = _a.price, quantity = _a.quantity;
+            return "<tr class=\"product-info\">\n          <td class=\"product-info__text name\">".concat(name, "</td>\n          <td class=\"product-info__text price\">").concat(price, "</td>\n          <td class=\"product-info__text quantity\">").concat(quantity, "</td>\n          <td class=\"product-info__input\"><input type=\"text\" min=\"1\" max=\"10\" class=\"product-info-name\" value=\"").concat(name, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"number\" step=\"10\" min=\"100\" max=\"10000\" class=\"product-info-price\" value=\"").concat(price, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"number\" min=\"1\" max=\"20\" class=\"product-info-quantity\" value=\"").concat(quantity, "\" /></td>\n          <td>\n            <button class=\"modify-button button\">\uC218\uC815</button>\n            <button class=\"delete-button button\">\uC0AD\uC81C</button>\n            <button class=\"confirm-button button\">\uD655\uC778</button>\n          </td>\n        </tr>");
+        })
+            .join('');
+        this.$productContainer.replaceChildren();
+        this.$productContainer.insertAdjacentHTML('beforeend', template);
+    };
     ProductManage.prototype.bindEvent = function () {
         this.$addProductForm.addEventListener('submit', this.handleSubmitForm.bind(this));
         this.$productContainer.addEventListener('click', this.handleClickButtons.bind(this));
@@ -1001,14 +1010,11 @@ var ProductManage = /** @class */ (function () {
     ProductManage.prototype.handleClickButtons = function (e) {
         var target = e.target;
         if (target.classList.contains('modify-button'))
-            this.setModifyForm(target.closest('tr'));
-        if (target.classList.contains('delete-button') && confirm(_constant_index__WEBPACK_IMPORTED_MODULE_1__.CONFIRM_DELETE_PRODUCT_MESSAGE))
+            target.closest('tr').classList.add('modify');
+        else if (target.classList.contains('delete-button') && confirm(_constant_index__WEBPACK_IMPORTED_MODULE_1__.CONFIRM_DELETE_PRODUCT_MESSAGE))
             this.deleteProduct(target.closest('tr'));
-        if (target.classList.contains('confirm-button'))
+        else if (target.classList.contains('confirm-button'))
             this.modifyProduct(target.closest('tr'));
-    };
-    ProductManage.prototype.setModifyForm = function (productRow) {
-        productRow.classList.add('modify');
     };
     ProductManage.prototype.deleteProduct = function (productRow) {
         try {
@@ -1036,16 +1042,6 @@ var ProductManage = /** @class */ (function () {
             var message = _a.message;
             alert(message);
         }
-    };
-    ProductManage.prototype.render = function () {
-        var template = this.vendingMachine.productCollection.products
-            .map(function (_a) {
-            var name = _a.name, price = _a.price, quantity = _a.quantity;
-            return "<tr class=\"product-info\">\n          <td class=\"product-info__text name\">".concat(name, "</td>\n          <td class=\"product-info__text price\">").concat(price, "</td>\n          <td class=\"product-info__text quantity\">").concat(quantity, "</td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-name\" value=\"").concat(name, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-price\" value=\"").concat(price, "\" /></td>\n          <td class=\"product-info__input\"><input type=\"text\" class=\"product-info-quantity\" value=\"").concat(quantity, "\" /></td>\n          <td>\n            <button class=\"modify-button button\">\uC218\uC815</button>\n            <button class=\"delete-button button\">\uC0AD\uC81C</button>\n            <button class=\"confirm-button button\">\uD655\uC778</button>\n          </td>\n        </tr>");
-        })
-            .join('');
-        this.$productContainer.replaceChildren();
-        this.$productContainer.insertAdjacentHTML('beforeend', template);
     };
     return ProductManage;
 }());
@@ -1088,6 +1084,8 @@ var Tab = /** @class */ (function () {
         if (e.target === e.currentTarget)
             return;
         var tabName = e.target.dataset.name;
+        if (this.$app.classList.contains(tabName))
+            return;
         history.pushState({}, '', window.location.pathname + "#".concat(tabName));
         this.switchTab(tabName);
     };
