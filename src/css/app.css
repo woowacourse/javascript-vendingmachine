@@ -1,33 +1,19 @@
+@import './root.css';
+@import './auth.css';
+@import './nav.css';
 @import './productManage.css';
 @import './balanceCharge.css';
 @import './productPurhcase.css';
-@import './auth.css';
-@import './root.css';
+
+.button {
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+}
 
 .hide {
   display: none;
-}
-
-#contents-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  width: 632px;
-  row-gap: 40px;
-}
-
-#login-button {
-  position: absolute;
-  right: 10px;
-}
-#auth-section {
-}
-
-#vending-machine-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .submit-button {
@@ -51,17 +37,16 @@
   background-color: var(--gray);
 }
 
+.table-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
 .input {
   border: solid 1.5px;
   border-radius: 10px;
   border-color: var(--gray);
   height: 30px;
   padding-left: 8px;
-}
-
-.button {
-  cursor: pointer;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
 }

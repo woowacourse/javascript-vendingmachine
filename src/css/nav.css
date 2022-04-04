@@ -1,0 +1,21 @@
+#contents-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 632px;
+  row-gap: 40px;
+}
+
+#login-button {
+  position: absolute;
+  right: 10px;
+}
+#auth-section {
+}
+
+#vending-machine-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
