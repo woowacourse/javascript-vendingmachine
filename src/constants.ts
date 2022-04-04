@@ -92,3 +92,11 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
 export const CONFIRM_MESSAGE = {
   DELETE_PRODUCT: '해당 상품을 삭제하시겠습니까?',
 };
+
+export const MEMBER = {
+  SUCCESS_SIGN_UP: '가입이 완료되었습니다.',
+  PLEASE_EMAIL: '이메일을 입력해주세요.',
+  PLEASE_PASSWORD: '비밀번호를 입력해주세요.',
+  SUCCESS_LOGIN: '로그인 완료',
+  SUCCESS_MODIFY_INFO: '정보가 변경되었습니다.',
+};

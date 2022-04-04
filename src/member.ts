@@ -1,13 +1,14 @@
+import { MEMBER } from './constants';
 import Router from './router';
 import { showSnack } from './utils';
 
 export async function login(email: BodyInit, password: BodyInit) {
   if (!email) {
-    showSnack('이메일을 입력해주세요.');
+    showSnack(MEMBER.PLEASE_EMAIL);
     return;
   }
   if (!password) {
-    showSnack('비밀번호를 입력해주세요.');
+    showSnack(MEMBER.PLEASE_PASSWORD);
     return;
   }
 
@@ -36,7 +37,7 @@ export async function login(email: BodyInit, password: BodyInit) {
   };
   localStorage.setItem('user-info', JSON.stringify(user));
 
-  showSnack('로그인 완료');
+  showSnack(MEMBER.SUCCESS_LOGIN);
   Router.pushState('/');
 }
 
@@ -57,7 +58,7 @@ export async function signUp(email: string, name: string, password: string) {
     showSnack(info);
     return;
   }
-  showSnack('가입이 완료되었습니다.');
+  showSnack(MEMBER.SUCCESS_SIGN_UP);
   Router.pushState('/');
 }
 
@@ -85,7 +86,7 @@ export async function updateInfo(name: string, password: string) {
     showSnack(info);
     return;
   }
-  showSnack('정보가 변경되었습니다.');
+  showSnack(MEMBER.SUCCESS_MODIFY_INFO);
   Router.pushState('/');
 }
 
