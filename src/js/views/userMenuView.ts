@@ -1,6 +1,7 @@
 import { userMenuTemplate } from '../templates/userMenuTemplate';
 import { $, emit } from '../utils/common';
 import { CUSTOM_EVENT, URL } from '../constants/appContants';
+import AuthManager from '../auth/authManager';
 
 export default class UserMenuView {
   private $app: HTMLElement;
@@ -28,6 +29,8 @@ export default class UserMenuView {
   }
 
   private handleSignOutClick() {
+    AuthManager.shared().signOut();
+
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,
       detail: { url: URL.PURCHASE_ITEM, page: URL.MAIN },

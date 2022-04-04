@@ -75,4 +75,9 @@ export default class AuthManager {
     const editedUserData = await response.json();
     this._userData = editedUserData;
   }
+
+  signOut() {
+    this._accessToken = '';
+    this._userData = { id: 0, email: '', name: '', password: '' };
+  }
 }
