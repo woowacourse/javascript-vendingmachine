@@ -1,6 +1,5 @@
-import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
-import snackbar from '../utils/snackbar';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class ReturnChangeComponent {
   $changeList: HTMLElement;
@@ -29,14 +28,9 @@ class ReturnChangeComponent {
   };
 
   private onClickReturnButton = () => {
-    try {
-      vendingMachine.returnChanges();
-      snackbar.push(ALERT_MESSAGE.RETURN_CHARGE_SUCCESS());
-    } catch (message) {
-      snackbar.push(message, true);
+    if (throwableFunctionHandler(() => vendingMachine.returnChanges())) {
+      this.noticeStateChanged();
     }
-
-    this.noticeStateChanged();
   };
 
   refreshChange = () => {

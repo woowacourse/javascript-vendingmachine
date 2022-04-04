@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, RULES } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE, RULES } from '../constants';
 import { Product, Coin } from '../interfaces/VendingMachine.interface';
 import { getRandomInt } from '../utils/utils';
 import {
@@ -50,6 +50,7 @@ class VendingMachine {
   addProduct(product: Product) {
     this.checkProductValidate(product);
     this.products.push(product);
+    return ALERT_MESSAGE.ADD_PRODUCT_SUCCESS(product.name);
   }
 
   findProductIndex(name: string) {
@@ -63,23 +64,28 @@ class VendingMachine {
     if (isExist) {
       this.products.splice(productIndex, 1);
     }
+
+    return ALERT_MESSAGE.DELETE_PRODUCT_SUCCESS(name);
   }
 
   modifyProduct(oldProductName: string, newProduct: Product) {
     const oldProductIndex = this.findProductIndex(oldProductName);
     this.checkProductValidate(newProduct, oldProductIndex);
     this.products[oldProductIndex] = newProduct;
+    return ALERT_MESSAGE.MODIFY_PRODUCT_SUCCESS(newProduct.name);
   }
 
   inputChanges(money: number) {
     this.checkInputChangesValidate(money);
     this.totalMoney += money;
     this.makeChangesToCoin(money);
+    return ALERT_MESSAGE.ADD_CHARGE_SUCCESS(money);
   }
 
   inputUserMoney(money: number) {
     this.checkInputMoneyValidate(money);
     this.userMoney += money;
+    return ALERT_MESSAGE.INPUT_MONEY_SUCCESS(money);
   }
 
   returnChanges() {
@@ -113,17 +119,19 @@ class VendingMachine {
     if (this.userMoney >= RULES.MINIMUM_CHANGE) {
       this.returnChanges();
     }
+
+    return ALERT_MESSAGE.RETURN_CHARGE_SUCCESS();
   }
 
   purchaseProduct(productName: string) {
     const productIndex = this.findProductIndex(productName);
     const productPrice = this.products[productIndex].price;
 
-    console.log(' 실행 ');
-
     if (this.userMoney < productPrice) {
       throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
     }
+
+    return ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName);
   }
 
   private makeChangesToCoin(money: number) {

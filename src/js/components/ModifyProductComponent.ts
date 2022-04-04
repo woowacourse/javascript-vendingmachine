@@ -1,8 +1,7 @@
 import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
-import { ALERT_MESSAGE } from '../constants';
-import snackbar from '../utils/snackbar';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class ModifyProductComponent {
   name: string;
@@ -35,12 +34,8 @@ class ModifyProductComponent {
 
     const prevName = (<HTMLElement>parentList.querySelector('.product-modify-submit-button')).dataset.name;
 
-    try {
-      vendingMachine.modifyProduct(prevName, product);
+    if (throwableFunctionHandler(() => vendingMachine.modifyProduct(prevName, product))) {
       ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
-      snackbar.push(ALERT_MESSAGE.MODIFY_PRODUCT_SUCCESS(product.name));
-    } catch (message) {
-      snackbar.push(message, true);
     }
   };
 

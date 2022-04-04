@@ -1,7 +1,6 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
-import snackbar from '../utils/snackbar';
-import { ALERT_MESSAGE } from '../constants';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class AddProductComponent {
   parentElement: HTMLElement;
@@ -30,12 +29,8 @@ class AddProductComponent {
 
     const newProduct: Product = { name, price, amount };
 
-    try {
-      vendingMachine.addProduct(newProduct);
+    if (throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
       this.noticeStateChanged('add', newProduct);
-      snackbar.push(ALERT_MESSAGE.ADD_PRODUCT_SUCCESS(name));
-    } catch (message) {
-      snackbar.push(message, true);
     }
   };
 

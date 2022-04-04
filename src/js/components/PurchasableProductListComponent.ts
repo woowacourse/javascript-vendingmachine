@@ -1,8 +1,7 @@
 import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
-import snackbar from '../utils/snackbar';
-import { ALERT_MESSAGE } from '../constants';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class ProductListComponent {
   parentElement: HTMLElement;
@@ -29,12 +28,8 @@ class ProductListComponent {
     const $productAmount = <HTMLInputElement>parentList.querySelector('.product-amount');
     const productAmount = $productAmount.textContent;
 
-    try {
-      vendingMachine.purchaseProduct(productName);
+    if (throwableFunctionHandler(() => vendingMachine.purchaseProduct(productName))) {
       $productAmount.textContent = (Number(productAmount) - 1).toString();
-      snackbar.push(ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName));
-    } catch (message) {
-      snackbar.push(message, true);
     }
   };
 

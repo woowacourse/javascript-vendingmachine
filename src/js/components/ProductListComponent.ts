@@ -2,8 +2,8 @@ import vendingMachine from '../model/VendingMachine';
 import ModifyProductComponent from './ModifyProductComponent';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
-import { ALERT_MESSAGE, REMOVE_CONFIRM_MESSAGE } from '../constants';
-import snackbar from '../utils/snackbar';
+import { REMOVE_CONFIRM_MESSAGE } from '../constants';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class ProductListComponent {
   ModifyProductComponent: ModifyProductComponent;
@@ -52,9 +52,9 @@ class ProductListComponent {
     const parentList = (<HTMLElement>e.target).closest('li');
     const name = (<HTMLElement>parentList.querySelector('.product-name')).textContent;
 
-    vendingMachine.removeProduct(name);
-    parentList.remove();
-    snackbar.push(ALERT_MESSAGE.DELETE_PRODUCT_SUCCESS(name));
+    if (throwableFunctionHandler(() => vendingMachine.removeProduct(name))) {
+      parentList.remove();
+    }
   };
 
   private replaceList = (product: Product, component: Function) => {

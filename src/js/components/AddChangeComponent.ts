@@ -1,6 +1,5 @@
-import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
-import snackbar from '../utils/snackbar';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class AddChangeComponent {
   $changeAddForm: HTMLElement;
@@ -23,12 +22,8 @@ class AddChangeComponent {
     e.preventDefault();
     const inputChange = (<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).valueAsNumber;
 
-    try {
-      vendingMachine.inputChanges(inputChange);
+    if (throwableFunctionHandler(() => vendingMachine.inputChanges(inputChange))) {
       this.noticeStateChanged();
-      snackbar.push(ALERT_MESSAGE.ADD_CHARGE_SUCCESS(inputChange));
-    } catch (message) {
-      snackbar.push(message, true);
     }
   };
 

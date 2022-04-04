@@ -1,6 +1,5 @@
-import { ALERT_MESSAGE } from '../constants';
 import vendingMachine from '../model/VendingMachine';
-import snackbar from '../utils/snackbar';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class InputMoneyComponent {
   $inputMoneyForm: HTMLElement;
@@ -23,12 +22,8 @@ class InputMoneyComponent {
     e.preventDefault();
     const inputMoney = parseInt((<HTMLInputElement>this.$inputMoneyForm.querySelector('#input-money')).value);
 
-    try {
-      vendingMachine.inputUserMoney(inputMoney);
+    if (throwableFunctionHandler(() => vendingMachine.inputUserMoney(inputMoney))) {
       this.noticeStateChanged();
-      snackbar.push(ALERT_MESSAGE.INPUT_MONEY_SUCCESS(inputMoney));
-    } catch (message) {
-      snackbar.push(message, true);
     }
   };
 
