@@ -91,8 +91,8 @@ export default class ProductManage implements ProductManageView {
           <td class="product-info__text price">${price}</td>
           <td class="product-info__text quantity">${quantity}</td>
           <td class="product-info__input"><input type="text" class="product-info-name" value="${name}" /></td>
-          <td class="product-info__input"><input type="text" class="product-info-price" value="${price}" /></td>
-          <td class="product-info__input"><input type="text" class="product-info-quantity" value="${quantity}" /></td>
+          <td class="product-info__input"><input type="number" class="product-info-price" value="${price}" /></td>
+          <td class="product-info__input"><input type="number" class="product-info-quantity" value="${quantity}" /></td>
           <td>
             <button class="modify-button button">수정</button>
             <button class="delete-button button">삭제</button>
