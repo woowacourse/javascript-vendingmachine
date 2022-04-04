@@ -14,6 +14,7 @@ const CHARGE = {
 };
 
 const PURCAHSE = {
+  MIN_AMOUNT: 10,
   MAX_AMOUNT: 10000,
   UNIT: 10,
 };
@@ -30,7 +31,7 @@ const ERROR_MESSAGES = {
   INVALID_PRODUCT_QUANTITY_UNIT: "제품의 수량은 소수점으로 입력할 수 없습니다.",
   INVALID_CHARGE_RANGE: `최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`,
   INVALID_CHARGE_UNIT: `잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`,
-  INVALID_PURCHASE_AMOUNT_RANGE: `투입 금액은 ${PURCAHSE.MAX_AMOUNT}원 이하로 입력해주세요.`,
+  INVALID_PURCHASE_AMOUNT_RANGE: `투입 금액은 ${PURCAHSE.MIN_AMOUNT}원 ~ ${PURCAHSE.MAX_AMOUNT}원 사이로 입력해주세요.`,
   INVALID_PURCHASE_AMOUNT_UNIT: `투입 금액은 ${PURCAHSE.UNIT}원으로 나누어 떨어져야합니다.`,
 };
 

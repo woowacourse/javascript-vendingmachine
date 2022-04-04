@@ -3,11 +3,13 @@
   --color-white-gray: #f5f5f5;
   --color-light-gray: #ebebeb;
   --color-middle-gray: #8a8a8a;
-  --color-white-skyblue: #00bcd41f;
+  --color-light-skyblue: #00bcd41f;
   --color-middle-skyblue: #00bcd4;
+  --color-dark-skyblue: #0094a8;
 }
 
 body {
+  margin: 0;
   background: var(--color-light-gray);
 }
 #app {
@@ -17,7 +19,7 @@ body {
   align-items: center;
   background: var(--color-white);
   max-width: 500px;
-  margin: 100px auto;
+  margin: 100px auto 0;
   padding: 50px;
 }
 
@@ -58,7 +60,7 @@ button {
 }
 
 .active {
-  background: var(--color-white-skyblue);
+  background: var(--color-light-skyblue);
 }
 
 .product-manange__container,
@@ -89,7 +91,8 @@ button {
 .product-manage__edit-button,
 .product-manage__remove-button,
 .product-manage__confirm-button,
-.purchase-table__purchase-button {
+.purchase-table__purchase-button,
+.return-coin__return-button {
   cursor: pointer;
   background: var(--color-white-gray);
   border-radius: 5px;
@@ -102,14 +105,16 @@ button {
 }
 
 .product-manage__confirm-button,
-.purchase-table__purchase-button {
+.purchase-table__purchase-button,
+.return-coin__return-button {
   width: 100px;
 }
 
 .product-manage__edit-button:hover,
 .product-manage__remove-button:hover,
 .product-manage__confirm-button:hover,
-.purchase-table__purchase-button:hover {
+.purchase-table__purchase-button:hover,
+.return-coin__return-button:hover {
   background: var(--color-light-gray);
 }
 
@@ -161,9 +166,15 @@ button {
   font-size: 16px;
 }
 
+.product-manange__add-button:hover,
+.charge-manange__add-button:hover,
+.purchase-form__add-button:hover {
+  background: var(--color-dark-skyblue);
+}
 .product-manange__title,
 .charge-manange__title,
-.purchase-table__title {
+.purchase-table__title,
+.return-coin__title {
   text-align: center;
   margin-top: 40px;
 }
@@ -172,11 +183,19 @@ button {
 .purchase-table__container {
   height: 300px;
   overflow: scroll;
+  border: 3px solid var(--color-white-gray);
+}
+
+.return-coin__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-manange__table,
 .charge-manange__table,
-.purchase-table {
+.purchase-table,
+.return-coin__table {
   text-align: center;
   border-top: 1px solid var(--color-light-gray);
   border-bottom: 1px solid var(--color-light-gray);
@@ -187,12 +206,18 @@ button {
   margin: auto;
 }
 
+.return-coin__table {
+  margin-bottom: 15px;
+}
+
 .product-manange__table td,
 .product-manange__table th,
 .charge-manange__table td,
 .charge-manange__table th,
 .purchase-table td,
-.purchase-table th {
+.purchase-table th,
+.return-coin__table td,
+.return-coin__table th {
   width: 118px;
   height: 40px;
   border-top: 1px solid var(--color-light-gray);

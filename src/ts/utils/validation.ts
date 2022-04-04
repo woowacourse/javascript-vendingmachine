@@ -50,7 +50,7 @@ const verifyCharge = (charge: number) => {
 };
 
 const verifyPurchaseAmount = (amount: number) => {
-  if (amount > PURCAHSE.MAX_AMOUNT) {
+  if (amount < PURCAHSE.MIN_AMOUNT || amount > PURCAHSE.MAX_AMOUNT) {
     throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
   }
   if (amount % PURCAHSE.UNIT !== 0) {
