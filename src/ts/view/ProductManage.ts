@@ -45,13 +45,9 @@ export default class ProductManage implements ProductManageView {
   handleClickButtons(e: Event) {
     const target = e.target as HTMLElement;
 
-    if (target.classList.contains('modify-button')) this.setModifyForm(target.closest('tr'));
+    if (target.classList.contains('modify-button')) target.closest('tr').classList.add('modify');
     else if (target.classList.contains('delete-button') && confirm(CONFIRM_DELETE_PRODUCT_MESSAGE)) this.deleteProduct(target.closest('tr'));
     else if (target.classList.contains('confirm-button')) this.modifyProduct(target.closest('tr'));
-  }
-
-  setModifyForm(productRow: HTMLElement) {
-    productRow.classList.add('modify');
   }
 
   deleteProduct(productRow: HTMLElement) {
