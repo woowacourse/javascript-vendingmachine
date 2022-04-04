@@ -3,12 +3,17 @@ import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemManage from './vendingMachine/ItemManage';
 import CoinRecharge from './vendingMachine/CoinRecharge';
+import ItemPurchase from './vendingMachine/ItemPurchase';
+import ItemPurchaseTab from './view/ItemPurchaseTab';
 
 const initApp = function () {
   const itemManage = new ItemManage();
   const coinRecharge = new CoinRecharge();
+  const itemPurchase = new ItemPurchase();
+
   const itemManageTab = new ItemManageTab(itemManage);
   const coinRechargeTab = new CoinRechargeTab(coinRecharge);
+  const itemPurchaseTab = new ItemPurchaseTab(itemPurchase, itemManage, coinRecharge);
 
   return function () {
     switch (location.hash) {
@@ -20,6 +25,7 @@ const initApp = function () {
         coinRechargeTab.renderInitialCoinRechargeTabState();
         break;
       case HASH.ITEM_PURCHASE:
+        itemPurchaseTab.renderInitialItemPurchaseTabState();
         break;
       default:
         break;

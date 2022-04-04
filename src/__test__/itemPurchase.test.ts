@@ -15,9 +15,7 @@ describe('잔돈 반환 테스트', () => {
     };
     const remainedMoneyInput = 1000;
     const remainedMoney = vendingMachine.giveChange(remainedMoneyInput, coinCollection);
-    expect(vendingMachine.calculateTotalChange(vendingMachine.change)).toBe(
-      remainedMoneyInput - remainedMoney
-    );
+    expect(vendingMachine.calculateTotalChange()).toBe(remainedMoneyInput - remainedMoney);
   });
 
   test('현재 보유한 최소 개수의 동전을 계산해서 잔돈(vendingMachine.change)을 갱신한다.', () => {

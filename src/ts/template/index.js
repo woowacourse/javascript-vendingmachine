@@ -78,4 +78,62 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
     </table>
 `;
 
+export const generateItemPurchaseContentTemplate = (moneyAmount, itemList, change) => `
+  <form id="item-purchase-form" class="input-form">
+    <label>상품을 구매할 금액을 투입해주세요</label>
+    <div class="input-form-container">
+      <input class="item-purchase-input" type="number" placeholder="금액" min="10" max="10000" step="10" autofocus/>
+      <button class="input-form-button">투입</button>
+    </div>
+  </form>
+  <p class="total-user-input-amount">투입한 금액: <span id="input-amount">${moneyAmount}</span>원</p>
+  <div class="table-container">
+    <table class="item-status-table">
+      <caption><h2>구매 가능 상품 현황</h2></caption>
+      <tr>
+          <th><span>상품명</span></th>
+          <th><span>가격</span></th>
+          <th><span>수량</span></th>
+          <th><span></span></th>
+      </tr>
+      ${itemList.map((itemInfo) => generateItemPurchaseTableRowTemplate(itemInfo)).join('')}
+    </table>
+  </div>
+  <table class="change-table">
+    <caption><h2>잔돈 반환</h2></caption>
+    <tr>
+      <th>동전</th>
+      <th>개수</th>
+    </tr>
+    <tr>
+      <td>500원</td>
+      <td class="coin-count" data-coin-value="500">${change[COIN_500]}개</td>
+    </tr>
+    <tr>
+      <td>100원</td>
+      <td class="coin-count" data-coin-value="100">${change[COIN_100]}개</td>
+    </tr>
+    <tr>
+      <td>50원</td>
+      <td class="coin-count" data-coin-value="50">${change[COIN_50]}개</td>
+    </tr>
+    <tr>
+      <td>10원</td>
+      <td class="coin-count" data-coin-value="10">${change[COIN_10]}개</td>
+    </tr>
+  </table>
+  <button type="button" class="default-button give-change-button">반환</button>
+`;
+
+export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
+  <tr data-item-name="${itemName}">
+    <td>${itemName}</td>
+    <td>${itemPrice}</td>
+    <td>${itemQuantity}</td>
+    <td class="item-button-cell">
+        <button type="button" class="default-button purchase-item-button">구매</button>
+    </td>
+  </tr>
+`;
+
 export const generateConfirmMessage = (itemName) => `정말 '${itemName}' 상품을 삭제하시겠습니까?`;

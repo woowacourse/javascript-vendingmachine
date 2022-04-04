@@ -4,15 +4,25 @@ import { COIN_10, COIN_100, COIN_50, COIN_500, MONEY } from '../constant/rule';
 import { MONEY_ERROR_MESSAGE, PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 
 class ItemPurchase {
-  change: CoinCollectionType;
+  private _change: CoinCollectionType;
+  private _money: number;
 
   constructor() {
-    this.change = {
+    this._money = 0;
+    this._change = {
       [COIN_500]: 0,
       [COIN_100]: 0,
       [COIN_50]: 0,
       [COIN_10]: 0,
     };
+  }
+
+  get change(): CoinCollectionType {
+    return this._change;
+  }
+
+  get money(): number {
+    return this._money;
   }
 
   giveChange(moneyInput: number, coinCollection: CoinCollectionType) {
@@ -25,7 +35,7 @@ class ItemPurchase {
         const coinValue = Number(coin);
         while (coinValue <= remainedMoney) {
           if (coins[coinValue] === 0) break;
-          this.change[coinValue]++;
+          this._change[coinValue]++;
           remainedMoney -= coinValue;
           coins[coinValue] -= 1;
         }
@@ -33,8 +43,11 @@ class ItemPurchase {
     return remainedMoney;
   }
 
-  calculateTotalChange(change: CoinCollectionType) {
-    return Object.entries(change).reduce((prev, [key, value]) => prev + Number(key) * value, 0);
+  calculateTotalChange() {
+    return Object.entries(this._change).reduce(
+      (prev, [key, value]) => prev + Number(key) * value,
+      0
+    );
   }
 
   validateMoneyInput(moneyInput: number) {
