@@ -1,4 +1,4 @@
-import { VendingMachine, ProductCollection, CoinCollection, Product } from '../../index.d';
+import { VendingMachine, ProductCollection, CoinCollection, Product, ProductName } from '../../index.d';
 import { ERROR_MESSAGE } from '../constant';
 import ProductCollectionImpl from '../entity/ProductCollectionImpl';
 import CoinCollectionImpl from '../entity/CoinCollectionImpl';
@@ -27,12 +27,12 @@ export default class VendingMachineImpl implements VendingMachine {
     this.productCollection.add(product);
   }
 
-  modifyProduct(product: Product, originProductName: string): void {
+  modifyProduct(product: Product, originProductName: ProductName): void {
     validator.checkModifiedProduct(product, this.productCollection.products, this.productCollection.getIndex(originProductName));
     this.productCollection.modify(product, originProductName);
   }
 
-  deleteProduct(name: string): void {
+  deleteProduct(name: ProductName): void {
     if (this.productCollection.getIndex(name) === -1) throw new Error(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
     this.productCollection.delete(name);
   }

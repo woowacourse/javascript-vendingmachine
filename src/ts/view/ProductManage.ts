@@ -1,4 +1,4 @@
-import { DomainView, VendingMachine, Product } from '../../index.d';
+import { DomainView, VendingMachine, Product, ProductName } from '../../index.d';
 import { $ } from '../util/index';
 import { CONFIRM_DELETE_PRODUCT_MESSAGE } from '../constant/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
@@ -75,7 +75,7 @@ export default class ProductManage implements DomainView {
 
   private deleteProduct(productRow: HTMLElement) {
     try {
-      const productName = ($('.product-info-name', productRow) as HTMLInputElement).value;
+      const productName = ($('.product-info-name', productRow) as HTMLInputElement).value as unknown as ProductName;
       this.vendingMachine.deleteProduct(productName);
       this.render();
     } catch ({ message }) {
@@ -90,7 +90,7 @@ export default class ProductManage implements DomainView {
         price: Number(($('.product-info-price', productRow) as HTMLInputElement).value),  
         quantity: Number(($('.product-info-quantity', productRow) as HTMLInputElement).value),
       };
-      const originProductName = $('.product-info__text.name', productRow).innerText;
+      const originProductName = $('.product-info__text.name', productRow).innerText as unknown as ProductName;
 
       this.vendingMachine.modifyProduct(newProduct, originProductName);
       this.render();

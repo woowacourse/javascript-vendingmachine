@@ -4,6 +4,8 @@ export interface Product {
   quantity: number;
 }
 
+export type ProductName = Pick<Product, 'name'>;
+
 export interface Coin {
   amount: number;
   count: number;
@@ -13,9 +15,9 @@ export interface ProductCollection {
   readonly products: Array<Product>;
 
   add(product: Product): void;
-  modify(product: Product, originProductName: string): void;
-  delete(name: string): void;
-  getIndex(name: string): number;
+  modify(product: Product, originProductName: ProductName): void;
+  delete(name: ProductName): void;
+  getIndex(name: ProductName): number;
 }
 
 export interface CoinCollection {
@@ -30,8 +32,8 @@ export interface VendingMachine {
   readonly coinCollection: CoinCollection;
 
   addProduct(product: Product): void;
-  modifyProduct(product: Product, originProductName: string): void;
-  deleteProduct(name: string): void;
+  modifyProduct(product: Product, originProductName: ProductName): void;
+  deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
 }
 

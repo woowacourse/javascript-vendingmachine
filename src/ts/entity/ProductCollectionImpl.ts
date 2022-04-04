@@ -1,4 +1,4 @@
-import { ProductCollection, Product } from '../../index.d';
+import { ProductCollection, Product, ProductName } from '../../index.d';
 
 export default class ProductCollectionImpl implements ProductCollection {
   public readonly products: Array<Product>;
@@ -11,15 +11,15 @@ export default class ProductCollectionImpl implements ProductCollection {
     this.products.push(product);
   }
 
-  modify(product: Product, originProductName: string) {
+  modify(product: Product, originProductName: ProductName) {
     this.products[this.getIndex(originProductName)] = product;
   } 
 
-  delete(name: string) {
+  delete(name: ProductName) {
     this.products.splice(this.getIndex(name), 1);
   }
 
-  getIndex(name: string) {
-    return this.products.findIndex((product) => product.name === name);
+  getIndex(name: ProductName) {
+    return this.products.findIndex((product: Product) => (product.name as unknown as ProductName) === name);
   }
 }
