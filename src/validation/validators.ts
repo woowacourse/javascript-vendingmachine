@@ -110,6 +110,18 @@ export const validatePurchaseProduct = (product: ProductItem, insertedMoney: num
   return new ValidationResult(false);
 };
 
+export const validateLoginEmail = (email: string) => {
+  if (!email) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_EMAIL);
+
+  return new ValidationResult(false);
+};
+
+export const validateLoginPassword = (password: string) => {
+  if (!password) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_PASSWORD);
+
+  return new ValidationResult(false);
+};
+
 export const validateEmail = (email: string) => {
   if (!email) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_EMAIL);
 
