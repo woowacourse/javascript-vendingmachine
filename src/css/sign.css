@@ -17,28 +17,28 @@
   flex-direction: column;
 }
 
-#signin-header {
+.sign-header {
   text-align: center;
   margin-top: 44px;
 }
 
-#signin-submit {
+.sign-submit {
   display: flex;
   flex-direction: column;
   margin-top: 48px;
 }
 
-#signin-submit label:not(:first-child) {
+.sign-submit label:not(:first-child) {
   margin-top: 16px;
 }
 
-#signin-submit input {
+.sign-submit input {
   margin-top: 4px;
   width: 300px;
   height: 36px;
 }
 
-#sigin-submit-button {
+.sign-submit-button {
   margin-top: 30px;
   width: 300px;
   height: 36px;
@@ -48,7 +48,7 @@
   font-size: 14px;
 }
 
-#sigin-submit-button:hover {
+.sign-submit-button:hover {
   background-color: var(--color-submit-button-hover);
 }
 

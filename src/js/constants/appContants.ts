@@ -8,6 +8,7 @@ export const URL = {
   CHARGE_MONEY: `chargeMoney`,
   PURCHASE_ITEM: `purchaseItem`,
   SIGN_IN: 'signIn',
+  SING_UP: 'singUp',
 };
 
 export const CUSTOM_EVENT = {
@@ -17,4 +18,5 @@ export const CUSTOM_EVENT = {
   ADD_ITEM: 'ADD_ITEM',
   TABLE_ITEM_CHANGE: 'TABLE_ITEM_CHANGE',
   TABLE_ITEM_DELETE: 'TABLE_ITEM_DELETE',
+  OFFER_SIGNUP_CLICK: 'OFFER_SIGNUP_CLICK',
 };
