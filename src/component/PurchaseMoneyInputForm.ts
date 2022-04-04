@@ -1,12 +1,18 @@
+import { PurchaseMoney } from '../domain/PurchaseMoney';
+
 interface PurchaseMoneyInputFormInterface {
   render();
 }
 
 export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
   #target: HTMLDivElement;
+  #purchaseMoney: PurchaseMoney;
+  #purchaseMoneySubmitBtn: HTMLButtonElement;
+  #purchaseMoneySpan: HTMLSpanElement;
 
-  constructor(target) {
+  constructor({ target, purchaseMoney }) {
     this.#target = target;
+    this.#purchaseMoney = purchaseMoney;
   }
 
   #template(purhcaseMoney) {
@@ -23,6 +29,37 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
   }
 
   render() {
-    this.#target.insertAdjacentHTML('beforeend', this.#template());
+    this.#target.insertAdjacentHTML('beforeend', this.#template(this.#purchaseMoney.getMoney()));
+
+    this.#selectDOM();
+    this.#bindEvent();
+  }
+
+  #selectDOM() {
+    this.#purchaseMoneySubmitBtn = document.querySelector('#purchase-money-submit-btn');
+    this.#purchaseMoneySpan = document.querySelector('#purchase-money');
+  }
+
+  #bindEvent() {
+    this.#purchaseMoneySubmitBtn.addEventListener('click', this.#handleSetPurchaseMoney);
+  }
+
+  #handleSetPurchaseMoney = (e: Event) => {
+    e.preventDefault();
+
+    const purchaseMoney = (document.querySelector('#purchase-money-input') as HTMLInputElement)
+      .valueAsNumber;
+
+    try {
+      this.#purchaseMoney.isValidatedMoney(purchaseMoney) &&
+        this.#purchaseMoney.addMoney(purchaseMoney);
+      this.#updatePurchaseMoney(this.#purchaseMoney.getMoney());
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  #updatePurchaseMoney(purhcaseMoney: number) {
+    this.#purchaseMoneySpan.textContent = String(purhcaseMoney);
   }
 }

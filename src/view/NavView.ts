@@ -1,6 +1,10 @@
 import { ProductManageView } from './ProductManageView';
 import { BalanceChargeView } from './BalanceChargeView';
 import { ProductPurchaseView } from './ProductPurchaseView';
+
+import { CoinVault } from '../domain/CoinVault';
+import { ProductCatalog } from '../domain/ProductCatalog';
+
 import { URL_PATH } from '../utils/constants';
 
 // 임시
@@ -17,11 +21,23 @@ export class NavView {
   #productManageView: ProductManageView;
   #balanceChargeView: BalanceChargeView;
   #productPurchaseView: ProductPurchaseView;
+  #coinVault: CoinVault;
+  #productCatalog: ProductCatalog;
 
   constructor() {
-    this.#productManageView = new ProductManageView();
-    this.#balanceChargeView = new BalanceChargeView();
-    this.#productPurchaseView = new ProductPurchaseView();
+    this.#coinVault = new CoinVault();
+    this.#productCatalog = new ProductCatalog();
+
+    this.#productManageView = new ProductManageView({
+      productCatalog: this.#productCatalog,
+    });
+    this.#balanceChargeView = new BalanceChargeView({
+      coinVault: this.#coinVault,
+    });
+    this.#productPurchaseView = new ProductPurchaseView({
+      productCatalog: this.#productCatalog,
+      coinVault: this.#coinVault,
+    });
 
     this.#contentsContainer = document.querySelector('#contents-container');
     /**

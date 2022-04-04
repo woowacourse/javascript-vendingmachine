@@ -10,11 +10,11 @@ export class BalanceChargeView {
   #balanceChargeContainer: HTMLDivElement;
   #isRendered: boolean;
 
-  constructor() {
+  constructor({ coinVault }) {
     this.#isRendered = false;
-    this.#balanceChargeContainer = document.querySelector('#balance-charge-container');
+    this.#balanceChargeContainer = document.querySelector('.balance-charge-container');
 
-    this.#coinVault = new CoinVault();
+    this.#coinVault = coinVault;
     this.#balanceChargeInputForm = new BalanceChargeInputForm({
       target: this.#balanceChargeContainer,
       coinVault: this.#coinVault,

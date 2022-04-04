@@ -1,7 +1,7 @@
-import { ProductInformationInputForm } from '../component/ProductInformationInputForm';
-import { ProductCatalogTable } from '../component/ProductCatalogTable';
-
 import { ProductCatalog } from '../domain/ProductCatalog';
+
+import { ProductCatalogTable } from '../component/ProductCatalogTable';
+import { ProductInformationInputForm } from '../component/ProductInformationInputForm';
 
 interface ProductManageViewInterface {
   getIsRendered();
@@ -11,17 +11,17 @@ interface ProductManageViewInterface {
 }
 
 export class ProductManageView implements ProductManageViewInterface {
+  #productCatalog: ProductCatalog;
   #productInformationInputForm: ProductInformationInputForm;
   #productCatalogTable: ProductCatalogTable;
-  #productCatalog: ProductCatalog;
   #productManageContainer: HTMLDivElement;
   #isRendered: boolean;
 
-  constructor() {
+  constructor({ productCatalog }) {
     this.#isRendered = false;
-    this.#productManageContainer = document.querySelector('#product-manage-container');
+    this.#productManageContainer = document.querySelector('.product-manage-container');
 
-    this.#productCatalog = new ProductCatalog();
+    this.#productCatalog = productCatalog;
 
     this.#productInformationInputForm = new ProductInformationInputForm({
       target: this.#productManageContainer,
