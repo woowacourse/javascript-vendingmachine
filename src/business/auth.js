@@ -1,7 +1,7 @@
 import { fetcher } from '../lib/fetcher';
 import { checkJoinPossible } from '../utils/validation';
 import globalStore from '../stores/globalStore';
-import { ACTION_TYPES, GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
+import { GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
 import { showToast } from '../lib/toast';
 
 export const loginUser = async (emailValue, passwordValue) => {
