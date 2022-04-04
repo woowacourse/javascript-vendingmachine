@@ -23,6 +23,7 @@
 @import './app.css';
 @import './itemManageTab.css';
 @import './coinRechargeTab.css';
+@import './itemPurchaseTab.css';
 
 * {
   margin: 0;

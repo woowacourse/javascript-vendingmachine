@@ -17,7 +17,7 @@
   padding: 52px 0;
 
   width: 440px;
-  height: 500px;
+  height: fit-content;
   box-shadow: 0 1em 1em -1em var(--box-shadow-color) inset;
 }
 
@@ -29,6 +29,12 @@
 
 .input-form-container {
   display: flex;
+}
+
+.table-container {
+  margin-top: 48px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .hide {
