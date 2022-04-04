@@ -64,3 +64,8 @@ export const CHANGE_RANGE: TRange = {
   MIN: 10,
   MAX: 100000,
 };
+
+export const WEB_STORAGE_KEY = {
+  USER: 'logged-user',
+  ACCESS_TOKEN: 'access-token',
+};

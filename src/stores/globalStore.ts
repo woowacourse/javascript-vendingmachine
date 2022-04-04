@@ -1,3 +1,4 @@
+import { WEB_STORAGE_KEY } from './../utils/constants';
 import { IGlobalStore, TGlobalState, TGlobalStateComponents, TGlobalStateKey } from './types';
 
 import { ROUTE } from '../lib/router';
@@ -14,8 +15,8 @@ class GlobalStore implements IGlobalStore {
     };
     this.state = {
       AUTH_INFORMATION: {
-        loggedUser: JSON.parse(localStorage.getItem('logged-user')),
-        isLoggedIn: localStorage.getItem('access-token') ? true : false,
+        loggedUser: JSON.parse(localStorage.getItem(WEB_STORAGE_KEY.USER)),
+        isLoggedIn: localStorage.getItem(WEB_STORAGE_KEY.ACCESS_TOKEN) ? true : false,
       },
       CURRENT_ROUTE_NAME: Object.keys(ROUTE).find(
         routeName => ROUTE[routeName] === window.location.pathname,
