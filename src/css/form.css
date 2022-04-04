@@ -19,9 +19,12 @@ input {
 }
 
 .submit-button {
-  background-color: var(--submit-button-bg-color);
+  height: 38px;
 
-  padding: 10px 15px;
+  padding: 0 15px;
+  margin-left: 7px;
+
+  background-color: var(--submit-button-bg-color);
 
   color: var(--default--white-color);
   font-weight: bold;
