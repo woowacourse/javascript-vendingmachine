@@ -1,4 +1,5 @@
 import { Coins } from './types';
+
 export default class ReturnedCoinModel {
   #returnedCoin: Coins;
 

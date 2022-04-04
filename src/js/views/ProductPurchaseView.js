@@ -1,5 +1,5 @@
 import { SECTION_CONTAINER } from '../constants/constants.js';
-import { $ } from '../utils/dom.js';
+import { $, replaceElement } from '../utils/dom.js';
 import { on, emit } from '../utils/event.js';
 
 const purchaseTemplate = ({ name, price, quantity }) => {
@@ -7,9 +7,9 @@ const purchaseTemplate = ({ name, price, quantity }) => {
     <tr>
       <td>${name}</td>
       <td>${price}</td>
-      <td>${quantity}</td>
+      <td class="product-quantity">${quantity}</td>
       <td>
-        <button class="purchase-button" type="button">구매</button>
+        <button class="purchase-button" type="button" data-name=${name} data-price=${price} data-quantity=${quantity}>구매</button>
       </td>
     </tr>
   `;
@@ -24,10 +24,16 @@ export default class ProductPurchaseView {
     this.$productPurchaseInput = $('#product-purchase-input');
     this.$currentAmount = $('.current-amount');
     this.$purchaseTbody = $('#product-purchase-tbody');
-    this.$fiveHundredCoin = $('#returned-five-hundred-coin');
-    this.$oneHundredCoin = $('#returned-one-hundred-coin');
-    this.$fiftyCoin = $('#returned-fifty-coin');
-    this.$tenCoin = $('#returned-ten-coin');
+    this.$fiveHundredCoin = $('.returned-five-hundred-coin');
+    this.$oneHundredCoin = $('.returned-one-hundred-coin');
+    this.$fiftyCoin = $('.returned-fifty-coin');
+    this.$tenCoin = $('.returned-ten-coin');
+
+    this.$purchaseTbody.addEventListener('click', (e) => {
+      if (e.target.classList.contains('purchase-button')) {
+        this.#onClickPurchaseButton(e);
+      }
+    });
   }
 
   renderTotalAmount(amount) {
@@ -57,5 +63,14 @@ export default class ProductPurchaseView {
 
     const inputAmount = this.$productPurchaseInput.valueAsNumber;
     emit(SECTION_CONTAINER, '@purchase', { inputAmount });
+  }
+
+  #onClickPurchaseButton(e) {
+    const product = {
+      name: e.target.dataset.name,
+      price: e.target.dataset.price,
+      quantity: e.target.dataset.quantity - 1,
+    };
+    replaceElement(e.target.closest('tr'), purchaseTemplate(product));
   }
 }
