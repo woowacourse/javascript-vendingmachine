@@ -29,6 +29,8 @@ export default class Tab implements View {
 
     const tabName = (e.target as HTMLElement).dataset.name;
 
+    if (this.$app.classList.contains(tabName)) return;
+
     history.pushState({}, '', window.location.pathname + `#${tabName}`);
     this.switchTab(tabName);
   }
