@@ -187,6 +187,7 @@ class Login extends HTMLElement {
   };
 
   emitRenderSignup = () => {
+    this.remove();
     const event = new CustomEvent('@render-signup', {});
     window.dispatchEvent(event);
   };

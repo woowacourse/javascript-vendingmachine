@@ -48,6 +48,7 @@ export default class View {
     // 웹컴포넌트에서 보낸 커스텀 이벤트
     window.addEventListener('@render-login', this.renderLoginModal);
     window.addEventListener('@render-signup', this.renderSignupModal);
+    window.addEventListener('@render-profile-edit', this.renderProfileEdit);
   }
 
   private renderLoginModal = (event) => {
@@ -55,8 +56,11 @@ export default class View {
   };
 
   private renderSignupModal = () => {
-    $('log-in').remove();
     document.body.appendChild(document.createElement('sign-up'));
+  };
+
+  private renderProfileEdit = () => {
+    document.body.appendChild(document.createElement('profile-edit'));
   };
 
   public renderUserPrivatePage = () => {

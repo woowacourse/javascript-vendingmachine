@@ -1,3 +1,5 @@
+import { checkValidProfile } from '../domain/validator';
+
 const signupTemplate = document.createElement('template');
 
 signupTemplate.innerHTML = `
@@ -95,15 +97,15 @@ signupTemplate.innerHTML = `
       <section>
         <h1>회원가입</h1>
         <form>
-          <label>이메일</label>
-          <input type="email" placeholder="이메일 주소를 입력해주세요" />
-          <label>이름</label>
-          <input type="text" placeholder="이름을 입력해주세요" />
-          <label>비밀번호</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" />
-          <label>비밀번호 확인</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" />
-          <button type="submit">확인</button>
+          <label for="email-input">이메일</label>
+          <input id="email-input" type="email" placeholder="이메일을 입력해주세요"/>
+          <label for="name-input">이름</label>
+          <input id="name-input" type="text" placeholder="이름을 입력해주세요" />
+          <label for="password-input">비밀번호</label>
+          <input id="password-input" type="password" placeholder="비밀번호를 입력해주세요" />
+          <label for="password-check-input">비밀번호 확인</label>
+          <input id="password-check-input" type="password" placeholder="비밀번호를 입력해주세요" />
+          <button id="submit-button" type="submit">확인</button>
         </form>
       </section>
     </div>
@@ -111,10 +113,22 @@ signupTemplate.innerHTML = `
 `;
 
 class Signup extends HTMLElement {
+  emailInput: HTMLInputElement;
+  nameInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+  passwordCheckInput: HTMLInputElement;
+  submitButton: HTMLButtonElement;
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(signupTemplate.content.cloneNode(true));
+
+    this.emailInput = <HTMLInputElement>this.shadowRoot.getElementById('email-input');
+    this.nameInput = <HTMLInputElement>this.shadowRoot.getElementById('name-input');
+    this.passwordInput = <HTMLInputElement>this.shadowRoot.getElementById('password-input');
+    this.passwordCheckInput = <HTMLInputElement>(
+      this.shadowRoot.getElementById('password-check-input')
+    );
   }
 
   connectedCallback() {
@@ -141,29 +155,24 @@ class Signup extends HTMLElement {
 
   signup = (event: SubmitEvent) => {
     event.preventDefault();
-    const name = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='text']")).value;
-    const email = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='email']")).value;
-    const password = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='password']"))
-      .value;
+    const email = this.emailInput.value;
+    const name = this.nameInput.value;
+    const password = this.passwordInput.value;
+    const passwordCheck = this.passwordCheckInput.value;
 
     const url = 'https://json-server-marco.herokuapp.com/signup/';
-    const data = {
-      email,
-      password,
-      name,
-    };
 
     fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email, password, name }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
       .then((res) => {
+        checkValidProfile(name, password, passwordCheck);
         if (!res.ok) {
-          console.log('회원가입 실패');
-          return;
+          throw new Error('이미 가입된 이메일입니다. 다른 이메일을 입력해주세요.');
         }
         return res.json();
       })
@@ -174,7 +183,6 @@ class Signup extends HTMLElement {
         };
         localStorage.setItem('userAuth', JSON.stringify(userAuth));
         console.log('회원가입 성공');
-        // TODO 회원가입 성공 후 라우트
         this.closeModal();
         this.emitRouteLogin();
       })

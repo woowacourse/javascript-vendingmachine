@@ -1,8 +1,48 @@
-// TODO: 회원가입 컴포넌트와 동일함. 회원정보수정 기능으로 변경할 것
+import { checkValidProfile } from '../domain/validator';
 
 const profileEditTemplate = document.createElement('template');
 profileEditTemplate.innerHTML = `
   <style>
+    .modal-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: transparent;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    .dimmer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    .modal-inner {
+      height: 500px;
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--secondary);
+      border-radius: 4px;
+      padding: 20px 30px;
+    }
+
+    .x-shape {
+      box-sizing: border-box;
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
     section {
       font-family: 'Roboto', sans-serif;
       margin: 10px;
@@ -49,83 +89,117 @@ profileEditTemplate.innerHTML = `
     }
   </style>
 
-  <section>
-    <h1>회원 정보 수정</h1>
-    <form>
-      <label>이메일</label>
-      <input type="email" placeholder="이메일 주소를 입력해주세요" />
-      <label>이름</label>
-      <input type="text" placeholder="이름을 입력해주세요" />
-      <label>비밀번호</label>
-      <input type="password" placeholder="비밀번호를 입력해주세요" />
-      <label>비밀번호 확인</label>
-      <input type="password" placeholder="비밀번호를 입력해주세요" />
-      <button type="submit">확인</button>
-    </form>
-    <h3>👋🏼 <span id="welcome-name"></span>님 안녕하세요.</h3>
-    <h4>이름</h4>
-    <p id="name">마르코</p>
-    <h4>이메일</h4>
-    <p id="email">nextjws@gmail.com</p>
-    <button id="logout-button">로그아웃</button>
-  </section>
+  <div class="modal-container" >
+    <div class="dimmer"></div>
+    <div class="modal-inner" role="dialog">
+      <div class="x-shape">X</div>
+      <section>
+        <h1>회원 정보 수정</h1>
+        <form>
+          <label for="email-edit-input">이메일</label>
+          <input id="email-edit-input" type="email" disabled/>
+          <label for="name-edit-input">이름</label>
+          <input id="name-edit-input" type="text" placeholder="이름을 입력해주세요" />
+          <label for="password-edit-input">비밀번호</label>
+          <input id="password-edit-input" type="password" placeholder="비밀번호를 입력해주세요" />
+          <label for="password-check-edit-input">비밀번호 확인</label>
+          <input id="password-check-edit-input" type="password" placeholder="비밀번호를 입력해주세요" />
+          <button id="submit-edit-button" type="submit">확인</button>
+        </form>
+      </section>
+    </div>
+  </div>
 `;
 
 class ProfileEdit extends HTMLElement {
+  emailEditInput: HTMLInputElement;
+  nameEditInput: HTMLInputElement;
+  passwordEditInput: HTMLInputElement;
+  passwordCheckEditInput: HTMLInputElement;
+  userAuth: any;
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(profileEditTemplate.content.cloneNode(true));
+    this.emailEditInput = <HTMLInputElement>this.shadowRoot.getElementById('email-edit-input');
+    this.nameEditInput = <HTMLInputElement>this.shadowRoot.getElementById('name-edit-input');
+    this.passwordEditInput = <HTMLInputElement>(
+      this.shadowRoot.getElementById('password-edit-input')
+    );
+    this.passwordCheckEditInput = <HTMLInputElement>(
+      this.shadowRoot.getElementById('password-check-edit-input')
+    );
+    this.userAuth = JSON.parse(localStorage.getItem('userAuth'));
   }
 
-  connectedCallback() {
-    // 이벤트 추가
-    this.shadowRoot.querySelector('form').addEventListener('submit', this.signup);
+  async connectedCallback() {
+    const accessToken = `Bearer ${this.userAuth.accessToken}`;
+    const url = `https://json-server-marco.herokuapp.com/users/${this.userAuth.id}`;
+    const { email, name } = await this.getUserData(url, accessToken);
+    this.emailEditInput.value = String(email);
+    this.nameEditInput.value = String(name);
+    this.shadowRoot
+      .querySelector('form')
+      .addEventListener('submit', (event) => this.edit(event, url, accessToken));
+
+    this.shadowRoot.querySelector('.x-shape').addEventListener('click', this.closeModal);
+    this.shadowRoot.addEventListener('click', this.closeModalDimmer);
   }
 
   disconnectedCallback() {
-    // 이벤트 삭제
-    this.shadowRoot.querySelector('form').removeEventListener('submit', this.signup);
+    this.shadowRoot.querySelector('.x-shape').removeEventListener('click', this.closeModal);
+    this.shadowRoot.removeEventListener('click', this.closeModalDimmer);
   }
 
-  signup = (event: SubmitEvent) => {
+  edit = (event: SubmitEvent, url: string, accessToken: string) => {
     event.preventDefault();
-    const name = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='text']")).value;
-    const email = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='email']")).value;
-    const password = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='password']"))
-      .value;
+    const name = this.nameEditInput.value;
+    const password = this.passwordEditInput.value;
+    const passwordCheck = this.passwordCheckEditInput.value;
 
-    const url = 'https://json-server-marco.herokuapp.com/users/signup/';
-    const data = {
-      email,
-      password,
-      name,
-    };
+    try {
+      checkValidProfile(name, password, passwordCheck);
+      fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify({ name, password }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': accessToken,
+        },
+      }).then(() => {
+        this.closeModal();
+        const event = new CustomEvent('@route-login', {});
+        window.dispatchEvent(event);
+      });
+    } catch (error) {
+      console.error(error.message);
+      // 토스트
+    }
+  };
 
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
+  getUserData = (url: string, accessToken: string) => {
+    const userData = fetch(url, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': accessToken,
       },
     })
-      .then((res) => {
-        if (!res.ok) {
-          console.log('회원정보 수정 실패');
-          return;
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((response) => {
-        const userAuth = {
-          accessToken: response.accessToken,
-          id: response.user.id,
-        };
-        localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        console.log('회원정보 수정 성공');
-        // TODO 회원정보 수정 성공 후 라우트
-      })
-      .catch((error) => console.error('에러', error));
+        return { email: response.email, name: response.name };
+      });
+
+    return userData;
+  };
+
+  closeModalDimmer = (event) => {
+    event.target === this.shadowRoot.querySelector('.dimmer') ? this.closeModal() : false;
+  };
+
+  closeModal = () => {
+    this.remove();
   };
 }
 

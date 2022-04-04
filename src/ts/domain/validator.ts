@@ -14,6 +14,15 @@ const isOverMaxValue = (value: number, max: number) => value > max;
 
 const isUnderMinValue = (value: number, min: number) => value < min;
 
+const isOutOfNameLength = (name: string) => name.length < 2 || name.length > 6;
+
+const isInvalidPassword = (password: string) => {
+  const regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
+  return !regExp.test(password);
+};
+
+const isDifferentPassword = (password: string, passwordCheck: string) => password !== passwordCheck;
+
 export const checkProductValidation = (product: ProductType) => {
   if (isEmptyName(product.name)) {
     throw new Error(ERROR_MESSAGE.NAME_EMPTY);
@@ -62,5 +71,18 @@ export const checkInsertedMoneyValidation = (money: number, holdingMoney: number
   }
   if (isUnderMinValue(money, VENDING_MACHINE_RULE.MIN_INSERTING_MONEY)) {
     throw new Error(ERROR_MESSAGE.UNDER_MIN_INSERTED_HOLDING_MONEY);
+  }
+};
+
+export const checkValidProfile = (name: string, password: string, passwordCheck: string) => {
+  if (isOutOfNameLength(name)) {
+    throw new Error(ERROR_MESSAGE.OUT_OF_NAME_LENGTH);
+  }
+  if (isInvalidPassword(password)) {
+    throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
+  }
+
+  if (isDifferentPassword(password, passwordCheck)) {
+    throw new Error(ERROR_MESSAGE.DIFFERENT_PASSWORD);
   }
 };

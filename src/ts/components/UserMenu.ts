@@ -1,8 +1,5 @@
-// TODO 유저 메뉴 컴포넌트
-// - [ ] 로그인한 유저의 이름 중 첫번째 글자를 썸네일처럼 만든다.
-// - [ ] 로그인한 유저의 썸네일을 클릭하면 select box로 `회원정보수정`과 `로그아웃` 메뉴가 표시된다.
-
 const userMenuTemplate = document.createElement('template');
+
 userMenuTemplate.innerHTML = `
   <style>
     #thumbnail {
@@ -150,14 +147,14 @@ class UserMenu extends HTMLElement {
   connectedCallback() {
     this.loginButton.addEventListener('click', this.renderLoginModal);
     this.thumbnail.addEventListener('click', this.toggleMenu);
-    this.profileEditButton.addEventListener('click', this.renderProfileEdit);
+    this.profileEditButton.addEventListener('click', this.emitRenderProfileEdit);
     this.logoutButton.addEventListener('click', this.logout);
   }
 
   disconnectedCallback() {
     this.shadowRoot.removeEventListener('click', this.renderLoginModal);
     this.thumbnail.removeEventListener('click', this.toggleMenu);
-    this.profileEditButton.removeEventListener('click', this.renderProfileEdit);
+    this.profileEditButton.removeEventListener('click', this.emitRenderProfileEdit);
     this.logoutButton.removeEventListener('click', this.logout);
   }
 
@@ -184,7 +181,6 @@ class UserMenu extends HTMLElement {
 
     const url = `https://json-server-marco.herokuapp.com/users/${id}`;
 
-    // 로그인
     fetch(url, {
       method: 'GET',
       headers: {
@@ -223,8 +219,10 @@ class UserMenu extends HTMLElement {
     this.menu.classList.toggle('hide');
   };
 
-  renderProfileEdit = () => {
+  emitRenderProfileEdit = () => {
     console.log('회원정보 수정 버튼 호출');
+    const event = new CustomEvent('@render-profile-edit', {});
+    window.dispatchEvent(event);
   };
 
   logout = () => {

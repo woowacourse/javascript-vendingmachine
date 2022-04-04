@@ -21,6 +21,12 @@ export const ERROR_MESSAGE = {
   UNDER_MIN_INSERTED_HOLDING_MONEY: '투입 금액은 10원 이상이어야 합니다.',
   SOLD_OUT: '해당 상품에 재고가 없습니다.',
   INSUFFICIENT_MONEY: '해당 상품을 구입하기에 투입한 돈이 충분하지 않습니다.',
+  OUT_OF_NAME_LENGTH:
+    '유효하지 않은 이름을 입력하셨습니다. 이름은 2글자에서 6글자 사이여야 합니다.',
+  DIFFERENT_PASSWORD:
+    '유효하지 않은 비밀번호를 입력하셨습니다. 비밀번호 확인 칸에 동일한 비밀번호를 입력하세요.',
+  INVALID_PASSWORD:
+    '유효하지 않은 비밀번호를 입력하셨습니다.  password는 8자리에서 16자리 사이여야 하며, 영어, 숫자, 특수문자 각각 최소 1개 이상 조합이어야 한다.',
 };
 
 export const SUCCESS_MESSAGE = {
