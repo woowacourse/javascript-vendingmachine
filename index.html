@@ -30,6 +30,8 @@
           <div class="input-container">
             <input
               type="text"
+              min="1" 
+              max="10"
               id="product-name-input"
               class="input-form__input"
               placeholder="상품명"
@@ -37,13 +39,16 @@
             <input
               type="number"
               step="10"
+              min="100" 
+              max="10000"
               id="product-price-input"
               class="input-form__input"
               placeholder="가격"
             />
             <input
               type="number"
-              step="10"
+              min="1" 
+              max="20"
               id="product-quantity-input"
               class="input-form__input"
               placeholder="수량"
@@ -79,6 +84,7 @@
             <input
               type="number"
               step="10"
+              min="1000"
               id="charge-money-input"
               class="input-form__input"
               placeholder="금액"
