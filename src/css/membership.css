@@ -1,0 +1,99 @@
+.sign-in-button .hide {
+  display: block;
+}
+
+.sign-in-button {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+}
+
+.sign-in-button {
+  width: 117px;
+  height: 36px;
+  letter-spacing: 0.5px;
+}
+
+.sign-in-button:hover {
+  background-color: var(--color-light-skyblue);
+}
+
+.membership-edit-section .hide,
+.sign-up-section .hide,
+.sign-in-section .hide {
+  display: none;
+}
+
+.membership-edit-section,
+.sign-up-section,
+.sign-in-section {
+  padding: 0 86px;
+}
+
+.membership-edit-section__title,
+.sign-up-section__title,
+.sign-in-section__title {
+  font-size: 34px;
+  line-height: 36px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.membership-wrapper,
+.sign-up-wrapper,
+.sign-in-form__email-input-wrapper {
+  margin-bottom: 16px;
+}
+
+.membership-edit-form__password-confirm-input-wrapper,
+.sign-up-form__password-confirm-input-wrapper,
+.sign-in-form__password-input-wrapper {
+  margin-bottom: 30px;
+}
+
+.membership-label,
+.sign-up-label,
+.sign-in-form__password-label {
+  margin-bottom: 4px;
+}
+
+.membership-edit-form__email-input {
+  background-color: #e0e0e0;
+}
+
+.membership-input,
+.sign-up-input,
+.sign-in-form__password-input {
+  width: 100%;
+  display: block;
+  height: 36px;
+  padding: 8px 15.5px 4px;
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+}
+
+.membership-input::placeholder,
+.sign-up-input::placeholder,
+.sign-in-form__email-input::placeholder,
+.sign-in-form__password-input::placeholder {
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}
+
+.membership-edit-form__verify-button,
+.sign-up-form__verify-button,
+.sign-in-form__verify-button {
+  width: 100%;
+  height: 36px;
+  background-color: var(--color-primary);
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.membership-edit-form__verify-button:hover,
+.sign-up-form__verify-button:hover,
+.sign-in-form__verify-button:hover {
+  opacity: 0.7;
+}

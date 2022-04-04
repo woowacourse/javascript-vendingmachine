@@ -7,7 +7,178 @@
   </head>
   <body>
     <div id="app">
+      <button class="sign-in-button" type="button">로그인</button>
       <section class="snack-bar-container"></section>
+      <section class="sign-in-section hide" data-pathname="/sign-in">
+        <h2 class="sign-in-section__title">로그인</h2>
+        <form class="sign-in-form">
+          <div class="sign-in-form__email-input-wrapper">
+            <label class="sign-in-from__email-label" for="sign-in-email"
+              >이메일</label
+            >
+            <input
+              class="input sign-in-form__email-input"
+              name="sign-in-email"
+              type="email"
+              placeholder="woowacourse@gmail.com"
+            />
+          </div>
+          <div class="sign-in-form__password-input-wrapper">
+            <label class="sign-in-form__password-label" for="sign-in-password"
+              >비밀번호</label
+            >
+            <input
+              class="input sign-in-form__password-input"
+              name="sign-in-password"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button class="sign-in-form__verify-button" type="submit">
+            확인
+          </button>
+        </form>
+        <p>
+          아직 회원이 아니신가요?
+          <a class="sign-in-section__sign-up-button" href="/sign-up"
+            >회원 가입</a
+          >
+        </p>
+      </section>
+      <section class="sign-up-section hide" data-pathname="/sign-up">
+        <h2 class="sign-up-section__title">회원가입</h2>
+        <form class="sign-up-form">
+          <div class="sign-up-form__email-input-wrapper sign-up-wrapper">
+            <label
+              class="sign-up-from__email-label sign-up-label"
+              for="sign-up-email"
+              >이메일</label
+            >
+            <input
+              class="input sign-up-form__email-input sign-up-input"
+              name="sign-up-email"
+              type="email"
+              placeholder="woowacourse@gmail.com"
+            />
+          </div>
+          <div class="sign-up-form__name-input-wrapper sign-up-wrapper">
+            <label
+              class="sign-up-from__name-label sign-up-label"
+              for="sign-up-name"
+              >이름</label
+            >
+            <input
+              class="input sign-up-form__name-input sign-up-input"
+              name="sign-up-name"
+              type="text"
+              placeholder="이름을 입력해주세요"
+            />
+          </div>
+          <div class="sign-up-form__password-input-wrapper sign-up-wrapper">
+            <label
+              class="sign-up-form__password-label sign-up-label"
+              for="sign-up-password"
+              >비밀번호</label
+            >
+            <input
+              class="input sign-up-form__password-input sign-up-input"
+              name="sign-up-password"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <div
+            class="sign-up-form__password-confirm-input-wrapper sign-up-wrapper"
+          >
+            <label
+              class="sign-up-form__password-confirm-label sign-up-label"
+              for="sign-up-password-confirm"
+              >비밀번호 확인</label
+            >
+            <input
+              class="input sign-up-form__password-confirm-input sign-up-input"
+              name="sign-up-password-confirm"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button class="sign-up-form__verify-button" type="submit">
+            확인
+          </button>
+        </form>
+      </section>
+      <section
+        class="membership-edit-section hide"
+        data-pathname="/edit-of-membership-information"
+      >
+        <h2 class="membership-edit-section__title">회원 정보 수정</h2>
+        <form class="membership-edit-form">
+          <div
+            class="membership-edit-form__email-input-wrapper membership-wrapper"
+          >
+            <label
+              class="membership-edit-from__email-label membership-label"
+              for="membership-edit-email"
+              >이메일</label
+            >
+            <input
+              class="input membership-edit-form__email-input membership-input"
+              name="membership-edit-email"
+              type="email"
+              placeholder="woowacourse@gmail.com"
+              disabled
+            />
+          </div>
+          <div
+            class="membership-edit-form__name-input-wrapper membership-wrapper"
+          >
+            <label
+              class="membership-edit-from__name-label membership-label"
+              for="membership-edit-name"
+              >이름</label
+            >
+            <input
+              class="input membership-edit-form__name-input membership-input"
+              name="membership-edit-name"
+              type="text"
+              placeholder="이름을 입력해주세요"
+            />
+          </div>
+          <div
+            class="membership-edit-form__password-input-wrapper membership-wrapper"
+          >
+            <label
+              class="membership-edit-form__password-label membership-label"
+              for="membership-edit-password"
+              >비밀번호</label
+            >
+            <input
+              class="input membership-edit-form__password-input membership-input"
+              name="membership-edit-password"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <div
+            class="membership-edit-form__password-confirm-input-wrapper membership-wrapper"
+          >
+            <label
+              class="membership-edit-form__password-confirm-label membership-label"
+              for="membership-edit-password-confirm"
+              >비밀번호 확인</label
+            >
+            <input
+              class="input membership-edit-form__password-confirm-input membership-input"
+              name="membership-edit-password-confirm"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button class="membership-edit-form__verify-button" type="submit">
+            확인
+          </button>
+        </form>
+      </section>
       <h1>🍿 자판기 🍿</h1>
       <nav class="nav">
         <ul class="nav__list">
@@ -47,7 +218,7 @@
         </ul>
       </nav>
       <section
-        class="product-info-section manage-component"
+        class="product-info-section manage-component hide"
         data-pathname="/products"
       >
         <h2 hidden>상품 관리</h2>

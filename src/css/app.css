@@ -1,4 +1,5 @@
 #app {
+  position: relative;
   width: 600px;
   min-height: 675px;
   background-color: white;
@@ -21,6 +22,10 @@ h1 {
   display: none;
 }
 
+.nav .hide {
+  display: none;
+}
+
 .nav {
   margin-bottom: 52px;
 }
@@ -31,12 +36,20 @@ h1 {
   gap: 0 4px;
 }
 
+.sign-in-button {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+}
+
+.sign-in-button,
 .nav__button {
   width: 117px;
   height: 36px;
   letter-spacing: 0.5px;
 }
 
+.sign-in-button:hover,
 .nav__button:hover {
   background-color: var(--color-light-skyblue);
 }
