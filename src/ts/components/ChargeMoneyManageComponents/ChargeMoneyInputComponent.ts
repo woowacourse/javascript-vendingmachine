@@ -39,7 +39,7 @@ export default class ChargeMoneyInputComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
   constructor(private vendingMachineChargeMoneyManager) {
-    on(this.$chargeButton, 'click', this.onSubmitChargeButton);
+    on(this.$chargeButton, 'click', this.onClickChargeButton);
 
     on(
       $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
@@ -53,7 +53,7 @@ export default class ChargeMoneyInputComponent {
       this.vendingMachineChargeMoneyManager.getTotalAmount();
   };
 
-  private onSubmitChargeButton = (event: Event): void => {
+  private onClickChargeButton = (event: Event): void => {
     event.preventDefault();
 
     try {
@@ -73,13 +73,19 @@ export default class ChargeMoneyInputComponent {
       this.$chargeMoneyInput.value = '';
       this.$chargeMoneyInput.focus();
 
+      renderSnackBar(
+        this.$snackBarContainer,
+        `${chargeMoney}원이 충전 되었습니다. 충전된 잔돈을 확인해주세요.`,
+        'success'
+      );
+
       emit(this.$chargeButton, '@chargeInputSubmit', {
         detail: {
           coins: this.vendingMachineChargeMoneyManager.getCoins(),
         },
       });
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   };
 }
