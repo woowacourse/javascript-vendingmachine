@@ -45,6 +45,20 @@ const ERROR_MESSAGE = {
   USER_NAME_LENGTH: `이름은 ${USER_INFO_CONDITION.MIN_NAME_LENGTH}자에서 ${USER_INFO_CONDITION.MAX_NAME_LENGTH}자까지 입력할 수 있습니다.`,
   PASSWORD_CONFIRM: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
   PASSWORD_CONDITION: '비밀번호는 숫자, 소문자 알파벳, 대문자 알파벳 각각 1자 이상을 포함하여 전체 8자 이상이어야 합니다.',
+
+  INSUFFICIENT_CHARGE_TO_PURCHASE: '돈이 부족해요! 😥',
+};
+
+const GUIDE_MESSAGE = {
+  PRODUCT_UPDATE_CONFIRM: '이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?',
+  ONE_PRODUCT_UPDATE_AT_ONCE: '한 번에 하나의 상품만 수정 가능합니다.',
+  PRODUCT_DELETE_CONFIRM: '정말 해당 상품을 삭제하시겠습니까?',
+
+  CUSTOMER_CHARGE_SUCCESS: '상품 구매 금액 충전 성공! 😆',
+  PURCHASE_SUCCESS: (productName) => `${productName} 구입 성공! 😆`,
+
+  RETURN_INSUFFICIENT_CHANGES: '미안해요. 잔돈이 부족해서 다 돌려줄 수가 없어요. 😥',
+  RETURN_CHANGES_SUCCESS: '잔돈 반환 성공! 😆',
 };
 
 export {
@@ -54,4 +68,5 @@ export {
   USER_INFO_CONDITION,
 
   ERROR_MESSAGE,
+  GUIDE_MESSAGE,
 };

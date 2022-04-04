@@ -1,3 +1,4 @@
+import { GUIDE_MESSAGE } from '../constants';
 import Products from '../data/Products';
 import { IPageManager, IProduct } from '../interface';
 
@@ -63,7 +64,7 @@ class ProductManagementPageManager implements IPageManager {
       return;
     }
 
-    if (confirm('이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?')) {
+    if (confirm(GUIDE_MESSAGE.PRODUCT_UPDATE_CONFIRM)) {
       this.updateProduct(productIndex, product);
     }
   }

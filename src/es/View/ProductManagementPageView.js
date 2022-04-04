@@ -2,6 +2,7 @@ import { template } from './template';
 import { validateProduct } from '../validator';
 import { $, getInnerInputValues, clearInnerInputValues, showSnackBar } from '../utils';
 import ProductManagementPageManager from '../manager/ProductManagementPageManager';
+import { GUIDE_MESSAGE } from '../constants';
 
 class ProductManagementPageView {
   renderMethodList;
@@ -93,7 +94,7 @@ class ProductManagementPageView {
 
   onClickUpdateButton({ target: $target }) {
     if (this.isTableUpdating) {
-      showSnackBar('한 번에 하나의 상품만 수정 가능합니다.');
+      showSnackBar(GUIDE_MESSAGE.ONE_PRODUCT_UPDATE_AT_ONCE);
       return;
     }
     this.isTableUpdating = !this.isTableUpdating;
@@ -134,7 +135,7 @@ class ProductManagementPageView {
   }
 
   onClickDeleteButton({ target: $target }) {
-    if (!confirm('정말 해당 상품을 삭제하시겠습니까?')) return;
+    if (!confirm(GUIDE_MESSAGE.PRODUCT_DELETE_CONFIRM)) return;
 
     const $tableRow = $target.closest('tr');
     if (!$tableRow) return;

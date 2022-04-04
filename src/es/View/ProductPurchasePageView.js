@@ -3,6 +3,7 @@ import { template } from './template';
 import ProductPurchasePageManager from '../manager/ProductPurchasePageManager';
 import { validateCustomerChargeToAdd } from '../validator';
 import { showSnackBar } from '../utils/index';
+import { GUIDE_MESSAGE } from '../constants';
 
 class ProductPurchasePageView {
   renderMethodList;
@@ -62,7 +63,7 @@ class ProductPurchasePageView {
     }
     ProductPurchasePageManager.addCustomerCharge(customerCharge);
     clearInnerInputValues(event.target);
-    showSnackBar('상품 구매 금액 충전 성공! 😆');
+    showSnackBar(GUIDE_MESSAGE.CUSTOMER_CHARGE_SUCCESS);
   };
 
   onClickTableInnerButton = (event) => {
@@ -84,17 +85,17 @@ class ProductPurchasePageView {
       showSnackBar(err.message);
       return;
     }
-    showSnackBar(`${productName} 구입 성공! 😆`);
+    showSnackBar(GUIDE_MESSAGE.PURCHASE_SUCCESS(productName));
   };
 
   onClickReturnChangeButton = () => {
     const coinsToBeReturned = ProductPurchasePageManager.returnChanges();
     this.updateChangeTable({ ReturnedCoins: coinsToBeReturned });
     if (ProductPurchasePageManager.getState().customerChargeAmount > 0) {
-      showSnackBar('미안해요. 잔돈이 부족해서 다 돌려줄 수가 없어요. 😥');
+      showSnackBar(GUIDE_MESSAGE.RETURN_INSUFFICIENT_CHANGES);
       return;
     }
-    showSnackBar('잔돈 반환 성공! 😆');
+    showSnackBar(GUIDE_MESSAGE.RETURN_CHANGES_SUCCESS);
   };
 
   render = ({ state, changeStates }) => {
