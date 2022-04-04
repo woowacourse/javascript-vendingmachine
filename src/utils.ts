@@ -72,6 +72,6 @@ export const showSnack = (message: string) => {
   $snackbar?.classList.add('show');
 
   setTimeout(() => {
-    $snackbar?.classList.toggle('show');
+    $snackbar?.classList.remove('show');
   }, 2500);
 };
