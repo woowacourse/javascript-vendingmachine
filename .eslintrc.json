@@ -26,7 +26,8 @@
     "import/extensions": "off",
     "default-case": "off",
     "no-underscore-dangle": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "prefer-template": "off"
   },
   "plugins": ["prettier"],
   "settings": {

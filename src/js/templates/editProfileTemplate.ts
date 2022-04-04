@@ -2,7 +2,7 @@ export const editProfile = `
   <h1 class="sign-header">회원 정보 수정</h1>
   <form id="edit-submit" class="sign-submit">
     <label for="email-input" class="sign-input-label">이메일</label>
-    <input id="email-input" class="sign-input"/>
+    <input id="edit-email-input" class="sign-input" disabled />
 
     <label for="name-input" class="sign-input-label">이름</label>
     <input id="name-input" class="sign-input" required />

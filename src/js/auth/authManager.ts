@@ -4,9 +4,11 @@ export default class AuthManager {
   private types = {
     signIn: '/signin',
     signUp: '/signup',
+    users: '/users',
   };
   private _accessToken = '';
   private _userData = {
+    id: 0,
     email: '',
     name: '',
     password: '',
@@ -57,5 +59,20 @@ export default class AuthManager {
     const { accessToken, user } = await response.json();
     this._accessToken = accessToken;
     this._userData = user;
+  }
+
+  async editUserData({ editedName, editedPassword }) {
+    const response = await fetch(this.baseUrl + this.types.users + `/${this.userData.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ name: editedName, password: editedPassword }),
+    });
+
+    if (!response.ok) {
+      throw new Error('회원 정보 수정에 실패했습니다.');
+    }
+
+    const editedUserData = await response.json();
+    this._userData = editedUserData;
   }
 }

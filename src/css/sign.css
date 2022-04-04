@@ -61,3 +61,8 @@
   background-color: white;
   color: var(--color-link);
 }
+
+#edit-email-input {
+  background-color: var(--color-button-hover);
+  color: gray;
+}
