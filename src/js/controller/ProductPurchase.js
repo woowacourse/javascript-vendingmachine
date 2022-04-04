@@ -1,6 +1,7 @@
 import { on } from '../utils/event.js';
 import { SECTION_CONTAINER } from '../constants/constants.js';
 import PurchaseAmountModel from '../models/PurchaseAmount.ts';
+import ReturnedCoinModel from '../models/ReturnedCoin.ts';
 import ProductPurchaseView from '../views/ProductPurchaseView.js';
 
 export default class ProductPurchase {
@@ -8,6 +9,7 @@ export default class ProductPurchase {
     this.productModel = product;
     this.coinModel = coin;
     this.purchaseAmountModel = new PurchaseAmountModel();
+    this.returnedCoinModel = new ReturnedCoinModel();
     this.productPurchaseView = new ProductPurchaseView();
 
     on(SECTION_CONTAINER, '@purchase', this.#handlePurchaseAmount.bind(this));
@@ -16,8 +18,11 @@ export default class ProductPurchase {
   initPurchase() {
     this.productPurchaseView.initPurchaseDom();
     this.productPurchaseView.renderTotalAmount(this.purchaseAmountModel.getAmount());
-    // if ()
-    // 보유 동전
+    const products = this.productModel.getProducts();
+    if (products.length > 0) {
+      this.productPurchaseView.renderProducts(products);
+    }
+    this.productPurchaseView.renderReturnedCoin(this.returnedCoinModel.getReturnedCoin());
   }
 
   #handlePurchaseAmount(e) {

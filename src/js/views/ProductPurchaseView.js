@@ -24,6 +24,10 @@ export default class ProductPurchaseView {
     this.$productPurchaseInput = $('#product-purchase-input');
     this.$currentAmount = $('.current-amount');
     this.$purchaseTbody = $('#product-purchase-tbody');
+    this.$fiveHundredCoin = $('#returned-five-hundred-coin');
+    this.$oneHundredCoin = $('#returned-one-hundred-coin');
+    this.$fiftyCoin = $('#returned-fifty-coin');
+    this.$tenCoin = $('#returned-ten-coin');
   }
 
   renderTotalAmount(amount) {
@@ -34,6 +38,13 @@ export default class ProductPurchaseView {
     products.forEach((product) => {
       this.$purchaseTbody.insertAdjacentHTML('beforeend', purchaseTemplate(product));
     });
+  }
+
+  renderReturnedCoin(coins) {
+    this.$fiveHundredCoin.textContent = `${coins[500]}개`;
+    this.$oneHundredCoin.textContent = `${coins[100]}개`;
+    this.$fiftyCoin.textContent = `${coins[50]}개`;
+    this.$tenCoin.textContent = `${coins[10]}개`;
   }
 
   resetAmountInput() {
