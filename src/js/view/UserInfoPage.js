@@ -1,9 +1,10 @@
 import { createMainElement, getInputValuesFromForm, selectDom } from '../utils/dom';
-import { UserInfoPageTemplate } from './template';
+import { userInfoPageTemplate } from './template';
 
 export default class UserInfoPage {
   #snackbar;
   #authorization;
+
   #userInfoPage;
   #userInfoForm;
 
@@ -11,13 +12,16 @@ export default class UserInfoPage {
     this.#snackbar = snackBar;
     this.#authorization = authorization;
 
-    this.#userInfoPage = createMainElement(UserInfoPageTemplate(this.#authorization));
+    this.#userInfoPage = createMainElement(userInfoPageTemplate(this.#authorization));
     this.#userInfoForm = selectDom('.auth-form', this.#userInfoPage);
 
     this.#userInfoForm.addEventListener('submit', this.#handleUpdateUserInfo);
   }
 
   get tabElements() {
+    selectDom('#email-input', this.#userInfoForm).value = this.#authorization.email;
+    selectDom('#name-input', this.#userInfoForm).value = this.#authorization.name;
+
     return this.#userInfoPage;
   }
 

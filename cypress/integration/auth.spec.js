@@ -81,26 +81,26 @@ describe('사용자 인증 테스트', () => {
     cy.get('#tab-menu-navigation').should('exist');
   });
 
-  // it.only('로그인을 했을 때 사용자 이름을 수정할 수 있다.', () => {
-  //   cy.intercept({
-  //     method: 'PATCH',
-  //     url: '**/users/*',
-  //   }).as('updateUserRequest');
-  //   const userData = createRandomUserData();
-  //   const newName = `${userData.name}1`;
+  it.only('로그인을 했을 때 사용자 이름을 수정할 수 있다.', () => {
+    cy.intercept({
+      method: 'PATCH',
+      url: '**/users/*',
+    }).as('updateUserRequest');
+    const userData = createRandomUserData();
+    const newName = `${userData.name}1`;
 
-  //   cy.loginWithNewUser(userData);
+    cy.loginWithNewUser(userData);
 
-  //   cy.get('#user-button').click();
-  //   cy.get('#user-info-link').click();
+    cy.get('#user-button').click();
+    cy.get('#user-info-link').click();
 
-  //   cy.get('#name-input').type(newName);
-  //   cy.get('.submit-button').click();
+    cy.get('#name-input').clear().type(newName);
+    cy.get('.submit-button').click();
 
-  //   cy.wait('@updateUserRequest');
+    cy.wait('@updateUserRequest');
 
-  //   cy.get('#name-input').should('have.value', newName);
-  // });
+    cy.get('#name-input').should('have.value', newName);
+  });
 
   describe('회원가입 시 오류 테스트', () => {
     it('모든 칸을 채우지 않으면 모든 칸을 작성하라는 메시지가 표시된다.', () => {

@@ -309,7 +309,7 @@ export const userButtonSelectBoxTemplate = /* html */ `
   </ul>
 `;
 
-export const UserInfoPageTemplate = ({ email, name }) => /* html */ `
+export const userInfoPageTemplate = ({ email, name }) => /* html */ `
   <h2>회원 정보 수정</h2>
   <form class="auth-form">
     <label for="email">이메일</label>
