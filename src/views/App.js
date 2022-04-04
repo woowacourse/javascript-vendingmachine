@@ -6,7 +6,7 @@ import './pages/UserLoginPage';
 import './pages/UserRegisterPage';
 import './pages/UserEditPage';
 
-import { getData } from '../utils/commons';
+import { getData } from '../utils/storageUtil';
 
 export default class App extends Component {
   setup() {

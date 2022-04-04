@@ -1,4 +1,4 @@
-import { manageErrors } from '../utils/commons';
+import { showSnackBar } from '../utils/domUtil';
 
 export const loginUser = async ({ email, password }) => {
   const response = await fetch('http://localhost:3000/login', {
@@ -11,7 +11,6 @@ export const loginUser = async ({ email, password }) => {
       'Content-Type': 'application/json',
     },
   })
-    .then(manageErrors)
     .then((res) => res.json())
     .catch(({ message }) => {
       window.alert(message);

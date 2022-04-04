@@ -1,4 +1,4 @@
-import { manageErrors } from '../utils/commons';
+import { manageErrors } from '../utils/domUtil';
 
 export const getUserData = async () => {
   const response = await fetch(`http://localhost:3000/users`, {

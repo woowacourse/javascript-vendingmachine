@@ -2,6 +2,7 @@ import { EMPTY_COIN } from '../../constant/constant';
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { sortCoins } from '../../utils/coinUtil';
+import { showSnackBar } from '../../utils/domUtil';
 
 class ItemPurchasePage extends Component {
   setup() {
@@ -108,6 +109,7 @@ class ItemPurchasePage extends Component {
       </table>
       <button id="return-button" class="return-button styled-button">반환</button>
     </section>
+    <div class="snackbar"></div>
   `;
   }
 
@@ -120,7 +122,8 @@ class ItemPurchasePage extends Component {
       try {
         vendingMachine.addPurchaseMoney(money);
       } catch (err) {
-        window.alert(err);
+        const snackbar = this.querySelector('.snackbar');
+        showSnackBar(snackbar, err);
       }
     });
 
@@ -130,7 +133,8 @@ class ItemPurchasePage extends Component {
       try {
         this.state.returnCoins = vendingMachine.returnChange();
       } catch ({ message }) {
-        window.alert(message);
+        const snackbar = this.querySelector('.snackbar');
+        showSnackBar(snackbar, message);
       }
     });
   }

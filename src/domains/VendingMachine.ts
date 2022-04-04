@@ -1,6 +1,7 @@
 import Subject from '../core/Subject';
-import { deepClone, getData, setData } from '../utils/commons';
+import { deepClone } from '../utils/commons';
 import { createRandomCoins, sortCoins } from '../utils/coinUtil';
+import { getData, setData } from '../utils/storageUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
 import { ERROR_MESSAGE, EMPTY_COIN } from '../constant/constant';
 

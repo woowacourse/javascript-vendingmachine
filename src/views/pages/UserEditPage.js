@@ -1,12 +1,13 @@
 import Component from '../../core/Component';
-import { setData, getData } from '../../utils/commons';
+import { setData, getData } from '../../utils/storageUtil';
 import { loginUser } from '../../auth/login';
 import { getUserData, editUser, deleteUser } from '../../auth/edit';
 import { isPasswordDifferent } from '../../auth/validate';
+import { showSnackBar } from '../../utils/domUtil';
 
 class UserEditPage extends Component {
   setup() {
-    const { email, name } = getData('user').user;
+    const { email, name } = getData('user') ? getData('user').user : '';
     this.state = { userId: this.props.userid, email, name };
   }
 
@@ -37,6 +38,7 @@ class UserEditPage extends Component {
         </form>
         <button id="withdraw-button" class="withdraw">탈퇴하기</button>
       </section>
+      <div class="snackbar"></div>
     `;
   }
 
@@ -44,11 +46,12 @@ class UserEditPage extends Component {
     this.addEvent('submit', '#user-edit-form', async (event) => {
       event.preventDefault();
 
+      const snackbar = this.querySelector('.snackbar');
       const { email, userName, password, passwordCheck } =
         event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        window.alert('비밀번호를 확인해주세요');
+        showSnackBar(snackbar, '비밀번호를 확인해주세요');
 
         return;
       }
@@ -67,7 +70,7 @@ class UserEditPage extends Component {
         if (
           userDataList.find((userData) => userData.email === userInfo.email)
         ) {
-          window.alert('이미 존재하는 이메일입니다.');
+          showSnackBar('이미 존재하는 이메일입니다.');
 
           return;
         }
@@ -83,7 +86,7 @@ class UserEditPage extends Component {
       });
 
       if (!loginResponse.accessToken) {
-        window.alert(loginResponse);
+        showSnackBar(snackbar, loginResponse);
 
         return;
       }

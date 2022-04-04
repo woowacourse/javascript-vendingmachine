@@ -1,6 +1,7 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM, MONEY_UNIT, CONFIRM_MESSAGE } from '../../constant/constant';
+import { showSnackBar } from '../../utils/domUtil';
 
 class ItemRow extends TableRow {
   setup() {
@@ -108,7 +109,8 @@ class ItemRow extends TableRow {
       try {
         vendingMachine.buyItem(name);
       } catch ({ message }) {
-        window.alert(message);
+        const snackbar = document.querySelector('.snackbar');
+        showSnackBar(snackbar, message);
       }
     });
   }

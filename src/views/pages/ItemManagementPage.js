@@ -2,6 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import '../components/ItemRow';
 import { ITEM, MONEY_UNIT } from '../../constant/constant';
+import { showSnackBar } from '../../utils/domUtil';
 
 class ItemManagementPage extends Component {
   template() {
@@ -98,6 +99,7 @@ class ItemManagementPage extends Component {
           </table>
         </div>
       </section>
+      <div class="snackbar"></div>
     `;
   }
 
@@ -115,7 +117,8 @@ class ItemManagementPage extends Component {
       try {
         vendingMachine.addItem(item);
       } catch (err) {
-        window.alert(err);
+        const snackbar = this.querySelector('.snackbar');
+        showSnackBar(snackbar, err);
       }
     });
   }

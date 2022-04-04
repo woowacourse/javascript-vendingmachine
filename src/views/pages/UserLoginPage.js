@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { loginUser } from '../../auth/login';
-import { setData } from '../../utils/commons';
+import { setData } from '../../utils/storageUtil';
+import { showSnackBar } from '../../utils/domUtil';
 
 class UserLoginPage extends Component {
   template() {
@@ -25,6 +26,7 @@ class UserLoginPage extends Component {
         </form>
         <p>아직 회원이 아니신가요? <a href="#register">회원가입</a></p>
       </div>
+      <div class="snackbar"></div>
     `;
   }
 
@@ -40,7 +42,8 @@ class UserLoginPage extends Component {
       });
 
       if (!response.accessToken) {
-        alert(response);
+        const snackbar = this.querySelector('.snackbar');
+        showSnackBar(snackbar, response);
 
         return;
       }

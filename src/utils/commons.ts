@@ -77,19 +77,3 @@ export const deepClone = <T>(obj: T): T => {
 
   return clone;
 };
-
-export const setData = (key: string, data: object) =>
-  localStorage.setItem(key, JSON.stringify(data));
-
-export const getData = (key: string) => JSON.parse(localStorage.getItem(key));
-
-export const manageErrors = (response) => {
-  if (!response.ok) {
-    const responseError = {
-      message: `${response.status} ${response.statusText}`,
-    };
-    throw responseError;
-  }
-
-  return response;
-};

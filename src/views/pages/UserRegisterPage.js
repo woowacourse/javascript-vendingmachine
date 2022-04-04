@@ -1,7 +1,8 @@
 import Component from '../../core/Component';
 import { registerUser } from '../../auth/register';
-import { setData } from '../../utils/commons';
+import { setData } from '../../utils/storageUtil';
 import { isPasswordDifferent } from '../../auth/validate';
+import { showSnackBar } from '../../utils/domUtil';
 
 class UserRegisterPage extends Component {
   template() {
@@ -29,6 +30,7 @@ class UserRegisterPage extends Component {
           <button type="submit" class="register-button styled-button emphasized">확인</button>
         </form>
       </div>
+      <div class="snackbar"></div>
     `;
   }
 
@@ -36,11 +38,12 @@ class UserRegisterPage extends Component {
     this.addEvent('submit', '#register-form', async (event) => {
       event.preventDefault();
 
+      const snackbar = this.querySelector('.snackbar');
       const { email, userName, password, passwordCheck } =
         event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        alert('패스워드를 확인해 주세요');
+        showSnackBar(snackbar, '패스워드를 확인해 주세요');
 
         return;
       }
@@ -52,7 +55,7 @@ class UserRegisterPage extends Component {
       });
 
       if (!response.accessToken) {
-        alert(response);
+        showSnackBar(snackbar, response);
 
         return;
       }

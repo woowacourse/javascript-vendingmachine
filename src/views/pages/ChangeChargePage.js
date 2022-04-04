@@ -2,6 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { AMOUNT, MONEY_UNIT } from '../../constant/constant';
 import { sortCoins } from '../../utils/coinUtil';
+import { showSnackBar } from '../../utils/domUtil';
 
 class ChangeChargePage extends Component {
   template() {
@@ -55,6 +56,7 @@ class ChangeChargePage extends Component {
           </tbody>
         </table>
       </section>
+      <div class="snackbar"></div>
     `;
   }
 
@@ -67,7 +69,8 @@ class ChangeChargePage extends Component {
       try {
         vendingMachine.addCoin(chargeAmount);
       } catch (err) {
-        window.alert(err);
+        const snackbar = this.querySelector('.snackbar');
+        showSnackBar(snackbar, err);
       }
     });
   }
