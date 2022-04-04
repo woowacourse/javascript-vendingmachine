@@ -20,10 +20,14 @@ export default class PurchaseCashDomain {
   returnCoins(haveCoins: Coins): Coins {
     const coins: Coins = {};
 
+    // 500~10까지 차례대로 최대 개수를 반환
     COIN_TYPE.forEach(type => {
-      const count = Math.min(Math.floor(this.#cash / type), haveCoins[type]);
-      coins[type] = count;
-      this.addCash(-(count * type));
+      const maxAmount = Math.min(
+        Math.floor(this.#cash / type),
+        haveCoins[type],
+      );
+      coins[type] = maxAmount;
+      this.addCash(-(maxAmount * type));
     });
 
     return coins;
