@@ -1,14 +1,14 @@
-import { CONFIRM_DELETE_MESSAGE } from '../constants';
-import { createMainElement, selectDom } from '../utils/dom';
+import { CONFIRM_DELETE_MESSAGE } from '../../constants';
+import { createMainElement, selectDom } from '../../utils/dom';
 import {
-  manageProductTabTemplate,
-  productTableRowTemplate,
+  productTabTemplate,
   productUpdateTableRowTemplate,
-} from './template';
+  productTableRowTemplate,
+} from './ProductTabTemplate';
 
-export default class ManageProductTab {
+export default class ProductTab {
   #vendingMachine;
-  #manageContainer;
+  #productContainer;
   #addProductForm;
   #addProductNameInput;
   #addProductPriceInput;
@@ -19,21 +19,21 @@ export default class ManageProductTab {
     this.#vendingMachine = machine;
     this.snackbar = snackbar;
 
-    this.#manageContainer = createMainElement(manageProductTabTemplate);
-    this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
+    this.#productContainer = createMainElement(productTabTemplate);
+    this.#addProductForm = selectDom('#add-product-form', this.#productContainer);
     this.#addProductNameInput = selectDom(
       '#add-product-name-input',
-      this.#manageContainer
+      this.#productContainer
     );
     this.#addProductPriceInput = selectDom(
       '#add-product-price-input',
-      this.#manageContainer
+      this.#productContainer
     );
     this.#addProductStockInput = selectDom(
       '#add-product-stock-input',
-      this.#manageContainer
+      this.#productContainer
     );
-    this.#productStatusTable = selectDom('.product-status-table', this.#manageContainer);
+    this.#productStatusTable = selectDom('.product-status-table', this.#productContainer);
 
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
@@ -41,7 +41,7 @@ export default class ManageProductTab {
 
   get tabElements() {
     this.#renderInitialProducts();
-    return this.#manageContainer;
+    return this.#productContainer;
   }
 
   #renderInitialProducts() {
@@ -51,7 +51,7 @@ export default class ManageProductTab {
         `${htmlString}${productTableRowTemplate({ name, price, stock, id })}`,
       ''
     );
-    this.#manageContainer
+    this.#productContainer
       .querySelectorAll('.product-table-row')
       .forEach((element) => element.remove());
 

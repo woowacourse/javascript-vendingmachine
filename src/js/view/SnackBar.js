@@ -19,12 +19,12 @@ export default class Snackbar {
   #handleSnackbarUpdate = () => {
     if (this.#messageList.length > 0 && this.#canShow) {
       const nextMessage = this.#messageList.shift();
-      this.#renderSnackbarUpdate(nextMessage);
+      this.#renderSnackbar(nextMessage);
     }
     window.requestAnimationFrame(this.#handleSnackbarUpdate);
   };
 
-  #renderSnackbarUpdate = (message) => {
+  #renderSnackbar = (message) => {
     this.#canShow = false;
 
     const snackbar = document.createElement('div');

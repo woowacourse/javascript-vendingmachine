@@ -1,8 +1,11 @@
-import { NOT_ENOUGH_CHANGE_MESSAGE } from '../constants';
-import { createMainElement, selectDom } from '../utils/dom';
-import { purchaseProductTableRowTemplate, purchaseTabTemplate } from './template';
+import { NOT_ENOUGH_CHANGE_MESSAGE } from '../../constants';
+import { createMainElement, selectDom } from '../../utils/dom';
+import {
+  purchaseProductTableRowTemplate,
+  purchaseTabTemplate,
+} from './PurchaseTabTemplate';
 
-export default class PurchaseProductTab {
+export default class PurchaseTab {
   #vendingMachine;
   #snackbar;
   #purchaseContainer;

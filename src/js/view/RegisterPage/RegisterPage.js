@@ -1,5 +1,5 @@
-import { createMainElement, getInputValuesFromForm, selectDom } from '../utils/dom';
-import { registerPageTemplate } from './template';
+import { createMainElement, getInputValuesFromForm, selectDom } from '../../utils/dom';
+import registerPageTemplate from './RegisterPageTemplate';
 
 export default class RegisterPage {
   #snackbar;

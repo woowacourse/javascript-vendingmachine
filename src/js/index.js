@@ -1,20 +1,26 @@
 import VendingMachine from './domain/VendingMachine';
 import Authorization from './domain/Authorization';
-import PurchaseProductTab from './view/PurchaseProductTab';
-import AddChangeTab from './view/AddChangeTab';
-import ManageProductTab from './view/ManageProductTab';
+
+import {
+  ChargeTab,
+  LoginPage,
+  ProductTab,
+  PurchaseTab,
+  RegisterPage,
+  UserInfoPage,
+} from './view';
+
 import { createMainElement, selectDom } from './utils/dom';
+
 import {
   loginLinkButtonTemplate,
   navigationTemplate,
   notFoundTabTemplate,
   userButtonSelectBoxTemplate,
   userButtonTemplate,
-} from './view/template';
+} from './view/generalTemplate';
+
 import Snackbar from './view/Snackbar';
-import LoginPage from './view/LoginPage';
-import RegisterPage from './view/RegisterPage';
-import UserInfoPage from './view/UserInfoPage';
 
 class App {
   #vendingMachine;
@@ -32,17 +38,17 @@ class App {
     this.#authorization = new Authorization();
     this.#userRenderList = {
       '#/user-info': new UserInfoPage(this.#authorization, this.snackBar),
-      '#/manage': new ManageProductTab(this.#vendingMachine, this.snackBar),
-      '#/charge': new AddChangeTab(this.#vendingMachine, this.snackBar),
-      '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
+      '#/product': new ProductTab(this.#vendingMachine, this.snackBar),
+      '#/charge': new ChargeTab(this.#vendingMachine, this.snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.snackBar),
     };
     this.#nonUserRenderList = {
       '#/login': new LoginPage(this.#authorization, this.snackBar),
       '#/register': new RegisterPage(this.#authorization, this.snackBar),
-      '#/purchase': new PurchaseProductTab(this.#vendingMachine, this.snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.snackBar),
     };
-    this.#headerContainer = selectDom('header');
     this.#appContainer = selectDom('#app');
+    this.#headerContainer = selectDom('header');
     this.#userButton = selectDom('#user-button');
 
     window.addEventListener('popstate', this.#render);
@@ -58,7 +64,7 @@ class App {
   };
 
   #renderUser() {
-    const path = window.location.hash || '#/manage';
+    const path = window.location.hash || '#/product';
     this.#renderNav(path);
     selectDom('#login-link-button', this.#appContainer)?.remove();
     this.#updateUserButton();

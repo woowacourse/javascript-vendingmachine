@@ -1,9 +1,9 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { addChangeTabTemplate } from './template';
+import { createMainElement, selectDom } from '../../utils/dom';
+import chargeTabTemplate from './ChargeTabTemplates';
 
-export default class AddChangeTab {
+export default class ChargeTab {
   #vendingMachine;
-  #addChangeContainer;
+  #ChargeTabContainer;
   #addChangeForm;
   #moneyInput;
   #totalChange;
@@ -13,18 +13,18 @@ export default class AddChangeTab {
     this.snackbar = snackbar;
     this.#vendingMachine = machine;
 
-    this.#addChangeContainer = createMainElement(addChangeTabTemplate);
-    this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
-    this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
-    this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
-    this.#coinStatusTable = selectDom('.coin-status-table', this.#addChangeContainer);
+    this.#ChargeTabContainer = createMainElement(chargeTabTemplate);
+    this.#addChangeForm = selectDom('#add-change-form', this.#ChargeTabContainer);
+    this.#moneyInput = selectDom('#money-input', this.#ChargeTabContainer);
+    this.#totalChange = selectDom('#total-change', this.#ChargeTabContainer);
+    this.#coinStatusTable = selectDom('.coin-status-table', this.#ChargeTabContainer);
 
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
   get tabElements() {
     this.#renderCoinStatus();
-    return this.#addChangeContainer;
+    return this.#ChargeTabContainer;
   }
 
   #handleAddChange = (e) => {

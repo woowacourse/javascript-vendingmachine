@@ -1,5 +1,5 @@
-import { createMainElement, getInputValuesFromForm, selectDom } from '../utils/dom';
-import { userInfoPageTemplate } from './template';
+import { createMainElement, getInputValuesFromForm, selectDom } from '../../utils/dom';
+import userInfoPageTemplate from './UserInfoPageTemplate';
 
 export default class UserInfoPage {
   #snackbar;
