@@ -1,4 +1,6 @@
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { checkValidProfile } from '../domain/validator';
+import { renderToastModal } from './ToastNotification';
 
 const profileEditTemplate = document.createElement('template');
 profileEditTemplate.innerHTML = `
@@ -171,10 +173,10 @@ class ProfileEdit extends HTMLElement {
         this.closeModal();
         const event = new CustomEvent('@route-login', {});
         window.dispatchEvent(event);
+        renderToastModal('success', SUCCESS_MESSAGE.EDIT_COMPLETE);
       });
     } catch (error) {
-      console.error(error.message);
-      // 토스트
+      renderToastModal('error', error.message);
     }
   };
 

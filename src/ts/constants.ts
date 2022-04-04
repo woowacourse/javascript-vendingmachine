@@ -27,6 +27,7 @@ export const ERROR_MESSAGE = {
     '유효하지 않은 비밀번호를 입력하셨습니다. 비밀번호 확인 칸에 동일한 비밀번호를 입력하세요.',
   INVALID_PASSWORD:
     '유효하지 않은 비밀번호를 입력하셨습니다.  password는 8자리에서 16자리 사이여야 하며, 영어, 숫자, 특수문자 각각 최소 1개 이상 조합이어야 한다.',
+  LOGIN_FAILED: '로그인에 실패하였습니다. 가입하신 정확한 아이디와 비밀번호를 입력해주세요.',
 };
 
 export const SUCCESS_MESSAGE = {
@@ -36,6 +37,10 @@ export const SUCCESS_MESSAGE = {
   MONEY_RECHARGED: '충전하신 금액만큼 동전을 보충하였습니다.',
   PURCHASE: '해당 상품을 구매하였습니다.',
   MONEY_INSERTED: '입력하신 금액이 투입되었습니다.',
+  LOGIN_COMPLETE: '로그인 되었습니다.',
+  EDIT_COMPLETE: '회원정보가 수정되었습니다.',
+  SIGNUP_COMPLETE: '회원가입이 완료되었습니다.',
+  LOGOUT_COMPLETE: '로그아웃 되었습니다.',
 };
 
 export const CONFIRM_MESSAGE = {

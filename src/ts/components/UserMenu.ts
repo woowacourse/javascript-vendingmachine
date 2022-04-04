@@ -1,3 +1,6 @@
+import { SUCCESS_MESSAGE } from '../constants';
+import { renderToastModal } from './ToastNotification';
+
 const userMenuTemplate = document.createElement('template');
 
 userMenuTemplate.innerHTML = `
@@ -171,9 +174,7 @@ class UserMenu extends HTMLElement {
   checkLoginStatus = () => {
     const userAuth = JSON.parse(localStorage.getItem('userAuth'));
     if (!userAuth) {
-      console.log('user-menu, 로컬스토리지 없음, 로그인 실패');
       this.renderLoginButton();
-
       return;
     }
     const id = userAuth.id;
@@ -190,17 +191,15 @@ class UserMenu extends HTMLElement {
     })
       .then((res) => {
         if (!res.ok) {
-          console.log('user-menu, 로컬스토리지 있으나 시간만료, 로그인 실패');
           this.renderLoginButton();
           return;
         }
         return res.json();
       })
       .then((response) => {
-        console.log('user-menu, 로그인 성공');
         this.renderUserThumbnail(response.name[0]);
       })
-      .catch((error) => console.error('에러', error));
+      .catch((error) => renderToastModal('error', error.message));
   };
 
   renderLoginButton = () => {
@@ -229,6 +228,7 @@ class UserMenu extends HTMLElement {
     localStorage.removeItem('userAuth');
     const event = new CustomEvent('@route-logout', {});
     window.dispatchEvent(event);
+    renderToastModal('success', SUCCESS_MESSAGE.LOGOUT_COMPLETE);
   };
 }
 

@@ -1,4 +1,6 @@
+import { SUCCESS_MESSAGE } from '../constants';
 import { checkValidProfile } from '../domain/validator';
+import { renderToastModal } from './ToastNotification';
 
 const signupTemplate = document.createElement('template');
 
@@ -182,11 +184,11 @@ class Signup extends HTMLElement {
           id: response.user.id,
         };
         localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        console.log('회원가입 성공');
         this.closeModal();
         this.emitRouteLogin();
+        renderToastModal('success', SUCCESS_MESSAGE.SIGNUP_COMPLETE);
       })
-      .catch((error) => console.error('에러', error));
+      .catch((error) => renderToastModal('error', error.message));
   };
 
   emitRouteLogin = () => {

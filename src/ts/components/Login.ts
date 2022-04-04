@@ -1,3 +1,6 @@
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
+import { renderToastModal } from './ToastNotification';
+
 const loginTemplate = document.createElement('template');
 
 loginTemplate.innerHTML = `
@@ -176,8 +179,9 @@ class Login extends HTMLElement {
         console.log('login, 로그인 성공');
         localStorage.setItem('userAuth', JSON.stringify(userAuth));
         this.emitRouteLogin();
+        renderToastModal('success', SUCCESS_MESSAGE.LOGIN_COMPLETE);
       })
-      .catch((error) => console.error('에러', error));
+      .catch((error) => renderToastModal('error', ERROR_MESSAGE.LOGIN_FAILED));
   };
 
   emitRouteLogin = () => {
