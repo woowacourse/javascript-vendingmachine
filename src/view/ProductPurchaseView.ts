@@ -1,3 +1,4 @@
+import { CoinChangesTable } from '../component/CoinChangesTable';
 import { CoinVaultTable } from '../component/CoinVaultTable';
 import { CustomerMoneyInput } from '../component/CustomerMoneyInput';
 import { ProductCatalogTable } from '../component/ProductCatalogTable';
@@ -9,7 +10,7 @@ export class ProductPurchaseView {
   customerMoneyInput: CustomerMoneyInput;
   productPurchaseTable: ProductPurchaseTable;
   productCatalogTable: ProductCatalogTable;
-  returnBalanceTable: CoinVaultTable;
+  returnBalanceTable: CoinChangesTable;
 
   constructor(AppProps: AppProps) {
     this.contentsContainer = AppProps.contentsContainer;
@@ -22,7 +23,7 @@ export class ProductPurchaseView {
     this.contentsContainer.addEventListener('productPurchaseTabClick', this.showProductPurchaseTab);
     this.customerMoneyInput = new CustomerMoneyInput(productPurchaseProps);
     this.productPurchaseTable = new ProductPurchaseTable(productPurchaseProps);
-    this.returnBalanceTable = new CoinVaultTable(productPurchaseProps);
+    this.returnBalanceTable = new CoinChangesTable(productPurchaseProps);
   }
 
   showProductPurchaseTab = () => {

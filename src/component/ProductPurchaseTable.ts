@@ -1,15 +1,18 @@
+import { CoinVault } from '../domain/CoinVault';
 import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 export class ProductPurchaseTable {
-  productCatalog: ProductCatalog;
   target: HTMLDivElement;
+  productCatalog: ProductCatalog;
+  coinVault: CoinVault;
   productTable: HTMLTableElement;
   productTableBody: HTMLTableElement;
 
   constructor(props) {
     this.target = props.target;
     this.productCatalog = props.productCatalog;
+    this.coinVault = props.coinVault;
   }
 
   render = () => {
@@ -58,9 +61,18 @@ export class ProductPurchaseTable {
   handleProductStateManage = (e) => {
     if (e.target.classList.contains('purchase-button')) {
       const tableRow = e.target.parentNode.parentNode;
-      this.productCatalog.purchaseProductByName(tableRow.id);
-      this.renderUpdatedTableRowQuantity(tableRow);
-      //TODO customEvent로 보내서 고객이 넣은 돈 감소시키기
+      const productName = tableRow.id;
+      const productPrice = this.productCatalog.getProductPriceByName(productName);
+
+      if (this.coinVault.getCustomerInput() - productPrice >= 0) {
+        this.productCatalog.purchaseProductByName(tableRow.id);
+        this.renderUpdatedTableRowQuantity(tableRow);
+        this.target.dispatchEvent(
+          new CustomEvent('purchased', { detail: { price: productPrice } })
+        );
+      } else {
+        alert('그돈으로 사먹으려고?');
+      }
     }
   };
 

@@ -38,6 +38,10 @@ export class CustomerMoneyInput {
 
   bindEvent() {
     this.customerMoneyInputBtn.addEventListener('click', this.handleChargeMoney);
+    this.target.addEventListener('purchased', (e) => {
+      this.handleDeductMoneyInput(e);
+    });
+    this.target.addEventListener('giveChanges', this.updateCurrentMoneyInput);
   }
 
   handleChargeMoney = (e: Event) => {
@@ -51,7 +55,13 @@ export class CustomerMoneyInput {
     }
   };
 
-  updateCurrentMoneyInput() {
+  updateCurrentMoneyInput = () => {
     this.currentMoneyInput.textContent = `${this.coinVault.getCustomerInput()}`;
-  }
+  };
+
+  handleDeductMoneyInput = (e) => {
+    const productPrice = e.detail.price;
+    this.coinVault.deductCustomerInput(productPrice);
+    this.updateCurrentMoneyInput();
+  };
 }

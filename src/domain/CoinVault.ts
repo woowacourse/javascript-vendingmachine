@@ -82,7 +82,34 @@ export class CoinVault {
     }
   }
 
+  deductCustomerInput(money: number) {
+    try {
+      this.validateMoney(money);
+      this.customerInput -= money;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   getCustomerInput() {
     return this.customerInput;
+  }
+
+  giveChanges(): Coins {
+    const result: Coins = { coin500: 0, coin100: 0, coin50: 0, coin10: 0 };
+
+    Object.entries(this.coinsQuantity).forEach(([key, possessedQuantity]) => {
+      let needQuantity = Math.floor(this.customerInput / COINS_PRICE_TABLE[key]);
+      if (needQuantity > possessedQuantity) {
+        result[key] = possessedQuantity;
+        this.coinsQuantity[key] -= possessedQuantity;
+        this.customerInput -= possessedQuantity * COINS_PRICE_TABLE[key];
+        return;
+      }
+      result[key] = needQuantity;
+      this.coinsQuantity[key] -= possessedQuantity;
+      this.customerInput -= needQuantity * COINS_PRICE_TABLE[key];
+    });
+    return result;
   }
 }

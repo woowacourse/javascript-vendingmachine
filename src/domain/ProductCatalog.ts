@@ -53,4 +53,10 @@ export class ProductCatalog {
     const target = this.productList[productIndex];
     return target.getQuantity();
   }
+
+  getProductPriceByName(name: string): number {
+    const productIndex = this.findExistingProductIndex(name);
+    const target = this.productList[productIndex];
+    return target.getPrice();
+  }
 }
