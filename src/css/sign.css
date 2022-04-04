@@ -1,7 +1,4 @@
 #sign-button.sign-in {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   width: 117px;
   height: 36px;
   background-color: var(--color-nav-button-bg);

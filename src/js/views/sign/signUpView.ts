@@ -1,7 +1,8 @@
 import AuthManager from '../../auth/authManager';
 import { signUpTemplate } from '../../templates/signUpTemplate';
-import { $ } from '../../utils/common';
+import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
+import { CUSTOM_EVENT } from '../../constants/appContants';
 
 export default class SignUpView {
   render() {
@@ -20,8 +21,9 @@ export default class SignUpView {
       const password = $('#password-input').value;
       const confirmPassword = $('#password-confirm-input').value;
 
-      const userData = await AuthManager.shared().singUp({ email, name, password });
-      console.log(userData.accessToken);
+      await AuthManager.shared().singUp({ email, name, password });
+
+      emit({ eventName: CUSTOM_EVENT.SIGN_COMPLETE });
     } catch (error) {
       showSnackbar(error.message);
     }

@@ -153,3 +153,16 @@
   width: 100px;
   height: 32px;
 }
+
+#sign-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--color-nav-button-clicked);
+}

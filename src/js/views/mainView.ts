@@ -6,6 +6,7 @@ import ManageItemView from './mangeItemView';
 import ChargeMoneyView from './chargeMoneyView';
 import PurchaseItemView from './purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
+import AuthManager from '../auth/authManager';
 
 export default class MainView {
   private $app: HTMLElement;
@@ -25,6 +26,7 @@ export default class MainView {
   render() {
     this.$app.replaceChildren();
     this.$app.insertAdjacentHTML('beforeend', mainTemplate);
+    this.checkSignIn();
 
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
     $('#sign-button').addEventListener('click', this.handleSignButtonClick.bind(this));
@@ -80,5 +82,15 @@ export default class MainView {
       emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
       emit({ eventName: CUSTOM_EVENT.RENDER_PAGE, detail: {} });
     }
+  }
+
+  private checkSignIn() {
+    if (!AuthManager.shared().accessToken) {
+      $('#item-manage-tab').classList.add('display-none');
+      $('#money-charge-tab').classList.add('display-none');
+      return;
+    }
+    $('#sign-button').classList.replace('sign-in', 'thumbnail');
+    $('#sign-button').textContent = AuthManager.shared().userData.name.charAt(0);
   }
 }

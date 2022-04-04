@@ -5,13 +5,26 @@ export default class AuthManager {
     signIn: '/signin',
     signUp: '/signup',
   };
-  private accessToken = '';
+  private _accessToken = '';
+  private _userData = {
+    email: '',
+    name: '',
+    password: '',
+  };
 
   static shared() {
     if (!AuthManager.instance) {
       AuthManager.instance = new AuthManager();
     }
     return AuthManager.instance;
+  }
+
+  get accessToken() {
+    return this._accessToken;
+  }
+
+  get userData() {
+    return this._userData;
   }
 
   async signIn({ email, password }) {
@@ -26,8 +39,8 @@ export default class AuthManager {
     }
 
     const { accessToken, user } = await response.json();
-    this.accessToken = accessToken;
-    return user;
+    this._accessToken = accessToken;
+    this._userData = user;
   }
 
   async singUp({ email, name, password }) {
@@ -42,7 +55,7 @@ export default class AuthManager {
     }
 
     const { accessToken, user } = await response.json();
-    this.accessToken = accessToken;
-    return user;
+    this._accessToken = accessToken;
+    this._userData = user;
   }
 }

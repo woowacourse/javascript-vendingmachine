@@ -21,8 +21,9 @@ export default class SignInView {
       const email = $('#email-input').value;
       const password = $('#password-input').value;
 
-      const userData = await AuthManager.shared().signIn({ email, password });
-      console.log(userData);
+      await AuthManager.shared().signIn({ email, password });
+
+      emit({ eventName: CUSTOM_EVENT.SIGN_COMPLETE });
     } catch (error) {
       showSnackbar(error.message);
     }
