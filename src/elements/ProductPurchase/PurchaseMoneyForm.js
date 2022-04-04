@@ -3,6 +3,7 @@ import CustomElement from '../../abstracts/CustomElement';
 import { checkPurchaseMoneyValidation } from '../../validators';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
+import { SNACKBAR } from '../../constants';
 
 class PurchaseMoneyForm extends CustomElement {
   connectedCallback() {
@@ -34,7 +35,6 @@ class PurchaseMoneyForm extends CustomElement {
   handlePurchaseMoneyButtonSubmit = (event) => {
     event.preventDefault();
 
-    // 입력된다. (유효성 검사)
     const $purchaseMoneyInput = $('#purchase-money-input');
     const purchaseMoneyInputValue = $purchaseMoneyInput.valueAsNumber;
 
@@ -44,6 +44,7 @@ class PurchaseMoneyForm extends CustomElement {
       alert(error.message);
       return;
     }
+    this.showSnackbar(SNACKBAR.PURCHASE_MONEY_INPUT_SUCCESS);
     this.initPurchaseMoneyInput($purchaseMoneyInput);
     CoinStoreInstance.dispatchAction(COIN_ACTION.PURCHASE_MONEY_INPUT, purchaseMoneyInputValue);
   };

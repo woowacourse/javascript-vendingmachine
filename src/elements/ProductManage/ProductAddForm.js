@@ -4,6 +4,7 @@ import { PRODUCT_ACTION } from '../../domains/actions';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkProductAddValidation } from '../../validators';
+import { SNACKBAR } from '../../constants';
 
 class ProductAddForm extends CustomElement {
   template() {
@@ -43,6 +44,7 @@ class ProductAddForm extends CustomElement {
       alert(error.message);
       return;
     }
+    this.showSnackbar(SNACKBAR.PRODUCT_ADD_SUCCESS);
     this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
     ProductStoreInstance.dispatchAction(PRODUCT_ACTION.ADD, newProduct);
   };

@@ -1,3 +1,5 @@
+import { $ } from '../utils/dom';
+
 class CustomElement extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -11,6 +13,16 @@ class CustomElement extends HTMLElement {
   template() {}
 
   setEvent() {}
+
+  showSnackbar(message) {
+    const $snackbar = $('#snackbar');
+
+    $snackbar.textContent = message;
+    $snackbar.classList.toggle('show');
+    setTimeout(() => {
+      $snackbar.classList.toggle('show');
+    }, 3000);
+  }
 
   show() {
     this.removeAttribute('hidden');

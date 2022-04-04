@@ -50,3 +50,12 @@ export const ERROR_MESSAGE = {
 
   IS_OVER_MONEY_INPUT: `상품의 가격이 투입된 돈보다 더 비쌉니다. 상품을 구매하고 싶으시면, 돈을 더 투입해주세요.`,
 };
+
+export const SNACKBAR = {
+  PRODUCT_MODIFY_SUCCESS: '상품 정보가 정상적으로 수정되었습니다.',
+  PRODUCT_DELETE_SUCCESS: '상품 정보가 정상적으로 삭제되었습니다.',
+  PRODUCT_ADD_SUCCESS: '상품을 정상적으로 추가했습니다.',
+  COIN_CHARGE_SUCCESS: '자판기의 잔돈이 정상적으로 충전되었습니다.',
+  PURCHASE_MONEY_INPUT_SUCCESS: '금액이 정상적으로 투입되었습니다. 이제 상품을 구매할 수 있습니다.',
+  RETURN_CHANGE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
+};
