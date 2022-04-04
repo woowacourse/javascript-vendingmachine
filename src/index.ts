@@ -1,11 +1,11 @@
 import './styles';
-import { getSavedUserInfo, requestUserInfo } from './es/utils/auth';
+import { getSavedAuthInfo, requestUserInfo } from './es/utils/auth';
 import { initRouteEvent, loadMainPage } from './es/routes';
 
-const initialUserInfo = getSavedUserInfo();
+const initialAuthInfo = getSavedAuthInfo();
 
-if (initialUserInfo) {
-  requestUserInfo(initialUserInfo).then(() => loadMainPage());
+if (initialAuthInfo) {
+  requestUserInfo(initialAuthInfo).then(() => loadMainPage());
 } else {
   loadMainPage();
 }

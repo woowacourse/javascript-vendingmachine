@@ -17,7 +17,7 @@ class VendingMachineChargeManagementPageView {
   loadPage = () => {
     $('main').innerHTML = template.vendingMachineChargeManagementPage;
 
-    this.setDom();
+    this.setDOM();
     this.render({
       state: VendingMachineChargeManagementPageManager.getState(),
       changeStates: Object.keys(this.renderMethodList),
@@ -25,7 +25,7 @@ class VendingMachineChargeManagementPageView {
     this.setEvents();
   };
 
-  setDom() {
+  setDOM() {
     this.$vendingMachineChargeForm = $('#vendingmachine-charge-form');
     this.$vendingMachineChargeCoinTable = $('#holding-amount-table');
 

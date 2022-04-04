@@ -156,7 +156,7 @@ function updateUserInfo(newUserInfo) {
     .catch(error => console.error('에러', error.message));
 }
 
-function getSavedUserInfo(): AuthInfo | null {
+function getSavedAuthInfo(): AuthInfo | null {
   const userAuth: AuthInfo | null = JSON.parse(localStorage.getItem('userAuth'));
   if (userAuth?.expiration < Date.now()) {
     localStorage.removeItem('userAuth');
@@ -170,5 +170,5 @@ export {
   logout,
   requestUserInfo,
   updateUserInfo,
-  getSavedUserInfo,
+  getSavedAuthInfo,
 };

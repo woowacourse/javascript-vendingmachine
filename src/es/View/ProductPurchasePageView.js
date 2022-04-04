@@ -20,7 +20,7 @@ class ProductPurchasePageView {
   loadPage = () => {
     $('main').innerHTML = template.productPurchasePage;
 
-    this.setDom();
+    this.setDOM();
     this.render({
       state: { ...ProductPurchasePageManager.getState() },
       changeStates: Object.keys(this.renderMethodList),
@@ -28,7 +28,7 @@ class ProductPurchasePageView {
     this.setEvents();
   };
 
-  setDom() {
+  setDOM() {
     this.$customerChargeForm = $('#customer-charge-form');
     this.$productTableSection = $('#product-table-section');
     this.$productTable = $('#product-table', this.$productTableSection);

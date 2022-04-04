@@ -24,7 +24,7 @@ class ProductManagementPageView {
   loadPage = () => {
     $('main').innerHTML = template.productManagementPage;
 
-    this.setDom();
+    this.setDOM();
     this.render({
       state: ProductManagementPageManager.getState(),
       changeStates: Object.keys(this.renderMethodList),
@@ -32,7 +32,7 @@ class ProductManagementPageView {
     this.setEvents();
   };
 
-  setDom() {
+  setDOM() {
     this.$addFormSection = $('#add-product-form-section');
     this.$addForm = $('#add-product-form', this.$addFormSection);
 
