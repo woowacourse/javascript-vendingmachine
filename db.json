@@ -23,6 +23,24 @@
       "password": "$2a$10$A.dhG9EcPC83DR5lvxRhhuFiLK4qR8RHNfCvbg/kDmYTF8gGDTjLS",
       "name": "마르코",
       "id": 4
+    },
+    {
+      "email": "wow@gmail.com",
+      "password": "$2a$10$8T9OBvBmdu5oMzi36AECfOjwHW9CP2/BSLRrvmDsPZMUoRTcw0sWe",
+      "name": "wowwww",
+      "id": 5
+    },
+    {
+      "email": "1@1.com",
+      "password": "$2a$10$6wwwUaQDtUbnZAGFhjv6quZk.nmppAkJye4T.fyy5Yn/RtvU.YRQ.",
+      "name": "123",
+      "id": 6
+    },
+    {
+      "email": "2@2.com",
+      "password": "$2a$10$bF/yMb.TMKfA0ZRtIPmGIOZh6qb.p.RrY3BBPat74aLqjEwbE0Pba",
+      "name": "asdfasdf",
+      "id": 7
     }
   ]
 }

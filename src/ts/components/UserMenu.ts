@@ -66,7 +66,7 @@ class UserMenu extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(profileTemplate.content.cloneNode(true));
+    this.shadowRoot.appendChild(userMenuTemplate.content.cloneNode(true));
   }
 
   connectedCallback() {
@@ -82,11 +82,13 @@ class UserMenu extends HTMLElement {
 
   renderUserMenu = () => {
     const userAuth = JSON.parse(localStorage.getItem('userAuth'));
-
+    if (!userAuth) {
+      return;
+    }
     const id = userAuth.id;
     const accessToken = `Bearer ${userAuth.accessToken}`;
 
-    const url = `http://localhost:3000/600/users/${id}`;
+    const url = `https://json-server-marco.herokuapp.com/users/${id}`;
 
     const renderUpdatedUserInfo = (response) => {
       console.log(response);

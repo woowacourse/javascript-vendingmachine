@@ -88,7 +88,7 @@ class Login extends HTMLElement {
     const password = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='password']"))
       .value;
 
-    const url = 'http://localhost:3000/login/';
+    const url = 'https://json-server-marco.herokuapp.com/login/';
     const data = {
       email,
       password,
