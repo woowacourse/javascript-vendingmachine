@@ -1,13 +1,13 @@
-import { TabView, ProductManageView, ChargeMoneyView } from '../../index.d';
+import { View, DomainView } from '../../index.d';
 import { $ } from '../util/index';
 import ProductManage from './ProductManage';
 import ChargeMoney from './ChargeMoney';
 
-export default class Tab implements TabView {
-  public readonly $app: HTMLElement;
-  public readonly $tabs: HTMLElement;
-  public readonly productManage: ProductManageView;
-  public readonly chargeMoney: ChargeMoneyView;
+export default class Tab implements View {
+  private $app: HTMLElement;
+  private $tabs: HTMLElement;
+  private productManage: DomainView;
+  private chargeMoney: DomainView;
 
   constructor() {
     this.$app = $('#app');
@@ -24,7 +24,7 @@ export default class Tab implements TabView {
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }
 
-  handleClickTabs(e: Event): void {
+  private handleClickTabs(e: Event): void {
     if (e.target === e.currentTarget) return;
 
     const tabName = (e.target as HTMLElement).dataset.name;
@@ -33,13 +33,13 @@ export default class Tab implements TabView {
     this.switchTab(tabName);
   }
 
-  handlePopstate(): void {
+  private handlePopstate(): void {
     if (window.location.hash) {
       this.switchTab(window.location.hash.slice(1));
     }
   }
 
-  switchTab(tabName: string): void {
+  private switchTab(tabName: string): void {
     this.$app.classList.remove('productManage', 'chargeMoney', 'buyProduct');
     this.$app.classList.add(tabName);
     this[tabName].render();

@@ -1,16 +1,16 @@
-import { ChargeMoneyView, VendingMachine } from '../../index.d';
+import { DomainView, VendingMachine, Coin } from '../../index.d';
 import { $ } from '../util/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
-export default class ChargeMoney implements ChargeMoneyView {
-  public readonly $chargeMoneyForm: HTMLElement;
-  public readonly $chargeMoneyInput: HTMLElement;
-  public readonly $totalAmount: HTMLElement;
-  public readonly $coin500: HTMLElement;
-  public readonly $coin100: HTMLElement;
-  public readonly $coin50: HTMLElement;
-  public readonly $coin10: HTMLElement;
-  public readonly vendingMachine: VendingMachine;
+export default class ChargeMoney implements DomainView {
+  private $chargeMoneyForm: HTMLElement;
+  private $chargeMoneyInput: HTMLElement;
+  private $totalAmount: HTMLElement;
+  private $coin500: HTMLElement;
+  private $coin100: HTMLElement;
+  private $coin50: HTMLElement;
+  private $coin10: HTMLElement;
+  private vendingMachine: VendingMachine;
 
   constructor() {
     this.$chargeMoneyForm = $('#charge-money-form');
@@ -23,11 +23,19 @@ export default class ChargeMoney implements ChargeMoneyView {
     this.vendingMachine = VendingMachineImpl.getInstance();
   }
 
+  render(): void {
+    this.$coin10.innerText = `${this.vendingMachine.coinCollection.coins[0].count}개`;
+    this.$coin50.innerText = `${this.vendingMachine.coinCollection.coins[1].count}개`;
+    this.$coin100.innerText = `${this.vendingMachine.coinCollection.coins[2].count}개`;
+    this.$coin500.innerText = `${this.vendingMachine.coinCollection.coins[3].count}개`;
+    this.$totalAmount.innerText = String(this.vendingMachine.coinCollection.calculateTotalAmount());
+  }
+
   bindEvent(): void {
     this.$chargeMoneyForm.addEventListener('submit', this.handleSubmitForm.bind(this));
   }
 
-  handleSubmitForm(e: Event): void {
+  private handleSubmitForm(e: Event): void {
     e.preventDefault();
 
     try {
@@ -37,12 +45,5 @@ export default class ChargeMoney implements ChargeMoneyView {
     } catch ({ message }) {
       alert(message);
     }
-  }
-
-  render(): void {
-    this.vendingMachine.coinCollection.coins.forEach(({ amount, count }) => {
-      this[`$coin${amount}`].innerText = `${count}개`;
-    });
-    this.$totalAmount.innerText = String(this.vendingMachine.coinCollection.calculateTotalAmount());
   }
 }

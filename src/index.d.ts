@@ -9,11 +9,6 @@ export interface Coin {
   count: number;
 }
 
-export interface View {
-  render(): void;
-  bindEvent(): void;
-}
-
 export interface ProductCollection {
   readonly products: Array<Product>;
 
@@ -40,40 +35,10 @@ export interface VendingMachine {
   chargeMoney(inputMoney: number): void;
 }
 
-export interface ProductManageView extends View {
-  readonly $addProductForm: HTMLElement;
-  readonly $productContainer: HTMLElement;
-  readonly $additionalProductName: HTMLElement;
-  readonly $additionalProductPrice: HTMLElement;
-  readonly $additionalProductQuantity: HTMLElement;
-  readonly vendingMachine: VendingMachine;
-
-  handleSubmitForm(e: Event): void;
-  handleClickButtons(e: Event): void;
-  deleteProduct(productRow: HTMLElement): void;
-  modifyProduct(productRow: HTMLElement): void;
-}
-
-export interface ChargeMoneyView extends View {
-  readonly $chargeMoneyForm: HTMLElement;
-  readonly $chargeMoneyInput: HTMLElement;
-  readonly $totalAmount: HTMLElement;
-  readonly $coin500: HTMLElement;
-  readonly $coin100: HTMLElement;
-  readonly $coin50: HTMLElement;
-  readonly $coin10: HTMLElement;
-
-  handleSubmitForm(e: Event): void;
-}
-
-export interface TabView {
-  readonly $app: HTMLElement;
-  readonly $tabs: HTMLElement;
-  readonly productManage: ProductManageView;
-  readonly chargeMoney: ChargeMoneyView;
-
+export interface View {
   bindEvent(): void;
-  handleClickTabs(e: Event): void;
-  handlePopstate(): void;
-  switchTab(tabName: string): void;
+}
+
+export interface DomainView extends View {
+  render(): void;
 }
