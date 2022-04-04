@@ -43,3 +43,17 @@ export const isValidProductInfo = (
 
   return true;
 };
+
+export const canBuyProduct = (
+  { price, quantity }: Product,
+  totalMoney: number,
+) => {
+  if (quantity < 1) {
+    return false;
+  }
+  if (totalMoney < price) {
+    return false;
+  }
+
+  return true;
+};

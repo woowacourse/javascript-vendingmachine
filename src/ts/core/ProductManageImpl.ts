@@ -9,6 +9,10 @@ class ProductManageImpl implements ProductManage {
   constructor(products: Array<Product>) {
     this.products = products;
     window.addEventListener('load', () => {
+      $('#tab__manage-button').addEventListener(
+        'click',
+        this.drawProductList.bind(this),
+      );
       $('#add-product-form').addEventListener(
         'submit',
         this.handleAddProduct.bind(this),

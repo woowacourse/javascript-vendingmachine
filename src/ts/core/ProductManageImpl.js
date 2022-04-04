@@ -16,6 +16,7 @@ var ProductManageImpl = /** @class */ (function () {
         var _this = this;
         this.products = products;
         window.addEventListener('load', function () {
+            (0, dom_1.$)('#tab__manage-button').addEventListener('click', _this.drawProductList.bind(_this));
             (0, dom_1.$)('#add-product-form').addEventListener('submit', _this.handleAddProduct.bind(_this));
             (0, dom_1.$)('#product-list').addEventListener('click', _this.handleClickButtons.bind(_this));
         });

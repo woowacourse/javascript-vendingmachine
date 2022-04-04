@@ -6,6 +6,8 @@ export interface ProductManage {
   deleteProduct(name: string): void;
   drawProductList(): void;
   getProductIndex(name: string): number;
+  getProductRowIndex(productRow: Document): number;
+  getProductInfoModify(productNode: Document): object;
 }
 
 export interface ChargeMoney {
@@ -19,4 +21,7 @@ export interface ProductBuy {
   chargeMoney(coinList: Array<number>): void;
   drawProductList(): void;
   drawCoins(): void;
+  getProductIndex(name: string): number;
+  getProductRowIndex(productRow: Document): number;
+  getProductInfoModify(productNode: Document): object;
 }

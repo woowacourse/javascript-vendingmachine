@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.isValidProductInfo = void 0;
+exports.canBuyProduct = exports.isValidProductInfo = void 0;
 var constants_1 = require("../constants");
 var isValidProductInfo = function (_a, index, products) {
     var name = _a.name, price = _a.price, quantity = _a.quantity;
@@ -29,3 +29,14 @@ var isValidProductInfo = function (_a, index, products) {
     return true;
 };
 exports.isValidProductInfo = isValidProductInfo;
+var canBuyProduct = function (_a, totalMoney) {
+    var price = _a.price, quantity = _a.quantity;
+    if (quantity < 1) {
+        return false;
+    }
+    if (totalMoney < price) {
+        return false;
+    }
+    return true;
+};
+exports.canBuyProduct = canBuyProduct;
