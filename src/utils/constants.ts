@@ -50,8 +50,6 @@ export const URL_PATH = {
   PRODUCT_PURCHASE: '/productPurchase',
 } as const;
 
-export const CHEAPEST_PAPER_MONEY_UNIT = 1000;
-
 export const PRODUCT_CONDITION = {
   MAX_NAME_LENGTH: 10,
   MIN_PRICE: 100,

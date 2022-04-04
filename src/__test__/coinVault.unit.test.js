@@ -77,8 +77,8 @@ describe('잔돈 반환 테스트', () => {
     coinVault = new CoinVault();
   });
 
-  test('현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다,단 지폐를 잔돈으로 반환하지 않는다', () => {
-    const purchaseMoney = 1100;
+  test('현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다', () => {
+    const purchaseMoney = 100;
     const returnedCoins = {
       coin500: 0,
       coin100: 1,
@@ -92,7 +92,7 @@ describe('잔돈 반환 테스트', () => {
   });
 
   test('잔돈을 반환할 수 없는 경우 잔돈으로 반환할 수 있는 금액만 반환한다', () => {
-    const purchaseMoney = 1480;
+    const purchaseMoney = 480;
     const returnedCoins = {
       coin500: 0,
       coin100: 3,

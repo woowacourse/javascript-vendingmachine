@@ -5,7 +5,6 @@ import {
   COINS_INIT_QUANTITY,
   CHEAPEST_COIN,
   ERROR_MESSAGE,
-  CHEAPEST_PAPER_MONEY_UNIT,
 } from '../utils/constants';
 import { Coins } from '../utils/interface';
 import { getRandomNumZeroToMax } from '../utils/domain.utils';
@@ -81,7 +80,7 @@ export class CoinVault implements CoinVaultInterface {
 
   returnCoins(purhcaseMoney: number): [Coins, number] {
     const returnedCoins = { ...COINS_INIT_QUANTITY };
-    let remainder = purhcaseMoney % CHEAPEST_PAPER_MONEY_UNIT;
+    let remainder = purhcaseMoney;
 
     Object.entries(this.#coinsQuantity).forEach(([key, quantity]) => {
       const coinUnit = COINS_UNIT_TABLE[key];
