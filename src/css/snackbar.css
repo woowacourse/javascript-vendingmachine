@@ -1,22 +1,24 @@
 .snackbar-wrapper {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   margin: 0;
   bottom: 0;
-  padding: 32px 0 0;
+  padding: 0;
   z-index: 1;
 }
 
 .snackbar {
+  position: relative;
   visibility: hidden;
   min-width: 250px;
-  margin: auto;
+  max-width: 300px;
   background-color: #333;
   color: #fff;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
   left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .error {
@@ -24,7 +26,7 @@
 }
 
 .show {
-  visibility: visible !important;
+  visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
   animation: fadein 0.5s, fadeout 0.5s 2.7s;
 }

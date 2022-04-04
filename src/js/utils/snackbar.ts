@@ -5,7 +5,7 @@ class Snackbar {
     this.$snackbar = document.querySelector('.snackbar');
   }
 
-  push(msg: string | Error) {
+  async push(msg: string | Error) {
     if (typeof msg === 'object') {
       this.$snackbar.classList.add('error');
       msg = msg.message;
@@ -14,7 +14,7 @@ class Snackbar {
     }
 
     this.$snackbar.textContent = msg;
-    this.$snackbar.classList.toggle('show');
+    this.$snackbar.classList.add('show');
     setTimeout(() => {
       this.$snackbar.classList.toggle('show');
     }, 3000);
