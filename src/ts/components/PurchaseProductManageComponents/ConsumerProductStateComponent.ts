@@ -19,8 +19,10 @@ export default class ConsumerProductStateComponent {
   private $productAddButton = $<HTMLButtonElement>(
     '.product-info-form__add-button'
   );
-
-  private $productTableTbody = $<HTMLElement>('.consumer-product-table__tbody');
+  private $consumerProductTableTbody = $<HTMLElement>(
+    '.consumer-product-table__tbody'
+  );
+  private $productTableTbody = $<HTMLElement>('.product-table tbody');
   private $snackBarContainer = $<HTMLLabelElement>('.snack-bar-container');
 
   constructor(private vendingMachineConsumerMoneyManager) {
@@ -29,13 +31,24 @@ export default class ConsumerProductStateComponent {
       '@consumerProductState',
       this.addConsumerProduct
     );
-    on(this.$productTableTbody, 'click', this.onClickPurchaseButton);
-    on(
-      $<HTMLElement>('.product-table tbody'),
-      '@editProduct',
-      this.editProduct
-    );
+    on(this.$consumerProductTableTbody, 'click', this.onClickPurchaseButton);
+    on(this.$productTableTbody, '@editProduct', this.editProduct);
+    on(this.$productTableTbody, '@deleteProduct', this.deleteProduct);
   }
+
+  deleteProduct = ({ detail: { deleteProductName } }) => {
+    const currentProducts = Array.from(
+      $$<HTMLElement>('.product-table__purchase-product-name')
+    );
+
+    const target = currentProducts.find(
+      (product) => product.textContent === deleteProductName
+    );
+    const parentTarget = target.closest('.consumer-product-table__info-tr');
+    const grandParentTarget = target.closest('.consumer-product-table__tbody');
+
+    grandParentTarget.removeChild(parentTarget);
+  };
 
   editProduct = ({ detail: { editedProduct, previousProductName } }) => {
     const currentProducts = Array.from(
@@ -88,7 +101,7 @@ export default class ConsumerProductStateComponent {
         Number($targetPurchaseProductQuantity.textContent) - 1
       );
 
-      emit(this.$productTableTbody, '@subtractProductQuantity', {
+      emit(this.$consumerProductTableTbody, '@subtractProductQuantity', {
         detail: {
           editProduct: {
             name: targetPurchaseProductName,
@@ -98,7 +111,7 @@ export default class ConsumerProductStateComponent {
         },
       });
 
-      emit(this.$productTableTbody, '@subtractConsumerChargeMoney', {
+      emit(this.$consumerProductTableTbody, '@subtractConsumerChargeMoney', {
         detail: {
           subtractPrice: targetPurchaseProductPrice,
         },
@@ -116,7 +129,7 @@ export default class ConsumerProductStateComponent {
   };
 
   addConsumerProduct = ({ detail: { newProduct } }) => {
-    this.$productTableTbody.insertAdjacentHTML(
+    this.$consumerProductTableTbody.insertAdjacentHTML(
       'beforeend',
       generateAddProductTemplate(newProduct)
     );

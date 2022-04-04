@@ -133,6 +133,12 @@ export default class ProductStateComponent {
     this.vendingMachineProductManager.deleteProduct(targetProductName);
 
     grandParentElement.removeChild(parentElement);
+
+    emit(this.$productTableTbody, '@deleteProduct', {
+      detail: {
+        deleteProductName: targetProductName,
+      },
+    });
   }
 
   private onKeyupProductList = ({ target, key }) => {
