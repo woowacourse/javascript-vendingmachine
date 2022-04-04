@@ -1,6 +1,8 @@
 import ManageItemController from './controllers/manageItemController';
 import ChargeMoneyController from './controllers/chargeMoneyController';
 import PurchaseItemController from './controllers/purchaseItemController';
+import LogInController from './controllers/logInController';
+import SignUpController from './controllers/signUpController';
 import VendingMachine from './vendingMachine/vendingMachine';
 import Router from './router/Router';
 import { $ } from './utils/common';
@@ -12,6 +14,8 @@ export default class AppManager {
   private manageItemController: ManageItemController;
   private chargeMoneyController: ChargeMoneyController;
   private purchaseItemController: PurchaseItemController;
+  private logInController: LogInController;
+  private signUpController: SignUpController;
   private router: Router;
 
   constructor() {
@@ -22,11 +26,15 @@ export default class AppManager {
     this.manageItemController = new ManageItemController(this.vendingMachine);
     this.chargeMoneyController = new ChargeMoneyController(this.vendingMachine);
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
+    this.logInController = new LogInController();
+    this.signUpController = new SignUpController();
 
     this.router = new Router(
       this.manageItemController,
       this.chargeMoneyController,
       this.purchaseItemController,
+      this.logInController,
+      this.signUpController,
     );
 
     this.router.loadRoutePage();

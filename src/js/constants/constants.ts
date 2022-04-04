@@ -107,4 +107,6 @@ export const URL_HASH = {
   MANAGE_ITEM: '#mangeItem',
   CHARGE_MONEY: '#chargeMoney',
   PURCHASE_ITEM: '#purchaseItem',
+  LOG_IN: '#login',
+  SIGN_UP: '#signup',
 };

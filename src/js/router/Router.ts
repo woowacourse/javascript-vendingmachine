@@ -5,22 +5,30 @@ import NavigationView from '../views/navigationView';
 import ManageItemController from '../controllers/manageItemController';
 import ChargeMoneyController from '../controllers/chargeMoneyController';
 import PurchaseItemController from '../controllers/purchaseItemController';
+import LogInController from '../controllers/logInController';
+import SignUpController from '../controllers/signUpController';
 
 export default class Router {
   navigationView: NavigationView;
   manageItemController: ManageItemController;
   chargeMoneyController: ChargeMoneyController;
   purchaseItemController: PurchaseItemController;
+  logInController: LogInController;
+  signUpController: SignUpController;
 
   constructor(
     manageItemController: ManageItemController,
     chargeMoneyController: ChargeMoneyController,
     purchaseItemController: PurchaseItemController,
+    logInController: LogInController,
+    signUpController: SignUpController,
   ) {
     this.navigationView = new NavigationView();
     this.manageItemController = manageItemController;
     this.chargeMoneyController = chargeMoneyController;
     this.purchaseItemController = purchaseItemController;
+    this.logInController = logInController;
+    this.signUpController = signUpController;
 
     this.bindEvents();
     this.loadRoutePage();
@@ -68,6 +76,14 @@ export default class Router {
     if (hash === URL_HASH.PURCHASE_ITEM) {
       this.purchaseItemController.loadPage();
       this.navigationView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+      return;
+    }
+    if (hash === URL_HASH.LOG_IN) {
+      this.logInController.loadPage();
+      return;
+    }
+    if (hash === URL_HASH.SIGN_UP) {
+      this.signUpController.loadPage();
     }
   }
 }
