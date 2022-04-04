@@ -5,11 +5,11 @@ interface LoginInfo {
 
 interface UserInfo {
   email: `${string}@${string}.${string}`;
-  id: number;
+  id: string;
   name: string;
 }
 
-interface UserInfoWithPassWord extends UserInfo {
+export interface UserInfoWithPassWord extends UserInfo {
   password: string;
 }
 
@@ -27,7 +27,7 @@ interface SignupInfo extends LoginInfo {
 const baseUrl = 'http://localhost:3000' as const;
 
 async function getUser(
-  userId: number,
+  userId: string,
   accessToken: string,
 ): Promise<UserInfoWithPassWord> {
   const response = await fetch(`${baseUrl}/600/users/${userId}`, {
@@ -43,7 +43,7 @@ async function getUser(
   return data;
 }
 
-async function login(loginInfo: LoginInfo): Promise<UserResponse> {
+async function login(loginInfo: LoginInfo): Promise<UserResponse | string> {
   const { email, password } = loginInfo;
   const response = await fetch(`${baseUrl}/login`, {
     method: 'POST',
@@ -80,8 +80,30 @@ async function signup(signupInfo: SignupInfo): Promise<UserResponse> {
   return data;
 }
 
+async function editInfo(
+  signupInfo: UserInfoWithPassWord,
+): Promise<UserResponse> {
+  const { email, password, name, id } = signupInfo;
+  const response = await fetch(`${baseUrl}/users/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+    }),
+  });
+
+  const data: UserResponse = await response.json();
+
+  return data;
+}
+
 export const API = {
   getUser,
   login,
   signup,
+  editInfo,
 };
