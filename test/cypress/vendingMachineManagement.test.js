@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../../src/es/constants/index'
+
 describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한다.', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -10,12 +12,6 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
     cy.get('#login-form').submit();
   }
 
-  const shouldMainPage = () => {
-    cy.get('#customer-charge-form-section').should('be.visible');
-    cy.get('#product-table-section').should('be.visible');
-    cy.get('#change-table-section').should('be.visible');
-  }
-
   context('상품 관리에 대한 테스트', () => {
     const goProductManagementPage = () => {
       login();
@@ -23,10 +19,10 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
     }
 
     const addProduct = ({ name, price, quantity }) => {
-      cy.get('[name="name"]').type(name);
-      cy.get('[name="price"]').type(price);
-      cy.get('[name="quantity"]').type(quantity);
-      cy.get('#add-product-form').submit();
+      cy.get('[name="name"]').clear().type(name);
+      cy.get('[name="price"]').clear().type(price);
+      cy.get('[name="quantity"]').clear().type(quantity);
+      cy.get('#add-product-form').submit({force: true});
     }
 
     it('상품 현황 테이블에 새로운 상품 정보를 추가할 수 있다. 추가한 상품은 상품 현황 테이블에서 확인할 수 있다.', () => {
@@ -38,6 +34,40 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
       // then
       cy.get('#product-table').contains('콜라').should('be.visible');
       cy.get('#product-table').contains('사이다').should('be.visible');
+    })
+
+    it(`추가할 상품 이름은 최소 1자, 최대 10자까지 가능하다. 해당 조건 범위를 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      goProductManagementPage();
+
+      addProduct({ name: '가나다라마바사아자차카타파하', price: 15000, quantity: 20 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_NAME_LENGTH);
+    })
+
+    it(`추가할 상품의 가격은 최소 100원, 최대 10,000원까지 가능하다. 해당 조건 범위를 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      goProductManagementPage();
+
+      addProduct({ name: '콜라', price: 50, quantity: 15 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_PRICE_WRONG_RANGE);
+
+      addProduct({ name: '사이다', price: 15000, quantity: 20 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_PRICE_WRONG_RANGE);
+    })
+
+    it(`추가할 상품의 가격은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      goProductManagementPage();
+
+      addProduct({ name: '콜라', price: 1055, quantity: 15 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_PRICE_WRONG_UNIT);
+    })
+
+    it(`추가할 상품의 수량은 최소 1개, 최대 20개까지 가능하다. 해당 조건 범위를 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      goProductManagementPage();
+
+      addProduct({ name: '콜라', price: 1000, quantity: 0 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_QUANTITY_WRONG_RANGE);
+
+      addProduct({ name: '사이다', price: 2000, quantity: 22 });
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.PRODUCT_QUANTITY_WRONG_RANGE);
     })
 
     it('상품 현황 테이블의 상품 정보를 삭제할 수 있다. 삭제 버튼을 누르면 confirm 확인 후 해당 상품이 상품 현황 테이블에서 사라진다.', () => {
@@ -112,6 +142,50 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
       // then
       cy.get('@productRow').contains(product.price.toLocaleString()).should('be.visible');
       cy.get('@productRow').contains(product.quantity.toLocaleString()).should('be.visible');
+    })
+  })
+
+  context('잔돈 충전에 대한 테스트', () => {
+    const goProductManagementPage = () => {
+      login();
+      cy.get('[data-page="vendingMachineChargeManagement"]').click();
+    }
+
+    const addVendingMachineCharge = (charge) => {
+      cy.get('[name="vendingmachine-charge"]').type(charge);
+      cy.get('#vendingmachine-charge-form').submit({force: true});
+    }
+    
+    it('자판기 잔돈을 충전할 수 있다. 충전을 성공하면 현재 보유 금액이 충전금만큼 증가한다.', () => {
+      const firstCharge = 5000;
+      const secondCharge = 2000;
+
+      goProductManagementPage();
+      addVendingMachineCharge(firstCharge);
+      cy.get('#total-vendingmachine-charge').should('have.text', `${firstCharge.toLocaleString()}원`);
+
+      addVendingMachineCharge(secondCharge);
+      cy.get('#total-vendingmachine-charge').should('have.text', `${(firstCharge + secondCharge).toLocaleString()}원`);
+    })
+
+    it(`자판기 잔돈 충전금은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      const charge = 1055;
+
+      goProductManagementPage();
+      addVendingMachineCharge(charge);
+
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_UNIT);
+    })
+
+    it(`자판기 잔돈은 누적 100,000원까지 충전 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.`, () => {
+      const firstCharge = 90000;
+      const secondCharge = 10100;
+
+      goProductManagementPage();
+      addVendingMachineCharge(firstCharge);
+      addVendingMachineCharge(secondCharge);
+
+      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.HOLDING_AMOUNT_WRONG_LIMIT);
     })
   })
 })
