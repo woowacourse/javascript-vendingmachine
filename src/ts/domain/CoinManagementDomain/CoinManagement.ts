@@ -50,8 +50,4 @@ export default class CoinManagementDomain {
 
     this.addCash(-totalCash);
   }
-
-  validateCashInput(cash: number) {
-    validateCash(cash);
-  }
 }

@@ -17,10 +17,6 @@ export default class PurchaseCashDomain {
     this.#cash += cash;
   }
 
-  validateCashInput(cash: number) {
-    validatePurchaseCash(cash);
-  }
-
   returnCoins(haveCoins: Coins): Coins {
     const coins: Coins = {};
 

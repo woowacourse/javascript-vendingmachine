@@ -1,4 +1,5 @@
 import { MESSAGE } from '../../../constants/message';
+import { validateCash } from '../../../domain/CoinManagementDomain/validator';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -23,7 +24,7 @@ export default class CoinChargeUI {
     const cash = cashInput.valueAsNumber;
 
     try {
-      this.coinDomain.validateCashInput(cash);
+      validateCash(cash);
     } catch ({ message }) {
       showSnackbar(message);
       return;

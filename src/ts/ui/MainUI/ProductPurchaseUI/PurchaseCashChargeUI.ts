@@ -1,4 +1,5 @@
 import { MESSAGE } from '../../../constants/message';
+import { validatePurchaseCash } from '../../../domain/PurchaseCashDomain/validator';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 
@@ -25,7 +26,7 @@ export default class PurchaseCashChargeUI {
     const cash = cashInput.valueAsNumber;
 
     try {
-      this.purchaseCashDomain.validateCashInput(cash);
+      validatePurchaseCash(cash);
     } catch ({ message }) {
       showSnackbar(message);
       return;
