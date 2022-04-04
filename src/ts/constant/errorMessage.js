@@ -20,3 +20,8 @@ export const MONEY_ERROR_MESSAGE = {
   EXCEED_TOTAL_AMOUNT_RANGE: '투입할 수 있는 최소 금액은 10원, 최대 금액은 10,000원입니다.',
   NOT_DIVIDED_BY_UNIT: '투입한 금액은 10원으로 나누어 떨어져야 합니다.',
 };
+
+export const PURCHASE_ERROR_MESSAGE = {
+  OUT_OF_STOCK: '재고가 없습니다. 해당 상품은 더 이상 구매할 수 없습니다.',
+  NOT_ENOUGH_MONEY: '잔돈이 부족합니다. 해당 상품 구매를 원하신다면 금액을 투입해 주세요.',
+};

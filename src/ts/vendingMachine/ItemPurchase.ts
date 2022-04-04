@@ -1,6 +1,7 @@
 import type { CoinCollectionType } from './CoinRecharge';
-import { MONEY_ERROR_MESSAGE } from '../constant/errorMessage';
+
 import { COIN_10, COIN_100, COIN_50, COIN_500, MONEY } from '../constant/rule';
+import { MONEY_ERROR_MESSAGE, PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 
 class ItemPurchase {
   change: CoinCollectionType;
@@ -50,6 +51,16 @@ class ItemPurchase {
     }
   }
 
+  validatePurchasingBehavior(itemQuantity: number, itemPrice: number, remainedMoneyInput: number) {
+    if (this.isOutOfStock(itemQuantity)) {
+      throw new Error(PURCHASE_ERROR_MESSAGE.OUT_OF_STOCK);
+    }
+
+    if (this.isNotEnoughMoney(itemPrice, remainedMoneyInput)) {
+      throw new Error(PURCHASE_ERROR_MESSAGE.NOT_ENOUGH_MONEY);
+    }
+  }
+
   private isNotNumberTypeMoney(moneyInput: number) {
     return isNaN(moneyInput);
   }
@@ -58,6 +69,13 @@ class ItemPurchase {
   }
   private isNotDividedByUnitCash(moneyInput: number) {
     return moneyInput % MONEY.UNIT !== 0;
+  }
+
+  private isOutOfStock(itemQuantity: number) {
+    return itemQuantity === 0;
+  }
+  private isNotEnoughMoney(itemPrice: number, remainedMoneyInput: number) {
+    return itemPrice > remainedMoneyInput;
   }
 }
 
