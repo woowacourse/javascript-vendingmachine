@@ -4,8 +4,8 @@ describe('페이지 전환이 요구사항과 일치해야 한다.', () => {
   });
 
   const userInfoForSuccessfulLogin = {
-    email: 'woowa@woowacourse.com',
-    password: 'testTEST1234',
+    email: 'test@test.com',
+    password: 'asdASD123',
   }
 
   const login = (userInfo) => {

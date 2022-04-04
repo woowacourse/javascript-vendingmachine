@@ -15,9 +15,14 @@ interface AuthInfo {
   expiration: number,
 }
 
-const signUpURL = 'http://localhost:3000/signup/';
-const loginURL = 'http://localhost:3000/login/';
-const userInfoURL = (id) => `http://localhost:3000/600/users/${id}`;
+const devURL = 'http://localhost:3000/';
+const deployURL = 'https://soyi47-auth-server.herokuapp.com/';
+
+const currentAuthServer = devURL;
+
+const signUpURL = `${currentAuthServer}signup/`;
+const loginURL = `${currentAuthServer}login/`;
+const userInfoURL = (id) => `${currentAuthServer}600/users/${id}`;
 
 function signUp(signUpInfo: SignInfo) {
   fetch(signUpURL, {

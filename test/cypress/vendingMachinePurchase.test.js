@@ -6,8 +6,8 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
   });
 
   const userInfoForSuccessfulLogin = {
-    email: 'woowa@woowacourse.com',
-    password: 'testTEST1234',
+    email: 'test@test.com',
+    password: 'asdASD123',
   }
 
   const dummyProducts = [

@@ -6,8 +6,8 @@ describe('자판기 관리 기능의 동작이 요구사항과 일치해야 한�
   });
 
   const userInfoForSuccessfulLogin = {
-    email: 'woowa@woowacourse.com',
-    password: 'testTEST1234',
+    email: 'test@test.com',
+    password: 'asdASD123',
   }
 
   const login = (userInfo) => {

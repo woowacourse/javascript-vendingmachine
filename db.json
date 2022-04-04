@@ -8,8 +8,8 @@
     },
     {
       "email": "tester@test.com",
-      "password": "$2a$10$hg1xGIaSCheXMgpEgri/Su8QlimTtUsuBcfUhBP/DS2CBRNkGIeNq",
-      "name": "테스트",
+      "password": "$2a$10$5vNlvBD9k7pr80l4vpEIKuFNcIxonFhDEV6DYwbHvMGiC/kv9ro0K",
+      "name": "테스터",
       "id": 2
     }
   ]
