@@ -60,22 +60,25 @@ Cypress.Commands.add('validateRegister', (userData) => {
   cy.get('.submit-button').click();
 });
 
-Cypress.Commands.add('loginWithNewUser', (userData) => {
+Cypress.Commands.add('login', ({ email, password }) => {
   cy.intercept({
     method: 'POST',
     url: '**/login',
   }).as('signInRequest');
 
+  cy.get('#login-link-button').click();
+
+  cy.get('#email-input').type(email);
+  cy.get('#password-input').type(password);
+  cy.get('.submit-button').click();
+});
+
+Cypress.Commands.add('loginWithNewUser', (userData) => {
   cy.registerNewUser(userData);
 
   cy.logout();
 
-  cy.get('#login-link-button').click();
-
-  const { email, password } = userData;
-  cy.get('#email-input').type(email);
-  cy.get('#password-input').type(password);
-  cy.get('.submit-button').click();
+  cy.login(userData);
 
   cy.wait('@signInRequest');
 });

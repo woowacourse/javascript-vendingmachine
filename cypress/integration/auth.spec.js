@@ -299,4 +299,37 @@ describe('사용자 인증 테스트', () => {
       cy.get('.snackbar').should('have.text', ERROR_MESSAGE.USER_DATA.NO_MATCH_PASSWORD);
     });
   });
+
+  describe('로그인 시 오류 테스트', () => {
+    const userData = createRandomUserData();
+    before(() => {
+      cy.visit(baseUrl);
+      cy.registerNewUser(userData);
+    });
+
+    beforeEach(() => {
+      cy.logout();
+      cy.visit(baseUrl);
+    });
+
+    it.only('존재하지 않는 이메일로 로그인을 시도하면 오류가 표시된다.', () => {
+      const unknownData = { ...userData, email: userData.email.slice(0, -1) };
+      cy.login(unknownData);
+
+      cy.get('.snackbar').should(
+        'have.text',
+        ERROR_MESSAGE.USER_DATA.INCORRECT_LOGIN_DATA
+      );
+    });
+
+    it.only('올바르지 않는 비밀번호로 로그인을 시도하면 오류가 표시된다.', () => {
+      const unknownData = { ...userData, password: userData.password.slice(0, -1) };
+      cy.login(unknownData);
+
+      cy.get('.snackbar').should(
+        'have.text',
+        ERROR_MESSAGE.USER_DATA.INCORRECT_LOGIN_DATA
+      );
+    });
+  });
 });

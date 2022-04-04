@@ -46,13 +46,7 @@ export default class Authorization {
       body: JSON.stringify(registerData),
     });
 
-    if (!response.ok) {
-      const rejectMessage = await response.json();
-      if (rejectMessage === 'Email already exists') {
-        throw new Error(ERROR_MESSAGE.USER_DATA.DUPLICATE_EMAIL);
-      }
-      throw new Error(ERROR_MESSAGE.USER_DATA.SERVER_FAILURE);
-    }
+    if (!response.ok) await this.#handleServerError(response);
 
     const {
       user: { id: userId, name, email },
@@ -70,6 +64,8 @@ export default class Authorization {
       body: JSON.stringify(userInputData),
     });
 
+    if (!response.ok) await this.#handleServerError(response);
+
     const { id: userId, name, email } = await response.json();
 
     this.#saveUserData({ userId, name, email });
@@ -80,6 +76,8 @@ export default class Authorization {
       ...POST_REQUEST_OPTIONS,
       body: JSON.stringify(userInputData),
     });
+
+    if (!response.ok) await this.#handleServerError(response);
 
     const {
       user: { id: userId, name, email },
@@ -94,6 +92,19 @@ export default class Authorization {
 
     this.#userId = null;
     this.#isLoggedIn = false;
+  }
+
+  async #handleServerError(response) {
+    const rejectMessage = await response.json();
+    if (rejectMessage === 'Email already exists') {
+      throw new Error(ERROR_MESSAGE.USER_DATA.DUPLICATE_EMAIL);
+    }
+
+    if (rejectMessage === 'Cannot find user' || rejectMessage === 'Incorrect password') {
+      throw new Error(ERROR_MESSAGE.USER_DATA.INCORRECT_LOGIN_DATA);
+    }
+
+    throw new Error(ERROR_MESSAGE.USER_DATA.SERVER_FAILURE);
   }
 
   #getUserData() {

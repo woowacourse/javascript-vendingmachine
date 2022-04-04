@@ -222,6 +222,7 @@ export const loginPageTemplate = /* html */ `
       name="email"
       id="email-input"
       placeholder="이메일을 입력해주세요."
+      required
     />
     <label for="password">비밀번호</label>
     <input
@@ -229,6 +230,7 @@ export const loginPageTemplate = /* html */ `
       name="password"
       id="password-input"
       placeholder="비밀번호를 입력해주세요."
+      required
     />
     <button type="submit" class="submit-button">로그인</button>
     <p>아직 회원이 아니신가요? <a href="#/register" id="register-page-link">회원가입</a></p>

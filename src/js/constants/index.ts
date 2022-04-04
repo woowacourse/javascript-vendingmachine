@@ -67,6 +67,7 @@ export const ERROR_MESSAGE = {
     INVALID_PASSWORD: '비밀번호가 올바르지 않습니다. 비밀번호 규칙을 다시 확인 해주세요.',
     NO_MATCH_PASSWORD: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
     DUPLICATE_EMAIL: '이미 가입 내역이 존재하는 이메일입니다.',
+    INCORRECT_LOGIN_DATA: '가입 내역이 없는 이메일이거나 비밀번호가 바르지 않습니다.',
     SERVER_FAILURE: '서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
   },
 };
