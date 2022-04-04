@@ -6,6 +6,7 @@ class VendingMachineTab {
 
     this.navTabButtonList = selectDoms('.nav-tab-button');
     this.tabContent = selectDom('#tab-content');
+    this.snackbar = selectDom('.snackbar');
   }
 
   changeTabContent(contentTemplate, targetTabButton) {

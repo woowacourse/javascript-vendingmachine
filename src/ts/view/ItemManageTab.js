@@ -3,7 +3,7 @@ import {
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
 } from '../template';
-import { selectDom, selectDoms } from '../utils';
+import { selectDom, selectDoms, showSnackbar } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class ItemManageTab extends VendingMachineTab {
@@ -50,7 +50,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(this.snackbar, error.message);
       return;
     }
 
@@ -120,7 +120,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo, itemIndex, false);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(this.snackbar, error.message);
       return;
     }
     this.vendingMachine.editItem(itemInfo, itemIndex);

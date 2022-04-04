@@ -1,14 +1,14 @@
 :root {
   --main-body-color: #e5e5e5;
-  --main-bg-color: #ffffff;
-  --main-color: #000000;
+  --main-bg-color: #fff;
+  --main-color: #000;
 
   --input-color: #8b8b8b;
   --input-border-color: #b4b4b4;
   --box-shadow-color: #00bbd46b;
 
   --default-button-bg-color: #f5f5f5;
-  --default-button-hover-bg-color: #eeeeee;
+  --default-button-hover-bg-color: #eee;
 
   --form-button-bg-color: #00bcd4;
   --form-button-hover-bg-color: #00b3ca;
@@ -16,8 +16,11 @@
   --selected-nav-tab-button-bg-color: #00bcd429;
 
   --table-border-color: #dcdcdc;
+
+  --snackbar-bg-color: #333;
 }
 
+@import './snackbar.css';
 @import './table.css';
 @import './buttonStyle.css';
 @import './app.css';

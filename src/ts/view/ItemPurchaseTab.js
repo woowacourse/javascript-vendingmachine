@@ -1,6 +1,6 @@
 import { PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 import { generateItemPurchaseContentTemplate } from '../template';
-import { selectDom, selectDoms } from '../utils';
+import { selectDom, selectDoms, showSnackbar } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class ItemPurchaseTab extends VendingMachineTab {
@@ -50,7 +50,8 @@ class ItemPurchaseTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateMoneyInput(moneyInput);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(this.snackbar, error.message);
+
       this.itemPurchaseInput.value = '';
       this.itemPurchaseInput.focus();
       return;
@@ -74,7 +75,7 @@ class ItemPurchaseTab extends VendingMachineTab {
           this.vendingMachine.money
         );
       } catch (error) {
-        alert(error.message);
+        showSnackbar(this.snackbar, error.message);
         return;
       }
 
@@ -89,7 +90,7 @@ class ItemPurchaseTab extends VendingMachineTab {
 
   #onClickChangeButton = () => {
     if (this.vendingMachine.money === 0) {
-      alert(PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE);
+      showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE);
       return;
     }
 
@@ -106,10 +107,10 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.inputAmountText.textContent = remainedMoney;
 
     if (remainedMoney !== 0) {
-      alert(PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE_ALL);
+      showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE_ALL);
       return;
     }
-    alert(PURCHASE_ERROR_MESSAGE.GIVE_BACK_CHANGE_SUCCESS);
+    showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.GIVE_BACK_CHANGE_SUCCESS);
   };
 }
 

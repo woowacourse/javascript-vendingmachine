@@ -1,5 +1,5 @@
 import { generateCoinRechargeTabContentTemplate } from '../template';
-import { selectDom, selectDoms } from '../utils';
+import { selectDom, selectDoms, showSnackbar } from '../utils';
 import VendingMachineTab from './VendingMachineTab';
 
 class CoinRechargeTab extends VendingMachineTab {
@@ -48,7 +48,7 @@ class CoinRechargeTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateCashInput(chargedCash);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(this.snackbar, error.message);
       return;
     }
 
