@@ -4,6 +4,7 @@ import {
   verifyProductPrice,
   verifyProductQuantity,
   verifyPurchaseAmount,
+  verifyPurchaseProduct,
 } from "../utils/validation";
 
 interface ProductManagerInterface {
@@ -13,6 +14,7 @@ interface ProductManagerInterface {
   removeProduct(name: string): void;
   editProduct(editProduct: Product, prevName: string): void;
   addPurchaseAmount(amount: number): void;
+  purchaseProduct(name: string): void;
 }
 
 export interface Product {
@@ -60,6 +62,14 @@ class ProductManager implements ProductManagerInterface {
     verifyPurchaseAmount(amount);
 
     this.purchaseAmount += amount;
+  }
+
+  purchaseProduct(name: string) {
+    const selectedProduct = this.products.find((product) => product.name === name);
+    verifyPurchaseProduct(selectedProduct.quantity, this.purchaseAmount, selectedProduct.price);
+
+    this.purchaseAmount -= selectedProduct.price;
+    selectedProduct.quantity--;
   }
 }
 

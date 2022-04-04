@@ -33,6 +33,8 @@ const ERROR_MESSAGES = {
   INVALID_CHARGE_UNIT: `잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`,
   INVALID_PURCHASE_AMOUNT_RANGE: `투입 금액은 ${PURCAHSE.MIN_AMOUNT}원 ~ ${PURCAHSE.MAX_AMOUNT}원 사이로 입력해주세요.`,
   INVALID_PURCHASE_AMOUNT_UNIT: `투입 금액은 ${PURCAHSE.UNIT}원으로 나누어 떨어져야합니다.`,
+  NOT_ENOUGH_PURCHASE_STOCK: "해당 상품의 재고가 모두 소진되었습니다.",
+  NOT_ENOUGH_PURCHASE_AMOUNT: "상품을 구매할 금액이 부족합니다. 금액을 더 충전해주세요.",
 };
 
 const INFOMATION_MESSAGES = {

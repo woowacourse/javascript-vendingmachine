@@ -27,6 +27,7 @@ class PurchaseComponent {
     this.purchaseTableBody = $(".purchase-table__body");
 
     this.purchaseForm.addEventListener("submit", this.handleAddAmount);
+    this.purchaseTable.addEventListener("click", this.handlePurchaseProduct);
   }
 
   handleAddAmount = (e: Event) => {
@@ -41,12 +42,28 @@ class PurchaseComponent {
     }
   };
 
+  handlePurchaseProduct = ({ target }) => {
+    if (!target.classList.contains("purchase-table__purchase-button")) {
+      return;
+    }
+
+    const { name } = target.closest("[data-name]").dataset;
+
+    try {
+      this.productManager.purchaseProduct(name);
+      this.renderAmount();
+      this.renderProducts();
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
+
   renderAmount() {
     this.purchaseAmountText.textContent = `${this.productManager.getPurchaseAmount()}`;
   }
 
   renderProducts() {
-    this.purchaseTableBody.replaceChildren("");
+    this.purchaseTableBody.replaceChildren();
     this.purchaseTableBody.insertAdjacentHTML("beforeend", productListTemplate(this.productManager.getProducts()));
   }
 

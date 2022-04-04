@@ -1,3 +1,4 @@
+import { Product } from "../../mananger/ProductManager";
 import { PRODUCT } from "../../utils/constants";
 
 const productTemplate = () => {
@@ -18,12 +19,16 @@ const productTemplate = () => {
     <h1 class="product-manange__title">상품 현황</h1>
     <div class="product-manage__table-container">
     <table class="product-manange__table">
+      <thead>
       <tr>
         <th>상품명</th>
         <th>가격</th>
         <th>수량</th>
         <th></th>
       </tr>
+      </thead>
+      <tbody class="productmanage__table-body">
+      </tbody>
     </table>
     </div>
   </section>`;
@@ -42,6 +47,12 @@ const addProductTemplate = ({ name, price, quantity }) => {
   </tr>`;
 };
 
+const productManangeListTemplate = (list: Product[]) => {
+  return `
+  ${list.map(({ name, price, quantity }) => `${addProductTemplate({ name, price, quantity })}`).join("")}
+  `;
+};
+
 const editProductTemplate = ({ name, price, quantity }) => {
   return `
   <td><input class="product-manage__edit-input--name edit-input" value='${name}' /></td>
@@ -52,4 +63,4 @@ const editProductTemplate = ({ name, price, quantity }) => {
   `;
 };
 
-export { productTemplate, addProductTemplate, editProductTemplate };
+export { productTemplate, addProductTemplate, productManangeListTemplate, editProductTemplate };

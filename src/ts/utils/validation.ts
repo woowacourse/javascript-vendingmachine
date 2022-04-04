@@ -58,6 +58,15 @@ const verifyPurchaseAmount = (amount: number) => {
   }
 };
 
+const verifyPurchaseProduct = (stock: number, purchaseAmount: number, productPrice: number) => {
+  if (stock <= 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_PURCHASE_STOCK);
+  }
+  if (purchaseAmount < productPrice) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_PURCHASE_AMOUNT);
+  }
+};
+
 export {
   verifyProductName,
   verifyProductPrice,
@@ -65,4 +74,5 @@ export {
   verifyDuplicateName,
   verifyCharge,
   verifyPurchaseAmount,
+  verifyPurchaseProduct,
 };

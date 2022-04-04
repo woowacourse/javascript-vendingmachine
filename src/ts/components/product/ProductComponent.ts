@@ -1,6 +1,11 @@
 import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
-import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
+import {
+  productTemplate,
+  editProductTemplate,
+  addProductTemplate,
+  productManangeListTemplate,
+} from "./productTemplate";
 import ProductManager from "../../mananger/ProductManager";
 import { clearInput } from "../../utils/common";
 
@@ -9,6 +14,7 @@ class ProductComponent {
   productContainer: HTMLElement;
   productAddButton: HTMLButtonElement;
   productTable: HTMLTableElement;
+  productTableBody: HTMLTableElement;
   productNameInput: HTMLInputElement;
   productPriceInput: HTMLInputElement;
   productQuantityInput: HTMLInputElement;
@@ -20,6 +26,7 @@ class ProductComponent {
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
 
     this.productTable = $(".product-manange__table");
+    this.productTableBody = $(".productmanage__table-body");
     this.productNameInput = $(".product-manange__name-input");
     this.productPriceInput = $(".product-manange__price-input");
     this.productQuantityInput = $(".product-manange__quantity-input");
@@ -37,13 +44,21 @@ class ProductComponent {
 
     try {
       this.productManager.addProduct({ name, price, quantity });
-      this.productTable.insertAdjacentHTML("beforeend", addProductTemplate({ name, price, quantity }));
       this.productNameInput.focus();
+      this.renderProducts();
       clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
     } catch ({ message }) {
       alert(message);
     }
   };
+
+  renderProducts() {
+    this.productTableBody.replaceChildren();
+    this.productTableBody.insertAdjacentHTML(
+      "beforeend",
+      productManangeListTemplate(this.productManager.getProducts()),
+    );
+  }
 
   handleManageOption = ({ target }) => {
     if (!target.classList.contains("product-manage__option")) {
@@ -88,7 +103,7 @@ class ProductComponent {
 
     try {
       this.productManager.editProduct({ name, price, quantity }, prevName);
-      selectedRow.innerHTML = addProductTemplate({ name, price, quantity });
+      this.renderProducts();
       selectedRow.dataset.name = name;
     } catch ({ message }) {
       alert(message);
@@ -98,6 +113,7 @@ class ProductComponent {
   show() {
     this.productContainer.classList.remove("hide");
     this.productNameInput.focus();
+    this.renderProducts();
   }
 }
 
