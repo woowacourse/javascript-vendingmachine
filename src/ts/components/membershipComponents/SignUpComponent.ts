@@ -2,8 +2,8 @@ import { $, emit, on } from '../../dom/domHelper';
 import { requestRegister } from '../../api/api';
 import renderSnackBar from '../../dom/snackBar';
 import {
-  checkValidSignUpName,
-  checkValidSignUpPassword,
+  checkValidName,
+  checkValidPassword,
   checkValidEmail,
 } from '../../validation/checkMemberShip';
 
@@ -34,8 +34,8 @@ export default class SignUpComponent {
     const { value: signUpPasswordConfirm } = this.$signUpPasswordConfirmInput;
 
     try {
-      checkValidSignUpName(signUpName);
-      checkValidSignUpPassword(signUpPassword, signUpPasswordConfirm);
+      checkValidName(signUpName);
+      checkValidPassword(signUpPassword, signUpPasswordConfirm);
       checkValidEmail(signUpEmail);
 
       await requestRegister(signUpEmail, signUpName, signUpPassword);

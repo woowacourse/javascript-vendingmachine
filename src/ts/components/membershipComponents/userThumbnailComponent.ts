@@ -16,8 +16,6 @@ export default class UserThumbnailComponent {
   onClickDropDownMenu = ({ target }) => {
     if (target.matches('.membership-information-wrapper__logout-button')) {
       deleteCookie('user');
-
-      this.$informationWrapper.classList.add('hide');
       window.history.pushState({}, '', '/purchase-product');
       emit(this.$informationWrapper, '@logout');
     }
@@ -25,8 +23,12 @@ export default class UserThumbnailComponent {
     if (
       target.matches('.membership-information-wrapper__edit-information-button')
     ) {
-      console.log('edit');
+      window.history.pushState({}, '', '/edit-information');
+      emit(this.$informationWrapper, '@editInformation');
+      emit(this.$informationWrapper, '@loadUserInformation');
     }
+
+    this.$informationWrapper.classList.add('hide');
   };
 
   onClickUserThumbnailButton = () => {

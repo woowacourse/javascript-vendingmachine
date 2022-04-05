@@ -21,14 +21,18 @@ import SignInComponent from './components/membershipComponents/SignInComponent';
 import SignUpComponent from './components/membershipComponents/SignUpComponent';
 import UserThumbnailComponent from './components/membershipComponents/UserThumbnailComponent';
 import DimmerComponent from './components/DimmerComponent';
+import EditInformationComponent from './components/membershipComponents/EditInformationComponent';
 
 const startApp = () => {
   new NavigatorComponent();
   new RouteManager();
+
   new SignInComponent();
   new SignUpComponent();
   new ConsumerSignInButtonComponent();
   new UserThumbnailComponent();
+  new EditInformationComponent();
+
   new DimmerComponent();
 
   const vendingMachineProductManager = new VendingMachineProductManager();

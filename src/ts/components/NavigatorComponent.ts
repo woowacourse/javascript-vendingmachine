@@ -1,5 +1,6 @@
-import { $, $$, on } from '../dom/domHelper';
+import { $, $$, emit, on } from '../dom/domHelper';
 import { getCookie } from '../cookie/cookie';
+import { requestUserInfo } from '../api/api';
 
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
@@ -23,6 +24,16 @@ export default class NavigatorComponent {
   private $informationWrapper = $<HTMLUListElement>(
     '.membership-information-wrapper'
   );
+  private $editVerifyButton = $<HTMLButtonElement>(
+    '.membership-edit-form__verify-button'
+  );
+
+  private $editEmailInput = $<HTMLInputElement>(
+    '.membership-edit-form__email-input'
+  );
+  private $editNameInput = $<HTMLInputElement>(
+    '.membership-edit-form__name-input'
+  );
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
@@ -40,6 +51,8 @@ export default class NavigatorComponent {
       this.changeComponent
     );
     on(this.$informationWrapper, '@logout', this.changeComponent);
+    on(this.$informationWrapper, '@editInformation', this.changeComponent);
+    on(this.$editVerifyButton, '@editInformation', this.changeComponent);
   }
 
   private onClickNavButton = (event: Event): void => {
@@ -57,7 +70,7 @@ export default class NavigatorComponent {
     this.changeComponent();
   };
 
-  private changeComponent = (): void => {
+  private changeComponent = async () => {
     const { pathname } = window.location;
 
     this.$$membershipComponents.forEach((section) => {
@@ -90,6 +103,8 @@ export default class NavigatorComponent {
       }
     });
 
+    const user = getCookie('user') && JSON.parse(getCookie('user'));
+
     if (
       pathname === '/sign-in' ||
       pathname === '/sign-up' ||
@@ -100,10 +115,19 @@ export default class NavigatorComponent {
       this.$signInButton.classList.add('hide');
       this.$userThumbnailButton.classList.add('hide');
 
+      if (user) {
+        const user = getCookie('user') && JSON.parse(getCookie('user'));
+        const { email, name } = await requestUserInfo(
+          user.accessToken,
+          user.id
+        );
+
+        this.$editEmailInput.value = email;
+        this.$editNameInput.value = name;
+      }
+
       return;
     }
-
-    const user = getCookie('user') && JSON.parse(getCookie('user'));
 
     if (user) {
       this.$nav.classList.remove('hide');

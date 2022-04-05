@@ -1,10 +1,10 @@
-export const checkValidSignUpName = (name: string): void | never => {
+export const checkValidName = (name: string): void | never => {
   if (name.length < 2 || name.length > 6) {
     throw new Error('이름은 2글자 ~ 6글자까지 입력 하실 수 있습니다.');
   }
 };
 
-export const checkValidSignUpPassword = (
+export const checkValidPassword = (
   password: string,
   passwordConfirm: string
 ): void | never => {
