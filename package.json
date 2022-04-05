@@ -8,7 +8,7 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "cm": "cz",
-    "server": "json-server-auth db.json"
+    "server": "json-server-auth db.json -r authorization.json"
   },
   "repository": {
     "type": "git",

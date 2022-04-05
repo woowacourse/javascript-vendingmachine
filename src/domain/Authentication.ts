@@ -1,4 +1,5 @@
 import { historyRouterPush } from '../router';
+import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 
@@ -22,6 +23,10 @@ class Authentication {
 
   subscribeLoginPage() {
     on('.login-form', '@login', (e: CustomEvent) => this.login(e.detail), $('login-page'));
+  }
+
+  subscribeProfileEditPage() {
+    on('.profile-edit-form', '@edit', (e: CustomEvent) => this.editProfile(e.detail), $('profile-edit-page'));
   }
 
   signup({ email, name, password }) {
@@ -64,9 +69,39 @@ class Authentication {
         if (!response.ok) throw new Error(body);
         const { accessToken, user } = body;
         localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('userInfo', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
 
         historyRouterPush('/javascript-vendingmachine/');
+      })
+      .catch((err) => {
+        showSnackbar(err.message);
+      });
+  }
+
+  editProfile({ name, password }) {
+    const token = localStorage.getItem('accessToken');
+    const user = storage.getLocalStorage('user');
+
+    if (!token || !user) return;
+
+    fetch(`http://localhost:3000/users/${user.id}`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        email: user.email,
+        name,
+        password,
+      }),
+    })
+      .then(async (response) => {
+        const { ok } = response;
+        const body = await response.json();
+        if (!ok) throw new Error(body);
+
+        localStorage.setItem('user', JSON.stringify(body));
       })
       .catch((err) => {
         showSnackbar(err.message);

@@ -1,12 +1,23 @@
 import { CoinType, CoinCounter } from './domain/Coin';
 import Product from './domain/Product';
 
-type Key = 'products' | 'amount';
-type ValueType<T> = T extends 'products' ? Product[] : T extends 'amount' ? Record<CoinType, CoinCounter> : never;
+type User = {
+  email: string;
+  name: string;
+  id: number;
+};
+type Key = 'products' | 'amount' | 'user' | 'accessToken';
+type ValueType<T> = T extends 'products'
+  ? Product[]
+  : T extends 'amount'
+  ? Record<CoinType, CoinCounter>
+  : T extends 'user'
+  ? User
+  : never;
 
 const storage = {
-  setLocalStorage(key: string, value: object) {
-    localStorage.setItem(key, JSON.stringify(value));
+  setLocalStorage(key: string, value: object | string) {
+    localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value);
   },
 
   getLocalStorage<T extends Key>(key: T): ValueType<T> {
@@ -25,6 +36,9 @@ const storage = {
             10: { type: '10won', count: 0 },
           }
         );
+
+      case 'user':
+        return items;
     }
   },
 };

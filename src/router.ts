@@ -34,6 +34,7 @@ const routers: Router[] = [
   { path: baseURL + '/purchase', component: $('purchase-tab') },
   { path: baseURL + '/login', component: $('login-page') },
   { path: baseURL + '/signup', component: $('signup-page') },
+  { path: baseURL + '/profile', component: $('profile-edit-page') },
 ];
 
 window.addEventListener('popstate', function () {
