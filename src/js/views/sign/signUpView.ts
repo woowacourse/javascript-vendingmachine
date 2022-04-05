@@ -3,6 +3,7 @@ import { signUpTemplate } from '../../templates/signUpTemplate';
 import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
 import { CUSTOM_EVENT } from '../../constants/appContants';
+import { signValidate } from '../../validates/signValidate';
 
 export default class SignUpView {
   render() {
@@ -20,6 +21,8 @@ export default class SignUpView {
       const name = $('#name-input').value;
       const password = $('#password-input').value;
       const confirmPassword = $('#password-confirm-input').value;
+
+      signValidate.signUp({ email, name, password, confirmPassword });
 
       await AuthManager.shared().singUp({ email, name, password });
 

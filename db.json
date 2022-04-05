@@ -11,6 +11,12 @@
       "password": "$2a$10$OSTgP7PPZhPwI3eiyJSyteM3nWhfDflBunwasc9QmMjRyq59sEoRW",
       "name": "감우영",
       "id": 2
+    },
+    {
+      "email": "dndd@naver.com",
+      "password": "$2a$10$bPmEtoO5E5eriI67aWwp6OQFbmz0BlUfw1Upgk7Ywx4TibZrfphVu",
+      "name": "감우영",
+      "id": 3
     }
   ]
 }

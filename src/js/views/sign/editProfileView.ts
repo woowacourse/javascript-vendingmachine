@@ -2,6 +2,7 @@ import AuthManager from '../../auth/authManager';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import { editProfile } from '../../templates/editProfileTemplate';
 import { $, emit } from '../../utils/common';
+import { signValidate } from '../../validates/signValidate';
 
 export default class EditProfileView {
   render() {
@@ -25,6 +26,12 @@ export default class EditProfileView {
     const editedName = $('#name-input').value;
     const editedPassword = $('#password-input').value;
     const confirmEditedPassword = $('#password-confirm-input').value;
+
+    signValidate.editProfile({
+      name: editedName,
+      password: editedPassword,
+      confirmPassword: confirmEditedPassword,
+    });
 
     await AuthManager.shared().editUserData({ editedName, editedPassword });
 

@@ -55,7 +55,6 @@ export default class PurchaseItemView {
 
   private handleReturnChangeButtonClick() {
     try {
-      if (!window.confirm('잔돈을 반환하시겠습니까?')) return;
       const { coins, restMoney } = this.vendingMachine.returnChangeCoins();
 
       this.repaintCoinsTable(coins);
