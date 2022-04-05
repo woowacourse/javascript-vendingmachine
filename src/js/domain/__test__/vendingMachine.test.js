@@ -156,4 +156,27 @@ describe('자판기 클래스 테스트', () => {
       expect(() => vendingMachine.insertMoney(invalidMoney)).toThrow();
     });
   });
+
+  describe('상품구매 테스트', () => {
+    test('넣은 돈이하의 가격을 가진 상품을 구매할 수 있다.', () => {
+      vendingMachine.insertMoney(3000);
+      const { stock } = vendingMachine.productList[productId];
+      vendingMachine.sellProduct(productId);
+      expect(vendingMachine.productList[productId].stock).toBe(stock - 1);
+    });
+
+    test('넣은 돈이상의 가격을 가진 상품을 구매할 수 없다.', () => {
+      vendingMachine.insertMoney(2400);
+
+      expect(() => vendingMachine.sellProduct(productId)).toThrow();
+    });
+
+    test('재고가 없는 상품을 구매하면 에러가 발생한다.', () => {
+      const product = { name: '사이다', price: 2500, stock: 1 };
+      productId = vendingMachine.addProduct(product);
+      vendingMachine.insertMoney(5000);
+      vendingMachine.sellProduct(productId);
+      expect(() => vendingMachine.sellProduct(productId)).toThrow();
+    });
+  });
 });

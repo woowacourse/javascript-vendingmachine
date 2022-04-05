@@ -57,7 +57,7 @@ export default class MoneyBox {
 
   giveChange(money: number): CoinStatus {
     let inputMoney = money;
-    const obj = this.#coinStatusList.reduce(
+    return this.#coinStatusList.reduce(
       (totalStatus, { name, value, count }, idx) => {
         totalStatus[name] = Math.min(Math.floor(inputMoney / value), count);
         inputMoney -= totalStatus[name] * value;
@@ -71,6 +71,5 @@ export default class MoneyBox {
         TEN_WON: 0,
       }
     );
-    return obj;
   }
 }

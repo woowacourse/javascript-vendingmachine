@@ -152,7 +152,7 @@ export const productPurcaseTableRow = ({ name, stock, price, id }) => `
   <td class="product-stock">${stock}</td>
   <td>
     <div class="table-button-wrapper">
-      <button type="button" class="purchase-product-button" data-product-id=${id}}>구매</button>
+      <button type="button" class="purchase-product-button" data-product-id=${id}>구매</button>
     </div>
   </td>
 </tr>`;

@@ -64,6 +64,28 @@ export default class VendingMachine {
     this.#productList[productId].modify(data);
   }
 
+  sellProduct(productId: string): void {
+    if (this.#productList[productId].stock === 0) {
+      throw new Error('해당 상품은 품절입니다.');
+    }
+    if (this.#validateProduct(productId)) {
+      this.#productList[productId].sell();
+    }
+  }
+
+  giveChange(): CoinStatus {
+    this.#totalMoney = Math.max(this.#totalMoney - this.#moneyBox.totalChange, 0);
+    return this.#moneyBox.giveChange(this.#totalMoney);
+  }
+
+  #validateProduct(productId: string): boolean {
+    if (this.#productList[productId].price > this.#totalMoney) {
+      throw new Error('금액이 부족합니다');
+    }
+    this.#validateProductIdInList(productId);
+    return true;
+  }
+
   removeProduct(productId: string): void {
     this.#validateProductIdInList(productId);
     delete this.#productList[productId];
@@ -108,7 +130,6 @@ export default class VendingMachine {
         errorMsg: '투입금액은 최대 10,000원 까지입니다.',
       },
     ];
-
     return validateData({ money, totalMoney: this.#totalMoney }, inputMoneyValidator);
   }
 }

@@ -1,3 +1,4 @@
+import { generateRandomHexString } from '../utils';
 import { createMainElement, selectDom } from '../utils/dom';
 import { productPurcaseTableRow, purchaseTemplate } from './template';
 
@@ -60,7 +61,8 @@ export default class PurchaseProductTab {
     if (!e.target.classList.contains('purchase-product-button')) {
       return;
     }
-    console.log('');
+    console.log(generateRandomHexString());
+    console.log(e.target.dataset.productId);
   };
 
   get tabElements() {

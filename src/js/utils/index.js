@@ -3,8 +3,8 @@ export function pickNumberInRange(min, max) {
 }
 
 export function generateRandomHexString() {
-  return Array.from({ length: 10 }).reduce(
-    (prev) => `${prev}${pickNumberInRange(0, 255).toString(16)}`,
+  return Array.from({ length: 3 }).reduce(
+    (prev) => `${prev}${pickNumberInRange(0, 255).toString(16)}${Date.now()}`,
     ''
   );
 }
