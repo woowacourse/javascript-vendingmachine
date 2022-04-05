@@ -1,7 +1,9 @@
 import { manageErrors } from '../utils/domUtil';
 
+const baseURL = 'https://dory-vending-machine.herokuapp.com';
+
 export const editUser = async (id, userInfo) => {
-  await fetch(`http://localhost:3000/users/${id}`, {
+  await fetch(`${baseURL}/users/${id}`, {
     method: 'PUT',
     body: JSON.stringify(userInfo),
     headers: {
@@ -16,7 +18,7 @@ export const editUser = async (id, userInfo) => {
 };
 
 export const deleteUser = async () => {
-  await fetch(`http://localhost:3000/users/${this.state.userId}`, {
+  await fetch(`${baseURL}/users/${this.state.userId}`, {
     method: 'DELETE',
   })
     .then(manageErrors)

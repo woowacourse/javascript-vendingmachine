@@ -7,7 +7,7 @@
     "test": "jest --watch --no-cache",
     "start:run": "webpack serve --open",
     "start": "node server.js",
-    "json-server": "json-server db.json --middlewares ./auth-middleware.js --routes routes.json",
+    "json-server": "json-server db.json -m ./node_modules/json-server-auth",
     "build": "webpack",
     "lint": "eslint src",
     "deploy": "gh-pages -d dist",
@@ -55,7 +55,7 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
+  "homepage": "https://prefer2.github.io/javascript-vendingmachine/",
   "dependencies": {
     "@babel/runtime": "^7.17.8",
     "json-server": "^0.17.0",

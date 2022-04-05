@@ -1,5 +1,7 @@
+const baseURL = 'https://dory-vending-machine.herokuapp.com';
+
 export const loginUser = async ({ email, password }) => {
-  const response = await fetch('http://localhost:3000/login', {
+  const response = await fetch(`${baseURL}/login`, {
     method: 'POST',
     body: JSON.stringify({
       email,
