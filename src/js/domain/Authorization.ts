@@ -13,15 +13,17 @@ export default class Authorization {
   #userId;
   #name;
   #email;
+  #accessToken;
 
   constructor() {
     this.#userId = null;
     this.#name = null;
     this.#email = null;
+    this.#accessToken = this.#getAccessToken();
 
     this.#getUserData();
 
-    this.#isLoggedIn = !!this.#userId;
+    this.#isLoggedIn = !!this.#accessToken;
   }
 
   get isLoggedIn() {
@@ -50,19 +52,27 @@ export default class Authorization {
     if (!response.ok) await this.#handleServerError(response);
 
     const {
+      accessToken,
       user: { id: userId, name, email },
     } = await response.json();
 
-    this.#saveUserData({ userId, name, email });
+    this.#saveUserData({ accessToken, userId, name, email });
     this.#isLoggedIn = true;
   }
 
   async update(userInputData: UserUpdateData) {
     this.#validateUpdateData(userInputData);
+
+    const updateData = userInputData;
+    delete updateData.passwordConfirm;
+
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInputData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.#accessToken}`,
+      },
+      body: JSON.stringify(updateData),
     });
 
     if (!response.ok) await this.#handleServerError(response);
@@ -81,17 +91,22 @@ export default class Authorization {
     if (!response.ok) await this.#handleServerError(response);
 
     const {
+      accessToken,
       user: { id: userId, name, email },
     } = await response.json();
 
-    this.#saveUserData({ userId, name, email });
+    this.#saveUserData({ accessToken, userId, name, email });
     this.#isLoggedIn = true;
   }
 
   logout() {
     window.sessionStorage.removeItem('userData');
 
+    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
     this.#userId = null;
+    this.#name = null;
+    this.#email = null;
     this.#isLoggedIn = false;
   }
 
@@ -115,17 +130,26 @@ export default class Authorization {
 
     const { userId, name, email } = savedUserData;
 
+    this.#saveUserData({ userId, name, email });
+  }
+
+  #saveUserData({ accessToken, userId, name, email }: SavedUserData) {
+    window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
+
+    if (accessToken) document.cookie = `accessToken=${accessToken}`;
+
     this.#userId = userId;
     this.#name = name;
     this.#email = email;
   }
 
-  #saveUserData({ userId, name, email }: SavedUserData) {
-    window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
+  #getAccessToken() {
+    const accessToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('accessToken'))
+      ?.split('=')[1];
 
-    this.#userId = userId;
-    this.#name = name;
-    this.#email = email;
+    return accessToken;
   }
 
   #validateRegisterData(registerData: UserRegisterData) {

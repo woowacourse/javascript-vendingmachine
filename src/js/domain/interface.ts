@@ -30,6 +30,7 @@ export interface UserUpdateData {
 }
 
 export interface SavedUserData {
+  accessToken?: string;
   userId: number;
   email: string;
   name: string;
