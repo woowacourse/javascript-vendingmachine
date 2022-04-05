@@ -5,6 +5,8 @@ export const AUTH_CONDITION = {
   MAX_USER_PASSWORD_LENGTH: 16,
 } as const;
 
+export const API_URL = 'http://localhost:3000';
+
 export const CHEAPEST_COIN = 10;
 
 export const COIN_CONDITION = {
@@ -48,8 +50,11 @@ export const ERROR_MESSAGE = {
 
 export const URL_PATH = {
   HOME: '/',
-  PRODUCT_MANAGE: '/productManage',
   BALANCE_CHAREGE: '/balanceCharge',
+  LOGIN: '/login',
+  SINGUP: '/signup',
+  EDIT_USER_INFO: '/editUserInfo',
+  PRODUCT_MANAGE: '/productManage',
   PRODUCT_PURCHASE: '/productPurchase',
 } as const;
 

@@ -1,62 +1,70 @@
-import { AUTH_CONDITION, ERROR_MESSAGE } from '../utils/constants';
+import { API_URL, AUTH_CONDITION, ERROR_MESSAGE } from '../utils/constants';
+import { UserInfoProps } from '../utils/interface';
+
+type loginInfoProps = Omit<UserInfoProps, 'name'>;
 
 interface AuthInterface {
-  signup();
-  login();
+  signup(signupInfo: UserInfoProps);
+  login(loginInfo: loginInfoProps);
+  edit(editedUserInfo: UserInfoProps);
   isValidatedName(name: string): true | Error;
-  isValidatedPassword(password: string): true | Error;
+  isValidatedPassword(password: string, passwordConfirmation: string): true | Error;
 }
 
 export class Auth implements AuthInterface {
-  #signupButton: HTMLButtonElement;
+  constructor() {}
 
-  constructor() {
-    /**
-     * 임시 시작
-     */
-    // this.#signupButton = document.querySelector('#signup');
-    // this.#signupButton.addEventListener('click', this.signup);
-    /**
-     * 임시 끝
-     */
+  async signup(signupInfo: UserInfoProps) {
+    const response = await fetch(`${API_URL}/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(signupInfo),
+    });
+
+    if (response.status === 400) throw new Error('같은 이메일이 존재합니다');
   }
 
-  signup = async () => {
-    const response = await fetch('http://localhost:3000/signup', {
+  login = async (loginInfo: loginInfoProps) => {
+    const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: 'sam4606@naver.com',
-        password: '123456',
-      }),
+      body: JSON.stringify(loginInfo),
     });
 
-    if (response.ok) {
-      const json = await response.json();
+    if (!response.ok) {
+      throw new Error('아이디와 비밀번호를 확인해주세요~');
     }
+
+    const json = await response.json();
+
+    return json;
   };
 
-  login = async () => {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
+  async edit(editedUserInfo: UserInfoProps) {
+    const accessToken = localStorage.getItem('accessToken');
+    const { id } = JSON.parse(localStorage.getItem('user'));
+
+    const response = await fetch(`${API_URL}/users/${id}`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({
-        email: 'sam4606@naver.com',
-        password: '123456',
-      }),
+      body: JSON.stringify(editedUserInfo),
     });
 
-    if (response.ok) {
-      const json = await response.json();
+    if (!response.ok) {
+      throw new Error('아이디와 비밀번호를 확인해주세요~');
     }
-  };
+  }
 
   logout() {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
   }
 
   isValidatedName(name: string): true | Error {
@@ -69,11 +77,13 @@ export class Auth implements AuthInterface {
     return true;
   }
 
-  isValidatedPassword(password: string): true | Error {
+  isValidatedPassword(password: string, passwordConfirmation: string): true | Error {
     // 8~16자, 최소 영어, 숫자, 특수문자 포함
     const passwordRegExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
     if (!passwordRegExp.test(password)) throw Error(ERROR_MESSAGE.INVALID_USER_PASSWORD);
+
+    if (password !== passwordConfirmation) throw Error('비밀번호가 같지 않습니다.');
 
     return true;
   }
