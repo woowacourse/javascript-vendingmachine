@@ -65,3 +65,9 @@ export const validateUpdateProduct = (targetName: string, name: string, price: n
     throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
   }
 };
+
+export const validateUserInputMoney = (userInputMoney: number) => {
+  if (productValidator.isIncorrectUnit(userInputMoney)) {
+    throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
+  }
+};

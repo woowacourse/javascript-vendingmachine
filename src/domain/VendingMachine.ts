@@ -2,12 +2,13 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateChange, validateProduct, validateUpdateProduct } from '../validator';
+import { validateChange, validateProduct, validateUpdateProduct, validateUserInputMoney } from '../validator';
 import { Coin } from './Coin';
 import Product from './Product';
 
 interface VendingMachineProperty {
   amount: Coin;
+  userAmount: number;
   products: Product[];
 }
 
@@ -22,6 +23,7 @@ class VendingMachine implements VendingMachineProperty {
   }
 
   amount: Coin;
+  userAmount = 0;
   products: Product[];
   observers: { key: string; element: CustomElement }[] = [];
 
@@ -45,10 +47,21 @@ class VendingMachine implements VendingMachineProperty {
     on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
   }
 
+  subscribePurchaseTab() {
+    on(
+      '.user-amount-form',
+      '@insert-coin',
+      (e: CustomEvent) => this.insertCoin(e.detail.userInputMoney),
+      $('purchase-tab'),
+    );
+  }
+
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify({ action, amount: this.amount, product }));
+    targets.forEach((target) =>
+      target.element.notify({ action, amount: this.amount, product, userAmount: this.userAmount }),
+    );
   }
 
   observe(key: string, element: CustomElement) {
@@ -97,6 +110,17 @@ class VendingMachine implements VendingMachineProperty {
       this.amount.genarateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount.counter);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  insertCoin(userInputMoney: number) {
+    try {
+      validateUserInputMoney(userInputMoney);
+
+      this.userAmount += userInputMoney;
+      this.dispatch('subscribePurchaseTab', 'insert-coin');
     } catch (error) {
       alert(error.message);
     }
