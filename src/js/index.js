@@ -145,7 +145,8 @@ class App {
 
   #handleLogout = () => {
     this.#authorization.logout();
-    window.location.href = '/';
+    selectDom('#user-button-select-box')?.remove();
+    window.location.href = DEFAULT_ROUTE.NON_USER;
   };
 
   #handleTabMenuChange = (e) => {
