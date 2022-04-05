@@ -11,3 +11,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.charge-form__purchase-button {
+  width: 56px;
+}

@@ -2,6 +2,7 @@
 @import './product-manage-tab.css';
 @import './charge-tab.css';
 @import './purchase-tab.css';
+@import './login.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
@@ -57,7 +58,6 @@ h1 {
   border: none;
   color: var(--secondary-font-color);
   cursor: pointer;
-  width: 56px;
   height: 36px;
 }
 

@@ -1,0 +1,26 @@
+.login-button {
+  position: absolute;
+  top: 12px;
+  right: 180px;
+}
+
+.login-form label {
+  display: block;
+  margin-top: 8px;
+}
+
+.login-form input {
+  width: 300px;
+  margin: 8px 0;
+}
+
+.login-page h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.login-page__login-button {
+  display: block;
+  width: 300px;
+  margin-top: 32px;
+}

@@ -122,6 +122,19 @@ const TEMPLATE = {
       <button type="button" class="button">반환</button>
     </section>
   `,
+  LOGIN_PAGE: `
+    <section class="login-page">
+      <h2>로그인</h2>
+      <form class="login-form">
+        <label>이메일</label>
+        <input type="email" name="email" placeholder="woowacourse@gmail.com" required />
+        <label>비밀번호</label>
+        <input type="password" name="password" placeholder="비밀번호를 입력해주세요." required />
+        <button type="submit" class="submit-button login-page__login-button">확인</button>
+      </form>
+      <p>아직 회원이 아니신가요? <a href="">회원가입</a></p>
+   </section>
+  `,
 };
 
 export default TEMPLATE;

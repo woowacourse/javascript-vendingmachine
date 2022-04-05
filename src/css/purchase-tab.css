@@ -17,6 +17,10 @@
   height: 36px;
 }
 
+.user-amount-form__charge-button {
+  width: 56px;
+}
+
 #purchasable-product-list-table {
   margin-top: 48px;
 }
