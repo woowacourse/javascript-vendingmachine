@@ -10,9 +10,6 @@ interface ProductInterface {
   setPrice(price: ProductProps['price']);
   setQuantity(quantity: ProductProps['quantity']);
   decreaseQuantity(quantity: ProductProps['quantity']);
-  isValidatedName(name: ProductProps['name']);
-  isValidatedPrice(price: ProductProps['price']);
-  isValidatedQuantity(quantity: ProductProps['price']);
   isValidatedAllProp({ name, price, quantity }: ProductProps): boolean;
 }
 
@@ -61,7 +58,7 @@ export class Product implements ProductInterface {
     this.#quantity -= quantity;
   }
 
-  isValidatedName(name: ProductProps['name']) {
+  #isValidatedName(name: ProductProps['name']) {
     if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT);
     }
@@ -69,7 +66,7 @@ export class Product implements ProductInterface {
     return true;
   }
 
-  isValidatedPrice(price: ProductProps['price']) {
+  #isValidatedPrice(price: ProductProps['price']) {
     if (price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE) {
       throw new Error(ERROR_MESSAGE.NOT_WITHIN_PRODUCT_PRICE_RANGE);
     }
@@ -81,7 +78,7 @@ export class Product implements ProductInterface {
     return true;
   }
 
-  isValidatedQuantity(quantity: ProductProps['quantity']) {
+  #isValidatedQuantity(quantity: ProductProps['quantity']) {
     if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
       throw new Error(ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT);
     }
@@ -91,9 +88,9 @@ export class Product implements ProductInterface {
 
   isValidatedAllProp({ name, price, quantity }: ProductProps): boolean {
     return (
-      this.isValidatedName(name) &&
-      this.isValidatedPrice(price) &&
-      this.isValidatedQuantity(quantity)
+      this.#isValidatedName(name) &&
+      this.#isValidatedPrice(price) &&
+      this.#isValidatedQuantity(quantity)
     );
   }
 }
