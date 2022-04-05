@@ -1,36 +1,29 @@
 import Component from '../core/Component';
+import { globalStore } from '../domains/GlobalStore';
 
 class Router extends Component {
   setup() {
-    const { href } = window.location;
-    const location = new URL(href).hash;
-    const routes = Array.from(this.children).map((child) => ({
-      path: child.getAttribute('path'),
-      component: child,
-    }));
+    const routes = Array.from(this.children).reduce((newObj, child) => {
+      newObj[child.getAttribute('path')] = child;
 
-    this.state = { location, routes };
+      return newObj;
+    }, {});
+
+    this.state = { routes };
   }
 
   render() {
-    const { location, routes } = this.state;
-    const currentRoute = routes.find(
-      (route) => route.path === location || route.path === '*'
-    );
-    const component =
-      (location === '' && routes[0].component) || currentRoute?.component;
+    // globalStore의 location 값이 바뀔때마다 재랜더
+    // useStore로 Router는 등록되어 있음
+    let curLocation = globalStore.useStore((state) => state.currentLocation);
+    const { routes } = this.state;
+
+    if (curLocation === '/change-charge' || curLocation === '/item-management')
+      curLocation = '/';
+    const component = routes[curLocation] || routes['*'];
 
     this.clearDOM();
     this.appendChild(component);
-  }
-
-  setEvent() {
-    window.addEventListener('hashchange', (event) => {
-      const { href } = event.target.location;
-      const location = new URL(href).hash;
-
-      this.setState({ location });
-    });
   }
 }
 

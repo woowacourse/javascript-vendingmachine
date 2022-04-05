@@ -37,7 +37,7 @@ class ItemPurchasePage extends Component {
         </div>
         <button class="add-money-button styled-button emphasized">투입</button>
       </form>
-      <p class="current-money-indicator">투입한 금액: <span>${purchaseMoney}원</span></p>
+      <p class="current-money-indicator">투입한 금액: <span id="total-purchase-money">${purchaseMoney}</span>원</p>
     </section>
     <section>
       <h2 class="table-title">구매 가능 상품 현황</h2>

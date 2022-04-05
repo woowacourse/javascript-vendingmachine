@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { loginUser } from '../../auth/login';
-import { setData } from '../../utils/storageUtil';
 import { showSnackBar } from '../../utils/domUtil';
+import { globalStore } from '../../domains/GlobalStore';
 
 class UserLoginPage extends Component {
   template() {
@@ -24,7 +24,7 @@ class UserLoginPage extends Component {
           <input id="login-password" class="login-input styled-input" type="password" placeholder="비밀번호를 입력해주세요" name="password" required>
           <button type="submit" class="login-confirm-button styled-button emphasized">확인</button>
         </form>
-        <p>아직 회원이 아니신가요? <a href="#register">회원가입</a></p>
+        <p>아직 회원이 아니신가요? <a id="register" class="register">회원가입</a></p>
       </div>
       <div class="snackbar"></div>
     `;
@@ -48,9 +48,18 @@ class UserLoginPage extends Component {
         return;
       }
 
-      setData('user', response);
+      const to = '/';
+      const state = { path: to };
 
-      window.location.href = 'http://localhost:9000';
+      window.history.pushState(state, '', to);
+      globalStore.login(response);
+    });
+
+    this.addEvent('click', '#register', () => {
+      const to = '/register';
+      const state = { path: to };
+      window.history.pushState(state, '', to);
+      globalStore.changeLocation(to);
     });
   }
 }

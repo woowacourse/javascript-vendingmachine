@@ -24,7 +24,7 @@ export interface VendingMachineState {
   purchaseMoney: number;
 }
 
-export default class VendingMachine {
+class VendingMachine {
   state: VendingMachineState;
 
   constructor(initialItems: Item[], initialCoins: Coins, initialMoney: number) {

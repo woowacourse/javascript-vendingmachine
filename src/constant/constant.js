@@ -1,14 +1,14 @@
 export const PAGE = {
   ITEM_MANAGEMENT: {
-    PATH: '#item-management',
+    PATH: '/item-management',
     TITLE: '상품 관리',
   },
   CHANGE_CHARGE: {
-    PATH: '#change-charge',
+    PATH: '/change-charge',
     TITLE: '잔돈 충전',
   },
   ITEM_PURCHASE: {
-    PATH: '#item-purchase',
+    PATH: '/',
     TITLE: '상품 구매',
   },
 };
