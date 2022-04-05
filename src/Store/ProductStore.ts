@@ -1,17 +1,17 @@
 import Store from './Abstract';
 
-class ProductStore extends Store<ProductStoreState> {
-  protected state: ProductStoreState = {
+class ProductStore extends Store<IProductStoreState> {
+  protected state: IProductStoreState = {
     products: [],
   };
 
-  addProduct(product: Product): void {
+  addProduct(product: IProduct): void {
     this.setState({
       products: [...this.state.products, product],
     });
   }
 
-  updateProduct(index: number, replaceProduct: Product = null): void {
+  updateProduct(index: number, replaceProduct: IProduct = null): void {
     const updateProduct = [...this.state.products];
     replaceProduct
       ? updateProduct.splice(index, 1, replaceProduct)

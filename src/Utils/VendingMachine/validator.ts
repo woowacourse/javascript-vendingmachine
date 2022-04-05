@@ -1,4 +1,3 @@
-import { IProduct } from 'Store/Interface';
 import { isStringLengthInRange, isNumberInRange, isCorrectNumberUnit } from 'Utils';
 import { VENDING_MACHINE, ERROR_MESSAGE } from 'Constants';
 

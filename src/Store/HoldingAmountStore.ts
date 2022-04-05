@@ -2,10 +2,8 @@ import { getRandomNumber } from 'Utils';
 import { COIN_TYPE } from 'Constants';
 import Store from './Abstract';
 
-type IState = Record<'coins', Array<number>>;
-
-class HoldingAmountStore extends Store {
-  protected state: IState = {
+class HoldingAmountStore extends Store<IHoldingAmountStoreState> {
+  protected state: IHoldingAmountStoreState = {
     coins: [0, 0, 0, 0],
   };
 

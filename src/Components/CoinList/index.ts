@@ -11,7 +11,7 @@ export default class CoinList extends Component {
   subscriberStore = [HoldingAmountStore];
   $table;
 
-  constructor(props) {
+  constructor(props: ICoinListComponentProps) {
     super(props);
 
     this.renderMethodList = {

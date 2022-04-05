@@ -3,27 +3,40 @@ declare module '*.html' {
   export default content;
 }
 
-interface TemplateSetting {
-  elementProperty: Record<string, string | number | object | []>;
-  childTextContent: Record<string, string | number>;
+interface ClassConstructor<T> {
+  new (...args): T;
 }
 
-type StoreState = Record<string, any>;
-type RenderContent = {
-  state: StoreState;
+interface ITemplateSetting {
+  elementProperty?: Record<string, string | number | object | []>;
+  childTextContent?: Record<string, string | number>;
+}
+
+type TStoreState = Record<string, any>;
+type TRenderContent = {
+  state: TStoreState;
   changedStateNames: Array<string>;
 };
-type RenderMethod = (renderContent: RenderContent) => void;
-interface Product {
+type TRenderMethod = (renderContent: TRenderContent) => void;
+interface IProduct {
   name: string;
   price: number;
   quantity: number;
 }
 
-interface ProductStoreState {
-  products: Product[];
+interface IProductStoreState {
+  products: IProduct[];
 }
 
-interface HoldingAmountStoreState {
+interface IHoldingAmountStoreState {
   coins: number[];
+}
+
+interface ICoinListComponentProps {
+  drawAmountList: IHoldingAmountStoreState['coins'];
+}
+
+interface IAmountInputProps {
+  totalAmountText: string;
+  onSubmit(event: EventListenerObject);
 }

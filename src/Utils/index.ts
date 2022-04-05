@@ -28,7 +28,7 @@ export const convertStringToElement = (htmlString = ''): HTMLElement => {
 
 export const setContentOfChildElement = (
   element: HTMLElement,
-  target: TemplateSetting['childTextContent'],
+  target: ITemplateSetting['childTextContent'],
 ): void => {
   Object.entries(target).forEach(([selector, innerText]) => {
     const $target: HTMLInputElement = element.querySelector(selector);
@@ -40,7 +40,7 @@ export const setContentOfChildElement = (
 
 export const setElementProperty = (
   element: HTMLElement,
-  property: TemplateSetting['elementProperty'],
+  property: ITemplateSetting['elementProperty'],
 ): void => {
   Object.entries(property).forEach(([key, value]) => {
     if (key === 'dataset') {
@@ -65,12 +65,13 @@ export const setElementProperty = (
 
 export const createTemplate = (
   template: HTMLElement | string,
-  setting: TemplateSetting,
+  setting: ITemplateSetting,
 ): HTMLElement => {
   const element = typeof template === 'string' ? convertStringToElement(template) : template;
 
-  setContentOfChildElement(element, setting.childTextContent);
-  setElementProperty(element, setting.elementProperty);
+  const { childTextContent, elementProperty } = setting;
+  childTextContent && setContentOfChildElement(element, childTextContent);
+  elementProperty && setElementProperty(element, elementProperty);
 
   return element;
 };

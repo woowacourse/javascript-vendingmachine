@@ -1,17 +1,17 @@
-export default abstract class Store<StateInterface> {
-  protected abstract state: StateInterface;
-  private subscribers: RenderMethod[] = [];
+export default abstract class Store<IState> {
+  protected abstract state: IState;
+  private subscribers: TRenderMethod[] = [];
 
-  public addSubscriber(subscriber: RenderMethod): void {
+  public addSubscriber(subscriber: TRenderMethod): void {
     this.subscribers.push(subscriber);
   }
 
-  public removeSubscriber(subscriber: RenderMethod): void {
+  public removeSubscriber(subscriber: TRenderMethod): void {
     const subscriberIndex: number = this.subscribers.indexOf(subscriber);
     this.subscribers.splice(subscriberIndex, 1);
   }
 
-  public setState(newState: StateInterface) {
+  public setState(newState: IState) {
     const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
@@ -20,7 +20,7 @@ export default abstract class Store<StateInterface> {
     );
   }
 
-  public getState(): StateInterface {
+  public getState(): IState {
     return { ...this.state };
   }
 }
