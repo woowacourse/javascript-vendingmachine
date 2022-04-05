@@ -35,6 +35,7 @@ export default class HomePage {
   render() {
     replaceHTML($('#app'), this.#template());
     this.renderMainContent(location.pathname);
+    this.activateClickedButton(location.pathname);
 
     $('.nav').addEventListener('click', this.navClickHandler);
     $('.login-button').addEventListener('click', this.loginButtonHandler);
@@ -60,7 +61,6 @@ export default class HomePage {
 
   selectChangeHandler = e => {
     const selectValue = e.target.options[e.target.selectedIndex].value;
-    console.log('selectValue', selectValue);
     switch (selectValue) {
       case '회원 정보 수정':
         this.editClickHandler();
@@ -82,8 +82,6 @@ export default class HomePage {
     document.cookie = 'access_token=';
 
     location.reload();
-    // $('.user-thumbnail').classList.add('display-none');
-    // $('.login-button').classList.remove('display-none');
   };
 
   #template() {

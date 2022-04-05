@@ -19,7 +19,7 @@ export default class App {
     this.signupPage = new SignupPage(this.routePage);
     this.userEditPage = new UserEditPage(this.routePage);
 
-    this.homePage.render();
+    this.routePage(location.pathname);
     window.addEventListener('popstate', this.popStateHandler);
   }
 
@@ -49,19 +49,22 @@ export default class App {
     return buttonPathname === pathname;
   }
 
-  routePage = pathname => {
-    switch (pathname) {
-      case `${basePath}/`:
-        this.homePage.render();
-        break;
-      case `${basePath}/login`:
+  routePage = (pathname: string) => {
+    const endPoint = pathname.replace(basePath, '');
+
+    switch (endPoint) {
+      case `/login`:
         this.loginPage.render();
         break;
-      case `${basePath}/signup`:
+      case `/signup`:
         this.signupPage.render();
         break;
-      case `${basePath}/user-edit`:
+      case `/user-edit`:
         this.userEditPage.render();
+        break;
+      default:
+        this.homePage.render();
+        break;
     }
   };
 }
