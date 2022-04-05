@@ -59,14 +59,7 @@ button:hover {
 #return-change-button {
   width: 100px;
 }
-
-.login-submit-button {
-  width: 100% !important;
-  height: 36px;
-  margin-bottom: 20px;
-}
-
-.sign-in-submit-button {
+.user-submit-button {
   width: 100% !important;
   height: 36px;
   margin-bottom: 20px;

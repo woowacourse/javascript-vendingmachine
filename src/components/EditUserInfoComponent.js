@@ -52,7 +52,7 @@ class EditUserInfoComponent {
             placeholder="비밀번호를 입력해주세요"
           />
         </div>
-        <button class="submit-button" id="edit-submit-button">확인</button>
+        <button class="submit-button user-submit-button" id="edit-submit-button">확인</button>
       </form>
     </section>`;
   }

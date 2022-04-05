@@ -40,7 +40,7 @@ class LoginComponent {
             </label>
             <input type="password" id="login-password-input" placeholder="비밀번호를 입력해주세요">
           </div>
-          <button class="submit-button login-submit-button">확인</button>
+          <button class="submit-button user-submit-button login-submit-button">확인</button>
         </form>
         <div>
           아직 회원이 아니신가요? <a href="#signin" id="signup-href">회원가입</a>
