@@ -4,6 +4,8 @@ export const API_URL = 'https://vending-maching-auth-api.herokuapp.com';
 
 export const ACCESS_TOKEN_KEY = 'vending-machine-token-key';
 
+export const USER_INFO_KEY = 'vending-machine-user-info-key';
+
 export const COIN = {
   MIN_UNIT: 10,
   UNITS: [500, 100, 50, 10],

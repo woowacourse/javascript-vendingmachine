@@ -1,5 +1,5 @@
-import { VALIDATION_ERROR_NAME } from './constants';
-import { CoinRecord, Indexable } from './types';
+import { API_URL, USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
+import { CoinRecord, Indexable, LoggedInUser } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
@@ -77,4 +77,15 @@ export const findMaxRepeatingLetterCount = (_str: string) => {
     }
   }
   return max;
+};
+
+export const getUserInfoFromLocalStorage = (): LoggedInUser | undefined => {
+  let userInfo = JSON.parse(localStorage.getItem(USER_INFO_KEY) || '{}');
+  if (
+    !Object.prototype.hasOwnProperty.call(userInfo, 'name') ||
+    !Object.prototype.hasOwnProperty.call(userInfo, 'email')
+  ) {
+    userInfo = undefined;
+  }
+  return userInfo;
 };

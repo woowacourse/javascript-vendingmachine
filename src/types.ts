@@ -58,6 +58,8 @@ export type UserInfo = {
   password: string;
 };
 
+export type LoggedInUser = Omit<UserInfo, 'password'>;
+
 export type Feedback = {
   inputValue: string;
   hasError: boolean;

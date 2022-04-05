@@ -101,12 +101,13 @@ class LoginPage extends Component {
     })
       .then((response) => response.json())
       .then((body) => {
-        const { accessToken, errorMessage } = body;
+        const { accessToken, user, errorMessage } = body;
         if (errorMessage) {
           alert(errorMessage);
           return;
         }
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+        localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
         alert('로그인 성공');
         location.href = `${location.origin}`;
       })
