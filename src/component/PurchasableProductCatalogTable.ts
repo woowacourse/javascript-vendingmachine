@@ -7,8 +7,9 @@ interface PurchasableProductCatalogTableInterface {}
 
 export class PurchasableProductCatalogTable implements PurchasableProductCatalogTableInterface {
   #target: HTMLDivElement;
-  #productCatalog: ProductCatalog;
   #purchasableProductTable: HTMLTableElement;
+  #productTableBody: HTMLTableCellElement;
+  #productCatalog: ProductCatalog;
   #purchaseMoney: PurchaseMoney;
 
   constructor({ target, productCatalog, purchaseMoney }) {
@@ -68,10 +69,14 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
 
   #selectDOM() {
     this.#purchasableProductTable = document.querySelector('#purchasable-product-table');
+    this.#productTableBody = document.querySelector('.product-table-body');
   }
 
   #bindEvent() {
     this.#purchasableProductTable.addEventListener('click', this.#handlePurchaseProduct);
+    document.addEventListener('productAdded', this.#updateAddedProduct);
+    document.addEventListener('productDeleted', this.#updatedDeletedProduct);
+    document.addEventListener('productEdited', this.#updateEditedProduct);
   }
 
   #handlePurchaseProduct = (e) => {
@@ -86,19 +91,19 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
         );
 
         this.#purchaseMoney.setMoney(exchange);
-        this.#target.dispatchEvent(new CustomEvent('productPurchased'));
+        this.#target.dispatchEvent(
+          new CustomEvent('productPurchased', { detail: { name: productName }, bubbles: true })
+        );
 
         const tableRow = e.target.closest(`#${productName}`);
-        this.#renderPurchasedProduct(tableRow);
-
-        // TODO: 상품 관리 테이블 업데이트 해줘야함
+        this.#updatePurchasedProduct(tableRow);
       } catch (err) {
         alert(err.message);
       }
     }
   };
 
-  #renderPurchasedProduct(tableRow: HTMLTableRowElement) {
+  #updatePurchasedProduct(tableRow: HTMLTableRowElement) {
     const quantitySpan = tableRow.querySelector('.product-quantity > span');
 
     let decreasedQuantity = Number(quantitySpan.textContent) - 1;
@@ -111,4 +116,29 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
       purchaseBtn.disabled = true;
     }
   }
+
+  #updateAddedProduct = (e: CustomEvent) => {
+    const addedProduct = e.detail;
+
+    this.#productTableBody.insertAdjacentHTML('beforeend', this.#tableRowTemplate(addedProduct));
+  };
+
+  #updatedDeletedProduct = (e: CustomEvent) => {
+    const { name } = e.detail;
+
+    this.#productTableBody.querySelector(`#${name}`).remove();
+  };
+
+  #updateEditedProduct = (e: CustomEvent) => {
+    const { targetName, name, price, quantity } = e.detail;
+    const tableRow = this.#productTableBody.querySelector(`#${targetName}`);
+
+    const nameSpan = tableRow.querySelector('.product-name > span');
+    const priceSpan = tableRow.querySelector('.product-price > span');
+    const quantitySpan = tableRow.querySelector('.product-quantity > span');
+
+    nameSpan.textContent = name;
+    priceSpan.textContent = price;
+    quantitySpan.textContent = quantity;
+  };
 }

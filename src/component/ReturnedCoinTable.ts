@@ -83,11 +83,15 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
 
     this.#purchaseMoney.setMoney(remainder);
 
+    this.#updateReturnedCoinTable({ coin500, coin100, coin50, coin10 });
+
+    this.#target.dispatchEvent(new CustomEvent('coinsReturned', { bubbles: true }));
+  };
+
+  #updateReturnedCoinTable({ coin500, coin100, coin50, coin10 }: Coins) {
     this.#coin500Quantity.textContent = `${coin500}`;
     this.#coin100Quantity.textContent = `${coin100}`;
     this.#coin50Quantity.textContent = `${coin50}`;
     this.#coin10Quantity.textContent = `${coin10}`;
-    //TODO: 잔돈 충전 동전들 업데이트
-    this.#target.dispatchEvent(new CustomEvent('coinsReturned'));
-  };
+  }
 }

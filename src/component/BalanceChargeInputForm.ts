@@ -45,6 +45,7 @@ export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
 
   #bindEvent() {
     this.#submitBtn.addEventListener('click', this.#handleChargeBalance);
+    document.addEventListener('coinsReturned', this.#updateCurrentBalance);
   }
 
   #handleChargeBalance = (e: Event) => {
@@ -63,7 +64,7 @@ export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
     this.#target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
-  #updateCurrentBalance() {
+  #updateCurrentBalance = () => {
     this.#currentBalance.textContent = `${this.#coinVault.getBalance()}`;
-  }
+  };
 }

@@ -17,12 +17,13 @@ export class CoinVaultTable implements CoinVaultTableInterface {
     this.#target = target;
     this.#coinVault = coinVault;
 
-    this.#target.addEventListener('coinCharged', this.#updateCoinVaultTableTemplate);
+    this.#target.addEventListener('coinCharged', this.#updateCoinVaultTable);
   }
 
   render() {
     this.#target.insertAdjacentHTML('beforeend', this.#template(this.#coinVault.getCoins()));
     this.#selectDom();
+    this.#bindEvent();
   }
 
   #template(coinsQuantity: Coins) {
@@ -66,7 +67,11 @@ export class CoinVaultTable implements CoinVaultTableInterface {
     this.#coin10Quantity = document.querySelector('.coin10-quantity');
   }
 
-  #updateCoinVaultTableTemplate = () => {
+  #bindEvent() {
+    document.addEventListener('coinsReturned', this.#updateCoinVaultTable);
+  }
+
+  #updateCoinVaultTable = () => {
     const { coin500, coin100, coin50, coin10 } = this.#coinVault.getCoins();
 
     this.#coin500Quantity.textContent = `${coin500}`;

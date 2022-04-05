@@ -25,16 +25,29 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
   };
 
   #selectDOM() {
-    this.#productTableBody = document.querySelector('#product-table-body');
+    this.#productTableBody = document.querySelector('.product-table-body');
   }
 
   #bindEvent() {
     this.#productTableBody.addEventListener('click', this.#handleProductStateManage);
+    document.addEventListener('productPurchased', this.#updatePurchasedProduct);
   }
 
-  #renderAddedProduct = (e) => {
+  #renderAddedProduct = (e: CustomEvent) => {
     const addedProduct = e.detail;
     this.#productTableBody.insertAdjacentHTML('beforeend', this.#tableRowTemplate(addedProduct));
+  };
+
+  #updatePurchasedProduct = (e: CustomEvent) => {
+    const { name } = e.detail;
+
+    const tableRow = this.#productTableBody.querySelector(`#${name}`);
+
+    const quantitySpan = tableRow.querySelector('.product-quantity > span');
+
+    let decreasedQuantity = Number(quantitySpan.textContent) - 1;
+
+    quantitySpan.textContent = String(decreasedQuantity);
   };
 
   #template() {
@@ -49,7 +62,7 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
             <th>수량</th>
           </tr>
         </thead>
-        <tbody id="product-table-body">${this.#tableBodyTemplate()}</tbody>
+        <tbody class="product-table-body">${this.#tableBodyTemplate()}</tbody>
       </table>
     </div>
   `;
@@ -101,14 +114,11 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
 
       try {
         this.#saveEditedProduct(tableRow);
+        this.#confirmEditProduct(tableRow);
+        this.#toggleEditBtn(tableRow);
       } catch (err) {
         alert(err.message);
-
-        return;
       }
-
-      this.#confirmEditProduct(tableRow);
-      this.#toggleEditBtn(tableRow);
     }
   };
 
@@ -145,6 +155,10 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
     if (window.confirm('진짜 지우실건가요?')) {
       tableRow.remove();
       this.#productCatalog.deleteProduct(tableRow.id);
+
+      this.#target.dispatchEvent(
+        new CustomEvent('productDeleted', { detail: { name: tableRow.id }, bubbles: true })
+      );
     }
   }
 
@@ -163,6 +177,18 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
       price: editedProductPrice,
       quantity: editedProductQuantity,
     });
+
+    this.#target.dispatchEvent(
+      new CustomEvent('productEdited', {
+        detail: {
+          targetName: targetProductName,
+          name: editedProductName,
+          price: editedProductPrice,
+          quantity: editedProductQuantity,
+        },
+        bubbles: true,
+      })
+    );
   }
 
   #confirmEditProduct(tableRow: HTMLTableRowElement) {
@@ -180,7 +206,7 @@ export class ProductCatalogTable implements ProductCatalogTableInterface {
 
   #createProductSpanElement(editedValue: string): HTMLSpanElement {
     const productSpanElement = document.createElement('span');
-    productSpanElement.innerText = editedValue;
+    productSpanElement.textContent = editedValue;
 
     return productSpanElement;
   }

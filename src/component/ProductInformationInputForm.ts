@@ -59,7 +59,7 @@ export class ProductInformationInputForm implements ProductInformationInputFormI
       this.#productCatalog.addProduct({ name, price, quantity });
 
       this.#target.dispatchEvent(
-        new CustomEvent('productAdded', { detail: { name, price, quantity } })
+        new CustomEvent('productAdded', { detail: { name, price, quantity }, bubbles: true })
       );
     } catch (err) {
       alert(err.message);

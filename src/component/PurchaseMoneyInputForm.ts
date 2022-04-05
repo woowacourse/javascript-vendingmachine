@@ -13,6 +13,9 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
   constructor({ target, purchaseMoney }) {
     this.#target = target;
     this.#purchaseMoney = purchaseMoney;
+
+    this.#target.addEventListener('productPurchased', this.#updatePurchaseMoney);
+    this.#target.addEventListener('coinsReturned', this.#updatePurchaseMoney);
   }
 
   #template(purhcaseMoney) {
@@ -51,15 +54,14 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
       .valueAsNumber;
 
     try {
-      this.#purchaseMoney.isValidatedMoney(purchaseMoney) &&
-        this.#purchaseMoney.addMoney(purchaseMoney);
-      this.#updatePurchaseMoney(this.#purchaseMoney.getMoney());
+      this.#purchaseMoney.addMoney(purchaseMoney);
+      this.#updatePurchaseMoney();
     } catch (err) {
       alert(err);
     }
   };
 
-  #updatePurchaseMoney(purhcaseMoney: number) {
-    this.#purchaseMoneySpan.textContent = String(purhcaseMoney);
-  }
+  #updatePurchaseMoney = () => {
+    this.#purchaseMoneySpan.textContent = String(this.#purchaseMoney.getMoney());
+  };
 }
