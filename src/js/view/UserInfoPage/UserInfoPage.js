@@ -37,10 +37,10 @@ export default class UserInfoPage {
     } = getInputValuesFromForm(e.target);
 
     try {
-      const updateData = { email, name, password, passwordConfirm };
-      if (password) {
-        updateData[password] = password;
-        updateData[passwordConfirm] = passwordConfirm;
+      const updateData = { email, name };
+      if (password !== '') {
+        updateData.password = password;
+        updateData.passwordConfirm = passwordConfirm;
       }
 
       await this.#authorization.update(updateData);
