@@ -39,6 +39,12 @@ body {
   position: relative;
 }
 
+.user-button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 .tab-title {
   text-align: center;
 }
@@ -92,10 +98,8 @@ input[type='number'] {
   text-align: center;
 }
 
-#login-link-button, #user-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+#login-link-button {
+  display: block
 }
 
 #user-button {
@@ -116,8 +120,9 @@ input[type='number'] {
 #user-button-select-box {
   position:absolute;
   
-  top: 80px;
-  right: 20px;
+  width: 100px;
+  top: 64px;
+  right: -15px;
   list-style-type: none;
   display: flex;
   flex-direction: column;

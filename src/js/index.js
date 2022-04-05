@@ -26,17 +26,33 @@ import { DEFAULT_ROUTE } from './constants';
 class App {
   #vendingMachine;
   #authorization;
+  #userButtonContainer;
   #userRenderList;
   #nonUserRenderList;
   #headerContainer;
   #appContainer;
   #tabMenuNavigation;
-  #userButton;
 
   constructor() {
     this.snackBar = new Snackbar();
     this.#vendingMachine = new VendingMachine();
     this.#authorization = new Authorization();
+    this.#appContainer = selectDom('#app');
+    this.#userButtonContainer = selectDom('.user-button-container');
+    this.#headerContainer = selectDom('header');
+
+    this.#initRoutes();
+
+    window.addEventListener('popstate', this.#render);
+    window.addEventListener('DOMContentLoaded', this.#render);
+
+    this.#userButtonContainer.addEventListener(
+      'click',
+      this.#handleUserButtonContainerClick
+    );
+  }
+
+  #initRoutes() {
     this.#userRenderList = {
       '#/user-info': new UserInfoPage(this.#authorization, this.snackBar),
       '#/product': new ProductTab(this.#vendingMachine, this.snackBar),
@@ -48,12 +64,6 @@ class App {
       '#/register': new RegisterPage(this.#authorization, this.snackBar),
       '#/purchase': new PurchaseTab(this.#vendingMachine, this.snackBar),
     };
-    this.#appContainer = selectDom('#app');
-    this.#headerContainer = selectDom('header');
-    this.#userButton = selectDom('#user-button');
-
-    window.addEventListener('popstate', this.#render);
-    window.addEventListener('DOMContentLoaded', this.#render);
   }
 
   #render = () => {
@@ -67,18 +77,26 @@ class App {
   #renderUser() {
     const path = window.location.hash || DEFAULT_ROUTE.USER;
     this.#renderNav(path);
-    selectDom('#login-link-button', this.#appContainer)?.remove();
-    this.#updateUserButton();
+    selectDom('#login-link-button', this.#userButtonContainer)?.remove();
 
     this.#renderTab(this.#userRenderList, path);
+
+    selectDom('#user-button-select-box')?.remove();
+
+    if (selectDom('#user-button', this.#userButtonContainer)) return;
+
+    this.#userButtonContainer.insertAdjacentHTML(
+      'afterbegin',
+      userButtonTemplate(this.#authorization.name)
+    );
   }
 
   #renderNonUser() {
     const path = window.location.hash || DEFAULT_ROUTE.NON_USER;
     selectDom('#tab-menu-navigation')?.remove();
-    selectDom('#user-button', this.#appContainer)?.remove();
-    if (!selectDom('#login-link-button', this.#appContainer)) {
-      this.#appContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
+    selectDom('#user-button', this.#userButtonContainer)?.remove();
+    if (!selectDom('#login-link-button', this.#userButtonContainer)) {
+      this.#userButtonContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
     }
     this.#renderTab(this.#nonUserRenderList, path);
   }
@@ -109,20 +127,12 @@ class App {
     this.#appContainer.replaceChild(routeList[path].tabElements, selectDom('main'));
   }
 
-  #updateUserButton() {
-    this.#userButton?.remove();
-    selectDom('#user-button-select-box')?.remove();
+  #handleUserButtonContainerClick = ({ target }) => {
+    if (target.id === 'user-button') this.#handleSelectBoxToggle(target);
+    if (target.id === 'logout-button') this.#handleLogout();
+  };
 
-    this.#appContainer.insertAdjacentHTML(
-      'afterbegin',
-      userButtonTemplate(this.#authorization.name)
-    );
-    this.#userButton = selectDom('#user-button');
-
-    this.#userButton.addEventListener('click', this.#handleSelectBoxToggle);
-  }
-
-  #handleSelectBoxToggle = () => {
+  #handleSelectBoxToggle = (target) => {
     const selectBox = selectDom('#user-button-select-box');
 
     if (selectBox) {
@@ -130,8 +140,7 @@ class App {
       return;
     }
 
-    this.#userButton.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
-    selectDom('#logout-button').addEventListener('click', this.#handleLogout);
+    target.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
   };
 
   #handleLogout = () => {
