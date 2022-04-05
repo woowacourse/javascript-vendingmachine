@@ -24,12 +24,12 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
   }
 
   render() {
-    this.#target.insertAdjacentHTML('beforeend', this.#template(this.#coinVault.getCoins()));
+    this.#target.insertAdjacentHTML('beforeend', this.#template());
     this.#selectDom();
     this.#bindEvent();
   }
 
-  #template(coinsQuantity: Coins) {
+  #template() {
     return `
       <div class="table-container">
         <h2>잔돈 반환</h2>
@@ -43,19 +43,19 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
           <tbody>
             <tr>
               <td>500원</td>
-              <td><span class="coin500-quantity">${coinsQuantity.coin500}</span>개</td>
+              <td><span class="coin500-quantity">0</span>개</td>
             </tr>
             <tr>
               <td>100원</td>
-              <td><span class="coin100-quantity">${coinsQuantity.coin100}</span>개</td>
+              <td><span class="coin100-quantity">0</span>개</td>
             </tr>
             <tr>
               <td>50원</td>
-              <td><span class="coin50-quantity">${coinsQuantity.coin50}</span>개</td>
+              <td><span class="coin50-quantity">0</span>개</td>
             </tr>
             <tr>
               <td>10원</td>
-              <td><span class="coin10-quantity">${coinsQuantity.coin10}</span>개</td>
+              <td><span class="coin10-quantity">0</span>개</td>
             </tr>
           </tbody>
         </table>
