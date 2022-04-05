@@ -1,4 +1,6 @@
-export function isEmail(str: string) {
+import { USER_NAME_RULE } from '../constants';
+
+function isEmail(str: string) {
   if (!str.includes('@')) return false;
 
   const atIndex = str.indexOf('@');
@@ -6,6 +8,10 @@ export function isEmail(str: string) {
   if (atIndex === 0 || atIndex === str.length) return false;
 
   return true;
+}
+
+function isProperLength(name: string) {
+  return name.length >= USER_NAME_RULE.MIN && name.length <= USER_NAME_RULE.MAX;
 }
 
 interface Validator {
@@ -23,6 +29,11 @@ const generateValidator = (
     test: !isEmail(email),
     errorMsg: '이메일 형식으로 입력해주세요.',
     target: 'email',
+  },
+  {
+    test: !isProperLength(name),
+    errorMsg: `이름은 ${USER_NAME_RULE.MIN}~${USER_NAME_RULE.MAX}자로 입력해주세요.`,
+    target: 'name',
   },
 ];
 

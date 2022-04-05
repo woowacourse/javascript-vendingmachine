@@ -1,10 +1,10 @@
 interface LoginInfo {
-  email: `${string}@${string}.${string}`;
+  email: string;
   password: string;
 }
 
 interface UserInfo {
-  email: `${string}@${string}.${string}`;
+  email: string;
   id: string;
   name: string;
 }

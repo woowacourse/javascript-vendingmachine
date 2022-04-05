@@ -57,6 +57,7 @@ export default class SignupPage {
       validateSignup(emailInput.value, pwInput.value, nameInput.value);
     } catch ({ message, name }) {
       alert(message);
+      return;
     }
 
     alert(`${nameInput.value}님 회원가입에 성공했습니다.`);
