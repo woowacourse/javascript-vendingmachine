@@ -33,7 +33,7 @@
   height: 37px;
 }
 
-.tab-button:hover {
+.button:hover {
   background-color: var(--gray);
 }
 
