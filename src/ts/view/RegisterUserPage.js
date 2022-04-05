@@ -1,3 +1,4 @@
+import { HASH } from '../constant/hash';
 import { registerUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
 
@@ -17,22 +18,31 @@ class RegisterUserPage {
     this.registerForm.addEventListener('submit', this.#onSubmitRegisterForm);
   }
 
-  #onSubmitRegisterForm = (e) => {
+  #onSubmitRegisterForm = async (e) => {
     e.preventDefault();
-    const { email, name, password, confirmPassword } = e.target;
+    const userInfo = this.#convertToUserInfoObject(e.target);
 
     try {
-      this.registerUser.validateRegisterBehavior({
-        email: email.value.trim(),
-        name: name.value.trim(),
-        password: password.value.trim(),
-        confirmPassword: confirmPassword.value.trim(),
-      });
+      this.registerUser.validateRegisterBehavior(userInfo);
+      const [ok, body] = await this.registerUser.register(userInfo);
+      if (!ok) {
+        throw new Error(body);
+      }
     } catch (error) {
       alert(error.message);
       return;
     }
+    location.href = `${location.origin}/${HASH.LOGIN_USER}`;
   };
+
+  #convertToUserInfoObject({ email, name, password, confirmPassword }) {
+    return {
+      email: email?.value.trim() ?? '',
+      name: name?.value.trim() ?? '',
+      password: password?.value.trim() ?? '',
+      confirmPassword: confirmPassword?.value.trim() ?? '',
+    };
+  }
 }
 
 export default RegisterUserPage;
