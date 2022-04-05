@@ -62,7 +62,9 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
         <td class="product-price product-prop"><span>${price}</span></td>
         <td class="product-quantity product-prop"><span>${quantity}</span></td>
         <td>
-          <button class="purchase-button button" type="button" data-product-id="${name}">구매</button>
+          <button class="purchase-button button" type="button" data-product-id="${name}" 
+          ${quantity === 0 && 'disabled'}>
+          ${quantity === 0 ? '품절' : '구매'}</button>
         </td>
       </tr>`;
   }
@@ -81,7 +83,6 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
 
   #handlePurchaseProduct = (e) => {
     if (e.target.matches('.purchase-button')) {
-      // TODO: 0개일때는 구매 못하도록 해야함
       const productName = e.target.dataset.productId;
 
       try {
@@ -124,6 +125,7 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
       const purchaseBtn = tableRow.querySelector('.purchase-button') as HTMLButtonElement;
 
       purchaseBtn.disabled = true;
+      purchaseBtn.textContent = '품절';
     }
   }
 

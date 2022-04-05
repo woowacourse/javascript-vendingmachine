@@ -56,6 +56,10 @@
   height: 37px;
 }
 
+.purchase-button:disabled {
+  background-color: var(--gray);
+}
+
 .return-button {
   margin-top: 20px;
   align-self: center;
