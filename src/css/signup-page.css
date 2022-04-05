@@ -1,0 +1,20 @@
+.signup-form label {
+  display: block;
+  margin-top: 8px;
+}
+
+.signup-form input {
+  width: 300px;
+  margin: 8px 0;
+}
+
+.signup-page h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.signup-page__signup-button {
+  display: block;
+  width: 300px;
+  margin-top: 32px;
+}

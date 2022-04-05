@@ -135,6 +135,22 @@ const TEMPLATE = {
       <p>아직 회원이 아니신가요? <a href="">회원가입</a></p>
    </section>
   `,
+  SIGNUP_PAGE: `
+    <section class="signup-page">
+      <h2>회원가입</h2>
+      <form class="signup-form">
+        <label>이메일</label>
+        <input type="email" name="email" placeholder="이메일 주소를 입력해주세요." required />
+        <label>이름</label>
+        <input type="text" name="userName" placeholder="이름을 입력해주세요." minlength="2" maxlength="6" required />
+        <label>비밀번호</label>
+        <input type="password" name="password" placeholder="비밀번호를 입력해주세요." required />
+        <label>비밀번호 확인</label>
+        <input type="password" name="passwordConfirm" placeholder="비밀번호를 입력해주세요." required />
+        <button type="submit" class="submit-button signup-page__signup-button">확인</button>
+      </form>
+    </section>
+  `,
 };
 
 export default TEMPLATE;

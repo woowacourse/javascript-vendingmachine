@@ -3,6 +3,7 @@
 @import './charge-tab.css';
 @import './purchase-tab.css';
 @import './login.css';
+@import './signup-page.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
