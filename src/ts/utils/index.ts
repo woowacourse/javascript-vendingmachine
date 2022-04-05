@@ -27,6 +27,10 @@ const getUser = async (): Promise<UserInfoWithPassWord | string> => {
   const userId = getCookie('user_id');
   const accessToken = getCookie('access_token');
 
+  if (!(userId && accessToken)) {
+    return 'not Login';
+  }
+
   const user = await API.fetchUser(userId, accessToken);
 
   return user;
