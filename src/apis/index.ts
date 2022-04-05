@@ -56,12 +56,12 @@ async function login(loginInfo: LoginInfo): Promise<UserResponse | string> {
     }),
   });
 
-  const data: UserResponse = await response.json();
+  const data: UserResponse | string = await response.json();
 
   return data;
 }
 
-async function signup(signupInfo: SignupInfo): Promise<UserResponse> {
+async function signup(signupInfo: SignupInfo): Promise<UserResponse | string> {
   const { email, password, name } = signupInfo;
   const response = await fetch(`${baseUrl}/register`, {
     method: 'POST',
@@ -75,14 +75,14 @@ async function signup(signupInfo: SignupInfo): Promise<UserResponse> {
     }),
   });
 
-  const data: UserResponse = await response.json();
+  const data: UserResponse | string = await response.json();
 
   return data;
 }
 
 async function editInfo(
   signupInfo: UserInfoWithPassWord,
-): Promise<UserResponse> {
+): Promise<UserResponse | string> {
   const { email, password, name, id } = signupInfo;
   const response = await fetch(`${baseUrl}/users/${id}`, {
     method: 'PUT',
@@ -96,7 +96,7 @@ async function editInfo(
     }),
   });
 
-  const data: UserResponse = await response.json();
+  const data: UserResponse | string = await response.json();
 
   return data;
 }
