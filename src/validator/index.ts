@@ -66,9 +66,19 @@ export const validateUpdateProduct = (targetName: string, name: string, price: n
   }
 };
 
-export const validateUserInputMoney = (userInputMoney: number) => {
+const userInputMoneyValidator = {
+  isOverMax(userAmount: number, userInputMoney: number) {
+    return userAmount + userInputMoney > 10000;
+  },
+};
+
+export const validateUserInputMoney = (userInputMoney: number, userAmount: number) => {
   if (productValidator.isIncorrectUnit(userInputMoney)) {
     throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
+  }
+
+  if (userInputMoneyValidator.isOverMax(userAmount, userInputMoney)) {
+    throw new Error('투입 금액이 10,000원을 초과할 수 없습니다.');
   }
 };
 

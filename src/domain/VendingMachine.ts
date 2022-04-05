@@ -134,7 +134,7 @@ class VendingMachine implements VendingMachineProperty {
 
   insertCoin(userInputMoney: number) {
     try {
-      validateUserInputMoney(userInputMoney);
+      validateUserInputMoney(userInputMoney, this.userAmount);
 
       this.userAmount += userInputMoney;
       this.dispatch('subscribePurchaseTab', 'update-amount');
