@@ -18,7 +18,7 @@ export default class SignInView {
     );
   }
 
-  async handleSignInSubmit(event: SubmitEvent) {
+  private async handleSignInSubmit(event: SubmitEvent) {
     try {
       event.preventDefault();
       const email = $(SELECTOR.ID.EMAIL_INPUT).value;
@@ -36,7 +36,7 @@ export default class SignInView {
     }
   }
 
-  handleOfferSignUpClick(event: { target: HTMLButtonElement }) {
+  private handleOfferSignUpClick(event: { target: HTMLButtonElement }) {
     const { url } = event.target.dataset;
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });

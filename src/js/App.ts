@@ -23,9 +23,7 @@ export default class App {
   }
 
   renderPage() {
-    const pathList = window.location.href.split('/#');
-    const page = pathList[1] ?? URL.MAIN;
-    const url = pathList[2] ?? URL.PURCHASE_ITEM;
+    const [_, page, url] = window.location.href.split('/#');
 
     switch (page) {
       case URL.MAIN:
@@ -38,7 +36,7 @@ export default class App {
         break;
       default:
         this.mainView.render();
-        this.mainView.renderMainPageSection(url);
+        this.mainView.renderMainPageSection(URL.PURCHASE_ITEM);
     }
   }
 

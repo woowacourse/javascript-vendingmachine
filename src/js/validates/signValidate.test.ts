@@ -15,7 +15,13 @@ describe('이메일, 이름, 비밀번호, 확인 비밀번호가 주어지면',
     });
 
     test('@~.뒤 문자가 1이하 4이상이면 에러를 throw한다.', () => {
-      const email = '*ndud5548@gmail.abcd';
+      const email = 'dndud5548@gmail.c';
+
+      expect(checkEmail(email)).toBeFalsy();
+    });
+
+    test('공백이 포함되면 에러를 throw한다.', () => {
+      const email = ' dndud5548@gmail.com';
 
       expect(checkEmail(email)).toBeFalsy();
     });

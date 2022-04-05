@@ -22,19 +22,15 @@ export default class EditProfileView {
     $(SELECTOR.ID.NAME_INPUT).value = userData.name;
   }
 
-  async handleEditSubmit(event: SubmitEvent) {
+  private async handleEditSubmit(event: SubmitEvent) {
     event.preventDefault();
-    const editedName = $(SELECTOR.ID.NAME_INPUT).value;
-    const editedPassword = $(SELECTOR.ID.PASSWORD_INPUT).value;
-    const confirmEditedPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
+    const name = $(SELECTOR.ID.NAME_INPUT).value;
+    const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
+    const confirmPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
 
-    signValidate.editProfile({
-      name: editedName,
-      password: editedPassword,
-      confirmPassword: confirmEditedPassword,
-    });
+    signValidate.checkEditedProfileInputs({ name, password, confirmPassword });
 
-    await AuthManager.shared().editUserData({ name: editedName, password: editedPassword });
+    await AuthManager.shared().editUserData({ name, password });
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,

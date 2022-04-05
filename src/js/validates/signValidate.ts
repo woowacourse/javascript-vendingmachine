@@ -2,7 +2,7 @@ import { ERROR_MESSAGE } from '../constants/errorConstants';
 import { signDataType } from '../types/types';
 
 export const signValidate = {
-  signUp: ({ email, name, password, confirmPassword }: signDataType) => {
+  checkSignUpInputs: ({ email, name, password, confirmPassword }: signDataType) => {
     if (!checkEmail(email)) {
       throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_EMAIL);
     }
@@ -17,7 +17,7 @@ export const signValidate = {
     }
   },
 
-  editProfile: ({ name, password, confirmPassword }: signDataType) => {
+  checkEditedProfileInputs: ({ name, password, confirmPassword }: signDataType) => {
     if (!checkName(name)) {
       throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_NAME);
     }

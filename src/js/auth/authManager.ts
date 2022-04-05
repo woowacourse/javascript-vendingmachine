@@ -47,7 +47,7 @@ export default class AuthManager {
     this._userData = user;
   }
 
-  async singUp({ email, name, password }: signDataType) {
+  async signUp({ email, name, password }: signDataType) {
     const response = await fetch(this.baseUrl + this.types.signUp, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },

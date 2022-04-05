@@ -81,7 +81,7 @@ export default class MainView {
     const $signButton = event.target;
 
     if ($signButton.classList.contains(SELECTOR.CLASS_STRING.SIGN_IN)) {
-      this.handleSiginClick($signButton);
+      this.handleSigInClick($signButton);
       return;
     }
     if ($signButton.classList.contains(SELECTOR.CLASS_STRING.THUMBNAIL)) {
@@ -89,11 +89,11 @@ export default class MainView {
       return;
     }
     if ($signButton.classList.contains(SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE)) {
-      this.handleThumbnailClse($signButton);
+      this.handleActivedThumbnailClick($signButton);
     }
   }
 
-  private handleSiginClick($signButton: HTMLButtonElement) {
+  private handleSigInClick($signButton: HTMLButtonElement) {
     const { url } = $signButton.dataset;
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
@@ -108,7 +108,7 @@ export default class MainView {
     this.userMenuView.showMenu();
   }
 
-  private handleThumbnailClse($signButton: HTMLButtonElement) {
+  private handleActivedThumbnailClick($signButton: HTMLButtonElement) {
     $signButton.classList.replace(
       SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE,
       SELECTOR.CLASS_STRING.THUMBNAIL

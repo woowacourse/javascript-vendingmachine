@@ -52,7 +52,7 @@ export default class CoinManager {
     const initialAmount = 0;
 
     return Object.keys(coins).reduce(
-      (previous, current) => previous + COINS[current] * coins[current],
+      (account, current) => account + COINS[current] * coins[current],
       initialAmount
     );
   }

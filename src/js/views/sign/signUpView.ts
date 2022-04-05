@@ -15,7 +15,7 @@ export default class SignUpView {
     $(SELECTOR.ID.SIGNUP_SUBMIT).addEventListener('submit', this.handleSignUpSubmit.bind(this));
   }
 
-  async handleSignUpSubmit(event: SubmitEvent) {
+  private async handleSignUpSubmit(event: SubmitEvent) {
     try {
       event.preventDefault();
       const email = $(SELECTOR.ID.EMAIL_INPUT).value;
@@ -23,9 +23,9 @@ export default class SignUpView {
       const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
       const confirmPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
 
-      signValidate.signUp({ email, name, password, confirmPassword });
+      signValidate.checkSignUpInputs({ email, name, password, confirmPassword });
 
-      await AuthManager.shared().singUp({ email, name, password });
+      await AuthManager.shared().signUp({ email, name, password });
 
       emit({
         eventName: CUSTOM_EVENT.ROUTE_CHANGE,
