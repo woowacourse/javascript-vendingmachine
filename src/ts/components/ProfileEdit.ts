@@ -1,5 +1,5 @@
 import { editProfileAuth, getUserData } from '../auth';
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
+import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
 const profileEditTemplate = document.createElement('template');
@@ -156,12 +156,17 @@ class ProfileEdit extends HTMLElement {
       password: this.passwordEditInput.value,
       passwordCheck: this.passwordCheckEditInput.value,
     };
-    const isEdited = await editProfileAuth(payload);
-    if (!isEdited) {
-      return;
+    try {
+      const isEdited = await editProfileAuth(payload);
+      if (!isEdited) {
+        return;
+      }
+      this.closeModal();
+      window.dispatchEvent(new CustomEvent('@route-login', {}));
+      renderToastModal('success', SUCCESS_MESSAGE.EDIT_COMPLETE);
+    } catch (error) {
+      renderToastModal('error', error.message);
     }
-    this.closeModal();
-    window.dispatchEvent(new CustomEvent('@route-login', {}));
   };
 
   closeModalDimmer = (event) => {

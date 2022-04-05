@@ -1,5 +1,7 @@
 import { signupAuth } from '../auth';
+import { SUCCESS_MESSAGE } from '../constants';
 import { renderComponent } from './renderer';
+import { renderToastModal } from './ToastNotification';
 
 const signupTemplate = document.createElement('template');
 
@@ -162,12 +164,17 @@ class Signup extends HTMLElement {
       password: this.passwordInput.value,
       passwordCheck: this.passwordCheckInput.value,
     };
-    const isSignup = await signupAuth(payload);
-    if (!isSignup) {
-      return;
+    try {
+      const isSignup = await signupAuth(payload);
+      if (!isSignup) {
+        return;
+      }
+      this.closeModal();
+      renderComponent('log-in');
+      renderToastModal('success', SUCCESS_MESSAGE.SIGNUP_COMPLETE);
+    } catch (error) {
+      renderToastModal('error', error.message);
     }
-    this.closeModal();
-    renderComponent('log-in');
   };
 }
 

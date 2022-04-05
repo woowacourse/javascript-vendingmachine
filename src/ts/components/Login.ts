@@ -159,11 +159,16 @@ class Login extends HTMLElement {
       email: this.emailInput.value,
       password: this.passwordInput.value,
     };
-    const isLogin = await loginAuth(payload);
-    if (!isLogin) {
-      return;
+    try {
+      const isLogin = await loginAuth(payload);
+      if (!isLogin) {
+        return;
+      }
+      this.emitRouteLogin();
+      renderToastModal('success', SUCCESS_MESSAGE.LOGIN_COMPLETE);
+    } catch (error) {
+      renderToastModal('error', ERROR_MESSAGE.LOGIN_FAILED);
     }
-    this.emitRouteLogin();
   };
 
   emitRouteLogin = () => {
