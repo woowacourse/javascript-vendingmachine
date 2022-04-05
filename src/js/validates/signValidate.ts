@@ -1,32 +1,30 @@
+import { ERROR_MESSAGE } from '../constants/errorConstants';
+
 export const signValidate = {
   signUp: ({ email, name, password, confirmPassword }) => {
     if (!checkEmail(email)) {
-      throw new Error('잘못된 이메일 형식입니다.');
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_EMAIL);
     }
     if (!checkName(name)) {
-      throw new Error('한글과 영문이 혼용되지 않는 2이상 10이하의 이름을 입력해주세요.');
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_NAME);
     }
     if (!checkConfirmPassword(password, confirmPassword)) {
-      throw new Error('비밀번호가 일치하지 않습니다.');
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.NOT_MATCH_PASSWORD);
     }
     if (!checkPassword(password)) {
-      throw new Error(
-        '문자, 숫자, 특수문자가 하나 이상 포함된 8자 이하의 비밀번호를 입력해주세요.'
-      );
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_PASSWORD);
     }
   },
 
   editProfile: ({ name, password, confirmPassword }) => {
     if (!checkName(name)) {
-      throw new Error('한글과 영문이 혼용되지 않는 2이상 10이하의 이름을 입력해주세요.');
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_NAME);
     }
     if (!checkConfirmPassword(password, confirmPassword)) {
-      throw new Error('비밀번호가 일치하지 않습니다.');
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.NOT_MATCH_PASSWORD);
     }
     if (!checkPassword(password)) {
-      throw new Error(
-        '문자, 숫자, 특수문자가 하나 이상 포함된 8자 이하의 비밀번호를 입력해주세요.'
-      );
+      throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_PASSWORD);
     }
   },
 };
@@ -47,6 +45,6 @@ function checkEmail(email) {
 }
 
 function checkName(name) {
-  const regularExpression = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+  const regularExpression = /^[가-힣]{2,8}$|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
   return regularExpression.test(name);
 }
