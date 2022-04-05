@@ -1,4 +1,4 @@
-import { VendingMachine, ProductCollection, CoinCollection, Product, ProductName } from '../../index.d';
+import { VendingMachine, ProductCollection, CoinCollection, Product, ProductName, Coin } from '../../index.d';
 import { ERROR_MESSAGE } from '../constant';
 import ProductCollectionImpl from '../entity/ProductCollectionImpl';
 import CoinCollectionImpl from '../entity/CoinCollectionImpl';
@@ -65,13 +65,14 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   returnChangeCoins(): Object {
-    return this.coinCollection.coins
+    return [...this.coinCollection.coins]
       .reverse()
-      .reduce((acc, { amount, count }) => {
-        const coinCount = Math.min(Math.floor(this.totalUserInputMoney / amount), count);
+      .reduce((acc, coin: Coin) => {
+        const coinCount = Math.min(Math.floor(this.totalUserInputMoney / coin.amount), coin.count);
 
-        this.totalUserInputMoney -= coinCount * amount;
-        acc[amount] = coinCount;
+        this.totalUserInputMoney -= coinCount * coin.amount;
+        coin.count -= coinCount;
+        acc[coin.amount] = coinCount;
 
         return acc;
       }, {});

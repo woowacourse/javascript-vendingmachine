@@ -48,6 +48,7 @@ export default class BuyProduct implements DomainView {
   bindEvent(): void {
     this.$buyPriceForm.addEventListener('submit', this.handleSubmitForm.bind(this));
     this.$productContainer.addEventListener('click', this.handleClickBuyButton.bind(this));
+    this.$returnChangeButton.addEventListener('click', this.handleClickReturnButton.bind(this));
   }
 
   private handleSubmitForm(e: Event): void {
@@ -73,6 +74,16 @@ export default class BuyProduct implements DomainView {
     } catch ({ message }) {
       alert(message);
     }
+  }
+
+  private handleClickReturnButton(): void {
+    const changeCoins = this.vendingMachine.returnChangeCoins();
+
+    this.$returnCoin10.innerText = `${changeCoins[10]}개`;
+    this.$returnCoin50.innerText = `${changeCoins[50]}개`;
+    this.$returnCoin100.innerText = `${changeCoins[100]}개`;
+    this.$returnCoin500.innerText = `${changeCoins[500]}개`;
+    this.renderTotalBuyPrice();
   }
 
   private renderTotalBuyPrice(): void {
