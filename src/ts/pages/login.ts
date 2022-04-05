@@ -42,7 +42,10 @@ export default class LoginPage {
       password: pwInput.value,
     });
 
-    if (typeof response === 'string') return;
+    if (typeof response === 'string') {
+      alert(response);
+      return;
+    }
 
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;
