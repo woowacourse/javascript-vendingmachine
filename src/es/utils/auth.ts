@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE, GUIDE_MESSAGE } from '../constants';
 import User from '../data/User';
 import { IUser } from '../interface';
 import { loadMainPage } from '../routes';
@@ -48,10 +49,11 @@ function signUp(signUpInfo: SignInfo) {
       localStorage.setItem('userAuth', JSON.stringify(userAuth));
       User.setUser({ id, email, name });
       loadMainPage();
+      showSnackBar(GUIDE_MESSAGE.SIGNUP_SUCCESS);
     })
     .catch(err => {
       if (err.message === 'Email already exists') {
-        showSnackBar('이미 가입한 이메일입니다.');
+        showSnackBar(GUIDE_MESSAGE.SIGNUP_EMAIL_ALREADY_EXISTS);
       }
     });
 }
@@ -80,14 +82,15 @@ function login(loginInfo: SignInfo) {
       localStorage.setItem('userAuth', JSON.stringify(userAuth));
       User.setUser({ id, email, name });
       loadMainPage();
+      showSnackBar(GUIDE_MESSAGE.LOGIN_SUCCESS);
     })
     .catch(err => {
       switch (err.message) {
         case 'Cannot find user':
-          showSnackBar('등록되지 않은 이메일입니다.');
+          showSnackBar(GUIDE_MESSAGE.LOGIN_CANNOT_FIND_USER);
           break;
         case 'Incorrect password':
-          showSnackBar('잘못된 비밀번호입니다.');
+          showSnackBar(GUIDE_MESSAGE.LOGIN_INCORRECT_PASSWORD);
           break;
         default:
           break;
@@ -152,6 +155,7 @@ function updateUserInfo(newUserInfo) {
       const { email, name }: Partial<IUser> = response;
       User.setUser({ id, email, name });
       loadMainPage();
+      showSnackBar(GUIDE_MESSAGE.UPDATE_USER_INFO_SUCCESS);
     })
     .catch(error => console.error('에러', error.message));
 }
@@ -163,7 +167,7 @@ function getSavedAuthInfo(): AuthInfo {
   try {
     userAuth = JSON.parse(localStorage.getItem('userAuth'));
   } catch (err) {
-    console.error('저장된 Auth 정보를 불러오는데 실패했습니다.');
+    console.error(ERROR_MESSAGE.FAIL_TO_READ_AUTH_INFO);
     return emptyAuthInfo;
   }
 

@@ -46,7 +46,7 @@ const ERROR_MESSAGE = {
   PASSWORD_CONFIRM: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
   PASSWORD_CONDITION: '비밀번호는 숫자, 소문자 알파벳, 대문자 알파벳 각각 1자 이상을 포함하여 전체 8자 이상이어야 합니다.',
 
-  INSUFFICIENT_CHARGE_TO_PURCHASE: '돈이 부족해요! 😥',
+  FAIL_TO_READ_AUTH_INFO: '저장된 Auth 정보를 불러오는데 실패했습니다.',
 };
 
 const GUIDE_MESSAGE = {
@@ -56,9 +56,19 @@ const GUIDE_MESSAGE = {
 
   CUSTOMER_CHARGE_SUCCESS: '상품 구매 금액 충전 성공! 😆',
   PURCHASE_SUCCESS: (productName) => `${productName} 구입 성공! 😆`,
+  INSUFFICIENT_CHARGE_TO_PURCHASE: '돈이 부족해요! 😥',
 
-  RETURN_INSUFFICIENT_CHANGES: '미안해요. 잔돈이 부족해서 다 돌려줄 수가 없어요. 😥',
   RETURN_CHANGES_SUCCESS: '잔돈 반환 성공! 😆',
+  RETURN_INSUFFICIENT_CHANGES: '미안해요. 잔돈이 부족해서 다 돌려줄 수가 없어요. 😥',
+
+  SIGNUP_SUCCESS: '회원가입 성공! 😄',
+  SIGNUP_EMAIL_ALREADY_EXISTS: '이미 가입한 이메일입니다.',
+
+  LOGIN_SUCCESS: '로그인 성공! 😄',
+  LOGIN_CANNOT_FIND_USER: '등록되지 않은 이메일입니다.',
+  LOGIN_INCORRECT_PASSWORD: '잘못된 비밀번호입니다.',
+
+  UPDATE_USER_INFO_SUCCESS: '회원 정보 업데이트 성공! 😄',
 };
 
 export {

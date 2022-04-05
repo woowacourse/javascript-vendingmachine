@@ -1,4 +1,4 @@
-import { COIN_TYPE, ERROR_MESSAGE } from '../constants';
+import { COIN_TYPE, GUIDE_MESSAGE } from '../constants';
 import CustomerCharge from '../data/CustomerCharge';
 import Products from '../data/Products';
 import VendingMachineCharge from '../data/VendingMachineCharge';
@@ -56,7 +56,7 @@ class ProductPurchasePageManager implements IPageManager {
   purchaseProductByIndex(index: number): string {
     const { name, price } = Products.products[index];
     if (price > CustomerCharge.amount) {
-      throw new Error(ERROR_MESSAGE.INSUFFICIENT_CHARGE_TO_PURCHASE);
+      throw new Error(GUIDE_MESSAGE.INSUFFICIENT_CHARGE_TO_PURCHASE);
     }
     this.subtractCustomerCharge(price);
     this.takeOutProductByIndex(index);
