@@ -13,7 +13,7 @@ class CoinRechargeTab extends VendingMachineTab {
 
   coinCountList: NodeListOf<HTMLElement> | null = null;
 
-  renderInitialTabState(): void {
+  render(): void {
     const totalCoinAmount: number = this.vendingMachine.calculateTotalCoinAmount();
 
     this.changeTabContent(

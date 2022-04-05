@@ -43,13 +43,13 @@ class App {
     this.header.render(currentHash);
 
     if (!currentHash) {
-      this.itemPurchaseTab.renderInitialTabState();
+      this.itemPurchaseTab.render();
       return;
     }
 
     this.tabs.forEach((tab) => {
       if (currentHash === tab.tabHash) {
-        tab.renderInitialTabState();
+        tab.render();
       }
     });
   }

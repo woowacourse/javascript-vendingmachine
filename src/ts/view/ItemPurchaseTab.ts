@@ -2,7 +2,7 @@ import VendingMachineTab from './VendingMachineTab';
 import { generateItemPurchaseTabContentTemplate } from '../template';
 
 class ItemPurchaseTab extends VendingMachineTab {
-  renderInitialTabState(): void {
+  render(): void {
     this.changeTabContent(generateItemPurchaseTabContentTemplate());
   }
 }

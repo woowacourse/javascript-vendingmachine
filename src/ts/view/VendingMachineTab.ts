@@ -19,7 +19,7 @@ class VendingMachineTab implements VendingMachineTabInterface {
     this.tabContent = selectDom(`#${ID.TAB_CONTENT}`);
   }
 
-  renderInitialTabState(): void {}
+  render(): void {}
 
   changeTabContent(contentTemplate: string): void {
     this.tabContent.replaceChildren();

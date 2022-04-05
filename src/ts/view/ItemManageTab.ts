@@ -15,7 +15,7 @@ class ItemManageTab extends VendingMachineTab {
 
   itemStatusTable: HTMLElement | null = null;
 
-  renderInitialTabState(): void {
+  render(): void {
     this.changeTabContent(generateItemManageTabContentTemplate(this.vendingMachine.itemList));
 
     this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.tabContent);
