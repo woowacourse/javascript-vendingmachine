@@ -15,6 +15,7 @@ export default class View {
   $tabRechargeButton: HTMLInputElement;
   $tabPurchaseProductButton: HTMLInputElement;
   $$tabButtons: NodeListOf<HTMLInputElement>;
+  $userMenu: HTMLElement;
   vendingMachine: VendingMachineInterface;
   productManageView: ProductManageView;
   rechargeView: RechargeView;
@@ -35,6 +36,7 @@ export default class View {
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
     this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-input');
+    this.$userMenu = document.querySelector('user-menu');
 
     this.$tabProductManageButton.addEventListener('click', () =>
       this.handleClickTabButton(PATH_ID.PRODUCT_MANAGE),
@@ -56,7 +58,15 @@ export default class View {
     window.addEventListener('@render-profile-edit', () => {
       renderComponent('profile-edit');
     });
+
+    this.$app.addEventListener('click', this.hideMenu);
   }
+
+  private hideMenu = (event: PointerEvent) => {
+    event.target === this.$userMenu
+      ? false
+      : this.$userMenu.shadowRoot.querySelector('#menu').classList.add('hide');
+  };
 
   private handleClickTabButton = (url: string) => {
     const detail = url;

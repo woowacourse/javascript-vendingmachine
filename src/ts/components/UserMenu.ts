@@ -204,6 +204,7 @@ class UserMenu extends HTMLElement {
   };
 
   emitRenderProfileEdit = () => {
+    this.menu.classList.add('hide');
     window.dispatchEvent(new CustomEvent('@render-profile-edit', {}));
   };
 
