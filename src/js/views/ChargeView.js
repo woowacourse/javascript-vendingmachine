@@ -16,15 +16,13 @@ export default class ChargeView {
     this.$tenCoin = $('.ten-coin');
   }
 
-  renderHaveCoins(coins) {
+  renderCoins(amount, coins) {
+    this.$currentAmount.textContent = `현재 보유 금액: ${amount}원`;
+
     this.$fiveHundredCoin.textContent = `${coins[500]}개`;
     this.$oneHundredCoin.textContent = `${coins[100]}개`;
     this.$fiftyCoin.textContent = `${coins[50]}개`;
     this.$tenCoin.textContent = `${coins[10]}개`;
-  }
-
-  renderCurrentAmount(amount) {
-    this.$currentAmount.textContent = `현재 보유 금액: ${amount}원`;
   }
 
   resetChargeInput() {

@@ -13,10 +13,10 @@ export default class Charge {
   #handleChargeCoin(e) {
     try {
       const { amount } = e.detail;
-      this.coinModel.setAmount(amount);
-      this.chargeView.renderCurrentAmount(this.coinModel.getAmount());
+      this.coinModel.makeRandomCoins(amount);
+      const coins = this.coinModel.getCoins();
+      this.chargeView.renderCoins(this.coinModel.getTotalAmount(coins), coins);
       this.chargeView.resetChargeInput();
-      this.chargeView.renderHaveCoins(this.coinModel.getCoins());
     } catch (error) {
       alert(error.message);
     }
@@ -24,7 +24,7 @@ export default class Charge {
 
   initCharge() {
     this.chargeView.initChargeDOM();
-    this.chargeView.renderCurrentAmount(this.coinModel.getAmount());
-    this.chargeView.renderHaveCoins(this.coinModel.getCoins());
+    const coins = this.coinModel.getCoins();
+    this.chargeView.renderCoins(this.coinModel.getTotalAmount(coins), coins);
   }
 }

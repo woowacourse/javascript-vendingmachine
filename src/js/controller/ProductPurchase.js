@@ -1,5 +1,5 @@
 import { on } from '../utils/event.js';
-import { SECTION_CONTAINER, SNACKBAR_MESSAGE, COIN } from '../constants/constants.js';
+import { SECTION_CONTAINER, SNACKBAR_MESSAGE } from '../constants/constants.js';
 import PurchaseAmountModel from '../models/PurchaseAmount.ts';
 import ProductPurchaseView from '../views/ProductPurchaseView.js';
 import { validAffordablePrice } from '../utils/validation.js';
@@ -60,13 +60,8 @@ export default class ProductPurchase {
     }
 
     const returnedCoins = this.coinModel.returnCoins(currentAmount);
-    const totalAmount = Object.values(returnedCoins)
-      .reverse()
-      .reduce((acc, cur, idx) => {
-        return acc + cur * COIN.UNIT_LIST[idx];
-      }, 0);
-    this.coinModel.setAmount(totalAmount);
-    this.purchaseAmountModel.deductAmount(totalAmount);
+    const returnedAmount = this.coinModel.getTotalAmount(returnedCoins);
+    this.purchaseAmountModel.deductAmount(returnedAmount);
     this.productPurchaseView.renderTotalAmount(this.purchaseAmountModel.getAmount());
     this.productPurchaseView.renderReturnedCoin(returnedCoins);
     this.productPurchaseView.showSnackbar(SNACKBAR_MESSAGE.RETURNED_COIN);

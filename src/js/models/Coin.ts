@@ -4,19 +4,16 @@ import { validChargeAmount } from '../utils/validation.js';
 import { Coins } from './types';
 
 interface CoinInterface {
-  setAmount: (chargedAmount: number) => void;
-  getAmount: () => number;
   getCoins: () => Coins;
+  getTotalAmount: (coins: object) => number;
   addCoinCount: (index: number) => number;
   makeRandomCoins: (amount: number) => void;
 }
 
 export default class CoinModel implements CoinInterface {
-  #amount: number;
   #coins: Coins;
 
   constructor() {
-    this.#amount = 0;
     this.#coins = {
       500: 0,
       100: 0,
@@ -25,19 +22,16 @@ export default class CoinModel implements CoinInterface {
     };
   }
 
-  setAmount(chargedAmount: number): void {
-    const currentAmount = this.#amount + chargedAmount;
-    validChargeAmount(chargedAmount, currentAmount);
-    this.#amount = currentAmount;
-    this.makeRandomCoins(chargedAmount);
-  }
-
-  getAmount(): number {
-    return this.#amount;
-  }
-
   getCoins(): Coins {
     return this.#coins;
+  }
+
+  getTotalAmount(coins: object): number {
+    let total = 0;
+    for (const unit in coins) {
+      total += Number(unit) * coins[unit];
+    }
+    return total;
   }
 
   // 뽑을 수 있는 동전리스트 인덱스 범위를 찾는다. ex) 잔돈이 120원 일 경우 [10, 50, 100] 중 랜덤 인덱스
@@ -51,6 +45,7 @@ export default class CoinModel implements CoinInterface {
   }
 
   makeRandomCoins(amount: number): void {
+    validChargeAmount(amount);
     let currentAmount = amount;
 
     while (currentAmount > 0) {
