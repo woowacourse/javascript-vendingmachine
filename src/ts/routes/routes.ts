@@ -1,7 +1,12 @@
-import { on, emit, $$ } from '../dom/domHelper';
+import { on, emit, $$, $ } from '../dom/domHelper';
 
-const isUndefinedRoutes = (pathname: string) =>
+const isUndefinedManageRoutes = (pathname: string) =>
   !Array.from($$<HTMLElement>('.manage-component')).some(
+    (route) => route.dataset.pathname === pathname
+  );
+
+const isUndefinedMembershipRoutes = (pathname: string) =>
+  !Array.from($$<HTMLElement>('.membership-component')).some(
     (route) => route.dataset.pathname === pathname
   );
 
@@ -12,10 +17,17 @@ export default class RouteManager {
   }
 
   private routeURLVisit(): void {
+    /**
+     * 로그인이 돼있는지 안돼있는지 확인하고 location값 변경! 구현해야함!!!
+     */
+
     const { pathname } = window.location;
 
-    if (isUndefinedRoutes(pathname)) {
-      window.history.replaceState({}, '', '/products');
+    if (
+      isUndefinedManageRoutes(pathname) &&
+      isUndefinedMembershipRoutes(pathname)
+    ) {
+      window.history.replaceState({}, '', '/purchase-product');
 
       this.onPopstateRoute();
       return;

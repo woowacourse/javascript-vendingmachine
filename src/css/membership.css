@@ -64,6 +64,7 @@
 
 .membership-input,
 .sign-up-input,
+.sign-in-form__email-input,
 .sign-in-form__password-input {
   width: 100%;
   display: block;

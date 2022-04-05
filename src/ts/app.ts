@@ -10,10 +10,16 @@ import ConsumerChargeMoneyInputComponent from './components/PurchaseProductManag
 import VendingMachineConsumerMoneyManager from './domains/VendingMachineConsumerMoneyManager';
 import ConsumerProductStateComponent from './components/PurchaseProductManageComponents/ConsumerProductStateComponent';
 import ConsumerReturnCoinStateComponent from './components/PurchaseProductManageComponents/ConsumerReturnCoinStateComponent';
+import SignInComponent from './components/membershipComponents/SignInComponent';
+import SignUpComponent from './components/membershipComponents/SignUpComponent';
+import ConsumerSignInButtonComponent from './components/PurchaseProductManageComponents/ConsumerSignInButtonComponent';
 
 const startApp = () => {
   new NavigatorComponent();
   new RouteManager();
+  new SignInComponent();
+  new SignUpComponent();
+  new ConsumerSignInButtonComponent();
 
   const vendingMachineProductManager = new VendingMachineProductManager();
   const vendingMachineChargeMoneyManager =
