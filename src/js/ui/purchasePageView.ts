@@ -4,6 +4,7 @@ import purchaseTemplate from "../template/purchase.template";
 import { ISingleProduct } from "../interface/product.interface";
 import { TCoin } from "../interface/vendingMachine.interface";
 import productTemplate from "../template/product.template";
+import { EVENT_TYPE } from "../constant";
 
 class PurchasePageView {
   $page;
@@ -67,7 +68,21 @@ class PurchasePageView {
     );
     this.$changesList = $("#changes-list", this.$returnedChangesContainer);
     this.$chargeMoneyInput = $("#charge-money-input");
+
+    this.bindEvent();
   }
+
+  bindEvent() {
+    on(this.$formContainer, "submit", this.moneySubmitHandler);
+  }
+
+  moneySubmitHandler = (e: Event): void => {
+    e.preventDefault();
+    emit<any>(EVENT_TYPE.INPUT, {
+      money: this.$chargeMoneyInput.valueAsNumber,
+    });
+    this.$chargeMoneyInput.value = "";
+  };
 
   renderCurrentChargedMoney(changes: number): void {
     this.$currentChargedMoneyContainer.innerText = `투입 한 금액 : ${changes}`;

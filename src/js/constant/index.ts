@@ -20,10 +20,12 @@ export const VENDING_MACHINE_NUMBER = {
 } as const;
 
 export enum EVENT_TYPE {
-  CHARGE = "@charge",
-  ADD = "@add",
-  DELETE = "@delete",
-  EDIT = "@edit",
+  CHARGE = "@charge-changes",
+  ADD = "@add-product",
+  DELETE = "@delete-product",
+  EDIT = "@edit-product",
+  INPUT = "@input-money",
+  RETURN = "@return-changes",
 }
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?" as const;
