@@ -2,7 +2,7 @@ import { VendingMachine } from '../../index.d';
 import { INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
-describe('동전 충전 테스트', () => {
+describe('동전 충전', () => {
   let vendingMachine: VendingMachine;
 
   beforeEach(() => {

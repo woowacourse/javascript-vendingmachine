@@ -2,9 +2,9 @@ import { VendingMachine } from '../../index.d';
 import { USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
-describe('유저 투입 금액 테스트', () => {
-  let vendingMachine: VendingMachine;
+let vendingMachine: VendingMachine;
 
+describe('유저 투입 금액', () => {
   beforeEach(() => {
     vendingMachine = new VendingMachineImpl();
   });
@@ -32,5 +32,34 @@ describe('유저 투입 금액 테스트', () => {
     vendingMachine.chargeUserMoney(userInputMoney);
 
     expect(vendingMachine.totalUserInputMoney).toBe(userInputMoney);
+  });
+});
+
+describe('반환 금액', () => {
+  const calculateReturnChange = (coins: Array<number>): number => 
+    Object.entries(coins).reduce((acc, [amount, count]) => acc + Number(amount) * count, 0);
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachineImpl();
+  });
+
+  it('동전의 총액이 4500이고 유저 투입 금액이 3000일 때, 유저 투입 금액만큼 반환한다.', () => {
+    const inputMoney = 4500;
+    const userInputMoney = 3000;
+
+    vendingMachine.chargeMoney(inputMoney);
+    vendingMachine.chargeUserMoney(userInputMoney);
+
+    expect(calculateReturnChange(vendingMachine.returnChangeCoins())).toBe(userInputMoney);
+  });
+
+  it('동전의 총액이 4500이고 유저 투입 금액이 6210일 때, 동전의 총액만큼 반환한다.', () => {
+    const inputMoney = 4500;
+    const userInputMoney = 3000;
+
+    vendingMachine.chargeMoney(inputMoney);
+    vendingMachine.chargeUserMoney(userInputMoney);
+
+    expect(calculateReturnChange(vendingMachine.returnChangeCoins())).toBe(inputMoney);
   });
 });
