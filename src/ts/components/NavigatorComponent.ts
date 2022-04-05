@@ -19,7 +19,10 @@ export default class NavigatorComponent {
 
   private $nav = $<HTMLElement>('.nav');
   private $title = $<HTMLHeadingElement>('h1');
-  private $userThumbnail = $<HTMLButtonElement>('.user-thumbnail');
+  private $userThumbnailButton = $<HTMLButtonElement>('.user-thumbnail-button');
+  private $informationWrapper = $<HTMLUListElement>(
+    '.membership-information-wrapper'
+  );
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
@@ -36,6 +39,7 @@ export default class NavigatorComponent {
       '@membershipPurchaseProduct',
       this.changeComponent
     );
+    on(this.$informationWrapper, '@logout', this.changeComponent);
   }
 
   private onClickNavButton = (event: Event): void => {
@@ -94,6 +98,7 @@ export default class NavigatorComponent {
       this.$nav.classList.add('hide');
       this.$title.classList.add('hide');
       this.$signInButton.classList.add('hide');
+      this.$userThumbnailButton.classList.add('hide');
 
       return;
     }
@@ -104,8 +109,8 @@ export default class NavigatorComponent {
       this.$nav.classList.remove('hide');
       this.$title.classList.remove('hide');
       this.$signInButton.classList.add('hide');
-      this.$userThumbnail.classList.remove('hide');
-      this.$userThumbnail.textContent = user.name[0];
+      this.$userThumbnailButton.classList.remove('hide');
+      this.$userThumbnailButton.textContent = user.name[0];
 
       return;
     }
@@ -113,7 +118,7 @@ export default class NavigatorComponent {
     this.$nav.classList.add('hide');
     this.$title.classList.remove('hide');
     this.$signInButton.classList.remove('hide');
-    this.$userThumbnail.classList.add('hide');
-    this.$userThumbnail.textContent = '';
+    this.$userThumbnailButton.classList.add('hide');
+    this.$userThumbnailButton.textContent = '';
   };
 }

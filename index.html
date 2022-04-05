@@ -7,7 +7,26 @@
   </head>
   <body>
     <div id="app">
-      <button type="button" class="user-thumbnail"></button>
+      <section class="dimmer hide"></section>
+      <button type="button" class="user-thumbnail-button"></button>
+      <ul class="membership-information-wrapper hide">
+        <li>
+          <button
+            type="button"
+            class="membership-information-wrapper__edit-information-button"
+          >
+            회원 정보 수정
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="membership-information-wrapper__logout-button"
+          >
+            로그아웃
+          </button>
+        </li>
+      </ul>
       <button class="sign-in-button" type="button">로그인</button>
       <section class="snack-bar-container"></section>
       <section
@@ -45,7 +64,7 @@
         <p>
           아직 회원이 아니신가요?
           <a class="sign-in-section__sign-up-button" href="/sign-up"
-            >회원 가입</a
+            >회원가입</a
           >
         </p>
       </section>

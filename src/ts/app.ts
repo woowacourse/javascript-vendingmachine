@@ -19,6 +19,8 @@ import ConsumerSignInButtonComponent from './components/PurchaseProductManageCom
 
 import SignInComponent from './components/membershipComponents/SignInComponent';
 import SignUpComponent from './components/membershipComponents/SignUpComponent';
+import UserThumbnail from './components/membershipComponents/userThumbnailComponent';
+import Dimmer from './components/DimmerComponent';
 
 const startApp = () => {
   new NavigatorComponent();
@@ -26,6 +28,8 @@ const startApp = () => {
   new SignInComponent();
   new SignUpComponent();
   new ConsumerSignInButtonComponent();
+  new UserThumbnail();
+  new Dimmer();
 
   const vendingMachineProductManager = new VendingMachineProductManager();
   const vendingMachineChargeMoneyManager =

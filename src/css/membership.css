@@ -1,4 +1,12 @@
-.user-thumbnail {
+.dimmer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.user-thumbnail-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +22,35 @@
   background-color: var(--color-light-skyblue);
 }
 
-.user-thumbnail.hide,
+.membership-information-wrapper {
+  position: absolute;
+  top: 55px;
+  right: 5px;
+  -webkit-box-shadow: 3px 3px 5px -2px #a1a1a1;
+  box-shadow: 3px 3px 5px -2px #a1a1a1;
+}
+
+.membership-information-wrapper li:first-child {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.membership-information-wrapper__edit-information-button,
+.membership-information-wrapper__logout-button {
+  background-color: #fff;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  width: 100px;
+  height: 30px;
+}
+
+.membership-information-wrapper__edit-information-button:hover,
+.membership-information-wrapper__logout-button:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.dimmer.hide,
+.membership-information-wrapper.hide,
+.user-thumbnail-button.hide,
 .sign-in-button.hide {
   display: none;
 }
