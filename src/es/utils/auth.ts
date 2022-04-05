@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from '../constants';
-import User from '../data/User';
+import User from '../state/User';
 import { IUser } from '../interface';
 import { loadMainPage } from '../routes';
 import { showSnackBar } from './index';

@@ -1,7 +1,7 @@
 import { COIN_TYPE, GUIDE_MESSAGE } from '../constants';
-import CustomerCharge from '../data/CustomerCharge';
-import Products from '../data/Products';
-import VendingMachineCharge from '../data/VendingMachineCharge';
+import CustomerCharge from '../state/CustomerCharge';
+import Products from '../state/Products';
+import VendingMachineCharge from '../state/VendingMachineCharge';
 import { IProduct, IPageManager, TCoins } from '../interface';
 
 interface IProductPurchaseState {

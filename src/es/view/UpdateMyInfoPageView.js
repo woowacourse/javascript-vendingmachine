@@ -5,7 +5,7 @@ import { updateUserInfo } from '../utils/auth';
 
 import { validateUserInfo } from '../validator';
 
-import User from '../data/User';
+import User from '../state/User';
 
 class UpdateMyInfoPageView {
   loadPage = () => {

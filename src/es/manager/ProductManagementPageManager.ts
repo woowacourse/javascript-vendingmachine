@@ -1,5 +1,5 @@
 import { GUIDE_MESSAGE } from '../constants';
-import Products from '../data/Products';
+import Products from '../state/Products';
 import { IPageManager, IProduct } from '../interface';
 
 interface IProductManagementState {

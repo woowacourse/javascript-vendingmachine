@@ -3,7 +3,7 @@ import template from './template';
 import { $ } from '../utils';
 import { logout } from '../utils/auth';
 
-import User from '../data/User';
+import User from '../state/User';
 
 class HeaderView {
   $container = $('header');

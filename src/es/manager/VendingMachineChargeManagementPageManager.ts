@@ -1,7 +1,7 @@
 import { COIN_TYPE } from '../constants';
 import { getRandomNumber } from '../utils';
 import { IPageManager, TCoins } from '../interface';
-import VendingMachineCharge from '../data/VendingMachineCharge';
+import VendingMachineCharge from '../state/VendingMachineCharge';
 
 interface IVendingMachineChargeManagementState {
   coins: TCoins;
