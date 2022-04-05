@@ -13,7 +13,7 @@ class RegisterView implements ViewInterface {
 
   registerForm: HTMLFormElement | null = null;
 
-  registerInputs: NodeListOf<HTMLInputElement> = null;
+  registerInputs: NodeListOf<HTMLInputElement> | null = null;
 
   constructor(userStore: UserStoreInterface, tabHash: Hash) {
     this.userStore = userStore;

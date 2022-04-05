@@ -1,9 +1,24 @@
-import { AuthenticationInfo, TestCase, ValidationInfo, UserStoreInterface } from '../types';
+import {
+  AuthenticationInfo,
+  TestCase,
+  ValidationInfo,
+  UserInfo,
+  UserStoreInterface,
+} from '../types';
 import { AUTHENTICATION_MESSAGE } from '../constant/errorMessage';
 import { AUTHENTICATION_INFO } from '../constant/rule';
 import { request } from '../utils/index';
 
 class UserStore implements UserStoreInterface {
+  private userInfo: UserInfo = null;
+
+  private loginInputTestCases: TestCase[] = [
+    {
+      testCase: this.isNotEmailFormat,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT,
+    },
+  ];
+
   private registerInputTestCases: TestCase[] = [
     {
       testCase: this.isNotEmailFormat,
@@ -39,8 +54,12 @@ class UserStore implements UserStoreInterface {
     },
   ];
 
+  getUserInfo(): UserInfo {
+    return this.userInfo;
+  }
+
   async register(registerInfo: AuthenticationInfo) {
-    const result = await request('http://localhost:3000/users', {
+    await request('http://localhost:3000/register', {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -53,7 +72,23 @@ class UserStore implements UserStoreInterface {
     });
   }
 
-  login: (loginInfo: AuthenticationInfo) => void;
+  async login(loginInfo: AuthenticationInfo) {
+    const response = await request('http://localhost:3000/login', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        email: loginInfo.email,
+        password: loginInfo.password,
+      }),
+    });
+
+    this.userInfo = {
+      accessToken: response.accessToken,
+      ...response.users,
+    };
+  }
 
   editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
 
@@ -64,9 +99,15 @@ class UserStore implements UserStoreInterface {
     });
   }
 
+  validateLoginInput(loginInfo: AuthenticationInfo): void {
+    this.validateTestCase(this.loginInputTestCases, loginInfo);
+  }
+
   validateRegisterInput(registerInfo: AuthenticationInfo): void {
     this.validateTestCase(this.registerInputTestCases, registerInfo);
   }
+
+  validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
 
   private isNotEmailFormat({ email }: AuthenticationInfo): boolean {
     const emailRegex = /[0-9a-zA-Z]+@([0-9a-zA-Z]+)(.[0-9a-zA-Z]+){1,2}$/;

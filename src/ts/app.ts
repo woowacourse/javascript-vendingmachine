@@ -2,7 +2,7 @@ import Header from './view/Header';
 import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
-import Login from './view/Login';
+import LoginView from './view/LoginView';
 import RegisterView from './view/RegisterView';
 import VendingMachine from './domain/VendingMachine';
 import UserStore from './domain/UserStore';
@@ -38,7 +38,7 @@ class App {
     HASH.ITEM_PURCHASE
   );
 
-  private loginView: ViewInterface = new Login(HASH.LOGIN);
+  private loginView: ViewInterface = new LoginView(this.userStore, HASH.LOGIN);
 
   private registerView: ViewInterface = new RegisterView(this.userStore, HASH.REGISTER);
 

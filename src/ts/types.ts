@@ -41,10 +41,19 @@ export interface VendingMachineInterface {
   validateCashInput: (rechargeCash: number) => void;
 }
 
+export type UserInfo = {
+  accessToken: string;
+  email: string;
+  name: string;
+  id: number;
+};
+
 export interface UserStoreInterface {
+  validateLoginInput: (loginInfo: AuthenticationInfo) => void;
   validateRegisterInput: (registerInfo: AuthenticationInfo) => void;
-  register: (registerInfo: AuthenticationInfo) => void;
+  validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
   login: (loginInfo: AuthenticationInfo) => void;
+  register: (registerInfo: AuthenticationInfo) => void;
   editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
 }
 
@@ -60,6 +69,7 @@ export interface ViewInterface {
   tabHash: Hash;
   render(): void;
 }
+
 export interface VendingMachineTabInterface extends ViewInterface {
   vendingMachine: VendingMachineInterface;
   changeTabContent(contentTemplate: string): void;
@@ -70,5 +80,3 @@ export interface HeaderInterface {
   render(hash: Hash): void;
   changeThumbnail(): void;
 }
-
-export type EventType = number;

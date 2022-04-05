@@ -6,6 +6,7 @@ export const ID = {
   ITEM_INFO_FORM: 'item-info-form',
   CASH_CHARGE_FORM: 'cash-charge-form',
   CHARGED_AMOUNT: 'charged-amount',
+  LOGIN_FORM: 'login-form',
   REGISTER_FORM: 'register-form',
 };
 
