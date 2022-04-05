@@ -24,6 +24,27 @@ const isValidPasswordRange = (password: string): boolean | never => {
   throw new Error('비밀번호는 8글자 이상 16글자 이하로 작성해 주세요.');
 };
 
+const isValidPasswordFormat = (password: string): boolean | never => {
+  const numberRegex = /[0-9]/;
+  const alphabetRegex = /[a-zA-Z]/;
+  const specialCharactersRegex = /[!#$%&()*+,-./:;<=>?@]/;
+  const otherCharacterRegex = /[^0-9a-zA-Z!#$%&()*+,-./:;<=>?@]/;
+
+  if (
+    numberRegex.test(password) &&
+    alphabetRegex.test(password) &&
+    specialCharactersRegex.test(password) &&
+    !otherCharacterRegex.test(password)
+  ) {
+    return true;
+  }
+
+  throw new Error(
+    `비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`
+  );
+};
+
 const isSameVerificationPassword = (
   password: string,
   verificationPassword: string
@@ -70,6 +91,41 @@ describe('인증 입력 값 유효성 검사', () => {
     expect(() => isValidPasswordRange(password)).toThrow(
       '비밀번호는 8글자 이상 16글자 이하로 작성해 주세요.'
     );
+  });
+
+  test('입력한 비밀번호에 영어가 들어가지 않으면 에러가 발생한다.', () => {
+    const password = '123456!';
+
+    expect(() => isValidPasswordFormat(password)).toThrow(`비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`);
+  });
+
+  test('입력한 비밀번호에 숫자가 들어가지 않으면 에러가 발생한다.', () => {
+    const password = 'abcdef!';
+
+    expect(() => isValidPasswordFormat(password)).toThrow(`비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`);
+  });
+
+  test('입력한 비밀번호에 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)가 들어가지 않으면 에러가 발생한다.', () => {
+    const password = 'abc123';
+
+    expect(() => isValidPasswordFormat(password)).toThrow(`비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`);
+  });
+
+  test('입력한 비밀번호에 영어, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @) 이외의 문자가 들어가 있으면 에러가 발생한다.', () => {
+    const password = 'abc123!!~';
+
+    expect(() => isValidPasswordFormat(password)).toThrow(`비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`);
+  });
+
+  test('입력한 비밀번호에 영어, 숫자, 특수문자가 모두 있으면 에러가 발생하지 않는다.', () => {
+    const password = 'abc123!';
+
+    expect(() => isValidPasswordFormat(password)).not.toThrow(`비밀번호 형식에 맞지 않습니다.\n
+    비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`);
   });
 
   test('처음 입력한 비밀번호와 재입력한 비밀번호가 일치하지 않으면 에러가 발생한다.', () => {
