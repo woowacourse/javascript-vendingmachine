@@ -17,7 +17,7 @@ class LoggedInBtn extends Component {
       <button class="btn circle btn-dropdown">${userName[0]}</button>
       <div class="dropdown-container">
         <ul class="dropdown hide disappear">
-          <li><a href="/my-account">회원정보 수정</a></li>
+          <li><a href="/my-account">회원 정보 수정</a></li>
           <li class="logout">로그아웃</li>
         </ul>
       </div>

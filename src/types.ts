@@ -64,6 +64,7 @@ export type Feedback = {
   inputValue: string;
   hasError: boolean;
   errorMessage: string;
+  placeholder?: string;
 };
 
 export type FieldSet = {

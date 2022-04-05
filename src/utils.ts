@@ -1,4 +1,4 @@
-import { API_URL, USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
+import { USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
 import { CoinRecord, Indexable, LoggedInUser } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {

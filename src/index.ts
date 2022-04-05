@@ -11,6 +11,7 @@ import './components/logged-in-btn';
 import './pages/vendingmachine-page';
 import './pages/login-page';
 import './pages/register-page';
+import './pages/my-account-page';
 import Router from './router';
 
 new Router();
