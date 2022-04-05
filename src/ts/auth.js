@@ -12,7 +12,7 @@ const getUserTokenId = () => {
   const userAuth = getUserAuth();
   return {
     accessToken: `Bearer ${userAuth.accessToken}`,
-    userUrl: `${API_URL}/440/users/${userAuth.id}`,
+    userUrl: `${API_URL}/664/users/${userAuth.id}`,
   };
 };
 
