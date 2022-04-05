@@ -7,9 +7,14 @@ import {
   ChangesDomain,
 } from "../interface/vending-changes.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
+import { getLocalStorage, setLocalStorage } from "../util/localStorage";
 
 export class ChangesProcessMachine implements ChangesDomain {
-  coins = { 500: 0, 100: 0, 50: 0, 10: 0 };
+  coins: Coins;
+
+  constructor() {
+    this.coins = getLocalStorage("coins") ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
+  }
 
   charge: Charge = (money) => {
     this.checkDividedByMinimumCoin(money);
@@ -18,11 +23,17 @@ export class ChangesProcessMachine implements ChangesDomain {
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
+    this.setCoins(this.coins);
+  };
+
+  setCoins = (data: Coins) => {
+    setLocalStorage("coins", data);
   };
 
   return = (money: number): Coins => {
     const returnedCoins = this.returnCoins(money);
     this.decreaseChargedCoins(returnedCoins);
+    this.setCoins(this.coins);
 
     return returnedCoins;
   };
@@ -114,4 +125,5 @@ export class ChangesProcessMachine implements ChangesDomain {
     }
   };
 }
+
 export const changesProcessMachine = new ChangesProcessMachine();

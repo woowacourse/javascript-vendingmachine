@@ -5,9 +5,18 @@ import {
 } from "../interface/user-changes.interface";
 import { Charge, Coins } from "../interface/vending-changes.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
+import { getLocalStorage, setLocalStorage } from "../util/localStorage";
 
 export class ProductPurchaseMachine implements UserChangesDomain {
-  chargedMoney = 0;
+  chargedMoney: number;
+
+  constructor() {
+    this.chargedMoney = getLocalStorage("charged") ?? 0;
+  }
+
+  setChargedMoney(data: number) {
+    setLocalStorage("charged", data);
+  }
 
   getChargedMoney() {
     return this.chargedMoney;
@@ -19,6 +28,7 @@ export class ProductPurchaseMachine implements UserChangesDomain {
     this.checkMoenyUnderZero(money);
 
     this.chargedMoney += money;
+    this.setChargedMoney(this.chargedMoney);
   };
 
   spend: Spend = (price, quantity) => {
@@ -26,11 +36,13 @@ export class ProductPurchaseMachine implements UserChangesDomain {
     this.checkValidChargedMoney(price, this.chargedMoney);
 
     this.chargedMoney -= price;
+    this.setChargedMoney(this.chargedMoney);
   };
 
   returned: Returned = (returnedCoins: Coins) => {
     const returnedMoney = this.getTotalReturned(returnedCoins);
     this.chargedMoney -= returnedMoney;
+    this.setChargedMoney(this.chargedMoney);
   };
 
   getTotalReturned = (returnedCoins: Coins): number =>

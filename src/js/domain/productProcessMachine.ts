@@ -8,9 +8,18 @@ import {
   Buy,
 } from "../interface/product.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
+import { getLocalStorage, setLocalStorage } from "../util/localStorage";
 
 export class ProductProcessMachine implements ProductDomain {
-  products = [];
+  products: Product[];
+
+  constructor() {
+    this.products = getLocalStorage("products") ?? [];
+  }
+
+  setProducts = (data: Product[]) => {
+    setLocalStorage("products", data);
+  };
 
   add: Add = (newProduct) => {
     this.checkDuplicatedName(newProduct.name);
@@ -19,6 +28,7 @@ export class ProductProcessMachine implements ProductDomain {
     this.checkValidCount(newProduct.count);
 
     this.products.push(newProduct);
+    this.setProducts(this.products);
   };
 
   getProducts: GetProducts = () => {
@@ -35,15 +45,20 @@ export class ProductProcessMachine implements ProductDomain {
     this.updateStatus(idx, name, "name");
     this.updateStatus(idx, price, "price");
     this.updateStatus(idx, count, "count");
+
+    this.setProducts(this.products);
   };
 
   delete: Delete = (idx) => {
     this.products.splice(idx, 1);
+
+    this.setProducts(this.products);
   };
 
   buy: Buy = (name) => {
     const targetProduct = this.findProductByName(name);
     targetProduct.count -= 1;
+    this.setProducts(this.products);
 
     return targetProduct;
   };
