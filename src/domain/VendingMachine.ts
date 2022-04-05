@@ -148,6 +148,11 @@ class VendingMachine implements VendingMachineProperty {
       targetProduct.quantity -= 1;
       this.dispatch('subscribePurchaseTab', 'update-amount');
       this.dispatch('subscribePurchaseTab', 'purchase', targetProduct);
+
+      if (targetProduct.quantity <= 0) {
+        this.products = this.products.filter((product) => product.id !== targetProduct.id);
+      }
+
       storage.setLocalStorage('products', this.products);
     } catch (error) {
       alert(error.message);

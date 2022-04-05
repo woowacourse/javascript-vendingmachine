@@ -82,6 +82,14 @@ class PurchaseTab extends CustomElement {
     productItems.forEach((item) => {
       $('[name=quantity]', item).textContent = String(product.quantity);
     });
+
+    this.deleteProductItem(product, productItems);
+  }
+
+  deleteProductItem(product: Product, productItems: Element[]) {
+    if (product.quantity > 0) return;
+
+    productItems.forEach((item) => item.remove());
   }
 }
 
