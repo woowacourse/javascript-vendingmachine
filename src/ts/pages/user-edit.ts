@@ -6,27 +6,29 @@ import { getUser } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 
 export default class UserEditPage {
-  private user: UserInfoWithPassWord;
+  private user: UserInfoWithPassWord | string;
   constructor(private readonly routePage) {
     this.routePage = routePage;
   }
 
   async render() {
-    const user = await getUser();
+    this.user = await getUser();
 
-    if (typeof user === 'string') {
+    if (typeof this.user === 'string') {
       alert('Not Login');
-      history.pushState({}, '', basePath);
-      this.routePage(basePath);
+      history.pushState({}, '', `${basePath}/`);
+      this.routePage(`${basePath}/`);
       return;
     }
 
-    replaceHTML($('#app'), await this.#template(user));
+    replaceHTML($('#app'), await this.#template());
     $('.edit-form').addEventListener('submit', this.editHandler);
   }
 
-  #template(user: UserInfoWithPassWord) {
-    const { email, name } = user;
+  #template() {
+    if (typeof this.user === 'string') return ``;
+
+    const { email, name } = this.user;
 
     return `
       <h2 class="title">회원가입</h2>
@@ -44,13 +46,31 @@ export default class UserEditPage {
     `;
   }
 
-  editHandler = async e => {
+  editHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
     if (!confirm('회원 정보를 변경하시겠습니까?')) return;
 
-    const { emailInput, nameInput, pwInput } = e.target.elements;
+    const emailInput = e.target.elements.namedItem('emailInput');
+    const pwInput = e.target.elements.namedItem('pwInput');
+    const rePwInput = e.target.elements.namedItem('rePwInput');
+    const nameInput = e.target.elements.namedItem('nameInput');
+
+    if (!(emailInput instanceof HTMLInputElement)) return;
+    if (!(pwInput instanceof HTMLInputElement)) return;
+    if (!(rePwInput instanceof HTMLInputElement)) return;
+    if (!(nameInput instanceof HTMLInputElement)) return;
+
+    try {
+      if (pwInput.value !== rePwInput.value)
+        throw new Error('비밀번호가 일치하지 않습니다.');
+    } catch ({ message }) {
+      alert(message);
+      return;
+    }
+
+    if (typeof this.user === 'string') return;
     const response = await API.editInfo({
       email: emailInput.value,
       name: nameInput.value,
@@ -59,7 +79,6 @@ export default class UserEditPage {
     });
 
     if (typeof response === 'string') return;
-
     history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
