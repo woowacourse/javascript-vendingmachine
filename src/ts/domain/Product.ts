@@ -1,7 +1,15 @@
 import ProductType from '../type/ProductType';
 import { checkProductValidation } from './validator';
 
-export default class Product implements ProductType {
+export interface ProductInterface extends ProductType {
+  getName(): string;
+  getPrice(): number;
+  getQuantity(): number;
+
+  decreaseQuantity(): void;
+}
+
+export default class Product implements ProductInterface {
   name: string;
   price: number;
   quantity: number;
@@ -12,4 +20,14 @@ export default class Product implements ProductType {
     this.price = price;
     this.quantity = quantity;
   }
+
+  getName = () => this.name;
+
+  getPrice = () => this.price;
+
+  getQuantity = () => this.quantity;
+
+  decreaseQuantity = () => {
+    this.quantity -= 1;
+  };
 }

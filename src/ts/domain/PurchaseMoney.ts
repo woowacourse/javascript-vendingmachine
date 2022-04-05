@@ -3,6 +3,7 @@ import PurchaseMoneyType from '../type/PurchaseMoneyType';
 
 export interface PurchaseMoneyInterface extends PurchaseMoneyType {
   increaseMoney(money: number): number;
+  decreaseMoney(money: number): number;
 }
 
 class PurchaseMoney implements PurchaseMoneyInterface {
@@ -15,6 +16,10 @@ class PurchaseMoney implements PurchaseMoneyInterface {
   increaseMoney = (money: number) => {
     checkPurchaseMoney(money);
     return (this.money += money);
+  };
+
+  decreaseMoney = (money: number) => {
+    return (this.money -= money);
   };
 }
 

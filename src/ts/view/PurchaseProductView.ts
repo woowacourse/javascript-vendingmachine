@@ -30,11 +30,13 @@ class PurchaseProductView implements PurchaseProductViewInterface {
     this.vendingMachine = vendingMachine;
 
     this.$purchaseForm.addEventListener('submit', this.handleSubmit);
+    this.$availableProducts.addEventListener('click', this.handlePurchase);
   }
 
   handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
     const purchaseMoney = this.$purchaseInput.value;
+
     try {
       this.vendingMachine.addPurchaseMoney(+purchaseMoney);
       this.renderPurchaseProduct();
@@ -43,8 +45,25 @@ class PurchaseProductView implements PurchaseProductViewInterface {
     }
   };
 
+  handlePurchase = (event: PointerEvent) => {
+    const target = <HTMLButtonElement>event.target;
+
+    if (target.classList.contains('purchase-button')) {
+      const targetName = target.dataset.name;
+
+      try {
+        this.vendingMachine.purchaseProduct(targetName);
+        this.renderPurchaseProduct();
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
+
   renderPurchaseProduct = () => {
     this.$purchaseMoney.textContent = String(this.vendingMachine.purchaseMoney.money);
+    this.$purchaseInput.value = '';
+
     this.renderAvailableProduct();
   };
 

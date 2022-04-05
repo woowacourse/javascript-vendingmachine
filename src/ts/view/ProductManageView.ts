@@ -2,6 +2,7 @@ import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $, $$ } from '../utils';
 import { CONFIRM_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
+import { ProductInterface } from '../domain/Product';
 
 export interface ProductManageViewInterface {
   $productNameInput: HTMLInputElement;
@@ -10,9 +11,9 @@ export interface ProductManageViewInterface {
   $productManageForm: HTMLFormElement;
   vendingMachine: VendingMachineInterface;
 
-  renderInitialProductManage(): void;
+  renderProductManage(): void;
   handleSubmit(event: SubmitEvent): void;
-  renderAddedProduct(addedProduct: ProductType): void;
+  renderAddedProduct(addedProduct: ProductInterface): void;
   resetProductManageForm(): void;
   handleModifierButton(event: PointerEvent): void;
   handleEdit(target: HTMLButtonElement): void;
@@ -22,7 +23,6 @@ export interface ProductManageViewInterface {
   getProductTemplate(productType: ProductType): string;
   handleDelete(target: HTMLButtonElement): void;
   removeProductRow(name: string): void;
-  renderProductManage(): void;
 }
 
 export default class ProductManageView implements ProductManageViewInterface {
@@ -43,15 +43,15 @@ export default class ProductManageView implements ProductManageViewInterface {
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
-    this.renderInitialProductManage();
+    this.renderProductManage();
   }
 
-  renderInitialProductManage = () => {
+  renderProductManage = () => {
     const template = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
       .join('');
-    
-    this.$currentProductTable.insertAdjacentHTML('beforeend', template);
+
+    this.$currentProductTable.innerHTML = template;
   };
 
   handleSubmit = (event: SubmitEvent) => {
@@ -72,9 +72,9 @@ export default class ProductManageView implements ProductManageViewInterface {
     }
   };
 
-  renderAddedProduct = (addedProduct: ProductType) => {
+  renderAddedProduct = (addedProduct: ProductInterface) => {
     const template = this.getProductTemplate(addedProduct);
-    
+
     this.$currentProductTable.insertAdjacentHTML('beforeend', template);
   };
 
@@ -100,7 +100,7 @@ export default class ProductManageView implements ProductManageViewInterface {
   handleEdit = (target: HTMLButtonElement) => {
     const { name, price, quantity } = this.vendingMachine.getProduct(target.dataset.name);
     const editTemplate = this.getEditTemplate({ name, price, quantity });
-    
+
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
     newTr.dataset.name = name;
@@ -136,7 +136,7 @@ export default class ProductManageView implements ProductManageViewInterface {
       price: +(<HTMLInputElement>$('#edit-price-input')).value,
       quantity: +(<HTMLInputElement>$('#edit-quantity-input')).value,
     };
-    
+
     try {
       this.vendingMachine.editProduct(targetName, productToEdit);
       this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
@@ -147,11 +147,11 @@ export default class ProductManageView implements ProductManageViewInterface {
 
   renderEditedProduct = (productToEdit: ProductType, targetEdit: HTMLTableCellElement) => {
     const editedProduct = this.vendingMachine.getProduct(productToEdit.name);
-    
+
     const newTr = document.createElement('tr');
     newTr.className = 'product-row';
     newTr.dataset.name = editedProduct.name;
-    
+
     const template = this.getProductTemplate(editedProduct);
     newTr.insertAdjacentHTML('beforeend', template);
 
@@ -184,23 +184,4 @@ export default class ProductManageView implements ProductManageViewInterface {
     const targetDelete = $(`tr[data-name="${name}"]`);
     this.$currentProductTable.removeChild(targetDelete);
   }
-
-  renderProductManage = () => {
-    const $$productRows = $$('.product-row');
-    const allProducts = this.vendingMachine.products;
-    
-    allProducts.forEach((product, index) => {
-      (<HTMLTableCellElement>(
-        $('.product-row-name', $$productRows[index])
-      )).textContent = product.name;
-      (<HTMLTableCellElement>(
-        $('.product-row-price', $$productRows[index])
-      )).textContent = String(product.price);
-      (<HTMLTableCellElement>(
-        $('.product-row-quantity', $$productRows[index])
-      )).textContent = String(product.quantity);
-    });
-    
-    this.$productNameInput.focus();
-  };
 }
