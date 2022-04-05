@@ -71,8 +71,6 @@ export default class Authorization {
     const updateData = userInputData;
     delete updateData.passwordConfirm;
 
-    console.log(this.#accessToken);
-
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
       headers: {
@@ -137,13 +135,18 @@ export default class Authorization {
 
     const { userId, name, email } = savedUserData;
 
-    this.#saveUserData({ userId, name, email });
+    this.#userId = userId;
+    this.#name = name;
+    this.#email = email;
   }
 
   #saveUserData({ accessToken, userId, name, email }: SavedUserData) {
     window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
-    if (accessToken) document.cookie = `${ACCESS_TOKEN}=${accessToken}`;
+    if (accessToken) {
+      document.cookie = `${ACCESS_TOKEN}=${accessToken}`;
+      this.#accessToken = accessToken;
+    }
 
     this.#userId = userId;
     this.#name = name;
@@ -155,8 +158,6 @@ export default class Authorization {
       .split('; ')
       .find((row) => row.startsWith(ACCESS_TOKEN))
       ?.split('=')[1];
-
-    console.log(accessToken);
 
     return accessToken;
   }

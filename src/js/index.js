@@ -147,7 +147,7 @@ class App {
     this.#authorization.logout();
     selectDom('#user-button-select-box')?.remove();
     window.location.href = DEFAULT_ROUTE.NON_USER;
-    // window.location.reload();
+    window.location.reload();
   };
 
   #handleTabMenuChange = (e) => {
