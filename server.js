@@ -21,9 +21,9 @@ server.db = router.db;
 // You must apply the auth middleware before the router
 server.use(jsonServer.bodyParser);
 
-server.user(auth);
+server.use(auth);
 server.use(router);
-server.user(rules);
+server.use(rules);
 server.listen(port, () => {
   console.log('JSON Server is running');
 });
