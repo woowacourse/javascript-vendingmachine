@@ -18,7 +18,7 @@ const targets = [
     route: `${BASE_URL}/product-purchase/`,
     $button: $('.nav__product-purchase-button'),
     $container: $('product-purchase-container'),
-    $focusInput: $('#money-input'),
+    $focusInput: $('#customer-money-input'),
   },
 ];
 

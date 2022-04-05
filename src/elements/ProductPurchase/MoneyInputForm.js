@@ -4,11 +4,11 @@ class MoneyInputForm extends CustomElement {
   template() {
     return `
       <form class="money-input-form">
-        <label for="money-input">상품을 구매할 금액을 투입해주세요.</label>
-        <input type="number" id="money-input" placeholder="금액" required>
+        <label for="customer-money-input">상품을 구매할 금액을 투입해주세요.</label>
+        <input type="number" id="customer-money-input" placeholder="금액" step="10" required>
         <button class="money-input-button">투입</button>
       </form>
-      <p>투입한 금액: <span class="user-money">0</span>원</p>
+      <p>투입한 금액: <span class="customer-money">0</span>원</p>
     `;
   }
 }
