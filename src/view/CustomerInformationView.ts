@@ -57,12 +57,14 @@ export class CustomerInformationView {
     this.editCustomerInformation.classList.add('hide');
   }
 
+  //TODO
+  // 드롭다운에서 나올 회원정보수정.addEventListner에 bind하셈
   handleInformationEdit = () => {};
 
   handleSignInOk = () => {
     this.eraseAll();
     console.log(sessionStorage.getItem('userInfo'));
-    //드롭다운메뉴 만들기
+    // TODO 드롭다운메뉴 만들기
     // 회원정보수정 -> handleInformationEdit -> renderInformationEdit
     // 로그아웃 -> handleSignOut -> renderHone, session Storage.clear()
   };

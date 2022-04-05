@@ -66,3 +66,22 @@ body {
   border: none;
   text-align: center;
 }
+
+.drop-down-btn {
+  position: relative;
+  display: inline-block;
+}
+
+.drop-down-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.drop-down-content button {
+  display: block;
+}
+
+.drop-down-btn:hover .drop-down-content {
+  display: block;
+}
