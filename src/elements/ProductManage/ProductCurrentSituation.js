@@ -55,6 +55,13 @@ class ProductCurrentSituation extends CustomElement {
       }
       case PRODUCT_ACTION.DELETE:
         $(`[data-product-name="${detail}"]`).remove();
+        break;
+      case PRODUCT_ACTION.PURCHASE: {
+        const $tbodyRow = $(`[data-product-name="${detail}"]`);
+        const $productQuantityTd = $('.product-td.product-quantity-td', $tbodyRow);
+
+        $productQuantityTd.textContent = Number($productQuantityTd.textContent) - 1;
+      }
     }
   }
 

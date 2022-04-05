@@ -1,5 +1,6 @@
 import ProductStore from '../../domains/stores/ProductStore';
-import { PRODUCT_ACTION } from '../../domains/actions';
+import CoinStore from '../../domains/stores/CoinStore';
+import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
@@ -51,6 +52,13 @@ class PurchasableProductCurrentSituation extends CustomElement {
       }
       case PRODUCT_ACTION.DELETE:
         $(`[data-purchasable-product-name="${detail}"]`).remove();
+        break;
+      case PRODUCT_ACTION.PURCHASE: {
+        const $tbodyRow = $(`[data-purchasable-product-name="${detail}"]`);
+        const $productQuantity = $('.purchasable-product-quantity-td', $tbodyRow);
+
+        $productQuantity.textContent = Number($productQuantity.textContent) - 1;
+      }
     }
   }
 
@@ -75,7 +83,13 @@ class PurchasableProductCurrentSituation extends CustomElement {
     );
   }
 
-  handleProductPurchaseButtonClick = ($tbodyRow) => {};
+  handleProductPurchaseButtonClick = ($tbodyRow) => {
+    const productName = $tbodyRow.dataset.purchasableProductName;
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productName));
+
+    const productPrice = Number($('.purchasable-product-price-td', $tbodyRow).textContent);
+    CoinStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productPrice));
+  };
 }
 
 customElements.define('purchasable-product-current-situation', PurchasableProductCurrentSituation);

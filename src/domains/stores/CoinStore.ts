@@ -1,5 +1,5 @@
 import { Action, CustomElement, MoneyStorage } from '../../abstracts/interfaces';
-import { COIN_ACTION, MONEY_ACTION } from '../actions';
+import { COIN_ACTION, MONEY_ACTION, PRODUCT_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import { pickNumberInList } from '../../utils';
 
@@ -61,7 +61,10 @@ class CoinStore {
       }
       case MONEY_ACTION.INPUT: {
         this.#customer.money += detail as number;
+        break;
       }
+      case PRODUCT_ACTION.PURCHASE:
+        this.#customer.money -= detail as number;
     }
   }
 
@@ -98,6 +101,7 @@ class CoinStore {
         });
         break;
       case MONEY_ACTION.INPUT:
+      case PRODUCT_ACTION.PURCHASE:
         this.#customerSubscribers.forEach((subscriber) => {
           subscriber.rerender(this.#customer);
         });

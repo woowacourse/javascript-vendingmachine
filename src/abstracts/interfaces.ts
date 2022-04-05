@@ -37,6 +37,7 @@ export interface ProductActionType {
   ADD: string;
   MODIFY: string;
   DELETE: string;
+  PURCHASE: string;
 }
 
 export interface CoinActionType {
