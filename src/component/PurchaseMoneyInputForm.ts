@@ -9,6 +9,7 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
   #purchaseMoney: PurchaseMoney;
   #purchaseMoneySubmitBtn: HTMLButtonElement;
   #purchaseMoneySpan: HTMLSpanElement;
+  #purchaseMoneyInputForm: HTMLFormElement;
 
   constructor({ target, purchaseMoney }) {
     this.#target = target;
@@ -39,6 +40,7 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
   }
 
   #selectDOM() {
+    this.#purchaseMoneyInputForm = document.querySelector('#purchase-money-input-form');
     this.#purchaseMoneySubmitBtn = document.querySelector('#purchase-money-submit-btn');
     this.#purchaseMoneySpan = document.querySelector('#purchase-money');
   }
@@ -68,6 +70,8 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
           detail: { type: 'fail', message: err.message },
         })
       );
+    } finally {
+      this.#purchaseMoneyInputForm.reset();
     }
   };
 

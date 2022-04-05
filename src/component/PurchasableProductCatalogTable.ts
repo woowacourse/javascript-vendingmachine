@@ -144,13 +144,16 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
   #updateEditedProduct = (e: CustomEvent) => {
     const { targetName, name, price, quantity } = e.detail;
     const tableRow = this.#productTableBody.querySelector(`#${targetName}`);
+    tableRow.id = name;
 
     const nameSpan = tableRow.querySelector('.product-name > span');
     const priceSpan = tableRow.querySelector('.product-price > span');
     const quantitySpan = tableRow.querySelector('.product-quantity > span');
+    const purchaseButton = tableRow.querySelector('.purchase-button') as HTMLButtonElement;
 
     nameSpan.textContent = name;
     priceSpan.textContent = price;
     quantitySpan.textContent = quantity;
+    purchaseButton.dataset.productId = name;
   };
 }

@@ -199,7 +199,7 @@ export class NavView {
     this.#thumbnail.classList.add('hide');
 
     this.#loginBtn.classList.remove('hide');
-    this.#handleShowProductPurhcaseTab;
+    this.#handleShowProductPurhcaseTab();
   };
 
   #renderHome = () => {

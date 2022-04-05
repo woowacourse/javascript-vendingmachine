@@ -53,15 +53,14 @@ export class BalanceChargeInputForm implements BalanceChargeInputFormInterface {
 
     try {
       this.#coinVault.chargeMoney(Number(this.#chargeBalanceInput.value));
+      this.#updateCurrentBalance();
+      this.#target.dispatchEvent(new CustomEvent('coinCharged'));
     } catch (err) {
       this.#chargeBalanceInputForm.reset();
       alert(err.message);
-
-      return;
+    } finally {
+      this.#chargeBalanceInputForm.reset();
     }
-
-    this.#updateCurrentBalance();
-    this.#target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
   #updateCurrentBalance = () => {

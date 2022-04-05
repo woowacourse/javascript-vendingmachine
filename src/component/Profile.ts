@@ -33,8 +33,8 @@ export class Profile implements ProfileInterface {
     return `
       <span class="name">${name.slice(0, 1)}</span>
       <div class="select-container hide">
-        <button type="button" class="edit-user-info button">회원정보 수정</button>
-        <button type="button" class="logout button">로그아웃</button>
+        <button type="button" class="edit-user-info-button button">회원정보 수정</button>
+        <button type="button" class="logout-button button">로그아웃</button>
       </div>
     `;
   }
@@ -66,8 +66,8 @@ export class Profile implements ProfileInterface {
   #selectDOM() {
     this.#thumbnailName = document.querySelector('.name');
     this.#selectContainer = document.querySelector('.select-container');
-    this.#editUserInfoBtn = document.querySelector('.edit-user-info');
-    this.#logoutBtn = document.querySelector('.logout');
+    this.#editUserInfoBtn = document.querySelector('.edit-user-info-button');
+    this.#logoutBtn = document.querySelector('.logout-button');
   }
 
   #bindEvent() {
