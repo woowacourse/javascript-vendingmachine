@@ -1,16 +1,8 @@
 #add-product-form-section {
   position: relative;
 
-  .add-product-input-wrap {
-    height: 2.25rem;
-    display: grid;
-    grid-template-columns: minmax(auto, 28%) minmax(auto, 28%) minmax(auto, 28%) minmax(auto, 16%);
-    grid-gap: 0.25rem;
-
-    > button {
-      width: 3.5rem;
-      margin-left: auto;
-    }
+  button {
+    width: 3.5rem;
   }
 }
 

@@ -62,12 +62,24 @@ const pageTemplate = {
     <section id="add-product-form-section" class="form-section">
       <form id="add-product-form">
           <label form="add-product-form">추가할 상품 정보를 입력해주세요.</label>
-          <div class="add-product-input-wrap">
-              <input type="text" name="name" placeholder="상품명" form="add-product-form" required>
-              <input type="number" name="price" placeholder="가격" form="add-product-form" required>
-              <input type="number" name="quantity" placeholder="수량" form="add-product-form" required>
-              <button id="add-product-submit-button" class="button accent">추가</button>
-          </div>
+          <table id="add-product-table" class="table">
+                <thead>
+                    <tr>
+                        <th width="24%">상품명</th>
+                        <th width="24%">가격</th>
+                        <th width="24%">수량</th>
+                        <th width="18%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="name" placeholder="상품명" form="add-product-form" required></td>
+                        <td><input type="number" name="price" placeholder="가격" form="add-product-form" required></td>
+                        <td><input type="number" name="quantity" placeholder="수량" form="add-product-form" required></td>
+                        <td><button id="add-product-submit-button" class="button accent">추가</button></td>
+                    </tr>
+                </tbody>
+            </table>
       </form>
     </section>
     <section id="product-table-section" class="table-section">
