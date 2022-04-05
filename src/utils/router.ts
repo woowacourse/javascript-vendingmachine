@@ -35,6 +35,9 @@ export class Router {
     if (savedData.state.path === '/signIn') {
       this.app.customerInformationView.renderSignIn();
     }
+    if (savedData.state.path === '/signUp') {
+      this.app.customerInformationView.renderSignUp();
+    }
   };
 
   pushHistory(e: Event) {
@@ -50,6 +53,12 @@ export class Router {
     }
     if (e.type === 'signInClick') {
       path = '/signIn';
+    }
+    if (e.type === 'signUpClick') {
+      path = '/signUp';
+    }
+    if (e.type === 'signInOk') {
+      path = '/';
     }
     this.pushHistoryPath(path);
   }

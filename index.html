@@ -5,10 +5,12 @@
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-
   <body>
     <div class="app">
-      <button type="submit" class="sign-in-button tab-button button">로그인</button>
+      <div class="sign-container">
+        <button type="submit" class="sign-in-button tab-button button">로그인</button>
+        <button class="thumbnail-button tab-button button">N</button>
+      </div>
       <h1>🍿 자판기 🍿</h1>
       <nav>
         <button id="product-manage-nav-button" type="button" class="tab-button button">
@@ -28,39 +30,43 @@
         <h1>로그인</h1>
         <div>
           <label for="email-input">이메일</label>
-          <input type="email" name="email-input" class="input" />
+          <input type="email" name="email-input" class="sign-in-email-input input" />
         </div>
         <div>
-          <label for="email-input">비밀번호</label>
-          <input type="password" name="password-input" class="input" />
+          <label for="password-input">비밀번호</label>
+          <input type="password" name="password-input" class="sign-in-pw-input input" />
         </div>
-        <button class="submit-button button">확인</button>
+        <button class="sign-in-submit-button button">확인</button>
         <div>
           <p>아직 회원이 아니신가요?</p>
-          <p>회원가입</p>
+          <strong class="sign-up-button">회원가입</strong>
         </div>
       </div>
       <div class="sign-up">
         <h1>회원가입</h1>
         <div>
           <label for="email-input">이메일</label>
-          <input type="email" name="email-input" class="input" />
+          <input type="email" name="email-input" class="sign-up-email-input input" />
         </div>
         <div>
-          <label for="email-input">이름</label>
-          <input type="email" name="email-input" class="input" />
+          <label for="name-input">이름</label>
+          <input type="text" name="name-input" class="sign-up-name-input input" />
         </div>
         <div>
-          <label for="email-input">비밀번호</label>
-          <input type="password" name="password-input" class="input" />
+          <label for="password-input">비밀번호</label>
+          <input type="password" name="password-input" class="sign-up-pw-input input" />
         </div>
         <div>
-          <label for="email-input">비밀번호 확인</label>
-          <input type="password" name="password-input" class="input" />
+          <label for="password-confirm-input">비밀번호 확인</label>
+          <input
+            type="password"
+            name="password-confirm-input"
+            class="sign-up-pw-confirm-input input"
+          />
         </div>
-        <button class="submit-button button">확인</button>
+        <button class="submit-sign-up-button button">확인</button>
       </div>
-      <div class="change-customer-information">
+      <div class="edit-customer-information">
         <h1>회원정보 수정</h1>
         <div>
           <label for="email-input">이메일</label>

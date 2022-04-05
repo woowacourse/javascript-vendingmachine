@@ -1,6 +1,11 @@
 .customer-manage-app {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.sign-container {
+  margin-left: auto;
 }
 
 .sign-up,
