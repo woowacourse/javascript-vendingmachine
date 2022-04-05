@@ -14,7 +14,6 @@ type FeedbackRecord = {
 
 @customElement('my-account-page')
 class MyAccountPage extends RouteComponent {
-  private userInfo?: Omit<UserInfo, 'password'>;
   private _initialFeedbacks: FeedbackRecord = {
     email: {
       inputValue: '',
@@ -38,9 +37,10 @@ class MyAccountPage extends RouteComponent {
     },
   };
   private get initialFeedbacks(): FeedbackRecord {
-    if (this.userInfo) {
-      this._initialFeedbacks.email.placeholder = this.userInfo.email;
-      this._initialFeedbacks.name.placeholder = this.userInfo.name;
+    const userInfo = getUserInfoFromLocalStorage();
+    if (userInfo) {
+      this._initialFeedbacks.email.placeholder = userInfo.email;
+      this._initialFeedbacks.name.placeholder = userInfo.name;
     }
     return deepCopy(this._initialFeedbacks) as FeedbackRecord;
   }
@@ -177,10 +177,9 @@ class MyAccountPage extends RouteComponent {
   }
 
   onSuccessEdit(user: Omit<UserInfo, 'password'>) {
-    this.userInfo = user;
+    localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
     const feedbacks = this.initialFeedbacks;
     this.setFeedbacks(feedbacks);
-    localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
   }
 
   validate() {
@@ -244,7 +243,6 @@ class MyAccountPage extends RouteComponent {
       location.href = `${location.origin}/login`;
       return;
     }
-    this.userInfo = userInfo;
     if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
     this.innerHTML = this.template(this.feedbacks);
   }
