@@ -3,7 +3,7 @@ import { $ } from '../utils/dom';
 import { validPassword } from './validPassword';
 import { handleSnackbarMessage } from '../utils/snackbar.js';
 
-const { user } = JSON.parse(localStorage.getItem('user'));
+const { user } = JSON.parse(sessionStorage.getItem('user'));
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');

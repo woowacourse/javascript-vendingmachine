@@ -21,7 +21,7 @@ const selectTab = (hash) => {
 };
 
 export const initHashContents = (hash) => {
-  const manager = JSON.parse(localStorage.getItem('user'));
+  const manager = JSON.parse(sessionStorage.getItem('user'));
   const content = routes[hash] ?? '';
   if (manager) {
     selectTab(hash);

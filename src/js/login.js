@@ -1,7 +1,7 @@
 import '../css/index.css';
-import { SNACKBAR_MESSAGE } from './constants/constants';
-import { $ } from './utils/dom';
-import { handleSnackbarMessage } from './utils/snackbar';
+import { SNACKBAR_MESSAGE } from './constants/constants.js';
+import { $ } from './utils/dom.js';
+import { handleSnackbarMessage } from './utils/snackbar.js';
 
 const loginForm = $('#login-form');
 const emailInput = $('#email-input');
@@ -24,7 +24,7 @@ loginForm.addEventListener('submit', async (e) => {
   });
 
   const dataResult = await response.json();
-  localStorage.setItem('user', JSON.stringify(dataResult));
+  sessionStorage.setItem('user', JSON.stringify(dataResult));
 
   if (dataResult.accessToken) {
     location.href = './manager.html';
