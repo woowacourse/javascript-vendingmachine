@@ -1,5 +1,4 @@
 import { COIN_TYPE } from '../../constants';
-import User from '../../data/User';
 
 const template = {
   userAreaContentForMember: (name) => `

@@ -1,5 +1,3 @@
-import User from '../../data/User';
-
 const pageTemplate = {
   loginPage: `
     <section class="user-information-form-section">
