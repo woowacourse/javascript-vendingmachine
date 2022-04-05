@@ -20,8 +20,9 @@ const requestLogin = async (accountData: Object) => {
     }
   }
 
-  localStorage.setItem('user', JSON.stringify(dataResult));
-  return ALERT_MESSAGE.LOGIN_SUCCESS(dataResult.name);
+  localStorage.setItem('accessToken', dataResult.accessToken);
+  localStorage.setItem('user', JSON.stringify(dataResult.user));
+  return ALERT_MESSAGE.LOGIN_SUCCESS(dataResult.user.name);
 };
 
 export default requestLogin;

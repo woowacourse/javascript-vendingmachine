@@ -35,7 +35,7 @@ class LoginFormComponent {
     };
 
     if (await throwableFunctionHandler(() => requestLogin(accountData))) {
-      // this.noticeStateChanged();
+      this.noticeStateChanged();
     }
   };
 

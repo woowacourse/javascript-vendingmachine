@@ -1,4 +1,6 @@
 import LoginFormComponent from '../components/LoginFormComponent';
+import { PATH_NAME } from '../constants';
+import routes from '../routes';
 
 export default class Login {
   LoginFormComponent: LoginFormComponent;
@@ -6,7 +8,7 @@ export default class Login {
 
   constructor() {
     this.$loginInputContainer = document.querySelector('#login-input-container');
-    this.LoginFormComponent = new LoginFormComponent(this.$loginInputContainer, this.stateChange);
+    this.LoginFormComponent = new LoginFormComponent(this.$loginInputContainer, this.locationChange);
   }
 
   render = () => {
@@ -14,7 +16,7 @@ export default class Login {
     this.LoginFormComponent.refreshComponent();
   };
 
-  private stateChange = () => {
-    this.LoginFormComponent.refreshComponent();
+  private locationChange = () => {
+    routes.go(PATH_NAME.PRODUCT_MANAGE);
   };
 }

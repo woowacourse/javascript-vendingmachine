@@ -5,4 +5,10 @@ interface RegisterUser {
   passwordCheck: string;
 }
 
-export type { RegisterUser };
+interface AccessToken {
+  email: string;
+  iat: number;
+  exp: number;
+}
+
+export type { RegisterUser, AccessToken };
