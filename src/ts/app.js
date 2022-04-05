@@ -12,6 +12,7 @@ import LoginUser from './vendingMachine/LoginUser';
 
 import RegisterUserPage from './view/RegisterUserPage';
 import LoginUserPage from './view/LoginUserPage';
+import { getCookie } from './utils/cookie';
 
 const initApp = function () {
   const itemManage = new ItemManage();
@@ -29,22 +30,32 @@ const initApp = function () {
   const loginUserPage = new LoginUserPage(loginUser);
 
   return function () {
+    const accessToken = getCookie('accessToken');
+
     switch (location.hash) {
       case HASH.ITEM_MANAGE:
-        itemManageTab.renderInitialItemManageTabState();
+        accessToken
+          ? itemManageTab.renderInitialItemManageTabState()
+          : (location.href = `${location.origin}/${HASH.LOGIN_USER}`);
         break;
       case HASH.COIN_RECHARGE:
-        coinRechargeTab.renderInitialCoinRechargeTabState();
+        accessToken
+          ? coinRechargeTab.renderInitialCoinRechargeTabState()
+          : (location.href = `${location.origin}/${HASH.LOGIN_USER}`);
         break;
       case '':
       case HASH.ITEM_PURCHASE:
         itemPurchaseTab.renderInitialItemPurchaseTabState();
         break;
       case HASH.REGISTER_USER:
-        registerUserPage.renderInitialRegisterPageState();
+        !accessToken
+          ? registerUserPage.renderInitialRegisterPageState()
+          : (location.href = location.origin);
         break;
       case HASH.LOGIN_USER:
-        loginUserPage.renderInitialLoginPageState();
+        !accessToken
+          ? loginUserPage.renderInitialLoginPageState()
+          : (location.href = location.origin);
         break;
       default:
         break;

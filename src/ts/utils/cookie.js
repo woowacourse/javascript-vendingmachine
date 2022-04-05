@@ -8,8 +8,11 @@ export const setCookie = (key, value, period) => {
 };
 
 export const getCookie = (key) => {
-  return document.cookie
-    .split('; ')
-    .find((pair) => pair.startsWith(key))
-    .split('=')[1];
+  return (
+    document.cookie ??
+    document.cookie
+      .split('; ')
+      .find((pair) => pair.startsWith(key))
+      .split('=')[1]
+  );
 };
