@@ -1,4 +1,5 @@
 import { createMainElement, selectDom } from '../utils/dom';
+import { emitEvent } from '../utils/event';
 import { addChangeTemplate } from './template';
 
 export default class AddChangeTab {
@@ -18,7 +19,6 @@ export default class AddChangeTab {
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
-    this.#renderCoinStatus();
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
@@ -29,28 +29,20 @@ export default class AddChangeTab {
   #handleAddChange = (e) => {
     e.preventDefault();
     const money = this.#moneyInput.valueAsNumber;
-
-    try {
-      this.#vendingMachine.addChange(money);
-      this.#renderCoinStatus();
-      this.#resetInput();
-    } catch ({ message }) {
-      alert(message);
-    }
+    emitEvent(selectDom('body'), 'addChange', { money });
   };
 
-  #renderCoinStatus() {
+  renderCoinStatus(coinStatus, totalChange) {
     const coinCountElements =
       this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
-    const { coinStatus } = this.#vendingMachine;
 
-    this.#totalChange.textContent = this.#vendingMachine.totalChange;
+    this.#totalChange.textContent = totalChange;
     coinCountElements.forEach((element) => {
       element.textContent = `${coinStatus[element.dataset.coinName]}개`;
     });
   }
 
-  #resetInput() {
+  resetInput() {
     this.#moneyInput.value = '';
   }
 }
