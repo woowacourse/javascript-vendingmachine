@@ -3,6 +3,7 @@ const PATH_NAME = {
   ADD_CHANGE: '#!/change-add',
   PRODUCT_PURCHASE: '#!/product-purchase',
   LOGIN: '#!/login',
+  REGISTER: '#!/register',
 };
 
 const RULES = {
