@@ -156,10 +156,20 @@ function updateUserInfo(newUserInfo) {
     .catch(error => console.error('에러', error.message));
 }
 
-function getSavedAuthInfo(): AuthInfo | null {
-  const userAuth: AuthInfo | null = JSON.parse(localStorage.getItem('userAuth'));
+function getSavedAuthInfo(): AuthInfo {
+  const emptyAuthInfo: AuthInfo = { accessToken: '', id: -1, expiration: -1 };
+  let userAuth: AuthInfo;
+
+  try {
+    userAuth = JSON.parse(localStorage.getItem('userAuth'));
+  } catch (err) {
+    console.error('저장된 Auth 정보를 불러오는데 실패했습니다.');
+    return emptyAuthInfo;
+  }
+
   if (userAuth?.expiration < Date.now()) {
     localStorage.removeItem('userAuth');
+    return emptyAuthInfo;
   }
   return userAuth;
 }

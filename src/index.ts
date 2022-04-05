@@ -4,7 +4,7 @@ import { initRouteEvent, loadMainPage } from './es/routes';
 
 const initialAuthInfo = getSavedAuthInfo();
 
-if (initialAuthInfo) {
+if (initialAuthInfo.accessToken) {
   requestUserInfo(initialAuthInfo).then(() => loadMainPage());
 } else {
   loadMainPage();
