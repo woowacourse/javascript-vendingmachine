@@ -34,6 +34,8 @@ const ERROR_MESSAGE = {
   PASSWORD_IS_TOO_SHORT: '비밀번호가 너무 짧습니다.',
   PASSWORD_IS_INVALID: '비밀번호는 6~20자 사이의 영문과 숫자, 특수문자의 조합이어야합니다.',
   PASSWORDCHECK_IS_NOT_EQUAL: '비밀번호 확인이 다릅니다.',
+  USER_IS_NOT_EXIST: '해당 유저를 찾을 수 없습니다.',
+  PASSWORD_IS_INCORRECT: '비밀번호가 다릅니다.',
 };
 
 const ALERT_MESSAGE = {
@@ -46,6 +48,7 @@ const ALERT_MESSAGE = {
   RETURN_CHARGE_SUCCESS: '잔돈을 반환하였습니다.',
   WAITING_STATE: '잠시만 기다려주세요.',
   REGISTER_SUCCESS: '회원가입이 완료되었습니다.',
+  LOGIN_SUCCESS: (name: string) => `${name}님, 환영합니다.`,
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';

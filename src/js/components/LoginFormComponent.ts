@@ -1,6 +1,7 @@
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import router from '../routes';
 import { PATH_NAME } from '../constants';
+import requestLogin from '../api/requestLogin';
 
 class LoginFormComponent {
   parentElement: HTMLElement;
@@ -25,12 +26,17 @@ class LoginFormComponent {
     this.$registerLink.addEventListener('click', this.onClickRegister);
   };
 
-  private onSubmitLogin = (e: SubmitEvent) => {
+  private onSubmitLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    // if (throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
-    //   this.noticeStateChanged('add', newProduct);
-    // }
+    const accountData = {
+      email: (<HTMLInputElement>this.$loginForm.querySelector('#email-input')).value,
+      password: (<HTMLInputElement>this.$loginForm.querySelector('#password-input')).value,
+    };
+
+    if (await throwableFunctionHandler(() => requestLogin(accountData))) {
+      // this.noticeStateChanged();
+    }
   };
 
   private onClickRegister = (e: Event) => {
