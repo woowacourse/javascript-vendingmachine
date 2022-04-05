@@ -1,5 +1,4 @@
 import { CONFIRM_MESSAGE, EVENT_TYPE } from "../constant";
-import ProductProcessMachine from "../domain/productProcessMachine";
 import ProductPageView from "../ui/productPageView";
 import { on } from "../util/event";
 import {
@@ -7,14 +6,15 @@ import {
   IAddProductEvent,
   IUpdateProductEvent,
 } from "../type";
+import VendingMachine from "../domain/vendingMachine";
 
 class ProductModerator {
   productPageView;
-  productProcessMachine;
+  vendingMachine;
 
   constructor() {
-    this.productProcessMachine = new ProductProcessMachine();
     this.productPageView = new ProductPageView();
+    this.vendingMachine = VendingMachine.getInstance();
     on<IAddProductEvent>(window, EVENT_TYPE.ADD, (e) =>
       this.addProduct(e.detail)
     );
@@ -28,13 +28,13 @@ class ProductModerator {
 
   init(): void {
     this.productPageView.init();
-    const products = this.productProcessMachine.getProducts();
+    const products = this.vendingMachine.getProducts();
     this.productPageView.renderProductsStatus(products);
   }
 
   addProduct = ({ name, price, count }: IAddProductEvent): void => {
     try {
-      const product = this.productProcessMachine.add({ name, price, count });
+      const product = this.vendingMachine.addProduct({ name, price, count });
       this.productPageView.renderNewProduct(product);
     } catch (err) {
       alert(err.message);
@@ -43,7 +43,7 @@ class ProductModerator {
 
   updateProduct = ({ id, name, price, count }: IUpdateProductEvent): void => {
     try {
-      const product = this.productProcessMachine.update(id, name, price, count);
+      const product = this.vendingMachine.updateProduct(id, name, price, count);
       this.productPageView.renderUpdatedProduct(id, product);
     } catch (err) {
       alert(err.message);
@@ -55,7 +55,7 @@ class ProductModerator {
       return;
     }
 
-    this.productProcessMachine.delete(id);
+    this.vendingMachine.deleteProduct(id);
     this.productPageView.renderDeleteProduct(id);
   };
 }

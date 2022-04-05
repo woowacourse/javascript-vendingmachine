@@ -2,7 +2,7 @@ import changesTemplate from "../template/changes.template";
 import { $, createElement } from "../util/dom";
 import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
-import { ICoins } from "../interface/changes.interface";
+import { TCoin } from "../interface/vendingMachine.interface";
 import { IChargeChangesEvent } from "../type";
 
 class ChangePageView {
@@ -63,7 +63,7 @@ class ChangePageView {
     this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;
   }
 
-  renderCoinStatus(coinStatus: ICoins): void {
+  renderCoinStatus(coinStatus: TCoin): void {
     this.$changesList.replaceChildren();
     this.$changesList.insertAdjacentHTML(
       "beforeend",

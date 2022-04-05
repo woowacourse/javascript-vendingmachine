@@ -19,11 +19,11 @@ export const VENDING_MACHINE_NUMBER = {
   MAXIMUM_NAME_LENGTH: 10,
 } as const;
 
-export const EVENT_TYPE = {
-  CHARGE: "@charge",
-  ADD: "@add",
-  DELETE: "@delete",
-  EDIT: "@edit",
-} as const;
+export enum EVENT_TYPE {
+  CHARGE = "@charge",
+  ADD = "@add",
+  DELETE = "@delete",
+  EDIT = "@edit",
+}
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?" as const;

@@ -1,0 +1,108 @@
+import * as type from "../interface/vendingMachine.interface";
+
+import {
+  checkDuplicatedName,
+  checkNameLength,
+  checkValidPrice,
+  checkValidCount,
+  checkDividedByMinimumCoin,
+  checkMoneyOverMaximum,
+  checkMoneyUnderZero,
+} from "../util/validations";
+
+import SingleProduct from "./product";
+
+export default class VendingMachine implements type.IVendingMachine {
+  private static instance: VendingMachine;
+
+  private chargedMoney = 0;
+  private products = [];
+  private changes = {
+    500: 0,
+    100: 0,
+    50: 0,
+    10: 0,
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
+
+  public static getInstance() {
+    return this.instance || (this.instance = new this());
+  }
+
+  addProduct: type.IAddProduct = ({ name, price, count }) => {
+    checkDuplicatedName(this.products, name);
+    checkNameLength(name);
+    checkValidPrice(price);
+    checkValidCount(count);
+
+    const product = new SingleProduct(name, price, count);
+    this.products.push(product);
+    return product;
+  };
+
+  getProducts: type.IGetProducts = () => {
+    return this.products;
+  };
+
+  updateProduct: type.IUpdateProduct = (id, name, price, count) => {
+    checkDuplicatedName(this.products, name, id);
+    checkNameLength(name);
+    checkValidPrice(price);
+    checkValidCount(count);
+
+    const product = this.products.find((product) => {
+      return id === product.getId();
+    });
+
+    name && product.updateName(name);
+    price && product.updatePrice(price);
+    count && product.updateCount(count);
+
+    return product;
+  };
+
+  deleteProduct: type.IDeleteProduct = (id) => {
+    this.products = this.products.filter((product) => product.getId() !== id);
+  };
+
+  chargeChanges: type.IChargeChanges = (money) => {
+    checkDividedByMinimumCoin(money);
+    checkMoneyOverMaximum(this.getTotalChanges() + money);
+    checkMoneyUnderZero(money);
+
+    const newCoins = this.generateCoins(money);
+    this.accumulateCoins(newCoins);
+  };
+
+  accumulateCoins = (newCoins: type.TCoin): void => {
+    this.changes = Object.entries(newCoins).reduce((acc, [coin, count]) => {
+      return { ...acc, [coin]: this.changes[coin] + count };
+    }, this.changes);
+  };
+
+  generateCoins: type.IGenerateCoins = (money) => {
+    const coinArray = [500, 100, 50, 10];
+    const newCoins = { 500: 0, 100: 0, 50: 0, 10: 0 };
+
+    while (money) {
+      const idx = Math.floor(Math.random() * coinArray.length);
+      if (money < coinArray[idx]) continue;
+      newCoins[coinArray[idx]] += 1;
+      money -= coinArray[idx];
+    }
+
+    return newCoins;
+  };
+
+  getCoins: type.IGetCoins = () => {
+    return this.changes;
+  };
+
+  getTotalChanges: type.IGetTotalChanges = () => {
+    return Object.entries(this.changes).reduce((acc, [coin, count]) => {
+      return acc + Number(coin) * count;
+    }, 0);
+  };
+}
