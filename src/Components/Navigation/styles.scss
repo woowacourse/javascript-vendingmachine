@@ -1,0 +1,30 @@
+@import 'Styles/utils/resetStyle.css';
+@import 'Styles/Variables.scss';
+
+.nav {
+  margin-bottom: 3rem;
+
+  > ul {
+    display: flex;
+    gap: 1rem;
+
+    li {
+      display: block;
+      flex-grow: 1;
+      background-color: $color-concrete;
+      border-radius: 0.4rem;
+      padding: 0.8rem;
+      text-align: center;
+      cursor: pointer;
+
+      &.selected {
+        background-color: $color-robins-egg-blue-20;
+        color: $color-black;
+      }
+
+      &:hover {
+        filter: brightness(0.95);
+      }
+    }
+  }
+}
