@@ -1,4 +1,9 @@
-import { AUTH_URL_BASE, ERROR_MESSAGE, POST_REQUEST_OPTIONS } from '../constants';
+import {
+  ACCESS_TOKEN,
+  AUTH_URL_BASE,
+  ERROR_MESSAGE,
+  POST_REQUEST_OPTIONS,
+} from '../constants';
 import { SavedUserData, UserRegisterData, UserUpdateData } from './interface';
 import {
   hasEmptyInput,
@@ -23,7 +28,7 @@ export default class Authorization {
 
     this.#getUserData();
 
-    this.#isLoggedIn = !!this.#accessToken;
+    this.#isLoggedIn = !!this.#userId && !!this.#accessToken;
   }
 
   get isLoggedIn() {
@@ -102,7 +107,7 @@ export default class Authorization {
   logout() {
     window.sessionStorage.removeItem('userData');
 
-    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = `${ACCESS_TOKEN}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
     this.#userId = null;
     this.#name = null;
@@ -136,7 +141,7 @@ export default class Authorization {
   #saveUserData({ accessToken, userId, name, email }: SavedUserData) {
     window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
-    if (accessToken) document.cookie = `accessToken=${accessToken}`;
+    if (accessToken) document.cookie = `${ACCESS_TOKEN}=${accessToken}`;
 
     this.#userId = userId;
     this.#name = name;
@@ -146,7 +151,7 @@ export default class Authorization {
   #getAccessToken() {
     const accessToken = document.cookie
       .split('; ')
-      .find((row) => row.startsWith('accessToken'))
+      .find((row) => row.startsWith(ACCESS_TOKEN))
       ?.split('=')[1];
 
     return accessToken;

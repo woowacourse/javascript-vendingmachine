@@ -97,3 +97,5 @@ export const DEFAULT_ROUTE = {
   USER: '#/product',
   NON_USER: '#/purchase',
 };
+
+export const ACCESS_TOKEN = 'accessToken';
