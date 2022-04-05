@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
-import { checkValidProfile } from '../domain/validator';
+import { checkValidProfile } from '../domains/validator';
 import { renderToastModal } from './ToastNotification';
 
 const profileEditTemplate = document.createElement('template');

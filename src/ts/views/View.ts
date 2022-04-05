@@ -1,6 +1,6 @@
 import { $, $$ } from '../utils';
 import { PATH_ID, STORAGE_ID } from '../constants';
-import { VendingMachineInterface } from '../domain/VendingMachine';
+import { VendingMachineInterface } from '../domains/VendingMachine';
 import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';

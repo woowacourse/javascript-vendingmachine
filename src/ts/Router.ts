@@ -1,4 +1,4 @@
-import View from './view/View';
+import View from './views/View';
 import { PATH_ID, STORAGE_ID } from './constants';
 
 export default class Router {

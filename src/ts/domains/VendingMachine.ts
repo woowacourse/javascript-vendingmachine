@@ -1,5 +1,5 @@
-import ProductType from '../type/ProductType';
-import MoneyType from '../type/MoneyType';
+import ProductType from '../types/ProductType';
+import MoneyType from '../types/MoneyType';
 import Product from './Product';
 import Money from './Money';
 import {

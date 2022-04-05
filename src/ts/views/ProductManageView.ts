@@ -1,7 +1,7 @@
-import { VendingMachineInterface } from '../domain/VendingMachine';
+import { VendingMachineInterface } from '../domains/VendingMachine';
 import { $ } from '../utils';
 import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
-import ProductType from '../type/ProductType';
+import ProductType from '../types/ProductType';
 import { renderToastModal } from '../components/ToastNotification';
 
 export default class ProductManageView {

@@ -1,5 +1,5 @@
 import { SUCCESS_MESSAGE } from '../constants';
-import { VendingMachineInterface } from '../domain/VendingMachine';
+import { VendingMachineInterface } from '../domains/VendingMachine';
 import { $ } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
 

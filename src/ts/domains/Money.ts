@@ -1,4 +1,4 @@
-import MoneyType from '../type/MoneyType';
+import MoneyType from '../types/MoneyType';
 
 export default class Money implements MoneyType {
   private _value: number;

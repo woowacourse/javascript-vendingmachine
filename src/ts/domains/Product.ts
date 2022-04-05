@@ -1,4 +1,4 @@
-import ProductType from '../type/ProductType';
+import ProductType from '../types/ProductType';
 import { checkProductValidation } from './validator';
 
 interface ProductInterface extends ProductType {

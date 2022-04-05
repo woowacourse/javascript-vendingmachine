@@ -1,4 +1,4 @@
-import ProductType from '../type/ProductType';
+import ProductType from '../types/ProductType';
 import { ERROR_MESSAGE, VENDING_MACHINE_RULE } from '../constants';
 
 const isEmptyName = (name: string) => name.trim().length === 0;
@@ -81,8 +81,8 @@ export const checkValidProfile = (name: string, password: string, passwordCheck:
   if (isInvalidPassword(password)) {
     throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
   }
-
   if (isDifferentPassword(password, passwordCheck)) {
     throw new Error(ERROR_MESSAGE.DIFFERENT_PASSWORD);
   }
+  return true;
 };

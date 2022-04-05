@@ -1,6 +1,6 @@
 import './css/index.css';
-import View from './ts/view/View';
-import VendingMachine from './ts/domain/VendingMachine';
+import View from './ts/views/View';
+import VendingMachine from './ts/domains/VendingMachine';
 import Router from './ts/router';
 
 import './ts/components/ToastNotification';

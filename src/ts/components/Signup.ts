@@ -1,5 +1,5 @@
 import { SUCCESS_MESSAGE } from '../constants';
-import { checkValidProfile } from '../domain/validator';
+import { checkValidProfile } from '../domains/validator';
 import { renderToastModal } from './ToastNotification';
 
 const signupTemplate = document.createElement('template');
@@ -163,6 +163,10 @@ class Signup extends HTMLElement {
     const passwordCheck = this.passwordCheckInput.value;
 
     const url = 'https://json-server-marco.herokuapp.com/signup/';
+
+    try {
+      checkValidProfile(name, password, passwordCheck);
+    } catch (error) {}
 
     fetch(url, {
       method: 'POST',
