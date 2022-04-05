@@ -63,16 +63,24 @@ class PurchaseTab extends CustomElement {
   notify({ action, product, userAmount }: Notification) {
     switch (action) {
       case 'update-amount':
-        this.changeAmount(userAmount);
+        this.updateAmount(userAmount);
         return;
 
       case 'purchase':
         this.purchase(product);
         return;
+
+      case 'update-product':
+        this.updateProductTable('update-product', product);
+        return;
+
+      case 'delete-product':
+        this.updateProductTable('delete-product', product);
+        return;
     }
   }
 
-  changeAmount(userAmount: number) {
+  updateAmount(userAmount: number) {
     $('.user-amount', this).textContent = markUnit(userAmount);
   }
 
@@ -90,6 +98,22 @@ class PurchaseTab extends CustomElement {
     if (product.quantity > 0) return;
 
     productItems.forEach((item) => item.remove());
+  }
+
+  updateProductTable(action: string, product: Product) {
+    const productTable = $('#purchasable-product-list-table', this);
+    const targetProduct = $(`[data-product-id="${product.id}"]`, productTable);
+
+    switch (action) {
+      case 'update-product':
+        targetProduct?.remove();
+        this.insertPurchableProduct(product, productTable);
+        return;
+
+      case 'delete-product':
+        targetProduct.remove();
+        return;
+    }
   }
 }
 

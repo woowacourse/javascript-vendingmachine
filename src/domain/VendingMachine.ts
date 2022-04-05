@@ -88,6 +88,7 @@ class VendingMachine implements VendingMachineProperty {
 
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
+      this.dispatch('subscribePurchaseTab', 'update-product', newProduct);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
     } catch (error) {
       alert(error.message);
@@ -101,6 +102,7 @@ class VendingMachine implements VendingMachineProperty {
 
       target.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
+      this.dispatch('subscribePurchaseTab', 'update-product', target);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);
     } catch (error) {
       alert(error.message);
@@ -110,6 +112,7 @@ class VendingMachine implements VendingMachineProperty {
   deleteProduct(targetName: string) {
     const targetProduct = this.products.find((product) => product.name === targetName);
 
+    this.dispatch('subscribePurchaseTab', 'delete-product', targetProduct);
     this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
     this.products = this.products.filter((product) => product.name !== targetName);
     storage.setLocalStorage('products', this.products);
