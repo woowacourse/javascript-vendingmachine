@@ -27,11 +27,16 @@ export default class LoginPage {
     `;
   }
 
-  loginHandler = async e => {
+  loginHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const { emailInput, pwInput } = e.target.elements;
+    const emailInput = e.target.elements.namedItem('emailInput');
+    const pwInput = e.target.elements.namedItem('pwInput');
+
+    if (!(emailInput instanceof HTMLInputElement)) return;
+    if (!(pwInput instanceof HTMLInputElement)) return;
+
     const response = await API.login({
       email: emailInput.value,
       password: pwInput.value,

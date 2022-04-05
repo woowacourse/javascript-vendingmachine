@@ -30,7 +30,7 @@ export default class App {
     this.routePage(location.pathname);
   };
 
-  activateClickedButton = pathname => {
+  activateClickedButton = (pathname: string) => {
     $$('.nav__button').forEach($button => {
       if (
         this.checkMatchPathname(
@@ -45,7 +45,7 @@ export default class App {
     });
   };
 
-  private checkMatchPathname(buttonPathname, pathname) {
+  private checkMatchPathname(buttonPathname: string, pathname: string) {
     return buttonPathname === pathname;
   }
 

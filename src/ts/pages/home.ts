@@ -68,7 +68,9 @@ export default class HomePage {
     $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
   }
 
-  selectChangeHandler = e => {
+  selectChangeHandler = (e: Event) => {
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
     const selectValue = e.target.options[e.target.selectedIndex].value;
     switch (selectValue) {
       case '회원 정보 수정':
