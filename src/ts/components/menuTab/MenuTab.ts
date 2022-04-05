@@ -19,7 +19,8 @@ class MenuTab {
     if (event.target.classList.contains("user-info-text")) {
       this.handleUserMenuTab();
     }  else if (event.target.classList.contains("user-info-edit")) {
-      console.log(event.target);
+      history.pushState({ path: "#editMember" }, null, "#editMember");
+      this.convertTemplate("#editMember");
     } else if (event.target.classList.contains("user-logout")) {
       this.handleLogout();
       this.convertTemplate(location.hash);
@@ -79,7 +80,7 @@ class MenuTab {
   };
 
   render(path: string) {
-    if (path === "#login" || path === "#signup") {
+    if (path === "#login" || path === "#signup" || path === "#editMember") {
       this.vendingmachineHeader.replaceChildren();
       return;
     }

@@ -6,9 +6,12 @@ import { selectDom, selectDomAll } from "../utils/dom";
 import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 import Login from "./login/login";
 import Signup from "./signup/Signup";
+import EditMemberInfo from "./editMember/EditMember";
+import EditMember from "./editMember/EditMember";
 
 class Vendingmachine {
   login: Login;
+  editMember: EditMember;
   menuTab: MenuTab;
   product: Product;
   charge: Charge;
@@ -34,6 +37,7 @@ class Vendingmachine {
   mountComponent() {
     this.login = new Login(this.convertTemplate);
     this.signup = new Signup(this.convertTemplate);
+    this.editMember = new EditMember(this.convertTemplate);
     this.menuTab = new MenuTab(this.convertTemplate);
     this.product = new Product();
     this.charge = new Charge();
@@ -62,6 +66,7 @@ class Vendingmachine {
     const routes = {
       "#login": () => this.login.render(),
       "#signup": () => this.signup.render(),
+      "#editMember": () => this.editMember.render(),
       "#product": () => this.product.render(),
       "#charge": () => this.charge.render(),
       "#purchase": () => this.purchase.render()

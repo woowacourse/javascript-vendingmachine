@@ -1,12 +1,14 @@
 #login-section,
-#signup-section {
+#signup-section,
+#edit-member-info-section {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
 }
 
 .member-page-main-text,
-.member-page-main-text {
+.member-page-main-text,
+.edit-member-info-text {
   margin: auto;
   margin-bottom: 48px;
 }

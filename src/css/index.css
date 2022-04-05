@@ -190,6 +190,10 @@ button {
   background: #ebebeb;
 }
 
+.disabled-input {
+  background-color: #999999;
+}
+
 #snackbar-wrap {
   width: 302px;
   overflow: hidden;
