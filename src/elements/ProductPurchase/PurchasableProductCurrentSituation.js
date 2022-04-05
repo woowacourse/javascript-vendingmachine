@@ -14,17 +14,19 @@ class PurchasableProductCurrentSituation extends CustomElement {
   template() {
     return `
       <h2>구매 가능 상품 현황</h2>
-      <table class="purchasable-product-current-situation">
-        <thead>
-          <tr>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>수량</th>
-            <th>구매</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="purchasable-product-current-situation-container">
+        <table class="purchasable-product-current-situation">
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th>구매</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     `;
   }
 

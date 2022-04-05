@@ -38,9 +38,18 @@ h2 {
   font-size: 20px;
 }
 
+.product-current-situation-container,
+.purchasable-product-current-situation-container {
+  overflow-y: scroll;
+}
+
 .product-current-situation-container {
   height: 285px;
-  overflow-y: scroll;
+  margin-bottom: 44px;
+}
+
+.purchasable-product-current-situation-container {
+  height: 205px;
 }
 
 table {
@@ -84,6 +93,7 @@ td {
 
 .coin-current-situation {
   width: 238px;
+  margin-bottom: 44px;
 }
 
 .change-return-button-container {
