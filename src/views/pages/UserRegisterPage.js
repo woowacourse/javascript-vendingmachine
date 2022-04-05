@@ -39,12 +39,11 @@ class UserRegisterPage extends Component {
     this.addEvent('submit', '#register-form', async (event) => {
       event.preventDefault();
 
-      const snackbar = this.querySelector('.snackbar');
       const { email, userName, password, passwordCheck } =
         event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        showSnackBar(snackbar, ERROR_MESSAGE.CHECK_PASSWORD);
+        showSnackBar(ERROR_MESSAGE.CHECK_PASSWORD);
 
         return;
       }
@@ -56,7 +55,7 @@ class UserRegisterPage extends Component {
       });
 
       if (!response.accessToken) {
-        showSnackBar(snackbar, response);
+        showSnackBar(response);
 
         return;
       }

@@ -69,8 +69,7 @@ class ChangeChargePage extends Component {
       try {
         vendingMachine.addCoin(chargeAmount);
       } catch (err) {
-        const snackbar = this.querySelector('.snackbar');
-        showSnackBar(snackbar, err);
+        showSnackBar(err);
       }
     });
   }

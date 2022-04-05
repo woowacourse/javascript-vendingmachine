@@ -109,8 +109,7 @@ class ItemRow extends TableRow {
       try {
         vendingMachine.buyItem(name);
       } catch ({ message }) {
-        const snackbar = document.querySelector('.snackbar');
-        showSnackBar(snackbar, message);
+        showSnackBar(message);
       }
     });
   }

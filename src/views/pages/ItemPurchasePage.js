@@ -122,8 +122,7 @@ class ItemPurchasePage extends Component {
       try {
         vendingMachine.addPurchaseMoney(money);
       } catch (err) {
-        const snackbar = this.querySelector('.snackbar');
-        showSnackBar(snackbar, err);
+        showSnackBar(err);
       }
     });
 
@@ -133,8 +132,7 @@ class ItemPurchasePage extends Component {
       try {
         this.state.returnCoins = vendingMachine.returnChange();
       } catch ({ message }) {
-        const snackbar = this.querySelector('.snackbar');
-        showSnackBar(snackbar, message);
+        showSnackBar(message);
       }
     });
   }

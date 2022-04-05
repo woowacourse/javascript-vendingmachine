@@ -117,8 +117,7 @@ class ItemManagementPage extends Component {
       try {
         vendingMachine.addItem(item);
       } catch (err) {
-        const snackbar = this.querySelector('.snackbar');
-        showSnackBar(snackbar, err);
+        showSnackBar(err);
       }
     });
   }

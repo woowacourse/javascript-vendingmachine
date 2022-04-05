@@ -42,8 +42,7 @@ class UserLoginPage extends Component {
       });
 
       if (!response.accessToken) {
-        const snackbar = this.querySelector('.snackbar');
-        showSnackBar(snackbar, response);
+        showSnackBar(response);
 
         return;
       }

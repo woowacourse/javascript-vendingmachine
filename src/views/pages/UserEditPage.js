@@ -47,11 +47,10 @@ class UserEditPage extends Component {
     this.addEvent('submit', '#user-edit-form', async (event) => {
       event.preventDefault();
 
-      const snackbar = this.querySelector('.snackbar');
       const { userName, password, passwordCheck } = event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        showSnackBar(snackbar, ERROR_MESSAGE.CHECK_PASSWORD);
+        showSnackBar(ERROR_MESSAGE.CHECK_PASSWORD);
 
         return;
       }
@@ -70,7 +69,7 @@ class UserEditPage extends Component {
       });
 
       if (!loginResponse.accessToken) {
-        showSnackBar(snackbar, loginResponse);
+        showSnackBar(loginResponse);
 
         return;
       }
