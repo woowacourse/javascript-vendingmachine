@@ -95,13 +95,13 @@ export const validatePurchable = (userAmount: number, product: Product) => {
 };
 
 const returnValidator = {
-  isInsufficientAmount(userAmount: number) {
+  isInsufficientUserAmount(userAmount: number) {
     return userAmount <= 0;
   },
 };
 
 export const validateReturn = (userAmount: number) => {
-  if (returnValidator.isInsufficientAmount(userAmount)) {
+  if (returnValidator.isInsufficientUserAmount(userAmount)) {
     throw new Error('반환할 잔액이 없습니다.');
   }
 };

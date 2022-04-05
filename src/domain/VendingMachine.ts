@@ -1,7 +1,7 @@
 import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
-import { on, $ } from '../utils';
+import { on, $, showSnackbar } from '../utils';
 import {
   validateChange,
   validateProduct,
@@ -167,6 +167,10 @@ class VendingMachine implements VendingMachineProperty {
   returnCoin() {
     try {
       validateReturn(this.userAmount);
+
+      if (this.userAmount > this.amount.getAmount()) {
+        showSnackbar('반환할 잔액이 부족하여, 자판기에 존재하는 잔돈만 반환합니다.');
+      }
       const remainingUserAmount = this.amount.returnChange(this.userAmount);
 
       this.userAmount = remainingUserAmount;

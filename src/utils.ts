@@ -40,3 +40,13 @@ export const $$ = (selector: string, scope: Element | Document = document) =>
 export const markUnit = (price: number) => price.toLocaleString();
 
 export const deleteSeparator = (price: string) => parseInt(price.replace(',', ''), 10);
+
+export const showSnackbar = (message: string) => {
+  const snackbar = $('#snackbar');
+
+  snackbar.textContent = message;
+  snackbar.classList.toggle('show');
+  setTimeout(() => {
+    snackbar.classList.toggle('show');
+  }, 3000);
+};
