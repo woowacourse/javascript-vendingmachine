@@ -1,4 +1,5 @@
 import { VendingMachine } from '../../index.d';
+import { USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
 describe('유저 투입 금액 테스트', () => {
@@ -8,17 +9,20 @@ describe('유저 투입 금액 테스트', () => {
     vendingMachine = new VendingMachineImpl();
   });
 
-  it(`유저 투입 금액이 10으로 나누어 떨어지지 않을 때, 동전이 충전되면 안된다.`, () => {
+  it(`유저 투입 금액이 ${USER_INPUT_MONEY_RULES.MOD_UNIT}으로 나누어 떨어지지 않을 때, 동전이 충전되면 안된다.`, () => {
     const userInputMoney = 1555;
     const test = () => vendingMachine.chargeUserMoney(userInputMoney);
 
-    expect(test).toThrow('투입 금액은 10의 배수로 입력해주세요!');
+    expect(test).toThrow(ERROR_MESSAGE.INDIVISIBLE_USER_INPUT_MONEY_MOD_UNIT);
   });
 
-  it(`유저 투입 금액이 10,000 초과일 때, 동전이 충전되면 안된다.`, () => {
-    const userInputMoney = 10010;
+  it(`유저 투입 금액이 ${USER_INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원을 넘을 때, 동전이 충전되면 안된다.`, () => {
+    const userInputMoney = 2000;
+    const holdingMoney = 9000;
     const test = () => vendingMachine.chargeUserMoney(userInputMoney);
 
-    expect(test).toThrow('최대 10,000원까지 투입 가능합니다!');
+    vendingMachine.chargeUserMoney(holdingMoney);
+
+    expect(test).toThrow(ERROR_MESSAGE.EXCEED_MAX_USER_INPUT_MONEY);
   });
 });

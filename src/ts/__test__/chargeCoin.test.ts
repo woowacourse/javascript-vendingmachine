@@ -1,5 +1,5 @@
 import { VendingMachine } from '../../index.d';
-import { INPUT_MONEY_RULES, MAX_HAVE_MONEY, ERROR_MESSAGE } from '../constant';
+import { INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
 describe('동전 충전 테스트', () => {
@@ -23,7 +23,7 @@ describe('동전 충전 테스트', () => {
     expect(test).toThrow(ERROR_MESSAGE.LACK_OF_INPUT_MONEY);
   });
 
-  it(`보유 금액과 투입 금액의 합이 ${MAX_HAVE_MONEY.toLocaleString()}원을 넘을 때, 동전이 충전되면 안된다.`, () => {
+  it(`보유 금액과 투입 금액의 합이 ${INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원을 넘을 때, 동전이 충전되면 안된다.`, () => {
     const inputMoney = 11000;
     const holdingMoney = 90000;
     const test = () => vendingMachine.chargeMoney(inputMoney);

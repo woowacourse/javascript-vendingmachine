@@ -45,7 +45,7 @@ export default class VendingMachineImpl implements VendingMachine {
   }
 
   chargeUserMoney(userInputMoney: number): void {
-    validator.checkChargeUserMoney(userInputMoney);
+    validator.checkChargeUserMoney(userInputMoney, this.totalUserInputMoney);
     this.totalUserInputMoney += userInputMoney;
   }
 }
