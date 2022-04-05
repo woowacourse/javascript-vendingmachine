@@ -1,9 +1,12 @@
 import { $ } from './utils/dom';
 
+const $userMenuContainer = document.querySelector('#user-menu-container');
 const $nav = document.querySelector('nav');
 const $productManageContainer = $('product-manage-container');
 const $coinChargeContainer = $('coin-charge-container');
 const $productPurchaseContainer = $('product-purchase-container');
+const $loginContainer = $('login-container');
+const $signupContainer = $('signup-container');
 const $app = $('#app');
 
 const routes = [
@@ -23,6 +26,21 @@ const renderAppHeight = (isLongApp) => {
 };
 
 const renderTargetContainer = (currentHash) => {
+  if (currentHash === '#!signup') {
+    $loginContainer.hide();
+    $signupContainer.show();
+    $userMenuContainer.setAttribute('hidden', true);
+    renderAppHeight(false);
+    return;
+  }
+  if (currentHash === '#!login') {
+    $loginContainer.show();
+    $signupContainer.hide();
+    $userMenuContainer.setAttribute('hidden', true);
+    renderAppHeight(false);
+    return;
+  }
+
   routes.forEach(({ hash, target, isLongApp }) => {
     const $menu = $nav.querySelector(`[href='${hash}']`);
     if (currentHash === hash) {

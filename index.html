@@ -7,14 +7,22 @@
   </head>
   <body>
     <div id="app" class="">
-      <h1>🍿 자판기 🍿</h1>
-      <administrator-menu></administrator-menu>
-      <div id="menu-detail-container">
-        <product-manage-container class="menu-detail"></product-manage-container>
-        <coin-charge-container class="menu-detail" hidden></coin-charge-container>
-        <product-purchase-container class="menu-detail" hidden></product-purchase-container> 
-      </div>
-      <div id="snackbar"></div>
+      <section id="user-menu-container">
+        <h1>🍿 자판기 🍿</h1>
+        <user-manager></user-manager>
+        <administrator-menu></administrator-menu>
+        <div id="menu-detail-container">
+          <product-manage-container class="menu-detail"></product-manage-container>
+          <coin-charge-container class="menu-detail" hidden></coin-charge-container>
+          <product-purchase-container class="menu-detail" hidden></product-purchase-container>
+        </div>
+        <div id="snackbar"></div>
+      </section>  
+
+      <section id="user-manager-container">
+        <login-container hidden></login-container>
+        <signup-container hidden></signup-container>
+      </section>
     </div>
   </body>
 </html>

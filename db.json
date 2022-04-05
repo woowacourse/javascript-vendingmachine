@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "email": "asdfasdfsadasdf2@naver.com",
+      "password": "$2a$10$JYUByrmKfQWwoW9JvYKZ1uOROY/99l/.PpE.cCXpGzIo1xnAvaD8y",
+      "age": "100",
+      "id": 1
+    },
+    {
+      "email": "rladpwl@naver.com",
+      "password": "$2a$10$m4IxBVFhkRtLbj3Cy4GzleqKAFf/.lPy4g114Svt9WRzLbpq9rhLC",
+      "name": "위니",
+      "id": 2
+    },
+    {
+      "email": "rladpwl@xn--3pd",
+      "password": "$2a$10$zQcMVYV5F1mOyPhrYHa3deInZrT2jMuDWM5aO79v781cqkqsgaXq2",
+      "name": "김예지",
+      "id": 3
+    },
+    {
+      "email": "hamin@a",
+      "password": "$2a$10$SBdRL3rRJtjZdycgmt0ntuGNvpblM6Flm2zPm2D5zvtz1UVIedRhu",
+      "name": "김하민",
+      "id": 4
+    },
+    {
+      "email": "ralae@fdaf",
+      "password": "$2a$10$goGNjHr5VD9rjbosVY7ZwOEuJqJKC/YeYGjyIBBdPhm4sSoLc0uMK",
+      "name": "ss",
+      "id": 5
+    }
+  ]
+}

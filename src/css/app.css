@@ -29,6 +29,7 @@ body {
 h1 {
   text-align: center;
   margin: 44px 0 32px;
+  font-size: 34px;
 }
 
 nav {
@@ -48,9 +49,15 @@ button:hover {
   background: var(--gray-700);
 }
 
+.login-button {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+}
 .nav__product-manage-button,
 .nav__coin-charge-button,
-.nav__product-purchase-button {
+.nav__product-purchase-button,
+.login-button {
   width: 117px;
   height: 36px;
 }
