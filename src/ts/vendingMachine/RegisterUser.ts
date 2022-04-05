@@ -11,7 +11,7 @@ export type UserInfoType = {
 class RegisterUser {
   async register(userInfo: UserInfoType) {
     try {
-      const response = await fetch('http://localhost:9000/register', {
+      const response = await fetch('http://localhost:8080/register', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -19,13 +19,9 @@ class RegisterUser {
         body: JSON.stringify(userInfo),
       });
 
-      if (!response.ok) {
-        throw new Error();
-      }
-      return response.json();
+      return [response.ok, await response.json()];
     } catch (error) {
-      console.error(error.message);
-      throw new Error('서버와 통신에 실패했습니다. 개발자에게 문의해주세요.');
+      throw new Error('회원가입에 실패했습니다. 개발자에게 문의해주세요.');
     }
   }
 
