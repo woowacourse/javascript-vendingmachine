@@ -26,6 +26,7 @@ class Charge {
   handleInputAmount = (e: Event) => {
     e.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
+
     validateCharge(charge);
     showSnackbar(insertMoneyText(charge))
     this.chargeInfo.convertRandomCharge(charge);
