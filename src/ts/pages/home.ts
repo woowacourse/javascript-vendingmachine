@@ -92,8 +92,8 @@ export default class HomePage {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
-    history.pushState({}, '', basePath);
-    this.routePage(basePath);
+    history.pushState({}, '', `${basePath}/`);
+    this.routePage(`${basePath}/`);
   };
 
   #template() {
