@@ -9,9 +9,12 @@
   <body>
     <main id="app">
       <h1>🍿 자판기 🍿</h1>
-      <nav class="nav">
+      <div class="auth">
+        <div class="user-name"></div>
         <button type="button" class="login-button button" route="/javascript-vendingmachine/login">로그인</button>
-        <!-- <button type="button" class="login-button button" route="/javascript-vendingmachine/signup">회원가입</button> -->
+        <button type="button" class="signup-button button" route="/javascript-vendingmachine/signup">회원가입</button>
+      </div>
+      <nav class="nav">
         <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
           상품 관리
         </button>

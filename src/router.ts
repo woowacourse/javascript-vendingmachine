@@ -1,3 +1,4 @@
+import storage from './storage';
 import { $, $$ } from './utils';
 
 interface Router {
@@ -6,9 +7,16 @@ interface Router {
 }
 
 const nav = document.querySelector('.nav');
+const auth = document.querySelector('.auth');
 const baseURL = '/javascript-vendingmachine';
 
 nav.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
+  historyRouterPush(e.target.getAttribute('route'));
+});
+
+auth.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
+  if (e.target.tagName !== 'BUTTON') return;
+
   historyRouterPush(e.target.getAttribute('route'));
 });
 
@@ -46,3 +54,10 @@ if (window.location.pathname === '/') {
 }
 
 render(window.location.pathname);
+
+$('.signup-button').classList.add('hidden');
+$('.login-button').classList.toggle('hidden', !!localStorage.getItem('accessToken'));
+$('.user-name').classList.toggle('hidden', !localStorage.getItem('accessToken'));
+$('.user-name').textContent = storage.getLocalStorage('user')
+  ? storage.getLocalStorage('user').name.substring(0, 1)
+  : '';

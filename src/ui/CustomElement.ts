@@ -6,6 +6,7 @@ export interface Notification {
   amount: Coin;
   product?: Product;
   userAmount: number;
+  userName?: string;
 }
 
 export class CustomElement extends HTMLElement {

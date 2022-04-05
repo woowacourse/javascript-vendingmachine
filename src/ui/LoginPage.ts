@@ -1,6 +1,6 @@
-import { CustomElement } from './CustomElement';
+import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
-import { addEvent, emit } from '../utils';
+import { addEvent, emit, $ } from '../utils';
 import Authentication from '../domain/Authentication';
 import { historyRouterPush } from '../router';
 
@@ -33,6 +33,13 @@ class LoginPage extends CustomElement {
   handleSignup(e: MouseEvent & { target: HTMLAnchorElement }) {
     e.preventDefault();
     historyRouterPush('/javascript-vendingmachine/signup');
+  }
+
+  notify({ userName }: Notification) {
+    $('.signup-button').classList.add('hidden');
+    $('.login-button').classList.add('hidden');
+    $('.user-name').classList.remove('hidden');
+    $('.user-name').textContent = userName.substring(0, 1);
   }
 }
 

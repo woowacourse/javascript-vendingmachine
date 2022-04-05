@@ -2,6 +2,7 @@ import { historyRouterPush } from '../router';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
+import { Notification } from '../ui/CustomElement';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -13,8 +14,18 @@ class Authentication {
     return Authentication._instance;
   }
 
+  observers: { key: string; element: CustomElement }[] = [];
+
   subscribe(key: string, element: CustomElement) {
+    this.observers.push({ key, element });
     this[key]();
+  }
+
+  dispatch(params: any) {
+    const { key, userName } = params;
+    const targets = this.observers.filter((observer) => observer.key === key);
+
+    targets.forEach((target) => target.element.notify({ userName } as Notification));
   }
 
   subscribeSignupPage() {
@@ -71,6 +82,7 @@ class Authentication {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('user', JSON.stringify(user));
 
+        this.dispatch({ key: 'subscribeLoginPage', userName: user.name });
         historyRouterPush('/javascript-vendingmachine/');
       })
       .catch((err) => {
