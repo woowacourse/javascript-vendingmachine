@@ -21,17 +21,14 @@ class VendingMachineTab implements VendingMachineTabInterface {
 
   renderInitialTabState(): void {}
 
-  changeTabContent(contentTemplate: string, targetTabButton: HTMLElement): void {
+  changeTabContent(contentTemplate: string): void {
     this.tabContent.replaceChildren();
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
-
-    this.navTabButtonList.forEach((navTabButton: HTMLButtonElement) =>
-      navTabButton.classList.toggle(`${CLASS.SELECTED}`, targetTabButton === navTabButton)
-    );
   }
 
   changeHashUrl(hash: Hash): void {
     window.history.pushState({ hash }, null, hash);
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
   }
 }
 

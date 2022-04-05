@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType, Hash, VendingMachineInterface } from '../types';
+import { ItemInfoType } from '../types';
 import {
   generateConfirmMessage,
   generateItemManageTabContentTemplate,
@@ -9,25 +9,14 @@ import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
 
 class ItemManageTab extends VendingMachineTab {
-  itemManageTabButton: HTMLElement | null = selectDom(`#${ID.ITEM_MANAGE_TAB_BUTTON}`);
-
   itemInfoForm: HTMLElement | null = null;
 
   itemInfoInputs: NodeListOf<HTMLInputElement> | null = null;
 
   itemStatusTable: HTMLElement | null = null;
 
-  constructor(vendingMachine: VendingMachineInterface, tabHash: Hash) {
-    super(vendingMachine, tabHash);
-
-    this.itemManageTabButton?.addEventListener('click', this.onClickItemManageTabButton);
-  }
-
   renderInitialTabState(): void {
-    this.changeTabContent(
-      generateItemManageTabContentTemplate(this.vendingMachine.itemList),
-      this.itemManageTabButton
-    );
+    this.changeTabContent(generateItemManageTabContentTemplate(this.vendingMachine.itemList));
 
     this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.tabContent);
     this.itemInfoInputs = selectDoms<HTMLInputElement>(
@@ -40,17 +29,6 @@ class ItemManageTab extends VendingMachineTab {
     this.itemStatusTable.addEventListener('click', this.onClickItemStatusTableButton);
     this.itemStatusTable.addEventListener('keydown', this.onKeyDownItemInfoRow);
   }
-
-  private onClickItemManageTabButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-    const hash = targetElement.dataset.hash as Hash;
-
-    if (this.itemManageTabButton.classList.contains(`${CLASS.SELECTED}`)) {
-      return;
-    }
-    this.changeHashUrl(hash);
-    this.renderInitialTabState();
-  };
 
   private onSubmitItemInfoForm = (e: SubmitEvent): void => {
     e.preventDefault();

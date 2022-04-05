@@ -41,7 +41,14 @@ export interface VendingMachineTabInterface {
   tabHash: Hash;
   navTabButtonList: NodeList;
   tabContent: HTMLElement;
-  changeTabContent(contentTemplate: string, targetTabButton: HTMLElement): void;
+  changeTabContent(contentTemplate: string): void;
   changeHashUrl(hash: Hash): void;
   renderInitialTabState(): void;
 }
+
+export interface HeaderInterface {
+  render(hash: Hash): void;
+  changeThumbnail(): void;
+}
+
+export type EventType = number;
