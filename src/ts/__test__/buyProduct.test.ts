@@ -1,4 +1,4 @@
-import { VendingMachine } from '../../index.d';
+import { Product, VendingMachine } from '../../index.d';
 import { USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
@@ -32,6 +32,34 @@ describe('유저 투입 금액', () => {
     vendingMachine.chargeUserMoney(userInputMoney);
 
     expect(vendingMachine.totalUserInputMoney).toBe(userInputMoney);
+  });
+});
+
+describe('상품 구매', () => {
+  const productName = '얍';
+  const product: Product = { name: productName, price: 2000, quantity: 10 };
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachineImpl();
+    vendingMachine.addProduct(product);
+  });
+
+  it('상품의 가격이 2000이고 유저 투입 금액이 1000일 때, 상품을 구입할 수 없다.', () => {
+    const userInputMoney = 1000;
+    const test = () => vendingMachine.buyProduct(productName);
+
+    vendingMachine.chargeUserMoney(userInputMoney);
+
+    expect(test).toThrow('투입 금액이 모자랍니다!');
+  });
+
+  it('상품의 가격이 2000이고 유저 투입 금액이 3000일 때, 상품을 구입한 후 잔돈이 1000이여야 한다.', () => {
+    const userInputMoney = 3000;
+
+    vendingMachine.chargeUserMoney(userInputMoney);
+    vendingMachine.buyProduct(productName);
+
+    expect(vendingMachine.totalUserInputMoney).toBe(1000);
   });
 });
 
