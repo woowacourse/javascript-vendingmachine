@@ -21,6 +21,7 @@ describe('핵심 기능 플로우 테스트', () => {
 
   beforeEach(() => {
     cy.visit(baseUrl);
+    Cypress.Cookies.preserveOnce('accessToken');
   });
 
   describe('상품 구매 플로우', () => {

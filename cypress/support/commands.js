@@ -76,7 +76,8 @@ Cypress.Commands.add('login', ({ email, password }) => {
 Cypress.Commands.add('loginWithNewUser', (userData) => {
   cy.registerNewUser(userData);
 
-  cy.logout();
+  cy.get('#user-button').click();
+  cy.get('#logout-button').click();
 
   cy.login(userData);
 
@@ -84,11 +85,8 @@ Cypress.Commands.add('loginWithNewUser', (userData) => {
 });
 
 Cypress.Commands.add('logout', () => {
-  cy.window()
-    .then((win) => {
-      win.sessionStorage.clear();
-    })
-    .then((win) => win.location.reload());
+  cy.get('#user-button').click();
+  cy.get('#logout-button').click();
 });
 
 Cypress.Commands.add('updatePassword', (newPassword, newPasswordConfirm) => {

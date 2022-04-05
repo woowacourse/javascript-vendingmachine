@@ -36,27 +36,6 @@ describe('가입/비가입 사용자 라우터 테스트', () => {
 
   describe('비회원 라우터 테스트', () => {
     before(() => {
-      cy.visit(baseUrl);
-      cy.logout();
-      const userData = createRandomUserData();
-      cy.registerNewUser(userData);
-    });
-
-    describe('회원은 회원만 접속 가능한 주소에 접속할 수 있다.', () => {
-      Object.entries(userOnlyRoutes).forEach(([routeName, routeUrl]) => {
-        testRouteAccess(routeName, routeUrl);
-      });
-    });
-
-    describe('회원은 비회원만 접속 가능 주소에 접속할 수 없다.', () => {
-      Object.entries(nonUserOnlyRoutes).forEach(([routeName, routeUrl]) => {
-        testRouteDeny(routeName, routeUrl);
-      });
-    });
-  });
-
-  describe('비회원 라우터 테스트', () => {
-    before(() => {
       cy.logout();
     });
     describe('비회원은 비회원만 접속 가능한 주소에 접속할 수 있다.', () => {
@@ -67,6 +46,30 @@ describe('가입/비가입 사용자 라우터 테스트', () => {
 
     describe('비회원은 회원만 접속 가능 주소에 접속할 수 없다.', () => {
       Object.entries(userOnlyRoutes).forEach(([routeName, routeUrl]) => {
+        testRouteDeny(routeName, routeUrl);
+      });
+    });
+  });
+
+  describe('회원 라우터 테스트', () => {
+    before(() => {
+      cy.visit(baseUrl);
+      cy.logout();
+      const userData = createRandomUserData();
+      cy.registerNewUser(userData);
+    });
+    beforeEach(() => {
+      Cypress.Cookies.preserveOnce('accessToken');
+    });
+
+    describe('회원은 회원만 접속 가능한 주소에 접속할 수 있다.', () => {
+      Object.entries(userOnlyRoutes).forEach(([routeName, routeUrl]) => {
+        testRouteAccess(routeName, routeUrl);
+      });
+    });
+
+    describe('회원은 비회원만 접속 가능 주소에 접속할 수 없다.', () => {
+      Object.entries(nonUserOnlyRoutes).forEach(([routeName, routeUrl]) => {
         testRouteDeny(routeName, routeUrl);
       });
     });
