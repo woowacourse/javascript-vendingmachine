@@ -1,5 +1,5 @@
 import { Action, CustomElement, MoneyStorage } from '../../abstracts/interfaces';
-import { COIN_ACTION } from '../actions';
+import { COIN_ACTION, MONEY_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import { pickNumberInList } from '../../utils';
 
@@ -24,15 +24,31 @@ class CoinStore {
     },
   };
 
-  #subscribers: CustomElement<MoneyStorage>[] = [];
+  #customer: MoneyStorage = {
+    money: MONEY.DEFAULT,
+    coinsCount: {
+      500: COIN.DEFAULT_COUNT,
+      100: COIN.DEFAULT_COUNT,
+      50: COIN.DEFAULT_COUNT,
+      10: COIN.DEFAULT_COUNT,
+    },
+  };
 
-  subscribe(element: CustomElement<MoneyStorage>) {
-    this.#subscribers.push(element);
+  #machineSubscribers: CustomElement<MoneyStorage>[] = [];
+
+  #customerSubscribers: CustomElement<MoneyStorage>[] = [];
+
+  subscribeMachine(element: CustomElement<MoneyStorage>) {
+    this.#machineSubscribers.push(element);
+  }
+
+  subscribeCustomer(element: CustomElement<MoneyStorage>) {
+    this.#customerSubscribers.push(element);
   }
 
   dispatch(action: Action) {
     this.updateMoneyStorage(action);
-    this.notifySubscribers();
+    this.notifySubscribers(action);
   }
 
   updateMoneyStorage(action: Action) {
@@ -41,6 +57,10 @@ class CoinStore {
     switch (type) {
       case COIN_ACTION.CHARGE: {
         this.#machine = this.generateNewMachine(this.#machine, detail as number);
+        break;
+      }
+      case MONEY_ACTION.INPUT: {
+        this.#customer.money += detail as number;
       }
     }
   }
@@ -70,14 +90,26 @@ class CoinStore {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers() {
-    this.#subscribers.forEach((subscriber) => {
-      subscriber.rerender(this.#machine);
-    });
+  notifySubscribers({ type }: Action) {
+    switch (type) {
+      case COIN_ACTION.CHARGE:
+        this.#machineSubscribers.forEach((subscriber) => {
+          subscriber.rerender(this.#machine);
+        });
+        break;
+      case MONEY_ACTION.INPUT:
+        this.#customerSubscribers.forEach((subscriber) => {
+          subscriber.rerender(this.#customer);
+        });
+    }
   }
 
   get machine() {
     return this.#machine;
+  }
+
+  get customer() {
+    return this.#customer;
   }
 }
 

@@ -8,7 +8,7 @@ import { checkMachineMoneyValidation } from '../../validators';
 class CoinChargeForm extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribe(this);
+    CoinStore.instance.subscribeMachine(this);
   }
 
   template() {

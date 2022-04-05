@@ -5,7 +5,7 @@ import { $ } from '../../utils';
 class CoinCurrentSituation extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribe(this);
+    CoinStore.instance.subscribeMachine(this);
   }
 
   // eslint-disable-next-line max-lines-per-function
