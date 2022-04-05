@@ -1,6 +1,7 @@
 import { API } from '../../apis';
 import { basePath } from '../component/App';
 import { $, replaceHTML } from '../utils/dom';
+import { validateSignup } from './validator';
 
 export default class SignupPage {
   constructor(private readonly routePage) {
@@ -29,18 +30,34 @@ export default class SignupPage {
     `;
   }
 
-  signupHandler = async e => {
+  signupHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const { emailInput, nameInput, pwInput } = e.target.elements;
+    const emailInput = e.target.elements.namedItem('emailInput');
+    const pwInput = e.target.elements.namedItem('pwInput');
+    const nameInput = e.target.elements.namedItem('nameInput');
+
+    if (!(emailInput instanceof HTMLInputElement)) return;
+    if (!(pwInput instanceof HTMLInputElement)) return;
+    if (!(nameInput instanceof HTMLInputElement)) return;
+
     const response = await API.signup({
       email: emailInput.value,
       name: nameInput.value,
       password: pwInput.value,
     });
 
-    if (typeof response === 'string') return;
+    if (typeof response === 'string') {
+      alert(response);
+      return;
+    }
+
+    try {
+      validateSignup(emailInput.value, pwInput.value, nameInput.value);
+    } catch ({ message, name }) {
+      alert(message);
+    }
 
     alert(`${nameInput.value}님 회원가입에 성공했습니다.`);
 
