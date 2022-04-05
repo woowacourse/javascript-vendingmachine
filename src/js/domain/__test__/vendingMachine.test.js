@@ -235,11 +235,68 @@ describe('상품 구매 기능 테스트', () => {
   });
 });
 
-/**
- * TODO
- * [ ] 최초 반환된 각 동전의 개수는 0개이다.
- * [ ] 잔돈을 돌려줄 때는 현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다.
- * [ ] 지폐를 잔돈으로 반환하는 경우는 없다고 가정한다.
- * [ ] 잔돈을 반환할 수 없는 경우 잔돈으로 반환할 수 있는 금액만 반환한다.
- 
- */
+describe('잔돈 반환 기능 테스트', () => {
+  let vendingMachine;
+  let productId;
+  const initialProduct = { name: '콜라', price: 2500, stock: 20 };
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachine();
+    productId = vendingMachine.addProduct(initialProduct);
+  });
+
+  test('최초 반환된 각 동전의 개수는 0개이다.', () => {
+    const returnCoinStatus = vendingMachine.returnCoinStatus;
+
+    Object.values(returnCoinStatus).forEach((count) => {
+      expect(count).toBe(0);
+    });
+  });
+
+  test('잔돈을 정상적으로 반환받을 수 있다.', () => {
+    const inputMoney = 10000;
+    vendingMachine.addChange(inputMoney);
+
+    const insertMoney = 3000;
+    vendingMachine.insertMoney(insertMoney);
+
+    expect(vendingMachine.returnChange()).toBe(insertMoney);
+  });
+
+  test('상품을 구매하고, 잔돈을 정상적으로 반환받을 수 있다.', () => {
+    const inputMoney = 10000;
+    vendingMachine.addChange(inputMoney);
+
+    const insertMoney = 3000;
+    vendingMachine.insertMoney(insertMoney);
+
+    vendingMachine.purchaseProduct(productId);
+
+    const { price } = vendingMachine.productList[productId];
+    const leftMoney = insertMoney - price;
+
+    expect(vendingMachine.returnChange()).toBe(leftMoney);
+  });
+
+  test('잔돈을 모두 반환할 수 없는 경우, 잔돈으로 반환할 수 있는 금액만 반환한다.', () => {
+    const inputMoney = 5000;
+    vendingMachine.addChange(inputMoney);
+
+    const insertMoney = 10000;
+    vendingMachine.insertMoney(insertMoney);
+
+    expect(vendingMachine.returnChange()).toBe(inputMoney);
+  });
+
+  test('상품을 구매하고 잔돈을 모두 반환할 수 없는 경우, 잔돈으로 반환할 수 있는 금액만 반환한다.', () => {
+    const inputMoney = 5000;
+    vendingMachine.addChange(inputMoney);
+
+    const insertMoney = 10000;
+    vendingMachine.insertMoney(insertMoney);
+
+    vendingMachine.purchaseProduct(productId);
+
+    expect(vendingMachine.returnChange()).toBe(inputMoney);
+  });
+});
