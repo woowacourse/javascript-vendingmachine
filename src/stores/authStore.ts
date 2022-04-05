@@ -18,11 +18,14 @@ class AuthStore implements IAuthStore {
 
       const userData = JSON.stringify({ email, name, password });
 
-      const response = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: userData,
-      });
+      const response = await fetch(
+        'https://vendingmachineserver-api.herokuapp.com/users/register',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: userData,
+        },
+      );
 
       if (response.status === 400) {
         throw new Error(ERROR_MSG.FAILED_SIGN_IN);
@@ -43,7 +46,7 @@ class AuthStore implements IAuthStore {
 
       const loginData = JSON.stringify({ email, password });
 
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('https://vendingmachineserver-api.herokuapp.com/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: loginData,
@@ -72,11 +75,14 @@ class AuthStore implements IAuthStore {
 
       const editedData = JSON.stringify({ name, password });
 
-      const editResponse = await fetch(`http://localhost:3000/users/${userId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: editedData,
-      });
+      const editResponse = await fetch(
+        `https://vendingmachineserver-api.herokuapp.com/users/${userId}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: editedData,
+        },
+      );
 
       if (editResponse.status === 400) {
         throw new Error(ERROR_MSG.FAILED_EDIT_USER_INFO);
@@ -92,10 +98,13 @@ class AuthStore implements IAuthStore {
       return false;
     }
     try {
-      const response = await fetch(`http://localhost:3000/users/${userId}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await fetch(
+        `https://vendingmachineserver-api.herokuapp.com/users/${userId}`,
+        {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
 
       if (response.status === 400) {
         throw new Error(ERROR_MSG.FAILED_GET_USER_INFO);
