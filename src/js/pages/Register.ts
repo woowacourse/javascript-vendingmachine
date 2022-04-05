@@ -13,7 +13,6 @@ export default class Register {
 
   render = () => {
     this.RegisterFormComponent.render();
-    this.RegisterFormComponent.refreshComponent();
   };
 
   private stateChange = () => {

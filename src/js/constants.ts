@@ -30,7 +30,10 @@ const ERROR_MESSAGE = {
   NOT_ENOUGH_RETURN_CHANGE: '자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.',
   NOT_ENOUGH_MONEY: '투입된 금액이 부족합니다.',
   EMAIL_IS_DUPLICATED: '중복된 이메일 주소입니다.',
+  EMAIL_IS_INVALID: '올바르지 않은 이메일 주소입니다.',
   PASSWORD_IS_TOO_SHORT: '비밀번호가 너무 짧습니다.',
+  PASSWORD_IS_INVALID: '비밀번호는 6~20자 사이의 영문과 숫자, 특수문자의 조합이어야합니다.',
+  PASSWORDCHECK_IS_NOT_EQUAL: '비밀번호 확인이 다릅니다.',
 };
 
 const ALERT_MESSAGE = {
@@ -41,6 +44,7 @@ const ALERT_MESSAGE = {
   PURCHASE_PRODUCT_SUCCESS: (productName: string) => `'${productName}'를 구입하였습니다.`,
   INPUT_MONEY_SUCCESS: (money: number) => `자판기에 ${money}원을 투입하였습니다.`,
   RETURN_CHARGE_SUCCESS: '잔돈을 반환하였습니다.',
+  WAITING_STATE: '잠시만 기다려주세요.',
   REGISTER_SUCCESS: '회원가입이 완료되었습니다.',
 };
 

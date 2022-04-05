@@ -1,5 +1,7 @@
 import requestRegister from '../api/requestRegister';
+import { RegisterUser } from '../interfaces/UserData.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import { checkUserDataValidate } from '../utils/userValidation';
 
 class RegisterFormComponent {
   parentElement: HTMLElement;
@@ -31,12 +33,14 @@ class RegisterFormComponent {
       passwordCheck: (<HTMLInputElement>this.$registerForm.querySelector('#password-check-input')).value,
     };
 
-    if (await throwableFunctionHandler(() => requestRegister(userData))) {
+    if (await throwableFunctionHandler(() => this.checkValidateAndRequest(userData))) {
       this.noticeStateChanged();
     }
   };
 
-  refreshComponent = () => {};
+  private checkValidateAndRequest = (userData: RegisterUser) => {
+    return checkUserDataValidate(userData) && requestRegister(userData);
+  };
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());

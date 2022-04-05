@@ -13,6 +13,20 @@
       "name": "test",
       "passwordCheck": "test",
       "id": 2
+    },
+    {
+      "email": "testtest@t",
+      "password": "$2a$10$wERA7F2jjxeQbGS.lIM5peRt/c0z8pIVPifW8wtqJiIT2Elnx0S.S",
+      "name": "test",
+      "passwordCheck": "test",
+      "id": 3
+    },
+    {
+      "email": "test@test.tes",
+      "password": "$2a$10$iaxxGWZkfcCOEbYQuVzhReETB2eTHA8HHHl/VpxU6Zss6eXOqgzMC",
+      "name": "testte",
+      "passwordCheck": "1q2w3e!!",
+      "id": 4
     }
   ]
 }
