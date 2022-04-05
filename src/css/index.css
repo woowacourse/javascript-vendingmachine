@@ -2,6 +2,7 @@
 @import './product-manage-tab.css';
 @import './charge-tab.css';
 @import './purchase-tab.css';
+@import './auth.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
@@ -21,6 +22,9 @@ body {
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -28,6 +32,7 @@ h1 {
 }
 
 #app {
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,14 +83,30 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
-a {
+h1 a {
   text-decoration: none;
 }
 
-a:link {
+h1 a:link {
   color: var(--primary-font-color);
 }
 
-a:visited {
+h1 a:visited {
   color: var(--primary-font-color);
+}
+
+.login-button {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.user-info-button {
+  align-self: flex-end;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  color: black;
+  border: 1px solid #fff;
+  background-color: #00bcd429;
+  cursor: pointer;
 }

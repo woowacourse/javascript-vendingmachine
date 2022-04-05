@@ -1,0 +1,50 @@
+.signup-form,
+.signin-form,
+.edit-profile-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup-form label,
+.signin-form label,
+.edit-profile-form label {
+  align-self: flex-start;
+}
+
+.signup-form input,
+.signin-form input,
+.edit-profile-form input {
+  width: 280px;
+  margin-bottom: 20px;
+}
+
+.edit-profile-form input:disabled {
+  background-color: #e0e0e0;
+}
+
+.signup-form button,
+.signin-form button,
+.edit-profile-form button {
+  width: 280px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #00bcd4;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.signin-form a {
+  text-decoration: none;
+}
+
+.signin-form a:link {
+  color: #3581d7;
+}
+
+.signin-form a:visited {
+  color: #3581d7;
+}
