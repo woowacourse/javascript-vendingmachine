@@ -3,7 +3,7 @@ describe('관리자 인증 테스트', () => {
     cy.visit('dist/index.html');
   });
 
-  it('회원가입 및 로그인 테스트', () => {
+  it('회원가입을 하고 로그인을 할 수 있어야 한다.', () => {
     const email = 'test1@test1';
     const name = 'test';
     const password = 'Password1234';
@@ -12,18 +12,17 @@ describe('관리자 인증 테스트', () => {
     cy.get('nav').should('be.visible');
   });
 
-  it('로그아웃 테스트', () => {
+  it('로그인 상태에서 로그아웃 버튼을 눌렀을 때 로그아웃이 되어야한다.', () => {
     const email = 'test1@test1';
     const password = 'Password1234';
     cy.get('#login-button').click();
     cy.login(email, password);
 
-    cy.get('#manager-name-button').click();
-    cy.get('#logout').click();
+    cy.logout();
     cy.get('#login-button').should('be.visible');
   });
 
-  it('회원 정보 수정 테스트', () => {
+  it('로그인 상태에서 회원 정보를 수정할 수 있어야한다.', () => {
     const email = 'test1@test1';
     const password = 'Password1234';
     cy.get('#login-button').click();
