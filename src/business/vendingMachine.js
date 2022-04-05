@@ -3,10 +3,10 @@ import vendingMachineStore from '../stores/vendingMachineStore';
 import { VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
 
 export const addProduct = ({ name, price, quantity }) => {
-  const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
-  const product = new Product(name, price, quantity);
-
-  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, [...productList, product]);
+  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList => [
+    ...productList,
+    new Product(name, price, quantity),
+  ]);
 };
 
 export const editProduct = ({ id, name, price, quantity }) => {
@@ -20,14 +20,12 @@ export const editProduct = ({ id, name, price, quantity }) => {
 };
 
 export const deleteProduct = ({ id }) => {
-  const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
-
-  const deletedProductList = productList.filter(product => {
-    const { id: productId } = product.getProductInfo();
-    return productId !== id;
+  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList => {
+    return productList.filter(product => {
+      const { id: productId } = product.getProductInfo();
+      return productId !== id;
+    });
   });
-
-  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, deletedProductList);
 };
 
 export const rechargeCoin = ({ changeInput }) => {
@@ -49,10 +47,8 @@ export const purchaseProduct = ({ productId }) => {
   const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
 
   const productToPurchase = productList.find(product => product.getProductInfo().id === productId);
-
   const { price } = productToPurchase.getProductInfo();
 
-  // 객체 데이터가 직접 변경된다.
   productToPurchase.purchaseProduct(moneyInput);
 
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList);
@@ -68,10 +64,10 @@ export const returnCoin = () => {
 
   returnCoinWallet.setCoinWalletInfo(returnCoinInfo);
 
-  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN, returnCoinWallet);
   vendingMachineStore.setState(
     VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE,
     moneyInput - returnCoinWallet.computeCoinTotalAmount(),
   );
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, coinWallet);
+  vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN, returnCoinWallet);
 };
