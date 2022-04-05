@@ -57,14 +57,25 @@ export default class BuyProduct implements DomainView {
       const userInputMoney = Number((this.$buyPriceInput as HTMLInputElement).value);
 
       this.vendingMachine.chargeUserMoney(userInputMoney);
-      this.$totalBuyPrice.innerText = String(this.vendingMachine.totalUserInputMoney);
+      this.renderTotalBuyPrice();
     } catch ({ message }) {
       alert(message);
     }
   }
 
   private handleClickBuyButton(e: Event): void {
-    const productName = (e.target as HTMLElement).dataset.name as unknown as ProductName;
+    try {
+      const productName = (e.target as HTMLElement).dataset.name as unknown as ProductName;
 
+      this.vendingMachine.buyProduct(productName);
+      this.render();
+      this.renderTotalBuyPrice();
+    } catch ({ message }) {
+      alert(message);
+    }
+  }
+
+  private renderTotalBuyPrice(): void {
+    this.$totalBuyPrice.innerText = String(this.vendingMachine.totalUserInputMoney);
   }
 }
