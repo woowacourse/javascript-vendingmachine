@@ -43,13 +43,13 @@ class RegisterPage extends Component {
 
   private feedbacks = { ...this.initialFeedbacks };
 
-  fieldsetTemplate({ label, name, placeholder, feedback, type }: FieldSet) {
+  fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
         <label for="${name}">${label}</label>
         <input id="${name}" type="${type}" name="${name}" placeholder="${placeholder}" value="${
       feedback.inputValue
-    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" />
+    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" ${disabled ? 'disabled' : ''} />
         ${feedback.hasError ? `<div class="error-message">${feedback.errorMessage}</div>` : ''}
       </fieldset>
     `;
@@ -67,6 +67,7 @@ class RegisterPage extends Component {
           placeholder: '이메일 주소를 입력해주세요',
           feedback: feedbacks.email,
           type: 'text',
+          disabled: false,
         })}
         ${this.fieldsetTemplate({
           label: '이름',
@@ -74,6 +75,7 @@ class RegisterPage extends Component {
           placeholder: '이름을 입력해 주세요',
           feedback: feedbacks.name,
           type: 'text',
+          disabled: false,
         })}
         ${this.fieldsetTemplate({
           label: '비밀번호',
@@ -81,6 +83,7 @@ class RegisterPage extends Component {
           placeholder: '비밀번호를 입력해 주세요',
           feedback: feedbacks.password,
           type: 'password',
+          disabled: false,
         })}
         ${this.fieldsetTemplate({
           label: '비밀번호 확인',
@@ -88,6 +91,7 @@ class RegisterPage extends Component {
           placeholder: '비밀번호를 입력해 주세요',
           feedback: feedbacks.repassword,
           type: 'password',
+          disabled: false,
         })}
         <button type="button" class="btn btn-primary full">확인</button>
       </form>

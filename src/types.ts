@@ -70,4 +70,5 @@ export type FieldSet = {
   placeholder: string;
   feedback: Feedback;
   type: 'text' | 'password';
+  disabled: boolean;
 };

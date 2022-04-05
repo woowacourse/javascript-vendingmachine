@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { ACCESS_TOKEN_KEY, API_URL } from '../constants';
+import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { FieldSet, Feedback, UserInfo } from '../types';
 import { validateLoginEmail, validateLoginPassword } from '../validation/validators';
@@ -25,13 +25,13 @@ class LoginPage extends Component {
 
   private feedbacks = { ...this.initialFeedbacks };
 
-  fieldsetTemplate({ label, name, placeholder, feedback, type }: FieldSet) {
+  fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
         <label for="${name}">${label}</label>
         <input id="${name}" type="${type}" name="${name}" placeholder="${placeholder}" value="${
       feedback.inputValue
-    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" />
+    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" ${disabled ? 'disabled' : ''} />
         ${feedback.hasError ? `<div class="error-message">${feedback.errorMessage}</div>` : ''}
       </fieldset>
     `;
@@ -49,6 +49,7 @@ class LoginPage extends Component {
           placeholder: 'woowacourse@gmail.com',
           feedback: feedbacks.email,
           type: 'text',
+          disabled: false,
         })}
         ${this.fieldsetTemplate({
           label: '비밀번호',
@@ -56,6 +57,7 @@ class LoginPage extends Component {
           placeholder: '비밀번호를 입력해주세요',
           feedback: feedbacks.password,
           type: 'password',
+          disabled: false,
         })}
         <button type="button" class="btn btn-primary full">확인</button>
       </form>
@@ -99,12 +101,11 @@ class LoginPage extends Component {
     })
       .then((response) => response.json())
       .then((body) => {
-        const { accessToken, user, errorMessage } = body;
+        const { accessToken, errorMessage } = body;
         if (errorMessage) {
           alert(errorMessage);
           return;
         }
-        console.log(accessToken, user);
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
         alert('로그인 성공');
         location.href = `${location.origin}`;
