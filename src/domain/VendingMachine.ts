@@ -93,7 +93,7 @@ class VendingMachine implements VendingMachineProperty {
       this.dispatch('subscribePurchaseTab', 'update-product', newProduct);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -107,7 +107,7 @@ class VendingMachine implements VendingMachineProperty {
       this.dispatch('subscribePurchaseTab', 'update-product', target);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -128,7 +128,7 @@ class VendingMachine implements VendingMachineProperty {
       storage.setLocalStorage('amount', this.amount.counter);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -139,7 +139,7 @@ class VendingMachine implements VendingMachineProperty {
       this.userAmount += userInputMoney;
       this.dispatch('subscribePurchaseTab', 'update-amount');
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -160,7 +160,7 @@ class VendingMachine implements VendingMachineProperty {
 
       storage.setLocalStorage('products', this.products);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -178,7 +178,7 @@ class VendingMachine implements VendingMachineProperty {
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
       storage.setLocalStorage('amount', this.amount.counter);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 }
