@@ -13,6 +13,11 @@ export default abstract class Store {
     this.subscribers.push(subscriber);
   }
 
+  public removeSubscriber(subscriber: IRenderMethod): void {
+    const subscriberIndex: number = this.subscribers.indexOf(subscriber);
+    this.subscribers.splice(subscriberIndex, 1);
+  }
+
   public setState(newState: IState) {
     const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
 
