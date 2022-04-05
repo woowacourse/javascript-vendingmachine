@@ -56,7 +56,7 @@ export default class VendingMachineImpl implements VendingMachine {
 
     const product = this.productCollection.products[productIndex];
 
-    if (product.price > this.totalUserInputMoney) throw new Error('투입 금액이 모자랍니다!');
+    if (product.price > this.totalUserInputMoney) throw new Error(ERROR_MESSAGE.LOCK_OF_USER_INPUT_MONEY);
 
     product.quantity -= 1;
     this.totalUserInputMoney -= product.price;

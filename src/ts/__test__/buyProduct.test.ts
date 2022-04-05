@@ -50,7 +50,7 @@ describe('상품 구매', () => {
 
     vendingMachine.chargeUserMoney(userInputMoney);
 
-    expect(test).toThrow('투입 금액이 모자랍니다!');
+    expect(test).toThrow(ERROR_MESSAGE.LOCK_OF_USER_INPUT_MONEY);
   });
 
   it('상품의 가격이 2000이고 유저 투입 금액이 3000일 때, 상품을 구입한 후 잔돈이 1000이여야 한다.', () => {

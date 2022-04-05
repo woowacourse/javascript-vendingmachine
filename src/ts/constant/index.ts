@@ -32,6 +32,7 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원 입니다!`,
   INDIVISIBLE_USER_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${USER_INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
   EXCEED_MAX_USER_INPUT_MONEY: `최대 ${USER_INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원까지 투입 가능합니다!`,
+  LOCK_OF_USER_INPUT_MONEY: '투입 금액이 모자랍니다!',
 };
 
 export const CONFIRM_DELETE_PRODUCT_MESSAGE = '정말 삭제하시겠습니까?';
