@@ -12,6 +12,7 @@ const passwordInput = $('#password-input');
 const passwordCheckInput = $('#password-check');
 
 emailInput.value = user.email;
+nameInput.value = user.name;
 
 signUpForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -22,7 +23,7 @@ signUpForm.addEventListener('submit', async (e) => {
 
   try {
     validPassword(passwordValue, passwordCheckValue);
-    const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+    const response = await fetch(`https://json-web-server-ronci.herokuapp.com/users/${user.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
         name: nameValue,

@@ -12,7 +12,7 @@ loginForm.addEventListener('submit', async (e) => {
   const loginEmailValue = emailInput.value;
   const loginPasswordValue = passwordInput.value;
 
-  const response = await fetch('http://localhost:3000/login', {
+  const response = await fetch('https://json-web-server-ronci.herokuapp.com/login', {
     method: 'POST',
     body: JSON.stringify({
       email: loginEmailValue,

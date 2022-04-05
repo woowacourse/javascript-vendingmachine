@@ -19,7 +19,7 @@ signUpForm.addEventListener('submit', async (e) => {
 
   try {
     validPassword(passwordValue, passwordCheckValue);
-    const response = await fetch('http://localhost:3000/register', {
+    const response = await fetch('https://json-web-server-ronci.herokuapp.com/register', {
       method: 'POST',
       body: JSON.stringify({
         name: nameValue,
