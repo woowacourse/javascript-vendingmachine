@@ -1,4 +1,3 @@
-import { generateRandomHexString } from '../utils';
 import { createMainElement, selectDom } from '../utils/dom';
 import { productPurcaseTableRow, purchaseTemplate } from './template';
 
@@ -61,8 +60,16 @@ export default class PurchaseProductTab {
     if (!e.target.classList.contains('purchase-product-button')) {
       return;
     }
-    console.log(generateRandomHexString());
-    console.log(e.target.dataset.productId);
+    const { productId } = e.target.dataset;
+    try {
+      this.#machine.sellProduct(productId);
+    } catch (err) {
+      alert(err.message);
+      return;
+    }
+    selectDom('.product-stock', e.target.closest('tr')).textContent =
+      this.#machine.productList[productId].stock;
+    this.#renderTotalMoney();
   };
 
   get tabElements() {

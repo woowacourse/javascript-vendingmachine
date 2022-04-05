@@ -70,6 +70,7 @@ export default class VendingMachine {
     }
     if (this.#validateProduct(productId)) {
       this.#productList[productId].sell();
+      this.#totalMoney -= this.#productList[productId].price;
     }
   }
 
