@@ -19,3 +19,6 @@ export const generateTabHeaderTemplate = (hash: Hash): string => `
     }" type="button" data-hash="#item-purchase">상품 구매</button>
   </nav>
 `;
+
+export const generateLoginHeaderTemplate = (): string =>
+  `<h1 class="authentication-header-title">로그인</h1>`;

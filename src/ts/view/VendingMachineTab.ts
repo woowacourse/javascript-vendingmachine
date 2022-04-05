@@ -1,29 +1,24 @@
 import { VendingMachineInterface, Hash, VendingMachineTabInterface } from '../types';
-import { selectDom, selectDoms } from '../utils';
-import { ID, CLASS } from '../constant/selector';
+import { selectDom } from '../utils';
+import { ID } from '../constant/selector';
 
 class VendingMachineTab implements VendingMachineTabInterface {
   vendingMachine: VendingMachineInterface;
 
   tabHash: Hash;
 
-  navTabButtonList: NodeList;
-
-  tabContent: HTMLElement;
+  content: HTMLElement | null = selectDom(`#${ID.CONTENT}`);
 
   constructor(vendingMachine: VendingMachineInterface, tabHash: Hash) {
     this.vendingMachine = vendingMachine;
     this.tabHash = tabHash;
-
-    this.navTabButtonList = selectDoms(`.${CLASS.NAV_TAB_BUTTON}`);
-    this.tabContent = selectDom(`#${ID.TAB_CONTENT}`);
   }
 
   render(): void {}
 
   changeTabContent(contentTemplate: string): void {
-    this.tabContent.replaceChildren();
-    this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
+    this.content.replaceChildren();
+    this.content.insertAdjacentHTML('afterbegin', contentTemplate);
   }
 
   changeHashUrl(hash: Hash): void {

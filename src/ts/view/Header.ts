@@ -1,5 +1,5 @@
 import { Hash, HeaderInterface } from '../types';
-import { generateTabHeaderTemplate } from '../template/headerTemplate';
+import { generateTabHeaderTemplate, generateLoginHeaderTemplate } from '../template/headerTemplate';
 import { selectDom, selectDoms } from '../utils';
 import { CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
@@ -41,12 +41,20 @@ class Header implements HeaderInterface {
       this.previousHash = hash;
       return;
     }
+
+    if (hash === HASH.LOGIN) {
+      this.header.replaceChildren();
+      this.header.insertAdjacentHTML('afterbegin', generateLoginHeaderTemplate());
+    }
+
+    this.previousHash = hash;
   }
 
   changeThumbnail(): void {}
 
   private renderTabHeader(hash: Hash): void {
-    this.header.innerHTML = generateTabHeaderTemplate(hash);
+    this.header.replaceChildren();
+    this.header.insertAdjacentHTML('afterbegin', generateTabHeaderTemplate(hash));
   }
 
   private bindTabHeaderEvent(): void {
@@ -59,7 +67,7 @@ class Header implements HeaderInterface {
   }
 
   private onClickLoginButton = () => {
-    // TODO: 로그인 페이지로 이동
+    this.changeHashUrl(HASH.LOGIN);
   };
 
   private onClickTabButton = ({ target }: MouseEvent): void => {

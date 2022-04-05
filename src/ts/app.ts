@@ -2,12 +2,14 @@ import Header from './view/Header';
 import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
+import Login from './view/Login';
 import VendingMachine from './domain/VendingMachine';
 import {
   VendingMachineInterface,
   Hash,
   VendingMachineTabInterface,
   HeaderInterface,
+  ViewInterface,
 } from './types';
 import HASH from './constant/hash';
 
@@ -31,10 +33,13 @@ class App {
     HASH.ITEM_PURCHASE
   );
 
-  private tabs: VendingMachineTabInterface[] = [
+  private loginView: ViewInterface = new Login(HASH.LOGIN);
+
+  private views: ViewInterface[] = [
     this.itemManageTab,
     this.coinRechargeTab,
     this.itemPurchaseTab,
+    this.loginView,
   ];
 
   render() {
@@ -47,9 +52,9 @@ class App {
       return;
     }
 
-    this.tabs.forEach((tab) => {
-      if (currentHash === tab.tabHash) {
-        tab.render();
+    this.views.forEach((view) => {
+      if (currentHash === view.tabHash) {
+        view.render();
       }
     });
   }

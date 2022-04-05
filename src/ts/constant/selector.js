@@ -1,5 +1,5 @@
 export const ID = {
-  TAB_CONTENT: 'tab-content',
+  CONTENT: 'content',
   ITEM_MANAGE_TAB_BUTTON: 'item-manage-tab-button',
   COIN_RECHARGE_TAB_BUTTON: 'coin-recharge-tab-button',
   ITEM_PURCHASE_TAB_BUTTON: 'item-purchase-tab-button',

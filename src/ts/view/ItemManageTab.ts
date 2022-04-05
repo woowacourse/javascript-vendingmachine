@@ -18,12 +18,12 @@ class ItemManageTab extends VendingMachineTab {
   render(): void {
     this.changeTabContent(generateItemManageTabContentTemplate(this.vendingMachine.itemList));
 
-    this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.tabContent);
+    this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.content);
     this.itemInfoInputs = selectDoms<HTMLInputElement>(
       `.${CLASS.ITEM_INFO_INPUT}`,
       this.itemInfoForm
     );
-    this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`, this.tabContent);
+    this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`, this.content);
 
     this.itemInfoForm.addEventListener('submit', this.onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.onClickItemStatusTableButton);

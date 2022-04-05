@@ -36,14 +36,14 @@ export interface VendingMachineInterface {
 
 export type Hash = '' | '#item-manage' | '#coin-recharge' | '#item-purchase' | '#login';
 
-export interface VendingMachineTabInterface {
-  vendingMachine: VendingMachineInterface;
+export interface ViewInterface {
   tabHash: Hash;
-  navTabButtonList: NodeList;
-  tabContent: HTMLElement;
+  render(): void;
+}
+export interface VendingMachineTabInterface extends ViewInterface {
+  vendingMachine: VendingMachineInterface;
   changeTabContent(contentTemplate: string): void;
   changeHashUrl(hash: Hash): void;
-  render(): void;
 }
 
 export interface HeaderInterface {

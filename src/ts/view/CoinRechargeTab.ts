@@ -20,10 +20,10 @@ class CoinRechargeTab extends VendingMachineTab {
       generateCoinRechargeTabContentTemplate(totalCoinAmount, this.vendingMachine.coinCollection)
     );
 
-    this.cashChargeForm = selectDom(`#${ID.CASH_CHARGE_FORM}`, this.tabContent);
+    this.cashChargeForm = selectDom(`#${ID.CASH_CHARGE_FORM}`, this.content);
     this.cashChargeInput = selectDom(`.${CLASS.CASH_CHARGE_INPUT}`, this.cashChargeForm);
-    this.chargedAmountText = selectDom(`#${ID.CHARGED_AMOUNT}`, this.tabContent);
-    this.coinCountList = selectDoms(`.${CLASS.COIN_COUNT}`, this.tabContent);
+    this.chargedAmountText = selectDom(`#${ID.CHARGED_AMOUNT}`, this.content);
+    this.coinCountList = selectDoms(`.${CLASS.COIN_COUNT}`, this.content);
 
     this.cashChargeForm.addEventListener('submit', this.onSubmitCashChargeForm);
   }

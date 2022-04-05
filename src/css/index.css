@@ -6,6 +6,7 @@
 @import './itemManageTab.css';
 @import './coinRechargeTab.css';
 @import './itemPurchaseTab.css';
+@import './authentication.css';
 
 * {
   margin: 0;
