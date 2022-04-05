@@ -28,3 +28,10 @@ export const PURCHASE_ERROR_MESSAGE = {
   CANNOT_GIVE_BACK_CHANGE_ALL: '일부만 반환되었습니다. 자판기 관리자에게 문의해주세요.',
   GIVE_BACK_CHANGE_SUCCESS: '모두 반환되었습니다.',
 };
+
+export const REGISTER_ERROR_MESSAGE = {
+  EXCEED_NAME_RANGE: '이름은 2 ~ 4 글자로 입력해주세요.',
+  VIOLATE_PASSWORD_RULE:
+    '비밀번호는 8글자 이상, 20글자 이하이고, 숫자 영문 특수기호가 최소 한 글자 이상 포함되어야 합니다.',
+  NO_MATCH_PASSWORD_CONFIRM: '비밀번호와 비밀번호 확인이 일치하지 않습니다. 다시 입력해주세요.',
+};

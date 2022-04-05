@@ -23,3 +23,9 @@ export const MONEY = {
   MAX: 10000,
   UNIT: 10,
 };
+
+export const REGISTER = {
+  NAME_MIN_LENGTH: 2,
+  NAME_MAX_LENGTH: 6,
+  PASSWORD_RULE: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+};
