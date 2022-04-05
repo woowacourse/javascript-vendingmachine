@@ -30,6 +30,10 @@ nav {
   margin-bottom: 52px;
 }
 
+a {
+  text-decoration: none;
+}
+
 button {
   cursor: pointer;
   border-radius: 4px;

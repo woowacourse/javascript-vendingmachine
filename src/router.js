@@ -1,32 +1,31 @@
 import { $ } from './utils';
-import { BASE_URL } from './constants';
 
 const targets = [
   {
-    route: `${BASE_URL}/`,
+    hash: '#!product-manage',
     $button: $('.nav__product-manage-button'),
     $container: $('product-manage-container'),
     $focusInput: $('.product-name-input'),
   },
   {
-    route: `${BASE_URL}/coin-charge/`,
+    hash: '#!coin-charge',
     $button: $('.nav__coin-charge-button'),
     $container: $('coin-charge-container'),
     $focusInput: $('#machine-money-input'),
   },
   {
-    route: `${BASE_URL}/product-purchase/`,
+    hash: '#!product-purchase',
     $button: $('.nav__product-purchase-button'),
     $container: $('product-purchase-container'),
     $focusInput: $('#customer-money-input'),
   },
 ];
 
-const findTarget = (route) => {
-  return targets.find((target) => target.route === route);
+const findTarget = (hash) => {
+  return targets.find((target) => target.hash === hash);
 };
 
-const render = (currentTarget, prevTarget) => {
+const renderTargets = (currentTarget, prevTarget) => {
   currentTarget.$button.classList.add('clicked');
   currentTarget.$container.classList.add('container');
   currentTarget.$container.show();
@@ -39,30 +38,14 @@ const render = (currentTarget, prevTarget) => {
   prevTarget.$container.hide();
 };
 
-const handleAdministratorMenuClick = (event) => {
-  if (event.target.classList.contains('clicked')) return;
+window.location.hash = '#!product-purchase';
 
-  const currentRoute = event.target.getAttribute('route');
-  const currentTarget = findTarget(currentRoute);
-  const prevRoute = window.location.pathname;
-  const prevTarget = findTarget(prevRoute);
+window.onhashchange = (event) => {
+  const currentHash = window.location.hash;
+  const currentTarget = findTarget(currentHash);
 
-  if (!window.history.state) {
-    window.history.pushState({ prevRoute: currentRoute }, null, prevRoute);
-  }
+  const prevHash = event.oldURL.replace(`${window.location.origin}/`, '');
+  const prevTarget = findTarget(prevHash);
 
-  window.history.pushState({ prevRoute }, null, currentRoute);
-
-  render(currentTarget, prevTarget);
+  renderTargets(currentTarget, prevTarget);
 };
-
-render(findTarget(window.location.pathname));
-
-$('nav', $('administrator-menu')).addEventListener('click', handleAdministratorMenuClick);
-
-window.addEventListener('popstate', (event) => {
-  const currentTarget = findTarget(window.location.pathname);
-  const prevTarget = findTarget(event.state.prevRoute);
-
-  render(currentTarget, prevTarget);
-});
