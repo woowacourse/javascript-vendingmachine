@@ -15,3 +15,12 @@ export const CASH_ERROR_MESSAGE = {
   EXCEED_TOTAL_AMOUNT_RANGE: '보유할 수 있는 최소 금액은 0원, 최대 금액은 100,000원입니다.',
   NOT_DIVIDED_BY_UNIT: '잔돈은 10원으로 나누어 떨어져야 합니다.',
 };
+
+export const AUTHENTICATION_MESSAGE = {
+  NOT_EMAIL_FORMAT: '이메일 형식에 맞지 않습니다.',
+  EXCEED_NAME_LENGTH_RANGE: '이름은 2글자 이상 6글자 이하로 작성해 주세요.',
+  EXCEED_PASSWORD_LENGTH_RANGE: '비밀번호는 8글자 이상 16글자 이하로 작성해 주세요.',
+  NOT_PASSWORD_FORMAT: `비밀번호 형식에 맞지 않습니다.\n비밀번호는 비밀번호는 영문, 숫자, 특수문자(! # $ % & ( ) * + , - . / : ; < = > ? @)의 조합으로 작성해주세요`,
+  DIFFERENT_VERIFICATION_PASSWORD:
+    '비밀번호와 비밀번호 확인이 일치하지 않습니다.\n비밀번호 확인을 다시 입력해주세요.',
+};

@@ -8,7 +8,14 @@ export type ItemInputValidationInfo = {
   itemIndex?: number;
 };
 
-export type ValidationInfo = ItemInputValidationInfo | number;
+export type AuthenticationInfo = {
+  email: string;
+  name?: string;
+  password: string;
+  verificationPassword?: string;
+};
+
+export type ValidationInfo = ItemInputValidationInfo | AuthenticationInfo | number;
 
 export interface TestCase {
   testCase: Function;
@@ -32,6 +39,10 @@ export interface VendingMachineInterface {
     itemIndex?: number | null
   ) => void;
   validateCashInput: (rechargeCash: number) => void;
+}
+
+export interface UserStoreInterface {
+  validateRegisterInput: (registerInfo: AuthenticationInfo) => void;
 }
 
 export type Hash =

@@ -6,6 +6,7 @@ export const ID = {
   ITEM_INFO_FORM: 'item-info-form',
   CASH_CHARGE_FORM: 'cash-charge-form',
   CHARGED_AMOUNT: 'charged-amount',
+  REGISTER_FORM: 'register-form',
 };
 
 export const CLASS = {
@@ -21,4 +22,5 @@ export const CLASS = {
   CONFIRM_ITEM_BUTTON: 'confirm-item-button',
   CASH_CHARGE_INPUT: 'cash-charge-input',
   COIN_COUNT: 'coin-count',
+  AUTHENTICATION_INPUT: 'authentication-input',
 };

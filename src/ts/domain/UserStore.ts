@@ -1,0 +1,104 @@
+import { AuthenticationInfo, TestCase, ValidationInfo, UserStoreInterface } from '../types';
+import { AUTHENTICATION_MESSAGE } from '../constant/errorMessage';
+import { AUTHENTICATION_INFO } from '../constant/rule';
+
+class UserStore implements UserStoreInterface {
+  private registerInputTestCases: TestCase[] = [
+    {
+      testCase: this.isNotEmailFormat,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT,
+    },
+    {
+      testCase: this.isInvalidNameLength,
+      errorMessage: AUTHENTICATION_MESSAGE.EXCEED_NAME_LENGTH_RANGE,
+    },
+    {
+      testCase: this.isInvalidPasswordLength,
+      errorMessage: AUTHENTICATION_MESSAGE.EXCEED_PASSWORD_LENGTH_RANGE,
+    },
+    {
+      testCase: this.isNotExistNumberInPassword,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+    },
+    {
+      testCase: this.isNotExistAlphabetInPassword,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+    },
+    {
+      testCase: this.isNotExistSpecialCharacterInPassword,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+    },
+    {
+      testCase: this.isExistOtherCharacterInPassword,
+      errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+    },
+    {
+      testCase: this.isDifferentVerificationPassword,
+      errorMessage: AUTHENTICATION_MESSAGE.DIFFERENT_VERIFICATION_PASSWORD,
+    },
+  ];
+
+  validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
+    testCases.every(({ testCase, errorMessage }) => {
+      if (testCase(validationInfo)) throw new Error(errorMessage);
+      return true;
+    });
+  }
+
+  validateRegisterInput(registerInfo: AuthenticationInfo): void {
+    this.validateTestCase(this.registerInputTestCases, registerInfo);
+  }
+
+  private isNotEmailFormat({ email }: AuthenticationInfo): boolean {
+    const emailRegex = /[0-9a-zA-Z]+@([0-9a-zA-Z]+)(.[0-9a-zA-Z]+){1,2}$/;
+
+    return !emailRegex.test(email);
+  }
+
+  private isInvalidNameLength({ name }: AuthenticationInfo): boolean {
+    return (
+      name.length < AUTHENTICATION_INFO.MIN_NAME_LENGTH ||
+      name.length > AUTHENTICATION_INFO.MAX_NAME_LENGTH
+    );
+  }
+
+  private isInvalidPasswordLength({ password }: AuthenticationInfo): boolean {
+    return (
+      password.length < AUTHENTICATION_INFO.MIN_PASSWORD_LENGTH ||
+      password.length > AUTHENTICATION_INFO.MAX_PASSWORD_LENGTH
+    );
+  }
+
+  private isNotExistNumberInPassword({ password }: AuthenticationInfo): boolean {
+    const numberRegex = /[0-9]/;
+
+    return !numberRegex.test(password);
+  }
+
+  private isNotExistAlphabetInPassword({ password }: AuthenticationInfo): boolean {
+    const alphabetRegex = /[a-zA-Z]/;
+
+    return !alphabetRegex.test(password);
+  }
+
+  private isNotExistSpecialCharacterInPassword({ password }: AuthenticationInfo): boolean {
+    const specialCharactersRegex = /[!#$%&()*+,-./:;<=>?@]/;
+
+    return !specialCharactersRegex.test(password);
+  }
+
+  private isExistOtherCharacterInPassword({ password }: AuthenticationInfo): boolean {
+    const otherCharacterRegex = /[^0-9a-zA-Z!#$%&()*+,-./:;<=>?@]/;
+
+    return otherCharacterRegex.test(password);
+  }
+
+  private isDifferentVerificationPassword({
+    password,
+    verificationPassword,
+  }: AuthenticationInfo): boolean {
+    return password !== verificationPassword;
+  }
+}
+
+export default UserStore;

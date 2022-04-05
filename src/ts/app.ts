@@ -3,19 +3,23 @@ import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
 import Login from './view/Login';
-import Register from './view/Register';
+import RegisterView from './view/RegisterView';
 import VendingMachine from './domain/VendingMachine';
+import UserStore from './domain/UserStore';
 import {
   VendingMachineInterface,
   Hash,
   VendingMachineTabInterface,
   HeaderInterface,
   ViewInterface,
+  UserStoreInterface,
 } from './types';
 import HASH from './constant/hash';
 
 class App {
   private vendingMachine: VendingMachineInterface = new VendingMachine();
+
+  private userStore: UserStoreInterface = new UserStore();
 
   private header: HeaderInterface = new Header();
 
@@ -36,7 +40,7 @@ class App {
 
   private loginView: ViewInterface = new Login(HASH.LOGIN);
 
-  private registerView: ViewInterface = new Register(HASH.REGISTER);
+  private registerView: ViewInterface = new RegisterView(this.userStore, HASH.REGISTER);
 
   private views: ViewInterface[] = [
     this.itemManageTab,
