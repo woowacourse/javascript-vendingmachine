@@ -1,10 +1,11 @@
 import Component from '../abstract/component';
+import RouteComponent from '../abstract/route-component';
 import { customElement } from '../decorators/decortators';
 import { LoggedInUser, WhiteList } from '../types';
 import { getUserInfoFromLocalStorage } from '../utils';
 
 @customElement('vendingmachine-page')
-class VendingMachinePage extends Component {
+class VendingMachinePage extends RouteComponent {
   template(userInfo?: LoggedInUser): string {
     if (userInfo) {
       return `

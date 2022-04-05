@@ -1,4 +1,4 @@
-import Component from '../abstract/component';
+import RouteComponent from '../abstract/route-component';
 import { API_URL } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { UserInfo, Feedback, FieldSet } from '../types';
@@ -17,7 +17,7 @@ type FeedbackRecord = {
 };
 
 @customElement('register-page')
-class RegisterPage extends Component {
+class RegisterPage extends RouteComponent {
   private initialFeedbacks: FeedbackRecord = {
     email: {
       inputValue: '',

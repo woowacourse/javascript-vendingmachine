@@ -8,7 +8,6 @@ export type Action = {
 };
 
 export type AppState = {
-  currentPath: string;
   chargedMoney: number;
   chargedCoins: CoinRecord;
   productList: Array<ProductItem>;

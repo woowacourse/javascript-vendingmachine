@@ -1,6 +1,5 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
 import Router from '../router';
 import { EventOnElement, WhiteList } from '../types';
 
@@ -36,7 +35,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const { currentPath } = Store.instance.getState();
+    const currentPath = Router.instance.getCurrentPath();
     this.innerHTML = this.template(currentPath);
   }
 }

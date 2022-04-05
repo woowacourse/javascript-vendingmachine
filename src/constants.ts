@@ -50,14 +50,12 @@ export const ACTION = {
   DELETE_PRODUCT: 'delete-product',
   CHANGE_EDIT_MODE: 'change-edit-mode',
   CHARGE_COINS: 'charge-coins',
-  CHANGE_CURRENT_PATH: 'change-current-path',
   INSERT_MONEY: 'insert-money',
   PURCHASE_PRODUCT: 'purchase-product',
   RELEASE_COIN: 'release-coin',
 };
 
 export const initialState: AppState = {
-  currentPath: '/vending-machine',
   chargedMoney: 0,
   chargedCoins: {
     500: 0,

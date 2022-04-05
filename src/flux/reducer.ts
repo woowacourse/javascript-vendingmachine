@@ -57,10 +57,6 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.chargedMoney += payload;
       break;
     }
-    case ACTION.CHANGE_CURRENT_PATH: {
-      newState.currentPath = payload;
-      break;
-    }
     case ACTION.INSERT_MONEY: {
       newState.insertedMoney += payload;
       break;

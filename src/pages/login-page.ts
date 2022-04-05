@@ -1,4 +1,5 @@
 import Component from '../abstract/component';
+import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { FieldSet, Feedback, UserInfo } from '../types';
@@ -9,7 +10,7 @@ type FeedbackRecord = {
   password: Feedback;
 };
 @customElement('login-page')
-class LoginPage extends Component {
+class LoginPage extends RouteComponent {
   private initialFeedbacks: FeedbackRecord = {
     email: {
       inputValue: '',

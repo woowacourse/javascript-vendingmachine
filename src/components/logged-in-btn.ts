@@ -9,7 +9,6 @@ class LoggedInBtn extends Component {
   constructor() {
     super();
     this.userName = this.dataset.userName as string;
-    console.log(this.userName);
   }
 
   template(userName: string): string {
