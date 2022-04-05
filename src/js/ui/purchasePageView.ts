@@ -3,7 +3,6 @@ import { $, createElement } from "../util/dom";
 import purchaseTemplate from "../template/purchase.template";
 import { ISingleProduct } from "../interface/product.interface";
 import { TCoin } from "../interface/vendingMachine.interface";
-import productTemplate from "../template/product.template";
 import { EVENT_TYPE } from "../constant";
 
 class PurchasePageView {
@@ -52,6 +51,7 @@ class PurchasePageView {
       "button",
       {
         id: "returned-changes",
+        class: "process-button",
       },
       "반환하기"
     );
@@ -74,7 +74,14 @@ class PurchasePageView {
 
   bindEvent() {
     on(this.$formContainer, "submit", this.moneySubmitHandler);
+    on(this.$productList, "click", this.purchaseHandler);
   }
+
+  purchaseHandler = (e: Event): void => {
+    const target = e.target as HTMLElement;
+    const productId = target.closest("tr").dataset.id;
+    emit<any>(EVENT_TYPE.PURCHASE, { id: productId });
+  };
 
   moneySubmitHandler = (e: Event): void => {
     e.preventDefault();

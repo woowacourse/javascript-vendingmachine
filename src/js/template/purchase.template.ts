@@ -34,8 +34,7 @@ const purchaseTemplate = {
   <td>${price}</td>
   <td>${count}</td>
   <td>
-    <button class="edit-button process-button">수정</button>
-    <button class="delete-button process-button">삭제</button>
+    <button class="purchase-button process-button">구매</button>
   </td>
 </tr>
   `,

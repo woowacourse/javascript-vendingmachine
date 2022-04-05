@@ -26,6 +26,7 @@ export enum EVENT_TYPE {
   EDIT = "@edit-product",
   INPUT = "@input-money",
   RETURN = "@return-changes",
+  PURCHASE = "@purchase-product",
 }
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?" as const;
