@@ -5,6 +5,7 @@ import { Product } from './Product';
 
 interface ProductCatalogInterface {
   getProductList(): Product[];
+  setProductList(productList: Product[]);
   addProduct(product: ProductProps): void;
   isSameProductExist(name: string): false | Error;
   findProduct(name: ProductProps['name']): Product;
@@ -17,11 +18,22 @@ export class ProductCatalog implements ProductCatalogInterface {
   #productList: Product[];
 
   constructor() {
-    this.#productList = [new Product({ name: '콜라', price: 2000, quantity: 10 })];
+    const storedProductList = JSON.parse(localStorage.getItem('productList')) ?? [];
+
+    this.#productList = storedProductList.map((product) => new Product(product));
   }
 
   getProductList() {
     return this.#productList;
+  }
+
+  setProductList(productList: Product[]) {
+    this.#productList = productList;
+
+    localStorage.setItem(
+      'productList',
+      JSON.stringify(this.#productList.map((product) => product.getAllProperties()))
+    );
   }
 
   addProduct(product: ProductProps): void {
@@ -30,7 +42,7 @@ export class ProductCatalog implements ProductCatalogInterface {
 
     const deepCopiedProductList = this.#deepCopy(this.#productList);
 
-    this.#productList = [...deepCopiedProductList, new Product(product)];
+    this.setProductList([...deepCopiedProductList, new Product(product)]);
   }
 
   isSameProductExist(name: ProductProps['name']): false | Error {
@@ -54,7 +66,7 @@ export class ProductCatalog implements ProductCatalogInterface {
       const targetProduct = this.findProduct(name, deepCopiedProductList);
       targetProduct.decreaseQuantity();
 
-      this.#productList = deepCopiedProductList;
+      this.setProductList(deepCopiedProductList);
 
       const exchange = purchaseMoney - targetProduct.getPrice();
 
@@ -71,11 +83,13 @@ export class ProductCatalog implements ProductCatalogInterface {
   }
 
   deleteProduct(name: ProductProps['name']): void {
-    this.#productList = this.#productList.filter((product) => product.getName() !== name);
+    this.setProductList(this.#productList.filter((product) => product.getName() !== name));
   }
 
   editProduct(targetProductName: ProductProps['name'], editedProductProps: ProductProps) {
-    const targetProduct = this.findProduct(targetProductName);
+    const deepCopiedProductList = this.#deepCopy(this.#productList);
+
+    const targetProduct = this.findProduct(targetProductName, deepCopiedProductList);
 
     if (targetProduct.isValidatedAllProp(editedProductProps)) {
       const { name, price, quantity } = editedProductProps;
@@ -83,6 +97,8 @@ export class ProductCatalog implements ProductCatalogInterface {
       targetProduct.setName(name);
       targetProduct.setPrice(price);
       targetProduct.setQuantity(quantity);
+
+      this.setProductList(deepCopiedProductList);
     }
   }
 }

@@ -10,7 +10,7 @@ export class PurchaseMoney implements PurchaseMoneyInterface {
   #value: number;
 
   constructor() {
-    this.setMoney(0);
+    this.#value = JSON.parse(localStorage.getItem('purchaseMoney')) ?? 0;
   }
 
   getMoney() {
@@ -19,11 +19,13 @@ export class PurchaseMoney implements PurchaseMoneyInterface {
 
   setMoney(value: number) {
     this.#value = value;
+
+    localStorage.setItem('purchaseMoney', JSON.stringify(this.#value));
   }
 
   addMoney(money: number) {
     if (this.#isValidatedMoney(money)) {
-      this.#value += money;
+      this.setMoney(this.#value + money);
     }
   }
 

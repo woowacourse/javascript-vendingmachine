@@ -11,24 +11,31 @@ import { getRandomNumZeroToMax } from '../utils/domain.utils';
 
 interface CoinVaultInterface {
   getCoins(): Coins;
+  setCoins(coins: Coins);
   getBalance();
   chargeMoney(money: number);
   returnCoins(purhcaseMoney: number): [Coins, number];
 }
 
 export class CoinVault implements CoinVaultInterface {
-  #coinsQuantity: Coins;
+  #coins: Coins;
 
   constructor() {
-    this.#coinsQuantity = { ...COINS_INIT_QUANTITY };
+    this.#coins = JSON.parse(localStorage.getItem('coins')) ?? { ...COINS_INIT_QUANTITY };
   }
 
   getCoins(): Coins {
-    return this.#coinsQuantity;
+    return this.#coins;
+  }
+
+  setCoins(coins: Coins) {
+    this.#coins = coins;
+
+    localStorage.setItem('coins', JSON.stringify(this.#coins));
   }
 
   getBalance() {
-    return Object.entries(this.#coinsQuantity).reduce(
+    return Object.entries(this.#coins).reduce(
       (previous, [key, value]) => previous + COINS_UNIT_TABLE[key] * value,
       0
     );
@@ -40,13 +47,14 @@ export class CoinVault implements CoinVaultInterface {
   }
 
   #addCoins(coins: Coins): void {
-    const coinsQuantity = { ...this.#coinsQuantity };
+    const coinsQuantity = { ...this.#coins };
 
     Object.entries(coins).forEach(([key, value]) => {
       coinsQuantity[key] += value;
     });
 
-    this.#coinsQuantity = coinsQuantity;
+    this.setCoins(coinsQuantity);
+    // this.#coins = coinsQuantity;
   }
 
   #validateMoney(money: number) {
@@ -83,7 +91,7 @@ export class CoinVault implements CoinVaultInterface {
       const returnedCoins = { ...COINS_INIT_QUANTITY };
       let remainder = purhcaseMoney;
 
-      Object.entries(this.#coinsQuantity).forEach(([key, quantity]) => {
+      Object.entries(this.#coins).forEach(([key, quantity]) => {
         const coinUnit = COINS_UNIT_TABLE[key];
 
         if (remainder === 0 || remainder < coinUnit) return;
@@ -109,12 +117,12 @@ export class CoinVault implements CoinVaultInterface {
   }
 
   #substractCoins(returnedCoins: Coins) {
-    const currentCoins = { ...this.#coinsQuantity };
+    const currentCoins = { ...this.#coins };
 
     Object.entries(returnedCoins).forEach(([key, quantity]) => {
       currentCoins[key] -= quantity;
     });
 
-    this.#coinsQuantity = currentCoins;
+    this.setCoins(currentCoins);
   }
 }
