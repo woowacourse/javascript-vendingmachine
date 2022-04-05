@@ -31,7 +31,7 @@ class RegisterUser {
 
   validateRegisterBehavior({ email, name, password, confirmPassword }: UserInfoType) {
     if (this.isBlankInput(email, name, password, confirmPassword)) {
-      throw new Error('공백 없이 모두 입력해주세요.');
+      throw new Error(REGISTER_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
     }
 
     if (this.isExceedNameRange(name)) {

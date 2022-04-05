@@ -30,6 +30,7 @@ export const PURCHASE_ERROR_MESSAGE = {
 };
 
 export const REGISTER_ERROR_MESSAGE = {
+  BLANK_NOT_ALLOWED: '공백 없이 모두 입력해주세요.',
   EXCEED_NAME_RANGE: '이름은 2 ~ 4 글자로 입력해주세요.',
   VIOLATE_PASSWORD_RULE:
     '비밀번호는 8글자 이상, 20글자 이하이고, 숫자 영문 특수기호가 최소 한 글자 이상 포함되어야 합니다.',
