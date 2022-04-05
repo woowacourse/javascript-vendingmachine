@@ -83,3 +83,15 @@ export const validatePurchable = (userAmount: number, product: Product) => {
     throw new Error(ERROR_MESSAGE.INSUFFICIENT_CASH);
   }
 };
+
+const returnValidator = {
+  isInsufficientAmount(userAmount: number) {
+    return userAmount <= 0;
+  },
+};
+
+export const validateReturn = (userAmount: number) => {
+  if (returnValidator.isInsufficientAmount(userAmount)) {
+    throw new Error('반환할 잔액이 없습니다.');
+  }
+};

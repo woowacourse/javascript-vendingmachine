@@ -4,6 +4,8 @@ import storage from '../storage';
 import Product from '../domain/Product';
 import { $, $$, markUnit, addEvent, emit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
+import { Coin } from '../domain/Coin';
+import { COINS } from '../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {
@@ -31,6 +33,7 @@ class PurchaseTab extends CustomElement {
     addEvent(this, 'click', '.purchase_button', (e: MouseEvent & { target: HTMLButtonElement }) =>
       this.handlePurchase(e),
     );
+    addEvent(this, 'click', '.return-button', () => emit('.return-button', '@return', {}, this));
   }
 
   handleInsertCoin(e: SubmitEvent & { target: HTMLFormElement }) {
@@ -60,7 +63,7 @@ class PurchaseTab extends CustomElement {
     );
   }
 
-  notify({ action, product, userAmount }: Notification) {
+  notify({ action, amount, product, userAmount }: Notification) {
     switch (action) {
       case 'update-amount':
         this.updateAmount(userAmount);
@@ -77,6 +80,9 @@ class PurchaseTab extends CustomElement {
       case 'delete-product':
         this.updateProductTable('delete-product', product);
         return;
+
+      case 'return':
+        this.returnChange(amount, userAmount);
     }
   }
 
@@ -94,12 +100,6 @@ class PurchaseTab extends CustomElement {
     this.deleteProductItem(product, productItems);
   }
 
-  deleteProductItem(product: Product, productItems: Element[]) {
-    if (product.quantity > 0) return;
-
-    productItems.forEach((item) => item.remove());
-  }
-
   updateProductTable(action: string, product: Product) {
     const productTable = $('#purchasable-product-list-table', this);
     const targetProduct = $(`[data-product-id="${product.id}"]`, productTable);
@@ -114,6 +114,17 @@ class PurchaseTab extends CustomElement {
         targetProduct.remove();
         return;
     }
+  }
+
+  returnChange(amount: Coin, userAmount: number) {
+    $('.user-amount', this).textContent = markUnit(userAmount);
+    COINS.forEach((coin) => ($(`.change-${coin}-quantity`).textContent = amount.userChange[coin].count));
+  }
+
+  deleteProductItem(product: Product, productItems: Element[]) {
+    if (product.quantity > 0) return;
+
+    productItems.forEach((item) => item.remove());
   }
 }
 

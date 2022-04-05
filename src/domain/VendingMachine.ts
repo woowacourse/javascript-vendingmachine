@@ -6,6 +6,7 @@ import {
   validateChange,
   validateProduct,
   validatePurchable,
+  validateReturn,
   validateUpdateProduct,
   validateUserInputMoney,
 } from '../validator';
@@ -66,6 +67,7 @@ class VendingMachine implements VendingMachineProperty {
       (e: CustomEvent) => this.purchase(e.detail.productId),
       $('purchase-tab'),
     );
+    on('.return-button', '@return', () => this.returnCoin(), $('purchase-tab'));
   }
 
   dispatch(key: string, action: string, product?: Product) {
@@ -157,6 +159,20 @@ class VendingMachine implements VendingMachineProperty {
       }
 
       storage.setLocalStorage('products', this.products);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  returnCoin() {
+    try {
+      validateReturn(this.userAmount);
+      const remainingUserAmount = this.amount.returnChange(this.userAmount);
+
+      this.userAmount = remainingUserAmount;
+      this.dispatch('subscribePurchaseTab', 'return');
+      this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+      storage.setLocalStorage('amount', this.amount.counter);
     } catch (error) {
       alert(error.message);
     }

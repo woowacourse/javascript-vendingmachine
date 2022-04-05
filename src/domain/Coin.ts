@@ -19,6 +19,12 @@ export class Coin implements CoinProperty {
     50: { type: '50won', count: 0 },
     10: { type: '10won', count: 0 },
   };
+  userChange: Record<CoinType, CoinCounter> = {
+    500: { type: '500won', count: 0 },
+    100: { type: '100won', count: 0 },
+    50: { type: '50won', count: 0 },
+    10: { type: '10won', count: 0 },
+  };
 
   constructor(counter: Record<CoinType, CoinCounter>) {
     this.counter = counter;
@@ -39,5 +45,22 @@ export class Coin implements CoinProperty {
         remainingAmount -= randomCoin;
       }
     }
+  }
+
+  returnChange(userAmount: number) {
+    COINS.forEach((coin) => {
+      this.userChange[coin].count = 0;
+    });
+    let remainingUserAmount = userAmount;
+
+    COINS.forEach((coin) => {
+      while (remainingUserAmount > 0 && this.counter[coin].count > 0) {
+        remainingUserAmount -= coin;
+        this.userChange[coin].count += 1;
+        this.counter[coin].count -= 1;
+      }
+    });
+
+    return remainingUserAmount;
   }
 }
