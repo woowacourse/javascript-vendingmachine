@@ -4,6 +4,7 @@ import type { UserInfoWithPassWord } from '../../apis';
 import { basePath } from '../component/App';
 import { getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
+import { validateUserInfo } from './validator';
 
 export default class UserEditPage {
   private user: UserInfoWithPassWord | string;
@@ -64,6 +65,13 @@ export default class UserEditPage {
       if (pwInput.value !== rePwInput.value)
         throw new Error('비밀번호가 일치하지 않습니다.');
     } catch ({ message }) {
+      showSnackbar(message);
+      return;
+    }
+
+    try {
+      validateUserInfo(emailInput.value, pwInput.value, nameInput.value);
+    } catch ({ message, name }) {
       showSnackbar(message);
       return;
     }

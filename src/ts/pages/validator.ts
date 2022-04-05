@@ -33,7 +33,7 @@ const generateValidator = (
   },
 ];
 
-export function validateSignup(email: string, pw: string, name: string) {
+export function validateUserInfo(email: string, pw: string, name: string) {
   const validator = generateValidator(email, pw, name);
   return validator.every(({ test, errorMsg, target }) => {
     if (test) {

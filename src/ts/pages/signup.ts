@@ -2,7 +2,7 @@ import { API } from '../../apis';
 import { basePath } from '../component/App';
 import { showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
-import { validateSignup } from './validator';
+import { validateUserInfo } from './validator';
 
 export default class SignupPage {
   constructor(private readonly routePage) {
@@ -54,7 +54,7 @@ export default class SignupPage {
     }
 
     try {
-      validateSignup(emailInput.value, pwInput.value, nameInput.value);
+      validateUserInfo(emailInput.value, pwInput.value, nameInput.value);
     } catch ({ message, name }) {
       showSnackbar(message);
       return;
