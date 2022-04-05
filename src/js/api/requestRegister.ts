@@ -1,3 +1,4 @@
+import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
 import { RegisterUser } from '../interfaces/UserData.interface';
 
 const requestRegister = async (userData: RegisterUser) => {
@@ -13,13 +14,13 @@ const requestRegister = async (userData: RegisterUser) => {
     const errorMessage = await response.json();
     switch (errorMessage) {
       case 'Password is too short':
-        throw new Error('비밀번호가 너무 짧습니다.');
+        throw new Error(ERROR_MESSAGE.PASSWORD_IS_TOO_SHORT);
       case 'Email already exists':
-        throw new Error('중복된 이메일 주소입니다.');
+        throw new Error(ERROR_MESSAGE.EMAIL_IS_DUPLICATED);
     }
   }
 
-  return '회원가입이 완료되었습니다.';
+  return ALERT_MESSAGE.REGISTER_SUCCESS;
 };
 
 export default requestRegister;

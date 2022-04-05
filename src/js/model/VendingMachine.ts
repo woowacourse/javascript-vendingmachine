@@ -120,7 +120,7 @@ class VendingMachine {
       this.returnChanges();
     }
 
-    return ALERT_MESSAGE.RETURN_CHARGE_SUCCESS();
+    return ALERT_MESSAGE.RETURN_CHARGE_SUCCESS;
   }
 
   purchaseProduct(productName: string) {
