@@ -1,8 +1,8 @@
 Cypress.Commands.add('addProduct', ({ name, price, stock }) => {
   cy.get('#product-tab-menu').click();
-  cy.get('#add-product-name-input').type(name);
-  cy.get('#add-product-price-input').type(price);
-  cy.get('#add-product-stock-input').type(stock);
+  cy.get('#product-name-input').type(name);
+  cy.get('#product-price-input').type(price);
+  cy.get('#product-stock-input').type(stock);
   cy.get('.submit-button').click();
 });
 

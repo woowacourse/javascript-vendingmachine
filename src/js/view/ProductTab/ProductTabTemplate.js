@@ -13,17 +13,17 @@ export const productTabTemplate = /* html */ `
     <fieldset>
       <legend>추가할 상품 정보를 입력해주세요.</legend>
       <div class="input-wrapper">
-        <label for="add-product-name">상품명
-        <input type="text" name="add-product-name" id="add-product-name-input" placeholder="상품명" required/>
+        <label for="name">상품명
+        <input type="text" name="name" id="product-name-input" placeholder="상품명" required/>
         </label>
       </div>
       <div class="input-wrapper">
-        <label for="add-product-price">상품 가격</label>
-        <input type="number" name="add-product-price" id="add-product-price-input" placeholder="가격" min="100" max="10000" required/>
+        <label for="price">상품 가격</label>
+        <input type="number" name="price" id="product-price-input" placeholder="가격" min="100" max="10000" required/>
       </div>
       <div class="input-wrapper">
-        <label for="add-product-stock">상품 수량</label>
-        <input type="number" name="add-product-stock" id="add-product-stock-input" placeholder="수량" min="1" max="20" required/>
+        <label for="stock">상품 수량</label>
+        <input type="number" name="stock" id="product-stock-input" placeholder="수량" min="1" max="20" required/>
       </div>
       <button type="submit" class="submit-button">추가</button>
     </fieldset>
@@ -58,9 +58,15 @@ export const productTableRowTemplate = ({ name, price, stock, id }) => /* html *
 
 export const productUpdateTableRowTemplate = ({ name, price, stock, id }) => /* html */ `
 <tr>
-  <td><input type="text" class="update-product-name-input" value="${name}" /></td>
-  <td><input type="number" class="update-product-price-input" value="${price}" /></td>
-  <td><input type="number" class="update-product-stock-input" value="${stock}" /></td>
+  <td>
+    <input type="text" class="update-product-name-input" value="${name}" />
+  </td>
+  <td>
+    <input type="number" class="update-product-price-input" value="${price}" />
+  </td>
+  <td>
+    <input type="number" class="update-product-stock-input" value="${stock}" />
+  </td>
   <td>
     <div class="table-button-wrapper">
       <button type="button" class="confirm-update-button" data-product-id=${id}>

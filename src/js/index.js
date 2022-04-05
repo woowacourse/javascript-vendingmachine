@@ -25,17 +25,20 @@ import { DEFAULT_ROUTE } from './constants';
 
 class App {
   #vendingMachine;
+  #snackBar;
   #authorization;
-  #userButtonContainer;
+
   #userRenderList;
   #nonUserRenderList;
-  #headerContainer;
+
   #appContainer;
+  #userButtonContainer;
+  #headerContainer;
   #tabMenuNavigation;
 
   constructor() {
-    this.snackBar = new Snackbar();
     this.#vendingMachine = new VendingMachine();
+    this.#snackBar = new Snackbar();
     this.#authorization = new Authorization();
     this.#appContainer = selectDom('#app');
     this.#userButtonContainer = selectDom('.user-button-container');
@@ -54,15 +57,15 @@ class App {
 
   #initRoutes() {
     this.#userRenderList = {
-      '#/user-info': new UserInfoPage(this.#authorization, this.snackBar),
-      '#/product': new ProductTab(this.#vendingMachine, this.snackBar),
-      '#/charge': new ChargeTab(this.#vendingMachine, this.snackBar),
-      '#/purchase': new PurchaseTab(this.#vendingMachine, this.snackBar),
+      '#/user-info': new UserInfoPage(this.#authorization, this.#snackBar),
+      '#/product': new ProductTab(this.#vendingMachine, this.#snackBar),
+      '#/charge': new ChargeTab(this.#vendingMachine, this.#snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.#snackBar),
     };
     this.#nonUserRenderList = {
-      '#/login': new LoginPage(this.#authorization, this.snackBar),
-      '#/register': new RegisterPage(this.#authorization, this.snackBar),
-      '#/purchase': new PurchaseTab(this.#vendingMachine, this.snackBar),
+      '#/login': new LoginPage(this.#authorization, this.#snackBar),
+      '#/register': new RegisterPage(this.#authorization, this.#snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.#snackBar),
     };
   }
 
@@ -127,6 +130,24 @@ class App {
     this.#appContainer.replaceChild(routeList[path].tabElements, selectDom('main'));
   }
 
+  #handleTabMenuChange = (e) => {
+    e.preventDefault();
+
+    const { hash: newHash } = e.target;
+    const previousHash = window.location.hash;
+
+    if (
+      (!Object.keys(this.#userRenderList).includes(newHash) &&
+        !Object.keys(this.#nonUserRenderList).includes(newHash)) ||
+      newHash === previousHash
+    ) {
+      return;
+    }
+
+    window.history.pushState({}, null, newHash);
+    this.#render();
+  };
+
   #handleUserButtonContainerClick = ({ target }) => {
     if (target.id === 'user-button') this.#handleSelectBoxToggle(target);
     if (target.id === 'logout-button') this.#handleLogout();
@@ -148,24 +169,6 @@ class App {
     selectDom('#user-button-select-box')?.remove();
     window.location.href = DEFAULT_ROUTE.NON_USER;
     window.location.reload();
-  };
-
-  #handleTabMenuChange = (e) => {
-    e.preventDefault();
-
-    const { hash: newHash } = e.target;
-    const previousHash = window.location.hash;
-
-    if (
-      (!Object.keys(this.#userRenderList).includes(newHash) &&
-        !Object.keys(this.#nonUserRenderList).includes(newHash)) ||
-      newHash === previousHash
-    ) {
-      return;
-    }
-
-    window.history.pushState({}, null, newHash);
-    this.#render();
   };
 }
 

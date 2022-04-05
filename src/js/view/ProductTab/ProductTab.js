@@ -1,5 +1,10 @@
 import { CONFIRM_DELETE_MESSAGE } from '../../constants';
-import { createMainElement, selectDom } from '../../utils/dom';
+import {
+  createMainElement,
+  emptyFormInputs,
+  getInputValuesFromForm,
+  selectDom,
+} from '../../utils/dom';
 import {
   productTabTemplate,
   productUpdateTableRowTemplate,
@@ -8,31 +13,18 @@ import {
 
 export default class ProductTab {
   #vendingMachine;
+  #snackbar;
+
   #productContainer;
   #addProductForm;
-  #addProductNameInput;
-  #addProductPriceInput;
-  #addProductStockInput;
   #productStatusTable;
 
   constructor(machine, snackbar) {
     this.#vendingMachine = machine;
-    this.snackbar = snackbar;
+    this.#snackbar = snackbar;
 
     this.#productContainer = createMainElement(productTabTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#productContainer);
-    this.#addProductNameInput = selectDom(
-      '#add-product-name-input',
-      this.#productContainer
-    );
-    this.#addProductPriceInput = selectDom(
-      '#add-product-price-input',
-      this.#productContainer
-    );
-    this.#addProductStockInput = selectDom(
-      '#add-product-stock-input',
-      this.#productContainer
-    );
     this.#productStatusTable = selectDom('.product-status-table', this.#productContainer);
 
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
@@ -60,9 +52,9 @@ export default class ProductTab {
 
   #handleAddProductForm = (e) => {
     e.preventDefault();
-    const name = this.#addProductNameInput.value;
-    const price = this.#addProductPriceInput.valueAsNumber;
-    const stock = this.#addProductStockInput.valueAsNumber;
+
+    const inputData = getInputValuesFromForm(e.target);
+    const { name, price, stock } = inputData;
 
     try {
       const id = this.#vendingMachine.addProduct({ name, price, stock });
@@ -71,18 +63,11 @@ export default class ProductTab {
         'beforeend',
         productTableRowTemplate({ name, price, stock, id })
       );
-      this.#resetInput();
+      emptyFormInputs(e.target);
     } catch ({ message }) {
-      this.snackbar.addToMessageList(message);
+      this.#snackbar.addToMessageList(message);
     }
   };
-
-  #resetInput() {
-    this.#addProductNameInput.value = '';
-    this.#addProductPriceInput.value = '';
-    this.#addProductStockInput.value = '';
-    this.#addProductNameInput.focus();
-  }
 
   #handleProductStatus = ({ target }) => {
     const { classList } = target;
@@ -120,6 +105,7 @@ export default class ProductTab {
 
   #handleProductUpdateConfirm = (target) => {
     const targetTableRow = target.closest('tr');
+
     const name = selectDom('.update-product-name-input', targetTableRow).value;
     const price = selectDom('.update-product-price-input', targetTableRow).valueAsNumber;
     const stock = selectDom('.update-product-stock-input', targetTableRow).valueAsNumber;
@@ -127,13 +113,14 @@ export default class ProductTab {
 
     try {
       this.#vendingMachine.updateProduct(id, { name, price, stock });
+
       targetTableRow.insertAdjacentHTML(
         'afterend',
         productTableRowTemplate({ name, price, stock, id })
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      this.snackbar.addToMessageList(message);
+      this.#snackbar.addToMessageList(message);
     }
   };
 
@@ -149,7 +136,7 @@ export default class ProductTab {
       );
       targetTableRow.remove();
     } catch ({ message }) {
-      this.snackbar.addToMessageList(message);
+      this.#snackbar.addToMessageList(message);
     }
   };
 
@@ -164,7 +151,7 @@ export default class ProductTab {
         this.#vendingMachine.removeProduct(id);
         productRow.remove();
       } catch ({ message }) {
-        this.snackbar.addToMessageList(message);
+        this.#snackbar.addToMessageList(message);
       }
     }
   };

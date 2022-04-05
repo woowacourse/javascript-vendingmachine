@@ -2,7 +2,9 @@ import { createMainElement, selectDom } from '../../utils/dom';
 import chargeTabTemplate from './ChargeTabTemplates';
 
 export default class ChargeTab {
+  #snackbar;
   #vendingMachine;
+
   #ChargeTabContainer;
   #addChangeForm;
   #moneyInput;
@@ -10,7 +12,7 @@ export default class ChargeTab {
   #coinStatusTable;
 
   constructor(machine, snackbar) {
-    this.snackbar = snackbar;
+    this.#snackbar = snackbar;
     this.#vendingMachine = machine;
 
     this.#ChargeTabContainer = createMainElement(chargeTabTemplate);
@@ -34,9 +36,9 @@ export default class ChargeTab {
     try {
       this.#vendingMachine.addChange(money);
       this.#renderCoinStatus();
-      this.#resetInput();
+      this.#moneyInput.value = '';
     } catch ({ message }) {
-      this.snackbar.addToMessageList(message);
+      this.#snackbar.addToMessageList(message);
     }
   };
 
@@ -52,9 +54,5 @@ export default class ChargeTab {
     });
 
     this.#totalChange.textContent = this.#vendingMachine.totalChange;
-  }
-
-  #resetInput() {
-    this.#moneyInput.value = '';
   }
 }
