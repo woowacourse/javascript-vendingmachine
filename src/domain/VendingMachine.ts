@@ -1,7 +1,7 @@
 import { COINS_REVERSE, ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
-import { on, $ } from '../utils';
+import { on, $, showSnackBar } from '../utils';
 import {
   validateProduct,
   validateChange,
@@ -80,7 +80,7 @@ class VendingMachine implements IVendingMachine {
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
@@ -93,7 +93,7 @@ class VendingMachine implements IVendingMachine {
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
@@ -113,7 +113,7 @@ class VendingMachine implements IVendingMachine {
       storage.setLocalStorage('amount', this.amount);
       this.dispatch(ELEMENT_KEY.CHARGE, 'update', this.amount);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
@@ -126,7 +126,7 @@ class VendingMachine implements IVendingMachine {
       storage.setLocalStorage('userMoney', userMoney);
       this.dispatch(ELEMENT_KEY.PURCHASE, 'input', userMoney);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
@@ -149,7 +149,7 @@ class VendingMachine implements IVendingMachine {
       const { id, quantity } = targetProduct;
       this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', { id, quantity, userMoney });
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
@@ -166,7 +166,7 @@ class VendingMachine implements IVendingMachine {
 
       this.dispatch(ELEMENT_KEY.PURCHASE, 'return', { userMoney, change, chargedCoin });
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 }

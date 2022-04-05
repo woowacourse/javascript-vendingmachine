@@ -1,5 +1,5 @@
 import storage from '../storage';
-import { on, $ } from '../utils';
+import { on, $, showSnackBar } from '../utils';
 
 class Auth {
   constructor() {
@@ -32,7 +32,7 @@ class Auth {
         throw new Error('중복된 이메일이 존재합니다.');
       }
     } catch (e) {
-      alert(e.message);
+      showSnackBar(e.message);
     }
 
     // 로그인 페이지 전환 로직 추가
@@ -63,7 +63,7 @@ class Auth {
       storage.setLocalStorage('userInfo', user);
       storage.setLocalStorage('accessToken', accessToken);
     } catch (e) {
-      alert(e.message);
+      showSnackBar(e.message);
     }
 
     // 메인 페이지 전환 로직
@@ -99,7 +99,7 @@ class Auth {
       const { email, userName, id } = responseData;
       storage.setLocalStorage('userInfo', { email, userName, id });
     } catch (e) {
-      alert(e.message);
+      showSnackBar(e.message);
     }
   }
 }

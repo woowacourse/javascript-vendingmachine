@@ -1,3 +1,5 @@
+import { SNACK_BAR_SHOWING_TIME_IN_MS } from './constants';
+
 export const pickRandomElement = <T>(array: T[]): T => {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -40,3 +42,13 @@ export const $$ = (selector: string, scope: Element | Document = document) =>
 export const markUnit = (price: number) => price.toLocaleString();
 
 export const deleteSeparator = (price: string) => parseInt(price.replace(',', ''), 10);
+
+export const showSnackBar = (message) => {
+  const $snackBar = $('#snack-bar');
+  $snackBar.classList.add('show');
+  $snackBar.textContent = message;
+
+  setTimeout(() => {
+    $snackBar.classList.remove('show');
+  }, SNACK_BAR_SHOWING_TIME_IN_MS);
+};
