@@ -93,7 +93,7 @@ export default class NavigatorComponent {
     if (
       pathname === '/sign-in' ||
       pathname === '/sign-up' ||
-      pathname === '/edit-of-membership-information'
+      pathname === '/edit-information'
     ) {
       this.$nav.classList.add('hide');
       this.$title.classList.add('hide');

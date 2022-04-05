@@ -1,6 +1,6 @@
 import { $, on } from '../dom/domHelper';
 
-export default class Dimmer {
+export default class DimmerComponent {
   private $dimmer = $<HTMLElement>('.dimmer');
   private $informationWrapper = $<HTMLUListElement>(
     '.membership-information-wrapper'

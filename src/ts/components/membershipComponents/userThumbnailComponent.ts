@@ -1,7 +1,7 @@
 import { $, emit, on } from '../../dom/domHelper';
 import { deleteCookie } from '../../cookie/cookie';
 
-export default class UserThumbnail {
+export default class UserThumbnailComponent {
   private $dimmer = $<HTMLElement>('.dimmer');
   private $userThumbnailButton = $<HTMLButtonElement>('.user-thumbnail-button');
   private $informationWrapper = $<HTMLUListElement>(
