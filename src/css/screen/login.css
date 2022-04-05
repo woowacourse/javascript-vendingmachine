@@ -1,0 +1,38 @@
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.login-form__input {
+  width: 300px;
+  height: 30px;
+  border: 1px solid var(--input-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+#login-confirm-button {
+  width: 300px;
+}
+
+.link-to-sign-up {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
+
+.link-to-sign-up > p {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+#link {
+  color: #3581d7;
+}

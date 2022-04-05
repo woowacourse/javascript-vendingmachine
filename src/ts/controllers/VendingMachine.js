@@ -6,6 +6,9 @@ var dom_1 = require("../utils/dom");
 var index_1 = require("../constants/index");
 var ProductBuyTab_1 = require("../core/ProductBuyTab");
 var verifyValueValidation_1 = require("../validations/verifyValueValidation");
+var LoginTab_1 = require("../core/LoginTab");
+var SignUpTab_1 = require("../core/SignUpTab");
+var EditProfileTab_1 = require("../core/EditProfileTab");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
         this.products = [];
@@ -19,9 +22,19 @@ var VendingMachine = /** @class */ (function () {
         new ProductManageTab_1["default"](this.products, this.verifyValue);
         new ChargeMoneyTab_1["default"](this.coins, this.verifyValue);
         new ProductBuyTab_1["default"](this.products, this.coins, this.verifyValue);
+        new LoginTab_1["default"]();
+        new SignUpTab_1["default"]();
+        new EditProfileTab_1["default"]();
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
+        (0, dom_1.$)('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));
     }
+    VendingMachine.prototype.handleLoginInfoManage = function (e) {
+        if (e.target.classList.contains('login-button')) {
+            history.pushState({}, '', window.location.pathname + "#login");
+            this.switchTab('login');
+        }
+    };
     VendingMachine.prototype.handleClickTabButtons = function (e) {
         if (e.target === e.currentTarget) {
             return;
@@ -36,8 +49,10 @@ var VendingMachine = /** @class */ (function () {
         }
     };
     VendingMachine.prototype.switchTab = function (tabName) {
-        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy');
+        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
+        (0, dom_1.$)('#header').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
         (0, dom_1.$)('#app').classList.add(tabName);
+        (0, dom_1.$)('#header').classList.add(tabName);
     };
     return VendingMachine;
 }());

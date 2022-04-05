@@ -1,0 +1,23 @@
+#edit-profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-profile-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.edit-profile-form__input {
+  width: 300px;
+  height: 30px;
+  border: 1px solid var(--input-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+#edit-profile-confirm-button {
+  width: 300px;
+}

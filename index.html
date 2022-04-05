@@ -9,32 +9,19 @@
 
   <body>
     <div id="app" class="app manage">
-      <h1 class="app__title">🍿 자판기 🍿</h1>
-
-      <header>
+      <header id="header" class="app__header manage">
+        <div class="login-button-container">
+          <button class="login-button button" data-name="login">로그인</button>
+        </div>
+        <h1 class="app__title">🍿 자판기 🍿</h1>
         <nav id="tab" class="tab">
-          <button
-            type="button"
-            id="tab__manage-button"
-            class="tab__item button"
-            data-name="manage"
-          >
+          <button type="button" id="tab__manage-button" class="tab__item button" data-name="manage">
             상품 관리
           </button>
-          <button
-            type="button"
-            id="tab__charge-button"
-            class="tab__item button"
-            data-name="charge"
-          >
+          <button type="button" id="tab__charge-button" class="tab__item button" data-name="charge">
             잔돈 충전
           </button>
-          <button
-            type="button"
-            id="tab__buy-button"
-            class="tab__item button"
-            data-name="buy"
-          >
+          <button type="button" id="tab__buy-button" class="tab__item button" data-name="buy">
             상품 구매
           </button>
         </nav>
@@ -42,9 +29,7 @@
 
       <main class="app__main manage">
         <form id="add-product-form" class="input-form">
-          <label class="input-description"
-            >추가할 상품 정보를 입력해주세요.</label
-          >
+          <label class="input-description">추가할 상품 정보를 입력해주세요.</label>
           <div class="input-container">
             <input
               id="product-name-input"
@@ -72,9 +57,7 @@
               placeholder="수량"
               required="required"
             />
-            <button type="submit" class="input-form__submit-button button">
-              추가
-            </button>
+            <button type="submit" class="input-form__submit-button button">추가</button>
           </div>
         </form>
 
@@ -96,9 +79,7 @@
 
       <main class="app__main charge">
         <form id="charge-money-form" class="input-form">
-          <label class="input-description"
-            >자판기가 보유할 금액을 입력해주세요.</label
-          >
+          <label class="input-description">자판기가 보유할 금액을 입력해주세요.</label>
           <div class="input-container">
             <input
               id="charge-money-input"
@@ -109,9 +90,7 @@
               min="1000"
               max="100000"
             />
-            <button type="submit" class="input-form__submit-button button">
-              추가
-            </button>
+            <button type="submit" class="input-form__submit-button button">추가</button>
           </div>
         </form>
 
@@ -147,13 +126,11 @@
       </main>
 
       <main class="app__main buy">
-        <form id="charge-money-form" class="input-form">
-          <label class="input-description"
-            >상품을 구매할 금액을 투입해주세요.</label
-          >
+        <form id="input-money-form" class="input-form">
+          <label class="input-description">상품을 구매할 금액을 투입해주세요.</label>
           <div class="input-container">
             <input
-              id="charge-money-input"
+              id="input-money-input"
               class="input-form__input"
               placeholder="금액"
               type="number"
@@ -161,9 +138,7 @@
               min="1000"
               max="10000"
             />
-            <button type="submit" class="input-form__submit-button button">
-              투입
-            </button>
+            <button type="submit" class="input-form__submit-button button">투입</button>
           </div>
           <p class="input-money-indicator">투입한 금액: 0원</p>
         </form>
@@ -214,6 +189,129 @@
             <button class="return-button button">반환</button>
           </div>
         </section>
+      </main>
+
+      <main class="app__main login">
+        <h1 class="app__title">로그인</h1>
+        <form id="login-form" class="input-form">
+          <div id="login-input-container">
+            <label id="email-label" class="input-description">이메일</label>
+            <input
+              id="login-form__email-input"
+              class="login-form__input"
+              type="email"
+              required
+              placeholder="woowacourse@gmail.com"
+            />
+            <label id="password-label" class="input-description">비밀번호</label>
+            <input
+              id="login-form__password-input"
+              class="login-form__input"
+              type="password"
+              maxlength="20"
+              minlength="8"
+              required
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button id="login-confirm-button" type="button" class="input-form__submit-button button">확인</button>
+          <section class="link-to-sign-up">
+            <p>아직 회원이 아니신가요?</p>
+            <p id="link" class="button">회원가입</p>
+          </section>
+        </form>
+      </main>
+
+      <main class="app__main sign-up">
+        <h1 class="app__title">회원가입</h1>
+        <form id="sign-up-form" class="input-form">
+          <div id="sign-up-input-container">
+            <label id="email-label" class="input-description">이메일</label>
+            <input
+              id="sign-up-form__email-input"
+              class="sign-up-form__input"
+              type="email"
+              required
+              placeholder="이메일을 입력해주세요"
+            />
+            <label id="password-label" class="input-description">이름</label>
+            <input
+              id="sign-up-form__name-input"
+              class="sign-up-form__input"
+              type="name"
+              maxlength="20"
+              minlength="2"
+              required
+              placeholder="이름을 입력해주세요"
+            />
+            <label id="password-label" class="input-description">비밀번호</label>
+            <input
+              id="sign-up-form__password-input"
+              class="sign-up-form__input"
+              type="password"
+              maxlength="20"
+              minlength="8"
+              required
+              placeholder="비밀번호를 입력해주세요"
+            />
+            <label id="password-label" class="input-description">비밀번호 확인</label>
+            <input
+              id="sign-up-form__password-check-input"
+              class="sign-up-form__input"
+              type="password"
+              maxlength="20"
+              minlength="8"
+              required
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button id="sign-up-confirm-button" type="button" class="input-form__submit-button button">확인</button>
+      </main>
+
+      <main class="app__main edit-profile">
+        <h1 class="app__title">회원 정보 수정</h1>
+        <form id="edit-profile-form" class="input-form">
+          <div id="edit-profile-input-container">
+            <label id="email-label" class="input-description">이메일</label>
+            <input
+              id="edit-profile-form__email-input"
+              class="edit-profile-form__input"
+              type="email"
+              disabled
+              placeholder="woowacourse@gmail.com"
+            />
+            <label id="password-label" class="input-description">이름</label>
+            <input
+              id="edit-profile-form__name-input"
+              class="edit-profile-form__input"
+              type="name"
+              maxlength="20"
+              minlength="2"
+              required
+              placeholder="우테코"
+            />
+            <label id="password-label" class="input-description">비밀번호</label>
+            <input
+              id="edit-profile-form__password-input"
+              class="edit-profile-form__input"
+              type="password"
+              maxlength="20"
+              minlength="8"
+              required
+              placeholder="비밀번호를 입력해주세요"
+            />
+            <label id="password-label" class="input-description">비밀번호 확인</label>
+            <input
+              id="edit-profile-form__password-check-input"
+              class="edit-profile-form__input"
+              type="password"
+              maxlength="20"
+              minlength="8"
+              required
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+          <button id="edit-profile-confirm-button" type="button" class="input-form__submit-button button">확인</button>
       </main>
     </div>
     <script type="text/typescript" src="./src/index.ts"></script>

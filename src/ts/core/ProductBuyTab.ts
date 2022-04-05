@@ -21,7 +21,7 @@ class ProductBuyTab implements ProductBuy {
 
     window.addEventListener('load', () => {
       $('#tab__buy-button').addEventListener('click', this.updateResources.bind(this));
-      $('#charge-money-form', this.$buy).addEventListener(
+      $('#input-money-form', this.$buy).addEventListener(
         'submit',
         this.handleChargeMoney.bind(this),
       );
@@ -37,7 +37,7 @@ class ProductBuyTab implements ProductBuy {
 
   handleChargeMoney(e) {
     e.preventDefault();
-    const inputMoney = Number($('#charge-money-input', this.$buy).value);
+    const inputMoney = Number($('#input-money-input', this.$buy).value);
 
     if (this.verifyValue.verifyInputMoney(inputMoney)) {
       this.totalMoney += inputMoney;

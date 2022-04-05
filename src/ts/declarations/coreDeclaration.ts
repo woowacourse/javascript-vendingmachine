@@ -20,3 +20,16 @@ export interface ProductBuy {
   handleReturnMoney(): void;
   saleProduct({ price, quantity }: Product, index: number): void;
 }
+
+export interface Login {
+  handleLogin(e: Event): void;
+  handleLink(): void;
+}
+
+export interface SignUp {
+  handleSignUp(e: Event): void;
+}
+
+export interface EditProfile {
+  handleEditProfile(e: Event): void;
+}

@@ -13,19 +13,18 @@ var ProductBuyTab = /** @class */ (function () {
         this.$buy = (0, dom_1.$)('.buy');
         window.addEventListener('load', function () {
             (0, dom_1.$)('#tab__buy-button').addEventListener('click', _this.updateResources.bind(_this));
-            (0, dom_1.$)('#charge-money-form', _this.$buy).addEventListener('submit', _this.handleChargeMoney.bind(_this));
+            (0, dom_1.$)('#input-money-form', _this.$buy).addEventListener('submit', _this.handleChargeMoney.bind(_this));
             (0, dom_1.$)('#product-list', _this.$buy).addEventListener('click', _this.handleBuyProduct.bind(_this));
             (0, dom_1.$)('.return-button', _this.$buy).addEventListener('click', _this.handleReturnMoney.bind(_this));
         });
     }
     ProductBuyTab.prototype.updateResources = function () {
-        console.log(this.products, this.coins);
         render_1.drawProductList.call(this, this.$buy);
         render_1.drawCoins.call(this);
     };
     ProductBuyTab.prototype.handleChargeMoney = function (e) {
         e.preventDefault();
-        var inputMoney = Number((0, dom_1.$)('#charge-money-input', this.$buy).value);
+        var inputMoney = Number((0, dom_1.$)('#input-money-input', this.$buy).value);
         if (this.verifyValue.verifyInputMoney(inputMoney)) {
             this.totalMoney += inputMoney;
             render_1.drawTotalMoney.call(this);

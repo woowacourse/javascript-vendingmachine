@@ -4,6 +4,9 @@
 @import './screen/productManage.css';
 @import './screen/moneyCharge.css';
 @import './screen/ProductBuy.css';
+@import './screen/login.css';
+@import './screen/signUp.css';
+@import './screen/edit-profile.css';
 
 body {
   display: flex;
@@ -12,7 +15,7 @@ body {
 }
 
 .app {
-  padding: 44px 0;
+  padding: 0 0 44px 0;
   width: 600px;
   min-height: 675px;
   border: 1px solid var(--app-border-color);
@@ -57,8 +60,32 @@ body {
   display: none;
 }
 
+.app__header {
+  display: none;
+}
+
 .app.manage .app__main.manage,
 .app.charge .app__main.charge,
-.app.buy .app__main.buy {
+.app.buy .app__main.buy,
+.app.login .app__main.login,
+.app.sign-up .app__main.sign-up,
+.app.edit-profile .app__main.edit-profile {
   display: flex;
+}
+
+.app__header.manage,
+.app__header.charge,
+.app__header.buy {
+  display: block;
+}
+
+.login-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-button {
+  margin: 10px;
+  width: 100px;
+  height: 32px;
 }

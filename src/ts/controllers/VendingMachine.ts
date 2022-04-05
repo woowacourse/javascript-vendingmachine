@@ -5,6 +5,9 @@ import { $ } from '../utils/dom';
 import { COINS } from '../constants/index';
 import ProductBuyImpl from '../core/ProductBuyTab';
 import VerifyValueValidation from '../validations/verifyValueValidation';
+import LoginTab from '../core/LoginTab';
+import SignUpTab from '../core/SignUpTab';
+import EditProfileTab from '../core/EditProfileTab';
 
 class VendingMachine {
   private products: Array<Product> = [];
@@ -21,8 +24,19 @@ class VendingMachine {
     new ProductManageImpl(this.products, this.verifyValue);
     new ChargeMoneyImpl(this.coins, this.verifyValue);
     new ProductBuyImpl(this.products, this.coins, this.verifyValue);
+    new LoginTab();
+    new SignUpTab();
+    new EditProfileTab();
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
+    $('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
+  }
+
+  handleLoginInfoManage(e) {
+    if (e.target.classList.contains('login-button')) {
+      history.pushState({}, '', window.location.pathname + `#login`);
+      this.switchTab('login');
+    }
   }
 
   handleClickTabButtons(e) {
@@ -42,8 +56,10 @@ class VendingMachine {
   }
 
   switchTab(tabName) {
-    $('#app').classList.remove('manage', 'charge', 'buy');
+    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
+    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
     $('#app').classList.add(tabName);
+    $('#header').classList.add(tabName);
   }
 }
 
