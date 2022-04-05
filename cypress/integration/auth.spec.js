@@ -32,6 +32,7 @@ describe('관리자 인증 테스트', () => {
 
     // 회원 정보 수정
     const newName = 'new';
+    cy.get('#name-input').clear();
     cy.get('#name-input').type(newName);
     cy.get('#password-input').type(password);
     cy.get('#password-check').type(password);
