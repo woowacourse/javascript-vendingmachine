@@ -35,9 +35,6 @@ describe('가입/비가입 사용자 라우터 테스트', () => {
   });
 
   describe('비회원 라우터 테스트', () => {
-    before(() => {
-      cy.logout();
-    });
     describe('비회원은 비회원만 접속 가능한 주소에 접속할 수 있다.', () => {
       Object.entries(nonUserOnlyRoutes).forEach(([routeName, routeUrl]) => {
         testRouteAccess(routeName, routeUrl);
@@ -54,7 +51,6 @@ describe('가입/비가입 사용자 라우터 테스트', () => {
   describe('회원 라우터 테스트', () => {
     before(() => {
       cy.visit(baseUrl);
-      cy.logout();
       const userData = createRandomUserData();
       cy.registerNewUser(userData);
     });
