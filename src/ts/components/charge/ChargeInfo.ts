@@ -47,6 +47,10 @@ class ChargeInfo implements ChargeInfoProps {
   getTotalCharge() {
     return JSON.parse(localStorage.getItem("TOTAL_CHARGE")) || 0;
   }
+
+  getUserName() {
+    return JSON.parse(localStorage.getItem("USER_NAME"));
+  }
 }
 
 export default ChargeInfo;

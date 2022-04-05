@@ -1,6 +1,6 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
 import { CoinType } from "../../utils/interface";
-import { chargeTemplate } from "./chargeTemplate";
+import { chargeSectionNoAuthority, chargeTemplate } from "./chargeTemplate";
 
 class ChargeView {
   vendingmachineFunctionWrap: HTMLElement;
@@ -19,9 +19,9 @@ class ChargeView {
       (coinCount.innerText = `${chargeResult[index]}개`));
   }
 
-  renderChargeView() {
+  renderChargeView(userName: string) {
     this.vendingmachineFunctionWrap.replaceChildren();
-    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", chargeTemplate);
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", userName ?  chargeTemplate : chargeSectionNoAuthority);
   }
 }
 

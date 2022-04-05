@@ -33,9 +33,11 @@ class Charge {
   };
 
   render() {
-    this.chargeView.renderChargeView();
-    this.chargeView.showRandomChargeResult(this.chargeInfo.getCoinList(), this.chargeInfo.getTotalCharge());
-    this.bindChargeDom();
+    this.chargeView.renderChargeView(this.chargeInfo.getUserName());
+    if (this.chargeInfo.getUserName()) {
+      this.chargeView.showRandomChargeResult(this.chargeInfo.getCoinList(), this.chargeInfo.getTotalCharge());
+      this.bindChargeDom();
+    }
   }
 }
 

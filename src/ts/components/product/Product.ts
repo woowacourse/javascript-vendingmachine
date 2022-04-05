@@ -14,7 +14,7 @@ class Product {
   constructor() {
     this.productInfo = new ProductInfo();
     this.productView = new ProductView();
-    this.productView.renderProductView();
+    this.productView.renderProductView(this.productInfo.getUserName());
   }
 
   bindProductDom() {
@@ -88,9 +88,11 @@ class Product {
   };
 
   render() {
-    this.productView.renderProductView();
-    this.productView.showProductList(this.productInfo.getProductList());
-    this.bindProductDom();
+    this.productView.renderProductView(this.productInfo.getUserName());
+    if (this.productInfo.getUserName()) {
+      this.productView.showProductList(this.productInfo.getProductList());
+      this.bindProductDom();
+    }
   }
 }
 

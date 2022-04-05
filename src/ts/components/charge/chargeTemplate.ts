@@ -39,4 +39,6 @@ const chargeTemplate = `
     </div>
   </section>`;
 
-export { chargeTemplate };
+const chargeSectionNoAuthority = `<p>접근 권한이 없습니다.</p>`;
+
+export { chargeTemplate, chargeSectionNoAuthority };

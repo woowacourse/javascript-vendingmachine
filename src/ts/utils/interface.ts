@@ -5,6 +5,7 @@ interface ProductInfoProps {
   removeProduct: (args: string) => void;
   editProduct: (args: ProductEditProps) => void;
   getProductList: () => ProductProps | [];
+  getUserName: () => string;
 }
 
 interface ChargeInfoProps {
@@ -14,6 +15,7 @@ interface ChargeInfoProps {
   getCoinList: () => CoinType;
   setTotalCharge: () => void;
   getTotalCharge: () => number;
+  getUserName: () => string;
 }
 
 interface PurchaseInfoProps{
@@ -74,6 +76,19 @@ interface CoinType {
   500: number;
 }
 
+interface UserInfoProps {
+  email: string;
+  name: string;
+  password: string;
+}
+interface RegisterUserProps {
+  method: string;
+  url: string;
+  users: UserInfoProps;
+}
+
+type ConvertTemplate = (path: string) => void;
+
 type Coins = 500 | 100 | 50 | 10;
 
 export { 
@@ -86,5 +101,7 @@ export {
   ProductEditProps,
   EditInsertMoneyProps,
   ValidateProductProps,
+  RegisterUserProps,
+  ConvertTemplate,
   CoinType
 };

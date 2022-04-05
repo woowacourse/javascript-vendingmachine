@@ -1,6 +1,6 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
 import { ChangeEditProductInfoProps, ProductProps } from "../../utils/interface";
-import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
+import { productTemplate, addProductTemplate, editProductTemplate, productSectionNoAuthority } from "./productTemplate";
 
 class ProductView {
   vendingmachineFunctionWrap: HTMLElement;
@@ -67,9 +67,9 @@ class ProductView {
     );
   };
 
-  renderProductView() {
+  renderProductView(userName: string) {
     this.vendingmachineFunctionWrap.replaceChildren();
-    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", productTemplate);
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", userName ? productTemplate : productSectionNoAuthority);
     this.productTable = selectDom("#product-control-table");
   }
 }

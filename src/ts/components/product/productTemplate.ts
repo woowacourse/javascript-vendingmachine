@@ -56,4 +56,6 @@ const editProductTemplate = ({
   `;
 };
 
-export { productTemplate, addProductTemplate, editProductTemplate };
+const productSectionNoAuthority = `<p>접근 권한이 없습니다.</p>`;
+
+export { productTemplate, addProductTemplate, editProductTemplate, productSectionNoAuthority };

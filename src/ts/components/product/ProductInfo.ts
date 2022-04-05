@@ -52,6 +52,10 @@ class ProductInfo implements ProductInfoProps{
   getProductList() {
     return JSON.parse(localStorage.getItem("PRODUCTS")) || [];
   }
+
+  getUserName() {
+    return JSON.parse(localStorage.getItem("USER_NAME")) || "";
+  }
 }
 
 export default ProductInfo;
