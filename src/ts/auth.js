@@ -12,7 +12,7 @@ const getUserTokenId = () => {
   const userAuth = getUserAuth();
   return {
     accessToken: `Bearer ${userAuth.accessToken}`,
-    userUrl: `${API_URL}/users/${userAuth.id}`,
+    userUrl: `${API_URL}/440/users/${userAuth.id}`,
   };
 };
 
@@ -35,6 +35,27 @@ export const getUserData = async () => {
   const data = await response.json();
 
   return { email: data.email, name: data.name };
+};
+
+export const checkUserLoginStatus = async () => {
+  const userAuth = getUserAuth();
+  if (!userAuth) {
+    return false;
+  }
+  const accessToken = `Bearer ${userAuth.accessToken}`;
+  const userUrl = `${API_URL}/440/users/${userAuth.id}`;
+
+  const response = await fetch(userUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken,
+    },
+  });
+  if (!response.ok) {
+    return false;
+  }
+  return true;
 };
 
 export const signupAuth = async ({ email, name, password, passwordCheck }) => {

@@ -5,7 +5,7 @@ import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
 import { renderComponent } from '../components/renderer';
-
+import { checkUserLoginStatus } from '../auth.js';
 export default class View {
   $app: HTMLDivElement;
   $notFound: HTMLDivElement;
@@ -74,7 +74,12 @@ export default class View {
     this.$navTab.dispatchEvent(event);
   };
 
-  public renderTabs = (url: string) => {
+  public renderTabs = async (url: string) => {
+    const isLogin = await checkUserLoginStatus();
+    if (!isLogin) {
+      return;
+    }
+
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
       if (container.id === url) {
         container.classList.remove('hide');
