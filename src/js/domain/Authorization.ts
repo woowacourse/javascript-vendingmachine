@@ -1,5 +1,5 @@
 import {
-  ACCESS_TOKEN,
+  ACCESS_TOKEN_KEY_STRING,
   AUTH_URL_BASE,
   ERROR_MESSAGE,
   POST_REQUEST_OPTIONS,
@@ -14,19 +14,19 @@ import {
 } from './validator';
 
 export default class Authorization {
-  #isLoggedIn;
-  #userId;
-  #name;
-  #email;
-  #accessToken;
+  #isLoggedIn: boolean;
+  #userId: number;
+  #name: string;
+  #email: string;
+  #accessToken: string;
 
   constructor() {
     this.#userId = null;
     this.#name = null;
     this.#email = null;
-    this.#accessToken = this.#getAccessToken();
-
     this.#getUserData();
+
+    this.#accessToken = this.#getAccessToken();
 
     this.#isLoggedIn = !!this.#userId && !!this.#accessToken;
   }
@@ -107,7 +107,7 @@ export default class Authorization {
   logout() {
     window.sessionStorage.removeItem('userData');
 
-    document.cookie = `${ACCESS_TOKEN}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    document.cookie = `${ACCESS_TOKEN_KEY_STRING}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
     this.#userId = null;
     this.#name = null;
@@ -117,6 +117,7 @@ export default class Authorization {
 
   async #handleServerError(response) {
     const rejectMessage = await response.json();
+
     if (rejectMessage === 'Email already exists') {
       throw new Error(ERROR_MESSAGE.USER_DATA.DUPLICATE_EMAIL);
     }
@@ -144,7 +145,7 @@ export default class Authorization {
     window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
     if (accessToken) {
-      document.cookie = `${ACCESS_TOKEN}=${accessToken}; path=/;`;
+      document.cookie = `${ACCESS_TOKEN_KEY_STRING}=${accessToken}; path=/;`;
       this.#accessToken = accessToken;
     }
 
@@ -156,7 +157,7 @@ export default class Authorization {
   #getAccessToken() {
     const accessToken = document.cookie
       .split('; ')
-      .find((row) => row.startsWith(ACCESS_TOKEN))
+      .find((row) => row.startsWith(ACCESS_TOKEN_KEY_STRING))
       ?.split('=')[1];
 
     return accessToken;

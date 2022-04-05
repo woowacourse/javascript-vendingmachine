@@ -21,6 +21,34 @@ export const USER_REGISTER_RULES = {
   PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()[\]{}\-:;',?/~^+=<>]).{8,20}$/,
 };
 
+export const MONEY_NAME_STRING = {
+  COIN_500_WON: 'FIVE_HUNDRED_WON',
+  COIN_100_WON: 'ONE_HUNDRED_WON',
+  COIN_50_WON: 'FIFTY_WON',
+  COIN_10_WON: 'TEN_WON',
+} as const;
+
+export const AUTH_URL_BASE = 'https://vendingmachine-auth-server.herokuapp.com';
+
+export const POST_REQUEST_OPTIONS = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+};
+
+export const DEFAULT_ROUTE = {
+  USER: '#/product',
+  NON_USER: '#/purchase',
+};
+
+export const ACCESS_TOKEN_KEY_STRING = 'accessToken';
+
+export const USER_DATA_CHANGED_MESSAGE = '개인 정보 수정이 완료되었습니다.';
+
+export const NOT_ENOUGH_CHANGE_MESSAGE =
+  '자판기가 보유한 잔돈이 부족합니다. 관리자에게 문의해주세요.';
+
+export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';
+
 export const ERROR_MESSAGE = {
   CONTAIN_EMPTY_FIELD_IN_FORM: '상품명, 가격, 수량을 모두 입력해주세요.',
 
@@ -71,31 +99,3 @@ export const ERROR_MESSAGE = {
     SERVER_FAILURE: '서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
   },
 };
-
-export const USER_DATA_CHANGED_MESSAGE = '개인 정보 수정이 완료되었습니다.';
-
-export const NOT_ENOUGH_CHANGE_MESSAGE =
-  '자판기가 보유한 잔돈이 부족합니다. 관리자에게 문의해주세요.';
-
-export const CONFIRM_DELETE_MESSAGE = '해당 상품을 정말 삭제하시겠습니까?';
-
-export const MONEY_NAME_STRING = {
-  COIN_500_WON: 'FIVE_HUNDRED_WON',
-  COIN_100_WON: 'ONE_HUNDRED_WON',
-  COIN_50_WON: 'FIFTY_WON',
-  COIN_10_WON: 'TEN_WON',
-} as const;
-
-export const AUTH_URL_BASE = 'https://vendingmachine-auth-server.herokuapp.com';
-
-export const POST_REQUEST_OPTIONS = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-};
-
-export const DEFAULT_ROUTE = {
-  USER: '#/product',
-  NON_USER: '#/purchase',
-};
-
-export const ACCESS_TOKEN = 'accessToken';

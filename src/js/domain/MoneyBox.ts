@@ -18,7 +18,7 @@ export default class MoneyBox {
     this.#coinDistributeStrategy = RandomStrategy;
   }
 
-  set strategy(strategy) {
+  set strategy(strategy: distributeStrategy) {
     this.#coinDistributeStrategy = strategy;
   }
 

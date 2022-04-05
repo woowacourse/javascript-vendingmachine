@@ -42,14 +42,6 @@ export default class VendingMachine {
     return this.#userMoney;
   }
 
-  addChange(money: number) {
-    this.#validateChange(money);
-
-    this.#moneyBox.addChange(money);
-
-    return this.#moneyBox.coinStatusList;
-  }
-
   addProduct(data: ProductData) {
     this.#validateUniqueProductName(data.name);
 
@@ -71,6 +63,14 @@ export default class VendingMachine {
   removeProduct(productId: string) {
     this.#validateProductIdInList(productId);
     delete this.#productList[productId];
+  }
+
+  addChange(money: number) {
+    this.#validateChange(money);
+
+    this.#moneyBox.addChange(money);
+
+    return this.#moneyBox.coinStatusList;
   }
 
   addUserMoney(money: number) {
