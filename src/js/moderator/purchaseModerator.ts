@@ -17,6 +17,10 @@ class PurchaseModerator {
     on<any>(window, EVENT_TYPE.PURCHASE, (e) => {
       this.purchaseProduct(e.detail);
     });
+
+    on<any>(window, EVENT_TYPE.RETURN, () => {
+      this.returnChanges();
+    });
   }
 
   init() {
@@ -42,6 +46,11 @@ class PurchaseModerator {
     const purchaseableProducts = this.vendingMachine.getPurchaseableProducts();
     this.purchasePageView.renderCurrentChargedMoney(chargedMoney);
     this.purchasePageView.renderPurchaseableProducts(purchaseableProducts);
+  }
+
+  returnChanges() {
+    const changes = this.vendingMachine.returnChanges();
+    this.purchasePageView.renderReturnedChanges(changes);
   }
 
   chargeMoney({ money }) {

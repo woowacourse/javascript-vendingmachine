@@ -75,12 +75,17 @@ class PurchasePageView {
   bindEvent() {
     on(this.$formContainer, "submit", this.moneySubmitHandler);
     on(this.$productList, "click", this.purchaseHandler);
+    on(this.$returnChangesButton, "click", this.returnChangesHandler);
   }
 
   purchaseHandler = (e: Event): void => {
     const target = e.target as HTMLElement;
     const productId = target.closest("tr").dataset.id;
     emit<any>(EVENT_TYPE.PURCHASE, { id: productId });
+  };
+
+  returnChangesHandler = (): void => {
+    emit<any>(EVENT_TYPE.RETURN, {});
   };
 
   moneySubmitHandler = (e: Event): void => {
@@ -104,6 +109,7 @@ class PurchasePageView {
   }
 
   renderReturnedChanges(changes: TCoin) {
+    this.$changesList.replaceChildren();
     this.$changesList.insertAdjacentHTML(
       "beforeend",
       purchaseTemplate.changes(changes)

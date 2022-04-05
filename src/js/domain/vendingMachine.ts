@@ -130,15 +130,21 @@ export default class VendingMachine implements type.IVendingMachine {
 
   calculate = () => {
     let index = 0;
-    while (this.chargedMoney < 0 && this.getTotalChanges() > 0 && index < 4) {
-      if (this.changes[index] === 0) index++;
-      this.chargedMoney -= this.changes[index];
-      this.changes[index]--;
+    const list = [500, 100, 50, 10];
+    const userChanges = { 500: 0, 100: 0, 50: 0, 10: 0 };
+    while (this.chargedMoney > 0 && this.getTotalChanges() > 0 && index < 4) {
+      if (this.changes[list[index]] === 0) index++;
+      if (list[index] > this.chargedMoney) index++;
+      if (index === 4) break;
+      this.chargedMoney -= list[index];
+      this.changes[list[index]]--;
+      userChanges[list[index]]++;
     }
+
+    return userChanges;
   };
 
   returnChanges: type.IReturnChanges = () => {
-    this.calculate();
-    return this.changes;
+    return this.calculate();
   };
 }
