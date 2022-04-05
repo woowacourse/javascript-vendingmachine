@@ -75,8 +75,10 @@ export default class VendingMachine {
   }
 
   giveChange(): CoinStatus {
-    this.#totalMoney = Math.max(this.#totalMoney - this.#moneyBox.totalChange, 0);
-    return this.#moneyBox.giveChange(this.#totalMoney);
+    const { totalChange } = this.#moneyBox;
+    const coinStatus = this.#moneyBox.giveChange(this.#totalMoney);
+    this.#totalMoney = Math.max(this.#totalMoney - totalChange, 0);
+    return coinStatus;
   }
 
   #validateProduct(productId: string): boolean {

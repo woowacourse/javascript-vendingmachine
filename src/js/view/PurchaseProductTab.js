@@ -8,6 +8,8 @@ export default class PurchaseProductTab {
   #addProductNameInput;
   #totalMoneySpan;
   #productStatusTable;
+  #giveChangeButton;
+  #coinStatusTable;
 
   constructor(vendingMachine) {
     this.#machine = vendingMachine;
@@ -19,12 +21,15 @@ export default class PurchaseProductTab {
       '#product-status-table',
       this.#purchaseContainer
     );
+    this.#giveChangeButton = selectDom('#give-change-button', this.#purchaseContainer);
+    this.#coinStatusTable = selectDom('#coin-status-table', this.#purchaseContainer);
 
     this.#renderTotalMoney();
     this.#renderProductList();
 
     this.#inputMoneyForm.addEventListener('submit', this.#handleInputMoneyForm);
     this.#productStatusTable.addEventListener('click', this.#handlePurchase);
+    this.#giveChangeButton.addEventListener('click', this.#handleGiveChange);
   }
 
   #renderProductList() {
@@ -69,6 +74,16 @@ export default class PurchaseProductTab {
     }
     selectDom('.product-stock', e.target.closest('tr')).textContent =
       this.#machine.productList[productId].stock;
+    this.#renderTotalMoney();
+  };
+
+  #handleGiveChange = () => {
+    const coinStatus = this.#machine.giveChange();
+    const coinCountElements =
+      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
+    coinCountElements.forEach((element) => {
+      element.textContent = `${coinStatus[element.dataset.coinName]}개`;
+    });
     this.#renderTotalMoney();
   };
 
