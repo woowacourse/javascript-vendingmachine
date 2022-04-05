@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
-    "server": "json-server-auth db.json -p 9000 -r routes.json",
+    "server": "json-server-auth db.json -p 8080 -r routes.json",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -23,6 +23,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@types/jest": "^27.4.1",
@@ -30,6 +31,7 @@
     "@typescript-eslint/parser": "^5.16.0",
     "babel-jest": "^27.4.6",
     "babel-loader": "^8.2.3",
+    "babel-polyfill": "^6.26.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
     "cypress": "^9.5.2",
@@ -55,5 +57,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://nan-noo.github.io/javascript-vendingmachine/"
+  "homepage": "https://nan-noo.github.io/javascript-vendingmachine/",
+  "dependencies": {
+    "@babel/runtime": "^7.17.8"
+  }
 }
