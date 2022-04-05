@@ -1,3 +1,6 @@
+import { API } from '../../apis';
+import type { UserInfoWithPassWord } from '../../apis';
+
 const getRandomIndex = <T>(array: T[]) => {
   return Math.floor(Math.random() * array.length);
 };
@@ -20,4 +23,13 @@ const getCookie = (name: string) => {
   return matches && decodeURIComponent(matches[1]);
 };
 
-export { getRandomIndex, insertNBSP, removeNBSP, getCookie };
+const getUser = async (): Promise<UserInfoWithPassWord | string> => {
+  const userId = getCookie('user_id');
+  const accessToken = getCookie('access_token');
+
+  const user = await API.fetchUser(userId, accessToken);
+
+  return user;
+};
+
+export { getRandomIndex, insertNBSP, removeNBSP, getCookie, getUser };

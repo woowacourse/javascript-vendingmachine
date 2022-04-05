@@ -26,7 +26,7 @@ interface SignupInfo extends LoginInfo {
 
 const baseUrl = 'http://localhost:3000' as const;
 
-async function getUser(
+async function fetchUser(
   userId: string,
   accessToken: string,
 ): Promise<UserInfoWithPassWord> {
@@ -102,7 +102,7 @@ async function editInfo(
 }
 
 export const API = {
-  getUser,
+  fetchUser,
   login,
   signup,
   editInfo,
