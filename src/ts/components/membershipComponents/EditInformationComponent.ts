@@ -67,8 +67,14 @@ export default class EditInformationComponent {
 
       this.$passwordInput.value = '';
       this.$passwordConfirmInput.value = '';
+
       window.history.pushState({}, '', '/purchase-product');
       emit(this.$editVerifyButton, '@editInformation');
+      renderSnackBar(
+        this.$snackBarContainer,
+        '회원정보가 정상적으로 수정 되었습니다.',
+        'success'
+      );
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }

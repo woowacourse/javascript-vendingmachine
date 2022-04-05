@@ -47,6 +47,11 @@ export default class SignUpComponent {
 
       window.history.pushState({}, '', '/sign-in');
       emit(this.$signUpVerifyButton, '@renderSignInComponent');
+      renderSnackBar(
+        this.$snackBarContainer,
+        '회원가입이 완료되었습니다. 로그인 후 서비스를 이용해주세요.',
+        'success'
+      );
     } catch ({ message }) {
       if (message === 'Email already exists') {
         message =

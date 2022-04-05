@@ -53,13 +53,18 @@ export default class SignInComponent {
 
       window.history.pushState({}, '', '/purchase-product');
       emit(this.$signInVerifyButton, '@membershipPurchaseProduct');
+
+      renderSnackBar(
+        this.$snackBarContainer,
+        '정상적으로 로그인이 되셨습니다.',
+        'success'
+      );
     } catch ({ message }) {
       if (message === 'Cannot find user') {
         message =
           '존재하지 않는 이메일입니다. 이메일을 확인 후 다시 로그인 해주세요.';
       }
 
-      console.log(message);
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   };
