@@ -1,6 +1,6 @@
 import Header from 'Components/Header';
 import Navigation from 'Components/Navigation';
-import AmountInputForm from 'Components/AmountInputForm';
+import AddHoldingAmountForm from 'Components/AddHoldingAmountForm';
 import CoinList from 'Components/CoinList';
 import { $ } from 'Utils';
 
@@ -14,19 +14,20 @@ export default class HoldingAmountPage {
 
   addComponent(ComponentClass, props = {}, children = {}) {
     const component = new ComponentClass(props, children);
+    component.mount();
     this.componentList.push(component);
   }
 
   setComponent() {
     this.addComponent(Header);
     this.addComponent(Navigation);
-    this.addComponent(AmountInputForm);
+    this.addComponent(AddHoldingAmountForm);
     this.addComponent(CoinList);
   }
 
   mount = () => {
     const $renderPage = this.componentList.reduce((previous, component) => {
-      previous.append(component.mount());
+      previous.append(component.content);
       return previous;
     }, document.createDocumentFragment());
 

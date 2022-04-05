@@ -14,6 +14,7 @@ export default class ProductPage {
 
   addComponent(ComponentClass, props = {}, children = {}) {
     const component = new ComponentClass(props, children);
+    component.mount();
     this.componentList.push(component);
   }
 
@@ -26,7 +27,7 @@ export default class ProductPage {
 
   mount = () => {
     const $renderPage = this.componentList.reduce((previous, component) => {
-      previous.append(component.mount());
+      previous.append(component.content);
       return previous;
     }, document.createDocumentFragment());
 
