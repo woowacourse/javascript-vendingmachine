@@ -4,6 +4,7 @@
 @import './purchase-tab.css';
 @import './login.css';
 @import './signup-page.css';
+@import './profile-edit-page.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);

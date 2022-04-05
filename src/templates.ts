@@ -151,6 +151,22 @@ const TEMPLATE = {
       </form>
     </section>
   `,
+  PROFILE_EDIT_PAGE: `
+    <section class="profile-edit-page">
+      <h2>회원 정보 수정</h2>
+      <form class="profile-edit-form">
+        <label>이메일</label>
+        <input type="email" name="email" disabled />
+        <label>이름</label>
+        <input type="text" name="userName" minlength="2" maxlength="6" required />
+        <label>비밀번호</label>
+        <input type="password" name="password" placeholder="비밀번호를 입력해주세요." required />
+        <label>비밀번호 확인</label>
+        <input type="password" name="passwordConfirm" placeholder="비밀번호를 입력해주세요." required />
+        <button type="submit" class="submit-button profile-edit-form__edit-button">확인</button>
+      </form>
+    </section>
+  `,
 };
 
 export default TEMPLATE;
