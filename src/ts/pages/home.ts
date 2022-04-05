@@ -32,28 +32,33 @@ export default class HomePage {
     this.activateClickedButton = activateClickedButton;
   }
 
-  render() {
+  async render() {
     replaceHTML($('#app'), this.#template());
-    this.renderMainContent(location.pathname);
     this.activateClickedButton(location.pathname);
 
     $('.nav').addEventListener('click', this.navClickHandler);
     $('.login-button').addEventListener('click', this.loginButtonHandler);
 
-    this.isLogined();
-  }
-
-  async isLogined() {
     const userId = getCookie('user_id');
     const accessToken = getCookie('access_token');
 
     const user = await API.getUser(userId, accessToken);
 
-    if (typeof user === 'string') return;
+    if (typeof user === 'string') {
+      if (location.pathname !== basePath) {
+        history.pushState({}, '', basePath);
+      }
+      this.renderMainContent(`${basePath}/purchase`);
+      $('.nav').classList.add('display-none');
+      $('.login-button').classList.remove('display-none');
 
+      return;
+    }
+
+    this.renderMainContent(location.pathname);
+    $('.nav').classList.remove('display-none');
     $('.login-button').classList.add('display-none');
     $('.logined-user-tab').classList.remove('display-none');
-
     [$('.user-thumbnail').innerText] = user.name;
 
     $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
@@ -81,13 +86,14 @@ export default class HomePage {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
-    location.reload();
+    history.pushState({}, '', basePath);
+    this.routePage(basePath);
   };
 
   #template() {
     return `
       <h1 class="title">🍿 자판기 🍿</h1>
-      <button class="login-button user-button" data-pathname="/login">
+      <button class="login-button user-button display-none" data-pathname="/login">
         로그인
       </button>
       <select class="logined-user-tab user-button display-none">
@@ -95,7 +101,7 @@ export default class HomePage {
         <option class="user-edit-button" value="회원 정보 수정">회원 정보 수정</option>
         <option class="logout-button" value="로그아웃">로그아웃</option>
       </select>
-      <nav class="nav">
+      <nav class="nav display-none">
         <button
           type="button"
           class="nav__button active"
