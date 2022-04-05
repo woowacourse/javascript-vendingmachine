@@ -129,3 +129,65 @@ describe('자판기 클래스 테스트', () => {
     });
   });
 });
+
+describe('금액 투입 기능 테스트', () => {
+  let vendingMachine;
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachine();
+  });
+
+  test('최초 투입 금액은 0원이다.', () => {
+    expect(vendingMachine.totalInsertMoney).toBe(0);
+  });
+
+  test('금액을 정상적으로 투입할 수 있다.', () => {
+    const money = 10000;
+    vendingMachine.insertMoney(money);
+
+    expect(vendingMachine.totalInsertMoney).toBe(money);
+  });
+
+  test('투입 금액은 누적으로 투입할 수 있다.', () => {
+    const firstMoney = 10000;
+    vendingMachine.insertMoney(firstMoney);
+
+    const secondMoney = 5000;
+    vendingMachine.insertMoney(secondMoney);
+
+    expect(vendingMachine.totalInsertMoney).toBe(firstMoney + secondMoney);
+  });
+
+  test('투입 금액이 0원 이하면 오류가 발생한다.', () => {
+    const inValidMoney = 0;
+
+    expect(() => vendingMachine.insertMoney(inValidMoney)).toThrow(
+      '투입 금액은 0원 이하일 수 없습니다.'
+    );
+  });
+
+  test('투입 금액이 10원 단위가 아니면 오류가 발생한다.', () => {
+    const inValidMoney = 5025;
+
+    expect(() => vendingMachine.insertMoney(inValidMoney)).toThrow(
+      '투입 금액은 10원 단위이어야 합니다.'
+    );
+  });
+
+  test('투입 금액이 10000원을 초과하면 오류가 발생한다.', () => {
+    const inValidMoney = 11000;
+
+    expect(() => vendingMachine.insertMoney(inValidMoney)).toThrow(
+      '최대 투입 금액은 10000원을 초과할 수 없습니다.'
+    );
+  });
+});
+
+/**
+ * TODO
+ * [ ] 최초 반환된 각 동전의 개수는 0개이다.
+ * [ ] 잔돈을 돌려줄 때는 현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다.
+ * [ ] 지폐를 잔돈으로 반환하는 경우는 없다고 가정한다.
+ * [ ] 잔돈을 반환할 수 없는 경우 잔돈으로 반환할 수 있는 금액만 반환한다.
+ 
+ */
