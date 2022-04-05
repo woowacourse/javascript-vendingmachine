@@ -7,7 +7,8 @@
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
-    "cm": "cz"
+    "cm": "cz",
+    "server": "json-server-auth db.json"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,9 @@
     "typescript": "^4.5.5",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0"
   },
   "config": {
     "commitizen": {
