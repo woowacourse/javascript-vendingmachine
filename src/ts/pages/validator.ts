@@ -1,4 +1,5 @@
 import { USER_NAME_RULE } from '../constants';
+import { pwRegExp } from '../utils/regexp';
 
 function isEmail(str: string) {
   if (!str.includes('@')) return false;
@@ -34,6 +35,11 @@ const generateValidator = (
     test: !isProperLength(name),
     errorMsg: `이름은 ${USER_NAME_RULE.MIN}~${USER_NAME_RULE.MAX}자로 입력해주세요.`,
     target: 'name',
+  },
+  {
+    test: !pwRegExp.test(pw),
+    errorMsg: `비밀번호는 8~20자이어야 하며, 숫자/대문자/소문자/특수문자를 하나 이상 포함해야 합니다.`,
+    target: 'pw',
   },
 ];
 
