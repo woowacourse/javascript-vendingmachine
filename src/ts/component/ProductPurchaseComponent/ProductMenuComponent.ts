@@ -1,6 +1,6 @@
 import MoneyManagement from '../../domain/MoneyManagement';
 import ProductManagement from '../../domain/ProductManagement';
-import { insertNBSP, removeNBSP } from '../../utils';
+import { insertNBSP, removeNBSP, showSnackbar } from '../../utils';
 import { $, $$, replaceHTML } from '../../utils/dom';
 
 export default class ProductMenuComponent {
@@ -92,7 +92,9 @@ export default class ProductMenuComponent {
     );
 
     if (this.#moneyManagement.money < selectedProduct.price) {
-      alert(`금액이 부족하여 🥤${productName}🥤을(를) 구매할 수 없습니다.`);
+      showSnackbar(
+        `금액이 부족하여 🥤${productName}🥤을(를) 구매할 수 없습니다.`,
+      );
       return;
     }
 

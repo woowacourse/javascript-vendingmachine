@@ -1,5 +1,6 @@
 import { API } from '../../apis';
 import { basePath } from '../component/App';
+import { showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateSignup } from './validator';
 
@@ -48,14 +49,14 @@ export default class SignupPage {
       if (pwInput.value !== rePwInput.value)
         throw new Error('비밀번호가 일치하지 않습니다.');
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
     try {
       validateSignup(emailInput.value, pwInput.value, nameInput.value);
     } catch ({ message, name }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
@@ -66,11 +67,11 @@ export default class SignupPage {
     });
 
     if (typeof response === 'string') {
-      alert(response);
+      showSnackbar(response);
       return;
     }
 
-    alert(`${nameInput.value}님 회원가입에 성공했습니다.`);
+    showSnackbar(`${nameInput.value}님 회원가입에 성공했습니다.`);
 
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;

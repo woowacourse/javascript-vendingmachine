@@ -2,7 +2,7 @@ import { MESSAGE } from '../../constants';
 import { $, $$, replaceHTML } from '../../utils/dom';
 import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
-import { insertNBSP, removeNBSP } from '../../utils';
+import { insertNBSP, removeNBSP, showSnackbar } from '../../utils';
 
 export default class ProductInventoryComponent {
   private $container: HTMLElement;
@@ -160,7 +160,7 @@ export default class ProductInventoryComponent {
       const { products } = this.productManagement;
       validateProductInfo(products, product, prevProductName);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 

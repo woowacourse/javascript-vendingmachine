@@ -2,7 +2,7 @@ import { API } from '../../apis';
 import type { UserInfoWithPassWord } from '../../apis';
 
 import { basePath } from '../component/App';
-import { getUser } from '../utils';
+import { getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 
 export default class UserEditPage {
@@ -15,7 +15,7 @@ export default class UserEditPage {
     this.user = await getUser();
 
     if (typeof this.user === 'string') {
-      alert('Not Login');
+      showSnackbar('Not Login');
       history.pushState({}, '', `${basePath}/`);
       this.routePage(`${basePath}/`);
       return;
@@ -66,7 +66,7 @@ export default class UserEditPage {
       if (pwInput.value !== rePwInput.value)
         throw new Error('비밀번호가 일치하지 않습니다.');
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 

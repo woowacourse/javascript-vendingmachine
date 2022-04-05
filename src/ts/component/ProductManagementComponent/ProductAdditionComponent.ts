@@ -2,6 +2,7 @@ import { $ } from '../../utils/dom';
 import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
 import { ProductInfoUnionType } from '../../domain/types';
+import { showSnackbar } from '../../utils';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
@@ -39,7 +40,7 @@ export default class ProductAdditionComponent {
       validateProductInfo(products, product);
     } catch ({ name, message }) {
       this.focusOnInvalidInput(name, $inputs);
-      alert(message);
+      showSnackbar(message);
       return;
     }
 

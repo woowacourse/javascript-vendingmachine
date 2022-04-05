@@ -1,4 +1,5 @@
 import { MONEY_RULE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $ } from '../../utils/dom';
 import { validateNumber } from '../../utils/validator';
 
@@ -24,7 +25,7 @@ export default class MoneyChargeComponent {
     try {
       validateNumber(money, MONEY_RULE);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 

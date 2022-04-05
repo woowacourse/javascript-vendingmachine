@@ -1,6 +1,7 @@
 import { API } from '../../apis';
 import { $, replaceHTML } from '../utils/dom';
 import { basePath } from '../component/App';
+import { showSnackbar } from '../utils';
 
 export default class LoginPage {
   constructor(private readonly routePage) {
@@ -43,7 +44,7 @@ export default class LoginPage {
     });
 
     if (typeof response === 'string') {
-      alert(response);
+      showSnackbar(response);
       return;
     }
 
