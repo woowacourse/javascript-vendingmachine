@@ -148,14 +148,14 @@ class UserMenu extends HTMLElement {
   }
 
   connectedCallback() {
-    this.loginButton.addEventListener('click', this.renderLoginModal);
+    this.loginButton.addEventListener('click', this.handleLoginButton);
     this.thumbnail.addEventListener('click', this.toggleMenu);
     this.profileEditButton.addEventListener('click', this.emitRenderProfileEdit);
     this.logoutButton.addEventListener('click', this.logout);
   }
 
   disconnectedCallback() {
-    this.shadowRoot.removeEventListener('click', this.renderLoginModal);
+    this.shadowRoot.removeEventListener('click', this.handleLoginButton);
     this.thumbnail.removeEventListener('click', this.toggleMenu);
     this.profileEditButton.removeEventListener('click', this.emitRenderProfileEdit);
     this.logoutButton.removeEventListener('click', this.logout);
@@ -165,9 +165,8 @@ class UserMenu extends HTMLElement {
     this.checkLoginStatus();
   }
 
-  renderLoginModal = () => {
-    const detail = document.createElement('log-in');
-    const event = new CustomEvent('@render-login', { detail });
+  handleLoginButton = () => {
+    const event = new CustomEvent('@render-login', {});
     window.dispatchEvent(event);
   };
 

@@ -39,7 +39,7 @@ export const SUCCESS_MESSAGE = {
   MONEY_INSERTED: '입력하신 금액이 투입되었습니다.',
   LOGIN_COMPLETE: '로그인 되었습니다.',
   EDIT_COMPLETE: '회원정보가 수정되었습니다.',
-  SIGNUP_COMPLETE: '회원가입이 완료되었습니다.',
+  SIGNUP_COMPLETE: '회원가입이 완료되었습니다. 로그인 하시기 바랍니다.',
   LOGOUT_COMPLETE: '로그아웃 되었습니다.',
 };
 

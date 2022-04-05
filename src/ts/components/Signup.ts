@@ -1,6 +1,5 @@
-import { SUCCESS_MESSAGE } from '../constants';
-import { checkValidProfile } from '../domains/validator';
-import { renderToastModal } from './ToastNotification';
+import { signupAuth } from '../auth';
+import { renderComponent } from './renderer';
 
 const signupTemplate = document.createElement('template');
 
@@ -120,6 +119,8 @@ class Signup extends HTMLElement {
   passwordInput: HTMLInputElement;
   passwordCheckInput: HTMLInputElement;
   submitButton: HTMLButtonElement;
+  auth: any;
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -134,20 +135,18 @@ class Signup extends HTMLElement {
   }
 
   connectedCallback() {
-    // 이벤트 추가
     this.shadowRoot.querySelector('form').addEventListener('submit', this.signup);
     this.shadowRoot.querySelector('.x-shape').addEventListener('click', this.closeModal);
     this.shadowRoot.addEventListener('click', this.closeModalDimmer);
   }
 
   disconnectedCallback() {
-    // 이벤트 삭제
     this.shadowRoot.querySelector('form').removeEventListener('submit', this.signup);
     this.shadowRoot.querySelector('.x-shape').removeEventListener('click', this.closeModal);
     this.shadowRoot.removeEventListener('click', this.closeModalDimmer);
   }
 
-  closeModalDimmer = (event) => {
+  closeModalDimmer = (event: PointerEvent) => {
     event.target === this.shadowRoot.querySelector('.dimmer') ? this.closeModal() : false;
   };
 
@@ -155,49 +154,20 @@ class Signup extends HTMLElement {
     this.remove();
   };
 
-  signup = (event: SubmitEvent) => {
+  signup = async (event: SubmitEvent) => {
     event.preventDefault();
-    const email = this.emailInput.value;
-    const name = this.nameInput.value;
-    const password = this.passwordInput.value;
-    const passwordCheck = this.passwordCheckInput.value;
-
-    const url = 'https://json-server-marco.herokuapp.com/signup/';
-
-    try {
-      checkValidProfile(name, password, passwordCheck);
-    } catch (error) {}
-
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ email, password, name }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        checkValidProfile(name, password, passwordCheck);
-        if (!res.ok) {
-          throw new Error('이미 가입된 이메일입니다. 다른 이메일을 입력해주세요.');
-        }
-        return res.json();
-      })
-      .then((response) => {
-        const userAuth = {
-          accessToken: response.accessToken,
-          id: response.user.id,
-        };
-        localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        this.closeModal();
-        this.emitRouteLogin();
-        renderToastModal('success', SUCCESS_MESSAGE.SIGNUP_COMPLETE);
-      })
-      .catch((error) => renderToastModal('error', error.message));
-  };
-
-  emitRouteLogin = () => {
-    const event = new CustomEvent('@route-login', {});
-    window.dispatchEvent(event);
+    const payload = {
+      email: this.emailInput.value,
+      name: this.nameInput.value,
+      password: this.passwordInput.value,
+      passwordCheck: this.passwordCheckInput.value,
+    };
+    const isSignup = await signupAuth(payload);
+    if (!isSignup) {
+      return;
+    }
+    this.closeModal();
+    renderComponent('log-in');
   };
 }
 

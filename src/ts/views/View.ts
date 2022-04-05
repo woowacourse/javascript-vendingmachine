@@ -4,6 +4,7 @@ import { VendingMachineInterface } from '../domains/VendingMachine';
 import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
+import { renderComponent } from '../components/renderer';
 
 export default class View {
   $app: HTMLDivElement;
@@ -46,34 +47,40 @@ export default class View {
     );
 
     // 웹컴포넌트에서 보낸 커스텀 이벤트
-    window.addEventListener('@render-login', this.renderLoginModal);
-    window.addEventListener('@render-signup', this.renderSignupModal);
-    window.addEventListener('@render-profile-edit', this.renderProfileEdit);
+    window.addEventListener('@render-login', () => {
+      renderComponent('log-in');
+    });
+    window.addEventListener('@render-signup', () => {
+      renderComponent('sign-up');
+    });
+    window.addEventListener('@render-profile-edit', () => {
+      renderComponent('profile-edit');
+    });
   }
 
-  private renderLoginModal = (event) => {
-    document.body.appendChild(event.detail);
-  };
+  // public renderLoginModal = () => {
+  //   document.body.appendChild(document.createElement('log-in'));
+  // };
 
-  private renderSignupModal = () => {
-    document.body.appendChild(document.createElement('sign-up'));
-  };
+  // public renderSignupModal = () => {
+  //   document.body.appendChild(document.createElement('sign-up'));
+  // };
 
-  private renderProfileEdit = () => {
-    document.body.appendChild(document.createElement('profile-edit'));
-  };
+  // private renderProfileEdit = () => {
+  //   document.body.appendChild(document.createElement('profile-edit'));
+  // };
 
-  public renderUserPrivatePage = () => {
-    console.log('renderUserPrivatePage');
-    $('.nav-tab').classList.remove('hide');
-    $('user-menu').setAttribute('auth', 'login');
-  };
+  // public renderUserPrivatePage = () => {
+  //   console.log('renderUserPrivatePage');
+  //   $('.nav-tab').classList.remove('hide');
+  //   $('user-menu').setAttribute('auth', 'login');
+  // };
 
-  public renderPublicPage = () => {
-    console.log('renderPublicPage');
-    $('.nav-tab').classList.add('hide');
-    $('user-menu').setAttribute('auth', 'logout');
-  };
+  // public renderPublicPage = () => {
+  //   console.log('renderPublicPage');
+  //   $('.nav-tab').classList.add('hide');
+  //   $('user-menu').setAttribute('auth', 'logout');
+  // };
 
   private handleClickTabButton = (url: string) => {
     const detail = url;

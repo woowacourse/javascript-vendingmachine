@@ -1,5 +1,6 @@
 import View from './views/View';
 import { PATH_ID, STORAGE_ID } from './constants';
+import { renderPublicPage, renderUserPrivatePage } from './components/renderer';
 
 export default class Router {
   currentTab: string;
@@ -28,12 +29,12 @@ export default class Router {
 
   private routeLogin = () => {
     this.tabRouter(PATH_ID.PRODUCT_MANAGE, false);
-    this.view.renderUserPrivatePage();
+    renderUserPrivatePage();
   };
 
   private routeLogout = () => {
     this.tabRouter(PATH_ID.PURCHASE_PRODUCT, false);
-    this.view.renderPublicPage();
+    renderPublicPage();
   };
 
   private tabRouter = (url: string, isPopState = false) => {
