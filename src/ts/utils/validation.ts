@@ -1,4 +1,4 @@
-import { PRODUCT, CHARGE } from "./constants";
+import { PRODUCT, CHARGE, specialSymbolAsc, numberAsc, upperCaseAsc, lowerCaseAsc } from "./constants";
 import { EditInsertMoneyProps } from "./interface";
 
 const validateProductName = (productName: string | null) => {
@@ -74,11 +74,108 @@ const validatePossiblePurchaseProduct = ({ totalMoney, productPrice }: EditInser
   }
 };
 
+const validateEmailInfo = (emailInputValue, emailInfoMessage) => {
+  const emailInfoSplit = emailInputValue.split("");
+  const emailInfoSplitAt = emailInputValue.split("@");
+
+  try {
+    if (!emailInputValue) {
+      throw Error("필수 정보입니다.");
+    }
+    if (!emailInfoSplit.includes("@")) {
+      throw Error("이메일 입력값에는 @가 필수입니다.");
+    }
+    if (emailInfoSplit.filter((text) => text === "@").length > 1) {
+      throw Error("@ 다음 부분에 @기호를 포함할 수 없습니다.");
+    }
+    if (emailInfoSplitAt[0].length === 0) {
+      throw Error("@ 앞부분을 입력해주세요.");
+    }
+    if (emailInfoSplitAt[1].length < 1) {
+      throw Error("@ 뒷부분을 입력해주세요.");
+    }
+    if (emailInfoSplit.find((text) => text === " ")) {
+      throw Error("이메일에 공백을 포함할 수 없습니다.");
+    }
+    return true;
+  } catch ({ message }) {
+    emailInfoMessage.textContent = `${message}`;
+    return false;
+  }
+};
+
+const validateNameInfo = (nameInputValue, nameInfoMessage) => {
+  try {
+    if (!nameInputValue) {
+      throw Error("필수 정보입니다.");
+    }
+    if (nameInputValue.split("").find((_, index) => specialSymbolAsc.includes(nameInputValue.charCodeAt(index)))) {
+      throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
+    }
+    if (nameInputValue.split("").find((_, index) => numberAsc.includes(nameInputValue.charCodeAt(index)))) {
+      throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
+    }
+    if (nameInputValue.split("").find((text) => text === " ")) {
+      throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
+    }
+    return true;
+  } catch ({ message }) {
+    nameInfoMessage.textContent = `${message}`;
+    return false;
+  }
+};
+
+const validatePasswordInfo = (passwordInputValue, passwordInfoMessage) => {
+  try {
+    if (!passwordInputValue) {
+      throw Error("필수 정보입니다.");
+    }
+    if (passwordInputValue.split("").find((text) => text === " ")) {
+      throw Error("비밀번호에 공백을 포함할 수 없습니다.");
+    }
+    if (!passwordInputValue.split("").find((_, index) => specialSymbolAsc.includes(passwordInputValue.charCodeAt(index)))) {
+      throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    }
+    if (!passwordInputValue.split("").find((_, index) => upperCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
+      throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    }
+    if (!passwordInputValue.split("").find((_, index) => lowerCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
+      throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    }
+    if (!passwordInputValue.split("").find((_, index) => numberAsc.includes(passwordInputValue.charCodeAt(index)))) {
+      throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+    }
+    return true;
+  } catch ({ message }) {
+    passwordInfoMessage.textContent = `${message}`;
+    return false;
+  }
+};
+
+const validatePasswordConfirmInfo = (passwordConfirmInputValue, passwordInputValue, passwordConfirmInfoMessage) => {
+  try {
+    if (!passwordConfirmInputValue) {
+      throw Error("필수 정보입니다.");
+    }
+    if (passwordInputValue !== passwordConfirmInputValue) {
+      throw Error("비밀번호가 일치하지 않습니다.");
+    }
+    return true;
+  } catch ({ message }) {
+    passwordConfirmInfoMessage.textContent = `${message}`;
+    return false;
+  }
+};
+
 export { 
   validateProductName,
   validateProductPrice,
   valudateProductQuantity,
   validateSameProductName,
   validateCharge,
-  validatePossiblePurchaseProduct
+  validatePossiblePurchaseProduct,
+  validateEmailInfo,
+  validateNameInfo,
+  validatePasswordInfo,
+  validatePasswordConfirmInfo
 };

@@ -1,6 +1,7 @@
 @import "./productPage.css";
 @import "./chargePage.css";
 @import "./purchasePage.css";
+@import "./memberPage.css";
 
 #app {
   display: flex;
@@ -15,6 +16,30 @@ input {
 
 button {
   border: none;
+}
+
+.header {
+  width: 470px;
+}
+
+.header-text {
+  text-align: center;
+}
+
+.member-wrap {
+  float: right;
+  margin-top: -50px;
+}
+
+.member-login-button {
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.member-login-button:hover {
+  background-color: #ebebeb;
 }
 
 .nav {
@@ -48,6 +73,61 @@ button {
   background: #00bcd41f;
 }
 
+.user-info-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.user-info-text,
+.user-info-edit,
+.user-logout {
+  width: 30px;
+  height: 26px;
+  border-radius: 15px;
+  background-color: #00bcd4;
+  color: #000000;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+  padding-top: 4px;
+  margin-bottom: 4px;
+}
+
+.user-info-text {
+  z-index: 2;
+}
+
+.user-info-edit {
+  position: absolute;
+}
+
+.edit-button-animation {
+  top: 34px
+}
+
+.user-logout {
+  position: absolute;
+}
+
+.logout-button-animation {
+  top: 68px
+}
+
+.user-info-text:hover,
+.user-info-edit:hover ,
+.user-logout:hover {
+  background-color: #00e1ff;
+}
+
+.user-info-edit > svg,
+.user-logout > svg {
+  width: 16px;
+  color: #ebebeb;
+  padding-top: 2px;
+  pointer-events: none
+}
+
 #product-add-button,
 #charge-add-button,
 #insert-money-button {
@@ -60,6 +140,12 @@ button {
   margin-left: 16px;
   color: white;
   font-size: 16px;
+}
+
+#product-add-button:hover,
+#charge-add-button:hover,
+#insert-money-button:hover {
+  background-color: #00e1ff;
 }
 
 #product-table-title,
