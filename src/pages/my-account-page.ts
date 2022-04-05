@@ -1,7 +1,7 @@
 import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { FieldSet, Feedback, UserInfo, WhiteList } from '../types';
+import { FieldSet, Feedback, UserInfo, WhiteList, EventOnElement } from '../types';
 import { deepCopy, getUserInfoFromLocalStorage } from '../utils';
 import { validateName, validatePassword, validateRePassword } from '../validation/validators';
 
@@ -62,6 +62,10 @@ class MyAccountPage extends RouteComponent {
   }
 
   template(feedbacks: FeedbackRecord): string {
+    const { name, password, repassword } = feedbacks;
+    const isLoading = [name, password, repassword].every(
+      (feedback) => !feedback.hasError && feedback.inputValue
+    );
     return `
       <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
@@ -100,7 +104,9 @@ class MyAccountPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full btn-edit-user-info">확인</button>
+        <button type="button" class="btn btn-primary full btn-edit-user-info ${
+          isLoading ? 'loading' : ''
+        }" ${isLoading ? 'disabled' : ''}>확인</button>
       </form>
     `;
   }

@@ -61,6 +61,10 @@ class RegisterPage extends RouteComponent {
   }
 
   template(feedbacks: FeedbackRecord): string {
+    const { email, name, password, repassword } = feedbacks;
+    const isLoading = [email, name, password, repassword].every(
+      (feedback) => !feedback.hasError && feedback.inputValue
+    );
     return `
       <header class="mb-12">
         <back-arrow data-path="${WhiteList.LoginPage}">Login</back-arrow>
@@ -99,7 +103,9 @@ class RegisterPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full btn-register">확인</button>
+        <button type="button" class="btn btn-primary full btn-register ${
+          isLoading ? 'loading' : ''
+        }" ${isLoading ? 'disabled' : ''}>확인</button>
       </form>
     `;
   }

@@ -45,6 +45,10 @@ class LoginPage extends RouteComponent {
   }
 
   template(feedbacks: FeedbackRecord): string {
+    const { email, password } = feedbacks;
+    const isLoading = [email, password].every(
+      (feedback) => !feedback.hasError && feedback.inputValue
+    );
     return `
       <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
@@ -67,7 +71,9 @@ class LoginPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full btn-login">확인</button>
+        <button type="button" class="btn btn-primary full btn-login ${
+          isLoading ? 'loading' : ''
+        }" ${isLoading ? 'disabled' : ''}>확인</button>
       </form>
       <div>
         <span>아직 회원이 아니신가요?</span><a>회원가입</a>
