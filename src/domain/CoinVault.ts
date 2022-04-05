@@ -79,23 +79,33 @@ export class CoinVault implements CoinVaultInterface {
   }
 
   returnCoins(purhcaseMoney: number): [Coins, number] {
-    const returnedCoins = { ...COINS_INIT_QUANTITY };
-    let remainder = purhcaseMoney;
+    if (this.#isValidatedReturnCoins(purhcaseMoney)) {
+      const returnedCoins = { ...COINS_INIT_QUANTITY };
+      let remainder = purhcaseMoney;
 
-    Object.entries(this.#coinsQuantity).forEach(([key, quantity]) => {
-      const coinUnit = COINS_UNIT_TABLE[key];
+      Object.entries(this.#coinsQuantity).forEach(([key, quantity]) => {
+        const coinUnit = COINS_UNIT_TABLE[key];
 
-      if (remainder === 0 || remainder < coinUnit) return;
+        if (remainder === 0 || remainder < coinUnit) return;
 
-      const maxAvailableCoinQuantity = Math.min(quantity, remainder / coinUnit);
+        const maxAvailableCoinQuantity = Math.min(quantity, remainder / coinUnit);
 
-      returnedCoins[key] = maxAvailableCoinQuantity;
-      remainder -= maxAvailableCoinQuantity * coinUnit;
-    });
+        returnedCoins[key] = maxAvailableCoinQuantity;
+        remainder -= maxAvailableCoinQuantity * coinUnit;
+      });
 
-    this.#substractCoins(returnedCoins);
+      this.#substractCoins(returnedCoins);
 
-    return [returnedCoins, remainder];
+      return [returnedCoins, remainder];
+    }
+  }
+
+  #isValidatedReturnCoins(purhcaseMoney: number): true | Error {
+    if (purhcaseMoney === 0) throw Error(ERROR_MESSAGE.NO_PURCHASE_MONEY);
+
+    if (this.getBalance() === 0) throw Error(ERROR_MESSAGE.NO_COINS);
+
+    return true;
   }
 
   #substractCoins(returnedCoins: Coins) {

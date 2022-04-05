@@ -39,7 +39,6 @@ export class NavView {
       coinVault: this.#coinVault,
     });
 
-    this.#contentsContainer = document.querySelector('#contents-container');
     /**
      * 임시
      */

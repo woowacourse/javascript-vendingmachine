@@ -56,8 +56,18 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
     try {
       this.#purchaseMoney.addMoney(purchaseMoney);
       this.#updatePurchaseMoney();
+
+      this.#target.dispatchEvent(
+        new CustomEvent('showSnackbar', {
+          detail: { type: 'success', message: `${purchaseMoney}원을 투입하였습니다` },
+        })
+      );
     } catch (err) {
-      alert(err);
+      this.#target.dispatchEvent(
+        new CustomEvent('showSnackbar', {
+          detail: { type: 'fail', message: err.message },
+        })
+      );
     }
   };
 

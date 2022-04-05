@@ -15,17 +15,19 @@ interface ProductPurchaseViewInterface {
 
 export class ProductPurchaseView implements ProductPurchaseViewInterface {
   #productPurchaseContainer: HTMLDivElement;
+  #snackbar: HTMLDivElement;
+  #coinVault: CoinVault;
+  #productCatalog: ProductCatalog;
+  #purchaseMoney: PurchaseMoney;
   #purchaseMoneyInputForm: PurchaseMoneyInputForm;
   #purchasableProductCatalogTable: PurchasableProductCatalogTable;
   #returnedCoinTable: ReturnedCoinTable;
-  #purchaseMoney: PurchaseMoney;
-  #productCatalog: ProductCatalog;
-  #coinVault: CoinVault;
   #isRendered: boolean;
 
   constructor({ productCatalog, coinVault }) {
     this.#isRendered = false;
     this.#productPurchaseContainer = document.querySelector('.product-purchase-container');
+    this.#snackbar = document.querySelector('#snackbar');
 
     this.#purchaseMoney = new PurchaseMoney();
     this.#productCatalog = productCatalog;
@@ -47,6 +49,8 @@ export class ProductPurchaseView implements ProductPurchaseViewInterface {
       coinVault: this.#coinVault,
       purchaseMoney: this.#purchaseMoney,
     });
+
+    this.#productPurchaseContainer.addEventListener('showSnackbar', this.#showSnackbar);
   }
 
   getIsRendered() {
@@ -70,4 +74,16 @@ export class ProductPurchaseView implements ProductPurchaseViewInterface {
     this.#purchasableProductCatalogTable.render();
     this.#returnedCoinTable.render();
   }
+
+  #showSnackbar = (e: CustomEvent) => {
+    const { type, message } = e.detail;
+    const emoji = type === 'success' ? '✅' : '❌';
+
+    this.#snackbar.textContent = `${emoji} ${message}`;
+
+    this.#snackbar.classList.toggle('show');
+    setTimeout(() => {
+      this.#snackbar.classList.toggle('show');
+    }, 1500);
+  };
 }

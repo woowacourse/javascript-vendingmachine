@@ -77,15 +77,29 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
   }
 
   #handleReturnCoins = () => {
-    const [{ coin500, coin100, coin50, coin10 }, remainder] = this.#coinVault.returnCoins(
-      this.#purchaseMoney.getMoney()
-    );
+    try {
+      const [{ coin500, coin100, coin50, coin10 }, remainder] = this.#coinVault.returnCoins(
+        this.#purchaseMoney.getMoney()
+      );
 
-    this.#purchaseMoney.setMoney(remainder);
+      this.#purchaseMoney.setMoney(remainder);
 
-    this.#updateReturnedCoinTable({ coin500, coin100, coin50, coin10 });
+      this.#updateReturnedCoinTable({ coin500, coin100, coin50, coin10 });
 
-    this.#target.dispatchEvent(new CustomEvent('coinsReturned', { bubbles: true }));
+      this.#target.dispatchEvent(new CustomEvent('coinsReturned', { bubbles: true }));
+
+      this.#target.dispatchEvent(
+        new CustomEvent('showSnackbar', {
+          detail: { type: 'success', message: '잔돈을 반환하였습니다.' },
+        })
+      );
+    } catch (err) {
+      this.#target.dispatchEvent(
+        new CustomEvent('showSnackbar', {
+          detail: { type: 'fail', message: err.message },
+        })
+      );
+    }
   };
 
   #updateReturnedCoinTable({ coin500, coin100, coin50, coin10 }: Coins) {

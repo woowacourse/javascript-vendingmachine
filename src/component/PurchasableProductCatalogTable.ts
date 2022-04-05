@@ -95,10 +95,20 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
           new CustomEvent('productPurchased', { detail: { name: productName }, bubbles: true })
         );
 
+        this.#target.dispatchEvent(
+          new CustomEvent('showSnackbar', {
+            detail: { type: 'success', message: `${productName}를(을) 구매하였습니다` },
+          })
+        );
+
         const tableRow = e.target.closest(`#${productName}`);
         this.#updatePurchasedProduct(tableRow);
       } catch (err) {
-        alert(err.message);
+        this.#target.dispatchEvent(
+          new CustomEvent('showSnackbar', {
+            detail: { type: 'fail', message: err.message },
+          })
+        );
       }
     }
   };
