@@ -30,22 +30,22 @@ export const signValidate = {
   },
 };
 
-function checkPassword(password: string) {
+export function checkPassword(password: string) {
   const regularExpression = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
   return regularExpression.test(password);
 }
 
-function checkConfirmPassword(password: string, confirmPassword: string) {
+export function checkConfirmPassword(password: string, confirmPassword: string) {
   return password === confirmPassword;
 }
 
-function checkEmail(email: string) {
+export function checkEmail(email: string) {
   const regularExpression =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   return regularExpression.test(email);
 }
 
-function checkName(name: string) {
+export function checkName(name: string) {
   const regularExpression = /^[가-힣]{2,6}$|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
   return regularExpression.test(name);
 }
