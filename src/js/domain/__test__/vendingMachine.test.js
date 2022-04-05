@@ -183,6 +183,58 @@ describe('금액 투입 기능 테스트', () => {
   });
 });
 
+describe('상품 구매 기능 테스트', () => {
+  let vendingMachine;
+  let productId;
+  let initInsertMoney = 3000;
+  const initialProduct = { name: '콜라', price: 2500, stock: 20 };
+
+  beforeEach(() => {
+    vendingMachine = new VendingMachine();
+
+    productId = vendingMachine.addProduct(initialProduct);
+    vendingMachine.insertMoney(initInsertMoney);
+  });
+
+  test('상품을 정상 구매시, 투입한 금액은 구매 상품 가격만큼 차감된다.', () => {
+    vendingMachine.purchaseProduct(productId);
+
+    const { price } = vendingMachine.productList[productId];
+    const insertMoney = initInsertMoney - price;
+
+    expect(vendingMachine.totalInsertMoney).toBe(insertMoney);
+  });
+
+  test('상품을 정상 구매시, 구매 상품의 재고는 1만큼 차감된다.', () => {
+    const { stock } = vendingMachine.productList[productId];
+
+    vendingMachine.purchaseProduct(productId);
+
+    expect(vendingMachine.productList[productId].stock).toBe(stock - 1);
+  });
+
+  test('투입한 금액보다 비싼 상품을 구매하면 에러가 발생한다.', () => {
+    const newProduct = { name: '포켓몬빵', price: 5000, stock: 5 };
+
+    const newProductId = vendingMachine.addProduct(newProduct);
+
+    expect(() => vendingMachine.purchaseProduct(newProductId)).toThrow(
+      '투입한 금액보다 비싼 상품은 구매할 수 없습니다.'
+    );
+  });
+
+  test('재고가 0 이하인 상품을 구매하면 에러가 발생한다.', () => {
+    const newProduct = { name: '포켓몬빵', price: 1000, stock: 1 };
+    const newProductId = vendingMachine.addProduct(newProduct);
+
+    vendingMachine.purchaseProduct(newProductId);
+
+    expect(() => vendingMachine.purchaseProduct(newProductId)).toThrow(
+      '해당 상품은 재고가 소진되어 구매할 수 없습니다.'
+    );
+  });
+});
+
 /**
  * TODO
  * [ ] 최초 반환된 각 동전의 개수는 0개이다.
