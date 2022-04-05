@@ -56,7 +56,7 @@ export const CATEGORY_TEMPLATE = {
   `,
   CHARGE: `
     <h2 hidden>잔돈 충전</h2>
-    <form id="charge-form" class="form">
+    <form id="charge-form">
       <label>자판기가 보유할 금액을 입력해주세요.</label>
       <div class="form-input">
         <input
@@ -105,7 +105,7 @@ export const CATEGORY_TEMPLATE = {
   `,
   PURCHASE: `
     <h2 hidden>상품 구매</h2>
-    <form id="purchase-form" class="form">
+    <form id="purchase-form">
       <label>상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
         <input id="product-purchase-input" class="input-width" type="number" step="10" min="10" max="10000" required placeholder="금액" />
@@ -158,5 +158,22 @@ export const CATEGORY_TEMPLATE = {
     </table>
     <button id="change-button" class="button" type="button">반환하기</button>
     <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
+  `,
+};
+
+export const LOGIN_TEMPLATE = {
+  LOGIN: `
+    <h1 class="title">로그인</h1>
+    <form id="login-form" class="form">
+      <label>이메일</label>
+      <input class="login-input" type="text" placeholder="woowacourse@gmail.com" />
+      <label>비밀번호</label>
+      <input class="login-input" type="password" placeholder="비밀번호를 입력해주세요" />
+      <button class="submit-button">확인</button>
+      <p>아직 회원이 아니신가요? <a id="sign-up" href="#!join">회원가입</a></p>
+    </form>
+  `,
+  JOIN: `
+  
   `,
 };
