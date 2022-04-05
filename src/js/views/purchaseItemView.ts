@@ -3,6 +3,9 @@ import { purchaseItemTemplate, sectionTemplate } from '../templates/purchaseItem
 import { SELECTOR } from '../constants/viewConstants';
 import VendingMachine from '../vendingMachine/vendingMachine';
 import showSnackbar from '../utils/snackbar';
+import { ERROR_MESSAGE } from '../constants/errorConstants';
+import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
+import { MONEY } from '../constants/vendingMachineConstants';
 
 export default class PurchaseItemView {
   constructor(private readonly vendingMachine: VendingMachine) {
@@ -16,9 +19,15 @@ export default class PurchaseItemView {
     $content.replaceChildren();
     $content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, InitialCoins, money));
 
-    $('#input-money-submit').addEventListener('submit', this.handleMoneySubmitEvent.bind(this));
-    $('#purchase-item-table').addEventListener('click', this.handleTableClickEvent.bind(this));
-    $('.return-change-button').addEventListener(
+    $(SELECTOR.ID.INPUT_MONEY_SUBMIT).addEventListener(
+      'submit',
+      this.handleMoneySubmitEvent.bind(this)
+    );
+    $(SELECTOR.ID.PURCHASE_ITEM_TABLE).addEventListener(
+      'click',
+      this.handleTableClickEvent.bind(this)
+    );
+    $(SELECTOR.CLASS.RETURN_CHANGE_BUTTON).addEventListener(
       'click',
       this.handleReturnChangeButtonClick.bind(this)
     );
@@ -27,7 +36,7 @@ export default class PurchaseItemView {
   private handleMoneySubmitEvent(event) {
     try {
       event.preventDefault();
-      const inputMoney = $('.charge-money-input').valueAsNumber;
+      const inputMoney = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
       this.vendingMachine.chargeMoney(inputMoney);
 
@@ -40,14 +49,15 @@ export default class PurchaseItemView {
 
   private handleTableClickEvent(event) {
     try {
-      if (!event.target.classList.contains('item-table-purchase-button')) return;
-      if (!window.confirm('구매하시겠습니까?')) return;
+      if (!event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_PURCHASE_BUTTON))
+        return;
 
       const { name, price } = event.target.dataset;
       const remainQuantity = this.vendingMachine.purchaseItem(name, price);
 
       this.repaintItemQuantity(event.target, remainQuantity);
       this.repaintCurrentMoney(this.vendingMachine.money);
+      showSnackbar(`${name} ${CONFIRM_MESSAGE.PURCHASE}`);
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -60,8 +70,8 @@ export default class PurchaseItemView {
       this.repaintCoinsTable(coins);
       this.repaintCurrentMoney(restMoney);
 
-      if (restMoney > 0) {
-        throw new Error('반환할 동전이 부족합니다.');
+      if (restMoney > MONEY.MIN) {
+        throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_COINS);
       }
     } catch (error) {
       showSnackbar(error.message);
@@ -69,8 +79,8 @@ export default class PurchaseItemView {
   }
 
   private repaintCoinsTable(coins) {
-    $('#change-coins-table').replaceChildren();
-    $('#change-coins-table').insertAdjacentHTML(
+    $(SELECTOR.ID.CHANGE_COINS_TABLE).replaceChildren();
+    $(SELECTOR.ID.CHANGE_COINS_TABLE).insertAdjacentHTML(
       'beforeend',
       sectionTemplate.changeCoinsTable(coins)
     );
@@ -79,16 +89,16 @@ export default class PurchaseItemView {
   private repaintItemQuantity($targetButton, quantity) {
     const $tableItemQuantity = $targetButton
       .closest('tr')
-      .getElementsByClassName('table-item-quantity');
+      .getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_QUANTITY);
 
     $tableItemQuantity[0].innerHTML = quantity;
   }
 
   private repaintCurrentMoney(money: number) {
-    $('#current-input-money').textContent = money;
+    $(SELECTOR.ID.CURRENT_INPUT_MONEY).textContent = money;
   }
 
   private clearInput() {
-    $('.charge-money-input').value = '';
+    $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).value = '';
   }
 }

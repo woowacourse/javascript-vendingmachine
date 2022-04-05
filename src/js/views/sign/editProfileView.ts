@@ -1,31 +1,32 @@
 import AuthManager from '../../auth/authManager';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
+import { SELECTOR } from '../../constants/viewConstants';
 import { editProfile } from '../../templates/editProfileTemplate';
 import { $, emit } from '../../utils/common';
 import { signValidate } from '../../validates/signValidate';
 
 export default class EditProfileView {
   render() {
-    const $signMain = $('#sign-main');
+    const $signMain = $(SELECTOR.ID.SIGN_MAIN);
     $signMain.replaceChildren();
     $signMain.insertAdjacentHTML('beforeend', editProfile);
 
     this.fillInput();
-    $('#edit-submit').addEventListener('submit', this.handleEditSubmit);
+    $(SELECTOR.ID.EDIT_SUBMIT).addEventListener('submit', this.handleEditSubmit);
   }
 
   fillInput() {
     const { userData } = AuthManager.shared();
 
-    $('#edit-email-input').value = userData.email;
-    $('#name-input').value = userData.name;
+    $(SELECTOR.ID.EDIT_EMAIL_INPUT).value = userData.email;
+    $(SELECTOR.ID.NAME_INPUT).value = userData.name;
   }
 
   async handleEditSubmit(event) {
     event.preventDefault();
-    const editedName = $('#name-input').value;
-    const editedPassword = $('#password-input').value;
-    const confirmEditedPassword = $('#password-confirm-input').value;
+    const editedName = $(SELECTOR.ID.NAME_INPUT).value;
+    const editedPassword = $(SELECTOR.ID.PASSWORD_INPUT).value;
+    const confirmEditedPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
 
     signValidate.editProfile({
       name: editedName,

@@ -1,6 +1,6 @@
 import { $, $$, emit } from '../utils/common';
 import { mainTemplate } from '../templates/mainTemplate';
-import { CUSTOM_EVENT, URL } from '../constants/appContants';
+import { CUSTOM_EVENT, FIRST_INDEX, URL } from '../constants/appContants';
 import { SELECTOR } from '../constants/viewConstants';
 import ManageItemView from './mangeItemView';
 import ChargeMoneyView from './chargeMoneyView';
@@ -32,7 +32,7 @@ export default class MainView {
     this.checkSignIn();
 
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
-    $('#sign-button').addEventListener('click', this.handleSignButtonClick.bind(this));
+    $(SELECTOR.ID.SIGN_BUTTON).addEventListener('click', this.handleSignButtonClick.bind(this));
   }
 
   renderMainPageSection(url: string) {
@@ -80,15 +80,15 @@ export default class MainView {
   private handleSignButtonClick(event) {
     const $signButton = event.target;
 
-    if ($signButton.classList.contains('sign-in')) {
+    if ($signButton.classList.contains(SELECTOR.CLASS_STRING.SIGN_IN)) {
       this.handleSiginClick($signButton);
       return;
     }
-    if ($signButton.classList.contains('thumbnail')) {
+    if ($signButton.classList.contains(SELECTOR.CLASS_STRING.THUMBNAIL)) {
       this.handleThumbnailClick($signButton);
       return;
     }
-    if ($signButton.classList.contains('thumbnail-active')) {
+    if ($signButton.classList.contains(SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE)) {
       this.handleThumbnailClse($signButton);
     }
   }
@@ -97,26 +97,35 @@ export default class MainView {
     const { url } = $signButton.dataset;
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
-    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE, detail: {} });
+    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
   }
 
   private handleThumbnailClick($signButton) {
-    $signButton.classList.replace('thumbnail', 'thumbnail-active');
+    $signButton.classList.replace(
+      SELECTOR.CLASS_STRING.THUMBNAIL,
+      SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE
+    );
     this.userMenuView.showMenu();
   }
 
   private handleThumbnailClse($signButton) {
-    $signButton.classList.replace('thumbnail-active', 'thumbnail');
+    $signButton.classList.replace(
+      SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE,
+      SELECTOR.CLASS_STRING.THUMBNAIL
+    );
     this.userMenuView.hideMeny();
   }
 
   private checkSignIn() {
     if (!AuthManager.shared().accessToken) {
-      $('#item-manage-tab').classList.add('display-none');
-      $('#money-charge-tab').classList.add('display-none');
+      $(SELECTOR.ID.ITEM_MANAGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
+      $(SELECTOR.ID.MONEY_CHARGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
       return;
     }
-    $('#sign-button').classList.replace('sign-in', 'thumbnail');
-    $('#sign-button').textContent = AuthManager.shared().userData.name.charAt(0);
+    $(SELECTOR.ID.SIGN_BUTTON).classList.replace(
+      SELECTOR.CLASS_STRING.SIGN_IN,
+      SELECTOR.CLASS_STRING.THUMBNAIL
+    );
+    $(SELECTOR.ID.SIGN_BUTTON).textContent = AuthManager.shared().userData.name.charAt(FIRST_INDEX);
   }
 }

@@ -4,23 +4,24 @@ import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
 import { CUSTOM_EVENT } from '../../constants/appContants';
 import { signValidate } from '../../validates/signValidate';
+import { SELECTOR } from '../../constants/viewConstants';
 
 export default class SignUpView {
   render() {
-    const $signMain = $('#sign-main');
+    const $signMain = $(SELECTOR.ID.SIGN_MAIN);
     $signMain.replaceChildren();
     $signMain.insertAdjacentHTML('beforeend', signUpTemplate);
 
-    $('#signup-submit').addEventListener('submit', this.handleSignUpSubmit.bind(this));
+    $(SELECTOR.ID.SIGNUP_SUBMIT).addEventListener('submit', this.handleSignUpSubmit.bind(this));
   }
 
   async handleSignUpSubmit(event) {
     try {
       event.preventDefault();
-      const email = $('#email-input').value;
-      const name = $('#name-input').value;
-      const password = $('#password-input').value;
-      const confirmPassword = $('#password-confirm-input').value;
+      const email = $(SELECTOR.ID.EMAIL_INPUT).value;
+      const name = $(SELECTOR.ID.NAME_INPUT).value;
+      const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
+      const confirmPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
 
       signValidate.signUp({ email, name, password, confirmPassword });
 

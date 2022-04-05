@@ -31,5 +31,6 @@ export const ERROR_MESSAGE = {
   ITEM_PURCHASE: {
     NO_STOCK: '구매 가능한 수량이 없습니다.',
     NO_MONEY: '상품을 구매하기에 돈이 부족합니다.',
+    NO_COINS: '반환할 동전이 부족합니다.',
   },
 };

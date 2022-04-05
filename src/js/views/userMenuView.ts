@@ -2,23 +2,27 @@ import { userMenuTemplate } from '../templates/userMenuTemplate';
 import { $, emit } from '../utils/common';
 import { CUSTOM_EVENT, URL } from '../constants/appContants';
 import AuthManager from '../auth/authManager';
+import { SELECTOR } from '../constants/viewConstants';
 
 export default class UserMenuView {
   private $app: HTMLElement;
 
   constructor() {
-    this.$app = $('#app');
+    this.$app = $(SELECTOR.ID.APP);
   }
 
   showMenu() {
     this.$app.insertAdjacentHTML('beforeend', userMenuTemplate);
 
-    $('#menu-edit-profile').addEventListener('click', this.handleEditProfileClick.bind(this));
-    $('#menu-sign-out').addEventListener('click', this.handleSignOutClick.bind(this));
+    $(SELECTOR.ID.MENU_EDIT_PROFILE).addEventListener(
+      'click',
+      this.handleEditProfileClick.bind(this)
+    );
+    $(SELECTOR.ID.MENU_SIGN_OUT).addEventListener('click', this.handleSignOutClick.bind(this));
   }
 
   hideMeny() {
-    $('#user-menu').remove();
+    $(SELECTOR.ID.USER_MENU).remove();
   }
 
   private handleEditProfileClick(event) {
