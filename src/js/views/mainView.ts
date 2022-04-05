@@ -55,7 +55,7 @@ export default class MainView {
     }
   }
 
-  changeButtonColor(targetButtonId: string) {
+  private changeButtonColor(targetButtonId: string) {
     const $navButtons = $$(SELECTOR.CLASS.NAV_BUTTON);
 
     $navButtons.forEach($navButton =>
@@ -65,8 +65,8 @@ export default class MainView {
     );
   }
 
-  private handleClickNavButton(event: Event) {
-    const $navButton = event.target as HTMLButtonElement;
+  private handleClickNavButton(event: { target: HTMLButtonElement }) {
+    const $navButton = event.target;
     const targetButtonId = $navButton.id;
     const { url } = $navButton.dataset;
 
@@ -77,7 +77,7 @@ export default class MainView {
     }
   }
 
-  private handleSignButtonClick(event) {
+  private handleSignButtonClick(event: { target: HTMLButtonElement }) {
     const $signButton = event.target;
 
     if ($signButton.classList.contains(SELECTOR.CLASS_STRING.SIGN_IN)) {
@@ -93,14 +93,14 @@ export default class MainView {
     }
   }
 
-  private handleSiginClick($signButton) {
+  private handleSiginClick($signButton: HTMLButtonElement) {
     const { url } = $signButton.dataset;
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
     emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
   }
 
-  private handleThumbnailClick($signButton) {
+  private handleThumbnailClick($signButton: HTMLButtonElement) {
     $signButton.classList.replace(
       SELECTOR.CLASS_STRING.THUMBNAIL,
       SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE
@@ -108,12 +108,12 @@ export default class MainView {
     this.userMenuView.showMenu();
   }
 
-  private handleThumbnailClse($signButton) {
+  private handleThumbnailClse($signButton: HTMLButtonElement) {
     $signButton.classList.replace(
       SELECTOR.CLASS_STRING.THUMBNAIL_ACTIVE,
       SELECTOR.CLASS_STRING.THUMBNAIL
     );
-    this.userMenuView.hideMeny();
+    this.userMenuView.hideMenu();
   }
 
   private checkSignIn() {

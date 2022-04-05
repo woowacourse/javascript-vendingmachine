@@ -1,3 +1,5 @@
+import { signDataType } from '../types/types';
+
 export default class AuthManager {
   private static instance: AuthManager;
   private baseUrl = 'http://localhost:3000';
@@ -29,7 +31,7 @@ export default class AuthManager {
     return this._userData;
   }
 
-  async signIn({ email, password }) {
+  async signIn({ email, password }: signDataType) {
     const response = await fetch(this.baseUrl + this.types.signIn, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -45,7 +47,7 @@ export default class AuthManager {
     this._userData = user;
   }
 
-  async singUp({ email, name, password }) {
+  async singUp({ email, name, password }: signDataType) {
     const response = await fetch(this.baseUrl + this.types.signUp, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -61,11 +63,11 @@ export default class AuthManager {
     this._userData = user;
   }
 
-  async editUserData({ editedName, editedPassword }) {
+  async editUserData({ name, password }: signDataType) {
     const response = await fetch(this.baseUrl + this.types.users + `/${this.userData.id}`, {
       method: 'PATCH',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ name: editedName, password: editedPassword }),
+      body: JSON.stringify({ name, password }),
     });
 
     if (!response.ok) {

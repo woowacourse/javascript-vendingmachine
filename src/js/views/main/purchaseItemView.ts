@@ -5,6 +5,7 @@ import VendingMachine from '../../vendingMachine/vendingMachine';
 import showSnackbar from '../../utils/snackbar';
 import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
 import { MONEY } from '../../constants/vendingMachineConstants';
+import { CoinsType } from '../../types/types';
 
 export default class PurchaseItemView {
   constructor(private readonly vendingMachine: VendingMachine) {
@@ -32,7 +33,7 @@ export default class PurchaseItemView {
     );
   }
 
-  private handleMoneySubmitEvent(event) {
+  private handleMoneySubmitEvent(event: SubmitEvent) {
     try {
       event.preventDefault();
       const inputMoney = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
@@ -47,13 +48,13 @@ export default class PurchaseItemView {
     }
   }
 
-  private handleTableClickEvent(event) {
+  private handleTableClickEvent(event: { target: HTMLButtonElement }) {
     try {
       if (!event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_PURCHASE_BUTTON))
         return;
 
       const { name, price } = event.target.dataset;
-      const remainQuantity = this.vendingMachine.purchaseItem(name, price);
+      const remainQuantity = this.vendingMachine.purchaseItem(name, Number(price));
 
       this.repaintItemQuantity(event.target, remainQuantity);
       this.repaintCurrentMoney(this.vendingMachine.money);
@@ -76,7 +77,7 @@ export default class PurchaseItemView {
     );
   }
 
-  private repaintCoinsTable(coins) {
+  private repaintCoinsTable(coins: CoinsType) {
     $(SELECTOR.ID.CHANGE_COINS_TABLE).replaceChildren();
     $(SELECTOR.ID.CHANGE_COINS_TABLE).insertAdjacentHTML(
       'beforeend',
@@ -84,12 +85,12 @@ export default class PurchaseItemView {
     );
   }
 
-  private repaintItemQuantity($targetButton, quantity) {
+  private repaintItemQuantity($targetButton: HTMLButtonElement, quantity: number) {
     const $tableItemQuantity = $targetButton
       .closest('tr')
       .getElementsByClassName(SELECTOR.CLASS_STRING.TABLE_ITEM_QUANTITY);
 
-    $tableItemQuantity[0].innerHTML = quantity;
+    $tableItemQuantity[0].innerHTML = `${quantity}`;
   }
 
   private repaintCurrentMoney(money: number) {

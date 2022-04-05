@@ -21,7 +21,7 @@ export default class ManageItemView {
     $(SELECTOR.CLASS.ITEM_TABLE).addEventListener('click', this.handleTableClickEvent.bind(this));
   }
 
-  private handleSubmitEvent(event) {
+  private handleSubmitEvent(event: SubmitEvent) {
     try {
       event.preventDefault();
       const item: ItemType = this.getItemFromAddItemInput();
@@ -34,7 +34,7 @@ export default class ManageItemView {
     }
   }
 
-  private handleTableClickEvent(event) {
+  private handleTableClickEvent(event: { target: HTMLButtonElement }) {
     if (event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_CHANGE_BUTTON)) {
       this.onChangeButtonClick(event.target);
       return;
@@ -48,15 +48,15 @@ export default class ManageItemView {
     }
   }
 
-  private onChangeButtonClick($targetButton) {
+  private onChangeButtonClick($targetButton: HTMLButtonElement) {
     const $targetTableRow = $targetButton.closest('tr');
     const item = this.getItemFromTargetButton($targetButton);
 
     $targetTableRow.replaceChildren();
-    $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.changeTableRow(item));
+    $targetTableRow.insertAdjacentHTML('beforeend', sectionTemplate.changeTableRow(item));
   }
 
-  private onDeleteButtonClick($targetButton) {
+  private onDeleteButtonClick($targetButton: HTMLButtonElement) {
     const $targetTableRow = $targetButton.closest('tr');
     const item = this.getItemFromTargetButton($targetButton);
 
@@ -66,7 +66,7 @@ export default class ManageItemView {
     }
   }
 
-  private onConfirmButtonClick($targetButton) {
+  private onConfirmButtonClick($targetButton: HTMLButtonElement) {
     try {
       const $targetTableRow = $targetButton.closest('tr');
       const targetRowIndex = $targetTableRow.rowIndex - 1;
@@ -87,9 +87,9 @@ export default class ManageItemView {
     return { name, price, quantity };
   }
 
-  private getItemFromTargetButton($targetButton): ItemType {
+  private getItemFromTargetButton($targetButton: HTMLButtonElement): ItemType {
     const { name, price, quantity } = $targetButton.dataset;
-    return { name, price, quantity };
+    return { name, price: Number(price), quantity: Number(quantity) };
   }
 
   private getItemFromChangeInput($targetTableRow): ItemType {

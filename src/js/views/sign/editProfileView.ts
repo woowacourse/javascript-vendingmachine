@@ -15,14 +15,14 @@ export default class EditProfileView {
     $(SELECTOR.ID.EDIT_SUBMIT).addEventListener('submit', this.handleEditSubmit);
   }
 
-  fillInput() {
+  private fillInput() {
     const { userData } = AuthManager.shared();
 
     $(SELECTOR.ID.EDIT_EMAIL_INPUT).value = userData.email;
     $(SELECTOR.ID.NAME_INPUT).value = userData.name;
   }
 
-  async handleEditSubmit(event) {
+  async handleEditSubmit(event: SubmitEvent) {
     event.preventDefault();
     const editedName = $(SELECTOR.ID.NAME_INPUT).value;
     const editedPassword = $(SELECTOR.ID.PASSWORD_INPUT).value;
@@ -34,7 +34,7 @@ export default class EditProfileView {
       confirmPassword: confirmEditedPassword,
     });
 
-    await AuthManager.shared().editUserData({ editedName, editedPassword });
+    await AuthManager.shared().editUserData({ name: editedName, password: editedPassword });
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,

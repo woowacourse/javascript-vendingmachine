@@ -16,8 +16,8 @@ export default class App {
     window.addEventListener('popstate', this.renderPage.bind(this));
   }
 
-  handleRouteChange(event: CustomEvent) {
-    const { page, url }: RouteChangeDetailType = event.detail;
+  handleRouteChange(event: CustomEvent<RouteChangeDetailType>) {
+    const { page, url } = event.detail;
 
     window.history.pushState(null, null, `${URL.BASE_URL}/#${page}/#${url}`);
   }

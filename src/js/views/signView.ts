@@ -24,7 +24,7 @@ export default class SignView {
     this.$app.insertAdjacentHTML('beforeend', signTemplate);
   }
 
-  renderSignPageSection(url) {
+  renderSignPageSection(url: string) {
     switch (url) {
       case URL.SIGN_IN:
         this.signInView.render();

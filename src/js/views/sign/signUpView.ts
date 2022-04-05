@@ -15,7 +15,7 @@ export default class SignUpView {
     $(SELECTOR.ID.SIGNUP_SUBMIT).addEventListener('submit', this.handleSignUpSubmit.bind(this));
   }
 
-  async handleSignUpSubmit(event) {
+  async handleSignUpSubmit(event: SubmitEvent) {
     try {
       event.preventDefault();
       const email = $(SELECTOR.ID.EMAIL_INPUT).value;

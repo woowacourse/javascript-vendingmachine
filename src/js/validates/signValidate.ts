@@ -1,7 +1,8 @@
 import { ERROR_MESSAGE } from '../constants/errorConstants';
+import { signDataType } from '../types/types';
 
 export const signValidate = {
-  signUp: ({ email, name, password, confirmPassword }) => {
+  signUp: ({ email, name, password, confirmPassword }: signDataType) => {
     if (!checkEmail(email)) {
       throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_EMAIL);
     }
@@ -16,7 +17,7 @@ export const signValidate = {
     }
   },
 
-  editProfile: ({ name, password, confirmPassword }) => {
+  editProfile: ({ name, password, confirmPassword }: signDataType) => {
     if (!checkName(name)) {
       throw new Error(ERROR_MESSAGE.INPUT_SIGN.INVALID_NAME);
     }
@@ -29,22 +30,22 @@ export const signValidate = {
   },
 };
 
-function checkPassword(password) {
+function checkPassword(password: string) {
   const regularExpression = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
   return regularExpression.test(password);
 }
 
-function checkConfirmPassword(password, confirmPassword) {
+function checkConfirmPassword(password: string, confirmPassword: string) {
   return password === confirmPassword;
 }
 
-function checkEmail(email) {
+function checkEmail(email: string) {
   const regularExpression =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   return regularExpression.test(email);
 }
 
-function checkName(name) {
+function checkName(name: string) {
   const regularExpression = /^[가-힣]{2,8}$|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
   return regularExpression.test(name);
 }

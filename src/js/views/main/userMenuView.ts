@@ -22,11 +22,11 @@ export default class UserMenuView {
     $(SELECTOR.ID.MENU_SIGN_OUT).addEventListener('click', this.handleSignOutClick.bind(this));
   }
 
-  hideMeny() {
+  hideMenu() {
     $(SELECTOR.ID.USER_MENU).remove();
   }
 
-  private handleEditProfileClick(event) {
+  private handleEditProfileClick(event: { target: HTMLButtonElement }) {
     const { url } = event.target.dataset;
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
@@ -34,7 +34,9 @@ export default class UserMenuView {
   }
 
   private handleSignOutClick() {
-    if (window.confirm(CONFIRM_MESSAGE.SIGN_OUT)) AuthManager.shared().signOut();
+    if (!window.confirm(CONFIRM_MESSAGE.SIGN_OUT)) return;
+
+    AuthManager.shared().signOut();
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,

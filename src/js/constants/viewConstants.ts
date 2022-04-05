@@ -66,5 +66,6 @@ export const SELECTOR = {
     THUMBNAIL: 'thumbnail',
     THUMBNAIL_ACTIVE: 'thumbnail-active',
     DISPLAY_NONE: 'display-none',
+    SHOW: 'show',
   },
 };

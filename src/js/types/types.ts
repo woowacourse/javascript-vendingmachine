@@ -30,3 +30,10 @@ export type TableItemChangeDetailType = {
 export type TableItemDeleteDetailType = {
   item: ItemType;
 };
+
+export type signDataType = {
+  email?: string;
+  name?: string;
+  password: string;
+  confirmPassword?: string;
+};
