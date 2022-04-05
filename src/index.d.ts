@@ -30,11 +30,13 @@ export interface CoinCollection {
 export interface VendingMachine {
   readonly productCollection: ProductCollection;
   readonly coinCollection: CoinCollection;
+  totalUserInputMoney: number;
 
   addProduct(product: Product): void;
   modifyProduct(product: Product, originProductName: ProductName): void;
   deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
+  chargeUserMoney(userInputMoney: number): void;
 }
 
 export interface View {

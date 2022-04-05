@@ -26,7 +26,12 @@ const validator = {
     if (inputMoney % INPUT_MONEY_RULES.MOD_UNIT > 0) throw new Error(ERROR_MESSAGE.INDIVISIBLE_INPUT_MONEY_MOD_UNIT);
     if (inputMoney < INPUT_MONEY_RULES.MIN) throw new Error(ERROR_MESSAGE.LACK_OF_INPUT_MONEY);
     if (inputMoney + totalAmount > MAX_HAVE_MONEY) throw new Error(ERROR_MESSAGE.EXCEED_MAX_HAVE_MONEY);
-  }
+  },
+
+  checkChargeUserMoney(userInputMoney: number) {
+    if (userInputMoney % 10 > 0) throw new Error('투입 금액은 10의 배수로 입력해주세요!');
+    if (userInputMoney > 10000) throw new Error('최대 10,000원까지 투입 가능합니다!');
+  },
 };
 
 export default validator;

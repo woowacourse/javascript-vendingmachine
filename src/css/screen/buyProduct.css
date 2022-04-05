@@ -34,3 +34,8 @@
   letter-spacing: 0.5px;
   color: #000000;
 }
+
+.buy-button {
+  width: 100px;
+  margin: 0 auto;
+}

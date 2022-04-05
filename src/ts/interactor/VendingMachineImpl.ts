@@ -7,6 +7,7 @@ import validator from './validator';
 export default class VendingMachineImpl implements VendingMachine {
   public readonly productCollection: ProductCollection;
   public readonly coinCollection: CoinCollection;
+  public totalUserInputMoney: number;
   private static instance: VendingMachine;
 
   static getInstance() {
@@ -20,6 +21,7 @@ export default class VendingMachineImpl implements VendingMachine {
   constructor() {
     this.productCollection = new ProductCollectionImpl();
     this.coinCollection = new CoinCollectionImpl();
+    this.totalUserInputMoney = 0;
   }
 
   addProduct(product: Product): void {
@@ -40,5 +42,10 @@ export default class VendingMachineImpl implements VendingMachine {
   chargeMoney(inputMoney: number): void {
     validator.checkChargeMoney(inputMoney, this.coinCollection.calculateTotalAmount());
     this.coinCollection.generateCoins(inputMoney);
+  }
+
+  chargeUserMoney(userInputMoney: number): void {
+    validator.checkChargeUserMoney(userInputMoney);
+    this.totalUserInputMoney += userInputMoney;
   }
 }

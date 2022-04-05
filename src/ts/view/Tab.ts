@@ -2,24 +2,28 @@ import { View, DomainView, TabName } from '../../index.d';
 import { $ } from '../util/index';
 import ProductManage from './ProductManage';
 import ChargeMoney from './ChargeMoney';
+import BuyProduct from './BuyProduct';
 
 export default class Tab implements View {
   private $app: HTMLElement;
   private $tabs: HTMLElement;
   private productManage: DomainView;
   private chargeMoney: DomainView;
+  private buyProduct: DomainView;
 
   constructor() {
     this.$app = $('#app');
     this.$tabs = $('#tab');
     this.productManage = new ProductManage();
     this.chargeMoney = new ChargeMoney();
+    this.buyProduct = new BuyProduct();
     this.handlePopstate();
   }
 
   bindEvent(): void {
     this.productManage.bindEvent();
     this.chargeMoney.bindEvent();
+    this.buyProduct.bindEvent();
     this.$tabs.addEventListener('click', this.handleClickTabs.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }
