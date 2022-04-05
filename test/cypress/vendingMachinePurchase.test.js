@@ -124,7 +124,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
       cy.get('@productRow').find('.product-purchase-button').click();
 
       // then
-      cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.INSUFFICIENT_CHARGE_TO_PURCHASE);
+      cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.INSUFFICIENT_CHARGE_TO_PURCHASE);
     })
   })
   
