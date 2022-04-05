@@ -165,13 +165,13 @@ function getSavedAuthInfo(): AuthInfo {
   let userAuth: AuthInfo;
 
   try {
-    userAuth = JSON.parse(localStorage.getItem('userAuth'));
+    userAuth = JSON.parse(localStorage.getItem('userAuth')) || emptyAuthInfo;
   } catch (err) {
     console.error(ERROR_MESSAGE.FAIL_TO_READ_AUTH_INFO);
     return emptyAuthInfo;
   }
 
-  if (userAuth?.expiration < Date.now()) {
+  if (userAuth.expiration < Date.now()) {
     localStorage.removeItem('userAuth');
     return emptyAuthInfo;
   }
