@@ -33,3 +33,13 @@ export function deepCopy(obj) {
 
   return cloneObject;
 }
+
+export function deepCopyList(list) {
+  const cloneList = [];
+
+  for (let item of list) {
+    cloneList.push(deepCopy(item));
+  }
+
+  return cloneList;
+}

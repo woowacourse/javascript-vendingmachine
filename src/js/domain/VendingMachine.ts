@@ -40,16 +40,25 @@ export default class VendingMachine {
     return this.#moneyBox.coinStatus;
   }
 
+  get returnCoinStatus(): CoinStatus {
+    return this.#moneyBox.returnCoinStatus;
+  }
+
   get totalInsertMoney(): number {
     return this.#totalInsertMoney;
   }
 
-  addChange(money: number): never | Coin[] {
+  addChange(money: number): void {
     this.#validateChange(money);
 
     this.#moneyBox.addChange(money);
+  }
 
-    return this.#moneyBox.coinStatusList;
+  returnChange(): number {
+    const returnChange = this.#moneyBox.returnChange(this.totalInsertMoney);
+    this.#totalInsertMoney -= returnChange;
+
+    return returnChange;
   }
 
   addProduct(data: ProductData): never | string {
@@ -90,30 +99,6 @@ export default class VendingMachine {
     this.#productList[productId].decreaseStock();
   }
 
-  #validatePurchaseProduct(price: number, stock: number): void {
-    if (this.#totalInsertMoney < price) {
-      throw Error('투입한 금액보다 비싼 상품은 구매할 수 없습니다.');
-    }
-
-    if (stock <= 0) {
-      throw Error('해당 상품은 재고가 소진되어 구매할 수 없습니다.');
-    }
-  }
-
-  #validateInsertMoney(money: number): void {
-    if (money <= 0) {
-      throw Error('투입 금액은 0원 이하일 수 없습니다.');
-    }
-
-    if (money % 10 !== 0) {
-      throw Error('투입 금액은 10원 단위이어야 합니다.');
-    }
-
-    if (money > 10000) {
-      throw Error('최대 투입 금액은 10000원을 초과할 수 없습니다.');
-    }
-  }
-
   #validateChange(money: number): never | void {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.BELOW_MIN_CHANGE },
@@ -136,6 +121,30 @@ export default class VendingMachine {
   #validateProductIdInList(productId: string): never | void {
     if (this.#productList[productId] === undefined) {
       throw new Error(ERROR_MESSAGE.NOT_FOUND_PRODUCT_ID);
+    }
+  }
+
+  #validateInsertMoney(money: number): void {
+    if (money <= 0) {
+      throw Error('투입 금액은 0원 이하일 수 없습니다.');
+    }
+
+    if (money % 10 !== 0) {
+      throw Error('투입 금액은 10원 단위이어야 합니다.');
+    }
+
+    if (money > 10000) {
+      throw Error('최대 투입 금액은 10000원을 초과할 수 없습니다.');
+    }
+  }
+
+  #validatePurchaseProduct(price: number, stock: number): void {
+    if (this.#totalInsertMoney < price) {
+      throw Error('투입한 금액보다 비싼 상품은 구매할 수 없습니다.');
+    }
+
+    if (stock <= 0) {
+      throw Error('해당 상품은 재고가 소진되어 구매할 수 없습니다.');
     }
   }
 }
