@@ -1,4 +1,4 @@
-import { Product, Coin } from '../declarations/resourceDeclaration';
+import { Product, Coin, LoginInfo, UserInfo } from '../declarations/resourceDeclaration';
 import { CHARGE_MONEY_RULES, INPUT_MONEY_RULES, PRODUCT_RULES } from '../constants';
 
 class VerifyValueValidation implements VerifyValueValidation {
@@ -47,6 +47,38 @@ class VerifyValueValidation implements VerifyValueValidation {
     return true;
   }
 
+  verifyLoginInfo({ email, password }: LoginInfo) {
+    if (!this.isValidEmail(email)) {
+      alert();
+      return false;
+    }
+    if (!this.isValidPassWord(password)) {
+      alert();
+      return false;
+    }
+    return true;
+  }
+
+  verifySignUpInfo({ email, name, password, passwordConfirm }: UserInfo) {
+    if (!this.isValidEmail(email)) {
+      alert();
+      return false;
+    }
+    if (!this.isValidName(name)) {
+      alert();
+      return false;
+    }
+    if (!this.isValidPassWord(password)) {
+      alert();
+      return false;
+    }
+    if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
+      alert();
+      return false;
+    }
+    return true;
+  }
+
   // 상품 정보 검증
   isValidProductNameRange(name: string) {
     return (
@@ -88,6 +120,28 @@ class VerifyValueValidation implements VerifyValueValidation {
       inputMoney <= INPUT_MONEY_RULES.MAX &&
       inputMoney % INPUT_MONEY_RULES.MOD_UNIT === 0
     );
+  }
+
+  // 유저 정보 검증
+  isValidName(name) {
+    const nameReg = /^[가-힣]{2,6}$/;
+    return nameReg.test(name);
+  }
+
+  isValidEmail(email) {
+    const emailReg =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+    return emailReg.test(email);
+  }
+
+  isValidPassWord(password) {
+    const passwordReg =
+      /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)-_=+]).{8,16}$/;
+    return passwordReg.test(password);
+  }
+
+  isValidPassWordConfirm(password, passwordConfirm) {
+    return password === passwordConfirm;
   }
 
   canBuyProduct({ price, quantity }: Product, totalMoney: number) {

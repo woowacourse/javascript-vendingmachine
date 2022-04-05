@@ -24,9 +24,9 @@ class VendingMachine {
     new ProductManageImpl(this.products, this.verifyValue);
     new ChargeMoneyImpl(this.coins, this.verifyValue);
     new ProductBuyImpl(this.products, this.coins, this.verifyValue);
-    new LoginTab();
-    new SignUpTab();
-    new EditProfileTab();
+    new LoginTab(this.verifyValue);
+    new SignUpTab(this.verifyValue);
+    new EditProfileTab(this.verifyValue);
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
     $('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));

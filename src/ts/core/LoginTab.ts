@@ -1,18 +1,23 @@
 import { $ } from '../utils/dom';
 import { Login } from '../declarations/coreDeclaration';
+import VerifyValueValidation from '../validations/verifyValueValidation';
+import { getLoginInfo } from '../utils/userInfoUtil';
 
 class LoginTab implements Login {
   $login: Document;
-  constructor() {
+  verifyValue: VerifyValueValidation;
+  constructor(verifyValue: VerifyValueValidation) {
+    this.verifyValue = verifyValue;
     this.$login = $('.login');
     $('#link', this.$login).addEventListener('click', this.handleLink);
-    $('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin);
+    $('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
   }
 
   handleLogin(e: Event): void {
-    e.preventDefault();
-    console.log('Login');
-    // 값 검증 -> 성공할 시,
+    const loginInfo = getLoginInfo();
+    if (!this.verifyValue.verifyLoginInfo(loginInfo)) {
+      return;
+    }
     // 정보 로컬스토리지로
     // login된 걸로 상태변경
     // route 수정

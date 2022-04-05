@@ -41,6 +41,38 @@ var VerifyValueValidation = /** @class */ (function () {
         }
         return true;
     };
+    VerifyValueValidation.prototype.verifyLoginInfo = function (_a) {
+        var email = _a.email, password = _a.password;
+        if (!this.isValidEmail(email)) {
+            alert();
+            return false;
+        }
+        if (!this.isValidPassWord(password)) {
+            alert();
+            return false;
+        }
+        return true;
+    };
+    VerifyValueValidation.prototype.verifySignUpInfo = function (_a) {
+        var email = _a.email, name = _a.name, password = _a.password, passwordConfirm = _a.passwordConfirm;
+        if (!this.isValidEmail(email)) {
+            alert();
+            return false;
+        }
+        if (!this.isValidName(name)) {
+            alert();
+            return false;
+        }
+        if (!this.isValidPassWord(password)) {
+            alert();
+            return false;
+        }
+        if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
+            alert();
+            return false;
+        }
+        return true;
+    };
     // 상품 정보 검증
     VerifyValueValidation.prototype.isValidProductNameRange = function (name) {
         return (name.length >= constants_1.PRODUCT_RULES.MIN_NAME_LENGTH && name.length <= constants_1.PRODUCT_RULES.MAX_NAME_LENGTH);
@@ -67,6 +99,22 @@ var VerifyValueValidation = /** @class */ (function () {
         return (inputMoney >= constants_1.INPUT_MONEY_RULES.MIN &&
             inputMoney <= constants_1.INPUT_MONEY_RULES.MAX &&
             inputMoney % constants_1.INPUT_MONEY_RULES.MOD_UNIT === 0);
+    };
+    // 유저 정보 검증
+    VerifyValueValidation.prototype.isValidName = function (name) {
+        var nameReg = /^[가-힣]{2,6}$/;
+        return nameReg.test(name);
+    };
+    VerifyValueValidation.prototype.isValidEmail = function (email) {
+        var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+        return emailReg.test(email);
+    };
+    VerifyValueValidation.prototype.isValidPassWord = function (password) {
+        var passwordReg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)-_=+]).{8,16}$/;
+        return passwordReg.test(password);
+    };
+    VerifyValueValidation.prototype.isValidPassWordConfirm = function (password, passwordConfirm) {
+        return password === passwordConfirm;
     };
     VerifyValueValidation.prototype.canBuyProduct = function (_a, totalMoney) {
         var price = _a.price, quantity = _a.quantity;

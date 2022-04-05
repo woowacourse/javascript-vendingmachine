@@ -1,15 +1,20 @@
 import { $ } from '../utils/dom';
 import { EditProfile } from '../declarations/coreDeclaration';
+import VerifyValueValidation from '../validations/verifyValueValidation';
+import { getUserInfo } from '../utils/userInfoUtil';
 
 class EditProfileTab implements EditProfile {
-  constructor() {
-    $('#edit-profile-confirm-button').addEventListener('click', this.handleEditProfile);
+  verifyValue: VerifyValueValidation;
+  constructor(verifyValue: VerifyValueValidation) {
+    this.verifyValue = verifyValue;
+    $('#edit-profile-confirm-button').addEventListener('click', this.handleEditProfile.bind(this));
   }
 
   handleEditProfile(e: Event): void {
-    e.preventDefault();
-    console.log('EditProfile');
-    // 값 검증 -> 성공할 시,
+    const userInfo = getUserInfo();
+    if (!this.verifyValue.verifySignUpInfo(userInfo)) {
+      return;
+    }
     // 정보 로컬스토리지로
     // route 수정
     // index.js로

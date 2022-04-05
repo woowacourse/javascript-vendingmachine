@@ -1,16 +1,19 @@
 "use strict";
 exports.__esModule = true;
 var dom_1 = require("../utils/dom");
+var userInfoUtil_1 = require("../utils/userInfoUtil");
 var LoginTab = /** @class */ (function () {
-    function LoginTab() {
+    function LoginTab(verifyValue) {
+        this.verifyValue = verifyValue;
         this.$login = (0, dom_1.$)('.login');
         (0, dom_1.$)('#link', this.$login).addEventListener('click', this.handleLink);
-        (0, dom_1.$)('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin);
+        (0, dom_1.$)('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
     }
     LoginTab.prototype.handleLogin = function (e) {
-        e.preventDefault();
-        console.log('Login');
-        // 값 검증 -> 성공할 시,
+        var loginInfo = (0, userInfoUtil_1.getLoginInfo)();
+        if (!this.verifyValue.verifyLoginInfo(loginInfo)) {
+            return;
+        }
         // 정보 로컬스토리지로
         // login된 걸로 상태변경
         // route 수정

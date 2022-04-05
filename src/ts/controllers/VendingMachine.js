@@ -22,9 +22,9 @@ var VendingMachine = /** @class */ (function () {
         new ProductManageTab_1["default"](this.products, this.verifyValue);
         new ChargeMoneyTab_1["default"](this.coins, this.verifyValue);
         new ProductBuyTab_1["default"](this.products, this.coins, this.verifyValue);
-        new LoginTab_1["default"]();
-        new SignUpTab_1["default"]();
-        new EditProfileTab_1["default"]();
+        new LoginTab_1["default"](this.verifyValue);
+        new SignUpTab_1["default"](this.verifyValue);
+        new EditProfileTab_1["default"](this.verifyValue);
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
         (0, dom_1.$)('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));

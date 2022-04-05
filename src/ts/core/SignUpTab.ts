@@ -1,14 +1,20 @@
 import { $ } from '../utils/dom';
 import { SignUp } from '../declarations/coreDeclaration';
+import VerifyValueValidation from '../validations/verifyValueValidation';
+import { getSignUpInfo } from '../utils/userInfoUtil';
 
 class SignUpTab implements SignUp {
-  constructor() {
-    $('#sign-up-confirm-button').addEventListener('click', this.handleSignUp);
+  verifyValue: VerifyValueValidation;
+  constructor(verifyValue: VerifyValueValidation) {
+    this.verifyValue = verifyValue;
+    $('#sign-up-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
   }
 
   handleSignUp(e: Event): void {
-    console.log('SignUp');
-    // 값 검증 -> 성공할 시,
+    const signUpInfo = getSignUpInfo();
+    if (!this.verifyValue.verifySignUpInfo(signUpInfo)) {
+      return;
+    }
     // 정보 로컬스토리지로
     // route 수정
     // index.js로
