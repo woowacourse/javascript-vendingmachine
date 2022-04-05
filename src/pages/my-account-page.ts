@@ -106,6 +106,10 @@ class MyAccountPage extends RouteComponent {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      (this.querySelector('.btn-edit-user-info') as HTMLButtonElement).click();
+    });
     this.addEvent('click', '.btn-edit-user-info', this.onClickEditBtn);
   }
 

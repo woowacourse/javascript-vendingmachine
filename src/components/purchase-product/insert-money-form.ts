@@ -3,7 +3,6 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { EventOnElement } from '../../types';
 import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
 import ValidationError from '../../validation/validation-error';
 import { validateInsertMoney } from '../../validation/validators';
@@ -24,11 +23,15 @@ class InsertMoneyForm extends Component {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      (this.querySelector('button') as HTMLButtonElement).click();
+    });
     this.addEvent('click', 'button', this.onClickInsertBtn);
   }
 
-  onClickInsertBtn = ({ target }: EventOnElement) => {
-    const $input = target.previousElementSibling as HTMLInputElement;
+  onClickInsertBtn = () => {
+    const $input = this.querySelector('input[name="charge-money-input"') as HTMLInputElement;
     const money: string = $input.value;
     try {
       this.insertMoney(money);

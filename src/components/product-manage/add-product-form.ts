@@ -34,6 +34,10 @@ class AddProductForm extends Component {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      (this.querySelector('button') as HTMLButtonElement).click();
+    });
     this.addEvent('click', 'button', this.onClickAddProductBtn);
   }
 

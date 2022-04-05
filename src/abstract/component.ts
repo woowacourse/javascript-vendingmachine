@@ -40,15 +40,15 @@ abstract class Component extends HTMLElement {
     return true;
   }
 
-  addEvent(
+  addEvent<EventType extends Event = EventOnElement>(
     eventType: keyof HTMLElementEventMap,
     selector: string,
-    callback: (event: EventOnElement) => void
+    callback: (event: EventType) => void
   ) {
     this.addEventListener(eventType, (event) => {
       const { target } = event;
       const isValidTarget = !!(target && target instanceof Element && target.closest(selector));
-      if (isValidTarget) callback(event as EventOnElement);
+      if (isValidTarget) callback(event as EventType);
     });
   }
 

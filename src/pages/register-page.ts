@@ -105,6 +105,10 @@ class RegisterPage extends RouteComponent {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      (this.querySelector('.btn-register') as HTMLButtonElement).click();
+    });
     this.addEvent('click', '.btn-register', this.onClickRegisterBtn);
   }
 

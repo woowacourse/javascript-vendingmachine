@@ -76,6 +76,10 @@ class LoginPage extends RouteComponent {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      (this.querySelector('.btn-login') as HTMLButtonElement).click();
+    });
     this.addEvent('click', '.btn-login', this.onClickLoginBtn);
     this.addEvent('click', 'a', (e: Event) => {
       e.preventDefault();
