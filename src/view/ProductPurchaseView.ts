@@ -8,7 +8,6 @@ import { PurchaseMoney } from '../domain/PurchaseMoney';
 
 interface ProductPurchaseViewInterface {
   getIsRendered();
-  setIsRendered(status: boolean);
   show();
   renderAll();
 }
@@ -57,7 +56,7 @@ export class ProductPurchaseView implements ProductPurchaseViewInterface {
     return this.#isRendered;
   }
 
-  setIsRendered(status: boolean) {
+  #setIsRendered(status: boolean) {
     this.#isRendered = status;
   }
 
@@ -73,6 +72,8 @@ export class ProductPurchaseView implements ProductPurchaseViewInterface {
     this.#purchaseMoneyInputForm.render();
     this.#purchasableProductCatalogTable.render();
     this.#returnedCoinTable.render();
+
+    this.#setIsRendered(true);
   }
 
   #showSnackbar = (e: CustomEvent) => {

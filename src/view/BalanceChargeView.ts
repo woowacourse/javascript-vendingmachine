@@ -3,7 +3,14 @@ import { CoinVaultTable } from '../component/CoinVaultTable';
 
 import { CoinVault } from '../domain/CoinVault';
 
-export class BalanceChargeView {
+interface BalanceChargeViewInterface {
+  getIsRendered();
+  show();
+  hide();
+  renderAll();
+}
+
+export class BalanceChargeView implements BalanceChargeViewInterface {
   #balanceChargeInputForm: BalanceChargeInputForm;
   #coinVaultTable: CoinVaultTable;
   #coinVault: CoinVault;
@@ -29,7 +36,7 @@ export class BalanceChargeView {
     return this.#isRendered;
   }
 
-  setIsRendered(status: boolean) {
+  #setIsRendered(status: boolean) {
     this.#isRendered = status;
   }
 
@@ -44,5 +51,7 @@ export class BalanceChargeView {
   renderAll() {
     this.#balanceChargeInputForm.render();
     this.#coinVaultTable.render();
+
+    this.#setIsRendered(true);
   }
 }

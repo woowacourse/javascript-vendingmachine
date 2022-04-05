@@ -5,7 +5,6 @@ import { ProductInformationInputForm } from '../component/ProductInformationInpu
 
 interface ProductManageViewInterface {
   getIsRendered();
-  setIsRendered(status: boolean);
   show();
   renderAll();
 }
@@ -37,7 +36,7 @@ export class ProductManageView implements ProductManageViewInterface {
     return this.#isRendered;
   }
 
-  setIsRendered(status: boolean) {
+  #setIsRendered(status: boolean) {
     this.#isRendered = status;
   }
 
@@ -52,5 +51,7 @@ export class ProductManageView implements ProductManageViewInterface {
   renderAll() {
     this.#productInformationInputForm.render();
     this.#productCatalogTable.render();
+
+    this.#setIsRendered(true);
   }
 }
