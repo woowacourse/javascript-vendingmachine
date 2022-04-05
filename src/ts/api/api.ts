@@ -7,11 +7,7 @@ const request = async (url, option) => {
   return data;
 };
 
-export const requestRegister = async (
-  email: string,
-  name: string,
-  password: string
-) => {
+export const requestRegister = async (email, name, password) => {
   const response = await request('http://localhost:3000/register', {
     method: 'POST',
     headers: {
@@ -20,6 +16,21 @@ export const requestRegister = async (
     body: JSON.stringify({
       email,
       name,
+      password,
+    }),
+  });
+
+  return response;
+};
+
+export const requestSignIn = async (email, password) => {
+  const response = await request('http://localhost:3000/signin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
       password,
     }),
   });

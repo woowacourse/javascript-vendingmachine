@@ -4,8 +4,8 @@ import renderSnackBar from '../../dom/snackBar';
 import {
   checkValidSignUpName,
   checkValidSignUpPassword,
-  checkValidSignUpEmail,
-} from '../../validation/checkSignUp';
+  checkValidEmail,
+} from '../../validation/checkMemberShip';
 
 export default class SignUpComponent {
   private $signUpVerifyButton = $<HTMLButtonElement>(
@@ -36,7 +36,7 @@ export default class SignUpComponent {
     try {
       checkValidSignUpName(signUpName);
       checkValidSignUpPassword(signUpPassword, signUpPasswordConfirm);
-      checkValidSignUpEmail(signUpEmail);
+      checkValidEmail(signUpEmail);
 
       await requestRegister(signUpEmail, signUpName, signUpPassword);
 
@@ -55,13 +55,5 @@ export default class SignUpComponent {
 
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }
-
-    // 이메일 형식 체크
-    // 이름 형식 체크
-    // 비밀번호 형식 체크
-    // 비밀번호 확인 형식 체크 필요!!
-    // 잘못 입력한 곳에 포커스 이동
-
-    // 정상적으로 처리 되었을때 인풋 초기화, 로그인 섹션으로 path 이동
   };
 }

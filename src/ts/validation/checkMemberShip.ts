@@ -21,7 +21,7 @@ export const checkValidSignUpPassword = (
   }
 };
 
-export const checkValidSignUpEmail = (email: string) => {
+export const checkValidEmail = (email: string) => {
   // 올바른 이메일 형식인지 확인하는 정규식
   const emailRegExp =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;

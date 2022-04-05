@@ -1,4 +1,5 @@
 import { $, $$, on } from '../dom/domHelper';
+import { getCookie } from '../cookie/cookie';
 
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
@@ -12,9 +13,13 @@ export default class NavigatorComponent {
   private $signUpVerifyButton = $<HTMLButtonElement>(
     '.sign-up-form__verify-button'
   );
+  private $signInVerifyButton = $<HTMLButtonElement>(
+    '.sign-in-form__verify-button'
+  );
 
   private $nav = $<HTMLElement>('.nav');
   private $title = $<HTMLHeadingElement>('h1');
+  private $userThumbnail = $<HTMLButtonElement>('.user-thumbnail');
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
@@ -24,6 +29,11 @@ export default class NavigatorComponent {
     on(
       this.$signUpVerifyButton,
       '@renderSignInComponent',
+      this.changeComponent
+    );
+    on(
+      this.$signInVerifyButton,
+      '@membershipPurchaseProduct',
       this.changeComponent
     );
   }
@@ -88,8 +98,22 @@ export default class NavigatorComponent {
       return;
     }
 
-    this.$nav.classList.remove('hide');
+    const user = getCookie('user') && JSON.parse(getCookie('user'));
+
+    if (user) {
+      this.$nav.classList.remove('hide');
+      this.$title.classList.remove('hide');
+      this.$signInButton.classList.add('hide');
+      this.$userThumbnail.classList.remove('hide');
+      this.$userThumbnail.textContent = user.name[0];
+
+      return;
+    }
+
+    this.$nav.classList.add('hide');
     this.$title.classList.remove('hide');
     this.$signInButton.classList.remove('hide');
+    this.$userThumbnail.classList.add('hide');
+    this.$userThumbnail.textContent = '';
   };
 }
