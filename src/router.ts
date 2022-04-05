@@ -12,7 +12,7 @@ nav.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
   historyRouterPush(e.target.getAttribute('route'));
 });
 
-const historyRouterPush = (pathname: string) => {
+export const historyRouterPush = (pathname: string) => {
   history.pushState({ pathname }, '', pathname);
   render(pathname);
 };
@@ -32,6 +32,8 @@ const routers: Router[] = [
   { path: baseURL + '/', component: $('product-management') },
   { path: baseURL + '/charge', component: $('charge-tab') },
   { path: baseURL + '/purchase', component: $('purchase-tab') },
+  { path: baseURL + '/login', component: $('login-page') },
+  { path: baseURL + '/signup', component: $('signup-page') },
 ];
 
 window.addEventListener('popstate', function () {
