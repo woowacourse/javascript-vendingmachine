@@ -1,3 +1,4 @@
+import { loginAuth } from '../auth';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
@@ -107,9 +108,9 @@ loginTemplate.innerHTML = `
         <h1>로그인</h1>
         <form>
           <label>이메일</label>
-          <input type="email" placeholder="woowacourse@gmail.com" />
+          <input id="email-input" type="email" placeholder="woowacourse@gmail.com" />
           <label>비밀번호</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요" />
+          <input id="password-input" type="password" placeholder="비밀번호를 입력해주세요" />
           <button type="submit">확인</button>
         </form>
         <span>아직 회원이 아닌가요?<span id="signup-span">회원가입</span></span>
@@ -119,10 +120,16 @@ loginTemplate.innerHTML = `
 `;
 
 class Login extends HTMLElement {
+  emailInput: HTMLInputElement;
+  passwordInput: HTMLInputElement;
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(loginTemplate.content.cloneNode(true));
+
+    this.emailInput = <HTMLInputElement>this.shadowRoot.getElementById('email-input');
+    this.passwordInput = <HTMLInputElement>this.shadowRoot.getElementById('password-input');
   }
 
   connectedCallback() {
@@ -146,52 +153,27 @@ class Login extends HTMLElement {
     this.remove();
   };
 
-  login = (event: SubmitEvent) => {
+  login = async (event: SubmitEvent) => {
     event.preventDefault();
-    const email = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='email']")).value;
-    const password = (<HTMLInputElement>this.shadowRoot.querySelector("input[type='password']"))
-      .value;
-
-    const url = 'https://json-server-marco.herokuapp.com/login/';
-    const data = {
-      email,
-      password,
+    const payload = {
+      email: this.emailInput.value,
+      password: this.passwordInput.value,
     };
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log('login, 로그인 실패');
-          return;
-        }
-        return res.json();
-      })
-      .then((response) => {
-        const userAuth = {
-          accessToken: response.accessToken,
-          id: response.user.id,
-        };
-        console.log('login, 로그인 성공');
-        localStorage.setItem('userAuth', JSON.stringify(userAuth));
-        this.emitRouteLogin();
-        renderToastModal('success', SUCCESS_MESSAGE.LOGIN_COMPLETE);
-      })
-      .catch((error) => renderToastModal('error', ERROR_MESSAGE.LOGIN_FAILED));
+    const isLogin = await loginAuth(payload);
+    if (!isLogin) {
+      return;
+    }
+    this.emitRouteLogin();
   };
 
   emitRouteLogin = () => {
-    this.remove();
+    this.closeModal();
     const event = new CustomEvent('@route-login', {});
     window.dispatchEvent(event);
   };
 
   emitRenderSignup = () => {
-    this.remove();
+    this.closeModal();
     const event = new CustomEvent('@render-signup', {});
     window.dispatchEvent(event);
   };
