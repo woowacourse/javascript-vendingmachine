@@ -1,15 +1,12 @@
-import { $, convertStringToElement } from 'Utils';
+import { $ } from 'Utils';
 import { validateHoldingAmountToAdd } from 'Utils/VendingMachine/validator';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
 import Component from 'Components/Abstract';
+import AmountInputForm from 'Components/@Shared/AmountInputForm';
 
-import template from './template.html';
-import './styles.scss';
-
-export default class AmountInputForm extends Component {
-  subscriberStore = [HoldingAmountStore];
-
+export default class AddHoldingAmountForm extends Component {
   $addForm;
+  subscriberStore = [HoldingAmountStore];
 
   constructor(props) {
     super(props);
@@ -20,15 +17,14 @@ export default class AmountInputForm extends Component {
   }
 
   template() {
-    return convertStringToElement(template);
+    return this.createChildComponent<IAmountInputProps>(AmountInputForm, {
+      totalAmountText: '현재 보유 금액',
+      onSubmit: this.onSubmitAddHoldingAmountForm,
+    });
   }
 
   setDom() {
     this.$addForm = $('#add-holding-amount-form', this.$component);
-  }
-
-  setEvents() {
-    this.$addForm.addEventListener('submit', this.onSubmitAddHoldingAmountForm);
   }
 
   onSubmitAddHoldingAmountForm(event) {
