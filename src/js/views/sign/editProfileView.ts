@@ -1,7 +1,7 @@
 import AuthManager from '../../auth/authManager';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import { SELECTOR } from '../../constants/viewConstants';
-import { editProfile } from '../../templates/editProfileTemplate';
+import { editProfile } from '../../templates/sign/editProfileTemplate';
 import { $, emit } from '../../utils/common';
 import { signValidate } from '../../validates/signValidate';
 

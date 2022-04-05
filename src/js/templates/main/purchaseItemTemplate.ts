@@ -1,5 +1,5 @@
-import { COINS } from '../constants/vendingMachineConstants';
-import { CoinsType, ItemType } from '../types/types';
+import { COINS } from '../../constants/vendingMachineConstants';
+import { CoinsType, ItemType } from '../../types/types';
 
 export const sectionTemplate = {
   inputContainer(inputMoney: number) {

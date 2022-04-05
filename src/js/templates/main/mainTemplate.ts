@@ -1,4 +1,4 @@
-import { URL } from '../constants/appContants';
+import { URL } from '../../constants/appContants';
 
 export const mainTemplate = `
   <h1>🍿 자판기 🍿</h1>

@@ -1,11 +1,10 @@
-import { $ } from '../utils/common';
-import { purchaseItemTemplate, sectionTemplate } from '../templates/purchaseItemTemplate';
-import { SELECTOR } from '../constants/viewConstants';
-import VendingMachine from '../vendingMachine/vendingMachine';
-import showSnackbar from '../utils/snackbar';
-import { ERROR_MESSAGE } from '../constants/errorConstants';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
-import { MONEY } from '../constants/vendingMachineConstants';
+import { $ } from '../../utils/common';
+import { purchaseItemTemplate, sectionTemplate } from '../../templates/main/purchaseItemTemplate';
+import { SELECTOR } from '../../constants/viewConstants';
+import VendingMachine from '../../vendingMachine/vendingMachine';
+import showSnackbar from '../../utils/snackbar';
+import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
+import { MONEY } from '../../constants/vendingMachineConstants';
 
 export default class PurchaseItemView {
   constructor(private readonly vendingMachine: VendingMachine) {

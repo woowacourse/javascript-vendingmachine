@@ -1,10 +1,10 @@
-import { $ } from '../utils/common';
-import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
-import { SELECTOR } from '../constants/viewConstants';
-import { ItemType } from '../types/types';
-import showSnackbar from '../utils/snackbar';
-import VendingMachine from '../vendingMachine/vendingMachine';
+import { $ } from '../../utils/common';
+import { manageItemTemplate, sectionTemplate } from '../../templates/main/manageItemTemplate';
+import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
+import { SELECTOR } from '../../constants/viewConstants';
+import { ItemType } from '../../types/types';
+import showSnackbar from '../../utils/snackbar';
+import VendingMachine from '../../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
   constructor(private readonly vendingMachine: VendingMachine) {

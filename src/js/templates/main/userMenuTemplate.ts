@@ -1,4 +1,4 @@
-import { URL } from '../constants/appContants';
+import { URL } from '../../constants/appContants';
 
 export const userMenuTemplate = `
   <section id="user-menu">

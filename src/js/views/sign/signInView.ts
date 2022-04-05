@@ -1,4 +1,4 @@
-import singInTemplate from '../../templates/signInTemplate';
+import { signInTemplate } from '../../templates/sign/signInTemplate';
 import { $, emit } from '../../utils/common';
 import AuthManager from '../../auth/authManager';
 import { SELECTOR } from '../../constants/viewConstants';
@@ -9,7 +9,7 @@ export default class SignInView {
   render() {
     const $signMain = $(SELECTOR.ID.SIGN_MAIN);
     $signMain.replaceChildren();
-    $signMain.insertAdjacentHTML('beforeend', singInTemplate);
+    $signMain.insertAdjacentHTML('beforeend', signInTemplate);
 
     $(SELECTOR.ID.SIGNIN_SUBMIT).addEventListener('submit', this.handleSignInSubmit.bind(this));
     $(SELECTOR.ID.OFFER_SIGNUP_BUTTON).addEventListener(

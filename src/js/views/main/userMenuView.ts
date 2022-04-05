@@ -1,9 +1,9 @@
-import { userMenuTemplate } from '../templates/userMenuTemplate';
-import { $, emit } from '../utils/common';
-import { CUSTOM_EVENT, URL } from '../constants/appContants';
-import AuthManager from '../auth/authManager';
-import { SELECTOR } from '../constants/viewConstants';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
+import { userMenuTemplate } from '../../templates/main/userMenuTemplate';
+import { $, emit } from '../../utils/common';
+import { CUSTOM_EVENT, URL } from '../../constants/appContants';
+import AuthManager from '../../auth/authManager';
+import { SELECTOR } from '../../constants/viewConstants';
+import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
 
 export default class UserMenuView {
   private $app: HTMLElement;

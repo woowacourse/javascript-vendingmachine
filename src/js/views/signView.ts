@@ -1,10 +1,10 @@
-import { CUSTOM_EVENT, URL } from '../../constants/appContants';
-import { signTemplate } from '../../templates/signTemplate';
-import { $, emit } from '../../utils/common';
-import { SELECTOR } from '../../constants/viewConstants';
-import SignInView from './signInView';
-import SignUpView from './signUpView';
-import EditProfileView from './editProfileView';
+import { CUSTOM_EVENT, URL } from '../constants/appContants';
+import { signTemplate } from '../templates/sign/signTemplate';
+import { $, emit } from '../utils/common';
+import { SELECTOR } from '../constants/viewConstants';
+import SignInView from './sign/signInView';
+import SignUpView from './sign/signUpView';
+import EditProfileView from './sign/editProfileView';
 
 export default class SignView {
   private $app: HTMLElement;

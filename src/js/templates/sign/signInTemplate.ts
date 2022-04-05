@@ -1,6 +1,6 @@
-import { URL } from '../constants/appContants';
+import { URL } from '../../constants/appContants';
 
-const singInTemplate = `
+export const signInTemplate = `
   <h1 class="sign-header">로그인</h1>
   <form id="signin-submit" class="sign-submit">
     <label for="email-input" class="sign-input-label">이메일</label>
@@ -16,5 +16,3 @@ const singInTemplate = `
     <button id="offer-signup-button" data-url=${URL.SING_UP}>회원가입<button>
   <div>
 `;
-
-export default singInTemplate;

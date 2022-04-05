@@ -1,5 +1,5 @@
 import AuthManager from '../../auth/authManager';
-import { signUpTemplate } from '../../templates/signUpTemplate';
+import { signUpTemplate } from '../../templates/sign/signUpTemplate';
 import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
 import { CUSTOM_EVENT } from '../../constants/appContants';

@@ -1,10 +1,10 @@
-import { $ } from '../utils/common';
-import { chargeMoneyTemplate, sectionTemplate } from '../templates/chargeMoneyTemplate';
-import { CoinsType } from '../types/types';
-import { SELECTOR } from '../constants/viewConstants';
-import showSnackbar from '../utils/snackbar';
-import VendingMachine from '../vendingMachine/vendingMachine';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
+import { $ } from '../../utils/common';
+import { chargeMoneyTemplate, sectionTemplate } from '../../templates/main/chargeMoneyTemplate';
+import { CoinsType } from '../../types/types';
+import { SELECTOR } from '../../constants/viewConstants';
+import showSnackbar from '../../utils/snackbar';
+import VendingMachine from '../../vendingMachine/vendingMachine';
+import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
 
 export default class ChargeMoneyView {
   constructor(private readonly vendingMachine: VendingMachine) {
