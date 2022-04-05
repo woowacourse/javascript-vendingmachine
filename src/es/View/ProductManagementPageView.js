@@ -92,6 +92,8 @@ class ProductManagementPageView {
       case 'product-update-cancel':
         this.onClickUpdateCancelButton(event);
         break;
+      default:
+        break;
     }
   };
 
