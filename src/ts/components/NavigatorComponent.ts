@@ -9,6 +9,9 @@ export default class NavigatorComponent {
   private $signUpButton = $<HTMLAnchorElement>(
     '.sign-in-section__sign-up-button'
   );
+  private $signUpVerifyButton = $<HTMLButtonElement>(
+    '.sign-up-form__verify-button'
+  );
 
   private $nav = $<HTMLElement>('.nav');
   private $title = $<HTMLHeadingElement>('h1');
@@ -18,6 +21,11 @@ export default class NavigatorComponent {
     on(window, '@popstateChangeComponent', this.changeComponent);
     on(this.$signInButton, '@signInChangeComponent', this.changeComponent);
     on(this.$signUpButton, '@signUpChangeComponent', this.changeComponent);
+    on(
+      this.$signUpVerifyButton,
+      '@renderSignInComponent',
+      this.changeComponent
+    );
   }
 
   private onClickNavButton = (event: Event): void => {
