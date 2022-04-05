@@ -25,7 +25,7 @@ const UserApi = {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      console.log(response);
+      throw Error(response);
     }
     return response.json();
   },

@@ -37,7 +37,7 @@ export default class User {
           this.#email = res.email;
           this.#name = res.name;
         })
-        .catch((e) => {
+        .catch(() => {
           expireCookie('accessToken');
           this.#isLogined = false;
           this.#id = null;

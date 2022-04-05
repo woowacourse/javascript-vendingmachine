@@ -23,7 +23,6 @@ export default class PurchaseProductTab {
     );
     this.#giveChangeButton = selectDom('#give-change-button', this.#purchaseContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#purchaseContainer);
-
     this.#renderTotalMoney();
     this.#renderProductList();
 
@@ -87,7 +86,7 @@ export default class PurchaseProductTab {
     this.#renderTotalMoney();
   };
 
-  get tabElements() {
+  get element() {
     return this.#purchaseContainer;
   }
 }

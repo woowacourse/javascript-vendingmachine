@@ -1,6 +1,8 @@
 header {
   display: flex;
+  width: 100%;
   flex-direction: column;
+  position: relative;
   align-items: center;
   gap: 32px;
 }
@@ -44,4 +46,9 @@ nav {
 
 .hide {
   display: none;
+}
+
+.user-navigation {
+  position: absolute;
+  right: 0;
 }

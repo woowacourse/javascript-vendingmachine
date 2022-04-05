@@ -8,3 +8,9 @@ export function createMainElement(template) {
 
   return mainElement;
 }
+
+export function createElementByTemplate(type, template) {
+  const element = document.createElement(type);
+  element.insertAdjacentHTML('beforeend', template);
+  return element;
+}

@@ -22,7 +22,7 @@ export default class AddChangeTab {
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
-  get tabElements() {
+  get element() {
     return this.#addChangeContainer;
   }
 

@@ -38,7 +38,7 @@ export default class ManageProductTab {
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
 
-  get tabElements() {
+  get element() {
     return this.#manageContainer;
   }
 

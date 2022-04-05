@@ -1,52 +1,37 @@
-import VendingMachine from '../domain/VendingMachine';
-import PurchaseProductTab from './PurchaseProductTab';
-import AddChangeTab from './AddChangeTab';
-import ManageProductTab from './ManageProductTab';
 import { createMainElement, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
-import User from '../domain/User';
 
 export default class Router {
-  #vendingMachine;
   #renderList;
   #app;
-  #tabMenuNavigation;
-  #user;
   #privateRenderList;
+  #user;
 
-  constructor() {
-    this.#vendingMachine = new VendingMachine();
-    this.#user = new User();
-    this.#privateRenderList = {
-      '#/manage': () => new ManageProductTab(this.#vendingMachine),
-      '#/charge': () => new AddChangeTab(this.#vendingMachine),
-    };
+  constructor(user) {
+    this.#user = user;
+    this.#privateRenderList = {};
+    this.#renderList = {};
 
-    this.#renderList = {
-      '#/manage': () => new ManageProductTab(this.#vendingMachine),
-      '#/charge': () => new AddChangeTab(this.#vendingMachine),
-      '#/purchase': () => new PurchaseProductTab(this.#vendingMachine),
-    };
     this.#app = selectDom('#app');
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
-    this.#renderNav();
-    window.addEventListener('popstate', this.#render);
-    window.addEventListener('DOMContentLoaded', this.#render);
-    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
   }
 
-  #renderNav() {
-    if (!this.#user.isLogined) {
-      this.#tabMenuNavigation.classList.add('hide');
-    }
-    if (this.#user.isLogined) {
-      this.#tabMenuNavigation.classList.remove('hide');
-    }
+  bindEvents() {
+    window.addEventListener('popstate', this.#render);
+    window.addEventListener('DOMContentLoaded', this.#render);
+    window.addEventListener('tabChange', this.#handleTabMenuChange);
+  }
+
+  addPrivateRenderList(key, view) {
+    this.#privateRenderList[key] = view;
+    this.addRenderList(key, view);
+  }
+
+  addRenderList(key, view) {
+    this.#renderList[key] = view;
   }
 
   #render = () => {
-    const path = window.location.hash || '#/purchase';
-    this.#updateCurrentTabMenu(path);
+    const path = window.location.hash || '#/manage';
     const main = selectDom('main');
 
     if (!this.#renderList[path]) {
@@ -55,34 +40,32 @@ export default class Router {
       return;
     }
 
-    if (this.#privateRenderList[path] && !this.#user.isLogined) {
-      window.history.pushState({}, null, '#/purchase');
-      this.#render();
-      return;
-    }
-
-    this.#app.replaceChild(this.#renderList[path]().tabElements, main);
+    // if (this.#privateRenderList[path] && !this.#user.isLogined) {
+    //   window.history.pushState({}, null, '#/purchase');
+    //   this.#render();
+    //   return;
+    // }
+    selectDom('body').replaceChild(this.#renderList[path].element, selectDom('#app'));
+    this.#updateCurrentTabMenu(path);
   };
 
   #updateCurrentTabMenu(path) {
-    const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
+    if (!selectDom('#tab-menu-navigation')) return;
+    const previousMenuButton = selectDom('.current', selectDom('#tab-menu-navigation'));
     previousMenuButton?.classList.remove('current');
 
-    const currentMenuButton = selectDom(`[href="${path}"]`, this.#tabMenuNavigation);
+    const currentMenuButton = selectDom(
+      `[href="${path}"]`,
+      selectDom('#tab-menu-navigation')
+    );
+
     currentMenuButton?.classList.add('current');
   }
 
   #handleTabMenuChange = (e) => {
     e.preventDefault();
 
-    const { hash: newHash } = e.target;
-    const previousHash = window.location.hash;
-
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) {
-      return;
-    }
-
-    window.history.pushState({}, null, newHash);
+    window.history.pushState({}, null, e.detail.newHash);
     this.#render();
   };
 }
