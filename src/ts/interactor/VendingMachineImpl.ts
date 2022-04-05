@@ -48,4 +48,17 @@ export default class VendingMachineImpl implements VendingMachine {
     validator.checkChargeUserMoney(userInputMoney, this.totalUserInputMoney);
     this.totalUserInputMoney += userInputMoney;
   }
+
+  returnChangeCoins(): Object {
+    return this.coinCollection.coins
+      .reverse()
+      .reduce((acc, { amount, count }) => {
+        const coinCount = Math.min(Math.floor(this.totalUserInputMoney / amount), count);
+
+        this.totalUserInputMoney -= coinCount * amount;
+        acc[amount] = coinCount;
+
+        return acc;
+      }, {});
+  }
 }

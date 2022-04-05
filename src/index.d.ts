@@ -37,6 +37,7 @@ export interface VendingMachine {
   deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
   chargeUserMoney(userInputMoney: number): void;
+  returnChangeCoins(): Object;
 }
 
 export interface View {

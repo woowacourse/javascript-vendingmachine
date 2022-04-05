@@ -36,7 +36,7 @@ describe('유저 투입 금액', () => {
 });
 
 describe('반환 금액', () => {
-  const calculateReturnChange = (coins: Array<number>): number => 
+  const calculateReturnChange = (coins: Object): number => 
     Object.entries(coins).reduce((acc, [amount, count]) => acc + Number(amount) * count, 0);
 
   beforeEach(() => {
@@ -55,7 +55,7 @@ describe('반환 금액', () => {
 
   it('동전의 총액이 4500이고 유저 투입 금액이 6210일 때, 동전의 총액만큼 반환한다.', () => {
     const inputMoney = 4500;
-    const userInputMoney = 3000;
+    const userInputMoney = 6210;
 
     vendingMachine.chargeMoney(inputMoney);
     vendingMachine.chargeUserMoney(userInputMoney);
