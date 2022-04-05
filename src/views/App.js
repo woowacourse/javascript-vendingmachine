@@ -10,16 +10,13 @@ import { globalStore } from '../domains/GlobalStore';
 
 export default class App extends Component {
   template() {
-    const loginState = globalStore.useStore((state) => state.loginState);
-    const { isLoggedIn, userData } = loginState;
-
     return `
       <main>
         <page-router>
-          <vending-machine path="/" isLoggedIn=${isLoggedIn} userName=${userData?.name} class="app-container"></vending-machine>
-          <user-login path="/user-login" isLoggedIn=${isLoggedIn} class="app-container"></user-login>
-          <user-register path="/register" isLoggedIn=${isLoggedIn} class="app-container"></user-register>
-          <user-edit path="/user-edit" isLoggedIn=${isLoggedIn} userId=${userData?.id} class="app-container"></user-edit>
+          <vending-machine path="/"class="app-container"></vending-machine>
+          <user-login path="/user-login" class="app-container"></user-login>
+          <user-register path="/register" class="app-container"></user-register>
+          <user-edit path="/user-edit" class="app-container"></user-edit>
           <not-found path="*" class="app-container"></not-found>
         </page-router>
       </main>

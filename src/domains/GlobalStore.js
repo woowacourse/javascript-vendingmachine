@@ -21,15 +21,17 @@ export default class GlobalStore {
   }
 
   login(response) {
-    this.state.loginState = { isLoggedIn: true, data: response };
+    this.state.loginState = { isLoggedIn: true, userData: response.user };
     setData('user', response);
 
     this.changeLocation('/');
   }
 
   logout() {
-    this.state.loginState = { isLoggedIn: false, data: {} };
+    this.state.loginState = { isLoggedIn: false, userData: {} };
     localStorage.removeItem('user');
+
+    this.changeLocation('/');
   }
 }
 

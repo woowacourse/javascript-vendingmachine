@@ -15,10 +15,10 @@ class Router extends Component {
   render() {
     // globalStore의 location 값이 바뀔때마다 재랜더
     // useStore로 Router는 등록되어 있음
+    // 이렇게 하면 변한 props를 반영하지 못함.
     let curLocation = globalStore.useStore((state) => state.currentLocation);
     const { routes } = this.state;
 
-    console.log(curLocation);
     if (curLocation === '/change-charge' || curLocation === '/item-management')
       curLocation = '/';
     const component = routes[curLocation] || routes['*'];

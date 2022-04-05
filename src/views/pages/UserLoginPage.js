@@ -5,8 +5,8 @@ import { globalStore } from '../../domains/GlobalStore';
 
 class UserLoginPage extends Component {
   template() {
-    const { isloggedin } = this.props;
-    const login = JSON.parse(isloggedin);
+    const loginState = globalStore.useStore((state) => state.loginState);
+    const login = loginState.isLoggedIn;
 
     if (login) {
       return `<p>이미 로그인 하셨습니다</p>`;

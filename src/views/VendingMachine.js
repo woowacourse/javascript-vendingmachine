@@ -8,8 +8,9 @@ import { globalStore } from '../domains/GlobalStore';
 
 export default class VendingMachine extends Component {
   template() {
-    const { isloggedin, username } = this.props;
-    const login = JSON.parse(isloggedin);
+    const loginState = globalStore.useStore((state) => state.loginState);
+    const login = loginState.isLoggedIn;
+    const username = loginState.userData?.name;
     const location = window.location.pathname;
 
     let vendingMachinePage;

@@ -5,7 +5,7 @@ import { showSnackBar } from '../../utils/domUtil';
 
 class ItemRow extends TableRow {
   setup() {
-    this.state = { isEditing: false, tab: this.getAttribute('tab') };
+    this.state = { isEditing: false, tab: this.props.tab };
   }
 
   template() {
@@ -75,10 +75,8 @@ class ItemRow extends TableRow {
 
       input.focus();
 
-      setTimeout(() => {
-        input.selectionStart = ITEM.NAME.MAX_LENGTH;
-        input.selectionEnd = ITEM.NAME.MAX_LENGTH;
-      }, 0);
+      input.selectionStart = ITEM.NAME.MAX_LENGTH;
+      input.selectionEnd = ITEM.NAME.MAX_LENGTH;
     });
 
     this.addEvent('click', '.item-update-button', () => {

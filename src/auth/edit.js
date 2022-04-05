@@ -17,8 +17,8 @@ export const editUser = async (id, userInfo) => {
     });
 };
 
-export const deleteUser = async () => {
-  await fetch(`${baseURL}/users/${this.state.userId}`, {
+export const deleteUser = async (id) => {
+  await fetch(`${baseURL}/users/${id}`, {
     method: 'DELETE',
   })
     .then(manageErrors)
