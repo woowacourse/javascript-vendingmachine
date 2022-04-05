@@ -15,7 +15,7 @@ export const ITEM = {
   },
 };
 
-export const InitialCoins: CoinsType = {
+export const INITIAL_COINS: CoinsType = {
   fiveHundred: 0,
   hundred: 0,
   fifty: 0,

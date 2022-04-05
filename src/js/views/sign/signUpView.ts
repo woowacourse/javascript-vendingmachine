@@ -2,7 +2,7 @@ import AuthManager from '../../auth/authManager';
 import { signUpTemplate } from '../../templates/sign/signUpTemplate';
 import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
-import { CUSTOM_EVENT } from '../../constants/appContants';
+import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import { signValidate } from '../../validates/signValidate';
 import { SELECTOR } from '../../constants/viewConstants';
 
@@ -27,7 +27,11 @@ export default class SignUpView {
 
       await AuthManager.shared().singUp({ email, name, password });
 
-      emit({ eventName: CUSTOM_EVENT.SIGN_COMPLETE });
+      emit({
+        eventName: CUSTOM_EVENT.ROUTE_CHANGE,
+        detail: { url: URL.MANAGE_ITEM, page: URL.MAIN },
+      });
+      emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
     } catch (error) {
       showSnackbar(error.message);
     }

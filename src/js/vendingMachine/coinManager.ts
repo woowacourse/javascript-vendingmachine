@@ -1,5 +1,5 @@
 import { CoinsType } from '../types/types';
-import { COINS, InitialCoins } from '../constants/vendingMachineConstants';
+import { COINS, INITIAL_COINS } from '../constants/vendingMachineConstants';
 import { generateRandom } from '../utils/common';
 
 export default class CoinManager {
@@ -58,6 +58,6 @@ export default class CoinManager {
   }
 
   private getInitialCoins() {
-    return JSON.parse(JSON.stringify(InitialCoins));
+    return JSON.parse(JSON.stringify(INITIAL_COINS));
   }
 }
