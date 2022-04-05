@@ -42,6 +42,7 @@ export default class PurchaseItemView {
 
       this.repaintCurrentMoney(this.vendingMachine.money);
       this.clearInput();
+      showSnackbar(`${inputMoney}${CONFIRM_MESSAGE.CHARGE}`);
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -64,18 +65,16 @@ export default class PurchaseItemView {
   }
 
   private handleReturnChangeButtonClick() {
-    try {
-      const { coins, restMoney } = this.vendingMachine.returnChangeCoins();
+    const { coins, restMoney } = this.vendingMachine.returnChangeCoins();
 
-      this.repaintCoinsTable(coins);
-      this.repaintCurrentMoney(restMoney);
+    this.repaintCoinsTable(coins);
+    this.repaintCurrentMoney(restMoney);
 
-      if (restMoney > MONEY.MIN) {
-        throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_COINS);
-      }
-    } catch (error) {
-      showSnackbar(error.message);
-    }
+    showSnackbar(
+      restMoney > MONEY.MIN
+        ? `${restMoney}${CONFIRM_MESSAGE.NO_COINS}`
+        : CONFIRM_MESSAGE.RETURN_COINS
+    );
   }
 
   private repaintCoinsTable(coins) {

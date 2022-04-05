@@ -3,6 +3,7 @@ import { $, emit } from '../utils/common';
 import { CUSTOM_EVENT, URL } from '../constants/appContants';
 import AuthManager from '../auth/authManager';
 import { SELECTOR } from '../constants/viewConstants';
+import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
 
 export default class UserMenuView {
   private $app: HTMLElement;
@@ -33,7 +34,7 @@ export default class UserMenuView {
   }
 
   private handleSignOutClick() {
-    AuthManager.shared().signOut();
+    if (window.confirm(CONFIRM_MESSAGE.SIGN_OUT)) AuthManager.shared().signOut();
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,
