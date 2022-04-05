@@ -1,4 +1,6 @@
 import RegisterFormComponent from '../components/RegisterFormComponent';
+import { PATH_NAME } from '../constants';
+import routes from '../routes';
 
 export default class Register {
   RegisterFormComponent: RegisterFormComponent;
@@ -15,6 +17,6 @@ export default class Register {
   };
 
   private stateChange = () => {
-    this.RegisterFormComponent.refreshComponent();
+    routes.go(PATH_NAME.LOGIN);
   };
 }

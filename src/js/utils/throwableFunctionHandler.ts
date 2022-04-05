@@ -1,8 +1,8 @@
 import snackbar from '../utils/snackbar';
 
-const throwableFunctionHandler = (task: Function) => {
+const throwableFunctionHandler = async (task: Function) => {
   try {
-    snackbar.push(task());
+    snackbar.push(await task());
     return true;
   } catch (error) {
     snackbar.push(error);

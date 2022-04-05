@@ -1,3 +1,4 @@
+import requestRegister from '../api/requestRegister';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class RegisterFormComponent {
@@ -20,12 +21,19 @@ class RegisterFormComponent {
     this.$registerForm.addEventListener('submit', this.onSubmitRegister);
   };
 
-  private onSubmitRegister = (e: SubmitEvent) => {
+  private onSubmitRegister = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    // if (throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
-    //   this.noticeStateChanged('add', newProduct);
-    // }
+    const userData = {
+      email: (<HTMLInputElement>this.$registerForm.querySelector('#email-input')).value,
+      name: (<HTMLInputElement>this.$registerForm.querySelector('#name-input')).value,
+      password: (<HTMLInputElement>this.$registerForm.querySelector('#password-input')).value,
+      passwordCheck: (<HTMLInputElement>this.$registerForm.querySelector('#password-check-input')).value,
+    };
+
+    if (await throwableFunctionHandler(() => requestRegister(userData))) {
+      this.noticeStateChanged();
+    }
   };
 
   refreshComponent = () => {};
