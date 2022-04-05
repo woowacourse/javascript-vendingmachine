@@ -20,10 +20,12 @@ import {
 export default class VendingMachine {
   #productList: VendingMachineProductDictionary;
   #moneyBox: MoneyBox;
+  #totalInsertMoney: number;
 
   constructor() {
     this.#productList = {};
     this.#moneyBox = new MoneyBox();
+    this.#totalInsertMoney = 0;
   }
 
   get productList(): VendingMachineProductDictionary {
@@ -36,6 +38,10 @@ export default class VendingMachine {
 
   get coinStatus(): CoinStatus {
     return this.#moneyBox.coinStatus;
+  }
+
+  get totalInsertMoney(): number {
+    return this.#totalInsertMoney;
   }
 
   addChange(money: number): never | Coin[] {
@@ -67,6 +73,26 @@ export default class VendingMachine {
   removeProduct(productId: string): void {
     this.#validateProductIdInList(productId);
     delete this.#productList[productId];
+  }
+
+  insertMoney(money: number): void {
+    this.#validateInsertMoney(money);
+
+    this.#totalInsertMoney += money;
+  }
+
+  #validateInsertMoney(money: number): void {
+    if (money <= 0) {
+      throw Error('투입 금액은 0원 이하일 수 없습니다.');
+    }
+
+    if (money % 10 !== 0) {
+      throw Error('투입 금액은 10원 단위이어야 합니다.');
+    }
+
+    if (money > 10000) {
+      throw Error('최대 투입 금액은 10000원을 초과할 수 없습니다.');
+    }
   }
 
   #validateChange(money: number): never | void {
