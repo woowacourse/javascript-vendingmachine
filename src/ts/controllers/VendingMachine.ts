@@ -1,9 +1,10 @@
-import ProductManageImpl from '../core/ProductManageImpl';
-import ChargeMoneyImpl from '../core/ChargeMoneyImpl';
-import { Product, Coin } from './declaration';
-import { $ } from '../util/dom';
+import ProductManageImpl from '../core/ProductManageTab';
+import ChargeMoneyImpl from '../core/ChargeMoneyTab';
+import { Product, Coin } from '../declarations/resourceDeclaration';
+import { $ } from '../utils/dom';
 import { COINS } from '../constants/index';
-import ProductBuyImpl from '../core/ProductBuyImpl';
+import ProductBuyImpl from '../core/ProductBuyTab';
+import VerifyValueValidation from '../validations/verifyValueValidation';
 
 class VendingMachine {
   private products: Array<Product> = [];
@@ -13,11 +14,13 @@ class VendingMachine {
     { amount: COINS.VAULE_100, count: 0 },
     { amount: COINS.VAULE_500, count: 0 },
   ];
+  verifyValue: VerifyValueValidation;
 
   constructor() {
-    new ProductManageImpl(this.products);
-    new ChargeMoneyImpl(this.coins);
-    new ProductBuyImpl(this.products, this.coins);
+    this.verifyValue = new VerifyValueValidation(this.products, this.coins);
+    new ProductManageImpl(this.products, this.verifyValue);
+    new ChargeMoneyImpl(this.coins, this.verifyValue);
+    new ProductBuyImpl(this.products, this.coins, this.verifyValue);
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }

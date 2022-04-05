@@ -1,10 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var ProductManageImpl_1 = require("../core/ProductManageImpl");
-var ChargeMoneyImpl_1 = require("../core/ChargeMoneyImpl");
-var dom_1 = require("../util/dom");
+var ProductManageTab_1 = require("../core/ProductManageTab");
+var ChargeMoneyTab_1 = require("../core/ChargeMoneyTab");
+var dom_1 = require("../utils/dom");
 var index_1 = require("../constants/index");
-var ProductBuyImpl_1 = require("../core/ProductBuyImpl");
+var ProductBuyTab_1 = require("../core/ProductBuyTab");
+var verifyValueValidation_1 = require("../validations/verifyValueValidation");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
         this.products = [];
@@ -14,9 +15,10 @@ var VendingMachine = /** @class */ (function () {
             { amount: index_1.COINS.VAULE_100, count: 0 },
             { amount: index_1.COINS.VAULE_500, count: 0 },
         ];
-        new ProductManageImpl_1["default"](this.products);
-        new ChargeMoneyImpl_1["default"](this.coins);
-        new ProductBuyImpl_1["default"](this.products, this.coins);
+        this.verifyValue = new verifyValueValidation_1["default"](this.products, this.coins);
+        new ProductManageTab_1["default"](this.products, this.verifyValue);
+        new ChargeMoneyTab_1["default"](this.coins, this.verifyValue);
+        new ProductBuyTab_1["default"](this.products, this.coins, this.verifyValue);
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));
     }
