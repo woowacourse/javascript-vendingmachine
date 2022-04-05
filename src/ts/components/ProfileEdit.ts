@@ -1,4 +1,4 @@
-import { editProfileAuth, getUserData } from '../auth';
+import { editProfileAuth, getUserData } from '../auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 

@@ -1,4 +1,4 @@
-import { signupAuth } from '../auth';
+import { signupAuth } from '../auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderComponent } from './renderer';
 import { renderToastModal } from './ToastNotification';

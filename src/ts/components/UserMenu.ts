@@ -1,4 +1,4 @@
-import { deleteUserAuth, getUserAuth, getUserFirstName } from '../auth';
+import { deleteUserAuth, getUserAuth, getUserFirstName } from '../auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 

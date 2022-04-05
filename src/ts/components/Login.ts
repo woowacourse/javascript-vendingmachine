@@ -1,4 +1,4 @@
-import { loginAuth } from '../auth';
+import { loginAuth } from '../auth.js';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 

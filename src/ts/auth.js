@@ -1,8 +1,6 @@
 import { checkValidProfile } from './domains/validator';
 
-const apiUrl = 'https://json-server-marco.herokuapp.com';
-
-const setUserAuth = (userAuth: object) => {
+const setUserAuth = (userAuth) => {
   localStorage.setItem('userAuth', JSON.stringify(userAuth));
 };
 
@@ -14,7 +12,7 @@ const getUserTokenId = () => {
   const userAuth = getUserAuth();
   return {
     accessToken: `Bearer ${userAuth.accessToken}`,
-    userUrl: `${apiUrl}/users/${userAuth.id}`,
+    userUrl: `${API_URL}/users/${userAuth.id}`,
   };
 };
 
@@ -41,7 +39,7 @@ export const getUserData = async () => {
 
 export const signupAuth = async ({ email, name, password, passwordCheck }) => {
   if (checkValidProfile(name, password, passwordCheck)) {
-    const response = await fetch(`${apiUrl}/signup`, {
+    const response = await fetch(`${API_URL}/signup`, {
       method: 'POST',
       body: JSON.stringify({ email, password, name }),
       headers: {
@@ -57,7 +55,7 @@ export const signupAuth = async ({ email, name, password, passwordCheck }) => {
 };
 
 export const loginAuth = async ({ email, password }) => {
-  const response = await fetch(`${apiUrl}/login`, {
+  const response = await fetch(`${API_URL}/login`, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
     headers: {
@@ -99,7 +97,6 @@ export const editProfileAuth = async ({ name, password, passwordCheck }) => {
 
 export const getUserFirstName = async () => {
   const { accessToken, userUrl } = getUserTokenId();
-  console.log(userUrl, accessToken);
   if (!userUrl || !accessToken) {
     return;
   }
@@ -111,6 +108,7 @@ export const getUserFirstName = async () => {
     },
   });
   if (!response.ok) {
+    deleteUserAuth();
     return false;
   }
   const data = await response.json();

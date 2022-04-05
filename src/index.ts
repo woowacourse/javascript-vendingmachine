@@ -1,3 +1,4 @@
+import 'regenerator-runtime';
 import './css/index.css';
 import View from './ts/views/View';
 import VendingMachine from './ts/domains/VendingMachine';
