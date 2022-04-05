@@ -2,7 +2,7 @@ import { API } from '../../apis';
 import type { UserInfoWithPassWord } from '../../apis';
 
 import { basePath } from '../component/App';
-import { getCookie } from '../utils';
+import { getUser } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 
 export default class UserEditPage {
@@ -12,17 +12,21 @@ export default class UserEditPage {
   }
 
   async render() {
-    replaceHTML($('#app'), await this.#template());
+    const user = await getUser();
+
+    if (typeof user === 'string') {
+      alert('Not Login');
+      history.pushState({}, '', basePath);
+      this.routePage(basePath);
+      return;
+    }
+
+    replaceHTML($('#app'), await this.#template(user));
     $('.edit-form').addEventListener('submit', this.editHandler);
   }
 
-  async #template() {
-    const userId = getCookie('user_id');
-    const accessToken = getCookie('access_token');
-
-    this.user = await API.fetchUser(userId, accessToken);
-
-    const { email, name } = this.user;
+  #template(user: UserInfoWithPassWord) {
+    const { email, name } = user;
 
     return `
       <h2 class="title">회원가입</h2>
