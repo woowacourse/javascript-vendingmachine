@@ -1,6 +1,6 @@
 import '../../css/index.css';
 import { $ } from '../utils/dom';
-import { validPassword } from './validPassword';
+import { validEmail, validPassword } from './validAccount';
 import { handleSnackbarMessage } from '../utils/snackbar.js';
 
 const signUpForm = $('#sign-up-info-form');
@@ -30,6 +30,9 @@ signUpForm.addEventListener('submit', async (e) => {
         'Content-Type': 'application/json',
       },
     });
+
+    const dataResult = await response.json();
+    if (!validEmail(dataResult)) return;
 
     location.href = './login.html';
   } catch (error) {

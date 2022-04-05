@@ -7,3 +7,10 @@ export const validPassword = (password, passwordCheck) => {
   }
   return true;
 };
+
+export const validEmail = (dataResult) => {
+  if (!dataResult.accessToken) {
+    throw new Error('이미 계정이 존재하는 이메일입니다.');
+  }
+  return true;
+};

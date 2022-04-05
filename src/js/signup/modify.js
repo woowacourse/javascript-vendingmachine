@@ -1,6 +1,6 @@
 import '../../css/index.css';
 import { $ } from '../utils/dom';
-import { validPassword } from './validPassword';
+import { validPassword } from './validAccount';
 import { handleSnackbarMessage } from '../utils/snackbar.js';
 
 const { user } = JSON.parse(sessionStorage.getItem('user'));
