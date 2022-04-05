@@ -5,6 +5,7 @@ const HASH: Record<string, Hash> = {
   COIN_RECHARGE: '#coin-recharge',
   ITEM_PURCHASE: '#item-purchase',
   LOGIN: '#login',
+  REGISTER: '#register',
 };
 
 export default HASH;

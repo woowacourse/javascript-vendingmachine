@@ -1,9 +1,9 @@
 import { Hash, ViewInterface } from '../types';
-import { generateLoginTemplate } from '../template/authenticationTemplate';
+import { generateRegisterTemplate } from '../template/authenticationTemplate';
 import { selectDom } from '../utils';
 import { ID } from '../constant/selector';
 
-class Login implements ViewInterface {
+class Register implements ViewInterface {
   tabHash: Hash;
 
   content: HTMLElement | null = selectDom(`#${ID.CONTENT}`);
@@ -14,10 +14,10 @@ class Login implements ViewInterface {
 
   render(): void {
     this.content.replaceChildren();
-    this.content.insertAdjacentHTML('afterbegin', generateLoginTemplate());
+    this.content.insertAdjacentHTML('afterbegin', generateRegisterTemplate());
     this.content.classList.add('auth-content');
     this.content.classList.remove('tab-content');
   }
 }
 
-export default Login;
+export default Register;

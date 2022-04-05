@@ -1,5 +1,8 @@
 import { Hash, HeaderInterface } from '../types';
-import { generateTabHeaderTemplate, generateLoginHeaderTemplate } from '../template/headerTemplate';
+import {
+  generateAuthenticationHeaderTemplate,
+  generateTabHeaderTemplate,
+} from '../template/headerTemplate';
 import { selectDom, selectDoms } from '../utils';
 import { CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
@@ -44,7 +47,15 @@ class Header implements HeaderInterface {
 
     if (hash === HASH.LOGIN) {
       this.header.replaceChildren();
-      this.header.insertAdjacentHTML('afterbegin', generateLoginHeaderTemplate());
+      this.header.insertAdjacentHTML('afterbegin', generateAuthenticationHeaderTemplate('로그인'));
+    }
+
+    if (hash === HASH.REGISTER) {
+      this.header.replaceChildren();
+      this.header.insertAdjacentHTML(
+        'afterbegin',
+        generateAuthenticationHeaderTemplate('회원가입')
+      );
     }
 
     this.previousHash = hash;

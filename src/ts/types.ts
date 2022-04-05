@@ -34,7 +34,13 @@ export interface VendingMachineInterface {
   validateCashInput: (rechargeCash: number) => void;
 }
 
-export type Hash = '' | '#item-manage' | '#coin-recharge' | '#item-purchase' | '#login';
+export type Hash =
+  | ''
+  | '#item-manage'
+  | '#coin-recharge'
+  | '#item-purchase'
+  | '#login'
+  | '#register';
 
 export interface ViewInterface {
   tabHash: Hash;

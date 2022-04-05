@@ -19,6 +19,8 @@ class VendingMachineTab implements VendingMachineTabInterface {
   changeTabContent(contentTemplate: string): void {
     this.content.replaceChildren();
     this.content.insertAdjacentHTML('afterbegin', contentTemplate);
+    this.content.classList.add('tab-content');
+    this.content.classList.remove('auth-content');
   }
 
   changeHashUrl(hash: Hash): void {

@@ -20,5 +20,5 @@ export const generateTabHeaderTemplate = (hash: Hash): string => `
   </nav>
 `;
 
-export const generateLoginHeaderTemplate = (): string =>
-  `<h1 class="authentication-header-title">로그인</h1>`;
+export const generateAuthenticationHeaderTemplate = (headerTitle: string): string =>
+  `<h1 class="authentication-header-title">${headerTitle}</h1>`;

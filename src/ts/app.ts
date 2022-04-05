@@ -3,6 +3,7 @@ import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
 import Login from './view/Login';
+import Register from './view/Register';
 import VendingMachine from './domain/VendingMachine';
 import {
   VendingMachineInterface,
@@ -35,11 +36,14 @@ class App {
 
   private loginView: ViewInterface = new Login(HASH.LOGIN);
 
+  private registerView: ViewInterface = new Register(HASH.REGISTER);
+
   private views: ViewInterface[] = [
     this.itemManageTab,
     this.coinRechargeTab,
     this.itemPurchaseTab,
     this.loginView,
+    this.registerView,
   ];
 
   render() {
