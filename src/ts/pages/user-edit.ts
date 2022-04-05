@@ -50,8 +50,6 @@ export default class UserEditPage {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    if (!confirm('회원 정보를 변경하시겠습니까?')) return;
-
     const emailInput = e.target.elements.namedItem('emailInput');
     const pwInput = e.target.elements.namedItem('pwInput');
     const rePwInput = e.target.elements.namedItem('rePwInput');
@@ -70,6 +68,7 @@ export default class UserEditPage {
       return;
     }
 
+    if (!confirm('회원 정보를 변경하시겠습니까?')) return;
     if (typeof this.user === 'string') return;
     const response = await API.editInfo({
       email: emailInput.value,
