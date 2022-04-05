@@ -1,24 +1,17 @@
-type IState = Record<string, any>;
-type IRenderContent = {
-  state: IState;
-  changedStateNames: Array<string>;
-};
-type IRenderMethod = (renderContent: IRenderContent) => void;
+export default abstract class Store<StateInterface> {
+  protected abstract state: StateInterface;
+  private subscribers: RenderMethod[] = [];
 
-export default abstract class Store {
-  protected abstract state: IState;
-  private subscribers: IRenderMethod[] = [];
-
-  public addSubscriber(subscriber: IRenderMethod): void {
+  public addSubscriber(subscriber: RenderMethod): void {
     this.subscribers.push(subscriber);
   }
 
-  public removeSubscriber(subscriber: IRenderMethod): void {
+  public removeSubscriber(subscriber: RenderMethod): void {
     const subscriberIndex: number = this.subscribers.indexOf(subscriber);
     this.subscribers.splice(subscriberIndex, 1);
   }
 
-  public setState(newState: IState) {
+  public setState(newState: StateInterface) {
     const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
@@ -27,7 +20,7 @@ export default abstract class Store {
     );
   }
 
-  public getState(): IState {
+  public getState(): StateInterface {
     return { ...this.state };
   }
 }

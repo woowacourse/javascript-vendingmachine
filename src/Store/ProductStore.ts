@@ -1,20 +1,17 @@
 import Store from './Abstract';
-import { IProduct } from './Interface';
 
-type IState = Record<'products', Array<IProduct>>;
-
-class ProductStore extends Store {
-  protected state: IState = {
+class ProductStore extends Store<ProductStoreState> {
+  protected state: ProductStoreState = {
     products: [],
   };
 
-  addProduct(product: IProduct): void {
+  addProduct(product: Product): void {
     this.setState({
       products: [...this.state.products, product],
     });
   }
 
-  updateProduct(index: number, replaceProduct: IProduct = null): void {
+  updateProduct(index: number, replaceProduct: Product = null): void {
     const updateProduct = [...this.state.products];
     replaceProduct
       ? updateProduct.splice(index, 1, replaceProduct)
