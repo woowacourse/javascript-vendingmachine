@@ -17,12 +17,6 @@ export default class SignView {
     this.signInView = new SignInView();
     this.singUpView = new SignUpView();
     this.editProfileView = new EditProfileView();
-
-    window.addEventListener(
-      CUSTOM_EVENT.OFFER_SIGNUP_CLICK,
-      this.handleOfferSignupClick.bind(this)
-    );
-    window.addEventListener(CUSTOM_EVENT.SIGN_COMPLETE, this.handleSignComplete.bind(this));
   }
 
   render() {
@@ -44,20 +38,5 @@ export default class SignView {
       default:
         this.signInView.render();
     }
-  }
-
-  private handleOfferSignupClick(event) {
-    const { url } = event.detail;
-
-    this.renderSignPageSection(url);
-    emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
-  }
-
-  private handleSignComplete() {
-    emit({
-      eventName: CUSTOM_EVENT.ROUTE_CHANGE,
-      detail: { url: URL.MANAGE_ITEM, page: URL.MAIN },
-    });
-    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
   }
 }

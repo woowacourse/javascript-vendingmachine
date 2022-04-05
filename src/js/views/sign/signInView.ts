@@ -2,7 +2,7 @@ import { signInTemplate } from '../../templates/sign/signInTemplate';
 import { $, emit } from '../../utils/common';
 import AuthManager from '../../auth/authManager';
 import { SELECTOR } from '../../constants/viewConstants';
-import { CUSTOM_EVENT } from '../../constants/appContants';
+import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import showSnackbar from '../../utils/snackbar';
 
 export default class SignInView {
@@ -26,7 +26,11 @@ export default class SignInView {
 
       await AuthManager.shared().signIn({ email, password });
 
-      emit({ eventName: CUSTOM_EVENT.SIGN_COMPLETE });
+      emit({
+        eventName: CUSTOM_EVENT.ROUTE_CHANGE,
+        detail: { url: URL.MANAGE_ITEM, page: URL.MAIN },
+      });
+      emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -35,6 +39,7 @@ export default class SignInView {
   handleOfferSignUpClick(event) {
     const { url } = event.target.dataset;
 
-    emit({ eventName: CUSTOM_EVENT.OFFER_SIGNUP_CLICK, detail: { url } });
+    emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
+    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
   }
 }
