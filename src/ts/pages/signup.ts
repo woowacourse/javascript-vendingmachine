@@ -36,11 +36,28 @@ export default class SignupPage {
 
     const emailInput = e.target.elements.namedItem('emailInput');
     const pwInput = e.target.elements.namedItem('pwInput');
+    const rePwInput = e.target.elements.namedItem('rePwInput');
     const nameInput = e.target.elements.namedItem('nameInput');
 
     if (!(emailInput instanceof HTMLInputElement)) return;
     if (!(pwInput instanceof HTMLInputElement)) return;
+    if (!(rePwInput instanceof HTMLInputElement)) return;
     if (!(nameInput instanceof HTMLInputElement)) return;
+
+    try {
+      if (pwInput.value !== rePwInput.value)
+        throw new Error('비밀번호가 일치하지 않습니다.');
+    } catch ({ message }) {
+      alert(message);
+      return;
+    }
+
+    try {
+      validateSignup(emailInput.value, pwInput.value, nameInput.value);
+    } catch ({ message, name }) {
+      alert(message);
+      return;
+    }
 
     const response = await API.signup({
       email: emailInput.value,
@@ -50,13 +67,6 @@ export default class SignupPage {
 
     if (typeof response === 'string') {
       alert(response);
-      return;
-    }
-
-    try {
-      validateSignup(emailInput.value, pwInput.value, nameInput.value);
-    } catch ({ message, name }) {
-      alert(message);
       return;
     }
 
