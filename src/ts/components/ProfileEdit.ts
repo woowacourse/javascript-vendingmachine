@@ -1,3 +1,4 @@
+import { getUserData, profileEditAuth } from '../auth';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { checkValidProfile } from '../domains/validator';
 import { renderToastModal } from './ToastNotification';
@@ -132,18 +133,13 @@ class ProfileEdit extends HTMLElement {
     this.passwordCheckEditInput = <HTMLInputElement>(
       this.shadowRoot.getElementById('password-check-edit-input')
     );
-    this.userAuth = JSON.parse(localStorage.getItem('userAuth'));
   }
 
   async connectedCallback() {
-    const accessToken = `Bearer ${this.userAuth.accessToken}`;
-    const url = `https://json-server-marco.herokuapp.com/users/${this.userAuth.id}`;
-    const { email, name } = await this.getUserData(url, accessToken);
+    const { email, name } = await getUserData();
     this.emailEditInput.value = String(email);
     this.nameEditInput.value = String(name);
-    this.shadowRoot
-      .querySelector('form')
-      .addEventListener('submit', (event) => this.edit(event, url, accessToken));
+    this.shadowRoot.querySelector('form').addEventListener('submit', this.edit);
 
     this.shadowRoot.querySelector('.x-shape').addEventListener('click', this.closeModal);
     this.shadowRoot.addEventListener('click', this.closeModalDimmer);
@@ -154,46 +150,19 @@ class ProfileEdit extends HTMLElement {
     this.shadowRoot.removeEventListener('click', this.closeModalDimmer);
   }
 
-  edit = (event: SubmitEvent, url: string, accessToken: string) => {
+  edit = async (event: SubmitEvent) => {
     event.preventDefault();
-    const name = this.nameEditInput.value;
-    const password = this.passwordEditInput.value;
-    const passwordCheck = this.passwordCheckEditInput.value;
-
-    try {
-      checkValidProfile(name, password, passwordCheck);
-      fetch(url, {
-        method: 'PATCH',
-        body: JSON.stringify({ name, password }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': accessToken,
-        },
-      }).then(() => {
-        this.closeModal();
-        const event = new CustomEvent('@route-login', {});
-        window.dispatchEvent(event);
-        renderToastModal('success', SUCCESS_MESSAGE.EDIT_COMPLETE);
-      });
-    } catch (error) {
-      renderToastModal('error', error.message);
+    const payload = {
+      name: this.nameEditInput.value,
+      password: this.passwordEditInput.value,
+      passwordCheck: this.passwordCheckEditInput.value,
+    };
+    const isEdited = await profileEditAuth(payload);
+    if (!isEdited) {
+      return;
     }
-  };
-
-  getUserData = (url: string, accessToken: string) => {
-    const userData = fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        return { email: response.email, name: response.name };
-      });
-
-    return userData;
+    this.closeModal();
+    window.dispatchEvent(new CustomEvent('@route-login', {}));
   };
 
   closeModalDimmer = (event) => {

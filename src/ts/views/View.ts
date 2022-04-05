@@ -58,30 +58,6 @@ export default class View {
     });
   }
 
-  // public renderLoginModal = () => {
-  //   document.body.appendChild(document.createElement('log-in'));
-  // };
-
-  // public renderSignupModal = () => {
-  //   document.body.appendChild(document.createElement('sign-up'));
-  // };
-
-  // private renderProfileEdit = () => {
-  //   document.body.appendChild(document.createElement('profile-edit'));
-  // };
-
-  // public renderUserPrivatePage = () => {
-  //   console.log('renderUserPrivatePage');
-  //   $('.nav-tab').classList.remove('hide');
-  //   $('user-menu').setAttribute('auth', 'login');
-  // };
-
-  // public renderPublicPage = () => {
-  //   console.log('renderPublicPage');
-  //   $('.nav-tab').classList.add('hide');
-  //   $('user-menu').setAttribute('auth', 'logout');
-  // };
-
   private handleClickTabButton = (url: string) => {
     const detail = url;
     const event = new CustomEvent('@route-tab', { detail });
