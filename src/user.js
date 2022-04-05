@@ -32,7 +32,7 @@ class UserEditForm {
     }
 
     const response = await fetch(
-      `http://localhost:3000/users/${this.user.id}`,
+      `https://json-auth-server.herokuapp.com/users/${this.user.id}`,
       {
         method: "PATCH",
         body: new URLSearchParams({

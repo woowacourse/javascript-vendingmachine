@@ -24,14 +24,17 @@ class SignUp {
       return;
     }
 
-    const response = await fetch("http://localhost:3000/register", {
-      method: "POST",
-      body: new URLSearchParams({
-        name,
-        email,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://json-auth-server.herokuapp.com/register",
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          name,
+          email,
+          password,
+        }),
+      }
+    );
     const body = await response.json();
 
     if (!response.ok) {

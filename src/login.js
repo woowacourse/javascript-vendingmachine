@@ -15,13 +15,16 @@ class Login {
     const email = this.$loginEmailInput.value;
     const password = this.$loginPasswordInput.value;
 
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      body: new URLSearchParams({
-        email,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://json-auth-server.herokuapp.com/login",
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          email,
+          password,
+        }),
+      }
+    );
 
     const body = await response.json();
 
