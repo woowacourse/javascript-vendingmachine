@@ -132,7 +132,7 @@ const TEMPLATE = {
         <input type="password" name="password" placeholder="비밀번호를 입력해주세요." required />
         <button type="submit" class="submit-button login-page__login-button">확인</button>
       </form>
-      <p>아직 회원이 아니신가요? <a href="">회원가입</a></p>
+      <p>아직 회원이 아니신가요? <a href="/javascript-vendingmachine/signup">회원가입</a></p>
    </section>
   `,
   SIGNUP_PAGE: `

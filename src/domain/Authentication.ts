@@ -20,6 +20,10 @@ class Authentication {
     on('.signup-form', '@signup', (e: CustomEvent) => this.signup(e.detail), $('signup-page'));
   }
 
+  subscribeLoginPage() {
+    on('.login-form', '@login', (e: CustomEvent) => this.login(e.detail), $('login-page'));
+  }
+
   signup({ email, name, password }) {
     fetch('http://localhost:3000/register', {
       method: 'post',
@@ -36,6 +40,32 @@ class Authentication {
         const body = await response.json();
 
         if (!response.ok) throw new Error(body);
+        historyRouterPush('/javascript-vendingmachine/');
+      })
+      .catch((err) => {
+        showSnackbar(err.message);
+      });
+  }
+
+  login({ email, password }) {
+    fetch('http://localhost:3000/login', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then(async (response) => {
+        const body = await response.json();
+
+        if (!response.ok) throw new Error(body);
+        const { accessToken, user } = body;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('userInfo', JSON.stringify(user));
+
         historyRouterPush('/javascript-vendingmachine/');
       })
       .catch((err) => {
