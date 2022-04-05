@@ -1,16 +1,3 @@
 {
-  "users": [
-    {
-      "email": "rlaalsdl111@naver.com",
-      "password": "$2a$10$yUSuO9yBYhC98WwaLWmAWuKuZLXvdXiSJCF07m7h5LNzxKTLLI4QC",
-      "name": "첫번째",
-      "id": 1
-    },
-    {
-      "email": "t@s",
-      "name": "네번째",
-      "password": "$2a$10$Wy0UgIA0aU/V.aSuIZBdqOGDPlBu9ITqkshZ5rx1azscVt/jDfzgO",
-      "id": 2
-    }
-  ]
+  "users": []
 }
