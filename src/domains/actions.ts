@@ -14,6 +14,7 @@ export const PRODUCT_ACTION: ProductActionType = {
 
 export const COIN_ACTION: CoinActionType = {
   CHARGE: 'charge',
+  RETURN: 'return',
 };
 
 export const MONEY_ACTION: MoneyActionType = {

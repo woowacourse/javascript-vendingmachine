@@ -1,6 +1,15 @@
+import CoinStore from '../../domains/stores/CoinStore';
+import { createAction, COIN_ACTION } from '../../domains/actions';
+
 import CustomElement from '../../abstracts/CustomElement';
+import { $ } from '../../utils';
 
 class ChangeReturnTable extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    CoinStore.instance.subscribeCustomer(this);
+  }
+
   // eslint-disable-next-line max-lines-per-function
   template() {
     return `
@@ -24,11 +33,11 @@ class ChangeReturnTable extends CustomElement {
           </tr>
           <tr>
             <td>50원</td>
-            <td class="change-return-table__coin-50-rount-td">0개</td>
+            <td class="change-return-table__coin-50-count-td">0개</td>
           </tr>
           <tr>
             <td>10원</td>
-            <td class="change-return-table__coin-10-rount-td">0개</td>
+            <td class="change-return-table__coin-10-count-td">0개</td>
           </tr>
         </tbody>
       </table>
@@ -36,6 +45,21 @@ class ChangeReturnTable extends CustomElement {
         <button class="change-return-button">반환</button>
       </div>
     `;
+  }
+
+  setEvent() {
+    $('.change-return-button').addEventListener('click', this.handleChangeReturnButtonClick);
+  }
+
+  handleChangeReturnButtonClick = () => {
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.RETURN));
+  };
+
+  rerender({ coinsCount }) {
+    $('.change-return-table__coin-500-count-td').textContent = `${coinsCount[500]}개`;
+    $('.change-return-table__coin-100-count-td').textContent = `${coinsCount[100]}개`;
+    $('.change-return-table__coin-50-count-td').textContent = `${coinsCount[50]}개`;
+    $('.change-return-table__coin-10-count-td').textContent = `${coinsCount[10]}개`;
   }
 }
 

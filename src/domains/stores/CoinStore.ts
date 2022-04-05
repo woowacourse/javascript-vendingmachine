@@ -51,6 +51,7 @@ class CoinStore {
     this.notifySubscribers(action);
   }
 
+  // eslint-disable-next-line max-lines-per-function
   updateMoneyStorage(action: Action) {
     const { type, detail } = action;
 
@@ -65,12 +66,19 @@ class CoinStore {
       }
       case PRODUCT_ACTION.PURCHASE:
         this.#customer.money -= detail as number;
+        break;
+      case COIN_ACTION.RETURN: {
+        const { newMachine, newCustomer } = this.generateNewMoneyStorage(this.#machine, this.#customer);
+
+        this.#machine = newMachine;
+        this.#customer = newCustomer;
+      }
     }
   }
 
   generateNewMachine(oldMachine: MoneyStorage, detail: number) {
     const newMachine = { ...oldMachine };
-    let coinList = [500, 100, 50, 10];
+    let coinList = this.generateCoinList();
     let money = detail;
 
     while (money) {
@@ -89,10 +97,36 @@ class CoinStore {
     return newMachine;
   }
 
-  generateNewCoinList(coinList, money) {
+  generateCoinList() {
+    return Object.keys(this.#machine.coinsCount)
+      .reverse()
+      .map((key) => Number(key));
+  }
+
+  generateNewCoinList(coinList: number[], money: number) {
     return coinList.filter((coin) => coin <= money);
   }
 
+  generateNewMoneyStorage(oldMachine: MoneyStorage, oldCustomer: MoneyStorage) {
+    const coinList = this.generateCoinList();
+    const newMachine = { ...oldMachine };
+    const newCustomer = { ...oldCustomer };
+
+    coinList.forEach((coin) => {
+      const needCoinCount = Math.floor(newCustomer.money / coin);
+      const coinCount = newMachine.coinsCount[coin] > needCoinCount ? needCoinCount : newMachine.coinsCount[coin];
+
+      newMachine.coinsCount[coin] -= coinCount;
+      newMachine.money -= coinCount * coin;
+
+      newCustomer.coinsCount[coin] = coinCount;
+      newCustomer.money -= coinCount * coin;
+    });
+
+    return { newMachine, newCustomer };
+  }
+
+  // eslint-disable-next-line max-lines-per-function
   notifySubscribers({ type }: Action) {
     switch (type) {
       case COIN_ACTION.CHARGE:
@@ -102,6 +136,14 @@ class CoinStore {
         break;
       case MONEY_ACTION.INPUT:
       case PRODUCT_ACTION.PURCHASE:
+        this.#customerSubscribers.forEach((subscriber) => {
+          subscriber.rerender(this.#customer);
+        });
+        break;
+      case COIN_ACTION.RETURN:
+        this.#machineSubscribers.forEach((subscriber) => {
+          subscriber.rerender(this.#machine);
+        });
         this.#customerSubscribers.forEach((subscriber) => {
           subscriber.rerender(this.#customer);
         });

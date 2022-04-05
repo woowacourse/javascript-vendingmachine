@@ -42,6 +42,7 @@ export interface ProductActionType {
 
 export interface CoinActionType {
   CHARGE: string;
+  RETURN: string;
 }
 
 export interface MoneyActionType {
