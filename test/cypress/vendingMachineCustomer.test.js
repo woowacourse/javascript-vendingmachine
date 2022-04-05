@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from '../../src/es/constants/index'
 
-describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.', () => {
+describe('고객 입장에서의 기능이 요구사항과 일치해야 한다.', () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -67,7 +67,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
   }
 
   context('상품 구매 금액 충전에 대한 테스트', () => {
-    it('상품 구매 금액을 충전할 수 있다. 충전을 성공하면 투입한 금액이 충전금만큼 증가하고 성공 안내 snack bar가 나타난다.', () => {
+    it('상품 구매 금액을 충전할 수 있다. 충전을 성공하면 투입한 금액이 충전금만큼 증가하고 성공 안내 snack bar를 확인할 수 있다.', () => {
       const firstCustomerCharge = 5000;
       const secondCustomerCharge = 2000;
 
@@ -79,14 +79,14 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
       cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.CUSTOMER_CHARGE_SUCCESS);
     })
 
-    it('상품 구매 금액은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.', () => {
+    it('상품 구매 금액은 10원 단위로 입력 가능하다. 해당 조건을 벗어나는 경우 안내 snack bar를 확인할 수 있다.', () => {
       const customerCharge = 1055;
 
       addCustomerCharge(customerCharge);
       cy.get('.snackbar').should('be.visible').and('have.text', ERROR_MESSAGE.CUSTOMER_CHARGE_WRONG_UNIT);
     })
 
-    it('상품 구매 금액은 한 번에 최대 10,000원까지 충전할 수 있다. 해당 조건을 벗어나는 경우 안내 snack bar가 나타난다.', () => {
+    it('상품 구매 금액은 한 번에 최대 10,000원까지 충전할 수 있다. 해당 조건을 벗어나는 경우 안내 snack bar를 확인할 수 있다.', () => {
       const customerCharge = 10050;
 
       addCustomerCharge(customerCharge);
@@ -96,7 +96,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
   })
 
   context('상품 구매에 대한 테스트', () => {
-    it('상품 구매에 성공하면, 안내 snack bar가 나타난다.', () => {
+    it('상품 구매에 성공하면, 안내 snack bar를 확인할 수 있다.', () => {
       // given
       const productToPurchase = dummyProducts[0];
       initialSettingForPurchase();
@@ -112,7 +112,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
       cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.PURCHASE_SUCCESS(productToPurchase.name));
     })
 
-    it('상품 구매 금액이 부족하여 상품 구매에 실패하면, 안내 snack bar가 나타난다. ', () => {
+    it('상품 구매 금액이 부족하여 상품 구매에 실패하면, 안내 snack bar를 확인할 수 있다.', () => {
       // given
       const productToPurchase = dummyProducts[0];
       initialSettingForPurchase();
@@ -129,7 +129,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
   })
   
   context('잔돈 반환에 대한 테스트', () => {
-    it('잔돈 반환에 성공하면, 안내 snack bar가 나타난다.', () => {
+    it('잔돈 반환에 성공하면, 안내 snack bar를 확인할 수 있다.', () => {
       // given
       const customerCharge = dummyVendingMachineCharge - 1000;
       initialSettingForPurchase();
@@ -142,7 +142,7 @@ describe('상품 구매 기능의 동작이 요구사항과 일치해야 한다.
       cy.get('.snackbar').should('be.visible').and('have.text', GUIDE_MESSAGE.RETURN_CHANGES_SUCCESS);
     })
 
-    it('자판기 잔돈이 부족하여 고객의 잔돈을 모두 돌려주지 못 하면, 안내 snack bar가 나타난다.', () => {
+    it('자판기 잔돈이 부족하여 고객의 잔돈을 모두 돌려주지 못 하면, 안내 snack bar를 확인할 수 있다.', () => {
       // given
       const customerCharge = dummyVendingMachineCharge + 1000;
       initialSettingForPurchase();
