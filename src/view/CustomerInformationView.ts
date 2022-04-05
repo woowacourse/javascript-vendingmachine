@@ -14,6 +14,7 @@ export class CustomerInformationView {
     this.app.dispatchEvent(new CustomEvent('signInClick'));
     this.renderSignIn();
   };
+  
   renderSignIn() {
     this.app.classList.add('hide');
     this.customerManageApp.classList.remove('hide');
