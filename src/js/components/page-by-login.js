@@ -22,6 +22,7 @@ class PageByLogin extends HTMLElement {
     this.innerHTML = `
     <div id="page">
       <product-purchase></product-purchase>
+      <div id="snackbar"></div>
     </div>
     `;
   }
