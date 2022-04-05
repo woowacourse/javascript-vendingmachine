@@ -81,6 +81,25 @@ export default class VendingMachine {
     this.#totalInsertMoney += money;
   }
 
+  purchaseProduct(productId: string) {
+    const { price, stock } = this.#productList[productId];
+
+    this.#validatePurchaseProduct(price, stock);
+
+    this.#totalInsertMoney -= price;
+    this.#productList[productId].decreaseStock();
+  }
+
+  #validatePurchaseProduct(price: number, stock: number): void {
+    if (this.#totalInsertMoney < price) {
+      throw Error('투입한 금액보다 비싼 상품은 구매할 수 없습니다.');
+    }
+
+    if (stock <= 0) {
+      throw Error('해당 상품은 재고가 소진되어 구매할 수 없습니다.');
+    }
+  }
+
   #validateInsertMoney(money: number): void {
     if (money <= 0) {
       throw Error('투입 금액은 0원 이하일 수 없습니다.');
