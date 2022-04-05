@@ -5,15 +5,27 @@ export default class User {
   #accessToken;
   #isLogined;
   #id;
+  #name;
+  #email;
 
   constructor() {
     this.#accessToken = getCookie('accessToken');
     this.#isLogined = false;
+    this.#name = null;
+    this.#email = null;
     this.#initLoginStatus();
   }
 
   get isLogined() {
     return this.#isLogined;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get email() {
+    return this.#email;
   }
 
   #initLoginStatus() {
@@ -22,6 +34,8 @@ export default class User {
         .then((res) => {
           this.#isLogined = true;
           this.#id = res.id;
+          this.#email = res.email;
+          this.#name = res.name;
         })
         .catch((e) => {
           expireCookie('accessToken');
@@ -33,11 +47,13 @@ export default class User {
 
   async signIn(email, password) {
     const { accessToken } = await UserApi.signIn(email, password);
+    this.#isLogined = true;
     setCookie('accessToken', accessToken);
   }
 
   async signUp(email, name, password) {
     const { accessToken } = await UserApi.signUp(email, name, password);
+    this.#isLogined = true;
     setCookie('accessToken', accessToken);
   }
 

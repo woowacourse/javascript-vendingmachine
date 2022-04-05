@@ -4,15 +4,24 @@ import AddChangeTab from './AddChangeTab';
 import ManageProductTab from './ManageProductTab';
 import { createMainElement, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
+import User from '../domain/User';
 
 export default class Router {
   #vendingMachine;
   #renderList;
   #app;
   #tabMenuNavigation;
+  #user;
+  #privateRenderList;
 
   constructor() {
     this.#vendingMachine = new VendingMachine();
+    this.#user = new User();
+    this.#privateRenderList = {
+      '#/manage': () => new ManageProductTab(this.#vendingMachine),
+      '#/charge': () => new AddChangeTab(this.#vendingMachine),
+    };
+
     this.#renderList = {
       '#/manage': () => new ManageProductTab(this.#vendingMachine),
       '#/charge': () => new AddChangeTab(this.#vendingMachine),
@@ -20,21 +29,35 @@ export default class Router {
     };
     this.#app = selectDom('#app');
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
-
+    this.#renderNav();
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
     this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
   }
 
-  #render = () => {
-    const path = window.location.hash || '#/manage';
+  #renderNav() {
+    if (!this.#user.isLogined) {
+      this.#tabMenuNavigation.classList.add('hide');
+    }
+    if (this.#user.isLogined) {
+      this.#tabMenuNavigation.classList.remove('hide');
+    }
+  }
 
+  #render = () => {
+    const path = window.location.hash || '#/purchase';
     this.#updateCurrentTabMenu(path);
     const main = selectDom('main');
 
     if (!this.#renderList[path]) {
       const notFoundContainer = createMainElement(notFoundTemplate);
       this.#app.replaceChild(notFoundContainer, main);
+      return;
+    }
+
+    if (this.#privateRenderList[path] && !this.#user.isLogined) {
+      window.history.pushState({}, null, '#/purchase');
+      this.#render();
       return;
     }
 
