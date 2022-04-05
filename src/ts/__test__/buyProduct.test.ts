@@ -1,4 +1,4 @@
-import { Product, VendingMachine } from '../../index.d';
+import { Product, ProductName, VendingMachine } from '../../index.d';
 import { USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
 
@@ -46,7 +46,7 @@ describe('상품 구매', () => {
 
   it('상품의 가격이 2000이고 유저 투입 금액이 1000일 때, 상품을 구입할 수 없다.', () => {
     const userInputMoney = 1000;
-    const test = () => vendingMachine.buyProduct(productName);
+    const test = () => vendingMachine.buyProduct(productName as unknown as ProductName);
 
     vendingMachine.chargeUserMoney(userInputMoney);
 
@@ -57,7 +57,7 @@ describe('상품 구매', () => {
     const userInputMoney = 3000;
 
     vendingMachine.chargeUserMoney(userInputMoney);
-    vendingMachine.buyProduct(productName);
+    vendingMachine.buyProduct(productName as unknown as ProductName);
 
     expect(vendingMachine.totalUserInputMoney).toBe(1000);
   });

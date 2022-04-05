@@ -49,6 +49,21 @@ export default class VendingMachineImpl implements VendingMachine {
     this.totalUserInputMoney += userInputMoney;
   }
 
+  buyProduct(name: ProductName): void {
+    const productIndex = this.productCollection.getIndex(name);
+
+    if (productIndex === -1) throw new Error(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
+
+    const product = this.productCollection.products[productIndex];
+
+    if (product.price > this.totalUserInputMoney) throw new Error('투입 금액이 모자랍니다!');
+
+    product.quantity -= 1;
+    this.totalUserInputMoney -= product.price;
+
+    if (product.quantity === 0) this.productCollection.delete(product.name as unknown as ProductName);
+  }
+
   returnChangeCoins(): Object {
     return this.coinCollection.coins
       .reverse()

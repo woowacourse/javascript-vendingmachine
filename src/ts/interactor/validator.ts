@@ -1,4 +1,4 @@
-import { Product } from '../../index.d';
+import { Product, ProductName } from '../../index.d';
 import { PRODUCT_RULES, INPUT_MONEY_RULES, USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
 
 const checkProduct = ({ name, price, quantity }: Product): void => {

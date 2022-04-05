@@ -36,7 +36,7 @@ export default class BuyProduct implements DomainView {
           <td class="product-info__text price">${price}</td>
           <td class="product-info__text quantity">${quantity}</td>
           <td>
-            <button class="buy-button gray-button button">구매</button>
+            <button class="buy-button gray-button button" data-name="${name}">구매</button>
           </td>
         </tr>`,
       )
@@ -47,6 +47,7 @@ export default class BuyProduct implements DomainView {
 
   bindEvent(): void {
     this.$buyPriceForm.addEventListener('submit', this.handleSubmitForm.bind(this));
+    this.$productContainer.addEventListener('click', this.handleClickBuyButton.bind(this));
   }
 
   private handleSubmitForm(e: Event): void {
@@ -60,5 +61,10 @@ export default class BuyProduct implements DomainView {
     } catch ({ message }) {
       alert(message);
     }
+  }
+
+  private handleClickBuyButton(e: Event): void {
+    const productName = (e.target as HTMLElement).dataset.name as unknown as ProductName;
+
   }
 }
