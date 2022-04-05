@@ -38,12 +38,23 @@ const getUser = async (): Promise<UserInfoWithPassWord | string> => {
 };
 
 const snackBarMaker = () => {
-  let timer;
+  let timer: NodeJS.Timeout;
+  let $snackBar: HTMLDivElement;
 
   return (message: string) => {
-    if (timer) return;
+    if (timer) {
+      if ($snackBar.innerText !== message) {
+        $snackBar.innerText = message;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          $snackBar.remove();
+          timer = undefined;
+        }, 3000);
+      }
+      return;
+    }
 
-    const $snackBar = document.createElement('div');
+    $snackBar = document.createElement('div');
     $snackBar.setAttribute('class', 'snack-bar');
     $snackBar.innerText = message;
     document.body.appendChild($snackBar);
@@ -55,6 +66,8 @@ const snackBarMaker = () => {
   };
 };
 
+const showSnackbar = snackBarMaker();
+
 export {
   getRandomIndex,
   insertNBSP,
@@ -62,4 +75,5 @@ export {
   getCookie,
   getUser,
   snackBarMaker,
+  showSnackbar,
 };

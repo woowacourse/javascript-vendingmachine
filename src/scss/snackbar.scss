@@ -7,13 +7,9 @@
     visibility: visible;
     opacity: 1;
   }
-  80% {
+  100% {
     visibility: visible;
     opacity: 1;
-  }
-  100% {
-    visibility: hidden;
-    opacity: 0;
   }
 }
 
@@ -23,8 +19,8 @@
   text-align: center;
   animation-duration: 3s;
   animation-name: fadeIn-out;
+  animation-fill-mode: forwards;
   position: fixed;
-  visibility: hidden;
 
   right: 50%;
   transform: translateX(50%);
@@ -32,7 +28,6 @@
 
   font-size: 14px;
   color: #ffffff;
-  height: 40px;
-  line-height: 20px;
+  line-height: 150%;
   padding: 10px 40px;
 }
