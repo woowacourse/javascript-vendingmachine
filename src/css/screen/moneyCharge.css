@@ -1,0 +1,27 @@
+.app__main.chargeMoney .input-form__input {
+  width:  300px;
+  height: 100%;
+  border: 1px solid var(--input-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 4px 0px;
+  padding-left: 7px;
+}
+
+.app__main.chargeMoney .product-table {
+  width: 45%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.app__main.chargeMoney .input-container {
+  margin-bottom: 10px;
+}
+
+.amount-description {
+  display: inline;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: rgba(0, 0, 0, 0.87);
+}

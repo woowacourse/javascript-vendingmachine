@@ -1,0 +1,63 @@
+@import './component/button.css';
+@import './component/color.css';
+
+@import './screen/productManage.css';
+@import './screen/moneyCharge.css';
+
+body {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.app {
+  padding-top: 44px;
+  width: 600px;
+  height: 675px;
+  border: 1px solid var(--app-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.app__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 36px;
+  color: #000000;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.tab__item {
+  padding: 9px 20px;
+  background-color: var(--tab-background-color);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: var(--tab-font-color);
+}
+
+.tab__item:nth-child(2) {
+  margin: 0 4px;
+}
+
+.app.productManage .tab__item[data-name="productManage"],
+.app.chargeMoney .tab__item[data-name="chargeMoney"], 
+.app.buyProduct .tab__item[data-name="buyProduct"] {
+  background-color: var(--tab-active-background-color);
+}
+
+.app .app__main {
+  display: none;
+}
+
+.app.productManage .app__main.productManage,
+.app.chargeMoney .app__main.chargeMoney, 
+.app.buyProduct .app__main.buyProduct {
+  display: flex;
+}

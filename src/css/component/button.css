@@ -1,0 +1,9 @@
+.button {
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+}
+
+.button:hover {
+  background-color: var(--tab-active-background-color);
+}

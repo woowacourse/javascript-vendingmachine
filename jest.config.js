@@ -4,7 +4,7 @@ module.exports = {
     "^.+\\.js$": "babel-jest",
     "^.+\\.ts$": "ts-jest",
   },
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
