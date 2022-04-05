@@ -28,6 +28,7 @@ export const SELECTOR = {
     SIGN_BUTTON: '#sign-button',
     ITEM_MANAGE_TAB: '#item-manage-tab',
     MONEY_CHARGE_TAB: '#money-charge-tab',
+    PURCHASE_ITEM_TAB: '#item-purchase-tab',
     SNACKBAR: '#snackbar',
   },
 

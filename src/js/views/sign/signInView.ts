@@ -1,9 +1,10 @@
 import { signInTemplate } from '../../templates/sign/signInTemplate';
 import { $, emit } from '../../utils/common';
-import AuthManager from '../../auth/authManager';
 import { SELECTOR } from '../../constants/viewConstants';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import showSnackbar from '../../utils/snackbar';
+import Auth from '../../api/auth';
+import Storage from '../../api/storage';
 
 export default class SignInView {
   render() {
@@ -21,10 +22,11 @@ export default class SignInView {
   private async handleSignInSubmit(event: SubmitEvent) {
     try {
       event.preventDefault();
-      const email = $(SELECTOR.ID.EMAIL_INPUT).value;
-      const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
+      const SignInputValues = this.getSignInInputValues();
+      const { accessToken, user } = await Auth.signIn(SignInputValues);
 
-      await AuthManager.shared().signIn({ email, password });
+      Storage.setAccessToken(accessToken);
+      Storage.setUserData(user);
 
       emit({
         eventName: CUSTOM_EVENT.ROUTE_CHANGE,
@@ -41,5 +43,12 @@ export default class SignInView {
 
     emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
     emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
+  }
+
+  private getSignInInputValues() {
+    const email = $(SELECTOR.ID.EMAIL_INPUT).value;
+    const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
+
+    return { email, password };
   }
 }

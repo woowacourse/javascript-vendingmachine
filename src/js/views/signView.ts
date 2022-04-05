@@ -1,6 +1,6 @@
-import { CUSTOM_EVENT, URL } from '../constants/appContants';
+import { URL } from '../constants/appContants';
 import { signTemplate } from '../templates/sign/signTemplate';
-import { $, emit } from '../utils/common';
+import { $ } from '../utils/common';
 import { SELECTOR } from '../constants/viewConstants';
 import SignInView from './sign/signInView';
 import SignUpView from './sign/signUpView';

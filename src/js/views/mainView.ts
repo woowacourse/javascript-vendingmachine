@@ -6,8 +6,8 @@ import ManageItemView from './main/mangeItemView';
 import ChargeMoneyView from './main/chargeMoneyView';
 import PurchaseItemView from './main/purchaseItemView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import AuthManager from '../auth/authManager';
 import UserMenuView from './main/userMenuView';
+import Storage from '../api/storage';
 
 export default class MainView {
   private $app: HTMLElement;
@@ -116,16 +116,26 @@ export default class MainView {
     this.userMenuView.hideMenu();
   }
 
-  private checkSignIn() {
-    if (!AuthManager.shared().accessToken) {
-      $(SELECTOR.ID.ITEM_MANAGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
-      $(SELECTOR.ID.MONEY_CHARGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
+  private async checkSignIn() {
+    if (!Storage.getAccessToken()) {
+      this.hideTab();
       return;
     }
+    const { name } = Storage.getUserData();
+    this.showThumbnail(name.charAt(FIRST_INDEX));
+  }
+
+  private hideTab() {
+    $(SELECTOR.ID.ITEM_MANAGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
+    $(SELECTOR.ID.MONEY_CHARGE_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
+    $(SELECTOR.ID.PURCHASE_ITEM_TAB).classList.add(SELECTOR.CLASS_STRING.DISPLAY_NONE);
+  }
+
+  private showThumbnail(firstName: string) {
     $(SELECTOR.ID.SIGN_BUTTON).classList.replace(
       SELECTOR.CLASS_STRING.SIGN_IN,
       SELECTOR.CLASS_STRING.THUMBNAIL
     );
-    $(SELECTOR.ID.SIGN_BUTTON).textContent = AuthManager.shared().userData.name.charAt(FIRST_INDEX);
+    $(SELECTOR.ID.SIGN_BUTTON).textContent = firstName;
   }
 }

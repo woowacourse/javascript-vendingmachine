@@ -31,9 +31,10 @@ export type TableItemDeleteDetailType = {
   item: ItemType;
 };
 
-export type signDataType = {
+export type userDataType = {
+  id?: number;
   email?: string;
   name?: string;
-  password: string;
+  password?: string;
   confirmPassword?: string;
 };

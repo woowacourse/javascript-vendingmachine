@@ -1,9 +1,9 @@
 import { userMenuTemplate } from '../../templates/main/userMenuTemplate';
 import { $, emit } from '../../utils/common';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
-import AuthManager from '../../auth/authManager';
 import { SELECTOR } from '../../constants/viewConstants';
 import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
+import Storage from '../../api/storage';
 
 export default class UserMenuView {
   private $app: HTMLElement;
@@ -36,7 +36,7 @@ export default class UserMenuView {
   private handleSignOutClick() {
     if (!window.confirm(CONFIRM_MESSAGE.SIGN_OUT)) return;
 
-    AuthManager.shared().signOut();
+    Storage.deleteUserData();
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,

@@ -38,4 +38,9 @@ export const ERROR_MESSAGE = {
     INVALID_PASSWORD: '문자, 숫자, 특수문자가 하나 이상 포함된 8자 이하의 비밀번호를 입력해주세요.',
     NOT_MATCH_PASSWORD: '비밀번호가 일치하지 않습니다.',
   },
+  SIGN: {
+    FAILED_SIGN_IN: '로그인에 실패했습니다.',
+    FAILED_SIGN_UP: '회원가입에 실패했습니다.',
+    FAILED_EDIT_DATA: '회원 정보 수정에 실패했습니다.',
+  },
 };

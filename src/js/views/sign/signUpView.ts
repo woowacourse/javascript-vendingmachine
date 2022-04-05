@@ -1,9 +1,9 @@
-import AuthManager from '../../auth/authManager';
+import Auth from '../../api/auth';
+import Storage from '../../api/storage';
 import { signUpTemplate } from '../../templates/sign/signUpTemplate';
 import { $, emit } from '../../utils/common';
 import showSnackbar from '../../utils/snackbar';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
-import { signValidate } from '../../validates/signValidate';
 import { SELECTOR } from '../../constants/viewConstants';
 
 export default class SignUpView {
@@ -18,14 +18,11 @@ export default class SignUpView {
   private async handleSignUpSubmit(event: SubmitEvent) {
     try {
       event.preventDefault();
-      const email = $(SELECTOR.ID.EMAIL_INPUT).value;
-      const name = $(SELECTOR.ID.NAME_INPUT).value;
-      const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
-      const confirmPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
+      const signUpInputValues = this.getSignUpInputValues();
+      const { accessToken, user } = await Auth.signUp(signUpInputValues);
 
-      signValidate.checkSignUpInputs({ email, name, password, confirmPassword });
-
-      await AuthManager.shared().signUp({ email, name, password });
+      Storage.setAccessToken(accessToken);
+      Storage.setUserData(user);
 
       emit({
         eventName: CUSTOM_EVENT.ROUTE_CHANGE,
@@ -35,5 +32,14 @@ export default class SignUpView {
     } catch (error) {
       showSnackbar(error.message);
     }
+  }
+
+  private getSignUpInputValues() {
+    const email = $(SELECTOR.ID.EMAIL_INPUT).value;
+    const name = $(SELECTOR.ID.NAME_INPUT).value;
+    const password = $(SELECTOR.ID.PASSWORD_INPUT).value;
+    const confirmPassword = $(SELECTOR.ID.PASSWORD_CONFIRM_INPUT).value;
+
+    return { email, name, password, confirmPassword };
   }
 }

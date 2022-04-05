@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "rkadndud06@naver.com",
-      "password": "$2a$10$jmNzj0bbjUnGZzZaygVT4OGUVZGLNP2EL7COz0uDCXzKcwepbPF4G",
+      "password": "$2a$10$h767g7ICy52NwFceGyZO5.7mrj/3oEHwRLF0tZFnpWrOAVHrxpvoS",
       "name": "감우영",
       "id": 1
     },
@@ -17,6 +17,12 @@
       "password": "$2a$10$bPmEtoO5E5eriI67aWwp6OQFbmz0BlUfw1Upgk7Ywx4TibZrfphVu",
       "name": "감우영",
       "id": 3
+    },
+    {
+      "email": "asf@nad.com",
+      "password": "$2a$10$wIQp9RHUUBxGnR5cbICo..OA9P92aL64ghEfXyO9fJ3FlmRrExHVa",
+      "name": "이날치",
+      "id": 4
     }
   ]
 }
