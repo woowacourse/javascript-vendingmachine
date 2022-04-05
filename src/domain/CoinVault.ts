@@ -96,7 +96,7 @@ export class CoinVault implements CoinVaultInterface {
 
         if (remainder === 0 || remainder < coinUnit) return;
 
-        const maxAvailableCoinQuantity = Math.min(quantity, remainder / coinUnit);
+        const maxAvailableCoinQuantity = Math.min(quantity, Math.floor(remainder / coinUnit));
 
         returnedCoins[key] = maxAvailableCoinQuantity;
         remainder -= maxAvailableCoinQuantity * coinUnit;
