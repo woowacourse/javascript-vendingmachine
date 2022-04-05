@@ -4,6 +4,7 @@ import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
 import { FieldSet, Feedback, UserInfo, WhiteList } from '../types';
+import { deepCopy } from '../utils';
 import { validateLoginEmail, validateLoginPassword } from '../validation/validators';
 
 type FeedbackRecord = {
@@ -12,7 +13,7 @@ type FeedbackRecord = {
 };
 @customElement('login-page')
 class LoginPage extends RouteComponent {
-  private initialFeedbacks: FeedbackRecord = {
+  private _initialFeedbacks: FeedbackRecord = {
     email: {
       inputValue: '',
       hasError: false,
@@ -25,7 +26,11 @@ class LoginPage extends RouteComponent {
     },
   };
 
-  private feedbacks = { ...this.initialFeedbacks };
+  private get initialFeedbacks(): FeedbackRecord {
+    return deepCopy(this._initialFeedbacks) as FeedbackRecord;
+  }
+
+  private feedbacks?: FeedbackRecord;
 
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
@@ -62,7 +67,7 @@ class LoginPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full">확인</button>
+        <button type="button" class="btn btn-primary full btn-login">확인</button>
       </form>
       <div>
         <span>아직 회원이 아니신가요?</span><a>회원가입</a>
@@ -71,7 +76,7 @@ class LoginPage extends RouteComponent {
   }
 
   setEvent() {
-    this.addEvent('click', 'button', this.onClickLoginBtn);
+    this.addEvent('click', '.btn-login', this.onClickLoginBtn);
     this.addEvent('click', 'a', (e: Event) => {
       e.preventDefault();
       Router.pushState(WhiteList.RegisterPage);
@@ -79,7 +84,7 @@ class LoginPage extends RouteComponent {
   }
 
   setFeedbacks(feedbacks: FeedbackRecord) {
-    this.feedbacks = { ...feedbacks };
+    this.feedbacks = deepCopy(feedbacks) as FeedbackRecord;
     this.render();
   }
 
@@ -124,7 +129,7 @@ class LoginPage extends RouteComponent {
   }
 
   validate() {
-    const feedbacks = { ...this.initialFeedbacks };
+    const feedbacks = this.initialFeedbacks;
     const inputNames = ['email', 'password'];
     const inputs: Array<HTMLInputElement> = inputNames.map(
       (name) => this.querySelector(`input[name="${name}"]`) as HTMLInputElement
@@ -163,6 +168,7 @@ class LoginPage extends RouteComponent {
   }
 
   render() {
+    if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
     this.innerHTML = this.shouldRender() ? this.template(this.feedbacks) : '';
   }
 }

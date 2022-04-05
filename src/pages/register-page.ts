@@ -2,6 +2,7 @@ import RouteComponent from '../abstract/route-component';
 import { API_URL } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { UserInfo, Feedback, FieldSet, WhiteList } from '../types';
+import { deepCopy } from '../utils';
 import {
   validateEmail,
   validateName,
@@ -18,7 +19,7 @@ type FeedbackRecord = {
 
 @customElement('register-page')
 class RegisterPage extends RouteComponent {
-  private initialFeedbacks: FeedbackRecord = {
+  private _initialFeedbacks: FeedbackRecord = {
     email: {
       inputValue: '',
       hasError: false,
@@ -41,7 +42,11 @@ class RegisterPage extends RouteComponent {
     },
   };
 
-  private feedbacks = { ...this.initialFeedbacks };
+  private get initialFeedbacks(): FeedbackRecord {
+    return deepCopy(this._initialFeedbacks) as FeedbackRecord;
+  }
+
+  private feedbacks?: FeedbackRecord;
 
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
@@ -104,7 +109,7 @@ class RegisterPage extends RouteComponent {
   }
 
   setFeedbacks(feedbacks: FeedbackRecord) {
-    this.feedbacks = { ...feedbacks };
+    this.feedbacks = deepCopy(feedbacks) as FeedbackRecord;
     this.render();
   }
 
@@ -125,7 +130,7 @@ class RegisterPage extends RouteComponent {
   };
 
   validate() {
-    const feedbacks = { ...this.initialFeedbacks };
+    const feedbacks = this.initialFeedbacks;
     const inputNames = ['email', 'name', 'password', 'repassword'];
     const inputs: Array<HTMLInputElement> = inputNames.map(
       (name) => this.querySelector(`input[name="${name}"]`) as HTMLInputElement
@@ -210,6 +215,7 @@ class RegisterPage extends RouteComponent {
   }
 
   render() {
+    if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
     this.innerHTML = this.shouldRender() ? this.template(this.feedbacks) : '';
   }
 }

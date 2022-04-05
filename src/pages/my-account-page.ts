@@ -37,7 +37,7 @@ class MyAccountPage extends RouteComponent {
       errorMessage: '',
     },
   };
-  get initialFeedbacks(): FeedbackRecord {
+  private get initialFeedbacks(): FeedbackRecord {
     if (this.userInfo) {
       this._initialFeedbacks.email.placeholder = this.userInfo.email;
       this._initialFeedbacks.name.placeholder = this.userInfo.name;
@@ -214,7 +214,7 @@ class MyAccountPage extends RouteComponent {
   }
 
   onLocationChange() {
-    this.feedbacks = this.initialFeedbacks;
+    this.feedbacks = undefined; // 이렇게 해야 render할때 email, name에 placeholder가 제대로 들어간다
     this.render();
   }
 
