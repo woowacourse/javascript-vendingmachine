@@ -1,15 +1,18 @@
 import ProductModerator from "./moderator/productModerator";
 import ChangesModerator from "./moderator/changesModerator";
+import PurchaseModerator from "./moderator/purchaseModerator";
 import { $ } from "./util/dom";
 
 class App {
   productModerator;
   changesModerator;
+  purchaseModerator;
   $nav;
 
   constructor() {
     this.productModerator = new ProductModerator();
     this.changesModerator = new ChangesModerator();
+    this.purchaseModerator = new PurchaseModerator();
 
     this.$nav = $("#page-tab-container");
     this.$nav.addEventListener("click", this.onClickNavButton);
@@ -38,6 +41,10 @@ class App {
 
     if (hash === "#!changesCharge") {
       this.changesModerator.init();
+    }
+
+    if (hash === "#!purchaseProduct") {
+      this.purchaseModerator.init();
     }
   };
 }
