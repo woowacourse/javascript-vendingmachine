@@ -105,4 +105,40 @@ export default class VendingMachine implements type.IVendingMachine {
       return acc + Number(coin) * count;
     }, 0);
   };
+
+  getChargedMoney() {
+    return this.chargedMoney;
+  }
+
+  getPurchaseableProducts() {
+    return this.products.filter(
+      (product) => product.get().price <= this.chargedMoney
+    );
+  }
+
+  chargeMoney: type.IChargeMoney = (money) => {
+    this.chargedMoney += money;
+  };
+
+  purchaseProduct: type.IPurchaseProduct = (id) => {
+    const idx = this.products.findIndex((product) => product.getId() === id);
+
+    const { price, count } = this.products[idx].get();
+    this.chargedMoney -= price;
+    this.products[idx].updateCount(count - 1);
+  };
+
+  calculate = () => {
+    let index = 0;
+    while (this.chargedMoney < 0 && this.getTotalChanges() > 0 && index < 4) {
+      if (this.changes[index] === 0) index++;
+      this.chargedMoney -= this.changes[index];
+      this.changes[index]--;
+    }
+  };
+
+  returnChanges: type.IReturnChanges = () => {
+    this.calculate();
+    return this.changes;
+  };
 }

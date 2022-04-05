@@ -1,4 +1,4 @@
-import { ICoins } from "../interface/changes.interface";
+import { TCoin } from "../interface/vendingMachine.interface";
 
 const changesTemplate = {
   input: () => `
@@ -23,7 +23,7 @@ const changesTemplate = {
     </table>
   `,
 
-  changeStatus: (coinStatus: ICoins) => `
+  changeStatus: (coinStatus: TCoin) => `
     <tr>
       <td>500원</td>
       <td>${coinStatus["500"]}</td>

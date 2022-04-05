@@ -44,6 +44,28 @@ export interface IDeleteProduct {
   (id: string): void;
 }
 
+export interface IChargeMoney {
+  (money: number): void;
+}
+
+export interface IPurchaseProduct {
+  (id: number): void;
+}
+
+export interface IReturnChanges {
+  (): TCoin;
+}
+
+export interface IPurchaseProductProcessMachine {
+  readonly chargedMoney: number;
+
+  chargeMoney: IChargeMoney;
+
+  purchaseProduct: IPurchaseProduct;
+
+  returnChanges: IReturnChanges;
+}
+
 export interface IVendingMachine {
   chargeChanges: IChargeChanges;
   getCoins: IGetCoins;
@@ -52,4 +74,7 @@ export interface IVendingMachine {
   updateProduct: IUpdateProduct;
   getProducts: IGetProducts;
   deleteProduct: IDeleteProduct;
+  chargeMoney: IChargeMoney;
+  purchaseProduct: IPurchaseProduct;
+  returnChanges: IReturnChanges;
 }
