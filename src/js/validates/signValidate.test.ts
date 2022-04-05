@@ -45,8 +45,8 @@ describe('이메일, 이름, 비밀번호, 확인 비밀번호가 주어지면',
       );
     });
 
-    test('한글 이름이 1자 이하 9이상이면 에러를 throw 한다.', () => {
-      const name = '한빛가람무지개하늘';
+    test('한글 이름이 1자 이하 7자 이상이면 에러를 throw 한다.', () => {
+      const name = '한빛가람무지개';
 
       expect(() => signValidate.signUp({ email, name, password, confirmPassword })).toThrowError(
         ERROR_MESSAGE.INPUT_SIGN.INVALID_NAME

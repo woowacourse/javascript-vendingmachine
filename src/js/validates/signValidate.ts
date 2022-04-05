@@ -46,6 +46,6 @@ function checkEmail(email: string) {
 }
 
 function checkName(name: string) {
-  const regularExpression = /^[가-힣]{2,8}$|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+  const regularExpression = /^[가-힣]{2,6}$|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
   return regularExpression.test(name);
 }
