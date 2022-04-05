@@ -2,6 +2,7 @@ import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface } from '../
 import { generateRegisterTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
+import HASH from '../constant/hash';
 
 class RegisterView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -35,7 +36,12 @@ class RegisterView implements ViewInterface {
     this.registerForm.addEventListener('submit', this.onSubmitRegisterForm);
   }
 
-  private onSubmitRegisterForm = (e: SubmitEvent) => {
+  changeHashUrl(hash: Hash): void {
+    window.history.pushState({ hash }, null, hash);
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }
+
+  private onSubmitRegisterForm = async (e: SubmitEvent) => {
     e.preventDefault();
 
     const registerInfo: AuthenticationInfo = this.convertToRegisterInfoObject(
@@ -44,12 +50,14 @@ class RegisterView implements ViewInterface {
 
     try {
       this.userStore.validateRegisterInput(registerInfo);
+      await this.userStore.register(registerInfo);
     } catch (error) {
       window.alert(error.message);
       return;
     }
 
-    console.log('이제 로그인 기능 구현할 거임');
+    // TODO: 스낵바로 회원가입에 성공했다는 사실을 알려주기
+    this.changeHashUrl(HASH.LOGIN);
   };
 
   private convertToRegisterInfoObject(registerInputList: HTMLInputElement[]): AuthenticationInfo {

@@ -43,6 +43,9 @@ export interface VendingMachineInterface {
 
 export interface UserStoreInterface {
   validateRegisterInput: (registerInfo: AuthenticationInfo) => void;
+  register: (registerInfo: AuthenticationInfo) => void;
+  login: (loginInfo: AuthenticationInfo) => void;
+  editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
 }
 
 export type Hash =

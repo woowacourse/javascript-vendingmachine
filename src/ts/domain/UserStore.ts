@@ -1,6 +1,7 @@
 import { AuthenticationInfo, TestCase, ValidationInfo, UserStoreInterface } from '../types';
 import { AUTHENTICATION_MESSAGE } from '../constant/errorMessage';
 import { AUTHENTICATION_INFO } from '../constant/rule';
+import { request } from '../utils/index';
 
 class UserStore implements UserStoreInterface {
   private registerInputTestCases: TestCase[] = [
@@ -37,6 +38,24 @@ class UserStore implements UserStoreInterface {
       errorMessage: AUTHENTICATION_MESSAGE.DIFFERENT_VERIFICATION_PASSWORD,
     },
   ];
+
+  async register(registerInfo: AuthenticationInfo) {
+    const result = await request('http://localhost:3000/users', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        email: registerInfo.email,
+        password: registerInfo.password,
+        name: registerInfo.name,
+      }),
+    });
+  }
+
+  login: (loginInfo: AuthenticationInfo) => void;
+
+  editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
 
   validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
     testCases.every(({ testCase, errorMessage }) => {
