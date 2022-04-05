@@ -2,6 +2,7 @@ import { DomainView, VendingMachine, Product, ProductName } from '../../index.d'
 import { $ } from '../util/index';
 import { CONFIRM_DELETE_PRODUCT_MESSAGE } from '../constant/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
+import Snackbar from './Snackbar';
 
 export default class ProductManage implements DomainView {
   private $addProductForm: HTMLElement;
@@ -10,14 +11,16 @@ export default class ProductManage implements DomainView {
   private $additionalProductPrice: HTMLElement;
   private $additionalProductQuantity: HTMLElement;
   private vendingMachine: VendingMachine;
+  private snackbar: Snackbar;
 
-  constructor() {
+  constructor(snackbar: Snackbar) {
     this.$addProductForm = $('#add-product-form');
     this.$productContainer = $('#product-list');
     this.$additionalProductName = $('#product-name-input');
     this.$additionalProductPrice = $('#product-price-input');
     this.$additionalProductQuantity = $('#product-quantity-input');
     this.vendingMachine = VendingMachineImpl.getInstance();
+    this.snackbar = snackbar;
   }
 
   render(): void {
@@ -61,7 +64,7 @@ export default class ProductManage implements DomainView {
       this.vendingMachine.addProduct(newProduct);
       this.render();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 
@@ -79,7 +82,7 @@ export default class ProductManage implements DomainView {
       this.vendingMachine.deleteProduct(productName);
       this.render();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 
@@ -95,7 +98,7 @@ export default class ProductManage implements DomainView {
       this.vendingMachine.modifyProduct(newProduct, originProductName);
       this.render();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 } 

@@ -2,6 +2,7 @@
 @import './component/color.css';
 @import './component/input.css';
 @import './component/table.css';
+@import './component/snackbar.css';
 
 @import './screen/productManage.css';
 @import './screen/moneyCharge.css';

@@ -3,6 +3,7 @@ import { $ } from '../util/index';
 import ProductManage from './ProductManage';
 import ChargeMoney from './ChargeMoney';
 import BuyProduct from './BuyProduct';
+import Snackbar from './Snackbar';
 
 export default class Tab implements View {
   private $app: HTMLElement;
@@ -14,9 +15,12 @@ export default class Tab implements View {
   constructor() {
     this.$app = $('#app');
     this.$tabs = $('#tab');
-    this.productManage = new ProductManage();
-    this.chargeMoney = new ChargeMoney();
-    this.buyProduct = new BuyProduct();
+
+    const snackbar = new Snackbar();
+    this.productManage = new ProductManage(snackbar);
+    this.chargeMoney = new ChargeMoney(snackbar);
+    this.buyProduct = new BuyProduct(snackbar);
+    
     this.handlePopstate();
   }
 

@@ -1,6 +1,7 @@
 import { DomainView, VendingMachine, Product, ProductName } from '../../index.d';
 import { $ } from '../util/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
+import Snackbar from './Snackbar';
 
 export default class BuyProduct implements DomainView {
   private $buyPriceForm: HTMLElement;
@@ -13,8 +14,9 @@ export default class BuyProduct implements DomainView {
   private $returnCoin10: HTMLElement;
   private $returnChangeButton: HTMLElement;
   private vendingMachine: VendingMachine;
+  private snackbar: Snackbar;
 
-  constructor() {
+  constructor(snackbar: Snackbar) {
     this.$buyPriceForm = $('#buy-price-form');
     this.$buyPriceInput = $('#buy-price-input');
     this.$totalBuyPrice = $('#total-buy-price');
@@ -25,6 +27,7 @@ export default class BuyProduct implements DomainView {
     this.$returnCoin10 = $('#return-coin-10-count');
     this.$returnChangeButton = $('#return-change-button');
     this.vendingMachine = VendingMachineImpl.getInstance();
+    this.snackbar = snackbar;
   }
 
   render(): void {
@@ -60,7 +63,7 @@ export default class BuyProduct implements DomainView {
       this.vendingMachine.chargeUserMoney(userInputMoney);
       this.renderTotalBuyPrice();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 
@@ -72,7 +75,7 @@ export default class BuyProduct implements DomainView {
       this.render();
       this.renderTotalBuyPrice();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 
