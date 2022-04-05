@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$Sy2Yq4BqI72okkeCKI87UuZJz26X4p9eWbPh9G44Ijzd98RP7vVOO",
+      "name": "test",
+      "id": 1
+    },
+    {
+      "email": "sunho620@naver.com",
+      "password": "$2a$10$nIwczEmZADjw24R2NweYBOmWUD94vyVxyKQ5cLlbDzgsxOyE6G/n.",
+      "name": "박선호",
+      "id": 2
+    }
+  ]
+}
