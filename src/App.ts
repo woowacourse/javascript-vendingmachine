@@ -57,6 +57,12 @@ export class App {
     this.app.addEventListener('signUpClick', (e: Event) => {
       this.router.pushHistory(e);
     });
+    this.app.addEventListener('editInformationClick', (e: Event) => {
+      this.router.pushHistory(e);
+    });
+    this.app.addEventListener('signOutClick', (e: Event) => {
+      this.router.pushHistory(e);
+    });
     this.app.addEventListener('signInOk', (e: Event) => {
       this.router.pushHistory(e);
     });
