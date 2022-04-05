@@ -2,11 +2,11 @@ import LoginFormComponent from '../components/LoginFormComponent';
 
 export default class Login {
   LoginFormComponent: LoginFormComponent;
-  $app: HTMLElement;
+  $loginInputContainer: HTMLElement;
 
   constructor() {
-    this.$app = document.querySelector('#app');
-    this.LoginFormComponent = new LoginFormComponent(this.$app, this.stateChange);
+    this.$loginInputContainer = document.querySelector('#login-input-container');
+    this.LoginFormComponent = new LoginFormComponent(this.$loginInputContainer, this.stateChange);
   }
 
   render = () => {

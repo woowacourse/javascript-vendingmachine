@@ -10,14 +10,12 @@ export default class ProductPurchase {
   $inputSection: HTMLElement;
   $sectionContainer: HTMLElement;
   $contentsContainer: HTMLElement;
-  $loginInputSection: HTMLElement;
 
   constructor() {
     this.$userMenu = document.querySelector('.user-menu');
     this.$sectionContainer = document.querySelector('.section-container');
     this.$inputSection = document.querySelector('.input-section');
     this.$contentsContainer = document.querySelector('.contents-container');
-    this.$loginInputSection = document.querySelector('#login-input-container');
     this.InputMoneyComponent = new InputMoneyComponent(this.$inputSection, this.stateChange);
     this.PurchasableProductListComponent = new PurchasableProductListComponent(
       this.$contentsContainer,
@@ -27,10 +25,6 @@ export default class ProductPurchase {
   }
 
   render = () => {
-    this.$userMenu.classList.remove('hide');
-    this.$sectionContainer.classList.remove('hide');
-    this.$loginInputSection.classList.add('hide');
-
     this.InputMoneyComponent.render();
     this.PurchasableProductListComponent.render();
     this.ReturnChangeComponent.render();

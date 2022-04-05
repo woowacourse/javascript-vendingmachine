@@ -1,20 +1,19 @@
-import { PATH_NAME } from './constants';
+import MainContentsComponent from './components/mainContentsComponent';
+import ProductPurchase from './pages/ProductPurchase';
+import ProductManage from './pages/ProductManage';
 import AddChange from './pages/AddChange';
 import Login from './pages/Login';
-import ProductManage from './pages/ProductManage';
-import ProductPurchase from './pages/ProductPurchase';
+import { PATH_NAME } from './constants';
 
 class router {
   prevPath: string;
+  mainContentsComponent: MainContentsComponent;
   productManage: ProductManage;
   addChange: AddChange;
   productPurchase: ProductPurchase;
   login: Login;
 
   constructor() {
-    this.productManage = new ProductManage();
-    this.addChange = new AddChange();
-    this.productPurchase = new ProductPurchase();
     this.login = new Login();
     this.prevPath = null;
   }
@@ -31,6 +30,13 @@ class router {
     if (this.prevPath === hash) {
       return;
     }
+
+    this.mainContentsComponent = new MainContentsComponent();
+    this.mainContentsComponent.render();
+
+    this.productManage = new ProductManage();
+    this.addChange = new AddChange();
+    this.productPurchase = new ProductPurchase();
 
     this.prevPath = hash;
     this.clear();
@@ -60,10 +66,19 @@ class router {
   private clear() {
     const $inputSection = document.querySelector('.input-section');
     const $contentsContainer = document.querySelector('.contents-container');
+    const $loginInputContainer = document.querySelector('#login-input-container');
 
-    $inputSection.replaceChildren();
-    $contentsContainer.replaceChildren();
+    if ($inputSection) {
+      $inputSection.replaceChildren();
+      $contentsContainer.replaceChildren();
+    }
+
+    if ($loginInputContainer) {
+      $loginInputContainer.replaceChildren();
+    }
   }
 }
 
-export default router;
+const routes = new router();
+
+export default routes;
