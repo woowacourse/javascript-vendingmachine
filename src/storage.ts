@@ -20,6 +20,14 @@ const storage = {
   getUserMoney(): number {
     return this.getLocalStorage('userMoney') ? JSON.parse(this.getLocalStorage('userMoney')) : 0;
   },
+
+  getUserInfo() {
+    return this.getLocalStorage('userInfo') ? JSON.parse(this.getLocalStorage('userInfo')) : {};
+  },
+
+  getAccessToken() {
+    return this.getLocalStorage('accessToken') ? JSON.parse(this.getLocalStorage('accessToken')) : {};
+  },
 };
 
 export default storage;

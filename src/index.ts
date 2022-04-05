@@ -8,3 +8,6 @@ import './ui/SignupPage';
 import './ui/EditProfilePage';
 
 import './router';
+import Auth from './domain/Auth';
+
+new Auth();

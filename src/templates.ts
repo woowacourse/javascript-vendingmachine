@@ -129,9 +129,9 @@ const TEMPLATE = {
     <form class="signin-form">
       <h1>로그인</h1>
       <label for="signin-form__email">이메일</label>
-      <input id="signin-form__email" type="email" placeholder="woowacourse@gmail.com" />
+      <input id="signin-form__email" type="email" name="signinEmail" placeholder="woowacourse@gmail.com" required />
       <label for="signin-form__password">비밀번호</label>
-      <input id="signin-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <input id="signin-form__password" type="password" name="signinPassword" placeholder="비밀번호를 입력해주세요" required />
       <button type="submit">확인</button>
       <p>아직 회원이 아니신가요? <a href="">회원가입</a></p>
     </form>
@@ -142,13 +142,13 @@ const TEMPLATE = {
     <form class="signup-form">
       <h1>회원가입</h1>
       <label for="signup-form__email">이메일</label>
-      <input id="signup-form__email" type="email" placeholder="이메일 주소를 입력해주세요" />
+      <input id="signup-form__email" type="email" name="signupEmail" placeholder="이메일 주소를 입력해주세요" required/>
       <label for="signup-form__name">이름</label>
-      <input id="signup-form__name" type="text" placeholder="이름을 입력해주세요" />
+      <input id="signup-form__name" type="text" name="signupUserName" placeholder="이름을 입력해주세요" required/>
       <label for="signup-form__password">비밀번호</label>
-      <input id="signup-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <input id="signup-form__password" type="password" name="signupPassword" placeholder="비밀번호를 입력해주세요" required/>
       <label for="signup-form__password-confirm">비밀번호 확인</label>
-      <input id="signup-form__password-confirm" type="password" placeholder="비밀번호를 입력해주세요" />
+      <input id="signup-form__password-confirm" type="password" name="signupPasswordConfirm" placeholder="비밀번호를 입력해주세요" required/>
       <button type="submit">확인</button>
     </form>
   </section>
@@ -158,13 +158,13 @@ const TEMPLATE = {
     <form class="edit-profile-form">
       <h1>회원 정보 수정</h1>
       <label for="edit-profile-form__email">이메일</label>
-      <input id="edit-profile-form__email" type="email" placeholder="woowacourse@gmail.com" disabled />
+      <input id="edit-profile-form__email" type="email" name="editProfileEmail" placeholder="woowacourse@gmail.com" disabled required/>
       <label for="edit-profile-form__name">이름</label>
-      <input id="edit-profile-form__name" type="text" placeholder="우테코" />
+      <input id="edit-profile-form__name" type="text" name="editProfileUserName" placeholder="우테코" required/>
       <label for="edit-profile-form__password">비밀번호</label>
-      <input id="edit-profile-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <input id="edit-profile-form__password" type="password" name="editProfilePassword" placeholder="비밀번호를 입력해주세요" required/>
       <label for="edit-profile-form__password-confirm">비밀번호 확인</label>
-      <input id="edit-profile-form__password-confirm" type="password" placeholder="비밀번호를 입력해주세요" />
+      <input id="edit-profile-form__password-confirm" type="password" name="editProfilePasswordConfirm" placeholder="비밀번호를 입력해주세요" required/>
       <button type="submit">확인</button>
     </form>
   </section>

@@ -154,7 +154,6 @@ class VendingMachine implements IVendingMachine {
   }
 
   returnChange() {
-    // 잔돈 반환 에러 처리 로직
     try {
       const userInputMoney = this.moneyInput;
       const chargedCoin = this.amount;

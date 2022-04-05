@@ -91,3 +91,8 @@
 .select-box .select-box__edit-profile-button {
   border-bottom: 1px solid #000;
 }
+
+.select-box .select-box__edit-profile-button:hover,
+.select-box .select-box__logout-button:hover {
+  background-color: #98e2ec;
+}
