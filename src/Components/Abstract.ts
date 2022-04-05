@@ -1,9 +1,12 @@
 import Store from 'Store/Abstract';
+import { TComponent } from 'Types/ComponentTypes';
 
-export default abstract class Component {
-  protected subscriberStore: Store[] = [];
+export default abstract class Component<IDefaultProps = Record<string, any>> {
+  protected subscriberStore: Store<TStoreState>[] = [];
   protected renderMethodList = {};
-  protected props;
+  protected props: IDefaultProps;
+
+  private childComponentList: TComponent[] = [];
 
   protected $component: HTMLElement | DocumentFragment;
 
@@ -32,7 +35,9 @@ export default abstract class Component {
     this.setEvents();
 
     this.addSubscriberStore();
+  }
 
+  public get content() {
     return this.$component;
   }
 
@@ -40,6 +45,8 @@ export default abstract class Component {
     this.subscriberStore.forEach(store => {
       store.removeSubscriber(this.render);
     });
+
+    this.childComponentList.forEach(component => component.unmount());
   }
 
   public render = ({ state, changedStateNames }) => {
@@ -52,4 +59,15 @@ export default abstract class Component {
 
     renderTargetMethod.forEach(renderMethod => renderMethod(state));
   };
+
+  protected createChildComponent<IProps = IDefaultProps>(
+    ComponentClass: ClassConstructor<TComponent>,
+    props: IProps,
+  ) {
+    const component: TComponent = new ComponentClass(props);
+    component.mount();
+    this.childComponentList.push(component);
+
+    return component.content;
+  }
 }
