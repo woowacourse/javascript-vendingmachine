@@ -46,6 +46,19 @@ export default class BuyProduct implements DomainView {
   }
 
   bindEvent(): void {
-    
+    this.$buyPriceForm.addEventListener('submit', this.handleSubmitForm.bind(this));
+  }
+
+  private handleSubmitForm(e: Event): void {
+    e.preventDefault();
+
+    try {
+      const userInputMoney = Number((this.$buyPriceInput as HTMLInputElement).value);
+
+      this.vendingMachine.chargeUserMoney(userInputMoney);
+      this.$totalBuyPrice.innerText = String(this.vendingMachine.totalUserInputMoney);
+    } catch ({ message }) {
+      alert(message);
+    }
   }
 }
