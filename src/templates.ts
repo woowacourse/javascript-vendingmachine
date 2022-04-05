@@ -119,7 +119,7 @@ const TEMPLATE = {
           </tr>
         </tbody>
       </table>
-      <button type="button" class="button">반환</button>
+      <button type="button" class="button return-button">반환</button>
     </section>
   `,
   LOGIN_PAGE: `
