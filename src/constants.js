@@ -49,6 +49,10 @@ export const ERROR_MESSAGE = {
   IS_OVER_PRODUCT_MAX_PRICE: `돈은 한번에 최대 ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}만큼 투입할 수 있습니다! ${PRODUCT.PRICE.PURCHASE_INPUT_MAX.toLocaleString()}원 이하로 투입해주세요!`,
 
   IS_OVER_MONEY_INPUT: `상품의 가격이 투입된 돈보다 더 비쌉니다. 상품을 구매하고 싶으시면, 돈을 더 투입해주세요.`,
+
+  IS_NOT_CORRECTED_PASSWORD:
+    '비밀번호를 잘못 입력했습니다. 비밀번호는 최소 10자리 이상이며, 영어 대문자, 소문자, 숫자 중 최소 2종류를 조합해야합니다.',
+  IS_NOT_MATCHED_PASSWORD: '비밀번호가 다릅니다. 비밀번호를 다시 확인하세요.',
 };
 
 export const SNACKBAR = {
@@ -58,4 +62,10 @@ export const SNACKBAR = {
   COIN_CHARGE_SUCCESS: '자판기의 잔돈이 정상적으로 충전되었습니다.',
   PURCHASE_MONEY_INPUT_SUCCESS: '금액이 정상적으로 투입되었습니다. 이제 상품을 구매할 수 있습니다.',
   RETURN_CHANGE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
+  SIGNUP_SUCCESS: '회원가입이 정상적으로 완료되었습니다.',
+};
+
+export const PASSWORD = {
+  MIN_LENGTH: 10,
+  MIN_COMBINATION_COUNT: 2,
 };

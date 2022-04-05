@@ -1,6 +1,6 @@
 import ProductStoreInstance from './domains/stores/ProductStore';
 import CoinStoreInstance from './domains/stores/CoinStore';
-import { ERROR_MESSAGE, MONEY, PRODUCT } from './constants';
+import { ERROR_MESSAGE, MONEY, PASSWORD, PRODUCT } from './constants';
 
 const isBlank = (value) => value === '';
 
@@ -34,6 +34,35 @@ const isOverMaxMoney = (inputMoney) => {
 };
 
 const isProductPriceMoreExpensive = (moneyInput, productPrice) => productPrice > moneyInput;
+
+const isUnderMinPasswordLength = (password) => {
+  return password.length < PASSWORD.MIN_LENGTH;
+};
+
+const isUnderMinCombinationCount = (password) => {
+  let upperCaseCount = 0;
+  let lowerCaseCount = 0;
+  let numberCount = 0;
+
+  if (password.match(/[A-Z]/g)) {
+    upperCaseCount += 1;
+  }
+  if (password.match(/[a-z]/g)) {
+    lowerCaseCount += 1;
+  }
+  if (password.match(/[0-9]/g)) {
+    numberCount += 1;
+  }
+  return upperCaseCount + lowerCaseCount + numberCount < PASSWORD.MIN_COMBINATION_COUNT;
+};
+
+const isNotCorrectedPassword = (password) => {
+  return isUnderMinPasswordLength(password) || isUnderMinCombinationCount(password);
+};
+
+const isNotMatchedPassword = (password, passwordConfirm) => {
+  return password !== passwordConfirm;
+};
 
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
@@ -105,5 +134,14 @@ export const checkPurchaseMoneyValidation = (purchaseMoneyInputValue) => {
 export const checkCanPurchaseValidation = (moneyInput, productPrice) => {
   if (isProductPriceMoreExpensive(moneyInput, productPrice)) {
     throw new Error(ERROR_MESSAGE.IS_OVER_MONEY_INPUT);
+  }
+};
+
+export const checkNewUserInfoValidation = ({ email, name, password, passwordConfirm }) => {
+  if (isNotCorrectedPassword(password)) {
+    throw new Error(ERROR_MESSAGE.IS_NOT_CORRECTED_PASSWORD);
+  }
+  if (isNotMatchedPassword(password, passwordConfirm)) {
+    throw new Error(ERROR_MESSAGE.IS_NOT_MATCHED_PASSWORD);
   }
 };
