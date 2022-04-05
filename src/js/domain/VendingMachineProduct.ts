@@ -11,39 +11,39 @@ import {
 import { ERROR_MESSAGE } from '../constants';
 
 export default class VendingMachineProduct {
-  private _name: string;
-  private _price: number;
-  private _stock: number;
+  #name: string;
+  #price: number;
+  #stock: number;
 
   constructor({ name, price, stock }: ProductData) {
-    this.validateProduct({ name, price, stock });
+    this.#validateProduct({ name, price, stock });
 
-    this._name = name;
-    this._price = price;
-    this._stock = stock;
+    this.#name = name;
+    this.#price = price;
+    this.#stock = stock;
   }
 
   get name(): string {
-    return this._name;
+    return this.#name;
   }
 
   get price(): number {
-    return this._price;
+    return this.#price;
   }
 
   get stock(): number {
-    return this._stock;
+    return this.#stock;
   }
 
   modify({ name, price, stock }: ProductData): void {
-    this.validateProduct({ name, price, stock });
+    this.#validateProduct({ name, price, stock });
 
-    this._name = name;
-    this._price = price;
-    this._stock = stock;
+    this.#name = name;
+    this.#price = price;
+    this.#stock = stock;
   }
 
-  private validateProduct(data: ProductData) {
+  #validateProduct(data: ProductData) {
     const productValidator = [
       { testFunc: hasEmptyInput, errorMsg: ERROR_MESSAGE.CONTAIN_EMPTY_FIELD_IN_FORM },
       {
