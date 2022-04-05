@@ -144,7 +144,7 @@ export const validatePassword = (password: string) => {
   if (!password) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_PASSWORD);
 
   if (password.length < PASSWORD.MIN_LENGTH)
-    return new ValidationResult(false, ERROR_MESSAGE.INVALID_LENGTH_PASSWORD);
+    return new ValidationResult(true, ERROR_MESSAGE.INVALID_LENGTH_PASSWORD);
 
   const hasLetter = /[a-zA-Z]/.test(password);
   if (!hasLetter) return new ValidationResult(true, ERROR_MESSAGE.NOT_HAS_LETTER_PASSWORD);
