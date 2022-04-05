@@ -1,6 +1,7 @@
 @import './table.css';
 @import './product-manage-tab.css';
 @import './charge-tab.css';
+@import './purchase-tab.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
@@ -43,7 +44,7 @@ h1 {
   border: none;
   cursor: pointer;
   width: 100px;
-  height: 36px;
+  height: 32px;
 }
 
 .focus-button {

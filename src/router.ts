@@ -31,6 +31,7 @@ const render = (path: string) => {
 const routers: Router[] = [
   { path: baseURL + '/', component: $('product-management') },
   { path: baseURL + '/charge', component: $('charge-tab') },
+  { path: baseURL + '/purchase', component: $('purchase-tab') },
 ];
 
 window.addEventListener('popstate', function () {
