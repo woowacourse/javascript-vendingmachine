@@ -1,32 +1,56 @@
 import { ProductManageView } from './ProductManageView';
 import { BalanceChargeView } from './BalanceChargeView';
 import { ProductPurchaseView } from './ProductPurchaseView';
+import { LoginView } from './LoginView';
 
 import { CoinVault } from '../domain/CoinVault';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
 import { URL_PATH } from '../utils/constants';
+import { SignupView } from './SignupView';
+import { Auth } from '../domain/Auth';
+import { Profile } from '../component/Profile';
+import { UserInfoEditView } from './UserInfoEditView';
 
 // 임시
-// import { LoginView } from './LoginView';
 // import { SignupView } from './SignupView';
 // import { UserInfoEditView } from './userInfoEditView';
 // 임시 종료
 
 export class NavView {
+  #nav: HTMLElement;
+  #thumbnail: HTMLDivElement;
   #productManageNavBtn: HTMLButtonElement;
   #balanceChargeNavBtn: HTMLButtonElement;
   #productPurchaseNavBtn: HTMLButtonElement;
+  #loginBtn: HTMLButtonElement;
   #contentsContainer: HTMLDivElement;
+  #authSection: HTMLElement;
+  #featureSection: HTMLElement;
   #productManageView: ProductManageView;
   #balanceChargeView: BalanceChargeView;
   #productPurchaseView: ProductPurchaseView;
+  #loginView: LoginView;
+  #signupView: SignupView;
+  #profile: Profile;
+  #userInfoEditView: UserInfoEditView;
   #coinVault: CoinVault;
   #productCatalog: ProductCatalog;
+  #auth: Auth;
 
   constructor() {
+    this.#nav = document.querySelector('nav');
+    this.#thumbnail = document.querySelector('.thumbnail');
+    this.#productManageNavBtn = document.querySelector('#product-manage-nav-button');
+    this.#balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
+    this.#productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
+    this.#loginBtn = document.querySelector('#login-button');
+    this.#authSection = document.querySelector('.auth-section');
+    this.#featureSection = document.querySelector('.feature-section');
+
     this.#coinVault = new CoinVault();
     this.#productCatalog = new ProductCatalog();
+    this.#auth = new Auth();
 
     this.#productManageView = new ProductManageView({
       productCatalog: this.#productCatalog,
@@ -38,24 +62,20 @@ export class NavView {
       productCatalog: this.#productCatalog,
       coinVault: this.#coinVault,
     });
-
-    /**
-     * 임시
-     */
-    // new LoginView(document.querySelector('#auth-section')).render();
-    // new SignupView(document.querySelector('#auth-section')).render();
-    // new UserInfoEditView(document.querySelector('#auth-section')).render();
-    /**
-     * 임시 종료
-     */
-
-    this.#productManageNavBtn = document.querySelector('#product-manage-nav-button');
-    this.#balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
-    this.#productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
+    this.#loginView = new LoginView({ target: this.#authSection, auth: this.#auth });
+    this.#signupView = new SignupView({ target: this.#authSection, auth: this.#auth });
+    this.#profile = new Profile({ target: this.#thumbnail, auth: this.#auth });
+    this.#userInfoEditView = new UserInfoEditView({ target: this.#authSection, auth: this.#auth });
 
     this.#productManageNavBtn.addEventListener('click', this.#handleShowProductManageTab);
     this.#balanceChargeNavBtn.addEventListener('click', this.#handleShowBalanceChargeTab);
     this.#productPurchaseNavBtn.addEventListener('click', this.#handleShowProductPurhcaseTab);
+    this.#loginBtn.addEventListener('click', this.#handleShowLoginPage);
+    this.#authSection.addEventListener('signupPageRequested', this.#handleShowSignupPage);
+    this.#authSection.addEventListener('loginCompleted', this.#handleShowLoginCompletedPage);
+    this.#authSection.addEventListener('editUserInfoCompleted', this.#handleShowLoginCompletedPage);
+    this.#thumbnail.addEventListener('showEditUserInfoRequested', this.#handleShowEditUserInfoPage);
+    this.#thumbnail.addEventListener('logoutCompleted', this.#handleShowLogoutCompletedPage);
 
     window.addEventListener('popstate', (savedData) => {
       this.#handlePopstate(savedData);
@@ -91,7 +111,6 @@ export class NavView {
   #handleShowProductManageTab = () => {
     if (!this.#productManageView.getIsRendered()) {
       this.#productManageView.renderAll();
-      this.#productManageView.setIsRendered(true);
     }
 
     this.#productManageView.show();
@@ -105,7 +124,6 @@ export class NavView {
   #handleShowBalanceChargeTab = () => {
     if (!this.#balanceChargeView.getIsRendered()) {
       this.#balanceChargeView.renderAll();
-      this.#balanceChargeView.setIsRendered(true);
     }
 
     this.#balanceChargeView.show();
@@ -117,11 +135,8 @@ export class NavView {
   };
 
   #handleShowProductPurhcaseTab = () => {
-    // 렌더링이 되어있지 않다면 렌더링을 해주고
-    // 되어있다면 class hide show만 조정
     if (!this.#productPurchaseView.getIsRendered()) {
       this.#productPurchaseView.renderAll();
-      this.#productPurchaseView.setIsRendered(true);
     }
 
     this.#productPurchaseView.show();
@@ -132,9 +147,72 @@ export class NavView {
     this.#handleUrlPath(path);
   };
 
-  #renderHome() {
+  #handleShowLoginPage = () => {
+    this.#featureSection.classList.add('hide');
+    this.#loginBtn.classList.add('hide');
+
+    this.#authSection.classList.remove('hide');
+    this.#authSection.textContent = '';
+    this.#loginView.render();
+
+    const path = URL_PATH.LOGIN;
+    this.#handleUrlPath(path);
+  };
+
+  #handleShowSignupPage = () => {
+    this.#featureSection.classList.add('hide');
+    this.#loginBtn.classList.add('hide');
+
+    this.#authSection.classList.remove('hide');
+    this.#authSection.textContent = '';
+    this.#signupView.render();
+
+    const path = URL_PATH.SINGUP;
+    this.#handleUrlPath(path);
+  };
+
+  #handleShowEditUserInfoPage = () => {
+    this.#featureSection.classList.add('hide');
+    this.#thumbnail.classList.add('hide');
+
+    this.#authSection.classList.remove('hide');
+    this.#authSection.textContent = '';
+    this.#userInfoEditView.render();
+
+    const path = URL_PATH.EDIT_USER_INFO;
+    this.#handleUrlPath(path);
+  };
+
+  #handleShowLoginCompletedPage = () => {
+    this.#authSection.classList.add('hide');
+    this.#loginBtn.classList.add('hide');
+
+    this.#profile.render();
+    this.#thumbnail.classList.remove('hide');
+    this.#featureSection.classList.remove('hide');
+    this.#nav.classList.remove('hide');
+  };
+
+  #handleShowLogoutCompletedPage = () => {
+    this.#authSection.classList.add('hide');
+    this.#nav.classList.add('hide');
+    this.#thumbnail.classList.add('hide');
+
+    this.#loginBtn.classList.remove('hide');
+    this.#handleShowProductPurhcaseTab;
+  };
+
+  #renderHome = () => {
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+
+    if (!!accessToken) {
+      this.#profile.render();
+
+      this.#handleShowLoginCompletedPage();
+    }
+
     this.#handleShowProductPurhcaseTab();
-  }
+  };
 
   #handleUrlPath(path: string) {
     const isSamePath = location.pathname === path;
