@@ -1,7 +1,8 @@
+import { ProductPurchaseInterface } from '../interface/productPurchase.interface';
 import { validAmount } from './validation';
 
-export default class ProductPurchase {
-  #userAmount;
+export default class ProductPurchase implements ProductPurchaseInterface {
+  #userAmount: number;
 
   constructor() {
     this.#userAmount = 0;

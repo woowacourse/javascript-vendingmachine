@@ -1,13 +1,13 @@
 import { SECTION_CONTAINER, SNACKBAR_MESSAGE } from './constants/constants.js';
 import { on } from './utils/event.js';
-import { initHashContents } from './views/menuCategoryView.js';
+import { handleSnackbarMessage } from './utils/snackbar.js';
 import Coin from './models/Coin.ts';
 import ProductManager from './models/ProductManger.ts';
+import ProductPurchase from './models/ProductPurchase.ts';
+import { initHashContents } from './views/menuCategoryView.js';
 import ChargeView from './views/ChargeView.js';
 import ProductManageView from './views/ProductManageView.js';
 import ProductPurchaseView from './views/ProductPurchaseView.js';
-import ProductPurchase from './models/ProductPurchase.js';
-import { handleSnackbarMessage } from './utils/snackbar.js';
 
 class Controller {
   constructor() {
