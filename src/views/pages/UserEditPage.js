@@ -5,6 +5,7 @@ import { editUser, deleteUser } from '../../auth/edit';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
 import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';
+import { globalStore } from '../../domains/GlobalStore';
 
 class UserEditPage extends Component {
   setup() {
@@ -76,7 +77,11 @@ class UserEditPage extends Component {
 
       setData('user', loginResponse);
 
-      window.location.href = 'http://localhost:9000/';
+      const to = '/';
+      const state = { path: to };
+
+      window.history.pushState(state, '', to);
+      globalStore.login(response);
     });
 
     this.addEvent('click', '#withdraw-button', async (event) => {
@@ -85,7 +90,11 @@ class UserEditPage extends Component {
       await deleteUser();
 
       localStorage.removeItem('user');
-      window.location.href = 'http://localhost:9000/';
+      const to = '/';
+      const state = { path: to };
+
+      window.history.pushState(state, '', to);
+      globalStore.login(response);
     });
   }
 }

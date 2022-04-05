@@ -10,7 +10,7 @@ export default class VendingMachine extends Component {
   template() {
     const { isloggedin, username } = this.props;
     const login = JSON.parse(isloggedin);
-    const location = window.location.pathname;
+    const location = window.location.pathname.split('/').pop();
 
     let vendingMachinePage;
     switch (location) {

@@ -34,7 +34,7 @@ export default class GlobalStore {
 }
 
 const userData = getData('user');
-const initialLocation = window.location.pathname;
+const initialLocation = window.location.pathname.split('/').pop();
 
 export const globalStore = new GlobalStore(
   { isLoggedIn: !!userData, userData: userData?.user },

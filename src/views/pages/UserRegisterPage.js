@@ -4,6 +4,7 @@ import { setData } from '../../utils/storageUtil';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
 import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';
+import { globalStore } from '../../domains/GlobalStore';
 
 class UserRegisterPage extends Component {
   template() {
@@ -61,7 +62,11 @@ class UserRegisterPage extends Component {
       }
 
       setData('user', response);
-      window.location.href = 'http://localhost:9000/';
+      const to = '/';
+      const state = { path: to };
+
+      window.history.pushState(state, '', to);
+      globalStore.login(response);
     });
   }
 }
