@@ -93,6 +93,18 @@ export class CoinVault implements CoinVaultInterface {
       remainder -= maxAvailableCoinQuantity * coinUnit;
     });
 
+    this.#substractCoins(returnedCoins);
+
     return [returnedCoins, remainder];
+  }
+
+  #substractCoins(returnedCoins: Coins) {
+    const currentCoins = { ...this.#coinsQuantity };
+
+    Object.entries(returnedCoins).forEach(([key, quantity]) => {
+      currentCoins[key] -= quantity;
+    });
+
+    this.#coinsQuantity = currentCoins;
   }
 }

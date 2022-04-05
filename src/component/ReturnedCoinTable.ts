@@ -15,6 +15,7 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
   #coin100Quantity: HTMLSpanElement;
   #coin50Quantity: HTMLSpanElement;
   #coin10Quantity: HTMLSpanElement;
+  #returnBtn: HTMLButtonElement;
 
   constructor({ target, coinVault, purchaseMoney }) {
     this.#target = target;
@@ -25,6 +26,7 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
   render() {
     this.#target.insertAdjacentHTML('beforeend', this.#template(this.#coinVault.getCoins()));
     this.#selectDom();
+    this.#bindEvent();
   }
 
   #template(coinsQuantity: Coins) {
@@ -67,16 +69,25 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
     this.#coin100Quantity = document.querySelector('.coin100-quantity');
     this.#coin50Quantity = document.querySelector('.coin50-quantity');
     this.#coin10Quantity = document.querySelector('.coin10-quantity');
+    this.#returnBtn = document.querySelector('.return-button');
   }
 
-  #updateCoinVaultTableTemplate = () => {
+  #bindEvent() {
+    this.#returnBtn.addEventListener('click', this.#handleReturnCoins);
+  }
+
+  #handleReturnCoins = () => {
     const [{ coin500, coin100, coin50, coin10 }, remainder] = this.#coinVault.returnCoins(
       this.#purchaseMoney.getMoney()
     );
+
+    this.#purchaseMoney.setMoney(remainder);
 
     this.#coin500Quantity.textContent = `${coin500}`;
     this.#coin100Quantity.textContent = `${coin100}`;
     this.#coin50Quantity.textContent = `${coin50}`;
     this.#coin10Quantity.textContent = `${coin10}`;
+    //TODO: 잔돈 충전 동전들 업데이트
+    this.#target.dispatchEvent(new CustomEvent('coinsReturned'));
   };
 }

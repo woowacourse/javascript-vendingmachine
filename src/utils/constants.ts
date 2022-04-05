@@ -32,6 +32,7 @@ export const COIN_VAULT_CONDITION = {
 export const ERROR_MESSAGE = {
   NOT_DIVIDED_BY_COIN_UNIT: '상평통보는 안 받습니다. 10원단위로 넣어주세요!',
   NOT_DIVIDED_BY_PRODUCT_PRICE_UNIT: '10원단위로 가격을 입력해주세요~',
+  MORE_PURCHASE_MONEY_NEEDED: '상품을 구매할 금액이 부족합니다. 더 투입해주세요~',
   INVALID_PURCHASE_MONEY: '10원단위로 나누어 떨어지는 금액만 투입 가능합니다~',
   INVALID_USER_NAME_LENGTH: '이름은 2~6글자까지 가능합니다~',
   INVALID_USER_PASSWORD: '비밀번호는 8~16자 영어, 숫자, 특수문자로 구성되있어야 합니다~',

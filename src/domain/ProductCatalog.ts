@@ -17,7 +17,7 @@ export class ProductCatalog implements ProductCatalogInterface {
   #productList: Product[];
 
   constructor() {
-    this.#productList = [];
+    this.#productList = [new Product({ name: '콜라', price: 2000, quantity: 10 })];
   }
 
   getProductList() {
@@ -48,16 +48,26 @@ export class ProductCatalog implements ProductCatalogInterface {
   }
 
   buyProduct(name: ProductProps['name'], purchaseMoney: number): number {
-    const deepCopiedProductList = this.#deepCopy(this.#productList);
+    if (this.#isValidatedPurchase(name, purchaseMoney)) {
+      const deepCopiedProductList = this.#deepCopy(this.#productList);
 
-    const targetProduct = this.findProduct(name, deepCopiedProductList);
-    targetProduct.decreaseQuantity();
+      const targetProduct = this.findProduct(name, deepCopiedProductList);
+      targetProduct.decreaseQuantity();
 
-    this.#productList = deepCopiedProductList;
+      this.#productList = deepCopiedProductList;
 
-    const exchange = purchaseMoney - targetProduct.getPrice();
+      const exchange = purchaseMoney - targetProduct.getPrice();
 
-    return exchange;
+      return exchange;
+    }
+  }
+
+  #isValidatedPurchase(name: ProductProps['name'], purchaseMoney: number) {
+    const price = this.findProduct(name).getPrice();
+
+    if (purchaseMoney < price) throw new Error(ERROR_MESSAGE.MORE_PURCHASE_MONEY_NEEDED);
+
+    return true;
   }
 
   deleteProduct(name: ProductProps['name']): void {

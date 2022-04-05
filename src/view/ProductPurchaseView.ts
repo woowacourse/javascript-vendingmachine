@@ -39,6 +39,7 @@ export class ProductPurchaseView implements ProductPurchaseViewInterface {
     this.#purchasableProductCatalogTable = new PurchasableProductCatalogTable({
       target: this.#productPurchaseContainer,
       productCatalog: this.#productCatalog,
+      purchaseMoney: this.#purchaseMoney,
     });
 
     this.#returnedCoinTable = new ReturnedCoinTable({
