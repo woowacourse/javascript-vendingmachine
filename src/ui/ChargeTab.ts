@@ -3,7 +3,6 @@ import TEMPLATE from '../templates';
 import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
-import Coin from '../domain/Coin';
 import { COINS, ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {

@@ -1,4 +1,4 @@
-import { COINS_REVERSE, ELEMENT_KEY } from '../constants';
+import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $, showSnackBar } from '../utils';
