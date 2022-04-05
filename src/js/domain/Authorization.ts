@@ -144,7 +144,7 @@ export default class Authorization {
     window.sessionStorage.setItem('userData', JSON.stringify({ userId, name, email }));
 
     if (accessToken) {
-      document.cookie = `${ACCESS_TOKEN}=${accessToken}`;
+      document.cookie = `${ACCESS_TOKEN}=${accessToken}; path=/;`;
       this.#accessToken = accessToken;
     }
 
