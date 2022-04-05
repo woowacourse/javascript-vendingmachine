@@ -69,7 +69,8 @@ const TEMPLATE = {
       </table>
     </section>
 `,
-  PURCHASE_TAB: ` <section class="tab__purchase-tab">
+  PURCHASE_TAB: ` 
+  <section class="tab__purchase-tab">
   <h2 hidden>잔돈 충전 화면</h2>
   <form class="purchase-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
@@ -121,7 +122,53 @@ const TEMPLATE = {
     </tbody>
   </table>
   <button type="button" class="purchase-return-button">반환</button>
-</section>`,
+</section>
+`,
+  SIGNIN_PAGE: `
+  <section class="signin">
+    <form class="signin-form">
+      <h1>로그인</h1>
+      <label for="signin-form__email">이메일</label>
+      <input id="signin-form__email" type="email" placeholder="woowacourse@gmail.com" />
+      <label for="signin-form__password">비밀번호</label>
+      <input id="signin-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <button type="submit">확인</button>
+      <p>아직 회원이 아니신가요? <a href="">회원가입</a></p>
+    </form>
+  </section>
+  `,
+  SIGNUP_PAGE: `
+  <section class="signup">
+    <form class="signup-form">
+      <h1>회원가입</h1>
+      <label for="signup-form__email">이메일</label>
+      <input id="signup-form__email" type="email" placeholder="이메일 주소를 입력해주세요" />
+      <label for="signup-form__name">이름</label>
+      <input id="signup-form__name" type="text" placeholder="이름을 입력해주세요" />
+      <label for="signup-form__password">비밀번호</label>
+      <input id="signup-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <label for="signup-form__password-confirm">비밀번호 확인</label>
+      <input id="signup-form__password-confirm" type="password" placeholder="비밀번호를 입력해주세요" />
+      <button type="submit">확인</button>
+    </form>
+  </section>
+`,
+  EDIT_PROFILE_PAGE: `
+  <section class="edit-profile">
+    <form class="edit-profile-form">
+      <h1>회원 정보 수정</h1>
+      <label for="edit-profile-form__email">이메일</label>
+      <input id="edit-profile-form__email" type="email" placeholder="woowacourse@gmail.com" disabled />
+      <label for="edit-profile-form__name">이름</label>
+      <input id="edit-profile-form__name" type="text" placeholder="우테코" />
+      <label for="edit-profile-form__password">비밀번호</label>
+      <input id="edit-profile-form__password" type="password" placeholder="비밀번호를 입력해주세요" />
+      <label for="edit-profile-form__password-confirm">비밀번호 확인</label>
+      <input id="edit-profile-form__password-confirm" type="password" placeholder="비밀번호를 입력해주세요" />
+      <button type="submit">확인</button>
+    </form>
+  </section>
+`,
 };
 
 export default TEMPLATE;

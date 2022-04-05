@@ -82,31 +82,3 @@ input::-webkit-inner-spin-button {
 .hidden {
   display: none;
 }
-
-h1 a {
-  text-decoration: none;
-}
-
-h1 a:link {
-  color: var(--primary-font-color);
-}
-
-h1 a:visited {
-  color: var(--primary-font-color);
-}
-
-.login-button {
-  align-self: flex-end;
-  cursor: pointer;
-}
-
-.user-info-button {
-  align-self: flex-end;
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  color: black;
-  border: 1px solid #fff;
-  background-color: #00bcd429;
-  cursor: pointer;
-}
