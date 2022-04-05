@@ -1,5 +1,5 @@
 @import 'app', 'product-management', 'coin-charge', 'product-purchase', 'login',
-  'variable';
+  'variable', 'snackbar';
 
 * {
   margin: 0;
@@ -21,6 +21,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+body {
+  position: relative;
 }
 
 input,

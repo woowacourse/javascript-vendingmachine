@@ -1,5 +1,6 @@
 import { API } from '../../apis';
 import type { UserInfoWithPassWord } from '../../apis';
+import { $ } from './dom';
 
 const getRandomIndex = <T>(array: T[]) => {
   return Math.floor(Math.random() * array.length);
@@ -36,4 +37,29 @@ const getUser = async (): Promise<UserInfoWithPassWord | string> => {
   return user;
 };
 
-export { getRandomIndex, insertNBSP, removeNBSP, getCookie, getUser };
+const snackBarMaker = () => {
+  let timer;
+
+  return (message: string) => {
+    if (timer) return;
+
+    const $snackBar = document.createElement('div');
+    $snackBar.setAttribute('class', 'snack-bar');
+    $snackBar.innerText = message;
+    document.body.appendChild($snackBar);
+
+    timer = setTimeout(() => {
+      $snackBar.remove();
+      timer = undefined;
+    }, 3000);
+  };
+};
+
+export {
+  getRandomIndex,
+  insertNBSP,
+  removeNBSP,
+  getCookie,
+  getUser,
+  snackBarMaker,
+};
