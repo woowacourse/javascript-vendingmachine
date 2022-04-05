@@ -1,6 +1,7 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
+import { WhiteList } from '../types';
 
 @customElement('logged-in-btn')
 class LoggedInBtn extends Component {
@@ -16,7 +17,7 @@ class LoggedInBtn extends Component {
       <button class="btn circle btn-dropdown">${userName[0]}</button>
       <div class="dropdown-container">
         <ul class="dropdown hide disappear">
-          <li><a href="/my-account">회원 정보 수정</a></li>
+          <li><a href="${WhiteList.MyAccountPage}">회원 정보 수정</a></li>
           <li class="logout">로그아웃</li>
         </ul>
       </div>
@@ -26,6 +27,11 @@ class LoggedInBtn extends Component {
   setEvent() {
     this.addEvent('click', '.btn-dropdown', this.dropdown);
     this.addEvent('click', '.logout', this.logout);
+    this.addEvent('click', 'a', (e: Event) => {
+      e.preventDefault();
+      const $anchor = e.target as HTMLAnchorElement;
+      Router.pushState($anchor.href);
+    });
   }
 
   dropdown = () => {

@@ -49,6 +49,7 @@ export enum WhiteList {
   PurchaseProduct = '/vending-machine/purchase-product',
   LoginPage = '/login',
   MyAccountPage = '/my-account',
+  RegisterPage = '/register',
 }
 
 export type UserInfo = {

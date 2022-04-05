@@ -1,7 +1,7 @@
 import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { FieldSet, Feedback, UserInfo } from '../types';
+import { FieldSet, Feedback, UserInfo, WhiteList } from '../types';
 import { deepCopy, getUserInfoFromLocalStorage } from '../utils';
 import { validateName, validatePassword, validateRePassword } from '../validation/validators';
 
@@ -47,19 +47,6 @@ class MyAccountPage extends RouteComponent {
 
   private feedbacks?: FeedbackRecord;
 
-  connectedCallback() {
-    if (!this.shouldRender()) return;
-    const userInfo = getUserInfoFromLocalStorage();
-    if (!userInfo) {
-      alert('계정정보가 없습니다. 다시 로그인 해주세요');
-      location.href = `${location.origin}/login`;
-      return;
-    }
-    this.userInfo = userInfo;
-    this.feedbacks = this.initialFeedbacks;
-    super.connectedCallback();
-  }
-
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
@@ -76,6 +63,7 @@ class MyAccountPage extends RouteComponent {
 
   template(feedbacks: FeedbackRecord): string {
     return `
+      <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
         <h1>회원 정보 수정</h1>
       </header>
@@ -112,13 +100,13 @@ class MyAccountPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full">확인</button>
+        <button type="button" class="btn btn-primary full btn-edit-user-info">확인</button>
       </form>
     `;
   }
 
   setEvent() {
-    this.addEvent('click', 'button', this.onClickEditBtn);
+    this.addEvent('click', '.btn-edit-user-info', this.onClickEditBtn);
   }
 
   setFeedbacks(feedbacks: FeedbackRecord) {
@@ -225,12 +213,30 @@ class MyAccountPage extends RouteComponent {
     return feedbacks;
   }
 
+  onLocationChange() {
+    this.feedbacks = this.initialFeedbacks;
+    this.render();
+  }
+
   mount() {
     this.render();
   }
 
   render() {
-    this.innerHTML = this.shouldRender() ? this.template(this.feedbacks!) : '';
+    if (!this.shouldRender()) {
+      this.innerHTML = '';
+      return;
+    }
+
+    const userInfo = getUserInfoFromLocalStorage();
+    if (!userInfo) {
+      alert('계정정보가 없습니다. 다시 로그인 해주세요');
+      location.href = `${location.origin}/login`;
+      return;
+    }
+    this.userInfo = userInfo;
+    if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
+    this.innerHTML = this.template(this.feedbacks);
   }
 }
 

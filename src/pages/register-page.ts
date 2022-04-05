@@ -1,7 +1,7 @@
 import RouteComponent from '../abstract/route-component';
 import { API_URL } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { UserInfo, Feedback, FieldSet } from '../types';
+import { UserInfo, Feedback, FieldSet, WhiteList } from '../types';
 import {
   validateEmail,
   validateName,
@@ -58,6 +58,7 @@ class RegisterPage extends RouteComponent {
   template(feedbacks: FeedbackRecord): string {
     return `
       <header class="mb-12">
+        <back-arrow data-path="${WhiteList.LoginPage}">Login</back-arrow>
         <h1>회원가입</h1>
       </header>
       <form>
@@ -93,13 +94,13 @@ class RegisterPage extends RouteComponent {
           type: 'password',
           disabled: false,
         })}
-        <button type="button" class="btn btn-primary full">확인</button>
+        <button type="button" class="btn btn-primary full btn-register">확인</button>
       </form>
     `;
   }
 
   setEvent() {
-    this.addEvent('click', 'button', this.onClickRegisterBtn);
+    this.addEvent('click', '.btn-register', this.onClickRegisterBtn);
   }
 
   setFeedbacks(feedbacks: FeedbackRecord) {
@@ -198,6 +199,11 @@ class RegisterPage extends RouteComponent {
         console.error(err);
       });
   };
+
+  onLocationChange() {
+    this.feedbacks = this.initialFeedbacks;
+    this.render();
+  }
 
   mount() {
     this.render();

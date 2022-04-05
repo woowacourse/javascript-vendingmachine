@@ -8,6 +8,7 @@ import './components/purchase-product/product-menu';
 import './components/purchase-product/release-coin';
 import './components/login-btn';
 import './components/logged-in-btn';
+import './components/back-arrow';
 import './pages/vendingmachine-page';
 import './pages/login-page';
 import './pages/register-page';

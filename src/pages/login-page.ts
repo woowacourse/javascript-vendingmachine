@@ -2,7 +2,8 @@ import Component from '../abstract/component';
 import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { FieldSet, Feedback, UserInfo } from '../types';
+import Router from '../router';
+import { FieldSet, Feedback, UserInfo, WhiteList } from '../types';
 import { validateLoginEmail, validateLoginPassword } from '../validation/validators';
 
 type FeedbackRecord = {
@@ -40,6 +41,7 @@ class LoginPage extends RouteComponent {
 
   template(feedbacks: FeedbackRecord): string {
     return `
+      <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
         <h1>로그인</h1>
       </header>
@@ -63,13 +65,17 @@ class LoginPage extends RouteComponent {
         <button type="button" class="btn btn-primary full">확인</button>
       </form>
       <div>
-        <span>아직 회원이 아니신가요?</span><a href="/register">회원가입</a>
+        <span>아직 회원이 아니신가요?</span><a>회원가입</a>
       </div>
     `;
   }
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickLoginBtn);
+    this.addEvent('click', 'a', (e: Event) => {
+      e.preventDefault();
+      Router.pushState(WhiteList.RegisterPage);
+    });
   }
 
   setFeedbacks(feedbacks: FeedbackRecord) {
@@ -145,6 +151,11 @@ class LoginPage extends RouteComponent {
       };
 
     return feedbacks;
+  }
+
+  onLocationChange() {
+    this.feedbacks = this.initialFeedbacks;
+    this.render();
   }
 
   mount() {

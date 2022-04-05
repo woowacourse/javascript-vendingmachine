@@ -14,6 +14,7 @@
 @import './components/purchase-product/release-coin';
 @import './components/login-btn';
 @import './components/logged-in-btn';
+@import './components/back-arrow';
 @import './pages/login-page';
 @import './pages/register-page';
 @import './pages/my-account-page';
@@ -33,7 +34,7 @@ body {
   background-color: $color-white;
   border: 1px solid $color-gray-500;
   border-radius: 4px;
-  padding: 44px 0px;
+  padding-bottom: 44px;
   min-height: 675px;
 }
 
@@ -74,6 +75,7 @@ table {
 a {
   text-decoration: none;
   color: $color-blue;
+  cursor: pointer;
 }
 
 ul {
