@@ -1,6 +1,5 @@
-import { getUserData, profileEditAuth } from '../auth';
+import { editProfileAuth, getUserData } from '../auth';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
-import { checkValidProfile } from '../domains/validator';
 import { renderToastModal } from './ToastNotification';
 
 const profileEditTemplate = document.createElement('template');
@@ -157,7 +156,7 @@ class ProfileEdit extends HTMLElement {
       password: this.passwordEditInput.value,
       passwordCheck: this.passwordCheckEditInput.value,
     };
-    const isEdited = await profileEditAuth(payload);
+    const isEdited = await editProfileAuth(payload);
     if (!isEdited) {
       return;
     }

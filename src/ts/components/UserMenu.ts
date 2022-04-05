@@ -1,3 +1,4 @@
+import { deleteUserAuth, getUserAuth, getUserFirstName } from '../auth';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
@@ -170,35 +171,20 @@ class UserMenu extends HTMLElement {
     window.dispatchEvent(event);
   };
 
-  checkLoginStatus = () => {
-    const userAuth = JSON.parse(localStorage.getItem('userAuth'));
-    if (!userAuth) {
+  checkLoginStatus = async () => {
+    if (!getUserAuth()) {
       this.renderLoginButton();
+
       return;
     }
-    const id = userAuth.id;
-    const accessToken = `Bearer ${userAuth.accessToken}`;
 
-    const url = `https://json-server-marco.herokuapp.com/users/${id}`;
+    const userFirstName = await getUserFirstName();
+    if (!userFirstName) {
+      this.renderLoginButton();
 
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          this.renderLoginButton();
-          return;
-        }
-        return res.json();
-      })
-      .then((response) => {
-        this.renderUserThumbnail(response.name[0]);
-      })
-      .catch((error) => renderToastModal('error', error.message));
+      return;
+    }
+    this.renderUserThumbnail(userFirstName);
   };
 
   renderLoginButton = () => {
@@ -218,15 +204,12 @@ class UserMenu extends HTMLElement {
   };
 
   emitRenderProfileEdit = () => {
-    console.log('회원정보 수정 버튼 호출');
-    const event = new CustomEvent('@render-profile-edit', {});
-    window.dispatchEvent(event);
+    window.dispatchEvent(new CustomEvent('@render-profile-edit', {}));
   };
 
   logout = () => {
-    localStorage.removeItem('userAuth');
-    const event = new CustomEvent('@route-logout', {});
-    window.dispatchEvent(event);
+    deleteUserAuth();
+    window.dispatchEvent(new CustomEvent('@route-logout', {}));
     renderToastModal('success', SUCCESS_MESSAGE.LOGOUT_COMPLETE);
   };
 }

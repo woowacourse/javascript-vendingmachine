@@ -4,20 +4,36 @@ import { checkValidProfile } from './domains/validator';
 
 const apiUrl = 'https://json-server-marco.herokuapp.com';
 
-let accessToken = null;
-let userUrl = null;
-
 const fetchUtil = () => {};
 
 const setUserAuth = (userAuth: object) => {
   localStorage.setItem('userAuth', JSON.stringify(userAuth));
 };
 
-export const getUserData = async () => {
-  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
-  accessToken = `Bearer ${userAuth.accessToken}`;
-  userUrl = `${apiUrl}/users/${userAuth.id}`;
+export const getUserAuth = () => {
+  return JSON.parse(localStorage.getItem('userAuth'));
+};
 
+const getUserTokenId = () => {
+  const userAuth = getUserAuth();
+  return {
+    accessToken: `Bearer ${userAuth.accessToken}`,
+    userUrl: `${apiUrl}/users/${userAuth.id}`,
+  };
+};
+
+export const deleteUserAuth = () => {
+  localStorage.removeItem('userAuth');
+};
+
+export const getUserData = async () => {
+  // const userAuth = getUserAuth();
+  // accessToken = `Bearer ${userAuth.accessToken}`;
+  // userUrl = `${apiUrl}/users/${userAuth.id}`;
+  // const userAuth = getUserAuth();
+  // const accessToken = `Bearer ${userAuth.accessToken}`;
+  // const userUrl = `${apiUrl}/users/${userAuth.id}`;
+  const { accessToken, userUrl } = getUserTokenId();
   const response = await fetch(userUrl, {
     method: 'GET',
     headers: {
@@ -81,9 +97,10 @@ export const loginAuth = async ({ email, password }) => {
   }
 };
 
-export const profileEditAuth = async ({ name, password, passwordCheck }) => {
+export const editProfileAuth = async ({ name, password, passwordCheck }) => {
   try {
     if (checkValidProfile(name, password, passwordCheck)) {
+      const { accessToken, userUrl } = getUserTokenId();
       const response = await fetch(userUrl, {
         method: 'PATCH',
         body: JSON.stringify({ name, password }),
@@ -104,4 +121,23 @@ export const profileEditAuth = async ({ name, password, passwordCheck }) => {
   }
 };
 
-export const logoutAuth = () => {};
+export const getUserFirstName = async () => {
+  const { accessToken, userUrl } = getUserTokenId();
+  console.log(userUrl, accessToken);
+  if (!userUrl || !accessToken) {
+    return;
+  }
+  const response = await fetch(userUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken,
+    },
+  });
+  if (!response.ok) {
+    return false;
+  }
+  const data = await response.json();
+
+  return data.name[0];
+};
