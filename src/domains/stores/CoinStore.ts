@@ -1,4 +1,4 @@
-import { Action, CoinsCount, CustomElement } from '../../abstracts/interfaces';
+import { Action, CustomElement, MoneyStorage } from '../../abstracts/interfaces';
 import { COIN_ACTION } from '../actions';
 import { COIN, MONEY } from '../../constants';
 import { pickNumberInList } from '../../utils';
@@ -14,48 +14,39 @@ class CoinStore {
     return CoinStore._instance;
   }
 
-  #money = MONEY.DEFAULT;
-
-  #coinsCount: CoinsCount = {
-    500: COIN.DEFAULT_COUNT,
-    100: COIN.DEFAULT_COUNT,
-    50: COIN.DEFAULT_COUNT,
-    10: COIN.DEFAULT_COUNT,
+  #machine: MoneyStorage = {
+    money: MONEY.DEFAULT,
+    coinsCount: {
+      500: COIN.DEFAULT_COUNT,
+      100: COIN.DEFAULT_COUNT,
+      50: COIN.DEFAULT_COUNT,
+      10: COIN.DEFAULT_COUNT,
+    },
   };
 
-  #moneySubscribers: CustomElement<number>[] = [];
+  #subscribers: CustomElement<MoneyStorage>[] = [];
 
-  #coinsCountSubscribers: CustomElement<CoinsCount>[] = [];
-
-  subscribeMoney(element: CustomElement<number>) {
-    this.#moneySubscribers.push(element);
-  }
-
-  subscribeCoinsCount(element: CustomElement<CoinsCount>) {
-    this.#coinsCountSubscribers.push(element);
+  subscribe(element: CustomElement<MoneyStorage>) {
+    this.#subscribers.push(element);
   }
 
   dispatch(action: Action) {
-    this.updateMoneyOrCoinsCount(action);
-    this.notifySubscribers(action);
+    this.updateMoneyStorage(action);
+    this.notifySubscribers();
   }
 
-  updateMoneyOrCoinsCount(action: Action) {
+  updateMoneyStorage(action: Action) {
     const { type, detail } = action;
 
     switch (type) {
-      case COIN_ACTION.MONEY_CHARGE: {
-        this.#money += detail as number;
-        break;
-      }
-      case COIN_ACTION.COIN_ADD: {
-        this.#coinsCount = this.generateNewCoinsCount(this.#coinsCount, detail as number);
+      case COIN_ACTION.CHARGE: {
+        this.#machine = this.generateNewMachine(this.#machine, detail as number);
       }
     }
   }
 
-  generateNewCoinsCount(oldCoinsCount: CoinsCount, detail: number) {
-    const newCoinsCount = { ...oldCoinsCount };
+  generateNewMachine(oldMachine: MoneyStorage, detail: number) {
+    const newMachine = { ...oldMachine };
     let coinList = [500, 100, 50, 10];
     let money = detail;
 
@@ -67,37 +58,26 @@ class CoinStore {
         continue;
       }
 
-      newCoinsCount[randomCoin] += 1;
+      newMachine.coinsCount[randomCoin] += 1;
+      newMachine.money += randomCoin;
       money -= randomCoin;
     }
 
-    return newCoinsCount;
+    return newMachine;
   }
 
   generateNewCoinList(coinList, money) {
     return coinList.filter((coin) => coin <= money);
   }
 
-  notifySubscribers({ type }: Action) {
-    switch (type) {
-      case COIN_ACTION.MONEY_CHARGE:
-        this.#moneySubscribers.forEach((subscriber) => {
-          subscriber.rerender(this.#money);
-        });
-        break;
-      case COIN_ACTION.COIN_ADD:
-        this.#coinsCountSubscribers.forEach((subscriber) => {
-          subscriber.rerender(this.#coinsCount);
-        });
-    }
+  notifySubscribers() {
+    this.#subscribers.forEach((subscriber) => {
+      subscriber.rerender(this.#machine);
+    });
   }
 
-  get money() {
-    return this.#money;
-  }
-
-  get coinsCount() {
-    return this.#coinsCount;
+  get machine() {
+    return this.#machine;
   }
 }
 

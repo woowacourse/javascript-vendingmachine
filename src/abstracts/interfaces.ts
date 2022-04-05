@@ -18,11 +18,14 @@ export interface ModifyDetail {
   newProductInfo: Product;
 }
 
-export interface CoinsCount {
-  500: number;
-  100: number;
-  50: number;
-  10: number;
+export interface MoneyStorage {
+  money: number;
+  coinsCount: {
+    500: number;
+    100: number;
+    50: number;
+    10: number;
+  };
 }
 
 export interface Action {
@@ -37,6 +40,5 @@ export interface ProductActionType {
 }
 
 export interface CoinActionType {
-  MONEY_CHARGE: string;
-  COIN_ADD: string;
+  CHARGE: string;
 }

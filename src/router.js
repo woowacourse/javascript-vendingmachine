@@ -12,7 +12,7 @@ const targets = [
     route: `${BASE_URL}/coin-charge/`,
     $button: $('.nav__coin-charge-button'),
     $container: $('coin-charge-container'),
-    $focusInput: $('#coin-input'),
+    $focusInput: $('#machine-money-input'),
   },
   {
     route: `${BASE_URL}/product-purchase/`,

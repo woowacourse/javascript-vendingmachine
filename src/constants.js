@@ -8,7 +8,7 @@ export const COIN = {
 
 export const MONEY = {
   DEFAULT: 0,
-  MAX: 100000,
+  MACHINE_MAX: 100000,
 };
 
 export const PRODUCT = {
@@ -48,7 +48,7 @@ export const ERROR_MESSAGE = {
   IS_OVER_MAX_QUANTITY: `수량이 최대 수량인 ${PRODUCT.QUANTITY.MAX}개를 초과하여 입력되었습니다! ${PRODUCT.QUANTITY.MAX}개 이하로 입력해 주세요!`,
 
   MONEY_CANNOT_DIVIDED_BY_TEN: '금액에 1원 단위가 입력되었습니다! 10원 단위로 입력해 주세요!',
-  IS_OVER_MAX_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${addThousandUnitComma(
-    MONEY.MAX,
+  IS_OVER_MAX_MACHINE_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${addThousandUnitComma(
+    MONEY.MACHINE_MAX,
   )}원을 초과하였습니다! 현재 보유 금액을 확인한 후 입력해 주세요!`,
 };

@@ -25,10 +25,10 @@ const isUnderMinQuantity = (quantity) => quantity < PRODUCT.QUANTITY.MIN;
 
 const isOverMaxQuantity = (quantity) => quantity > PRODUCT.QUANTITY.MAX;
 
-const isOverMaxMoney = (inputMoney) => {
-  const currentMoney = CoinStore.instance.money;
+const isOverMaxMachineMoney = (inputMachineMoney) => {
+  const currentMachineMoney = CoinStore.instance.machine.money;
 
-  return currentMoney + inputMoney > MONEY.MAX;
+  return currentMachineMoney + inputMachineMoney > MONEY.MACHINE_MAX;
 };
 
 // eslint-disable-next-line max-lines-per-function
@@ -78,11 +78,11 @@ export const checkDuplicateProductWhenModify = (product) => {
   }
 };
 
-export const checkCoinValidation = (coinInputValue) => {
-  if (isOverMaxMoney(coinInputValue)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MONEY);
+export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
+  if (isOverMaxMachineMoney(machineMoneyInputValue)) {
+    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MACHINE_MONEY);
   }
-  if (cannotDividedByTen(coinInputValue)) {
+  if (cannotDividedByTen(machineMoneyInputValue)) {
     throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
   }
 };
