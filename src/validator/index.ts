@@ -71,3 +71,15 @@ export const validateUserInputMoney = (userInputMoney: number) => {
     throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
   }
 };
+
+const purchableValidator = {
+  isInsufficientCash(userAmount: number, product: Product) {
+    return userAmount < product.price;
+  },
+};
+
+export const validatePurchable = (userAmount: number, product: Product) => {
+  if (purchableValidator.isInsufficientCash(userAmount, product)) {
+    throw new Error(ERROR_MESSAGE.INSUFFICIENT_CASH);
+  }
+};

@@ -2,7 +2,13 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $ } from '../utils';
-import { validateChange, validateProduct, validateUpdateProduct, validateUserInputMoney } from '../validator';
+import {
+  validateChange,
+  validateProduct,
+  validatePurchable,
+  validateUpdateProduct,
+  validateUserInputMoney,
+} from '../validator';
 import { Coin } from './Coin';
 import Product from './Product';
 
@@ -52,6 +58,12 @@ class VendingMachine implements VendingMachineProperty {
       '.user-amount-form',
       '@insert-coin',
       (e: CustomEvent) => this.insertCoin(e.detail.userInputMoney),
+      $('purchase-tab'),
+    );
+    on(
+      '#purchasable-product-list-table',
+      '@purchase',
+      (e: CustomEvent) => this.purchase(e.detail.productId),
       $('purchase-tab'),
     );
   }
@@ -120,7 +132,23 @@ class VendingMachine implements VendingMachineProperty {
       validateUserInputMoney(userInputMoney);
 
       this.userAmount += userInputMoney;
-      this.dispatch('subscribePurchaseTab', 'insert-coin');
+      this.dispatch('subscribePurchaseTab', 'update-amount');
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  purchase(productId: string) {
+    const targetProduct = this.products.find((product) => product.id === productId);
+
+    try {
+      validatePurchable(this.userAmount, targetProduct);
+
+      this.userAmount -= targetProduct.price;
+      targetProduct.quantity -= 1;
+      this.dispatch('subscribePurchaseTab', 'update-amount');
+      this.dispatch('subscribePurchaseTab', 'purchase', targetProduct);
+      storage.setLocalStorage('products', this.products);
     } catch (error) {
       alert(error.message);
     }

@@ -116,7 +116,7 @@ class ProductManagement extends CustomElement {
       `<tr class="product-item" data-product-name="${product.name}" data-product-id="${product.id}">
           <td>${product.name}</td>
           <td>${markUnit(product.price)}</td>
-          <td>${product.quantity}</td>
+          <td name="quantity">${product.quantity}</td>
           <td class="product-item__button">
             <button type="button" class="product-item__edit-button button">수정</button>
             <button type="button" class="product-item__delete-button button">삭제</button>
