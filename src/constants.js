@@ -63,6 +63,7 @@ export const SNACKBAR = {
   PURCHASE_MONEY_INPUT_SUCCESS: '금액이 정상적으로 투입되었습니다. 이제 상품을 구매할 수 있습니다.',
   RETURN_CHANGE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
   SIGNUP_SUCCESS: '회원가입이 정상적으로 완료되었습니다.',
+  LOGIN_SUCCESS: '로그인이 정상적으로 완료되었습니다.',
 };
 
 export const PASSWORD = {
