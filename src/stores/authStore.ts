@@ -40,6 +40,7 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
+      await this.setLoginUserInfo();
       window.location.href = 'http://localhost:9000/#';
     } catch ({ message }) {
       alert(message);
@@ -68,7 +69,7 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
-      await this.getLoginUserInfo();
+      await this.setLoginUserInfo();
       window.location.replace('http://localhost:9000/#');
       window.location.reload();
     } catch ({ message }) {
@@ -82,7 +83,7 @@ class AuthStore implements AuthStoreInterface {
     window.location.reload();
   }
 
-  async getLoginUserInfo() {
+  async setLoginUserInfo() {
     const userId = userIdStorage.getUserId();
     if (userId.length === 0) {
       return false;
@@ -121,6 +122,7 @@ class AuthStore implements AuthStoreInterface {
         throw new Error('회원 정보 수정에 실패하였습니다');
       }
 
+      await this.setLoginUserInfo();
       window.location.href = 'http://localhost:9000/#';
     } catch ({ message }) {
       alert(message);
