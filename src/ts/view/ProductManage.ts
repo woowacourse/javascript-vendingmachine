@@ -32,9 +32,9 @@ export default class ProductManage implements DomainView {
           <td class="product-info__input"><input type="number" step="10" min="100" max="10000" class="product-info-price" value="${price}" /></td>
           <td class="product-info__input"><input type="number" min="1" max="20" class="product-info-quantity" value="${quantity}" /></td>
           <td>
-            <button class="modify-button button">수정</button>
-            <button class="delete-button button">삭제</button>
-            <button class="confirm-button button">확인</button>
+            <button class="modify-button gray-button button">수정</button>
+            <button class="delete-button gray-button button">삭제</button>
+            <button class="confirm-button gray-button button">확인</button>
           </td>
         </tr>`,
       )
