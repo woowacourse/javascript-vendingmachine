@@ -46,8 +46,8 @@ export interface IVendingMachineStore {
   notifySubscribedView: (stateType: TStateKey) => void;
 }
 
-export type AuthActionType = 'login' | 'logout' | 'signIn' | 'editUserInfo';
+export type TAuthAction = 'login' | 'logout' | 'signIn' | 'editUserInfo';
 
-export interface AuthStoreInterface {
-  mutateState: ({ actionType, payload }: { actionType: AuthActionType; payload: any }) => void;
+export interface IAuthStore {
+  mutateState: ({ actionType, payload }: { actionType: TAuthAction; payload: any }) => void;
 }

@@ -1,28 +1,23 @@
-import { AuthActionType, AuthStoreInterface } from './types';
+import { TAuthAction, IAuthStore } from './types';
 import { accessTokenStorage, userIdStorage, userInfoStorage } from './localStorage';
+import { AuthActionTypes, ERROR_MSG } from '../utils/constants';
 
-class AuthStore implements AuthStoreInterface {
-  mutateState({ actionType, payload }: { actionType: AuthActionType; payload: unknown }) {
-    if (actionType === 'signIn') {
-      this.signInUserInfo(payload);
-    }
-    if (actionType === 'login') {
-      this.login(payload);
-    }
-    if (actionType === 'logout') {
-      this.logOut();
-    }
-    if (actionType === 'editUserInfo') {
-      this.editUserInfo(payload);
+class AuthStore implements IAuthStore {
+  async mutateState({ actionType, payload }: { actionType: TAuthAction; payload: unknown }) {
+    try {
+      await this.reducer[actionType](payload);
+      window.location.href = 'http://localhost:9000/#';
+    } catch ({ message }) {
+      alert(message);
     }
   }
 
-  async signInUserInfo(payload) {
-    const { email, name, password } = payload;
+  reducer = {
+    [AuthActionTypes.SIGN_IN]: async payload => {
+      const { email, name, password } = payload;
 
-    const userData = JSON.stringify({ email, name, password });
+      const userData = JSON.stringify({ email, name, password });
 
-    try {
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,7 +25,7 @@ class AuthStore implements AuthStoreInterface {
       });
 
       if (response.status === 400) {
-        throw new Error('회원가입에 실패하였습니다!');
+        throw new Error(ERROR_MSG.FAILED_SIGN_IN);
       }
 
       const {
@@ -40,26 +35,21 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
+
       await this.setLoginUserInfo();
-      window.location.href = 'http://localhost:9000/#';
-    } catch ({ message }) {
-      alert(message);
-    }
-  }
+    },
+    [AuthActionTypes.LOGIN]: async payload => {
+      const { email, password } = payload;
 
-  async login(payload) {
-    const { email, password } = payload;
+      const loginData = JSON.stringify({ email, password });
 
-    const loginData = JSON.stringify({ email, password });
-
-    try {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: loginData,
       });
       if (response.status === 400) {
-        throw new Error('아이디와 비밀번호를 다시 확인해주세요');
+        throw new Error(ERROR_MSG.FAILED_LOGIN);
       }
 
       const {
@@ -69,19 +59,32 @@ class AuthStore implements AuthStoreInterface {
 
       accessTokenStorage.setAccessToken(accessToken);
       userIdStorage.setUserId(id);
-      await this.setLoginUserInfo();
-      window.location.replace('http://localhost:9000/#');
-      window.location.reload();
-    } catch ({ message }) {
-      alert(message);
-    }
-  }
 
-  logOut() {
-    localStorage.clear();
-    window.location.href = 'http://localhost:9000/#';
-    window.location.reload();
-  }
+      await this.setLoginUserInfo();
+    },
+    [AuthActionTypes.LOGOUT]: payload => {
+      localStorage.clear();
+      window.location.href = 'http://localhost:9000/#login';
+    },
+    [AuthActionTypes.EDIT_USER_INFO]: async payload => {
+      const userId = userIdStorage.getUserId();
+      const { name, password } = payload;
+
+      const editedData = JSON.stringify({ name, password });
+
+      const editResponse = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: editedData,
+      });
+
+      if (editResponse.status === 400) {
+        throw new Error(ERROR_MSG.FAILED_EDIT_USER_INFO);
+      }
+
+      await this.setLoginUserInfo();
+    },
+  };
 
   async setLoginUserInfo() {
     const userId = userIdStorage.getUserId();
@@ -95,35 +98,12 @@ class AuthStore implements AuthStoreInterface {
       });
 
       if (response.status === 400) {
-        throw new Error('로그인유저의 정보를 가져오는 것에 실패했습니다');
+        throw new Error(ERROR_MSG.FAILED_GET_USER_INFO);
       }
       const { email, name } = await response.json();
+
       const userInfo = { userEmail: email, userName: name };
       userInfoStorage.setUserInfo(userInfo);
-    } catch ({ message }) {
-      alert(message);
-    }
-  }
-
-  async editUserInfo(payload) {
-    const userId = userIdStorage.getUserId();
-    const { name, password } = payload;
-
-    try {
-      const editedData = JSON.stringify({ name, password });
-
-      const editResponse = await fetch(`http://localhost:3000/users/${userId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: editedData,
-      });
-
-      if (editResponse.status === 400) {
-        throw new Error('회원 정보 수정에 실패하였습니다');
-      }
-
-      await this.setLoginUserInfo();
-      window.location.href = 'http://localhost:9000/#';
     } catch ({ message }) {
       alert(message);
     }

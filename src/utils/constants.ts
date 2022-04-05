@@ -1,5 +1,5 @@
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
-import { AuthActionType, TAction, TStateKey } from '../stores/types';
+import { TAction, TAuthAction, TStateKey } from '../stores/types';
 import { TMention, TRange } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
@@ -40,6 +40,10 @@ export const ERROR_MSG = {
   NOT_MATCH_PASSWORD_FORM:
     '비밀번호는 영문자, 숫자, 특수기호로 이루어진 8 ~ 20글자 사이여야 합니다',
   NOT_SAME_PASSWORD: '비밀번호와 비밀번호 확인 란에 똑같은 값이 입력되어야 합니다',
+  FAILED_SIGN_IN: '회원가입에 실패하였습니다!',
+  FAILED_LOGIN: '아이디와 비밀번호를 다시 확인해주세요',
+  FAILED_EDIT_USER_INFO: '회원 정보 수정에 실패하였습니다',
+  FAILED_GET_USER_INFO: '로그인유저의 정보를 가져오는 것에 실패했습니다',
 };
 
 export const NAME_LENGTH_LIMIT = 10;
@@ -102,10 +106,10 @@ export const NOTICE_MENTION: TMention = {
 export const SNACKBAR_DELAY_TIME = 1000;
 
 export const AuthActionTypes: {
-  LOGIN: AuthActionType;
-  LOGOUT: AuthActionType;
-  SIGN_IN: AuthActionType;
-  EDIT_USER_INFO: AuthActionType;
+  LOGIN: TAuthAction;
+  LOGOUT: TAuthAction;
+  SIGN_IN: TAuthAction;
+  EDIT_USER_INFO: TAuthAction;
 } = {
   LOGIN: 'login',
   LOGOUT: 'logout',
