@@ -61,7 +61,6 @@ export const checkChangeInput = (changeInput: number) => {
 };
 
 /** User */
-
 export const isOutOfNameRange = name => {
   return name.length < 2 || name.length > 6;
 };
