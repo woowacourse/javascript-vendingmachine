@@ -106,7 +106,7 @@ class PurchaseTab extends CustomElement {
 
   updateChange({ userMoney, change, chargedCoin }) {
     $('.purchase-form__money-input-amount', this).textContent = markUnit(userMoney);
-    $('.charge-amount').textContent = chargedCoin.getAmount();
+    $('.charge-amount').textContent = markUnit(chargedCoin.getAmount());
 
     COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = String(chargedCoin[coin])));
     COINS.forEach((coin) => ($(`.purchase-coin-${coin}-quantity`).textContent = String(change[coin])));
