@@ -27,6 +27,7 @@
 @import './itemManageTab.css';
 @import './coinRechargeTab.css';
 @import './itemPurchaseTab.css';
+@import './userInfoForm.css';
 
 * {
   margin: 0;
