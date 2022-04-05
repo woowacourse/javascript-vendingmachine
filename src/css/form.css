@@ -93,7 +93,7 @@ input {
   margin-bottom: 30px;
 }
 
-#add-money-form {
+#insert-money-form {
   width: 100%;
 
   display: flex;
@@ -103,6 +103,6 @@ input {
   margin-bottom: 5px;
 }
 
-#add-money-form input {
+#insert-money-form input {
   width: 300px;
 }

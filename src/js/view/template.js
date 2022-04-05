@@ -95,15 +95,15 @@ export const TEMPLATE = {
     </tr>
   `,
   PURCHASE: `
-    <section title="상품 구매">
-      <form id="add-money-form">
-        <label for="money-input">상품을 구매할 금액을 투입해주세요</label>
+    <section title="구매 금액 투입">
+      <form id="insert-money-form">
+        <label for="insert-money-input">상품을 구매할 금액을 투입해주세요</label>
         <div>
-          <input type="number" id="money-input" placeholder="금액" />
+          <input type="number" id="insert-money-input" placeholder="금액" />
           <button type="submit" class="submit-button">투입</button>
         </div>
       </form>
-      <p>투입한 금액: <span id="total-input-money">0</span>원</p>
+      <p>투입한 금액: <span id="total-insert-money">0</span>원</p>
     </section>
     <section class="table-section" title="구매 가능 상품 현황">
       <table id="purchaseable-product-status-table" class="product-table" >
