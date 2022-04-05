@@ -1,4 +1,4 @@
-import { HASH } from '../constant/hash';
+import { HASH } from '../constant/path';
 import { registerUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
 

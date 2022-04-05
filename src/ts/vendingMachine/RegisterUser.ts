@@ -1,5 +1,6 @@
 import { REGISTER_ERROR_MESSAGE } from '../constant/errorMessage';
 import { REGISTER } from '../constant/rule';
+import { postRegisterServer } from '../utils/fetchServer';
 
 export type UserInfoType = {
   email: string;
@@ -11,17 +12,9 @@ export type UserInfoType = {
 class RegisterUser {
   async register(userInfo: UserInfoType) {
     try {
-      const response = await fetch('http://localhost:8080/register', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userInfo),
-      });
-
-      return [response.ok, await response.json()];
+      return postRegisterServer(userInfo);
     } catch (error) {
-      throw new Error('회원가입에 실패했습니다. 개발자에게 문의해주세요.');
+      throw new Error(REGISTER_ERROR_MESSAGE.FAIL);
     }
   }
 

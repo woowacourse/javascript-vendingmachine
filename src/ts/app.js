@@ -1,4 +1,4 @@
-import { HASH } from './constant/hash';
+import { HASH } from './constant/path';
 import ItemManage from './vendingMachine/ItemManage';
 import CoinRecharge from './vendingMachine/CoinRecharge';
 import ItemPurchase from './vendingMachine/ItemPurchase';

@@ -1,17 +1,12 @@
+import { LOGIN_ERROR_MESSAGE } from '../constant/errorMessage';
+import { postLoginServer } from '../utils/fetchServer';
+
 class LoginUser {
   async login(loginUserInfo: { email: string; password: string }) {
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginUserInfo),
-      });
-
-      return [response.ok, await response.json()];
+      return postLoginServer(loginUserInfo);
     } catch (error) {
-      throw new Error('로그인에 실패했습니다. 개발자에게 문의해주세요.');
+      throw new Error(LOGIN_ERROR_MESSAGE.FAIL);
     }
   }
 }

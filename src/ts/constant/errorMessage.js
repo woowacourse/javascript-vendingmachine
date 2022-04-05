@@ -35,4 +35,9 @@ export const REGISTER_ERROR_MESSAGE = {
   VIOLATE_PASSWORD_RULE:
     '비밀번호는 8글자 이상, 20글자 이하이고, 숫자 영문 특수기호가 최소 한 글자 이상 포함되어야 합니다.',
   NO_MATCH_PASSWORD_CONFIRM: '비밀번호와 비밀번호 확인이 일치하지 않습니다. 다시 입력해주세요.',
+  FAIL: '회원가입에 실패했습니다. 개발자에게 문의해주세요.',
+};
+
+export const LOGIN_ERROR_MESSAGE = {
+  FAIL: '로그인에 실패했습니다. 개발자에게 문의해주세요.',
 };
