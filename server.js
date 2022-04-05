@@ -25,5 +25,5 @@ server.use(auth);
 server.use(router);
 server.use(rules);
 server.listen(port, () => {
-  console.log('JSON Server is running');
+  console.log('JSON Server is running', port);
 });

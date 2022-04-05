@@ -1,7 +1,7 @@
 const baseURL = 'https://dory-vending-machine.herokuapp.com';
 
 export const registerUser = async (userInfo) => {
-  const response = await fetch(`http://localhost:3000/register`, {
+  const response = await fetch(`${baseURL}/register`, {
     method: 'POST',
     body: JSON.stringify(userInfo),
     headers: {

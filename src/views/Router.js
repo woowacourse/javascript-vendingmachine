@@ -18,6 +18,7 @@ class Router extends Component {
     let curLocation = globalStore.useStore((state) => state.currentLocation);
     const { routes } = this.state;
 
+    console.log(curLocation);
     if (curLocation === '/change-charge' || curLocation === '/item-management')
       curLocation = '/';
     const component = routes[curLocation] || routes['*'];
