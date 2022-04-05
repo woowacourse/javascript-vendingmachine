@@ -34,6 +34,7 @@
         "no-unused-expressions": "off",
         "import/extensions": "off",
         "no-restricted-globals": "off",
-        "function-paren-newline": "off"
+        "function-paren-newline": "off",
+        "@typescript-eslint/no-empty-function": "off"
     }
 }
