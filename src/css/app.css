@@ -1,6 +1,5 @@
 #app {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 600px;
@@ -53,7 +52,6 @@
 
 .menu-list li a {
   display: block;
-  text-decoration-line: none;
 }
 
 .menu-list li a:link,
