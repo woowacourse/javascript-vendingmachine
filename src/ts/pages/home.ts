@@ -6,8 +6,8 @@ import { basePath } from '../component/App';
 import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';
-import { getCookie } from '../utils';
-import { API } from '../../apis';
+import { getUser } from '../utils';
+import type { UserInfoWithPassWord } from '../../apis';
 
 export default class HomePage {
   constructor(
@@ -39,22 +39,26 @@ export default class HomePage {
     $('.nav').addEventListener('click', this.navClickHandler);
     $('.login-button').addEventListener('click', this.loginButtonHandler);
 
-    const userId = getCookie('user_id');
-    const accessToken = getCookie('access_token');
-
-    const user = await API.getUser(userId, accessToken);
+    const user = await getUser();
 
     if (typeof user === 'string') {
-      if (location.pathname !== basePath) {
-        history.pushState({}, '', basePath);
-      }
-      this.renderMainContent(`${basePath}/purchase`);
-      $('.nav').classList.add('display-none');
-      $('.login-button').classList.remove('display-none');
-
+      this.#renderAsNotLogin();
       return;
     }
 
+    this.#renderAsLogin(user);
+  }
+
+  #renderAsNotLogin() {
+    if (location.pathname !== basePath) {
+      history.pushState({}, '', basePath);
+    }
+    this.renderMainContent(`${basePath}/purchase`);
+    $('.nav').classList.add('display-none');
+    $('.login-button').classList.remove('display-none');
+  }
+
+  #renderAsLogin(user: UserInfoWithPassWord) {
     this.renderMainContent(location.pathname);
     $('.nav').classList.remove('display-none');
     $('.login-button').classList.add('display-none');
@@ -131,7 +135,7 @@ export default class HomePage {
     `;
   }
 
-  renderMainContent = pathname => {
+  renderMainContent = (pathname: string) => {
     switch (pathname) {
       case `${basePath}/`:
         this.productManagementComponent.render();

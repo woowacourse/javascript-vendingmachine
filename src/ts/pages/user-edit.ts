@@ -20,7 +20,7 @@ export default class UserEditPage {
     const userId = getCookie('user_id');
     const accessToken = getCookie('access_token');
 
-    this.user = await API.getUser(userId, accessToken);
+    this.user = await API.fetchUser(userId, accessToken);
 
     const { email, name } = this.user;
 
