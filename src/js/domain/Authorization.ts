@@ -71,6 +71,8 @@ export default class Authorization {
     const updateData = userInputData;
     delete updateData.passwordConfirm;
 
+    console.log(this.#accessToken);
+
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
       headers: {
@@ -153,6 +155,8 @@ export default class Authorization {
       .split('; ')
       .find((row) => row.startsWith(ACCESS_TOKEN))
       ?.split('=')[1];
+
+    console.log(accessToken);
 
     return accessToken;
   }
