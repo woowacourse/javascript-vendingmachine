@@ -19,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@types/jest": "^27.4.1",
@@ -48,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://judonghyeok.github.io/javascript-vendingmachine"
+  "homepage": "https://judonghyeok.github.io/javascript-vendingmachine",
+  "dependencies": {
+    "@babel/runtime": "^7.17.8"
+  }
 }
