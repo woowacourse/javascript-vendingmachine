@@ -140,23 +140,23 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td class="returned-five-hundred-coin"></td>
+          <td class="returned-five-hundred-coin">0개</td>
         </tr>
         <tr>
           <td>100원</td>
-          <td class="returned-one-hundred-coin"></td>
+          <td class="returned-one-hundred-coin">0개</td>
         </tr>
         <tr>
           <td>50원</td>
-          <td class="returned-fifty-coin"></td>
+          <td class="returned-fifty-coin">0개</td>
         </tr>
         <tr>
           <td>10원</td>
-          <td class="returned-ten-coin"></td>
+          <td class="returned-ten-coin">0개</td>
         </tr>
       </tbody>
     </table>
-    <button id="snackbar-button" class="button" type="button">반환하기</button>
+    <button id="change-button" class="button" type="button">반환하기</button>
     <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
   `,
 };

@@ -1,7 +1,6 @@
 import { on } from '../utils/event.js';
-import { SECTION_CONTAINER } from '../constants/constants.js';
+import { SECTION_CONTAINER, SNACKBAR_MESSAGE, COIN } from '../constants/constants.js';
 import PurchaseAmountModel from '../models/PurchaseAmount.ts';
-import ReturnedCoinModel from '../models/ReturnedCoin.ts';
 import ProductPurchaseView from '../views/ProductPurchaseView.js';
 import { validAffordablePrice } from '../utils/validation.js';
 
@@ -10,11 +9,11 @@ export default class ProductPurchase {
     this.productModel = product;
     this.coinModel = coin;
     this.purchaseAmountModel = new PurchaseAmountModel();
-    this.returnedCoinModel = new ReturnedCoinModel();
     this.productPurchaseView = new ProductPurchaseView();
 
     on(SECTION_CONTAINER, '@purchase', this.#handlePurchaseAmount.bind(this));
     on(SECTION_CONTAINER, '@buy', this.#handleProductPurchase.bind(this));
+    on(SECTION_CONTAINER, 'click', this.#handleChangeCoin.bind(this));
   }
 
   initPurchase() {
@@ -24,7 +23,6 @@ export default class ProductPurchase {
     if (products.length > 0) {
       this.productPurchaseView.renderProducts(products);
     }
-    this.productPurchaseView.renderReturnedCoin(this.returnedCoinModel.getReturnedCoin());
   }
 
   #handlePurchaseAmount(e) {
@@ -50,5 +48,27 @@ export default class ProductPurchase {
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  #handleChangeCoin(e) {
+    if (e.target.id !== 'change-button') return;
+
+    const currentAmount = this.purchaseAmountModel.getAmount();
+    if (!currentAmount) {
+      this.productPurchaseView.showSnackbar(SNACKBAR_MESSAGE.HAVE_NO_MONEY);
+      return;
+    }
+
+    const returnedCoins = this.coinModel.returnCoins(currentAmount);
+    const totalAmount = Object.values(returnedCoins)
+      .reverse()
+      .reduce((acc, cur, idx) => {
+        return acc + cur * COIN.UNIT_LIST[idx];
+      }, 0);
+    this.coinModel.setAmount(totalAmount);
+    this.purchaseAmountModel.deductAmount(totalAmount);
+    this.productPurchaseView.renderTotalAmount(this.purchaseAmountModel.getAmount());
+    this.productPurchaseView.renderReturnedCoin(returnedCoins);
+    this.productPurchaseView.showSnackbar(SNACKBAR_MESSAGE.RETURNED_COIN);
   }
 }

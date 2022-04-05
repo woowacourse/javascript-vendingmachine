@@ -35,3 +35,9 @@ export const ERROR_MESSAGE = {
   OVER_MAX_AMOUNT: '최대 보유 금액은 100,000원 을 넘을 수 없습니다.',
   SHORTAGE_OF_MONEY: '잔액이 부족합니다. 금액을 투입해 주세요.',
 };
+
+export const SNACKBAR_MESSAGE = {
+  HAVE_NO_MONEY: '반환할 금액이 없습니다.',
+  RETURNED_COIN: '잔돈이 반환되었습니다.',
+  LACK_COINS: '보유한 동전이 부족합니다.',
+};

@@ -1,5 +1,5 @@
 import Coin from '../js/models/Coin.ts';
-import { ERROR_MESSAGE } from '../js/constants/constants.js';
+import { ERROR_MESSAGE, COIN } from '../js/constants/constants.js';
 
 describe('잔돈 충전 테스트', () => {
   it('정상적인 충전 금액을 입력할 수 있다', () => {

@@ -28,22 +28,21 @@ export default class ProductPurchaseView {
     this.$oneHundredCoin = $('.returned-one-hundred-coin');
     this.$fiftyCoin = $('.returned-fifty-coin');
     this.$tenCoin = $('.returned-ten-coin');
+    this.$snackbar = $('#snackbar');
 
     this.$purchaseTbody.addEventListener('click', (e) => {
       if (e.target.classList.contains('purchase-button')) {
         this.#onClickPurchaseButton(e.target);
       }
     });
+  }
 
-    this.$snackbar = $('#snackbar');
-    this.$snackbarButton = $('#snackbar-button');
-
-    this.$snackbarButton.addEventListener('click', () => {
+  showSnackbar(message) {
+    this.$snackbar.textContent = message;
+    this.$snackbar.classList.toggle('show');
+    setTimeout(() => {
       this.$snackbar.classList.toggle('show');
-      setTimeout(() => {
-        this.$snackbar.classList.toggle('show');
-      }, 3000);
-    });
+    }, 3000);
   }
 
   renderTotalAmount(amount) {

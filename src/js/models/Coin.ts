@@ -66,4 +66,17 @@ export default class CoinModel implements CoinInterface {
       }
     }
   }
+
+  returnCoins(amount: number): object {
+    const returnedCoins = {};
+    let currentAmount = amount;
+
+    COIN.UNIT_LIST.reverse().forEach((unit) => {
+      const maxAmount = Math.min(Math.floor(currentAmount / unit), this.#coins[unit]);
+      this.#coins[unit] -= maxAmount;
+      returnedCoins[unit] = maxAmount;
+      currentAmount -= maxAmount * unit;
+    });
+    return returnedCoins;
+  }
 }
