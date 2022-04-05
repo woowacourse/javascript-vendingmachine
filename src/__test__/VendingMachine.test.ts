@@ -24,35 +24,31 @@ const updateProduct = ({ currentName, changedName, changedPrice, changedQuantity
   });
 };
 
-const checkAlert = (errorMessage: string, callback: Function) => {
-  window.alert = jest.fn().mockReturnValue(errorMessage);
-  const spyFn = jest.spyOn(window, 'alert');
-
-  callback();
-
-  expect(spyFn).toBeCalledTimes(1);
-  expect(spyFn).toBeCalledWith(errorMessage);
-};
-
 describe('상품 관리에 성공한 경우', () => {
   beforeEach(() => {
     localStorage.clear();
     VendingMachine._instance = null;
   });
 
-  const weed = {
-    name: '잡초',
-    price: 1000,
-    quantity: 10,
-  };
-
   test('상품을 추가할 수 있다.', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
 
     expect(findProduct(weed.name).name).toBe(weed.name);
   });
 
   test('특정 상품을 수정할 수 있다.', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
     updateProduct({
       currentName: '잡초',
@@ -65,6 +61,12 @@ describe('상품 관리에 성공한 경우', () => {
   });
 
   test('특정 상품을 삭제할 수 있다.', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
     VendingMachine.instance.deleteProduct(weed.name);
 
@@ -78,59 +80,71 @@ describe('상품 관리에 실패한 경우', () => {
     VendingMachine._instance = null;
   });
 
-  const weed = {
-    name: '잡초',
-    price: 1000,
-    quantity: 10,
-  };
-
-  const mincho = {
-    name: '민초',
-    price: 1000,
-    quantity: 10,
-  };
-
-  const weedPriceIncorrect = {
-    name: '잡초',
-    price: 1234,
-    quantity: 10,
-  };
-
   test('중복된 이름의 상품은 추가할 수 없다.', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
 
-    checkAlert(ERROR_MESSAGE.DUPLICATED_PRODUCT, () => addProduct(weed));
+    expect(() => addProduct(weed)).toThrowError();
   });
 
   test('상품의 가격이 10원 단위가 아닌 경우 추가할 수 없다.', () => {
-    checkAlert(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE, () => addProduct(weedPriceIncorrect));
+    const weedPriceIncorrect = {
+      name: '잡초',
+      price: 1234,
+      quantity: 10,
+    };
+
+    expect(() => addProduct(weedPriceIncorrect)).toThrowError();
   });
 
   test('중복된 이름으로 특정 상품을 수정할 수 없다.', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
+    const mincho = {
+      name: '민초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
     addProduct(mincho);
 
-    checkAlert(ERROR_MESSAGE.DUPLICATED_PRODUCT, () =>
+    expect(() =>
       updateProduct({
         currentName: '민초',
         changedName: '잡초',
         changedPrice: 2000,
         changedQuantity: 20,
       }),
-    );
+    ).toThrowError();
   });
 
   test('상품을 10원 단위가 아닌 가격으로 수정할 수 없다. ', () => {
+    const weed = {
+      name: '잡초',
+      price: 1000,
+      quantity: 10,
+    };
+
     addProduct(weed);
 
-    checkAlert(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE, () =>
+    expect(() =>
       updateProduct({
         currentName: '잡초',
         changedName: '잡초',
         changedPrice: 2345,
         changedQuantity: 20,
       }),
-    );
+    ).toThrowError();
   });
 });
 
@@ -154,14 +168,10 @@ describe('잔돈 충전에 실패한 경우', () => {
   });
 
   test('투입된 금액이 10원 단위가 아닌 경우 충전할 수 없다.', () => {
-    checkAlert(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY, () => {
-      VendingMachine.instance.charge(1234);
-    });
+    expect(() => VendingMachine.instance.charge(1234)).toThrowError();
   });
 
   test('잔돈이 100,000원을 초과하도록 충전할 수 없다.', () => {
-    checkAlert(ERROR_MESSAGE.OVER_AMOUNT, () => {
-      VendingMachine.instance.charge(CONFIGURATION.AMOUNT.MAX + 1);
-    });
+    expect(() => VendingMachine.instance.charge(CONFIGURATION.AMOUNT.MAX + 1)).toThrowError();
   });
 });
