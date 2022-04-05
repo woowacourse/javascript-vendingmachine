@@ -72,6 +72,9 @@ export default class SignupPage {
 
     alert(`${nameInput.value}님 회원가입에 성공했습니다.`);
 
+    document.cookie = `user_id=${response.user.id}`;
+    document.cookie = `access_token=${response.accessToken}`;
+
     history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
