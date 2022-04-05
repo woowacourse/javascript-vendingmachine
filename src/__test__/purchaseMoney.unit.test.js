@@ -5,6 +5,10 @@ import { ERROR_MESSAGE } from '../utils/constants';
 describe('사용자가 사용할 금액 투입 테스트', () => {
   let purchaseMoney;
 
+  const initPurchaseMoney = () => {
+    purchaseMoney.setMoney(0);
+  };
+
   beforeEach(() => {
     purchaseMoney = new PurchaseMoney();
   });
@@ -21,6 +25,7 @@ describe('사용자가 사용할 금액 투입 테스트', () => {
   });
 
   test('사용자가 사용할 금액을 누적으로 투입할 수 있다', () => {
+    initPurchaseMoney();
     expect(purchaseMoney.getMoney()).toStrictEqual(0);
 
     purchaseMoney.addMoney(1000);
@@ -37,13 +42,13 @@ describe('예외사항', () => {
   });
 
   test('10원으로 나누어 떨어지는 금액만 투입할 수 있다.', () => {
-    expect(() => purchaseMoney.isValidatedMoney(1)).toThrowError(
+    expect(() => purchaseMoney.addMoney(1)).toThrowError(
       new Error(ERROR_MESSAGE.INVALID_PURCHASE_MONEY)
     );
   });
 
   test('최대 투입 금액은 10,000원이다', () => {
-    expect(() => purchaseMoney.isValidatedMoney(10010)).toThrowError(
+    expect(() => purchaseMoney.addMoney(10010)).toThrowError(
       new Error(ERROR_MESSAGE.OVER_PURCHASE_MONEY_LIMIT)
     );
   });

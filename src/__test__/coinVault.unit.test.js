@@ -1,11 +1,17 @@
 import { CoinVault } from '../domain/CoinVault.ts';
-import { ERROR_MESSAGE } from '../utils/constants.ts';
+
+import { COINS_INIT_QUANTITY, ERROR_MESSAGE } from '../utils/constants.ts';
 
 describe('잔돈생성 테스트', () => {
   let coinVault;
 
+  const initCoins = () => {
+    coinVault.setCoins(COINS_INIT_QUANTITY);
+  };
+
   beforeEach(() => {
     coinVault = new CoinVault();
+    initCoins();
   });
 
   test('자판기가 최초 보유한 금액은 0원이다.', () => {
@@ -60,6 +66,10 @@ describe('잔돈생성 테스트', () => {
 });
 
 describe('잔돈 반환 테스트', () => {
+  const initCoins = () => {
+    coinVault.setCoins(COINS_INIT_QUANTITY);
+  };
+
   beforeAll(() => {
     jest.spyOn(CoinVault.prototype, 'generateRandomCoins').mockImplementation(() => {
       return {
@@ -75,6 +85,7 @@ describe('잔돈 반환 테스트', () => {
 
   beforeEach(() => {
     coinVault = new CoinVault();
+    initCoins();
   });
 
   test('현재 보유한 최소 개수의 동전으로 잔돈을 돌려준다', () => {

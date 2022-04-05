@@ -6,8 +6,13 @@ import { ERROR_MESSAGE } from '../utils/constants.ts';
 describe('상품CRUD unit 테스트', () => {
   let productCatalog;
 
+  const initProductList = () => {
+    productCatalog.setProductList([]);
+  };
+
   beforeEach(() => {
     productCatalog = new ProductCatalog();
+    initProductList();
   });
 
   test('상품명, 가격, 수량을 입력하여 물품을 등록할 수 있다.', () => {
@@ -75,8 +80,13 @@ describe('상품CRUD unit 테스트', () => {
 describe('상품 CRUD 예외사항 테스트', () => {
   let productCatalog;
 
+  const initProductList = () => {
+    productCatalog.setProductList([]);
+  };
+
   beforeEach(() => {
     productCatalog = new ProductCatalog();
+    initProductList();
   });
 
   test('이미 존재하는 상품을 추가할 수 없다', () => {
