@@ -63,7 +63,7 @@ class PurchaseTab extends CustomElement {
         this.purchaseItem(data);
         break;
       case 'return':
-        this.updatePurchasePage(data);
+        this.updateChange(data);
         break;
     }
   }
@@ -88,21 +88,27 @@ class PurchaseTab extends CustomElement {
   }
 
   purchaseItem({ id, quantity, userMoney }) {
-    const product = $(`[data-product-id="${id}"]`, this);
-    const targetProductQuantity = product.children[2];
+    const purchasePageProduct = $(`[data-product-id="${id}"]`, this);
+    const managementPageProduct = $(`[data-product-id="${id}"]`, $('#product-list-table'));
+    const purchasePageTargetProductQuantity = purchasePageProduct.children[2];
+    const managementPageTargetProductQuantity = managementPageProduct.children[2];
 
-    $('.purchase-form__money-input-amount', this).textContent = markUnit(userMoney);
+    this.updateUserInputMoney(userMoney);
 
-    targetProductQuantity.textContent = quantity;
+    purchasePageTargetProductQuantity.textContent = quantity;
+    managementPageTargetProductQuantity.textContent = quantity;
 
-    if (Number(targetProductQuantity.textContent) === 0) {
-      product.remove();
+    if (Number(purchasePageTargetProductQuantity.textContent) === 0) {
+      purchasePageProduct.remove();
+      managementPageProduct.remove();
     }
   }
 
-  updatePurchasePage({ userMoney, change }) {
+  updateChange({ userMoney, change, chargedCoin }) {
     $('.purchase-form__money-input-amount', this).textContent = markUnit(userMoney);
+    $('.charge-amount').textContent = chargedCoin.getAmount();
 
+    COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = String(chargedCoin[coin])));
     COINS.forEach((coin) => ($(`.purchase-coin-${coin}-quantity`).textContent = String(change[coin])));
   }
 }

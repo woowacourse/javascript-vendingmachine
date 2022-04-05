@@ -165,7 +165,7 @@ class VendingMachine implements IVendingMachine {
       storage.setLocalStorage('userMoney', userMoney);
       storage.setLocalStorage('amount', chargedCoin);
 
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'return', { userMoney, change });
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'return', { userMoney, change, chargedCoin });
     } catch (error) {
       alert(error.message);
     }

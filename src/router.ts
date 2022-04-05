@@ -7,7 +7,7 @@ interface IRouter {
   component: Element;
 }
 
-const nav = document.querySelector('.nav');
+const nav = $('.nav');
 const baseURL = '/javascript-vendingmachine';
 
 nav.addEventListener('click', (e) => {
