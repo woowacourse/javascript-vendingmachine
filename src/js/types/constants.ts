@@ -26,4 +26,6 @@ export type CustomEventType =
   | 'TABLE_ITEM_DELETE'
   | 'PURCHASE_MONEY_INPUT'
   | 'RETURN_MONEY'
-  | 'LOG_IN';
+  | 'LOG_IN'
+  | 'SIGN_UP'
+  | 'CHANGE_USER_INFO';

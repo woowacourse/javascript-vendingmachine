@@ -77,3 +77,8 @@ export const validateReturnChange = (purchaseMoney, ownMoney) => {
     throw new Error('자판기에 잔돈이 없습니다.');
   }
 };
+
+export const checkPassword = password => {
+  // 비밀번호 조합(영문, 숫자, 특수문자) 및 길이 체크 정규식
+  const regExpPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,16}$/;
+};

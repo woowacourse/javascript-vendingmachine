@@ -48,7 +48,10 @@ export const sectionTemplate = {
   },
 };
 
-export const chargeMoneyTemplate = (coins: CoinsType, currentMoney: number): string => `
+export const chargeMoneyTemplate = (isLogin, coins: CoinsType, currentMoney: number): string =>
+  isLogin
+    ? `
   ${sectionTemplate.inputContainer(currentMoney)}
   ${sectionTemplate.tableContainer(coins)}
-`;
+  `
+    : `<div class="permission-info">접근 권한이 없습니다.</div>`;

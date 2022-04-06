@@ -8,22 +8,32 @@ export default class LogInView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  handleSubmitLogInForm() {
+  handleSubmitLogInForm(event) {
     try {
-      emitCustomEvent('LOG_IN', { detail: {} });
-      window.history.pushState(null, null, '#purchaseItem');
+      event.preventDefault();
+      const targetId = event.target.id;
+      const email = $('#login-email-input').value;
+      const password = $('#login-password-input').value;
 
-      showSnackBar('로그인 되었습니다.');
+      emitCustomEvent('LOG_IN', { detail: { email, password, targetId } });
     } catch (error) {
       alert(error.message);
     }
   }
 
-  render() {
-    console.log('LogInView Render');
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', logInTemplate);
+  handleClickGotoSignUpButton(event: { target: HTMLButtonElement }) {
+    const targetId = event.target.id;
 
-    $('#login-form').addEventListener('submit', this.handleSubmitLogInForm.bind(this));
+    emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
+  }
+
+  render(isLogin) {
+    this.$content.replaceChildren();
+    this.$content.insertAdjacentHTML('beforeend', logInTemplate(isLogin));
+
+    if (!isLogin) {
+      $('#login-form').addEventListener('submit', this.handleSubmitLogInForm.bind(this));
+      $('#go-to-signup').addEventListener('click', this.handleClickGotoSignUpButton);
+    }
   }
 }

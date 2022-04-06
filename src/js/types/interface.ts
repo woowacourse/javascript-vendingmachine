@@ -1,4 +1,4 @@
 export interface Controller {
   bindEvents(): void;
-  loadPage(): void;
+  loadPage(isLogin?): void;
 }

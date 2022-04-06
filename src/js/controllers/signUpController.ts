@@ -1,5 +1,5 @@
 import SignUpView from '../views/signUpView';
-import { onCustomEvent, showSnackBar } from '../utils/common';
+import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 
 export default class SignUpController implements Controller {
@@ -7,15 +7,46 @@ export default class SignUpController implements Controller {
 
   constructor() {
     this.signUpView = new SignUpView();
+
+    this.bindEvents();
   }
 
   bindEvents() {
-    console.log('회원가입 커스텀 이벤트 바인딩!');
+    onCustomEvent('SIGN_UP', this.handleSignUp.bind(this));
   }
 
-  loadPage() {
-    this.signUpView.render();
+  handleSignUp(event: CustomEvent) {
+    const { email, name, password, targetId } = event.detail;
+    const data = JSON.stringify({
+      email,
+      name,
+      password,
+    });
 
-    this.bindEvents();
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: data,
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(result => {
+        const { accessToken, user } = result;
+        if (!accessToken) {
+          throw new Error(result);
+        }
+        sessionStorage.setItem('jwt-token', accessToken);
+        sessionStorage.setItem('isLogIn', 'true');
+        sessionStorage.setItem('user', user);
+
+        emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
+        showSnackBar('회원가입 되었습니다.');
+      })
+      .catch(error => alert(error.message));
+  }
+
+  loadPage(isLogin) {
+    this.signUpView.render(isLogin);
   }
 }

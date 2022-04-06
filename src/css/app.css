@@ -173,13 +173,13 @@
   position: fixed;
   z-index: 1;
   left: 50%;
-  bottom: 0;
+  bottom: 5%;
 }
 
 .show {
   visibility: visible !important; /* Show the snackbar */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
-  animation: fadein 0.5s, fadeout 0.5s 2.7s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 1.7s;
+  animation: fadein 0.5s, fadeout 0.5s 1.7s;
 }
 
 @-webkit-keyframes fadein {
@@ -188,7 +188,7 @@
     opacity: 0;
   }
   to {
-    bottom: 30px;
+    bottom: 5%;
     opacity: 1;
   }
 }
@@ -199,49 +199,52 @@
     opacity: 0;
   }
   to {
-    bottom: 0;
+    bottom: 5%;
     opacity: 1;
   }
 }
 
 @-webkit-keyframes fadeout {
   from {
-    bottom: 0;
+    bottom: 5%;
     opacity: 1;
   }
   to {
-    bottom: -30px;
+    bottom: 0;
     opacity: 0;
   }
 }
 
 @keyframes fadeout {
   from {
-    bottom: 0;
+    bottom: 5%;
     opacity: 1;
   }
   to {
-    bottom: -30px;
+    bottom: 0;
     opacity: 0;
   }
 }
 
 #login-form,
-#signup-form {
+#signup-form,
+#change-form {
   display: flex;
   flex-direction: column;
   margin-top: 46px;
 }
 
 #login-form input,
-#signup-form input {
+#signup-form input,
+#change-form input {
   width: 300px;
   height: 36px;
   margin-bottom: 16px;
 }
 
 #login-form button,
-#signup-form button {
+#signup-form button,
+#change-form button {
   background: var(--color-submit-button-bg);
   padding: 6px 6px 6px 8px;
   color: white;
@@ -251,8 +254,73 @@
   margin-top: 14px;
 }
 
+#header-button-container {
+  align-self: flex-end;
+}
+
 #login-button {
   width: 117px;
   height: 36px;
-  align-self: end;
+}
+
+.login-to-signup {
+  margin-top: 14px;
+  align-self: start;
+}
+
+#go-to-signup {
+  cursor: pointer;
+  color: #3581d7;
+}
+
+#user-badge {
+  border-radius: 50%;
+  background-color: #d6f4f8;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#user-badge:hover {
+  background-color: #b3ebf2;
+}
+
+.permission-info {
+  margin-top: 50px;
+}
+
+#user-container {
+  position: relative;
+}
+
+#user-dropbox {
+  position: absolute;
+  top: 50px;
+  left: -15px;
+  width: 60px;
+  padding: 5px;
+  background-color: var(--color-nav-button-bg);
+  text-align: center;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+#user-dropbox li {
+  padding: 4px 0;
+}
+
+#user-dropbox li:hover {
+  background-color: var(--color-button-hover);
+  cursor: pointer;
+}
+
+#user-dropbox::before {
+  content: '';
+  position: absolute;
+  border-bottom: 10px solid var(--color-nav-button-bg);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  top: -8px;
 }

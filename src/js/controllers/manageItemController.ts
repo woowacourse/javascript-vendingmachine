@@ -60,9 +60,9 @@ export default class ManageItemController implements Controller {
     this.vendingMachine.deleteItem(item);
   }
 
-  loadPage() {
+  loadPage(isLogin) {
     const itemList = this.vendingMachine.getItems();
 
-    this.manageItemView.render(itemList);
+    this.manageItemView.render(isLogin, itemList);
   }
 }

@@ -22,5 +22,5 @@ export const showSnackBar = message => {
   $snackbar.classList.toggle('show');
   setTimeout(() => {
     $snackbar.classList.toggle('show');
-  }, 3000);
+  }, 2000);
 };

@@ -8,6 +8,7 @@ import Router from './router/Router';
 import { $ } from './utils/common';
 import { SELECTOR } from './constants/constants';
 import { initialTemplate } from './templates/initialTemplate';
+import ChangeUserInfoController from './controllers/changeUserInfoController';
 
 export default class AppManager {
   private vendingMachine: VendingMachine;
@@ -17,6 +18,7 @@ export default class AppManager {
   private logInController: LogInController;
   private signUpController: SignUpController;
   private router: Router;
+  changeUserInfoController: ChangeUserInfoController;
 
   constructor() {
     this.initDom();
@@ -28,6 +30,7 @@ export default class AppManager {
     this.purchaseItemController = new PurchaseItemController(this.vendingMachine);
     this.logInController = new LogInController();
     this.signUpController = new SignUpController();
+    this.changeUserInfoController = new ChangeUserInfoController();
 
     this.router = new Router(
       this.manageItemController,
@@ -35,6 +38,7 @@ export default class AppManager {
       this.purchaseItemController,
       this.logInController,
       this.signUpController,
+      this.changeUserInfoController,
     );
 
     this.router.loadRoutePage();

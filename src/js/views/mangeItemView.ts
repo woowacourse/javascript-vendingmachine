@@ -97,13 +97,15 @@ export default class ManageItemView {
     emitCustomEvent('TABLE_ITEM_DELETE', { detail: { item } });
   }
 
-  render(items: ItemType[]) {
+  render(isLogin, items: ItemType[]) {
     this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
+    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(isLogin, items));
 
-    this.bindSubmitEvent();
-    this.bindChangeClickEvents();
-    this.bindDeleteClickEvents();
+    if (isLogin) {
+      this.bindSubmitEvent();
+      this.bindChangeClickEvents();
+      this.bindDeleteClickEvents();
+    }
   }
 
   repaintItemTable(items: ItemType[]) {

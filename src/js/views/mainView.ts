@@ -7,21 +7,38 @@ export default class MainView {
 
   constructor() {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
-    $('#login-button').addEventListener('click', this.handleClickLoginButton.bind(this));
+    $('#header-button-container').addEventListener('click', this.handleClickLoginButton);
   }
 
   handleClickNavButton(event: { target: HTMLButtonElement }) {
-    const $button = event.target;
-    const targetButtonId = $button.id;
+    const targetId = event.target.id;
 
-    this.changeButtonColor(targetButtonId);
-    emitCustomEvent('ROUTE_CHANGE', { detail: { $button } });
+    this.changeButtonColor(targetId);
+    emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
   }
 
   handleClickLoginButton(event: { target: HTMLButtonElement }) {
-    const $button = event.target;
-
-    emitCustomEvent('ROUTE_CHANGE', { detail: { $button } });
+    const targetId = event.target.id;
+    if (targetId === 'login-button') {
+      emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
+    }
+    if (targetId === 'user-badge') {
+      $('#user-dropbox').classList.toggle('display-none');
+    }
+    if (targetId === 'user-name') {
+      $('#user-dropbox').classList.toggle('display-none');
+    }
+    if (targetId === 'change-user-info') {
+      emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
+    }
+    if (targetId === 'logout') {
+      if (window.confirm('로그아웃하시겠습니까?')) {
+        sessionStorage.removeItem('jwt-token');
+        sessionStorage.removeItem('isLogIn');
+        sessionStorage.removeItem('user');
+        emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
+      }
+    }
   }
 
   changeButtonColor(targetButtonId: string) {

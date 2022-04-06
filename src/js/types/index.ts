@@ -12,7 +12,7 @@ export type CoinsType = {
 };
 
 export type RouteChangeDetailType = {
-  $button: HTMLButtonElement;
+  targetId: string;
 };
 
 export type MoneyDetailType = {

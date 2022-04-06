@@ -27,10 +27,10 @@ export default class ChargeMoneyController implements Controller {
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
   }
 
-  loadPage() {
+  loadPage(isLogin) {
     const coins = this.vendingMachine.getCoins();
     const totalMoney = this.vendingMachine.getCurrentOwnMoney();
 
-    this.chargeMoneyView.render(coins, totalMoney);
+    this.chargeMoneyView.render(isLogin, coins, totalMoney);
   }
 }

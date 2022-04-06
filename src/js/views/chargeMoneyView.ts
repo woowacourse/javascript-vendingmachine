@@ -31,11 +31,13 @@ export default class ChargeMoneyView {
     }
   }
 
-  render(coins: CoinsType, totalMoney: number) {
+  render(isLogin, coins: CoinsType, totalMoney: number) {
     this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, totalMoney));
+    this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(isLogin, coins, totalMoney));
 
-    this.bindEvents();
+    if (isLogin) {
+      this.bindEvents();
+    }
   }
 
   repaintCoinsTable(coins: CoinsType) {
