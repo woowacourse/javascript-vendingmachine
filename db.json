@@ -1,3 +1,22 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "rlaalsdl111@naver.com",
+      "password": "$2a$10$yUSuO9yBYhC98WwaLWmAWuKuZLXvdXiSJCF07m7h5LNzxKTLLI4QC",
+      "name": "첫번째",
+      "id": 1
+    },
+    {
+      "email": "t@s",
+      "name": "아홉",
+      "password": "$2a$10$K3JbfBCPhw160C9rbBx8nu65IVKlVuaUqig8OWnTrF/hdYIgeW8ne",
+      "id": 2
+    },
+    {
+      "email": "r@gmail.com",
+      "password": "$2a$10$Hpi03N8XYv4MWDRNVqvkT.utaLTRQJsP3PSG7w.qzPczbv9eI23Ii",
+      "name": "rr",
+      "id": 3
+    }
+  ]
 }

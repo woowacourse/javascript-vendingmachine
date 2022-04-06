@@ -1,3 +1,18 @@
+.auth {
+  position: relative;
+}
+
+user-menu {
+  position: absolute;
+  right: 16px;
+}
+
+.user-name {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+}
+
 .user-name__menu-button {
   position: relative;
   top: 50%;

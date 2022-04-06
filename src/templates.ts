@@ -194,6 +194,10 @@ const TEMPLATE = {
       <div class="menu-element user-name__edit">회원수정</div>
       <div class="menu-element user-name__logout">로그아웃</div>
     </div>
+    <button type="button" class="login-button button" route="/javascript-vendingmachine/login">로그인</button>
+    <button type="button" class="signup-button button hidden" route="/javascript-vendingmachine/signup">
+      회원가입
+    </button>
   `,
 };
 

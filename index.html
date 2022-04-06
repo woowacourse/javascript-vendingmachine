@@ -7,17 +7,15 @@
   </head>
 
   <body>
-    <div class="auth">
-      <user-menu></user-menu>
-      <button type="button" class="login-button button" route="/javascript-vendingmachine/login">로그인</button>
-      <button type="button" class="signup-button button hidden" route="/javascript-vendingmachine/signup">
-        회원가입
-      </button>
+    <div id="container">
+      <div class="auth">
+        <user-menu></user-menu>
+      </div>
+      <vending-machine-page></vending-machine-page>
+      <login-page class="hidden"></login-page>
+      <signup-page class="hidden"></signup-page>
+      <profile-edit-page class="hidden"></profile-edit-page>
+      <div id="snackbar"></div>
     </div>
-    <vending-machine-page></vending-machine-page>
-    <login-page class="hidden"></login-page>
-    <signup-page class="hidden"></signup-page>
-    <profile-edit-page class="hidden"></profile-edit-page>
-    <div id="snackbar"></div>
   </body>
 </html>
