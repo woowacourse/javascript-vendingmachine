@@ -31,7 +31,6 @@ const initApp = function () {
 
   return function () {
     const accessToken = getCookie('accessToken');
-
     switch (location.hash) {
       case HASH.ITEM_MANAGE:
         accessToken

@@ -10,15 +10,16 @@ class ItemManageTab extends VendingMachineTab {
   constructor(vendingMachine) {
     super(vendingMachine);
 
-    this.itemManageTabButton = selectDom('#item-manage-tab-button');
+    this.itemManageTabButton = null;
     this.itemInfoForm = null;
     this.itemInfoInputs = null;
     this.itemStatusTable = null;
-
-    this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
   }
 
   renderInitialItemManageTabState() {
+    this.renderNavBar();
+    this.itemManageTabButton = selectDom('#item-manage-tab-button');
+
     this.changeTabContent(
       generateItemManageTabContentTemplate(this.vendingMachine.itemList),
       this.itemManageTabButton
@@ -28,6 +29,7 @@ class ItemManageTab extends VendingMachineTab {
     this.itemInfoInputs = selectDoms('.item-info-input', this.itemInfoForm);
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
 
+    this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
     this.itemStatusTable.addEventListener('keydown', this.#onKeyDownItemInfoRow);

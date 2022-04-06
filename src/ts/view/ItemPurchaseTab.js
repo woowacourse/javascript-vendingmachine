@@ -9,7 +9,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.itemManage = itemManage;
     this.coinRecharge = coinRecharge;
 
-    this.itemPurchaseTabButton = selectDom('#item-purchase-tab-button');
+    this.itemPurchaseTabButton = null;
     this.itemPurchaseForm = null;
     this.itemPurchaseInput = null;
     this.inputAmountText = null;
@@ -19,6 +19,9 @@ class ItemPurchaseTab extends VendingMachineTab {
   }
 
   renderInitialItemPurchaseTabState(isLoginUser) {
+    this.renderNavBar(isLoginUser);
+    this.itemPurchaseTabButton = selectDom('#item-purchase-tab-button', this.navBar);
+
     if (!isLoginUser) {
       this.navBar.remove();
       this.tabContent.classList.add('login');

@@ -164,3 +164,19 @@ export const registerUserPageTemplate = `
     <button class="input-form-button">확인</button>
   </form>
 `;
+
+export const vendingMachineNavBarTemplate = (isLoginUser) => `
+  ${
+    isLoginUser
+      ? '<button type="button" id="logout-button" class="default-button">로그아웃</button>'
+      : '<a id="login-button" class="default-button" href="#login">로그인</a>'
+  }
+  <h1>🍿 자판기 🍿</h1>
+  <nav>
+    <a id="item-manage-tab-button" class="nav-tab-button" href="#item-manage">상품 관리</a>
+    <a id="coin-recharge-tab-button" class="nav-tab-button" href="#coin-recharge">잔돈 충전</a>
+    <a id="item-purchase-tab-button" class="nav-tab-button selected" href="#item-purchase">상품 구매</a>
+  </nav>
+  <section id="tab-content"></section>
+  <div class="snackbar"></div>
+`;
