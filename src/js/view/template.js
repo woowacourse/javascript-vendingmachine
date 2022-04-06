@@ -242,6 +242,49 @@ export const TEMPLATE = {
       </section>
     </main>
   `,
+  MODIFY: `
+    <header>
+      <h1 id="app-title">내 정보 수정</h1>
+    </header>
+    <main>
+      <section title="회원가입">
+        <form id="register-form">
+          <fieldset>
+            <legend hidden>회원가입</legend>
+            <label for="email">이메일</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="이메일 주소를 입력해주세요."
+                required
+              />
+            <label for="name">이름</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="이름을 입력해주세요."
+                required
+              />
+            <label for="password">비밀번호</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="비밀번호를 입력해주세요."
+                required
+              />
+            <label for="password-confirm">비밀번호 확인</label>
+            <input
+                type="password"
+                id="password-confirm"
+                placeholder="비밀번호를 입력해주세요."
+                required
+              />
+            <button type="submit" class="submit-button">확인</button>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  `,
   ADMIN_HEADER: `
     <header>
       <h1 id="app-title">🍿 자판기 🍿</h1>

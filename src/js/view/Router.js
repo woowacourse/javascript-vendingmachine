@@ -7,6 +7,7 @@ import { TEMPLATE } from './template';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
 import Auth from '../domain/Auth';
+import ModifyMyInfoView from './ModifyMyInfoView';
 
 export default class Router {
   #vendingMachine;
@@ -29,6 +30,7 @@ export default class Router {
       '#/purchase': new PurchaseProductTab(this.#vendingMachine),
       '#/login': new LoginView(),
       '#/register': new RegisterView(),
+      '#/modify': new ModifyMyInfoView(),
     };
 
     this.#adminHeaderContainer = createDivElement(TEMPLATE.ADMIN_HEADER);
@@ -56,7 +58,10 @@ export default class Router {
   #render = () => {
     this.#app.replaceChildren();
 
-    if (window.location.hash === '#/register' || window.location.hash === '#/login') {
+    if (
+      window.location.hash === '#/register' ||
+      (window.location.hash === '#/login') | (window.location.hash === '#/modify')
+    ) {
       this.#app.insertAdjacentElement(
         'beforeend',
         this.#renderList[window.location.hash].template

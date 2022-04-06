@@ -57,6 +57,11 @@ const Auth = {
   async getUserInfo(id) {
     return this.loadUserInfoAPI(id);
   },
+  modify(userId, userInfo) {
+    validateUserInfo(userInfo);
+
+    this.loadModifyAPI(userId, userInfo);
+  },
   async loadUserInfoAPI(id) {
     const response = await fetch(`http://localhost:3000/users/${id}`).then((res) =>
       res.json()
@@ -107,6 +112,26 @@ const Auth = {
       }
 
       window.location.href = '#/login';
+    } catch (error) {
+      alert(error);
+    }
+  },
+  async loadModifyAPI(id, userInfo) {
+    const { email, name, password } = userInfo;
+    const payload = JSON.stringify({ email, name, password });
+
+    try {
+      const response = await fetch(`http://localhost:3000/users/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      }).then((res) => res.json());
+
+      if (typeof response === 'string') {
+        throw Error(response);
+      }
+
+      window.location.href = '#/purchase';
     } catch (error) {
       alert(error);
     }
