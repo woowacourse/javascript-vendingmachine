@@ -2,8 +2,8 @@ import Store from 'Store/Abstract';
 import { TComponent } from 'Types/ComponentTypes';
 
 export default abstract class Component<IDefaultProps = Record<string, any>> {
-  protected subscriberStore: Store<TStoreState>[] = [];
-  protected renderMethodList = {};
+  protected subscriberStore: Store[] = [];
+  protected renderMethodList: TRenderMethodList = {};
   protected props: IDefaultProps;
 
   private childComponentList: TComponent[] = [];
@@ -49,15 +49,18 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
     this.childComponentList.forEach(component => component.unmount());
   }
 
-  public render = ({ state, changedStateNames }) => {
+  public render = ({ state, changedStateNames }: TRenderContent) => {
     const renderTargetMethod = changedStateNames.reduce((previous, stateKey) => {
       if (!this.renderMethodList[stateKey]) return previous;
 
       this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
       return previous;
     }, new Set());
-
-    renderTargetMethod.forEach(renderMethod => renderMethod(state));
+    renderTargetMethod.forEach((renderMethod: TRenderDrawMethod) => renderMethod(state));
+    /* 
+    this.childComponentList.forEach(childComponent =>
+      childComponent.render({ state, changedStateNames }),
+    ); */
   };
 
   protected createChildComponent<IProps = IDefaultProps>(
