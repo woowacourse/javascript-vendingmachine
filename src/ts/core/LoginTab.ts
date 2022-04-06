@@ -14,7 +14,7 @@ class LoginTab implements Login {
     $('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
   }
 
-  async handleLogin(e: Event): Promise<void> {
+  async handleLogin(): Promise<void> {
     const loginInfo = getLoginInfo();
     const { email, password } = loginInfo;
     if (!this.verifyValue.verifyLoginInfo(loginInfo)) {

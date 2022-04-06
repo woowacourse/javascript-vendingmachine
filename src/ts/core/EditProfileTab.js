@@ -45,7 +45,7 @@ var EditProfileTab = /** @class */ (function () {
         (0, dom_1.$)('.edit-profile-button').addEventListener('change', this.handleSelect.bind(this));
         (0, dom_1.$)('#edit-profile-confirm-button').addEventListener('click', this.handleEditProfile.bind(this));
     }
-    EditProfileTab.prototype.handleSelect = function (e) {
+    EditProfileTab.prototype.handleSelect = function () {
         if ((0, dom_1.$)('.edit-profile-button').value === 'edit-profile') {
             this.handleClickEditButton();
             var _a = JSON.parse(localStorage.getItem('accessToken')), email = _a.email, name_1 = _a.name;
@@ -68,7 +68,7 @@ var EditProfileTab = /** @class */ (function () {
         (0, loginUtil_1.logOutedMode)();
         localStorage.clear();
     };
-    EditProfileTab.prototype.handleEditProfile = function (e) {
+    EditProfileTab.prototype.handleEditProfile = function () {
         return __awaiter(this, void 0, void 0, function () {
             var userInfo, name, password, passwordConfirm, accessToken, id, response, name_2, error_1;
             return __generator(this, function (_a) {

@@ -22,14 +22,14 @@ export interface ProductBuy {
 }
 
 export interface Login {
-  handleLogin(e: Event): void;
+  handleLogin(): void;
   handleLink(): void;
 }
 
 export interface SignUp {
-  handleSignUp(e: Event): void;
+  handleSignUp(): void;
 }
 
 export interface EditProfile {
-  handleEditProfile(e: Event): void;
+  handleEditProfile(): void;
 }

@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var constants_1 = require("../constants");
+var snackbar_1 = require("../utils/snackbar");
 var VerifyValueValidation = /** @class */ (function () {
     function VerifyValueValidation(products, coins) {
         this.products = products;
@@ -10,33 +11,41 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifyProductInfo = function (_a, index) {
         var name = _a.name, price = _a.price, quantity = _a.quantity;
         if (!this.isValidProductNameRange(name)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
             return false;
         }
         if (this.isOverlapProductName(name, index)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
             return false;
         }
         if (!this.isValidProductPrice(price)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_PRICE);
             return false;
         }
         if (!this.isValidProductQuantity(quantity)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_QUANTITY);
             return false;
         }
         return true;
     };
     VerifyValueValidation.prototype.verifyChargeMoney = function (chargeMoney) {
         if (!this.isValidChargeMoney(chargeMoney)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY);
+            return false;
+        }
+        if (!this.isValidChargeMoneyOver(chargeMoney)) {
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY_MAX);
             return false;
         }
         return true;
     };
     VerifyValueValidation.prototype.verifyInputMoney = function (inputMoney) {
-        if (!this.isValidInputMoney(inputMoney)) {
-            alert();
+        if (!this.isValidInputMoneyRange(inputMoney)) {
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_RANGE);
+            return false;
+        }
+        if (!this.isValidInputMoneyMod(inputMoney)) {
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_MOD);
             return false;
         }
         return true;
@@ -44,11 +53,11 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifyLoginInfo = function (_a) {
         var email = _a.email, password = _a.password;
         if (!this.isValidEmail(email)) {
-            alert();
+            alert(constants_1.ALERT_MESSAGE.USER_EMAIL);
             return false;
         }
         if (!this.isValidPassWord(password)) {
-            alert();
+            alert(constants_1.ALERT_MESSAGE.USER_PASSWORD);
             return false;
         }
         return true;
@@ -56,19 +65,19 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifySignUpInfo = function (_a) {
         var email = _a.email, name = _a.name, password = _a.password, passwordConfirm = _a.passwordConfirm;
         if (!this.isValidEmail(email)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
             return false;
         }
         if (!this.isValidName(name)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_NAME);
             return false;
         }
         if (!this.isValidPassWord(password)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
             return false;
         }
         if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-            alert();
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
             return false;
         }
         return true;
@@ -90,15 +99,17 @@ var VerifyValueValidation = /** @class */ (function () {
     };
     // 자판기 동전 충전 검증
     VerifyValueValidation.prototype.isValidChargeMoney = function (chargeMoney) {
-        return (chargeMoney >= constants_1.CHARGE_MONEY_RULES.MIN &&
-            chargeMoney % constants_1.CHARGE_MONEY_RULES.MOD_UNIT === 0 &&
-            this.totalAmount() + chargeMoney <= constants_1.CHARGE_MONEY_RULES.MAX);
+        return chargeMoney >= constants_1.CHARGE_MONEY_RULES.MIN && chargeMoney % constants_1.CHARGE_MONEY_RULES.MOD_UNIT === 0;
+    };
+    VerifyValueValidation.prototype.isValidChargeMoneyOver = function (chargeMoney) {
+        return this.totalAmount() + chargeMoney <= constants_1.CHARGE_MONEY_RULES.MAX;
     };
     // 상품 구매 금액 충전 검증
-    VerifyValueValidation.prototype.isValidInputMoney = function (inputMoney) {
-        return (inputMoney >= constants_1.INPUT_MONEY_RULES.MIN &&
-            inputMoney <= constants_1.INPUT_MONEY_RULES.MAX &&
-            inputMoney % constants_1.INPUT_MONEY_RULES.MOD_UNIT === 0);
+    VerifyValueValidation.prototype.isValidInputMoneyRange = function (inputMoney) {
+        return inputMoney >= constants_1.INPUT_MONEY_RULES.MIN && inputMoney <= constants_1.INPUT_MONEY_RULES.MAX;
+    };
+    VerifyValueValidation.prototype.isValidInputMoneyMod = function (inputMoney) {
+        return inputMoney % constants_1.INPUT_MONEY_RULES.MOD_UNIT === 0;
     };
     // 유저 정보 검증
     VerifyValueValidation.prototype.isValidName = function (name) {

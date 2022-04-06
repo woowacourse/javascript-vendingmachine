@@ -12,7 +12,7 @@ class EditProfileTab implements EditProfile {
     $('#edit-profile-confirm-button').addEventListener('click', this.handleEditProfile.bind(this));
   }
 
-  handleSelect(e: Event) {
+  handleSelect() {
     if ($('.edit-profile-button').value === 'edit-profile') {
       this.handleClickEditButton();
       let { email, name } = JSON.parse(localStorage.getItem('accessToken'));
@@ -37,7 +37,7 @@ class EditProfileTab implements EditProfile {
     localStorage.clear();
   }
 
-  async handleEditProfile(e: Event): Promise<void> {
+  async handleEditProfile(): Promise<void> {
     const userInfo = getUserInfo();
     const { name, password, passwordConfirm } = userInfo;
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -64,15 +64,6 @@ class EditProfileTab implements EditProfile {
     } catch (error) {
       console.log(error);
     }
-
-    /*
-    let { email, name, password } = JSON.parse(localStorage.getItem('accessToken'));
-    email = userInfo.email;
-    name = userInfo.name;
-    password = userInfo.password;
-    localStorage.setItem('accessToken', JSON.stringify({ email, name, password }));
-    loginnedMode();
-    */
   }
 }
 

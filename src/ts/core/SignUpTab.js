@@ -55,7 +55,7 @@ var SignUpTab = /** @class */ (function () {
         this.verifyValue = verifyValue;
         (0, dom_1.$)('#signup-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
     }
-    SignUpTab.prototype.handleSignUp = function (e) {
+    SignUpTab.prototype.handleSignUp = function () {
         return __awaiter(this, void 0, void 0, function () {
             var signUpInfo, email, name, password, passwordConfirm, response, _a, accessToken, user, error_1;
             return __generator(this, function (_b) {

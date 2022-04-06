@@ -57,7 +57,7 @@ var LoginTab = /** @class */ (function () {
         (0, dom_1.$)('#link', this.$login).addEventListener('click', this.handleLink);
         (0, dom_1.$)('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
     }
-    LoginTab.prototype.handleLogin = function (e) {
+    LoginTab.prototype.handleLogin = function () {
         return __awaiter(this, void 0, void 0, function () {
             var loginInfo, email, password, response, json, accessToken, user, error_1;
             return __generator(this, function (_a) {

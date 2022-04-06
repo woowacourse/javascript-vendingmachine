@@ -1,5 +1,6 @@
 @import './component/button.css';
 @import './component/color.css';
+@import './component/snackbar.css';
 
 @import './screen/productManage.css';
 @import './screen/moneyCharge.css';

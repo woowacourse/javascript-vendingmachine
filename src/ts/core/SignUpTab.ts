@@ -11,7 +11,7 @@ class SignUpTab implements SignUp {
     $('#signup-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
   }
 
-  async handleSignUp(e: Event): Promise<void> {
+  async handleSignUp(): Promise<void> {
     const signUpInfo = getSignUpInfo();
     const { email, name, password, passwordConfirm } = signUpInfo;
     if (!this.verifyValue.verifySignUpInfo(signUpInfo)) {

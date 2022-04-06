@@ -38,4 +38,9 @@ export const ALERT_MESSAGE = {
 
   INPUT_MONEY_RANGE: `투입금액은 ${INPUT_MONEY_RULES.MIN}~${INPUT_MONEY_RULES.MAX} 범위여야 합니다.`,
   INPUT_MONEY_MOD: `투입금액은 ${INPUT_MONEY_RULES.MOD_UNIT}으로 나눠져야 합니다.`,
+
+  USER_NAME: `이름은 2~6글자 한글만 가능합니다.`,
+  USER_EMAIL: `이메일은 woowa123@woowa.com 형식만 가능합니다.`,
+  USER_PASSWORD: `비밀번호는 8~16글자 영대문자나 소문자, 특수문자, 숫자를 포함해야합니다.`,
+  USER_PASSWORD_CONFIRM: `비밀번호가 동일하지 않습니다.`,
 };

@@ -1,5 +1,6 @@
 import { Product, Coin, LoginInfo, UserInfo } from '../declarations/resourceDeclaration';
-import { CHARGE_MONEY_RULES, INPUT_MONEY_RULES, PRODUCT_RULES } from '../constants';
+import { ALERT_MESSAGE, CHARGE_MONEY_RULES, INPUT_MONEY_RULES, PRODUCT_RULES } from '../constants';
+import { displaySnackbar } from '../utils/snackbar';
 
 class VerifyValueValidation implements VerifyValueValidation {
   private products: Array<Product>;
@@ -13,19 +14,19 @@ class VerifyValueValidation implements VerifyValueValidation {
   // 각각의 전체 검증
   verifyProductInfo({ name, price, quantity }: Product, index: number) {
     if (!this.isValidProductNameRange(name)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
       return false;
     }
     if (this.isOverlapProductName(name, index)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
       return false;
     }
     if (!this.isValidProductPrice(price)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.PRODUCT_PRICE);
       return false;
     }
     if (!this.isValidProductQuantity(quantity)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.PRODUCT_QUANTITY);
       return false;
     }
     return true;
@@ -33,15 +34,23 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyChargeMoney(chargeMoney: number) {
     if (!this.isValidChargeMoney(chargeMoney)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.CHARGE_MONEY);
+      return false;
+    }
+    if (!this.isValidChargeMoneyOver(chargeMoney)) {
+      displaySnackbar(ALERT_MESSAGE.CHARGE_MONEY_MAX);
       return false;
     }
     return true;
   }
 
   verifyInputMoney(inputMoney: number) {
-    if (!this.isValidInputMoney(inputMoney)) {
-      alert();
+    if (!this.isValidInputMoneyRange(inputMoney)) {
+      displaySnackbar(ALERT_MESSAGE.INPUT_MONEY_RANGE);
+      return false;
+    }
+    if (!this.isValidInputMoneyMod(inputMoney)) {
+      displaySnackbar(ALERT_MESSAGE.INPUT_MONEY_MOD);
       return false;
     }
     return true;
@@ -49,11 +58,11 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyLoginInfo({ email, password }: LoginInfo) {
     if (!this.isValidEmail(email)) {
-      alert();
+      alert(ALERT_MESSAGE.USER_EMAIL);
       return false;
     }
     if (!this.isValidPassWord(password)) {
-      alert();
+      alert(ALERT_MESSAGE.USER_PASSWORD);
       return false;
     }
     return true;
@@ -61,19 +70,19 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifySignUpInfo({ email, name, password, passwordConfirm }: UserInfo) {
     if (!this.isValidEmail(email)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.USER_EMAIL);
       return false;
     }
     if (!this.isValidName(name)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.USER_NAME);
       return false;
     }
     if (!this.isValidPassWord(password)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD);
       return false;
     }
     if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-      alert();
+      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
       return false;
     }
     return true;
@@ -106,20 +115,20 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   // 자판기 동전 충전 검증
   isValidChargeMoney(chargeMoney: number) {
-    return (
-      chargeMoney >= CHARGE_MONEY_RULES.MIN &&
-      chargeMoney % CHARGE_MONEY_RULES.MOD_UNIT === 0 &&
-      this.totalAmount() + chargeMoney <= CHARGE_MONEY_RULES.MAX
-    );
+    return chargeMoney >= CHARGE_MONEY_RULES.MIN && chargeMoney % CHARGE_MONEY_RULES.MOD_UNIT === 0;
+  }
+
+  isValidChargeMoneyOver(chargeMoney: number) {
+    return this.totalAmount() + chargeMoney <= CHARGE_MONEY_RULES.MAX;
   }
 
   // 상품 구매 금액 충전 검증
-  isValidInputMoney(inputMoney: number) {
-    return (
-      inputMoney >= INPUT_MONEY_RULES.MIN &&
-      inputMoney <= INPUT_MONEY_RULES.MAX &&
-      inputMoney % INPUT_MONEY_RULES.MOD_UNIT === 0
-    );
+  isValidInputMoneyRange(inputMoney: number) {
+    return inputMoney >= INPUT_MONEY_RULES.MIN && inputMoney <= INPUT_MONEY_RULES.MAX;
+  }
+
+  isValidInputMoneyMod(inputMoney: number) {
+    return inputMoney % INPUT_MONEY_RULES.MOD_UNIT === 0;
   }
 
   // 유저 정보 검증
