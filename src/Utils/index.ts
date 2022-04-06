@@ -14,10 +14,12 @@ export const isStringLengthInRange = (value: string, min: number, max: number): 
 
 export const isCorrectNumberUnit = (value: number, unit: number): boolean => value % unit === 0;
 
-export const getSearchParamsParse = (searchUrl = ''): string => `?${searchUrl.split('?')[1]}`;
+export const getEntryPath = (patnName = ''): string => {
+  const pathName = patnName || window.location.pathname;
+  const paths = pathName.split('/').filter(entry => entry !== '');
 
-export const getSearchParamsObject = (searchUrl = ''): object =>
-  Object.fromEntries(new URLSearchParams(searchUrl));
+  return paths[paths.length - 1];
+};
 
 export const convertStringToElement = (htmlString = ''): HTMLElement => {
   const element: HTMLElement = document.createElement('template');
