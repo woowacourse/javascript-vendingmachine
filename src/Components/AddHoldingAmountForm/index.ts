@@ -5,42 +5,36 @@ import Component from 'Components/Abstract';
 import AmountInputForm from 'Components/@Shared/AmountInputForm';
 
 export default class AddHoldingAmountForm extends Component {
-  $addForm;
   subscriberStore = [HoldingAmountStore];
 
   constructor(props) {
     super(props);
 
     this.renderMethodList = {
-      coins: [this.drawTotalHoldingAmount],
+      holdingCoins: [this.drawTotalHoldingAmount],
     };
   }
 
   template() {
     return this.createChildComponent<IAmountInputProps>(AmountInputForm, {
+      formLabel: '자판기가 보유할 금액을 입력해주세요',
       totalAmountText: '현재 보유 금액',
-      onSubmit: this.onSubmitAddHoldingAmountForm,
+      onAddAmount: this.handleAddAmount,
     });
   }
 
-  setDom() {
-    this.$addForm = $('#add-holding-amount-form', this.$component);
-  }
-
-  onSubmitAddHoldingAmountForm(event) {
-    event.preventDefault();
-    const $input = $('input[name="add-holding-amount"]', event.target);
+  handleAddAmount(userInput: number) {
     const totalAmount = HoldingAmountStore.getTotalAmount();
 
     try {
-      validateHoldingAmountToAdd(Number($input.value), totalAmount);
+      validateHoldingAmountToAdd(userInput, totalAmount);
     } catch (error) {
       alert(error.message);
-      return;
+      return false;
     }
 
-    HoldingAmountStore.addAmount($input.value);
-    $input.value = '';
+    HoldingAmountStore.addAmount(userInput);
+    return true;
   }
 
   drawTotalHoldingAmount = () => {
