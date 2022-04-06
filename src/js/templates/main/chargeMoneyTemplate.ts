@@ -8,10 +8,10 @@ export const sectionTemplate = {
       <h2 hidden>잔돈 충전</h2>
       <form id="charge-money-form">
       <label>자판기가 보유할 금액을 입력해주세요.</label>
-      <div>
-       <input class="charge-money-input" placeholder="금액" type="number" />
-        <button class="submit-button">충전</button>
-       </div>
+        <div>
+          <input class="charge-money-input" placeholder="금액" type="number" />
+          <button class="submit-button">충전</button>
+        </div>
       </form>
       <p>현재 보유 금액: <span id="current-charge-money">${currentMoney}</span>원</p>
     </section>

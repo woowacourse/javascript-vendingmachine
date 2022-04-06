@@ -1,0 +1,14 @@
+[
+  {
+    "name": "사이다",
+    "price": 1200,
+    "quantity": 8,
+    "id": 1
+  },
+  {
+    "name": "콜라",
+    "price": 1100,
+    "quantity": 10,
+    "id": 2
+  }
+]
