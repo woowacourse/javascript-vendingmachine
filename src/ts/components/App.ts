@@ -1,5 +1,4 @@
 import { $, $$ } from "../utils/dom";
-import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 
 import ChargeManager from "../mananger/ChargeManager";
 import ProductManager from "../mananger/ProductManager";
@@ -20,13 +19,15 @@ class App {
   purchaseComponent: PurchaseComponent;
   productManager: ProductManager;
   chargeManager: ChargeManager;
+  menuNav: HTMLElement;
 
   constructor() {
     this.app = $("#app");
     this.app.insertAdjacentHTML(
       "beforeend",
-      `<h1>🍿 자판기 🍿</h1>
-      ${menuTabTemplate}
+      `<div><button>로그인</button></div>
+      <h1>🍿 자판기 🍿</h1>
+      <nav class="menu-nav"></nav>
       <main>
         <section class="product-manange__container manange-container"></section>
         <section class="charge-manange__container manange-container"></section>
@@ -34,6 +35,7 @@ class App {
       </main>`,
     );
     this.manageContainers = $$(".manange-container");
+    this.menuNav = $(".menu-nav");
 
     this.productManager = new ProductManager();
     this.chargeManager = new ChargeManager();
@@ -46,10 +48,20 @@ class App {
       history.pushState({ path: "#purchase" }, null, "#purchase");
     }
     this.convertTemplate((location.hash as Path) || "#purchase");
+    // this.hideMenuTab();
+    this.showMenuTab();
   }
 
   hideContainers() {
     this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
+  }
+
+  hideMenuTab() {
+    this.menuNav.classList.add("hide");
+  }
+
+  showMenuTab() {
+    this.menuTabComponent.show();
   }
 
   convertTemplate = (path: Path): void => {

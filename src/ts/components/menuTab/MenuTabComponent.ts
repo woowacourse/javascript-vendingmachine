@@ -1,5 +1,6 @@
 import { $, $$ } from "../../utils/dom";
 import { Path } from "../App";
+import { menuTabTemplate } from "./menuTabTemplate";
 
 type ConvertTemplate = (path: Path) => void;
 
@@ -9,6 +10,9 @@ class MenuTabComponent {
 
   constructor(private convertTemplate: ConvertTemplate) {
     this.menuNav = $(".menu-nav");
+    this.menuNav.replaceChildren();
+    this.menuNav.insertAdjacentHTML("beforeend", menuTabTemplate);
+
     this.menuNavButtons = $$(".menu-nav__button");
 
     window.addEventListener("popstate", this.handlePopState);
@@ -35,6 +39,10 @@ class MenuTabComponent {
     this.menuNavButtons.forEach((button: HTMLButtonElement) =>
       button.dataset.menu === location.hash ? button.classList.add("active") : button.classList.remove("active"),
     );
+  }
+
+  show() {
+    this.menuNav.classList.remove("hide");
   }
 }
 
