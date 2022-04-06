@@ -1,7 +1,7 @@
 import '../../css/index.css';
 import { $ } from '../utils/dom';
 import { validEmail, validPassword } from './validAccount';
-import { handleSnackbarMessage } from '../utils/snackbar.js';
+import { handleSnackbarMessage } from '../utils/snackbar';
 import { signup } from '../utils/API';
 
 const signUpForm = $('#sign-up-info-form');
