@@ -41,7 +41,7 @@ class LoginUserPage {
       return;
     }
 
-    location.href = location.origin;
+    location.hash = '';
   };
 }
 

@@ -30,26 +30,22 @@ const initApp = function () {
       case HASH.ITEM_MANAGE:
         accessToken
           ? itemManageTab.renderInitialItemManageTabState()
-          : (location.href = `${location.origin}/${HASH.LOGIN_USER}`);
+          : (location.hash = HASH.LOGIN_USER);
         break;
       case HASH.COIN_RECHARGE:
         accessToken
           ? coinRechargeTab.renderInitialCoinRechargeTabState()
-          : (location.href = `${location.origin}/${HASH.LOGIN_USER}`);
+          : (location.href = HASH.LOGIN_USER);
         break;
       case '':
       case HASH.ITEM_PURCHASE:
         itemPurchaseTab.renderInitialItemPurchaseTabState(!!accessToken);
         break;
       case HASH.REGISTER_USER:
-        !accessToken
-          ? registerUserPage.renderInitialRegisterPageState()
-          : (location.href = location.origin);
+        !accessToken ? registerUserPage.renderInitialRegisterPageState() : (location.hash = '');
         break;
       case HASH.LOGIN_USER:
-        !accessToken
-          ? loginUserPage.renderInitialLoginPageState()
-          : (location.href = location.origin);
+        !accessToken ? loginUserPage.renderInitialLoginPageState() : (location.hash = '');
         break;
       default:
         break;

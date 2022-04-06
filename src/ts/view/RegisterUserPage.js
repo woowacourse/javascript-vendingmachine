@@ -31,7 +31,7 @@ class RegisterUserPage {
       alert(error.message);
       return;
     }
-    location.href = `${location.origin}/${HASH.LOGIN_USER}`;
+    location.hash = HASH.LOGIN_USER;
   };
 
   #convertToUserInfoObject({ email, name, password, confirmPassword }) {
