@@ -32,11 +32,6 @@ export default class RegisterView {
     const password = this.#password.value;
     const passwordConfirm = this.#passwordConfirm.value;
 
-    try {
-      Auth.register({ email, name, password, passwordConfirm });
-      window.location.href = '#/login';
-    } catch ({ message }) {
-      alert(message);
-    }
+    Auth.register({ email, name, password, passwordConfirm });
   };
 }

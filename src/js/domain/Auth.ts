@@ -51,18 +51,20 @@ const Auth = {
 
     this.loadRegisterAPI(userInfo);
   },
-  async loadRegisterAPI(userInfo) {
-    const { email, name, password } = userInfo;
-    const payload = JSON.stringify({ email, name, password });
+  login(userInfo) {
+    this.loadLoginAPI(userInfo);
+  },
+  async loadLoginAPI(userInfo) {
+    const { email, password } = userInfo;
+    const payload = JSON.stringify({ email, password });
 
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('http://localhost:3000/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: payload,
       }).then((res) => res.json());
 
-      //에러 발생시
       if (typeof response === 'string') {
         throw Error(response);
       }
@@ -74,6 +76,28 @@ const Auth = {
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('userId', id);
+      window.location.href = '#/manage';
+    } catch (e) {
+      alert(e);
+    }
+  },
+
+  async loadRegisterAPI(userInfo) {
+    const { email, name, password } = userInfo;
+    const payload = JSON.stringify({ email, name, password });
+
+    try {
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      }).then((res) => res.json());
+
+      if (typeof response === 'string') {
+        throw Error(response);
+      }
+
+      window.location.href = '#/login';
     } catch (error) {
       alert(error);
     }
