@@ -1,7 +1,7 @@
 import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
-import { RegisterUser } from '../interfaces/UserData.interface';
+import { User } from '../interfaces/UserData.interface';
 
-const requestRegister = async (userData: RegisterUser) => {
+const requestRegister = async (userData: User) => {
   const response = await fetch('http://localhost:3000/users', {
     method: 'POST',
     headers: {

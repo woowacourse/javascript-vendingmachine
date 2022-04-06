@@ -6,6 +6,7 @@
   --input-border-color: #eee;
   --input-outline-focus-color: #777;
   --input-border-focus-color: #bbb;
+  --input-disable-bg-color: #aaa;
   --button-hover-color: rgba(0, 188, 212, 0.16);
   --primary-text-color: rgba(0, 0, 0, 0.87);
   --list-border-color: #dcdcdc;

@@ -1,7 +1,8 @@
 import { PATH_NAME } from '../constants';
 import router from '../routes';
 import Auth from '../utils/Auth';
-import { getUserInitial } from '../utils/userAction';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import { getUserInitial, logout } from '../utils/userAction';
 
 export default class MainContentsComponent {
   $mainContents: HTMLElement;
@@ -19,6 +20,8 @@ export default class MainContentsComponent {
     const loginPageButton = document.querySelector('#login-page-button');
     const userMenuSymbolButton = document.querySelector('.user-menu-symbol');
     const userMenuSelectWrapper = document.querySelector('.user-menu-select-wrapper');
+    const userDataModifyButton = document.querySelector('#user-data-modify');
+    const logoutButton = document.querySelector('#logout');
 
     if (this.isLogin) {
       productManageButton.addEventListener('click', () => {
@@ -35,6 +38,16 @@ export default class MainContentsComponent {
 
       userMenuSymbolButton.addEventListener('click', () => {
         userMenuSelectWrapper.classList.toggle('hide');
+      });
+
+      userDataModifyButton.addEventListener('click', () => {
+        router.go(PATH_NAME.USER_INFOMATION);
+      });
+
+      logoutButton.addEventListener('click', () => {
+        if (throwableFunctionHandler(() => logout())) {
+          router.go(PATH_NAME.LOGOUT);
+        }
       });
 
       return;

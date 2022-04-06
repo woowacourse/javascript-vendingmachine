@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import { PATH_NAME } from './constants';
 import Register from './pages/Register';
 import Auth from './utils/Auth';
+import UserInfo from './pages/UserInfo';
 
 class router {
   prevPath: string;
@@ -15,10 +16,12 @@ class router {
   productPurchase: ProductPurchase;
   login: Login;
   register: Register;
+  userInfo: UserInfo;
 
   constructor() {
     this.login = new Login();
     this.register = new Register();
+    this.userInfo = new UserInfo();
     this.prevPath = null;
   }
 
@@ -63,9 +66,16 @@ class router {
         history.pushState({}, '로그인', window.location.pathname + hash);
         this.login.render();
         break;
+      case PATH_NAME.LOGOUT:
+        this.go(PATH_NAME.PRODUCT_PURCHASE);
+        break;
       case PATH_NAME.REGISTER:
         history.pushState({}, '회원가입', window.location.pathname + hash);
         this.register.render();
+        break;
+      case PATH_NAME.USER_INFOMATION:
+        history.pushState({}, '유저정보', window.location.pathname + hash);
+        this.userInfo.render();
         break;
       default:
         break;

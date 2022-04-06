@@ -3,7 +3,9 @@ const PATH_NAME = {
   ADD_CHANGE: '#!/change-add',
   PRODUCT_PURCHASE: '#!/product-purchase',
   LOGIN: '#!/login',
+  LOGOUT: '#!/logout',
   REGISTER: '#!/register',
+  USER_INFOMATION: '#!/user',
 };
 
 const RULES = {
@@ -49,7 +51,9 @@ const ALERT_MESSAGE = {
   RETURN_CHARGE_SUCCESS: '잔돈을 반환하였습니다.',
   WAITING_STATE: '잠시만 기다려주세요.',
   REGISTER_SUCCESS: '회원가입이 완료되었습니다.',
+  USER_INFO_MODIFY_SUCCESS: '회원 정보 수정이 완료되었습니다.',
   LOGIN_SUCCESS: (name: string) => `${name}님, 환영합니다.`,
+  LOGOUT_SUCCESS: '로그아웃 되었습니다.',
 };
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';

@@ -23,8 +23,8 @@
     },
     {
       "email": "test@test.tes",
-      "password": "$2a$10$iaxxGWZkfcCOEbYQuVzhReETB2eTHA8HHHl/VpxU6Zss6eXOqgzMC",
-      "name": "testte",
+      "name": "SuperTester",
+      "password": "$2a$10$qX7lnSuYwjfcK/Ej4JVF8uMuedv61LlIMV.9LlWlTiqXvLjIE3tku",
       "passwordCheck": "1q2w3e!!",
       "id": 4
     }

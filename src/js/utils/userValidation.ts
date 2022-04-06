@@ -1,8 +1,8 @@
 import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
-import { RegisterUser } from '../interfaces/UserData.interface';
+import { User } from '../interfaces/UserData.interface';
 import { checkEmailValidation, checkPasswordValidation } from './RegExpCheck';
 
-export const checkUserDataValidate = (userData: RegisterUser) => {
+export const checkUserDataValidate = (userData: User) => {
   if (userData.password !== userData.passwordCheck) {
     throw new Error(ERROR_MESSAGE.PASSWORDCHECK_IS_NOT_EQUAL);
   }

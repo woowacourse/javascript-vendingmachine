@@ -1,6 +1,7 @@
-interface RegisterUser {
+interface User {
   email: string;
   name: string;
+  id: string;
   password: string;
   passwordCheck: string;
 }
@@ -11,4 +12,4 @@ interface AccessToken {
   exp: number;
 }
 
-export type { RegisterUser, AccessToken };
+export type { User, AccessToken };

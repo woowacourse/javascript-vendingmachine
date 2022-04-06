@@ -73,6 +73,11 @@ input[type='submit'] {
   margin-left: 10px;
 }
 
+input:disabled {
+  cursor: not-allowed;
+  background: var(--input-disable-bg-color);
+}
+
 input {
   background-color: var(--primary-input-bg-color);
   outline: 1px solid var(--input-outline-color);
