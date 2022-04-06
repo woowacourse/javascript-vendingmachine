@@ -13,7 +13,6 @@ export default class User {
     this.#isLogined = false;
     this.#name = null;
     this.#email = null;
-    this.#initLoginStatus();
   }
 
   get isLogined() {
@@ -28,20 +27,19 @@ export default class User {
     return this.#email;
   }
 
-  #initLoginStatus() {
+  async initLoginStatus() {
     if (this.#accessToken) {
-      UserApi.searchInfo(this.#accessToken)
-        .then((res) => {
-          this.#isLogined = true;
-          this.#id = res.id;
-          this.#email = res.email;
-          this.#name = res.name;
-        })
-        .catch(() => {
-          expireCookie('accessToken');
-          this.#isLogined = false;
-          this.#id = null;
-        });
+      try {
+        const res = await UserApi.searchInfo(this.#accessToken);
+        this.#isLogined = true;
+        this.#id = res.id;
+        this.#email = res.email;
+        this.#name = res.name;
+      } catch {
+        expireCookie('accessToken');
+        this.#isLogined = false;
+        this.#id = null;
+      }
     }
   }
 

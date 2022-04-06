@@ -37,10 +37,10 @@ export default class Router {
       selectDom('body').replaceChild(notFoundContainer, selectDom('#app'));
       return;
     }
-
     if (this.#privateRenderList[path] && !this.#user.isLogined) {
       window.history.pushState({}, null, '#/login');
       this.#render();
+      alert('로그인이 필요합니다.');
       return;
     }
 

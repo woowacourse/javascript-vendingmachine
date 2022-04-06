@@ -8,7 +8,7 @@ export function listenEvents(target, events) {
       try {
         cb(e);
       } catch (error) {
-        console.log(error);
+        alert(error);
       }
     });
   });

@@ -10,7 +10,8 @@ const UserApi = {
       body: JSON.stringify({ email, password }),
     });
     if (!response.ok) {
-      throw Error(response);
+      const errorMessage = await response.json();
+      throw Error(errorMessage);
     }
     return response.json();
   },

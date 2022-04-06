@@ -1,7 +1,9 @@
 import Controller from '../controller/controller';
+import UserController from '../controller/userController';
 import User from '../domain/User';
 import VendingMachine from '../domain/VendingMachine';
 import AddChangeTab from './AddChangeTab';
+import LoginTab from './LoginTab';
 import ManageProductTab from './ManageProductTab';
 import Navigation from './Navigation';
 import Page from './Page';
@@ -16,6 +18,7 @@ export default function initView() {
   const manageProductPage = new Page(new Navigation(user), new ManageProductTab());
   const purchaseProductPage = new Page(new Navigation(user), new PurchaseProductTab());
   const addChangePage = new Page(new Navigation(user), new AddChangeTab());
+  const loginTab = new LoginTab();
   const router = new Router(user);
   const controller = new Controller(
     vendingMachine,
@@ -23,6 +26,12 @@ export default function initView() {
     manageProductPage,
     purchaseProductPage
   );
+  const userController = new UserController(user, loginTab, [
+    addChangePage,
+    manageProductPage,
+    purchaseProductPage,
+  ]);
+  router.addRenderList('#/login', loginTab);
   router.addPrivateRenderList('#/charge', addChangePage);
   router.addRenderList('#/purchase', purchaseProductPage);
   router.addPrivateRenderList('#/manage', manageProductPage);

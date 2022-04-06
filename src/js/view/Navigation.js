@@ -29,16 +29,16 @@ export default class Navigation {
     this.#user = user;
     this.#navContainer = createElementByTemplate('header', template);
     this.#tabMenuNav = selectDom('#tab-menu-navigation', this.#navContainer);
-    this.#renderMenuNavigation();
+    this.renderMenuNavigation();
 
     this.#tabMenuNav.addEventListener('click', this.#handleTabMenuChange);
   }
 
-  #renderMenuNavigation() {
-    if (!this.#user.isLoggined) {
+  renderMenuNavigation() {
+    if (!this.#user.isLogined) {
       this.#tabMenuNav.classList.add('hide');
     }
-    if (this.#user.isLoggined) {
+    if (this.#user.isLogined) {
       this.#tabMenuNav.classList.remove('hide');
     }
   }

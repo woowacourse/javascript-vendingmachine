@@ -11,6 +11,10 @@ export default class Page {
     this.#app.append(header.element, main.element);
   }
 
+  get header() {
+    return this.#header;
+  }
+
   get element() {
     return this.#app;
   }
