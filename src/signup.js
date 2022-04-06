@@ -1,6 +1,8 @@
 import "./css/login";
+import { ERROR_MESSAGE } from "./js/constant";
 import { addEvent } from "./js/util/event";
 import showSnackbar from "./js/util/snackbar";
+import { isValidName, isValidPassword } from "./js/util/validator";
 
 class SignUp {
   constructor() {
@@ -22,7 +24,7 @@ class SignUp {
     const password = this.$signupPassword.value;
     const confirmPassword = this.$signupPasswordConfirm.value;
 
-    if (password !== confirmPassword) {
+    if (!this.checkValidSignupInfo({ name, password, confirmPassword })) {
       return;
     }
 
@@ -45,6 +47,25 @@ class SignUp {
     }
 
     location.href = "./login.html";
+  };
+
+  checkValidSignupInfo = ({ name, password, confirmPassword }) => {
+    if (password !== confirmPassword) {
+      showSnackbar(this.$snackbar, ERROR_MESSAGE.NOT_MATCH_PASSWORD);
+      return false;
+    }
+
+    if (!isValidName(name)) {
+      showSnackbar(this.$snackbar, ERROR_MESSAGE.VALID_NAME);
+      return false;
+    }
+
+    if (!isValidPassword(password)) {
+      showSnackbar(this.$snackbar, ERROR_MESSAGE.VALID_PASSWORD);
+      return false;
+    }
+
+    return true;
   };
 }
 

@@ -12,6 +12,10 @@ export const ERROR_MESSAGE = {
   LACK_OF_BALANCE: "잔액이 부족합니다",
   MUST_LOGIN: "로그인후 이용해주세요",
   ALREADY_LOGIN: "이미 로그인이 되어있습니다",
+  VALID_PASSWORD:
+    "비밀번호는 8 ~ 15자 사이에 문자,숫자,특수문자를 하나 포함해야합니다.",
+  VALID_NAME: "이름은 2 ~ 6글자만 가능합니다",
+  NOT_MATCH_PASSWORD: "비밀번호 확인이 비밀번호와 일치하지 않습니다",
 };
 
 export const VENDING_MACHINE_NUMBER = {
