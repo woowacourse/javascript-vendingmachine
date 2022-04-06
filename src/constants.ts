@@ -45,4 +45,5 @@ export const ERROR_MESSAGE = {
   NOT_ENOUGH_MONEY: `잔액이 부족합니다.`,
   PASSWORD_CONFIRM: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
   DUPLICATED_EMAIL: '중복된 이메일이 존재합니다.',
+  NOT_MATCH_USER_INFO: '일치하는 정보가 없습니다.',
 };

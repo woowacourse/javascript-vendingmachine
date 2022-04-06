@@ -5,64 +5,70 @@ import { $, $$, addEvent } from '../utils';
 import { Path } from '../router';
 
 class MainUI {
+  private $userInfoButton = $('.user-info-button');
+  private $selectBox = $('.select-box');
+  private $selectBoxLogoutButton = $('.select-box__logout-button');
+  private $selectBoxEditProfileButton = $('.select-box__edit-profile-button');
+  private $selectBoxWrapper = $('.select-box-wrapper');
+  private $loginButton = $('.login-button');
+  private $editProfileFormEmail = $('#edit-profile-form__email');
+  private $editProfileFormName = $('#edit-profile-form__name');
+  private $nav = $('.nav');
+  private $signupText = $('.signup-text');
+
   constructor() {
-    this.renderUI();
-    // 셀렉트 박스 on/off
-    $('.user-info-button').addEventListener('click', (e) => {
-      $('.select-box').classList.toggle('hidden');
-    });
-    // selectbox 로그아웃
-    $('.select-box__logout-button').addEventListener('click', (e) => {
-      Auth.logout();
-      $('.select-box-wrapper').classList.add('hidden');
-      $('.login-button').classList.remove('hidden');
-      historyRouterPush('/javascript-vendingmachine/logout');
-    });
-    // selecbox 회원정보 수정 버튼  history 추가
-    $('.select-box__edit-profile-button').addEventListener('click', (e) => {
-      $('.select-box-wrapper').classList.add('hidden');
-      $('.header').classList.add('hidden');
-      $('.nav').classList.add('hidden');
-      ($('#edit-profile-form__email') as HTMLInputElement).value = storage.getUserInfo().email;
-      ($('#edit-profile-form__name') as HTMLInputElement).value = storage.getUserInfo().userName;
-      historyRouterPush('/javascript-vendingmachine/editprofile');
-    });
+    this.renderInitialUI();
 
-    // 메인 페이지 로그인 버튼 history 추가
-    $('.login-button').addEventListener('click', (e) => {
-      $('.login-button').classList.add('hidden');
-      $('.header').classList.add('hidden');
-      $('.nav').classList.add('hidden');
-      historyRouterPush('/javascript-vendingmachine/signin');
-    });
-
-    // nav 버튼 history 추가
-    $('.nav').addEventListener('click', (e) => {
-      if ((e.target as HTMLButtonElement).type === undefined) return;
-
-      const route = (e.target as HTMLButtonElement).getAttribute('route') as Path;
-      historyRouterPush(route);
-    });
-
-    // 회원가입 버튼 클릭
-    $('.signup-text').addEventListener('click', (e) => {
-      historyRouterPush('/javascript-vendingmachine/signup');
-    });
+    this.$userInfoButton.addEventListener('click', this.handleUserInfoButtonClick);
+    this.$selectBoxLogoutButton.addEventListener('click', this.handleSelectBoxLogoutButtonClick);
+    this.$selectBoxEditProfileButton.addEventListener('click', this.handleSelectBoxEditProfileButtonClick);
+    this.$loginButton.addEventListener('click', this.handleLoginButtonClick);
+    this.$nav.addEventListener('click', this.handleNavClick);
+    this.$signupText.addEventListener('click', this.handleSignupTextClick);
   }
 
-  renderUI() {
-    // ($('#edit-profile-form__email') as HTMLInputElement).value = storage.getUserInfo().email;
-    // ($('#edit-profile-form__name') as HTMLInputElement).value = storage.getUserInfo().userName;
-    const accessToken = storage.getAccessToken();
-    if (accessToken) {
-      $('.login-button').classList.add('hidden');
-      $('.user-info-button').classList.remove('hidden');
-      $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+  renderInitialUI() {
+    if (storage.getAccessToken()) {
+      this.$loginButton.classList.add('hidden');
+      this.$userInfoButton.classList.remove('hidden');
+      this.$userInfoButton.textContent = storage.getUserInfo().userName.slice(0, 1);
       return;
     }
-    $('.select-box').classList.add('hidden');
-    $('.user-info-button').classList.add('hidden');
+    this.$selectBox.classList.add('hidden');
+    this.$userInfoButton.classList.add('hidden');
   }
+
+  handleUserInfoButtonClick = (e) => {
+    this.$selectBox.classList.toggle('hidden');
+  };
+
+  handleSelectBoxLogoutButtonClick = (e) => {
+    Auth.logout();
+    this.$selectBoxWrapper.classList.add('hidden');
+    this.$loginButton.classList.remove('hidden');
+    historyRouterPush('/javascript-vendingmachine/logout');
+  };
+
+  handleSelectBoxEditProfileButtonClick = (e) => {
+    (this.$editProfileFormEmail as HTMLInputElement).value = storage.getUserInfo().email;
+    (this.$editProfileFormName as HTMLInputElement).value = storage.getUserInfo().userName;
+    historyRouterPush('/javascript-vendingmachine/editprofile');
+  };
+
+  handleLoginButtonClick = (e) => {
+    historyRouterPush('/javascript-vendingmachine/signin');
+  };
+
+  handleNavClick = (e) => {
+    if ((e.target as HTMLButtonElement).type === undefined) return;
+
+    const route = (e.target as HTMLButtonElement).getAttribute('route') as Path;
+    historyRouterPush(route);
+  };
+
+  handleSignupTextClick = (e) => {
+    historyRouterPush('/javascript-vendingmachine/signup');
+  };
 }
 
 export default MainUI;

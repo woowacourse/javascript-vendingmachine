@@ -1,7 +1,17 @@
 import storage from './storage';
 import { $, $$ } from './utils';
 
-const nav = $('.nav');
+const $nav = $('.nav');
+const $loginButton = $('.login-button');
+const $selectBoxWrapper = $('.select-box-wrapper');
+const $userInfoButton = $('.user-info-button');
+const $selectBox = $('.select-box');
+const $purchaseTab = $('purchase-tab');
+const $header = $('.header');
+const $signInPage = $('sign-in');
+const $signUpPage = $('sign-up');
+const $editProfilePage = $('edit-profile');
+
 const baseURL = '/javascript-vendingmachine';
 
 export type Path =
@@ -25,84 +35,79 @@ export const historyRouterPush = (pathname: Path) => {
   render(pathname);
 };
 
+const accessTokenTabRender = (tabName) => {
+  $(tabName).classList.remove('hidden');
+  $nav.classList.remove('hidden');
+  $loginButton.classList.add('hidden');
+  $selectBoxWrapper.classList.remove('hidden');
+  $selectBox.classList.add('hidden');
+  $userInfoButton.classList.remove('hidden');
+  $userInfoButton.textContent = storage.getUserInfo().userName.slice(0, 1);
+};
+
+const noAccessTokenTabRender = () => {
+  $nav.classList.add('hidden');
+  $loginButton.classList.remove('hidden');
+  $purchaseTab.classList.remove('hidden');
+};
+
+const authCommonRender = () => {
+  $selectBoxWrapper.classList.add('hidden');
+  $header.classList.add('hidden');
+  $nav.classList.add('hidden');
+};
+
 const render = (path: Path) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
-  $(`[route='${path}']`, nav)?.classList.add('focus-button');
+  $(`[route='${path}']`, $nav)?.classList.add('focus-button');
 
   switch (path) {
     case `${baseURL}/`:
-      $('.header').classList.remove('hidden');
+      $header.classList.remove('hidden');
       if (storage.getAccessToken()) {
-        $('.nav').classList.remove('hidden');
-        $('.login-button').classList.add('hidden');
-        $('product-management').classList.remove('hidden');
-        $('.select-box-wrapper').classList.remove('hidden');
-        $('.user-info-button').classList.remove('hidden');
-        $('.select-box').classList.add('hidden');
-        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+        accessTokenTabRender('product-management');
       } else {
-        $('.nav').classList.add('hidden');
-        $('.login-button').classList.remove('hidden');
-        $('purchase-tab').classList.remove('hidden');
+        noAccessTokenTabRender();
       }
       break;
+
     case `${baseURL}/charge`:
-      $('.header').classList.remove('hidden');
+      $header.classList.remove('hidden');
       if (storage.getAccessToken()) {
-        $('.nav').classList.remove('hidden');
-        $('.login-button').classList.add('hidden');
-        $('charge-tab').classList.remove('hidden');
-        $('.select-box-wrapper').classList.remove('hidden');
-        $('.user-info-button').classList.remove('hidden');
-        $('.select-box').classList.add('hidden');
-        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+        accessTokenTabRender('charge-tab');
       } else {
-        $('.nav').classList.add('hidden');
-        $('.login-button').classList.remove('hidden');
-        $('purchase-tab').classList.remove('hidden');
+        noAccessTokenTabRender();
       }
       break;
+
     case `${baseURL}/purchase`:
-      $('.header').classList.remove('hidden');
+      $header.classList.remove('hidden');
       if (storage.getAccessToken()) {
-        $('.nav').classList.remove('hidden');
-        $('.login-button').classList.add('hidden');
-        $('purchase-tab').classList.remove('hidden');
-        $('.select-box-wrapper').classList.remove('hidden');
-        $('.user-info-button').classList.remove('hidden');
-        $('.select-box').classList.add('hidden');
-        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+        accessTokenTabRender('purchase-tab');
       } else {
-        $('.nav').classList.add('hidden');
-        $('.login-button').classList.remove('hidden');
-        $('purchase-tab').classList.remove('hidden');
+        noAccessTokenTabRender();
       }
       break;
+
     case `${baseURL}/signin`:
-      $('.select-box-wrapper').classList.add('hidden');
-      $('.header').classList.add('hidden');
-      $('.nav').classList.add('hidden');
-      const signinComponent = $('sign-in');
-      signinComponent.classList.remove('hidden');
+      authCommonRender();
+      $loginButton.classList.add('hidden');
+      $signInPage.classList.remove('hidden');
       break;
+
     case `${baseURL}/signup`:
-      $('.select-box-wrapper').classList.add('hidden');
-      $('.header').classList.add('hidden');
-      $('.nav').classList.add('hidden');
-      const signupComponent = $('sign-up');
-      signupComponent.classList.remove('hidden');
+      authCommonRender();
+      $signUpPage.classList.remove('hidden');
       break;
+
     case `${baseURL}/editprofile`:
       if (storage.getAccessToken()) {
-        $('.select-box-wrapper').classList.add('hidden');
-        $('.header').classList.add('hidden');
-        $('.nav').classList.add('hidden');
-        const editProfileComponent = $('edit-profile');
-        editProfileComponent.classList.remove('hidden');
+        authCommonRender();
+        $editProfilePage.classList.remove('hidden');
       } else {
-        $('.nav').classList.add('hidden');
-        $('.login-button').classList.remove('hidden');
-        $('purchase-tab').classList.remove('hidden');
+        $nav.classList.add('hidden');
+        $loginButton.classList.remove('hidden');
+        $purchaseTab.classList.remove('hidden');
       }
       break;
   }

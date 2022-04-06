@@ -58,7 +58,7 @@ class Auth {
       });
 
       if (!response.ok) {
-        throw new Error('일치하는 정보가 없습니다.');
+        throw new Error(ERROR_MESSAGE.NOT_MATCH_USER_INFO);
       }
 
       const loginUserDataResponse = await response.json();
@@ -83,7 +83,7 @@ class Auth {
       const { userName: editedName, password, passwordConfirm } = userInfo;
 
       if (password !== passwordConfirm) {
-        throw new Error('비밀번호가 일치하지 않습니다.');
+        throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
       }
 
       const userId = storage.getUserInfo().id;
