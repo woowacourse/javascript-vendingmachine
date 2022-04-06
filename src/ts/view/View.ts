@@ -42,7 +42,10 @@ export default class View {
     this.renderCurrentView();
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
-      this.router(event.state.url, FLAG.POP_STATE);
+      this.router(
+        event.state ? event.state.url : location.pathname + location.hash,
+        FLAG.POP_STATE,
+      );
     });
     this.$tabProductManageButton.addEventListener('click', () =>
       this.router(TAB_ID.PRODUCT_MANAGE),
