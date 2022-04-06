@@ -3,7 +3,7 @@ import ProductPurchase from './pages/ProductPurchase';
 import ProductManage from './pages/ProductManage';
 import AddChange from './pages/AddChange';
 import Login from './pages/Login';
-import { ERROR_MESSAGE, PATH_NAME } from './constants';
+import { DEV_MODE, ERROR_MESSAGE, PATH_NAME } from './constants';
 import Register from './pages/Register';
 import Auth from './utils/Auth';
 import UserInfo from './pages/UserInfo';
@@ -103,6 +103,10 @@ class router {
   }
 
   private checkUserPermission() {
+    if (DEV_MODE) {
+      return;
+    }
+
     if (Auth()) {
       return;
     }
