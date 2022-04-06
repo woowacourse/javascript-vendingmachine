@@ -18,7 +18,7 @@ body {
 
 h1 {
   text-align: center;
-  margin: 44px 0 32px;
+  margin-bottom: 32px;
 }
 
 nav {
@@ -40,6 +40,30 @@ button {
 
 button:hover {
   background: var(--gray-700);
+}
+
+auth-menu {
+  width: 600px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+  margin: 12px 11px 0;
+}
+
+.user-button {
+  width: 40px;
+  height: 40px;
+  margin: 16px 15px 0;
+  border-radius: 50%;
+  background: var(--cyan-light);
+}
+
+.user-button:hover {
+  background: var(--cyan-light);
 }
 
 .nav__product-manage-button,

@@ -1,6 +1,12 @@
+import AuthStore from '../domains/stores/AuthStore';
 import CustomElement from '../abstracts/CustomElement';
 
 class AdministratorMenu extends CustomElement {
+  connectedCallback() {
+    super.connectedCallback();
+    AuthStore.instance.subscribe(this);
+  }
+
   template() {
     return `
       <nav>
@@ -15,6 +21,16 @@ class AdministratorMenu extends CustomElement {
         </a>
       </nav>
     `;
+  }
+
+  rerender(isAdministrator) {
+    if (isAdministrator) {
+      this.show();
+
+      return;
+    }
+
+    this.hide();
   }
 }
 
