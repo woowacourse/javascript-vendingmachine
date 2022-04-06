@@ -8,6 +8,9 @@
     "start": "webpack serve --open",
     "build": "webpack"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/woowacourse/javascript-vendingmachine.git"
@@ -44,5 +47,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
+  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
+  "dependencies": {
+    "npx": "^10.2.2"
+  }
 }
