@@ -3,10 +3,11 @@ import ProductPurchase from './pages/ProductPurchase';
 import ProductManage from './pages/ProductManage';
 import AddChange from './pages/AddChange';
 import Login from './pages/Login';
-import { PATH_NAME } from './constants';
+import { ERROR_MESSAGE, PATH_NAME } from './constants';
 import Register from './pages/Register';
 import Auth from './utils/Auth';
 import UserInfo from './pages/UserInfo';
+import throwableFunctionHandler from './utils/throwableFunctionHandler';
 
 class router {
   prevPath: string;
@@ -50,11 +51,12 @@ class router {
 
     switch (hash) {
       case PATH_NAME.PRODUCT_MANAGE:
-        Auth();
+        this.checkUserPermission();
         history.pushState({}, '상품 관리하기', window.location.pathname + hash);
         this.productManage.render();
         break;
       case PATH_NAME.ADD_CHANGE:
+        this.checkUserPermission();
         history.pushState({}, '잔돈 충전하기', window.location.pathname + hash);
         this.addChange.render();
         break;
@@ -74,6 +76,7 @@ class router {
         this.register.render();
         break;
       case PATH_NAME.USER_INFOMATION:
+        this.checkUserPermission();
         history.pushState({}, '유저정보', window.location.pathname + hash);
         this.userInfo.render();
         break;
@@ -95,6 +98,17 @@ class router {
     if ($loginInputContainer) {
       $loginInputContainer.replaceChildren();
     }
+  }
+
+  private checkUserPermission() {
+    if (Auth()) {
+      return;
+    }
+
+    throwableFunctionHandler(() => {
+      throw new Error(ERROR_MESSAGE.USER_NOT_LOGIN);
+    });
+    this.go(PATH_NAME.LOGIN);
   }
 }
 

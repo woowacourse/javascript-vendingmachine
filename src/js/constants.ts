@@ -39,6 +39,7 @@ const ERROR_MESSAGE = {
   USER_IS_NOT_EXIST: '해당 유저를 찾을 수 없습니다.',
   PASSWORD_IS_INCORRECT: '비밀번호가 다릅니다.',
   INVALID_ACCESS_TOKEN: '유효하지 않은 유저 데이터입니다.',
+  USER_NOT_LOGIN: '해당 작업을 위해서는 로그인이 필요합니다.',
 };
 
 const ALERT_MESSAGE = {
