@@ -1,6 +1,8 @@
 import { VALIDATION_ERROR_NAME } from './constants';
 import { Indexable } from './types';
 
+export const $ = (selector: string): HTMLElement => document.querySelector(selector) as HTMLElement;
+
 export const convertToInteger = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
   return !Number.isNaN(val) ? val : defaultNum;
@@ -68,7 +70,7 @@ export const convertToLocaleString = (number: number): string => {
 
 export const showSnack = (() => {
   let timer: NodeJS.Timeout;
-  const $snackbar = document.querySelector('.snack-bar') as HTMLElement;
+  const $snackbar = $('.snack-bar');
 
   return function showSnack(message: string) {
     $snackbar.textContent = message;

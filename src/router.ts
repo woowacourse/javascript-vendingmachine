@@ -1,4 +1,5 @@
 import { getUserInfo } from './member';
+import { $ } from './utils';
 
 class Router {
   static _instance?: Router;
@@ -15,10 +16,10 @@ class Router {
     window.addEventListener('pushstate', this.onLocationChange);
     window.addEventListener('popstate', this.onLocationChange);
 
-    this.pageContainer = document.querySelector('.tab-container') as HTMLElement;
-    this.memberContainer = document.querySelector('.member-container') as HTMLElement;
-    this.loginHeader = document.querySelector('.login-header') as HTMLElement;
-    this.header = document.querySelector('header') as HTMLElement;
+    this.pageContainer = $('.tab-container');
+    this.memberContainer = $('.member-container');
+    this.loginHeader = $('.login-header');
+    this.header = $('header');
 
     this.onLoad();
   }

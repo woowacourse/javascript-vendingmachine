@@ -4,7 +4,7 @@ import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement } from '../types';
-import { convertToLocaleString, showSnack } from '../utils';
+import { $, convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateInsertMoney } from '../validation/validators';
 
@@ -30,7 +30,7 @@ class PurchaseProductForm extends Component {
   }
 
   onClickInsertMoneyBtn = () => {
-    const $moneyInput = document.querySelector('input') as HTMLInputElement;
+    const $moneyInput = $('input') as HTMLInputElement;
     const money = $moneyInput.value;
 
     try {
