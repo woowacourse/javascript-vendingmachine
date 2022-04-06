@@ -1,3 +1,5 @@
+import { expireCookie } from '../utils/cookie';
+import { selectDom } from '../utils/dom';
 import { listenEvents } from '../utils/event';
 
 export default class UserController {
@@ -14,6 +16,7 @@ export default class UserController {
     listenEvents(loginTab.element, [{ type: 'login', cb: this.#login }]);
     listenEvents(signUpTab.element, [{ type: 'sign-up', cb: this.#signUp }]);
     listenEvents(myProfileTab.element, [{ type: 'update-user', cb: this.#updateUser }]);
+    listenEvents(selectDom('body'), [{ type: 'logout', cb: this.#logout }]);
   }
 
   #renderTabMenu() {
@@ -77,6 +80,18 @@ export default class UserController {
       alert(err.message);
       return;
     }
+    const tabChange = new CustomEvent('tabChange', {
+      detail: {
+        newHash: '/#/purchase',
+      },
+    });
+    window.dispatchEvent(tabChange);
+  };
+
+  #logout = () => {
+    expireCookie('accessToken');
+    this.#user.init();
+    this.#renderTabMenu();
     const tabChange = new CustomEvent('tabChange', {
       detail: {
         newHash: '/#/purchase',

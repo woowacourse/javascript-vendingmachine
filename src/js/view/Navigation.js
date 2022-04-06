@@ -1,4 +1,5 @@
 import { createElementByTemplate, selectDom } from '../utils/dom';
+import { emitEvent } from '../utils/event';
 
 const template = `
     <nav class="user-navigation"> 
@@ -12,7 +13,7 @@ const template = `
     <li type="button" class="user-navigation--li">
       <a href="#/myprofile" id="user-navigation-profile">Profile</a>
     </li>
-    <li type="button" class="user-navigation--li">
+    <li type="button" class="user-navigation--li" id="logout">
       Logout
     </li>
   </ul>
@@ -99,6 +100,9 @@ export default class Navigation {
   #handleProfileList = (e) => {
     if (e.target.id === 'user-navigation-profile') {
       this.#handleTabMenuChange(e);
+    }
+    if (e.target.id === 'logout') {
+      emitEvent(selectDom('body'), 'logout');
     }
   };
 

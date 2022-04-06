@@ -27,6 +27,13 @@ export default class User {
     return this.#email;
   }
 
+  init() {
+    this.#accessToken = null;
+    this.#isLogined = false;
+    this.#name = null;
+    this.#email = null;
+  }
+
   async initLoginStatus() {
     if (this.#accessToken) {
       try {
