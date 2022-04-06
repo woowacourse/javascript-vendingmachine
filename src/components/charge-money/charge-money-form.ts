@@ -3,8 +3,8 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { EventOnElement } from '../../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
+import { ToastType } from '../../types';
+import { consoleErrorWithConditionalToast, toast, toInt } from '../../utils';
 import ValidationError from '../../validation/validation-error';
 import { validateChargeCoins } from '../../validation/validators';
 
@@ -36,8 +36,9 @@ class ChargeMoneyForm extends Component {
     const money: string = $input.value;
     try {
       this.chargeCoins(money);
+      toast(ToastType.Success, '잔돈을 충전했습니다');
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      consoleErrorWithConditionalToast(e);
       $input.focus();
       $input.value = '';
     }

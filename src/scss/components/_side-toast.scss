@@ -1,0 +1,53 @@
+side-toast {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-size: 14px;
+  min-width: 300px;
+
+  li {
+    text-align:left;
+    padding: 16px 10px;
+    background-color:#fff;
+    border-radius:4px;
+    position:relative;
+    box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.2);
+    @extend .mb-3;
+    animation: slidein--right 0.36s forwards;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    &.success {
+      &:before {
+        background-color: #2BDE3F;
+      }
+    }
+
+    &.error {
+      &:before {
+        background-color: red;
+      }
+    }
+  }
+  
+  @keyframes slidein--right {
+    0% {
+      transform: translateX(110%);
+    }
+    70% {
+      transform: translateX(-12%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+}

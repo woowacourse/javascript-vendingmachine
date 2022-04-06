@@ -9,6 +9,7 @@ import './components/purchase-product/release-coin';
 import './components/login-btn';
 import './components/logged-in-btn';
 import './components/back-arrow';
+import './components/side-toast';
 import './pages/vendingmachine-page';
 import './pages/login-page';
 import './pages/register-page';

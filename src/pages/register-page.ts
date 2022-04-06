@@ -1,8 +1,9 @@
 import RouteComponent from '../abstract/route-component';
 import { API_URL } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { UserInfo, Feedback, FieldSet, WhiteList } from '../types';
-import { deepCopy } from '../utils';
+import Router from '../router';
+import { UserInfo, Feedback, FieldSet, WhiteList, ToastType } from '../types';
+import { deepCopy, toast } from '../utils';
 import {
   validateEmail,
   validateName,
@@ -129,14 +130,16 @@ class RegisterPage extends RouteComponent {
     const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
       (key) => feedbacks[key].hasError
     );
-    if (!hasError) {
-      const [name, email, password] = [
-        feedbacks.name.inputValue,
-        feedbacks.email.inputValue,
-        feedbacks.password.inputValue,
-      ];
-      this.register({ name, email, password });
+    if (hasError) {
+      toast(ToastType.Error, '입력하신 정보를 다시 확인해 주세요');
+      return;
     }
+    const [name, email, password] = [
+      feedbacks.name.inputValue,
+      feedbacks.email.inputValue,
+      feedbacks.password.inputValue,
+    ];
+    this.register({ name, email, password });
   };
 
   validate() {
@@ -204,11 +207,11 @@ class RegisterPage extends RouteComponent {
       .then((body) => {
         const { errorMessage } = body;
         if (errorMessage) {
-          alert(errorMessage);
+          toast(ToastType.Error, errorMessage);
           return;
         }
-        alert('회원가입 완료!');
-        location.href = `${location.origin}/login`;
+        toast(ToastType.Success, '회원가입 완료!');
+        Router.pushState(WhiteList.LoginPage);
       })
       .catch((err) => {
         console.error(err);

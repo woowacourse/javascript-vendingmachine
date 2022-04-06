@@ -3,8 +3,8 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { RawProductItem } from '../../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
+import { RawProductItem, ToastType } from '../../types';
+import { consoleErrorWithConditionalToast, toast, toInt } from '../../utils';
 import ValidationError from '../../validation/validation-error';
 import { validateProduct } from '../../validation/validators';
 
@@ -50,8 +50,9 @@ class AddProductForm extends Component {
 
     try {
       this.addProduct(productItem);
+      toast(ToastType.Success, '상품을 추가했습니다');
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      consoleErrorWithConditionalToast(e);
     }
   };
 

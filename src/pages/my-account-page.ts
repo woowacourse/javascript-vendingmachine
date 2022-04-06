@@ -1,8 +1,9 @@
 import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { FieldSet, Feedback, UserInfo, WhiteList, EventOnElement } from '../types';
-import { deepCopy, getUserInfoFromLocalStorage } from '../utils';
+import Router from '../router';
+import { FieldSet, Feedback, UserInfo, WhiteList, ToastType } from '../types';
+import { deepCopy, getUserInfoFromLocalStorage, toast } from '../utils';
 import { validateName, validatePassword, validateRePassword } from '../validation/validators';
 
 type FeedbackRecord = {
@@ -130,8 +131,10 @@ class MyAccountPage extends RouteComponent {
     const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
       (key) => feedbacks[key].hasError
     );
-    if (hasError) return; // validation에 에러가 있으면 request보내지 않는다
-
+    if (hasError) {
+      toast(ToastType.Error, '입력하신 정보를 다시 확인해 주세요');
+      return;
+    }
     const [name, email, password] = [
       feedbacks.name.inputValue,
       this._initialFeedbacks.email.placeholder!,
@@ -143,12 +146,12 @@ class MyAccountPage extends RouteComponent {
 
       const body = await response.json();
       if (response.ok) {
-        alert(body.message);
+        toast(ToastType.Success, body.message);
         this.onSuccessEdit(body.user);
         return;
       }
       if (body.errorMessage) {
-        alert(body.errorMessage);
+        toast(ToastType.Error, body.errorMessage);
       }
     } catch (e) {
       console.log(e);
@@ -158,7 +161,7 @@ class MyAccountPage extends RouteComponent {
   async edit({ name, email, password }: UserInfo) {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     if (!accessToken) {
-      alert('계정정보가 없습니다. 다시 로그인 해주세요');
+      toast(ToastType.Error, '계정정보가 없습니다. 다시 로그인 해주세요');
       location.href = `${location.origin}/login`;
       return;
     }
@@ -239,8 +242,8 @@ class MyAccountPage extends RouteComponent {
 
     const userInfo = getUserInfoFromLocalStorage();
     if (!userInfo) {
-      alert('계정정보가 없습니다. 다시 로그인 해주세요');
-      location.href = `${location.origin}/login`;
+      toast(ToastType.Error, '계정정보가 없습니다. 다시 로그인 해주세요');
+      Router.pushState(WhiteList.LoginPage);
       return;
     }
     if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;

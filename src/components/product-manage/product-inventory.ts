@@ -3,8 +3,8 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { EventOnElement, ProductItem } from '../../types';
-import { toInt } from '../../utils';
+import { EventOnElement, ProductItem, ToastType } from '../../types';
+import { toast, toInt } from '../../utils';
 import { validateProduct } from '../../validation/validators';
 
 @customElement('product-inventory')
@@ -101,7 +101,7 @@ class ProductInventory extends Component {
     ).filter((result) => result.hasError);
 
     if (errorList.length > 0 && errorList[0].hasError) {
-      alert(errorList[0].errorMessage);
+      toast(ToastType.Error, errorList[0].errorMessage);
       return;
     }
     Store.instance.dispatch(
@@ -112,6 +112,7 @@ class ProductInventory extends Component {
         quantity: toInt(quantity),
       })
     );
+    toast(ToastType.Success, '상품을 수정했습니다');
   };
 
   cancelProduct = ({ target }: EventOnElement) => {
@@ -132,6 +133,7 @@ class ProductInventory extends Component {
     const result = window.confirm('해당 상품을 삭제하시겠습니까?');
     if (!result) return;
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
+    toast(ToastType.Success, '상품을 삭제했습니다');
   };
 
   findTds(target: HTMLElement) {

@@ -1,10 +1,9 @@
-import Component from '../abstract/component';
 import RouteComponent from '../abstract/route-component';
 import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
-import { FieldSet, Feedback, UserInfo, WhiteList } from '../types';
-import { deepCopy } from '../utils';
+import { FieldSet, Feedback, UserInfo, WhiteList, ToastType } from '../types';
+import { deepCopy, toast } from '../utils';
 import { validateLoginEmail, validateLoginPassword } from '../validation/validators';
 
 type FeedbackRecord = {
@@ -32,6 +31,8 @@ class LoginPage extends RouteComponent {
 
   private feedbacks?: FeedbackRecord;
 
+  private isLoading = false;
+
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
@@ -44,11 +45,7 @@ class LoginPage extends RouteComponent {
     `;
   }
 
-  template(feedbacks: FeedbackRecord): string {
-    const { email, password } = feedbacks;
-    const isLoading = [email, password].every(
-      (feedback) => !feedback.hasError && feedback.inputValue
-    );
+  template(feedbacks: FeedbackRecord, isLoading: boolean): string {
     return `
       <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
@@ -93,9 +90,20 @@ class LoginPage extends RouteComponent {
     });
   }
 
+  setIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
+    this.render();
+  }
+
   setFeedbacks(feedbacks: FeedbackRecord) {
     this.feedbacks = deepCopy(feedbacks) as FeedbackRecord;
     this.render();
+  }
+
+  resetPasswordInput() {
+    if (!this.feedbacks) return;
+    this.feedbacks.password.inputValue = '';
+    this.setFeedbacks(this.feedbacks);
   }
 
   onClickLoginBtn = () => {
@@ -104,10 +112,15 @@ class LoginPage extends RouteComponent {
     const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
       (key) => feedbacks[key].hasError
     );
-    if (!hasError) {
-      const [email, password] = [feedbacks.email.inputValue, feedbacks.password.inputValue];
-      this.login({ email, password });
+    if (hasError) {
+      toast(ToastType.Error, '이메일 혹은 비밀번호입력에 오류가 발생했습니다');
+      this.resetPasswordInput();
+      return;
     }
+    this.setIsLoading(true);
+    const [email, password] = [feedbacks.email.inputValue, feedbacks.password.inputValue];
+    this.login({ email, password });
+    return;
   };
 
   login({ email, password }: Omit<UserInfo, 'name'>) {
@@ -125,16 +138,20 @@ class LoginPage extends RouteComponent {
       .then((body) => {
         const { accessToken, user, errorMessage } = body;
         if (errorMessage) {
-          alert(errorMessage);
+          toast(ToastType.Error, errorMessage);
+          this.resetPasswordInput();
           return;
         }
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
         localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
-        alert('로그인 성공');
-        location.href = `${location.origin}`;
+        toast(ToastType.Success, '로그인 성공');
+        Router.pushState(WhiteList.Home);
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        this.setIsLoading(false);
       });
   }
 
@@ -179,7 +196,7 @@ class LoginPage extends RouteComponent {
 
   render() {
     if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
-    this.innerHTML = this.shouldRender() ? this.template(this.feedbacks) : '';
+    this.innerHTML = this.shouldRender() ? this.template(this.feedbacks, this.isLoading) : '';
   }
 }
 

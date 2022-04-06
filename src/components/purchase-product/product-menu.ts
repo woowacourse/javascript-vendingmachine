@@ -3,7 +3,8 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { EventOnElement, ProductItem } from '../../types';
+import { EventOnElement, ProductItem, ToastType } from '../../types';
+import { toast } from '../../utils';
 import { validatePurchaseProduct } from '../../validation/validators';
 
 @customElement('product-menu')
@@ -58,11 +59,12 @@ class ProductMenu extends Component {
     const product = productList[productIdx];
     const { hasError, errorMessage } = validatePurchaseProduct(product, insertedMoney);
     if (hasError) {
-      alert(errorMessage);
+      toast(ToastType.Error, errorMessage);
       return;
     }
 
     Store.instance.dispatch(createAction(ACTION.PURCHASE_PRODUCT, { name }));
+    toast(ToastType.Success, '상품을 구매했습니다');
   };
 
   findTds(target: HTMLElement) {

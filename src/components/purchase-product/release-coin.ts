@@ -3,7 +3,8 @@ import { ACTION, COIN } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { CoinRecord } from '../../types';
+import { CoinRecord, ToastType } from '../../types';
+import { toast } from '../../utils';
 
 @customElement('release-coin')
 class ReleaseCoin extends Component {
@@ -46,6 +47,16 @@ class ReleaseCoin extends Component {
   }
 
   releaseCoin = () => {
+    const { insertedMoney, chargedMoney } = Store.instance.getState();
+    if (insertedMoney === 0) {
+      toast(ToastType.Error, '투입한 금액이 없습니다');
+      return;
+    }
+    if (chargedMoney === 0 || insertedMoney > chargedMoney) {
+      toast(ToastType.Error, '자판기에 잔돈이 부족합니다. 관리자(010-1234-5678)에게 문의해주세요.');
+      return;
+    }
+    toast(ToastType.Success, '잔돈을 반환했습니다');
     Store.instance.dispatch(createAction(ACTION.RELEASE_COIN, {}));
   };
 

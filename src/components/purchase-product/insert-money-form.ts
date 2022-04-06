@@ -3,7 +3,8 @@ import { ACTION } from '../../constants';
 import { customElement } from '../../decorators/decortators';
 import createAction from '../../flux/createAction';
 import Store from '../../flux/store';
-import { consoleErrorWithConditionalAlert, toInt } from '../../utils';
+import { ToastType } from '../../types';
+import { consoleErrorWithConditionalToast, toast, toInt } from '../../utils';
 import ValidationError from '../../validation/validation-error';
 import { validateInsertMoney } from '../../validation/validators';
 
@@ -35,8 +36,9 @@ class InsertMoneyForm extends Component {
     const money: string = $input.value;
     try {
       this.insertMoney(money);
+      toast(ToastType.Success, '돈을 투입했습니다');
     } catch (e: any) {
-      consoleErrorWithConditionalAlert(e);
+      consoleErrorWithConditionalToast(e);
       $input.focus();
       $input.value = '';
     }

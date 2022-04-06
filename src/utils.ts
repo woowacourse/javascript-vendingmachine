@@ -1,18 +1,19 @@
+import SnackBar from './components/side-toast';
 import { USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
-import { CoinRecord, Indexable, LoggedInUser } from './types';
+import { CoinRecord, Indexable, LoggedInUser, ToastType } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
   return Number.isNaN(val) ? defaultNum : val;
 };
 
-export const consoleErrorWithConditionalAlert = (
+export const consoleErrorWithConditionalToast = (
   error: Error,
-  errorNameForAlert = VALIDATION_ERROR_NAME
+  errorNameForToast = VALIDATION_ERROR_NAME
 ) => {
   console.error(error);
-  if (error.name === errorNameForAlert) {
-    alert(error.message);
+  if (error.name === errorNameForToast) {
+    toast(ToastType.Error, error.message);
   }
 };
 
@@ -88,4 +89,13 @@ export const getUserInfoFromLocalStorage = (): LoggedInUser | undefined => {
     userInfo = undefined;
   }
   return userInfo;
+};
+
+export const toast = (type: ToastType, message: string) => {
+  const $toast = document.querySelector('side-toast') as SnackBar;
+  if (type === ToastType.Success) {
+    $toast.success(message);
+  } else if (type === ToastType.Error) {
+    $toast.error(message);
+  }
 };

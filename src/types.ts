@@ -75,3 +75,8 @@ export type FieldSet = {
   type: 'text' | 'password';
   disabled: boolean;
 };
+
+export enum ToastType {
+  Success = 'success',
+  Error = 'error',
+}
