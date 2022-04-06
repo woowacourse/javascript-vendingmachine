@@ -13,6 +13,7 @@ import {
   VendingMachineTabInterface,
   HeaderInterface,
   ViewInterface,
+  UserInfo,
   UserStoreInterface,
 } from './types';
 import HASH from './constant/hash';
@@ -60,6 +61,11 @@ class App {
   render() {
     const currentHash = window.location.hash as Hash;
 
+    if (this.hasNotAuthority(currentHash)) {
+      window.location.href = '/';
+      return;
+    }
+
     this.header.render(currentHash);
 
     if (!currentHash) {
@@ -72,6 +78,17 @@ class App {
         view.render();
       }
     });
+  }
+
+  private hasNotAuthority(currentHash: Hash): boolean {
+    const requiredAuthorityHashList: Hash[] = [
+      HASH.ITEM_MANAGE,
+      HASH.COIN_RECHARGE,
+      HASH.USER_INFO_EDIT,
+    ];
+    const userInfo: UserInfo = this.userStore.getUserInfo();
+
+    return !userInfo && requiredAuthorityHashList.includes(currentHash);
   }
 }
 
