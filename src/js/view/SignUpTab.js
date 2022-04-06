@@ -1,4 +1,4 @@
-import { createElementByTemplate, selectDom } from '../utils/dom';
+import { createElementByTemplate, generateSnackBar, selectDom } from '../utils/dom';
 import { emitEvent } from '../utils/event';
 
 const template = `<main>
@@ -48,6 +48,10 @@ export default class SignUpTab {
     const email = this.#emailInput.value;
     const name = this.#nameInput.value;
     const password = this.#passwordInput.value;
+    if (password !== this.#passwordConfirmInput.value) {
+      generateSnackBar('비밀번호와 비밀번호 확인이 일치하지않습니다.');
+      return;
+    }
     emitEvent(this.element, 'sign-up', { email, name, password });
   };
 }
