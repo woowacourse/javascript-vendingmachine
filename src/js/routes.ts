@@ -1,10 +1,11 @@
-import MainContentsComponent from './components/mainContentsComponent';
+import MainContentsComponent from './components/MainContentsComponent';
 import ProductPurchase from './pages/ProductPurchase';
 import ProductManage from './pages/ProductManage';
 import AddChange from './pages/AddChange';
 import Login from './pages/Login';
 import { PATH_NAME } from './constants';
 import Register from './pages/Register';
+import Auth from './utils/Auth';
 
 class router {
   prevPath: string;
@@ -46,6 +47,7 @@ class router {
 
     switch (hash) {
       case PATH_NAME.PRODUCT_MANAGE:
+        Auth();
         history.pushState({}, '상품 관리하기', window.location.pathname + hash);
         this.productManage.render();
         break;

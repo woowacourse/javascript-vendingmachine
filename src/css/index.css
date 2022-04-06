@@ -89,7 +89,43 @@ input:focus {
 }
 
 .hide {
-  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.user-menu-select-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1;
+  gap: 5px;
+  transition: height 0.5s;
+}
+
+.user-menu-symbol {
+  cursor: pointer;
+  background: linear-gradient(45deg, var(--primary-color), var(--button-hover-color));
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-menu-symbol p {
+  margin: 5px auto;
+}
+
+#user-data-modify {
+  position: absolute;
+  top: 35px;
+}
+
+#logout {
+  position: absolute;
+  top: 75px;
 }
 
 .input-page {
