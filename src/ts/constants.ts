@@ -19,6 +19,7 @@ export const ERROR_MESSAGE = {
   INSERT_MONEY_UNIT: '투입할 금액은 10의 배수여야 합니다.',
   EXCEED_INSERTED_HOLDING_MONEY: '투입할 수 있는 최대 금액은 1만원입니다.',
   UNDER_MIN_INSERTED_HOLDING_MONEY: '투입 금액은 10원 이상이어야 합니다.',
+  NOT_INSERTED_HOLDING_MONEY: '투입된 돈이 없으므로, 잔돈을 반환할 수 없습니다.',
   SOLD_OUT: '해당 상품에 재고가 없습니다.',
   INSUFFICIENT_MONEY: '해당 상품을 구입하기에 투입한 돈이 충분하지 않습니다.',
   OUT_OF_NAME_LENGTH:

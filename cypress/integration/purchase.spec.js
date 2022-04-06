@@ -153,4 +153,14 @@ describe('잔돈 반환 테스트', () => {
     cy.get('#purchase-tab-coin-10').last().should('have.text', '1');
     cy.checkToastMessage('보유 중인 잔돈이 부족하여, 30원은 반환하지 못하였습니다.');
   });
+
+  it('잔여 금액이 없는 경우 잔돈 반환 버튼을 누르면, 반환할 잔돈이 없음을 알린다.', () => {
+    cy.get('#refund-button').click();
+
+    cy.get('#purchase-tab-coin-500').last().should('have.text', '0');
+    cy.get('#purchase-tab-coin-100').last().should('have.text', '0');
+    cy.get('#purchase-tab-coin-50').last().should('have.text', '0');
+    cy.get('#purchase-tab-coin-10').last().should('have.text', '0');
+    cy.checkToastMessage(ERROR_MESSAGE.NOT_INSERTED_HOLDING_MONEY);
+  });
 });

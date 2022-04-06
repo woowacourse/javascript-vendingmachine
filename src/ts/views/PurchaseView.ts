@@ -1,7 +1,7 @@
 import { VendingMachineInterface } from '../domains/VendingMachine';
 import { $ } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
-import { SUCCESS_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 
 export default class PurchaseView {
   vendingMachine: VendingMachineInterface;
@@ -104,7 +104,7 @@ export default class PurchaseView {
 
   private handleRefundButton = () => {
     if (this.vendingMachine.insertedMoney === 0) {
-      renderToastModal('error', '투입된 돈이 없으므로, 잔돈을 반환할 수 없습니다.');
+      renderToastModal('error', ERROR_MESSAGE.NOT_INSERTED_HOLDING_MONEY);
       const initializedCoins = [0, 0, 0, 0];
       this.renderRefundableCoinTable(initializedCoins);
       return;
