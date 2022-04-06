@@ -22,6 +22,13 @@ class ProductStore extends Store {
     });
   }
 
+  purchaseProduct(index: number): void {
+    const updateProduct: IProduct = { ...this.state.products[index] };
+
+    updateProduct.quantity -= 1;
+    this.updateProduct(index, updateProduct);
+  }
+
   findProductIndexByName(name: string): number {
     return this.state.products.findIndex(product => product.name === name);
   }

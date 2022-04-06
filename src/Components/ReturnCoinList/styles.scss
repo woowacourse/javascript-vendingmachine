@@ -1,0 +1,9 @@
+#return-change-button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.5rem 3rem;
+
+  &.hide {
+    display: none;
+  }
+}

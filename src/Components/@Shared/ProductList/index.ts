@@ -1,4 +1,5 @@
 import Component from 'Components/Abstract';
+import HoldingAmountStore from 'Store/HoldingAmountStore';
 import ProductStore from 'Store/ProductStore';
 import { $, $$, addMultipleEventDelegate, createTemplate } from 'Utils';
 
@@ -33,6 +34,7 @@ export default class ProductList extends Component<IProductListProps> {
       '.product-update-confirm-button': { handler: this.onClickUpdateConfirmButton },
       '.product-update-cancel-button': { handler: this.onClickUpdateCancelButton },
       '.product-delete-button': { handler: this.onClickDeleteButton },
+      '.product-purchase-button': { handler: this.onClickPurchaseButton },
     });
   }
 
@@ -104,8 +106,31 @@ export default class ProductList extends Component<IProductListProps> {
     typeof onRemoveProduct === 'function' && onRemoveProduct(productIndex);
   };
 
+  onClickPurchaseButton = ({ target: $target }) => {
+    const $tableRow = $target.closest('tr[data-primary-key]');
+    if (!$tableRow) return;
+
+    const productIndex = $tableRow.dataset.primaryKey;
+    const product = ProductStore.getState().products[productIndex];
+    const { chargedAmount } = HoldingAmountStore.getState();
+
+    if (product.quantity <= 0) {
+      alert('해당 상품의 재고가 모두 소진되었습니다.');
+      return;
+    }
+
+    if (product.price > chargedAmount) {
+      alert('투입한 금액이 부족합니다.\n상품 구매에 필요한 금액을 충전해주세요.');
+      return;
+    }
+
+    if (!confirm(`해당 상품을 구매하시겠습니까?\n${product.price}원이 차감됩니다.`)) return;
+
+    HoldingAmountStore.updateChargeAmount('subtract', product.price);
+    ProductStore.purchaseProduct(productIndex);
+  };
+
   drawProductList = ({ products }) => {
-    console.log(products);
     const { listType } = this.props;
     const templateTableRow =
       listType === 'manage' ? templateManageTableRow : templatePurchaseTableRow;
@@ -115,8 +140,8 @@ export default class ProductList extends Component<IProductListProps> {
         elementProperty: { dataset: { 'primary-key': index } },
         childTextContent: {
           '.name': name,
-          '.price': price,
-          '.quantity': quantity,
+          '.price': `${price.toLocaleString()}원`,
+          '.quantity': `${quantity}개`,
         },
       });
 
