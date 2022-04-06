@@ -6,7 +6,7 @@ export default class CurrentMoneyIndicator extends Component {
     const totalMoney = vendingMachine.getTotalMoney();
 
     return `
-      <p class="current-money-indicator">현재 보유 금액: <span>${totalMoney}원</span></p>
+      <p class="money-indicator">현재 보유 금액: <span>${totalMoney}원</span></p>
     `;
   }
 }

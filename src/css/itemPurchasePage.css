@@ -1,17 +1,22 @@
-.change-charge-form {
+.insert-money-form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 372px;
 }
 
-.charge-amount-input {
+.insert-amount-input {
   width: 300px;
   height: 34px;
 }
 
-.add-charge-button {
+.insert-money-button {
   width: 56px;
   height: 36px;
   align-self: flex-end;
+}
+
+.item-purchase-button {
+  width: 50px;
+  height: 32px;
 }

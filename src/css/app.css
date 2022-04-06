@@ -167,3 +167,7 @@ input {
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+
+.money-indicator {
+  margin-top: 16px;
+}
