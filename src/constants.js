@@ -1,5 +1,14 @@
 import { addThousandUnitComma } from './utils';
 
+export const BASE_HASH = '#!product-purchase';
+
+export const HEADER = {
+  VENDING_MACHINE: '🍿 자판기 🍿',
+  LOGIN: '로그인',
+  SIGNUP: '회원가입',
+  USER_INFO_MODIFY: '회원 정보 수정',
+};
+
 export const COIN = {
   DEFAULT_COUNT: 0,
 };
