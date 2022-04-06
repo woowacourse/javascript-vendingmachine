@@ -1,7 +1,7 @@
 import CustomElement from '../../abstracts/CustomElement';
-import { SNACKBAR } from '../../constants';
 import { $ } from '../../utils/dom';
 import { checkNewUserInfoValidation } from '../../validators';
+import { signup } from '../../utils/auth';
 
 class SignupContainer extends CustomElement {
   template() {
@@ -32,16 +32,16 @@ class SignupContainer extends CustomElement {
   handleSignupFormSubmit = (event) => {
     event.preventDefault();
 
-    const $emailInputValue = $('#signup-email-input');
-    const $nameInputValue = $('#signup-name-input');
-    const $passwordInputValue = $('#signup-password-input');
-    const $passwordConfirmValue = $('#password-confirm-input');
+    const emailInputValue = $('#signup-email-input').value;
+    const nameInputValue = $('#signup-name-input').value;
+    const passwordInputValue = $('#signup-password-input').value;
+    const passwordConfirmValue = $('#password-confirm-input').value;
 
     const newUserInfo = {
-      email: $emailInputValue.value,
-      name: $nameInputValue.value,
-      password: $passwordInputValue.value,
-      passwordConfirm: $passwordConfirmValue.value,
+      email: emailInputValue,
+      name: nameInputValue,
+      password: passwordInputValue,
+      passwordConfirm: passwordConfirmValue,
     };
 
     try {
@@ -50,7 +50,7 @@ class SignupContainer extends CustomElement {
       alert(error.message);
       return;
     }
-    this.showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
+    signup(emailInputValue, nameInputValue, passwordInputValue);
   };
 }
 
