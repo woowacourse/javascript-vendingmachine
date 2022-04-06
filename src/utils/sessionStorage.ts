@@ -26,10 +26,3 @@ export function getStorageProductCatalog(): ProductCatalog {
   }
   return productCatalog;
 }
-
-export function updateStorageProductCatalog() {
-  const before = getStorageProductCatalog();
-}
-export function updateStorageCoinVault() {
-  const before = getStorageCoinVault();
-}
