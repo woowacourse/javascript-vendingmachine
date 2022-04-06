@@ -16,6 +16,7 @@ describe('잔돈생성 테스트', () => {
 
   test('자판기가 최초 보유한 금액은 0원이다.', () => {
     const { coin500, coin100, coin50, coin10 } = coinVault.getCoins();
+    
     expect(coin500).toStrictEqual(0);
     expect(coin100).toStrictEqual(0);
     expect(coin50).toStrictEqual(0);

@@ -3,7 +3,7 @@ Cypress.Commands.add('login', () => {
 
   cy.get('#login-button').click();
 
-  cy.get('#login-form #email').type('abc@gmail.com');
+  cy.get('#login-form #email').type('abcd@naver.com');
   cy.get('#login-form #password').type('abcd1234!');
   cy.get('#login-form .submit-button').click();
 });

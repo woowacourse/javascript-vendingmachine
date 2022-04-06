@@ -33,6 +33,7 @@ describe('로그인 사용자 e2e 테스트', () => {
       cy.get('@addedProduct').find('.product-quantity span').should('have.text', productQuantity);
 
       cy.get('#product-purchase-nav-button').click();
+
       cy.get(`#purchasable-product-table #${productName}`).as('addedProduct');
       cy.get('@addedProduct').find('.product-name span').should('have.text', productName);
       cy.get('@addedProduct').find('.product-price span').should('have.text', productPrice);
@@ -56,6 +57,7 @@ describe('로그인 사용자 e2e 테스트', () => {
 
       purchaseMoney -= productPrice;
       cy.get('#product-purchase-nav-button').click();
+
       cy.get('#purchase-money').should('have.text', purchaseMoney);
     });
 
@@ -64,6 +66,7 @@ describe('로그인 사용자 e2e 테스트', () => {
 
       cy.get(`#product-table #${productName}`).as('firstProduct');
       cy.get('@firstProduct').find('.edit-button').click();
+      
       cy.get('@firstProduct').find('.product-name input').should('have.value', productName);
       cy.get('@firstProduct').find('.product-price input').should('have.value', productPrice);
       cy.get('@firstProduct').find('.product-quantity input').should('have.value', productQuantity);
@@ -82,7 +85,7 @@ describe('로그인 사용자 e2e 테스트', () => {
 
       cy.get(`#product-table #${productName}`).as('editedProduct');
 
-      cy.get('@editedProduct').find('.product-name span').should('have.text', `${productName}`);
+      cy.get('@editedProduct').find('.product-name span').should('have.text', productName);
       cy.get('@editedProduct').find('.product-price span').should('have.text', productPrice);
       cy.get('@editedProduct').find('.product-quantity span').should('have.text', productQuantity);
     });
@@ -121,9 +124,8 @@ describe('로그인 사용자 e2e 테스트', () => {
 });
 
 describe('비로그인 사용자 e2e 테스트', () => {
-  // 이메일 무작위 생성을 위한 보조 함수
+  // 이메일 무작위 생성
   const randomString = (Math.random() + 1).toString(36).substring(7);
-
   const email = `${randomString}@naver.com`;
 
   before(() => {
@@ -145,14 +147,13 @@ describe('비로그인 사용자 e2e 테스트', () => {
       cy.get('#login-button').click();
 
       cy.get('#login-form').should('be.visible');
-
       cy.get('.signup-link').should('be.visible');
     });
 
     it('회원가입 버튼을 클릭했을때, 회원가입 폼이 보여야한다.', () => {
       cy.get('.signup-link').click();
-      cy.get('#login-form').should('not.exist');
 
+      cy.get('#login-form').should('not.exist');
       cy.get('#signup-form').should('be.visible');
     });
 
