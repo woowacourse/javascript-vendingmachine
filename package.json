@@ -8,7 +8,9 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "cm": "cz",
-    "server": "json-server-auth db.json -r authorization.json"
+    "server": "json-server-auth db.json -r authorization.json",
+    "cypress:run": "cypress run --browser chrome",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "css-loader": "^6.6.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
+    "cypress": "^9.5.2",
     "prettier": "^2.6.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
