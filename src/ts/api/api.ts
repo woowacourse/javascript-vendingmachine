@@ -1,4 +1,4 @@
-const request = async (url, option) => {
+const request = async (url: string, option: object) => {
   const response = await fetch(url, option);
   const data = await response.json();
 
@@ -7,7 +7,11 @@ const request = async (url, option) => {
   return data;
 };
 
-export const requestRegister = async (email, name, password) => {
+export const requestRegister = async (
+  email: string,
+  name: string,
+  password: string
+) => {
   const response = await request(
     'https://vendingmachine-json-server.herokuapp.com/register',
     {
@@ -26,7 +30,7 @@ export const requestRegister = async (email, name, password) => {
   return response;
 };
 
-export const requestSignIn = async (email, password) => {
+export const requestSignIn = async (email: string, password: string) => {
   const response = await request(
     'https://vendingmachine-json-server.herokuapp.com/signin',
     {
@@ -44,7 +48,7 @@ export const requestSignIn = async (email, password) => {
   return response;
 };
 
-export const requestUserInfo = async (accessToken, userId) => {
+export const requestUserInfo = async (accessToken: string, userId: string) => {
   const response = await request(
     `https://vendingmachine-json-server.herokuapp.com/600/users/${userId}`,
     {
@@ -58,7 +62,7 @@ export const requestUserInfo = async (accessToken, userId) => {
   return response;
 };
 
-export const requestEditInformation = async (accessToken, user) => {
+export const requestEditInformation = async (accessToken: string, user) => {
   const response = await request(
     `https://vendingmachine-json-server.herokuapp.com/users/${user.id}`,
     {
