@@ -9,6 +9,7 @@ import {
   removedItemValidator,
   insertMoneyValidator,
   purchaseItemValidator,
+  returnChangeValidator,
 } from '../utils/validator';
 import { COIN } from '../configs/constants';
 
@@ -29,6 +30,7 @@ export interface VendingMachineState {
   items: Item[];
   coins: Coins;
   insertedMoney: number;
+  returnedChange: Coins;
   location: string;
 }
 
@@ -39,9 +41,16 @@ export default class VendingMachine {
     items: Item[],
     coins: Coins,
     insertedMoney: number,
+    returnedChange: Coins,
     location = '/'
   ) {
-    this.state = Subject.observable({ items, coins, insertedMoney, location });
+    this.state = Subject.observable({
+      items,
+      coins,
+      insertedMoney,
+      returnedChange,
+      location,
+    });
   }
 
   useStore(callback: Function): any {
@@ -132,9 +141,46 @@ export default class VendingMachine {
     this.state.insertedMoney += amount;
   }
 
+  returnChange(): void {
+    validate(returnChangeValidator, this.state.insertedMoney);
+
+    let remain = this.state.insertedMoney;
+
+    const returnedChange = Object.keys(this.state.coins).reduce(
+      (next: Coins, key) => {
+        const coinValue = Number(key);
+        const coinAmount = Math.min(
+          Math.floor(remain / coinValue),
+          this.state.coins[key]
+        );
+        remain -= coinAmount * coinValue;
+
+        return { ...next, [key]: coinAmount };
+      },
+      COIN.EMPTY_COINS
+    );
+
+    const updatedCoins = Object.keys(this.state.coins).reduce(
+      (next: Coins, key) => ({
+        ...next,
+        [key]: this.state.coins[key] - returnedChange[key],
+      }),
+      COIN.EMPTY_COINS
+    );
+
+    this.state.insertedMoney = remain;
+    this.state.returnedChange = returnedChange;
+    this.state.coins = updatedCoins;
+  }
+
   setLocation(location: string): void {
     this.state.location = location;
   }
 }
 
-export const vendingMachine = new VendingMachine([], COIN.EMPTY_COINS, 0);
+export const vendingMachine = new VendingMachine(
+  [],
+  COIN.EMPTY_COINS,
+  0,
+  COIN.EMPTY_COINS
+);

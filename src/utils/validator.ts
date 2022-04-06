@@ -97,3 +97,10 @@ export const purchaseItemValidator: Validator = [
     errorMessage: `투입 금액이 부족합니다.`,
   },
 ];
+
+export const returnChangeValidator: Validator = [
+  {
+    test: (insertedMoney: number) => insertedMoney > 0,
+    errorMessage: '투입한 금액이 없습니다.',
+  },
+];

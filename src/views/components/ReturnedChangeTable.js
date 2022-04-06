@@ -3,8 +3,12 @@ import { vendingMachine } from '../../domains/VendingMachine';
 
 export default class ReturnedChangeTable extends Component {
   template() {
-    const coins = vendingMachine.useStore((state) => state.coins);
-    const coinArray = [...Object.entries(coins)].sort(([a], [b]) => b - a);
+    const returnedChange = vendingMachine.useStore(
+      (state) => state.returnedChange
+    );
+    const coinArray = [...Object.entries(returnedChange)].sort(
+      ([a], [b]) => b - a
+    );
 
     return `
       <table class="styled-table">
