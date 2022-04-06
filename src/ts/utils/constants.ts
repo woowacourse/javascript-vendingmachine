@@ -37,6 +37,7 @@ const ERROR_MESSAGES = {
   NOT_ENOUGH_PURCHASE_AMOUNT: "상품을 구매할 금액이 부족합니다. 금액을 더 충전해주세요.",
   NOT_ENOUGH_RETURN_COIN: "반환 가능한 동전이 모두 소진되었습니다. 관리자에게 문의하세요.",
   NOT_ENOUGH_INPUT_AMOUNT: "투입한 금액이 없어서 반환할 수 없습니다.",
+  CANNOT_PARSE_JSON: "저장된 데이터가 유효하지 않은 JSON 형식입니다.",
 };
 
 const INFOMATION_MESSAGES = {
