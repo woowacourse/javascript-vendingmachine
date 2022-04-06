@@ -3,6 +3,10 @@ import { ERROR_MSG } from '../../src/utils/constants';
 describe('잔돈을 충전할 수 있다.', () => {
   beforeEach(() => {
     cy.visit('/');
+    const userEmail = '789456@name.com';
+    const userPassword = '1234asdf!@#$';
+
+    cy.login(userEmail, userPassword);
     cy.get('#recharge-change-tab').click();
   });
 
