@@ -54,6 +54,15 @@ const Auth = {
   login(userInfo) {
     this.loadLoginAPI(userInfo);
   },
+  async getUserInfo(id) {
+    return this.loadUserInfoAPI(id);
+  },
+  async loadUserInfoAPI(id) {
+    const response = await fetch(`http://localhost:3000/users/${id}`).then((res) =>
+      res.json()
+    );
+    return response;
+  },
   async loadLoginAPI(userInfo) {
     const { email, password } = userInfo;
     const payload = JSON.stringify({ email, password });

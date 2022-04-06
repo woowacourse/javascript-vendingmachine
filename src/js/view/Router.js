@@ -6,6 +6,7 @@ import { createDivElement, createMainElement, selectDom } from '../utils/dom';
 import { TEMPLATE } from './template';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
+import Auth from '../domain/Auth';
 
 export default class Router {
   #vendingMachine;
@@ -17,6 +18,7 @@ export default class Router {
   #userProfile;
   #adminProfile;
   #logoutTabMenu;
+  #nickname;
 
   constructor() {
     //멤버변수 생성
@@ -40,6 +42,7 @@ export default class Router {
     this.#userProfile = selectDom('#user', this.#adminHeaderContainer);
     this.#adminProfile = selectDom('#admin', this.#adminHeaderContainer);
     this.#logoutTabMenu = selectDom('#logout-tab-menu', this.#adminHeaderContainer);
+    this.#nickname = selectDom('#nickname', this.#adminHeaderContainer);
 
     //이벤트 바인딩
     window.addEventListener('popstate', this.#render);
@@ -62,6 +65,14 @@ export default class Router {
     }
 
     this.#app.insertAdjacentElement('beforeend', this.#adminHeaderContainer);
+
+    if (this.#isAdmin()) {
+      const id = localStorage.getItem('userId');
+
+      Auth.getUserInfo(id).then(({ name }) => {
+        this.#nickname.textContent = name[0];
+      });
+    }
 
     this.#userProfile.classList.toggle('hide', this.#isAdmin());
     this.#adminProfile.classList.toggle('hide', !this.#isAdmin());

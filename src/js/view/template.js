@@ -260,7 +260,7 @@ export const TEMPLATE = {
           <p id="nickname">우</p>
           <div class="admin-detail hide">
             <a id="modify-tab-menu" class="tab-menu-button" href="#/modify">내 정보 수정</a>
-            <a id="logout-tab-menu" class="tab-menu-button" href="#/login">로그아웃</a>
+            <a id="logout-tab-menu" class="tab-menu-button" href="#/purchase">로그아웃</a>
           </div>
         </div>
       </div>
