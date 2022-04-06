@@ -1,6 +1,6 @@
-import { DomainView, VendingMachine, Product, ProductName } from '../../index.d';
+import { DomainView, Buyer, Product, ProductName } from '../../index.d';
 import { $ } from '../util/index';
-import VendingMachineImpl from '../interactor/VendingMachineImpl';
+import BuyerImpl from '../interactor/BuyerImpl';
 import Snackbar from './Snackbar';
 
 export default class BuyProduct implements DomainView {
@@ -13,7 +13,7 @@ export default class BuyProduct implements DomainView {
   private $returnCoin50: HTMLElement;
   private $returnCoin10: HTMLElement;
   private $returnChangeButton: HTMLElement;
-  private vendingMachine: VendingMachine;
+  private buyer: Buyer;
   private snackbar: Snackbar;
 
   constructor(snackbar: Snackbar) {
@@ -26,12 +26,12 @@ export default class BuyProduct implements DomainView {
     this.$returnCoin50 = $('#return-coin-50-count');
     this.$returnCoin10 = $('#return-coin-10-count');
     this.$returnChangeButton = $('#return-change-button');
-    this.vendingMachine = VendingMachineImpl.getInstance();
+    this.buyer = new BuyerImpl();
     this.snackbar = snackbar;
   }
 
   render(): void {
-    const template = this.vendingMachine.productCollection.products
+    const template = this.buyer.vendingMachine.products
       .map(
         ({ name, price, quantity }: Product) =>
           `<tr class="product-info">
@@ -60,7 +60,7 @@ export default class BuyProduct implements DomainView {
     try {
       const userInputMoney = Number((this.$buyPriceInput as HTMLInputElement).value);
 
-      this.vendingMachine.chargeUserMoney(userInputMoney);
+      this.buyer.chargeMoney(userInputMoney);
       this.renderTotalBuyPrice();
     } catch ({ message }) {
       this.snackbar.on(message);
@@ -71,7 +71,7 @@ export default class BuyProduct implements DomainView {
     try {
       const productName = (e.target as HTMLElement).dataset.name as unknown as ProductName;
 
-      this.vendingMachine.buyProduct(productName);
+      this.buyer.buyProduct(productName);
       this.render();
       this.renderTotalBuyPrice();
     } catch ({ message }) {
@@ -80,7 +80,7 @@ export default class BuyProduct implements DomainView {
   }
 
   private handleClickReturnButton(): void {
-    const changeCoins = this.vendingMachine.returnChangeCoins();
+    const changeCoins = this.buyer.receiveChangeCoins();
 
     this.$returnCoin10.innerText = `${changeCoins[10]}개`;
     this.$returnCoin50.innerText = `${changeCoins[50]}개`;
@@ -90,6 +90,6 @@ export default class BuyProduct implements DomainView {
   }
 
   private renderTotalBuyPrice(): void {
-    this.$totalBuyPrice.innerText = String(this.vendingMachine.totalUserInputMoney);
+    this.$totalBuyPrice.innerText = String(this.buyer);
   }
 }

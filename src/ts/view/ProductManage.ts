@@ -1,7 +1,7 @@
-import { DomainView, VendingMachine, Product, ProductName } from '../../index.d';
+import { DomainView, Admin, Product, ProductName } from '../../index.d';
 import { $ } from '../util/index';
 import { CONFIRM_DELETE_PRODUCT_MESSAGE } from '../constant/index';
-import VendingMachineImpl from '../interactor/VendingMachineImpl';
+import AdminImpl from '../interactor/AdminImpl';
 import Snackbar from './Snackbar';
 
 export default class ProductManage implements DomainView {
@@ -10,7 +10,7 @@ export default class ProductManage implements DomainView {
   private $additionalProductName: HTMLElement;
   private $additionalProductPrice: HTMLElement;
   private $additionalProductQuantity: HTMLElement;
-  private vendingMachine: VendingMachine;
+  private admin: Admin;
   private snackbar: Snackbar;
 
   constructor(snackbar: Snackbar) {
@@ -19,12 +19,12 @@ export default class ProductManage implements DomainView {
     this.$additionalProductName = $('#product-name-input');
     this.$additionalProductPrice = $('#product-price-input');
     this.$additionalProductQuantity = $('#product-quantity-input');
-    this.vendingMachine = VendingMachineImpl.getInstance();
+    this.admin = AdminImpl.getInstance();
     this.snackbar = snackbar;
   }
 
   render(): void {
-    const template = this.vendingMachine.productCollection.products
+    const template = this.admin.vendingMachine.products
       .map(
         ({ name, price, quantity }: Product) =>
           `<tr class="product-info">
@@ -61,7 +61,7 @@ export default class ProductManage implements DomainView {
         quantity: Number((this.$additionalProductQuantity as HTMLInputElement).value),
       };
 
-      this.vendingMachine.addProduct(newProduct);
+      this.admin.addProduct(newProduct);
       this.render();
     } catch ({ message }) {
       this.snackbar.on(message);
@@ -79,7 +79,7 @@ export default class ProductManage implements DomainView {
   private deleteProduct(productRow: HTMLElement): void {
     try {
       const productName = ($('.product-info-name', productRow) as HTMLInputElement).value as unknown as ProductName;
-      this.vendingMachine.deleteProduct(productName);
+      this.admin.deleteProduct(productName);
       this.render();
     } catch ({ message }) {
       this.snackbar.on(message);
@@ -95,7 +95,7 @@ export default class ProductManage implements DomainView {
       };
       const originProductName = $('.product-info__text.name', productRow).innerText as unknown as ProductName;
 
-      this.vendingMachine.modifyProduct(newProduct, originProductName);
+      this.admin.modifyProduct(newProduct, originProductName);
       this.render();
     } catch ({ message }) {
       this.snackbar.on(message);
