@@ -5,7 +5,7 @@ export const AUTH_CONDITION = {
   MAX_USER_PASSWORD_LENGTH: 16,
 } as const;
 
-export const API_URL = 'http://localhost:3000';
+export const API_URL = 'https://albur-vm-json-server-auth.herokuapp.com';
 
 export const CHEAPEST_COIN = 10;
 
