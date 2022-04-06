@@ -11,7 +11,7 @@ export function createMainElement(template) {
 
 export function createDivElement(template) {
   const divElement = document.createElement('div');
-  divElement.className = 'app-inner';
+  divElement.id = 'app-inner';
 
   divElement.insertAdjacentHTML('beforeend', template);
 

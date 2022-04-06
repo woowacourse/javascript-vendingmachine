@@ -47,9 +47,58 @@ nav.hide {
   color: var(--default--black-color);
 }
 
-.profile {
+.profile #user {
   display: flex;
   position: absolute;
   right: 11px;
   top: 12px;
+}
+
+#user.hide {
+  display: none;
+}
+
+.profile #admin {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  right: 11px;
+  top: 12px;
+
+  background: #d6f4f8;
+  border-radius: 50%;
+
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#admin.hide {
+  display: none;
+}
+
+.admin-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+
+  top: 40px;
+  right: 0;
+}
+
+.admin-detail.hide {
+  display: none;
+}
+
+.admin-detail a {
+  width: 90px;
+
+  font-size: 15px;
+  color: black;
 }

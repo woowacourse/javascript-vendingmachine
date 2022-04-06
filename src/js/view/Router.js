@@ -2,7 +2,7 @@ import VendingMachine from '../domain/VendingMachine';
 import PurchaseProductTab from './PurchaseProductTab';
 import AddChangeTab from './AddChangeTab';
 import ManageProductTab from './ManageProductTab';
-import { createMainElement, selectDom } from '../utils/dom';
+import { createDivElement, createMainElement, selectDom } from '../utils/dom';
 import { TEMPLATE } from './template';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
@@ -11,8 +11,12 @@ export default class Router {
   #vendingMachine;
   #renderList;
   #app;
-  #body;
   #tabMenuNavigation;
+  #adminHeaderContainer;
+  #main;
+  #userProfile;
+  #adminProfile;
+  #logoutTabMenu;
 
   constructor() {
     //멤버변수 생성
@@ -24,11 +28,25 @@ export default class Router {
       '#/login': new LoginView(),
       '#/register': new RegisterView(),
     };
+
+    this.#adminHeaderContainer = createDivElement(TEMPLATE.ADMIN_HEADER);
+
     this.#app = selectDom('#app');
+    this.#main = selectDom('main', this.#adminHeaderContainer);
+    this.#tabMenuNavigation = selectDom(
+      '#tab-menu-navigation',
+      this.#adminHeaderContainer
+    );
+    this.#userProfile = selectDom('#user', this.#adminHeaderContainer);
+    this.#adminProfile = selectDom('#admin', this.#adminHeaderContainer);
+    this.#logoutTabMenu = selectDom('#logout-tab-menu', this.#adminHeaderContainer);
 
     //이벤트 바인딩
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
+    this.#adminProfile.addEventListener('click', this.#handleAdminDetailMenu);
+    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+    this.#logoutTabMenu.addEventListener('click', this.#handleLogout);
   }
 
   //리팩토링 필수
@@ -40,14 +58,13 @@ export default class Router {
         'beforeend',
         this.#renderList[window.location.hash].template
       );
-
       return;
     }
 
-    this.#app.insertAdjacentHTML('beforeend', TEMPLATE.ADMIN_HEADER);
+    this.#app.insertAdjacentElement('beforeend', this.#adminHeaderContainer);
 
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
-    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+    this.#userProfile.classList.toggle('hide', this.#isAdmin());
+    this.#adminProfile.classList.toggle('hide', !this.#isAdmin());
 
     let path = window.location.hash || '#/manage';
     this.#tabMenuNavigation.classList.remove('hide');
@@ -58,15 +75,15 @@ export default class Router {
       this.#tabMenuNavigation.classList.add('hide');
     }
 
-    const main = selectDom('main');
+    this.#main.replaceChildren();
 
     if (!this.#renderList[path]) {
       const notFoundContainer = createMainElement(TEMPLATE.NOT_FOUND);
-      this.#app.replaceChild(notFoundContainer, main);
+      this.#main.insertAdjacentElement('beforeend', notFoundContainer);
       return;
     }
 
-    this.#app.replaceChild(this.#renderList[path].tabElements, main);
+    this.#main.insertAdjacentElement('beforeend', this.#renderList[path].tabElements);
   };
 
   #updateCurrentTabMenu(path) {
@@ -89,4 +106,18 @@ export default class Router {
     window.history.pushState({}, null, newHash);
     this.#render();
   };
+
+  #handleAdminDetailMenu = () => {
+    const $adminDetail = selectDom('.admin-detail', this.#app);
+    $adminDetail.classList.toggle('hide');
+  };
+
+  #handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userId');
+  };
+
+  #isAdmin() {
+    return localStorage.getItem('accessToken');
+  }
 }
