@@ -7,195 +7,353 @@
   </head>
 
   <body>
-    <div id="app" class="app buyProduct">
-      <h1 class="app__title">🍿 자판기 🍿</h1>
+    <div id="app" class="app signup"> 
+      <main class="app__page main">
+        <div class="sign-wrap buyer">
+          <button type="button" id="login-button" class="login-button gray-button button">로그인</button>
+          <button type="button" id="thumbnail" class="thumbnail-button"></button>
+          <div class="menu">
+            <p id="modify-admin-info-menu" class="menu-button">회원 정보 수정</p>
+            <p id="logout-menu" class="menu-button">로그아웃</p>
+          </div>
+        </div>
+  
+        <h1 class="app__title">🍿 자판기 🍿</h1>
+  
+        <section id="tab" class="tab">
+          <button type="button" class="tab__item button" data-name="productManage">
+            상품 관리
+          </button>
+          <button type="button" class="tab__item button" data-name="chargeMoney">
+            잔돈 충전
+          </button>
+          <button type="button" class="tab__item button" data-name="buyProduct">
+            상품 구매
+          </button>
+        </section>
+  
+        <main class="app__main productManage">
+          <form id="add-product-form" class="input-form">
+            <label class="input-description">
+              추가할 상품 정보를 입력해주세요.
+            </label>
+            <div class="input-container">
+              <input
+                type="text"
+                min="1" 
+                max="10"
+                id="product-name-input"
+                class="input-form__input"
+                placeholder="상품명"
+              />
+              <input
+                type="number"
+                step="10"
+                min="100" 
+                max="10000"
+                id="product-price-input"
+                class="input-form__input"
+                placeholder="가격"
+              />
+              <input
+                type="number"
+                min="1" 
+                max="20"
+                id="product-quantity-input"
+                class="input-form__input"
+                placeholder="수량"
+              />
+              <button type="submit" class="input-form__submit-button blue-button button">
+                추가
+              </button>
+            </div>
+          </form>
+  
+          <section class="table-wrap">
+            <h2 class="table-wrap__title">상품 현황</h2>
+            <table class="product-table">
+              <thead>
+                <tr>
+                  <td>상품명</td>
+                  <td>가격</td>
+                  <td>수량</td>
+                  <td>수정</td>
+                </tr>
+              </thead>
+              <tbody id="product-list"></tbody>
+            </table>
+          </section>
+        </main>
+  
+        <main class="app__main chargeMoney">
+          <form id="charge-money-form" class="input-form">
+            <label class="input-description">
+              자판기가 보유할 금액을 입력해주세요.
+            </label>
+            <div class="input-container">
+              <input
+                type="number"
+                step="10"
+                min="1000"
+                id="charge-money-input"
+                class="input-form__input"
+                placeholder="금액"
+              />
+              <button type="submit" class="input-form__submit-button blue-button button">
+                충전
+              </button>
+            </div>
+            <p class="amount-description">현재 보유 금액: <span id="total-amount">0</span>원</p>
+          </form>
+  
+          <section class="table-wrap">
+            <h2 class="table-wrap__title">자판기가 보유한 동전</h2>
+            <table class="coin-table">
+              <thead>
+                <tr>
+                  <td>동전</td>
+                  <td>개수</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>500원</td>
+                  <td id="coin-500-count">0개</td>
+                </tr>
+                <tr>
+                  <td>100원</td>
+                  <td id="coin-100-count">0개</td>
+                </tr>
+                <tr>
+                  <td>50원</td>
+                  <td id="coin-50-count">0개</td>
+                </tr>
+                <tr>
+                  <td>10원</td>
+                  <td id="coin-10-count">0개</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </main>
+  
+        <main class="app__main buyProduct">
+          <form id="buy-price-form" class="input-form">
+            <label class="input-description">
+              상품을 구매할 금액을 투입해주세요.
+            </label>
+            <div class="input-container">
+              <input
+                type="number"
+                step="10"
+                min="10"
+                max="10000"
+                id="buy-price-input"
+                class="input-form__input"
+                placeholder="금액"
+              />
+              <button type="submit" class="input-form__submit-button blue-button button">
+                투입
+              </button>
+            </div>
+            <p class="amount-description">투입한 금액: <span id="total-buy-price">0</span>원</p>
+          </form>
+  
+          <section class="table-wrap product">
+            <h2 class="table-wrap__title">구매 가능 상품 현황</h2>
+            <table class="product-table">
+              <thead>
+                <tr>
+                  <td>상품명</td>
+                  <td>가격</td>
+                  <td>수량</td>
+                  <td>수정</td>
+                </tr>
+              </thead>
+              <tbody id="available-product-list"></tbody>
+            </table>
+          </section>
+  
+          <section class="table-wrap">
+            <h2 class="table-wrap__title">잔돈 반환</h2>
+            <table class="coin-table">
+              <thead>
+                <tr>
+                  <td>동전</td>
+                  <td>개수</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>500원</td>
+                  <td id="return-coin-500-count">0개</td>
+                </tr>
+                <tr>
+                  <td>100원</td>
+                  <td id="return-coin-100-count">0개</td>
+                </tr>
+                <tr>
+                  <td>50원</td>
+                  <td id="return-coin-50-count">0개</td>
+                </tr>
+                <tr>
+                  <td>10원</td>
+                  <td id="return-coin-10-count">0개</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="button-wrap">
+              <button type="button" class="button gray-button" id="return-change-button">반환</button>
+            </div>
+          </section>
+        </main>
+      </main>
 
-      <section id="tab" class="tab">
-        <button type="button" class="tab__item button" data-name="productManage">
-          상품 관리
-        </button>
-        <button type="button" class="tab__item button" data-name="chargeMoney">
-          잔돈 충전
-        </button>
-        <button type="button" class="tab__item button" data-name="buyProduct">
-          상품 구매
-        </button>
-      </section>
+      <main class="app__page signup">
+        <h1 class="page-title">회원가입</h1>
 
-      <main class="app__main productManage">
-        <form id="add-product-form" class="input-form">
-          <label class="input-description">
-            추가할 상품 정보를 입력해주세요.
-          </label>
-          <div class="input-container">
+        <form id="signup-form" class="input-form">
+          <div class="input-wrap">
+            <label class="input-description">
+              이메일
+            </label>
+            <input
+              type="email"
+              id="signup-email"
+              class="input-form__input"
+              placeholder="이메일 주소를 입력해주세요"
+            /> 
+          </div>
+       
+          <div class="input-wrap">
+            <label class="input-description">
+              이름
+            </label>
             <input
               type="text"
-              min="1" 
-              max="10"
-              id="product-name-input"
+              id="signup-name"
               class="input-form__input"
-              placeholder="상품명"
-            />
-            <input
-              type="number"
-              step="10"
-              min="100" 
-              max="10000"
-              id="product-price-input"
-              class="input-form__input"
-              placeholder="가격"
-            />
-            <input
-              type="number"
-              min="1" 
-              max="20"
-              id="product-quantity-input"
-              class="input-form__input"
-              placeholder="수량"
-            />
-            <button type="submit" class="input-form__submit-button button">
-              추가
-            </button>
+              placeholder="이름을 입력해주세요"
+            /> 
           </div>
-        </form>
 
-        <section class="table-wrap">
-          <h2 class="table-wrap__title">상품 현황</h2>
-          <table class="product-table">
-            <thead>
-              <tr>
-                <td>상품명</td>
-                <td>가격</td>
-                <td>수량</td>
-                <td>수정</td>
-              </tr>
-            </thead>
-            <tbody id="product-list"></tbody>
-          </table>
-        </section>
+          <div class="input-wrap">
+            <label class="input-description">
+              비밀번호
+            </label>
+            <input
+              type="password"
+              id="signup-password"
+              class="input-form__input"
+              placeholder="비밀번호를 입력해주세요"
+            /> 
+          </div>
+
+          <div class="input-wrap">
+            <label class="input-description">
+              비밀번호 확인
+            </label>
+            <input
+              type="password"
+              id="signup-password-confirm"
+              class="input-form__input"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+
+          <button type="submit" class="input-form__submit-button blue-button button">확인</button>
+        </form>
       </main>
 
-      <main class="app__main chargeMoney">
-        <form id="charge-money-form" class="input-form">
-          <label class="input-description">
-            자판기가 보유할 금액을 입력해주세요.
-          </label>
-          <div class="input-container">
-            <input
-              type="number"
-              step="10"
-              min="1000"
-              id="charge-money-input"
-              class="input-form__input"
-              placeholder="금액"
-            />
-            <button type="submit" class="input-form__submit-button button">
-              충전
-            </button>
-          </div>
-          <p class="amount-description">현재 보유 금액: <span id="total-amount">0</span>원</p>
-        </form>
+      <main class="app__page admin">
+        <h1 class="page-title">회원 정보 수정</h1>
 
-        <section class="table-wrap">
-          <h2 class="table-wrap__title">자판기가 보유한 동전</h2>
-          <table class="coin-table">
-            <thead>
-              <tr>
-                <td>동전</td>
-                <td>개수</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>500원</td>
-                <td id="coin-500-count">0개</td>
-              </tr>
-              <tr>
-                <td>100원</td>
-                <td id="coin-100-count">0개</td>
-              </tr>
-              <tr>
-                <td>50원</td>
-                <td id="coin-50-count">0개</td>
-              </tr>
-              <tr>
-                <td>10원</td>
-                <td id="coin-10-count">0개</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        <form id="admin-form" class="input-form">
+          <div class="input-wrap">
+            <label class="input-description">
+              이메일
+            </label>
+            <input
+              disabled
+              type="email"
+              id="admin-email"
+              class="input-form__input"
+              placeholder="이메일 주소를 입력해주세요"
+            /> 
+          </div>
+       
+          <div class="input-wrap">
+            <label class="input-description">
+              이름
+            </label>
+            <input
+              type="text"
+              id="admin-name"
+              class="input-form__input"
+              placeholder="이름을 입력해주세요"
+            /> 
+          </div>
+
+          <div class="input-wrap">
+            <label class="input-description">
+              비밀번호
+            </label>
+            <input
+              type="password"
+              id="admin-password"
+              class="input-form__input"
+              placeholder="비밀번호를 입력해주세요"
+            /> 
+          </div>
+
+          <div class="input-wrap">
+            <label class="input-description">
+              비밀번호 확인
+            </label>
+            <input
+              type="password"
+              id="admin-password-confirm"
+              class="input-form__input"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
+
+          <button type="submit" class="input-form__submit-button blue-button button">확인</button>
+        </form>
       </main>
 
-      <main class="app__main buyProduct">
-        <form id="buy-price-form" class="input-form">
-          <label class="input-description">
-            상품을 구매할 금액을 투입해주세요.
-          </label>
-          <div class="input-container">
+      <main class="app__page login">
+        <h1 class="page-title">로그인</h1>
+
+        <form id="login-form" class="input-form">
+          <div class="input-wrap">
+            <label class="input-description">
+              이메일
+            </label>
             <input
-              type="number"
-              step="10"
-              min="10"
-              max="10000"
-              id="buy-price-input"
+              type="email"
+              id="login-email"
               class="input-form__input"
-              placeholder="금액"
-            />
-            <button type="submit" class="input-form__submit-button button">
-              투입
-            </button>
+              placeholder="이메일 주소를 입력해주세요"
+            /> 
           </div>
-          <p class="amount-description">투입한 금액: <span id="total-buy-price">0</span>원</p>
+
+          <div class="input-wrap">
+            <label class="input-description">
+              비밀번호
+            </label>
+              <input
+                type="password"
+                id="login-password"
+                class="input-form__input"
+                placeholder="비밀번호를 입력해주세요"
+              /> 
+          </div>
+
+          <button type="submit" class="input-form__submit-button blue-button button">확인</button>
+
+          <p class="signup-anouncement">아직 회원이 아니신가요?<span class="page-move" data-page="signup">회원가입</span></p>
         </form>
-
-        <section class="table-wrap product">
-          <h2 class="table-wrap__title">구매 가능 상품 현황</h2>
-          <table class="product-table">
-            <thead>
-              <tr>
-                <td>상품명</td>
-                <td>가격</td>
-                <td>수량</td>
-                <td>수정</td>
-              </tr>
-            </thead>
-            <tbody id="available-product-list"></tbody>
-          </table>
-        </section>
-
-        <section class="table-wrap">
-          <h2 class="table-wrap__title">잔돈 반환</h2>
-          <table class="coin-table">
-            <thead>
-              <tr>
-                <td>동전</td>
-                <td>개수</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>500원</td>
-                <td id="return-coin-500-count">0개</td>
-              </tr>
-              <tr>
-                <td>100원</td>
-                <td id="return-coin-100-count">0개</td>
-              </tr>
-              <tr>
-                <td>50원</td>
-                <td id="return-coin-50-count">0개</td>
-              </tr>
-              <tr>
-                <td>10원</td>
-                <td id="return-coin-10-count">0개</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="button-wrap">
-            <button type="button" class="button gray-button" id="return-change-button">반환</button>
-          </div>
-        </section>
       </main>
     </div>
 

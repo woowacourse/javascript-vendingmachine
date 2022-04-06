@@ -22,7 +22,7 @@
   width: 120px;
 }
 
-.input-form__submit-button {
+.app__main.productManage .input-form__submit-button {
   padding: 6px 6px 6px 8px; 
   width: 56px;
   height: 100%;
@@ -31,7 +31,7 @@
   margin: 0px 10px;
 }
 
-.input-form__submit-button:hover {
+.app__main.productManage .input-form__submit-button:hover {
   background-color: var(--submit-button-color);
   opacity: 0.7;
 }

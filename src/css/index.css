@@ -7,6 +7,9 @@
 @import './screen/productManage.css';
 @import './screen/moneyCharge.css';
 @import './screen/buyProduct.css';
+@import './screen/signupPage.css';
+@import './screen/loginPage.css';
+@import './screen/adminPage.css';
 
 body {
   display: flex;
@@ -14,15 +17,20 @@ body {
   padding: 32px 0;
 }
 
+p {
+  margin: 0;
+}
+
 .app {
   width: 600px;
-  padding: 44px 0;
+  padding: 12px 0 44px 0;
   border: 1px solid var(--app-border-color);
   box-sizing: border-box;
   border-radius: 4px;
 }
 
 .app__title {
+  margin: 0;
   text-align: center;
   font-weight: 600;
   font-size: 34px;
@@ -55,6 +63,7 @@ body {
   background-color: var(--tab-active-background-color);
 }
 
+.app .app__page,
 .app .app__main {
   display: none;
 }
@@ -65,6 +74,15 @@ body {
   display: flex;
 }
 
+.app.productManage .app__page.main,
+.app.chargeMoney .app__page.main,
+.app.buyProduct .app__page.main,
+.app.signup .app__page.signup,
+.app.admin .app__page.admin,
+.app.login .app__page.login {
+  display: block;
+}
+
 .amount-description {
   display: inline;
   font-weight: 400;
@@ -72,3 +90,77 @@ body {
   letter-spacing: 0.5px;
   color: rgba(0, 0, 0, 0.87);
 }
+
+.sign-wrap {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  padding-right: 15px;
+  height: 40px;
+}
+
+.sign-wrap button,
+.sign-wrap .menu {
+  display: none;
+}
+
+.sign-wrap.buyer .login-button,
+.sign-wrap.admin .thumbnail-button,
+.sign-wrap.menu .menu {
+  display: block;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.thumbnail-button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background: var(--tab-background-color);
+  border: none;
+  border-radius: 100%;
+}
+
+.thumbnail-button:hover {
+  background: var(--tab-active-background-color);
+}
+
+.sign-wrap .menu {
+  position: absolute;
+  border: 1px solid var(--app-border-color);
+  margin-left: 10px;
+}
+
+.menu-button {
+  cursor: pointer;
+  border: none;
+  padding: 7px;
+  font-size: 14px;
+  background-color: var(--tab-background-color);
+}
+
+.menu-button:hover {
+  background-color: var(--tab-active-background-color);
+}
+
+.menu-button:first-child {
+  border-bottom: 1px solid var(--app-border-color);
+}
+
+.input-description {
+  display: block;
+}
+
+.page-title {
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 36px;
+  text-align: center;
+}
+ 
