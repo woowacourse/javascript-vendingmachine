@@ -29,10 +29,11 @@ class ChargeMoneyForm extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickChargeBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
-  onClickChargeBtn = ({ target }: EventOnElement) => {
-    const $input = target.previousElementSibling as HTMLInputElement;
+  onClickChargeBtn = () => {
+    const $input = this.querySelector('input') as HTMLInputElement;
     const money: string = $input.value;
 
     try {
@@ -42,6 +43,10 @@ class ChargeMoneyForm extends Component {
       $input.focus();
       $input.value = '';
     }
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickChargeBtn();
   };
 
   chargeCoins(money: string) {

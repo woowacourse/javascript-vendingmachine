@@ -1,6 +1,7 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import { signUp } from '../member';
+import { EventOnElement } from '../types';
 import { showSnack } from '../utils';
 import { validateSignUp } from '../validation/validators';
 
@@ -27,6 +28,7 @@ class SignUpFrom extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickSignUpBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
   onClickSignUpBtn = () => {
@@ -45,6 +47,10 @@ class SignUpFrom extends Component {
     }
 
     signUp(email, name, password);
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickSignUpBtn();
   };
 }
 

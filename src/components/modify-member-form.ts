@@ -1,6 +1,7 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import { getUserInfo, updateInfo } from '../member';
+import { EventOnElement } from '../types';
 import { showSnack } from '../utils';
 import { validateSignUp } from '../validation/validators';
 
@@ -27,6 +28,7 @@ class ModifyMemberForm extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickModifyBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
   onClickModifyBtn = async () => {
@@ -45,6 +47,10 @@ class ModifyMemberForm extends Component {
     }
 
     await updateInfo(name, password);
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickModifyBtn();
   };
 
   mount() {

@@ -2,6 +2,7 @@ import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
 import { login } from '../member';
 import Router from '../router';
+import { EventOnElement } from '../types';
 
 @customElement('login-form')
 class LoginForm extends Component {
@@ -25,6 +26,7 @@ class LoginForm extends Component {
   setEvent() {
     this.addEvent('click', 'button', this.onClickLoginConfirmBtn);
     this.addEvent('click', '.sign-up-link', this.onClickSignUpLink);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
   onClickLoginConfirmBtn = () => {
@@ -33,6 +35,10 @@ class LoginForm extends Component {
     const password = $password.value;
 
     login(email, password);
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickLoginConfirmBtn();
   };
 
   onClickSignUpLink = () => {

@@ -3,6 +3,7 @@ import { ACTION } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
+import { EventOnElement } from '../types';
 import { convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateInsertMoney } from '../validation/validators';
@@ -25,6 +26,7 @@ class PurchaseProductForm extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickInsertMoneyBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
   onClickInsertMoneyBtn = () => {
@@ -38,6 +40,10 @@ class PurchaseProductForm extends Component {
       $moneyInput.focus();
       $moneyInput.value = '';
     }
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickInsertMoneyBtn();
   };
 
   insertMoney(money: string) {

@@ -39,7 +39,7 @@ export type Indexable = number | string;
 
 export type CoinRecord = { [key: number]: number };
 
-export type EventOnElement = Override<Event, { target: HTMLElement }>;
+export type EventOnElement = Override<Event, { target: HTMLElement; key: string }>;
 
 export enum Tab {
   ProductManageTab = 'product-manage-page',
