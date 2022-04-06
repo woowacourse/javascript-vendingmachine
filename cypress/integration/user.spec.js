@@ -1,5 +1,6 @@
 import { SUCCESS_MESSAGE, ERROR_MESSAGE } from '../../src/ts/constants.ts';
 import { getRandomNumber } from '../../src/ts/utils.ts';
+
 describe('회원가입 및 로그인 테스트', () => {
   const baseUrl = '/index.html';
   const email = `${getRandomNumber(0, 10000)}woowacourse${getRandomNumber(0, 10000)}@gmail.com`;
@@ -78,5 +79,3 @@ describe('회원가입 및 로그인 테스트', () => {
     cy.get('toast-modal').invoke('attr', 'message').should('eq', ERROR_MESSAGE.LOGIN_FAILED);
   });
 });
-
-describe('상품 구매 테스트', () => {});
