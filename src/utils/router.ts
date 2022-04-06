@@ -18,7 +18,7 @@ export class Router {
       return;
     }
     if (savedData.state.path === '/') {
-      this.app.homeView.renderHome();
+      this.app.productPurchaseView.showProductPurchaseTab();
     }
     if (savedData.state.path === '/productManage') {
       this.app.productManageView.eraseAll();
@@ -67,7 +67,13 @@ export class Router {
       path = '/';
     }
     if (e.type === 'signInOk') {
-      path = '/';
+      path = '/signIn';
+    }
+    if (e.type === 'signUpOk') {
+      path = '/signUp';
+    }
+    if (e.type === 'editInformationOkay') {
+      path = '/editInformation';
     }
     this.pushHistoryPath(path);
   }

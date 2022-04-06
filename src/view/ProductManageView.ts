@@ -14,6 +14,7 @@ export class ProductManageView {
     const productManageProps = {
       target: AppProps.contentsContainer,
       productCatalog: AppProps.productCatalog,
+      snackBar: AppProps.snackBar,
     };
 
     this.productInformationInput = new ProductInformationInput(productManageProps);

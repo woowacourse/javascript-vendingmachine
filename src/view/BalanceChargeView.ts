@@ -14,6 +14,7 @@ export class BalanceChargeView {
     const balanceChargeProps = {
       target: AppProps.contentsContainer,
       coinVault: AppProps.coinVault,
+      snackBar: AppProps.snackBar,
     };
 
     this.balanceChargeInput = new BalanceChargeInput(balanceChargeProps);

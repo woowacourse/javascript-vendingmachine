@@ -1,9 +1,11 @@
 import { CoinVault } from '../domain/CoinVault';
 import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
+import { SnackBar } from './SnackBar';
 
 export class ProductPurchaseTable {
   target: HTMLDivElement;
+  snackBar: SnackBar;
   productCatalog: ProductCatalog;
   coinVault: CoinVault;
   productTable: HTMLTableElement;
@@ -11,6 +13,7 @@ export class ProductPurchaseTable {
 
   constructor(props) {
     this.target = props.target;
+    this.snackBar = props.snackBar;
     this.productCatalog = props.productCatalog;
     this.coinVault = props.coinVault;
   }
@@ -67,11 +70,12 @@ export class ProductPurchaseTable {
       if (this.coinVault.getCustomerInput() - productPrice >= 0) {
         this.productCatalog.purchaseProductByName(tableRow.id);
         this.renderUpdatedTableRowQuantity(tableRow);
+        this.snackBar.render('구매에 성공하였습니다');
         this.target.dispatchEvent(
           new CustomEvent('purchased', { detail: { price: productPrice } })
         );
       } else {
-        alert('그돈으로 사먹으려고?');
+        this.snackBar.render('잔액이 부족합니다');
       }
     }
   };

@@ -1,13 +1,16 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { validateAllProductProps } from '../utils/domain.utils';
+import { SnackBar } from './SnackBar';
 
 export class ProductInformationInput {
   productCatalog: ProductCatalog;
   target: HTMLDivElement;
+  snackBar: SnackBar;
 
   constructor(props) {
     this.target = props.target;
     this.productCatalog = props.productCatalog;
+    this.snackBar = props.snackBar;
   }
 
   render() {
@@ -55,9 +58,10 @@ export class ProductInformationInput {
     try {
       validateAllProductProps(productName, productPrice, productQuantity);
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
+      this.snackBar.render('상품이 추가 됐습니다');
       this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {
-      alert(err);
+      this.snackBar.render(err);
     }
     this.productInformationForm.reset();
   };

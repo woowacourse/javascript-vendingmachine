@@ -1,8 +1,10 @@
 import { CoinVault } from '../domain/CoinVault';
+import { SnackBar } from './SnackBar';
 
 export class CustomerMoneyInput {
   target: HTMLDivElement;
   coinVault: CoinVault;
+  snackBar: SnackBar;
   customerMoneyInputForm: HTMLFormElement;
   customerMoneyInput: HTMLInputElement;
   customerMoneyInputBtn: HTMLButtonElement;
@@ -11,7 +13,9 @@ export class CustomerMoneyInput {
   constructor(props) {
     this.target = props.target;
     this.coinVault = props.coinVault;
+    this.snackBar = props.snackBar;
   }
+
   render() {
     this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getCustomerInput()));
     this.selectDom();
@@ -37,6 +41,7 @@ export class CustomerMoneyInput {
   }
 
   bindEvent() {
+    console.log('bindInMoneyInput Component 바인드 꼐속돼서 나는 문제임..');
     this.customerMoneyInputBtn.addEventListener('click', this.handleChargeMoney);
     this.target.addEventListener('purchased', (e) => {
       this.handleDeductMoneyInput(e);
@@ -49,9 +54,10 @@ export class CustomerMoneyInput {
     try {
       this.coinVault.chargeCustomerInput(Number(this.customerMoneyInput.value));
       this.updateCurrentMoneyInput();
+      this.snackBar.render('현금이 투입되었습니다');
     } catch (err) {
       this.customerMoneyInputForm.reset();
-      alert(err);
+      this.snackBar.render(err);
     }
   };
 

@@ -18,6 +18,7 @@ export class ProductPurchaseView {
       target: AppProps.contentsContainer,
       coinVault: AppProps.coinVault,
       productCatalog: AppProps.productCatalog,
+      snackBar: AppProps.snackBar,
     };
 
     this.contentsContainer.addEventListener('productPurchaseTabClick', this.showProductPurchaseTab);
@@ -36,6 +37,7 @@ export class ProductPurchaseView {
   }
 
   renderAll() {
+    console.log('여기서 customerMoneyInput.render에서 계속 bind됨');
     this.customerMoneyInput.render();
     this.productPurchaseTable.render();
     this.returnBalanceTable.render();

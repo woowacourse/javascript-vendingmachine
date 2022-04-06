@@ -1,10 +1,17 @@
+import { EditUserInformationPage } from '../component/EditUserInformationPage';
 import { SignInPage } from '../component/SignInPage';
 import { SignUpPage } from '../component/SignUpPage';
+import { SnackBar } from '../component/SnackBar';
+import { UserInfo } from '../interfaces/interface';
 
 export class CustomerInformationView {
   app: HTMLDivElement;
+  nav: HTMLElement;
+  snackBar: SnackBar;
+  userInfo: UserInfo;
   signInPage: SignInPage;
   signUpPage: SignUpPage;
+  editPage: EditUserInformationPage;
   customerManageApp: HTMLDivElement;
   signInBtn: HTMLButtonElement;
   signUpBtn: HTMLButtonElement;
@@ -15,12 +22,19 @@ export class CustomerInformationView {
   signIn: HTMLDivElement;
   signUp: HTMLDivElement;
   editCustomerInformation: HTMLDivElement;
-  constructor(props) {
-    this.app = props.app;
-    this.app.addEventListener('signInOk', this.handleSignInOk);
+  constructor(AppProps) {
+    this.app = AppProps.app;
+    this.nav = AppProps.nav;
+    this.snackBar = AppProps.snackBar;
+    const userInfoProps = { app: AppProps.app, snackBar: AppProps.snackBar };
 
-    this.signInPage = new SignInPage(this.app);
-    this.signUpPage = new SignUpPage();
+    this.app.addEventListener('signInOk', this.handleSignInOk);
+    this.app.addEventListener('signUpOk', this.handleSignIn);
+    this.app.addEventListener('editInformationOk', this.autoSignIn);
+
+    this.signInPage = new SignInPage(userInfoProps);
+    this.signUpPage = new SignUpPage(userInfoProps);
+    this.editPage = new EditUserInformationPage(userInfoProps);
     this.customerManageApp = document.querySelector('.customer-manage-app');
 
     this.signIn = document.querySelector('.sign-in');
@@ -44,11 +58,11 @@ export class CustomerInformationView {
     this.autoSignIn();
   }
 
-  autoSignIn() {
+  autoSignIn = () => {
     if (sessionStorage.getItem('userInfo')) {
       this.handleSignInOk();
     }
-  }
+  };
 
   handleSignIn = () => {
     this.app.dispatchEvent(new CustomEvent('signInClick'));
@@ -56,7 +70,6 @@ export class CustomerInformationView {
   };
 
   renderSignIn() {
-    console.log('rendersin');
     this.app.classList.add('hide');
     this.customerManageApp.classList.remove('hide');
     this.signIn.classList.remove('hide');
@@ -70,7 +83,6 @@ export class CustomerInformationView {
   };
 
   renderSignUp() {
-    console.log('rendersup');
     this.app.classList.add('hide');
     this.customerManageApp.classList.remove('hide');
     this.signUp.classList.remove('hide');
@@ -79,13 +91,11 @@ export class CustomerInformationView {
   }
 
   handleInformationEdit = () => {
-    console.log('informaitoi edit');
     this.app.dispatchEvent(new CustomEvent('editInformationClick'));
     this.renderInformationEdit();
   };
 
   renderInformationEdit() {
-    console.log('rendersedit');
     this.app.classList.add('hide');
     this.customerManageApp.classList.remove('hide');
     this.signUp.classList.add('hide');
@@ -95,11 +105,15 @@ export class CustomerInformationView {
 
   handleSignInOk = () => {
     this.eraseAll();
-    const userInfo = sessionStorage.getItem('userInfo');
-    const thumbnailWord = JSON.parse(userInfo).name[0];
-    this.thumbnail.innerText = thumbnailWord;
+    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    this.editPage.setUser();
+
+    this.thumbnail.innerText = this.userInfo.name[0];
+    this.customerManageApp.classList.add('hide');
     this.signInBtn.classList.add('hide');
     this.dropDownBtn.classList.remove('hide');
+
+    this.nav.classList.remove('hide');
   };
 
   handleSignOut = () => {
@@ -107,6 +121,7 @@ export class CustomerInformationView {
     sessionStorage.clear();
     this.signInBtn.classList.remove('hide');
     this.dropDownBtn.classList.add('hide');
+    this.snackBar.render('로그아웃 되었습니다');
   };
 
   eraseAll() {

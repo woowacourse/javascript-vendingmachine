@@ -1,12 +1,16 @@
+import { SnackBar } from './SnackBar';
+
 export class SignInPage {
   app: HTMLDivElement;
+  snackBar: SnackBar;
   emailInput: HTMLInputElement;
   pwInput: HTMLInputElement;
   submitSignInBtn: HTMLButtonElement;
   signUpBtn: HTMLParagraphElement;
 
-  constructor(prop) {
-    this.app = prop;
+  constructor(props) {
+    this.app = props.app;
+    this.snackBar = props.snackBar;
     this.selectDom();
     this.bindDom();
   }
@@ -37,15 +41,13 @@ export class SignInPage {
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => {
-          const token = data.accessToken;
           const userInfo = data.user;
-
-          sessionStorage.setItem('accessToken', token);
           sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-          //로그인 후 page render
           this.app.dispatchEvent(new CustomEvent('signInOk'));
         });
+      }
+      if (!res.ok) {
+        this.snackBar.render('올바른 이메일과 비밀번호를 입력해주세요');
       }
     });
   };

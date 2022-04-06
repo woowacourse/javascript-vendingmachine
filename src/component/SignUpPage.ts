@@ -1,5 +1,8 @@
+import { SnackBar } from './SnackBar';
+
 export class SignUpPage {
   app: HTMLDivElement;
+  snackBar: SnackBar;
   emailInput: HTMLInputElement;
   nameInput: HTMLInputElement;
   pwConfirmInput: HTMLInputElement;
@@ -7,7 +10,9 @@ export class SignUpPage {
   submitSignUpBtn: HTMLButtonElement;
   signUpBtn: HTMLParagraphElement;
 
-  constructor() {
+  constructor(props) {
+    this.app = props.app;
+    this.snackBar = props.snackBar;
     this.selectDom();
     this.bindDom();
   }
@@ -33,14 +38,21 @@ export class SignUpPage {
         name: this.nameInput.value,
         password: this.pwInput.value,
       };
-      console.log(userData);
       fetch('http://localhost:3000/signup', {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then((res) => console.log(res));
+      }).then((res) => {
+        if (res.ok) {
+          this.app.dispatchEvent(new CustomEvent('signUpOk'));
+          this.snackBar.render('회원가입 되었습니다');
+          return;
+        }
+        this.snackBar.render('회원가입에 실패하였습니다');
+      });
     }
+    this.snackBar.render('비밀번호와 비밀번호 확인은 동일해야 합니다');
   };
 }

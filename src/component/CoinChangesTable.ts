@@ -1,9 +1,11 @@
 import { CoinVault } from '../domain/CoinVault';
 import { Coins } from '../interfaces/interface';
+import { SnackBar } from './SnackBar';
 
 export class CoinChangesTable {
   target: HTMLDivElement;
   coinVault: CoinVault;
+  snackBar: SnackBar;
 
   coin500Quantity: HTMLSpanElement;
   coin100Quantity: HTMLSpanElement;
@@ -14,6 +16,7 @@ export class CoinChangesTable {
   constructor(props) {
     this.target = props.target;
     this.coinVault = props.coinVault;
+    this.snackBar = props.snackBar;
   }
 
   render = () => {
@@ -66,7 +69,7 @@ export class CoinChangesTable {
   }
 
   handleGiveChanges = () => {
-    //const customerInput = this.coinVault.getCustomerInput();
+    this.snackBar.render('동전이 반환됐습니다');
     this.updateCoinVaultTableTemplate(this.coinVault.giveChanges());
     this.target.dispatchEvent(new CustomEvent('giveChanges'));
   };

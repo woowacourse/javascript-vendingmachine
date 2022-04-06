@@ -3,6 +3,8 @@ import { BalanceChargeView } from './BalanceChargeView';
 import { AppProps } from '../interfaces/interface';
 
 export class HomeView {
+  app: HTMLDivElement;
+  nav: HTMLElement;
   productManageNavBtn: HTMLButtonElement;
   balanceChargeNavBtn: HTMLButtonElement;
   productPurchaseNavBtn: HTMLButtonElement;
@@ -11,6 +13,8 @@ export class HomeView {
   target: HTMLDivElement;
 
   constructor(AppProps: AppProps) {
+    this.app = AppProps.app;
+    this.nav = document.querySelector('.nav');
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
     this.productPurchaseNavBtn = document.querySelector('#product-purchase-nav-button');
@@ -20,9 +24,11 @@ export class HomeView {
     this.productPurchaseNavBtn.addEventListener('click', this.handleShowProductPurchaseTab);
 
     this.target = AppProps.contentsContainer;
-
-    this.renderHome();
   }
+
+  hideNav = () => {
+    this.nav.classList.add('hide');
+  };
 
   handleShowProductManageTab = () => {
     this.target.dispatchEvent(new CustomEvent('productManageTabClick'));
@@ -34,10 +40,6 @@ export class HomeView {
 
   handleShowProductPurchaseTab = () => {
     this.target.dispatchEvent(new CustomEvent('productPurchaseTabClick'));
-  };
-
-  handleShowSingInTab = () => {
-    console.log('1');
   };
 
   contentsContainer: HTMLDivElement;

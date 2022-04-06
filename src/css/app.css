@@ -3,6 +3,7 @@
 @import './productPurchase.css';
 @import './root.css';
 @import './customerManageApp.css';
+@import './snackbar.css';
 
 body {
   background-color: var(--gray-light);
