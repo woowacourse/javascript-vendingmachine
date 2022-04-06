@@ -39,9 +39,6 @@ export default class MoneyManagement {
       returnableCoins[type] += returnableCoin;
       this.#money -= returnableCoin * type;
     });
-
-    if (this.#money > 0) showSnackbar(MESSAGE.NOT_ENOUGH_COINS);
-
     return returnableCoins;
   }
 

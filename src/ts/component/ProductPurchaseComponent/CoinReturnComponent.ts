@@ -1,5 +1,7 @@
+import { MESSAGE } from '../../constants';
 import CoinManagement from '../../domain/CoinManagement';
 import MoneyManagement from '../../domain/MoneyManagement';
+import { showSnackbar } from '../../utils';
 import { $, replaceHTML } from '../../utils/dom';
 
 export default class CoinReturnComponent {
@@ -46,6 +48,8 @@ export default class CoinReturnComponent {
     const returnableCoins = this.#moneyManagement.returnCoins(
       this.#coinManagement.coins,
     );
+    if (this.#moneyManagement.money > 0) showSnackbar(MESSAGE.NOT_ENOUGH_COINS);
+
     this.#coinManagement.subtractCoins(returnableCoins);
 
     $('.money-charge__total-money').innerText = String(
