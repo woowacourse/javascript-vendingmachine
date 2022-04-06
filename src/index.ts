@@ -9,5 +9,7 @@ import './ui/EditProfilePage';
 
 import './router';
 import Auth from './domain/Auth';
+import MainUI from './ui/MainUI';
 
 new Auth();
+new MainUI();

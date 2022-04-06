@@ -1,6 +1,14 @@
+import storage from './storage';
 import { $, $$ } from './utils';
 
-type Path = '/javascript-vendingmachine/' | '/javascript-vendingmachine/charge' | '/javascript-vendingmachine/purchase';
+export type Path =
+  | '/javascript-vendingmachine/'
+  | '/javascript-vendingmachine/charge'
+  | '/javascript-vendingmachine/purchase'
+  | '/javascript-vendingmachine/signin'
+  | '/javascript-vendingmachine/logout'
+  | '/javascript-vendingmachine/signup'
+  | '/javascript-vendingmachine/editprofile';
 
 interface IRouter {
   path: Path;
@@ -10,16 +18,9 @@ interface IRouter {
 const nav = $('.nav');
 const baseURL = '/javascript-vendingmachine';
 
-nav.addEventListener('click', (e) => {
-  if ((e.target as HTMLButtonElement).type === undefined) return;
-
-  const route = (e.target as HTMLButtonElement).getAttribute('route') as Path;
-  historyRouterPush(route);
-});
-
-const historyRouterPush = (pathname: Path) => {
+export const historyRouterPush = (pathname: Path) => {
   if (pathname === window.location.pathname) return;
-
+  if (pathname === '/javascript-vendingmachine/logout') pathname = '/javascript-vendingmachine/';
   history.pushState({ pathname }, '', pathname);
   render(pathname);
 };
@@ -28,10 +29,85 @@ const render = (path: Path) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
   $(`[route='${path}']`, nav)?.classList.add('focus-button');
 
-  const currentComponent = routers.find((route) => route.path === path)?.component ?? $('product-management');
-  const prevRoute = routers.filter((route) => route.path !== path);
+  switch (path) {
+    case `${baseURL}/`:
+      $('.header').classList.remove('hidden');
+      if (storage.getAccessToken()) {
+        $('.nav').classList.remove('hidden');
+        $('.login-button').classList.add('hidden');
+        $('product-management').classList.remove('hidden');
+        $('.select-box-wrapper').classList.remove('hidden');
+        $('.user-info-button').classList.remove('hidden');
+        $('.select-box').classList.add('hidden');
+        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+      } else {
+        $('.nav').classList.add('hidden');
+        $('.login-button').classList.remove('hidden');
+        $('purchase-tab').classList.remove('hidden');
+      }
+      break;
+    case `${baseURL}/charge`:
+      $('.header').classList.remove('hidden');
+      if (storage.getAccessToken()) {
+        $('.nav').classList.remove('hidden');
+        $('.login-button').classList.add('hidden');
+        $('charge-tab').classList.remove('hidden');
+        $('.select-box-wrapper').classList.remove('hidden');
+        $('.user-info-button').classList.remove('hidden');
+        $('.select-box').classList.add('hidden');
+        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+      } else {
+        $('.nav').classList.add('hidden');
+        $('.login-button').classList.remove('hidden');
+        $('purchase-tab').classList.remove('hidden');
+      }
+      break;
+    case `${baseURL}/purchase`:
+      $('.header').classList.remove('hidden');
+      if (storage.getAccessToken()) {
+        $('.nav').classList.remove('hidden');
+        $('.login-button').classList.add('hidden');
+        $('purchase-tab').classList.remove('hidden');
+        $('.select-box-wrapper').classList.remove('hidden');
+        $('.user-info-button').classList.remove('hidden');
+        $('.select-box').classList.add('hidden');
+        $('.user-info-button').textContent = storage.getUserInfo().userName.slice(0, 1);
+      } else {
+        $('.nav').classList.add('hidden');
+        $('.login-button').classList.remove('hidden');
+        $('purchase-tab').classList.remove('hidden');
+      }
+      break;
+    case `${baseURL}/signin`:
+      $('.select-box-wrapper').classList.add('hidden');
+      $('.header').classList.add('hidden');
+      $('.nav').classList.add('hidden');
+      const signinComponent = $('sign-in');
+      signinComponent.classList.remove('hidden');
+      break;
+    case `${baseURL}/signup`:
+      $('.select-box-wrapper').classList.add('hidden');
+      $('.header').classList.add('hidden');
+      $('.nav').classList.add('hidden');
+      const signupComponent = $('sign-up');
+      signupComponent.classList.remove('hidden');
+      break;
+    case `${baseURL}/editprofile`:
+      $('.select-box-wrapper').classList.add('hidden');
+      $('.header').classList.add('hidden');
+      $('.nav').classList.add('hidden');
+      const editProfileComponent = $('edit-profile');
+      editProfileComponent.classList.remove('hidden');
+      break;
+  }
 
-  currentComponent.classList.remove('hidden');
+  if (!storage.getAccessToken() && (path === `${baseURL}/` || path === `${baseURL}/charge`)) {
+    const prevRoute = routers.filter((route) => route.path !== `${baseURL}/purchase`);
+    prevRoute.forEach((router: IRouter) => router.component.classList.add('hidden'));
+    return;
+  }
+
+  const prevRoute = routers.filter((route) => route.path !== path);
   prevRoute.forEach((router: IRouter) => router.component.classList.add('hidden'));
 };
 
@@ -39,6 +115,9 @@ const routers: IRouter[] = [
   { path: `${baseURL}/`, component: $('product-management') },
   { path: `${baseURL}/charge`, component: $('charge-tab') },
   { path: `${baseURL}/purchase`, component: $('purchase-tab') },
+  { path: `${baseURL}/signin`, component: $('sign-in') },
+  { path: `${baseURL}/signup`, component: $('sign-up') },
+  { path: `${baseURL}/editprofile`, component: $('edit-profile') },
 ];
 
 window.addEventListener('popstate', function () {
@@ -46,7 +125,7 @@ window.addEventListener('popstate', function () {
 });
 
 if (window.location.pathname === '/') {
-  window.location.pathname = baseURL + '/';
+  window.location.pathname = `${baseURL}/`;
 }
 
 render(window.location.pathname as Path);

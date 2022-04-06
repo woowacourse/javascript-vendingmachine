@@ -26,7 +26,7 @@ const storage = {
   },
 
   getAccessToken() {
-    return this.getLocalStorage('accessToken') ? JSON.parse(this.getLocalStorage('accessToken')) : {};
+    return this.getLocalStorage('accessToken') ? JSON.parse(this.getLocalStorage('accessToken')) : '';
   },
 };
 

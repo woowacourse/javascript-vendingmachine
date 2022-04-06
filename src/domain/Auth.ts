@@ -1,3 +1,4 @@
+import { historyRouterPush } from '../router';
 import storage from '../storage';
 import { on, $, showSnackBar } from '../utils';
 
@@ -31,11 +32,12 @@ class Auth {
       if (!response.ok) {
         throw new Error('중복된 이메일이 존재합니다.');
       }
+
+      // 로그인 페이지 전환 로직 추가
+      historyRouterPush('/javascript-vendingmachine/signin');
     } catch (e) {
       showSnackBar(e.message);
     }
-
-    // 로그인 페이지 전환 로직 추가
   }
 
   async signin(userInfo) {
@@ -62,15 +64,18 @@ class Auth {
 
       storage.setLocalStorage('userInfo', user);
       storage.setLocalStorage('accessToken', accessToken);
+
+      // 메인 페이지 전환 로직
+      historyRouterPush('/javascript-vendingmachine/');
     } catch (e) {
       showSnackBar(e.message);
     }
-
-    // 메인 페이지 전환 로직
-    // nav 탭 표시
   }
 
-  logout() {}
+  static logout = () => {
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('accessToken');
+  };
 
   async editProfile(userInfo) {
     try {
@@ -98,6 +103,9 @@ class Auth {
       const responseData = await response.json();
       const { email, userName, id } = responseData;
       storage.setLocalStorage('userInfo', { email, userName, id });
+
+      // 메인 페이지 전환 로직
+      historyRouterPush('/javascript-vendingmachine/');
     } catch (e) {
       showSnackBar(e.message);
     }
