@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../constants/errorConstants';
 import { ItemType } from '../types/types';
 
 const ProductAPI = {
@@ -14,7 +15,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('상품을 가져오는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_GET_ITEM);
     }
 
     const productList = await response.json();
@@ -29,7 +30,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('상품을 저장하는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_SAVE_ITEM);
     }
 
     const product = await response.json();
@@ -43,7 +44,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('상품을 삭제하는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_DELETE_ITEM);
     }
   },
 
@@ -55,7 +56,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('상품을 수정하는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_EDIT_ITEM);
     }
 
     const product = await response.json();
@@ -69,7 +70,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('잔돈을 가져오는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_GET_MONEY);
     }
 
     const { number } = await response.json();
@@ -84,7 +85,7 @@ const ProductAPI = {
     });
 
     if (!response.ok) {
-      throw new Error('잔돈을 업데이트하는데 실패했습니다.');
+      throw new Error(ERROR_MESSAGE.PRODUCT.FAILED_UPDATE_MONEY);
     }
   },
 };

@@ -43,4 +43,12 @@ export const ERROR_MESSAGE = {
     FAILED_SIGN_UP: '회원가입에 실패했습니다.',
     FAILED_EDIT_DATA: '회원 정보 수정에 실패했습니다.',
   },
+  PRODUCT: {
+    FAILED_GET_ITEM: '상품을 가져오는데 실패했습니다.',
+    FAILED_SAVE_ITEM: '상품을 저장하는데 실패했습니다.',
+    FAILED_DELETE_ITEM: '상품을 삭제하는데 실패했습니다.',
+    FAILED_EDIT_ITEM: '상품을 수정하는데 실패했습니다.',
+    FAILED_GET_MONEY: '잔돈을 가져오는데 실패했습니다.',
+    FAILED_UPDATE_MONEY: '잔돈을 업데이트하는데 실패했습니다.',
+  },
 };
