@@ -54,13 +54,6 @@ export default class VendingMachine {
     this.#moneyBox.addChange(money);
   }
 
-  returnChange(): number {
-    const returnChange = this.#moneyBox.returnChange(this.totalInsertMoney);
-    this.#totalInsertMoney -= returnChange;
-
-    return returnChange;
-  }
-
   addProduct(data: ProductData): never | string {
     this.#validateUniqueProductName(data.name);
 
@@ -97,6 +90,13 @@ export default class VendingMachine {
 
     this.#totalInsertMoney -= price;
     this.#productList[productId].decreaseStock();
+  }
+
+  returnChange(): number {
+    const returnChange = this.#moneyBox.returnChange(this.totalInsertMoney);
+    this.#totalInsertMoney -= returnChange;
+
+    return returnChange;
   }
 
   #validateChange(money: number): never | void {

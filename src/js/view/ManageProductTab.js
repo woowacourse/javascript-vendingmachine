@@ -37,7 +37,23 @@ export default class ManageProductTab {
   }
 
   get tabElements() {
+    this.#renderStockStatus();
     return this.#manageContainer;
+  }
+
+  #renderStockStatus() {
+    const { productList } = this.#vendingMachine;
+
+    for (let id of Object.keys(productList)) {
+      const { stock } = productList[id];
+
+      const element = selectDom(
+        `.product-stock[data-product-id="${id}"]`,
+        this.#manageContainer
+      );
+
+      element.textContent = stock;
+    }
   }
 
   #handleAddProductForm = (e) => {

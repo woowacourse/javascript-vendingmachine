@@ -82,10 +82,10 @@ export default class MoneyBox {
       const quotient = Math.floor(leftMoney / value);
       const number = quotient > count ? count : quotient;
 
+      returnCoinStatusList[index].count = number;
       if (number === 0) return;
 
       leftMoney -= number * value;
-      returnCoinStatusList[index].count = number;
       coinStatusList[index].count -= number;
     });
 

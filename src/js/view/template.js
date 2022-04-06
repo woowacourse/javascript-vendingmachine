@@ -68,7 +68,7 @@ export const TEMPLATE = {
     <tr>
       <td class="product-name">${name}</td>
       <td class="product-price">${price}</td>
-      <td class="product-stock">${stock}</td>
+      <td class="product-stock" data-product-id=${id}>${stock}</td>
       <td>
         <div class="table-button-wrapper">
           <button type="button" class="update-product-button" data-product-id=${id}>수정</button>
@@ -110,36 +110,12 @@ export const TEMPLATE = {
         <caption>
           구매 가능 상품 현황
         </caption>
-        <tr>
-          <th>상품명</th>
-          <th>가격</th>
-          <th>수량</th>
-          <th>관리</th>
-        </tr>
-        <tr>
-          <td class="product-name">콜라</td>
-          <td class="product-price">1500</td>
-          <td class="product-stock">20</td>
-          <td>
-            <div class="table-button-wrapper">
-              <button type="button" class="purchase-product-button">구매</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-        <td class="product-name">사이다</td>
-        <td class="product-price">1000</td>
-        <td class="product-stock">10</td>
-        <td>
-          <div class="table-button-wrapper">
-            <button type="button" class="purchase-product-button">구매</button>
-          </div>
-        </td>
-      </tr>
+        <tbody id="purchaseable-product-status-tbody">
+        </tbody>
       </table>
     </section>
     <section class="table-section" title="잔돈 반환">
-      <table id="coin-status-table" class="coin-table">
+      <table id="return-coin-status-table" class="coin-table">
         <caption>
           잔돈 반환
         </caption>
@@ -164,8 +140,28 @@ export const TEMPLATE = {
           <td data-coin-name='TEN_WON'>0개</td>
         </tr>
       </table>
-      <button type="button" id="return-button">반환</button>
+      <button type="button" id="return-change-button">반환</button>
     </section>`,
+  PURCHASEABLE_PRODUCT_TABLE_BODY: `
+    <tr>
+      <th>상품명</th>
+      <th>가격</th>
+      <th>수량</th>
+      <th>관리</th>
+    </tr>
+  `,
+  PURCHASEABLE_PRODUCT_TABLE_ROW: ({ name, price, stock, id }) => `
+    <tr>
+      <td class="product-name">${name}</td>
+      <td class="product-price">${price}</td>
+      <td class="product-stock">${stock}</td>
+      <td>
+        <div class="table-button-wrapper">
+          <button type="button" class="purchase-product-button" data-product-id=${id}>구매</button>
+        </div>
+      </td>
+    </tr>
+  `,
   NOT_FOUND: `
     <section title="존재하지 않는 페이지" class="not-found-section">
       <h2>🛒 Page Not Found</h2>

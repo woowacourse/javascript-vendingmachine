@@ -17,7 +17,7 @@ export default class Router {
     this.#renderList = {
       '#/manage': new ManageProductTab(this.#vendingMachine),
       '#/charge': new AddChangeTab(this.#vendingMachine),
-      '#/purchase': new PurchaseProductTab(),
+      '#/purchase': new PurchaseProductTab(this.#vendingMachine),
     };
     this.#app = selectDom('#app');
     this.#tabMenuNavigation = selectDom('#tab-menu-navigation');

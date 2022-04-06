@@ -24,6 +24,8 @@ export default class AddChangeTab {
   }
 
   get tabElements() {
+    this.#totalChange.textContent = this.#vendingMachine.totalChange;
+    this.#renderCoinStatus();
     return this.#addChangeContainer;
   }
 
