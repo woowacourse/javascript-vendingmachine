@@ -5,8 +5,8 @@ interface Router {
   component: Element;
 }
 
-const nav = document.querySelector('.nav');
-const auth = document.querySelector('.auth');
+const nav = $('.nav');
+const auth = $('.auth');
 const baseURL = '/javascript-vendingmachine';
 
 [nav, auth].forEach((container) =>
@@ -25,23 +25,21 @@ export const historyRouterPush = (pathname: string) => {
 };
 
 const renderPage = (path: string) => {
-  pageRouters.forEach((router) => {
-    if (router.path !== path) router.component.classList.add('hidden');
-  });
-  pageRouters.find((router) => router.path === path)?.component.classList.remove('hidden');
-  auth.classList.add('hidden');
+  const isVendingMachinePage =
+    path === baseURL + '/' || path === baseURL + '/charge' || path === baseURL + '/management';
 
-  if (path === baseURL + '/' || path === baseURL + '/charge' || path === baseURL + '/purchase') {
-    $('vending-machine-page').classList.remove('hidden');
-    auth.classList.remove('hidden');
-  }
+  pageRouters.forEach((router) => router.component.classList.toggle('hidden', router.path !== path));
+  pageRouters.find((router) => router.path === path)?.component.classList.remove('hidden');
+
+  auth.classList.toggle('hidden', !isVendingMachinePage);
+  $('vending-machine-page').classList.toggle('hidden', !isVendingMachinePage);
 };
 
 const renderTab = (path: string) => {
   $$('.focus-button').forEach((button) => button.classList.remove('focus-button'));
   $(`[route='${path}']`, nav)?.classList.add('focus-button');
 
-  const cur = tabRouters.find((route) => route.path === path)?.component ?? $('product-management');
+  const cur = tabRouters.find((route) => route.path === path)?.component ?? $('purchase-tab');
   const prevs = tabRouters.filter((route) => route.path !== path);
 
   cur.classList.remove('hidden');
@@ -49,9 +47,9 @@ const renderTab = (path: string) => {
 };
 
 const tabRouters: Router[] = [
-  { path: baseURL + '/', component: $('product-management') },
+  { path: baseURL + '/', component: $('purchase-tab') },
   { path: baseURL + '/charge', component: $('charge-tab') },
-  { path: baseURL + '/purchase', component: $('purchase-tab') },
+  { path: baseURL + '/management', component: $('product-management') },
 ];
 
 const pageRouters: Router[] = [

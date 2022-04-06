@@ -171,13 +171,13 @@ const TEMPLATE = {
     <main id="app">
       <h1 class="title">🍿 자판기 🍿</h1>
       <nav class="nav">
-        <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
+        <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/management">
           상품 관리
         </button>
         <button type="button" class="nav__charge-tab button" route="/javascript-vendingmachine/charge">
           잔돈 충전
         </button>
-        <button type="button" class="nav__product-purchase-tab button" route="/javascript-vendingmachine/purchase">
+        <button type="button" class="nav__product-purchase-tab button" route="/javascript-vendingmachine/">
           상품 구매
         </button>
       </nav>
