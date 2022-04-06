@@ -8,22 +8,22 @@ export default class ProductPurchase implements ProductPurchaseInterface {
     this.#userAmount = 0;
   }
 
-  addUserAmount(currentUserAmount) {
+  addUserAmount(currentUserAmount: number): void {
     const totalUserAmount = this.#userAmount + currentUserAmount;
     if (!validAmount(currentUserAmount, totalUserAmount)) return;
     this.#userAmount = totalUserAmount;
   }
 
-  getUserAmount() {
+  getUserAmount(): number {
     return this.#userAmount;
   }
 
-  spendAmount(price) {
+  spendAmount(price: number): number {
     this.#userAmount -= price;
     return this.#userAmount;
   }
 
-  setUserAmount(currentAmount) {
+  setUserAmount(currentAmount: number): void {
     this.#userAmount = currentAmount;
   }
 }

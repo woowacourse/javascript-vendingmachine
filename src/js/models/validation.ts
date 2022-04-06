@@ -6,12 +6,16 @@ import {
   isOverMaxNumber,
 } from '../utils/common.js';
 import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants.js';
+import { Product } from '../interface/productManage.interface.js';
 
-const isDuplicateProduct = (name, products) => {
+const isDuplicateProduct = (name: string, products: Product[]): boolean => {
   return products.some((product) => product.name === name);
 };
 
-export const validProductInfo = ({ name, price, quantity }, products) => {
+export const validProductInfo = (
+  { name, price, quantity }: Product,
+  products: Product[]
+): boolean => {
   if (isEmpty(name)) {
     throw new Error(ERROR_MESSAGE.EMPTY_NAME);
   }
@@ -39,7 +43,7 @@ export const validProductInfo = ({ name, price, quantity }, products) => {
   return true;
 };
 
-export const validAmount = (amount, totalAmount) => {
+export const validAmount = (amount: number, totalAmount: number): boolean => {
   if (isDivideUnit(amount, COIN.MIN_UNIT)) {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   }
@@ -49,7 +53,7 @@ export const validAmount = (amount, totalAmount) => {
   return true;
 };
 
-export const validProductPurchase = (price, userAmount) => {
+export const validProductPurchase = (price: number, userAmount: number): boolean => {
   if (isOverMaxNumber(price, userAmount)) {
     throw new Error(ERROR_MESSAGE.OVER_USER_AMOUNT);
   }
