@@ -41,6 +41,11 @@ const ERROR_MESSAGES = {
 
 const INFOMATION_MESSAGES = {
   ASK_DELETE: "정말 삭제하시겠습니까?",
+  SUCCESS_CHARGE: "금액 충전이 완료되었습니다.",
+  SUCCESS_ADD_PRODUCT: "상품이 추가되었습니다.",
+  SUCCESS_DELETE_PRODUCT: "상품이 삭제되었습니다.",
+  SUCCESS_PURCHASE_PRODUCT: "상품을 구매하였습니다.",
+  SUCCESS_RETURN_COIN: "동전이 반환되었습니다.",
 };
 
 export { PRODUCT, CHARGE, PURCAHSE, ERROR_MESSAGES, INFOMATION_MESSAGES };

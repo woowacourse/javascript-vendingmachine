@@ -7,4 +7,12 @@ const clearInput = (...inputs: HTMLElement[]) => {
   inputs.forEach((input: HTMLInputElement) => (input.value = ""));
 };
 
-export { pickNumberInList, clearInput };
+const createTextElement = (tagName: string, className: string, text: string) => {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  element.textContent = text;
+
+  return element;
+};
+
+export { pickNumberInList, clearInput, createTextElement };

@@ -1,6 +1,8 @@
 import { $ } from "../../utils/dom";
 import { chargeTemplate } from "./chargeTemplate";
 import ChargeManager from "../../mananger/ChargeManager";
+import Snackbar from "../Snackbar";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
 
 class ChargeComponent {
   chargeContainer: HTMLElement;
@@ -11,8 +13,10 @@ class ChargeComponent {
   chargeCoin100: HTMLElement;
   chargeCoin50: HTMLElement;
   chargeCoin10: HTMLElement;
+  snackbar: Snackbar;
 
   constructor(private chargeManager: ChargeManager) {
+    this.snackbar = new Snackbar();
     this.chargeContainer = $(".charge-manange__container");
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
@@ -37,8 +41,9 @@ class ChargeComponent {
       this.chargeManager.addCoins(randomCoins);
       this.renderAmount();
       this.renderRandomCoins();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_CHARGE);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 

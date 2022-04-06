@@ -19,6 +19,6 @@ describe("상품 구매 테스트", () => {
   test(`투입 금액이 ${PURCAHSE.UNIT}원 단위가 아니면, 상품을 추가할 수 없다.`, () => {
     const amount = 11;
 
-    expect(() => productManager.addPurchaseAmount(amount)).toThrowError(ERROR_MESSAGES.INVALID_PRODUCT_QUANTITY_UNIT);
+    expect(() => productManager.addPurchaseAmount(amount)).toThrowError(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_UNIT);
   });
 });

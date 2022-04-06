@@ -3,6 +3,7 @@ import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { productTemplate, editProductTemplate, productManangeListTemplate } from "./productTemplate";
 import ProductManager from "../../mananger/ProductManager";
 import { clearInput } from "../../utils/common";
+import Snackbar from "../Snackbar";
 
 class ProductComponent {
   productContainer: HTMLElement;
@@ -12,8 +13,10 @@ class ProductComponent {
   productNameInput: HTMLInputElement;
   productPriceInput: HTMLInputElement;
   productQuantityInput: HTMLInputElement;
+  snackbar: Snackbar;
 
   constructor(private productManager: ProductManager) {
+    this.snackbar = new Snackbar();
     this.productContainer = $(".product-manange__container");
     this.productContainer.replaceChildren();
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
@@ -38,10 +41,11 @@ class ProductComponent {
     try {
       this.productManager.addProduct({ name, price, quantity });
       this.productNameInput.focus();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_ADD_PRODUCT);
       this.renderProducts();
       clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 
@@ -66,6 +70,7 @@ class ProductComponent {
     if (confirm(INFOMATION_MESSAGES.ASK_DELETE)) {
       const { name } = selectedRow.dataset;
       this.productManager.removeProduct(name);
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_DELETE_PRODUCT);
       selectedRow.remove();
     }
   }
@@ -97,7 +102,7 @@ class ProductComponent {
       this.renderProducts();
       selectedRow.dataset.name = name;
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   }
 

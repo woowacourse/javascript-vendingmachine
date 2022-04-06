@@ -2,6 +2,8 @@ import { $ } from "../../utils/dom";
 import { productPurchaseListTemplate, purchaseTemplate } from "./purchaseTemplate";
 import ChargeManager, { Coin } from "../../mananger/ChargeManager";
 import ProductManager from "../../mananger/ProductManager";
+import Snackbar from "../Snackbar";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
 
 class PurchaseComponent {
   purchaseContainer: HTMLElement;
@@ -15,8 +17,10 @@ class PurchaseComponent {
   returnCoin100: HTMLElement;
   returnCoin50: HTMLElement;
   returnCoin10: HTMLElement;
+  snackbar: Snackbar;
 
   constructor(private productManager: ProductManager, private chargeManager: ChargeManager) {
+    this.snackbar = new Snackbar();
     this.purchaseContainer = $(".purchase-manange__container");
     this.purchaseContainer.replaceChildren();
     this.purchaseContainer.insertAdjacentHTML("beforeend", purchaseTemplate());
@@ -44,8 +48,9 @@ class PurchaseComponent {
     try {
       this.productManager.addPurchaseAmount(amount);
       this.renderAmount();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_CHARGE);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 
@@ -60,8 +65,9 @@ class PurchaseComponent {
       this.productManager.purchaseProduct(name);
       this.renderAmount();
       this.renderProducts();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_PURCHASE_PRODUCT);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 
@@ -75,8 +81,9 @@ class PurchaseComponent {
       this.chargeManager.substractCoins(returnCoins);
       this.renderAmount();
       this.renderReturnCoins(returnCoins);
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_RETURN_COIN);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 
