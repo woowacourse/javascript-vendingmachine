@@ -148,6 +148,7 @@ export const loginUserPageTemplate = `
     <button class="input-form-button">확인</button>
   </form>
   <p class="register-link-text">아직 회원이 아니신가요? <a href="#register">회원가입</a>
+  <div class="snackbar"></div>
 `;
 
 export const registerUserPageTemplate = `
@@ -163,6 +164,7 @@ export const registerUserPageTemplate = `
     <input name="confirmPassword" type="password" placeholder="비밀번호를 입력해주세요"/>
     <button class="input-form-button">확인</button>
   </form>
+  <div class="snackbar"></div>
 `;
 
 export const vendingMachineNavBarTemplate = (isLoginUser) => `

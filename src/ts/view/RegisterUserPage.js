@@ -1,12 +1,14 @@
 import { HASH } from '../constant/path';
 import { SELECTOR } from '../constant/selector';
 import { registerUserPageTemplate } from '../template';
-import { selectDom } from '../utils';
+import { selectDom, showSnackbar } from '../utils';
 import { register, validateRegisterBehavior } from '../vendingMachine/authLogic';
 
 class RegisterUserPage {
   constructor() {
     this.app = selectDom(SELECTOR.APP);
+    this.registerForm = null;
+    this.snackbar = null;
   }
 
   renderInitialRegisterPageState() {
@@ -14,6 +16,7 @@ class RegisterUserPage {
     this.app.insertAdjacentHTML('afterbegin', registerUserPageTemplate);
 
     this.registerForm = selectDom(SELECTOR.USER_INFO_FORM, this.app);
+    this.snackbar = selectDom(SELECTOR.SNACKBAR, this.app);
 
     this.registerForm.addEventListener('submit', this.#onSubmitRegisterForm);
   }
@@ -29,7 +32,7 @@ class RegisterUserPage {
         throw new Error(body);
       }
     } catch (error) {
-      alert(error.message);
+      showSnackbar(this.snackbar, error.message);
       return;
     }
     location.hash = HASH.LOGIN_USER;
