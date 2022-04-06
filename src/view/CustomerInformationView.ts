@@ -62,7 +62,6 @@ export class CustomerInformationView {
     this.dropDownBtn = document.querySelector('.drop-down-button');
 
     this.thumbnail = document.querySelector('.thumbnail');
-    //this.autoSignIn();
   }
 
   autoSignIn = () => {
@@ -125,7 +124,7 @@ export class CustomerInformationView {
 
   handleSignOut = () => {
     this.app.dispatchEvent(new CustomEvent('signOutClick'));
-    sessionStorage.clear();
+    sessionStorage.removeItem('userInfo');
     this.signInBtn.classList.remove('hide');
     this.dropDownBtn.classList.add('hide');
     this.snackBar.render('로그아웃 되었습니다');
