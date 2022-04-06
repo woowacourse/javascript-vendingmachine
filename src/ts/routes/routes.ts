@@ -1,14 +1,14 @@
 import { on, emit, $$ } from '../dom/domHelper';
 
-const isUndefinedManageRoutes = (pathname: string) =>
-  !Array.from($$<HTMLElement>('.manage-component')).some(
+const isUndefinedRoutes = (pathname: string) =>
+  !Array.from($$<HTMLElement>('.change-component')).some(
     (route) => route.dataset.pathname === pathname
   );
 
-const isUndefinedMembershipRoutes = (pathname: string) =>
-  !Array.from($$<HTMLElement>('.membership-component')).some(
-    (route) => route.dataset.pathname === pathname
-  );
+// const isUndefinedMembershipRoutes = (pathname: string) =>
+//   !Array.from($$<HTMLElement>('.membership-component')).some(
+//     (route) => route.dataset.pathname === pathname
+//   );
 
 export default class RouteManager {
   constructor() {
@@ -19,10 +19,7 @@ export default class RouteManager {
   private routeURLVisit(): void {
     const { pathname } = window.location;
 
-    if (
-      isUndefinedManageRoutes(pathname) &&
-      isUndefinedMembershipRoutes(pathname)
-    ) {
+    if (isUndefinedRoutes(pathname)) {
       window.history.replaceState({}, '', '/purchase-product');
 
       this.onPopstateRoute();

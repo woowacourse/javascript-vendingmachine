@@ -1,33 +1,19 @@
-import { $, $$, emit, on } from '../dom/domHelper';
 import { getCookie } from '../cookie/cookie';
 import { requestUserInfo } from '../api/api';
+
+import { $, $$, on } from '../dom/domHelper';
 
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
   private $$navButtons = $$<HTMLButtonElement>('.nav__button');
-  private $$manageComponents = $$<HTMLElement>('.manage-component');
-  private $$membershipComponents = $$<HTMLElement>('.membership-component');
+  private $$changeComponents = $$<HTMLElement>('.change-component');
   private $signInButton = $<HTMLButtonElement>('.sign-in-button');
-  private $signUpButton = $<HTMLAnchorElement>(
-    '.sign-in-section__sign-up-button'
-  );
-  private $signUpVerifyButton = $<HTMLButtonElement>(
-    '.sign-up-form__verify-button'
-  );
-  private $signInVerifyButton = $<HTMLButtonElement>(
-    '.sign-in-form__verify-button'
-  );
-
   private $nav = $<HTMLElement>('.nav');
   private $title = $<HTMLHeadingElement>('h1');
   private $userThumbnailButton = $<HTMLButtonElement>('.user-thumbnail-button');
   private $informationWrapper = $<HTMLUListElement>(
     '.membership-information-wrapper'
   );
-  private $editVerifyButton = $<HTMLButtonElement>(
-    '.membership-edit-form__verify-button'
-  );
-
   private $editEmailInput = $<HTMLInputElement>(
     '.membership-edit-form__email-input'
   );
@@ -41,7 +27,11 @@ export default class NavigatorComponent {
     on(window, '@popstateChangeComponent', this.changeComponent);
 
     on(this.$signInButton, '@signInChangeComponent', this.changeComponent);
-    on(this.$signUpButton, '@signUpChangeComponent', this.changeComponent);
+    on(
+      $<HTMLAnchorElement>('.sign-in-section__sign-up-button'),
+      '@signUpChangeComponent',
+      this.changeComponent
+    );
     on(
       this.$informationWrapper,
       '@logoutChangeComponent',
@@ -49,12 +39,12 @@ export default class NavigatorComponent {
     );
 
     on(
-      this.$signUpVerifyButton,
+      $<HTMLButtonElement>('.sign-up-form__verify-button'),
       '@signInChangeComponent',
       this.changeComponent
     );
     on(
-      this.$signInVerifyButton,
+      $<HTMLButtonElement>('.sign-in-form__verify-button'),
       '@purchaseProductChangeComponentWithUser',
       this.changeComponent
     );
@@ -65,7 +55,7 @@ export default class NavigatorComponent {
       this.changeComponent
     );
     on(
-      this.$editVerifyButton,
+      $<HTMLButtonElement>('.membership-edit-form__verify-button'),
       '@purchaseProductChangeComponentWithUser',
       this.changeComponent
     );
@@ -86,19 +76,7 @@ export default class NavigatorComponent {
     this.changeComponent();
   };
 
-  private changeComponent = async () => {
-    const { pathname } = window.location;
-
-    this.$$membershipComponents.forEach((section) => {
-      if (pathname !== section.dataset.pathname) {
-        section.classList.add('hide');
-      }
-
-      if (pathname === section.dataset.pathname) {
-        section.classList.remove('hide');
-      }
-    });
-
+  private focusedNavButton(pathname: string): void {
     this.$$navButtons.forEach((button) => {
       if (pathname !== button.dataset.pathname) {
         button.classList.remove('nav__button--focused');
@@ -108,17 +86,16 @@ export default class NavigatorComponent {
         button.classList.add('nav__button--focused');
       }
     });
+  }
 
-    this.$$manageComponents.forEach((section) => {
-      if (pathname !== section.dataset.pathname) {
-        section.classList.add('hide');
-      }
+  async setUserInformation(user) {
+    const { email, name } = await requestUserInfo(user.accessToken, user.id);
 
-      if (pathname === section.dataset.pathname) {
-        section.classList.remove('hide');
-      }
-    });
+    this.$editEmailInput.value = email;
+    this.$editNameInput.value = name;
+  }
 
+  private async checkExistUser(pathname: string) {
     const user = getCookie('user') && JSON.parse(getCookie('user'));
 
     if (
@@ -131,15 +108,7 @@ export default class NavigatorComponent {
       this.$signInButton.classList.add('hide');
       this.$userThumbnailButton.classList.add('hide');
 
-      if (user) {
-        const { email, name } = await requestUserInfo(
-          user.accessToken,
-          user.id
-        );
-
-        this.$editEmailInput.value = email;
-        this.$editNameInput.value = name;
-      }
+      if (user) await this.setUserInformation(user);
 
       return;
     }
@@ -159,5 +128,22 @@ export default class NavigatorComponent {
     this.$signInButton.classList.remove('hide');
     this.$userThumbnailButton.classList.add('hide');
     this.$userThumbnailButton.textContent = '';
+  }
+
+  private changeComponent = async () => {
+    const { pathname } = window.location;
+
+    this.$$changeComponents.forEach((section) => {
+      if (pathname !== section.dataset.pathname) {
+        section.classList.add('hide');
+      }
+
+      if (pathname === section.dataset.pathname) {
+        section.classList.remove('hide');
+      }
+    });
+
+    this.focusedNavButton(pathname);
+    await this.checkExistUser(pathname);
   };
 }
