@@ -11,3 +11,11 @@ export const pickNumberInList = (array) => {
 export const addThousandUnitComma = (number) => {
   return number.toLocaleString();
 };
+
+export const getCookie = (key) => {
+  const matches = document.cookie.match(
+    new RegExp(`(?:^|; )${key.replace('/([.$?*|{}()[]\\/+^])/g', '\\$1')}=([^;]*)`),
+  );
+
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+};
