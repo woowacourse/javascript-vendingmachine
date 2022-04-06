@@ -2,6 +2,7 @@ import { ERROR_MESSAGE } from '../constants';
 import { historyRouterPush } from '../router';
 import storage from '../storage';
 import { on, $, showSnackBar } from '../utils';
+import { validatePasswordCondition, validatePasswordIsEqual } from '../validator';
 
 class Auth {
   private SERVER_BASE_URL = 'https://js-vendingmachine-server.herokuapp.com';
@@ -16,9 +17,8 @@ class Auth {
     try {
       const { email, userName, password, passwordConfirm } = userInfo;
 
-      if (password !== passwordConfirm) {
-        throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
-      }
+      validatePasswordIsEqual(password, passwordConfirm);
+      validatePasswordCondition(password);
 
       const response = await fetch(`${this.SERVER_BASE_URL}/signup`, {
         method: 'POST',
@@ -82,9 +82,8 @@ class Auth {
     try {
       const { userName: editedName, password, passwordConfirm } = userInfo;
 
-      if (password !== passwordConfirm) {
-        throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
-      }
+      validatePasswordIsEqual(password, passwordConfirm);
+      validatePasswordCondition(password);
 
       const userId = storage.getUserInfo().id;
       const accessToken = storage.getAccessToken();
