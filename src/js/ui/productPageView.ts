@@ -11,6 +11,9 @@ import {
 
 class ProductPageView {
   $page;
+  $header;
+
+  $userInfoContainer;
   $formContainer;
   $productStatusContainer;
   $productNameInput;
@@ -20,7 +23,14 @@ class ProductPageView {
 
   init(): void {
     this.$page = $("#page");
+    this.$header = $("#header");
     this.$page.replaceChildren();
+    this.$header.replaceChildren();
+
+    this.$userInfoContainer = createElement("section", {
+      id: "user-info",
+    });
+
     this.$formContainer = createElement(
       "form",
       {
@@ -38,6 +48,24 @@ class ProductPageView {
       productTemplate.productTable()
     );
 
+    this.$header.insertAdjacentHTML(
+      "beforeend",
+      `<h2>자판기</h2>
+      <section id="user-info">user Info</section>
+      <nav id="page-tab-container">
+        <a class="nav-button product-management-button" href="#!productManagement">
+        상품 관리
+        </a>
+        <a class="nav-button changes-charge-button" href="#!changesCharge">
+          잔돈 충전
+        </a>
+        <a class="nav-button product-purchase-button" href="#!purchaseProduct">
+          상품 구매
+        </a>
+      </nav>
+      `
+    );
+
     this.$page.appendChild(this.$formContainer);
     this.$page.appendChild(this.$productStatusContainer);
 
@@ -46,6 +74,7 @@ class ProductPageView {
     this.$productCountInput = $("#product-count-input", this.$formContainer);
 
     this.$productList = $("#products-list", this.$productStatusContainer);
+    this.$userInfoContainer = $("#user-info", this.$header);
     this.bindEvent();
   }
 
@@ -126,6 +155,10 @@ class ProductPageView {
       count: updatedCount,
     });
   };
+
+  renderUserInfo() {
+    console.log("유저정보렌더링~");
+  }
 
   renderProductsStatus(products: ISingleProduct[]): void {
     this.$productList.insertAdjacentHTML(

@@ -7,15 +7,19 @@ import { IChargeChangesEvent } from "../type";
 
 class ChangePageView {
   $page;
+  $header;
   $formContainer;
   $changesStatusContainer;
   $currentChangesContainer;
   $changesInput;
   $changesList;
+  $userInfoContainer;
 
   init(): void {
     this.$page = $("#page");
+    this.$header = $("#header");
     this.$page.replaceChildren();
+    this.$header.replaceChildren();
     this.$formContainer = createElement(
       "form",
       {
@@ -38,8 +42,28 @@ class ChangePageView {
     this.$page.appendChild(this.$currentChangesContainer);
     this.$page.appendChild(this.$changesStatusContainer);
 
+    this.$header.insertAdjacentHTML(
+      "beforeend",
+      `<h2>자판기</h2>
+      <section id="user-info">user Info</section>
+      <nav id="page-tab-container">
+        <a class="nav-button product-management-button" href="#!productManagement">
+        상품 관리
+        </a>
+        <a class="nav-button changes-charge-button" href="#!changesCharge">
+          잔돈 충전
+        </a>
+        <a class="nav-button product-purchase-button" href="#!purchaseProduct">
+          상품 구매
+        </a>
+      </nav>
+      `
+    );
+
+    this.$userInfoContainer = $("#user-info", this.$header);
     this.$changesInput = $("#changes-input");
     this.$changesList = $("#changes-list", this.$changesStatusContainer);
+
     this.bindEvent();
   }
 
