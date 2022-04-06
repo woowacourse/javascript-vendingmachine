@@ -31,6 +31,40 @@ describe('로그인 및 회원가입을 할 수 있다', () => {
   });
 });
 
+describe('로그인, 회원가입 오류. 오류를 snackbar로 보여준다', () => {
+  const email = 'woowa1234@tech.com';
+  const name = 'woowa';
+  const password = 'woowa123@';
+
+  beforeEach(() => {
+    cy.visit('http://localhost:9000/');
+  });
+
+  it('이미 존재하는 이메일로 회원가입은 불가능하다.', () => {
+    cy.get('.login-button').click();
+    cy.get('.register').click();
+    cy.get('[name="email"]').type(email);
+    cy.get('[name="userName"]').type(name);
+    cy.get('[name="password"]').type(password);
+    cy.get('[name="passwordCheck"]').type(password);
+    cy.get('.register-button')
+      .click()
+      .then(() => {
+        cy.get('.snackbar').should('be.visible');
+      });
+  });
+
+  it('존재하지 않는 이메일로는 로그인이 불가능하다.', () => {
+    cy.login(`${Date.now()}@naver.com`, 'password');
+    cy.get('.snackbar').should('be.visible');
+  });
+
+  it('올바르지 않은 패스워드로는 로그인이 불가능하다.', () => {
+    cy.login(email, 'password');
+    cy.get('.snackbar').should('be.visible');
+  });
+});
+
 describe('로그인 시 상품 관리, 잔돈 충전, 상품 구매를 할 수 있다.', () => {
   const email = 'woowa1234@tech.com';
   const password = 'woowa123@';
