@@ -33,7 +33,7 @@
             <input class="product-manage-input" id="product-name" placeholder="상품명" type="text" size="10" minlength="1" maxlength="10" required />
             <input class="product-manage-input" id="product-price" placeholder="가격" type="number" step="10" min="100" max="100000" required />
             <input class="product-manage-input" id="product-quantity" placeholder="수량" type="number" min="1" max="20" required />
-            <button class="short-button">추가</button>
+            <button class="short-button" id="add-button">추가</button>
           </form>
           <table>
             <colgroup>
@@ -65,7 +65,7 @@
               <label for="recharge-input">자판기가 보유할 금액을 입력해주세요</label>
             </div>
             <input class="long-input" id="recharge-input" placeholder="금액" type="number" step="10" max="100000" min="10" required />
-            <button class="short-button">충전</button>
+            <button class="short-button" id="recharge-button">충전</button>
             <div class="holding-money-wrapper">현재 보유 금액: <span id="current-holding-money"></span>원</div>
           </form>
           <table class="change-table">
@@ -113,7 +113,7 @@
                 <label for="insert-money-input">상품을 구매할 금액을 투입해주세요</label>
               </div>
               <input class="long-input" id="insert-money-input" placeholder="금액" type="number" step="10" max="10000" min="10" required />
-              <button class="short-button">투입</button>
+              <button class="short-button" id="insert-button">투입</button>
               <div class="holding-money-wrapper">투입한 금액: <span id="current-inserted-money">0</span>원</div>
             </form>
           </div>

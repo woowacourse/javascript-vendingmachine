@@ -41,6 +41,7 @@ export const SUCCESS_MESSAGE = {
   EDIT_COMPLETE: '회원정보가 수정되었습니다.',
   SIGNUP_COMPLETE: '회원가입이 완료되었습니다. 로그인 하시기 바랍니다.',
   LOGOUT_COMPLETE: '로그아웃 되었습니다.',
+  REFUND_COMPLETE: '모든 잔돈을 반환하였습니다.',
 };
 
 export const CONFIRM_MESSAGE = {

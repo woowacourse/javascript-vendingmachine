@@ -15,3 +15,20 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('log-in').shadow().find('#password-input').type(password, { force: true });
   cy.get('log-in').shadow().find('button').click();
 });
+
+Cypress.Commands.add('insertMoney', (money) => {
+  cy.get('#insert-money-input').type(money);
+  cy.get('#insert-button').click();
+});
+
+Cypress.Commands.add('checkToastMessage', (message) => {
+  cy.get('toast-modal').invoke('attr', 'message').should('eq', message);
+});
+
+Cypress.Commands.add('rechargeMoney', (money) => {
+  const baseUrl = '/index.html';
+
+  localStorage.setItem('money', JSON.stringify(money));
+
+  cy.visit(baseUrl);
+});

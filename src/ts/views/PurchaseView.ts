@@ -139,7 +139,7 @@ export default class PurchaseView {
         `보유 중인 잔돈이 부족하여, ${nonRefundableCoinMoney}원은 반환하지 못하였습니다.`,
       );
     } else {
-      renderToastModal('success', `모든 잔돈을 반환하였습니다.`);
+      renderToastModal('success', SUCCESS_MESSAGE.REFUND_COMPLETE);
     }
   };
 }

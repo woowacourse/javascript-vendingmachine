@@ -80,6 +80,7 @@ export default class View {
 
   public renderTabs = async (url: string) => {
     this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
+    this.renderUpdatedView(url);
     if (!auth.isLoggedIn) {
       return;
     }
@@ -93,8 +94,6 @@ export default class View {
       }
       container.classList.add('hide');
     });
-
-    this.renderUpdatedView(url);
   };
 
   private renderUpdatedView = (url: string) => {
