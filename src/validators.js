@@ -52,39 +52,39 @@ const isNoCustomerMoney = () => {
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
-    throw new Error(ERROR_MESSAGE.IS_BLANK_PRODUCT_NAME);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_BLANK_PRODUCT_NAME);
   }
   if (isOverMaxProductNameLength(name)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_PRODUCT_NAME_LENGTH);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_PRODUCT_NAME_LENGTH);
   }
 
   if (isNotInteger(price)) {
-    throw new Error(ERROR_MESSAGE.IS_NOT_INTEGER_PRICE);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_PRICE);
   }
   if (isUnderMinPrice(price)) {
-    throw new Error(ERROR_MESSAGE.IS_UNDER_MIN_PRICE);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_PRICE);
   }
   if (isOverMaxPrice(price)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_PRICE);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_PRICE);
   }
   if (cannotDividedByTen(price)) {
-    throw new Error(ERROR_MESSAGE.PRICE_CANNOT_DIVIDED_BY_TEN);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.PRICE_CANNOT_DIVIDED_BY_TEN);
   }
 
   if (isNotInteger(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_NOT_INTEGER_QUANTITY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_QUANTITY);
   }
   if (isUnderMinQuantity(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_UNDER_MIN_QUANTITY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_QUANTITY);
   }
   if (isOverMaxQuantity(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_QUANTITY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_QUANTITY);
   }
 };
 
 export const checkProductAddValidation = (product) => {
   if (isAlreadyExistProduct(product.name)) {
-    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_ADD);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_ALREADY_EXIST_PRODUCT_WHEN_ADD);
   }
 
   checkProductValidation(product);
@@ -92,39 +92,39 @@ export const checkProductAddValidation = (product) => {
 
 export const checkDuplicateProductWhenModify = (product) => {
   if (isAlreadyExistProduct(product.name)) {
-    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY);
   }
 };
 
 export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
   if (isOverMaxMachineMoney(machineMoneyInputValue)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MACHINE_MONEY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_MACHINE_MONEY);
   }
   if (cannotDividedByTen(machineMoneyInputValue)) {
-    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN);
   }
 };
 
 export const checkCustomerMoneyValidation = (customerMoneyInputValue) => {
   if (isOverMaxCustomerMoney(customerMoneyInputValue)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_CUSTOMER_MONEY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_CUSTOMER_MONEY);
   }
   if (cannotDividedByTen(customerMoneyInputValue)) {
-    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN);
   }
 };
 
 export const checkProductPurchaseValidation = (productPrice, productQuantity) => {
   if (isPriceOverCustomerMoney(productPrice)) {
-    throw new Error(ERROR_MESSAGE.IS_PRICE_OVER_CUSTOMER_MONEY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_PRICE_OVER_CUSTOMER_MONEY);
   }
   if (isSoldOut(productQuantity)) {
-    throw new Error(ERROR_MESSAGE.IS_SOLD_OUT);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_SOLD_OUT);
   }
 };
 
 export const checkChangeReturnValidation = () => {
   if (isNoCustomerMoney()) {
-    throw new Error(ERROR_MESSAGE.IS_NO_CUSTOMER_MONEY);
+    throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_NO_CUSTOMER_MONEY);
   }
 };

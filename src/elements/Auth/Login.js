@@ -4,7 +4,7 @@ import { login } from '../../domains/Auth';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
-import { BASE_HASH } from '../../constants';
+import { BASE_HASH, ERROR_MESSAGE, JSON_AUTH_SERVER_ERROR_MESSAGE } from '../../constants';
 
 class Login extends CustomElement {
   template() {
@@ -15,7 +15,7 @@ class Login extends CustomElement {
           <label for="login-email">이메일</label>
           <input type="email" id="login-email" name="email" placeholder="woowacourse@gmail.com" required>
           <label for="login-password">비밀번호</label>
-          <input type="password" id="login-password" name="password" placeholder="비밀번호를 입력해주세요" required>
+          <input type="password" id="login-password" name="password" placeholder="비밀번호를 입력해주세요" minLength="4" required>
           <button class="login-confirm-button">확인</button>
         </fieldset>
       </form>
@@ -32,12 +32,26 @@ class Login extends CustomElement {
 
     const { email, password } = event.target.elements;
 
-    await login(email.value, password.value);
+    try {
+      await this.logIn(email, password);
+      this.initLoginInputs(email, password);
+    } catch (error) {
+      if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.CANNOT_FIND_USER) {
+        alert(ERROR_MESSAGE.AUTH.CANNOT_FIND_USER);
+      }
+      if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.INCORRECT_PASSWORD) {
+        alert(ERROR_MESSAGE.AUTH.INCORRECT_PASSWORD);
+      }
+    }
+  };
+
+  async logIn($email, $password) {
+    await login($email.value, $password.value);
     AuthStore.instance.dispatch(createAction(AUTH_ACTION.LOGIN));
 
-    this.initLoginInputs(email, password);
+    this.initLoginInputs($email, $password);
     window.location.hash = BASE_HASH;
-  };
+  }
 
   initLoginInputs($email, $password) {
     $email.value = '';

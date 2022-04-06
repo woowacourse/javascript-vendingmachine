@@ -23,7 +23,7 @@ describe('잔돈 충전에 대한 유효성을 검사한다.', () => {
       chargeCoin(machineMoneyInputValue);
     } catch (error) {
       // then
-      expect(error.message).toBe(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+      expect(error.message).toBe(ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN);
     }
 
     expect(CoinStore.instance.machine.money).toBe(MONEY.DEFAULT);
@@ -36,7 +36,7 @@ describe('잔돈 충전에 대한 유효성을 검사한다.', () => {
       chargeCoin(machineMoneyInputValue);
     } catch (error) {
       // then
-      expect(error.message).toBe(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+      expect(error.message).toBe(ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN);
     }
 
     expect(CoinStore.instance.machine.money).toBe(MONEY.DEFAULT);
@@ -49,7 +49,7 @@ describe('잔돈 충전에 대한 유효성을 검사한다.', () => {
       chargeCoin(machineMoneyInputValue);
     } catch (error) {
       // then
-      expect(error.message).toBe(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+      expect(error.message).toBe(ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN);
     }
 
     expect(CoinStore.instance.machine.money).toBe(MONEY.DEFAULT);
@@ -64,7 +64,7 @@ describe('잔돈 충전에 대한 유효성을 검사한다.', () => {
       chargeCoin(machineMoneyInputValue);
     } catch (error) {
       // then
-      expect(error.message).toBe(ERROR_MESSAGE.IS_OVER_MAX_MACHINE_MONEY);
+      expect(error.message).toBe(ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_MACHINE_MONEY);
     }
 
     expect(CoinStore.instance.machine.money).toBe(MONEY.DEFAULT);

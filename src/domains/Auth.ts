@@ -32,7 +32,9 @@ export async function login(email: string, password: string) {
   });
   const jsonResponse = await response.json();
 
-  if (!jsonResponse.accessToken) return;
+  if (!jsonResponse.accessToken) {
+    throw new Error(jsonResponse);
+  }
 
   document.cookie = `user_id=${jsonResponse.user.id}`;
   document.cookie = `access_token=${jsonResponse.accessToken}`;
