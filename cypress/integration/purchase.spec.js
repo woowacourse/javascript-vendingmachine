@@ -1,5 +1,4 @@
 import { SUCCESS_MESSAGE, ERROR_MESSAGE } from '../../src/ts/constants.ts';
-import LocalStorageMock from '../../src/ts/domains/LocalStorageMock.ts';
 
 describe('금액 투입 테스트', () => {
   const baseUrl = '/index.html';
