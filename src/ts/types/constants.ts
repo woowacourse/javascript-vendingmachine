@@ -32,6 +32,7 @@ export interface SuccessMessage {
   readonly RETURN_COINS: string;
   readonly EDITED_PRODUCT: string;
   readonly DELETED_PRODUCT: string;
+  readonly ADDED_PRODUCT: string;
   CONSUMER_CHARGED_MONEY(chargeMoney: number, totalChargeMoney: number): string;
   PURCHASED_PRODUCT(productName: string): string;
 }

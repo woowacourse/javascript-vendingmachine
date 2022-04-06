@@ -1,12 +1,16 @@
+import { Product } from '../../types/vendingMachineProductManager';
+
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+
+import renderSnackBar from '../../dom/snackBar';
+import { on, emit, $ } from '../../dom/domHelper';
+import focusWrongInput from '../../dom/checkErrorMessage';
+
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../validation/checkProduct';
-
-import renderSnackBar from '../../dom/snackBar';
-import { on, emit, $ } from '../../dom/domHelper';
-import focusWrongInput from '../../dom/checkErrorMessage';
 
 export default class ProductInputComponent {
   private $nameInput = $<HTMLInputElement>('.product-info-form__product-input');
@@ -26,16 +30,16 @@ export default class ProductInputComponent {
   private onSubmitProductAddButton = (event: Event): void => {
     event.preventDefault();
 
-    try {
-      const productName = this.$nameInput.value.trim();
-      const productPrice = this.$priceInput.valueAsNumber;
-      const productQuantity = this.$quantityInput.valueAsNumber;
+    const productName = this.$nameInput.value.trim();
+    const { valueAsNumber: productPrice } = this.$priceInput;
+    const { valueAsNumber: productQuantity } = this.$quantityInput;
 
+    try {
       checkValidLengthProductName(productName);
       checkValidProductPrice(productPrice);
       checkValidProductQuantity(productQuantity);
 
-      const newProduct = {
+      const newProduct: Product = {
         name: productName,
         price: productPrice,
         quantity: productQuantity,
@@ -50,7 +54,7 @@ export default class ProductInputComponent {
 
       renderSnackBar(
         this.$snackBarContainer,
-        '상품이 정상적으로 등록되었습니다. 등록된 상품을 확인해주세요.',
+        SUCCESS_MESSAGE.ADDED_PRODUCT,
         'success'
       );
 
@@ -71,6 +75,7 @@ export default class ProductInputComponent {
         $priceInput: this.$priceInput,
         $quantityInput: this.$quantityInput,
       });
+
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   };

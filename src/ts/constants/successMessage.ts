@@ -2,6 +2,8 @@ import { SuccessMessage } from '../types/constants';
 
 const SUCCESS_MESSAGE: SuccessMessage = {
   RETURN_COINS: '동전이 반환되었습니다. 반환된 동전의 개수를 확인해주세요.',
+  ADDED_PRODUCT:
+    '상품이 정상적으로 등록되었습니다. 등록된 상품을 확인해주세요.',
   EDITED_PRODUCT:
     '상품이 정상적으로 수정되었습니다. 수정된 상품을 확인해주세요.',
   DELETED_PRODUCT: '상품이 정상적으로 삭제되었습니다.',
