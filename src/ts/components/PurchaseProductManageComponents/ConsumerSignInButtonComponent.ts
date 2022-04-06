@@ -8,7 +8,7 @@ export default class ConsumerSignInButtonComponent {
     on(this.$signInButton, 'click', this.onClickSignInButton);
   }
 
-  private onClickSignInButton = () => {
+  private onClickSignInButton = (): void => {
     window.history.pushState({}, '', this.$signInSection.dataset.pathname);
     emit(this.$signInButton, '@signInChangeComponent');
   };

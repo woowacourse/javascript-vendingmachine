@@ -10,7 +10,7 @@ export default class DimmerComponent {
     on(this.$dimmer, 'click', this.onClickDimmer);
   }
 
-  onClickDimmer = () => {
+  onClickDimmer = (): void => {
     this.$informationWrapper.classList.add('hide');
     this.$dimmer.classList.add('hide');
   };
