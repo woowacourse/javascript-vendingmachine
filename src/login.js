@@ -1,4 +1,6 @@
 import "./css/login";
+import isLogin from "./js/util/checkLogin";
+import { setLocalStorage } from "./js/util/localStorage";
 
 class Login {
   constructor() {
@@ -11,8 +13,7 @@ class Login {
   }
 
   checkLoginStatus() {
-    const user = JSON.parse(localStorage.getItem("user-info"));
-    if (user) {
+    if (isLogin()) {
       this.$snackbar.innerText = "이미 로그인이 되어있습니다";
       this.$snackbar.classList.toggle("show");
       setTimeout(() => {
@@ -56,7 +57,8 @@ class Login {
       id: body.user.id,
       email: body.user.email,
     };
-    localStorage.setItem("user-info", JSON.stringify(user));
+
+    setLocalStorage("user-info", user);
     location.href = "./";
   };
 }

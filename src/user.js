@@ -1,4 +1,6 @@
 import "./css/login.css";
+import isLogin from "./js/util/checkLogin";
+import { setLocalStorage } from "./js/util/localStorage";
 
 class UserEditForm {
   constructor() {
@@ -19,8 +21,7 @@ class UserEditForm {
   }
 
   checkLoginStatus() {
-    const user = JSON.parse(localStorage.getItem("user-info"));
-    if (!user) {
+    if (!isLogin()) {
       this.$snackbar.innerText = "로그인후 이용해주세요";
       this.$snackbar.classList.toggle("show");
       setTimeout(() => {
@@ -75,7 +76,7 @@ class UserEditForm {
       email: body.email,
     };
 
-    localStorage.setItem("user-info", JSON.stringify(user));
+    setLocalStorage("user-info", user);
     location.href = "./";
   };
 }
