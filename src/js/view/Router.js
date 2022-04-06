@@ -1,4 +1,4 @@
-import { createElementByTemplate, selectDom } from '../utils/dom';
+import { createElementByTemplate, generateSnackBar, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
 
 export default class Router {
@@ -48,14 +48,14 @@ export default class Router {
     if (this.#privateRenderList[path] && !this.#user.isLogined) {
       window.history.pushState({}, null, '#/login');
       this.#render();
-      alert('로그인이 필요합니다.');
+      generateSnackBar('로그인이 필요합니다.');
       return;
     }
 
     if (this.#userRenderList[path] && this.#user.isLogined) {
       window.history.pushState({}, null, '/');
       this.#render();
-      alert('이미 로그인한 상태입니다.');
+      generateSnackBar('이미 로그인한 상태입니다.');
       return;
     }
 

@@ -1,3 +1,5 @@
+import { generateSnackBar } from './dom';
+
 export function emitEvent(target, name, detail) {
   const event = new CustomEvent(name, { detail });
   target.dispatchEvent(event);
@@ -8,7 +10,7 @@ export function listenEvents(target, events) {
       try {
         cb(e);
       } catch (error) {
-        alert(error);
+        generateSnackBar(error.message);
       }
     });
   });

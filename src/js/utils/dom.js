@@ -14,3 +14,12 @@ export function createElementByTemplate(type, template) {
   element.insertAdjacentHTML('beforeend', template);
   return element;
 }
+
+export function generateSnackBar(text) {
+  const snackBarContainer = document.getElementById('snackbar');
+  snackBarContainer.className = 'show';
+  snackBarContainer.textContent = text;
+  setTimeout(() => {
+    snackBarContainer.className = snackBarContainer.className.replace('show', '');
+  }, 3000);
+}

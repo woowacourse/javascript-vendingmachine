@@ -1,5 +1,5 @@
 import { expireCookie } from '../utils/cookie';
-import { selectDom } from '../utils/dom';
+import { selectDom, generateSnackBar } from '../utils/dom';
 import { listenEvents } from '../utils/event';
 
 export default class UserController {
@@ -40,7 +40,7 @@ export default class UserController {
     try {
       await this.#user.signIn(email, password);
     } catch (err) {
-      alert(err.message);
+      generateSnackBar(err.message);
       return;
     }
     this.#renderTabMenu();
@@ -58,7 +58,7 @@ export default class UserController {
     try {
       await this.#user.signUp(email, name, password);
     } catch (err) {
-      alert(err.message);
+      generateSnackBar(err.message);
       return;
     }
     this.#renderTabMenu();
@@ -77,7 +77,7 @@ export default class UserController {
       this.#renderTabMenu();
       this.#renderProfile();
     } catch (err) {
-      alert(err.message);
+      generateSnackBar(err.message);
       return;
     }
     const tabChange = new CustomEvent('tabChange', {
