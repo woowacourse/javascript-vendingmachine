@@ -1,4 +1,6 @@
 #app {
+  position: relative;
+
   margin: 32px auto;
   padding: 44px 89px;
   width: fit-content;
@@ -48,11 +50,29 @@
 #login-button {
   align-self: flex-end;
   padding: 4px 24px;
-  line-height: 24px;
 }
 
-#logout-button {
+#thumbnail-button {
   align-self: flex-end;
-  padding: 4px 24px;
-  line-height: 24px;
+  padding: 8px 14px;
+
+  border-radius: 50%;
+  background-color: var(--selected-nav-tab-button-bg-color);
+}
+
+#thumbnail-button:hover {
+  background-color: #c0e8ed;
+}
+
+.thumbnail-option {
+  position: absolute;
+  top: 85px;
+  right: 55px;
+
+  border: 1px solid var(--input-border-color);
+  outline: none;
+}
+
+.thumbnail-option:focus {
+  outline: 1px solid var(--box-shadow-color);
 }
