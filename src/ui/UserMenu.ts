@@ -51,7 +51,8 @@ class UserMenu extends CustomElement {
   }
 
   handleLogout() {
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
     location.href = location.origin + '/javascript-vendingmachine/';
   }
 
