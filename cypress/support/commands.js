@@ -24,6 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { HASH } from '../../src/ts/constant/path';
+
+Cypress.Commands.add('register', (email, name, password, confirmPassword) => {
+  cy.visit(`/${HASH.REGISTER_USER}`);
+  cy.get('.user-info-form > input').eq(0).type(email);
+  cy.get('.user-info-form > input').eq(1).type(name);
+  cy.get('.user-info-form > input').eq(2).type(password);
+  cy.get('.user-info-form > input').eq(3).type(confirmPassword);
+  cy.get('.input-form-button').click();
+});
+
 Cypress.Commands.add('login', (email, password) => {
   cy.visit('/');
   cy.get('#login-button').click();
