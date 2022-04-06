@@ -47,53 +47,6 @@ export default class HomePage {
     this.#renderAsLogin(user);
   }
 
-  #renderAsNotLogin() {
-    if (location.pathname !== basePath) {
-      history.pushState({}, '', basePath);
-    }
-    this.renderMainContent(`${basePath}/purchase`);
-    $('.nav').classList.add('display-none');
-    $('.login-button').classList.remove('display-none');
-  }
-
-  #renderAsLogin(user: UserInfoWithPassWord) {
-    this.renderMainContent(location.pathname);
-    $('.nav').classList.remove('display-none');
-    $('.login-button').classList.add('display-none');
-    $('.logined-user-tab').classList.remove('display-none');
-    [$('.user-thumbnail').innerText] = user.name;
-
-    $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
-  }
-
-  selectChangeHandler = (e: Event) => {
-    if (!(e.target instanceof HTMLSelectElement)) return;
-
-    const selectValue = e.target.options[e.target.selectedIndex].value;
-    switch (selectValue) {
-      case '회원 정보 수정':
-        this.editClickHandler();
-        break;
-      case '로그아웃':
-        this.logoutHandler();
-        break;
-    }
-    e.target.selectedIndex = 0;
-  };
-
-  editClickHandler = () => {
-    history.pushState({}, '', '/user-edit');
-    this.routePage('/user-edit');
-  };
-
-  logoutHandler = () => {
-    document.cookie = 'user_id=';
-    document.cookie = 'access_token=';
-
-    history.pushState({}, '', `${basePath}/`);
-    this.routePage(`${basePath}/`);
-  };
-
   #template() {
     return `
       <h1 class="title">🍿 자판기 🍿</h1>
@@ -149,7 +102,41 @@ export default class HomePage {
     }
   };
 
-  private navClickHandler = e => {
+  #renderAsNotLogin() {
+    if (location.pathname !== basePath) {
+      history.pushState({}, '', basePath);
+    }
+    this.renderMainContent(`${basePath}/purchase`);
+    $('.nav').classList.add('display-none');
+    $('.login-button').classList.remove('display-none');
+  }
+
+  #renderAsLogin(user: UserInfoWithPassWord) {
+    this.renderMainContent(location.pathname);
+    $('.nav').classList.remove('display-none');
+    $('.login-button').classList.add('display-none');
+    $('.logined-user-tab').classList.remove('display-none');
+    [$('.user-thumbnail').innerText] = user.name;
+
+    $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
+  }
+
+  selectChangeHandler = (e: Event) => {
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
+    const selectValue = e.target.options[e.target.selectedIndex].value;
+    switch (selectValue) {
+      case '회원 정보 수정':
+        this.editClickHandler();
+        break;
+      case '로그아웃':
+        this.logoutHandler();
+        break;
+    }
+    e.target.selectedIndex = 0;
+  };
+
+  private navClickHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     const pathname = `${basePath}${e.target.dataset.pathname}`;
@@ -181,12 +168,25 @@ export default class HomePage {
     return buttonPathname === pathname;
   }
 
-  private loginButtonHandler = e => {
+  private loginButtonHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
     history.pushState({}, '', pathname || '/');
 
     this.routePage(pathname);
+  };
+
+  logoutHandler = () => {
+    document.cookie = 'user_id=';
+    document.cookie = 'access_token=';
+
+    history.pushState({}, '', `${basePath}/`);
+    this.routePage(`${basePath}/`);
+  };
+
+  editClickHandler = () => {
+    history.pushState({}, '', '/user-edit');
+    this.routePage('/user-edit');
   };
 }
