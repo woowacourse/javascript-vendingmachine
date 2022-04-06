@@ -2,6 +2,8 @@ import { MEMBER } from './constants';
 import Router from './router';
 import { showSnack } from './utils';
 
+const API = 'https://nine-db-api.herokuapp.com/';
+
 export async function login(email: BodyInit, password: BodyInit) {
   if (!email) {
     showSnack(MEMBER.PLEASE_EMAIL);
@@ -12,7 +14,7 @@ export async function login(email: BodyInit, password: BodyInit) {
     return;
   }
 
-  const response = await fetch('http://localhost:3000/login', {
+  const response = await fetch(`${API}login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,7 +44,7 @@ export async function login(email: BodyInit, password: BodyInit) {
 }
 
 export async function signUp(email: string, name: string, password: string) {
-  const response = await fetch('http://localhost:3000/register', {
+  const response = await fetch(`${API}register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -69,7 +71,7 @@ export async function updateInfo(name: string, password: string) {
   }
   const user = JSON.parse(userInfo);
 
-  const response = await fetch(`http://localhost:3000/600/users/${user.id}`, {
+  const response = await fetch(`${API}600/users/${user.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -98,7 +100,7 @@ export async function getUserInfo() {
   }
   const user = JSON.parse(userInfo);
 
-  const response = await fetch(`http://localhost:3000/600/users/${user.id}`, {
+  const response = await fetch(`${API}600/users/${user.id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${user.key}`,
