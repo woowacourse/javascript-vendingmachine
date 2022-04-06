@@ -21,7 +21,10 @@ userMenuTemplate.innerHTML = `
       height: 36px;
       border-style: none;
       color: var(--white);
-      margin: 20px 0;
+      width: 56px;
+      margin-left: 16px;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     button:hover {
@@ -29,21 +32,6 @@ userMenuTemplate.innerHTML = `
       cursor: pointer;
     }
 
-    input {
-      padding: 0 8px;
-      border: 1px solid var(--secondary);
-      box-sizing: border-box;
-      border-radius: 4px;
-      height: 36px;
-      line-height: 36px;
-      font-weight: 400;
-      font-size: 16px;
-      margin: 7px 0;
-    }
-
-    input::placeholder {
-      color: var(--secondary-darken);
-    }
 
     form {
       display: flex;
@@ -52,15 +40,10 @@ userMenuTemplate.innerHTML = `
     }
 
     #login-button {
-      position: absolute;
-      top: 0;
-      right: 10px;
+      margin: 0;
     }
 
     #menu-wrapper {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       cursor: pointer;
     }
 
@@ -89,14 +72,15 @@ userMenuTemplate.innerHTML = `
       color: var(--white);
       border-radius: 5px;
       padding: 0;
-      width: 120px;
+      width: 110px;
       position: absolute;
       right: 0;
     }
 
     .menu-item {
       margin: 0;
-      padding: 10px;
+      font-size: 13px;
+      padding: 6px;
       text-align: center;
       font-weight: bold;
     }

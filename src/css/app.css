@@ -3,6 +3,8 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
@@ -113,4 +115,20 @@ col {
 
 .paper-money-wrapper {
   margin-top: 20px;
+}
+
+#app {
+  width: 450px;
+}
+
+.header-wrapper {
+  width: 100%;
+  position: relative;
+  margin: 20px 0;
+}
+
+user-menu {
+  margin: 10px 3px;
+  position: absolute;
+  right: 0;
 }
