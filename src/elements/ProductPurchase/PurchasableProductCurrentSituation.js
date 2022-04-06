@@ -4,6 +4,7 @@ import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
+import { checkProductPurchaseValidation } from '../../validators';
 
 class PurchasableProductCurrentSituation extends CustomElement {
   connectedCallback() {
@@ -86,12 +87,23 @@ class PurchasableProductCurrentSituation extends CustomElement {
   }
 
   handleProductPurchaseButtonClick = ($tbodyRow) => {
-    const productName = $tbodyRow.dataset.purchasableProductName;
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productName));
-
-    const productPrice = Number($('.purchasable-product-price-td', $tbodyRow).textContent);
-    CoinStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productPrice));
+    try {
+      this.purchaseProduct($tbodyRow);
+    } catch (error) {
+      alert(error.message);
+    }
   };
+
+  purchaseProduct($tbodyRow) {
+    const productName = $tbodyRow.dataset.purchasableProductName;
+    const productPrice = Number($('.purchasable-product-price-td', $tbodyRow).textContent);
+    const productQuantity = Number($('.purchasable-product-quantity-td', $tbodyRow).textContent);
+
+    checkProductPurchaseValidation(productPrice, productQuantity);
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productName));
+    CoinStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productPrice));
+  }
 }
 
 customElements.define('purchasable-product-current-situation', PurchasableProductCurrentSituation);

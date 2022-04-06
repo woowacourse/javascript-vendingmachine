@@ -37,6 +37,14 @@ const isOverMaxCustomerMoney = (inputCustomerMoney) => {
   return currentCustomerMoney + inputCustomerMoney > MONEY.CUSTOMER_MAX;
 };
 
+const isSoldOut = (quantity) => {
+  return quantity === 0;
+};
+
+const isPriceOverCustomerMoney = (price) => {
+  return price > CoinStore.instance.customer.money;
+};
+
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
@@ -99,5 +107,14 @@ export const checkCustomerMoneyValidation = (customerMoneyInputValue) => {
   }
   if (cannotDividedByTen(customerMoneyInputValue)) {
     throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+  }
+};
+
+export const checkProductPurchaseValidation = (productPrice, productQuantity) => {
+  if (isPriceOverCustomerMoney(productPrice)) {
+    throw new Error(ERROR_MESSAGE.IS_PRICE_OVER_CUSTOMER_MONEY);
+  }
+  if (isSoldOut(productQuantity)) {
+    throw new Error(ERROR_MESSAGE.IS_SOLD_OUT);
   }
 };

@@ -62,4 +62,7 @@ export const ERROR_MESSAGE = {
     MONEY.CUSTOMER_MAX,
   )}원을 초과하였습니다! 투입한 금액을 확인한 후 입력해 주세요!`,
   MONEY_CANNOT_DIVIDED_BY_TEN: '금액에 1원 단위가 입력되었습니다! 10원 단위로 입력해 주세요!',
+
+  IS_PRICE_OVER_CUSTOMER_MONEY: '투입한 금액이 부족합니다! 해당 상품을 구매하시려면 금액을 더 투입해 주세요!',
+  IS_SOLD_OUT: '품절된 상품입니다! 다른 상품을 구매해 주세요!',
 };
