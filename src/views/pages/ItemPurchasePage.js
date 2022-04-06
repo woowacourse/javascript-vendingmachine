@@ -3,7 +3,6 @@ import '../components/InsertMoneyForm';
 import '../components/InsertedMoneyIndicator';
 import '../components/PurchasableItemTable';
 import '../components/ReturnedChangeTable';
-import '../components/ReturnChangeButton';
 
 class ItemPurchasePage extends Component {
   template() {
@@ -20,7 +19,6 @@ class ItemPurchasePage extends Component {
       <section>
         <h2 class="table-title">잔돈 반환</h2>
         <change-table></change-table>
-        <return-button></return-button>
       </section>
     `;
   }

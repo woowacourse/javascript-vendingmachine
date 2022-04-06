@@ -35,8 +35,12 @@
 }
 
 .item-edit-button,
-.item-remove-button,
-.item-update-button {
+.item-remove-button {
   width: 50px;
+  height: 32px;
+}
+
+.item-update-button {
+  width: 100px;
   height: 32px;
 }

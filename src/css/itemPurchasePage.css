@@ -17,6 +17,19 @@
 }
 
 .item-purchase-button {
-  width: 50px;
+  width: 100px;
+  height: 32px;
+}
+
+.returned-change-container {
+  width: full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.return-change-button {
+  margin-top: 16px;
+  width: 100px;
   height: 32px;
 }

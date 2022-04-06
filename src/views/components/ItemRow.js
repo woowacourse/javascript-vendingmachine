@@ -42,7 +42,7 @@ class ItemRow extends TableRow {
           >
         </td>
         <td class="item-button-container">
-          <button class="item-update-button styled-button">완료</button>
+          <button class="item-update-button styled-button">확인</button>
         </td>
       `;
     }
