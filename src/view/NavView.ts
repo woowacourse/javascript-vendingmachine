@@ -33,6 +33,7 @@ export class NavView {
   #auth: Auth;
 
   constructor() {
+    // DOM 선택
     this.#nav = document.querySelector('nav');
     this.#thumbnail = document.querySelector('.thumbnail');
     this.#productManageNavBtn = document.querySelector('#product-manage-nav-button');
@@ -42,10 +43,12 @@ export class NavView {
     this.#authSection = document.querySelector('.auth-section');
     this.#featureSection = document.querySelector('.feature-section');
 
+    // Domain 인스턴스 생성
     this.#coinVault = new CoinVault();
     this.#productCatalog = new ProductCatalog();
     this.#auth = new Auth();
 
+    // View, Component 인스턴스 생성
     this.#productManageView = new ProductManageView({
       productCatalog: this.#productCatalog,
     });
@@ -61,23 +64,21 @@ export class NavView {
     this.#profile = new Profile({ target: this.#thumbnail, auth: this.#auth });
     this.#userInfoEditView = new UserInfoEditView({ target: this.#authSection, auth: this.#auth });
 
+    // 이벤트 핸들러
     this.#productManageNavBtn.addEventListener('click', this.#handleShowProductManageTab);
     this.#balanceChargeNavBtn.addEventListener('click', this.#handleShowBalanceChargeTab);
     this.#productPurchaseNavBtn.addEventListener('click', this.#handleShowProductPurhcaseTab);
     this.#loginBtn.addEventListener('click', this.#handleShowLoginPage);
     this.#authSection.addEventListener('signupPageRequested', this.#handleShowSignupPage);
-    this.#authSection.addEventListener('loginCompleted', this.#handleShowLoginCompletedPage);
-    this.#authSection.addEventListener(
-      'editUserInfoCompleted',
-      this.#handleShowLogoutCompletedPage
-    );
+    this.#authSection.addEventListener('loginCompleted', this.#renderHome);
+    this.#authSection.addEventListener('editUserInfoCompleted', this.#renderHome);
     this.#thumbnail.addEventListener('showEditUserInfoRequested', this.#handleShowEditUserInfoPage);
-    this.#thumbnail.addEventListener('logoutCompleted', this.#handleShowLogoutCompletedPage);
-
+    this.#thumbnail.addEventListener('logoutCompleted', this.#renderHome);
     window.addEventListener('popstate', (savedData) => {
       this.#handlePopstate(savedData);
     });
 
+    // 홈 화면 렌더링
     this.#renderHome();
   }
 
@@ -92,6 +93,8 @@ export class NavView {
       this.#productManageView.show();
       this.#balanceChargeView.hide();
       this.#productPurchaseView.hide();
+      this.#featureSection.classList.remove('hide');
+      this.#authSection.classList.add('hide');
 
       return;
     }
@@ -100,14 +103,62 @@ export class NavView {
       this.#balanceChargeView.show();
       this.#productPurchaseView.hide();
       this.#productManageView.hide();
+      this.#featureSection.classList.remove('hide');
+      this.#authSection.classList.add('hide');
 
       return;
     }
 
-    if (savedData.state.path === URL_PATH.BALANCE_CHAREGE) {
-      this.#balanceChargeView.show();
-      this.#productPurchaseView.hide();
+    if (savedData.state.path === URL_PATH.PRODUCT_PURCHASE) {
+      const accessToken = localStorage.getItem('accessToken');
+      this.#balanceChargeView.hide();
+      this.#productPurchaseView.show();
       this.#productManageView.hide();
+      this.#authSection.classList.add('hide');
+
+      this.#featureSection.classList.remove('hide');
+
+      if (accessToken) {
+        this.#thumbnail.classList.remove('hide');
+        this.#profile.render();
+        this.#nav.classList.remove('hide');
+
+        return;
+      }
+
+      this.#loginBtn.classList.remove('hide');
+      return;
+    }
+
+    if (savedData.state.path === URL_PATH.LOGIN) {
+      this.#featureSection.classList.add('hide');
+      this.#loginBtn.classList.add('hide');
+
+      this.#authSection.classList.remove('hide');
+      this.#authSection.textContent = '';
+      this.#loginView.render();
+
+      return;
+    }
+
+    if (savedData.state.path === URL_PATH.SINGUP) {
+      this.#featureSection.classList.add('hide');
+      this.#loginBtn.classList.add('hide');
+
+      this.#authSection.classList.remove('hide');
+      this.#authSection.textContent = '';
+      this.#signupView.render();
+
+      return;
+    }
+
+    if (savedData.state.path === URL_PATH.EDIT_USER_INFO) {
+      this.#featureSection.classList.add('hide');
+      this.#thumbnail.classList.add('hide');
+
+      this.#authSection.classList.remove('hide');
+      this.#authSection.textContent = '';
+      this.#userInfoEditView.render();
 
       return;
     }
@@ -188,33 +239,22 @@ export class NavView {
     this.#handleUrlPath(path);
   };
 
-  #handleShowLoginCompletedPage = () => {
-    this.#authSection.classList.add('hide');
-    this.#loginBtn.classList.add('hide');
-
-    this.#thumbnail.classList.remove('hide');
-    this.#profile.render();
-    this.#featureSection.classList.remove('hide');
-    this.#nav.classList.remove('hide');
-  };
-
-  #handleShowLogoutCompletedPage = () => {
-    this.#authSection.classList.add('hide');
-    this.#nav.classList.add('hide');
-    this.#thumbnail.classList.add('hide');
-
-    this.#featureSection.classList.remove('hide');
-    this.#loginBtn.classList.remove('hide');
-    this.#handleShowProductPurhcaseTab();
-  };
-
   #renderHome = () => {
+    // 공통
+    this.#authSection.classList.add('hide');
+    this.#featureSection.classList.remove('hide');
+
     const accessToken = localStorage.getItem('accessToken');
 
-    if (!!accessToken) {
+    if (accessToken) {
       this.#profile.render();
-
-      this.#handleShowLoginCompletedPage();
+      this.#thumbnail.classList.remove('hide');
+      this.#loginBtn.classList.add('hide');
+      this.#nav.classList.remove('hide');
+    } else {
+      this.#thumbnail.classList.add('hide');
+      this.#loginBtn.classList.remove('hide');
+      this.#nav.classList.add('hide');
     }
 
     this.#handleShowProductPurhcaseTab();
