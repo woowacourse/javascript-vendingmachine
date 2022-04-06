@@ -33,6 +33,11 @@ export interface Action {
   detail?: Product | ModifyDetail | string | number;
 }
 
+export interface AuthActionType {
+  LOGIN: string;
+  LOGOUT: string;
+}
+
 export interface ProductActionType {
   ADD: string;
   MODIFY: string;

@@ -1,4 +1,5 @@
 import AuthStore from '../../domains/stores/AuthStore';
+import { AUTH_ACTION, createAction } from '../../domains/actions';
 import { login } from '../../domains/Auth';
 
 import CustomElement from '../../abstracts/CustomElement';
@@ -32,7 +33,7 @@ class Login extends CustomElement {
     const { email, password } = event.target.elements;
 
     await login(email.value, password.value);
-    AuthStore.instance.dispatch();
+    AuthStore.instance.dispatch(createAction(AUTH_ACTION.LOGIN));
 
     this.initLoginInputs(email, password);
     window.location.hash = BASE_HASH;

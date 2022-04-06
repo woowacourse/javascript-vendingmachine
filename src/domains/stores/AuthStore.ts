@@ -1,4 +1,5 @@
-import { CustomElement } from '../../abstracts/interfaces';
+import { Action, CustomElement } from '../../abstracts/interfaces';
+import { AUTH_ACTION } from '../actions';
 
 class AuthStore {
   static _instance: null | object = null;
@@ -19,8 +20,15 @@ class AuthStore {
     this.#subscribers.push(element);
   }
 
-  dispatch() {
-    this.#isLoggedIn = !this.#isLoggedIn;
+  dispatch({ type }: Action) {
+    switch (type) {
+      case AUTH_ACTION.LOGIN:
+        this.#isLoggedIn = true;
+        break;
+      case AUTH_ACTION.LOGOUT:
+        this.#isLoggedIn = false;
+    }
+
     this.notifySubscribers();
   }
 
