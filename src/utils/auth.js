@@ -1,6 +1,14 @@
 import { AUTH, SNACKBAR } from '../constants';
 import showSnackbar from './showSnackbar';
 
+const setLoginedUser = (userInfo) => {
+  localStorage.setItem('userAuth', JSON.stringify(userInfo));
+};
+
+const moveToPage = (pageHash) => {
+  window.location.replace(pageHash);
+};
+
 export const signup = (email, name, password) => {
   const url = 'http://localhost:3000/signup/';
   const userInfo = {
@@ -30,8 +38,8 @@ export const signup = (email, name, password) => {
         email: response.user.email,
         id: response.user.id,
       };
-      localStorage.setItem('userAuth', JSON.stringify(userAuth));
-      window.location.replace('#!product-manage');
+      setLoginedUser(userAuth);
+      moveToPage('#!product-manage');
       showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
     })
     .catch((error) => {
@@ -67,8 +75,8 @@ export const login = (email, password) => {
         accessToken: response.accessToken,
         id: response.user.id,
       };
-      localStorage.setItem('userAuth', JSON.stringify(userAuth));
-      window.location.replace('#!product-manage');
+      setLoginedUser(userAuth);
+      moveToPage('#!product-manage');
       showSnackbar(SNACKBAR.LOGIN_SUCCESS);
     })
     .catch((error) => {
