@@ -40,28 +40,30 @@ describe('상품을 구매할 수 있다', () => {
   });
 
   it('상품을 구매한 후 반환하기 버튼을 누르면 자판기가 가지고 있는 동전에서 잔돈을 반환한다', () => {
-    const vendingMachineCharge = 5000;
+    cy.rechargeCoin();
 
-    cy.get('#recharge-change-tab').click();
+    cy.getReturnChange();
+  });
 
-    cy.get('#recharge-change-input').type(vendingMachineCharge);
-    cy.get('#recharge-change-form').submit();
-    cy.get('#purchase-product-tab').click();
+  it('잔돈을 반환받을 때에, 자판기 보유 동전이 0이고 유저의 보유금액이 있을 경우 alert를 호출한다', () => {
+    const alertStub = cy.stub();
+    cy.on('window:alert', alertStub);
 
-    const charge = 3000;
+    const charge = 10000;
     cy.get('#charge-input').type(charge);
     cy.get('#charge-input-form').submit();
-    cy.get('.product-purchase-button').click();
+    cy.get('#return-change-button')
+      .click()
+      .then(() => {
+        expect(alertStub).to.be.calledWith(ERROR_MSG.OUT_OF_CHANGE);
+      });
+  });
 
-    const changeCharge = charge - 1500;
+  it('로그아웃을 하여도 상품구매를 할 수 있다', () => {
+    cy.rechargeCoin();
+    cy.get('#user-profile').click();
+    cy.get('#logout-button').click();
 
-    cy.get('#return-change-button').click();
-    cy.get('#return-change-table span').then($els => {
-      const [coin500, coin100, coin50, coin10] = [...$els].map(el => el.textContent);
-      const expectedChangeTotal =
-        Number(coin500) * 500 + Number(coin100) * 100 + Number(coin50) * 50 + Number(coin10) * 10;
-
-      expect(expectedChangeTotal).to.equal(changeCharge);
-    });
+    cy.getReturnChange();
   });
 });

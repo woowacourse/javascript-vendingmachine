@@ -29,3 +29,31 @@ Cypress.Commands.add('signIn', (userEmail, userName, userPassword) => {
 
   return cy.get('#sign-in-form').submit();
 });
+
+Cypress.Commands.add('rechargeCoin', () => {
+  const vendingMachineCharge = 5000;
+
+  cy.get('#recharge-change-tab').click();
+
+  cy.get('#recharge-change-input').type(vendingMachineCharge);
+  cy.get('#recharge-change-form').submit();
+  cy.get('#purchase-product-tab').click();
+});
+
+Cypress.Commands.add('getReturnChange', () => {
+  const charge = 3000;
+  cy.get('#charge-input').type(charge);
+  cy.get('#charge-input-form').submit();
+  cy.get('.product-purchase-button').click();
+
+  const changeCharge = charge - 1500;
+
+  cy.get('#return-change-button').click();
+  cy.get('#return-change-table span').then($els => {
+    const [coin500, coin100, coin50, coin10] = [...$els].map(el => el.textContent);
+    const expectedChangeTotal =
+      Number(coin500) * 500 + Number(coin100) * 100 + Number(coin50) * 50 + Number(coin10) * 10;
+
+    expect(expectedChangeTotal).to.equal(changeCharge);
+  });
+});
