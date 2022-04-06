@@ -15,6 +15,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:cypress/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -43,10 +44,6 @@ module.exports = {
         props: false,
       },
     ],
-    'lines-between-class-members': [
-      'error',
-      'always',
-      { exceptAfterSingleLine: true },
-    ],
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
   },
 };

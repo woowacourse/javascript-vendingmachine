@@ -127,10 +127,10 @@ export default class VendingMachine {
 
   #validateInputMoney(money: number): boolean {
     const inputMoneyValidator = [
-      { testFunc: inValidUnitMoney, errorMsg: '10원단위로 금액을 투입해주세요' },
+      { testFunc: inValidUnitMoney, errorMsg: ERROR_MESSAGE.INVALID_UNIT_MONEY },
       {
         testFunc: isExceedMaxTotalMoney,
-        errorMsg: '투입금액은 최대 10,000원 까지입니다.',
+        errorMsg: ERROR_MESSAGE.EXCEED_MAX_TOTAL_MONEY,
       },
     ];
     return validateData({ money, totalMoney: this.#totalMoney }, inputMoneyValidator);
