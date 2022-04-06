@@ -34,13 +34,11 @@ const template = `
 export default class Navigation {
   #navContainer;
   #tabMenuNav;
-  #user;
   #toLoginButton;
   #profileButton;
   #profileList;
 
-  constructor(user) {
-    this.#user = user;
+  constructor() {
     this.#navContainer = createElementByTemplate('header', template);
     this.#tabMenuNav = selectDom('#tab-menu-navigation', this.#navContainer);
     this.#toLoginButton = selectDom('#to-login-anchor', this.#navContainer);
@@ -52,21 +50,22 @@ export default class Navigation {
     this.renderMenuNavigation();
 
     this.#profileButton.addEventListener('click', this.#showList);
+    this.#profileList.addEventListener('click', this.#handleProfileList);
     this.#toLoginButton.addEventListener('click', this.#handleTabMenuChange);
     this.#tabMenuNav.addEventListener('click', this.#handleTabMenuChange);
   }
 
-  renderMenuNavigation() {
-    if (!this.#user.isLogined) {
+  renderMenuNavigation(isLogined, name) {
+    if (!isLogined) {
       this.#tabMenuNav.classList.add('hide');
       this.#profileButton.classList.add('hide');
       this.#toLoginButton.classList.remove('hide');
     }
-    if (this.#user.isLogined) {
+    if (isLogined) {
       this.#tabMenuNav.classList.remove('hide');
       this.#profileButton.classList.remove('hide');
       this.#toLoginButton.classList.add('hide');
-      this.#profileButton.textContent = this.#user.name.charAt(0);
+      this.#profileButton.textContent = name.charAt(0);
     }
   }
 
@@ -94,6 +93,12 @@ export default class Navigation {
   #removeList = (e) => {
     if (e.target !== this.#profileList && e.target !== this.#profileButton) {
       this.#profileList.classList.add('hide');
+    }
+  };
+
+  #handleProfileList = (e) => {
+    if (e.target.id === 'user-navigation-profile') {
+      this.#handleTabMenuChange(e);
     }
   };
 

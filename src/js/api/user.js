@@ -47,11 +47,12 @@ const UserApi = {
 
   update: async (accessToken, id, { email, name, password }) => {
     const response = await fetch(`${baseURL}users/${id}`, {
+      method: 'PUT',
       headers: {
-        method: 'POST',
         Authorization: `Bearer ${accessToken}`,
-        body: JSON.stringify({ email, name, password }),
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ email, name, password }),
     });
     if (!response.ok) {
       const errorMessage = await response.json();

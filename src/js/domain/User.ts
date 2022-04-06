@@ -44,7 +44,12 @@ export default class User {
   }
 
   async signIn(email, password) {
-    const { accessToken } = await UserApi.signIn(email, password);
+    const {
+      accessToken,
+      user: { name },
+    } = await UserApi.signIn(email, password);
+    this.#email = email;
+    this.#name = name;
     this.#isLogined = true;
     setCookie('accessToken', accessToken);
   }
@@ -52,21 +57,31 @@ export default class User {
   async signUp(email, name, password) {
     const { accessToken } = await UserApi.signUp(email, name, password);
     this.#isLogined = true;
+    this.#email = email;
+    this.#name = name;
     setCookie('accessToken', accessToken);
   }
 
   async userInfo() {
     const { email, name, id } = await UserApi.searchInfo(this.#accessToken);
     this.#id = id;
+    this.#name = name;
+    this.#email = email;
     return { email, name };
   }
 
   async updateUser(email, name, password) {
-    const { id } = await UserApi.signIn(this.#accessToken, this.#id, {
+    const {
+      id,
+      email: newEmail,
+      name: newName,
+    } = await UserApi.update(this.#accessToken, this.#id, {
       email,
       name,
       password,
     });
     this.#id = id;
+    this.#email = newEmail;
+    this.#name = newName;
   }
 }

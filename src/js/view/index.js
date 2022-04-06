@@ -5,6 +5,7 @@ import VendingMachine from '../domain/VendingMachine';
 import AddChangeTab from './AddChangeTab';
 import LoginTab from './LoginTab';
 import ManageProductTab from './ManageProductTab';
+import MyProfile from './MyProfieTab';
 import Navigation from './Navigation';
 import Page from './Page';
 import PurchaseProductTab from './PurchaseProductTab';
@@ -21,6 +22,7 @@ export default function initView() {
   const addChangePage = new Page(new Navigation(user), new AddChangeTab());
   const loginTab = new LoginTab();
   const signUpTab = new SignUpTab();
+  const myProfileTab = new MyProfile();
   const router = new Router(user);
   const controller = new Controller(
     vendingMachine,
@@ -28,7 +30,7 @@ export default function initView() {
     manageProductPage,
     purchaseProductPage
   );
-  const userController = new UserController(user, loginTab, signUpTab, [
+  const userController = new UserController(user, loginTab, signUpTab, myProfileTab, [
     addChangePage,
     manageProductPage,
     purchaseProductPage,
@@ -38,5 +40,7 @@ export default function initView() {
   router.addPrivateRenderList('#/charge', addChangePage);
   router.addRenderList('#/purchase', purchaseProductPage);
   router.addPrivateRenderList('#/manage', manageProductPage);
+  router.addPrivateRenderList('#/myprofile', myProfileTab);
+
   router.bindEvents();
 }
