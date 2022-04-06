@@ -16,7 +16,7 @@ export default class Router {
 
   bindEvents() {
     window.addEventListener('popstate', this.#render);
-    window.addEventListener('DOMContentLoaded', this.#render);
+    window.addEventListener('DOMContentLoaded', this.#initUserState);
     window.addEventListener('tabChange', this.#handleTabMenuChange);
   }
 
@@ -44,6 +44,7 @@ export default class Router {
       selectDom('body').replaceChild(notFoundContainer, selectDom('#app'));
       return;
     }
+
     if (this.#privateRenderList[path] && !this.#user.isLogined) {
       window.history.pushState({}, null, '#/login');
       this.#render();
@@ -74,6 +75,11 @@ export default class Router {
 
     currentMenuButton?.classList.add('current');
   }
+
+  #initUserState = async () => {
+    await this.#user.initLoginStatus();
+    this.#render();
+  };
 
   #handleTabMenuChange = (e) => {
     e.preventDefault();

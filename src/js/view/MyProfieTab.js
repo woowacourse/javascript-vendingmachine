@@ -54,5 +54,7 @@ export default class MyProfile {
     const name = this.#nameInput.value;
     const password = this.#passwordInput.value;
     emitEvent(this.element, 'update-user', { email, name, password });
+    this.#nameInput.value = '';
+    this.#passwordInput.value = '';
   };
 }
