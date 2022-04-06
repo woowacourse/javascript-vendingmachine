@@ -10,7 +10,6 @@ export class EditUserInformationPage {
   pwConfirmInput: HTMLInputElement;
   pwInput: HTMLInputElement;
   submitEditBtn: HTMLButtonElement;
-  signUpBtn: HTMLParagraphElement;
 
   constructor(props) {
     this.app = props.app;

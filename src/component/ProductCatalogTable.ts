@@ -130,10 +130,9 @@ export class ProductCatalogTable {
   saveEditedProductState(tableRow: HTMLTableRowElement) {
     const productState = {
       index: this.productCatalog.findExistingProductIndex(tableRow.id),
-      name: (tableRow.querySelector('.product-name').firstChild as HTMLInputElement).value,
-      price: (tableRow.querySelector('.product-price').firstChild as HTMLInputElement)
-        .valueAsNumber,
-      quantity: (tableRow.querySelector('.product-quantity').firstChild as HTMLInputElement)
+      name: (<HTMLInputElement>tableRow.querySelector('.product-name').firstChild).value,
+      price: (<HTMLInputElement>tableRow.querySelector('.product-price').firstChild).valueAsNumber,
+      quantity: (<HTMLInputElement>tableRow.querySelector('.product-quantity').firstChild)
         .valueAsNumber,
     };
 

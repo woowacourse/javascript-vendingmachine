@@ -6,7 +6,6 @@ export class SignInPage {
   emailInput: HTMLInputElement;
   pwInput: HTMLInputElement;
   submitSignInBtn: HTMLButtonElement;
-  signUpBtn: HTMLParagraphElement;
 
   constructor(props) {
     this.app = props.app;
@@ -14,8 +13,6 @@ export class SignInPage {
     this.selectDom();
     this.bindDom();
   }
-
-  render = () => {};
 
   selectDom() {
     this.emailInput = document.querySelector('.sign-in-email-input');
