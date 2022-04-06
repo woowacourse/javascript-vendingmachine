@@ -24,24 +24,24 @@ export default class App {
   handleRouteChange(event: CustomEvent<RouteChangeDetailType>) {
     const { page, section } = event.detail;
 
-    window.history.pushState(null, null, `${URL.BASE_URL}/#${page}/#${section}`);
+    window.history.pushState(
+      null,
+      null,
+      `${URL.BASE_URL}/#${page ?? URL.MAIN}/#${section ?? URL.PURCHASE_ITEM}`
+    );
   }
 
-  renderPage() {
+  async renderPage() {
     const [, page, url] = window.location.href.split('/#');
 
     switch (page) {
       case URL.MAIN:
-        this.mainView.render();
+        await this.mainView.render();
         this.mainView.renderPageSection(url);
         break;
       case URL.SIGN:
         this.signView.render();
         this.signView.renderPageSection(url);
-        break;
-      default:
-        this.mainView.render();
-        this.mainView.renderPageSection(URL.PURCHASE_ITEM);
     }
   }
 }

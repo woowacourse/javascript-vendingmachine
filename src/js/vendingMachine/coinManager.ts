@@ -17,6 +17,11 @@ export default class CoinManager {
     return this.getSumCoins(this._coins);
   }
 
+  setCoins(money: number) {
+    this._coins = this.getInitialCoins();
+    this.chargeCoins(money);
+  }
+
   chargeCoins(money: number) {
     let restMoney = money;
 

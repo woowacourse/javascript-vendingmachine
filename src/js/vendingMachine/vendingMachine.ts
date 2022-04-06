@@ -43,6 +43,7 @@ export default class VendingMachine {
     validateAddItemInput(item);
     checkDuplicatedItem(items, item, null);
 
+    ProductAPI.addProduct(item);
     this.itemManager.addItem(item);
   }
 
@@ -54,7 +55,7 @@ export default class VendingMachine {
     validateAddItemInput(item);
     checkDuplicatedItem(items, item, index);
 
-    ProductAPI.editProduct(changedItem);
+    ProductAPI.updateProduct(changedItem);
     this.itemManager.changeItem(index, item);
   }
 
@@ -69,6 +70,7 @@ export default class VendingMachine {
     validateChargeCoins(inputMoney);
 
     this.coinManager.chargeCoins(inputMoney);
+    ProductAPI.updateMoney(this.coinManager.coinsSum);
   }
 
   chargeMoney(inputMoney: number) {
@@ -85,7 +87,7 @@ export default class VendingMachine {
     this.moneyManager.deductMoney(price);
 
     const { quantity, id } = this.itemManager.getItemWithName(name);
-    ProductAPI.editProduct({ quantity, id });
+    ProductAPI.updateProduct({ quantity, id });
 
     return this.itemManager.getItemWithName(name).quantity;
   }
@@ -97,5 +99,15 @@ export default class VendingMachine {
     const restMoney = this.moneyManager.money;
 
     return { coins, restMoney };
+  }
+
+  async updateResponseItems() {
+    const products = (await ProductAPI.getProducts()) as ItemType[];
+    this.itemManager.setItems(products);
+  }
+
+  async updateResponsCoins() {
+    const money = (await ProductAPI.getMoney()) as number;
+    this.coinManager.setCoins(money);
   }
 }

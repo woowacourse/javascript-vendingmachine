@@ -5,7 +5,6 @@ import { SELECTOR } from '../../constants/viewConstants';
 import { ItemType } from '../../types/types';
 import showSnackbar from '../../utils/snackbar';
 import VendingMachine from '../../vendingMachine/vendingMachine';
-import { ProductAPI } from '../../api/productAPI';
 
 export default class ManageItemView {
   constructor(private readonly vendingMachine: VendingMachine) {
@@ -20,16 +19,6 @@ export default class ManageItemView {
 
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
     $(SELECTOR.CLASS.ITEM_TABLE).addEventListener('click', this.handleTableClickEvent.bind(this));
-
-    this.addFetchedProducts();
-  }
-
-  async addFetchedProducts() {
-    const productList = (await ProductAPI.getProducts()) as ItemType[];
-    productList.forEach(item => {
-      this.vendingMachine.addItem(item);
-      this.appendItemTableRow(item);
-    });
   }
 
   private handleSubmitEvent(event: SubmitEvent) {
@@ -38,7 +27,6 @@ export default class ManageItemView {
       const item: ItemType = this.getItemFromAddItemInput();
 
       this.vendingMachine.addItem(item);
-      ProductAPI.addProduct(item);
 
       this.clearInput();
       this.appendItemTableRow(item);

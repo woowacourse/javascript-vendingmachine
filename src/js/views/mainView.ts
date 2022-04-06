@@ -26,13 +26,16 @@ export default class MainView {
     this.userMenuView = new UserMenuView();
   }
 
-  render() {
+  async render() {
     this.$app.replaceChildren();
     this.$app.insertAdjacentHTML('beforeend', mainTemplate);
     this.checkSignIn();
 
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
     $(SELECTOR.ID.SIGN_BUTTON).addEventListener('click', this.handleSignButtonClick.bind(this));
+
+    await this.vendingMachine.updateResponseItems();
+    await this.vendingMachine.updateResponsCoins();
   }
 
   renderPageSection(url: string) {

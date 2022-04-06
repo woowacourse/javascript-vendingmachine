@@ -12,6 +12,10 @@ export default class ItemManager {
     return this._items.find(item => item.name === name);
   }
 
+  setItems(items: ItemType[]) {
+    this._items = items;
+  }
+
   addItem({ name, price, quantity, id }: ItemType) {
     this._items.push(new Item(name, price, quantity, id));
   }
