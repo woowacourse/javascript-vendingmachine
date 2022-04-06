@@ -1,6 +1,7 @@
 import { selectDom, selectDomAll, addEvent,  } from "../../utils/dom";
 import { ConvertTemplate } from "../../utils/interface";
 import { menuTabTemplate } from "./menuTabTemplate";
+
 class MenuTab {
   vendingmachineWrap: HTMLElement;
   vendingmachineHeader: HTMLElement;
