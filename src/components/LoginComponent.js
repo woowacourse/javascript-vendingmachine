@@ -74,9 +74,15 @@ class LoginComponent {
           password: userPassword,
         },
       });
+      this.clearLoginForm();
     } catch ({ message }) {
       alert(message);
     }
+  };
+
+  clearLoginForm = () => {
+    this.$loginEmailInput.value = '';
+    this.$loginPasswordInput.value = '';
   };
 }
 

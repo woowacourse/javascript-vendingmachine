@@ -98,10 +98,18 @@ class SignInComponent {
             password: userPasswordInput,
           },
         });
+        this.clearSignInForm();
       }
     } catch ({ message }) {
       alert(message);
     }
+  };
+
+  clearSignInForm = () => {
+    this.$signInEmailInput.value = '';
+    this.$signInNameInput.value = '';
+    this.$signInPasswordInput.value = '';
+    this.$signInPasswordInputConfirm.value = '';
   };
 }
 export default SignInComponent;

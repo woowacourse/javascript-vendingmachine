@@ -69,6 +69,7 @@ class HeaderComponent {
     const userInfo = userInfoStorage.getUserInfo();
     const { userName } = userInfo;
     this.$userProfile.textContent = [...userName].shift();
+    this.$userHref.classList.remove('is-active');
   }
 
   onLogOutButtonClick = e => {

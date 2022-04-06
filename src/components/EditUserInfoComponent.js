@@ -99,10 +99,18 @@ class EditUserInfoComponent {
             password: userPasswordInput,
           },
         });
+        this.clearEditedForm();
       }
     } catch ({ message }) {
       alert(message);
     }
+  };
+
+  clearEditedForm = () => {
+    this.$editUserEmailInput.value = '';
+    this.$editUserNameInput.value = '';
+    this.$editUserPasswordInput.value = '';
+    this.$editUserPasswordConfirmInput.value = '';
   };
 }
 

@@ -1,4 +1,4 @@
-import { accessTokenStorage, userIdStorage, userInfoStorage } from '../stores/localStorage';
+import { accessTokenStorage } from '../stores/localStorage';
 import EditUserInfoComponent from './EditUserInfoComponent';
 import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
