@@ -40,6 +40,9 @@ const renderTargetContainer = (currentHash) => {
     renderAppHeight(false);
     return;
   }
+  $loginContainer.hide();
+  $signupContainer.hide();
+  $userMenuContainer.removeAttribute('hidden');
 
   routes.forEach(({ hash, target, isLongApp }) => {
     const $menu = $nav.querySelector(`[href='${hash}']`);
@@ -61,8 +64,11 @@ const renderInitContainer = (currentHash) => {
 };
 
 window.addEventListener('hashchange', () => {
+  console.log('change', window.location.hash);
   const currentHash = window.location.hash;
   renderTargetContainer(currentHash);
 });
 
 renderInitContainer(window.location.hash);
+
+export default renderTargetContainer;

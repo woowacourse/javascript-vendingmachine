@@ -70,3 +70,10 @@ export const PASSWORD = {
   MIN_LENGTH: 10,
   MIN_COMBINATION_COUNT: 2,
 };
+
+export const AUTH = {
+  EMAIL_ALREADY_EXISTS: '이미 존재하는 이메일입니다. 이메일을 다시 확인해주세요.',
+  CANNOT_FIND_USER: '해당 이메일로 가입된 계정이 없습니다. 이메일을 다시 확인해주세요.',
+  INCORRECT_PASSWORD: '잘못된 비밀번호입니다. 비밀번호를 다시 확인해주세요.',
+  PASSWORD_IS_TOO_SHORT: '비밀번호가 너무 짧습니다. 비밀번호는 최소 10자리 이상입니다.',
+};
