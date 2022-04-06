@@ -1,12 +1,9 @@
 import { $ } from '../../utils/dom';
 import { validateProductInfo } from './validator';
 import { viewPainter } from '../ViewPainter';
-import { ProductInfoUnionType } from '../../domain/types';
-import { showSnackbar } from '../../utils';
-
-type Inputs = {
-  [infoType in ProductInfoUnionType]: HTMLInputElement;
-};
+import { focusOnInvalidInput, showSnackbar } from '../../utils';
+import type { ProductInfo } from '../../domain/types';
+import type { Inputs } from '../../types';
 
 export default class ProductAdditionComponent {
   private productManagement;
@@ -39,7 +36,7 @@ export default class ProductAdditionComponent {
       const { products } = this.productManagement;
       validateProductInfo(products, product);
     } catch ({ name, message }) {
-      this.focusOnInvalidInput(name, $inputs);
+      focusOnInvalidInput<ProductInfo>(name, $inputs);
       showSnackbar(message);
       return;
     }
@@ -47,17 +44,4 @@ export default class ProductAdditionComponent {
     this.productManagement.addProduct(product);
     viewPainter.renderProducts();
   };
-
-  private focusOnInvalidInput(target: ProductInfoUnionType, $inputs: Inputs) {
-    switch (target) {
-      case 'name':
-        $inputs.name.focus();
-        break;
-      case 'price':
-        $inputs.price.focus();
-        break;
-      case 'quantity':
-        $inputs.quantity.focus();
-    }
-  }
 }

@@ -6,9 +6,8 @@ interface ProductInfo {
   quantity: number;
 }
 
-type ProductInfoUnionType = keyof ProductInfo;
-
 type CoinUnionType = typeof coinType[number];
+
 type Coins = { [K in CoinUnionType]: number } | {};
 
-export type { Coins, CoinUnionType, ProductInfoUnionType, ProductInfo };
+export type { Coins, CoinUnionType, ProductInfo };

@@ -6,11 +6,11 @@ import {
 } from '../../constants';
 import { isInvalidNumber } from '../../utils/validator';
 import ProductImpl from '../../domain/Product';
-import type { ProductInfo, ProductInfoUnionType } from '../../domain/types';
+import type { ProductInfo } from '../../domain/types';
 
 const findEmptyField = (
   product: ProductInfo,
-): { isEmpty: boolean; target: ProductInfoUnionType } => {
+): { isEmpty: boolean; target: keyof ProductInfo } => {
   let target;
   const isEmpty = Object.keys(product).some(key => {
     target = key;
@@ -40,7 +40,7 @@ const isQuantityRanged = (quantity: number) =>
 interface Validator {
   test: boolean;
   errorMsg: string;
-  target: ProductInfoUnionType;
+  target: keyof ProductInfo;
 }
 
 const generateProductInfoValidators = (

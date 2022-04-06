@@ -1,3 +1,7 @@
+type Inputs<T> = {
+  [infoType in keyof T]: HTMLInputElement;
+};
+
 interface UserInfo {
   email: string;
   id: string;
@@ -17,4 +21,4 @@ interface SignupInfo extends LoginInfo {
   name: string;
 }
 
-export type { UserInfo, LoginInfo, UserInfoWithPassWord, SignupInfo };
+export type { Inputs, UserInfo, LoginInfo, UserInfoWithPassWord, SignupInfo };

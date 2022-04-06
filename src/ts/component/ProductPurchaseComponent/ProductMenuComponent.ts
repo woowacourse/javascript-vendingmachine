@@ -82,11 +82,7 @@ export default class ProductMenuComponent {
     const { target } = e;
     if (!(target instanceof HTMLButtonElement)) return;
 
-    this.#purchaseProduct(target);
-  };
-
-  #purchaseProduct($button) {
-    const productName: string = removeNBSP($button.dataset.productName);
+    const productName: string = removeNBSP(target.dataset.productName);
 
     const selectedProduct = this.#productManagement.products.find(
       product => product.name === productName,
@@ -107,13 +103,14 @@ export default class ProductMenuComponent {
     );
 
     if (selectedProduct.quantity === 0) {
-      $$(`[data-product-name=${$button.dataset.productName}`).forEach(el =>
+      $$(`[data-product-name=${target.dataset.productName}`).forEach(el =>
         el.remove(),
       );
       return;
     }
+
     $(
-      `.item-quantity[data-product-name=${$button.dataset.productName}`,
+      `.item-quantity[data-product-name=${target.dataset.productName}`,
     ).innerText = String(selectedProduct.quantity);
-  }
+  };
 }

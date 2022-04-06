@@ -1,8 +1,8 @@
 import { API } from '../../apis';
 
 import { basePath } from '../../App';
-import { SignupInfo, UserInfoWithPassWord } from '../types';
-import { getUser, showSnackbar } from '../utils';
+import type { SignupInfo, UserInfoWithPassWord } from '../types';
+import { focusOnInvalidInput, getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
 
@@ -51,28 +51,28 @@ export default class UserEditPage {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const emailInput = e.target.elements.namedItem('emailInput');
-    const pwInput = e.target.elements.namedItem('pwInput');
-    const rePwInput = e.target.elements.namedItem('rePwInput');
-    const nameInput = e.target.elements.namedItem('nameInput');
+    const $formElements = e.target.elements;
 
-    if (!(emailInput instanceof HTMLInputElement)) return;
-    if (!(pwInput instanceof HTMLInputElement)) return;
-    if (!(rePwInput instanceof HTMLInputElement)) return;
-    if (!(nameInput instanceof HTMLInputElement)) return;
+    const $inputs = {
+      email: $formElements.namedItem('emailInput') as HTMLInputElement,
+      password: $formElements.namedItem('pwInput') as HTMLInputElement,
+      rePassword: $formElements.namedItem('rePwInput') as HTMLInputElement,
+      name: $formElements.namedItem('nameInput') as HTMLInputElement,
+    };
 
     const userInfo: SignupInfo = {
-      email: emailInput.value,
-      password: pwInput.value,
-      name: nameInput.value,
+      email: $inputs.email.value,
+      password: $inputs.password.value,
+      name: $inputs.name.value,
     };
 
     try {
-      if (pwInput.value !== rePwInput.value) {
+      if ($inputs.password.value !== $inputs.rePassword.value) {
         throw new Error('비밀번호가 일치하지 않습니다.');
       }
       validateUserInfo(userInfo);
     } catch ({ message, name }) {
+      focusOnInvalidInput<SignupInfo>(name, $inputs);
       showSnackbar(message);
       return;
     }

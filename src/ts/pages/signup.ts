@@ -1,7 +1,7 @@
 import { API } from '../../apis';
 import { basePath } from '../../App';
 import type { SignupInfo } from '../types';
-import { showSnackbar } from '../utils';
+import { focusOnInvalidInput, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
 
@@ -36,28 +36,28 @@ export default class SignupPage {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const emailInput = e.target.elements.namedItem('emailInput');
-    const pwInput = e.target.elements.namedItem('pwInput');
-    const rePwInput = e.target.elements.namedItem('rePwInput');
-    const nameInput = e.target.elements.namedItem('nameInput');
+    const $formElements = e.target.elements;
 
-    if (!(emailInput instanceof HTMLInputElement)) return;
-    if (!(pwInput instanceof HTMLInputElement)) return;
-    if (!(rePwInput instanceof HTMLInputElement)) return;
-    if (!(nameInput instanceof HTMLInputElement)) return;
+    const $inputs = {
+      email: $formElements.namedItem('emailInput') as HTMLInputElement,
+      password: $formElements.namedItem('pwInput') as HTMLInputElement,
+      rePassword: $formElements.namedItem('rePwInput') as HTMLInputElement,
+      name: $formElements.namedItem('nameInput') as HTMLInputElement,
+    };
 
     const userInfo: SignupInfo = {
-      email: emailInput.value,
-      password: pwInput.value,
-      name: nameInput.value,
+      email: $inputs.email.value,
+      password: $inputs.password.value,
+      name: $inputs.name.value,
     };
 
     try {
-      if (pwInput.value !== rePwInput.value) {
+      if ($inputs.password.value !== $inputs.rePassword.value) {
         throw new Error('비밀번호가 일치하지 않습니다.');
       }
       validateUserInfo(userInfo);
     } catch ({ message, name }) {
+      focusOnInvalidInput<SignupInfo>(name, $inputs);
       showSnackbar(message);
       return;
     }
@@ -69,7 +69,7 @@ export default class SignupPage {
       return;
     }
 
-    showSnackbar(`${nameInput.value}님 회원가입에 성공했습니다.`);
+    showSnackbar(`${$inputs.name.value}님 회원가입에 성공했습니다.`);
 
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;
