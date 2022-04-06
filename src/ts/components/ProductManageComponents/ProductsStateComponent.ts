@@ -83,7 +83,7 @@ export default class ProductStateComponent {
         editedProduct
       );
 
-      emit(this.$productTableTbody, '@editProduct', {
+      emit(this.$productTableTbody, '@editConsumerProduct', {
         detail: {
           previousProductName: parentElement.dataset.productName,
           editedProduct,
@@ -146,7 +146,7 @@ export default class ProductStateComponent {
       'success'
     );
 
-    emit(this.$productTableTbody, '@deleteProduct', {
+    emit(this.$productTableTbody, '@deleteConsumerProduct', {
       detail: {
         deleteProductName: targetProductName,
       },

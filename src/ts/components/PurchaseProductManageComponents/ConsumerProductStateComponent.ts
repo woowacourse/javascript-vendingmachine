@@ -1,6 +1,9 @@
-import { on, $, $$, emit } from '../../dom/domHelper';
 import { checkCanSubtractConsumerChargeMoney } from '../../validation/checkConsumerChargeMoney';
+
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+
 import renderSnackBar from '../../dom/snackBar';
+import { on, $, $$, emit } from '../../dom/domHelper';
 
 const generateAddProductTemplate = ({ name, price, quantity }) => `
   <tr class="product-table__info-tr consumer-product-table__info-tr">
@@ -26,31 +29,31 @@ export default class ConsumerProductStateComponent {
   private $snackBarContainer = $<HTMLLabelElement>('.snack-bar-container');
 
   constructor(private vendingMachineConsumerMoneyManager) {
-    on(
-      this.$productAddButton,
-      '@consumerProductState',
-      this.addConsumerProduct
-    );
     on(this.$consumerProductTableTbody, 'click', this.onClickPurchaseButton);
-    on(this.$productTableTbody, '@editProduct', this.editProduct);
-    on(this.$productTableTbody, '@deleteProduct', this.deleteProduct);
+
+    on(this.$productAddButton, '@addConsumerProduct', this.addConsumerProduct);
+    on(
+      this.$productTableTbody,
+      '@editConsumerProduct',
+      this.editConsumerProduct
+    );
+    on(
+      this.$productTableTbody,
+      '@deleteConsumerProduct',
+      this.deleteConsumerProduct
+    );
   }
 
-  deleteProduct = ({ detail: { deleteProductName } }) => {
-    const currentProducts = Array.from(
-      $$<HTMLElement>('.product-table__purchase-product-name')
+  addConsumerProduct = ({ detail: { newProduct } }) => {
+    this.$consumerProductTableTbody.insertAdjacentHTML(
+      'beforeend',
+      generateAddProductTemplate(newProduct)
     );
-
-    const target = currentProducts.find(
-      (product) => product.textContent === deleteProductName
-    );
-    const parentTarget = target.closest('.consumer-product-table__info-tr');
-    const grandParentTarget = target.closest('.consumer-product-table__tbody');
-
-    grandParentTarget.removeChild(parentTarget);
   };
 
-  editProduct = ({ detail: { editedProduct, previousProductName } }) => {
+  editConsumerProduct = ({
+    detail: { editedProduct, previousProductName },
+  }) => {
     const currentProducts = Array.from(
       $$<HTMLElement>('.product-table__purchase-product-name')
     );
@@ -75,69 +78,77 @@ export default class ConsumerProductStateComponent {
     targetProductQuantity.textContent = editedProduct.quantity;
   };
 
+  deleteConsumerProduct = ({ detail: { deleteProductName } }) => {
+    const currentProducts = Array.from(
+      $$<HTMLElement>('.product-table__purchase-product-name')
+    );
+
+    const target = currentProducts.find(
+      (product) => product.textContent === deleteProductName
+    );
+    const parentTarget = target.closest('.consumer-product-table__info-tr');
+    const grandParentTarget = target.closest('.consumer-product-table__tbody');
+
+    grandParentTarget.removeChild(parentTarget);
+  };
+
   onClickPurchaseButton = ({ target }) => {
     if (!target.matches('.product-table__purchase-button')) return;
 
-    try {
-      const targetPurchaseProductName = $<HTMLElement>(
-        '.product-table__purchase-product-name',
-        target.closest('.product-table__info-tr')
-      ).textContent;
-      const targetPurchaseProductPrice = $<HTMLElement>(
-        '.product-table__purchase-product-price',
-        target.closest('.product-table__info-tr')
-      ).textContent;
-      const $targetPurchaseProductQuantity = $<HTMLElement>(
-        '.product-table__purchase-product-quantity',
-        target.closest('.product-table__info-tr')
-      );
+    const $targetPurchaseProductName = $<HTMLElement>(
+      '.product-table__purchase-product-name',
+      target.closest('.product-table__info-tr')
+    ).textContent;
+    const $targetPurchaseProductPrice = $<HTMLElement>(
+      '.product-table__purchase-product-price',
+      target.closest('.product-table__info-tr')
+    ).textContent;
+    const $targetPurchaseProductQuantity = $<HTMLElement>(
+      '.product-table__purchase-product-quantity',
+      target.closest('.product-table__info-tr')
+    );
 
+    try {
       checkCanSubtractConsumerChargeMoney(
         this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney(),
-        Number(targetPurchaseProductPrice)
+        Number($targetPurchaseProductPrice)
       );
 
-      $targetPurchaseProductQuantity.textContent = String(
+      const currentTargetQuantity = String(
         Number($targetPurchaseProductQuantity.textContent) - 1
+      );
+
+      $targetPurchaseProductQuantity.textContent = currentTargetQuantity;
+
+      if (Number(currentTargetQuantity) <= 0) {
+        target.disabled = true;
+        target.classList.add('disabled');
+      }
+
+      const editProduct = {
+        name: $targetPurchaseProductName,
+        price: $targetPurchaseProductPrice,
+        quantity: $targetPurchaseProductQuantity.textContent,
+      };
+
+      renderSnackBar(
+        this.$snackBarContainer,
+        SUCCESS_MESSAGE.PURCHASED_PRODUCT($targetPurchaseProductName),
+        'success'
       );
 
       emit(this.$consumerProductTableTbody, '@subtractProductQuantity', {
         detail: {
-          editProduct: {
-            name: targetPurchaseProductName,
-            price: targetPurchaseProductPrice,
-            quantity: $targetPurchaseProductQuantity.textContent,
-          },
+          editProduct,
         },
       });
-
       emit(this.$consumerProductTableTbody, '@subtractConsumerChargeMoney', {
         detail: {
-          subtractPrice: targetPurchaseProductPrice,
+          subtractPrice: $targetPurchaseProductPrice,
         },
       });
-
-      renderSnackBar(
-        this.$snackBarContainer,
-        `${targetPurchaseProductName} 1개를 구입 하셨습니다. 이용해주셔서 감사합니다.`,
-        'success'
-      );
-
-      if (Number($targetPurchaseProductQuantity.textContent) <= 0) {
-        target.disabled = true;
-        target.classList.add('disabled');
-
-        return;
-      }
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }
-  };
-
-  addConsumerProduct = ({ detail: { newProduct } }) => {
-    this.$consumerProductTableTbody.insertAdjacentHTML(
-      'beforeend',
-      generateAddProductTemplate(newProduct)
-    );
   };
 }

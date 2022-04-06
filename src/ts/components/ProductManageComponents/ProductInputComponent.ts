@@ -59,7 +59,7 @@ export default class ProductInputComponent {
           newProduct,
         },
       });
-      emit(this.$productAddButton, '@consumerProductState', {
+      emit(this.$productAddButton, '@addConsumerProduct', {
         detail: {
           newProduct,
         },
