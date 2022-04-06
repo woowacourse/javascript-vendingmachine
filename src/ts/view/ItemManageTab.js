@@ -4,9 +4,9 @@ import {
   generateItemManageTableRowTemplate,
 } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
-import VendingMachineTab from './VendingMachineTab';
+import AdminPage from './AdminPage';
 
-class ItemManageTab extends VendingMachineTab {
+class ItemManageTab extends AdminPage {
   constructor(vendingMachine) {
     super(vendingMachine);
 

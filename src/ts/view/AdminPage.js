@@ -3,7 +3,7 @@ import { vendingMachineNavBarTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import { deleteCookie } from '../utils/cookie';
 
-class VendingMachineTab {
+class AdminPage {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
@@ -62,4 +62,4 @@ class VendingMachineTab {
   };
 }
 
-export default VendingMachineTab;
+export default AdminPage;

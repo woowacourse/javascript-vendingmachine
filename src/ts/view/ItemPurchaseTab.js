@@ -1,9 +1,9 @@
 import { PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 import { generateItemPurchaseContentTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
-import VendingMachineTab from './VendingMachineTab';
+import AdminPage from './AdminPage';
 
-class ItemPurchaseTab extends VendingMachineTab {
+class ItemPurchaseTab extends AdminPage {
   constructor(vendingMachine, itemManage, coinRecharge) {
     super(vendingMachine);
     this.itemManage = itemManage;

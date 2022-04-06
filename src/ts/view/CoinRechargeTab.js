@@ -1,8 +1,8 @@
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
-import VendingMachineTab from './VendingMachineTab';
+import AdminPage from './AdminPage';
 
-class CoinRechargeTab extends VendingMachineTab {
+class CoinRechargeTab extends AdminPage {
   constructor(vendingMachine) {
     super(vendingMachine);
 
@@ -18,7 +18,6 @@ class CoinRechargeTab extends VendingMachineTab {
     this.coinRechargeTabButton = selectDom('#coin-recharge-tab-button');
 
     const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
-
     this.changeTabContent(
       generateCoinRechargeTabContentTemplate(totalCoinAmount, this.vendingMachine.coinCollection),
       this.coinRechargeTabButton
