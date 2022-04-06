@@ -55,4 +55,16 @@ describe('회원가입 유효성 테스트', () => {
 
     expect(() => checkUserDataValidate(newUserData)).toThrowError(ERROR_MESSAGE.PASSWORD_IS_INVALID);
   });
+
+  it('비밀번호와 비밀번호 확인이 같지 않으면 오류를 발생시킨다.', () => {
+    const newUserData = {
+      email: 'test@test.com',
+      name: 'test',
+      password: '1q2w3e!!',
+      passwordCheck: '1q2w3e!',
+      id: null,
+    };
+
+    expect(() => checkUserDataValidate(newUserData)).toThrowError(ERROR_MESSAGE.PASSWORDCHECK_IS_NOT_EQUAL);
+  });
 });
