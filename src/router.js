@@ -1,5 +1,7 @@
 import { $ } from './utils/dom';
 
+const $administratorMenu = document.querySelector('administrator-menu');
+const $userManagerContainer = document.querySelector('#user-manager-container');
 const $userMenuContainer = document.querySelector('#user-menu-container');
 const $nav = document.querySelector('nav');
 const $productManageContainer = $('product-manage-container');
@@ -15,6 +17,15 @@ const routes = [
   { hash: '#!product-purchase', target: $productPurchaseContainer, isLongApp: true },
 ];
 
+const routesAuth = [
+  { hash: '#!signup', target: $signupContainer, isLongApp: false },
+  { hash: '#!login', target: $loginContainer, isLongApp: false },
+];
+
+const moveToPage = (pageHash) => {
+  window.location.replace(pageHash);
+};
+
 const renderAppHeight = (isLongApp) => {
   if (isLongApp) {
     $app.classList.remove('short-app');
@@ -25,23 +36,29 @@ const renderAppHeight = (isLongApp) => {
   $app.classList.remove('long-app');
 };
 
+const renderAuthContainer = (currentHash) => {
+  $userManagerContainer.removeAttribute('hidden');
+
+  routesAuth.forEach(({ hash, target, isLongApp }) => {
+    if (currentHash === hash) {
+      target.show();
+      renderAppHeight(isLongApp);
+      $userMenuContainer.setAttribute('hidden', true);
+      return;
+    }
+    target.hide();
+  });
+};
+
 const renderTargetContainer = (currentHash) => {
-  if (currentHash === '#!signup') {
-    $loginContainer.hide();
-    $signupContainer.show();
-    $userMenuContainer.setAttribute('hidden', true);
-    renderAppHeight(false);
+  // user-manager-container
+  if (currentHash === '#!signup' || currentHash === '#!login') {
+    renderAuthContainer(currentHash);
     return;
   }
-  if (currentHash === '#!login') {
-    $loginContainer.show();
-    $signupContainer.hide();
-    $userMenuContainer.setAttribute('hidden', true);
-    renderAppHeight(false);
-    return;
-  }
-  $loginContainer.hide();
-  $signupContainer.hide();
+
+  // user-menu-container
+  $userManagerContainer.setAttribute('hidden', true);
   $userMenuContainer.removeAttribute('hidden');
 
   routes.forEach(({ hash, target, isLongApp }) => {
@@ -59,16 +76,31 @@ const renderTargetContainer = (currentHash) => {
   });
 };
 
-const renderInitContainer = (currentHash) => {
-  renderTargetContainer(currentHash);
+export const renderManagerView = () => {
+  $administratorMenu.show();
+  $('.profile-manager').removeAttribute('hidden');
+  $('.login-manager').setAttribute('hidden', true);
+  moveToPage('#!product-manage');
+};
+
+export const renderUserView = () => {
+  $administratorMenu.hide();
+  $('.login-manager').removeAttribute('hidden');
+  $('.profile-manager').setAttribute('hidden', true);
+  moveToPage('#!product-purchase');
+};
+
+const renderInitContainer = () => {
+  if (JSON.parse(localStorage.getItem('userAuth'))) {
+    renderManagerView();
+    return;
+  }
+  renderUserView();
 };
 
 window.addEventListener('hashchange', () => {
-  console.log('change', window.location.hash);
   const currentHash = window.location.hash;
   renderTargetContainer(currentHash);
 });
 
-renderInitContainer(window.location.hash);
-
-export default renderTargetContainer;
+renderInitContainer();

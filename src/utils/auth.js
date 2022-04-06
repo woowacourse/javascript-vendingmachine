@@ -1,12 +1,9 @@
 import { AUTH, SNACKBAR } from '../constants';
+import { renderManagerView } from '../router';
 import showSnackbar from './showSnackbar';
 
 const setLoginedUser = (userInfo) => {
   localStorage.setItem('userAuth', JSON.stringify(userInfo));
-};
-
-const moveToPage = (pageHash) => {
-  window.location.replace(pageHash);
 };
 
 export const signup = (email, name, password) => {
@@ -39,7 +36,7 @@ export const signup = (email, name, password) => {
         id: response.user.id,
       };
       setLoginedUser(userAuth);
-      moveToPage('#!product-manage');
+      renderManagerView('#!product-manage');
       showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
     })
     .catch((error) => {
@@ -76,7 +73,7 @@ export const login = (email, password) => {
         id: response.user.id,
       };
       setLoginedUser(userAuth);
-      moveToPage('#!product-manage');
+      renderManagerView('#!product-manage');
       showSnackbar(SNACKBAR.LOGIN_SUCCESS);
     })
     .catch((error) => {

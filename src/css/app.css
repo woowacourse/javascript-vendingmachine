@@ -16,6 +16,35 @@ body {
   border: 1px solid var(--border);
 }
 
+user-manager {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+}
+
+.profile-manager-menu {
+  position: absolute;
+  right: 0;
+  width: 130px;
+  display: block;
+  list-style-type: none;
+  background-color: var(--gray-700);
+  border-radius: 4px;
+}
+.profile-manager-menu a {
+  color: black;
+  text-decoration: none;
+}
+
+.profile-manager-menu li {
+  padding: 10px;
+}
+
+.profile-manager-menu li:hover {
+  background-color: var(--gray-800);
+  border-radius: 4px;
+}
+
 .long-app {
   height: 906px;
 }
@@ -47,11 +76,6 @@ button:hover {
   background: var(--gray-700);
 }
 
-.login-button {
-  position: absolute;
-  top: 12px;
-  right: 11px;
-}
 .nav__product-manage-button,
 .nav__coin-charge-button,
 .nav__product-purchase-button,
@@ -60,17 +84,32 @@ button:hover {
   height: 36px;
 }
 
-.clicked {
+.profile-button {
+  width: 40px;
+  height: 40px;
   background: var(--cyan-light);
+  border-radius: 50%;
+}
+
+.profile-button:hover {
+  background: var(--cyan-hover);
+}
+
+.clicked {
+  background: var(--cyan-medium);
 }
 
 .clicked:hover {
   cursor: auto;
-  background: var(--cyan-light);
+  background: var(--cyan-medium);
 }
 
 input {
   padding: 0 10px;
   border: 1px solid var(--border-input);
   border-radius: 4px;
+}
+
+.hidden {
+  display: none;
 }
