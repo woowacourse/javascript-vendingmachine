@@ -76,8 +76,38 @@ const renderTargetContainer = (currentHash) => {
   });
 };
 
+const renderUpdatedUserInfo = (response) => {
+  $('.profile-button').textContent = response.name.substring(0, 1);
+};
+
+export const updateUserInfo = () => {
+  const userAuth = JSON.parse(localStorage.getItem('userAuth'));
+
+  const { id } = userAuth;
+  const accessToken = `Bearer ${userAuth.accessToken}`;
+
+  const url = `http://localhost:3000/600/users/${id}`;
+
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw Error('잘못된 접근입니다. 로그인이 되어있는지 확인하세요.');
+      }
+      return res.json();
+    })
+    .then((response) => renderUpdatedUserInfo(response))
+    .catch((error) => alert(error));
+};
+
 export const renderManagerView = () => {
   $administratorMenu.show();
+  updateUserInfo();
   $('.profile-manager').removeAttribute('hidden');
   $('.login-manager').setAttribute('hidden', true);
   moveToPage('#!product-manage');
