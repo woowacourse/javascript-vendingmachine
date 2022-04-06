@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "cypress:run": "cypress run",
-    "start": "webpack serve --open",
+    "start": "json-server-auth db.json",
+    "webpack": "webpack serve --open",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
