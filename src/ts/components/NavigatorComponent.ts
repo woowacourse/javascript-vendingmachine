@@ -116,7 +116,6 @@ export default class NavigatorComponent {
       this.$userThumbnailButton.classList.add('hide');
 
       if (user) {
-        const user = getCookie('user') && JSON.parse(getCookie('user'));
         const { email, name } = await requestUserInfo(
           user.accessToken,
           user.id

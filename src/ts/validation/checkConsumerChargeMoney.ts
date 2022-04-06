@@ -1,3 +1,4 @@
+import { CHARGE_MONEY } from '../constants/chargeMoney';
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 
 export const checkValidConsumerChargeMoney = (money: number): void | never => {
@@ -5,11 +6,14 @@ export const checkValidConsumerChargeMoney = (money: number): void | never => {
     throw new Error(ERROR_MESSAGE.WRONG_RANGE_CHARGE_MONEY);
   }
 
-  if (money < 10 || money > 10000) {
+  if (
+    money < CHARGE_MONEY.CONSUMER_MIN_CHARGE_MONEY ||
+    money > CHARGE_MONEY.CONSUMER_MAX_CHARGE_MONEY
+  ) {
     throw new Error(ERROR_MESSAGE.WRONG_RANGE_CHARGE_MONEY);
   }
 
-  if (money % 10 !== 0) {
+  if (money % CHARGE_MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 };

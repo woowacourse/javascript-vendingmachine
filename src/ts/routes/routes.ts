@@ -17,10 +17,6 @@ export default class RouteManager {
   }
 
   private routeURLVisit(): void {
-    /**
-     * 로그인이 돼있는지 안돼있는지 확인하고 location값 변경! 구현해야함!!!
-     */
-
     const { pathname } = window.location;
 
     if (
