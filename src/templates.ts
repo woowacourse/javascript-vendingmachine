@@ -188,6 +188,13 @@ const TEMPLATE = {
       </div>
     </main>
   `,
+  USER_MENU: `
+    <div class="user-name">
+      <div class="user-name__menu-button"></div>
+      <div class="menu-element user-name__edit">회원수정</div>
+      <div class="menu-element user-name__logout">로그아웃</div>
+    </div>
+  `,
 };
 
 export default TEMPLATE;

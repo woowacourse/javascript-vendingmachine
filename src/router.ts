@@ -89,9 +89,9 @@ const checkLogin = () => {
   $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
 };
 
-checkLogin();
-
 window.addEventListener('DOMContentLoaded', () => {
+  checkLogin();
+
   $('.user-name__menu-button').addEventListener('click', function () {
     $('.user-name__menu-button').classList.toggle('shadow');
 

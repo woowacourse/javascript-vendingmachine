@@ -7,5 +7,6 @@ import './ui/PurchaseTab';
 import './ui/LoginPage';
 import './ui/SignupPage';
 import './ui/ProfileEditPage';
+import './ui/UserMenu';
 
 import './router';

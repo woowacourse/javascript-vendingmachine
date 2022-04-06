@@ -18,7 +18,7 @@ class Authentication {
 
   subscribe(key: string, element: CustomElement) {
     this.observers.push({ key, element });
-    this[key]();
+    if (this[key]) this[key]();
   }
 
   dispatch(params: any) {
@@ -114,6 +114,8 @@ class Authentication {
         if (!ok) throw new Error(body);
 
         localStorage.setItem('user', JSON.stringify(body));
+        this.dispatch({ key: 'userMenu', userName: body.name });
+        historyRouterPush('/javascript-vendingmachine/');
       })
       .catch((err) => {
         showSnackbar(err.message);
