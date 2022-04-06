@@ -31,6 +31,12 @@ const isOverMaxMachineMoney = (inputMachineMoney) => {
   return currentMachineMoney + inputMachineMoney > MONEY.MACHINE_MAX;
 };
 
+const isOverMaxCustomerMoney = (inputCustomerMoney) => {
+  const currentCustomerMoney = CoinStore.instance.customer.money;
+
+  return currentCustomerMoney + inputCustomerMoney > MONEY.CUSTOMER_MAX;
+};
+
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
@@ -83,6 +89,15 @@ export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
     throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MACHINE_MONEY);
   }
   if (cannotDividedByTen(machineMoneyInputValue)) {
+    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
+  }
+};
+
+export const checkCustomerMoneyValidation = (customerMoneyInputValue) => {
+  if (isOverMaxCustomerMoney(customerMoneyInputValue)) {
+    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_CUSTOMER_MONEY);
+  }
+  if (cannotDividedByTen(customerMoneyInputValue)) {
     throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
   }
 };

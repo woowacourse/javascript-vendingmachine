@@ -3,6 +3,7 @@ import { createAction, MONEY_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
+import { checkCustomerMoneyValidation } from '../../validators';
 
 class MoneyInputForm extends CustomElement {
   connectedCallback() {
@@ -40,6 +41,8 @@ class MoneyInputForm extends CustomElement {
   };
 
   inputMoney(customerMoneyInputValue) {
+    checkCustomerMoneyValidation(customerMoneyInputValue);
+
     CoinStore.instance.dispatch(createAction(MONEY_ACTION.INPUT, customerMoneyInputValue));
   }
 
