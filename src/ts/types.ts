@@ -51,7 +51,7 @@ export type UserInfo = {
 export interface UserStoreInterface {
   getUserInfo: () => UserInfo;
   validateLoginInput: (loginInfo: AuthenticationInfo) => void;
-  validateRegisterInput: (registerInfo: AuthenticationInfo) => void;
+  validateUserInfoInput: (userInfo: AuthenticationInfo) => void;
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
   login: (loginInfo: AuthenticationInfo) => void;
   register: (registerInfo: AuthenticationInfo) => void;
@@ -64,7 +64,8 @@ export type Hash =
   | '#coin-recharge'
   | '#item-purchase'
   | '#login'
-  | '#register';
+  | '#register'
+  | '#user-info-edit';
 
 export interface ViewInterface {
   tabHash: Hash;

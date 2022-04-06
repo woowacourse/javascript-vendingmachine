@@ -41,6 +41,13 @@ class HeaderView implements HeaderInterface {
       return;
     }
 
+    if (hash === HASH.USER_INFO_EDIT) {
+      this.header.insertAdjacentHTML(
+        'afterbegin',
+        generateAuthenticationHeaderTemplate('회원 정보 수정')
+      );
+    }
+
     // TODO: 헤더 렌더링 최적화 필요 - 현재 탭 간 이동할 때 헤더 전체가 리렌더링 되고있다.
     if (this.isTabHash(hash) && userInfo) {
       this.header.insertAdjacentHTML(
@@ -87,8 +94,7 @@ class HeaderView implements HeaderInterface {
     const targetElement = target as HTMLElement;
 
     if (targetElement.id === ID.EDIT_BUTTON) {
-      // TODO: 회원 정보 기능 구현
-      console.log('회원 정보 수정');
+      this.handleEditUserInfo();
       return;
     }
 
@@ -119,6 +125,10 @@ class HeaderView implements HeaderInterface {
   private onClickLoginButton = () => {
     this.changeHashUrl(HASH.LOGIN);
   };
+
+  private handleEditUserInfo() {
+    this.changeHashUrl(HASH.USER_INFO_EDIT);
+  }
 
   private isTabHash(hash: Hash): boolean {
     return (

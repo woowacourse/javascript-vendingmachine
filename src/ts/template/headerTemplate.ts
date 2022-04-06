@@ -3,7 +3,7 @@ import { CLASS } from '../constant/selector';
 import { Hash } from '../types';
 
 export const generateUnauthorizedTabHeaderTemplate = (): string => `
-  <div id="login-button-wrapper">
+  <div class="login-button-wrapper">
     <button class="login-button default-button">로그인</button>
   </div>
   <h1>🍿 자판기 🍿</h1>

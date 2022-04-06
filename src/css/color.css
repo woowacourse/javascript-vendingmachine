@@ -18,4 +18,7 @@
   --item-info-input-cell-disabled-text-color: #000;
   --thumbnail-button-background-color: #d6f4f8;
   --thumbnail-button-hover-color: #c2f3fa;
+  --authentication-disabled-input-background-color: #e0e0e0;
+  --authentication-disabled-input-border-color: #b4b4b4;
+  --not-yet-member-link-text-color: #3581d7;
 }

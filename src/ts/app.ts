@@ -4,6 +4,7 @@ import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
 import LoginView from './view/LoginView';
 import RegisterView from './view/RegisterView';
+import UserInfoEditView from './view/UserInfoEditView';
 import VendingMachine from './domain/VendingMachine';
 import UserStore from './domain/UserStore';
 import {
@@ -42,12 +43,18 @@ class App {
 
   private registerView: ViewInterface = new RegisterView(this.userStore, HASH.REGISTER);
 
+  private userInfoEditView: ViewInterface = new UserInfoEditView(
+    this.userStore,
+    HASH.USER_INFO_EDIT
+  );
+
   private views: ViewInterface[] = [
     this.itemManageTab,
     this.coinRechargeTab,
     this.itemPurchaseTab,
     this.loginView,
     this.registerView,
+    this.userInfoEditView,
   ];
 
   render() {

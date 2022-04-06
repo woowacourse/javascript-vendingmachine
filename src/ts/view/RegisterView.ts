@@ -1,5 +1,5 @@
 import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface } from '../types';
-import { generateRegisterTemplate } from '../template/authenticationTemplate';
+import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
@@ -22,11 +22,11 @@ class RegisterView implements ViewInterface {
 
   render(): void {
     this.content.replaceChildren();
-    this.content.insertAdjacentHTML('afterbegin', generateRegisterTemplate());
+    this.content.insertAdjacentHTML('afterbegin', generateUserInfoTemplate());
     this.content.classList.add('auth-content');
     this.content.classList.remove('tab-content');
 
-    this.registerForm = selectDom(`#${ID.REGISTER_FORM}`);
+    this.registerForm = selectDom(`#${ID.USER_INFO_FORM}`);
     this.registerInputs = selectDoms(`.${CLASS.AUTHENTICATION_INPUT}`);
 
     this.bindEvent();
@@ -49,7 +49,7 @@ class RegisterView implements ViewInterface {
     );
 
     try {
-      this.userStore.validateRegisterInput(registerInfo);
+      this.userStore.validateUserInfoInput(registerInfo);
       await this.userStore.register(registerInfo);
     } catch (error) {
       window.alert(error.message);

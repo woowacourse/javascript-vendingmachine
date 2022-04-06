@@ -13,16 +13,18 @@ export const generateLoginTemplate = (): string => `
   </div>
 `;
 
-export const generateRegisterTemplate = (): string => `
-  <form id="register-form" class="authentication-form">
-    <label class="authentication-label" for="register-email">이메일</label>
-    <input id="register-email" class="authentication-input" type="email" placeholder="이메일 주소를 입력해주세요."/>
-    <label class="authentication-label" for="register-name">이름</label>
-    <input id="register-name" class="authentication-input" type="text" placeholder="이름을 입력해주세요." minlength="2" maxlength="6"/>
-    <label class="authentication-label" for="register-password">비밀번호</label>
-    <input id="register-password" class="authentication-input" type="password" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16"/>
-    <label class="authentication-label" for="register-verification-password">비밀번호 확인</label>
-    <input id="register-verification-password" class="authentication-input" type="password" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16"/>
+export const generateUserInfoTemplate = (userEmail?: string, isUserInfoEdit = false): string => `
+  <form id="user-info-form" class="authentication-form">
+    <label class="authentication-label" for="user-info-email">이메일</label>
+    <input id="user-info-email" class="authentication-input" type="email" placeholder="이메일 주소를 입력해주세요." value="${
+      isUserInfoEdit ? userEmail : ''
+    }" ${isUserInfoEdit ? 'disabled' : ''}/>
+    <label class="authentication-label" for="user-info-name">이름</label>
+    <input id="user-info-name" class="authentication-input" type="text" placeholder="이름을 입력해주세요." minlength="2" maxlength="6"/>
+    <label class="authentication-label" for="user-info-password">비밀번호</label>
+    <input id="user-info-password" class="authentication-input" type="password" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16"/>
+    <label class="authentication-label" for="user-info-verification-password">비밀번호 확인</label>
+    <input id="user-info-verification-password" class="authentication-input" type="password" placeholder="비밀번호를 입력해주세요." minlength="8" maxlength="16"/>
     <button class="input-form-button authentication-button">확인</button>
   </form>
 `;

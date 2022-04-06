@@ -8,6 +8,11 @@
   margin-top: 16px;
 }
 
+.authentication-input:disabled {
+  background-color: var(--authentication-disabled-input-background-color);
+  border-color: var(--authentication-disabled-input-border-color);
+}
+
 .authentication-button {
   margin: 28px 0 0;
 }
@@ -18,10 +23,9 @@
   font-weight: 400;
   line-height: 24px;
   font-weight: 400;
-  color: #000000;
 }
 
 .not-yet-member-link {
-  color: #3581d7;
+  color: var(--not-yet-member-link-text-color);
   text-decoration: none;
 }

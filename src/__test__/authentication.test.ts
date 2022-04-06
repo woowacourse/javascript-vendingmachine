@@ -13,7 +13,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const email = 'woowa!test.email.com';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email,
         name: validName,
         password: validPassword,
@@ -26,7 +26,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const name = 'a';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: name,
         password: validPassword,
@@ -39,7 +39,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const name = 'abcdefg';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: name,
         password: validPassword,
@@ -52,7 +52,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = 'a!12345';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -65,7 +65,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = 'a!123456789123456';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -78,7 +78,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = '1234567!';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -91,7 +91,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = 'abcdefg!';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -104,7 +104,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = 'abcd1234';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -117,7 +117,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const password = 'abc123!!~';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,
@@ -131,7 +131,7 @@ describe('인증 입력 값 유효성 검사', () => {
     const verificationPassword = 'a!123457';
 
     expect(() =>
-      userStore.validateRegisterInput({
+      userStore.validateUserInfoInput({
         email: validEmail,
         name: validName,
         password: password,

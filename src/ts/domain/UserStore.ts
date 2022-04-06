@@ -21,7 +21,7 @@ class UserStore implements UserStoreInterface {
     },
   ];
 
-  private registerInputTestCases: TestCase[] = [
+  private userInfoInputTestCases: TestCase[] = [
     {
       testCase: this.isNotEmailFormat,
       errorMessage: AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT,
@@ -98,7 +98,27 @@ class UserStore implements UserStoreInterface {
     setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
   }
 
-  editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
+  async editUserInfo(editedUserInfo: AuthenticationInfo) {
+    const response = await request(`http://localhost:3000/600/users/${this.userInfo.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.userInfo.accessToken}`,
+      },
+      method: 'PUT',
+      body: JSON.stringify({
+        email: editedUserInfo.email,
+        password: editedUserInfo.password,
+        name: editedUserInfo.name,
+      }),
+    });
+
+    this.userInfo = {
+      ...this.userInfo,
+      ...response,
+    };
+
+    setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
+  }
 
   validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
     testCases.every(({ testCase, errorMessage }) => {
@@ -111,8 +131,8 @@ class UserStore implements UserStoreInterface {
     this.validateTestCase(this.loginInputTestCases, loginInfo);
   }
 
-  validateRegisterInput(registerInfo: AuthenticationInfo): void {
-    this.validateTestCase(this.registerInputTestCases, registerInfo);
+  validateUserInfoInput(inputedUserInfo: AuthenticationInfo): void {
+    this.validateTestCase(this.userInfoInputTestCases, inputedUserInfo);
   }
 
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
