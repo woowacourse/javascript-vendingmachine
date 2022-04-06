@@ -42,6 +42,10 @@ export default class App {
       case URL.SIGN:
         this.signView.render();
         this.signView.renderPageSection(url);
+        break;
+      default:
+        await this.mainView.render();
+        this.mainView.renderPageSection(URL.PURCHASE_ITEM);
     }
   }
 }

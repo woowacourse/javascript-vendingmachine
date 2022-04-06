@@ -13,7 +13,10 @@ export default class ItemManager {
   }
 
   setItems(items: ItemType[]) {
-    this._items = items;
+    this._items = items.map(item => {
+      const { name, price, quantity, id } = item;
+      return new Item(name, price, quantity, id);
+    });
   }
 
   addItem({ name, price, quantity, id }: ItemType) {

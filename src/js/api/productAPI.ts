@@ -31,6 +31,9 @@ const ProductAPI = {
     if (!response.ok) {
       throw new Error('상품을 저장하는데 실패했습니다.');
     }
+
+    const product = await response.json();
+    return product;
   },
 
   async deleteProduct(item: ItemType) {
@@ -54,6 +57,9 @@ const ProductAPI = {
     if (!response.ok) {
       throw new Error('상품을 수정하는데 실패했습니다.');
     }
+
+    const product = await response.json();
+    return product;
   },
 
   async getMoney() {

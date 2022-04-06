@@ -37,26 +37,27 @@ export default class VendingMachine {
     return this.moneyManager.money;
   }
 
-  addItem(item: ItemType) {
+  async addItem(item: ItemType) {
     const { items } = this.itemManager;
 
     validateAddItemInput(item);
     checkDuplicatedItem(items, item, null);
 
-    ProductAPI.addProduct(item);
-    this.itemManager.addItem(item);
+    const product = await ProductAPI.addProduct(item);
+    this.itemManager.addItem(product);
   }
 
-  changeItem(index: number, item: ItemType) {
+  async changeItem(index: number, item: ItemType) {
     const { items } = this.itemManager;
-    const { id } = this.itemManager.getItemWithName(item.name);
-    const changedItem = { ...item, id };
 
     validateAddItemInput(item);
     checkDuplicatedItem(items, item, index);
 
-    ProductAPI.updateProduct(changedItem);
-    this.itemManager.changeItem(index, item);
+    const targetItem = this.itemManager.items[index];
+    const changedItem = { ...item, id: targetItem.id };
+
+    const product = await ProductAPI.updateProduct(changedItem);
+    this.itemManager.changeItem(index, product);
   }
 
   deleteItem(targetItem: ItemType) {
