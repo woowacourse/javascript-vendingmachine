@@ -9,7 +9,10 @@ export default class Controller {
     this.addChangePage = addChangeView.main;
     this.manageProductView = manageProductView.main;
     this.purchaseProductVIew = purchaseProductVIew.main;
-    listenEvents(selectDom('body'), [['addChange', this.#addChange]]);
+    listenEvents(selectDom('body'), [
+      ['addChange', this.#addChange],
+      ['addProduct', this.#addProduct],
+    ]);
   }
 
   #addChange = (e) => {
@@ -20,5 +23,12 @@ export default class Controller {
       this.#vendingMachine.totalChange
     );
     this.addChangePage.resetInput();
+  };
+
+  #addProduct = (e) => {
+    const id = this.#vendingMachine.addProduct(e.detail);
+    const { name, price, stock } = this.#vendingMachine.productList[id];
+    this.manageProductView.addProduct({ id, name, price, stock });
+    this.purchaseProductVIew.addProduct({ id, name, price, stock });
   };
 }

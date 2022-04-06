@@ -1,5 +1,5 @@
 import { createMainElement, selectDom } from '../utils/dom';
-import { productPurcaseTableRow, purchaseTemplate } from './template';
+import { productPurchaseTableRow, purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {
   #machine;
@@ -31,11 +31,18 @@ export default class PurchaseProductTab {
     this.#giveChangeButton.addEventListener('click', this.#handleGiveChange);
   }
 
+  addProduct({ id, name, price, stock }) {
+    this.#productStatusTable.insertAdjacentHTML(
+      'beforeend',
+      productPurchaseTableRow({ id, name, price, stock })
+    );
+  }
+
   #renderProductList() {
     Object.entries(this.#machine.productList).forEach(([id, { name, price, stock }]) => {
       this.#productStatusTable.insertAdjacentHTML(
         'beforeend',
-        productPurcaseTableRow({ id, name, price, stock })
+        productPurchaseTableRow({ id, name, price, stock })
       );
     });
   }

@@ -1,5 +1,6 @@
 import { confirmMessage } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
+import { emitEvent } from '../utils/event';
 import {
   manageProductTemplate,
   productTableRow,
@@ -58,19 +59,27 @@ export default class ManageProductTab {
     const name = this.#addProductNameInput.value;
     const price = this.#addProductPriceInput.valueAsNumber;
     const stock = this.#addProductStockInput.valueAsNumber;
+    emitEvent(selectDom('body'), 'addProduct', { name, price, stock });
+    // try {
+    //   const id = this.#vendingMachine.addProduct({ name, price, stock });
 
-    try {
-      const id = this.#vendingMachine.addProduct({ name, price, stock });
-
-      this.#productStatusTable.insertAdjacentHTML(
-        'beforeend',
-        productTableRow({ name, price, stock, id })
-      );
-      this.#resetInput();
-    } catch ({ message }) {
-      alert(message);
-    }
+    //   this.#productStatusTable.insertAdjacentHTML(
+    //     'beforeend',
+    //     productTableRow({ name, price, stock, id })
+    //   );
+    //   this.#resetInput();
+    // } catch ({ message }) {
+    //   alert(message);
+    // }
   };
+
+  addProduct({ name, price, stock, id }) {
+    this.#productStatusTable.insertAdjacentHTML(
+      'beforeend',
+      productTableRow({ name, price, stock, id })
+    );
+    this.#resetInput();
+  }
 
   #resetInput() {
     this.#addProductNameInput.value = '';

@@ -145,7 +145,7 @@ export const purchaseTemplate = `<section>
   <button id="give-change-button">반환</button>
 </section>`;
 
-export const productPurcaseTableRow = ({ name, stock, price, id }) => `
+export const productPurchaseTableRow = ({ name, stock, price, id }) => `
 <tr>
   <td class="product-name">${name}</td>
   <td class="product-price">${price}</td>
