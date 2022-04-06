@@ -5,9 +5,10 @@
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./src/css/index.css" />
-  </head>
+  <script defer src="bundle.js"></script></head>
 
   <body>
+    <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
     <div id="app" class="app buy">
       <header id="header" class="app__header buy">
         <div class="login-button-container">
@@ -318,7 +319,6 @@
           </div>
           <button id="edit-profile-confirm-button" type="button" class="input-form__submit-button button">확인</button>
       </main>
-      <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
     </div>
     <script type="text/typescript" src="./src/index.ts"></script>
   </body>
