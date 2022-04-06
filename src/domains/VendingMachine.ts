@@ -7,6 +7,7 @@ import {
   amountValidator,
   updatedItemValidator,
   removedItemValidator,
+  insertMoneyValidator,
 } from '../utils/validator';
 import { COIN } from '../configs/constants';
 
@@ -26,14 +27,20 @@ export interface Coins {
 export interface VendingMachineState {
   items: Item[];
   coins: Coins;
+  insertedMoney: number;
   location: string;
 }
 
 export default class VendingMachine {
   state: VendingMachineState;
 
-  constructor(items: Item[], coins: Coins, location = '/') {
-    this.state = Subject.observable({ items, coins, location });
+  constructor(
+    items: Item[],
+    coins: Coins,
+    insertedMoney: number,
+    location = '/'
+  ) {
+    this.state = Subject.observable({ items, coins, insertedMoney, location });
   }
 
   useStore(callback: Function): any {
@@ -99,9 +106,15 @@ export default class VendingMachine {
     );
   }
 
+  insertMoney(amount): void {
+    validate(insertMoneyValidator, amount, this.state.insertedMoney);
+
+    this.state.insertedMoney += amount;
+  }
+
   setLocation(location): void {
     this.state.location = location;
   }
 }
 
-export const vendingMachine = new VendingMachine([], COIN.EMPTY_COINS);
+export const vendingMachine = new VendingMachine([], COIN.EMPTY_COINS, 0);

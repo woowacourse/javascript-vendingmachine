@@ -14,9 +14,9 @@ export default class InsertMoneyForm extends Component {
             name="amount"
             placeholder="금액"
             type="number"
-            min="${CHARGE_AMOUNT.MIN}"
-            max="${CHARGE_AMOUNT.MAX}"
-            step="${CHARGE_AMOUNT.STEP}"
+            min="10"
+            max="1000000"
+            step="10"
             required
             autofocus
           >

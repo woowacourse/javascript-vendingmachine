@@ -66,11 +66,27 @@ export const amountValidator: Array<Condition> = [
   },
   {
     test: (amount: number) => amount % CHARGE_AMOUNT.STEP === 0,
-    errorMessage: `${CHARGE_AMOUNT.STEP}원 단위의 금액을 입력해주세요`,
+    errorMessage: `${CHARGE_AMOUNT.STEP}원 단위의 금액을 입력해주세요.`,
   },
   {
     test: (amount: number, totalMoney: number) =>
       amount + totalMoney <= CHARGE_AMOUNT.MAX,
     errorMessage: `총액은 최대 ${CHARGE_AMOUNT.MAX}원까지 가능합니다`,
+  },
+];
+
+export const insertMoneyValidator: Validator = [
+  {
+    test: (amount: number) => amount >= 10 && amount <= 1000000,
+    errorMessage: `투입 금액은 10에서 1000000원 사이여야 합니다.`,
+  },
+  {
+    test: (amount: number) => amount % 10 === 0,
+    errorMessage: `10원 단위의 금액을 입력해주세요.`,
+  },
+  {
+    test: (amount: number, insertedMoney: number) =>
+      amount + insertedMoney <= 1000000,
+    errorMessage: `총 투입 금액은 1000000원까지 가능합니다.`,
   },
 ];
