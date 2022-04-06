@@ -1,5 +1,5 @@
 import { $ } from "../../utils/dom";
-import { ConvertTemplate, HideAppTitle, HideLoginButton } from "../App";
+import { ConvertTemplate, HideHeader } from "../App";
 import { loginTemplate } from "./loginTemplate";
 
 class LoginComponent {
@@ -10,23 +10,19 @@ class LoginComponent {
   loginPasswordInput: HTMLInputElement;
   loginForm: HTMLFormElement;
 
-  constructor(
-    private hideAppTitle: HideAppTitle,
-    private hideLoginButton: HideLoginButton,
-    private convertTemplate: ConvertTemplate,
-  ) {
+  constructor(private hideHeader: HideHeader, private convertTemplate: ConvertTemplate) {
     this.loginContainer = $(".login-manange__container");
     this.loginContainer.replaceChildren();
     this.loginContainer.insertAdjacentHTML("beforeend", loginTemplate());
 
-    this.loginForm = $(".login-manage__form");
-    this.loginEmailInput = $(".login-manage__email-input");
-    this.loginPasswordInput = $(".login-manage__password-input");
-    this.loginConfirmButton = $(".login-manage__confirm-button");
-    this.signupButton = $(".login-manage__signup-button");
+    this.loginForm = $(".login-form");
+    this.loginEmailInput = $(".login-form__email-input");
+    this.loginPasswordInput = $(".login-form__password-input");
+    this.loginConfirmButton = $(".login-form__confirm-button");
+    this.signupButton = $(".login-form__signup-button");
 
     this.loginForm.addEventListener("submit", this.handleLogin);
-    this.signupButton.addEventListener("click", this.handleSignUp);
+    this.signupButton.addEventListener("click", this.handleSignUpButton);
   }
 
   handleLogin = (e) => {
@@ -34,17 +30,22 @@ class LoginComponent {
     const email = this.loginEmailInput.value;
     const password = this.loginPasswordInput.value;
     console.log(email, password);
+
+    this.login(email, password);
   };
 
-  handleSignUp = () => {
+  async login(email, password) {
+    //
+  }
+
+  handleSignUpButton = () => {
     history.pushState({ path: "#signup" }, null, "#signup");
     this.convertTemplate("#signup");
   };
 
   show() {
     this.loginContainer.classList.remove("hide");
-    this.hideAppTitle();
-    this.hideLoginButton();
+    this.hideHeader();
   }
 }
 

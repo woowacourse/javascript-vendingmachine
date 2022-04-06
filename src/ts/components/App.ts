@@ -9,11 +9,11 @@ import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
+import AuthManager from "../mananger/authManager";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
-export type HideAppTitle = () => void;
-export type HideLoginButton = () => void;
+export type HideHeader = () => void;
 
 class App {
   app: HTMLElement;
@@ -23,14 +23,15 @@ class App {
   chargeComponent: ChargeComponent;
   purchaseComponent: PurchaseComponent;
   productManager: ProductManager;
-  chargeManager: ChargeManager;
-  menuNav: HTMLElement;
   loginComponent: LoginComponent;
+  signupComponent: SignupComponent;
+  chargeManager: ChargeManager;
+  authManager: AuthManager;
+  menuNav: HTMLElement;
   loginButton: HTMLButtonElement;
   thumnailButton: HTMLButtonElement;
   selectBox: HTMLDivElement;
   appTitle: HTMLHeadingElement;
-  signupComponent: SignupComponent;
 
   constructor() {
     this.app = $("#app");
@@ -62,12 +63,13 @@ class App {
 
     this.productManager = new ProductManager();
     this.chargeManager = new ChargeManager();
+    this.authManager = new AuthManager();
     this.menuTabComponent = new MenuTabComponent(this.convertTemplate);
     this.productComponent = new ProductComponent(this.productManager);
     this.chargeComponent = new ChargeComponent(this.chargeManager);
     this.purchaseComponent = new PurchaseComponent(this.productManager, this.chargeManager);
-    this.loginComponent = new LoginComponent(this.hideAppTitle, this.hideLoginButton, this.convertTemplate);
-    this.signupComponent = new SignupComponent(this.hideAppTitle, this.hideLoginButton);
+    this.loginComponent = new LoginComponent(this.hideHeader, this.convertTemplate);
+    this.signupComponent = new SignupComponent(this.hideHeader, this.convertTemplate, this.authManager);
 
     if (!location.hash) {
       history.pushState({ path: "#purchase" }, null, "#purchase");
@@ -121,17 +123,22 @@ class App {
     this.menuTabComponent.show();
   }
 
-  hideAppTitle = () => {
-    this.appTitle.classList.add("hide");
+  hideHeader = () => {
+    this.hideAppTitle();
+    this.hideLoginButton();
   };
+
+  hideAppTitle() {
+    this.appTitle.classList.add("hide");
+  }
 
   showAppTitle() {
     this.appTitle.classList.remove("hide");
   }
 
-  hideLoginButton = () => {
+  hideLoginButton() {
     this.loginButton.classList.add("hide");
-  };
+  }
 
   showLoginButton() {
     this.loginButton.classList.remove("hide");

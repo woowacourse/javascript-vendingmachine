@@ -239,8 +239,8 @@ button {
   border-bottom: 1px solid var(--color-light-gray);
 }
 
-.login-manage__form,
-.signup-manage__form {
+.login-form,
+.signup-form {
   display: flex;
   flex-direction: column;
 }
@@ -255,13 +255,13 @@ button {
   font-size: 15px;
 }
 
-.login-manage__title,
-.signup-manage__title {
+.login-title,
+.signup-title {
   font-size: 35px;
 }
 
-.login-manage__confirm-button,
-.signup-manage__confirm-button {
+.login-form__confirm-button,
+.signup-form__confirm-button {
   background-color: var(--color-middle-skyblue);
   color: var(--color-white);
   height: 35px;
@@ -270,15 +270,15 @@ button {
   cursor: pointer;
 }
 
-.login-manage__signup-button {
+.login-form__signup-container {
+  margin-top: 15px;
+  margin-right: auto;
+}
+
+.login-form__signup-button {
   border: none;
   background: var(--color-white);
   color: var(--color-dark-skyblue);
   font-size: 15px;
   cursor: pointer;
-}
-
-.login-manange__signup {
-  margin-top: 15px;
-  margin-right: auto;
 }
