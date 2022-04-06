@@ -50,6 +50,7 @@ exports.__esModule = true;
 var dom_1 = require("../utils/dom");
 var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
+var snackbar_1 = require("../utils/snackbar");
 var SignUpTab = /** @class */ (function () {
     function SignUpTab(verifyValue) {
         this.verifyValue = verifyValue;
@@ -88,7 +89,7 @@ var SignUpTab = /** @class */ (function () {
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_1 = _b.sent();
-                        alert('중복된 아이디입니다.');
+                        (0, snackbar_1.displaySnackbar)(error_1);
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];
                 }

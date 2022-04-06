@@ -39,6 +39,7 @@ exports.__esModule = true;
 var dom_1 = require("../utils/dom");
 var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
+var snackbar_1 = require("../utils/snackbar");
 var EditProfileTab = /** @class */ (function () {
     function EditProfileTab(verifyValue) {
         this.verifyValue = verifyValue;
@@ -105,7 +106,7 @@ var EditProfileTab = /** @class */ (function () {
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();
-                        console.log(error_1);
+                        (0, snackbar_1.displaySnackbar)(error_1);
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];
                 }

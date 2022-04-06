@@ -3,6 +3,7 @@ import { EditProfile } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getUserInfo } from '../utils/userInfoUtil';
 import { loginnedMode, logOutedMode } from '../utils/loginUtil';
+import { displaySnackbar } from '../utils/snackbar';
 
 class EditProfileTab implements EditProfile {
   verifyValue: VerifyValueValidation;
@@ -62,7 +63,7 @@ class EditProfileTab implements EditProfile {
         loginnedMode();
       }
     } catch (error) {
-      console.log(error);
+      displaySnackbar(error);
     }
   }
 }

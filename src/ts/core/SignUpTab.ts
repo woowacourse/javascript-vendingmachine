@@ -3,6 +3,7 @@ import { SignUp } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getSignUpInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
+import { displaySnackbar } from '../utils/snackbar';
 
 class SignUpTab implements SignUp {
   verifyValue: VerifyValueValidation;
@@ -33,7 +34,7 @@ class SignUpTab implements SignUp {
         loginnedMode();
       }
     } catch (error) {
-      alert('중복된 아이디입니다.');
+      displaySnackbar(error);
     }
   }
 }

@@ -50,6 +50,7 @@ exports.__esModule = true;
 var dom_1 = require("../utils/dom");
 var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
+var snackbar_1 = require("../utils/snackbar");
 var LoginTab = /** @class */ (function () {
     function LoginTab(verifyValue) {
         this.verifyValue = verifyValue;
@@ -92,8 +93,7 @@ var LoginTab = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _a.sent();
-                        console.log(error_1);
-                        alert('회원정보가 없습니다.');
+                        (0, snackbar_1.displaySnackbar)(error_1);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }

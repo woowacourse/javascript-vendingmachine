@@ -15,10 +15,12 @@ export interface VerifyValueValidation {
   isValidProductQuantity(quantity: number): boolean;
 
   // 자판기 동전 충전 검증
-  isValidChargeMoney(chargeMoney: number): boolean;
+  isValidChargeMoneyRange(chargeMoney: number): boolean;
+  isValidChargeMoneyOver(chargeMoney: number): boolean;
 
   // 상품 구매 금액 충전 검증
-  isValidInputMoney(inputMoney: number): boolean;
+  isValidInputMoneyRange(inputMoney: number): boolean;
+  isValidInputMoneyMod(inputMoney: number): boolean;
 
   // 유저 정보 검증
   isValidName(name): boolean;

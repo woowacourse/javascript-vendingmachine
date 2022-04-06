@@ -3,6 +3,7 @@ import { Login } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getLoginInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
+import { displaySnackbar } from '../utils/snackbar';
 
 class LoginTab implements Login {
   $login: Document;
@@ -38,8 +39,7 @@ class LoginTab implements Login {
         loginnedMode();
       }
     } catch (error) {
-      console.log(error);
-      alert('회원정보가 없습니다.');
+      displaySnackbar(error);
     }
   }
 
