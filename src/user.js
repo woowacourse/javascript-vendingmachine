@@ -2,7 +2,7 @@ import "./css/login.css";
 import { ERROR_MESSAGE } from "./js/constant";
 import isLogin from "./js/util/checkLogin";
 import { addEvent } from "./js/util/event";
-import { setLocalStorage } from "./js/util/localStorage";
+import { getLocalStorage, setLocalStorage } from "./js/util/localStorage";
 import showSnackbar from "./js/util/snackbar";
 
 class UserEditForm {
@@ -17,7 +17,7 @@ class UserEditForm {
     this.$snackbar = document.querySelector("#snackbar");
 
     addEvent(this.$editUserForm, "submit", this.onSubmit);
-    this.user = JSON.parse(localStorage.getItem("user-info"));
+    this.user = getLocalStorage("user-info");
     this.checkLoginStatus();
 
     this.setEditUserInputValue();
