@@ -18,6 +18,10 @@
   --table-border-color: #dcdcdc;
 
   --snackbar-bg-color: #333;
+
+  --thumbnail-button-hover-bg-color: #c0e8ed;
+
+  --default-link-active-color: #3581d7;
 }
 
 @import './snackbar.css';

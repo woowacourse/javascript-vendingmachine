@@ -61,7 +61,7 @@
 }
 
 #thumbnail-button:hover {
-  background-color: #c0e8ed;
+  background-color: var(--thumbnail-button-hover-bg-color);
 }
 
 .thumbnail-option {

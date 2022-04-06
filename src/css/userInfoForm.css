@@ -16,5 +16,5 @@
 }
 
 .register-link-text > a {
-  color: #3581d7;
+  color: var(--default-link-active-color);
 }
