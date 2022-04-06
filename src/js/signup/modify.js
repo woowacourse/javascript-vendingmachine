@@ -1,7 +1,7 @@
-import '../../css/index.css';
+import '../../css/index';
 import { $ } from '../utils/dom';
 import { validPassword } from './validAccount';
-import { handleSnackbarMessage } from '../utils/snackbar.js';
+import { handleSnackbarMessage } from '../utils/snackbar';
 import { modifyUserInfo } from '../utils/API';
 import { getSessionStorage } from '../utils/sessionStorage';
 
