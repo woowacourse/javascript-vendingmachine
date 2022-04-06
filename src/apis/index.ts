@@ -31,7 +31,7 @@ async function fetchUser(
   return data;
 }
 
-async function login(loginInfo: LoginInfo): Promise<UserResponse | string> {
+async function login(loginInfo: LoginInfo): Promise<UserResponse> {
   const { email, password } = loginInfo;
   const response = await fetch(`${baseUrl}/login`, {
     method: 'POST',
@@ -44,12 +44,12 @@ async function login(loginInfo: LoginInfo): Promise<UserResponse | string> {
     }),
   });
 
-  const data: UserResponse | string = await response.json();
+  const data: UserResponse = await response.json();
 
   return data;
 }
 
-async function signup(signupInfo: SignupInfo): Promise<UserResponse | string> {
+async function signup(signupInfo: SignupInfo): Promise<UserResponse> {
   const { email, password, name } = signupInfo;
   const response = await fetch(`${baseUrl}/register`, {
     method: 'POST',
@@ -63,14 +63,14 @@ async function signup(signupInfo: SignupInfo): Promise<UserResponse | string> {
     }),
   });
 
-  const data: UserResponse | string = await response.json();
+  const data: UserResponse = await response.json();
 
   return data;
 }
 
 async function editInfo(
   userInfoWithPassWord: UserInfoWithPassWord,
-): Promise<UserResponse | string> {
+): Promise<UserResponse> {
   const { email, password, name, id } = userInfoWithPassWord;
   const response = await fetch(`${baseUrl}/users/${id}`, {
     method: 'PUT',
@@ -84,7 +84,7 @@ async function editInfo(
     }),
   });
 
-  const data: UserResponse | string = await response.json();
+  const data: UserResponse = await response.json();
 
   return data;
 }
