@@ -106,7 +106,7 @@ class LoginPage extends RouteComponent {
     this.setFeedbacks(this.feedbacks);
   }
 
-  onClickLoginBtn = () => {
+  onClickLoginBtn = async () => {
     const feedbacks = this.validate();
     this.setFeedbacks(feedbacks);
     const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
@@ -119,12 +119,31 @@ class LoginPage extends RouteComponent {
     }
     this.setIsLoading(true);
     const [email, password] = [feedbacks.email.inputValue, feedbacks.password.inputValue];
-    this.login({ email, password });
-    return;
+
+    try {
+      const response = await this.login({ email, password });
+      if (!response) throw new Error('통신에 오류가 발생했습니다');
+
+      const body = await response.json();
+
+      if (!response.ok) {
+        toast(ToastType.Error, body.errorMessage);
+        this.resetPasswordInput();
+        return;
+      }
+
+      const { accessToken, user, message } = body;
+      toast(ToastType.Success, message);
+      localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
+      Router.pushState(WhiteList.Home);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  login({ email, password }: Omit<UserInfo, 'name'>) {
-    fetch(`${API_URL}/login`, {
+  async login({ email, password }: Omit<UserInfo, 'name'>) {
+    return await fetch(`${API_URL}/login`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -133,26 +152,7 @@ class LoginPage extends RouteComponent {
         email,
         password,
       }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        const { accessToken, user, errorMessage } = body;
-        if (errorMessage) {
-          toast(ToastType.Error, errorMessage);
-          this.resetPasswordInput();
-          return;
-        }
-        localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-        localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
-        toast(ToastType.Success, '로그인 성공');
-        Router.pushState(WhiteList.Home);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        this.setIsLoading(false);
-      });
+    });
   }
 
   validate() {

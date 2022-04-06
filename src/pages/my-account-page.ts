@@ -145,14 +145,17 @@ class MyAccountPage extends RouteComponent {
       if (!response) throw new Error('통신에 오류가 발생했습니다');
 
       const body = await response.json();
-      if (response.ok) {
-        toast(ToastType.Success, body.message);
-        this.onSuccessEdit(body.user);
+
+      if (!response.ok) {
+        toast(ToastType.Error, body.errorMessage);
         return;
       }
-      if (body.errorMessage) {
-        toast(ToastType.Error, body.errorMessage);
-      }
+
+      const { user, message } = body;
+      toast(ToastType.Success, message);
+      localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
+      const feedbacks = this.initialFeedbacks;
+      this.setFeedbacks(feedbacks);
     } catch (e) {
       console.log(e);
     }
@@ -177,12 +180,6 @@ class MyAccountPage extends RouteComponent {
         password,
       }),
     });
-  }
-
-  onSuccessEdit(user: Omit<UserInfo, 'password'>) {
-    localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
-    const feedbacks = this.initialFeedbacks;
-    this.setFeedbacks(feedbacks);
   }
 
   validate() {

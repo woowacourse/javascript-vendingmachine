@@ -124,7 +124,7 @@ class RegisterPage extends RouteComponent {
     this.render();
   }
 
-  onClickRegisterBtn = () => {
+  onClickRegisterBtn = async () => {
     const feedbacks = this.validate();
     this.setFeedbacks(feedbacks);
     const hasError = (Object.keys(feedbacks) as Array<keyof FeedbackRecord>).some(
@@ -139,7 +139,23 @@ class RegisterPage extends RouteComponent {
       feedbacks.email.inputValue,
       feedbacks.password.inputValue,
     ];
-    this.register({ name, email, password });
+
+    try {
+      const response = await this.register({ name, email, password });
+      if (!response) throw new Error('통신에 오류가 발생했습니다');
+
+      const body = await response.json();
+
+      if (!response.ok) {
+        toast(ToastType.Error, body.errorMessage);
+        return;
+      }
+
+      toast(ToastType.Success, '회원가입 완료!');
+      Router.pushState(WhiteList.LoginPage);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   validate() {
@@ -191,8 +207,8 @@ class RegisterPage extends RouteComponent {
     return feedbacks;
   }
 
-  register = ({ name, email, password }: UserInfo) => {
-    fetch(`${API_URL}/register`, {
+  async register({ name, email, password }: UserInfo) {
+    return await fetch(`${API_URL}/register`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -202,21 +218,8 @@ class RegisterPage extends RouteComponent {
         email,
         password,
       }),
-    })
-      .then((response) => response.json())
-      .then((body) => {
-        const { errorMessage } = body;
-        if (errorMessage) {
-          toast(ToastType.Error, errorMessage);
-          return;
-        }
-        toast(ToastType.Success, '회원가입 완료!');
-        Router.pushState(WhiteList.LoginPage);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+    });
+  }
 
   onLocationChange() {
     this.feedbacks = this.initialFeedbacks;
