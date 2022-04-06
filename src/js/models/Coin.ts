@@ -1,23 +1,14 @@
 import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
-import { validAmount } from './validation.js';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { validAmount } from './validation';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
 export default class Coin implements CoinInterface {
   #coins: Coins;
 
   constructor() {
-    const coinsData = localStorage.getItem('coins');
-    if (coinsData) {
-      this.#coins = JSON.parse(coinsData);
-      return;
-    }
-    this.#coins = {
-      500: 0,
-      100: 0,
-      50: 0,
-      10: 0,
-    };
+    this.#coins = getLocalStorage('coins') ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
   }
 
   // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
@@ -34,7 +25,7 @@ export default class Coin implements CoinInterface {
   }
 
   #setCoinsInLocalStorage(): void {
-    localStorage.setItem('coins', JSON.stringify(this.#coins));
+    setLocalStorage('coins', this.#coins);
   }
 
   addAmount(chargedAmount: number): void {

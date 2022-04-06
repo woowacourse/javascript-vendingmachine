@@ -1,20 +1,16 @@
-import { validProductInfo, validProductPurchase } from './validation.js';
+import { validProductInfo, validProductPurchase } from './validation';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { Product, ProductManageInterface } from '../interface/productManage.interface';
 
 export default class ProductManager implements ProductManageInterface {
   #products: Product[];
 
   constructor() {
-    const productsData = localStorage.getItem('products');
-    if (productsData) {
-      this.#products = JSON.parse(productsData);
-      return;
-    }
-    this.#products = [];
+    this.#products = getLocalStorage('products') ?? [];
   }
 
   #setProductsInLocalStorage(): void {
-    localStorage.setItem('products', JSON.stringify(this.#products));
+    setLocalStorage('products', this.#products);
   }
 
   addProduct(product: Product): void {
