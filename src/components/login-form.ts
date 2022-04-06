@@ -1,8 +1,10 @@
 import Component from '../abstract/component';
+import { MEMBER } from '../constants';
 import { customElement } from '../decorators/decortators';
 import { login } from '../member';
 import Router from '../router';
 import { EventOnElement } from '../types';
+import { showSnack } from '../utils';
 
 @customElement('login-form')
 class LoginForm extends Component {
@@ -33,6 +35,16 @@ class LoginForm extends Component {
     const [$email, $password] = this.querySelectorAll('input');
     const email = $email.value;
     const password = $password.value;
+
+    if (!email) {
+      showSnack(MEMBER.PLEASE_EMAIL);
+      return;
+    }
+
+    if (!password) {
+      showSnack(MEMBER.PLEASE_PASSWORD);
+      return;
+    }
 
     login(email, password);
   };
