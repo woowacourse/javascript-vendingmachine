@@ -5,6 +5,7 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+  background-color: var(--secondary-lighten);
 }
 
 h1 {
@@ -118,7 +119,10 @@ col {
 }
 
 #app {
-  width: 450px;
+  margin-top: 40px;
+  width: 500px;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
 }
 
 .header-wrapper {
@@ -128,7 +132,7 @@ col {
 }
 
 user-menu {
-  margin: 10px 3px;
+  margin: 10px;
   position: absolute;
   right: 0;
 }

@@ -27,12 +27,13 @@ loginTemplate.innerHTML = `
       position: absolute;
       width: 100%;
       height: 100%;
-      background: transparent;
+      background: var(--dimmer);
     }
 
     .modal-inner {
-      height: 500px;
-      position: relative;
+      position: absolute;
+      top: 0;
+      margin-top: 60px;
       background: var(--white);
       border: 1px solid var(--secondary);
       border-radius: 4px;
@@ -43,7 +44,6 @@ loginTemplate.innerHTML = `
       float: right;
       cursor: pointer;
     }
-
 
     section {
       font-family: 'Roboto', sans-serif;
@@ -111,7 +111,7 @@ loginTemplate.innerHTML = `
           <input id="password-input" type="password" placeholder="비밀번호를 입력해주세요" />
           <button type="submit">확인</button>
         </form>
-        <span>아직 회원이 아닌가요?<span id="signup-span">회원가입</span></span>
+        <span>아직 회원이 아닌가요? <span id="signup-span">회원가입</span></span>
       </section>
     </div>
   </div>

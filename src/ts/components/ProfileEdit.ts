@@ -26,12 +26,13 @@ profileEditTemplate.innerHTML = `
       position: absolute;
       width: 100%;
       height: 100%;
-      background: transparent;
+      background: var(--dimmer);
     }
 
     .modal-inner {
-      height: 500px;
-      position: relative;
+      position: absolute;
+      top: 0;
+      margin-top: 60px;
       background: var(--white);
       border: 1px solid var(--secondary);
       border-radius: 4px;

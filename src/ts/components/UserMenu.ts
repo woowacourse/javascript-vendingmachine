@@ -7,15 +7,6 @@ const userMenuTemplate = document.createElement('template');
 
 userMenuTemplate.innerHTML = `
   <style>
-    #thumbnail {
-      font-family: 'Roboto', sans-serif;
-      margin: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
     button {
       background: var(--primary);
       border-radius: 4px;
@@ -49,19 +40,26 @@ userMenuTemplate.innerHTML = `
     }
 
     #thumbnail {
+      font-family: 'Roboto', sans-serif;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       border-radius: 100%;
       width: 40px;
       height: 40px;
-      background-color: var(--primary);
+      background-color: var(--thumbnail);
       font-weight: bold;
       display: table-cell;
       vertical-align: middle;
       text-align: center;
-      color: #fff;
+      color: var(--white);
+      box-shadow: var(--box-shadow);
     }
 
     #thumbnail:hover {
-      background-color: var(--primary-darken);
+      background-color: var(--thumbnail-darken);
     }
 
     .hide {
@@ -69,7 +67,7 @@ userMenuTemplate.innerHTML = `
     }
 
     #menu {
-      background: var(--secondary);
+      background: var(--thumbnail);
       color: var(--white);
       border-radius: 5px;
       padding: 0;
@@ -87,7 +85,7 @@ userMenuTemplate.innerHTML = `
     }
 
     .menu-item:hover {
-      background-color: var(--secondary-darken);
+      background-color: var(--thumbnail-darken);
       border-radius: 5px;
     }
 
