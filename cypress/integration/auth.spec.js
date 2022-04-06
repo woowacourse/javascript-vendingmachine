@@ -27,20 +27,13 @@ describe('관리자 인증 테스트', () => {
     cy.get('#login-button').click();
     cy.login(email, password);
 
-    cy.get('#manager-name-button').click();
-    cy.get('#modify-info').click();
+    const oldName = 'old';
+    cy.modifyInfo(email, oldName, password);
 
-    // 회원 정보 수정
+    cy.get('#manager-name-button').contains('o');
+
     const newName = 'new';
-    cy.get('#name-input').clear();
-    cy.get('#name-input').type(newName);
-    cy.get('#password-input').type(password);
-    cy.get('#password-check').type(password);
-    cy.get('#sign-up-info-form button').click();
-
-    cy.wait(1000);
-
-    cy.login(email, password);
+    cy.modifyInfo(email, newName, password);
 
     cy.get('#manager-name-button').contains('n');
   });

@@ -28,6 +28,22 @@ Cypress.Commands.add('signupAndLogin', (email, name, password) => {
   cy.login(email, password);
 });
 
+Cypress.Commands.add('modifyInfo', (email, name, password) => {
+  cy.get('#manager-name-button').click();
+  cy.get('#modify-info').click();
+
+  // 회원 정보 수정
+  cy.get('#name-input').clear();
+  cy.get('#name-input').type(name);
+  cy.get('#password-input').type(password);
+  cy.get('#password-check').type(password);
+  cy.get('#sign-up-info-form button').click();
+
+  cy.wait(1000);
+
+  cy.login(email, password);
+});
+
 Cypress.Commands.add('chargeUserAmount', (amount) => {
   cy.get('#amount-input').type(amount);
   cy.get('#purchase-form button').click();
