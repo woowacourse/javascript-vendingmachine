@@ -46,14 +46,6 @@ export default class SignupPage {
     if (!(rePwInput instanceof HTMLInputElement)) return;
     if (!(nameInput instanceof HTMLInputElement)) return;
 
-    try {
-      if (pwInput.value !== rePwInput.value)
-        throw new Error('비밀번호가 일치하지 않습니다.');
-    } catch ({ message }) {
-      showSnackbar(message);
-      return;
-    }
-
     const userInfo: SignupInfo = {
       email: emailInput.value,
       password: pwInput.value,
@@ -61,6 +53,9 @@ export default class SignupPage {
     };
 
     try {
+      if (pwInput.value !== rePwInput.value) {
+        throw new Error('비밀번호가 일치하지 않습니다.');
+      }
       validateUserInfo(userInfo);
     } catch ({ message, name }) {
       showSnackbar(message);
