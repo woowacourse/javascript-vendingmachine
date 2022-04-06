@@ -4,7 +4,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.ts',
+  entry: {
+    index: './src/js/index.ts',
+    login: './src/js/login.ts',
+    signup: './src/js/signup.ts',
+  },
   resolve: {
     extensions: ['.js', '.css', '.ts'],
   },
@@ -13,7 +17,7 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -47,6 +51,21 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
+      filename: 'index.html',
+      chunks: ['index'],
+      hash: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './login.html',
+      filename: 'login.html',
+      chunks: ['login'],
+      hash: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './signup.html',
+      filename: 'signup.html',
+      chunks: ['signup'],
+      hash: true,
     }),
   ],
 };

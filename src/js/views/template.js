@@ -160,31 +160,3 @@ export const CATEGORY_TEMPLATE = {
     <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
   `,
 };
-
-export const LOGIN_TEMPLATE = {
-  LOGIN: `
-    <h1 class="title">로그인</h1>
-    <form id="login-form" class="form">
-      <label>이메일</label>
-      <input class="login-input" type="text" placeholder="woowacourse@gmail.com" />
-      <label>비밀번호</label>
-      <input class="login-input" type="password" placeholder="비밀번호를 입력해주세요" />
-      <button class="submit-button">확인</button>
-      <p>아직 회원이 아니신가요? <a id="sign-up" href="#!join">회원가입</a></p>
-    </form>
-  `,
-  JOIN: `
-    <h1 class="title">회원가입</h1>
-    <form class="form">
-      <label for="">이메일</label>
-      <input class="login-input" type="text" placeholder="이메일 주소를 입력해주세요" />
-      <label for="">이름</label>
-      <input class="login-input" type="text" placeholder="이름을 입력해주세요" />
-      <label for="">비밀번호</label>
-      <input class="login-input" type="password" placeholder="비밀번호를 입력해주세요" />
-      <label for="">비밀번호 확인</label>
-      <input class="login-input" type="password" placeholder="비밀번호를 입력해주세요" />
-      <button class="submit-button">확인</button>
-    </form>
-  `,
-};
