@@ -2,22 +2,22 @@ import { COIN_TYPE, GUIDE_MESSAGE } from '../constants';
 import CustomerCharge from '../state/CustomerCharge';
 import Products from '../state/Products';
 import VendingMachineCharge from '../state/VendingMachineCharge';
-import { IProduct, IPageManager, TCoins } from '../interface';
+import { ProductInfo, PageManagerMethods, Coins } from '../interface';
 
-interface IProductPurchaseState {
-  products: Array<IProduct>,
-  vendingMachineChargeCoins: TCoins,
+interface ProductPurchaseState {
+  products: Array<ProductInfo>,
+  vendingMachineChargeCoins: Coins,
   customerChargeAmount: number,
 }
 
-class ProductPurchasePageManager implements IPageManager {
+class ProductPurchasePageManager implements PageManagerMethods {
   private subscribers = [];
 
   addSubscriber(subscriber: object) {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: Partial<IProductPurchaseState>) {
+  setState(newState: Partial<ProductPurchaseState>) {
     const changeStates: Array<string> = Object.keys(newState);
 
     const state = { ...this.getState(), ...newState };
@@ -28,7 +28,7 @@ class ProductPurchasePageManager implements IPageManager {
     this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
-  getState(): IProductPurchaseState {
+  getState(): ProductPurchaseState {
     return {
       products: Products.products,
       vendingMachineChargeCoins: VendingMachineCharge.coins,
@@ -74,15 +74,15 @@ class ProductPurchasePageManager implements IPageManager {
     });
   }
 
-  subtractVendingMachineChargeCoins(coinsToBeReturned: TCoins) {
-    const subtractedCoins: TCoins
+  subtractVendingMachineChargeCoins(coinsToBeReturned: Coins) {
+    const subtractedCoins: Coins
       = VendingMachineCharge.coins.map((coin, index) => coin - coinsToBeReturned[index]);
     this.setState({
       vendingMachineChargeCoins: subtractedCoins,
     });
   }
 
-  calculateCoinsToBeReturned(): TCoins {
+  calculateCoinsToBeReturned(): Coins {
     if (VendingMachineCharge.getTotalAmount() <= CustomerCharge.amount) {
       return VendingMachineCharge.coins;
     }
@@ -99,7 +99,7 @@ class ProductPurchasePageManager implements IPageManager {
     return coinsToBeReturned;
   }
 
-  returnChanges(): TCoins {
+  returnChanges(): Coins {
     const coinsToBeReturned = this.calculateCoinsToBeReturned();
     const amountToBeReturned = coinsToBeReturned.reduce(
       (previous, coin, index) => (previous += COIN_TYPE[index] * coin),

@@ -1,18 +1,18 @@
-export interface IPageManager {
+export interface PageManagerMethods {
   addSubscriber(subscriber: object): void;
   setState(newState: object): void;
   getState(): object;
 }
 
-export interface IProduct {
+export interface ProductInfo {
   name: string;
   price: number;
   quantity: number;
 }
 
-export type TCoins = Array<number>;
+export type Coins = Array<number>;
 
-export interface IUser {
+export interface UserInfo {
   isMember? : boolean,
   id: number,
   email: string,

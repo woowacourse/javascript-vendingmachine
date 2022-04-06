@@ -1,6 +1,6 @@
-import { IUser } from '../interface';
+import { UserInfo } from '../interface';
 
-class User implements IUser {
+class User implements UserInfo {
   isMember;
 
   id;
@@ -20,7 +20,7 @@ class User implements IUser {
     this.name = null;
   }
 
-  setUser({ id, email, name }: IUser) {
+  setUser({ id, email, name }: UserInfo) {
     this.isMember = true;
     this.id = id;
     this.email = email;

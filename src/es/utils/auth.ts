@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from '../constants';
 import User from '../state/User';
-import { IUser } from '../interface';
+import { UserInfo } from '../interface';
 import { loadMainPage } from '../routes';
 import { showSnackBar } from './index';
 
@@ -40,7 +40,7 @@ function signUp(signUpInfo: SignInfo) {
     return res.json();
   })
     .then(response => {
-      const { id, email, name }: IUser = response.user;
+      const { id, email, name }: UserInfo = response.user;
       const userAuth: AuthInfo = {
         accessToken: response.accessToken,
         id,
@@ -73,7 +73,7 @@ function login(loginInfo: SignInfo) {
     return res.json();
   })
     .then(response => {
-      const { id, email, name }: IUser = response.user;
+      const { id, email, name }: UserInfo = response.user;
       const userAuth: AuthInfo = {
         accessToken: response.accessToken,
         id,
@@ -123,7 +123,7 @@ function requestUserInfo(userAuth) {
       return res.json();
     })
     .then(response => {
-      const { email, name }: Partial<IUser> = response;
+      const { email, name }: Partial<UserInfo> = response;
       User.setUser({ id, email, name });
     })
     .catch(error => console.error('에러', error.message));
@@ -152,7 +152,7 @@ function updateUserInfo(newUserInfo) {
       return res.json();
     })
     .then(response => {
-      const { email, name }: Partial<IUser> = response;
+      const { email, name }: Partial<UserInfo> = response;
       User.setUser({ id, email, name });
       loadMainPage();
       showSnackBar(GUIDE_MESSAGE.UPDATE_USER_INFO_SUCCESS);

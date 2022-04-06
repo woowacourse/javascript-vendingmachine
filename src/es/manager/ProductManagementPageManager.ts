@@ -1,19 +1,19 @@
 import { GUIDE_MESSAGE } from '../constants';
 import Products from '../state/Products';
-import { IPageManager, IProduct } from '../interface';
+import { PageManagerMethods, ProductInfo } from '../interface';
 
-interface IProductManagementState {
-  products: Array<IProduct>;
+interface ProductManagementState {
+  products: Array<ProductInfo>;
 }
 
-class ProductManagementPageManager implements IPageManager {
+class ProductManagementPageManager implements PageManagerMethods {
   private subscribers = [];
 
   addSubscriber(subscriber: object) {
     this.subscribers.push(subscriber);
   }
 
-  setState(newState: Partial<IProductManagementState>) {
+  setState(newState: Partial<ProductManagementState>) {
     const changeStates: Array<string> = Object.keys(newState);
 
     const state = { ...this.getState(), ...newState };
@@ -22,19 +22,19 @@ class ProductManagementPageManager implements IPageManager {
     this.subscribers.forEach(renderMethod => renderMethod({ state, changeStates }));
   }
 
-  getState(): IProductManagementState {
+  getState(): ProductManagementState {
     return {
       products: Products.products,
     };
   }
 
-  addProduct(product: IProduct): void {
+  addProduct(product: ProductInfo): void {
     this.setState({
       products: [...Products.products, product],
     });
   }
 
-  updateProduct(index: number, product: IProduct): void {
+  updateProduct(index: number, product: ProductInfo): void {
     const updateProducts = [...Products.products];
 
     updateProducts.splice(index, 1, product);
@@ -53,7 +53,7 @@ class ProductManagementPageManager implements IPageManager {
   }
 
   findProductIndexByName(name: string): number {
-    return Products.products.findIndex((product: IProduct) => product.name === name);
+    return Products.products.findIndex((product: ProductInfo) => product.name === name);
   }
 
   addOrUpdateProduct(product) {

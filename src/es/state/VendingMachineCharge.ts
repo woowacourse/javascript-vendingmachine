@@ -1,10 +1,10 @@
 import { COIN_TYPE } from '../constants';
-import { TCoins } from '../interface';
+import { Coins } from '../interface';
 
 class VendingMachineCharge {
-  coins: TCoins = [0, 0, 0, 0];
+  coins: Coins = [0, 0, 0, 0];
 
-  setCoins(coins: TCoins) {
+  setCoins(coins: Coins) {
     this.coins = coins;
   }
 

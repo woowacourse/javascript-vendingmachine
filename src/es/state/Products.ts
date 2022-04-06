@@ -1,7 +1,7 @@
-import { IProduct } from '../interface';
+import { ProductInfo } from '../interface';
 
 class Products {
-  products: Array<IProduct> = [];
+  products: Array<ProductInfo> = [];
 
   setProducts(products) {
     this.products = products;
