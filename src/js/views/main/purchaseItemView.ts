@@ -48,13 +48,13 @@ export default class PurchaseItemView {
     }
   }
 
-  private handleTableClickEvent(event: { target: HTMLButtonElement }) {
+  private async handleTableClickEvent(event: { target: HTMLButtonElement }) {
     try {
       if (!event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_PURCHASE_BUTTON))
         return;
 
       const { name, price } = event.target.dataset;
-      const remainQuantity = this.vendingMachine.purchaseItem(name, Number(price));
+      const remainQuantity = await this.vendingMachine.purchaseItem(name, Number(price));
 
       this.repaintItemQuantity(event.target, remainQuantity);
       this.repaintCurrentMoney(this.vendingMachine.money);
@@ -64,8 +64,8 @@ export default class PurchaseItemView {
     }
   }
 
-  private handleReturnChangeButtonClick() {
-    const { coins, restMoney } = this.vendingMachine.returnChangeCoins();
+  private async handleReturnChangeButtonClick() {
+    const { coins, restMoney } = await this.vendingMachine.returnChangeCoins();
 
     this.repaintCoinsTable(coins);
     this.repaintCurrentMoney(restMoney);

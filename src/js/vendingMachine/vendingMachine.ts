@@ -37,6 +37,19 @@ export default class VendingMachine {
     return this.moneyManager.money;
   }
 
+  chargeCoins(inputMoney: number) {
+    validateChargeCoins(inputMoney);
+
+    this.coinManager.chargeCoins(inputMoney);
+    ProductAPI.updateMoney(this.coinManager.coinsSum);
+  }
+
+  chargeMoney(inputMoney: number) {
+    validateInputMoney(inputMoney);
+
+    this.moneyManager.chargeMoney(inputMoney);
+  }
+
   async addItem(item: ItemType) {
     const { items } = this.itemManager;
 
@@ -60,27 +73,14 @@ export default class VendingMachine {
     this.itemManager.changeItem(index, product);
   }
 
-  deleteItem(targetItem: ItemType) {
+  async deleteItem(targetItem: ItemType) {
     const item = this.itemManager.getItemWithName(targetItem.name);
 
-    ProductAPI.deleteProduct(item);
+    await ProductAPI.deleteProduct(item);
     this.itemManager.deleteItem(targetItem);
   }
 
-  chargeCoins(inputMoney: number) {
-    validateChargeCoins(inputMoney);
-
-    this.coinManager.chargeCoins(inputMoney);
-    ProductAPI.updateMoney(this.coinManager.coinsSum);
-  }
-
-  chargeMoney(inputMoney: number) {
-    validateInputMoney(inputMoney);
-
-    this.moneyManager.chargeMoney(inputMoney);
-  }
-
-  purchaseItem(name: string, price: number) {
+  async purchaseItem(name: string, price: number) {
     checkItemExist(this.itemManager.getItemWithName(name).quantity);
     checkPurchaseAvailable(this.moneyManager.money, price);
 
@@ -88,18 +88,18 @@ export default class VendingMachine {
     this.moneyManager.deductMoney(price);
 
     const { quantity, id } = this.itemManager.getItemWithName(name);
-    ProductAPI.updateProduct({ quantity, id });
+    await ProductAPI.updateProduct({ quantity, id });
 
-    return this.itemManager.getItemWithName(name).quantity;
+    return quantity;
   }
 
-  returnChangeCoins() {
+  async returnChangeCoins() {
     const { money } = this.moneyManager;
     const coins = this.coinManager.exchangeCoins(money) as CoinsType;
     this.moneyManager.deductMoney(this.coinManager.getSumCoins(coins));
     const restMoney = this.moneyManager.money;
 
-    ProductAPI.updateMoney(this.coinManager.coinsSum);
+    await ProductAPI.updateMoney(this.coinManager.coinsSum);
 
     return { coins, restMoney };
   }
