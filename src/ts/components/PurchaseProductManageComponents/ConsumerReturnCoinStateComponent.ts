@@ -58,7 +58,7 @@ export default class ConsumerReturnCoinStateComponent {
         'success'
       );
 
-      emit(this.$returnCoinButton, '@initTotalChargeMoney');
+      emit(this.$returnCoinButton, '@initConsumerTotalChargeMoney');
       emit(this.$returnCoinButton, '@replaceCoinQuantity');
       emit(this.$returnCoinButton, '@replaceTotalChargeMoney');
     } catch ({ message }) {

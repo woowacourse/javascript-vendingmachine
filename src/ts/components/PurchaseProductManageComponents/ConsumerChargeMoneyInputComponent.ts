@@ -1,3 +1,4 @@
+import SUCCESS_MESSAGE from '../../constants/successMessage';
 import { $, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 import { checkValidConsumerChargeMoney } from '../../validation/checkConsumerChargeMoney';
@@ -20,23 +21,24 @@ export default class ConsumerChargeMoneyInputComponent {
       'click',
       this.onClickConsumerChargeMoneyButton
     );
+
     on(
       $<HTMLElement>('.consumer-product-table__tbody'),
       '@subtractConsumerChargeMoney',
-      this.subtractChargeMoney
+      this.subtractConsumerChargeMoney
     );
     on(
       $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
-      '@initTotalChargeMoney',
-      this.initTotalConsumerChargeMoney
+      '@initConsumerTotalChargeMoney',
+      this.initConsumerTotalChargeMoney
     );
   }
 
-  initTotalConsumerChargeMoney = () => {
+  initConsumerTotalChargeMoney = () => {
     this.$consumerTotalChargeMoney.textContent = '0';
   };
 
-  subtractChargeMoney = ({ detail: { subtractPrice } }) => {
+  subtractConsumerChargeMoney = ({ detail: { subtractPrice } }) => {
     this.vendingMachineConsumerMoneyManager.subtractConsumerChargeMoney(
       subtractPrice
     );
@@ -63,9 +65,16 @@ export default class ConsumerChargeMoneyInputComponent {
         consumerChargeMoney + Number(this.$consumerTotalChargeMoney.textContent)
       );
       this.$consumerChargeMoneyInput.value = '';
+
+      const consumerTotalChargeMoney =
+        this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney();
+
       renderSnackBar(
         this.$snackBarContainer,
-        `${consumerChargeMoney}원이 투입 되었습니다. 현재 투입된 총 금액은 ${this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney()}원 입니다.`,
+        SUCCESS_MESSAGE.CONSUMER_CHARGED_MONEY(
+          consumerChargeMoney,
+          consumerTotalChargeMoney
+        ),
         'success'
       );
     } catch ({ message }) {

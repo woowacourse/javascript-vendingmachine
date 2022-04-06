@@ -30,6 +30,8 @@ export interface ErrorMessage {
 
 export interface SuccessMessage {
   readonly RETURN_COINS: string;
+  CONSUMER_CHARGED_MONEY(chargeMoney: number, totalChargeMoney: number): string;
+  PURCHASED_PRODUCT(productName: string): string;
 }
 
 export interface ChargeMoney {
