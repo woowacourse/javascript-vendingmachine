@@ -1,5 +1,6 @@
 import { CoinVault } from '../domain/CoinVault';
 import { Coins } from '../interfaces/interface';
+import { getStorageCoinVault } from '../utils/sessionStorage';
 import { SnackBar } from './SnackBar';
 
 export class CoinChangesTable {
@@ -69,8 +70,10 @@ export class CoinChangesTable {
   }
 
   handleGiveChanges = () => {
-    this.snackBar.render('동전이 반환됐습니다');
+    this.coinVault = getStorageCoinVault();
     this.updateCoinVaultTableTemplate(this.coinVault.giveChanges());
+    sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
+    this.snackBar.render('동전이 반환됐습니다');
     this.target.dispatchEvent(new CustomEvent('giveChanges'));
   };
 

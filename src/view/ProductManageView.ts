@@ -11,6 +11,8 @@ export class ProductManageView {
 
   constructor(AppProps: AppProps) {
     this.contentsContainer = AppProps.contentsContainer;
+    this.productCatalog = AppProps.productCatalog;
+
     const productManageProps = {
       target: AppProps.contentsContainer,
       productCatalog: AppProps.productCatalog,
@@ -21,6 +23,10 @@ export class ProductManageView {
     this.productCatalogTable = new ProductCatalogTable(productManageProps);
 
     this.contentsContainer.addEventListener('productManageTabClick', this.showProductManageTab);
+  }
+
+  autoSignIn() {
+    this.productCatalog = JSON.parse(sessionStorage.getItem('productCatalog'));
   }
 
   showProductManageTab = () => {

@@ -2,6 +2,7 @@ import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../interfaces/interface';
 import { validateAllProductProps } from '../utils/domain.utils';
+import { getStorageProductCatalog } from '../utils/sessionStorage';
 
 export class ProductCatalogTable {
   productCatalog: ProductCatalog;
@@ -16,6 +17,10 @@ export class ProductCatalogTable {
     this.target.addEventListener('productAdded', this.renderTable);
   }
 
+  setProductCatalog(productCatalog) {
+    this.productCatalog = productCatalog;
+  }
+
   render = () => {
     this.target.insertAdjacentHTML('beforeend', this.template());
 
@@ -25,6 +30,7 @@ export class ProductCatalogTable {
   };
 
   renderTable = () => {
+    this.productCatalog = getStorageProductCatalog();
     this.productTableBody.textContent = '';
     this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
     this.productTableBody.addEventListener('click', this.handleProductStateManage);

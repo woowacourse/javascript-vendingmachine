@@ -17,6 +17,10 @@ export class CoinVaultTable {
     this.target.addEventListener('coinCharged', this.updateCoinVaultTableTemplate);
   }
 
+  setCoinVault(coinVault) {
+    this.coinVault = coinVault;
+  }
+
   render = () => {
     this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getCoins()));
     this.selectDom();

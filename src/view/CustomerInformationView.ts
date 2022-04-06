@@ -2,11 +2,15 @@ import { EditUserInformationPage } from '../component/EditUserInformationPage';
 import { SignInPage } from '../component/SignInPage';
 import { SignUpPage } from '../component/SignUpPage';
 import { SnackBar } from '../component/SnackBar';
+import { CoinVault } from '../domain/CoinVault';
+import { ProductCatalog } from '../domain/ProductCatalog';
 import { UserInfo } from '../interfaces/interface';
 
 export class CustomerInformationView {
   app: HTMLDivElement;
   nav: HTMLElement;
+  productCatalog: ProductCatalog;
+  coinVault: CoinVault;
   snackBar: SnackBar;
   userInfo: UserInfo;
   signInPage: SignInPage;
@@ -22,9 +26,12 @@ export class CustomerInformationView {
   signIn: HTMLDivElement;
   signUp: HTMLDivElement;
   editCustomerInformation: HTMLDivElement;
+
   constructor(AppProps) {
     this.app = AppProps.app;
     this.nav = AppProps.nav;
+    this.productCatalog = AppProps.productCatalog;
+    this.coinVault = AppProps.coinVault;
     this.snackBar = AppProps.snackBar;
     const userInfoProps = { app: AppProps.app, snackBar: AppProps.snackBar };
 
@@ -55,7 +62,7 @@ export class CustomerInformationView {
     this.dropDownBtn = document.querySelector('.drop-down-button');
 
     this.thumbnail = document.querySelector('.thumbnail');
-    this.autoSignIn();
+    //this.autoSignIn();
   }
 
   autoSignIn = () => {

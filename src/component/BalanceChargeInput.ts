@@ -16,6 +16,10 @@ export class BalanceChargeInput {
     this.snackbar = props.snackBar;
   }
 
+  setCoinVault(coinVault) {
+    this.coinVault = coinVault;
+  }
+
   render() {
     this.target.insertAdjacentHTML('beforeend', this.template(this.coinVault.getBalance()));
     this.selectDom();
@@ -48,6 +52,7 @@ export class BalanceChargeInput {
     e.preventDefault();
     try {
       this.coinVault.chargeChanges(Number(this.chargeBalanceInput.value));
+      sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
       this.updateCurrentBalance();
       this.snackbar.render('동전이 충전됐습니다');
       this.target.dispatchEvent(new CustomEvent('coinCharged'));

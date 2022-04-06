@@ -7,6 +7,7 @@ import { CoinVault } from './domain/CoinVault';
 import { ProductCatalog } from './domain/ProductCatalog';
 import { CustomerInformationView } from './view/CustomerInformationView';
 import { SnackBar } from './component/SnackBar';
+import { getStorageCoinVault, getStorageProductCatalog } from './utils/sessionStorage';
 
 export class App {
   app: HTMLDivElement;
@@ -82,6 +83,15 @@ export class App {
       this.router.pushHistory(e);
     });
 
+    this.coinVault = getStorageCoinVault();
+    this.productCatalog = getStorageProductCatalog();
+
+    this.productManageView.productCatalogTable.setProductCatalog(this.productCatalog);
+    this.balanceChargeView.coinVaultTable.setCoinVault(this.coinVault);
+    this.balanceChargeView.balanceChargeInput.setCoinVault(this.coinVault);
+    this.productPurchaseView.productPurchaseTable.setProps(this.productCatalog, this.coinVault);
+    this.productPurchaseView.customerMoneyInput.setCoinVault(this.coinVault);
+    this.customerInformationView.autoSignIn();
     this.productPurchaseView.showProductPurchaseTab();
   }
 }

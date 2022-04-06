@@ -1,4 +1,5 @@
 import { CoinVault } from '../domain/CoinVault';
+import { getStorageCoinVault } from '../utils/sessionStorage';
 import { SnackBar } from './SnackBar';
 
 export class CustomerMoneyInput {
@@ -14,6 +15,10 @@ export class CustomerMoneyInput {
     this.target = props.target;
     this.coinVault = props.coinVault;
     this.snackBar = props.snackBar;
+  }
+
+  setCoinVault(coinVault) {
+    this.coinVault = coinVault;
   }
 
   render() {
@@ -50,7 +55,8 @@ export class CustomerMoneyInput {
     e.preventDefault();
     try {
       this.coinVault.chargeCustomerInput(Number(this.customerMoneyInput.value));
-      this.updateCurrentMoneyInput();
+      this.updateCurrentMoneyInput(e);
+      sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
       this.snackBar.render('현금이 투입되었습니다');
     } catch (err) {
       this.customerMoneyInputForm.reset();
@@ -58,13 +64,17 @@ export class CustomerMoneyInput {
     }
   };
 
-  updateCurrentMoneyInput = () => {
+  updateCurrentMoneyInput = (e: Event) => {
+    if (e.type === 'giveChanges') {
+      this.coinVault = getStorageCoinVault();
+    }
     this.currentMoneyInput.textContent = `${this.coinVault.getCustomerInput()}`;
   };
 
   handleDeductMoneyInput = (e: CustomEvent) => {
     const productPrice = e.detail.price;
     this.coinVault.deductCustomerInput(productPrice);
-    this.updateCurrentMoneyInput();
+    sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
+    this.updateCurrentMoneyInput(e);
   };
 }

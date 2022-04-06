@@ -1,5 +1,6 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { validateAllProductProps } from '../utils/domain.utils';
+import { getStorageProductCatalog } from '../utils/sessionStorage';
 import { SnackBar } from './SnackBar';
 
 export class ProductInformationInput {
@@ -57,7 +58,9 @@ export class ProductInformationInput {
 
     try {
       validateAllProductProps(productName, productPrice, productQuantity);
+      this.productCatalog = getStorageProductCatalog();
       this.productCatalog.addProduct(productName, productPrice, productQuantity);
+      sessionStorage.setItem('productCatalog', JSON.stringify(this.productCatalog));
       this.snackBar.render('상품이 추가 됐습니다');
       this.target.dispatchEvent(new CustomEvent('productAdded'));
     } catch (err) {

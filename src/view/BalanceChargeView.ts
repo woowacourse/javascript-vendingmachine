@@ -11,6 +11,8 @@ export class BalanceChargeView {
 
   constructor(AppProps: AppProps) {
     this.contentsContainer = AppProps.contentsContainer;
+    this.coinVault = AppProps.coinVault;
+
     const balanceChargeProps = {
       target: AppProps.contentsContainer,
       coinVault: AppProps.coinVault,
@@ -20,6 +22,10 @@ export class BalanceChargeView {
     this.balanceChargeInput = new BalanceChargeInput(balanceChargeProps);
     this.coinVaultTable = new CoinVaultTable(balanceChargeProps);
     this.contentsContainer.addEventListener('balanceChargeTabClick', this.showBalanceChargeTab);
+  }
+
+  autoSignIn() {
+    this.coinVault = JSON.parse(sessionStorage.getItem('coinVault'));
   }
 
   showBalanceChargeTab = () => {

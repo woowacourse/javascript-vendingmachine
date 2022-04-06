@@ -45,7 +45,6 @@ export class EditUserInformationPage {
         password: this.pwInput.value,
         id: this.user.id,
       };
-      console.log(newUserData);
       fetch(`http://localhost:3000/users/${this.user.id}`, {
         method: 'PATCH',
         body: JSON.stringify(newUserData),

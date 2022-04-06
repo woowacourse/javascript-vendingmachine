@@ -1,6 +1,7 @@
 import { CoinVault } from '../domain/CoinVault';
 import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
+import { getStorageProductCatalog } from '../utils/sessionStorage';
 import { SnackBar } from './SnackBar';
 
 export class ProductPurchaseTable {
@@ -18,9 +19,14 @@ export class ProductPurchaseTable {
     this.coinVault = props.coinVault;
   }
 
+  setProps(productCatalog, coinVault) {
+    this.productCatalog = productCatalog;
+    this.coinVault = coinVault;
+  }
+
   render = () => {
     this.target.insertAdjacentHTML('beforeend', this.template());
-
+    this.productCatalog = getStorageProductCatalog();
     this.productTableBody = document.querySelector('#product-table-body');
     this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
     this.productTableBody.addEventListener('click', this.handleProductStateManage);
@@ -70,6 +76,8 @@ export class ProductPurchaseTable {
       if (this.coinVault.getCustomerInput() - productPrice >= 0) {
         this.productCatalog.purchaseProductByName(tableRow.id);
         this.renderUpdatedTableRowQuantity(tableRow);
+        sessionStorage.setItem('productCatalog', JSON.stringify(this.productCatalog));
+        sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
         this.snackBar.render('구매에 성공하였습니다');
         this.target.dispatchEvent(
           new CustomEvent('purchased', { detail: { price: productPrice } })
