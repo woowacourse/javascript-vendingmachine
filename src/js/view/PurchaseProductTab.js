@@ -3,7 +3,6 @@ import { emitEvent } from '../utils/event';
 import { productPurchaseTableRow, purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {
-  #machine;
   #purchaseContainer;
   #inputMoneyForm;
   #addProductNameInput;
@@ -12,8 +11,7 @@ export default class PurchaseProductTab {
   #giveChangeButton;
   #coinStatusTable;
 
-  constructor(vendingMachine) {
-    this.#machine = vendingMachine;
+  constructor() {
     this.#purchaseContainer = createMainElement(purchaseTemplate);
     this.#inputMoneyForm = selectDom('.input-money-form', this.#purchaseContainer);
     this.#addProductNameInput = selectDom('#money-input', this.#inputMoneyForm);
@@ -24,7 +22,6 @@ export default class PurchaseProductTab {
     );
     this.#giveChangeButton = selectDom('#give-change-button', this.#purchaseContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#purchaseContainer);
-    // this.#renderTotalMoney();
 
     this.#inputMoneyForm.addEventListener('submit', this.#handleInputMoneyForm);
     this.#productStatusTable.addEventListener('click', this.#handlePurchase);

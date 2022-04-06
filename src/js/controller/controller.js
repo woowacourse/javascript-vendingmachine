@@ -82,7 +82,7 @@ export default class Controller {
     this.purchaseProductView.renderTotalMoney(this.#vendingMachine.totalMoney);
   };
 
-  #giveChange = (e) => {
+  #giveChange = () => {
     const coinStatus = this.#vendingMachine.giveChange();
     this.purchaseProductView.renderChange(coinStatus);
     this.purchaseProductView.renderTotalMoney(this.#vendingMachine.totalMoney);

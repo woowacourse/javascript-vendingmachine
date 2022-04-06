@@ -8,7 +8,6 @@ import {
 } from './template';
 
 export default class ManageProductTab {
-  #vendingMachine;
   #manageContainer;
   #addProductForm;
   #addProductNameInput;
@@ -17,8 +16,7 @@ export default class ManageProductTab {
   #productStatusTable;
 
   // eslint-disable-next-line max-lines-per-function
-  constructor(machine) {
-    this.#vendingMachine = machine;
+  constructor() {
     this.#manageContainer = createMainElement(manageProductTemplate);
     this.#addProductForm = selectDom('#add-product-form', this.#manageContainer);
     this.#addProductNameInput = selectDom(
