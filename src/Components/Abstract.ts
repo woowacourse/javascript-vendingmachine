@@ -57,10 +57,6 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
       return previous;
     }, new Set());
     renderTargetMethod.forEach((renderMethod: TRenderDrawMethod) => renderMethod(state));
-    /* 
-    this.childComponentList.forEach(childComponent =>
-      childComponent.render({ state, changedStateNames }),
-    ); */
   };
 
   protected createChildComponent<IProps = IDefaultProps>(

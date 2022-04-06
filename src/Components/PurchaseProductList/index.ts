@@ -5,7 +5,6 @@ import { validateProduct } from 'Utils/VendingMachine/validator';
 
 export default class PurchaseProductList extends Component {
   subscribeStore = [ProductStore];
-  $table;
 
   template() {
     const { handleProductUpdate, handleRemoveProduct } = this;
