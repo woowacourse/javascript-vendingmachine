@@ -87,7 +87,7 @@ class ItemPurchasePage extends Component {
     </section>
     <section>
       <h2 class="table-title">잔돈 반환</h2>
-      <table class="styled-table">
+      <table class="return-table styled-table">
         <thead>
           <tr class="styled-tr">
             <th class="styled-th">동전</th>
