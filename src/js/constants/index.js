@@ -12,6 +12,11 @@ export const VENDING_MACHINE_RULES = {
   MAX_TOTAL_CHANGE: 100000,
   MAX_TOTAL_INPUT_MONEY: 10000,
 };
+
+export const USER_RULES = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
+};
 export const ERROR_MESSAGE = {
   CONTAIN_EMPTY_FIELD_IN_FORM: '상품명, 가격, 수량을 모두 입력해주세요.',
 
@@ -31,6 +36,8 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_TOTAL_CHANGE: `최대 보유 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE}원을 초과할 수 없습니다.`,
 
   EXCEED_MAX_TOTAL_MONEY: `최대 충전 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY}원을 초과할 수 없습니다.`,
+
+  INVALID_NAME_LENGTH: `이름은 최소${USER_RULES.MIN_NAME_LENGTH}이상 최대 ${USER_RULES.MAX_NAME_LENGTH}이하여야 합니다`,
 };
 
 export function confirmMessage() {

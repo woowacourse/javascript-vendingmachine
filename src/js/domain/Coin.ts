@@ -24,11 +24,11 @@ export default class Coin {
     return this.#count;
   }
 
-  consumed(count: number) {
+  consumed(count: number): void {
     this.#count -= count;
   }
 
-  added(count: number) {
+  added(count: number): void {
     this.#count += count;
   }
 }

@@ -49,6 +49,16 @@ export function isExceedMaxTotalMoney({
   return totalMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY;
 }
 
+// user data validation
+export function isInvalidLengthName(name: string): boolean {
+  return name.length < 2 || name.length > 6;
+}
+
+export function isValidPassword(password: string): boolean {
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+  return regExp.test(password);
+}
+
 // validator function
 export function validateData<T>(data: T, validator: Validator<T>[]): boolean {
   validator.forEach(({ testFunc, errorMsg }) => {
