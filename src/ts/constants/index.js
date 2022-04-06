@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.ALERT_MESSAGE = exports.COINS = exports.INPUT_MONEY_RULES = exports.CHARGE_MONEY_RULES = exports.PRODUCT_RULES = void 0;
+exports.baseUrl = exports.ALERT_MESSAGE = exports.COINS = exports.INPUT_MONEY_RULES = exports.CHARGE_MONEY_RULES = exports.PRODUCT_RULES = void 0;
 exports.PRODUCT_RULES = {
     MAX_NAME_LENGTH: 10,
     MIN_NAME_LENGTH: 1,
@@ -40,3 +40,4 @@ exports.ALERT_MESSAGE = {
     USER_PASSWORD: "\uBE44\uBC00\uBC88\uD638\uB294 8~16\uAE00\uC790 \uC601\uB300\uBB38\uC790\uB098 \uC18C\uBB38\uC790, \uD2B9\uC218\uBB38\uC790, \uC22B\uC790\uB97C \uD3EC\uD568\uD574\uC57C\uD569\uB2C8\uB2E4.",
     USER_PASSWORD_CONFIRM: "\uBE44\uBC00\uBC88\uD638\uAC00 \uB3D9\uC77C\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
 };
+exports.baseUrl = 'https://e217-175-123-111-78.ngrok.io';

@@ -44,3 +44,5 @@ export const ALERT_MESSAGE = {
   USER_PASSWORD: `비밀번호는 8~16글자 영대문자나 소문자, 특수문자, 숫자를 포함해야합니다.`,
   USER_PASSWORD_CONFIRM: `비밀번호가 동일하지 않습니다.`,
 };
+
+export const baseUrl = 'https://e217-175-123-111-78.ngrok.io';

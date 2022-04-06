@@ -40,6 +40,7 @@ var dom_1 = require("../utils/dom");
 var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
 var snackbar_1 = require("../utils/snackbar");
+var constants_1 = require("../constants");
 var EditProfileTab = /** @class */ (function () {
     function EditProfileTab(verifyValue) {
         this.verifyValue = verifyValue;
@@ -85,7 +86,7 @@ var EditProfileTab = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 7, , 8]);
-                        return [4 /*yield*/, fetch("https://e217-175-123-111-78.ngrok.io/users/".concat(id), {
+                        return [4 /*yield*/, fetch("".concat(constants_1.baseUrl, "/users/").concat(id), {
                                 method: 'PATCH',
                                 headers: {
                                     'Content-Type': 'application/json'

@@ -4,6 +4,7 @@ import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getUserInfo } from '../utils/userInfoUtil';
 import { loginnedMode, logOutedMode } from '../utils/loginUtil';
 import { displaySnackbar } from '../utils/snackbar';
+import { baseUrl } from '../constants';
 
 class EditProfileTab implements EditProfile {
   verifyValue: VerifyValueValidation;
@@ -47,7 +48,7 @@ class EditProfileTab implements EditProfile {
       return;
     }
     try {
-      const response = await fetch(`https://e217-175-123-111-78.ngrok.io/users/${id}`, {
+      const response = await fetch(`${baseUrl}/users/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

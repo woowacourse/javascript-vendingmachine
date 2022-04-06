@@ -4,6 +4,7 @@ import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getSignUpInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
 import { displaySnackbar } from '../utils/snackbar';
+import { baseUrl } from '../constants';
 
 class SignUpTab implements SignUp {
   verifyValue: VerifyValueValidation;
@@ -19,7 +20,7 @@ class SignUpTab implements SignUp {
       return;
     }
     try {
-      const response = await fetch('https://e217-175-123-111-78.ngrok.io/register', {
+      const response = await fetch(`${baseUrl}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

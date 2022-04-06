@@ -51,6 +51,7 @@ var dom_1 = require("../utils/dom");
 var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
 var snackbar_1 = require("../utils/snackbar");
+var constants_1 = require("../constants");
 var LoginTab = /** @class */ (function () {
     function LoginTab(verifyValue) {
         this.verifyValue = verifyValue;
@@ -72,7 +73,7 @@ var LoginTab = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, fetch('https://e217-175-123-111-78.ngrok.io/login', {
+                        return [4 /*yield*/, fetch("".concat(constants_1.baseUrl, "/login"), {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'

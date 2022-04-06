@@ -4,6 +4,7 @@ import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getLoginInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
 import { displaySnackbar } from '../utils/snackbar';
+import { baseUrl } from '../constants';
 
 class LoginTab implements Login {
   $login: Document;
@@ -22,7 +23,7 @@ class LoginTab implements Login {
       return;
     }
     try {
-      const response = await fetch('https://e217-175-123-111-78.ngrok.io/login', {
+      const response = await fetch(`${baseUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
