@@ -15,7 +15,5 @@ export default class UserInfo {
     this.UserInfoComponent.render();
   };
 
-  private stateChange = () => {
-    routes.go(PATH_NAME.PRODUCT_MANAGE);
-  };
+  private stateChange = () => {};
 }

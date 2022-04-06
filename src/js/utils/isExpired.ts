@@ -10,6 +10,7 @@ const isExpired = (accessToken: string) => {
 
     const time = Date.now();
     const parsedTime = Math.floor(time / 1000);
+    console.log(expiredTime - parsedTime);
 
     return expiredTime - parsedTime < 5;
   } catch ({ message }) {

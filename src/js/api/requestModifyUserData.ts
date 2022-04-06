@@ -19,8 +19,13 @@ const requestModifyUserData = async (userData: User) => {
     }
   }
 
-  localStorage.setItem('accessToken', dataResult.accessToken);
-  localStorage.setItem('user', JSON.stringify(dataResult.user));
+  const updatedInfo = {
+    email: dataResult.email,
+    name: dataResult.name,
+    id: dataResult.id,
+  };
+
+  localStorage.setItem('user', JSON.stringify(updatedInfo));
   return ALERT_MESSAGE.USER_INFO_MODIFY_SUCCESS;
 };
 

@@ -1,5 +1,7 @@
 import requestModifyUserData from '../api/requestModifyUserData';
+import { PATH_NAME } from '../constants';
 import { User } from '../interfaces/UserData.interface';
+import routes from '../routes';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { getUserData } from '../utils/userAction';
 import { checkUserDataValidate } from '../utils/userValidation';
@@ -10,20 +12,22 @@ class UserInfoComponent {
   $loginInputSection: HTMLElement;
   $userInfoForm: HTMLElement;
   $mainContents: HTMLElement;
+  $closeButton: HTMLElement;
   user: User;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
-    this.user = getUserData();
   }
 
   private bindEventAndElement = () => {
     this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
     this.$userInfoForm = document.querySelector('#user-info-form');
     this.$mainContents = document.querySelector('.main-contents');
+    this.$closeButton = document.querySelector('#close-button');
 
     this.$userInfoForm.addEventListener('submit', this.onSubmitUserData);
+    this.$closeButton.addEventListener('click', this.onClickCloseButton);
   };
 
   private onSubmitUserData = async (e: SubmitEvent) => {
@@ -38,15 +42,21 @@ class UserInfoComponent {
     };
 
     if (await throwableFunctionHandler(() => this.checkValidateAndRequest(userData))) {
-      this.noticeStateChanged();
+      (<HTMLInputElement>this.$userInfoForm.querySelector('#password-input')).value = '';
+      (<HTMLInputElement>this.$userInfoForm.querySelector('#password-check-input')).value = '';
     }
   };
 
-  private checkValidateAndRequest = (userData: User) => {
-    return checkUserDataValidate(userData) && requestModifyUserData(userData);
+  private checkValidateAndRequest = async (userData: User) => {
+    return checkUserDataValidate(userData) && (await requestModifyUserData(userData));
+  };
+
+  private onClickCloseButton = () => {
+    routes.go(PATH_NAME.PRODUCT_MANAGE);
   };
 
   render = () => {
+    this.user = getUserData();
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
     this.bindEventAndElement();
     this.$mainContents.replaceChildren();
@@ -63,6 +73,7 @@ class UserInfoComponent {
       <label for="password-check-input">비밀번호 확인</label>
       <input type="password" id="password-check-input" placeholder="비밀번호를 입력해주세요" required />
       <input type="submit" id="modify-button" class="submit-button" value="확인" />
+      <button id="close-button">돌아가기</button>
     </form>`;
 }
 

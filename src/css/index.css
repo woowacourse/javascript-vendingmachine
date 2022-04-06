@@ -151,7 +151,8 @@ input:focus {
   text-align: left;
 }
 
-.multiple-input-form input {
+.multiple-input-form input,
+.multiple-input-form button {
   display: block;
   margin: 0 0 20px;
   padding: 5px;
