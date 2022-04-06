@@ -76,8 +76,8 @@ export const amountValidator: Array<Condition> = [
 
 export const insertMoneyValidator: Validator = [
   {
-    test: (amount: number) => amount >= 10 && amount <= 1000000,
-    errorMessage: `투입 금액은 10에서 1000000원 사이여야 합니다.`,
+    test: (amount: number) => amount >= 10 && amount <= 10000,
+    errorMessage: `투입 금액은 10에서 10000원 사이여야 합니다.`,
   },
   {
     test: (amount: number) => amount % 10 === 0,
@@ -85,8 +85,8 @@ export const insertMoneyValidator: Validator = [
   },
   {
     test: (amount: number, insertedMoney: number) =>
-      amount + insertedMoney <= 1000000,
-    errorMessage: `총 투입 금액은 1000000원까지 가능합니다.`,
+      amount + insertedMoney <= 10000,
+    errorMessage: `총 투입 금액은 10000원까지 가능합니다.`,
   },
 ];
 
