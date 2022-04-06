@@ -1,6 +1,7 @@
 import { $, $$, emitCustomEvent, showSnackBar } from '../utils/common';
 import { SELECTOR } from '../constants/constants';
 import { logInTemplate } from '../templates/logInTemplate';
+import { checkPassword } from '../validates/validates';
 
 export default class LogInView {
   $content: HTMLDivElement;
@@ -15,6 +16,7 @@ export default class LogInView {
       const email = $('#login-email-input').value;
       const password = $('#login-password-input').value;
 
+      checkPassword(password);
       emitCustomEvent('LOG_IN', { detail: { email, password, targetId } });
     } catch (error) {
       alert(error.message);

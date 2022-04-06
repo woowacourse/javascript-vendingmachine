@@ -127,4 +127,26 @@ export default class VendingMachine {
     this.setChange(change);
     this.setCurrentOwnMoney(ownMoney);
   }
+
+  buyItem(itemName) {
+    const items = this.getItems();
+    const newItems = items.map(item => {
+      if (item.name === itemName) {
+        const newMoney = this.getPurchaseInputMoney() - item.price;
+        if (item.quantity === 0) {
+          throw new Error('구매할 수 있는 상품의 수량이 남아있지 않습니다.');
+        }
+        if (newMoney < 0) {
+          throw new Error('투입된 금액이 부족합니다.');
+        }
+        item.quantity -= 1;
+        this.setPurchaseInputMoney(newMoney);
+        this.chargeOwnMoney(item.price);
+
+        return item;
+      }
+      return item;
+    });
+    this.setItems(newItems);
+  }
 }

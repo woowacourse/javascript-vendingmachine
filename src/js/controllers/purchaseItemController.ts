@@ -28,6 +28,16 @@ export default class PurchaseItemController implements Controller {
         alert(error.message);
       }
     });
+    onCustomEvent('PURCHASE_ITEM', event => {
+      try {
+        const { itemName } = event.detail;
+        this.vendingMachine.buyItem(itemName);
+        showSnackBar('상품을 구매하였습니다.');
+        this.loadPage();
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   }
 
   handlePurchaseMoneyInput(event: CustomEvent) {

@@ -33,7 +33,7 @@ const sectionTemplate = {
           .map(item => {
             return `
           <tr>
-            <td>${item.name}</td>
+            <td class="table-item-input-name">${item.name}</td>
             <td>${item.price}</td>
             <td>${item.quantity}</td>
             <td>

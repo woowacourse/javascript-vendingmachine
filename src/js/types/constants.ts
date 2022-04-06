@@ -28,4 +28,5 @@ export type CustomEventType =
   | 'RETURN_MONEY'
   | 'LOG_IN'
   | 'SIGN_UP'
-  | 'CHANGE_USER_INFO';
+  | 'CHANGE_USER_INFO'
+  | 'PURCHASE_ITEM';

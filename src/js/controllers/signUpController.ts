@@ -38,7 +38,7 @@ export default class SignUpController implements Controller {
         }
         sessionStorage.setItem('jwt-token', accessToken);
         sessionStorage.setItem('isLogIn', 'true');
-        sessionStorage.setItem('user', user);
+        sessionStorage.setItem('user', JSON.stringify(user));
 
         emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
         showSnackBar('회원가입 되었습니다.');
