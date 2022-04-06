@@ -6,6 +6,7 @@ import ProductPurchase from './ProductPurchase.js';
 import ProductManagerModel from '../models/ProductManger.ts';
 import CoinModel from '../models/Coin.ts';
 import ProductManageView from '../views/ProductManageView.js';
+import UserView from '../views/UserView.js';
 
 export default class ProductManage {
   constructor() {
@@ -14,6 +15,7 @@ export default class ProductManage {
     this.charge = new Charge(this.coinModel);
     this.productPurchase = new ProductPurchase(this.productManagerModel, this.coinModel);
     this.productManageView = new ProductManageView();
+    this.userView = new UserView();
 
     on(SECTION_CONTAINER, '@render', this.#renderSavedProducts.bind(this));
     on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
@@ -22,7 +24,7 @@ export default class ProductManage {
   }
 
   #renderSavedProducts(e) {
-    const { hash } = e.detail;
+    const hash = e.detail.hash || '#!purchase';
     initHashContents(hash);
     const savedProductList = this.productManagerModel.getProducts();
 

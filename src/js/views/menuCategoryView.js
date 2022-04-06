@@ -21,7 +21,7 @@ const selectTab = (hash) => {
 };
 
 export const initHashContents = (hash) => {
-  const content = routes[hash] ?? '';
+  const content = routes[hash];
   selectTab(hash);
   replaceElement(SECTION_CONTAINER, content);
 };

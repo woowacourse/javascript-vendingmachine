@@ -36,6 +36,18 @@ export const requestLogin = async (email, password) => {
   return response;
 };
 
+export const requestUpdate = async (user, id) => {
+  const response = await request(`https://ahn-project.herokuapp.com/users/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  return response;
+};
+
 export const requestUserInfo = async (id, accessToken) => {
   const response = await request(`https://ahn-project.herokuapp.com/users/${id}`, {
     method: 'GET',
