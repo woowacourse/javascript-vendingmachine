@@ -3,7 +3,7 @@ import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 import { Notification } from '../ui/CustomElement';
-import { validateSignup } from '../validator/authentication';
+import { validateProfileEdit, validateSignup } from '../validator/authentication';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -96,36 +96,39 @@ class Authentication {
       });
   }
 
-  editProfile({ name, password }) {
-    const token = localStorage.getItem('accessToken');
-    const user = storage.getLocalStorage('user');
+  editProfile({ name, password, passwordConfirm }) {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const user = storage.getLocalStorage('user');
 
-    if (!token || !user) return;
-
-    fetch(`http://localhost:3000/users/${user.id}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        email: user.email,
-        name,
-        password,
-      }),
-    })
-      .then(async (response) => {
-        const { ok } = response;
-        const body = await response.json();
-        if (!ok) throw new Error(body);
-
-        localStorage.setItem('user', JSON.stringify(body));
-        this.dispatch({ key: 'userMenu', userName: body.name });
-        historyRouterPush('/javascript-vendingmachine/');
+      validateProfileEdit(password, passwordConfirm, token);
+      fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: user.email,
+          name,
+          password,
+        }),
       })
-      .catch((err) => {
-        showSnackbar(err.message);
-      });
+        .then(async (response) => {
+          const { ok } = response;
+          const body = await response.json();
+          if (!ok) throw new Error(body);
+
+          localStorage.setItem('user', JSON.stringify(body));
+          this.dispatch({ key: 'userMenu', userName: body.name });
+          historyRouterPush('/javascript-vendingmachine/');
+        })
+        .catch((err) => {
+          showSnackbar(err.message);
+        });
+    } catch (error) {
+      showSnackbar(error.message);
+    }
   }
 }
 

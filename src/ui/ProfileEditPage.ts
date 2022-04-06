@@ -34,7 +34,12 @@ class ProfileEditPage extends CustomElement {
     e.preventDefault();
     const form = e.target;
 
-    emit('.profile-edit-form', '@edit', { name: form.userName.value, password: form.password.value }, this);
+    emit(
+      '.profile-edit-form',
+      '@edit',
+      { name: form.userName.value, password: form.password.value, passwordConfirm: form.passwordConfirm.value },
+      this,
+    );
   }
 }
 
