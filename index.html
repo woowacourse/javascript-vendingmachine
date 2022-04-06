@@ -10,12 +10,12 @@
 <body>
     <div id="app">
         <section class="snack-bar-container"></section>
-        <h1>🍿 자판기 🍿</h1>
+        <h1 class="vending-machine-title">🍿 자판기 🍿</h1>
         <nav class="nav">
             <ul class="nav__list">
                 <li>
                     <a href="/products">
-                        <button data-tab="products" class="nav__button nav__products-button nav__button--focused"
+                        <button data-path="products" class="nav__button nav__products-button nav__button--focused"
                             type="button">
                             상품 관리
                         </button>
@@ -23,15 +23,36 @@
                 </li>
                 <li>
                     <a href="/coins">
-                        <button data-tab="coins" class="nav__button nav__coins-button" type="button">
+                        <button data-path="coins" class="nav__button nav__coins-button" type="button">
                             잔돈 충전
                         </button>
                     </a>
                 </li>
                 <li>
-                    <button data-tab="purchase" class="nav__button nav__purchase-button" type="button">
-                        상품 구매
-                    </button>
+                    <a href="/purchase">
+                        <button data-path="purchase" class="nav__button nav__purchase-button" type="button">
+                            상품 구매
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <div class="user-buttons-wrapper">
+                        <a href="/login">
+                            <button data-path="login" class="nav__login-button" type="button">
+                                로그인
+                            </button>
+                        </a>
+                        <a href="/user">
+                            <button class="nav__user-button" data-path="user">
+                                최
+                            </button>
+                        </a>
+                    </div>
+                </li>
+                <li hidden>
+                    <a href="/signup" class=" nav__signup-button" data-path="signup">
+                        회원가입
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -85,7 +106,7 @@
                     <label for="coins">자판기가 보유할 금액을 입력해주세요.</label>
                     <div class="charge-form-section__coin-input-wrapper">
                         <input class="input charge-form-section__coin-input" name="coins" placeholder="금액" type="number"
-                            step="10" min="100" max="10000" autofocus required />
+                            step="10" min="100" max="100000" autofocus required />
                         <button class="charge-form-section__button button-opacity-07 primary-button" type="submit">
                             충전
                         </button>
@@ -199,6 +220,75 @@
                 </table>
                 <button class="money-for-purchase-return-button button-opacity-07" type="submit">반환하기</button>
             </section>
+        </section>
+        <section class="login-section">
+            <h2 class="user-info-title">로그인</h2>
+            <form class="login-form">
+                <div class="user-info-input-wrapper">
+                    <label>이메일</label>
+                    <input type="email" class="user-info-input login-email-input" required
+                        placeholder="woowacourse@gmail.com">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>비밀번호</label>
+                    <input type="password" class="user-info-input login-password-input" minlength="6" required
+                        placeholder="비밀번호를 입력해주세요">
+                </div>
+                <button class="login-button user-info-submit-button" type="submit">확인</button>
+            </form>
+            <span class="login-foot">아직 회원이 아니신가요? <a href="/signup">회원가입</a></span>
+        </section>
+        <section class="signup-section">
+            <h2 class="user-info-title">회원가입</h2>
+            <form class="signup-form">
+                <div class="user-info-input-wrapper">
+                    <label>이메일</label>
+                    <input type="email" class="user-info-input signup-email-input" required
+                        placeholder="이메일 주소를 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>이름</label>
+                    <input type="text" class="user-info-input signup-name-input" minlength="2" maxlength="6" required
+                        placeholder="이름을 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>비밀번호</label>
+                    <input type="password" class="user-info-input signup-password-input" required minlength="6"
+                        placeholder="비밀번호를 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>비밀번호 확인</label>
+                    <input type="password" class="user-info-input signup-password-confirm-input" required minlength="6"
+                        placeholder="비밀번호를 입력해주세요">
+                </div>
+                <button class="signup-button user-info-submit-button" type="submit">확인</button>
+            </form>
+        </section>
+        <section class="user-section">
+            <h2 class="user-info-title">회원 정보 수정</h2>
+            <form class="user-form">
+                <div class="user-info-input-wrapper">
+                    <label>이메일</label>
+                    <input type="email" class="user-info-input user-email-input" disabled placeholder="이메일 주소를 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>이름</label>
+                    <input type="text" class="user-info-input user-name-input" minlength="2" maxlength="6" required
+                        placeholder="이름을 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>비밀번호</label>
+                    <input type="password" class="user-info-input user-password-input" required minlength="6"
+                        placeholder="비밀번호를 입력해주세요">
+                </div>
+                <div class="user-info-input-wrapper">
+                    <label>비밀번호 확인</label>
+                    <input type="password" class="user-info-input user-password-confirm-input" required minlength="6"
+                        placeholder="비밀번호를 입력해주세요">
+                </div>
+                <button class="user-button user-info-submit-button" type="submit">확인</button>
+            </form>
+        </section>
     </div>
 </body>
 

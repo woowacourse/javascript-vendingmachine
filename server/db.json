@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "email": "abc@abc.com",
+      "password": "$2a$10$KkLV2iVmEmyjPPksKDx4k.VtppL6GGGCJTL9p3Apumw8IEKM7pBi2",
+      "name": "최광희",
+      "id": 1
+    },
+    {
+      "email": "yleh1126@naver.com",
+      "password": "$2a$10$hR2XCmVZhFKtCbLF2u7PS.OXO27lQjrnUDknXfUl.CntkjQW2gbHG",
+      "name": "최광희",
+      "id": 2
+    },
+    {
+      "email": "123456@abc.coom",
+      "password": "$2a$10$Jlj3MHzsbfro/T.pREbikuG9eoHXaevw92amMGLldTCdg6mnuSGuO",
+      "name": "123456",
+      "id": 3
+    }
+  ]
+}

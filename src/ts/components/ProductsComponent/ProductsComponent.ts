@@ -5,14 +5,13 @@ import ProductStateComponent from './ProductsStateComponent';
 
 export default class ProductsComponent {
   private $app = $('#app');
-  private productInputComponent = new ProductInputComponent(
-    this.vendingMachineProductManager
-  );
   private productStateComponent = new ProductStateComponent(
     this.vendingMachineProductManager
   );
 
   constructor(private vendingMachineProductManager) {
+    new ProductInputComponent(this.vendingMachineProductManager);
+
     on(this.$app, '@productsTabClicked', this.render);
   }
 

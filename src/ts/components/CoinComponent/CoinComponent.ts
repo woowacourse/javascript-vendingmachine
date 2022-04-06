@@ -15,6 +15,7 @@ export default class CoinComponent {
   constructor(private vendingMachineCoinManager) {
     on(this.$app, '@coinsTabClicked', this.render);
   }
+
   render = () => {
     this.coinInputComponent.renderTotalCoins();
     this.coinStateComponent.render();
