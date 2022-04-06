@@ -8,7 +8,7 @@ module.exports = {
     index: './src/js/index.ts',
     login: './src/js/login.ts',
     signup: './src/js/signup.ts',
-    profile: './src/js/signup.ts',
+    profile: './src/js/profile.ts',
   },
   resolve: {
     extensions: ['.js', '.css', '.ts'],

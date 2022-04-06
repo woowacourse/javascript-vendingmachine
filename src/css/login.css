@@ -1,3 +1,10 @@
+.login {
+  position: relative;
+  top: -30px;
+  right: -225px;
+  cursor: pointer;
+}
+
 .title {
   font-size: 34px;
   margin-bottom: 48px;
@@ -29,13 +36,37 @@
   color: var(--color-white);
 }
 
-#login {
-  position: relative;
-  top: -30px;
-  right: -225px;
-  cursor: pointer;
-}
-
 #sign-up {
   color: var(--color-blue);
+}
+
+.thumbnail {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  top: -30px;
+  right: -260px;
+  border-radius: 50%;
+  border: none;
+  background: #d6f4f8;
+}
+
+.select-box {
+  position: absolute;
+  top: 110px;
+  right: 480px;
+  background: white;
+  border-radius: 3px;
+  width: 100px;
+  text-align: center;
+}
+
+.select-box-item {
+  width: 100px;
+  height: 35px;
+  background: none;
+}
+
+.hide {
+  display: none;
 }
