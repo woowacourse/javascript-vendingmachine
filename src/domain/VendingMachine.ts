@@ -10,11 +10,11 @@ import {
   validateUpdateProduct,
   validateUserInputMoney,
 } from '../validator';
-import { Coin } from './Coin';
+import { Safe } from './Safe';
 import Product from './Product';
 
 interface VendingMachineProperty {
-  amount: Coin;
+  amount: Safe;
   userAmount: number;
   products: Product[];
 }
@@ -29,13 +29,13 @@ class VendingMachine implements VendingMachineProperty {
     return VendingMachine._instance;
   }
 
-  amount: Coin;
+  amount: Safe;
   userAmount = 0;
   products: Product[];
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
-    this.amount = new Coin(storage.getLocalStorage('amount'));
+    this.amount = new Safe(storage.getLocalStorage('amount'));
     this.products = storage.getLocalStorage('products').map((product) => new Product(product, product.id));
   }
 

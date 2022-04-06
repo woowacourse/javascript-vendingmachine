@@ -1,4 +1,4 @@
-import { CoinType, CoinCounter } from './domain/Coin';
+import { CoinType, CoinCounter } from './domain/Safe';
 import Product from './domain/Product';
 
 type User = {

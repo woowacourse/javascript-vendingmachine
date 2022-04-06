@@ -12,7 +12,7 @@ interface CoinProperty {
   counter: Record<CoinType, CoinCounter>;
 }
 
-export class Coin implements CoinProperty {
+export class Safe implements CoinProperty {
   counter: Record<CoinType, CoinCounter> = {
     500: { type: '500won', count: 0 },
     100: { type: '100won', count: 0 },

@@ -4,7 +4,7 @@ import storage from '../storage';
 import Product from '../domain/Product';
 import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
-import { Coin } from '../domain/Coin';
+import { Safe } from '../domain/Safe';
 import { COINS } from '../constants';
 
 class PurchaseTab extends CustomElement {
@@ -122,7 +122,7 @@ class PurchaseTab extends CustomElement {
     }
   }
 
-  returnChange(amount: Coin, userAmount: number) {
+  returnChange(amount: Safe, userAmount: number) {
     $('.user-amount', this).textContent = markUnit(userAmount);
     COINS.forEach((coin) => ($(`.change-${coin}-quantity`).textContent = amount.userChange[coin].count));
   }

@@ -1,9 +1,9 @@
-import { Coin } from '../domain/Coin';
+import { Safe } from '../domain/Safe';
 import Product from '../domain/Product';
 
 export interface Notification {
   action: string;
-  amount: Coin;
+  amount: Safe;
   product?: Product;
   userAmount: number;
   userName?: string;
