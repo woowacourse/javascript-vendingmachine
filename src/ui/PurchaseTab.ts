@@ -65,6 +65,14 @@ class PurchaseTab extends CustomElement {
       case 'return':
         this.updateChange(data);
         break;
+      case 'add':
+        this.insertItem(data);
+      case 'update':
+        this.updateItem(data);
+        break;
+      case 'delete':
+        this.deleteItem(data);
+        break;
     }
   }
 
@@ -81,6 +89,23 @@ class PurchaseTab extends CustomElement {
        </tr>
       `,
     );
+  }
+
+  updateItem(product: Product) {
+    const item = $(`[data-product-id="${product.id}"]`, $('#purchase-product-list-table')) as HTMLElement;
+
+    item.innerHTML = ` 
+      <td>${product.name}</td>
+      <td>${markUnit(product.price)}</td>
+      <td>${product.quantity}</td>
+      <td class="product-item__button">
+        <button type="button" class="product-item__purchase-button button">구매</button>
+      </td>
+    `;
+  }
+
+  deleteItem(product: Product) {
+    $(`[data-product-id="${product.id}"]`).remove();
   }
 
   updateUserInputMoney(money) {

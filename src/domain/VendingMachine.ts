@@ -79,6 +79,7 @@ class VendingMachine implements IVendingMachine {
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'add', newProduct);
     } catch (error) {
       showSnackBar(error.message);
     }
@@ -92,6 +93,7 @@ class VendingMachine implements IVendingMachine {
       currentProduct.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'update', currentProduct);
     } catch (error) {
       showSnackBar(error.message);
     }
@@ -101,6 +103,7 @@ class VendingMachine implements IVendingMachine {
     const targetProduct = this.products.find((product) => product.name === targetName);
 
     this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
+    this.dispatch(ELEMENT_KEY.PURCHASE, 'delete', targetProduct);
     this.products = this.products.filter((product) => product.name !== targetName);
     storage.setLocalStorage('products', this.products);
   }
