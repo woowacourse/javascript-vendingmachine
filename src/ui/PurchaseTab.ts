@@ -93,6 +93,7 @@ class PurchaseTab extends CustomElement {
 
   updateItem(product: Product) {
     const item = $(`[data-product-id="${product.id}"]`, $('#purchase-product-list-table')) as HTMLElement;
+    item.dataset.productName = product.name;
 
     item.innerHTML = ` 
       <td>${product.name}</td>

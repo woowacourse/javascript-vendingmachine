@@ -91,6 +91,7 @@ class VendingMachine implements IVendingMachine {
 
       currentProduct.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
+
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
       this.dispatch(ELEMENT_KEY.PURCHASE, 'update', currentProduct);
     } catch (error) {
