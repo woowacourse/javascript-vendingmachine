@@ -1,3 +1,4 @@
+import { PAGE } from './constants';
 import { getUserInfo } from './member';
 import { $ } from './utils';
 
@@ -51,9 +52,9 @@ class Router {
     const isLogin = !!(await getUserInfo());
 
     if (isLogin) {
-      this.loginHeader.innerHTML = '<login-info></login=info>';
+      this.loginHeader.innerHTML = PAGE.LOGIN_INFO;
     } else {
-      this.loginHeader.innerHTML = '<login-header></login=header>';
+      this.loginHeader.innerHTML = PAGE.LOGIN_HEADER;
     }
 
     this.pageContainer.replaceChildren();
@@ -62,45 +63,33 @@ class Router {
     switch (window.location.pathname) {
       case '/product-manage-tab': {
         this.header.classList.remove('hide');
-        this.pageContainer.insertAdjacentHTML(
-          'beforeend',
-          '<product-manage-page></product-manage-page>'
-        );
+        this.pageContainer.insertAdjacentHTML('beforeend', PAGE.PRODUCT_MANAGE_PAGE);
         break;
       }
       case '/charge-money-tab': {
         this.header.classList.remove('hide');
-        this.pageContainer.insertAdjacentHTML(
-          'beforeend',
-          '<charge-money-page></charge-money-page>'
-        );
+        this.pageContainer.insertAdjacentHTML('beforeend', PAGE.CHARGE_MONEY_PAGE);
         break;
       }
       case '/purchase-product-tab': {
         this.header.classList.remove('hide');
-        this.pageContainer.insertAdjacentHTML(
-          'beforeend',
-          '<purchase-product-page></purchase-product-page>'
-        );
+        this.pageContainer.insertAdjacentHTML('beforeend', PAGE.PURCHASE_PRODUCT_PAGE);
         break;
       }
       case '/login-form': {
         this.loginHeader.replaceChildren();
         this.header.classList.add('hide');
-        this.memberContainer.insertAdjacentHTML('beforeend', '<login-form></login-form>');
+        this.memberContainer.insertAdjacentHTML('beforeend', PAGE.LOGIN_FORM);
         break;
       }
       case '/sign-up-form': {
         this.header.classList.add('hide');
-        this.memberContainer.insertAdjacentHTML('beforeend', '<sign-up-form></sign-up-form>');
+        this.memberContainer.insertAdjacentHTML('beforeend', PAGE.SIGN_UP_FORM);
         break;
       }
       case '/modify-member-form': {
         this.header.classList.add('hide');
-        this.memberContainer.insertAdjacentHTML(
-          'beforeend',
-          '<modify-member-form></modify-member-form>'
-        );
+        this.memberContainer.insertAdjacentHTML('beforeend', PAGE.MODIFY_MEMBER_FORM);
         break;
       }
       default: {
