@@ -1,5 +1,5 @@
 import { Product, SignupData, AdminData } from '../../index.d';
-import { PRODUCT_RULES, INPUT_MONEY_RULES, USER_INPUT_MONEY_RULES, ERROR_MESSAGE } from '../constant';
+import { PRODUCT_RULES, INPUT_MONEY_RULES, USER_INPUT_MONEY_RULES, ADMIN_DATA_RULES, ERROR_MESSAGE } from '../constant';
 
 const checkProduct = ({ name, price, quantity }: Product): void => {
   if (name === '') throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
@@ -9,11 +9,11 @@ const checkProduct = ({ name, price, quantity }: Product): void => {
   if (quantity < PRODUCT_RULES.MIN_QUANTITY || quantity > PRODUCT_RULES.MAX_QUANTITY) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_PRODUCT_QUANTITY);
 };
 
-const checkUser = ({ name, password, passwordConfirmation }: AdminData): void => {
-  if ((name as unknown as string).length < 2 || (name as unknown as string).length > 6) throw new Error('이름은 2이상 6이하로 입력해주세요!');
-  if ((password as unknown as string).length < 7 || (password as unknown as string).length > 15) throw new Error('비밀번호는 7이상 15이하로 입력해주세요!');
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,15}$/.test(password as unknown as string)) throw new Error('비밀번호는 문자와 숫자를 모두 포함해야 합니다!');
-  if (password !== passwordConfirmation) throw new Error('비밀번호와 비밀번호 확인이 일치해야 합니다!');
+const checkAdmin = ({ name, password, passwordConfirmation }: AdminData): void => {
+  if ((name as unknown as string).length < ADMIN_DATA_RULES.MIN_NAME_LENGTH || (name as unknown as string).length > ADMIN_DATA_RULES.MAX_NAME_LENGTH) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ADMIN_NAME);
+  if ((password as unknown as string).length < ADMIN_DATA_RULES.MIN_PASSWORD_LENGTH || (password as unknown as string).length > ADMIN_DATA_RULES.MAX_PASSWORD_LENGTH) throw new Error(ERROR_MESSAGE.OUT_OF_RANGE_ADMIN_PASSWORD);
+  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,15}$/.test(password as unknown as string)) throw new Error(ERROR_MESSAGE.INVALID_FORM_ADMIN_PASSWORD);
+  if (password !== passwordConfirmation) throw new Error(ERROR_MESSAGE.MISMATCH_PASSWORD_CONFIRMATION);
 };
 
 const validator = {
@@ -41,9 +41,9 @@ const validator = {
   },
 
   checkSignupAdmin(adminData: SignupData) {
-    if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(adminData.email)) throw new Error('이메일 형식을 지켜주세요!');
+    if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(adminData.email)) throw new Error(ERROR_MESSAGE.INVALID_FORM_EMALI);
 
-    checkUser(adminData);
+    checkAdmin(adminData);
   },
 };
 
