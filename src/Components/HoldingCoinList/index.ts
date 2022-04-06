@@ -26,6 +26,6 @@ export default class HoldingCoinList extends Component {
       return previous;
     }, {});
 
-    setContentOfChildElement($('#holding-amount-table tbody', this.$component), updateQuantity);
+    setContentOfChildElement($('#coin-list-table tbody', this.$component), updateQuantity);
   };
 }
