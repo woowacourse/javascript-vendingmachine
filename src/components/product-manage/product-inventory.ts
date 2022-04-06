@@ -65,6 +65,12 @@ class ProductInventory extends Component {
   }
 
   setEvent() {
+    this.addEvent<KeyboardEvent>('keyup', 'input', (e) => {
+      if (e.key !== 'Enter') return;
+      const $tr = (e.target as HTMLElement).closest('tr.is-editing');
+      if (!$tr) return;
+      ($tr.querySelector('.btn-confirm') as HTMLButtonElement).click();
+    });
     this.addEvent('click', '.btn-edit', this.changeToEditMode);
     this.addEvent('click', '.btn-confirm', this.editProduct);
     this.addEvent('click', '.btn-cancel', this.cancelProduct);
