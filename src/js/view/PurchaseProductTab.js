@@ -64,6 +64,18 @@ export default class PurchaseProductTab {
     this.#addProductNameInput.value = '';
   }
 
+  renderUpdateProduct(id, { name, price, stock }) {
+    const targetTableRow = selectDom(
+      `[data-product-id='${id}']`,
+      this.#productStatusTable
+    ).closest('tr');
+    targetTableRow.insertAdjacentHTML(
+      'afterend',
+      productPurchaseTableRow({ name, price, stock, id })
+    );
+    targetTableRow.remove();
+  }
+
   #handlePurchase = (e) => {
     if (!e.target.classList.contains('purchase-product-button')) {
       return;
@@ -89,6 +101,12 @@ export default class PurchaseProductTab {
     });
     this.#renderTotalMoney();
   };
+
+  removeProduct(id) {
+    selectDom(`[data-product-id='${id}']`, this.#productStatusTable)
+      .closest('tr')
+      .remove();
+  }
 
   get element() {
     return this.#purchaseContainer;

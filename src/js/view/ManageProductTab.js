@@ -34,7 +34,6 @@ export default class ManageProductTab {
       this.#manageContainer
     );
     this.#productStatusTable = selectDom('#product-status-table', this.#manageContainer);
-    this.#renderInitProductList();
     this.#addProductForm.addEventListener('submit', this.#handleAddProductForm);
     this.#productStatusTable.addEventListener('click', this.#handleProductStatus);
   }
@@ -43,15 +42,13 @@ export default class ManageProductTab {
     return this.#manageContainer;
   }
 
-  #renderInitProductList() {
-    Object.entries(this.#vendingMachine.productList).forEach(
-      ([id, { name, price, stock }]) => {
-        this.#productStatusTable.insertAdjacentHTML(
-          'beforeend',
-          productTableRow({ name, price, stock, id })
-        );
-      }
-    );
+  renderInitProductList(productList) {
+    Object.entries(productList).forEach(([id, { name, price, stock }]) => {
+      this.#productStatusTable.insertAdjacentHTML(
+        'beforeend',
+        productTableRow({ name, price, stock, id })
+      );
+    });
   }
 
   #handleAddProductForm = (e) => {
@@ -59,7 +56,7 @@ export default class ManageProductTab {
     const name = this.#addProductNameInput.value;
     const price = this.#addProductPriceInput.valueAsNumber;
     const stock = this.#addProductStockInput.valueAsNumber;
-    emitEvent(this.#manageContainer, 'addProduct', { name, price, stock });
+    emitEvent(this.element, 'addProduct', { name, price, stock });
   };
 
   addProduct({ name, price, stock, id }) {
@@ -98,6 +95,7 @@ export default class ManageProductTab {
     const name = selectDom('.product-name', targetTableRow).textContent;
     const price = selectDom('.product-price', targetTableRow).textContent;
     const stock = selectDom('.product-stock', targetTableRow).textContent;
+
     const { productId: id } = target.dataset;
 
     targetTableRow.insertAdjacentHTML(
@@ -113,27 +111,29 @@ export default class ManageProductTab {
     const price = selectDom('.update-product-price-input', targetTableRow).valueAsNumber;
     const stock = selectDom('.update-product-stock-input', targetTableRow).valueAsNumber;
     const { productId: id } = target.dataset;
-
-    try {
-      this.#vendingMachine.updateProduct(id, { name, price, stock });
-      targetTableRow.insertAdjacentHTML(
-        'afterend',
-        productTableRow({ name, price, stock, id })
-      );
-      targetTableRow.remove();
-    } catch ({ message }) {
-      alert(message);
-    }
+    emitEvent(this.element, 'updateProduct', { id, name, price, stock });
   };
+
+  renderUpdateProduct(id, { name, price, stock }) {
+    const targetTableRow = selectDom(
+      `[data-product-id='${id}']`,
+      this.#productStatusTable
+    ).closest('tr');
+    targetTableRow.insertAdjacentHTML(
+      'afterend',
+      productTableRow({ name, price, stock, id })
+    );
+    targetTableRow.remove();
+  }
 
   #handleProductRemove = (target) => {
     const { productId: id } = target.dataset;
-
-    try {
-      this.#vendingMachine.removeProduct(id);
-      target.closest('tr').remove();
-    } catch ({ message }) {
-      alert(message);
-    }
+    emitEvent(this.element, 'removeProduct', { id });
   };
+
+  removeProduct(id) {
+    selectDom(`[data-product-id='${id}']`, this.#productStatusTable)
+      .closest('tr')
+      .remove();
+  }
 }
