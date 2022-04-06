@@ -2,6 +2,11 @@ import { ALERT_MESSAGE } from '../../src/js/constants';
 const userEmail = `${Date.now()}@test.com`;
 const userName = 'test';
 const userPassword = '1q2w3e!!';
+const productName = '사이다';
+const productPrice = '1000';
+const productAmount = '10';
+const productModifyAmount = '20';
+const addChangeMoney = 10000;
 
 describe('기본 시나리오 동작 확인', () => {
   before(() => {
@@ -51,22 +56,10 @@ describe('기본 시나리오 동작 확인', () => {
   });
 
   describe('관리자 기능 테스트', () => {
-    const productName = '사이다';
-    const productPrice = '1000';
-    const productAmount = '10';
-    const productModifyAmount = '20';
-    const addChangeMoney = 10000;
-
     it('관리자는 자판기에 상품을 추가할 수 있어야 한다.', () => {
-      cy.get('#product-name-input').type(productName);
-      cy.get('#product-price-input').type(productPrice);
-      cy.get('#product-amount-input').type(productAmount);
-
-      cy.get('#product-add-button')
-        .click()
-        .then(() => {
-          cy.get('.snackbar').should('contain', ALERT_MESSAGE.ADD_PRODUCT_SUCCESS(productName));
-        });
+      cy.addProduct(productName, productPrice, productAmount).then(() => {
+        cy.get('.snackbar').should('contain', ALERT_MESSAGE.ADD_PRODUCT_SUCCESS(productName));
+      });
     });
 
     it('관리자는 자판기의 상품을 수정할 수 있어야 한다.', () => {
@@ -88,6 +81,7 @@ describe('기본 시나리오 동작 확인', () => {
             return true;
           });
           cy.get('.snackbar').should('contain', ALERT_MESSAGE.DELETE_PRODUCT_SUCCESS(productName));
+          cy.addProduct(productName, productPrice, productAmount);
         });
     });
 
@@ -109,6 +103,36 @@ describe('기본 시나리오 동작 확인', () => {
         .click()
         .then(() => {
           cy.get('.snackbar').should('contain', ALERT_MESSAGE.LOGOUT_SUCCESS);
+        });
+    });
+  });
+
+  describe('사용자 기능 테스트', () => {
+    const inputMoney = 5000;
+
+    it('사용자는 금액을 입력하여 돈을 투입할 수 있어야 한다.', () => {
+      cy.get('#input-money').type(inputMoney);
+      cy.get('#input-money-button')
+        .click()
+        .then(() => {
+          cy.get('.snackbar').should('contain', ALERT_MESSAGE.INPUT_MONEY_SUCCESS(inputMoney));
+        });
+    });
+
+    it('사용자는 구매 버튼을 눌러 상품을 구입할 수 있어야 한다.', () => {
+      cy.get('.product-purchase-button')
+        .click()
+        .then(() => {
+          cy.get('.snackbar').should('contain', ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName));
+        });
+    });
+
+    it('사용자는 잔돈 반환 버튼을 눌러 잔돈을 반환 받을 수 있어야 한다.', () => {
+      cy.get('#return-change-button')
+        .click()
+        .then(() => {
+          cy.get('#total-money').should('have.text', '0');
+          cy.get('.snackbar').should('contain', ALERT_MESSAGE.RETURN_CHARGE_SUCCESS);
         });
     });
   });

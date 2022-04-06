@@ -30,3 +30,11 @@ Cypress.Commands.add('login', (userEmail, userPassword) => {
   cy.get('#password-input').type(userPassword);
   cy.get('#login-button').click();
 });
+
+Cypress.Commands.add('addProduct', (productName, productPrice, productAmount) => {
+  cy.get('#product-name-input').clear().type(productName);
+  cy.get('#product-price-input').clear().type(productPrice);
+  cy.get('#product-amount-input').clear().type(productAmount);
+
+  cy.get('#product-add-button').click();
+});
