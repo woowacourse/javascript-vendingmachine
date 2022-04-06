@@ -8,11 +8,12 @@
 
   <body>
     <div id="app">
+      <div class="thumbnail hide"></div>
       <button id="login-button" type="button" class="tab-button button">로그인</button>
-      <section id="auth-section"></section>
-      <section id="vending-machine-section">
+      <section class="auth-section hide"></section>
+      <section class="feature-section">
         <h1>🍿 자판기 🍿</h1>
-        <nav>
+        <nav class="hide">
           <button id="product-manage-nav-button" class="tab-button button" type="button">
             상품 관리
           </button>
@@ -24,9 +25,9 @@
           </button>
         </nav>
         <div id="contents-container">
-          <div id="product-manage-container" class="hide"></div>
-          <div id="balance-charge-container" class="hide"></div>
-          <div id="product-purchase-container" class="hide"></div>
+          <div class="product-manage-container hide"></div>
+          <div class="balance-charge-container hide"></div>
+          <div class="product-purchase-container hide"><div id="snackbar"></div></div>
         </div>
       </section>
     </div>
