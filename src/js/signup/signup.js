@@ -1,6 +1,6 @@
 import '../../css/index.css';
-import { $ } from '../utils/dom';
 import { validEmail, validPassword } from './validAccount';
+import { $ } from '../utils/dom';
 import { handleSnackbarMessage } from '../utils/snackbar';
 import { signup } from '../utils/API';
 

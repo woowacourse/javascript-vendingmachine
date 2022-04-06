@@ -1,6 +1,6 @@
 import '../css/index';
-import { login } from './utils/API';
 import { SNACKBAR_MESSAGE } from './constants/constants';
+import { login } from './utils/API';
 import { $ } from './utils/dom';
 import { handleSnackbarMessage } from './utils/snackbar';
 import { setSessionStorage } from './utils/sessionStorage';

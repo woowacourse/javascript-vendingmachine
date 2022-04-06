@@ -1,3 +1,4 @@
+import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants';
 import {
   isEmpty,
   isDivideUnit,
@@ -5,7 +6,6 @@ import {
   isRangeNumber,
   isOverMaxNumber,
 } from '../utils/common';
-import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants';
 import { Product } from '../interface/productManage.interface';
 
 const isDuplicateProduct = (name: string, products: Product[]): boolean => {

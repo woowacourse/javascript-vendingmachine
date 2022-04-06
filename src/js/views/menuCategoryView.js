@@ -1,7 +1,7 @@
 import { SECTION_CONTAINER } from '../constants/constants';
 import { $, replaceElement } from '../utils/dom';
-import { CATEGORY_TEMPLATE } from '../templates/templates';
 import { getSessionStorage } from '../utils/sessionStorage';
+import { CATEGORY_TEMPLATE } from '../templates/templates';
 
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,

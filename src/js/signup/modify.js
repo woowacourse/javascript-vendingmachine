@@ -1,6 +1,6 @@
 import '../../css/index';
-import { $ } from '../utils/dom';
 import { validPassword } from './validAccount';
+import { $ } from '../utils/dom';
 import { handleSnackbarMessage } from '../utils/snackbar';
 import { modifyUserInfo } from '../utils/API';
 import { getSessionStorage } from '../utils/sessionStorage';

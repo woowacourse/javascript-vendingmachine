@@ -1,5 +1,5 @@
-import { $ } from '../utils/dom';
 import { SECTION_CONTAINER } from '../constants/constants';
+import { $ } from '../utils/dom';
 import { on, emit } from '../utils/event';
 import { purchaseTableTemplate } from '../templates/templates';
 
