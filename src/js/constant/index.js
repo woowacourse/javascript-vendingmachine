@@ -65,7 +65,7 @@ export const NAME = {
 };
 
 export const PASSWORD = {
-  PATTERN: `^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}`,
+  PATTERN: `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,16}`,
 };
 
 export const LOCALSTORAGE_KEY = {

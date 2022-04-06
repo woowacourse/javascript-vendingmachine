@@ -17,3 +17,8 @@
   cursor: pointer;
   color: var(--link-text-color);
 }
+
+.input-check-text {
+  font-size: small;
+  color: var(--alert-text-color);
+}
