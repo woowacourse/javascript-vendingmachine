@@ -27,7 +27,7 @@ export default class App {
     window.history.pushState(
       null,
       null,
-      `${URL.BASE_URL}/#${page ?? URL.MAIN}/#${section ?? URL.PURCHASE_ITEM}`
+      `/${URL.BASE_URL}/#${page ?? URL.MAIN}/#${section ?? URL.PURCHASE_ITEM}`
     );
   }
 

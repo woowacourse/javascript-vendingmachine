@@ -38,9 +38,8 @@ export default class UserMenuView {
     Storage.deleteUserData();
 
     emit({
-      eventName: CUSTOM_EVENT.ROUTE_CHANGE,
+      eventName: CUSTOM_EVENT.PAGE_CHANGE,
       detail: { page: URL.MAIN, section: URL.PURCHASE_ITEM },
     });
-    emit({ eventName: CUSTOM_EVENT.PAGE_CHANGE });
   }
 }
