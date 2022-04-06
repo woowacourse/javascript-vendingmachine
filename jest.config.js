@@ -4,10 +4,10 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.ts$': 'ts-jest',
   },
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
-  testMatch: ['<rootDir>/**/auth.unit.test.(js|ts)'],
+  testMatch: ['<rootDir>/**/*unit.test.(js|ts)'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };

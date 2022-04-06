@@ -4,3 +4,6 @@ node_modules/
 # cypress
 cypress/screenshots/
 cypress/videos/
+
+# dist
+dist/
