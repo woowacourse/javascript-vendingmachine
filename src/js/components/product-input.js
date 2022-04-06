@@ -1,6 +1,7 @@
 import { EVENT_TYPE } from "../constant";
 import { emit } from "../util/event";
 import { productProcessMachine } from "../domain/productProcessMachine";
+import showSnackbar from "../util/snackbar";
 
 class ProductInput extends HTMLElement {
   constructor() {
@@ -50,11 +51,7 @@ class ProductInput extends HTMLElement {
       this.$productPriceInput.value = "";
       this.$productCountInput.value = "";
     } catch (err) {
-      this.$snackbar.innerText = err.message;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, err.message);
     }
   };
 

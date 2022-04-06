@@ -1,5 +1,6 @@
 import { productProcessMachine } from "../domain/productProcessMachine";
 import { emit } from "../util/event";
+import showSnackbar from "../util/snackbar";
 class ProductEditForm extends HTMLTableRowElement {
   constructor() {
     super();
@@ -38,11 +39,7 @@ class ProductEditForm extends HTMLTableRowElement {
       });
       this.classList.add("hidden");
     } catch (err) {
-      this.$snackbar.innerText = err.message;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, err.message);
     }
   };
 

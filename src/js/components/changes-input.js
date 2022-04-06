@@ -1,5 +1,6 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
 import { emit } from "../util/event";
+import showSnackbar from "../util/snackbar";
 
 class ChangesInput extends HTMLElement {
   constructor() {
@@ -29,11 +30,7 @@ class ChangesInput extends HTMLElement {
 
       emit(this.$page, "@mutateChanges");
     } catch (err) {
-      this.$snackbar.innerText = err.message;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, err.message);
     }
   };
 

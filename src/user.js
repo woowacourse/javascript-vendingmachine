@@ -1,6 +1,8 @@
 import "./css/login.css";
+import { ERROR_MESSAGE } from "./js/constant";
 import isLogin from "./js/util/checkLogin";
 import { setLocalStorage } from "./js/util/localStorage";
+import showSnackbar from "./js/util/snackbar";
 
 class UserEditForm {
   constructor() {
@@ -22,12 +24,9 @@ class UserEditForm {
 
   checkLoginStatus() {
     if (!isLogin()) {
-      this.$snackbar.innerText = "로그인후 이용해주세요";
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
+      showSnackbar(this.$snackbar, ERROR_MESSAGE.MUST_LOGIN, () => {
         location.href = "./";
-      }, 1000);
+      });
     }
   }
 
@@ -61,11 +60,7 @@ class UserEditForm {
     const body = await response.json();
 
     if (!response.ok) {
-      this.$snackbar.innerText = body;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, body);
       return;
     }
 

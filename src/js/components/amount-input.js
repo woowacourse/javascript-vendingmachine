@@ -1,5 +1,6 @@
 import { productPurchaseMachine } from "../domain/productPurchaseMachine.ts";
 import { addEvent } from "../util/event";
+import showSnackbar from "../util/snackbar";
 
 class AmountInput extends HTMLElement {
   constructor() {
@@ -27,11 +28,7 @@ class AmountInput extends HTMLElement {
       productPurchaseMachine.charge(money);
       this.renderHaveAmount();
     } catch (err) {
-      this.$snackbar.innerText = err.message;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, err.message);
     }
   };
 

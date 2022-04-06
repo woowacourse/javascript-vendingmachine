@@ -1,6 +1,8 @@
 import "./css/login";
+import { ERROR_MESSAGE } from "./js/constant";
 import isLogin from "./js/util/checkLogin";
 import { setLocalStorage } from "./js/util/localStorage";
+import showSnackbar from "./js/util/snackbar";
 
 class Login {
   constructor() {
@@ -14,12 +16,9 @@ class Login {
 
   checkLoginStatus() {
     if (isLogin()) {
-      this.$snackbar.innerText = "이미 로그인이 되어있습니다";
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
+      showSnackbar(this.$snackbar, ERROR_MESSAGE.ALREADY_LOGIN, () => {
         location.href = "./";
-      }, 1000);
+      });
     }
   }
 
@@ -43,11 +42,7 @@ class Login {
     const body = await response.json();
 
     if (!response.ok) {
-      this.$snackbar.innerText = body;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, body);
       return;
     }
 

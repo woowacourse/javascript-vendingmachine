@@ -1,6 +1,7 @@
 import { productProcessMachine } from "../domain/productProcessMachine";
 import { productPurchaseMachine } from "../domain/productPurchaseMachine";
 import { emit } from "../util/event";
+import showSnackbar from "../util/snackbar";
 
 class ProductPurchaseItem extends HTMLTableRowElement {
   constructor() {
@@ -46,11 +47,7 @@ class ProductPurchaseItem extends HTMLTableRowElement {
       this.updatedProduct(updatedProduct);
       emit(this.$page, "@updateamount");
     } catch (err) {
-      this.$snackbar.innerText = err.message;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, err.message);
     }
   };
 

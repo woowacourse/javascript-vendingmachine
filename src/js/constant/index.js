@@ -10,6 +10,8 @@ export const ERROR_MESSAGE = {
   MAXIMUM_USER_INPUT: "금액은 최대 10000원까지 투입할수 있습니다",
   NO_PRODUCT: "상품의 재고가 없습니다",
   LACK_OF_BALANCE: "잔액이 부족합니다",
+  MUST_LOGIN: "로그인후 이용해주세요",
+  ALREADY_LOGIN: "이미 로그인이 되어있습니다",
 };
 
 export const VENDING_MACHINE_NUMBER = {

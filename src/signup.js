@@ -1,4 +1,5 @@
 import "./css/login";
+import showSnackbar from "./js/util/snackbar";
 
 class SignUp {
   constructor() {
@@ -38,11 +39,7 @@ class SignUp {
     const body = await response.json();
 
     if (!response.ok) {
-      this.$snackbar.innerText = body;
-      this.$snackbar.classList.toggle("show");
-      setTimeout(() => {
-        this.$snackbar.classList.toggle("show");
-      }, 1000);
+      showSnackbar(this.$snackbar, body);
       return;
     }
 
