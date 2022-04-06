@@ -1,11 +1,13 @@
 import { createElementByTemplate, selectDom } from '../utils/dom';
 
 const template = `
-      <nav class="user-navigation">
-        <button>로그인</button>
-      </nav>
-      <h1 id="app-title">🍿 자판기 🍿</h1>
-      <nav id="tab-menu-navigation">
+    <nav class="user-navigation"> 
+      <a type="button" class="tab-menu-button" href="#/login">
+        로그인
+        </a>
+    </nav>
+    <h1 id="app-title">🍿 자판기 🍿</h1>
+    <nav id="tab-menu-navigation">
         <a type="button" id="manage-tab-menu" class="tab-menu-button" href="#/manage">
           상품 관리
         </a>
@@ -15,17 +17,30 @@ const template = `
         <a type="button" id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
           상품 구매
         </a>
-      </nav>
+    </nav>
     `;
 
 export default class Navigation {
   #navContainer;
   #tabMenuNav;
+  #user;
 
-  constructor() {
+  constructor(user) {
+    this.#user = user;
     this.#navContainer = createElementByTemplate('header', template);
     this.#tabMenuNav = selectDom('#tab-menu-navigation', this.#navContainer);
+    this.#renderMenuNavigation();
+
     this.#tabMenuNav.addEventListener('click', this.#handleTabMenuChange);
+  }
+
+  #renderMenuNavigation() {
+    if (!this.#user.isLoggined) {
+      this.#tabMenuNav.classList.add('hide');
+    }
+    if (this.#user.isLoggined) {
+      this.#tabMenuNav.classList.remove('hide');
+    }
   }
 
   #handleTabMenuChange = (e) => {

@@ -1,9 +1,9 @@
-import { createMainElement, selectDom } from '../utils/dom';
+import { createElementByTemplate, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
 
 export default class Router {
   #renderList;
-  #app;
+
   #privateRenderList;
   #user;
 
@@ -11,8 +11,6 @@ export default class Router {
     this.#user = user;
     this.#privateRenderList = {};
     this.#renderList = {};
-
-    this.#app = selectDom('#app');
   }
 
   bindEvents() {
@@ -31,20 +29,21 @@ export default class Router {
   }
 
   #render = () => {
-    const path = window.location.hash || '#/manage';
-    const main = selectDom('main');
+    const path = window.location.hash || '#/purchase';
 
     if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTemplate);
-      this.#app.replaceChild(notFoundContainer, main);
+      const notFoundContainer = createElementByTemplate('div', notFoundTemplate);
+      notFoundContainer.id = 'app';
+      selectDom('body').replaceChild(notFoundContainer, selectDom('#app'));
       return;
     }
 
-    // if (this.#privateRenderList[path] && !this.#user.isLogined) {
-    //   window.history.pushState({}, null, '#/purchase');
-    //   this.#render();
-    //   return;
-    // }
+    if (this.#privateRenderList[path] && !this.#user.isLogined) {
+      window.history.pushState({}, null, '#/login');
+      this.#render();
+      return;
+    }
+
     selectDom('body').replaceChild(this.#renderList[path].element, selectDom('#app'));
     this.#updateCurrentTabMenu(path);
   };

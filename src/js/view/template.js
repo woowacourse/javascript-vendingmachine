@@ -160,5 +160,5 @@ export const productPurchaseTableRow = ({ name, stock, price, id }) => `
 export const notFoundTemplate = `
 <section title="존재하지 않는 페이지" class="not-found-section">
   <h2>🛒 Page Not Found</h2>
-  <a href="#/manage" class="tab-menu-button">시작 페이지로</a>
+  <a href="/" class="tab-menu-button">시작 페이지로</a>
 </section>`;

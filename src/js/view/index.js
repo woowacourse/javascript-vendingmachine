@@ -13,11 +13,10 @@ export default function initView() {
   const vendingMachine = new VendingMachine();
   const user = new User();
 
-  const navBar = new Navigation();
-  const manageProductPage = new Page(new Navigation(), new ManageProductTab());
-  const purchaseProductPage = new Page(new Navigation(), new PurchaseProductTab());
-  const addChangePage = new Page(new Navigation(), new AddChangeTab());
-  const router = new Router(user, navBar);
+  const manageProductPage = new Page(new Navigation(user), new ManageProductTab());
+  const purchaseProductPage = new Page(new Navigation(user), new PurchaseProductTab());
+  const addChangePage = new Page(new Navigation(user), new AddChangeTab());
+  const router = new Router(user);
   const controller = new Controller(
     vendingMachine,
     addChangePage,
