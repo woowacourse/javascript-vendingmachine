@@ -15,6 +15,11 @@ const targets = [
     $focusInput: $('#signup-email'),
   },
   {
+    hash: '#!user-info-modify',
+    header: HEADER.USER_INFO_MODIFY,
+    $container: $('user-info-modify'),
+  },
+  {
     hash: '#!product-manage',
     header: HEADER.VENDING_MACHINE,
     $button: $('.nav__product-manage-button'),
@@ -56,7 +61,7 @@ const renderApp = (currentTarget) => {
 const renderTargets = (currentTarget, prevTarget) => {
   currentTarget.$button?.classList.add('clicked');
   showElement(currentTarget.$container);
-  currentTarget.$focusInput.focus();
+  currentTarget.$focusInput?.focus();
 
   if (!prevTarget) return;
 

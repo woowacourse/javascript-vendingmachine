@@ -43,11 +43,35 @@ class AuthMenu extends CustomElement {
   }
 
   setEvent() {
-    $('.user-button').addEventListener('click', this.handleUserButtonClick);
-    $('.logout-button').addEventListener('click', this.handleLogoutButtonClick);
+    this.addEventListener('click', this.handleAuthMenuClick);
   }
 
-  handleUserButtonClick = () => {};
+  handleAuthMenuClick = (event) => {
+    const { target } = event;
+
+    if (target === $('.user-button')) {
+      this.handleUserButtonClick();
+      return;
+    }
+
+    if (target === $('.logout-button')) {
+      this.handleLogoutButtonClick();
+    }
+
+    hideElement($('.user-menu-select-box'));
+  };
+
+  handleUserButtonClick = () => {
+    const $userMenuSelectBox = $('.user-menu-select-box');
+
+    if ($userMenuSelectBox.classList.contains('hidden')) {
+      showElement($userMenuSelectBox);
+
+      return;
+    }
+
+    hideElement($userMenuSelectBox);
+  };
 
   handleLogoutButtonClick = () => {
     logout();
