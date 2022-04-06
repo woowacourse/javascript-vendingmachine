@@ -1,9 +1,3 @@
-// - [ ] 상품 구매 페이지에서 최초 충전 금액은 0원이며, 반환된 각 동전의 개수는 0개이다. // domain
-// - [ ] 사용자는 투입할 금액 입력 요소에 투입 금액을 입력한 후, 투입하기버튼을 이용하여 금액을 투입한다. // 금액이 투입되는지 확인 domain
-//   - [ ] 금액은 10원으로 나누어 떨어지는 금액만 투입할 수 있다. // utils
-//   - [ ] 최대 투입 금액은 10,000원이다. // utils
-// - [ ] 금액은 누적으로 투입할 수 있다. // domain 누적 되는지 확인
-// - [ ] 사용자가 버튼을 클릭했을 때 해당 행위가 정상적으로 동작하거나, 실패하였음을 snackbar를 통해 보여준다.
 import VendingMachineConsumerMoneyManager from '../ts/domains/VendingMachineConsumerMoneyManager';
 import {
   checkValidConsumerChargeMoney,
