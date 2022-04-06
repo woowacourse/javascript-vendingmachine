@@ -35,6 +35,7 @@ export const ERROR_MSG = {
   CHANGE_OUT_OF_RANGE: '잔돈은 10이상 100000이하의 금액을 투입하여야 합니다.',
   CHARGE_OUT_OF_RANGE: '구매 금액은 10이상 10,000이하의 금액을 투입하여야 합니다.',
   OVER_CHARGE_INPUT: '금액이 부족합니다! 돈을 추가 투입해주세요',
+  OUT_OF_CHANGE: '자판기에 보유 동전이 없습니다 관리자에게 문의해주세요',
   NOT_MATCH_EMAIL_FORM: '이메일의 형식에 맞게 입력해주세요',
   OVER_USER_NAME_RANGE: '이름은 최소 2글자 최대 6글자여야 합니다',
   NOT_MATCH_PASSWORD_FORM:

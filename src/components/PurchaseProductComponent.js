@@ -37,7 +37,7 @@ class PurchaseProductComponent {
                 <input id="charge-input" type="number" placeholder="금액" />
                 <button class="submit-button">투입</button>
               </div>
-              <div class="total-amount">투입한 금액: <span id="input-total-amount"></span>원</div>
+              <div class="total-amount">투입한 금액: <span id="input-total-amount">0</span>원</div>
             </form>
           </section>`;
   }
