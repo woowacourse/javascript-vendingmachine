@@ -81,6 +81,8 @@ class router {
         this.userInfo.render();
         break;
       default:
+        history.pushState({}, '상품 구매하기', window.location.pathname + hash);
+        this.productPurchase.render();
         break;
     }
   }
