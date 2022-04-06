@@ -70,7 +70,7 @@ var SignUpTab = /** @class */ (function () {
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 7, , 8]);
-                        return [4 /*yield*/, fetch('http://e217-175-123-111-78.ngrok.io/register', {
+                        return [4 /*yield*/, fetch('https://e217-175-123-111-78.ngrok.io/register', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'

@@ -72,7 +72,7 @@ var LoginTab = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, fetch('http://e217-175-123-111-78.ngrok.io/login', {
+                        return [4 /*yield*/, fetch('https://e217-175-123-111-78.ngrok.io/login', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
