@@ -1,5 +1,5 @@
 import { API } from '../../apis';
-import { UserInfoWithPassWord } from '../types';
+import type { Inputs, UserInfoWithPassWord } from '../types';
 
 const getRandomIndex = <T>(array: T[]) => {
   return Math.floor(Math.random() * array.length);
@@ -67,6 +67,15 @@ const snackBarMaker = () => {
 
 const showSnackbar = snackBarMaker();
 
+function focusOnInvalidInput<T>(target: keyof T, $inputs: Inputs<T>) {
+  const keys = Object.keys($inputs);
+  keys.forEach(key => {
+    if (target === key) {
+      $inputs[key].focus();
+    }
+  });
+}
+
 export {
   getRandomIndex,
   insertNBSP,
@@ -75,4 +84,5 @@ export {
   getUser,
   snackBarMaker,
   showSnackbar,
+  focusOnInvalidInput,
 };
