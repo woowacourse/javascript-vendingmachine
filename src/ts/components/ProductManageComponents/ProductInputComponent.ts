@@ -54,7 +54,7 @@ export default class ProductInputComponent {
         'success'
       );
 
-      emit(this.$productAddButton, '@productInputSubmit', {
+      emit(this.$productAddButton, '@addNewProduct', {
         detail: {
           newProduct,
         },

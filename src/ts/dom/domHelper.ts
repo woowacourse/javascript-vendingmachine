@@ -17,7 +17,7 @@ export const emit = (
 
 export const $ = <T extends HTMLElement>(
   selector: string,
-  element = document
+  element: Document | HTMLElement = document
 ): T | null => element.querySelector(selector);
 
 export const $$ = <T extends HTMLElement>(

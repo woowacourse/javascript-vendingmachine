@@ -7,7 +7,7 @@ import {
   PRODUCT_QUANTITY,
 } from '../constants/product';
 
-export const checkValidLengthProductName = (name: string): void => {
+export const checkValidLengthProductName = (name: string): void | never => {
   if (!name.trim()) {
     throw new Error(ERROR_MESSAGE.EMPTY_PRODUCT_NAME);
   }
@@ -23,7 +23,7 @@ export const checkValidLengthProductName = (name: string): void => {
 export const checkDuplicatedProductName = (
   products: Product[],
   newProduct: Product
-): void => {
+): void | never => {
   if (products.some((product: Product) => product.name === newProduct.name)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
@@ -32,13 +32,13 @@ export const checkDuplicatedProductName = (
 export const checkEditDuplicateName = (
   editIndex: number,
   duplicatedNameIndex: number
-): void => {
+): void | never => {
   if (duplicatedNameIndex !== -1 && editIndex !== duplicatedNameIndex) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
   }
 };
 
-export const checkValidProductPrice = (price: number): void => {
+export const checkValidProductPrice = (price: number): void | never => {
   if (Number.isNaN(price)) {
     throw new Error(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
   }
@@ -52,7 +52,7 @@ export const checkValidProductPrice = (price: number): void => {
   }
 };
 
-export const checkValidProductQuantity = (quantity: number): void => {
+export const checkValidProductQuantity = (quantity: number): void | never => {
   if (Number.isNaN(quantity)) {
     throw new Error(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
   }

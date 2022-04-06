@@ -5,6 +5,7 @@ import { on, $, focusEditInput, $$, emit } from '../../dom/domHelper';
 import focusWrongInput from '../../dom/checkErrorMessage';
 
 import { DELETE_PRODUCT_CONFIRM_MESSAGE } from '../../constants/errorMessage';
+import SUCCESS_MESSAGE from '../../constants/successMessage';
 
 import {
   checkValidLengthProductName,
@@ -21,18 +22,19 @@ export default class ProductStateComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
   constructor(private vendingMachineProductManager) {
+    on(this.$productTableTbody, 'click', this.onClickProductList);
+    on(this.$productTableTbody, 'keyup', this.onKeyupProductList);
+
     on(
       $<HTMLButtonElement>('.product-info-form__add-button'),
-      '@productInputSubmit',
-      this.addProduct
+      '@addNewProduct',
+      this.addNewProduct
     );
     on(
       $<HTMLElement>('.consumer-product-table__tbody'),
       '@subtractProductQuantity',
       this.subtractProductQuantity
     );
-    on(this.$productTableTbody, 'click', this.onClickProductList);
-    on(this.$productTableTbody, 'keyup', this.onKeyupProductList);
   }
 
   private subtractProductQuantity = ({ detail: { editProduct } }): void => {
@@ -42,29 +44,32 @@ export default class ProductStateComponent {
       (product) => product.dataset.productName === editProduct.name
     );
 
-    target.querySelector('.product-table__product-quantity').textContent =
+    $<HTMLElement>('.product-table__product-quantity', target).textContent =
       editProduct.quantity;
   };
 
-  private addProduct = ({ detail: { newProduct } }): void => {
+  private addNewProduct = ({ detail: { newProduct } }): void => {
     this.$productTableTbody.insertAdjacentHTML(
       'beforeend',
       generateTemplate(newProduct)
     );
   };
 
-  private approveEditProduct(target) {
+  private approveEditProduct(target: HTMLButtonElement): void {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
     const $editProductNameInput = $<HTMLInputElement>(
-      '.product-table__product-name-input--edit'
+      '.product-table__product-name-input--edit',
+      parentElement
     );
     const $editProductPriceInput = $<HTMLInputElement>(
-      '.product-table__product-price-input--edit'
+      '.product-table__product-price-input--edit',
+      parentElement
     );
     const $editProductQuantityInput = $<HTMLInputElement>(
-      '.product-table__product-quantity-input--edit'
+      '.product-table__product-quantity-input--edit',
+      parentElement
     );
 
     try {
@@ -83,21 +88,21 @@ export default class ProductStateComponent {
         editedProduct
       );
 
+      parentElement.innerHTML = generateTemplate(editedProduct);
+      parentElement.dataset.productName = $editProductNameInput.value;
+
+      renderSnackBar(
+        this.$snackBarContainer,
+        SUCCESS_MESSAGE.EDITED_PRODUCT,
+        'success'
+      );
+
       emit(this.$productTableTbody, '@editConsumerProduct', {
         detail: {
           previousProductName: parentElement.dataset.productName,
           editedProduct,
         },
       });
-
-      parentElement.innerHTML = generateTemplate(editedProduct);
-      parentElement.dataset.productName = $editProductNameInput.value;
-
-      renderSnackBar(
-        this.$snackBarContainer,
-        `상품이 정상적으로 수정되었습니다. 수정된 상품을 확인해주세요.`,
-        'success'
-      );
     } catch ({ message }) {
       focusWrongInput({
         message,
@@ -105,11 +110,12 @@ export default class ProductStateComponent {
         $priceInput: $editProductPriceInput,
         $quantityInput: $editProductQuantityInput,
       });
+
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }
   }
 
-  private readyEditProduct(target) {
+  private readyEditProduct(target: HTMLButtonElement): void {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
@@ -121,11 +127,14 @@ export default class ProductStateComponent {
     parentElement.innerHTML = generateEditTemplate(targetProduct);
 
     focusEditInput(
-      parentElement.querySelector('.product-table__product-name-input--edit')
+      $<HTMLInputElement>(
+        '.product-table__product-name-input--edit',
+        parentElement
+      )
     );
   }
 
-  private deleteProduct(target): void {
+  private deleteProduct(target: HTMLButtonElement): void {
     const parentElement: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
@@ -142,7 +151,7 @@ export default class ProductStateComponent {
 
     renderSnackBar(
       this.$snackBarContainer,
-      '상품이 정상적으로 삭제되었습니다.',
+      SUCCESS_MESSAGE.DELETED_PRODUCT,
       'success'
     );
 
@@ -153,7 +162,7 @@ export default class ProductStateComponent {
     });
   }
 
-  private onKeyupProductList = ({ target, key }) => {
+  private onKeyupProductList = ({ target, key }): void => {
     if (!target.matches('.product-table__input--edit')) return;
     if (key !== 'Enter') return;
 
