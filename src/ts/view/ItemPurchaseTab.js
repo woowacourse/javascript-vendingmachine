@@ -15,6 +15,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.inputAmountText = null;
     this.itemStatusTable = null;
     this.changeTable = null;
+    this.coinCountList = null;
     this.changeButton = null;
   }
 
@@ -41,6 +42,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.inputAmountText = selectDom('#input-amount', this.tabContent);
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
     this.changeTable = selectDom('.change-table', this.tabContent);
+    this.coinCountList = selectDoms('.coin-count', this.changeTable);
     this.changeButton = selectDom('.give-change-button', this.tabContent);
 
     this.itemPurchaseForm.addEventListener('submit', this.#onSubmitItemPurchaseForm);
@@ -69,7 +71,7 @@ class ItemPurchaseTab extends VendingMachineTab {
   };
 
   #onClickPurchaseItemButton = ({ target }) => {
-    if (target.classList.contains('purchase-item-button')) {
+    if (this.#isPurchaseItemButton(target)) {
       const targetItem = target.closest('tr');
       const targetItemInfoIndex = this.itemManage.itemList.findIndex(
         (itemInfo) => itemInfo.itemName === targetItem.dataset.itemName
@@ -91,8 +93,11 @@ class ItemPurchaseTab extends VendingMachineTab {
       this.itemManage.decreaseItemQuantity(targetItemInfoIndex);
 
       const itemQuantityCell = selectDom('.item-quantity', targetItem);
-      itemQuantityCell.textContent = itemQuantity - 1;
-      this.inputAmountText.textContent = this.vendingMachine.money;
+      this.#renderUpdatedDataAfterPurchaseItem(
+        itemQuantity - 1,
+        this.vendingMachine.money,
+        itemQuantityCell
+      );
     }
   };
 
@@ -106,13 +111,8 @@ class ItemPurchaseTab extends VendingMachineTab {
       this.vendingMachine.calculateChange(this.coinRecharge.coinCollection)
     );
 
-    const coinCountList = selectDoms('.coin-count', this.changeTable);
-    coinCountList.forEach((coinCount) => {
-      coinCount.textContent = `${this.vendingMachine.change[coinCount.dataset.coinValue]}개`;
-    });
-
     const remainedMoney = this.vendingMachine.money;
-    this.inputAmountText.textContent = remainedMoney;
+    this.#renderUpdatedDataAfterGiveChange(this.coinCountList, remainedMoney);
 
     if (remainedMoney !== 0) {
       showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE_ALL);
@@ -120,6 +120,22 @@ class ItemPurchaseTab extends VendingMachineTab {
     }
     showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.GIVE_BACK_CHANGE_SUCCESS);
   };
+
+  #renderUpdatedDataAfterPurchaseItem(decreasedItemQuantity, decreasedMoney, itemQuantityCell) {
+    itemQuantityCell.textContent = decreasedItemQuantity;
+    this.inputAmountText.textContent = decreasedMoney;
+  }
+
+  #renderUpdatedDataAfterGiveChange(coinCountList, remainedMoney) {
+    coinCountList.forEach((coinCount) => {
+      coinCount.textContent = `${this.vendingMachine.change[coinCount.dataset.coinValue]}개`;
+    });
+    this.inputAmountText.textContent = remainedMoney;
+  }
+
+  #isPurchaseItemButton(target) {
+    return target.classList.contains('purchase-item-button');
+  }
 }
 
 export default ItemPurchaseTab;
