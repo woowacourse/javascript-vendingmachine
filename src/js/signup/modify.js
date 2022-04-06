@@ -2,8 +2,10 @@ import '../../css/index.css';
 import { $ } from '../utils/dom';
 import { validPassword } from './validAccount';
 import { handleSnackbarMessage } from '../utils/snackbar.js';
+import { modifyUserInfo } from '../utils/API';
+import { getSessionStorage } from '../utils/sessionStorage';
 
-const { user } = JSON.parse(sessionStorage.getItem('user'));
+const { user } = getSessionStorage('user');
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');
@@ -23,17 +25,7 @@ signUpForm.addEventListener('submit', async (e) => {
 
   try {
     validPassword(passwordValue, passwordCheckValue);
-    const response = await fetch(`https://json-web-server-ronci.herokuapp.com/users/${user.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        name: nameValue,
-        email: user.email,
-        password: passwordValue,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await modifyUserInfo(nameValue, user.email, passwordValue, user.id);
 
     location.href = './login.html';
   } catch (error) {

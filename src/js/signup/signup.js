@@ -2,6 +2,7 @@ import '../../css/index.css';
 import { $ } from '../utils/dom';
 import { validEmail, validPassword } from './validAccount';
 import { handleSnackbarMessage } from '../utils/snackbar.js';
+import { signup } from '../utils/API';
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');
@@ -19,17 +20,7 @@ signUpForm.addEventListener('submit', async (e) => {
 
   try {
     validPassword(passwordValue, passwordCheckValue);
-    const response = await fetch('https://json-web-server-ronci.herokuapp.com/register', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: nameValue,
-        email: emailValue,
-        password: passwordValue,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await signup(nameValue, emailValue, passwordValue);
 
     const dataResult = await response.json();
     if (!validEmail(dataResult)) return;
