@@ -23,6 +23,7 @@ class VendingMachineComponent {
     this.initDOM();
     this.initChildComponents();
     this.showSectionByRoute(hashRoute);
+    localStorage.clear();
   }
 
   initDOM() {
