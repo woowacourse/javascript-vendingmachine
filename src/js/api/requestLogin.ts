@@ -1,7 +1,7 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
 
 const requestLogin = async (accountData: Object) => {
-  const response = await fetch('http://localhost:3000/login', {
+  const response = await fetch(SERVER_URL + '/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

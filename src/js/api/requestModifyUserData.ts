@@ -1,8 +1,8 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 
 const requestModifyUserData = async (userData: User) => {
-  const response = await fetch(`http://localhost:3000/users/${userData.id}`, {
+  const response = await fetch(SERVER_URL + `/users/${userData.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

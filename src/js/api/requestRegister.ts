@@ -1,8 +1,8 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 
 const requestRegister = async (userData: User) => {
-  const response = await fetch('http://localhost:3000/users', {
+  const response = await fetch(SERVER_URL + '/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
