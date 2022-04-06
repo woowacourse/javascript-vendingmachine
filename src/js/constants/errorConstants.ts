@@ -1,3 +1,4 @@
+import { SIGN_INPUT } from './appContants';
 import { ITEM, MONEY } from './vendingMachineConstants';
 
 export const ERROR_MESSAGE = {
@@ -34,8 +35,8 @@ export const ERROR_MESSAGE = {
   },
   INPUT_SIGN: {
     INVALID_EMAIL: '잘못된 이메일 형식입니다.',
-    INVALID_NAME: '한글과 영문이 혼용되지 않는 2이상 6이하의 이름을 입력해주세요.',
-    INVALID_PASSWORD: '문자, 숫자, 특수문자가 하나 이상 포함된 8자 이하의 비밀번호를 입력해주세요.',
+    INVALID_NAME: `한글과 영문이 혼용되지 않는 ${SIGN_INPUT.NAME.MIN}이상 ${SIGN_INPUT.NAME.MAX}이하의 이름을 입력해주세요.`,
+    INVALID_PASSWORD: `문자, 숫자, 특수문자가 하나 이상 포함된 ${SIGN_INPUT.PASSWORD.MIN}자 이하의 비밀번호를 입력해주세요.`,
     NOT_MATCH_PASSWORD: '비밀번호가 일치하지 않습니다.',
   },
   SIGN: {

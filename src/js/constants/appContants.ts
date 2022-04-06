@@ -22,3 +22,13 @@ export const CUSTOM_EVENT = {
 };
 
 export const FIRST_INDEX = 0;
+
+export const SIGN_INPUT = {
+  NAME: {
+    MIN: 2,
+    MAX: 6,
+  },
+  PASSWORD: {
+    MIN: 8,
+  },
+};
