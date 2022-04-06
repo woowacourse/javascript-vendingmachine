@@ -69,7 +69,8 @@ button {
 .product-manange__container,
 .charge-manange__container,
 .purchase-manange__container,
-.login-manange__container {
+.login-manange__container,
+.signup-manange__container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,6 +82,7 @@ button {
 .charge-manange__container.hide,
 .purchase-manange__container.hide,
 .login-manange__container.hide,
+.signup-manange__container.hide,
 .select-box.hide,
 .app-title.hide,
 .thumnail-button.hide,
@@ -178,9 +180,12 @@ button {
 
 .product-manange__add-button:hover,
 .charge-manange__add-button:hover,
-.purchase-form__add-button:hover {
+.purchase-form__add-button:hover,
+.login-manage__confirm-button:hover,
+.signup-manage__confirm-button:hover {
   background: var(--color-dark-skyblue);
 }
+
 .product-manange__title,
 .charge-manange__title,
 .purchase-table__title,
@@ -234,7 +239,8 @@ button {
   border-bottom: 1px solid var(--color-light-gray);
 }
 
-.login-manage__form {
+.login-manage__form,
+.signup-manage__form {
   display: flex;
   flex-direction: column;
 }
@@ -249,11 +255,13 @@ button {
   font-size: 15px;
 }
 
-.login-manage__title {
+.login-manage__title,
+.signup-manage__title {
   font-size: 35px;
 }
 
-.login-manage__confirm-button {
+.login-manage__confirm-button,
+.signup-manage__confirm-button {
   background-color: var(--color-middle-skyblue);
   color: var(--color-white);
   height: 35px;

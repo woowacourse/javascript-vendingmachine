@@ -8,8 +8,12 @@ import ProductComponent from "./product/ProductComponent";
 import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
+import SignupComponent from "./signup/SignupComponent";
 
-export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile";
+export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
+export type ConvertTemplate = (path: Path) => void;
+export type HideAppTitle = () => void;
+export type HideLoginButton = () => void;
 
 class App {
   app: HTMLElement;
@@ -26,6 +30,7 @@ class App {
   thumnailButton: HTMLButtonElement;
   selectBox: HTMLDivElement;
   appTitle: HTMLHeadingElement;
+  signupComponent: SignupComponent;
 
   constructor() {
     this.app = $("#app");
@@ -44,6 +49,7 @@ class App {
          <section class="charge-manange__container manange-container"></section>
          <section class="purchase-manange__container manange-container"></section>
          <section class="login-manange__container manange-container"></section>
+         <section class="signup-manange__container manange-container"></section>
        </main>`,
     );
 
@@ -60,7 +66,8 @@ class App {
     this.productComponent = new ProductComponent(this.productManager);
     this.chargeComponent = new ChargeComponent(this.chargeManager);
     this.purchaseComponent = new PurchaseComponent(this.productManager, this.chargeManager);
-    this.loginComponent = new LoginComponent(this.hideAppTitle, this.hideLoginButton);
+    this.loginComponent = new LoginComponent(this.hideAppTitle, this.hideLoginButton, this.convertTemplate);
+    this.signupComponent = new SignupComponent(this.hideAppTitle, this.hideLoginButton);
 
     if (!location.hash) {
       history.pushState({ path: "#purchase" }, null, "#purchase");
@@ -141,6 +148,7 @@ class App {
       "#charge": () => this.chargeComponent.show(),
       "#purchase": () => this.purchaseComponent.show(),
       "#login": () => this.loginComponent.show(),
+      "#signup": () => this.signupComponent.show(),
     };
 
     routes[path]();

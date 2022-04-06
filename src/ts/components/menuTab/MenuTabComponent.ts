@@ -1,8 +1,6 @@
 import { $, $$ } from "../../utils/dom";
-import { Path } from "../App";
+import { ConvertTemplate, Path } from "../App";
 import { menuTabTemplate } from "./menuTabTemplate";
-
-type ConvertTemplate = (path: Path) => void;
 
 class MenuTabComponent {
   menuNav: HTMLElement;
