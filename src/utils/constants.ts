@@ -52,7 +52,7 @@ export const URL_PATH = {
   HOME: '/',
   BALANCE_CHAREGE: '/balanceCharge',
   LOGIN: '/login',
-  SINGUP: '/signup',
+  SIGNUP: '/signup',
   EDIT_USER_INFO: '/editUserInfo',
   PRODUCT_MANAGE: '/productManage',
   PRODUCT_PURCHASE: '/productPurchase',
