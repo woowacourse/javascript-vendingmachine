@@ -30,6 +30,7 @@ class ProductListComponent {
 
     if (await throwableFunctionHandler(() => vendingMachine.purchaseProduct(productName))) {
       $productAmount.textContent = (Number(productAmount) - 1).toString();
+      this.noticeStateChanged();
     }
   };
 

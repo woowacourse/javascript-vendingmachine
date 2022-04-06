@@ -126,10 +126,18 @@ class VendingMachine {
   purchaseProduct(productName: string) {
     const productIndex = this.findProductIndex(productName);
     const productPrice = this.products[productIndex].price;
+    const productAmount = this.products[productIndex].amount;
 
     if (this.userMoney < productPrice) {
       throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
     }
+
+    if (productAmount < 1) {
+      throw new Error(ERROR_MESSAGE.NOT_ENOUGH_AMOUNT);
+    }
+
+    this.userMoney -= productPrice;
+    this.products[productIndex].amount -= 1;
 
     return ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName);
   }
