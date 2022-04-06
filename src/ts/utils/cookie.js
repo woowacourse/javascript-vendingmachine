@@ -16,3 +16,11 @@ export const getCookie = (key) => {
       .split('=')[1]
   );
 };
+
+export const deleteCookie = (key) => {
+  const pastDate = new Date();
+  pastDate.setDate(pastDate.getDate() - 1);
+
+  const deletedCookie = `${key}=;expires=${pastDate.toUTCString()}`;
+  document.cookie = deletedCookie;
+};

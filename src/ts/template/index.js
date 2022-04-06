@@ -165,11 +165,14 @@ export const registerUserPageTemplate = `
   </form>
 `;
 
-export const vendingMachineNavBarTemplate = (isLoginUser, nameFirstLetter) => `
+export const vendingMachineNavBarTemplate = (isLoginUser) => `
   ${
     isLoginUser
-      ? `<button type="button" id="thumbnail-button">${nameFirstLetter}</button>
+      ? `<button type="button" id="thumbnail-button">${
+          localStorage.getItem('user-name')[0]
+        }</button>
         <select class="thumbnail-option hide" name="thumbnail-option">
+          <option value="default" selected disabled>메뉴 목록</option>
           <option value="edit-user-info">회원정보 수정</option>
           <option value="logout">로그아웃</option>
         </select>
