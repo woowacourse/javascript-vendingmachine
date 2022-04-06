@@ -1,10 +1,7 @@
 import './css/app.css';
-// 임시
-import { Auth } from './domain/Auth';
 
-import { NavView } from './view/NavView';
+import { Router } from './view/Router';
 
 window.addEventListener('DOMContentLoaded', () => {
-  new NavView();
-  new Auth();
+  new Router();
 });

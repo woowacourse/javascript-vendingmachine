@@ -82,7 +82,6 @@ export class Router {
 
   #handlePopstate = (e) => {
     const { path } = e.state;
-    console.log(e);
     const accessToken = localStorage.getItem('accessToken');
 
     if (path === URL_PATH.HOME) {
@@ -94,11 +93,11 @@ export class Router {
     if (path === URL_PATH.PRODUCT_MANAGE) {
       if (!accessToken) return this.#renderHome();
 
-      this.#productManageView.show();
       this.#productPurchaseView.hide();
       this.#authSection.classList.add('hide');
       this.#balanceChargeView.hide();
 
+      this.#productManageView.show();
       this.#thumbnail.classList.remove('hide');
       this.#featureSection.classList.remove('hide');
 
@@ -108,12 +107,13 @@ export class Router {
     if (path === URL_PATH.BALANCE_CHAREGE) {
       if (!accessToken) return this.#renderHome();
 
-      this.#thumbnail.classList.remove('hide');
-      this.#balanceChargeView.show();
       this.#productPurchaseView.hide();
       this.#productManageView.hide();
-      this.#featureSection.classList.remove('hide');
       this.#authSection.classList.add('hide');
+
+      this.#thumbnail.classList.remove('hide');
+      this.#balanceChargeView.show();
+      this.#featureSection.classList.remove('hide');
 
       return;
     }
@@ -178,12 +178,11 @@ export class Router {
       this.#productManageView.renderAll();
     }
 
-    this.#productManageView.show();
     this.#balanceChargeView.hide();
     this.#productPurchaseView.hide();
+    this.#productManageView.show();
 
-    const path = URL_PATH.PRODUCT_MANAGE;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.PRODUCT_MANAGE);
   };
 
   #handleShowBalanceChargeTab = () => {
@@ -191,12 +190,11 @@ export class Router {
       this.#balanceChargeView.renderAll();
     }
 
-    this.#balanceChargeView.show();
     this.#productPurchaseView.hide();
     this.#productManageView.hide();
+    this.#balanceChargeView.show();
 
-    const path = URL_PATH.BALANCE_CHAREGE;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.BALANCE_CHAREGE);
   };
 
   #handleShowProductPurhcaseTab = () => {
@@ -204,12 +202,11 @@ export class Router {
       this.#productPurchaseView.renderAll();
     }
 
-    this.#productPurchaseView.show();
     this.#balanceChargeView.hide();
     this.#productManageView.hide();
+    this.#productPurchaseView.show();
 
-    const path = URL_PATH.PRODUCT_PURCHASE;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.PRODUCT_PURCHASE);
   };
 
   #handleShowLoginPage = () => {
@@ -220,8 +217,7 @@ export class Router {
     this.#authSection.textContent = '';
     this.#loginView.render();
 
-    const path = URL_PATH.LOGIN;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.LOGIN);
   };
 
   #handleShowSignupPage = () => {
@@ -232,8 +228,7 @@ export class Router {
     this.#authSection.textContent = '';
     this.#signupView.render();
 
-    const path = URL_PATH.SIGNUP;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.SIGNUP);
   };
 
   #handleShowEditUserInfoPage = () => {
@@ -244,12 +239,10 @@ export class Router {
     this.#authSection.textContent = '';
     this.#userInfoEditView.render();
 
-    const path = URL_PATH.EDIT_USER_INFO;
-    this.#handleUrlPath(path);
+    this.#handleHistoryState(URL_PATH.EDIT_USER_INFO);
   };
 
   #renderHome = () => {
-    // 공통
     this.#authSection.classList.add('hide');
     this.#featureSection.classList.remove('hide');
 
@@ -269,7 +262,7 @@ export class Router {
     this.#handleShowProductPurhcaseTab();
   };
 
-  #handleUrlPath(path: string) {
+  #handleHistoryState(path: string) {
     const isSamePath = location.pathname === path;
 
     if (isSamePath) {
@@ -281,3 +274,12 @@ export class Router {
     history.pushState({ path }, null, path);
   }
 }
+
+const routes = (path) => {
+  switch (path) {
+    case '/login':
+      console.log('login');
+    case '/productPurchase':
+      console.log('productPurchase');
+  }
+};
