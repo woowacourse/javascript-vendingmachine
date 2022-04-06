@@ -10,7 +10,7 @@ class Login extends CustomElement {
   template() {
     return `
       <h1>로그인</h1>
-      <form class="login-form">
+      <form class="login-form auth-form">
         <fieldset>
           <label for="login-email">이메일</label>
           <input type="email" id="login-email" name="email" placeholder="woowacourse@gmail.com" required>

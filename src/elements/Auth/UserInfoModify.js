@@ -21,7 +21,7 @@ class UserInfoModify extends CustomElement {
   template(email) {
     return `
       <h1>회원 정보 수정</h1>
-      <form class="user-info-modify-form">
+      <form class="user-info-modify-form auth-form">
         <fieldset disabled>
           <label for="user-info-modify-email">이메일</label>
           <input type="email" id="user-info-modify-email" placeholder="${email}">

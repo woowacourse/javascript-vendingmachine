@@ -6,7 +6,7 @@ class Signup extends CustomElement {
   template() {
     return `
       <h1>회원가입</h1>
-      <form class="signup-form">
+      <form class="signup-form auth-form">
         <fieldset>
           <label for="signup-email">이메일</label>
           <input type="email" id="signup-email" name="email" placeholder="이메일 주소를 입력해주세요" required>
