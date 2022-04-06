@@ -9,7 +9,7 @@ import ProductComponent from "./product/ProductComponent";
 import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 
-export type Path = "#product" | "#charge" | "purchase";
+export type Path = "#product" | "#charge" | "#purchase";
 
 class App {
   app: HTMLElement;
@@ -43,11 +43,9 @@ class App {
     this.purchaseComponent = new PurchaseComponent(this.productManager, this.chargeManager);
 
     if (!location.hash) {
-      history.pushState({ path: "#product" }, null, "#product");
-      this.convertTemplate("#product");
+      history.pushState({ path: "#purchase" }, null, "#purchase");
     }
-
-    this.convertTemplate((location.hash as Path) || "#product");
+    this.convertTemplate((location.hash as Path) || "#purchase");
   }
 
   hideContainers() {

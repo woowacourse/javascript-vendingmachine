@@ -40,9 +40,9 @@ class ProductComponent {
 
     try {
       this.productManager.addProduct({ name, price, quantity });
-      this.productNameInput.focus();
-      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_ADD_PRODUCT);
       this.renderProducts();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_ADD_PRODUCT);
+      this.productNameInput.focus();
       clearInput(this.productNameInput, this.productPriceInput, this.productQuantityInput);
     } catch ({ message }) {
       this.snackbar.show(message);
@@ -100,6 +100,7 @@ class ProductComponent {
     try {
       this.productManager.editProduct({ name, price, quantity }, prevName);
       this.renderProducts();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_EDIT_PRODUCT);
       selectedRow.dataset.name = name;
     } catch ({ message }) {
       this.snackbar.show(message);

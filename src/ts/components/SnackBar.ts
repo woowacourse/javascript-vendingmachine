@@ -9,9 +9,9 @@ class Snackbar {
   }
 
   show(message: string) {
-    const snackBar = createTextElement("span", "snackbar", message);
+    const snackbar = createTextElement("span", "snackbar", message);
 
-    this.snackbarContainer.insertAdjacentElement("beforeend", snackBar);
+    this.snackbarContainer.insertAdjacentElement("beforeend", snackbar);
     setTimeout(() => {
       this.snackbarContainer.firstElementChild.remove();
     }, 2000);

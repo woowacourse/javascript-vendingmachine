@@ -35,7 +35,7 @@ const ERROR_MESSAGES = {
   INVALID_PURCHASE_AMOUNT_UNIT: `투입 금액은 ${PURCAHSE.UNIT}원으로 나누어 떨어져야합니다.`,
   NOT_ENOUGH_PURCHASE_STOCK: "해당 상품의 재고가 모두 소진되었습니다.",
   NOT_ENOUGH_PURCHASE_AMOUNT: "상품을 구매할 금액이 부족합니다. 금액을 더 충전해주세요.",
-  NOT_ENOUGH_RETURN_COIN: "자판기에 반환할 동전이 없습니다. 관리자에게 문의하세요.",
+  NOT_ENOUGH_RETURN_COIN: "반환 가능한 동전이 모두 소진되었습니다. 관리자에게 문의하세요.",
   NOT_ENOUGH_INPUT_AMOUNT: "투입한 금액이 없어서 반환할 수 없습니다.",
 };
 
@@ -44,6 +44,7 @@ const INFOMATION_MESSAGES = {
   SUCCESS_CHARGE: "금액 충전이 완료되었습니다.",
   SUCCESS_ADD_PRODUCT: "상품이 추가되었습니다.",
   SUCCESS_DELETE_PRODUCT: "상품이 삭제되었습니다.",
+  SUCCESS_EDIT_PRODUCT: "상품 수정이 완료되었습니다.",
   SUCCESS_PURCHASE_PRODUCT: "상품을 구매하였습니다.",
   SUCCESS_RETURN_COIN: "동전이 반환되었습니다.",
 };

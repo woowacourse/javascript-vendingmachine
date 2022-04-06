@@ -75,6 +75,7 @@ button {
   align-items: center;
 }
 
+.menu-nav.hide,
 .product-manange__container.hide,
 .charge-manange__container.hide,
 .purchase-manange__container.hide {
