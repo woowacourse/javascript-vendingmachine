@@ -1,10 +1,14 @@
-import { AppState } from './types';
-
 export const API_URL = 'https://vending-maching-auth-api.herokuapp.com';
 
 export const ACCESS_TOKEN_KEY = 'vending-machine-token-key';
 
 export const USER_INFO_KEY = 'vending-machine-user-info-key';
+
+export const PRODUCT_LIST_KEY = 'vending-machine-product-list-key';
+
+export const CHARGED_COIN_KEY = 'vending-machine-charged-coin-key';
+
+export const INSERTED_MONEY_KEY = 'vending-maching-inserted-money-key';
 
 export const COIN = {
   MIN_UNIT: 10,
@@ -53,24 +57,6 @@ export const ACTION = {
   INSERT_MONEY: 'insert-money',
   PURCHASE_PRODUCT: 'purchase-product',
   RELEASE_COIN: 'release-coin',
-};
-
-export const initialState: AppState = {
-  chargedMoney: 0,
-  chargedCoins: {
-    500: 0,
-    100: 0,
-    50: 0,
-    10: 0,
-  },
-  productList: [],
-  insertedMoney: 0,
-  changes: {
-    500: 0,
-    100: 0,
-    50: 0,
-    10: 0,
-  },
 };
 
 export const VALIDATION_ERROR_NAME = 'validation-error';

@@ -1,4 +1,4 @@
-import { ACTION, COIN } from '../constants';
+import { ACTION, CHARGED_COIN_KEY, COIN, INSERTED_MONEY_KEY, PRODUCT_LIST_KEY } from '../constants';
 import { Action, AppState, CoinRecord } from '../types';
 import { coinToMoney, convertArrToObj, deepCopy, shuffle } from '../utils';
 
@@ -30,6 +30,7 @@ const reducer = (state: AppState, { type, payload }: Action) => {
   switch (type) {
     case ACTION.ADD_PRODUCT: {
       newState.productList = [...newState.productList, { ...payload, isEditing: false }];
+      localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(newState.productList));
       break;
     }
     case ACTION.CHANGE_EDIT_MODE: {
@@ -42,23 +43,28 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       const { originalName, name, price, quantity } = payload;
       const index = newState.productList.findIndex((item) => item.name === originalName);
       newState.productList[index] = { name, price, quantity, isEditing: false };
+      localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(newState.productList));
       break;
     }
     case ACTION.DELETE_PRODUCT: {
       newState.productList = newState.productList.filter((item) => item.name !== payload);
+      localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(newState.productList));
       break;
     }
     case ACTION.DELETE_PRODUCT: {
       newState.productList = newState.productList.filter((item) => item.name !== payload);
+      localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(newState.productList));
       break;
     }
     case ACTION.CHARGE_COINS: {
       newState.chargedCoins = mergeCoins(newState.chargedCoins, moneyToCoin(payload));
       newState.chargedMoney += payload;
+      localStorage.setItem(CHARGED_COIN_KEY, JSON.stringify(newState.chargedCoins));
       break;
     }
     case ACTION.INSERT_MONEY: {
       newState.insertedMoney += payload;
+      localStorage.setItem(INSERTED_MONEY_KEY, `${newState.insertedMoney}`);
       break;
     }
     case ACTION.PURCHASE_PRODUCT: {
@@ -68,6 +74,8 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.productList[productIdx].quantity -= 1;
       newState.insertedMoney -= price;
       newState.productList = newState.productList.filter((item) => item.quantity > 0);
+      localStorage.setItem(PRODUCT_LIST_KEY, JSON.stringify(newState.productList));
+      localStorage.setItem(INSERTED_MONEY_KEY, `${newState.insertedMoney}`);
       break;
     }
     case ACTION.RELEASE_COIN: {
@@ -87,6 +95,9 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       newState.chargedCoins = chargedCoins;
       newState.changes = changes;
       newState.insertedMoney = insertedMoney;
+
+      localStorage.setItem(CHARGED_COIN_KEY, JSON.stringify(newState.chargedCoins));
+      localStorage.setItem(INSERTED_MONEY_KEY, `${newState.insertedMoney}`);
     }
   }
   return newState;
