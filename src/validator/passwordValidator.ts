@@ -10,13 +10,13 @@ const passwordValidator = {
   },
 };
 
-export const validatePasswordCondition = (password) => {
+export const validatePasswordCondition = (password: string): void => {
   if (passwordValidator.isInvalid(password)) {
     throw new Error(ERROR_MESSAGE.NOT_MATCH_PASSWORD_REGEXP);
   }
 };
 
-export const validatePasswordIsEqual = (password, passwordConfirm) => {
+export const validatePasswordIsEqual = (password: string, passwordConfirm: string): void => {
   if (passwordValidator.isNotEqual(password, passwordConfirm)) {
     throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
   }

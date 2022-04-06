@@ -6,7 +6,7 @@ const returnChangeValidator = {
   },
 };
 
-export const validateReturnCharge = (chargedCoin) => {
+export const validateReturnCharge = (chargedCoin): void => {
   if (returnChangeValidator.isEmptyChange(chargedCoin)) {
     throw new Error(ERROR_MESSAGE.EMPTY_CHANGE);
   }

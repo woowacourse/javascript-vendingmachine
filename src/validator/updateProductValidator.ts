@@ -16,7 +16,7 @@ const updateProductValidator = {
   },
 };
 
-export const validateUpdateProduct = (targetName: string, name: string, price: number, products: Product[]) => {
+export const validateUpdateProduct = (targetName: string, name: string, price: number, products: Product[]): void => {
   if (updateProductValidator.isDuplicated(targetName, name, products)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
   }

@@ -10,7 +10,7 @@ const changeValidator = {
   },
 };
 
-export const validateChange = (inputMoney: number, currentChange: number) => {
+export const validateChange = (inputMoney: number, currentChange: number): void => {
   if (changeValidator.isOverMax(inputMoney, currentChange)) {
     throw new Error(ERROR_MESSAGE.OVER_AMOUNT);
   }
