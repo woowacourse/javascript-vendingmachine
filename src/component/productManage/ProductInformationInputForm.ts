@@ -29,8 +29,8 @@ export class ProductInformationInputForm implements ProductInformationInputFormI
       <form id="product-information-input-form">
         <label id="product-input-label" for="product-information-input">추가할 상품 정보를 입력해주세요</label>
         <input id="product-name-input" class="input" type="text" placeholder="상품명" />
-        <input id="product-price-input" class="input" type="number" placeholder="가격" />
-        <input id="product-quantity-input" class="input" type="number" placeholder="수량" />
+        <input id="product-price-input" class="input" type="number" step="10" min="10" max="10000" placeholder="가격" />
+        <input id="product-quantity-input" class="input" type="number" max="20" placeholder="수량" />
         <button id="product-information-submit-btn" class="submit-button button" type="submit">추가</button>
       </form>
     `;
