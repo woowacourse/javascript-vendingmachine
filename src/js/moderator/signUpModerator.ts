@@ -1,11 +1,15 @@
 import SignUpView from "../ui/signUpPageView";
+import Authorization from "../domain/authorization";
 import { EVENT_TYPE } from "../constant";
 import { on } from "../util/event";
 
 class SignUpModerator {
   signUpView;
+  authorization;
+
   constructor() {
     this.signUpView = new SignUpView();
+    this.authorization = new Authorization();
     on<any>(window, EVENT_TYPE.SIGN_UP, (e) => {
       this.signUp(e.detail);
     });
@@ -15,9 +19,8 @@ class SignUpModerator {
     this.signUpView.init();
   }
 
-  signUp({ email, name, password }) {
-    console.log("gg");
-    // api 요청 보내주기~
+  signUp(userInfo) {
+    this.authorization.signUp(userInfo);
   }
 }
 
