@@ -17,7 +17,7 @@ class ProductBuyTab implements ProductBuy {
     this.products = products;
     this.coins = coins;
     this.totalMoney = 0;
-    this.$buy = $('.buy');
+    this.$buy = $('.app__main.buy');
 
     window.addEventListener('load', () => {
       $('#tab__buy-button').addEventListener('click', this.updateResources.bind(this));
@@ -58,7 +58,7 @@ class ProductBuyTab implements ProductBuy {
   }
 
   handleReturnMoney(): void {
-    for (let i = this.coins.length - 1; i > 0; i--) {
+    for (let i = this.coins.length - 1; i >= 0; i--) {
       while (this.totalMoney >= this.coins[i].amount && this.coins[i].count >= 1) {
         this.totalMoney -= this.coins[i].amount;
         this.coins[i].count -= 1;

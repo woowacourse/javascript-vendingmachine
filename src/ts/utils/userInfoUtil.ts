@@ -9,10 +9,10 @@ export const getLoginInfo = function () {
 };
 
 export const getSignUpInfo = function () {
-  const email = $('#sign-up-form__email-input').value;
-  const name = $('#sign-up-form__name-input').value;
-  const password = $('#sign-up-form__password-input').value;
-  const passwordConfirm = $('#sign-up-form__password-check-input').value;
+  const email = $('#signup-form__email-input').value;
+  const name = $('#signup-form__name-input').value;
+  const password = $('#signup-form__password-input').value;
+  const passwordConfirm = $('#signup-form__password-check-input').value;
 
   return { email, name, password, passwordConfirm };
 };

@@ -8,6 +8,7 @@ import VerifyValueValidation from '../validations/verifyValueValidation';
 import LoginTab from '../core/LoginTab';
 import SignUpTab from '../core/SignUpTab';
 import EditProfileTab from '../core/EditProfileTab';
+import { loginnedMode, logOutedMode } from '../utils/loginUtil';
 
 class VendingMachine {
   private products: Array<Product> = [];
@@ -30,6 +31,15 @@ class VendingMachine {
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
     $('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
+    this.initWebPage();
+  }
+
+  initWebPage() {
+    if (localStorage.getItem('accessToken')) {
+      loginnedMode();
+    } else {
+      logOutedMode();
+    }
   }
 
   handleLoginInfoManage(e) {
@@ -44,20 +54,33 @@ class VendingMachine {
       return;
     }
     const tabName = e.target.dataset.name;
-
+    if (!localStorage.getItem('accessToken') && tabName !== 'buy') {
+      return;
+    }
     history.pushState({}, '', window.location.pathname + `#${tabName}`);
     this.switchTab(tabName);
   }
 
   handlePopstate() {
-    if (window.location.hash) {
-      this.switchTab(window.location.hash.slice(1));
+    if (!window.location.hash) {
+      return;
     }
+
+    const hash = window.location.hash.slice(1);
+    if (!localStorage.getItem('accessToken')) {
+      if (hash !== 'buy' && hash !== 'login') {
+        return;
+      }
+    }
+    if (localStorage.getItem('accessToken') && hash === 'signup') {
+      return;
+    }
+    this.switchTab(hash);
   }
 
   switchTab(tabName) {
-    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
-    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
+    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
     $('#app').classList.add(tabName);
     $('#header').classList.add(tabName);
   }

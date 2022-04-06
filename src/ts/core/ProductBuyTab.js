@@ -10,7 +10,7 @@ var ProductBuyTab = /** @class */ (function () {
         this.products = products;
         this.coins = coins;
         this.totalMoney = 0;
-        this.$buy = (0, dom_1.$)('.buy');
+        this.$buy = (0, dom_1.$)('.app__main.buy');
         window.addEventListener('load', function () {
             (0, dom_1.$)('#tab__buy-button').addEventListener('click', _this.updateResources.bind(_this));
             (0, dom_1.$)('#input-money-form', _this.$buy).addEventListener('submit', _this.handleChargeMoney.bind(_this));
@@ -42,7 +42,7 @@ var ProductBuyTab = /** @class */ (function () {
         }
     };
     ProductBuyTab.prototype.handleReturnMoney = function () {
-        for (var i = this.coins.length - 1; i > 0; i--) {
+        for (var i = this.coins.length - 1; i >= 0; i--) {
             while (this.totalMoney >= this.coins[i].amount && this.coins[i].count >= 1) {
                 this.totalMoney -= this.coins[i].amount;
                 this.coins[i].count -= 1;

@@ -6,7 +6,7 @@
 @import './screen/ProductBuy.css';
 @import './screen/login.css';
 @import './screen/signUp.css';
-@import './screen/edit-profile.css';
+@import './screen/editProfile.css';
 
 body {
   display: flex;
@@ -64,11 +64,31 @@ body {
   display: none;
 }
 
+.tab {
+  display: none;
+}
+
+.tab.loginned {
+  display: flex;
+}
+
+.login-button.loginned {
+  display: none;
+}
+
+.edit-profile-button {
+  display: none;
+}
+
+.edit-profile-button.loginned {
+  display: block;
+}
+
 .app.manage .app__main.manage,
 .app.charge .app__main.charge,
 .app.buy .app__main.buy,
 .app.login .app__main.login,
-.app.sign-up .app__main.sign-up,
+.app.signup .app__main.signup,
 .app.edit-profile .app__main.edit-profile {
   display: flex;
 }
@@ -88,4 +108,17 @@ body {
   margin: 10px;
   width: 100px;
   height: 32px;
+}
+
+.edit-profile-button {
+  margin: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  background-color: var(--tab-active-background-color);
+}
+
+.edit-profile-button {
+  text-align: center;
+  -webkit-appearance: none;
 }

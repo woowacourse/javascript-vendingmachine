@@ -9,10 +9,10 @@ var getLoginInfo = function () {
 };
 exports.getLoginInfo = getLoginInfo;
 var getSignUpInfo = function () {
-    var email = (0, dom_1.$)('#sign-up-form__email-input').value;
-    var name = (0, dom_1.$)('#sign-up-form__name-input').value;
-    var password = (0, dom_1.$)('#sign-up-form__password-input').value;
-    var passwordConfirm = (0, dom_1.$)('#sign-up-form__password-check-input').value;
+    var email = (0, dom_1.$)('#signup-form__email-input').value;
+    var name = (0, dom_1.$)('#signup-form__name-input').value;
+    var password = (0, dom_1.$)('#signup-form__password-input').value;
+    var passwordConfirm = (0, dom_1.$)('#signup-form__password-check-input').value;
     return { email: email, name: name, password: password, passwordConfirm: passwordConfirm };
 };
 exports.getSignUpInfo = getSignUpInfo;

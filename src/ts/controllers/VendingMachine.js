@@ -9,6 +9,7 @@ var verifyValueValidation_1 = require("../validations/verifyValueValidation");
 var LoginTab_1 = require("../core/LoginTab");
 var SignUpTab_1 = require("../core/SignUpTab");
 var EditProfileTab_1 = require("../core/EditProfileTab");
+var loginUtil_1 = require("../utils/loginUtil");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
         this.products = [];
@@ -28,7 +29,16 @@ var VendingMachine = /** @class */ (function () {
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
         (0, dom_1.$)('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));
+        this.initWebPage();
     }
+    VendingMachine.prototype.initWebPage = function () {
+        if (localStorage.getItem('accessToken')) {
+            (0, loginUtil_1.loginnedMode)();
+        }
+        else {
+            (0, loginUtil_1.logOutedMode)();
+        }
+    };
     VendingMachine.prototype.handleLoginInfoManage = function (e) {
         if (e.target.classList.contains('login-button')) {
             history.pushState({}, '', window.location.pathname + "#login");
@@ -40,17 +50,30 @@ var VendingMachine = /** @class */ (function () {
             return;
         }
         var tabName = e.target.dataset.name;
+        if (!localStorage.getItem('accessToken') && tabName !== 'buy') {
+            return;
+        }
         history.pushState({}, '', window.location.pathname + "#".concat(tabName));
         this.switchTab(tabName);
     };
     VendingMachine.prototype.handlePopstate = function () {
-        if (window.location.hash) {
-            this.switchTab(window.location.hash.slice(1));
+        if (!window.location.hash) {
+            return;
         }
+        var hash = window.location.hash.slice(1);
+        if (!localStorage.getItem('accessToken')) {
+            if (hash !== 'buy' && hash !== 'login') {
+                return;
+            }
+        }
+        if (localStorage.getItem('accessToken') && hash === 'signup') {
+            return;
+        }
+        this.switchTab(hash);
     };
     VendingMachine.prototype.switchTab = function (tabName) {
-        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
-        (0, dom_1.$)('#header').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
+        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+        (0, dom_1.$)('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
         (0, dom_1.$)('#app').classList.add(tabName);
         (0, dom_1.$)('#header').classList.add(tabName);
     };

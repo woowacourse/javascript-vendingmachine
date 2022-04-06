@@ -2,22 +2,39 @@ import { $ } from '../utils/dom';
 import { SignUp } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getSignUpInfo } from '../utils/userInfoUtil';
+import { loginnedMode } from '../utils/loginUtil';
 
 class SignUpTab implements SignUp {
   verifyValue: VerifyValueValidation;
   constructor(verifyValue: VerifyValueValidation) {
     this.verifyValue = verifyValue;
-    $('#sign-up-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
+    $('#signup-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
   }
 
-  handleSignUp(e: Event): void {
+  async handleSignUp(e: Event): Promise<void> {
     const signUpInfo = getSignUpInfo();
+    const { email, name, password, passwordConfirm } = signUpInfo;
     if (!this.verifyValue.verifySignUpInfo(signUpInfo)) {
       return;
     }
-    // 정보 로컬스토리지로
-    // route 수정
-    // index.js로
+    try {
+      const response = await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, name, password, passwordConfirm }),
+      });
+
+      if (response.ok) {
+        const { accessToken, user } = await response.json();
+
+        localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
+        loginnedMode();
+      }
+    } catch (error) {
+      alert('중복된 아이디입니다.');
+    }
   }
 }
 

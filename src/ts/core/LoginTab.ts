@@ -2,6 +2,7 @@ import { $ } from '../utils/dom';
 import { Login } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getLoginInfo } from '../utils/userInfoUtil';
+import { loginnedMode } from '../utils/loginUtil';
 
 class LoginTab implements Login {
   $login: Document;
@@ -13,23 +14,41 @@ class LoginTab implements Login {
     $('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
   }
 
-  handleLogin(e: Event): void {
+  async handleLogin(e: Event): Promise<void> {
     const loginInfo = getLoginInfo();
+    const { email, password } = loginInfo;
     if (!this.verifyValue.verifyLoginInfo(loginInfo)) {
       return;
     }
-    // 정보 로컬스토리지로
-    // login된 걸로 상태변경
-    // route 수정
-    // index.js로
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const json = await response.json();
+      console.log(json);
+      const { accessToken, user } = json;
+
+      if (response.ok) {
+        localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
+        loginnedMode();
+      }
+    } catch (error) {
+      console.log(error);
+      alert('회원정보가 없습니다.');
+    }
   }
 
   handleLink(): void {
-    history.pushState({}, '', window.location.pathname + `#sign-up`);
-    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
-    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'sign-up', 'edit-profile');
-    $('#app').classList.add('sign-up');
-    $('#header').classList.add('sign-up');
+    history.pushState({}, '', window.location.pathname + `#signup`);
+    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+    $('#app').classList.add('signup');
+    $('#header').classList.add('signup');
   }
 }
 
