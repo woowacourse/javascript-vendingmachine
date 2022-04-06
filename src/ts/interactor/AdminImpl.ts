@@ -1,10 +1,13 @@
-import { VendingMachine, Admin, Product, ProductName } from '../../index.d';
+import { VendingMachine, Admin, Product, ProductName, AdminEmail, AdminPassword, AdminData, SignupData } from '../../index.d';
 import { ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../entity/VendingMachineImpl';
 import validator from './validator';
+import API from './API';
+import JsonAPI from '../jsonAPI/JsonAPI';
 
 export default class AdminImpl implements Admin {
   public readonly vendingMachine: VendingMachine;
+  private api: API;
   private static instance: Admin;
 
   static getInstance() {
@@ -17,6 +20,7 @@ export default class AdminImpl implements Admin {
 
   constructor() {
     this.vendingMachine = VendingMachineImpl.getInstance();
+    this.api = new JsonAPI();
   }
 
   addProduct(product: Product): void {
@@ -37,5 +41,18 @@ export default class AdminImpl implements Admin {
   chargeMoney(inputMoney: number): void {
     validator.checkChargeMoney(inputMoney, this.vendingMachine.calculateTotalAmount());
     this.vendingMachine.generateCoins(inputMoney);
+  }
+
+  async signup(adminData: SignupData) {
+    validator.checkSignupAdmin(adminData);
+    await this.api.signup(adminData);
+  }
+
+  modifyAdmin(adminData: AdminData): void {
+    
+  }
+  
+  login(email: AdminEmail, password: AdminPassword): void {
+    
   }
 }

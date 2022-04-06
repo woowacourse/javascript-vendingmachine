@@ -11,6 +11,22 @@ export interface Coin {
   count: number;
 }
 
+export interface AdminData {
+  name: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+export interface SignupData extends AdminData {
+  email: string;
+}
+
+export type AdminEmail = Pick<SignupData, 'email'>;
+
+export type AdminName = Pick<AdminData, 'name'>;
+
+export type AdminPassword = Pick<AdminData, 'password'>;
+
 export interface VendingMachine {
   products: Array<Product>;
   coins: Array<Coin>;
@@ -33,6 +49,10 @@ export interface Admin {
   modifyProduct(product: Product, originProductName: ProductName): void;
   deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
+
+  signup(adminData: SignupData);
+  modifyAdmin(adminData: AdminData);
+  login(email: AdminEmail, password: AdminPassword);
 }
 
 export interface Buyer {
@@ -52,4 +72,9 @@ export interface DomainView extends View {
   render(): void;
 }
 
-export type TabName = 'productManage' | 'chargeMoney' | 'buyProduct';
+export interface PageView {
+  bindEvent(movePage: Function): void;
+}
+
+export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signup';
+ 

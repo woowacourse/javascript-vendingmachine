@@ -10,10 +10,10 @@
     <div id="app" class="app signup"> 
       <main class="app__page main">
         <div class="sign-wrap buyer">
-          <button type="button" id="login-button" class="login-button gray-button button">로그인</button>
+          <button type="button" id="login-button" class="login-button gray-button button page-move" data-page="login">로그인</button>
           <button type="button" id="thumbnail" class="thumbnail-button"></button>
           <div class="menu">
-            <p id="modify-admin-info-menu" class="menu-button">회원 정보 수정</p>
+            <p id="modify-admin-info-menu" class="menu-button page-move" data-page="admin">회원 정보 수정</p>
             <p id="logout-menu" class="menu-button">로그아웃</p>
           </div>
         </div>
@@ -21,13 +21,13 @@
         <h1 class="app__title">🍿 자판기 🍿</h1>
   
         <section id="tab" class="tab">
-          <button type="button" class="tab__item button" data-name="productManage">
+          <button type="button" class="tab__item button page-move" data-page="productManage">
             상품 관리
           </button>
-          <button type="button" class="tab__item button" data-name="chargeMoney">
+          <button type="button" class="tab__item button page-move" data-page="chargeMoney">
             잔돈 충전
           </button>
-          <button type="button" class="tab__item button" data-name="buyProduct">
+          <button type="button" class="tab__item button page-move" data-page="buyProduct">
             상품 구매
           </button>
         </section>
@@ -255,7 +255,7 @@
             </label>
             <input
               type="password"
-              id="signup-password-confirm"
+              id="signup-password-confirmation"
               class="input-form__input"
               placeholder="비밀번호를 입력해주세요"
             />
@@ -312,7 +312,7 @@
             </label>
             <input
               type="password"
-              id="admin-password-confirm"
+              id="admin-password-confirmation"
               class="input-form__input"
               placeholder="비밀번호를 입력해주세요"
             />
