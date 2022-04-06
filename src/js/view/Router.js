@@ -4,11 +4,14 @@ import AddChangeTab from './AddChangeTab';
 import ManageProductTab from './ManageProductTab';
 import { createMainElement, selectDom } from '../utils/dom';
 import { TEMPLATE } from './template';
+import LoginView from './LoginView';
+import RegisterView from './RegisterView';
 
 export default class Router {
   #vendingMachine;
   #renderList;
   #app;
+  #body;
   #tabMenuNavigation;
 
   constructor() {
@@ -18,8 +21,8 @@ export default class Router {
       '#/manage': new ManageProductTab(this.#vendingMachine),
       '#/charge': new AddChangeTab(this.#vendingMachine),
       '#/purchase': new PurchaseProductTab(this.#vendingMachine),
-      '#/login': TEMPLATE.LOGIN,
-      '#/register': TEMPLATE.REGISTER,
+      '#/login': new LoginView(),
+      '#/register': new RegisterView(),
     };
     this.#app = selectDom('#app');
 
@@ -32,8 +35,12 @@ export default class Router {
   #render = () => {
     this.#app.replaceChildren();
 
-    if (window.location.hash === '#/login' || window.location.hash === '#/register') {
-      this.#app.insertAdjacentHTML('beforeend', this.#renderList[window.location.hash]);
+    if (window.location.hash === '#/register' || window.location.hash === '#/login') {
+      this.#app.insertAdjacentElement(
+        'beforeend',
+        this.#renderList[window.location.hash].template
+      );
+
       return;
     }
 

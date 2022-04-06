@@ -208,31 +208,31 @@ export const TEMPLATE = {
         <form id="register-form">
           <fieldset>
             <legend hidden>회원가입</legend>
-            <label for="new-email">이메일</label>
+            <label for="email">이메일</label>
             <input
                 type="email"
-                id="new-email"
+                id="email"
                 placeholder="이메일 주소를 입력해주세요."
                 required
               />
-            <label for="user-name">이름</label>
+            <label for="name">이름</label>
             <input
                 type="text"
-                id="user-name"
+                id="name"
                 placeholder="이름을 입력해주세요."
                 required
               />
-            <label for="new-password">비밀번호</label>
+            <label for="password">비밀번호</label>
             <input
                 type="password"
-                id="new-password"
+                id="password"
                 placeholder="비밀번호를 입력해주세요."
                 required
               />
-            <label for="new-password-confirm">비밀번호 확인</label>
+            <label for="password-confirm">비밀번호 확인</label>
             <input
                 type="password"
-                id="new-password-confirm"
+                id="password-confirm"
                 placeholder="비밀번호를 입력해주세요."
                 required
               />

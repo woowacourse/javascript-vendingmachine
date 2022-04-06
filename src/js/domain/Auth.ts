@@ -49,14 +49,7 @@ const Auth = {
   register(userInfo) {
     validateUserInfo(userInfo);
 
-    const response = this.loadRegisterAPI(userInfo);
-    const {
-      accessToken,
-      user: { userId },
-    } = response;
-
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('userId', userId);
+    this.loadRegisterAPI(userInfo);
   },
   async loadRegisterAPI(userInfo) {
     const { email, name, password } = userInfo;
@@ -69,9 +62,20 @@ const Auth = {
         body: payload,
       }).then((res) => res.json());
 
-      return response;
-    } catch ({ message }) {
-      alert(message);
+      //에러 발생시
+      if (typeof response === 'string') {
+        throw Error(response);
+      }
+
+      const {
+        accessToken,
+        user: { id },
+      } = response;
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('userId', id);
+    } catch (error) {
+      alert(error);
     }
   },
 };
