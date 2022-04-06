@@ -29,8 +29,7 @@ export default class UserMenuView {
   private handleEditProfileClick(event: { target: HTMLButtonElement }) {
     const { url } = event.target.dataset;
 
-    emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
-    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
+    emit({ eventName: CUSTOM_EVENT.PAGE_CHANGE, detail: { page: URL.SIGN, section: url } });
   }
 
   private handleSignOutClick() {
@@ -40,8 +39,8 @@ export default class UserMenuView {
 
     emit({
       eventName: CUSTOM_EVENT.ROUTE_CHANGE,
-      detail: { url: URL.PURCHASE_ITEM, page: URL.MAIN },
+      detail: { page: URL.MAIN, section: URL.PURCHASE_ITEM },
     });
-    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
+    emit({ eventName: CUSTOM_EVENT.PAGE_CHANGE });
   }
 }

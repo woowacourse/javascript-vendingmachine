@@ -32,10 +32,9 @@ export default class EditProfileView {
       Storage.setUserData({ email, id, name });
 
       emit({
-        eventName: CUSTOM_EVENT.ROUTE_CHANGE,
-        detail: { url: URL.MANAGE_ITEM, page: URL.MAIN },
+        eventName: CUSTOM_EVENT.PAGE_CHANGE,
+        detail: { page: URL.MAIN, section: URL.MANAGE_ITEM },
       });
-      emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
     } catch (error) {
       showSnackbar(error.message);
     }

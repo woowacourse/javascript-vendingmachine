@@ -13,8 +13,8 @@ export interface CoinsType {
 }
 
 export type RouteChangeDetailType = {
-  url: string;
   page: string;
+  section: string;
 };
 
 export type ChargeMoneyDetailType = {

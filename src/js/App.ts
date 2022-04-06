@@ -11,15 +11,20 @@ export default class App {
     this.mainView = new MainView();
     this.signView = new SignView();
 
+    window.addEventListener(CUSTOM_EVENT.PAGE_CHANGE, this.handlePageChange.bind(this));
     window.addEventListener(CUSTOM_EVENT.ROUTE_CHANGE, this.handleRouteChange.bind(this));
-    window.addEventListener(CUSTOM_EVENT.RENDER_PAGE, this.renderPage.bind(this));
     window.addEventListener('popstate', this.renderPage.bind(this));
   }
 
-  handleRouteChange(event: CustomEvent<RouteChangeDetailType>) {
-    const { page, url } = event.detail;
+  handlePageChange(event: CustomEvent<RouteChangeDetailType>) {
+    this.handleRouteChange(event);
+    this.renderPage();
+  }
 
-    window.history.pushState(null, null, `${URL.BASE_URL}/#${page}/#${url}`);
+  handleRouteChange(event: CustomEvent<RouteChangeDetailType>) {
+    const { page, section } = event.detail;
+
+    window.history.pushState(null, null, `${URL.BASE_URL}/#${page}/#${section}`);
   }
 
   renderPage() {
@@ -28,15 +33,15 @@ export default class App {
     switch (page) {
       case URL.MAIN:
         this.mainView.render();
-        this.mainView.renderMainPageSection(url);
+        this.mainView.renderPageSection(url);
         break;
       case URL.SIGN:
         this.signView.render();
-        this.signView.renderSignPageSection(url);
+        this.signView.renderPageSection(url);
         break;
       default:
         this.mainView.render();
-        this.mainView.renderMainPageSection(URL.PURCHASE_ITEM);
+        this.mainView.renderPageSection(URL.PURCHASE_ITEM);
     }
   }
 }

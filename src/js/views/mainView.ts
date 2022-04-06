@@ -35,7 +35,7 @@ export default class MainView {
     $(SELECTOR.ID.SIGN_BUTTON).addEventListener('click', this.handleSignButtonClick.bind(this));
   }
 
-  renderMainPageSection(url: string) {
+  renderPageSection(url: string) {
     switch (url) {
       case URL.MANAGE_ITEM:
         this.manageItemView.render();
@@ -72,8 +72,8 @@ export default class MainView {
 
     if (!$navButton.classList.contains(SELECTOR.CLASS_STRING.NAV_BUTTON_CLICKED)) {
       this.changeButtonColor(targetButtonId);
-      this.renderMainPageSection(url);
-      emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.MAIN } });
+      this.renderPageSection(url);
+      emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { page: URL.MAIN, section: url } });
     }
   }
 
@@ -96,8 +96,7 @@ export default class MainView {
   private handleSigInClick($signButton: HTMLButtonElement) {
     const { url } = $signButton.dataset;
 
-    emit({ eventName: CUSTOM_EVENT.ROUTE_CHANGE, detail: { url, page: URL.SIGN } });
-    emit({ eventName: CUSTOM_EVENT.RENDER_PAGE });
+    emit({ eventName: CUSTOM_EVENT.PAGE_CHANGE, detail: { page: URL.SIGN, section: url } });
   }
 
   private handleThumbnailClick($signButton: HTMLButtonElement) {

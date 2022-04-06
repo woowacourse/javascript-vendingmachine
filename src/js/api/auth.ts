@@ -3,7 +3,7 @@ import { userDataType } from '../types/types';
 import { signValidate } from '../validates/signValidate';
 
 const Auth = {
-  BASE_URL: 'http://localhost:3000',
+  BASE_URL: 'https://vending-machine-kamwoo.herokuapp.com',
   TYPES: {
     SIGN_IN: '/signin',
     SIGN_UP: '/signup',

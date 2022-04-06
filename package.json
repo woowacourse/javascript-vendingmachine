@@ -7,8 +7,7 @@
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
-    "deploy": "npm run build && gh-pages -d dist",
-    "server": "json-server db.json -m ./node_modules/json-server-auth"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
