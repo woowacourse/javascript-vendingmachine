@@ -37,8 +37,8 @@ class ChargeComponent {
     try {
       const randomCoins = this.chargeManager.getRandomCoins(charge);
       this.chargeManager.addCoins(randomCoins);
-      this.renderRandomCoins();
       this.renderAmount();
+      this.renderRandomCoins();
     } catch ({ message }) {
       alert(message);
     }

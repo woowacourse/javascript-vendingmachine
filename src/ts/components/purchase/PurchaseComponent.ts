@@ -13,6 +13,10 @@ class PurchaseComponent {
   purchaseTable: HTMLTableElement;
   purchaseTableBody: HTMLTableElement;
   returnButton: HTMLButtonElement;
+  returnCoin500: HTMLElement;
+  returnCoin100: HTMLElement;
+  returnCoin50: HTMLElement;
+  returnCoin10: HTMLElement;
 
   constructor({ productManager, chargeManager }) {
     this.productManager = productManager;
@@ -27,6 +31,10 @@ class PurchaseComponent {
     this.purchaseTable = $(".purchase-table");
     this.purchaseTableBody = $(".purchase-table__body");
     this.returnButton = $(".return-coin__return-button");
+    this.returnCoin500 = $(".return-coin__table-coin--500");
+    this.returnCoin100 = $(".return-coin__table-coin--100");
+    this.returnCoin50 = $(".return-coin__table-coin--50");
+    this.returnCoin10 = $(".return-coin__table-coin--10");
 
     this.purchaseForm.addEventListener("submit", this.handleAddAmount);
     this.purchaseTable.addEventListener("click", this.handlePurchaseProduct);
@@ -69,12 +77,20 @@ class PurchaseComponent {
     this.chargeManager.substractCoins(returnCoins);
     this.productManager.substractPurchaseAmount(returnCoinAmount);
 
-    // todo: 잔돈반환 테이블 정보 보여주기
-    // todo: 투입한 금액 정보 보여주기
+    this.renderAmount();
+    this.renderReturnCoins(returnCoins);
   };
 
   renderAmount() {
     this.purchaseAmountText.textContent = `${this.productManager.getPurchaseAmount()}`;
+  }
+
+  renderReturnCoins(returnCoins: Coin) {
+    const countList = Object.values(returnCoins);
+
+    [this.returnCoin10, this.returnCoin50, this.returnCoin100, this.returnCoin500].forEach((returnCoin, index) => {
+      returnCoin.textContent = `${countList[index]}개`;
+    });
   }
 
   renderProducts() {
