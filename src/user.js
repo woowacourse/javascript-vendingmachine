@@ -13,7 +13,21 @@ class UserEditForm {
 
     this.$editUserForm.addEventListener("submit", this.onSubmit);
     this.user = JSON.parse(localStorage.getItem("user-info"));
+    this.checkLoginStatus();
+
     this.setEditUserInputValue();
+  }
+
+  checkLoginStatus() {
+    const user = JSON.parse(localStorage.getItem("user-info"));
+    if (!user) {
+      this.$snackbar.innerText = "로그인후 이용해주세요";
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+        location.href = "./";
+      }, 1000);
+    }
   }
 
   setEditUserInputValue() {

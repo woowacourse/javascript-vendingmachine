@@ -7,6 +7,19 @@ class Login {
     this.$snackbar = document.querySelector("#snackbar");
     this.$loginForm = document.querySelector("#login-form");
     this.$loginForm.addEventListener("submit", this.onSubmit);
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus() {
+    const user = JSON.parse(localStorage.getItem("user-info"));
+    if (user) {
+      this.$snackbar.innerText = "이미 로그인이 되어있습니다";
+      this.$snackbar.classList.toggle("show");
+      setTimeout(() => {
+        this.$snackbar.classList.toggle("show");
+        location.href = "./";
+      }, 1000);
+    }
   }
 
   onSubmit = async (e) => {
