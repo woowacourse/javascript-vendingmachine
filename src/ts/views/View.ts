@@ -76,6 +76,7 @@ export default class View {
 
   public renderTabs = async (url: string) => {
     const isLogin = await checkUserLoginStatus();
+    console.log(location.hash);
     if (!isLogin) {
       return;
     }

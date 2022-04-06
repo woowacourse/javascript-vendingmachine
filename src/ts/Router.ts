@@ -11,7 +11,7 @@ export default class Router {
 
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.view.renderTabs(this.currentTab);
+    this.routeLogin(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       const url = event.state ? event.state.url : PATH_ID.NOT_FOUND;
@@ -23,12 +23,14 @@ export default class Router {
     });
 
     // 웹컴포넌트에서 보낸 커스텀 이벤트
-    window.addEventListener('@route-login', this.routeLogin);
+    window.addEventListener('@route-login', () => {
+      this.routeLogin(PATH_ID.PRODUCT_MANAGE);
+    });
     window.addEventListener('@route-logout', this.routeLogout);
   }
 
-  private routeLogin = () => {
-    this.tabRouter(PATH_ID.PRODUCT_MANAGE, false);
+  private routeLogin = (url: string) => {
+    this.tabRouter(url, false);
     renderUserPrivatePage();
   };
 
