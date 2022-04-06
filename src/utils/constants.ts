@@ -45,6 +45,7 @@ export const ERROR_MSG = {
   FAILED_LOGIN: '아이디와 비밀번호를 다시 확인해주세요',
   FAILED_EDIT_USER_INFO: '회원 정보 수정에 실패하였습니다',
   FAILED_GET_USER_INFO: '로그인유저의 정보를 가져오는 것에 실패했습니다',
+  WRONG_ACCESS: '잘못된 접근입니다',
 };
 
 export const NAME_LENGTH_LIMIT = 10;

@@ -1,4 +1,5 @@
 import { accessTokenStorage } from '../stores/localStorage';
+import { ERROR_MSG } from '../utils/constants';
 import EditUserInfoComponent from './EditUserInfoComponent';
 import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
@@ -96,6 +97,11 @@ class VendingMachineComponent {
         this.#EditUserComponent.show();
         this.#EditUserComponent.renderUserInfo();
       }
+
+      if (route === 'login' || route === 'signin') {
+        alert(ERROR_MSG.WRONG_ACCESS);
+        window.location.href = 'http://localhost:9000/#';
+      }
     }
 
     if (!this.checkLoginStatus()) {
@@ -132,6 +138,11 @@ class VendingMachineComponent {
         this.#PurchaseProductComponent.hide();
 
         this.#SignInComponent.show();
+      }
+
+      if (route === 'manage' || route === 'recharge' || route === 'edit-user-info') {
+        alert(ERROR_MSG.WRONG_ACCESS);
+        window.location.href = 'http://localhost:9000/#';
       }
     }
   }
