@@ -1,5 +1,5 @@
-import { emit } from '../utils/event.js';
-import { SECTION_CONTAINER } from '../constants/constants.js';
+import { emit } from '../utils/event';
+import { SECTION_CONTAINER } from '../constants/constants';
 
 const render = () => {
   const { hash } = window.location;

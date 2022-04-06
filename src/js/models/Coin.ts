@@ -1,5 +1,5 @@
-import { COIN } from '../constants/constants.js';
-import { getRandomNumber } from '../utils/common.js';
+import { COIN } from '../constants/constants';
+import { getRandomNumber } from '../utils/common';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import { validAmount } from './validation';
 import { Coins, CoinInterface } from '../interface/coins.interface';

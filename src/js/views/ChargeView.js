@@ -1,6 +1,6 @@
-import { SECTION_CONTAINER } from '../constants/constants.js';
-import { $ } from '../utils/dom.js';
-import { on, emit } from '../utils/event.js';
+import { SECTION_CONTAINER } from '../constants/constants';
+import { $ } from '../utils/dom';
+import { on, emit } from '../utils/event';
 
 export default class ChargeView {
   constructor() {

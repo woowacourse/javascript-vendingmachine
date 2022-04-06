@@ -4,9 +4,9 @@ import {
   isMaximumLength,
   isRangeNumber,
   isOverMaxNumber,
-} from '../utils/common.js';
-import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants.js';
-import { Product } from '../interface/productManage.interface.js';
+} from '../utils/common';
+import { PRODUCT, ERROR_MESSAGE, COIN } from '../constants/constants';
+import { Product } from '../interface/productManage.interface';
 
 const isDuplicateProduct = (name: string, products: Product[]): boolean => {
   return products.some((product) => product.name === name);

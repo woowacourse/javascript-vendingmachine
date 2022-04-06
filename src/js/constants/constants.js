@@ -1,4 +1,4 @@
-import { $ } from '../utils/dom.js';
+import { $ } from '../utils/dom';
 
 export const SECTION_CONTAINER = $('#section-container');
 

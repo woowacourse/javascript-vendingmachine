@@ -1,7 +1,7 @@
-import '../css/index.css';
-import './route/route.js';
-import './controller.js';
-import { $ } from './utils/dom.js';
+import '../css/index';
+import './route/route';
+import './controller';
+import { $ } from './utils/dom';
 import { getSessionStorage, removeSessionStorage } from './utils/sessionStorage';
 
 const { accessToken, user } = getSessionStorage('user');
