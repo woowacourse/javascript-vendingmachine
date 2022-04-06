@@ -40,7 +40,7 @@ class ProductListComponent {
     this.ModifyProductComponent.bindEvent();
   };
 
-  private onClickRemoveButton = (e: PointerEvent) => {
+  private onClickRemoveButton = async (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-remove-button') {
       return;
     }
@@ -52,7 +52,7 @@ class ProductListComponent {
     const parentList = (<HTMLElement>e.target).closest('li');
     const name = (<HTMLElement>parentList.querySelector('.product-name')).textContent;
 
-    if (throwableFunctionHandler(() => vendingMachine.removeProduct(name))) {
+    if (await throwableFunctionHandler(() => vendingMachine.removeProduct(name))) {
       parentList.remove();
     }
   };

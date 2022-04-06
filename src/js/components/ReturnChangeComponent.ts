@@ -27,8 +27,8 @@ class ReturnChangeComponent {
     this.$returnChangeButton.addEventListener('click', this.onClickReturnButton);
   };
 
-  private onClickReturnButton = () => {
-    if (throwableFunctionHandler(() => vendingMachine.returnChanges())) {
+  private onClickReturnButton = async () => {
+    if (await throwableFunctionHandler(() => vendingMachine.returnChanges())) {
       this.noticeStateChanged();
     }
   };

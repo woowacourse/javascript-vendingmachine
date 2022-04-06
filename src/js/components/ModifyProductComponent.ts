@@ -19,7 +19,7 @@ class ModifyProductComponent {
     this.$productList.addEventListener('click', this.onSubmitModifyCompleteButton);
   };
 
-  private onSubmitModifyCompleteButton = (e: PointerEvent) => {
+  private onSubmitModifyCompleteButton = async (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-modify-submit-button') {
       return;
     }
@@ -34,7 +34,7 @@ class ModifyProductComponent {
 
     const prevName = (<HTMLElement>parentList.querySelector('.product-modify-submit-button')).dataset.name;
 
-    if (throwableFunctionHandler(() => vendingMachine.modifyProduct(prevName, product))) {
+    if (await throwableFunctionHandler(() => vendingMachine.modifyProduct(prevName, product))) {
       ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
     }
   };

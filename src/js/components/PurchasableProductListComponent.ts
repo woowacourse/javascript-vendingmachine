@@ -18,7 +18,7 @@ class ProductListComponent {
     this.$productList.addEventListener('click', this.onClickPurchaseButton);
   };
 
-  private onClickPurchaseButton = (e: PointerEvent) => {
+  private onClickPurchaseButton = async (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-purchase-button') {
       return;
     }
@@ -28,7 +28,7 @@ class ProductListComponent {
     const $productAmount = <HTMLInputElement>parentList.querySelector('.product-amount');
     const productAmount = $productAmount.textContent;
 
-    if (throwableFunctionHandler(() => vendingMachine.purchaseProduct(productName))) {
+    if (await throwableFunctionHandler(() => vendingMachine.purchaseProduct(productName))) {
       $productAmount.textContent = (Number(productAmount) - 1).toString();
     }
   };

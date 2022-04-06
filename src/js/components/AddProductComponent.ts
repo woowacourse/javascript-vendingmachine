@@ -20,7 +20,7 @@ class AddProductComponent {
     this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
   };
 
-  private onSubmitNewProduct = (e: SubmitEvent) => {
+  private onSubmitNewProduct = async (e: SubmitEvent) => {
     e.preventDefault();
 
     const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
@@ -29,7 +29,7 @@ class AddProductComponent {
 
     const newProduct: Product = { name, price, amount };
 
-    if (throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
+    if (await throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
       this.noticeStateChanged('add', newProduct);
     }
   };

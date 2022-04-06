@@ -18,11 +18,11 @@ class InputMoneyComponent {
     this.$inputMoneyForm.addEventListener('submit', this.onSubmitInputMoney);
   };
 
-  private onSubmitInputMoney = (e: SubmitEvent) => {
+  private onSubmitInputMoney = async (e: SubmitEvent) => {
     e.preventDefault();
     const inputMoney = parseInt((<HTMLInputElement>this.$inputMoneyForm.querySelector('#input-money')).value);
 
-    if (throwableFunctionHandler(() => vendingMachine.inputUserMoney(inputMoney))) {
+    if (await throwableFunctionHandler(() => vendingMachine.inputUserMoney(inputMoney))) {
       this.noticeStateChanged();
     }
   };

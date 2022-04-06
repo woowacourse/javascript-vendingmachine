@@ -18,11 +18,11 @@ class AddChangeComponent {
     this.$changeAddForm.addEventListener('submit', this.onSubmitChangeAdd);
   };
 
-  private onSubmitChangeAdd = (e: SubmitEvent) => {
+  private onSubmitChangeAdd = async (e: SubmitEvent) => {
     e.preventDefault();
     const inputChange = (<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).valueAsNumber;
 
-    if (throwableFunctionHandler(() => vendingMachine.inputChanges(inputChange))) {
+    if (await throwableFunctionHandler(() => vendingMachine.inputChanges(inputChange))) {
       this.noticeStateChanged();
     }
   };
