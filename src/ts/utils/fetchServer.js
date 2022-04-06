@@ -12,7 +12,7 @@ const postServer = (baseUrl) => (path) => async (bodyData) => {
   return [response.ok, await response.json()];
 };
 
-const postLocalServer = postServer(BASE_SERVER_URL);
+const postBaseServer = postServer(BASE_SERVER_URL);
 
-export const postLoginServer = postLocalServer(SERVER_PATH.LOGIN);
-export const postRegisterServer = postLocalServer(SERVER_PATH.REGISTER);
+export const postLoginServer = postBaseServer(SERVER_PATH.LOGIN);
+export const postRegisterServer = postBaseServer(SERVER_PATH.REGISTER);

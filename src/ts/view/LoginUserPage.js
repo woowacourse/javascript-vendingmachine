@@ -1,3 +1,4 @@
+import { COOKIE_EXPIRED_PERIOD } from '../constant/rule';
 import { SELECTOR } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
 import { loginUserPageTemplate } from '../template';
@@ -36,13 +37,12 @@ class LoginUserPage {
         user: { name },
       } = body;
 
-      setCookie(KEY.ACCESS_TOKEN, accessToken, 3);
+      setCookie(KEY.ACCESS_TOKEN, accessToken, COOKIE_EXPIRED_PERIOD);
       localStorage.setItem(KEY.USER_NAME, name);
     } catch (error) {
       alert(error.message);
       return;
     }
-
     location.hash = '';
   };
 }

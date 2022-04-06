@@ -1,5 +1,6 @@
 import { NOT_DEVELOPED_YET_MESSAGE } from '../constant/errorMessage';
 import { HASH } from '../constant/path';
+import { THUMBNAIL_OPTION_VALUE } from '../constant/rule';
 import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
 import { vendingMachineNavBarTemplate } from '../template';
@@ -51,12 +52,12 @@ class AdminPage {
 
   #onChangeThumbnailOption = ({ target: { value } }) => {
     switch (value) {
-      case 'logout':
+      case THUMBNAIL_OPTION_VALUE.LOGOUT:
         deleteCookie(KEY.ACCESS_TOKEN);
         localStorage.removeItem(KEY.USER_NAME);
         location.hash = location.hash === HASH.ITEM_PURCHASE ? '' : HASH.ITEM_PURCHASE;
         break;
-      case 'edit-user-info':
+      case THUMBNAIL_OPTION_VALUE.EDIT_USER_INFO:
         showSnackbar(this.snackbar, NOT_DEVELOPED_YET_MESSAGE);
         break;
       default:

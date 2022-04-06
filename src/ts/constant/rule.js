@@ -29,3 +29,12 @@ export const REGISTER = {
   NAME_MAX_LENGTH: 6,
   PASSWORD_RULE: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
 };
+
+export const THUMBNAIL_OPTION_VALUE = {
+  LOGOUT: 'logout',
+  EDIT_USER_INFO: 'edit-user-info',
+};
+
+export const COOKIE_EXPIRED_PERIOD = 3;
+
+export const SNACKBAR_MS_TIME = 2700;

@@ -46,6 +46,7 @@ export const SELECTOR = {
 export const SELECTOR_NAME = {
   SELECTED: 'selected',
   HIDE: 'hide',
+  SHOW: 'show',
   LOGIN: 'login',
 
   EDIT_ITEM_BUTTON: 'edit-item-button',

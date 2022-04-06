@@ -41,3 +41,5 @@ export const REGISTER_ERROR_MESSAGE = {
 export const LOGIN_ERROR_MESSAGE = {
   FAIL: '로그인에 실패했습니다. 개발자에게 문의해주세요.',
 };
+
+export const NOT_DEVELOPED_YET_MESSAGE = 'Coming Soon...?';
