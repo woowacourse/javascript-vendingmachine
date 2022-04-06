@@ -27,6 +27,9 @@ export const CONFIGURATION = {
     MIN: 10,
     MAX: 10000,
   },
+  PASSWORD: {
+    MIN: 8,
+  },
 };
 
 export const ELEMENT_KEY = {
@@ -47,5 +50,5 @@ export const ERROR_MESSAGE = {
   DUPLICATED_EMAIL: '중복된 이메일이 존재합니다.',
   NOT_MATCH_USER_INFO: '일치하는 정보가 없습니다.',
   EMPTY_CHANGE: '자판기에 보유중인 잔돈이 없습니다. 관리자에게 문의해주세요.',
-  NOT_MATCH_PASSWORD_REGEXP: '비밀번호는 8자 이상으로, 최소 하나의 문자 및 숫자를 포함해야 합니다.',
+  NOT_MATCH_PASSWORD_REGEXP: `비밀번호는 ${CONFIGURATION.PASSWORD.MIN}자 이상으로, 최소 하나의 문자 및 숫자를 포함해야 합니다.`,
 };

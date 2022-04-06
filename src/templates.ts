@@ -75,7 +75,7 @@ const TEMPLATE = {
   <h2 hidden>잔돈 충전 화면</h2>
   <form class="purchase-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
-    <input type="number" name="moneyInput" placeholder="금액" min="${CONFIGURATION.INPUT.MIN}" max="${CONFIGURATION.INPUT.MAX}" required />
+    <input type="number" class="purchase-form__money-input" name="moneyInput" placeholder="금액" min="${CONFIGURATION.INPUT.MIN}" max="${CONFIGURATION.INPUT.MAX}" required />
     <button type="submit" class="purchase-form__money-input-button submit-button">투입</button>
     <p>투입한 금액: <span class="purchase-form__money-input-amount">0</span>원</p>
   </form>
@@ -133,7 +133,7 @@ const TEMPLATE = {
       <input id="signin-form__email" type="email" name="signinEmail" placeholder="woowacourse@gmail.com" required />
       <label for="signin-form__password">비밀번호</label>
       <input id="signin-form__password" type="password" name="signinPassword" placeholder="비밀번호를 입력해주세요" required />
-      <button type="submit">확인</button>
+      <button id="signin-form__button" type="submit">확인</button>
       <p>아직 회원이 아니신가요? <span class="signup-text">회원가입</span></p>
     </form>
   </section>
@@ -150,7 +150,7 @@ const TEMPLATE = {
       <input id="signup-form__password" type="password" name="signupPassword" placeholder="비밀번호를 입력해주세요" required/>
       <label for="signup-form__password-confirm">비밀번호 확인</label>
       <input id="signup-form__password-confirm" type="password" name="signupPasswordConfirm" placeholder="비밀번호를 입력해주세요" required/>
-      <button type="submit">확인</button>
+      <button id="signup-form__button" type="submit">확인</button>
     </form>
   </section>
 `,
@@ -166,7 +166,7 @@ const TEMPLATE = {
       <input id="edit-profile-form__password" type="password" name="editProfilePassword" placeholder="비밀번호를 입력해주세요" required/>
       <label for="edit-profile-form__password-confirm">비밀번호 확인</label>
       <input id="edit-profile-form__password-confirm" type="password" name="editProfilePasswordConfirm" placeholder="비밀번호를 입력해주세요" required/>
-      <button type="submit">확인</button>
+      <button id="edit-profile-form__button" type="submit">확인</button>
     </form>
   </section>
 `,
