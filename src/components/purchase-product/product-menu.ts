@@ -23,8 +23,11 @@ class ProductMenu extends Component {
 
   template(productList: Array<ProductItem>): string {
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
+    const header = `<h2>구매 가능 상품 현황</h2>`;
+    if (productList.length === 0)
+      return header + `<div class="text-center">현재 구매 가능한 상품이 <b>없습니다</b></div>`;
     return `
-      <h2>구매 가능 상품 현황</h2>
+      ${header}
       <table>
         <thead>
           <tr>

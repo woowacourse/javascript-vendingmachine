@@ -41,9 +41,13 @@ class ProductInventory extends Component {
   }
 
   template(productList: Array<ProductItem>): string {
+    const header = `<h2>상품 현황</h2>`;
+    if (productList.length === 0)
+      return header + `<div class="text-center">현재 등록된 상품이 <b>없습니다</b></div>`;
+
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
     return `
-      <h2>상품 현황</h2>
+      ${header}
       <table>
         <thead>
           <tr>
