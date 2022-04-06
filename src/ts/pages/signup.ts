@@ -1,5 +1,6 @@
 import { API } from '../../apis';
 import { basePath } from '../../App';
+import type { SignupInfo } from '../types';
 import { showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
@@ -53,18 +54,20 @@ export default class SignupPage {
       return;
     }
 
+    const userInfo: SignupInfo = {
+      email: emailInput.value,
+      password: pwInput.value,
+      name: nameInput.value,
+    };
+
     try {
-      validateUserInfo(emailInput.value, pwInput.value, nameInput.value);
+      validateUserInfo(userInfo);
     } catch ({ message, name }) {
       showSnackbar(message);
       return;
     }
 
-    const response = await API.signup({
-      email: emailInput.value,
-      name: nameInput.value,
-      password: pwInput.value,
-    });
+    const response = await API.signup(userInfo);
 
     if (typeof response === 'string') {
       showSnackbar(response);

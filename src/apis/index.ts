@@ -1,17 +1,9 @@
-interface LoginInfo {
-  email: string;
-  password: string;
-}
-
-interface UserInfo {
-  email: string;
-  id: string;
-  name: string;
-}
-
-export interface UserInfoWithPassWord extends UserInfo {
-  password: string;
-}
+import type {
+  LoginInfo,
+  SignupInfo,
+  UserInfo,
+  UserInfoWithPassWord,
+} from '../ts/types';
 
 type UserResponse =
   | {
@@ -19,10 +11,6 @@ type UserResponse =
       accessToken: string;
     }
   | string;
-
-interface SignupInfo extends LoginInfo {
-  name: string;
-}
 
 const baseUrl = 'http://localhost:3000' as const;
 
@@ -81,9 +69,9 @@ async function signup(signupInfo: SignupInfo): Promise<UserResponse | string> {
 }
 
 async function editInfo(
-  signupInfo: UserInfoWithPassWord,
+  userInfoWithPassWord: UserInfoWithPassWord,
 ): Promise<UserResponse | string> {
-  const { email, password, name, id } = signupInfo;
+  const { email, password, name, id } = userInfoWithPassWord;
   const response = await fetch(`${baseUrl}/users/${id}`, {
     method: 'PUT',
     headers: {

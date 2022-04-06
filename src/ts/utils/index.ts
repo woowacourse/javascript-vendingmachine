@@ -1,6 +1,5 @@
 import { API } from '../../apis';
-import type { UserInfoWithPassWord } from '../../apis';
-import { $ } from './dom';
+import { UserInfoWithPassWord } from '../types';
 
 const getRandomIndex = <T>(array: T[]) => {
   return Math.floor(Math.random() * array.length);

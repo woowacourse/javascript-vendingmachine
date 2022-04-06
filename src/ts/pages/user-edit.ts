@@ -1,7 +1,7 @@
 import { API } from '../../apis';
-import type { UserInfoWithPassWord } from '../../apis';
 
 import { basePath } from '../../App';
+import { SignupInfo, UserInfoWithPassWord } from '../types';
 import { getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
@@ -69,8 +69,14 @@ export default class UserEditPage {
       return;
     }
 
+    const userInfo: SignupInfo = {
+      email: emailInput.value,
+      password: pwInput.value,
+      name: nameInput.value,
+    };
+
     try {
-      validateUserInfo(emailInput.value, pwInput.value, nameInput.value);
+      validateUserInfo(userInfo);
     } catch ({ message, name }) {
       showSnackbar(message);
       return;
@@ -79,9 +85,7 @@ export default class UserEditPage {
     if (!confirm('회원 정보를 변경하시겠습니까?')) return;
     if (typeof this.#user === 'string') return;
     const response = await API.editInfo({
-      email: emailInput.value,
-      name: nameInput.value,
-      password: pwInput.value,
+      ...userInfo,
       id: this.#user.id,
     });
 

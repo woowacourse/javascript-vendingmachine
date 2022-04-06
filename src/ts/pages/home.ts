@@ -7,8 +7,8 @@ import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';
 import { getUser } from '../utils';
-import type { UserInfoWithPassWord } from '../../apis';
 import type { routePageType } from '../../App';
+import { UserInfoWithPassWord } from '../types';
 
 export default class HomePage {
   readonly productManagement: ProductManagement;
