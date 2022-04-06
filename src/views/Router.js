@@ -20,7 +20,9 @@ class Router extends Component {
       (route) => route.path === location || route.path === PAGES.DEFAULT.PATH
     )[0];
     const component =
-      (location === '' && routes[0].component) || currentRoute?.component;
+      location === PAGES.LANDING.PATH
+        ? routes[0].component
+        : currentRoute?.component;
 
     this.clearDOM();
     this.appendChild(component);
