@@ -1,5 +1,7 @@
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+import { checkCanReturnCoins } from '../../validation/checkConsumerChargeMoney';
 
 export default class ConsumerReturnCoinStateComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -31,9 +33,7 @@ export default class ConsumerReturnCoinStateComponent {
       const consumerChargeMoney =
         this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney();
 
-      if (consumerChargeMoney <= 0) {
-        throw new Error('반환할 동전이 없습니다.');
-      }
+      checkCanReturnCoins(consumerChargeMoney);
 
       const {
         QUANTITY_COIN_500,
@@ -54,7 +54,7 @@ export default class ConsumerReturnCoinStateComponent {
 
       renderSnackBar(
         this.$snackBarContainer,
-        '동전이 반환되었습니다. 동전을 확인해주세요.',
+        SUCCESS_MESSAGE.RETURN_COINS,
         'success'
       );
 
