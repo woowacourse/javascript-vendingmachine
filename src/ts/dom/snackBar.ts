@@ -8,6 +8,14 @@ const generateSnackBarTemplate = (message: string, type: string): string => `
   </div>
 `;
 
+const removeSnackBar = (container: HTMLElement, selector: string): void => {
+  setTimeout(() => {
+    const $snackBar = document.querySelector(selector);
+    $snackBar.classList.add('hide');
+    container.removeChild($snackBar);
+  }, SNACK_BAR_DELAY_TIME);
+};
+
 const renderSnackBar = (
   container: HTMLElement,
   message: string,
@@ -19,22 +27,12 @@ const renderSnackBar = (
   );
 
   if (type === 'error') {
-    setTimeout(() => {
-      const $snackBar = document.querySelector(
-        '.snack-bar-container__snack-bar--error'
-      );
-      $snackBar.classList.add('hide');
-      container.removeChild($snackBar);
-    }, SNACK_BAR_DELAY_TIME);
+    removeSnackBar(container, '.snack-bar-container__snack-bar--error');
 
     return;
   }
 
-  setTimeout(() => {
-    const $snackBar = document.querySelector('.snack-bar-container__snack-bar');
-    $snackBar.classList.add('hide');
-    container.removeChild($snackBar);
-  }, SNACK_BAR_DELAY_TIME);
+  removeSnackBar(container, '.snack-bar-container__snack-bar');
 };
 
 export default renderSnackBar;
