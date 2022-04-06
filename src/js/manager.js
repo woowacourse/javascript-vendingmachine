@@ -14,7 +14,7 @@ const managerNameButton = $('#manager-name-button');
 const optionList = $('#option-list');
 const logoutButton = $('#logout');
 
-managerNameButton.textContent = user.name.substr(0, 1);
+managerNameButton.textContent = user.name[0];
 
 managerNameButton.addEventListener('click', makeAnimation);
 logoutButton.addEventListener('click', logout);
