@@ -1,11 +1,6 @@
 import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
-import {
-  productTemplate,
-  editProductTemplate,
-  addProductTemplate,
-  productManangeListTemplate,
-} from "./productTemplate";
+import { productTemplate, editProductTemplate, productManangeListTemplate } from "./productTemplate";
 import ProductManager from "../../mananger/ProductManager";
 import { clearInput } from "../../utils/common";
 
@@ -51,14 +46,6 @@ class ProductComponent {
       alert(message);
     }
   };
-
-  renderProducts() {
-    this.productTableBody.replaceChildren();
-    this.productTableBody.insertAdjacentHTML(
-      "beforeend",
-      productManangeListTemplate(this.productManager.getProducts()),
-    );
-  }
 
   handleManageOption = ({ target }) => {
     if (!target.classList.contains("product-manage__option")) {
@@ -114,6 +101,14 @@ class ProductComponent {
     } catch ({ message }) {
       alert(message);
     }
+  }
+
+  renderProducts() {
+    this.productTableBody.replaceChildren();
+    this.productTableBody.insertAdjacentHTML(
+      "beforeend",
+      productManangeListTemplate(this.productManager.getProducts()),
+    );
   }
 
   show() {

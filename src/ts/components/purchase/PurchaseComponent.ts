@@ -1,6 +1,6 @@
 import { $ } from "../../utils/dom";
-import { productListTemplate, purchaseTemplate } from "./purchaseTemplate";
-import ChargeManager from "../../mananger/ChargeManager";
+import { productPurchaseListTemplate, purchaseTemplate } from "./purchaseTemplate";
+import ChargeManager, { Coin } from "../../mananger/ChargeManager";
 import ProductManager from "../../mananger/ProductManager";
 
 class PurchaseComponent {
@@ -12,6 +12,7 @@ class PurchaseComponent {
   purchaseAmountText: HTMLSpanElement;
   purchaseTable: HTMLTableElement;
   purchaseTableBody: HTMLTableElement;
+  returnButton: HTMLButtonElement;
 
   constructor({ productManager, chargeManager }) {
     this.productManager = productManager;
@@ -25,9 +26,11 @@ class PurchaseComponent {
     this.purchaseAmountInput = $(".purchase-form__input");
     this.purchaseTable = $(".purchase-table");
     this.purchaseTableBody = $(".purchase-table__body");
+    this.returnButton = $(".return-coin__return-button");
 
     this.purchaseForm.addEventListener("submit", this.handleAddAmount);
     this.purchaseTable.addEventListener("click", this.handlePurchaseProduct);
+    this.returnButton.addEventListener("click", this.handleReturnCoin);
   }
 
   handleAddAmount = (e: Event) => {
@@ -58,13 +61,28 @@ class PurchaseComponent {
     }
   };
 
+  handleReturnCoin = () => {
+    const purchaseAmount = this.productManager.getPurchaseAmount();
+    const returnCoins = this.chargeManager.getReturnCoins(purchaseAmount);
+    const returnCoinAmount = this.chargeManager.convertCoinsToAmount(returnCoins);
+
+    this.chargeManager.substractCoins(returnCoins);
+    this.productManager.substractPurchaseAmount(returnCoinAmount);
+
+    // todo: 잔돈반환 테이블 정보 보여주기
+    // todo: 투입한 금액 정보 보여주기
+  };
+
   renderAmount() {
     this.purchaseAmountText.textContent = `${this.productManager.getPurchaseAmount()}`;
   }
 
   renderProducts() {
     this.purchaseTableBody.replaceChildren();
-    this.purchaseTableBody.insertAdjacentHTML("beforeend", productListTemplate(this.productManager.getProducts()));
+    this.purchaseTableBody.insertAdjacentHTML(
+      "beforeend",
+      productPurchaseListTemplate(this.productManager.getProducts()),
+    );
   }
 
   show() {

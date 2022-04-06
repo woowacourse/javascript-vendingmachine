@@ -13,8 +13,9 @@ interface ProductManagerInterface {
   addProduct(product: Product): void;
   removeProduct(name: string): void;
   editProduct(editProduct: Product, prevName: string): void;
-  addPurchaseAmount(amount: number): void;
   purchaseProduct(name: string): void;
+  addPurchaseAmount(amount: number): void;
+  substractPurchaseAmount(amount: number): void;
 }
 
 export interface Product {
@@ -58,18 +59,21 @@ class ProductManager implements ProductManagerInterface {
     this.products.push(editProduct);
   }
 
-  addPurchaseAmount(amount: number) {
-    verifyPurchaseAmount(amount);
-
-    this.purchaseAmount += amount;
-  }
-
   purchaseProduct(name: string) {
     const selectedProduct = this.products.find((product) => product.name === name);
     verifyPurchaseProduct(selectedProduct.quantity, this.purchaseAmount, selectedProduct.price);
 
     this.purchaseAmount -= selectedProduct.price;
     selectedProduct.quantity--;
+  }
+
+  addPurchaseAmount(amount: number) {
+    verifyPurchaseAmount(amount);
+    this.purchaseAmount += amount;
+  }
+
+  substractPurchaseAmount(amount: number) {
+    this.purchaseAmount -= amount;
   }
 }
 

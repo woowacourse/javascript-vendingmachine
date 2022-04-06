@@ -34,7 +34,7 @@ const productTemplate = () => {
   </section>`;
 };
 
-const addProductTemplate = ({ name, price, quantity }) => {
+const productRowTemplate = ({ name, price, quantity }) => {
   return `
   <tr data-name=${name}>
     <td>${name}</td>
@@ -49,7 +49,7 @@ const addProductTemplate = ({ name, price, quantity }) => {
 
 const productManangeListTemplate = (list: Product[]) => {
   return `
-  ${list.map(({ name, price, quantity }) => `${addProductTemplate({ name, price, quantity })}`).join("")}
+  ${list.map(({ name, price, quantity }) => `${productRowTemplate({ name, price, quantity })}`).join("")}
   `;
 };
 
@@ -65,4 +65,4 @@ const editProductTemplate = ({ name, price, quantity }) => {
   `;
 };
 
-export { productTemplate, addProductTemplate, productManangeListTemplate, editProductTemplate };
+export { productTemplate, productRowTemplate, productManangeListTemplate, editProductTemplate };

@@ -60,7 +60,7 @@ const purchaseTemplate = () => {
   `;
 };
 
-const productListTemplate = (list: Product[]) => {
+const productPurchaseListTemplate = (list: Product[]) => {
   return `
   ${list
     .map(
@@ -78,4 +78,4 @@ const productListTemplate = (list: Product[]) => {
   `;
 };
 
-export { purchaseTemplate, productListTemplate };
+export { purchaseTemplate, productPurchaseListTemplate };
