@@ -9,7 +9,7 @@ export default class Router {
   constructor(view: View) {
     this.view = view;
 
-    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
+    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PURCHASE_PRODUCT;
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
     this.routeLogin(this.currentTab);
 
