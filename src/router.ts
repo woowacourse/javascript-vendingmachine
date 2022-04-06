@@ -1,8 +1,9 @@
-import { $, $$ } from './utils';
+import { $, $$, showSnackbar } from './utils';
 
 interface Router {
   path: string;
   component: Element;
+  permission: boolean;
 }
 
 const nav = $('.nav');
@@ -17,8 +18,30 @@ const baseURL = '/javascript-vendingmachine';
   }),
 );
 
+const isGranted = (pathname: string) => {
+  const isLogin = !!localStorage.getItem('accessToken');
+  const element = [...pageRouters, ...tabRouters].find((router) => router.path === pathname);
+
+  if (!element) return;
+
+  return element.permission || isLogin;
+};
+
+const deny = () => {
+  showSnackbar('로그인 후 이용할 수 있습니다.');
+  historyRouterPush(baseURL + '/');
+};
+
 export const historyRouterPush = (pathname: string) => {
   history.pushState({ pathname }, '', pathname);
+  render(window.location.pathname);
+};
+
+const render = (path: string) => {
+  if (!isGranted(path)) {
+    deny();
+    return;
+  }
 
   renderPage(window.location.pathname);
   renderTab(window.location.pathname);
@@ -47,26 +70,24 @@ const renderTab = (path: string) => {
 };
 
 const tabRouters: Router[] = [
-  { path: baseURL + '/', component: $('purchase-tab') },
-  { path: baseURL + '/charge', component: $('charge-tab') },
-  { path: baseURL + '/management', component: $('product-management') },
+  { path: baseURL + '/', component: $('purchase-tab'), permission: true },
+  { path: baseURL + '/charge', component: $('charge-tab'), permission: false },
+  { path: baseURL + '/management', component: $('product-management'), permission: false },
 ];
 
 const pageRouters: Router[] = [
-  { path: baseURL + '/', component: $('vending-machine-page') },
-  { path: baseURL + '/login', component: $('login-page') },
-  { path: baseURL + '/signup', component: $('signup-page') },
-  { path: baseURL + '/profile', component: $('profile-edit-page') },
+  { path: baseURL + '/', component: $('vending-machine-page'), permission: true },
+  { path: baseURL + '/login', component: $('login-page'), permission: true },
+  { path: baseURL + '/signup', component: $('signup-page'), permission: true },
+  { path: baseURL + '/profile', component: $('profile-edit-page'), permission: false },
 ];
 
 window.addEventListener('popstate', function () {
-  renderPage(window.location.pathname);
-  renderTab(window.location.pathname);
+  render(window.location.pathname);
 });
 
 if (window.location.pathname === '/') {
   window.location.pathname = baseURL;
 }
 
-renderPage(window.location.pathname);
-renderTab(window.location.pathname);
+render(window.location.pathname);
