@@ -1,8 +1,11 @@
+import { ERROR_MESSAGE } from '../constants';
 import { historyRouterPush } from '../router';
 import storage from '../storage';
 import { on, $, showSnackBar } from '../utils';
 
 class Auth {
+  private SERVER_BASE_URL = 'https://js-vendingmachine-server.herokuapp.com';
+
   constructor() {
     on('.signup-form', '@signup', (e) => this.signup(e.detail), $('sign-up'));
     on('.signin-form', '@signin', (e) => this.signin(e.detail), $('sign-in'));
@@ -14,10 +17,10 @@ class Auth {
       const { email, userName, password, passwordConfirm } = userInfo;
 
       if (password !== passwordConfirm) {
-        throw new Error('비밀번호가 일치하지 않습니다.');
+        throw new Error(ERROR_MESSAGE.PASSWORD_CONFIRM);
       }
 
-      const response = await fetch('https://js-vendingmachine-server.herokuapp.com/signup', {
+      const response = await fetch(`${this.SERVER_BASE_URL}/signup`, {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -30,10 +33,9 @@ class Auth {
       });
 
       if (!response.ok) {
-        throw new Error('중복된 이메일이 존재합니다.');
+        throw new Error(ERROR_MESSAGE.DUPLICATED_EMAIL);
       }
 
-      // 로그인 페이지 전환 로직 추가
       historyRouterPush('/javascript-vendingmachine/signin');
     } catch (e) {
       showSnackBar(e.message);
@@ -44,7 +46,7 @@ class Auth {
     try {
       const { email, password } = userInfo;
 
-      const response = await fetch('https://js-vendingmachine-server.herokuapp.com/signin', {
+      const response = await fetch(`${this.SERVER_BASE_URL}/signin`, {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -65,7 +67,6 @@ class Auth {
       storage.setLocalStorage('userInfo', user);
       storage.setLocalStorage('accessToken', accessToken);
 
-      // 메인 페이지 전환 로직
       historyRouterPush('/javascript-vendingmachine/');
     } catch (e) {
       showSnackBar(e.message);
@@ -88,7 +89,7 @@ class Auth {
       const userId = storage.getUserInfo().id;
       const accessToken = storage.getAccessToken();
 
-      const response = await fetch(`https://js-vendingmachine-server.herokuapp.com/users/${userId}`, {
+      const response = await fetch(`${this.SERVER_BASE_URL}/users/${userId}`, {
         method: 'PATCH',
         body: JSON.stringify({
           password,
@@ -104,7 +105,6 @@ class Auth {
       const { email, userName, id } = responseData;
       storage.setLocalStorage('userInfo', { email, userName, id });
 
-      // 메인 페이지 전환 로직
       historyRouterPush('/javascript-vendingmachine/');
     } catch (e) {
       showSnackBar(e.message);

@@ -43,4 +43,6 @@ export const ERROR_MESSAGE = {
   OVER_INPUT_MONEY: `투입 금액은 ${markUnit(CONFIGURATION.INPUT.MAX)}원을 초과할 수 없습니다!`,
   INCORRECT_UNIT_INPUT_MONEY: `금액은 ${CONFIGURATION.INPUT.MIN}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,
   NOT_ENOUGH_MONEY: `잔액이 부족합니다.`,
+  PASSWORD_CONFIRM: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+  DUPLICATED_EMAIL: '중복된 이메일이 존재합니다.',
 };
