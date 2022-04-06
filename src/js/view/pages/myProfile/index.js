@@ -1,20 +1,6 @@
-import { createElementByTemplate, generateSnackBar, selectDom } from '../utils/dom';
-import { emitEvent } from '../utils/event';
-
-const template = `<main>
-<h1 class="user-title">회원정보 수정</h1>
-<form id="update-user-form" class="user-form">
-  <label>이메일</label>
-  <input type="email" value="woowacourse@gmail.com" class="user-form--input" id="update-user-email" disabled />
-  <label>이름</label>
-  <input type="text" placeholder="" class="user-form--input" id="update-user-name" required />
-  <label>비밀번호</label>
-  <input type="password" placeholder="비밀번호를 입력해주세요" class="user-form--input" id="update-user-password" required />
-  <label>비밀번호 확인</label>
-  <input type="password" placeholder="비밀번호를 입력해주세요" class="user-form--input" id="update-user-password-confirm" required />
-  <button type="submit" class="user-form--button">확인</button>
-</form>
-</main>`;
+import { createElementByTemplate, generateSnackBar, selectDom } from '../../../utils/dom';
+import { emitEvent } from '../../../utils/event';
+import myProfileTemplate from './template';
 
 export default class MyProfile {
   #updateContainer;
@@ -25,7 +11,7 @@ export default class MyProfile {
   #passwordConfirmInput;
 
   constructor() {
-    this.#updateContainer = createElementByTemplate('div', template);
+    this.#updateContainer = createElementByTemplate('div', myProfileTemplate);
     this.#updateContainer.id = 'app';
     this.#updateForm = selectDom('#update-user-form', this.#updateContainer);
     this.#emailInput = selectDom('#update-user-email', this.#updateContainer);

@@ -1,6 +1,6 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { emitEvent } from '../utils/event';
-import { addChangeTemplate } from './template';
+import { createMainElement, selectDom } from '../../../utils/dom';
+import { emitEvent } from '../../../utils/event';
+import addChangeTemplate from './template';
 
 export default class AddChangeTab {
   #addChangeContainer;

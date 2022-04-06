@@ -1,5 +1,5 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { emitEvent } from '../utils/event';
+import { createMainElement, selectDom } from '../../../utils/dom';
+import { emitEvent } from '../../../utils/event';
 import { productPurchaseTableRow, purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {

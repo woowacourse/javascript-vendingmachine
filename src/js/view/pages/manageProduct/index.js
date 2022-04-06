@@ -1,6 +1,6 @@
-import { confirmMessage } from '../constants';
-import { createMainElement, selectDom } from '../utils/dom';
-import { emitEvent } from '../utils/event';
+import { confirmMessage } from '../../../constants';
+import { createMainElement, selectDom } from '../../../utils/dom';
+import { emitEvent } from '../../../utils/event';
 import {
   manageProductTemplate,
   productTableRow,

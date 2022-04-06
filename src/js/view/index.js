@@ -2,15 +2,15 @@ import Controller from '../controller/controller';
 import UserController from '../controller/userController';
 import User from '../domain/User';
 import VendingMachine from '../domain/VendingMachine';
-import AddChangeTab from './AddChangeTab';
-import LoginTab from './LoginTab';
-import ManageProductTab from './ManageProductTab';
-import MyProfile from './MyProfieTab';
+import AddChangeTab from './pages/addChangeTab';
+import LoginTab from './pages/loginTab';
+import ManageProductTab from './pages/manageProduct';
+import MyProfile from './pages/myProfile';
 import Navigation from './Navigation';
 import Page from './Page';
-import PurchaseProductTab from './PurchaseProductTab';
+import PurchaseProductTab from './pages/purchaseProduct';
 import Router from './Router';
-import SignUpTab from './SignUpTab';
+import SignUpTab from './pages/signUp';
 
 // eslint-disable-next-line max-lines-per-function
 export default function initView() {
