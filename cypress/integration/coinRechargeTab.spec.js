@@ -1,6 +1,12 @@
 describe('잔돈 충전 탭 테스트', () => {
-  const email = 'a@naaver.com';
+  const email = `${Math.random().toString(36).substring(3, 8)}@naaver.com`;
+  const name = '김이박';
   const password = '1234!@#$asdf';
+  const confirmPassword = '1234!@#$asdf';
+
+  before(() => {
+    cy.register(email, name, password, confirmPassword);
+  });
 
   const cashInput = 1000;
 
