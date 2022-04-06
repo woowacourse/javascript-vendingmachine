@@ -2,8 +2,31 @@ import Subject from '../core/Subject';
 import { setData, getData } from '../utils/storageUtil';
 import { deepClone } from '../utils/commons';
 
+interface UserData {
+  email: string;
+  id: string;
+  name: string;
+}
+
+interface LoginState {
+  isLoggedIn: boolean;
+  userData: UserData;
+}
+
+interface Response {
+  accessToken: string;
+  user: UserData;
+}
+
+interface GlobalStoreInterface {
+  loginState: LoginState;
+  currentLocation: string;
+}
+
 export default class GlobalStore {
-  constructor(initialLoginState, initialLocation) {
+  state: GlobalStoreInterface;
+
+  constructor(initialLoginState: LoginState, initialLocation: string) {
     this.state = Subject.observable({
       loginState: initialLoginState,
       currentLocation: initialLocation,
@@ -14,13 +37,13 @@ export default class GlobalStore {
     return deepClone(callback(this.state));
   }
 
-  changeLocation(location) {
+  changeLocation(location: string) {
     if (this.state.currentLocation !== location) {
       this.state.currentLocation = location;
     }
   }
 
-  login(response) {
+  login(response: Response) {
     this.state.loginState = { isLoggedIn: true, userData: response.user };
     setData('user', response);
 
@@ -28,7 +51,10 @@ export default class GlobalStore {
   }
 
   logout() {
-    this.state.loginState = { isLoggedIn: false, userData: {} };
+    this.state.loginState = {
+      isLoggedIn: false,
+      userData: { email: '', id: '', name: '' },
+    };
     localStorage.removeItem('user');
 
     this.changeLocation('/');

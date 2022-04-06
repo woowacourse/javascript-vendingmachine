@@ -1,5 +1,5 @@
 import Component from '../../core/Component';
-import { loginUser } from '../../auth/login';
+import { loginUser } from '../../auth';
 import { showSnackBar } from '../../utils/domUtil';
 import { globalStore } from '../../domains/GlobalStore';
 

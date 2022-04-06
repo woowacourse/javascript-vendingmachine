@@ -1,7 +1,6 @@
 import Component from '../../core/Component';
 import { setData } from '../../utils/storageUtil';
-import { loginUser } from '../../auth/login';
-import { editUser, deleteUser } from '../../auth/edit';
+import { loginUser, editUser, deleteUser } from '../../auth';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
 import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';

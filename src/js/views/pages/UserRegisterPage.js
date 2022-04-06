@@ -1,5 +1,5 @@
 import Component from '../../core/Component';
-import { registerUser } from '../../auth/register';
+import { registerUser } from '../../auth';
 import { setData } from '../../utils/storageUtil';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
