@@ -25,11 +25,12 @@ describe("회원가입 및 로그인 테스트", () => {
 
   it("중복된 이메일을 회원가입시 에러 snackbar를 보여준다", () => {
     cy.get("login-status").click();
+
     cy.get("a").click();
     cy.get("#signup-email").type("hwangstar123@gmail.com");
     cy.get("#signup-name").type("스밍");
-    cy.get("#signup-password").type("aldald1");
-    cy.get("#signup-password-confirm").type("aldald1");
+    cy.get("#signup-password").type("ghkdwjdals1!");
+    cy.get("#signup-password-confirm").type("ghkdwjdals1!");
     cy.get(".button").click();
     cy.get("#snackbar").should("have.text", "Email already exists");
   });
