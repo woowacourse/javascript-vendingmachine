@@ -1,5 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $ } from '../utils';
+import { COIN } from '../constants';
 
 export interface RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
@@ -35,7 +36,7 @@ export default class RechargeView implements RechargeViewInterface {
     this.$coin100 = $('#coin-100');
     this.$coin50 = $('#coin-50');
     this.$coin10 = $('#coin-10');
-    
+
     this.vendingMachine = vendingMachine;
 
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
@@ -56,7 +57,7 @@ export default class RechargeView implements RechargeViewInterface {
   renderRecharge = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
-    
+
     this.$rechargeInput.value = '';
     this.$rechargeInput.focus();
   };
@@ -66,9 +67,9 @@ export default class RechargeView implements RechargeViewInterface {
   };
 
   renderCoinTable = () => {
-    this.$coin500.textContent = String(this.vendingMachine.getCoin(500).count);
-    this.$coin100.textContent = String(this.vendingMachine.getCoin(100).count);
-    this.$coin50.textContent = String(this.vendingMachine.getCoin(50).count);
-    this.$coin10.textContent = String(this.vendingMachine.getCoin(10).count);
+    this.$coin500.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_500).count);
+    this.$coin100.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_100).count);
+    this.$coin50.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_50).count);
+    this.$coin10.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_10).count);
   };
 }

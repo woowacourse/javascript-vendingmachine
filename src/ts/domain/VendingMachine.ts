@@ -1,7 +1,6 @@
 import ProductType from '../type/ProductType';
-import MoneyType from '../type/MoneyType';
 import Product, { ProductInterface } from './Product';
-import Money from './Money';
+import Money, { MoneyInterface } from './Money';
 import { checkDuplicatedProduct, checkRechargeMoney } from './validator';
 import { getRandomNumber } from '../utils';
 import { STORAGE_ID, COIN, ERROR_MESSAGE } from '../constants';
@@ -10,13 +9,13 @@ import { PurchaseMoneyInterface } from './PurchaseMoney';
 
 export interface VendingMachineInterface {
   products: ProductInterface[];
-  money: MoneyType[];
+  money: MoneyInterface[];
   purchaseMoney: PurchaseMoneyInterface;
 
   getPurchaseMoneyFromStorage(key: string): PurchaseMoneyInterface;
   getProductsFromStorage(key: string): ProductInterface[];
-  getMoneyFromStorage(key: string): MoneyType[];
-  getCoin(value: number): MoneyType;
+  getMoneyFromStorage(key: string): MoneyInterface[];
+  getCoin(value: number): MoneyInterface;
   getHoldingMoney(): number;
   getProduct(name: string): ProductInterface;
   generateRandomCoins(money: number): void;
@@ -26,11 +25,12 @@ export interface VendingMachineInterface {
   editProduct(name: string, product: ProductType): ProductInterface;
   addPurchaseMoney(money: number): number;
   purchaseProduct(name: string): void;
+  returnCoins(): number[];
 }
 
 export default class VendingMachine implements VendingMachineInterface {
   products: ProductInterface[];
-  money: MoneyType[];
+  money: MoneyInterface[];
   purchaseMoney: PurchaseMoneyInterface;
 
   constructor() {
@@ -59,7 +59,7 @@ export default class VendingMachine implements VendingMachineInterface {
     );
   };
 
-  getMoneyFromStorage = (key: string): MoneyType[] => {
+  getMoneyFromStorage = (key: string): MoneyInterface[] => {
     const moneyFromStorage = JSON.parse(localStorage.getItem(key));
 
     return moneyFromStorage?.map(({ value, count }) => new Money(value, count));
@@ -70,7 +70,7 @@ export default class VendingMachine implements VendingMachineInterface {
   };
 
   getHoldingMoney = () => {
-    return this.money.reduce((holdingMoney: number, currentMoney: MoneyType) => {
+    return this.money.reduce((holdingMoney: number, currentMoney: MoneyInterface) => {
       return holdingMoney + currentMoney.value * currentMoney.count;
     }, 0);
   };
@@ -83,7 +83,7 @@ export default class VendingMachine implements VendingMachineInterface {
     while (money !== 0) {
       const coinValue = this.money[getRandomNumber(0, 3)].value;
       if (coinValue <= money) {
-        const index = this.money.findIndex((coin: MoneyType) => coin.value === coinValue);
+        const index = this.money.findIndex((coin: MoneyInterface) => coin.value === coinValue);
         this.money[index].count += 1;
         money -= coinValue;
       }
@@ -150,5 +150,23 @@ export default class VendingMachine implements VendingMachineInterface {
       return;
     }
     throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
+  };
+
+  returnCoins = () => {
+    let currentMoney = this.purchaseMoney.getMoney();
+    const decreasedCounts = [];
+
+    this.money.forEach((money) => {
+      const share = Math.floor(currentMoney / money.value);
+      const decreasedCount = money.decreaseCount(share);
+      decreasedCounts.push(decreasedCount);
+      currentMoney -= decreasedCount * money.getValue();
+    });
+    this.purchaseMoney.money = currentMoney;
+
+    localStorage.setItem(STORAGE_ID.PURCHASE_MONEY, JSON.stringify(this.purchaseMoney));
+    localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this.money));
+
+    return decreasedCounts;
   };
 }

@@ -11,7 +11,12 @@
   margin-top: 12px;
 }
 
-button.purchase-button {
+button.purchase-button,
+button.return-change {
   width: 100px;
   height: 32px;
+}
+
+button.return-change {
+  margin-top: 16px;
 }

@@ -1,5 +1,5 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, $$ } from '../utils';
+import { $ } from '../utils';
 import { CONFIRM_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
 import { ProductInterface } from '../domain/Product';

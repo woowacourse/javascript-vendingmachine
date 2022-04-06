@@ -1,7 +1,6 @@
 import VendingMachine from './VendingMachine';
 import { ERROR_MESSAGE } from '../constants';
 import Money from './Money';
-import Product from './Product';
 import LocalStorageMock from './localStorageMock';
 
 global.localStorage = new LocalStorageMock();

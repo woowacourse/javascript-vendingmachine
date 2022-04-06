@@ -1,16 +1,22 @@
+import { ERROR_MESSAGE } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $ } from '../utils';
+import { $, $$ } from '../utils';
 
 export interface PurchaseProductViewInterface {
   $purchaseForm: HTMLFormElement;
   $purchaseInput: HTMLInputElement;
   $purchaseMoney: HTMLSpanElement;
   $availableProducts: HTMLTableSectionElement;
+  $returnChange: HTMLButtonElement;
 
   vendingMachine: VendingMachineInterface;
 
   handleSubmit(event: SubmitEvent): void;
+  handlePurchase(event: PointerEvent): void;
+  handleReturn(): void;
   renderPurchaseProduct(): void;
+  renderReturnCoinTable(decreaseCounts: number[]): void;
+  renderAvailableProduct(): void;
 }
 
 class PurchaseProductView implements PurchaseProductViewInterface {
@@ -18,6 +24,8 @@ class PurchaseProductView implements PurchaseProductViewInterface {
   $purchaseInput: HTMLInputElement;
   $purchaseMoney: HTMLSpanElement;
   $availableProducts: HTMLTableSectionElement;
+  $returnChange: HTMLButtonElement;
+  $$returnCoins: NodeListOf<HTMLSpanElement>;
 
   vendingMachine: VendingMachineInterface;
 
@@ -26,11 +34,14 @@ class PurchaseProductView implements PurchaseProductViewInterface {
     this.$purchaseInput = $('.purchase-input', this.$purchaseForm);
     this.$purchaseMoney = $('.purchase-money', this.$purchaseForm);
     this.$availableProducts = $('.available-products-body');
+    this.$returnChange = $('.return-change');
+    this.$$returnCoins = $$('.return-coin');
 
     this.vendingMachine = vendingMachine;
 
     this.$purchaseForm.addEventListener('submit', this.handleSubmit);
     this.$availableProducts.addEventListener('click', this.handlePurchase);
+    this.$returnChange.addEventListener('click', this.handleReturn);
   }
 
   handleSubmit = (event: SubmitEvent) => {
@@ -58,6 +69,22 @@ class PurchaseProductView implements PurchaseProductViewInterface {
         alert(error.message);
       }
     }
+  };
+
+  handleReturn = () => {
+    if (this.vendingMachine.getHoldingMoney() === 0) {
+      alert(ERROR_MESSAGE.NOT_ENOUGH_RECHARGE);
+      return;
+    }
+    const decreasedCounts = this.vendingMachine.returnCoins();
+    this.renderReturnCoinTable(decreasedCounts);
+    this.renderPurchaseProduct();
+  };
+
+  renderReturnCoinTable = (decreasedCounts: number[]) => {
+    this.$$returnCoins.forEach(($returnCoin, index) => {
+      $returnCoin.textContent = String(decreasedCounts[index]);
+    });
   };
 
   renderPurchaseProduct = () => {

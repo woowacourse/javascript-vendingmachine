@@ -19,6 +19,7 @@ export const ERROR_MESSAGE = {
   EXCEED_PURCHASE_MONEY: '구입할 금액 투입은 최대 10,000원 입니다.',
   UNDER_MIN_PURCHASE_MONEY: '구입할 금액 투입은 10원 이상이어야 합니다.',
   NOT_ENOUGH_MONEY: '투입한 금액이 부족합니다.',
+  NOT_ENOUGH_RECHARGE: '자판기가 보유한 동전이 없습니다.',
 };
 
 export const CONFIRM_MESSAGE = {
