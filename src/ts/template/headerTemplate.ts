@@ -2,9 +2,22 @@ import HASH from '../constant/hash';
 import { CLASS } from '../constant/selector';
 import { Hash } from '../types';
 
-export const generateTabHeaderTemplate = (hash: Hash): string => `
-  <div id="authentication-container">
-    <button class="login-button default-button ">로그인</button>
+export const generateUnauthorizedTabHeaderTemplate = (): string => `
+  <div id="login-button-wrapper">
+    <button class="login-button default-button">로그인</button>
+  </div>
+  <h1>🍿 자판기 🍿</h1>
+`;
+
+export const generateAuthorizedTebHeaderTemplate = (hash: Hash, userName: string): string => `
+  <div class="authentication-container">
+      <div class="thumbnail-wrapper">
+        <button class="thumbnail-button">${userName.charAt(0)}</button>
+        <div class="side-button-wrapper hide">
+          <button id="edit-button" class="default-button side-button">회원 정보 수정</button>
+          <button id="logout-button" class="default-button side-button">로그아웃</button>
+        </div>
+      </div>
   </div>
   <h1>🍿 자판기 🍿</h1>
   <nav id="tab-button-container">

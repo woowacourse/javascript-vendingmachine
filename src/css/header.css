@@ -1,5 +1,11 @@
-#authentication-container {
+.login-button-wrapper {
   align-self: flex-end;
+}
+
+.authentication-container {
+  align-self: flex-end;
+  position: relative;
+  height: 36px;
 }
 
 .login-button {
@@ -14,4 +20,35 @@
 
 .authentication-header-title {
   margin-top: 44px;
+}
+
+.thumbnail-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  position: absolute;
+  top: 16px;
+  left: -100px;
+  z-index: 1;
+}
+
+.thumbnail-button {
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 24px;
+  background-color: var(--thumbnail-button-background-color);
+}
+
+.thumbnail-button:hover {
+  background-color: var(--thumbnail-button-hover-color);
+}
+
+.side-button {
+  width: 100px;
+  margin-top: 10px;
 }

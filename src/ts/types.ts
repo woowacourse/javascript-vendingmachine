@@ -49,6 +49,7 @@ export type UserInfo = {
 };
 
 export interface UserStoreInterface {
+  getUserInfo: () => UserInfo;
   validateLoginInput: (loginInfo: AuthenticationInfo) => void;
   validateRegisterInput: (registerInfo: AuthenticationInfo) => void;
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;

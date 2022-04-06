@@ -1,84 +1,101 @@
-import { Hash, HeaderInterface } from '../types';
+import { UserStoreInterface, UserInfo, Hash, HeaderInterface } from '../types';
 import {
   generateAuthenticationHeaderTemplate,
-  generateTabHeaderTemplate,
+  generateUnauthorizedTabHeaderTemplate,
+  generateAuthorizedTebHeaderTemplate,
 } from '../template/headerTemplate';
 import { selectDom, selectDoms } from '../utils';
-import { CLASS } from '../constant/selector';
+import { CLASS, ID } from '../constant/selector';
 import HASH from '../constant/hash';
 
 class HeaderView implements HeaderInterface {
+  private userStore: UserStoreInterface;
+
   private header: HTMLHeadElement | null = selectDom('header');
+
+  private sideButtonWrapper: HTMLElement | null = null;
 
   private navTabButtons: NodeListOf<HTMLButtonElement> | null = null;
 
   private previousHash: Hash = null;
 
+  constructor(userStore: UserStoreInterface) {
+    this.userStore = userStore;
+  }
+
   render(hash: Hash): void {
-    // TODO: 렌더 메서드 리팩터링 필요
+    const userInfo = this.userStore.getUserInfo();
 
-    if (this.isTabHash(hash) && !this.isTabHash(this.previousHash)) {
-      this.renderTabHeader(hash);
-      this.bindTabHeaderEvent();
-      this.previousHash = hash;
-
-      return;
-    }
-
-    if (this.isTabHash(hash)) {
-      if (hash === '') {
-        this.navTabButtons.forEach((navTabButton) => {
-          navTabButton.classList.toggle(
-            CLASS.SELECTED,
-            navTabButton.dataset.hash === HASH.ITEM_PURCHASE
-          );
-        });
-        this.previousHash = hash;
-        return;
-      }
-
-      this.navTabButtons.forEach((navTabButton) => {
-        navTabButton.classList.toggle(CLASS.SELECTED, navTabButton.dataset.hash === hash);
-      });
-
-      this.previousHash = hash;
-      return;
-    }
+    this.header.replaceChildren();
 
     if (hash === HASH.LOGIN) {
-      this.header.replaceChildren();
       this.header.insertAdjacentHTML('afterbegin', generateAuthenticationHeaderTemplate('로그인'));
+      return;
     }
 
     if (hash === HASH.REGISTER) {
-      this.header.replaceChildren();
       this.header.insertAdjacentHTML(
         'afterbegin',
         generateAuthenticationHeaderTemplate('회원가입')
       );
+      return;
     }
 
-    this.previousHash = hash;
+    // TODO: 헤더 렌더링 최적화 필요 - 현재 탭 간 이동할 때 헤더 전체가 리렌더링 되고있다.
+    if (this.isTabHash(hash) && userInfo) {
+      this.header.insertAdjacentHTML(
+        'afterbegin',
+        generateAuthorizedTebHeaderTemplate(hash, userInfo.name)
+      );
+
+      this.bindAuthorizedTabHeaderEvent();
+      return;
+    }
+
+    if (this.isTabHash(hash) && !userInfo) {
+      this.header.insertAdjacentHTML('afterbegin', generateUnauthorizedTabHeaderTemplate());
+
+      this.bindUnauthorizedTabHeaderEvent();
+    }
   }
 
   changeThumbnail(): void {}
 
-  private renderTabHeader(hash: Hash): void {
-    this.header.replaceChildren();
-    this.header.insertAdjacentHTML('afterbegin', generateTabHeaderTemplate(hash));
-  }
+  private bindAuthorizedTabHeaderEvent(): void {
+    const thumbnailButton: HTMLButtonElement | null = selectDom(`.${CLASS.THUMBNAIL_BUTTON}`);
+    this.sideButtonWrapper = selectDom(`.${CLASS.SIDE_BUTTON_WRAPPER}`);
 
-  private bindTabHeaderEvent(): void {
-    const loginButton: HTMLButtonElement | null = selectDom('.login-button');
     const tabButtonContainer: HTMLElement | null = selectDom('#tab-button-container');
     this.navTabButtons = selectDoms('.nav-tab-button');
 
-    loginButton.addEventListener('click', this.onClickLoginButton);
+    thumbnailButton.addEventListener('click', this.onClickThumbnailButton);
+    this.sideButtonWrapper.addEventListener('click', this.onClickSideButton);
     tabButtonContainer.addEventListener('click', this.onClickTabButton);
   }
 
-  private onClickLoginButton = () => {
-    this.changeHashUrl(HASH.LOGIN);
+  private bindUnauthorizedTabHeaderEvent(): void {
+    const loginButton: HTMLButtonElement | null = selectDom('.login-button');
+
+    loginButton.addEventListener('click', this.onClickLoginButton);
+  }
+
+  private onClickThumbnailButton = (): void => {
+    this.sideButtonWrapper.classList.toggle(CLASS.HIDE);
+  };
+
+  private onClickSideButton = ({ target }: MouseEvent): void => {
+    const targetElement = target as HTMLElement;
+
+    if (targetElement.id === ID.EDIT_BUTTON) {
+      // TODO: 회원 정보 기능 구현
+      console.log('회원 정보 수정');
+      return;
+    }
+
+    if (targetElement.id === ID.LOGOUT_BUTTON) {
+      // TODO: 로그아웃 기능 구현
+      console.log('로그아웃');
+    }
   };
 
   private onClickTabButton = ({ target }: MouseEvent): void => {
@@ -92,12 +109,15 @@ class HeaderView implements HeaderInterface {
 
     const hash = targetElement.dataset.hash as Hash;
 
-    // TODO: 탭
     this.navTabButtons.forEach((navTabButton) => {
       navTabButton.classList.toggle(CLASS.SELECTED, navTabButton.dataset.hash === hash);
     });
 
     this.changeHashUrl(hash);
+  };
+
+  private onClickLoginButton = () => {
+    this.changeHashUrl(HASH.LOGIN);
   };
 
   private isTabHash(hash: Hash): boolean {

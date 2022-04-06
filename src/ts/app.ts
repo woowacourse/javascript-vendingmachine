@@ -21,7 +21,7 @@ class App {
 
   private userStore: UserStoreInterface = new UserStore();
 
-  private header: HeaderInterface = new HeaderView();
+  private header: HeaderInterface = new HeaderView(this.userStore);
 
   private itemManageTab: VendingMachineTabInterface = new ItemManageTab(
     this.vendingMachine,

@@ -8,6 +8,8 @@ export const ID = {
   CHARGED_AMOUNT: 'charged-amount',
   LOGIN_FORM: 'login-form',
   REGISTER_FORM: 'register-form',
+  EDIT_BUTTON: 'edit-button',
+  LOGOUT_BUTTON: 'logout-button',
 };
 
 export const CLASS = {
@@ -24,4 +26,6 @@ export const CLASS = {
   CASH_CHARGE_INPUT: 'cash-charge-input',
   COIN_COUNT: 'coin-count',
   AUTHENTICATION_INPUT: 'authentication-input',
+  THUMBNAIL_BUTTON: 'thumbnail-button',
+  SIDE_BUTTON_WRAPPER: 'side-button-wrapper',
 };
