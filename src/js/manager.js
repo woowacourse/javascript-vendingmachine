@@ -2,8 +2,9 @@ import '../css/index.css';
 import './route/route.js';
 import './controller.js';
 import { $ } from './utils/dom.js';
+import { getSessionStorage, removeSessionStorage } from './utils/sessionStorage';
 
-const { accessToken, user } = JSON.parse(sessionStorage.getItem('user'));
+const { accessToken, user } = getSessionStorage('user');
 
 if (!accessToken) {
   location.href = './index.html';
@@ -31,6 +32,6 @@ function makeAnimation() {
 }
 
 function logout() {
-  sessionStorage.removeItem('user');
+  removeSessionStorage('user');
   location.href = './index.html';
 }
