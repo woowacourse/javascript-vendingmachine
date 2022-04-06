@@ -1,0 +1,16 @@
+
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form > .button{
+    width:100%;
+    margin:0;
+}
+
+.signUp-anchor{
+    color:blue;
+}
