@@ -54,7 +54,7 @@ class LoginView implements ViewInterface {
       return;
     }
 
-    window.location.href = '/';
+    this.changeHashUrl('/' as Hash);
   };
 
   private convertToLoginInfoObject(loginInputList: HTMLInputElement[]): AuthenticationInfo {
