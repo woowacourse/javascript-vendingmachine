@@ -12,7 +12,7 @@ type UserResponse =
     }
   | string;
 
-const baseUrl = 'http://localhost:3000' as const;
+export const baseUrl = 'http://localhost:3000' as const;
 
 async function fetchUser(
   userId: string,

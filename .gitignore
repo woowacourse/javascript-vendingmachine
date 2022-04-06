@@ -2,3 +2,11 @@
 node_modules/
 
 user.json
+
+# cypress
+cypress/fixtures
+cypress/plugins
+cypress/screenshots
+cypress/support
+cypress/videos
+cypress/.DS_Store
