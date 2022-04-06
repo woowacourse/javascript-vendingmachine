@@ -6,6 +6,7 @@ import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
 import { convertToLocaleString, showSnack } from '../utils';
 import ValidationError from '../validation/validation-error';
+import emptyImage from '../../images/empty.png';
 
 @customElement('purchase-product-inventory')
 class PurchaseProductInventory extends Component {
@@ -48,6 +49,15 @@ class PurchaseProductInventory extends Component {
     `;
   }
 
+  emptyTemplate() {
+    return `
+      <h2>아직 상품이 없어요!</h2>
+      <div>
+        <img src=${emptyImage} width="100%" />
+      </div>
+    `;
+  }
+
   setEvent() {
     this.addEvent('click', '.has-btn button', this.onClickPurchaseBtn);
   }
@@ -86,7 +96,7 @@ class PurchaseProductInventory extends Component {
 
   mount() {
     const { productList } = Store.instance.getState();
-    this.innerHTML = this.template(productList);
+    this.innerHTML = productList.length === 0 ? this.emptyTemplate() : this.template(productList);
   }
 
   render() {

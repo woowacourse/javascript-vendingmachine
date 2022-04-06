@@ -11,6 +11,7 @@ import {
 } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
+import emptyImage from '../../images/empty.png';
 
 @customElement('product-inventory')
 class ProductInventory extends Component {
@@ -63,6 +64,15 @@ class ProductInventory extends Component {
           ${productListTemplate}
         </tbody>
       </table>
+    `;
+  }
+
+  emptyTemplate() {
+    return `
+      <h2>아직 상품이 없어요!</h2>
+      <div>
+        <img src=${emptyImage} width="100%" />
+      </div>
     `;
   }
 
@@ -152,14 +162,14 @@ class ProductInventory extends Component {
 
   mount() {
     const { productList } = Store.instance.getState();
-    this.innerHTML = this.template(productList);
+
+    this.innerHTML = productList.length === 0 ? this.emptyTemplate() : this.template(productList);
   }
 
   render() {
     const tbody = this.querySelector('tbody');
     const { productList } = Store.instance.getState();
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
-
     if (!tbody) return;
 
     tbody.innerHTML = productListTemplate;
