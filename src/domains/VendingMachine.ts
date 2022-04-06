@@ -26,12 +26,19 @@ export interface Coins {
   500: number;
 }
 
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface VendingMachineState {
   items: Item[];
   coins: Coins;
   insertedMoney: number;
   returnedChange: Coins;
   location: string;
+  user: User | null;
 }
 
 export default class VendingMachine {
@@ -42,6 +49,7 @@ export default class VendingMachine {
     coins: Coins,
     insertedMoney: number,
     returnedChange: Coins,
+    user: User | null = null,
     location = '/'
   ) {
     this.state = Subject.observable({
@@ -49,6 +57,7 @@ export default class VendingMachine {
       coins,
       insertedMoney,
       returnedChange,
+      user,
       location,
     });
   }

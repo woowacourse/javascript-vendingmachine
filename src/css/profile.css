@@ -1,0 +1,28 @@
+.profile-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-input {
+  display: block;
+  width: 300px;
+  height: 34px;
+  margin-top: 4px;
+}
+
+.profile-button {
+  height: 36px;
+  margin-top: 14px;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
