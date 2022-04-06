@@ -1,4 +1,4 @@
-import { on, emit, $$, $ } from '../dom/domHelper';
+import { on, emit, $$ } from '../dom/domHelper';
 
 const isUndefinedManageRoutes = (pathname: string) =>
   !Array.from($$<HTMLElement>('.manage-component')).some(
