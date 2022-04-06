@@ -1,5 +1,5 @@
 import { API } from '../../apis';
-import { basePath } from '../component/App';
+import { basePath } from '../../App';
 import { showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';

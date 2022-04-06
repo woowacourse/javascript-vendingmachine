@@ -1,8 +1,8 @@
-import { $$ } from '../utils/dom';
-import SignupPage from '../pages/signup';
-import LoginPage from '../pages/login';
-import HomePage from '../pages/home';
-import UserEditPage from '../pages/user-edit';
+import { $$ } from './ts/utils/dom';
+import SignupPage from './ts/pages/signup';
+import LoginPage from './ts/pages/login';
+import HomePage from './ts/pages/home';
+import UserEditPage from './ts/pages/user-edit';
 
 export const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';

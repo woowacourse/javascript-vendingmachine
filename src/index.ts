@@ -1,4 +1,4 @@
 import './scss/index.scss';
-import App from './ts/component/App';
+import App from './App';
 
 new App();

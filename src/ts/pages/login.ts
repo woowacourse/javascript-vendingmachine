@@ -1,6 +1,6 @@
 import { API } from '../../apis';
 import { $, replaceHTML } from '../utils/dom';
-import { basePath } from '../component/App';
+import { basePath } from '../../App';
 import { showSnackbar } from '../utils';
 
 export default class LoginPage {

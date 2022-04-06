@@ -2,7 +2,7 @@ import CoinManagement from '../domain/CoinManagement';
 import MoneyManagement from '../domain/MoneyManagement';
 import ProductManagement from '../domain/ProductManagement';
 import { $, replaceHTML } from '../utils/dom';
-import { basePath } from '../component/App';
+import { basePath } from '../../App';
 import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';

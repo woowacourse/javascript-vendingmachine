@@ -1,7 +1,7 @@
 import { API } from '../../apis';
 import type { UserInfoWithPassWord } from '../../apis';
 
-import { basePath } from '../component/App';
+import { basePath } from '../../App';
 import { getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
