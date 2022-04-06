@@ -3,7 +3,7 @@ import { User } from '../interfaces/UserData.interface';
 import { checkEmailValidation, checkPasswordValidation } from './RegExpCheck';
 
 export const checkUserDataValidate = (userData: User) => {
-  if (userData.name.length >= RULES.MIN_NAME_LENGTH && userData.name.length <= RULES.MAX_NAME_LENGTH) {
+  if (userData.name.length < RULES.MIN_NAME_LENGTH || userData.name.length > RULES.MAX_NAME_LENGTH) {
     throw new Error(ERROR_MESSAGE.NAME_LENGTH_IS_INVALID);
   }
 
