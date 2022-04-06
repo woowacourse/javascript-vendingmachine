@@ -41,11 +41,8 @@ export class CustomerMoneyInput {
   }
 
   bindEvent() {
-    console.log('bindInMoneyInput Component 바인드 꼐속돼서 나는 문제임..');
     this.customerMoneyInputBtn.addEventListener('click', this.handleChargeMoney);
-    this.target.addEventListener('purchased', (e) => {
-      this.handleDeductMoneyInput(e);
-    });
+    this.target.addEventListener('purchased', this.handleDeductMoneyInput);
     this.target.addEventListener('giveChanges', this.updateCurrentMoneyInput);
   }
 
@@ -65,7 +62,7 @@ export class CustomerMoneyInput {
     this.currentMoneyInput.textContent = `${this.coinVault.getCustomerInput()}`;
   };
 
-  handleDeductMoneyInput = (e) => {
+  handleDeductMoneyInput = (e: CustomEvent) => {
     const productPrice = e.detail.price;
     this.coinVault.deductCustomerInput(productPrice);
     this.updateCurrentMoneyInput();
