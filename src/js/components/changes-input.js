@@ -1,5 +1,5 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
-import { addEvent, emit } from "../util/event";
+import { addEvent, emit, removeEvent } from "../util/event";
 import showSnackbar from "../util/snackbar";
 
 class ChangesInput extends HTMLElement {
@@ -18,6 +18,10 @@ class ChangesInput extends HTMLElement {
     addEvent(this.$changesForm, "submit", this.onSubmit);
 
     this.renderHaveChanges();
+  }
+
+  disconnectedCallback() {
+    removeEvent(this.$changesForm, "submit", this.onSubmit);
   }
 
   onSubmit = (e) => {

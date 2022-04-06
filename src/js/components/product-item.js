@@ -1,4 +1,4 @@
-import { addEvent, emit } from "../util/event";
+import { addEvent, emit, removeEvent } from "../util/event";
 
 class ProductItem extends HTMLTableRowElement {
   constructor() {
@@ -46,6 +46,14 @@ class ProductItem extends HTMLTableRowElement {
         this.updateProduct(e.detail);
       }
     });
+  }
+
+  disconnectedCallback() {
+    this.$editButton = this.querySelector(".edit-button");
+    this.$deleteButton = this.querySelector(".delete-button");
+
+    removeEvent(this.$editButton, "click", this.changeItemToEditTemplate);
+    removeEvent(this.$deleteButton, "click", this.onDelete);
   }
 
   updateProduct = ({ name, price, count }) => {

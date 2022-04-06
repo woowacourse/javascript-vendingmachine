@@ -1,22 +1,19 @@
+import isLogin from "../util/checkLogin";
+
 class PageByLogin extends HTMLElement {
   constructor() {
     super();
-    this.user = JSON.parse(localStorage.getItem("user-info"));
     this.render();
   }
 
   render() {
-    if (this.checkLogin()) {
+    if (isLogin()) {
       this.renderNavButtonContainer();
       return;
     }
 
     this.renderPurchaseContainer();
   }
-
-  checkLogin = () => {
-    return this.user && this.user.key;
-  };
 
   renderPurchaseContainer() {
     this.innerHTML = `

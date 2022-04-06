@@ -1,6 +1,6 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
 import { productPurchaseMachine } from "../domain/productPurchaseMachine";
-import { addEvent, emit } from "../util/event";
+import { addEvent, emit, removeEvent } from "../util/event";
 
 class ReturnTable extends HTMLElement {
   constructor() {
@@ -18,6 +18,10 @@ class ReturnTable extends HTMLElement {
     this.$returnButton = this.shadowRoot.querySelector("#return-button");
 
     addEvent(this.$returnButton, "click", this.onClickReturnButton);
+  }
+
+  disconnectedCallback() {
+    removeEvent(this.$returnButton, "click", this.onClickReturnButton);
   }
 
   onClickReturnButton = () => {

@@ -1,5 +1,5 @@
 import { productPurchaseMachine } from "../domain/productPurchaseMachine.ts";
-import { addEvent } from "../util/event";
+import { addEvent, removeEvent } from "../util/event";
 import showSnackbar from "../util/snackbar";
 
 class AmountInput extends HTMLElement {
@@ -19,6 +19,10 @@ class AmountInput extends HTMLElement {
     addEvent(this.$amountForm, "submit", this.onSubmit);
     addEvent(this.$page, "@updateamount", this.renderHaveAmount);
     this.renderHaveAmount();
+  }
+
+  disconnectedCallback() {
+    removeEvent(this.$amountForm, "submit", this.onSubmit);
   }
 
   onSubmit = (e) => {

@@ -1,4 +1,4 @@
-import { addEvent } from "../util/event";
+import { addEvent, removeEvent } from "../util/event";
 
 class LoginStatus extends HTMLElement {
   constructor() {
@@ -17,6 +17,11 @@ class LoginStatus extends HTMLElement {
       addEvent(this.$userProfile, "click", this.onClickProfile);
       addEvent(this.$logOutButton, "click", this.logOut);
     }
+  }
+
+  disconnectedCallback() {
+    removeEvent(this.$userProfile, "click", this.onClickProfile);
+    removeEvent(this.$logOutButton, "click", this.logOut);
   }
 
   onClickProfile = () => {
