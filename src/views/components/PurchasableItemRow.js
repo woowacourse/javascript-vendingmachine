@@ -23,7 +23,7 @@ class PurchasableItemRow extends TableRow {
       try {
         vendingMachine.purchaseItem(name);
       } catch (err) {
-        window.alert(err);
+        document.querySelector('#snackbar').trigger(err.message);
       }
     });
   }

@@ -5,6 +5,7 @@ import './pages/ChangeChargePage';
 import './pages/ItemPurchasePage';
 import './pages/NotFoundPage';
 import './components/NavBar';
+import './components/Snackbar';
 import { vendingMachine } from '../domains/VendingMachine';
 import { getPathname } from '../utils/domUtils';
 import { PAGES } from '../configs/constants';
@@ -30,6 +31,7 @@ export default class App extends Component {
           </page-router>
         </div>
       </main>
+      <snack-bar id="snackbar"></snack-bar>
     `;
   }
 

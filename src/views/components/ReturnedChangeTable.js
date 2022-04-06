@@ -42,7 +42,7 @@ export default class ReturnedChangeTable extends Component {
       try {
         vendingMachine.returnChange();
       } catch (err) {
-        alert(err);
+        document.querySelector('#snackbar').trigger(err.message);
       }
     });
   }

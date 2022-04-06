@@ -83,7 +83,7 @@ class ItemRow extends TableRow {
       try {
         vendingMachine.updateItem(prevName, updatedItem);
       } catch (err) {
-        window.alert(err);
+        document.querySelector('#snackbar').trigger(err.message);
       }
     });
 
@@ -94,7 +94,7 @@ class ItemRow extends TableRow {
         try {
           vendingMachine.removeItem(name);
         } catch (err) {
-          window.alert(err);
+          document.querySelector('#snackbar').trigger(err.message);
         }
       }
     });

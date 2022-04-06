@@ -70,7 +70,7 @@ export default class ItemAddForm extends Component {
         priceInput.value = '';
         quantityInput.value = '';
       } catch (err) {
-        window.alert(err);
+        document.querySelector('#snackbar').trigger(err.message);
       }
     });
   }

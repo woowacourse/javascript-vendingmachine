@@ -38,7 +38,7 @@ export default class InsertMoneyForm extends Component {
 
         amountInput.value = '';
       } catch (err) {
-        window.alert(err);
+        document.querySelector('#snackbar').trigger(err.message);
       }
     });
   }
