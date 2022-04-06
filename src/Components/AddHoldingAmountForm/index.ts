@@ -5,7 +5,7 @@ import Component from 'Components/Abstract';
 import AmountInputForm from 'Components/@Shared/AmountInputForm';
 
 export default class AddHoldingAmountForm extends Component {
-  subscriberStore = [HoldingAmountStore];
+  subscribeStore = [HoldingAmountStore];
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ export default class AddHoldingAmountForm extends Component {
       return false;
     }
 
-    HoldingAmountStore.addAmount(userInput);
+    HoldingAmountStore.addHoldingAmount(userInput);
     return true;
   }
 

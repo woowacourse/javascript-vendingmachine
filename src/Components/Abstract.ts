@@ -2,7 +2,7 @@ import Store from 'Store/Abstract';
 import { TComponent } from 'Types/ComponentTypes';
 
 export default abstract class Component<IDefaultProps = Record<string, any>> {
-  protected subscriberStore: Store[] = [];
+  protected subscribeStore: Store[] = [];
   protected renderMethodList: TRenderMethodList = {};
   protected props: IDefaultProps;
 
@@ -19,7 +19,7 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
   protected abstract template(): HTMLElement | DocumentFragment;
 
   private addSubscriberStore() {
-    this.subscriberStore.forEach(store => {
+    this.subscribeStore.forEach(store => {
       store.addSubscriber(this.render);
       this.render({
         state: store.getState(),
@@ -42,7 +42,7 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
   }
 
   public unmount() {
-    this.subscriberStore.forEach(store => {
+    this.subscribeStore.forEach(store => {
       store.removeSubscriber(this.render);
     });
 

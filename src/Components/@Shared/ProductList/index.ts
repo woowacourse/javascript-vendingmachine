@@ -8,7 +8,7 @@ import templateManageTableRowEditor from './template/ManageTableRowEditor.html';
 import templatePurchaseTableRow from './template/PurchaseTableRow.html';
 
 export default class ProductList extends Component<IProductListProps> {
-  subscriberStore = [ProductStore];
+  subscribeStore = [ProductStore];
 
   constructor(props) {
     super(props);

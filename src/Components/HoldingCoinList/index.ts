@@ -4,7 +4,7 @@ import CoinList from 'Components/@Shared/CoinList';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
 
 export default class HoldingCoinList extends Component {
-  subscriberStore = [HoldingAmountStore];
+  subscribeStore = [HoldingAmountStore];
 
   constructor(props: ICoinListComponentProps) {
     super(props);
