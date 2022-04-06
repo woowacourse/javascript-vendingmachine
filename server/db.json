@@ -1,11 +1,3 @@
 {
-  "users": [
-    {
-      "email": "ubc3344@gmail.com",
-      "password": "$2a$10$GBhBYA9G/HuS/GY4Po/kBev8eiuynLp8mOXcLI0bZzCCIKBYvxt9K",
-      "name": "해리",
-      "passwordConfirm": "DJAWLGUR78!",
-      "id": 1
-    }
-  ]
+  "users": []
 }

@@ -6,7 +6,7 @@ class VerifyValueValidation implements VerifyValueValidation {
   private products: Array<Product>;
   private coins: Array<Coin>;
 
-  constructor(products: Array<Product>, coins: Array<Coin>) {
+  constructor(products: Array<Product> = [], coins: Array<Coin> = []) {
     this.products = products;
     this.coins = coins;
   }
