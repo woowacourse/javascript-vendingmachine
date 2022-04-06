@@ -51,15 +51,12 @@ export default class LoginPage {
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;
 
-    history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
 
-  #signupButtonHandler = e => {
+  #signupButtonHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
-
-    history.pushState({}, '', pathname || '/');
 
     this.routePage(pathname);
   };

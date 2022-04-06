@@ -76,7 +76,6 @@ export default class SignupPage {
     document.cookie = `user_id=${response.user.id}`;
     document.cookie = `access_token=${response.accessToken}`;
 
-    history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
 }

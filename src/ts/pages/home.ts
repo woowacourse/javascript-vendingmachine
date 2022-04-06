@@ -189,8 +189,6 @@ export default class HomePage {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
-    history.pushState({}, '', pathname || '/');
-
     this.routePage(pathname);
   };
 
@@ -198,12 +196,10 @@ export default class HomePage {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
-    history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
 
   #editClickHandler = () => {
-    history.pushState({}, '', '/user-edit');
     this.routePage('/user-edit');
   };
 }

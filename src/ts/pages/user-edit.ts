@@ -18,7 +18,6 @@ export default class UserEditPage {
 
     if (typeof this.#user === 'string') {
       showSnackbar('Not Login');
-      history.pushState({}, '', `${basePath}/`);
       this.routePage(`${basePath}/`);
       return;
     }
@@ -87,7 +86,6 @@ export default class UserEditPage {
     });
 
     if (typeof response === 'string') return;
-    history.pushState({}, '', `${basePath}/`);
     this.routePage(`${basePath}/`);
   };
 }

@@ -29,6 +29,10 @@ export default class App {
   };
 
   routePage: routePageType = pathname => {
+    if (location.pathname !== pathname) {
+      history.pushState({}, '', pathname || '/');
+    }
+
     const endPoint = pathname.replace(basePath, '');
 
     switch (endPoint) {
