@@ -12,7 +12,7 @@ import { Auth } from '../domain/Auth';
 import { Profile } from '../component/Profile';
 import { UserInfoEditView } from './UserInfoEditView';
 
-export class NavView {
+export class Router {
   #nav: HTMLElement;
   #thumbnail: HTMLDivElement;
   #productManageNavBtn: HTMLButtonElement;
@@ -74,32 +74,41 @@ export class NavView {
     this.#authSection.addEventListener('editUserInfoCompleted', this.#renderHome);
     this.#thumbnail.addEventListener('showEditUserInfoRequested', this.#handleShowEditUserInfoPage);
     this.#thumbnail.addEventListener('logoutCompleted', this.#renderHome);
-    window.addEventListener('popstate', (savedData) => {
-      this.#handlePopstate(savedData);
-    });
+    window.addEventListener('popstate', this.#handlePopstate);
 
     // 홈 화면 렌더링
     this.#renderHome();
   }
 
-  #handlePopstate = (savedData) => {
-    if (savedData.state.path === URL_PATH.HOME) {
+  #handlePopstate = (e) => {
+    const { path } = e.state;
+    console.log(e);
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (path === URL_PATH.HOME) {
       this.#renderHome();
 
       return;
     }
 
-    if (savedData.state.path === URL_PATH.PRODUCT_MANAGE) {
+    if (path === URL_PATH.PRODUCT_MANAGE) {
+      if (!accessToken) return this.#renderHome();
+
       this.#productManageView.show();
-      this.#balanceChargeView.hide();
       this.#productPurchaseView.hide();
-      this.#featureSection.classList.remove('hide');
       this.#authSection.classList.add('hide');
+      this.#balanceChargeView.hide();
+
+      this.#thumbnail.classList.remove('hide');
+      this.#featureSection.classList.remove('hide');
 
       return;
     }
 
-    if (savedData.state.path === URL_PATH.BALANCE_CHAREGE) {
+    if (path === URL_PATH.BALANCE_CHAREGE) {
+      if (!accessToken) return this.#renderHome();
+
+      this.#thumbnail.classList.remove('hide');
       this.#balanceChargeView.show();
       this.#productPurchaseView.hide();
       this.#productManageView.hide();
@@ -109,13 +118,12 @@ export class NavView {
       return;
     }
 
-    if (savedData.state.path === URL_PATH.PRODUCT_PURCHASE) {
-      const accessToken = localStorage.getItem('accessToken');
+    if (path === URL_PATH.PRODUCT_PURCHASE) {
       this.#balanceChargeView.hide();
-      this.#productPurchaseView.show();
       this.#productManageView.hide();
       this.#authSection.classList.add('hide');
 
+      this.#productPurchaseView.show();
       this.#featureSection.classList.remove('hide');
 
       if (accessToken) {
@@ -127,10 +135,11 @@ export class NavView {
       }
 
       this.#loginBtn.classList.remove('hide');
+
       return;
     }
 
-    if (savedData.state.path === URL_PATH.LOGIN) {
+    if (path === URL_PATH.LOGIN) {
       this.#featureSection.classList.add('hide');
       this.#loginBtn.classList.add('hide');
 
@@ -141,7 +150,7 @@ export class NavView {
       return;
     }
 
-    if (savedData.state.path === URL_PATH.SINGUP) {
+    if (path === URL_PATH.SIGNUP) {
       this.#featureSection.classList.add('hide');
       this.#loginBtn.classList.add('hide');
 
@@ -152,7 +161,7 @@ export class NavView {
       return;
     }
 
-    if (savedData.state.path === URL_PATH.EDIT_USER_INFO) {
+    if (path === URL_PATH.EDIT_USER_INFO) {
       this.#featureSection.classList.add('hide');
       this.#thumbnail.classList.add('hide');
 
@@ -223,7 +232,7 @@ export class NavView {
     this.#authSection.textContent = '';
     this.#signupView.render();
 
-    const path = URL_PATH.SINGUP;
+    const path = URL_PATH.SIGNUP;
     this.#handleUrlPath(path);
   };
 
