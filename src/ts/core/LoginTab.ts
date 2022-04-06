@@ -31,12 +31,13 @@ class LoginTab implements Login {
       });
 
       const json = await response.json();
-      console.log(json);
       const { accessToken, user } = json;
 
       if (response.ok) {
         localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
         loginnedMode();
+      } else {
+        displaySnackbar(json);
       }
     } catch (error) {
       displaySnackbar(error);

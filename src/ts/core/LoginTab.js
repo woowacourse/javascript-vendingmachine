@@ -84,11 +84,13 @@ var LoginTab = /** @class */ (function () {
                         return [4 /*yield*/, response.json()];
                     case 3:
                         json = _a.sent();
-                        console.log(json);
                         accessToken = json.accessToken, user = json.user;
                         if (response.ok) {
                             localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
                             (0, loginUtil_1.loginnedMode)();
+                        }
+                        else {
+                            (0, snackbar_1.displaySnackbar)(json);
                         }
                         return [3 /*break*/, 5];
                     case 4:

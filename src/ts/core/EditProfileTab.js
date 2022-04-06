@@ -71,7 +71,7 @@ var EditProfileTab = /** @class */ (function () {
     };
     EditProfileTab.prototype.handleEditProfile = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var userInfo, name, password, passwordConfirm, accessToken, id, response, name_2, error_1;
+            var userInfo, name, password, passwordConfirm, accessToken, id, response, name_2, json, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -84,7 +84,7 @@ var EditProfileTab = /** @class */ (function () {
                         }
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
+                        _a.trys.push([1, 7, , 8]);
                         return [4 /*yield*/, fetch("http://localhost:3000/users/".concat(id), {
                                 method: 'PATCH',
                                 headers: {
@@ -99,16 +99,20 @@ var EditProfileTab = /** @class */ (function () {
                     case 3:
                         name_2 = (_a.sent()).name;
                         accessToken.name = name_2;
-                        console.log(accessToken);
                         localStorage.setItem('accessToken', JSON.stringify(accessToken));
                         (0, loginUtil_1.loginnedMode)();
-                        _a.label = 4;
-                    case 4: return [3 /*break*/, 6];
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, response.json()];
                     case 5:
+                        json = _a.sent();
+                        (0, snackbar_1.displaySnackbar)(json);
+                        _a.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
                         error_1 = _a.sent();
                         (0, snackbar_1.displaySnackbar)(error_1);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });

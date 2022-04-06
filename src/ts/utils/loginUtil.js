@@ -9,13 +9,13 @@ var loginnedMode = function () {
     var name = JSON.parse(localStorage.getItem('accessToken')).name;
     (0, dom_1.$)('#name-thumbnail').textContent = name[0];
     (0, dom_1.$)('.edit-profile-button').value = 'name-thumbnail';
-    location.href = 'http://localhost:9000/#manage';
+    location.href = "".concat(window.location.pathname, "#manage");
 };
 exports.loginnedMode = loginnedMode;
 var logOutedMode = function () {
     (0, dom_1.$)('.login-button').classList.remove('loginned');
     (0, dom_1.$)('.edit-profile-button').classList.remove('loginned');
     (0, dom_1.$)('.tab').classList.remove('loginned');
-    location.href = 'http://localhost:9000/#buy';
+    location.href = "".concat(window.location.pathname, "#buy");
 };
 exports.logOutedMode = logOutedMode;

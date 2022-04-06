@@ -53,11 +53,11 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifyLoginInfo = function (_a) {
         var email = _a.email, password = _a.password;
         if (!this.isValidEmail(email)) {
-            alert(constants_1.ALERT_MESSAGE.USER_EMAIL);
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
             return false;
         }
         if (!this.isValidPassWord(password)) {
-            alert(constants_1.ALERT_MESSAGE.USER_PASSWORD);
+            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
             return false;
         }
         return true;

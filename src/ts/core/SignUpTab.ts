@@ -32,6 +32,9 @@ class SignUpTab implements SignUp {
 
         localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
         loginnedMode();
+      } else {
+        const json = await response.json();
+        displaySnackbar(json);
       }
     } catch (error) {
       displaySnackbar(error);

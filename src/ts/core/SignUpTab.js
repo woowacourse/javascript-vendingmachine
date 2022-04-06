@@ -58,7 +58,7 @@ var SignUpTab = /** @class */ (function () {
     }
     SignUpTab.prototype.handleSignUp = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var signUpInfo, email, name, password, passwordConfirm, response, _a, accessToken, user, error_1;
+            var signUpInfo, email, name, password, passwordConfirm, response, _a, accessToken, user, json, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -69,7 +69,7 @@ var SignUpTab = /** @class */ (function () {
                         }
                         _b.label = 1;
                     case 1:
-                        _b.trys.push([1, 5, , 6]);
+                        _b.trys.push([1, 7, , 8]);
                         return [4 /*yield*/, fetch('http://localhost:3000/register', {
                                 method: 'POST',
                                 headers: {
@@ -85,13 +85,18 @@ var SignUpTab = /** @class */ (function () {
                         _a = _b.sent(), accessToken = _a.accessToken, user = _a.user;
                         localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
                         (0, loginUtil_1.loginnedMode)();
-                        _b.label = 4;
-                    case 4: return [3 /*break*/, 6];
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, response.json()];
                     case 5:
+                        json = _b.sent();
+                        (0, snackbar_1.displaySnackbar)(json);
+                        _b.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
                         error_1 = _b.sent();
                         (0, snackbar_1.displaySnackbar)(error_1);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });

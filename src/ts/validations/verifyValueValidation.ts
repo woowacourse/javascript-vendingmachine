@@ -58,11 +58,11 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyLoginInfo({ email, password }: LoginInfo) {
     if (!this.isValidEmail(email)) {
-      alert(ALERT_MESSAGE.USER_EMAIL);
+      displaySnackbar(ALERT_MESSAGE.USER_EMAIL);
       return false;
     }
     if (!this.isValidPassWord(password)) {
-      alert(ALERT_MESSAGE.USER_PASSWORD);
+      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD);
       return false;
     }
     return true;

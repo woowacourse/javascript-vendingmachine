@@ -58,9 +58,11 @@ class EditProfileTab implements EditProfile {
       if (response.ok) {
         const { name } = await response.json();
         accessToken.name = name;
-        console.log(accessToken);
         localStorage.setItem('accessToken', JSON.stringify(accessToken));
         loginnedMode();
+      } else {
+        const json = await response.json();
+        displaySnackbar(json);
       }
     } catch (error) {
       displaySnackbar(error);

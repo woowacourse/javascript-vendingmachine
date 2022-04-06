@@ -9,12 +9,12 @@ export const loginnedMode = function () {
 
   $('.edit-profile-button').value = 'name-thumbnail';
 
-  location.href = 'http://localhost:9000/#manage';
+  location.href = `${window.location.pathname}#manage`;
 };
 
 export const logOutedMode = function () {
   $('.login-button').classList.remove('loginned');
   $('.edit-profile-button').classList.remove('loginned');
   $('.tab').classList.remove('loginned');
-  location.href = 'http://localhost:9000/#buy';
+  location.href = `${window.location.pathname}#buy`;
 };
