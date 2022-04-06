@@ -51,7 +51,7 @@ class AdminPage {
       case 'logout':
         deleteCookie('accessToken');
         localStorage.removeItem('user-name');
-        location.hash = HASH.ITEM_PURCHASE;
+        location.hash = location.hash === HASH.ITEM_PURCHASE ? '' : HASH.ITEM_PURCHASE;
         break;
       case 'edit-user-info':
         showSnackbar(this.snackbar, 'Coming Soon...?');
