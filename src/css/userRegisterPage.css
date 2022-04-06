@@ -12,3 +12,8 @@
 .register-button{
   height: 36px;
 }
+
+.register{
+  cursor: pointer;
+  color: var(--link-text-color);
+}

@@ -59,6 +59,10 @@ input {
   cursor: pointer;
 }
 
+.styled-button:hover{
+  background-color: var(--button-hover-color);
+}
+
 .styled-button.selected {
   background: var(--button-selected-color);
 }
@@ -181,7 +185,7 @@ input::-webkit-inner-spin-button {
 .user-button{
   right: 0;
   border: none;
-  background-color: #D6F4F8;
+  background-color: var(--button-selected-color);
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -191,7 +195,7 @@ input::-webkit-inner-spin-button {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: var(--body-background-color);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -204,21 +208,20 @@ input::-webkit-inner-spin-button {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-content a:hover {background-color: var(--dropdown-background-color);}
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
 .dropdown:hover .user-button {
-  background-color: #00bcd4;
+  background-color: var(--emphasized-background-color);
 }
 
 .login-button {
   text-decoration: none; 
   outline: none;
-  color:#000000;
-  background: #F5F5F5;
+  background: var(--button-background-color);
   border-radius: 4px;
   text-align: center;
   margin-left: auto;
@@ -230,8 +233,8 @@ input::-webkit-inner-spin-button {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--snackbar-background-color);
+  color: var(--snackbar-text-color);
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -242,7 +245,7 @@ input::-webkit-inner-spin-button {
 }
 
 .show {
-  visibility: visible !important; /* Show the snackbar */
+  visibility: visible !important;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
   animation: fadein 0.5s, fadeout 0.5s 2.7s;
 }
