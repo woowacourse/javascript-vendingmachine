@@ -45,7 +45,7 @@ const initApp = function () {
         break;
       case '':
       case HASH.ITEM_PURCHASE:
-        itemPurchaseTab.renderInitialItemPurchaseTabState();
+        itemPurchaseTab.renderInitialItemPurchaseTabState(!!accessToken);
         break;
       case HASH.REGISTER_USER:
         !accessToken

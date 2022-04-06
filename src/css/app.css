@@ -21,6 +21,11 @@
   box-shadow: 0 1em 1em -1em var(--box-shadow-color) inset;
 }
 
+#tab-content.login {
+  padding: 0;
+  box-shadow: none;
+}
+
 .input-form {
   display: flex;
   flex-direction: column;

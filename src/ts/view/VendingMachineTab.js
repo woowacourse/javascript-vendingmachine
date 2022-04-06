@@ -4,7 +4,8 @@ class VendingMachineTab {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
-    this.navTabButtonList = selectDoms('.nav-tab-button');
+    this.navBar = selectDom('nav');
+    this.navTabButtonList = selectDoms('.nav-tab-button', this.navBar);
     this.tabContent = selectDom('#tab-content');
     this.snackbar = selectDom('.snackbar');
   }
