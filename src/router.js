@@ -9,6 +9,12 @@ const targets = [
     $focusInput: $('#login-email'),
   },
   {
+    hash: '#!signup',
+    header: HEADER.SIGNUP,
+    $container: $('sign-up'),
+    $focusInput: $('#signup-email'),
+  },
+  {
     hash: '#!product-manage',
     header: HEADER.VENDING_MACHINE,
     $button: $('.nav__product-manage-button'),
