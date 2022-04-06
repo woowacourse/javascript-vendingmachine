@@ -1,3 +1,5 @@
+import { addEvent } from "../util/event";
+
 class LoginStatus extends HTMLElement {
   constructor() {
     super();
@@ -12,8 +14,8 @@ class LoginStatus extends HTMLElement {
       this.$userMenuList = this.shadowRoot.querySelector(".user-menu-list");
       this.$logOutButton = this.shadowRoot.querySelector("#logout-button");
       this.setUserProfileThumbnail();
-      this.$userProfile.addEventListener("click", this.onClickProfile);
-      this.$logOutButton.addEventListener("click", this.logOut);
+      addEvent(this.$userProfile, "click", this.onClickProfile);
+      addEvent(this.$logOutButton, "click", this.logOut);
     }
   }
 

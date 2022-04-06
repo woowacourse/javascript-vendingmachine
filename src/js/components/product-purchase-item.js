@@ -1,6 +1,6 @@
 import { productProcessMachine } from "../domain/productProcessMachine";
 import { productPurchaseMachine } from "../domain/productPurchaseMachine";
-import { emit } from "../util/event";
+import { addEvent, emit } from "../util/event";
 import showSnackbar from "../util/snackbar";
 
 class ProductPurchaseItem extends HTMLTableRowElement {
@@ -33,7 +33,7 @@ class ProductPurchaseItem extends HTMLTableRowElement {
     this.$itemPrice = this.querySelector("#item-price");
     this.$itemCount = this.querySelector("#item-count");
     this.$purchaseButton = this.querySelector("#purchase-button");
-    this.$purchaseButton.addEventListener("click", this.purchaseProduct);
+    addEvent(this.$purchaseButton, "click", this.purchaseProduct);
   }
 
   purchaseProduct = () => {

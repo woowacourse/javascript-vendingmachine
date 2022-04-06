@@ -1,3 +1,5 @@
+const { addEvent } = require("../src/js/util/event");
+
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -61,8 +63,8 @@ var App = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_M
 
   this.$nav = document.querySelector("#page-tab-container");
   this.$page = document.querySelector("#page");
-  this.$nav.addEventListener("click", this.onClickNavButton);
-  window.addEventListener("hashchange", this.onChangePage);
+  addEvent(this.$nav, "click", this.onClickNavButton);
+  addEvent(window, "hashchange", this.onChangePage);
   this.onChangePage();
 });
 

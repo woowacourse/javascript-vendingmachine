@@ -1,5 +1,5 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
-import { emit } from "../util/event";
+import { addEvent, emit } from "../util/event";
 import showSnackbar from "../util/snackbar";
 
 class ChangesInput extends HTMLElement {
@@ -15,7 +15,7 @@ class ChangesInput extends HTMLElement {
     this.$haveChanges = this.shadowRoot.querySelector("#have-changes");
     this.$changesForm = this.shadowRoot.querySelector("#changes-form");
     this.$changesInput = this.shadowRoot.querySelector("#changes-input");
-    this.$changesForm.addEventListener("submit", this.onSubmit);
+    addEvent(this.$changesForm, "submit", this.onSubmit);
 
     this.renderHaveChanges();
   }

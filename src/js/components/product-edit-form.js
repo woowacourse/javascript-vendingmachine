@@ -1,5 +1,5 @@
 import { productProcessMachine } from "../domain/productProcessMachine";
-import { emit } from "../util/event";
+import { addEvent, emit } from "../util/event";
 import showSnackbar from "../util/snackbar";
 class ProductEditForm extends HTMLTableRowElement {
   constructor() {
@@ -11,10 +11,8 @@ class ProductEditForm extends HTMLTableRowElement {
     this.$editNameInput = this.querySelector("#edit-name-input");
     this.$editPriceInput = this.querySelector("#edit-price-input");
     this.$editCountInput = this.querySelector("#edit-count-input");
-    this.$saveButton.addEventListener("click", this.onEdit);
-    this.$page.addEventListener("@renderedit", (e) =>
-      this.renderEditForm(e.detail)
-    );
+    addEvent(this.$saveButton, "click", this.onEdit);
+    addEvent(this.$page, "@renderedit", (e) => this.renderEditForm(e.detail));
   }
 
   onEdit = () => {

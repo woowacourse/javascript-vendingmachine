@@ -1,5 +1,5 @@
 import { EVENT_TYPE } from "../constant";
-import { emit } from "../util/event";
+import { addEvent, emit } from "../util/event";
 import { productProcessMachine } from "../domain/productProcessMachine";
 import showSnackbar from "../util/snackbar";
 
@@ -24,7 +24,7 @@ class ProductInput extends HTMLElement {
       "#product-count-input"
     );
 
-    this.$addProductForm.addEventListener("submit", this.onSubmit);
+    addEvent(this.$addProductForm, "submit", this.onSubmit);
   }
 
   disconnectedCallback() {

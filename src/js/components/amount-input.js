@@ -15,8 +15,8 @@ class AmountInput extends HTMLElement {
     this.$amountForm = this.shadowRoot.querySelector("#amount-form");
     this.$amountInput = this.shadowRoot.querySelector("#amount-input");
     this.$haveAmount = this.shadowRoot.querySelector("#have-amount");
-    this.$amountForm.addEventListener("submit", this.onSubmit);
 
+    addEvent(this.$amountForm, "submit", this.onSubmit);
     addEvent(this.$page, "@updateamount", this.renderHaveAmount);
     this.renderHaveAmount();
   }

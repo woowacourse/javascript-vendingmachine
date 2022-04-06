@@ -1,6 +1,7 @@
 import "./css/login";
 import { ERROR_MESSAGE } from "./js/constant";
 import isLogin from "./js/util/checkLogin";
+import { addEvent } from "./js/util/event";
 import { setLocalStorage } from "./js/util/localStorage";
 import showSnackbar from "./js/util/snackbar";
 
@@ -10,7 +11,7 @@ class Login {
     this.$loginPasswordInput = document.querySelector("#login-password-input");
     this.$snackbar = document.querySelector("#snackbar");
     this.$loginForm = document.querySelector("#login-form");
-    this.$loginForm.addEventListener("submit", this.onSubmit);
+    addEvent(this.$loginForm, "submit", this.onSubmit);
     this.checkLoginStatus();
   }
 

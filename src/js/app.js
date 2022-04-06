@@ -2,13 +2,14 @@ import "./pages/product-manage.page";
 import "./pages/changes-manage.page";
 import "./pages/product-purchase.page";
 import isLogin from "./util/checkLogin";
+import { addEvent } from "./util/event";
 
 class App {
   constructor() {
     this.$nav = document.querySelector("#page-tab-container");
     this.$page = document.querySelector("#page");
-    this.$nav.addEventListener("click", this.onClickNavButton);
-    window.addEventListener("hashchange", this.onChangePage);
+    addEvent(this.$nav, "click", this.onClickNavButton);
+    addEvent(window, "hashchange", this.onChangePage);
 
     this.onChangePage();
   }

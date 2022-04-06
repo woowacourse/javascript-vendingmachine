@@ -1,4 +1,5 @@
 import "./css/login";
+import { addEvent } from "./js/util/event";
 import showSnackbar from "./js/util/snackbar";
 
 class SignUp {
@@ -11,7 +12,7 @@ class SignUp {
     this.$signupPasswordConfirm = document.querySelector(
       "#signup-password-confirm"
     );
-    this.$signupForm.addEventListener("submit", this.onSubmit);
+    addEvent(this.$signupForm, "submit", this.onSubmit);
   }
 
   onSubmit = async (e) => {

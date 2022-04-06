@@ -1,6 +1,7 @@
 import "./css/login.css";
 import { ERROR_MESSAGE } from "./js/constant";
 import isLogin from "./js/util/checkLogin";
+import { addEvent } from "./js/util/event";
 import { setLocalStorage } from "./js/util/localStorage";
 import showSnackbar from "./js/util/snackbar";
 
@@ -15,7 +16,7 @@ class UserEditForm {
     );
     this.$snackbar = document.querySelector("#snackbar");
 
-    this.$editUserForm.addEventListener("submit", this.onSubmit);
+    addEvent(this.$editUserForm, "submit", this.onSubmit);
     this.user = JSON.parse(localStorage.getItem("user-info"));
     this.checkLoginStatus();
 

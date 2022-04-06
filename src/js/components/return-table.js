@@ -1,6 +1,6 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
 import { productPurchaseMachine } from "../domain/productPurchaseMachine";
-import { emit } from "../util/event";
+import { addEvent, emit } from "../util/event";
 
 class ReturnTable extends HTMLElement {
   constructor() {
@@ -17,7 +17,7 @@ class ReturnTable extends HTMLElement {
     this.$returnCoin10 = this.shadowRoot.querySelector("#return-coin-10");
     this.$returnButton = this.shadowRoot.querySelector("#return-button");
 
-    this.$returnButton.addEventListener("click", this.onClickReturnButton);
+    addEvent(this.$returnButton, "click", this.onClickReturnButton);
   }
 
   onClickReturnButton = () => {
