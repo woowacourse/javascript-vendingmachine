@@ -1,4 +1,5 @@
 import { createMainElement, selectDom } from '../utils/dom';
+import { emitEvent } from '../utils/event';
 import { productPurchaseTableRow, purchaseTemplate } from './template';
 
 export default class PurchaseProductTab {
@@ -23,8 +24,7 @@ export default class PurchaseProductTab {
     );
     this.#giveChangeButton = selectDom('#give-change-button', this.#purchaseContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#purchaseContainer);
-    this.#renderTotalMoney();
-    this.#renderProductList();
+    // this.#renderTotalMoney();
 
     this.#inputMoneyForm.addEventListener('submit', this.#handleInputMoneyForm);
     this.#productStatusTable.addEventListener('click', this.#handlePurchase);
@@ -38,25 +38,21 @@ export default class PurchaseProductTab {
     );
   }
 
-  #renderProductList() {
-    Object.entries(this.#machine.productList).forEach(([id, { name, price, stock }]) => {
+  renderInitProductList(productList) {
+    Object.entries(productList).forEach(([id, { name, price, stock }]) => {
       this.addProduct({ id, name, price, stock });
     });
   }
 
-  #renderTotalMoney() {
-    this.#totalMoneySpan.textContent = this.#machine.totalMoney;
+  renderTotalMoney(money) {
+    this.#totalMoneySpan.textContent = money;
   }
 
   #handleInputMoneyForm = (e) => {
     e.preventDefault();
-    try {
-      this.#machine.insertMoney(this.#addProductNameInput.valueAsNumber);
-    } catch (error) {
-      alert(error.message);
-      return;
-    }
-    this.#renderTotalMoney();
+    const money = this.#addProductNameInput.valueAsNumber;
+    emitEvent(this.element, 'inputMoney', { money });
+
     this.#clearInput();
   };
 
@@ -81,26 +77,20 @@ export default class PurchaseProductTab {
       return;
     }
     const { productId } = e.target.dataset;
-    try {
-      this.#machine.sellProduct(productId);
-    } catch (err) {
-      alert(err.message);
-      return;
-    }
-    selectDom('.product-stock', e.target.closest('tr')).textContent =
-      this.#machine.productList[productId].stock;
-    this.#renderTotalMoney();
+    emitEvent(this.element, 'purchaseProduct', { productId });
   };
 
   #handleGiveChange = () => {
-    const coinStatus = this.#machine.giveChange();
+    emitEvent(this.element, 'giveChange', {});
+  };
+
+  renderChange(coinStatus) {
     const coinCountElements =
       this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
     coinCountElements.forEach((element) => {
       element.textContent = `${coinStatus[element.dataset.coinName]}개`;
     });
-    this.#renderTotalMoney();
-  };
+  }
 
   removeProduct(id) {
     selectDom(`[data-product-id='${id}']`, this.#productStatusTable)
