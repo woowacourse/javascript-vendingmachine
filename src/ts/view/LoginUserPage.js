@@ -4,7 +4,7 @@ import { KEY } from '../constant/storageKey';
 import { loginUserPageTemplate } from '../template';
 import { selectDom, showSnackbar } from '../utils';
 import { setCookie } from '../utils/cookie';
-import { login } from '../vendingMachine/authLogic';
+import { login, validateLoginBehavior } from '../vendingMachine/authLogic';
 
 class LoginUserPage {
   constructor() {
@@ -27,6 +27,7 @@ class LoginUserPage {
     e.preventDefault();
     const { email, password } = e.target;
     try {
+      validateLoginBehavior(email, password);
       const [ok, body] = await login({
         email: email?.value.trim() ?? '',
         password: password?.value.trim() ?? '',
