@@ -1,4 +1,6 @@
+import { NOT_DEVELOPED_YET_MESSAGE } from '../constant/errorMessage';
 import { HASH } from '../constant/path';
+import { KEY } from '../constant/storageKey';
 import { vendingMachineNavBarTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import { deleteCookie } from '../utils/cookie';
@@ -49,12 +51,12 @@ class AdminPage {
   #onChangeThumbnailOption = ({ target: { value } }) => {
     switch (value) {
       case 'logout':
-        deleteCookie('accessToken');
-        localStorage.removeItem('user-name');
+        deleteCookie(KEY.ACCESS_TOKEN);
+        localStorage.removeItem(KEY.USER_NAME);
         location.hash = location.hash === HASH.ITEM_PURCHASE ? '' : HASH.ITEM_PURCHASE;
         break;
       case 'edit-user-info':
-        showSnackbar(this.snackbar, 'Coming Soon...?');
+        showSnackbar(this.snackbar, NOT_DEVELOPED_YET_MESSAGE);
         break;
       default:
         break;

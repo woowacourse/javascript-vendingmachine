@@ -11,6 +11,7 @@ import ItemPurchaseTab from './view/ItemPurchaseTab';
 
 import RegisterUserPage from './view/RegisterUserPage';
 import LoginUserPage from './view/LoginUserPage';
+import { KEY } from './constant/storageKey';
 
 const initApp = function () {
   const itemManage = new ItemManage();
@@ -25,7 +26,7 @@ const initApp = function () {
   const loginUserPage = new LoginUserPage();
 
   return function () {
-    const accessToken = getCookie('accessToken');
+    const accessToken = getCookie(KEY.ACCESS_TOKEN);
     switch (location.hash) {
       case HASH.ITEM_MANAGE:
         accessToken

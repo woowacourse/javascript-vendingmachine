@@ -1,3 +1,4 @@
+import { KEY } from '../constant/storageKey';
 import { loginUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
 import { setCookie } from '../utils/cookie';
@@ -34,8 +35,8 @@ class LoginUserPage {
         user: { name },
       } = body;
 
-      setCookie('accessToken', accessToken, 3);
-      localStorage.setItem('user-name', name);
+      setCookie(KEY.ACCESS_TOKEN, accessToken, 3);
+      localStorage.setItem(KEY.USER_NAME, name);
     } catch (error) {
       alert(error.message);
       return;
