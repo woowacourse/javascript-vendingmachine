@@ -1,4 +1,4 @@
-import { signupAuth } from '../auth.js';
+import auth from '../Auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderComponent } from './renderer';
 import { renderToastModal } from './ToastNotification';
@@ -165,7 +165,7 @@ class Signup extends HTMLElement {
       passwordCheck: this.passwordCheckInput.value,
     };
     try {
-      const isSignup = await signupAuth(payload);
+      const isSignup = await auth.signupAuth(payload);
       if (!isSignup) {
         return;
       }

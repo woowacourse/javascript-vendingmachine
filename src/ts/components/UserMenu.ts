@@ -1,4 +1,5 @@
-import { deleteUserAuth, getUserAuth, getUserFirstName } from '../auth.js';
+import auth from '../Auth.js';
+
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
@@ -156,13 +157,13 @@ class UserMenu extends HTMLElement {
   };
 
   checkLoginStatus = async () => {
-    if (!getUserAuth()) {
+    if (!auth.getUserAuth()) {
       this.renderLoginButton();
 
       return;
     }
 
-    const userFirstName = await getUserFirstName();
+    const userFirstName = await auth.getUserFirstName();
     if (!userFirstName) {
       this.renderLoginButton();
 
@@ -193,7 +194,7 @@ class UserMenu extends HTMLElement {
   };
 
   logout = () => {
-    deleteUserAuth();
+    auth.deleteUserAuth();
     window.dispatchEvent(new CustomEvent('@route-logout', {}));
     renderToastModal('success', SUCCESS_MESSAGE.LOGOUT_COMPLETE);
   };

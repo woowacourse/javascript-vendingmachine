@@ -1,7 +1,7 @@
 import View from './views/View';
 import { PATH_ID, STORAGE_ID } from './constants';
 import { renderPublicPage, renderUserPrivatePage } from './components/renderer';
-
+import auth from './Auth.js';
 export default class Router {
   currentTab: string;
   view: View;
@@ -21,6 +21,8 @@ export default class Router {
       const url = event.detail;
       this.tabRouter(url, false);
     });
+
+    auth.isLoggedIn ? renderUserPrivatePage() : renderPublicPage();
 
     // 웹컴포넌트에서 보낸 커스텀 이벤트
     window.addEventListener('@route-login', () => {

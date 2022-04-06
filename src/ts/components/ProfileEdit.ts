@@ -1,4 +1,5 @@
-import { editProfileAuth, getUserData } from '../auth.js';
+// import { editProfileAuth, getUserData } from '../Auth.js';
+import auth from '../Auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
@@ -135,7 +136,7 @@ class ProfileEdit extends HTMLElement {
   }
 
   async connectedCallback() {
-    const { email, name } = await getUserData();
+    const { email, name } = await auth.getUserData();
     this.emailEditInput.value = String(email);
     this.nameEditInput.value = String(name);
     this.shadowRoot.querySelector('form').addEventListener('submit', this.edit);
@@ -157,7 +158,7 @@ class ProfileEdit extends HTMLElement {
       passwordCheck: this.passwordCheckEditInput.value,
     };
     try {
-      const isEdited = await editProfileAuth(payload);
+      const isEdited = await auth.editProfileAuth(payload);
       if (!isEdited) {
         return;
       }

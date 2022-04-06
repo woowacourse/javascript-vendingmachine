@@ -1,138 +1,157 @@
 import { checkValidProfile } from './domains/validator';
 
-const setUserAuth = (userAuth) => {
-  localStorage.setItem('userAuth', JSON.stringify(userAuth));
-};
+class Auth {
+  #isLoggedIn;
 
-export const getUserAuth = () => {
-  return JSON.parse(localStorage.getItem('userAuth'));
-};
+  constructor() {
+    this.#isLoggedIn = false;
+  }
 
-const getUserTokenId = () => {
-  const userAuth = getUserAuth();
-  return {
-    accessToken: `Bearer ${userAuth.accessToken}`,
-    userUrl: `${API_URL}/664/users/${userAuth.id}`,
+  get isLoggedIn() {
+    return this.#isLoggedIn;
+  }
+
+  #setUserAuth = (userAuth) => {
+    localStorage.setItem('userAuth', JSON.stringify(userAuth));
   };
-};
 
-export const deleteUserAuth = () => {
-  localStorage.removeItem('userAuth');
-};
-
-export const getUserData = async () => {
-  const { accessToken, userUrl } = getUserTokenId();
-  const response = await fetch(userUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': accessToken,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`API에러: ${await response.text()}`);
-  }
-  const data = await response.json();
-
-  return { email: data.email, name: data.name };
-};
-
-export const checkUserLoginStatus = async () => {
-  const userAuth = getUserAuth();
-  if (!userAuth) {
-    return false;
-  }
-  const accessToken = `Bearer ${userAuth.accessToken}`;
-  const userUrl = `${API_URL}/440/users/${userAuth.id}`;
-
-  const response = await fetch(userUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': accessToken,
-    },
-  });
-  if (!response.ok) {
-    return false;
-  }
-  return true;
-};
-
-export const signupAuth = async ({ email, name, password, passwordCheck }) => {
-  if (checkValidProfile(name, password, passwordCheck)) {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password, name }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`API에러: ${await response.text()}`);
-    }
-
-    return true;
-  }
-};
-
-export const loginAuth = async ({ email, password }) => {
-  const response = await fetch(`${API_URL}/login`, {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`API에러: ${await response.text()}`);
-  }
-  const data = await response.json();
-  const userAuth = {
-    accessToken: data.accessToken,
-    id: data.user.id,
+  getUserAuth = () => {
+    return JSON.parse(localStorage.getItem('userAuth'));
   };
-  setUserAuth(userAuth);
 
-  return true;
-};
+  #getUserTokenId = () => {
+    const userAuth = this.getUserAuth();
+    return {
+      accessToken: `Bearer ${userAuth.accessToken}`,
+      userUrl: `${API_URL}/664/users/${userAuth.id}`,
+    };
+  };
 
-export const editProfileAuth = async ({ name, password, passwordCheck }) => {
-  if (checkValidProfile(name, password, passwordCheck)) {
-    const { accessToken, userUrl } = getUserTokenId();
+  deleteUserAuth = () => {
+    this.#isLoggedIn = false;
+    localStorage.removeItem('userAuth');
+  };
+
+  getUserData = async () => {
+    const { accessToken, userUrl } = this.#getUserTokenId();
     const response = await fetch(userUrl, {
-      method: 'PATCH',
-      body: JSON.stringify({ name, password }),
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': accessToken,
       },
     });
-
     if (!response.ok) {
       throw new Error(`API에러: ${await response.text()}`);
     }
+    const data = await response.json();
+
+    return { email: data.email, name: data.name };
+  };
+
+  checkUserLoginStatus = async () => {
+    const userAuth = this.getUserAuth();
+    if (!userAuth) {
+      this.#isLoggedIn = false;
+      return;
+    }
+    const accessToken = `Bearer ${userAuth.accessToken}`;
+    const userUrl = `${API_URL}/440/users/${userAuth.id}`;
+
+    const response = await fetch(userUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken,
+      },
+    });
+    if (!response.ok) {
+      this.#isLoggedIn = false;
+    }
+    this.#isLoggedIn = true;
+  };
+
+  signupAuth = async ({ email, name, password, passwordCheck }) => {
+    if (checkValidProfile(name, password, passwordCheck)) {
+      const response = await fetch(`${API_URL}/signup`, {
+        method: 'POST',
+        body: JSON.stringify({ email, password, name }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`API에러: ${await response.text()}`);
+      }
+
+      return true;
+    }
+  };
+
+  loginAuth = async ({ email, password }) => {
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`API에러: ${await response.text()}`);
+    }
+    const data = await response.json();
+    const userAuth = {
+      accessToken: data.accessToken,
+      id: data.user.id,
+    };
+    this.#setUserAuth(userAuth);
+    this.#isLoggedIn = true;
 
     return true;
-  }
-};
+  };
 
-export const getUserFirstName = async () => {
-  const { accessToken, userUrl } = getUserTokenId();
-  if (!userUrl || !accessToken) {
-    return;
-  }
-  const response = await fetch(userUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': accessToken,
-    },
-  });
-  if (!response.ok) {
-    deleteUserAuth();
-    return false;
-  }
-  const data = await response.json();
+  editProfileAuth = async ({ name, password, passwordCheck }) => {
+    if (checkValidProfile(name, password, passwordCheck)) {
+      const { accessToken, userUrl } = this.#getUserTokenId();
+      const response = await fetch(userUrl, {
+        method: 'PATCH',
+        body: JSON.stringify({ name, password }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': accessToken,
+        },
+      });
 
-  return data.name[0];
-};
+      if (!response.ok) {
+        throw new Error(`API에러: ${await response.text()}`);
+      }
+
+      return true;
+    }
+  };
+
+  getUserFirstName = async () => {
+    const { accessToken, userUrl } = this.#getUserTokenId();
+    if (!userUrl || !accessToken) {
+      return;
+    }
+    const response = await fetch(userUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken,
+      },
+    });
+    if (!response.ok) {
+      this.deleteUserAuth();
+      return false;
+    }
+    const data = await response.json();
+
+    return data.name[0];
+  };
+}
+
+const auth = new Auth();
+
+export default auth;

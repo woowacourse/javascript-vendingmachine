@@ -1,4 +1,4 @@
-import VendingMachine, { VendingMachineInterface } from '../domains/VendingMachine';
+import { VendingMachineInterface } from '../domains/VendingMachine';
 import { $ } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
 import { SUCCESS_MESSAGE } from '../constants';

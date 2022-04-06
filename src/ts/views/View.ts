@@ -5,7 +5,7 @@ import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
 import { renderComponent } from '../components/renderer';
-import { checkUserLoginStatus } from '../auth.js';
+import auth from '../Auth.js';
 export default class View {
   $app: HTMLDivElement;
   $notFound: HTMLDivElement;
@@ -75,9 +75,7 @@ export default class View {
   };
 
   public renderTabs = async (url: string) => {
-    const isLogin = await checkUserLoginStatus();
-    console.log(location.hash);
-    if (!isLogin) {
+    if (!auth.isLoggedIn) {
       return;
     }
 

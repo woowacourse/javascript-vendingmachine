@@ -1,4 +1,5 @@
-import { loginAuth } from '../auth.js';
+// import { loginAuth } from '../Auth.js';
+import auth from '../Auth.js';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
@@ -160,7 +161,7 @@ class Login extends HTMLElement {
       password: this.passwordInput.value,
     };
     try {
-      const isLogin = await loginAuth(payload);
+      const isLogin = await auth.loginAuth(payload);
       if (!isLogin) {
         return;
       }
