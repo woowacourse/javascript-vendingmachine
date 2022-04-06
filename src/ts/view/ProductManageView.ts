@@ -1,6 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $ } from '../utils';
-import { CONFIRM_MESSAGE } from '../constants';
+import { $, alertSnackBar } from '../utils';
+import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
 import { ProductInterface } from '../domain/Product';
 
@@ -67,8 +67,9 @@ export default class ProductManageView implements ProductManageViewInterface {
       const addedProduct = this.vendingMachine.addProduct(input);
       this.renderAddedProduct(addedProduct);
       this.resetProductManageForm();
+      alertSnackBar(SUCCESS_MESSAGE.ADD_PRODUCT);
     } catch (error) {
-      alert(error.message);
+      alertSnackBar(error.message);
     }
   };
 
@@ -140,8 +141,9 @@ export default class ProductManageView implements ProductManageViewInterface {
     try {
       this.vendingMachine.editProduct(targetName, productToEdit);
       this.renderEditedProduct(productToEdit, <HTMLTableCellElement>targetEdit);
+      alertSnackBar(SUCCESS_MESSAGE.EDIT_PRODUCT);
     } catch (error) {
-      alert(error.message);
+      alertSnackBar(error.message);
     }
   };
 
@@ -177,6 +179,7 @@ export default class ProductManageView implements ProductManageViewInterface {
       const name = target.dataset.name;
       this.vendingMachine.deleteProduct(name);
       this.removeProductRow(name);
+      alertSnackBar(SUCCESS_MESSAGE.DELETE_PRODUCT);
     }
   };
 

@@ -1,6 +1,6 @@
-import { ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, $$ } from '../utils';
+import { $, $$, alertSnackBar } from '../utils';
 
 export interface PurchaseProductViewInterface {
   $purchaseForm: HTMLFormElement;
@@ -51,8 +51,9 @@ class PurchaseProductView implements PurchaseProductViewInterface {
     try {
       this.vendingMachine.addPurchaseMoney(+purchaseMoney);
       this.renderPurchaseProduct();
+      alertSnackBar(`${purchaseMoney}원을 ${SUCCESS_MESSAGE.ADD_PURCHASE_MONEY}`);
     } catch (error) {
-      alert(error.message);
+      alertSnackBar(error.message);
     }
   };
 
@@ -65,20 +66,22 @@ class PurchaseProductView implements PurchaseProductViewInterface {
       try {
         this.vendingMachine.purchaseProduct(targetName);
         this.renderPurchaseProduct();
+        alertSnackBar(SUCCESS_MESSAGE.PURCHASE_PRODUCT);
       } catch (error) {
-        alert(error.message);
+        alertSnackBar(error.message);
       }
     }
   };
 
   handleReturn = () => {
     if (this.vendingMachine.getHoldingMoney() === 0) {
-      alert(ERROR_MESSAGE.NOT_ENOUGH_RECHARGE);
+      alertSnackBar(ERROR_MESSAGE.NOT_ENOUGH_RECHARGE);
       return;
     }
     const decreasedCounts = this.vendingMachine.returnCoins();
     this.renderReturnCoinTable(decreasedCounts);
     this.renderPurchaseProduct();
+    alertSnackBar(SUCCESS_MESSAGE.RETURN_COIN);
   };
 
   renderReturnCoinTable = (decreasedCounts: number[]) => {

@@ -22,6 +22,16 @@ export const ERROR_MESSAGE = {
   NOT_ENOUGH_RECHARGE: '자판기가 보유한 동전이 없습니다.',
 };
 
+export const SUCCESS_MESSAGE = {
+  ADD_PRODUCT: '상품을 성공적으로 추가했습니다.',
+  EDIT_PRODUCT: '상품을 성공적으로 수정했습니다.',
+  DELETE_PRODUCT: '상품을 성공적으로 삭제했습니다.',
+  RECHARGE_MONEY: '잔돈을 성공적으로 충전했습니다.',
+  ADD_PURCHASE_MONEY: '성공적으로 투입했습니다.',
+  PURCHASE_PRODUCT: '상품을 성공적으로 구매했습니다.',
+  RETURN_COIN: '잔돈을 성공적으로 반환했습니다.',
+};
+
 export const CONFIRM_MESSAGE = {
   DELETE: '정말 삭제하시겠습니까?',
 };

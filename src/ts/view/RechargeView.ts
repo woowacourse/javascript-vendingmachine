@@ -1,6 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $ } from '../utils';
-import { COIN } from '../constants';
+import { $, alertSnackBar } from '../utils';
+import { COIN, SUCCESS_MESSAGE } from '../constants';
 
 export interface RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
@@ -49,8 +49,9 @@ export default class RechargeView implements RechargeViewInterface {
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
       this.renderRecharge();
+      alertSnackBar(SUCCESS_MESSAGE.RECHARGE_MONEY);
     } catch (error) {
-      alert(error.message);
+      alertSnackBar(error.message);
     }
   };
 
