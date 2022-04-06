@@ -40,10 +40,7 @@ signupTemplate.innerHTML = `
     }
 
     .x-shape {
-      box-sizing: border-box;
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
+      float: right;
       cursor: pointer;
     }
 
