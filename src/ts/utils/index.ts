@@ -68,12 +68,7 @@ const snackBarMaker = () => {
 const showSnackbar = snackBarMaker();
 
 function focusOnInvalidInput<T>(target: keyof T, $inputs: Inputs<T>) {
-  const keys = Object.keys($inputs);
-  keys.forEach(key => {
-    if (target === key) {
-      $inputs[key].focus();
-    }
-  });
+  $inputs[Object.keys($inputs).find(key => target === key)].focus();
 }
 
 export {
