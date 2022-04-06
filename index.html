@@ -7,10 +7,30 @@
   </head>
 
   <body>
+    <div class="login-container" id="/javascript-vendingmachine/#!/login">
+      <h1>로그인</h1>
+      <section class="login-wrapper">
+        <form>
+          <label class="login-form-label" for="login-email">이메일</label>
+          <input class="login-form-input" type="email" id="login-email" placeholder="woowacourse@gmail.com">
+          <label class="login-form-label login-password-label" for="login-password">비밀번호</label>
+          <input class="login-form-input" type="password" id="login-password" placeholder="비밀번호를 입력해주세요">
+          <button class="short-button login-form-button">확인</button>
+          <div class="register-wrapper">
+            <span>아직 회원이 아니신가요?</span>
+            <a class="login-register" href="/javascript-vendingmachine/#!/register">회원가입</a>
+          </div>
+        </form>
+      </section>
+    </div>
+
     <div id="app">
+      <div class="login-wrapper">
+        <button class="small-button login-button">로그인</button>
+      </div>
       <h1>🍿 자판기 🍿</h1>
 
-      <nav class="nav-tab">
+      <nav class="nav-tab hide">
         <form>
           <input class="tab-button" type="radio" id="tab-product-manage" name="tab" checked />
           <label class="tab-label" for="tab-product-manage">상품 관리</label>

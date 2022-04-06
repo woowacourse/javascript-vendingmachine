@@ -28,3 +28,13 @@
 .tab-label:hover {
   cursor: pointer;
 }
+
+div.login-wrapper {
+  display: flex;
+}
+
+button.login-button {
+  width: 117px;
+  margin-left: 65%;
+  margin-top: 11px;
+}

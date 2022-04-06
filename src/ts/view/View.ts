@@ -29,7 +29,7 @@ export default class View {
     this.rechargeView = new RechargeView(this.vendingMachine);
     this.purchaseProductView = new PurchaseProductView(this.vendingMachine);
 
-    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PRODUCT_MANAGE;
+    this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PURCHASE_PRODUCT;
 
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
     this.renderTabs(this.currentTab);
