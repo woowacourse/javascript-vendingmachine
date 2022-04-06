@@ -19,6 +19,9 @@ const SUCCESS_MESSAGE: SuccessMessage = {
   PURCHASED_PRODUCT(productName: string): string {
     return `${productName} 1개를 구입 하셨습니다. 이용해주셔서 감사합니다.`;
   },
+  CHARGED_COINS(chargeMoney) {
+    return `${chargeMoney}원이 충전 되었습니다. 충전된 잔돈을 확인해주세요.`;
+  },
 };
 
 export default SUCCESS_MESSAGE;

@@ -13,7 +13,7 @@ export default class ChargeMoneyStateComponent {
   constructor(private vendingMachineChargeMoneyManager) {
     on(
       $<HTMLButtonElement>('.charge-form-section__button'),
-      '@chargeInputSubmit',
+      '@addCoinsQuantity',
       this.addCoinsQuantity
     );
     on(
