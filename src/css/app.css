@@ -50,17 +50,6 @@
   background-color: var(--color-dark-white);
 }
 
-.menu-list li a {
-  display: block;
-}
-
-.menu-list li a:link,
-.menu-list li a:visited,
-.menu-list li a:hover,
-.menu-list li a:active {
-  color: black;
-}
-
 .menu-list li .select {
   background-color: var(--color-sky-blue);
 }

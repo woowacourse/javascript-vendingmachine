@@ -8,10 +8,11 @@
   --color-dark-white: #ebebeb;
   --color-light-gray: #b4b4b4;
   --color-dark-gray: rgba(0, 0, 0, 0.12);
+  --color-black: #000000;
   --color-sky-blue: rgba(0, 188, 212, 0.16);
-  --color-blue: #3581d7;
   --color-light-blue: #00bcd4;
   --color-dark-blue: #0098ac;
+  --color-blue: #3581d7;
 }
 
 * {
@@ -31,4 +32,5 @@ button {
 
 a {
   text-decoration-line: none;
+  color: var(--color-black);
 }
