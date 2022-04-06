@@ -38,6 +38,7 @@ user-manager {
 
 .profile-manager-menu li {
   padding: 10px;
+  cursor: pointer;
 }
 
 .profile-manager-menu li:hover {
