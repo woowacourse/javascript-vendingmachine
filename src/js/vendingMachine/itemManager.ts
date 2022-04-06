@@ -12,12 +12,12 @@ export default class ItemManager {
     return this._items.find(item => item.name === name);
   }
 
-  addItem({ name, price, quantity }: ItemType) {
-    this._items.push(new Item(name, price, quantity));
+  addItem({ name, price, quantity, id }: ItemType) {
+    this._items.push(new Item(name, price, quantity, id));
   }
 
-  changeItem(index: number, { name, price, quantity }: ItemType) {
-    this._items[index] = new Item(name, price, quantity);
+  changeItem(index: number, { name, price, quantity, id }: ItemType) {
+    this._items[index] = new Item(name, price, quantity, id);
   }
 
   deleteItem(targetItem: ItemType) {

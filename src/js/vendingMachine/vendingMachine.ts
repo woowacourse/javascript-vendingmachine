@@ -10,6 +10,7 @@ import {
   validateInputMoney,
 } from '../validates/validates';
 import MoneyManager from './moneyManager';
+import { ProductAPI } from '../api/productAPI';
 
 export default class VendingMachine {
   private itemManager = new ItemManager();
@@ -47,14 +48,20 @@ export default class VendingMachine {
 
   changeItem(index: number, item: ItemType) {
     const { items } = this.itemManager;
+    const { id } = this.itemManager.getItemWithName(item.name);
+    const changedItem = { ...item, id };
 
     validateAddItemInput(item);
     checkDuplicatedItem(items, item, index);
 
+    ProductAPI.editProduct(changedItem);
     this.itemManager.changeItem(index, item);
   }
 
   deleteItem(targetItem: ItemType) {
+    const item = this.itemManager.getItemWithName(targetItem.name);
+
+    ProductAPI.deleteProduct(item);
     this.itemManager.deleteItem(targetItem);
   }
 
@@ -76,6 +83,9 @@ export default class VendingMachine {
 
     this.itemManager.purchaseItem(name);
     this.moneyManager.deductMoney(price);
+
+    const { quantity, id } = this.itemManager.getItemWithName(name);
+    ProductAPI.editProduct({ quantity, id });
 
     return this.itemManager.getItemWithName(name).quantity;
   }

@@ -103,7 +103,7 @@ describe('아이템이 주어질 때', () => {
     vendingMachine.addItem({ name: '펩시', price: 900, quantity: 3 });
     vendingMachine.addItem({ name: '콜라', price: 1200, quantity: 1 });
 
-    const newItem = new Item('콜라', 1000, 2);
+    const newItem = new Item('콜라', 1000, 2, 0);
 
     expect(() => {
       checkDuplicatedItem(vendingMachine.items, newItem, null);

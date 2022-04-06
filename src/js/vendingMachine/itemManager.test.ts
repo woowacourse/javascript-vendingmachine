@@ -7,7 +7,8 @@ describe('상품 이름, 가격, 수량이 주어질 때', () => {
     const name = '콜라';
     const price = 1200;
     const quantity = 1;
-    const item = new Item(name, price, quantity);
+    const id = 0;
+    const item = new Item(name, price, quantity, id);
 
     itemManager.addItem({ name, price, quantity });
 
