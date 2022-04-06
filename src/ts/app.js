@@ -1,4 +1,6 @@
 import { HASH } from './constant/path';
+import { getCookie } from './utils/cookie';
+
 import ItemManage from './vendingMachine/ItemManage';
 import CoinRecharge from './vendingMachine/CoinRecharge';
 import ItemPurchase from './vendingMachine/ItemPurchase';
@@ -7,12 +9,8 @@ import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
 
-import RegisterUser from './vendingMachine/RegisterUser';
-import LoginUser from './vendingMachine/LoginUser';
-
 import RegisterUserPage from './view/RegisterUserPage';
 import LoginUserPage from './view/LoginUserPage';
-import { getCookie } from './utils/cookie';
 
 const initApp = function () {
   const itemManage = new ItemManage();
@@ -23,11 +21,8 @@ const initApp = function () {
   const coinRechargeTab = new CoinRechargeTab(coinRecharge);
   const itemPurchaseTab = new ItemPurchaseTab(itemPurchase, itemManage, coinRecharge);
 
-  const registerUser = new RegisterUser();
-  const loginUser = new LoginUser();
-
-  const registerUserPage = new RegisterUserPage(registerUser);
-  const loginUserPage = new LoginUserPage(loginUser);
+  const registerUserPage = new RegisterUserPage();
+  const loginUserPage = new LoginUserPage();
 
   return function () {
     const accessToken = getCookie('accessToken');

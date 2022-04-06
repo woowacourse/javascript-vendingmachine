@@ -1,10 +1,9 @@
+import type { UserInfoType } from '../ts/vendingMachine/authLogic';
+
 import { REGISTER_ERROR_MESSAGE } from '../ts/constant/errorMessage';
-import type { UserInfoType } from '../ts/vendingMachine/RegisterUser';
-import RegisterUser from '../ts/vendingMachine/RegisterUser';
+import { validateRegisterBehavior } from '../ts/vendingMachine/authLogic';
 
 describe('회원가입 입력값 유효성 테스트', () => {
-  const registerUser = new RegisterUser();
-
   test('어떤 입력값이라도 공백이면 에러가 발생한다.', () => {
     const userInfo: UserInfoType = {
       email: 'a@woowahan.com',
@@ -12,7 +11,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '1234!@#$abcd',
       confirmPassword: '1234!@#$abcd',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.BLANK_NOT_ALLOWED
     );
   });
@@ -24,7 +23,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '1234!@#$abcd',
       confirmPassword: '1234!@#$abcd',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.EXCEED_NAME_RANGE
     );
   });
@@ -36,7 +35,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '12!@abc',
       confirmPassword: '12!@abc',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.VIOLATE_PASSWORD_RULE
     );
   });
@@ -48,7 +47,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '12!@abcdefghijklmnopqrstuvwxyz',
       confirmPassword: '12!@abc',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.VIOLATE_PASSWORD_RULE
     );
   });
@@ -60,7 +59,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '1234!@#$',
       confirmPassword: '1234!@#$',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.VIOLATE_PASSWORD_RULE
     );
   });
@@ -72,7 +71,7 @@ describe('회원가입 입력값 유효성 테스트', () => {
       password: '1234!@#$abcd',
       confirmPassword: '1234!@#$abc',
     };
-    expect(() => registerUser.validateRegisterBehavior(userInfo)).toThrow(
+    expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.NO_MATCH_PASSWORD_CONFIRM
     );
   });

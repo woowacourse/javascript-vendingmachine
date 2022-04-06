@@ -1,11 +1,10 @@
 import { loginUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
 import { setCookie } from '../utils/cookie';
+import { login } from '../vendingMachine/authLogic';
 
 class LoginUserPage {
-  constructor(loginUser) {
-    this.loginUser = loginUser;
-
+  constructor() {
     this.app = selectDom('#app');
   }
 
@@ -22,7 +21,7 @@ class LoginUserPage {
     e.preventDefault();
     const { email, password } = e.target;
     try {
-      const [ok, body] = await this.loginUser.login({
+      const [ok, body] = await login({
         email: email?.value.trim() ?? '',
         password: password?.value.trim() ?? '',
       });

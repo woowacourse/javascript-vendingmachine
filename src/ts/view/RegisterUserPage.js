@@ -1,11 +1,10 @@
 import { HASH } from '../constant/path';
 import { registerUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
+import { register, validateRegisterBehavior } from '../vendingMachine/authLogic';
 
 class RegisterUserPage {
-  constructor(registerUser) {
-    this.registerUser = registerUser;
-
+  constructor() {
     this.app = selectDom('#app');
   }
 
@@ -23,8 +22,8 @@ class RegisterUserPage {
     const userInfo = this.#convertToUserInfoObject(e.target);
 
     try {
-      this.registerUser.validateRegisterBehavior(userInfo);
-      const [ok, body] = await this.registerUser.register(userInfo);
+      validateRegisterBehavior(userInfo);
+      const [ok, body] = await register(userInfo);
       if (!ok) {
         throw new Error(body);
       }
