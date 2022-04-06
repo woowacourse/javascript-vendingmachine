@@ -26,7 +26,8 @@ const UserApi = {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw Error(response);
+      const errorMessage = await response.json();
+      throw Error(errorMessage);
     }
     return response.json();
   },
@@ -38,7 +39,8 @@ const UserApi = {
       },
     });
     if (!response.ok) {
-      throw Error('로그인 기한이 만료되었습니다');
+      const errorMessage = await response.json();
+      throw Error(errorMessage);
     }
     return response.json();
   },
@@ -52,7 +54,8 @@ const UserApi = {
       },
     });
     if (!response.ok) {
-      throw Error(response);
+      const errorMessage = await response.json();
+      throw Error(errorMessage);
     }
     return response.json();
   },

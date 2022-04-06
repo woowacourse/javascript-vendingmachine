@@ -9,6 +9,7 @@ import Navigation from './Navigation';
 import Page from './Page';
 import PurchaseProductTab from './PurchaseProductTab';
 import Router from './Router';
+import SignUpTab from './SignUpTab';
 
 // eslint-disable-next-line max-lines-per-function
 export default function initView() {
@@ -19,6 +20,7 @@ export default function initView() {
   const purchaseProductPage = new Page(new Navigation(user), new PurchaseProductTab());
   const addChangePage = new Page(new Navigation(user), new AddChangeTab());
   const loginTab = new LoginTab();
+  const signUpTab = new SignUpTab();
   const router = new Router(user);
   const controller = new Controller(
     vendingMachine,
@@ -26,12 +28,13 @@ export default function initView() {
     manageProductPage,
     purchaseProductPage
   );
-  const userController = new UserController(user, loginTab, [
+  const userController = new UserController(user, loginTab, signUpTab, [
     addChangePage,
     manageProductPage,
     purchaseProductPage,
   ]);
-  router.addRenderList('#/login', loginTab);
+  router.addUserRenderList('#/login', loginTab);
+  router.addUserRenderList('#/signup', signUpTab);
   router.addPrivateRenderList('#/charge', addChangePage);
   router.addRenderList('#/purchase', purchaseProductPage);
   router.addPrivateRenderList('#/manage', manageProductPage);

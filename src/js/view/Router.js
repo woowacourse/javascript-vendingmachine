@@ -3,13 +3,14 @@ import { notFoundTemplate } from './template';
 
 export default class Router {
   #renderList;
-
+  #userRenderList;
   #privateRenderList;
   #user;
 
   constructor(user) {
     this.#user = user;
     this.#privateRenderList = {};
+    this.#userRenderList = {};
     this.#renderList = {};
   }
 
@@ -28,6 +29,12 @@ export default class Router {
     this.#renderList[key] = view;
   }
 
+  addUserRenderList(key, view) {
+    this.#userRenderList[key] = view;
+    this.addRenderList(key, view);
+  }
+
+  // eslint-disable-next-line max-lines-per-function
   #render = () => {
     const path = window.location.hash || '#/purchase';
 
@@ -41,6 +48,13 @@ export default class Router {
       window.history.pushState({}, null, '#/login');
       this.#render();
       alert('로그인이 필요합니다.');
+      return;
+    }
+
+    if (this.#userRenderList[path] && this.#user.isLogined) {
+      window.history.pushState({}, null, '/');
+      this.#render();
+      alert('이미 로그인한 상태입니다.');
       return;
     }
 
