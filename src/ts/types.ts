@@ -25,6 +25,7 @@ export interface TestCase {
 export interface VendingMachineInterface {
   itemList;
   coinCollection;
+  getItemPurchaseCash: () => number;
 
   addItem: (itemInfo: ItemInfoType) => ItemInfoType;
   editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
@@ -33,12 +34,15 @@ export interface VendingMachineInterface {
   chargeCoin: (rechargeCoin: number) => number;
   calculateTotalCoinAmount: () => number;
 
+  chargeCash: (chargedCash: number) => number;
+
   validateItemInput: (
     itemInfo: ItemInfoType,
     isAddMode?: boolean,
     itemIndex?: number | null
   ) => void;
   validateCashInput: (rechargeCash: number) => void;
+  validateItemPurchaseCashInput: (rechargedCash: number) => void;
 }
 
 export type UserInfo = {

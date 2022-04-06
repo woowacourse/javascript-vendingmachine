@@ -1,6 +1,18 @@
 import { ItemInfoType, Coin, ValidationInfo, TestCase, VendingMachineInterface } from '../types';
-import { ITEM_ERROR_MESSAGE, CASH_ERROR_MESSAGE } from '../constant/errorMessage';
-import { ITEM, CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
+import {
+  ITEM_ERROR_MESSAGE,
+  CASH_ERROR_MESSAGE,
+  ITEM_PURCHASE_CASH_ERROR_MESSAGE,
+} from '../constant/errorMessage';
+import {
+  ITEM,
+  CASH,
+  ITEM_PURCHASE_CASH,
+  COIN_10,
+  COIN_50,
+  COIN_100,
+  COIN_500,
+} from '../constant/rule';
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[] = [];
@@ -11,6 +23,8 @@ class VendingMachine implements VendingMachineInterface {
     [COIN_50]: 0,
     [COIN_10]: 0,
   };
+
+  private itemPurchaseCash = 0;
 
   private itemInputTestCases: TestCase[] = [
     { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
@@ -36,7 +50,10 @@ class VendingMachine implements VendingMachineInterface {
   ];
 
   private cashInputTestCases: TestCase[] = [
-    { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
+    {
+      testCase: this.isNotNumberTypeCash,
+      errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE,
+    },
     { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
     {
       testCase: this.isExceedTotalAmountRange.bind(this),
@@ -48,12 +65,31 @@ class VendingMachine implements VendingMachineInterface {
     },
   ];
 
+  private itemPurchaseCashInputTestCases: TestCase[] = [
+    {
+      testCase: this.isNotNumberTypeCash,
+      errorMessage: ITEM_PURCHASE_CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE,
+    },
+    {
+      testCase: this.isExceedItemPurchaseCashRange,
+      errorMessage: ITEM_PURCHASE_CASH_ERROR_MESSAGE.EXCEED_CASH_RANGE,
+    },
+    {
+      testCase: this.isNotDividedByUnitItemPurchaseCash,
+      errorMessage: CASH_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
+    },
+  ];
+
   public get itemList(): ItemInfoType[] {
     return this._itemList;
   }
 
   public get coinCollection(): Record<Coin, number> {
     return this._coinCollection;
+  }
+
+  getItemPurchaseCash(): number {
+    return this.itemPurchaseCash;
   }
 
   addItem(itemInfo: ItemInfoType) {
@@ -98,6 +134,12 @@ class VendingMachine implements VendingMachineInterface {
     );
   }
 
+  chargeCash(chargedCash: number): number {
+    this.itemPurchaseCash += chargedCash;
+
+    return this.itemPurchaseCash;
+  }
+
   validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
     testCases.every(({ testCase, errorMessage }) => {
       if (testCase(validationInfo)) throw new Error(errorMessage);
@@ -115,6 +157,10 @@ class VendingMachine implements VendingMachineInterface {
     this.validateTestCase(this.cashInputTestCases, rechargedCash);
   }
 
+  validateItemPurchaseCashInput(rechargedCash: number) {
+    this.validateTestCase(this.itemPurchaseCashInputTestCases, rechargedCash);
+  }
+
   private isBlank({ itemInfo: { itemName } }: { itemInfo: ItemInfoType; isAddMode: boolean }) {
     return itemName.length === 0;
   }
@@ -126,7 +172,7 @@ class VendingMachine implements VendingMachineInterface {
     isAddMode: boolean;
     itemIndex: number;
   }) {
-    return isNaN(itemPrice) || isNaN(itemQuantity);
+    return Number.isNaN(itemPrice) || Number.isNaN(itemQuantity);
   }
 
   private isExceedMaxNameLength({
@@ -211,6 +257,14 @@ class VendingMachine implements VendingMachineInterface {
 
   private isNotDividedByUnitCash(rechargedCash: number) {
     return rechargedCash % CASH.UNIT !== 0;
+  }
+
+  private isExceedItemPurchaseCashRange(rechargedCash: number) {
+    return rechargedCash < ITEM_PURCHASE_CASH.MIN || rechargedCash > ITEM_PURCHASE_CASH.MAX;
+  }
+
+  private isNotDividedByUnitItemPurchaseCash(rechargeCoin: number) {
+    return rechargeCoin % ITEM_PURCHASE_CASH.UNIT !== 0;
   }
 }
 

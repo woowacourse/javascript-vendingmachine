@@ -14,6 +14,12 @@ export const CASH = {
   UNIT: 10,
 };
 
+export const ITEM_PURCHASE_CASH = {
+  MIN: 10,
+  MAX: 10000,
+  UNIT: 10,
+};
+
 export const COIN_500 = 500;
 export const COIN_100 = 100;
 export const COIN_50 = 50;

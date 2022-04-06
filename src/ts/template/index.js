@@ -84,7 +84,7 @@ export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, item
     </tr>
 `;
 
-export const generateItemPurchaseTabContentTemplate = () => `
+export const generateItemPurchaseTabContentTemplate = (chargedCash) => `
   <form id="cash-charge-form" class="input-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
     <div class="input-form-container">
@@ -92,7 +92,7 @@ export const generateItemPurchaseTabContentTemplate = () => `
       <button class="input-form-button">투입</button>
     </div>
   </form>
-  <p class="vendingmachine-total-amount">투입한 금액: <span id="charged-amount">3000</span>원</p>
+  <p class="vendingmachine-total-amount">투입한 금액: <span id="charged-amount">${chargedCash}</span>원</p>
   <div class="table-container">
     <table class="item-status-table">
       <caption><h2>상품 현황</h2></caption>
