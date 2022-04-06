@@ -25,15 +25,15 @@ class SignupPage extends CustomElement {
     e.preventDefault();
     const form = e.target;
 
-    // if (form.password.value !== form.passwordConfirm.value) {
-    //   showSnackbar('비밀번호가 일치하지 않습니다.');
-    //   return;
-    // }
-
     emit(
       '.signup-form',
       '@signup',
-      { email: form.email.value, name: form.userName.value, password: form.password.value },
+      {
+        email: form.email.value,
+        name: form.userName.value,
+        password: form.password.value,
+        passwordConfirm: form.passwordConfirm.value,
+      },
       this,
     );
   }

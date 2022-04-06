@@ -3,6 +3,7 @@ import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 import { Notification } from '../ui/CustomElement';
+import { validateSignup } from '../validator/authentication';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -40,27 +41,32 @@ class Authentication {
     on('.profile-edit-form', '@edit', (e: CustomEvent) => this.editProfile(e.detail), $('profile-edit-page'));
   }
 
-  signup({ email, name, password }) {
-    fetch('http://localhost:3000/register', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        name,
-        password,
-      }),
-    })
-      .then(async (response) => {
-        const body = await response.json();
-
-        if (!response.ok) throw new Error(body);
-        historyRouterPush('/javascript-vendingmachine/');
+  signup({ email, name, password, passwordConfirm }) {
+    try {
+      validateSignup(name, password, passwordConfirm);
+      fetch('http://localhost:3000/register', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          password,
+        }),
       })
-      .catch((err) => {
-        showSnackbar(err.message);
-      });
+        .then(async (response) => {
+          const body = await response.json();
+
+          if (!response.ok) throw new Error(body);
+          historyRouterPush('/javascript-vendingmachine/');
+        })
+        .catch((err) => {
+          showSnackbar(err.message);
+        });
+    } catch (error) {
+      showSnackbar(error.message);
+    }
   }
 
   login({ email, password }) {
