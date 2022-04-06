@@ -44,3 +44,15 @@
 .hide {
   display: none;
 }
+
+#login-button {
+  align-self: flex-end;
+  padding: 4px 24px;
+  line-height: 24px;
+}
+
+#logout-button {
+  align-self: flex-end;
+  padding: 4px 24px;
+  line-height: 24px;
+}
