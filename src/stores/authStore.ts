@@ -6,7 +6,7 @@ class AuthStore implements IAuthStore {
   async mutateState({ actionType, payload }: { actionType: TAuthAction; payload: unknown }) {
     try {
       await this.reducer[actionType](payload);
-      window.location.href = 'http://localhost:9000/#';
+      window.location.href = '#';
     } catch ({ message }) {
       alert(message);
     }
@@ -64,7 +64,7 @@ class AuthStore implements IAuthStore {
     },
     [AuthActionTypes.LOGOUT]: payload => {
       localStorage.clear();
-      window.location.href = 'http://localhost:9000/#login';
+      window.location.href = '#login';
     },
     [AuthActionTypes.EDIT_USER_INFO]: async payload => {
       const userId = userIdStorage.getUserId();

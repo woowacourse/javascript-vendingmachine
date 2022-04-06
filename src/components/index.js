@@ -23,7 +23,6 @@ class VendingMachineComponent {
     this.initDOM();
     this.initChildComponents();
     this.showSectionByRoute(hashRoute);
-    localStorage.clear();
   }
 
   initDOM() {
@@ -101,7 +100,7 @@ class VendingMachineComponent {
 
       if (route === 'login' || route === 'signin') {
         alert(ERROR_MSG.WRONG_ACCESS);
-        window.location.href = 'http://localhost:9000/#';
+        window.location.href = '#';
       }
     }
 
@@ -143,7 +142,7 @@ class VendingMachineComponent {
 
       if (route === 'manage' || route === 'recharge' || route === 'edit-user-info') {
         alert(ERROR_MSG.WRONG_ACCESS);
-        window.location.href = 'http://localhost:9000/#';
+        window.location.href = '#';
       }
     }
   }
