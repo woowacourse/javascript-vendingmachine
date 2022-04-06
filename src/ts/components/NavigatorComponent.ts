@@ -50,7 +50,7 @@ export default class NavigatorComponent {
 
     on(
       this.$signUpVerifyButton,
-      '@renderSignInComponent',
+      '@signInChangeComponent',
       this.changeComponent
     );
     on(

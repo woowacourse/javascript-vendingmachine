@@ -7,6 +7,7 @@ const SUCCESS_MESSAGE: SuccessMessage = {
   EDITED_PRODUCT:
     '상품이 정상적으로 수정되었습니다. 수정된 상품을 확인해주세요.',
   DELETED_PRODUCT: '상품이 정상적으로 삭제되었습니다.',
+  DONE_SIGN_UP: '회원가입이 완료되었습니다. 로그인 후 서비스를 이용해주세요.',
   CONSUMER_CHARGED_MONEY(
     chargeMoney: number,
     totalChargeMoney: number

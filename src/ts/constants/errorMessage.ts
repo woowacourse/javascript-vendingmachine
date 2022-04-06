@@ -16,6 +16,8 @@ export const ERROR_MESSAGE: ErrorMessage = {
   EMPTY_RETURN_COINS: '반환될 금액이 없습니다.',
   EMPTY_PRODUCT_NAME:
     '상품명을 입력하지 않으셨습니다. 상품명을 먼저 입력해주세요.',
+  EMAIL_ALREADY_EXIST:
+    '이미 가입된 이메일 주소입니다. 회원가입을 하셨을 경우 로그인해 주세요.',
   OVERFLOW_CHARGE_MONEY(chargeMoney) {
     return `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다.<br />현재 누적 금액은 ${chargeMoney}원 입니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`;
   },

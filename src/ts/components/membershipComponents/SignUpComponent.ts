@@ -1,6 +1,10 @@
-import { $, emit, on } from '../../dom/domHelper';
 import { requestRegister } from '../../api/api';
+import { ERROR_MESSAGE } from '../../constants/errorMessage';
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+
+import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+
 import {
   checkValidName,
   checkValidPassword,
@@ -8,9 +12,11 @@ import {
 } from '../../validation/checkMemberShip';
 
 export default class SignUpComponent {
+  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
   private $signUpVerifyButton = $<HTMLButtonElement>(
     '.sign-up-form__verify-button'
   );
+
   private $signUpEmailInput = $<HTMLInputElement>('.sign-up-form__email-input');
   private $signUpNameInput = $<HTMLInputElement>('.sign-up-form__name-input');
   private $signUpPasswordInput = $<HTMLInputElement>(
@@ -20,14 +26,13 @@ export default class SignUpComponent {
     '.sign-up-form__password-confirm-input'
   );
 
-  private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
-
   constructor() {
     on(this.$signUpVerifyButton, 'click', this.onClickSignUpVerifyButton);
   }
 
   onClickSignUpVerifyButton = async (event: Event) => {
     event.preventDefault();
+
     const { value: signUpEmail } = this.$signUpEmailInput;
     const { value: signUpName } = this.$signUpNameInput;
     const { value: signUpPassword } = this.$signUpPasswordInput;
@@ -45,17 +50,17 @@ export default class SignUpComponent {
       this.$signUpPasswordInput.value = '';
       this.$signUpPasswordConfirmInput.value = '';
 
-      window.history.pushState({}, '', '/sign-in');
-      emit(this.$signUpVerifyButton, '@renderSignInComponent');
       renderSnackBar(
         this.$snackBarContainer,
-        '회원가입이 완료되었습니다. 로그인 후 서비스를 이용해주세요.',
+        SUCCESS_MESSAGE.DONE_SIGN_UP,
         'success'
       );
+
+      window.history.pushState({}, '', '/sign-in');
+      emit(this.$signUpVerifyButton, '@signInChangeComponent');
     } catch ({ message }) {
       if (message === 'Email already exists') {
-        message =
-          '이미 가입된 이메일 주소입니다. 회원가입을 하셨을 경우 로그인해 주세요.';
+        message = ERROR_MESSAGE.EMAIL_ALREADY_EXIST;
       }
 
       renderSnackBar(this.$snackBarContainer, message, 'error');
