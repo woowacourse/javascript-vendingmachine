@@ -1,3 +1,4 @@
+import { SELECTOR } from '../constant/selector';
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import AdminPage from './AdminPage';
@@ -15,7 +16,7 @@ class CoinRechargeTab extends AdminPage {
 
   renderInitialCoinRechargeTabState() {
     this.renderNavBar();
-    this.coinRechargeTabButton = selectDom('#coin-recharge-tab-button');
+    this.coinRechargeTabButton = selectDom(SELECTOR.COIN_RECHARGE_TAB_BUTTON);
 
     const totalCoinAmount = this.vendingMachine.calculateTotalCoinAmount();
     this.changeTabContent(
@@ -23,10 +24,10 @@ class CoinRechargeTab extends AdminPage {
       this.coinRechargeTabButton
     );
 
-    this.cashChargeForm = selectDom('#cash-charge-form', this.tabContent);
-    this.cashChargeInput = selectDom('.cash-charge-input', this.cashChargeForm);
-    this.chargedAmountText = selectDom('#charged-amount', this.tabContent);
-    this.coinCountList = selectDoms('.coin-count', this.tabContent);
+    this.cashChargeForm = selectDom(SELECTOR.CASH_CHARGE_FORM, this.tabContent);
+    this.cashChargeInput = selectDom(SELECTOR.CASH_CHARGE_INPUT, this.cashChargeForm);
+    this.chargedAmountText = selectDom(SELECTOR.CHARGED_AMOUNT, this.tabContent);
+    this.coinCountList = selectDoms(SELECTOR.COIN_COUNT, this.tabContent);
 
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
 

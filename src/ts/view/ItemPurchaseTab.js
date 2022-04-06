@@ -1,4 +1,5 @@
 import { PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
+import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
 import { generateItemPurchaseContentTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import AdminPage from './AdminPage';
@@ -21,11 +22,11 @@ class ItemPurchaseTab extends AdminPage {
 
   renderInitialItemPurchaseTabState(isLoginUser) {
     this.renderNavBar(isLoginUser);
-    this.itemPurchaseTabButton = selectDom('#item-purchase-tab-button', this.navBar);
+    this.itemPurchaseTabButton = selectDom(SELECTOR.ITEM_PURCHASE_TAB_BUTTON, this.navBar);
 
     if (!isLoginUser) {
       this.navBar.remove();
-      this.tabContent.classList.add('login');
+      this.tabContent.classList.add(SELECTOR_NAME.LOGIN);
     }
 
     this.changeTabContent(
@@ -37,13 +38,13 @@ class ItemPurchaseTab extends AdminPage {
       this.itemPurchaseTabButton
     );
 
-    this.itemPurchaseForm = selectDom('#item-purchase-form', this.tabContent);
-    this.itemPurchaseInput = selectDom('.item-purchase-input', this.itemPurchaseForm);
-    this.inputAmountText = selectDom('#input-amount', this.tabContent);
-    this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
-    this.changeTable = selectDom('.change-table', this.tabContent);
-    this.coinCountList = selectDoms('.coin-count', this.changeTable);
-    this.changeButton = selectDom('.give-change-button', this.tabContent);
+    this.itemPurchaseForm = selectDom(SELECTOR.ITEM_PURCHASE_FORM, this.tabContent);
+    this.itemPurchaseInput = selectDom(SELECTOR.ITEM_PURCHASE_INPUT, this.itemPurchaseForm);
+    this.inputAmountText = selectDom(SELECTOR.INPUT_AMOUNT, this.tabContent);
+    this.itemStatusTable = selectDom(SELECTOR.ITEM_STATUS_TABLE, this.tabContent);
+    this.changeTable = selectDom(SELECTOR.CHANGE_TABLE, this.tabContent);
+    this.coinCountList = selectDoms(SELECTOR.COIN_COUNT, this.changeTable);
+    this.changeButton = selectDom(SELECTOR.GIVE_CHANGE_BUTTON, this.tabContent);
 
     this.itemPurchaseForm.addEventListener('submit', this.#onSubmitItemPurchaseForm);
     this.itemStatusTable.addEventListener('click', this.#onClickPurchaseItemButton);
@@ -72,7 +73,7 @@ class ItemPurchaseTab extends AdminPage {
 
   #onClickPurchaseItemButton = ({ target }) => {
     if (this.#isPurchaseItemButton(target)) {
-      const targetItem = target.closest('tr');
+      const targetItem = target.closest(SELECTOR.TABLE_ROW);
       const targetItemInfoIndex = this.itemManage.itemList.findIndex(
         (itemInfo) => itemInfo.itemName === targetItem.dataset.itemName
       );
@@ -92,7 +93,7 @@ class ItemPurchaseTab extends AdminPage {
       this.vendingMachine.purchaseItem(itemPrice);
       this.itemManage.decreaseItemQuantity(targetItemInfoIndex);
 
-      const itemQuantityCell = selectDom('.item-quantity', targetItem);
+      const itemQuantityCell = selectDom(SELECTOR.ITEM_QUANTITY, targetItem);
       this.#renderUpdatedDataAfterPurchaseItem(
         itemQuantity - 1,
         this.vendingMachine.money,
@@ -134,7 +135,7 @@ class ItemPurchaseTab extends AdminPage {
   }
 
   #isPurchaseItemButton(target) {
-    return target.classList.contains('purchase-item-button');
+    return target.classList.contains(SELECTOR_NAME.PURCHASE_ITEM_BUTTON);
   }
 }
 

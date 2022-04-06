@@ -1,5 +1,6 @@
 import { NOT_DEVELOPED_YET_MESSAGE } from '../constant/errorMessage';
 import { HASH } from '../constant/path';
+import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
 import { vendingMachineNavBarTemplate } from '../template';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
@@ -9,7 +10,7 @@ class AdminPage {
   constructor(vendingMachine) {
     this.vendingMachine = vendingMachine;
 
-    this.app = selectDom('#app');
+    this.app = selectDom(SELECTOR.APP);
     this.thumbnailOptionMenu = null;
     this.navBar = null;
     this.navTabButtonList = null;
@@ -21,14 +22,14 @@ class AdminPage {
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', vendingMachineNavBarTemplate(isLoginUser));
 
-    this.navBar = selectDom('nav', this.app);
-    this.navTabButtonList = selectDoms('.nav-tab-button', this.navBar);
-    this.tabContent = selectDom('#tab-content');
-    this.snackbar = selectDom('.snackbar');
+    this.navBar = selectDom(SELECTOR.NAV, this.app);
+    this.navTabButtonList = selectDoms(SELECTOR.NAV_TAB_BUTTON, this.navBar);
+    this.tabContent = selectDom(SELECTOR.TAB_CONTENT);
+    this.snackbar = selectDom(SELECTOR.SNACKBAR);
 
     if (isLoginUser) {
-      this.thumbnailOptionMenu = selectDom('.thumbnail-option', this.app);
-      const thumbnailButton = selectDom('#thumbnail-button', this.app);
+      this.thumbnailOptionMenu = selectDom(SELECTOR.THUMBNAIL_OPTION, this.app);
+      const thumbnailButton = selectDom(SELECTOR.THUMBNAIL_BUTTON, this.app);
 
       thumbnailButton.addEventListener('click', this.#onClickThumbnailButton);
       this.thumbnailOptionMenu.addEventListener('change', this.#onChangeThumbnailOption);
@@ -40,12 +41,12 @@ class AdminPage {
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
 
     this.navTabButtonList.forEach((navTabButton) =>
-      navTabButton.classList.toggle('selected', targetTabButton === navTabButton)
+      navTabButton.classList.toggle(SELECTOR_NAME.SELECTED, targetTabButton === navTabButton)
     );
   }
 
   #onClickThumbnailButton = () => {
-    this.thumbnailOptionMenu.classList.toggle('hide');
+    this.thumbnailOptionMenu.classList.toggle(SELECTOR_NAME.HIDE);
   };
 
   #onChangeThumbnailOption = ({ target: { value } }) => {

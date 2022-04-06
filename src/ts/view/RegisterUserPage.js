@@ -1,18 +1,19 @@
 import { HASH } from '../constant/path';
+import { SELECTOR } from '../constant/selector';
 import { registerUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
 import { register, validateRegisterBehavior } from '../vendingMachine/authLogic';
 
 class RegisterUserPage {
   constructor() {
-    this.app = selectDom('#app');
+    this.app = selectDom(SELECTOR.APP);
   }
 
   renderInitialRegisterPageState() {
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', registerUserPageTemplate);
 
-    this.registerForm = selectDom('.user-info-form', this.app);
+    this.registerForm = selectDom(SELECTOR.USER_INFO_FORM, this.app);
 
     this.registerForm.addEventListener('submit', this.#onSubmitRegisterForm);
   }

@@ -1,3 +1,4 @@
+import { SELECTOR } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
 import { loginUserPageTemplate } from '../template';
 import { selectDom } from '../utils';
@@ -6,14 +7,14 @@ import { login } from '../vendingMachine/authLogic';
 
 class LoginUserPage {
   constructor() {
-    this.app = selectDom('#app');
+    this.app = selectDom(SELECTOR.APP);
   }
 
   renderInitialLoginPageState() {
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', loginUserPageTemplate);
 
-    this.loginForm = selectDom('.user-info-form', this.app);
+    this.loginForm = selectDom(SELECTOR.USER_INFO_FORM, this.app);
 
     this.loginForm.addEventListener('submit', this.#onSubmitLoginForm);
   }
