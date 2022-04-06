@@ -1,6 +1,6 @@
 import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
-import { addEvent, emit, $ } from '../utils';
+import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
 import { historyRouterPush } from '../router';
 
@@ -41,6 +41,7 @@ class LoginPage extends CustomElement {
     $('.login-button').classList.add('hidden');
     $('.user-name').classList.remove('hidden');
     $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
+    showSnackbar(`안녕하세요 ${userName}님 :)`);
   }
 }
 

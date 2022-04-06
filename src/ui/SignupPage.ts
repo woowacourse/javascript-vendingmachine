@@ -1,4 +1,4 @@
-import { CustomElement } from './CustomElement';
+import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import { addEvent, emit, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
@@ -36,6 +36,10 @@ class SignupPage extends CustomElement {
       },
       this,
     );
+  }
+
+  notify({ userName }: Notification) {
+    showSnackbar(`${userName}님 회원가입을 축하합니다.`);
   }
 }
 

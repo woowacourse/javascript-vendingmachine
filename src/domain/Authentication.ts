@@ -59,6 +59,8 @@ class Authentication {
           const body = await response.json();
 
           if (!response.ok) throw new Error(body);
+
+          this.dispatch({ key: 'subscribeSignupPage', userName: body.user.name });
           historyRouterPush('/javascript-vendingmachine/');
         })
         .catch((err) => {
@@ -120,6 +122,7 @@ class Authentication {
           if (!ok) throw new Error(body);
 
           localStorage.setItem('user', JSON.stringify(body));
+          this.dispatch({ key: 'subscribeProfileEditPage', userName: body.name });
           this.dispatch({ key: 'userMenu', userName: body.name });
           historyRouterPush('/javascript-vendingmachine/');
         })

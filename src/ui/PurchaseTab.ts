@@ -2,7 +2,7 @@ import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import storage from '../storage';
 import Product from '../domain/Product';
-import { $, $$, markUnit, addEvent, emit } from '../utils';
+import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import { Coin } from '../domain/Coin';
 import { COINS } from '../constants';
@@ -65,12 +65,15 @@ class PurchaseTab extends CustomElement {
 
   notify({ action, amount, product, userAmount }: Notification) {
     switch (action) {
-      case 'update-amount':
+      case 'insert-coin':
         this.updateAmount(userAmount);
+        showSnackbar('성공적으로 금액을 투입했습니다.');
         return;
 
       case 'purchase':
+        this.updateAmount(userAmount);
         this.purchase(product);
+        showSnackbar('성공적으로 상품을 구매했습니다.');
         return;
 
       case 'update-product':
@@ -83,6 +86,9 @@ class PurchaseTab extends CustomElement {
 
       case 'return':
         this.returnChange(amount, userAmount);
+        showSnackbar(
+          '성공적으로 잔돈이 반환되었습니다. 자판기의 잔액이 부족할 경우 자판기에 존재하는 금액만큼만 반환됩니다.',
+        );
     }
   }
 

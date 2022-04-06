@@ -137,7 +137,7 @@ class VendingMachine implements VendingMachineProperty {
       validateUserInputMoney(userInputMoney, this.userAmount);
 
       this.userAmount += userInputMoney;
-      this.dispatch('subscribePurchaseTab', 'update-amount');
+      this.dispatch('subscribePurchaseTab', 'insert-coin');
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -151,7 +151,6 @@ class VendingMachine implements VendingMachineProperty {
 
       this.userAmount -= targetProduct.price;
       targetProduct.quantity -= 1;
-      this.dispatch('subscribePurchaseTab', 'update-amount');
       this.dispatch('subscribePurchaseTab', 'purchase', targetProduct);
 
       if (targetProduct.quantity <= 0) {
@@ -168,9 +167,6 @@ class VendingMachine implements VendingMachineProperty {
     try {
       validateReturn(this.userAmount);
 
-      if (this.userAmount > this.amount.getAmount()) {
-        showSnackbar('반환할 잔액이 부족하여, 자판기에 존재하는 잔돈만 반환합니다.');
-      }
       const remainingUserAmount = this.amount.returnChange(this.userAmount);
 
       this.userAmount = remainingUserAmount;

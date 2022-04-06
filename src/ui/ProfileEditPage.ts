@@ -1,7 +1,7 @@
-import { CustomElement } from './CustomElement';
+import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import storage from '../storage';
-import { addEvent, emit, $ } from '../utils';
+import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
 
 class ProfileEditPage extends CustomElement {
@@ -40,6 +40,10 @@ class ProfileEditPage extends CustomElement {
       { name: form.userName.value, password: form.password.value, passwordConfirm: form.passwordConfirm.value },
       this,
     );
+  }
+
+  notify({}: Notification) {
+    showSnackbar('성공적으로 회원 정보가 수정되었습니다.');
   }
 }
 
