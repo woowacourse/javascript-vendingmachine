@@ -3,7 +3,7 @@ name: Build and GH-Page Deploy
 on:
   push:
     branches:
-      - step1-rladpwl0512
+      - step2-rladpwl0512
 
 jobs:
   build:
