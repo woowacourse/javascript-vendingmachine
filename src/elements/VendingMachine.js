@@ -9,7 +9,7 @@ import './ProductPurchase/ProductPurchaseContainer';
 class VendingMachine extends CustomElement {
   template() {
     return `
-      <auth-menu></auth-menu>
+      <auth-menu class="auth-menu"></auth-menu>
       <h1 id="main-header">🍿 자판기 🍿</h1>
       <administrator-menu hidden></administrator-menu>
       <product-manage-container hidden></product-manage-container>

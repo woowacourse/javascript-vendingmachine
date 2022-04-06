@@ -41,9 +41,26 @@ const findTarget = (hash) => {
   return targets.find((target) => target.hash === hash);
 };
 
-const renderTargets = (currentTarget, prevTarget) => {
+const renderMenus = (currentTarget) => {
   $('#main-header').textContent = currentTarget.header;
 
+  const $authMenu = $('auth-menu');
+  const $administratorMenu = $('administrator-menu');
+
+  if (currentTarget.header === HEADER.VENDING_MACHINE) {
+    $authMenu.removeAttribute('hidden');
+    $authMenu.classList.add('auth-menu');
+    $administratorMenu.removeAttribute('hidden');
+
+    return;
+  }
+
+  $authMenu.setAttribute('hidden', true);
+  $authMenu.classList.remove('auth-menu');
+  $administratorMenu.setAttribute('hidden', true);
+};
+
+const renderTargets = (currentTarget, prevTarget) => {
   currentTarget.$button?.classList.add('clicked');
   currentTarget.$container.classList.add('container');
   currentTarget.$container.show();
@@ -65,5 +82,6 @@ window.onhashchange = (event) => {
   const prevHash = event.oldURL.replace(`${window.location.origin}/`, '');
   const prevTarget = findTarget(prevHash);
 
+  renderMenus(currentTarget);
   renderTargets(currentTarget, prevTarget);
 };

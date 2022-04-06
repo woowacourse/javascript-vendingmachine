@@ -42,7 +42,7 @@ button:hover {
   background: var(--gray-700);
 }
 
-auth-menu {
+.auth-menu {
   width: 600px;
   display: flex;
   justify-content: flex-end;
