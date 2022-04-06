@@ -2,7 +2,7 @@ import { ERROR_MESSAGE } from '../constants/errorConstants';
 import { userDataType } from '../types/types';
 import { signValidate } from '../validates/signValidate';
 
-const Auth = {
+const AuthAPI = {
   BASE_URL: 'https://vending-machine-kamwoo.herokuapp.com',
   TYPES: {
     SIGN_IN: '/signin',
@@ -60,4 +60,4 @@ const Auth = {
   },
 };
 
-export default Auth;
+export default AuthAPI;

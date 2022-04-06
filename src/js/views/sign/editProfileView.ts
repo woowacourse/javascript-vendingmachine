@@ -1,4 +1,4 @@
-import Auth from '../../api/auth';
+import AuthAPI from '../../api/authAPI';
 import Storage from '../../api/storage';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import { SELECTOR } from '../../constants/viewConstants';
@@ -27,7 +27,7 @@ export default class EditProfileView {
     try {
       event.preventDefault();
       const editedInputValues = this.getEditedInputValues();
-      const { email, id, name } = await Auth.editUserData(editedInputValues);
+      const { email, id, name } = await AuthAPI.editUserData(editedInputValues);
 
       Storage.setUserData({ email, id, name });
 

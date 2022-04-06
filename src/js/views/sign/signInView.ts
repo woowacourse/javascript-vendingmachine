@@ -3,7 +3,7 @@ import { $, emit } from '../../utils/common';
 import { SELECTOR } from '../../constants/viewConstants';
 import { CUSTOM_EVENT, URL } from '../../constants/appContants';
 import showSnackbar from '../../utils/snackbar';
-import Auth from '../../api/auth';
+import AuthAPIAPI from '../../api/authAPI';
 import Storage from '../../api/storage';
 
 export default class SignInView {
@@ -23,7 +23,7 @@ export default class SignInView {
     try {
       event.preventDefault();
       const signInputValues = this.getSignInInputValues();
-      const { accessToken, user } = await Auth.signIn(signInputValues);
+      const { accessToken, user } = await AuthAPIAPI.signIn(signInputValues);
 
       Storage.setAccessToken(accessToken);
       Storage.setUserData(user);

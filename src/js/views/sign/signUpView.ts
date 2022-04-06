@@ -1,4 +1,4 @@
-import Auth from '../../api/auth';
+import AuthAPI from '../../api/authAPI';
 import Storage from '../../api/storage';
 import { signUpTemplate } from '../../templates/sign/signUpTemplate';
 import { $, emit } from '../../utils/common';
@@ -19,7 +19,7 @@ export default class SignUpView {
     try {
       event.preventDefault();
       const signUpInputValues = this.getSignUpInputValues();
-      const { accessToken, user } = await Auth.signUp(signUpInputValues);
+      const { accessToken, user } = await AuthAPI.signUp(signUpInputValues);
 
       Storage.setAccessToken(accessToken);
       Storage.setUserData(user);
