@@ -121,7 +121,10 @@ describe('로그인 사용자 e2e 테스트', () => {
 });
 
 describe('비로그인 사용자 e2e 테스트', () => {
-  const email = '1235@naver.com';
+  // 이메일 무작위 생성을 위한 보조 함수
+  const randomString = (Math.random() + 1).toString(36).substring(7);
+
+  const email = `${randomString}@naver.com`;
 
   before(() => {
     cy.logout();
