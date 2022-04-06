@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "cross-env NODE_PATH=src npm run build",
+    "heroku-postbuild": "npm run build",
     "test": "jest --watch --no-cache",
     "cypress:open": "cypress open",
     "start:dev": "webpack serve --open",
