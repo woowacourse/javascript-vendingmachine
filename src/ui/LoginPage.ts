@@ -40,7 +40,7 @@ class LoginPage extends CustomElement {
     $('.signup-button').classList.add('hidden');
     $('.login-button').classList.add('hidden');
     $('.user-name').classList.remove('hidden');
-    $('.user-name').textContent = userName.substring(0, 1);
+    $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
   }
 }
 

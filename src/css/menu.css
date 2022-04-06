@@ -1,0 +1,66 @@
+.user-name__menu-button {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background-color: #d6f4f8;
+  border-radius: 50%;
+  text-align: center;
+  z-index: 999;
+  transition: 0.2s;
+}
+
+.user-name__menu-button.shadow {
+  background-color: var(--button-bg-color);
+}
+
+.user-name__menu-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-element {
+  cursor: pointer;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.rotate {
+  transform: rotate(45deg);
+  transition: 0.3s;
+  text-align: center;
+}
+
+.menu-element.user-name__edit {
+  background-color: #d6f4f8;
+}
+.menu-element.user-name__logout {
+  background-color: #d6f4f8;
+}
+
+.user-name__edit--move {
+  transform: translate(90%, -50%);
+  transition: 0.2s;
+}
+.user-name__logout--move {
+  transform: translate(220%, -50%);
+  transition: 0.2s;
+}

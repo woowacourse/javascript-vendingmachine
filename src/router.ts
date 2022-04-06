@@ -83,9 +83,19 @@ const checkLogin = () => {
   $('.login-button').classList.toggle('hidden', isLogin);
   $('.user-name').classList.toggle('hidden', !isLogin);
   nav.classList.toggle('hidden', !isLogin);
-  $('.user-name').textContent = storage.getLocalStorage('user')
-    ? storage.getLocalStorage('user').name.substring(0, 1)
-    : '';
+
+  const userName = storage.getLocalStorage('user') ? storage.getLocalStorage('user').name : '';
+
+  $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
 };
 
 checkLogin();
+
+window.addEventListener('DOMContentLoaded', () => {
+  $('.user-name__menu-button').addEventListener('click', function () {
+    $('.user-name__menu-button').classList.toggle('shadow');
+
+    $('.menu-element.user-name__edit').classList.toggle('user-name__edit--move');
+    $('.menu-element.user-name__logout').classList.toggle('user-name__logout--move');
+  });
+});

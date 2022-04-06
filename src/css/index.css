@@ -6,6 +6,7 @@
 @import './signup-page.css';
 @import './profile-edit-page.css';
 @import './snackbar.css';
+@import './menu.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
