@@ -1,11 +1,14 @@
 import LoginView from "../ui/loginPageView";
+import Authorization from "../domain/authorization";
 import { EVENT_TYPE } from "../constant";
 import { on } from "../util/event";
 
 class LoginModerator {
   loginView;
+  authorization;
   constructor() {
     this.loginView = new LoginView();
+    this.authorization = new Authorization();
     on<any>(window, EVENT_TYPE.LOGIN, (e) => {
       this.login(e.detail);
     });
@@ -16,8 +19,7 @@ class LoginModerator {
   }
 
   login({ email, password }) {
-    console.log("gg");
-    // api 요청 보내주기~
+    this.authorization.login({ email, password });
   }
 }
 
