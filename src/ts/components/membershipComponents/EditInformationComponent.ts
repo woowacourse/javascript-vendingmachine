@@ -1,10 +1,13 @@
-import { $, emit, on } from '../../dom/domHelper';
-import { getCookie } from '../../cookie/cookie';
 import { requestUserInfo, requestEditInformation } from '../../api/api';
+import { getCookie } from '../../cookie/cookie';
+
 import {
   checkValidName,
   checkValidPassword,
 } from '../../validation/checkMemberShip';
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+
+import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 
 export default class EditInformationComponent {
@@ -68,13 +71,14 @@ export default class EditInformationComponent {
       this.$passwordInput.value = '';
       this.$passwordConfirmInput.value = '';
 
-      window.history.pushState({}, '', '/purchase-product');
-      emit(this.$editVerifyButton, '@editInformation');
       renderSnackBar(
         this.$snackBarContainer,
-        '회원정보가 정상적으로 수정 되었습니다.',
+        SUCCESS_MESSAGE.DONE_EDIT_USER_INFORMATION,
         'success'
       );
+
+      window.history.pushState({}, '', '/purchase-product');
+      emit(this.$editVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message, 'error');
     }

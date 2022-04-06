@@ -41,6 +41,7 @@ export interface SuccessMessage {
   readonly ADDED_PRODUCT: string;
   readonly DONE_SIGN_UP: string;
   readonly DONE_SIGN_IN: string;
+  readonly DONE_EDIT_USER_INFORMATION: string;
   CONSUMER_CHARGED_MONEY(chargeMoney: number, totalChargeMoney: number): string;
   PURCHASED_PRODUCT(productName: string): string;
 }

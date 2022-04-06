@@ -61,7 +61,7 @@ export default class SignInComponent {
       );
 
       window.history.pushState({}, '', '/purchase-product');
-      emit(this.$signInVerifyButton, '@signInPurchaseProductChangeComponent');
+      emit(this.$signInVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
       if (message === 'Cannot find user') {
         message = ERROR_MESSAGE.NOT_FOUND_EMAIL;

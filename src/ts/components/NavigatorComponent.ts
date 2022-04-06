@@ -55,7 +55,7 @@ export default class NavigatorComponent {
     );
     on(
       this.$signInVerifyButton,
-      '@signInPurchaseProductChangeComponent',
+      '@purchaseProductChangeComponentWithUser',
       this.changeComponent
     );
 
@@ -64,7 +64,11 @@ export default class NavigatorComponent {
       '@editInformationChangeComponent',
       this.changeComponent
     );
-    on(this.$editVerifyButton, '@editInformation', this.changeComponent);
+    on(
+      this.$editVerifyButton,
+      '@purchaseProductChangeComponentWithUser',
+      this.changeComponent
+    );
   }
 
   private onClickNavButton = (event: Event): void => {
