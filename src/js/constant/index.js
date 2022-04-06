@@ -27,6 +27,8 @@ export const VENDING_MACHINE_NUMBER = {
   MAXIMUM_COUNT: 20,
   MINIMUM_COUNT: 0,
   MAXIMUM_NAME_LENGTH: 10,
+  MAX_USER_NAME: 6,
+  MIN_USER_NAME: 2,
 };
 
 export const EVENT_TYPE = {
@@ -37,3 +39,6 @@ export const EVENT_TYPE = {
 };
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
+
+export const PASSWORD_REGEX =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
