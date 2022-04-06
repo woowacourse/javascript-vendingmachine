@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "heroku-postbuild": "npm run build",
+    "start": "webpack serve --open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "jest --watch --no-cache",
     "cypress:open": "cypress open",
-    "start:dev": "webpack serve --open",
     "build": "webpack"
   },
   "repository": {
@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme"
+  "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
