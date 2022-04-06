@@ -1,19 +1,8 @@
-import { setCookie } from '../../src/ts/cookie/cookie';
+import SUCCESS_MESSAGE from '../../src/ts/constants/successMessage';
 
 describe('동전 충전 탭 E2E 테스트', () => {
   before(() => {
-    setCookie(
-      'user',
-      JSON.stringify({
-        id: 1,
-        name: '꼬재',
-        accessToken:
-          '%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGZAZ21haWwuY29tIiwiaWF0IjoxNjQ5MjIyODExLCJleHAiOjE2NDkyMjY0MTEsInN1YiI6IjgifQ.4Gdm73HKwY3C2Mqi9nl8GrxLM2pfrb_LStYq3pXXnzM%22%7D',
-      }),
-      {
-        'max-age': 3600,
-      }
-    );
+    cy.setSignIn();
     cy.visit('/');
   });
 
@@ -41,7 +30,7 @@ describe('동전 충전 탭 E2E 테스트', () => {
 
       cy.get('.snack-bar-container__message').should(
         'have.text',
-        `${sumCoins}원이 충전 되었습니다. 충전된 잔돈을 확인해주세요.`
+        SUCCESS_MESSAGE.CHARGED_COINS(sumCoins)
       );
     });
   });

@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../../src/ts/constants/errorMessage';
+
 describe('회원가입 유효성 검사', () => {
   before(() => {
     cy.visit('/');
@@ -22,7 +24,7 @@ describe('회원가입 유효성 검사', () => {
 
     cy.get('.snack-bar-container__message').should(
       'have.text',
-      '이메일 형식 오류'
+      ERROR_MESSAGE.WRONG_FORMAT_EMAIL
     );
   });
 
@@ -39,7 +41,7 @@ describe('회원가입 유효성 검사', () => {
 
     cy.get('.snack-bar-container__message').should(
       'have.text',
-      '이름은 2글자 ~ 6글자까지 입력 하실 수 있습니다.'
+      ERROR_MESSAGE.WRONG_FORMAT_NAME
     );
   });
 
@@ -56,11 +58,11 @@ describe('회원가입 유효성 검사', () => {
 
     cy.get('.snack-bar-container__message').should(
       'have.text',
-      '이름은 2글자 ~ 6글자까지 입력 하실 수 있습니다.'
+      ERROR_MESSAGE.WRONG_FORMAT_NAME
     );
   });
 
-  it('8~16글자 사이의 영문 + 숫자 조합이 아닌 비밀번호를 입력하면 에러메시지가 스넥바로 보여진다.', () => {
+  it('8 ~ 16글자 사이의 영문 + 숫자 조합이 아닌 비밀번호를 입력하면 에러메시지가 스넥바로 보여진다.', () => {
     cy.wait(3000);
     cy.get('.sign-up-form__email-input').clear().type('kkojae777@gmail.com');
     cy.get('.sign-up-form__name-input').clear().type('꼬재');
@@ -71,7 +73,7 @@ describe('회원가입 유효성 검사', () => {
 
     cy.get('.snack-bar-container__message').should(
       'have.text',
-      '비밀번호 정규식 규칙 위반!!'
+      ERROR_MESSAGE.WRONG_FORMAT_PASSWORD
     );
   });
 
@@ -86,7 +88,7 @@ describe('회원가입 유효성 검사', () => {
 
     cy.get('.snack-bar-container__message').should(
       'have.text',
-      '비밀번호와 비밀번호 확인이 일치하지 않습니다. 비밀번호를 확인 후 다시 입력해주세요.'
+      ERROR_MESSAGE.MISMATCH_PASSWORD
     );
   });
 });

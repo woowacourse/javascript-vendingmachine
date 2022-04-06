@@ -10,7 +10,7 @@ export const ERROR_MESSAGE: ErrorMessage = {
   WRONG_UNIT_PRODUCT_PRICE: `상품 가격을 잘못 입력하셨습니다. 상품 가격은 ${PRODUCT_PRICE.UNIT}원 단위로 작성해주세요.`,
   WRONG_PRODUCT_QUANTITY: `상품 수량을 잘못 입력하셨습니다. 상품 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 이상 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개 이하로 작성해주세요.`,
   WRONG_UNIT_CHARGE_MONEY: `충전 금액을 잘못 입력하셨습니다. 충전 금액은 ${CHARGE_MONEY.UNIT}원 단위로 입력해주세요.`,
-  WRONG_RANGE_CHARGE_MONEY: `'충전 금액을 잘못 입력하셨습니다. 충전 금액은 최소 ${CHARGE_MONEY.CONSUMER_MIN_CHARGE_MONEY}원 이상 ${CHARGE_MONEY.CONSUMER_MAX_CHARGE_MONEY}원 이하로 입력해주세요.'`,
+  WRONG_RANGE_CHARGE_MONEY: `충전 금액을 잘못 입력하셨습니다. 충전 금액은 최소 ${CHARGE_MONEY.CONSUMER_MIN_CHARGE_MONEY}원 이상 ${CHARGE_MONEY.CONSUMER_MAX_CHARGE_MONEY}원 이하로 입력해주세요.`,
   LACK_CHARGE_MONEY:
     '투입된 금액이 부족합니다. 금액을 확인후 금액을 추가로 투입해주세요.',
   EMPTY_RETURN_COINS: '반환될 금액이 없습니다.',

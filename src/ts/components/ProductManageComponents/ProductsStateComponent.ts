@@ -83,8 +83,10 @@ export default class ProductStateComponent {
         quantity: $editProductQuantityInput.valueAsNumber,
       };
 
+      const previousProductName = parentElement.dataset.productName;
+
       this.vendingMachineProductManager.editProduct(
-        parentElement.dataset.productName,
+        previousProductName,
         editedProduct
       );
 
@@ -99,7 +101,7 @@ export default class ProductStateComponent {
 
       emit(this.$productTableTbody, '@editConsumerProduct', {
         detail: {
-          previousProductName: parentElement.dataset.productName,
+          previousProductName,
           editedProduct,
         },
       });

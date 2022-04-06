@@ -1,29 +1,12 @@
-import { setCookie } from '../../src/ts/cookie/cookie';
-
 describe('상품 구매 하기 E2E 테스트', () => {
   before(() => {
-    setCookie(
-      'user',
-      JSON.stringify({
-        id: 1,
-        name: '꼬재',
-        accessToken:
-          '%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGZAZ21haWwuY29tIiwiaWF0IjoxNjQ5MjIyODExLCJleHAiOjE2NDkyMjY0MTEsInN1YiI6IjgifQ.4Gdm73HKwY3C2Mqi9nl8GrxLM2pfrb_LStYq3pXXnzM%22%7D',
-      }),
-      {
-        'max-age': 3600,
-      }
-    );
+    cy.setSignIn();
     cy.visit('/');
 
-    // 상품 등록
     cy.get('.nav__product-button').click();
-    cy.get('.product-info-form__product-input').type('콜라');
-    cy.get('.product-info-form__price-input').type('1200');
-    cy.get('.product-info-form__quantity-input').type('12');
+    cy.setProduct();
     cy.get('.product-info-form__add-button').click();
 
-    // 잔돈 충전
     cy.get('.nav__charge-button').click();
     cy.get('.charge-form-section__charge-money-input').type(5000);
     cy.get('.charge-form-section__button').click();

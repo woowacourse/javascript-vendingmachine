@@ -62,6 +62,8 @@ export default class ConsumerProductStateComponent {
       (product) => product.textContent === previousProductName
     );
 
+    console.log(target);
+
     const parentTarget = target.closest('.consumer-product-table__info-tr');
     const targetProductName = parentTarget.querySelector(
       '.product-table__purchase-product-name'
