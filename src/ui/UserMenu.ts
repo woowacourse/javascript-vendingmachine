@@ -14,6 +14,13 @@ class UserMenu extends CustomElement {
 
   render() {
     this.innerHTML = this.template();
+
+    const isLogin = !!localStorage.getItem('accessToken');
+    const userName = storage.getLocalStorage('user') ? storage.getLocalStorage('user').name : '';
+
+    $('.user-name', this).classList.toggle('hidden', !isLogin);
+    $('.login-button', this).classList.toggle('hidden', isLogin);
+    $('.user-name__menu-button', this).insertAdjacentHTML('afterbegin', userName.substring(0, 1));
   }
 
   template() {
@@ -21,8 +28,15 @@ class UserMenu extends CustomElement {
   }
 
   setEvent() {
+    addEvent(this, 'click', '.user-name__menu-button', () => this.handleMenu());
     addEvent(this, 'click', '.user-name__edit', () => this.handleEdit());
     addEvent(this, 'click', '.user-name__logout', () => this.handleLogout());
+  }
+
+  handleMenu() {
+    $('.user-name__menu-button', this).classList.toggle('shadow');
+    $('.menu-element.user-name__edit', this).classList.toggle('user-name__edit--move');
+    $('.menu-element.user-name__logout', this).classList.toggle('user-name__logout--move');
   }
 
   handleEdit() {

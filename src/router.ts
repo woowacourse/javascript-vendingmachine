@@ -1,4 +1,3 @@
-import storage from './storage';
 import { $, $$ } from './utils';
 
 interface Router {
@@ -9,19 +8,14 @@ interface Router {
 const nav = document.querySelector('.nav');
 const auth = document.querySelector('.auth');
 const baseURL = '/javascript-vendingmachine';
-const isLogin = !!localStorage.getItem('accessToken');
 
-nav.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
-  if (e.target.tagName !== 'BUTTON') return;
+[nav, auth].forEach((container) =>
+  container.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
+    if (e.target.tagName !== 'BUTTON') return;
 
-  historyRouterPush(e.target.getAttribute('route'));
-});
-
-auth.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
-  if (e.target.tagName !== 'BUTTON') return;
-
-  historyRouterPush(e.target.getAttribute('route'));
-});
+    historyRouterPush(e.target.getAttribute('route'));
+  }),
+);
 
 export const historyRouterPush = (pathname: string) => {
   history.pushState({ pathname }, '', pathname);
@@ -78,24 +72,3 @@ if (window.location.pathname === '/') {
 
 renderPage(window.location.pathname);
 renderTab(window.location.pathname);
-
-const checkLogin = () => {
-  $('.login-button').classList.toggle('hidden', isLogin);
-  $('.user-name').classList.toggle('hidden', !isLogin);
-  nav.classList.toggle('hidden', !isLogin);
-
-  const userName = storage.getLocalStorage('user') ? storage.getLocalStorage('user').name : '';
-
-  $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
-};
-
-window.addEventListener('DOMContentLoaded', () => {
-  checkLogin();
-
-  $('.user-name__menu-button').addEventListener('click', function () {
-    $('.user-name__menu-button').classList.toggle('shadow');
-
-    $('.menu-element.user-name__edit').classList.toggle('user-name__edit--move');
-    $('.menu-element.user-name__logout').classList.toggle('user-name__logout--move');
-  });
-});

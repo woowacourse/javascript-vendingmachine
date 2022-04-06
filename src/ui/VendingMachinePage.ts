@@ -1,5 +1,6 @@
 import { CustomElement } from './CustomElement';
 import TEMPLATE from '../templates';
+import { $ } from '../utils';
 
 class VendingMachinePage extends CustomElement {
   connectedCallback() {
@@ -8,6 +9,10 @@ class VendingMachinePage extends CustomElement {
 
   render() {
     this.innerHTML = this.template();
+
+    const isLogin = !!localStorage.getItem('accessToken');
+
+    $('.nav', this).classList.toggle('hidden', !isLogin);
   }
 
   template() {
