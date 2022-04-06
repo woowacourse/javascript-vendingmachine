@@ -38,6 +38,9 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_TOTAL_MONEY: `최대 충전 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY}원을 초과할 수 없습니다.`,
 
   INVALID_NAME_LENGTH: `이름은 최소${USER_RULES.MIN_NAME_LENGTH}이상 최대 ${USER_RULES.MAX_NAME_LENGTH}이하여야 합니다`,
+
+  INVALID_PASSWORD:
+    '비밀번호는 8자 이상 16자 이하로 대문자,소문자, 특수문자가 1번 이상 포함되어야 합니다.',
 };
 
 export function confirmMessage() {

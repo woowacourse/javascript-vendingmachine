@@ -54,9 +54,9 @@ export function isInvalidLengthName(name: string): boolean {
   return name.length < 2 || name.length > 6;
 }
 
-export function isValidPassword(password: string): boolean {
-  const regExp = /^(?=.*[a-z])(?=.*[A-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
-  return regExp.test(password);
+export function isInvalidPassword(password: string): boolean {
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
+  return !regExp.test(password);
 }
 
 // validator function

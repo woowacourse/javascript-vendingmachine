@@ -1,6 +1,6 @@
 import UserApi from '../api/user.js';
 import { getCookie, setCookie, expireCookie } from '../utils/cookie.js';
-import { isInvalidLengthName, validateData } from './validator';
+import { isInvalidLengthName, isInvalidPassword, validateData } from './validator';
 import { ERROR_MESSAGE } from '../constants';
 
 export default class User {
@@ -53,19 +53,22 @@ export default class User {
   }
 
   async signIn(email, password): Promise<void> {
-    const {
-      accessToken,
-      user: { name, id },
-    } = await UserApi.signIn(email, password);
-    this.#id = id;
-    this.#email = email;
-    this.#name = name;
-    this.#isLogined = true;
-    setCookie('accessToken', accessToken);
+    if (this.#validatePassword(password)) {
+      const {
+        accessToken,
+        user: { name, id },
+      } = await UserApi.signIn(email, password);
+
+      this.#id = id;
+      this.#email = email;
+      this.#name = name;
+      this.#isLogined = true;
+      setCookie('accessToken', accessToken);
+    }
   }
 
   async signUp(email, name, password): Promise<void> {
-    if (this.#validateName(name)) {
+    if (this.#validateName(name) && this.#validatePassword(password)) {
       const {
         accessToken,
         user: { id },
@@ -86,7 +89,7 @@ export default class User {
   }
 
   async updateUser(email, name, password): Promise<void> {
-    if (this.#validateName(name)) {
+    if (this.#validateName(name) && this.#validatePassword(password)) {
       const {
         id,
         email: newEmail,
@@ -107,5 +110,12 @@ export default class User {
       { testFunc: isInvalidLengthName, errorMsg: ERROR_MESSAGE.INVALID_NAME_LENGTH },
     ];
     return validateData(name, nameValidator);
+  }
+
+  #validatePassword(password: string): boolean {
+    const passwordValidator = [
+      { testFunc: isInvalidPassword, errorMsg: ERROR_MESSAGE.INVALID_PASSWORD },
+    ];
+    return validateData(password, passwordValidator);
   }
 }
