@@ -18,6 +18,8 @@ const RULES = {
   MAX_VENDING_MACHINE_CHANGE: 100000,
   MAX_VENDING_MACHINE_INPUT_MONEY: 10000,
   NOT_EXIST_INDEX: -1,
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
 };
 
 const ERROR_MESSAGE = {
@@ -31,6 +33,7 @@ const ERROR_MESSAGE = {
   IS_NOT_POSITIVE_INTEGER: '투입할 금액은 0보다 큰 금액이어야 합니다.',
   NOT_ENOUGH_RETURN_CHANGE: '자판기에 더 이상 반환할 수 없는 잔돈이 없습니다.',
   NOT_ENOUGH_MONEY: '투입된 금액이 부족합니다.',
+  NAME_LENGTH_IS_INVALID: '이름은 2~6자 사이의 길이여야합니다.',
   EMAIL_IS_DUPLICATED: '중복된 이메일 주소입니다.',
   EMAIL_IS_INVALID: '올바르지 않은 이메일 주소입니다.',
   PASSWORD_IS_TOO_SHORT: '비밀번호가 너무 짧습니다.',
