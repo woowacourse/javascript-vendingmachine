@@ -142,6 +142,7 @@ export const TEMPLATE = {
       </table>
       <button type="button" id="return-change-button">반환</button>
     </section>`,
+
   PURCHASEABLE_PRODUCT_TABLE_BODY: `
     <tr>
       <th>상품명</th>
@@ -167,5 +168,94 @@ export const TEMPLATE = {
       <h2>🛒 Page Not Found</h2>
       <a href="#/manage" class="tab-menu-button">시작 페이지로</a>
     </section>
+  `,
+  LOGIN: `
+  <header>
+    <h1 id="app-title">로그인</h1>
+  </header>
+  <main>
+    <section title="로그인">
+      <form id="login-form">
+        <fieldset>
+          <legend hidden>로그인</legend>
+          <label for="user-email">이메일</label>
+          <input
+            type="email"
+            id="user-email"
+            placeholder="woowacourse@gmail.com"
+            required
+          />
+          <label for="user-password">비밀번호</label>
+          <input
+            type="password"
+            id="user-password"
+            placeholder="비밀번호를 입력해주세요."
+            required
+          />
+          <button type="submit" class="submit-button">확인</button>
+        </fieldset>
+        <p>아직 회원이 아니신가요? <a href="#/register">회원가입</a></p>
+      </form>
+    </section>
+  </main>
+  `,
+  REGISTER: `
+    <header>
+      <h1 id="app-title">회원가입</h1>
+    </header>
+    <main>
+      <section title="회원가입">
+        <form id="register-form">
+          <fieldset>
+            <legend hidden>회원가입</legend>
+            <label for="new-email">이메일</label>
+            <input
+                type="email"
+                id="new-email"
+                placeholder="이메일 주소를 입력해주세요."
+                required
+              />
+            <label for="user-name">이름</label>
+            <input
+                type="text"
+                id="user-name"
+                placeholder="이름을 입력해주세요."
+                required
+              />
+            <label for="new-password">비밀번호</label>
+            <input
+                type="password"
+                id="new-password"
+                placeholder="비밀번호를 입력해주세요."
+                required
+              />
+            <label for="new-password-confirm">비밀번호 확인</label>
+            <input
+                type="password"
+                id="new-password-confirm"
+                placeholder="비밀번호를 입력해주세요."
+                required
+              />
+            <button type="submit" class="submit-button">확인</button>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  `,
+  ADMIN_HEADER: `
+    <header>
+      <h1 id="app-title">🍿 자판기 🍿</h1>
+      <nav id="tab-menu-navigation">
+        <a id="manage-tab-menu" class="tab-menu-button" href="#/manage"> 상품 관리 </a>
+        <a id="charge-tab-menu" class="tab-menu-button" href="#/charge"> 잔돈 충전 </a>
+        <a id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
+          상품 구매
+        </a>
+      </nav>
+      <div class="profile">
+        <a class="tab-menu-button" href="#/login">로그인</a>
+      </div>
+    </header>
+    <main></main>
   `,
 };

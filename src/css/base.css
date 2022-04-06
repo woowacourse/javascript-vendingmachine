@@ -24,6 +24,7 @@ body {
 #app {
   width: 600px;
   min-height: 675px;
+  position: relative;
 
   display: flex;
   flex-direction: column;

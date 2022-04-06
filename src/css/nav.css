@@ -15,6 +15,10 @@ nav {
   gap: 10px;
 }
 
+nav.hide {
+  display: none;
+}
+
 .tab-menu-button {
   width: 120px;
 
@@ -41,4 +45,11 @@ nav {
 
 .tab-menu-button:visited {
   color: var(--default--black-color);
+}
+
+.profile {
+  display: flex;
+  position: absolute;
+  right: 11px;
+  top: 12px;
 }

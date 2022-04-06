@@ -18,19 +18,38 @@ export default class Router {
       '#/manage': new ManageProductTab(this.#vendingMachine),
       '#/charge': new AddChangeTab(this.#vendingMachine),
       '#/purchase': new PurchaseProductTab(this.#vendingMachine),
+      '#/login': TEMPLATE.LOGIN,
+      '#/register': TEMPLATE.REGISTER,
     };
     this.#app = selectDom('#app');
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
 
     //이벤트 바인딩
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
-    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
   }
 
+  //리팩토링 필수
   #render = () => {
-    const path = window.location.hash || '#/manage';
+    this.#app.replaceChildren();
+
+    if (window.location.hash === '#/login' || window.location.hash === '#/register') {
+      this.#app.insertAdjacentHTML('beforeend', this.#renderList[window.location.hash]);
+      return;
+    }
+
+    this.#app.insertAdjacentHTML('beforeend', TEMPLATE.ADMIN_HEADER);
+
+    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
+    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+
+    let path = window.location.hash || '#/manage';
+    this.#tabMenuNavigation.classList.remove('hide');
     this.#updateCurrentTabMenu(path);
+
+    if (!localStorage.getItem('accessToken')) {
+      path = '#/purchase';
+      this.#tabMenuNavigation.classList.add('hide');
+    }
 
     const main = selectDom('main');
 
