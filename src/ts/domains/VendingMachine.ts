@@ -8,7 +8,7 @@ import {
   checkMoneyValidation,
 } from './validator';
 import { getRandomNumber } from '../utils';
-import { ERROR_MESSAGE, STORAGE_ID } from '../constants';
+import { ERROR_MESSAGE, STORAGE_ID, VENDING_MACHINE_RULE } from '../constants';
 
 export interface VendingMachineInterface {
   products: ProductType[];
@@ -27,7 +27,8 @@ export interface VendingMachineInterface {
   findIndexByName(name: string): number;
   resetInsertedMoney(): void;
   deductRefundableCoins(refundableCoins: number[]): void;
-  getRefundableCoins(coinValues: number[]): number[];
+  getRefundableCoins(): number[];
+  getNonRefundableCoinMoney(): number;
 }
 
 export default class VendingMachine implements VendingMachineInterface {
@@ -196,18 +197,31 @@ export default class VendingMachine implements VendingMachineInterface {
     localStorage.setItem(STORAGE_ID.MONEY, JSON.stringify(this._moneys));
   };
 
-  public getRefundableCoins = (coinValues: number[]) => {
-    let targetAmount = this._insertedMoney % 1000;
+  public getRefundableCoins = () => {
+    let targetAmount = this._insertedMoney;
     const getRefundableCoin = (value: number) => {
       const coinCount =
         this.getCoin(value).count >= Math.floor(targetAmount / value)
           ? Math.floor(targetAmount / value)
           : this.getCoin(value).count;
-      targetAmount = targetAmount - value * coinCount; // 0
+      targetAmount = targetAmount - value * coinCount;
 
       return coinCount;
     };
 
-    return coinValues.map((value) => getRefundableCoin(value));
+    return VENDING_MACHINE_RULE.COIN_VALUES.map((value) => getRefundableCoin(value));
+  };
+
+  public getNonRefundableCoinMoney = () => {
+    const refundableCoins = this.getRefundableCoins();
+
+    return (
+      this.insertedMoney -
+      refundableCoins.reduce(
+        (totalMoney, coinCount, index) =>
+          totalMoney + coinCount * VENDING_MACHINE_RULE.COIN_VALUES[index],
+        0,
+      )
+    );
   };
 }

@@ -13,8 +13,6 @@ export default class PurchaseView {
   $coin100: HTMLSpanElement;
   $coin50: HTMLSpanElement;
   $coin10: HTMLSpanElement;
-  $paperMoney: HTMLSpanElement;
-  $paperMoneyWrapper: HTMLDivElement;
   $refundButton: HTMLButtonElement;
 
   constructor(vendingMachine: VendingMachineInterface) {
@@ -29,8 +27,6 @@ export default class PurchaseView {
     this.$coin100 = $('#purchase-tab-coin-100');
     this.$coin50 = $('#purchase-tab-coin-50');
     this.$coin10 = $('#purchase-tab-coin-10');
-    this.$paperMoney = $('#paper-money');
-    this.$paperMoneyWrapper = <HTMLDivElement>$('.paper-money-wrapper');
     this.$refundButton = <HTMLButtonElement>$('#refund-button');
 
     // 투입버튼 이벤트 바인딩
@@ -109,44 +105,39 @@ export default class PurchaseView {
   private handleRefundButton = () => {
     if (this.vendingMachine.insertedMoney === 0) {
       renderToastModal('error', '투입된 돈이 없으므로, 잔돈을 반환할 수 없습니다.');
-      this.renderRefundableCoinTable([0, 0, 0, 0]);
+      const initializedCoins = [0, 0, 0, 0];
+      this.renderRefundableCoinTable(initializedCoins);
       return;
     }
 
-    const coinValues = [500, 100, 50, 10];
-    const refundableCoins = this.vendingMachine.getRefundableCoins(coinValues);
-    const paperMoneyCount = Math.floor(this.vendingMachine.insertedMoney / 1000);
-
-    this.$paperMoneyWrapper.classList.toggle('hide', paperMoneyCount === 0);
-    this.renderRefundableCoinTable(refundableCoins, paperMoneyCount);
-    this.renderRefundMoneyToastModal(refundableCoins, coinValues);
+    const refundableCoins = this.vendingMachine.getRefundableCoins();
+    this.renderRefundableCoinTable(refundableCoins);
+    const nonRefundableCoinMoney = this.vendingMachine.getNonRefundableCoinMoney();
+    this.renderRefundMoneyToastModal(nonRefundableCoinMoney);
     this.renderInsertedMoney('0');
 
     this.vendingMachine.deductRefundableCoins(refundableCoins);
     this.vendingMachine.resetInsertedMoney();
   };
 
-  private renderRefundableCoinTable = (
-    [coin500Count, coin100Count, coin50Count, coin10Count]: number[],
-    paperMoneyCount = 0,
-  ) => {
+  private renderRefundableCoinTable = ([
+    coin500Count,
+    coin100Count,
+    coin50Count,
+    coin10Count,
+  ]: number[]) => {
     this.$coin500.textContent = String(coin500Count);
     this.$coin100.textContent = String(coin100Count);
     this.$coin50.textContent = String(coin50Count);
     this.$coin10.textContent = String(coin10Count);
-    this.$paperMoney.textContent = String(paperMoneyCount);
   };
 
-  private renderRefundMoneyToastModal = (refundableCoins: number[], coinValues: number[]) => {
-    const nonRefundableCoinMoney =
-      (this.vendingMachine.insertedMoney % 1000) -
-      refundableCoins.reduce(
-        (totalMoney, coinCount, index) => totalMoney + coinCount * coinValues[index],
-        0,
-      );
-
+  private renderRefundMoneyToastModal = (nonRefundableCoinMoney: number) => {
     if (nonRefundableCoinMoney > 0) {
-      renderToastModal('error', `${nonRefundableCoinMoney}원은 반환하지 못하였습니다.`);
+      renderToastModal(
+        'error',
+        `보유 중인 잔돈이 부족하여, ${nonRefundableCoinMoney}원은 반환하지 못하였습니다.`,
+      );
     } else {
       renderToastModal('success', `모든 잔돈을 반환하였습니다.`);
     }
