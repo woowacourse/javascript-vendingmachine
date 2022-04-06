@@ -7,7 +7,7 @@ import { selectDom, selectDoms } from '../utils';
 import { CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
 
-class Header implements HeaderInterface {
+class HeaderView implements HeaderInterface {
   private header: HTMLHeadElement | null = selectDom('header');
 
   private navTabButtons: NodeListOf<HTMLButtonElement> | null = null;
@@ -115,4 +115,4 @@ class Header implements HeaderInterface {
   }
 }
 
-export default Header;
+export default HeaderView;

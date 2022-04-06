@@ -8,6 +8,8 @@ import {
 import { AUTHENTICATION_MESSAGE } from '../constant/errorMessage';
 import { AUTHENTICATION_INFO } from '../constant/rule';
 import { request } from '../utils/index';
+import { getCookie, setCookie } from '../utils/cookie';
+import { COOKIE_KEY } from '../constant/cookie';
 
 class UserStore implements UserStoreInterface {
   private userInfo: UserInfo = null;
@@ -54,6 +56,10 @@ class UserStore implements UserStoreInterface {
     },
   ];
 
+  constructor() {
+    this.userInfo = this.getUserInfoCookie();
+  }
+
   getUserInfo(): UserInfo {
     return this.userInfo;
   }
@@ -86,8 +92,10 @@ class UserStore implements UserStoreInterface {
 
     this.userInfo = {
       accessToken: response.accessToken,
-      ...response.users,
+      ...response.user,
     };
+
+    setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
   }
 
   editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
@@ -108,6 +116,12 @@ class UserStore implements UserStoreInterface {
   }
 
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
+
+  private getUserInfoCookie() {
+    const userInfoCookie: string | undefined = getCookie(COOKIE_KEY.USER_INFO);
+
+    return userInfoCookie ? JSON.parse(userInfoCookie) : null;
+  }
 
   private isNotEmailFormat({ email }: AuthenticationInfo): boolean {
     const emailRegex = /[0-9a-zA-Z]+@([0-9a-zA-Z]+)(.[0-9a-zA-Z]+){1,2}$/;

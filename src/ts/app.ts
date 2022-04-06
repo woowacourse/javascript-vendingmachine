@@ -1,4 +1,4 @@
-import Header from './view/Header';
+import HeaderView from './view/HeaderView';
 import ItemManageTab from './view/ItemManageTab';
 import CoinRechargeTab from './view/CoinRechargeTab';
 import ItemPurchaseTab from './view/ItemPurchaseTab';
@@ -21,7 +21,7 @@ class App {
 
   private userStore: UserStoreInterface = new UserStore();
 
-  private header: HeaderInterface = new Header();
+  private header: HeaderInterface = new HeaderView();
 
   private itemManageTab: VendingMachineTabInterface = new ItemManageTab(
     this.vendingMachine,
