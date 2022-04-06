@@ -29,18 +29,10 @@ class CoinRechargeTab extends VendingMachineTab {
     this.chargedAmountText = selectDom('#charged-amount', this.tabContent);
     this.coinCountList = selectDoms('.coin-count', this.tabContent);
 
-    this.coinRechargeTabButton.addEventListener('click', this.#onClickCoinRechargeTabButton);
     this.cashChargeForm.addEventListener('submit', this.#onSubmitCashChargeForm);
 
     this.cashChargeInput.focus();
   }
-
-  #onClickCoinRechargeTabButton = () => {
-    if (this.coinRechargeTabButton.classList.contains('selected')) {
-      return;
-    }
-    this.renderInitialCoinRechargeTabState();
-  };
 
   #onSubmitCashChargeForm = (e) => {
     e.preventDefault();

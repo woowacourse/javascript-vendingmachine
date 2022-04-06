@@ -29,20 +29,12 @@ class ItemManageTab extends VendingMachineTab {
     this.itemInfoInputs = selectDoms('.item-info-input', this.itemInfoForm);
     this.itemStatusTable = selectDom('.item-status-table', this.tabContent);
 
-    this.itemManageTabButton.addEventListener('click', this.#onClickItemManageTabButton);
     this.itemInfoForm.addEventListener('submit', this.#onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.#onClickItemStatusTableButton);
     this.itemStatusTable.addEventListener('keydown', this.#onKeyDownItemInfoRow);
 
     this.itemInfoInputs[0].focus();
   }
-
-  #onClickItemManageTabButton = () => {
-    if (this.itemManageTabButton.classList.contains('selected')) {
-      return;
-    }
-    this.renderInitialItemManageTabState();
-  };
 
   #onSubmitItemInfoForm = (e) => {
     e.preventDefault();
