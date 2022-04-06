@@ -1,7 +1,13 @@
-export const PATH_ID = {
-  PRODUCT_MANAGE: '/javascript-vendingmachine/#!/product-manage',
-  RECHARGE: '/javascript-vendingmachine/#!/recharge',
-  PURCHASE_PRODUCT: '/javascript-vendingmachine/#!/purchase-product',
+export const TAB_ID = {
+  PRODUCT_MANAGE: '/#!/product-manage',
+  RECHARGE: '/#!/recharge',
+  PURCHASE_PRODUCT: '/#!/purchase-product',
+};
+
+export const PAGE_ID = {
+  LOGIN: '/#!/login',
+  REGISTER: '/#!/register',
+  USERINFO_EDIT: '/#!/user-info-edit',
 };
 
 export const ERROR_MESSAGE = {
@@ -51,7 +57,7 @@ export const VENDING_MACHINE_RULE = {
 export const STORAGE_ID = {
   MONEY: 'money',
   PRODUCTS: 'products',
-  CURRENT_TAB: 'current-tab',
+  CURRENT_VIEW: 'current-view',
   PURCHASE_MONEY: 'purchase-money',
 };
 

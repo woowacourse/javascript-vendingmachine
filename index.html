@@ -8,24 +8,24 @@
 
   <body>
 
-    <div class="userInfo-edit-container">
+    <div class="page-container hide" id="/#!/user-info-edit">
       <h1>회원 정보 수정</h1>
       <section class="register-wrapper">
         <form>
-          <label class="form-label" for="register-email">이메일</label>
-          <input class="form-input" type="email" id="register-email" placeholder="woowacourse@gmail.com" disabled>
-          <label class="form-label" for="register-name">이름</label>
-          <input class="form-input" type="text" id="register-name" placeholder="우테코">
-          <label class="form-label" for="register-password">비밀번호</label>
-          <input class="form-input" type="password" id="register-password" placeholder="비밀번호를 입력해주세요">
-          <label class="form-label" for="register-password-check">비밀번호 확인</label>
-          <input class="form-input" type="password" id="register-password-check" placeholder="비밀번호를 입력해주세요">
+          <label class="form-label" for="register-edit-email">이메일</label>
+          <input class="form-input" type="email" id="register-edit-email" placeholder="woowacourse@gmail.com" disabled>
+          <label class="form-label" for="register-edit-name">이름</label>
+          <input class="form-input" type="text" id="register-edit-name" placeholder="우테코">
+          <label class="form-label" for="register-edit-password">비밀번호</label>
+          <input class="form-input" type="password" id="register-edit-password" placeholder="비밀번호를 입력해주세요">
+          <label class="form-label" for="register-edit-password-check">비밀번호 확인</label>
+          <input class="form-input" type="password" id="register-edit-password-check" placeholder="비밀번호를 입력해주세요">
           <button class="short-button form-button">확인</button>
         </form>
       </section>
     </div>
 
-    <div class="register-container">
+    <div class="page-container hide" id="/#!/register">
       <h1>회원가입</h1>
       <section class="register-wrapper">
         <form>
@@ -42,7 +42,7 @@
       </section>
     </div>
 
-    <div class="login-container" id="/javascript-vendingmachine/#!/login">
+    <div class="page-container hide" id="/#!/login">
       <h1>로그인</h1>
       <section class="login-wrapper">
         <form>
@@ -53,7 +53,7 @@
           <button class="short-button form-button">확인</button>
           <div class="register-introduction-wrapper">
             <span>아직 회원이 아니신가요?</span>
-            <a class="login-register" href="/javascript-vendingmachine/#!/register">회원가입</a>
+            <span class="login-register">회원가입</span>
           </div>
         </form>
       </section>
@@ -65,18 +65,18 @@
       </div>
       <h1>🍿 자판기 🍿</h1>
 
-      <nav class="nav-tab hide">
+      <nav class="nav-tab">
         <form>
-          <input class="tab-button" type="radio" id="tab-product-manage" name="tab" checked />
+          <input class="tab-button" type="radio" id="tab-product-manage" name="tab" />
           <label class="tab-label" for="tab-product-manage">상품 관리</label>
           <input class="tab-button" type="radio" id="tab-recharge" name="tab" />
           <label class="tab-label" for="tab-recharge">잔돈 충전</label>
-          <input class="tab-button" type="radio" id="tab-purchase-product" name="tab" />
+          <input class="tab-button" type="radio" id="tab-purchase-product" name="tab" checked/>
           <label class="tab-label" for="tab-purchase-product">상품 구매</label>
         </form>
       </nav>
 
-      <section class="tab-result-container" id="/javascript-vendingmachine/#!/product-manage">
+      <section class="tab-result-container hide" id="/#!/product-manage">
         <h2 hidden>상품 관리</h2>
         <div class="tab-result-wrapper">
           <form class="product-manage-form">
@@ -110,7 +110,7 @@
         </div>
       </section>
 
-      <section class="tab-result-container hide" id="/javascript-vendingmachine/#!/recharge">
+      <section class="tab-result-container hide" id="/#!/recharge">
         <h2 hidden>잔돈 충전</h2>
         <div class="tab-result-wrapper">
           <form class="recharge-form">
@@ -157,7 +157,7 @@
         </div>
       </section>
 
-      <section class="tab-result-container hide" id="/javascript-vendingmachine/#!/purchase-product">
+      <section class="tab-result-container" id="/#!/purchase-product">
         <h2 hidden>상품 구매</h2>
         <div class="tab-result-wrapper">
           <form class="purchase-form">

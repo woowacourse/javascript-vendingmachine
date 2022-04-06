@@ -27,4 +27,9 @@ input.form-input {
 
 .login-register {
   margin-left: 10px;
+  color: #3581d7;
+}
+
+.login-register:hover {
+  cursor: pointer;
 }
