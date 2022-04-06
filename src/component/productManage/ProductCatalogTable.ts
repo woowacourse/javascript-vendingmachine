@@ -1,5 +1,5 @@
-import { ProductProps } from '../utils/interface';
-import { ProductCatalog } from '../domain/ProductCatalog';
+import { ProductProps } from '../../utils/interface';
+import { ProductCatalog } from '../../domain/ProductCatalog';
 
 interface ProductCatalogTableInterface {
   render();

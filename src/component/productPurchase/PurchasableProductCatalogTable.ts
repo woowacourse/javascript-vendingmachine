@@ -1,7 +1,7 @@
-import { ProductCatalog } from '../domain/ProductCatalog';
-import { PurchaseMoney } from '../domain/PurchaseMoney';
+import { ProductCatalog } from '../../domain/ProductCatalog';
+import { PurchaseMoney } from '../../domain/PurchaseMoney';
 
-import { ProductProps } from '../utils/interface';
+import { ProductProps } from '../../utils/interface';
 
 interface PurchasableProductCatalogTableInterface {}
 
@@ -155,5 +155,7 @@ export class PurchasableProductCatalogTable implements PurchasableProductCatalog
     priceSpan.textContent = price;
     quantitySpan.textContent = quantity;
     purchaseButton.dataset.productId = name;
+    purchaseButton.disabled = quantity === 0 ? true : false;
+    purchaseButton.textContent = quantity === 0 ? '품절' : '구매';
   };
 }

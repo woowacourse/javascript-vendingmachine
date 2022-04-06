@@ -1,6 +1,6 @@
-import { PurchasableProductCatalogTable } from '../component/PurchasableProductCatalogTable';
-import { PurchaseMoneyInputForm } from '../component/PurchaseMoneyInputForm';
-import { ReturnedCoinTable } from '../component/ReturnedCoinTable';
+import { PurchasableProductCatalogTable } from '../component/productPurchase/PurchasableProductCatalogTable';
+import { PurchaseMoneyInputForm } from '../component/productPurchase/PurchaseMoneyInputForm';
+import { ReturnedCoinTable } from '../component/productPurchase/ReturnedCoinTable';
 import { CoinVault } from '../domain/CoinVault';
 
 import { ProductCatalog } from '../domain/ProductCatalog';

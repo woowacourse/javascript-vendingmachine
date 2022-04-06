@@ -1,5 +1,5 @@
-import { BalanceChargeInputForm } from '../component/BalanceChargeInputForm';
-import { CoinVaultTable } from '../component/CoinVaultTable';
+import { BalanceChargeInputForm } from '../component/balanceCharge/BalanceChargeInputForm';
+import { CoinVaultTable } from '../component/balanceCharge/CoinVaultTable';
 
 import { CoinVault } from '../domain/CoinVault';
 

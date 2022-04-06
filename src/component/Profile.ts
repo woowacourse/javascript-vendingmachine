@@ -47,7 +47,6 @@ export class Profile implements ProfileInterface {
     }
 
     const { name } = JSON.parse(localStorage.getItem('user'));
-    console.log(name);
 
     this.#target.insertAdjacentHTML('beforeend', this.#template(name));
 

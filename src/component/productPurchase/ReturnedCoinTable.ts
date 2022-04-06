@@ -1,7 +1,7 @@
-import { CoinVault } from '../domain/CoinVault';
-import { PurchaseMoney } from '../domain/PurchaseMoney';
+import { CoinVault } from '../../domain/CoinVault';
+import { PurchaseMoney } from '../../domain/PurchaseMoney';
 
-import { Coins } from '../utils/interface';
+import { Coins } from '../../utils/interface';
 
 interface ReturnedCoinTableInterface {
   render();
@@ -83,9 +83,7 @@ export class ReturnedCoinTable implements ReturnedCoinTableInterface {
       );
 
       this.#purchaseMoney.setMoney(remainder);
-
       this.#updateReturnedCoinTable({ coin500, coin100, coin50, coin10 });
-
       this.#target.dispatchEvent(new CustomEvent('coinsReturned', { bubbles: true }));
 
       this.#target.dispatchEvent(

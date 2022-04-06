@@ -1,7 +1,7 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
 
-import { ProductCatalogTable } from '../component/ProductCatalogTable';
-import { ProductInformationInputForm } from '../component/ProductInformationInputForm';
+import { ProductCatalogTable } from '../component/productManage/ProductCatalogTable';
+import { ProductInformationInputForm } from '../component/productManage/ProductInformationInputForm';
 
 interface ProductManageViewInterface {
   getIsRendered();

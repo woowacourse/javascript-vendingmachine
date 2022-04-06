@@ -1,4 +1,4 @@
-import { PurchaseMoney } from '../domain/PurchaseMoney';
+import { PurchaseMoney } from '../../domain/PurchaseMoney';
 
 interface PurchaseMoneyInputFormInterface {
   render();

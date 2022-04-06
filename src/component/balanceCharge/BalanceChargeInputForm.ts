@@ -1,4 +1,4 @@
-import { CoinVault } from '../domain/CoinVault';
+import { CoinVault } from '../../domain/CoinVault';
 
 interface BalanceChargeInputFormInterface {
   render();

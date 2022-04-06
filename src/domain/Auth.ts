@@ -39,9 +39,9 @@ export class Auth implements AuthInterface {
       throw new Error('아이디와 비밀번호를 확인해주세요~');
     }
 
-    const json = await response.json();
+    const userInfo = await response.json();
 
-    return json;
+    return userInfo;
   };
 
   async edit(editedUserInfo: UserInfoProps) {

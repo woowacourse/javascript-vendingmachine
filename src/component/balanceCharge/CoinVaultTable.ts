@@ -1,5 +1,5 @@
-import { CoinVault } from '../domain/CoinVault';
-import { Coins } from '../utils/interface';
+import { CoinVault } from '../../domain/CoinVault';
+import { Coins } from '../../utils/interface';
 
 interface CoinVaultTableInterface {
   render();

@@ -12,11 +12,6 @@ import { Auth } from '../domain/Auth';
 import { Profile } from '../component/Profile';
 import { UserInfoEditView } from './UserInfoEditView';
 
-// 임시
-// import { SignupView } from './SignupView';
-// import { UserInfoEditView } from './userInfoEditView';
-// 임시 종료
-
 export class NavView {
   #nav: HTMLElement;
   #thumbnail: HTMLDivElement;
@@ -24,7 +19,6 @@ export class NavView {
   #balanceChargeNavBtn: HTMLButtonElement;
   #productPurchaseNavBtn: HTMLButtonElement;
   #loginBtn: HTMLButtonElement;
-  #contentsContainer: HTMLDivElement;
   #authSection: HTMLElement;
   #featureSection: HTMLElement;
   #productManageView: ProductManageView;
@@ -73,7 +67,10 @@ export class NavView {
     this.#loginBtn.addEventListener('click', this.#handleShowLoginPage);
     this.#authSection.addEventListener('signupPageRequested', this.#handleShowSignupPage);
     this.#authSection.addEventListener('loginCompleted', this.#handleShowLoginCompletedPage);
-    this.#authSection.addEventListener('editUserInfoCompleted', this.#handleShowLoginCompletedPage);
+    this.#authSection.addEventListener(
+      'editUserInfoCompleted',
+      this.#handleShowLogoutCompletedPage
+    );
     this.#thumbnail.addEventListener('showEditUserInfoRequested', this.#handleShowEditUserInfoPage);
     this.#thumbnail.addEventListener('logoutCompleted', this.#handleShowLogoutCompletedPage);
 
@@ -95,6 +92,14 @@ export class NavView {
       this.#productManageView.show();
       this.#balanceChargeView.hide();
       this.#productPurchaseView.hide();
+
+      return;
+    }
+
+    if (savedData.state.path === URL_PATH.BALANCE_CHAREGE) {
+      this.#balanceChargeView.show();
+      this.#productPurchaseView.hide();
+      this.#productManageView.hide();
 
       return;
     }
@@ -187,8 +192,8 @@ export class NavView {
     this.#authSection.classList.add('hide');
     this.#loginBtn.classList.add('hide');
 
-    this.#profile.render();
     this.#thumbnail.classList.remove('hide');
+    this.#profile.render();
     this.#featureSection.classList.remove('hide');
     this.#nav.classList.remove('hide');
   };
@@ -198,12 +203,13 @@ export class NavView {
     this.#nav.classList.add('hide');
     this.#thumbnail.classList.add('hide');
 
+    this.#featureSection.classList.remove('hide');
     this.#loginBtn.classList.remove('hide');
     this.#handleShowProductPurhcaseTab();
   };
 
   #renderHome = () => {
-    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    const accessToken = localStorage.getItem('accessToken');
 
     if (!!accessToken) {
       this.#profile.render();

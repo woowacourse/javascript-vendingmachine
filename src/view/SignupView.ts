@@ -83,7 +83,7 @@ export class SignupView implements SignupViewInterface {
   #setUserInfo(userInfo) {
     const { accessToken, user } = userInfo;
 
-    localStorage.setItem('accessToken', JSON.stringify(accessToken));
+    localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('user', JSON.stringify(user));
   }
 }

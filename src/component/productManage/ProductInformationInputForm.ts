@@ -1,4 +1,4 @@
-import { ProductCatalog } from '../domain/ProductCatalog';
+import { ProductCatalog } from '../../domain/ProductCatalog';
 
 interface ProductInformationInputFormInterface {
   render();
