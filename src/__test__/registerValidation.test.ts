@@ -1,6 +1,6 @@
-import type { UserInfoType } from '../ts/vendingMachine/authLogic';
+import { UserInfoType, validateLoginBehavior } from '../ts/vendingMachine/authLogic';
 
-import { REGISTER_ERROR_MESSAGE } from '../ts/constant/errorMessage';
+import { LOGIN_ERROR_MESSAGE, REGISTER_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 import { validateRegisterBehavior } from '../ts/vendingMachine/authLogic';
 
 describe('회원가입 입력값 유효성 테스트', () => {
@@ -73,6 +73,17 @@ describe('회원가입 입력값 유효성 테스트', () => {
     };
     expect(() => validateRegisterBehavior(userInfo)).toThrow(
       REGISTER_ERROR_MESSAGE.NO_MATCH_PASSWORD_CONFIRM
+    );
+  });
+});
+
+describe('로그인 입력값 유효성 테스트', () => {
+  test('어떤 입력값이라도 공백이면 에러가 발생한다.', () => {
+    const email = 'a@woowahan.com';
+    const password = '';
+
+    expect(() => validateLoginBehavior(email, password)).toThrow(
+      LOGIN_ERROR_MESSAGE.BLANK_NOT_ALLOWED
     );
   });
 });

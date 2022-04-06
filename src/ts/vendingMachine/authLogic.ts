@@ -25,6 +25,12 @@ export const register = async (userInfo: UserInfoType) => {
   }
 };
 
+export const validateLoginBehavior = (email: string, password: string) => {
+  if (!email.length || !password.length) {
+    throw new Error(LOGIN_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
+  }
+};
+
 export const validateRegisterBehavior = ({
   email,
   name,

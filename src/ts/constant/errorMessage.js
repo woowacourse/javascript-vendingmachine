@@ -39,6 +39,7 @@ export const REGISTER_ERROR_MESSAGE = {
 };
 
 export const LOGIN_ERROR_MESSAGE = {
+  BLANK_NOT_ALLOWED: '공백 없이 모두 입력해주세요.',
   FAIL: '로그인에 실패했습니다. 개발자에게 문의해주세요.',
 };
 
