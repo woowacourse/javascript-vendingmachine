@@ -84,9 +84,9 @@ export default class Subject {
 
   checkUpdated(): void {
     if (this.updated) {
-      this.notify();
-
       this.updated = false;
+
+      this.notify();
     }
 
     window.requestAnimationFrame(() => {

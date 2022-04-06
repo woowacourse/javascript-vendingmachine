@@ -76,6 +76,12 @@ export default class Auth extends Domain<AuthState> {
       name: body.name,
     };
   }
+
+  isUnaccessible(loginRequired) {
+    const isLoggedIn = Boolean(this.state.accessToken);
+
+    return isLoggedIn ? loginRequired === false : loginRequired;
+  }
 }
 
 export const auth = new Auth({ user: null, accessToken: null });

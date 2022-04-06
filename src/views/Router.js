@@ -1,6 +1,8 @@
 import Component from '../core/Component';
-import { vendingMachine } from '../domains/VendingMachine';
+import { browser } from '../domains/Browser';
+import { auth } from '../domains/Auth';
 import { PAGES } from '../configs/constants';
+import { convertStringToBoolean } from '../utils/commons';
 
 class Router extends Component {
   setup() {
@@ -13,19 +15,33 @@ class Router extends Component {
   }
 
   render() {
-    const location = vendingMachine.useStore((state) => state.location);
+    const component = this.getComponent();
+    const loginRequired = convertStringToBoolean(
+      component.getAttribute('loginRequired')
+    );
+
+    if (auth.isUnaccessible(loginRequired)) {
+      const state = {};
+
+      window.history.pushState(state, '', PAGES.LANDING.PATH);
+      dispatchEvent(new PopStateEvent('popstate', { state }));
+    }
+
+    this.clearDOM();
+    this.appendChild(component);
+  }
+
+  getComponent() {
+    const location = browser.useStore((state) => state.location);
     const { routes } = this.state;
 
     const currentRoute = routes.filter(
       (route) => route.path === location || route.path === PAGES.DEFAULT.PATH
     )[0];
-    const component =
-      location === PAGES.LANDING.PATH
-        ? routes[0].component
-        : currentRoute?.component;
 
-    this.clearDOM();
-    this.appendChild(component);
+    return location === PAGES.LANDING.PATH
+      ? routes[0].component
+      : currentRoute?.component;
   }
 }
 

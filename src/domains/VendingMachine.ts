@@ -30,7 +30,6 @@ export interface VendingMachineState {
   coins: Coins;
   insertedMoney: number;
   returnedChange: Coins;
-  location: string;
 }
 
 export default class VendingMachine extends Domain<VendingMachineState> {
@@ -149,10 +148,6 @@ export default class VendingMachine extends Domain<VendingMachineState> {
     this.state.returnedChange = returnedChange;
     this.state.coins = updatedCoins;
   }
-
-  setLocation(location: string): void {
-    this.state.location = location;
-  }
 }
 
 export const vendingMachine = new VendingMachine({
@@ -160,5 +155,4 @@ export const vendingMachine = new VendingMachine({
   coins: COIN.EMPTY_COINS,
   insertedMoney: 0,
   returnedChange: COIN.EMPTY_COINS,
-  location: '/',
 });

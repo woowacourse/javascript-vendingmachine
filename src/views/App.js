@@ -10,32 +10,70 @@ import './pages/SignupPage';
 import './pages/ProfilePage';
 import './pages/NotFoundPage';
 import './components/Snackbar';
-import { vendingMachine } from '../domains/VendingMachine';
+import { browser } from '../domains/Browser';
 import { getPathname } from '../utils/domUtils';
 import { PAGES } from '../configs/constants';
+import { auth } from '../domains/Auth';
 
 export default class App extends Component {
   setup() {
-    vendingMachine.setLocation(getPathname());
+    browser.setLocation(getPathname());
   }
 
   template() {
+    const user = auth.useStore((state) => state.user);
+
     return `
       <main class="app-container">
         <header>
           <h1 class="title">🍿 자판기 🍿</h1>
         </header>
         <user-menu class="overlay"></user-menu>
-        <nav-bar class="nav-bar"></nav-bar>
+        ${user ? '<nav-bar class="nav-bar"></nav-bar>' : ''}
         <div class="page-container">
           <page-router>
-            <item-management class="page" path="${PAGES.ITEM_MANAGEMENT.PATH}"></item-management>
-            <change-charge class="page" path="${PAGES.CHANGE_CHARGE.PATH}"></change-charge>
-            <item-purchase class="page" path="${PAGES.ITEM_PURCHASE.PATH}"></item-purchase>
-            <login-page class="page" path="/login"></login-page>
-            <signup-page class="page" path="/signup"></signup-page>
-            <profile-page class="page" path="/profile"></profile-page>
-            <not-found class="page" path="${PAGES.DEFAULT.PATH}"></not-found>
+            <item-purchase
+              class="page"
+              path="${PAGES.ITEM_PURCHASE.PATH}"
+              loginRequired="null"
+            >
+            </item-purchase>
+            <item-management
+              class="page"
+              path="${PAGES.ITEM_MANAGEMENT.PATH}"
+              loginRequired="true"
+            >
+            </item-management>
+            <change-charge
+              class="page"
+              path="${PAGES.CHANGE_CHARGE.PATH}"
+              loginRequired="true"
+            >
+            </change-charge>
+            <login-page
+              class="page"
+              path="/login"
+              loginRequired="false"
+            >
+            </login-page>
+            <signup-page
+              class="page"
+              path="/signup"
+              loginRequired="false"
+            >
+            </signup-page>
+            <profile-page
+              class="page"
+              path="/profile"
+              loginRequired="true"
+            >
+            </profile-page>
+            <not-found
+              class="page"
+              path="${PAGES.DEFAULT.PATH}"
+              loginRequired="null"
+            >
+            </not-found>
           </page-router>
         </div>
       </main>
@@ -45,7 +83,7 @@ export default class App extends Component {
 
   setEvent() {
     window.addEventListener('popstate', (event) => {
-      vendingMachine.setLocation(getPathname(event.path[0]));
+      browser.setLocation(getPathname(event.path[0]));
     });
   }
 }

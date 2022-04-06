@@ -3,7 +3,7 @@ import { auth } from '../../domains/Auth';
 
 export default class ProfilePage extends Component {
   template() {
-    const { email, name } = auth.useStore((state) => state.user);
+    const { user } = auth.useStore((state) => state);
 
     return `
       <header>
@@ -19,7 +19,7 @@ export default class ProfilePage extends Component {
               type="email"
               class="profile-input styled-input"
               placeholder="이메일 주소를 입력해주세요."
-              value="${email}"
+              value="${user?.email}"
               maxlength="40"
               disabled
               required
@@ -32,7 +32,7 @@ export default class ProfilePage extends Component {
               type="text"
               class="profile-input styled-input"
               placeholder="이름을 입력해주세요."
-              value="${name}"
+              value="${user?.name}"
               minlength="2"
               maxlength="6"
               autofocus

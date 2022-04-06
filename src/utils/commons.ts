@@ -83,3 +83,16 @@ export const deepClone = <T>(obj: T): T => {
 
   return clone;
 };
+
+export const convertStringToBoolean = (str: string): boolean | null => {
+  switch (str) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    case 'null':
+      return null;
+    default:
+      return undefined;
+  }
+};
