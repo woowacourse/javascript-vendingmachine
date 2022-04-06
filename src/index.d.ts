@@ -76,5 +76,5 @@ export interface PageView {
   bindEvent(movePage: Function): void;
 }
 
-export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signup';
+export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signup' | 'admin' | 'login';
  

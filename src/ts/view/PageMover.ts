@@ -28,7 +28,7 @@ export default class PageMover implements View {
     this.productManage.bindEvent();
     this.chargeMoney.bindEvent();
     this.buyProduct.bindEvent();
-    this.signup.bindEvent(this.moveBuyProduct.bind(this));
+    this.signup.bindEvent(() => this.movePage('login'));
     this.$app.addEventListener('click', this.handleClickPageMoveButtons.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }
@@ -53,9 +53,5 @@ export default class PageMover implements View {
     this.$app.classList.add(pageName);
     const render = (this[pageName] as DomainView).render;
     render && render.call(this[pageName]);
-  }
-
-  private moveBuyProduct(): void {
-    this.movePage('buyProduct');
   }
 }
