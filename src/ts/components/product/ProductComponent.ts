@@ -5,7 +5,6 @@ import ProductManager from "../../mananger/ProductManager";
 import { clearInput } from "../../utils/common";
 
 class ProductComponent {
-  productManager: ProductManager;
   productContainer: HTMLElement;
   productAddButton: HTMLButtonElement;
   productTable: HTMLTableElement;
@@ -14,8 +13,7 @@ class ProductComponent {
   productPriceInput: HTMLInputElement;
   productQuantityInput: HTMLInputElement;
 
-  constructor({ productManager }) {
-    this.productManager = productManager;
+  constructor(private productManager: ProductManager) {
     this.productContainer = $(".product-manange__container");
     this.productContainer.replaceChildren();
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());

@@ -7,14 +7,12 @@ class ChargeComponent {
   chargeForm: HTMLFormElement;
   chargeInput: HTMLInputElement;
   chargeAmountText: HTMLSpanElement;
-  chargeManager: ChargeManager;
   chargeCoin500: HTMLElement;
   chargeCoin100: HTMLElement;
   chargeCoin50: HTMLElement;
   chargeCoin10: HTMLElement;
 
-  constructor({ chargeManager }) {
-    this.chargeManager = chargeManager;
+  constructor(private chargeManager: ChargeManager) {
     this.chargeContainer = $(".charge-manange__container");
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());

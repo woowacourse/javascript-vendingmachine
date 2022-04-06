@@ -4,8 +4,6 @@ import ChargeManager, { Coin } from "../../mananger/ChargeManager";
 import ProductManager from "../../mananger/ProductManager";
 
 class PurchaseComponent {
-  productManager: ProductManager;
-  chargeManager: ChargeManager;
   purchaseContainer: HTMLElement;
   purchaseForm: HTMLFormElement;
   purchaseAmountInput: HTMLInputElement;
@@ -18,9 +16,7 @@ class PurchaseComponent {
   returnCoin50: HTMLElement;
   returnCoin10: HTMLElement;
 
-  constructor({ productManager, chargeManager }) {
-    this.productManager = productManager;
-    this.chargeManager = chargeManager;
+  constructor(private productManager: ProductManager, private chargeManager: ChargeManager) {
     this.purchaseContainer = $(".purchase-manange__container");
     this.purchaseContainer.replaceChildren();
     this.purchaseContainer.insertAdjacentHTML("beforeend", purchaseTemplate());
