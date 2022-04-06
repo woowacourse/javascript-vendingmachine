@@ -40,10 +40,7 @@ export default class PurchaseProductTab {
 
   #renderProductList() {
     Object.entries(this.#machine.productList).forEach(([id, { name, price, stock }]) => {
-      this.#productStatusTable.insertAdjacentHTML(
-        'beforeend',
-        productPurchaseTableRow({ id, name, price, stock })
-      );
+      this.addProduct({ id, name, price, stock });
     });
   }
 

@@ -9,9 +9,11 @@ export default class Controller {
     this.addChangePage = addChangeView.main;
     this.manageProductView = manageProductView.main;
     this.purchaseProductVIew = purchaseProductVIew.main;
-    listenEvents(selectDom('body'), [
-      ['addChange', this.#addChange],
-      ['addProduct', this.#addProduct],
+    listenEvents(this.manageProductView.element, [
+      { type: 'addProduct', cb: this.#addProduct },
+    ]);
+    listenEvents(this.addChangePage.element, [
+      { type: 'addChange', cb: this.#addChange },
     ]);
   }
 

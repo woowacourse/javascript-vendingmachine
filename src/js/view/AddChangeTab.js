@@ -3,16 +3,13 @@ import { emitEvent } from '../utils/event';
 import { addChangeTemplate } from './template';
 
 export default class AddChangeTab {
-  #vendingMachine;
   #addChangeContainer;
   #addChangeForm;
   #moneyInput;
   #totalChange;
   #coinStatusTable;
 
-  constructor(machine) {
-    this.#vendingMachine = machine;
-
+  constructor() {
     this.#addChangeContainer = createMainElement(addChangeTemplate);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
     this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
@@ -29,7 +26,7 @@ export default class AddChangeTab {
   #handleAddChange = (e) => {
     e.preventDefault();
     const money = this.#moneyInput.valueAsNumber;
-    emitEvent(selectDom('body'), 'addChange', { money });
+    emitEvent(this.element, 'addChange', { money });
   };
 
   renderCoinStatus(coinStatus, totalChange) {

@@ -33,6 +33,6 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_TOTAL_MONEY: `최대 충전 금액은 ${VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY}원을 초과할 수 없습니다.`,
 };
 
-export function confirmMessage(name) {
-  return `정말 ${name} 삭제하시겠습니까?`;
+export function confirmMessage() {
+  return '정말 삭제하시겠습니까?';
 }

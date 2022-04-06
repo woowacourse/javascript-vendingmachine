@@ -59,18 +59,7 @@ export default class ManageProductTab {
     const name = this.#addProductNameInput.value;
     const price = this.#addProductPriceInput.valueAsNumber;
     const stock = this.#addProductStockInput.valueAsNumber;
-    emitEvent(selectDom('body'), 'addProduct', { name, price, stock });
-    // try {
-    //   const id = this.#vendingMachine.addProduct({ name, price, stock });
-
-    //   this.#productStatusTable.insertAdjacentHTML(
-    //     'beforeend',
-    //     productTableRow({ name, price, stock, id })
-    //   );
-    //   this.#resetInput();
-    // } catch ({ message }) {
-    //   alert(message);
-    // }
+    emitEvent(this.#manageContainer, 'addProduct', { name, price, stock });
   };
 
   addProduct({ name, price, stock, id }) {
@@ -95,12 +84,7 @@ export default class ManageProductTab {
       this.#handleProductUpdate(target);
     }
 
-    if (
-      classList.contains('remove-product-button') &&
-      window.confirm(
-        confirmMessage(this.#vendingMachine.productList[target.dataset.productId].name)
-      )
-    ) {
+    if (classList.contains('remove-product-button') && window.confirm(confirmMessage())) {
       this.#handleProductRemove(target);
     }
 
@@ -144,6 +128,7 @@ export default class ManageProductTab {
 
   #handleProductRemove = (target) => {
     const { productId: id } = target.dataset;
+
     try {
       this.#vendingMachine.removeProduct(id);
       target.closest('tr').remove();

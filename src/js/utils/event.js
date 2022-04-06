@@ -3,10 +3,10 @@ export function emitEvent(target, name, detail) {
   target.dispatchEvent(event);
 }
 export function listenEvents(target, events) {
-  events.forEach(([eventName, callback]) => {
-    target.addEventListener(eventName, (e) => {
+  events.forEach(({ type, cb }) => {
+    target.addEventListener(type, (e) => {
       try {
-        callback(e);
+        cb(e);
       } catch (error) {
         console.log(error);
       }
