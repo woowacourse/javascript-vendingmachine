@@ -13,8 +13,11 @@ export class ChangesProcessMachine implements ChangesDomain {
   coins: Coins;
 
   constructor() {
-    this.coins = getLocalStorage("coins") ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
+    this.coins = this.initCoins();
   }
+
+  initCoins = () =>
+    getLocalStorage("coins") ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
 
   charge: Charge = (money) => {
     this.checkDividedByMinimumCoin(money);

@@ -10,4 +10,6 @@ module.exports = {
   },
   testMatch: ["<rootDir>/**/*.test.(js|ts)"],
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  setupFiles: ["jest-localstorage-mock"],
+  resetMocks: false,
 };

@@ -4,6 +4,7 @@ import { ChangesProcessMachine } from "./ChangesProcessMachine";
 describe("잔돈 관리하는 도메인 테스트", () => {
   test("자판기 보유 금액을 누적하여 충전할 수 있다.", () => {
     const changeProcessMachine = new ChangesProcessMachine();
+
     changeProcessMachine.accumulateCoins({
       500: 2,
       100: 4,
@@ -21,6 +22,7 @@ describe("잔돈 관리하는 도메인 테스트", () => {
 
   test("자판기 보유 금액만큼의 동전이 무작위로 생성된다.", () => {
     const changeProcessMachine = new ChangesProcessMachine();
+
     changeProcessMachine.charge(2500);
     const chargedMoney = changeProcessMachine.getTotalChanges();
     expect(chargedMoney).toEqual(2500);
@@ -28,6 +30,7 @@ describe("잔돈 관리하는 도메인 테스트", () => {
 
   test(`잔돈은 ${VENDING_MACHINE_NUMBER.MINIMUM_COIN}원으로 나누어 떨어지는 금액만 투입할 수 있다.`, () => {
     const changeProcessMachine = new ChangesProcessMachine();
+
     expect(() => {
       changeProcessMachine.charge(1001);
     }).toThrowError(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
@@ -35,6 +38,7 @@ describe("잔돈 관리하는 도메인 테스트", () => {
 
   test(`보유할 수 있는 최대 금액은 ${VENDING_MACHINE_NUMBER.MAXIMUM_CHANGES}원이다.`, () => {
     const changeProcessMachine = new ChangesProcessMachine();
+
     expect(() => {
       changeProcessMachine.charge(100010);
     }).toThrowError(ERROR_MESSAGE.MAXIMUM_CHANGES);
