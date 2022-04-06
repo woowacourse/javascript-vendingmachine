@@ -1,17 +1,45 @@
 import Component from '../../core/Component';
 import './Link';
+import { auth } from '../../domains/Auth';
 
 export default class UserMenu extends Component {
   template() {
-    if (true) {
+    const { accessToken, user } = auth.useStore((state) => ({
+      accessToken: state.accessToken,
+      user: state.user,
+    }));
+
+    if (accessToken) {
       return `
-        <a-link href="/login" class="login-button styled-button">로그인</a-link>
+        <div class="thumbnail">
+          <button id="user-thumbnail" class="thumbnail styled-button">
+            ${user.name[0]}
+          </button>
+          <ul id="user-menu" class="dropdown-menu">
+            <li><a-link href="/profile">회원 정보 수정</a-link></li>
+            <li><button id="logout-button">로그아웃</button></li>
+          </ul>
+        </div>
       `;
     }
 
     return `
-      <a-link class="thumbnail styled-button">우</a-link>
+      <a-link href="/login" class="login-button styled-button">로그인</a-link>
     `;
+  }
+
+  setEvent() {
+    this.addEvent('click', '#user-thumbnail', () => {
+      this.querySelector('#user-menu').classList.toggle('show');
+    });
+
+    this.addEvent('click', '#logout-button', () => {
+      auth.logout();
+
+      const state = {};
+      window.history.pushState(state, '', '/');
+      dispatchEvent(new PopStateEvent('popstate', { state }));
+    });
   }
 }
 

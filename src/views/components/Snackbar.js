@@ -6,13 +6,10 @@ export default class Snackbar extends Component {
   }
 
   trigger(message) {
-    console.log('triggered');
-
     this.textContent = message;
     this.classList.toggle('show');
 
     setTimeout(() => {
-      console.log('ended');
       this.classList.toggle('show');
     }, 3000);
   }

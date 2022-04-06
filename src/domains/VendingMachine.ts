@@ -1,5 +1,4 @@
-import Subject from '../core/Subject';
-import { deepClone } from '../utils/commons';
+import Domain from '../core/Domain';
 import { createRandomCoins } from '../utils/coinUtils';
 import {
   validate,
@@ -26,46 +25,15 @@ export interface Coins {
   500: number;
 }
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
-
 export interface VendingMachineState {
   items: Item[];
   coins: Coins;
   insertedMoney: number;
   returnedChange: Coins;
   location: string;
-  user: User | null;
 }
 
-export default class VendingMachine {
-  state: VendingMachineState;
-
-  constructor(
-    items: Item[],
-    coins: Coins,
-    insertedMoney: number,
-    returnedChange: Coins,
-    user: User | null = null,
-    location = '/'
-  ) {
-    this.state = Subject.observable({
-      items,
-      coins,
-      insertedMoney,
-      returnedChange,
-      user,
-      location,
-    });
-  }
-
-  useStore(callback: Function): any {
-    return deepClone(callback(this.state));
-  }
-
+export default class VendingMachine extends Domain<VendingMachineState> {
   addItem(item: Item) {
     const prevItem = this.findItem(item.name);
 
@@ -187,9 +155,10 @@ export default class VendingMachine {
   }
 }
 
-export const vendingMachine = new VendingMachine(
-  [],
-  COIN.EMPTY_COINS,
-  0,
-  COIN.EMPTY_COINS
-);
+export const vendingMachine = new VendingMachine({
+  items: [],
+  coins: COIN.EMPTY_COINS,
+  insertedMoney: 0,
+  returnedChange: COIN.EMPTY_COINS,
+  location: '/',
+});
