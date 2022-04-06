@@ -4,6 +4,8 @@ var constants_1 = require("../constants");
 var snackbar_1 = require("../utils/snackbar");
 var VerifyValueValidation = /** @class */ (function () {
     function VerifyValueValidation(products, coins) {
+        if (products === void 0) { products = []; }
+        if (coins === void 0) { coins = []; }
         this.products = products;
         this.coins = coins;
     }
