@@ -98,6 +98,8 @@ export default class VendingMachine {
     this.moneyManager.deductMoney(this.coinManager.getSumCoins(coins));
     const restMoney = this.moneyManager.money;
 
+    ProductAPI.updateMoney(this.coinManager.coinsSum);
+
     return { coins, restMoney };
   }
 
