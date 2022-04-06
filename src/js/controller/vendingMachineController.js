@@ -1,6 +1,6 @@
 import { listenEvents } from '../utils/event';
 
-export default class Controller {
+export default class VendingMachineController {
   #vendingMachine;
 
   // eslint-disable-next-line max-lines-per-function
