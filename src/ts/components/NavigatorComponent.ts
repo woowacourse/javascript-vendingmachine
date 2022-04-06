@@ -37,9 +37,17 @@ export default class NavigatorComponent {
 
   constructor() {
     on(this.$navList, 'click', this.onClickNavButton);
+
     on(window, '@popstateChangeComponent', this.changeComponent);
+
     on(this.$signInButton, '@signInChangeComponent', this.changeComponent);
     on(this.$signUpButton, '@signUpChangeComponent', this.changeComponent);
+    on(
+      this.$informationWrapper,
+      '@logoutChangeComponent',
+      this.changeComponent
+    );
+
     on(
       this.$signUpVerifyButton,
       '@renderSignInComponent',
@@ -50,8 +58,12 @@ export default class NavigatorComponent {
       '@membershipPurchaseProduct',
       this.changeComponent
     );
-    on(this.$informationWrapper, '@logout', this.changeComponent);
-    on(this.$informationWrapper, '@editInformation', this.changeComponent);
+
+    on(
+      this.$informationWrapper,
+      '@editInformationChangeComponent',
+      this.changeComponent
+    );
     on(this.$editVerifyButton, '@editInformation', this.changeComponent);
   }
 
