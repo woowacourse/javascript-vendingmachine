@@ -36,6 +36,7 @@ class LoginPage extends CustomElement {
   }
 
   notify({ userName }: Notification) {
+    $('.nav').classList.remove('hidden');
     $('.signup-button').classList.add('hidden');
     $('.login-button').classList.add('hidden');
     $('.user-name').classList.remove('hidden');

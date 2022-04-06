@@ -167,6 +167,27 @@ const TEMPLATE = {
       </form>
     </section>
   `,
+  VENDING_MACHINE_PAGE: `
+    <main id="app">
+      <h1 class="title">🍿 자판기 🍿</h1>
+      <nav class="nav">
+        <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
+          상품 관리
+        </button>
+        <button type="button" class="nav__charge-tab button" route="/javascript-vendingmachine/charge">
+          잔돈 충전
+        </button>
+        <button type="button" class="nav__product-purchase-tab button" route="/javascript-vendingmachine/purchase">
+          상품 구매
+        </button>
+      </nav>
+      <div id="tab">
+        <product-management></product-management>
+        <charge-tab class="hidden"></charge-tab>
+        <purchase-tab class="hidden"></purchase-tab>
+      </div>
+    </main>
+  `,
 };
 
 export default TEMPLATE;

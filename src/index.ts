@@ -1,5 +1,6 @@
 import './css/index.css';
 
+import './ui/VendingMachinePage';
 import './ui/ProductManagement';
 import './ui/ChargeTab';
 import './ui/PurchaseTab';

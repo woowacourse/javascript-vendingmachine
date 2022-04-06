@@ -7,33 +7,17 @@
   </head>
 
   <body>
-    <main id="app">
-      <h1>🍿 자판기 🍿</h1>
-      <div class="auth">
-        <div class="user-name"></div>
-        <button type="button" class="login-button button" route="/javascript-vendingmachine/login">로그인</button>
-        <button type="button" class="signup-button button" route="/javascript-vendingmachine/signup">회원가입</button>
-      </div>
-      <nav class="nav">
-        <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
-          상품 관리
-        </button>
-        <button type="button" class="nav__charge-tab button" route="/javascript-vendingmachine/charge">
-          잔돈 충전
-        </button>
-        <button type="button" class="nav__product-purchase-tab button" route="/javascript-vendingmachine/purchase">
-          상품 구매
-        </button>
-      </nav>
-      <div id="tab">
-        <product-management></product-management>
-        <charge-tab class="hidden"></charge-tab>
-        <purchase-tab class="hidden"></purchase-tab>
-        <login-page class="hidden"></login-page>
-        <signup-page class="hidden"></signup-page>
-        <profile-edit-page class="hidden"></profile-edit-page>
-      </div>
-    </main>
+    <div class="auth">
+      <div class="user-name"></div>
+      <button type="button" class="login-button button" route="/javascript-vendingmachine/login">로그인</button>
+      <button type="button" class="signup-button button hidden" route="/javascript-vendingmachine/signup">
+        회원가입
+      </button>
+    </div>
+    <vending-machine-page></vending-machine-page>
+    <login-page class="hidden"></login-page>
+    <signup-page class="hidden"></signup-page>
+    <profile-edit-page class="hidden"></profile-edit-page>
     <div id="snackbar"></div>
   </body>
 </html>
