@@ -66,25 +66,6 @@ export default class HomePage {
     $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
   }
 
-  activateClickedButton = (pathname: string) => {
-    $$('.nav__button').forEach($button => {
-      if (
-        this.checkMatchPathname(
-          $button.dataset.pathname,
-          pathname.replace(basePath, ''),
-        )
-      ) {
-        $button.classList.add('active');
-        return;
-      }
-      $button.classList.remove('active');
-    });
-  };
-
-  private checkMatchPathname(buttonPathname: string, pathname: string) {
-    return buttonPathname === pathname;
-  }
-
   selectChangeHandler = (e: Event) => {
     if (!(e.target instanceof HTMLSelectElement)) return;
 
@@ -173,11 +154,32 @@ export default class HomePage {
 
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
+    if (location.pathname === pathname) return;
+
     history.pushState({}, '', pathname || '/');
 
     this.activateClickedButton(pathname);
     this.renderMainContent(pathname);
   };
+
+  activateClickedButton = (pathname: string) => {
+    $$('.nav__button').forEach($button => {
+      if (
+        this.checkMatchPathname(
+          $button.dataset.pathname,
+          pathname.replace(basePath, ''),
+        )
+      ) {
+        $button.classList.add('active');
+        return;
+      }
+      $button.classList.remove('active');
+    });
+  };
+
+  private checkMatchPathname(buttonPathname: string, pathname: string) {
+    return buttonPathname === pathname;
+  }
 
   private loginButtonHandler = e => {
     if (!(e.target instanceof HTMLButtonElement)) return;
