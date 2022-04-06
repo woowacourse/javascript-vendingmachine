@@ -1,7 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
 import UserStore from '../ts/domain/UserStore';
 import { AUTHENTICATION_MESSAGE } from '../ts/constant/errorMessage';
 
-describe('인증 입력 값 유효성 검사', () => {
+describe('인증 입력값 유효성 검사', () => {
   const userStore = new UserStore();
 
   const validEmail = 'woowa@test.email.com';
