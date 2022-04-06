@@ -1,7 +1,7 @@
 import Header from 'Components/Header';
 import Navigation from 'Components/Navigation';
 import AddHoldingAmountForm from 'Components/AddHoldingAmountForm';
-import CoinList from 'Components/CoinList';
+import HoldingCoinList from 'Components/HoldingCoinList';
 import { $ } from 'Utils';
 
 export default class HoldingAmountPage {
@@ -22,7 +22,7 @@ export default class HoldingAmountPage {
     this.addComponent(Header);
     this.addComponent(Navigation);
     this.addComponent(AddHoldingAmountForm);
-    this.addComponent(CoinList);
+    this.addComponent(HoldingCoinList);
   }
 
   mount = () => {

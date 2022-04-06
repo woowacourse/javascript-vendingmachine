@@ -1,7 +1,7 @@
 import Header from 'Components/Header';
 import Navigation from 'Components/Navigation';
 import AddProduct from 'Components/AddProduct';
-import ProductList from 'Components/ProductList';
+import ManageProductList from 'Components/ManageProductList';
 import { $ } from 'Utils';
 
 export default class ProductPage {
@@ -22,7 +22,7 @@ export default class ProductPage {
     this.addComponent(Header);
     this.addComponent(Navigation);
     this.addComponent(AddProduct);
-    this.addComponent(ProductList);
+    this.addComponent(ManageProductList);
   }
 
   mount = () => {
