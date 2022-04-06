@@ -23,6 +23,8 @@ class MainUI {
       $('.select-box-wrapper').classList.add('hidden');
       $('.header').classList.add('hidden');
       $('.nav').classList.add('hidden');
+      ($('#edit-profile-form__email') as HTMLInputElement).value = storage.getUserInfo().email;
+      ($('#edit-profile-form__name') as HTMLInputElement).value = storage.getUserInfo().userName;
       historyRouterPush('/javascript-vendingmachine/editprofile');
     });
 
@@ -49,8 +51,8 @@ class MainUI {
   }
 
   renderUI() {
-    ($('#edit-profile-form__email') as HTMLInputElement).value = storage.getUserInfo().email;
-    ($('#edit-profile-form__name') as HTMLInputElement).value = storage.getUserInfo().userName;
+    // ($('#edit-profile-form__email') as HTMLInputElement).value = storage.getUserInfo().email;
+    // ($('#edit-profile-form__name') as HTMLInputElement).value = storage.getUserInfo().userName;
     const accessToken = storage.getAccessToken();
     if (accessToken) {
       $('.login-button').classList.add('hidden');
