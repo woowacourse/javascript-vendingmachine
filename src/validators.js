@@ -45,6 +45,10 @@ const isPriceOverCustomerMoney = (price) => {
   return price > CoinStore.instance.customer.money;
 };
 
+const isNoCustomerMoney = () => {
+  return CoinStore.instance.customer.money === 0;
+};
+
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
@@ -116,5 +120,11 @@ export const checkProductPurchaseValidation = (productPrice, productQuantity) =>
   }
   if (isSoldOut(productQuantity)) {
     throw new Error(ERROR_MESSAGE.IS_SOLD_OUT);
+  }
+};
+
+export const checkChangeReturnValidation = () => {
+  if (isNoCustomerMoney()) {
+    throw new Error(ERROR_MESSAGE.IS_NO_CUSTOMER_MONEY);
   }
 };

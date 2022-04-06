@@ -65,4 +65,6 @@ export const ERROR_MESSAGE = {
 
   IS_PRICE_OVER_CUSTOMER_MONEY: '투입한 금액이 부족합니다! 해당 상품을 구매하시려면 금액을 더 투입해 주세요!',
   IS_SOLD_OUT: '품절된 상품입니다! 다른 상품을 구매해 주세요!',
+
+  IS_NO_CUSTOMER_MONEY: '투입한 금액이 없습니다! 10원부터 잔돈으로 반환할 수 있습니다!',
 };

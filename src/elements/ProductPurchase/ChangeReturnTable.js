@@ -3,6 +3,7 @@ import { createAction, COIN_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
+import { checkChangeReturnValidation } from '../../validators';
 
 class ChangeReturnTable extends CustomElement {
   connectedCallback() {
@@ -52,8 +53,18 @@ class ChangeReturnTable extends CustomElement {
   }
 
   handleChangeReturnButtonClick = () => {
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.RETURN));
+    try {
+      this.returnChange();
+    } catch (error) {
+      alert(error.message);
+    }
   };
+
+  returnChange() {
+    checkChangeReturnValidation();
+
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.RETURN));
+  }
 
   rerender({ coinsCount }) {
     $('.change-return-table__coin-500-count-td').textContent = `${coinsCount[500]}개`;
