@@ -2,9 +2,20 @@ import { createElementByTemplate, selectDom } from '../utils/dom';
 
 const template = `
     <nav class="user-navigation"> 
-      <a type="button" class="tab-menu-button" href="#/login">
-        로그인
+      <a type="button" class="tab-menu-button" id="to-login-anchor" href="#/login">
+        로그인 
         </a>
+    <button type="button" class="user-navigation-profile--button hide">
+        우
+  </button>
+  <ul class="user-navigation--ul hide">
+    <li type="button" class="user-navigation--li">
+      <a href="#/myprofile" id="user-navigation-profile">Profile</a>
+    </li>
+    <li type="button" class="user-navigation--li">
+      Logout
+    </li>
+  </ul>
     </nav>
     <h1 id="app-title">🍿 자판기 🍿</h1>
     <nav id="tab-menu-navigation">
@@ -24,22 +35,38 @@ export default class Navigation {
   #navContainer;
   #tabMenuNav;
   #user;
+  #toLoginButton;
+  #profileButton;
+  #profileList;
 
   constructor(user) {
     this.#user = user;
     this.#navContainer = createElementByTemplate('header', template);
     this.#tabMenuNav = selectDom('#tab-menu-navigation', this.#navContainer);
+    this.#toLoginButton = selectDom('#to-login-anchor', this.#navContainer);
+    this.#profileButton = selectDom(
+      '.user-navigation-profile--button',
+      this.#navContainer
+    );
+    this.#profileList = selectDom('.user-navigation--ul', this.#navContainer);
     this.renderMenuNavigation();
 
+    this.#profileButton.addEventListener('click', this.#showList);
+    this.#toLoginButton.addEventListener('click', this.#handleTabMenuChange);
     this.#tabMenuNav.addEventListener('click', this.#handleTabMenuChange);
   }
 
   renderMenuNavigation() {
     if (!this.#user.isLogined) {
       this.#tabMenuNav.classList.add('hide');
+      this.#profileButton.classList.add('hide');
+      this.#toLoginButton.classList.remove('hide');
     }
     if (this.#user.isLogined) {
       this.#tabMenuNav.classList.remove('hide');
+      this.#profileButton.classList.remove('hide');
+      this.#toLoginButton.classList.add('hide');
+      this.#profileButton.textContent = this.#user.name.charAt(0);
     }
   }
 
@@ -57,6 +84,17 @@ export default class Navigation {
       },
     });
     window.dispatchEvent(tabChange);
+  };
+
+  #showList = () => {
+    this.#profileList.classList.remove('hide');
+    selectDom('body').addEventListener('click', this.#removeList);
+  };
+
+  #removeList = (e) => {
+    if (e.target !== this.#profileList && e.target !== this.#profileButton) {
+      this.#profileList.classList.add('hide');
+    }
   };
 
   get element() {
