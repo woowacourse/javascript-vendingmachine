@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "json-server": "json-server --watch db.json -m ./node_modules/json-server-auth"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +52,6 @@
   },
   "homepage": "https://github.com/woowacourse/javascript-vendingmachine#readme",
   "dependencies": {
-    "npx": "^10.2.2"
+    "npx": "^3.0.0"
   }
 }
