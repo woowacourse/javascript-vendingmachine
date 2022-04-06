@@ -1,3 +1,11 @@
+Cypress.Commands.add('login', (email, password) => {
+  cy.visit('/');
+  cy.get('#login-button').click();
+  cy.get('.user-info-form > input').eq(0).type(email);
+  cy.get('.user-info-form > input').eq(1).type(password);
+  cy.get('.input-form-button').click();
+});
+
 Cypress.Commands.add('addItem', (itemName, itemPrice, itemQuantity) => {
   cy.get('.item-info-input').eq(0).type(itemName);
   cy.get('.item-info-input').eq(1).type(itemPrice);
@@ -11,7 +19,8 @@ describe('상품 관리 탭 테스트', () => {
   const itemQuantity = 10;
 
   beforeEach(() => {
-    cy.visit('/#item-manage');
+    cy.login('a@naaver.com', '1234!@#$asdf');
+    cy.get('#item-manage-tab-button').click();
   });
 
   it('올바른 상품명, 가격, 수량을 입력하고 추가 버튼을 누르면 상품을 추가할 수 있다.', () => {
