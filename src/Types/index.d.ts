@@ -23,7 +23,8 @@ interface IProduct {
 interface IStoreUniqueState {
   products?: IProduct[];
   holdingCoins?: number[];
-  chargedCoins?: number[];
+  returnCoins?: number[];
+  chargedAmount?: number;
 }
 
 type TRenderContent = {
