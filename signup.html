@@ -15,18 +15,36 @@
           class="login-input"
           type="email"
           placeholder="이메일 주소를 입력해주세요"
+          required
         />
         <label for="">이름</label>
-        <input id="signup-name" class="login-input" type="text" placeholder="이름을 입력해주세요" />
+        <input
+          id="signup-name"
+          class="login-input"
+          type="text"
+          minlength="2"
+          maxlength="6"
+          placeholder="이름을 입력해주세요"
+          required
+        />
         <label for="">비밀번호</label>
         <input
           id="signup-password"
           class="login-input"
           type="password"
+          minlength="8"
           placeholder="비밀번호를 입력해주세요"
+          required
         />
         <label for="">비밀번호 확인</label>
-        <input class="login-input" type="password" placeholder="비밀번호를 입력해주세요" />
+        <input
+          id="signup-password-confirm"
+          class="login-input"
+          type="password"
+          minlength="8"
+          required
+          placeholder="비밀번호를 입력해주세요"
+        />
         <button class="submit-button">확인</button>
       </form>
     </div>
