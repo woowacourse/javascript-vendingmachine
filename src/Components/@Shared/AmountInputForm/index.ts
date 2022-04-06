@@ -17,14 +17,14 @@ export default class AmountInputForm extends Component<IAmountInputProps> {
   }
 
   setEvents() {
-    addEventDelegate(this.$component, '#add-holding-amount-form', {
+    addEventDelegate(this.$component, '#amount-input-form', {
       eventType: 'submit',
       handler: this.onSubmit,
     });
   }
 
   onSubmit = event => {
-    const $input = $('input[name="add-holding-amount"]', event.target);
+    const $input = $('input[name="amount-input-form"]', event.target);
     const isAdded = this.props.onAddAmount(Number($input.value));
 
     if (!isAdded) return;
