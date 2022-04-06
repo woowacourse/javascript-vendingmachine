@@ -7,16 +7,34 @@
   </head>
 
   <body>
+
+    <div class="register-container">
+      <h1>회원가입</h1>
+      <section class="register-wrapper">
+        <form>
+          <label class="form-label" for="register-email">이메일</label>
+          <input class="form-input" type="email" id="register-email" placeholder="이메일 주소를 입력해주세요">
+          <label class="form-label" for="register-name">이름</label>
+          <input class="form-input" type="text" id="register-name" placeholder="이름을 입력해주세요">
+          <label class="form-label" for="register-password">비밀번호</label>
+          <input class="form-input" type="password" id="register-password" placeholder="비밀번호를 입력해주세요">
+          <label class="form-label" for="register-password-check">비밀번호 확인</label>
+          <input class="form-input" type="password" id="register-password-check" placeholder="비밀번호를 입력해주세요">
+          <button class="short-button form-button">확인</button>
+        </form>
+      </section>
+    </div>
+
     <div class="login-container" id="/javascript-vendingmachine/#!/login">
       <h1>로그인</h1>
       <section class="login-wrapper">
         <form>
-          <label class="login-form-label" for="login-email">이메일</label>
-          <input class="login-form-input" type="email" id="login-email" placeholder="woowacourse@gmail.com">
-          <label class="login-form-label login-password-label" for="login-password">비밀번호</label>
-          <input class="login-form-input" type="password" id="login-password" placeholder="비밀번호를 입력해주세요">
-          <button class="short-button login-form-button">확인</button>
-          <div class="register-wrapper">
+          <label class="form-label" for="login-email">이메일</label>
+          <input class="form-input" type="email" id="login-email" placeholder="woowacourse@gmail.com">
+          <label class="form-label" for="login-password">비밀번호</label>
+          <input class="form-input" type="password" id="login-password" placeholder="비밀번호를 입력해주세요">
+          <button class="short-button form-button">확인</button>
+          <div class="register-introduction-wrapper">
             <span>아직 회원이 아니신가요?</span>
             <a class="login-register" href="/javascript-vendingmachine/#!/register">회원가입</a>
           </div>

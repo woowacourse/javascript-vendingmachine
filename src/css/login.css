@@ -4,27 +4,24 @@
   align-items: center;
 }
 
-.login-form-label {
+.form-label {
   display: block;
+  margin-top: 16px;
 }
 
-.login-form-button {
+.form-button {
   display: block;
   width: 300px;
   margin: 0;
   margin-top: 30px;
 }
 
-.login-password-label {
-  margin-top: 16px;
-}
-
-input.login-form-input {
+input.form-input {
   width: 300px;
   margin-top: 4px;
 }
 
-.register-wrapper {
+.register-introduction-wrapper {
   margin-top: 14px;
 }
 
