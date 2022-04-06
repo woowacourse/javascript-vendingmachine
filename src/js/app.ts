@@ -33,7 +33,7 @@ class App {
       this.changesModerator.init();
     }
 
-    if (hash === "#!purchaseProduct") {
+    if (hash === "#!purchaseProduct" || hash === "") {
       this.purchaseModerator.init();
     }
 

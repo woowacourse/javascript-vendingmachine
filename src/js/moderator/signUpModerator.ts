@@ -15,7 +15,13 @@ class SignUpModerator {
     });
   }
 
-  init() {
+  async init() {
+    const { isError } = await this.authorization.isLoggedIn();
+    if (!isError) {
+      alert("잘못된 접근입니다.");
+      location.href = "/";
+      return;
+    }
     this.signUpView.init();
   }
 

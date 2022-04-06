@@ -3,13 +3,16 @@ import { on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 import { IChargeChangesEvent } from "../type";
 import VendingMachine from "../domain/vendingMachine";
+import Authorization from "../domain/authorization";
 
 class ChangesModerator {
   changePageView;
+  authorization;
   changeProcessMachine;
   vendingMachine;
 
   constructor() {
+    this.authorization = new Authorization();
     this.changePageView = new ChangePageView();
     on<IChargeChangesEvent>(window, EVENT_TYPE.CHARGE, (e) =>
       this.chargeChange(e.detail)
@@ -17,7 +20,14 @@ class ChangesModerator {
     this.vendingMachine = VendingMachine.getInstance();
   }
 
-  init(): void {
+  async init() {
+    const { isError } = await this.authorization.isLoggedIn();
+
+    if (isError) {
+      alert("권한이 없습니다.");
+      location.href = "/";
+      return;
+    }
     this.changePageView.init();
     const changes = this.vendingMachine.getTotalChanges();
     const coinStatus = this.vendingMachine.getCoins();

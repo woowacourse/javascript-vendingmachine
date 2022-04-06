@@ -7,12 +7,15 @@ import {
   IUpdateProductEvent,
 } from "../type";
 import VendingMachine from "../domain/vendingMachine";
+import Authorization from "../domain/authorization";
 
 class ProductModerator {
   productPageView;
   vendingMachine;
+  authorization;
 
   constructor() {
+    this.authorization = new Authorization();
     this.productPageView = new ProductPageView();
     this.vendingMachine = VendingMachine.getInstance();
     on<IAddProductEvent>(window, EVENT_TYPE.ADD, (e) =>
@@ -26,7 +29,13 @@ class ProductModerator {
     );
   }
 
-  init(): void {
+  async init() {
+    const { isError } = await this.authorization.isLoggedIn();
+    if (isError) {
+      alert("권한이 없습니다.");
+      location.href = "/";
+      return;
+    }
     this.productPageView.init();
     const products = this.vendingMachine.getProducts();
     this.productPageView.renderProductsStatus(products);
@@ -54,7 +63,6 @@ class ProductModerator {
     if (!confirm(CONFIRM_MESSAGE)) {
       return;
     }
-
     this.vendingMachine.deleteProduct(id);
     this.productPageView.renderDeleteProduct(id);
   };

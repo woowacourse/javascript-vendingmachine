@@ -2,12 +2,8 @@ const baseUrl = "http://localhost:3000";
 const baseHeader = {
   "Content-Type": "application/json",
 };
-const request = async (path, { method, headers, body = {} }) => {
-  const response = await fetch(baseUrl + path, {
-    method,
-    headers,
-    body: JSON.stringify(body),
-  });
+const request = async (path, option) => {
+  const response = await fetch(baseUrl + path, option);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -21,7 +17,7 @@ const api = {
       const response = await request("/register", {
         method: "POST",
         headers: baseHeader,
-        body: option,
+        body: JSON.stringify(option),
       });
       return { ...response, isError: false };
     } catch (error) {
@@ -35,10 +31,24 @@ const api = {
       const response = await request("/login", {
         method: "POST",
         headers: baseHeader,
-        body: option,
+        body: JSON.stringify(option),
       });
       return { ...response, isError: false };
     } catch (error) {
+      return { isError: true };
+    }
+  },
+
+  getUser: async (userId, accessToken) => {
+    try {
+      console.log(accessToken);
+      const response = await request(`/600/users/${userId}`, {
+        method: "GET",
+        headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
+      });
+      return { ...response, isError: false };
+    } catch (error) {
+      console.log(error);
       return { isError: true };
     }
   },

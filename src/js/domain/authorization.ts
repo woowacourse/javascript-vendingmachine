@@ -1,7 +1,13 @@
 import api from "../api";
+import { getCookie } from "../util/general";
 
 class Authorization {
-  // isLoggedIn() {}
+  async isLoggedIn() {
+    const userId = getCookie("user_id");
+    const accessToken = getCookie("access_token");
+    const response = await api.getUser(userId, accessToken);
+    return response;
+  }
 
   async login({ email, password }) {
     const response = await api.login({ email, password });
@@ -10,6 +16,8 @@ class Authorization {
       return;
     }
     location.href = "/";
+    document.cookie = `user_id=${response.user.id}`;
+    document.cookie = `access_token=${response.accessToken}`;
   }
 
   async signUp({ email, name, password }) {

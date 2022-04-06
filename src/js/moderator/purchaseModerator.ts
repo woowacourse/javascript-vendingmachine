@@ -2,14 +2,17 @@ import { EVENT_TYPE } from "../constant";
 import VendingMachine from "../domain/vendingMachine";
 import PurchasePageView from "../ui/purchasePageView";
 import { on } from "../util/event";
+import Authorization from "../domain/authorization";
 
 class PurchaseModerator {
   purchasePageView;
   vendingMachine;
+  authorization;
 
   constructor() {
     this.purchasePageView = new PurchasePageView();
     this.vendingMachine = VendingMachine.getInstance();
+    this.authorization = new Authorization();
     on<any>(window, EVENT_TYPE.INPUT, (e) => {
       this.chargeMoney(e.detail);
     });
@@ -23,12 +26,15 @@ class PurchaseModerator {
     });
   }
 
-  init() {
+  async init() {
+    const userInfo = await this.authorization.isLoggedIn();
+
     this.purchasePageView.init();
 
     const chargedMoney = this.vendingMachine.getChargedMoney();
     const purchaseableProducts = this.vendingMachine.getPurchaseableProducts();
 
+    this.purchasePageView.renderHeader(userInfo);
     this.purchasePageView.renderCurrentChargedMoney(chargedMoney);
     this.purchasePageView.renderPurchaseableProducts(purchaseableProducts);
     this.purchasePageView.renderReturnedChanges({
