@@ -8,7 +8,7 @@ import {
 import { AUTHENTICATION_MESSAGE } from '../constant/errorMessage';
 import { AUTHENTICATION_INFO } from '../constant/rule';
 import { request } from '../utils/index';
-import { getCookie, setCookie } from '../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 import { COOKIE_KEY } from '../constant/cookie';
 
 class UserStore implements UserStoreInterface {
@@ -118,6 +118,11 @@ class UserStore implements UserStoreInterface {
     };
 
     setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
+  }
+
+  logout(): void {
+    this.userInfo = null;
+    deleteCookie(COOKIE_KEY.USER_INFO);
   }
 
   validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {

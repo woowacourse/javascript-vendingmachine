@@ -99,8 +99,7 @@ class HeaderView implements HeaderInterface {
     }
 
     if (targetElement.id === ID.LOGOUT_BUTTON) {
-      // TODO: 로그아웃 기능 구현
-      console.log('로그아웃');
+      this.handleLogout();
     }
   };
 
@@ -128,6 +127,11 @@ class HeaderView implements HeaderInterface {
 
   private handleEditUserInfo() {
     this.changeHashUrl(HASH.USER_INFO_EDIT);
+  }
+
+  private handleLogout() {
+    this.userStore.logout();
+    this.changeHashUrl('/' as Hash);
   }
 
   private isTabHash(hash: Hash): boolean {

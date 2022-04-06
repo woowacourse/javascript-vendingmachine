@@ -56,6 +56,7 @@ export interface UserStoreInterface {
   login: (loginInfo: AuthenticationInfo) => void;
   register: (registerInfo: AuthenticationInfo) => void;
   editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
+  logout: () => void;
 }
 
 export type Hash =
