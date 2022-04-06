@@ -36,6 +36,7 @@ const ERROR_MESSAGE = {
   PASSWORDCHECK_IS_NOT_EQUAL: '비밀번호 확인이 다릅니다.',
   USER_IS_NOT_EXIST: '해당 유저를 찾을 수 없습니다.',
   PASSWORD_IS_INCORRECT: '비밀번호가 다릅니다.',
+  INVALID_ACCESS_TOKEN: '유효하지 않은 유저 데이터입니다.',
 };
 
 const ALERT_MESSAGE = {
