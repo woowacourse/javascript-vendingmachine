@@ -1,5 +1,6 @@
 import { EMPTY_COIN, MONEY, MONEY_UNIT } from '../../constant/constant';
 import Component from '../../core/Component';
+import '../components/PurchaseItemRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { sortCoins } from '../../utils/coinUtil';
 import { showSnackBar } from '../../utils/domUtil';
@@ -70,8 +71,7 @@ class ItemPurchasePage extends Component {
                 .map(
                   ({ name, price, quantity }) => `
                     <tr
-                      is="item-row"
-                      tab="buy"
+                      is="purchaseitem-row"
                       class="styled-tr"
                       name="${name}"
                       price="${price}"

@@ -9,7 +9,6 @@ export default class NavBar extends Component {
     // 이전 location 값이 한 번 더 랜더링됨. 근데 또 template에는 영향이 없음. 뭐야.
     // delayed된 이전 값....?
     console.log('!!!!!!!', this.props, location);
-    console.log('🥲');
 
     return `
       <a
