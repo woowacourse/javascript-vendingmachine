@@ -91,3 +91,9 @@ a.profile {
   background-color: rgba(0, 150, 255, 0.3);
   width: 20px;
 }
+
+.flex-center-box:not(.hide) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

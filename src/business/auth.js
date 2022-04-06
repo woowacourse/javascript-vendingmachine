@@ -6,6 +6,7 @@ import { showToast } from '../lib/toast';
 
 export const loginUser = async (emailValue, passwordValue) => {
   try {
+    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, true);
     const { accessToken, user } = await fetcher({
       path: '/login',
       option: {
@@ -16,6 +17,8 @@ export const loginUser = async (emailValue, passwordValue) => {
         body: JSON.stringify({ email: emailValue, password: passwordValue }),
       },
     });
+
+    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
 
     globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
       loggedUser: user,
@@ -46,6 +49,8 @@ export const logoutUser = () => {
 export const joinUser = async (email, name, password, passwordReenter) => {
   try {
     if (checkJoinPossible(name, password, passwordReenter)) {
+      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, true);
+
       await fetcher({
         path: '/register',
         option: {
@@ -56,6 +61,7 @@ export const joinUser = async (email, name, password, passwordReenter) => {
           body: JSON.stringify({ email, password, name }),
         },
       });
+      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
 
       showToast({ isErrorMessage: false, message: '회원가입에 성공하셨습니다.' });
 
@@ -70,6 +76,8 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
   const { id } = loggedUser;
   try {
     if (checkJoinPossible(name, password, passwordReenter)) {
+      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, true);
+
       await fetcher({
         path: `/users/${id}`,
         option: {
@@ -80,6 +88,7 @@ export const editUser = async (loggedUser, email, name, password, passwordReente
           body: JSON.stringify({ email, password, name }),
         },
       });
+      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
 
       logoutUser();
 

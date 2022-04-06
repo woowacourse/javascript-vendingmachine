@@ -12,6 +12,7 @@ class GlobalStore implements IGlobalStore {
     this.subscribedComponents = {
       AUTH_INFORMATION: [],
       CURRENT_ROUTE_NAME: [],
+      IS_LOADING: [],
     };
     this.state = {
       AUTH_INFORMATION: {
@@ -21,6 +22,7 @@ class GlobalStore implements IGlobalStore {
       CURRENT_ROUTE_NAME: Object.keys(ROUTE).find(
         routeName => ROUTE[routeName] === window.location.pathname,
       ),
+      IS_LOADING: false,
     };
   }
 

@@ -31,6 +31,7 @@ export interface IVendingMachineStore {
 export type TGlobalStateComponents = {
   AUTH_INFORMATION: Array<any>;
   CURRENT_ROUTE_NAME: Array<any>;
+  IS_LOADING: Array<any>;
 };
 
 export type TUser = {
@@ -47,6 +48,7 @@ export type TGlobalState = {
     isLoggedIn: boolean;
   };
   CURRENT_ROUTE_NAME: string;
+  IS_LOADING: boolean;
 };
 
 export interface IGlobalStore {
@@ -60,6 +62,7 @@ export interface IGlobalStore {
         isLoggedIn: boolean;
       }
     | string
+    | boolean
     | undefined;
 
   notifySubscribedView: (stateType: TGlobalStateKey) => void;

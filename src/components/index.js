@@ -6,22 +6,15 @@ import { GLOBAL_STATE_KEYS } from '../utils/constants';
 import EditComponent from './auth/EditComponent';
 import JoinComponent from './auth/JoinComponent';
 import LoginComponent from './auth/LoginComponent';
+import LoadingComponent from './global/LoadingComponent';
 import ManageComponent from './vendingMachine/ManageComponent';
 import PurchaseComponent from './vendingMachine/PurchaseComponent';
 import RechargeComponent from './vendingMachine/RechargeComponent';
 
 class AppComponent {
-  routerComponent = {
-    [ROUTE_NAME.MANAGE]: new ManageComponent(),
-    [ROUTE_NAME.RECHARGE]: new RechargeComponent(),
-    [ROUTE_NAME.PURCHASE]: new PurchaseComponent(),
-    [ROUTE_NAME.LOGIN]: new LoginComponent(),
-    [ROUTE_NAME.JOIN]: new JoinComponent(),
-    [ROUTE_NAME.EDIT]: new EditComponent(),
-  };
-
   constructor() {
     this.initDOM();
+    this.initChildComponents();
     this.bindEventHandler();
     this.subscribeStore();
     this.initRender();
@@ -39,6 +32,18 @@ class AppComponent {
     this.$manageTab = document.querySelector('#manage-product-tab');
     this.$rechargeTab = document.querySelector('#recharge-change-tab');
     this.$purchaseTab = document.querySelector('#purchase-product-tab');
+  }
+
+  initChildComponents() {
+    this.routerComponent = {
+      [ROUTE_NAME.MANAGE]: new ManageComponent(),
+      [ROUTE_NAME.RECHARGE]: new RechargeComponent(),
+      [ROUTE_NAME.PURCHASE]: new PurchaseComponent(),
+      [ROUTE_NAME.LOGIN]: new LoginComponent(),
+      [ROUTE_NAME.JOIN]: new JoinComponent(),
+      [ROUTE_NAME.EDIT]: new EditComponent(),
+    };
+    this.loadingComponent = new LoadingComponent();
   }
 
   bindEventHandler() {
