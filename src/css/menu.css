@@ -20,7 +20,7 @@ user-menu {
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  background-color: #d6f4f8;
+  background-color: var(--button-focus-bg-color);
   border-radius: 50%;
   text-align: center;
   z-index: 999;
@@ -65,10 +65,10 @@ user-menu {
 }
 
 .menu-element.user-name__edit {
-  background-color: #d6f4f8;
+  background-color: var(--button-focus-bg-color);
 }
 .menu-element.user-name__logout {
-  background-color: #d6f4f8;
+  background-color: var(--button-focus-bg-color);
 }
 
 .user-name__edit--move {
