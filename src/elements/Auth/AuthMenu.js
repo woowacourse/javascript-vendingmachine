@@ -23,11 +23,15 @@ class AuthMenu extends CustomElement {
   }
 
   template(userNameFirstChar) {
+    const isAdministrator = userNameFirstChar !== '';
+    const isLoginButtonHidden = isAdministrator ? 'hidden' : '';
+    const isUserButtonHidden = isAdministrator ? '' : 'hidden';
+
     return `
       <a href="/#!login">
-        <button class="login-button">로그인</button>
+        <button class="login-button" ${isLoginButtonHidden}>로그인</button>
       </a>
-      <button class="user-button" hidden>${userNameFirstChar}</button>
+      <button class="user-button" ${isUserButtonHidden}>${userNameFirstChar}</button>
     `;
   }
 
@@ -37,16 +41,22 @@ class AuthMenu extends CustomElement {
 
   handleUserButtonClick = () => {};
 
-  rerender(isAdministrator) {
+  async rerender(isAdministrator) {
+    const $loginButton = $('.login-button');
+    const $userButton = $('.user-button');
+
     if (isAdministrator) {
-      $('.login-button').setAttribute('hidden', true);
-      $('.user-button').removeAttribute('hidden');
+      $loginButton.setAttribute('hidden', true);
+
+      const user = await getUser();
+      $userButton.textContent = user.name.charAt(0);
+      $userButton.removeAttribute('hidden');
 
       return;
     }
 
-    $('.login-button').removeAttribute('hidden');
-    $('.user-button').setAttribute('hidden', true);
+    $loginButton.removeAttribute('hidden');
+    $userButton.setAttribute('hidden', true);
   }
 }
 

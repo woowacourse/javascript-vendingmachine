@@ -8,6 +8,7 @@ import { BASE_HASH } from '../../constants';
 class Login extends CustomElement {
   template() {
     return `
+      <h1>로그인</h1>
       <form class="login-form">
         <fieldset>
           <label for="login-email">이메일</label>
@@ -25,12 +26,12 @@ class Login extends CustomElement {
     $('.login-form').addEventListener('submit', this.handleLoginFormSubmit);
   }
 
-  handleLoginFormSubmit = (event) => {
+  handleLoginFormSubmit = async (event) => {
     event.preventDefault();
 
     const { email, password } = event.target.elements;
 
-    login(email.value, password.value);
+    await login(email.value, password.value);
     AuthStore.instance.dispatch();
 
     this.initLoginInputs(email, password);

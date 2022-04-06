@@ -5,6 +5,7 @@ import { $ } from '../../utils';
 class Signup extends CustomElement {
   template() {
     return `
+      <h1>회원가입</h1>
       <form class="signup-form">
         <fieldset>
           <label for="signup-email">이메일</label>
@@ -25,11 +26,11 @@ class Signup extends CustomElement {
     $('.signup-form').addEventListener('submit', this.handleSignupFormSubmit);
   }
 
-  handleSignupFormSubmit = (event) => {
+  handleSignupFormSubmit = async (event) => {
     event.preventDefault();
 
     const { email, name, password, passwordConfirm } = event.target.elements;
-    signup(email.value, name.value, password.value);
+    await signup(email.value, name.value, password.value);
 
     this.initSignupInputs(email, name, password, passwordConfirm);
     window.history.back();
