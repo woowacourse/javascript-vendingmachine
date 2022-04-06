@@ -4,14 +4,14 @@ import { basePath } from '../../App';
 import { showSnackbar } from '../utils';
 
 export default class LoginPage {
-  constructor(private readonly routePage) {
+  constructor(readonly routePage) {
     this.routePage = routePage;
   }
 
   render() {
     replaceHTML($('#app'), this.#template());
-    $('.login-form').addEventListener('submit', this.loginHandler);
-    $('.signup-button').addEventListener('click', this.signupButtonHandler);
+    $('.login-form').addEventListener('submit', this.#loginHandler);
+    $('.signup-button').addEventListener('click', this.#signupButtonHandler);
   }
 
   #template() {
@@ -28,7 +28,7 @@ export default class LoginPage {
     `;
   }
 
-  loginHandler = async (e: Event) => {
+  #loginHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
@@ -55,7 +55,7 @@ export default class LoginPage {
     this.routePage(`${basePath}/`);
   };
 
-  signupButtonHandler = e => {
+  #signupButtonHandler = e => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 

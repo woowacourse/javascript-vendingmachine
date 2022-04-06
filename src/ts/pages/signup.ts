@@ -5,13 +5,13 @@ import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
 
 export default class SignupPage {
-  constructor(private readonly routePage) {
+  constructor(readonly routePage) {
     this.routePage = routePage;
   }
 
   render() {
     replaceHTML($('#app'), this.#template());
-    $('.signup-form').addEventListener('submit', this.signupHandler);
+    $('.signup-form').addEventListener('submit', this.#signupHandler);
   }
 
   #template() {
@@ -31,7 +31,7 @@ export default class SignupPage {
     `;
   }
 
-  signupHandler = async (e: Event) => {
+  #signupHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 

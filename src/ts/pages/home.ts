@@ -8,34 +8,41 @@ import ProductManagementComponent from '../component/ProductManagementComponent'
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';
 import { getUser } from '../utils';
 import type { UserInfoWithPassWord } from '../../apis';
+import type { routePageType } from '../../App';
 
 export default class HomePage {
-  constructor(
-    private readonly routePage,
-    private readonly productManagement = new ProductManagement(),
-    private readonly coinManagement = new CoinManagement(),
-    private readonly moneyManagement = new MoneyManagement(),
-    private readonly productManagementComponent = new ProductManagementComponent(
-      productManagement,
-    ),
-    private readonly coinManagementComponent = new CoinManagementComponent(
-      coinManagement,
-    ),
-    private readonly productPurchaseComponent = new ProductPurchaseComponent(
-      productManagement,
-      coinManagement,
-      moneyManagement,
-    ),
-  ) {
+  readonly productManagement: ProductManagement;
+  readonly coinManagement: CoinManagement;
+  readonly moneyManagement: MoneyManagement;
+  readonly #productManagementComponent: ProductManagementComponent;
+  readonly #coinManagementComponent: CoinManagementComponent;
+  readonly #productPurchaseComponent: ProductPurchaseComponent;
+
+  constructor(readonly routePage: routePageType) {
     this.routePage = routePage;
+
+    this.productManagement = new ProductManagement();
+    this.coinManagement = new CoinManagement();
+    this.moneyManagement = new MoneyManagement();
+    this.#productManagementComponent = new ProductManagementComponent(
+      this.productManagement,
+    );
+    this.#coinManagementComponent = new CoinManagementComponent(
+      this.coinManagement,
+    );
+    this.#productPurchaseComponent = new ProductPurchaseComponent(
+      this.productManagement,
+      this.coinManagement,
+      this.moneyManagement,
+    );
   }
 
   async render() {
     replaceHTML($('#app'), this.#template());
-    this.activateClickedButton(location.pathname);
+    this.#activateClickedButton(location.pathname);
 
-    $('.nav').addEventListener('click', this.navClickHandler);
-    $('.login-button').addEventListener('click', this.loginButtonHandler);
+    $('.nav').addEventListener('click', this.#navClickHandler);
+    $('.login-button').addEventListener('click', this.#loginButtonHandler);
 
     const user = await getUser();
 
@@ -88,16 +95,16 @@ export default class HomePage {
     `;
   }
 
-  renderMainContent = (pathname: string) => {
+  #renderMainContent = (pathname: string) => {
     switch (pathname) {
       case `${basePath}/`:
-        this.productManagementComponent.render();
+        this.#productManagementComponent.render();
         break;
       case `${basePath}/charge`:
-        this.coinManagementComponent.render();
+        this.#coinManagementComponent.render();
         break;
       case `${basePath}/purchase`:
-        this.productPurchaseComponent.render();
+        this.#productPurchaseComponent.render();
         break;
     }
   };
@@ -106,37 +113,40 @@ export default class HomePage {
     if (location.pathname !== basePath) {
       history.pushState({}, '', basePath);
     }
-    this.renderMainContent(`${basePath}/purchase`);
+    this.#renderMainContent(`${basePath}/purchase`);
     $('.nav').classList.add('display-none');
     $('.login-button').classList.remove('display-none');
   }
 
   #renderAsLogin(user: UserInfoWithPassWord) {
-    this.renderMainContent(location.pathname);
+    this.#renderMainContent(location.pathname);
     $('.nav').classList.remove('display-none');
     $('.login-button').classList.add('display-none');
     $('.logined-user-tab').classList.remove('display-none');
     [$('.user-thumbnail').innerText] = user.name;
 
-    $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
+    $('.logined-user-tab').addEventListener(
+      'change',
+      this.#selectChangeHandler,
+    );
   }
 
-  selectChangeHandler = (e: Event) => {
+  #selectChangeHandler = (e: Event) => {
     if (!(e.target instanceof HTMLSelectElement)) return;
 
     const selectValue = e.target.options[e.target.selectedIndex].value;
     switch (selectValue) {
       case '회원 정보 수정':
-        this.editClickHandler();
+        this.#editClickHandler();
         break;
       case '로그아웃':
-        this.logoutHandler();
+        this.#logoutHandler();
         break;
     }
     e.target.selectedIndex = 0;
   };
 
-  private navClickHandler = (e: Event) => {
+  #navClickHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     const pathname = `${basePath}${e.target.dataset.pathname}`;
@@ -145,14 +155,14 @@ export default class HomePage {
 
     history.pushState({}, '', pathname || '/');
 
-    this.activateClickedButton(pathname);
-    this.renderMainContent(pathname);
+    this.#activateClickedButton(pathname);
+    this.#renderMainContent(pathname);
   };
 
-  activateClickedButton = (pathname: string) => {
+  #activateClickedButton = (pathname: string) => {
     $$('.nav__button').forEach($button => {
       if (
-        this.checkMatchPathname(
+        this.#checkMatchPathname(
           $button.dataset.pathname,
           pathname.replace(basePath, ''),
         )
@@ -164,11 +174,11 @@ export default class HomePage {
     });
   };
 
-  private checkMatchPathname(buttonPathname: string, pathname: string) {
+  #checkMatchPathname(buttonPathname: string, pathname: string) {
     return buttonPathname === pathname;
   }
 
-  private loginButtonHandler = (e: Event) => {
+  #loginButtonHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
@@ -177,7 +187,7 @@ export default class HomePage {
     this.routePage(pathname);
   };
 
-  logoutHandler = () => {
+  #logoutHandler = () => {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
@@ -185,7 +195,7 @@ export default class HomePage {
     this.routePage(`${basePath}/`);
   };
 
-  editClickHandler = () => {
+  #editClickHandler = () => {
     history.pushState({}, '', '/user-edit');
     this.routePage('/user-edit');
   };

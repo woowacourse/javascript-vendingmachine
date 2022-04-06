@@ -7,21 +7,21 @@ export default class CoinReturnComponent {
   #moneyManagement: MoneyManagement;
 
   constructor(
-    coinManagement: CoinManagement,
-    moneyManagement: MoneyManagement,
+    readonly coinManagement: CoinManagement,
+    readonly moneyManagement: MoneyManagement,
   ) {
     this.#coinManagement = coinManagement;
     this.#moneyManagement = moneyManagement;
     this.render();
 
-    $('.coin-return__button').addEventListener('click', this.returnHandler);
+    $('.coin-return__button').addEventListener('click', this.#returnHandler);
   }
 
   render() {
-    replaceHTML($('.coin-return__container'), this.template());
+    replaceHTML($('.coin-return__container'), this.#template());
   }
 
-  private template() {
+  #template() {
     const baseTemplate = `
       <div class="coin-return__item grid-item grid-header">동전</div>
       <div class="coin-return__item grid-item grid-header">개수</div>
@@ -42,7 +42,7 @@ export default class CoinReturnComponent {
     return baseTemplate + coinsTemplate;
   }
 
-  returnHandler = () => {
+  #returnHandler = () => {
     const returnableCoins = this.#moneyManagement.returnCoins(
       this.#coinManagement.coins,
     );

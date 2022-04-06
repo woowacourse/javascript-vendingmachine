@@ -12,9 +12,9 @@ export default class ProductPurchaseComponent {
   #moneyManagement: MoneyManagement;
 
   constructor(
-    productManagement: ProductManagement,
-    coinManagement: CoinManagement,
-    moneyManagement: MoneyManagement,
+    readonly productManagement: ProductManagement,
+    readonly coinManagement: CoinManagement,
+    readonly moneyManagement: MoneyManagement,
   ) {
     this.#productManagement = productManagement;
     this.#moneyManagement = moneyManagement;
@@ -22,11 +22,11 @@ export default class ProductPurchaseComponent {
   }
 
   render() {
-    replaceHTML($('#main-content'), this.template());
-    this.bindDOM();
+    replaceHTML($('#main-content'), this.#template());
+    this.#bindDOM();
   }
 
-  private template() {
+  #template() {
     return `
       <div>
         <section class="money-charge input-section">
@@ -64,7 +64,7 @@ export default class ProductPurchaseComponent {
     `;
   }
 
-  private bindDOM() {
+  #bindDOM() {
     new MoneyChargeComponent(this.#moneyManagement);
     new ProductMenuComponent(this.#productManagement, this.#moneyManagement);
     new CoinReturnComponent(this.#coinManagement, this.#moneyManagement);

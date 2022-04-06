@@ -4,7 +4,8 @@ import { insertNBSP, removeNBSP, showSnackbar } from '../../utils';
 import { $, $$, replaceHTML } from '../../utils/dom';
 
 export default class ProductMenuComponent {
-  private $container: HTMLElement;
+  $container: HTMLElement;
+
   #productManagement: ProductManagement;
   #moneyManagement: MoneyManagement;
 
@@ -16,14 +17,14 @@ export default class ProductMenuComponent {
     this.#productManagement = productManagement;
     this.#moneyManagement = moneyManagement;
     this.render();
-    this.$container.addEventListener('click', this.purchaseHandler);
+    this.$container.addEventListener('click', this.#purchaseHandler);
   }
 
   render() {
-    replaceHTML(this.$container, this.template());
+    replaceHTML(this.$container, this.#template());
   }
 
-  private template() {
+  #template() {
     const { products } = this.#productManagement;
     const baseTemplate = `
       <div class="product-menu__item grid-item grid-header">
@@ -77,14 +78,14 @@ export default class ProductMenuComponent {
     return baseTemplate + productsTemplate;
   }
 
-  private purchaseHandler = (e: MouseEvent) => {
+  #purchaseHandler = (e: MouseEvent) => {
     const { target } = e;
     if (!(target instanceof HTMLButtonElement)) return;
 
-    this.purchaseProduct(target);
+    this.#purchaseProduct(target);
   };
 
-  purchaseProduct($button) {
+  #purchaseProduct($button) {
     const productName: string = removeNBSP($button.dataset.productName);
 
     const selectedProduct = this.#productManagement.products.find(

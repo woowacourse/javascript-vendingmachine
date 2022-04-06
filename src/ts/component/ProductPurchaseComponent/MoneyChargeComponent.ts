@@ -1,18 +1,19 @@
 import { MONEY_RULE } from '../../constants';
+import MoneyManagement from '../../domain/MoneyManagement';
 import { showSnackbar } from '../../utils';
 import { $ } from '../../utils/dom';
 import { validateNumber } from '../../utils/validator';
 
 export default class MoneyChargeComponent {
-  private moneyManagement;
+  #moneyManagement: MoneyManagement;
 
-  constructor(moneyManagement) {
-    this.moneyManagement = moneyManagement;
-    $('.money-charge__form').addEventListener('submit', this.submitHandler);
+  constructor(moneyManagement: MoneyManagement) {
+    this.#moneyManagement = moneyManagement;
+    $('.money-charge__form').addEventListener('submit', this.#submitHandler);
     $('.money-charge__input').focus();
   }
 
-  private submitHandler = (e: Event) => {
+  #submitHandler = (e: Event) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;
@@ -29,8 +30,10 @@ export default class MoneyChargeComponent {
       return;
     }
 
-    this.moneyManagement.addMoney(money);
+    this.#moneyManagement.addMoney(money);
 
-    $('.money-charge__total-money').textContent = this.moneyManagement.money;
+    $('.money-charge__total-money').textContent = String(
+      this.#moneyManagement.money,
+    );
   };
 }

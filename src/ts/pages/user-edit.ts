@@ -7,15 +7,16 @@ import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
 
 export default class UserEditPage {
-  private user: UserInfoWithPassWord | string;
-  constructor(private readonly routePage) {
+  #user: UserInfoWithPassWord | string;
+
+  constructor(readonly routePage) {
     this.routePage = routePage;
   }
 
   async render() {
-    this.user = await getUser();
+    this.#user = await getUser();
 
-    if (typeof this.user === 'string') {
+    if (typeof this.#user === 'string') {
       showSnackbar('Not Login');
       history.pushState({}, '', `${basePath}/`);
       this.routePage(`${basePath}/`);
@@ -23,13 +24,13 @@ export default class UserEditPage {
     }
 
     replaceHTML($('#app'), await this.#template());
-    $('.edit-form').addEventListener('submit', this.editHandler);
+    $('.edit-form').addEventListener('submit', this.#editHandler);
   }
 
   #template() {
-    if (typeof this.user === 'string') return ``;
+    if (typeof this.#user === 'string') return ``;
 
-    const { email, name } = this.user;
+    const { email, name } = this.#user;
 
     return `
       <h2 class="title">회원가입</h2>
@@ -47,7 +48,7 @@ export default class UserEditPage {
     `;
   }
 
-  editHandler = async (e: Event) => {
+  #editHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
@@ -77,12 +78,12 @@ export default class UserEditPage {
     }
 
     if (!confirm('회원 정보를 변경하시겠습니까?')) return;
-    if (typeof this.user === 'string') return;
+    if (typeof this.#user === 'string') return;
     const response = await API.editInfo({
       email: emailInput.value,
       name: nameInput.value,
       password: pwInput.value,
-      id: this.user.id,
+      id: this.#user.id,
     });
 
     if (typeof response === 'string') return;
