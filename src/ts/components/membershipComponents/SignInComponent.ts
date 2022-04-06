@@ -1,8 +1,13 @@
-import { $, emit, on } from '../../dom/domHelper';
-import renderSnackBar from '../../dom/snackBar';
-import { checkValidEmail } from '../../validation/checkMemberShip';
 import { requestSignIn } from '../../api/api';
 import { setCookie } from '../../cookie/cookie';
+
+import { checkValidEmail } from '../../validation/checkMemberShip';
+
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+import { ERROR_MESSAGE } from '../../constants/errorMessage';
+
+import { $, emit, on } from '../../dom/domHelper';
+import renderSnackBar from '../../dom/snackBar';
 
 export default class SignInComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -36,33 +41,30 @@ export default class SignInComponent {
         signInPassword
       );
 
-      setCookie(
-        'user',
-        JSON.stringify({
-          id: user.id,
-          name: user.name,
-          accessToken,
-        }),
-        {
-          'max-age': 3600,
-        }
-      );
+      const userInfo = {
+        id: user.id,
+        name: user.name,
+        accessToken,
+      };
+
+      setCookie('user', JSON.stringify(userInfo), {
+        'max-age': 3600,
+      });
 
       this.$signInEmailInput.value = '';
       this.$signInPasswordInput.value = '';
 
-      window.history.pushState({}, '', '/purchase-product');
-      emit(this.$signInVerifyButton, '@membershipPurchaseProduct');
-
       renderSnackBar(
         this.$snackBarContainer,
-        '정상적으로 로그인이 되셨습니다.',
+        SUCCESS_MESSAGE.DONE_SIGN_IN,
         'success'
       );
+
+      window.history.pushState({}, '', '/purchase-product');
+      emit(this.$signInVerifyButton, '@signInPurchaseProductChangeComponent');
     } catch ({ message }) {
       if (message === 'Cannot find user') {
-        message =
-          '존재하지 않는 이메일입니다. 이메일을 확인 후 다시 로그인 해주세요.';
+        message = ERROR_MESSAGE.NOT_FOUND_EMAIL;
       }
 
       renderSnackBar(this.$snackBarContainer, message, 'error');

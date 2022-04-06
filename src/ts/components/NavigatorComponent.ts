@@ -55,7 +55,7 @@ export default class NavigatorComponent {
     );
     on(
       this.$signInVerifyButton,
-      '@membershipPurchaseProduct',
+      '@signInPurchaseProductChangeComponent',
       this.changeComponent
     );
 

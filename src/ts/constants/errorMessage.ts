@@ -18,6 +18,16 @@ export const ERROR_MESSAGE: ErrorMessage = {
     '상품명을 입력하지 않으셨습니다. 상품명을 먼저 입력해주세요.',
   EMAIL_ALREADY_EXIST:
     '이미 가입된 이메일 주소입니다. 회원가입을 하셨을 경우 로그인해 주세요.',
+  NOT_FOUND_EMAIL:
+    '존재하지 않는 이메일입니다. 이메일을 확인 후 다시 로그인 해주세요.',
+  WRONG_FORMAT_EMAIL:
+    '이메일을 잘못 입력하셨습니다. email@email.com과 같은 형식으로 이메일을 기입해주세요.',
+  MISMATCH_PASSWORD:
+    '비밀번호와 비밀번호 확인이 일치하지 않습니다. 비밀번호를 확인 후 다시 입력해주세요.',
+  WRONG_FORMAT_PASSWORD:
+    '비밀번호를 형식에 맞게 입력해주세요. 비밀번호는 8 ~ 16자 영문과 숫자 조합으로 작성해주세요.',
+  WRONG_FORMAT_NAME:
+    '이름은 2 ~ 6글자 까지 입력하실 수 있습니다. 이름을 다시 입력해주세요.',
   OVERFLOW_CHARGE_MONEY(chargeMoney) {
     return `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다.<br />현재 누적 금액은 ${chargeMoney}원 입니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`;
   },

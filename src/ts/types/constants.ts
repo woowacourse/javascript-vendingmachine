@@ -26,6 +26,11 @@ export interface ErrorMessage {
   readonly EMPTY_RETURN_COINS: string;
   readonly WRONG_RANGE_CHARGE_MONEY: string;
   readonly EMAIL_ALREADY_EXIST: string;
+  readonly NOT_FOUND_EMAIL: string;
+  readonly WRONG_FORMAT_EMAIL: string;
+  readonly MISMATCH_PASSWORD: string;
+  readonly WRONG_FORMAT_PASSWORD: string;
+  readonly WRONG_FORMAT_NAME: string;
   OVERFLOW_CHARGE_MONEY(chargeMoney: number): string;
 }
 
@@ -35,6 +40,7 @@ export interface SuccessMessage {
   readonly DELETED_PRODUCT: string;
   readonly ADDED_PRODUCT: string;
   readonly DONE_SIGN_UP: string;
+  readonly DONE_SIGN_IN: string;
   CONSUMER_CHARGED_MONEY(chargeMoney: number, totalChargeMoney: number): string;
   PURCHASED_PRODUCT(productName: string): string;
 }
