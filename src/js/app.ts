@@ -1,36 +1,26 @@
 import ProductModerator from "./moderator/productModerator";
 import ChangesModerator from "./moderator/changesModerator";
 import PurchaseModerator from "./moderator/purchaseModerator";
-import { $ } from "./util/dom";
+import SignUpModerator from "./moderator/signUpModerator";
+import LoginModerator from "./moderator/loginModerator";
 
 class App {
   productModerator;
   changesModerator;
   purchaseModerator;
-  $nav;
+  signUpModerator;
+  loginModerator;
 
   constructor() {
     this.productModerator = new ProductModerator();
     this.changesModerator = new ChangesModerator();
     this.purchaseModerator = new PurchaseModerator();
+    this.signUpModerator = new SignUpModerator();
+    this.loginModerator = new LoginModerator();
 
-    this.$nav = $("#page-tab-container");
-    this.$nav.addEventListener("click", this.onClickNavButton);
     window.addEventListener("hashchange", this.onChangePage);
-
     this.onChangePage();
   }
-
-  onClickNavButton = (e: Event): void => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains("product-management-button")) {
-      this.productModerator.init();
-    }
-
-    if (target.classList.contains("changes-charge-button")) {
-      this.changesModerator.init();
-    }
-  };
 
   onChangePage = (): void => {
     const hash = location.hash;
@@ -45,6 +35,14 @@ class App {
 
     if (hash === "#!purchaseProduct") {
       this.purchaseModerator.init();
+    }
+
+    if (hash === "#!signUp") {
+      this.signUpModerator.init();
+    }
+
+    if (hash === "#!login") {
+      this.loginModerator.init();
     }
   };
 }
