@@ -19,7 +19,7 @@ class SignUpTab implements SignUp {
       return;
     }
     try {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch('http://e217-175-123-111-78.ngrok.io/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -47,7 +47,7 @@ class EditProfileTab implements EditProfile {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:3000/users/${id}`, {
+      const response = await fetch(`http://e217-175-123-111-78.ngrok.io/users/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
