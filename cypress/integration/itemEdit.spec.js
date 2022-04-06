@@ -6,6 +6,7 @@ describe('상품 수정 테스트', () => {
   const itemQuantity = 10;
 
   beforeEach(() => {
+    cy.login();
     cy.visit('/#item-manage');
 
     cy.addItem(itemName, itemPrice, itemQuantity);

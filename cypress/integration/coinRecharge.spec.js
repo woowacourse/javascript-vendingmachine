@@ -5,6 +5,7 @@ describe('잔돈 충전 테스트', () => {
   const expectedInvalidInputCount = 1;
 
   beforeEach(() => {
+    cy.login();
     cy.visit('/#coin-recharge');
   });
 

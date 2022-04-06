@@ -59,3 +59,20 @@ Cypress.Commands.add('rechargeCoin', (cashInput) => {
 Cypress.Commands.add('checkChargedAmount', (expectedChargedAmount) => {
   cy.get('#charged-amount').should('have.text', expectedChargedAmount);
 });
+
+Cypress.Commands.add('login', () => {
+  const LOGIN_API_URL = 'http://localhost:3000/login';
+  const email = 'woowa@gmail.com';
+  const password = '1234abcd!';
+
+  cy.intercept(LOGIN_API_URL, { fixture: 'loginData.json' }).as('login');
+  cy.visit('/');
+
+  cy.get('.login-button').click();
+
+  cy.get('#login-email').type(email);
+  cy.get('#login-password').type(password);
+  cy.get('.authentication-button').click();
+
+  cy.wait('@login');
+});
