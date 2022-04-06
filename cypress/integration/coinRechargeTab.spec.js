@@ -1,11 +1,3 @@
-Cypress.Commands.add('login', (email, password) => {
-  cy.visit('/');
-  cy.get('#login-button').click();
-  cy.get('.user-info-form > input').eq(0).type(email);
-  cy.get('.user-info-form > input').eq(1).type(password);
-  cy.get('.input-form-button').click();
-});
-
 describe('잔돈 충전 탭 테스트', () => {
   beforeEach(() => {
     cy.login('a@naaver.com', '1234!@#$asdf');
