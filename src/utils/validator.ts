@@ -52,8 +52,7 @@ export const updatedItemValidator: Validator = [
 
 export const removedItemValidator: Validator = [
   {
-    test: (vendingMachine: VendingMachine, name: string) =>
-      vendingMachine.findItem(name),
+    test: (removedItem: Item) => removedItem,
     errorMessage: '존재하지 않는 상품입니다.',
   },
 ];
@@ -88,5 +87,13 @@ export const insertMoneyValidator: Validator = [
     test: (amount: number, insertedMoney: number) =>
       amount + insertedMoney <= 1000000,
     errorMessage: `총 투입 금액은 1000000원까지 가능합니다.`,
+  },
+];
+
+export const purchaseItemValidator: Validator = [
+  {
+    test: (purchasedItem: Item, insertedMoney: number) =>
+      purchasedItem.price <= insertedMoney,
+    errorMessage: `투입 금액이 부족합니다.`,
   },
 ];

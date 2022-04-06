@@ -8,6 +8,7 @@ import {
   updatedItemValidator,
   removedItemValidator,
   insertMoneyValidator,
+  purchaseItemValidator,
 } from '../utils/validator';
 import { COIN } from '../configs/constants';
 
@@ -74,9 +75,28 @@ export default class VendingMachine {
   }
 
   removeItem(name: string): void {
-    validate(removedItemValidator, this);
+    validate(removedItemValidator, this.findItem(name));
 
     this.state.items = this.state.items.filter((item) => item.name !== name);
+  }
+
+  purchaseItem(name: string): void {
+    const purchasedItem = this.findItem(name);
+
+    validate(purchaseItemValidator, purchasedItem, this.state.insertedMoney);
+
+    this.state.items = this.state.items.map((item) =>
+      item.name === name
+        ? {
+            ...item,
+            quantity: item.quantity - 1,
+          }
+        : item
+    );
+
+    this.state.insertedMoney -= purchasedItem.price;
+
+    if (this.findItem(name).quantity <= 0) this.removeItem(name);
   }
 
   findItem(name: string): Item | null {
@@ -106,13 +126,13 @@ export default class VendingMachine {
     );
   }
 
-  insertMoney(amount): void {
+  insertMoney(amount: number): void {
     validate(insertMoneyValidator, amount, this.state.insertedMoney);
 
     this.state.insertedMoney += amount;
   }
 
-  setLocation(location): void {
+  setLocation(location: string): void {
     this.state.location = location;
   }
 }
