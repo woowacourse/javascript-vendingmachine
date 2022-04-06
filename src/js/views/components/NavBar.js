@@ -1,5 +1,5 @@
 import Component from '../../core/Component';
-import { PAGE } from '../../constant/constant';
+import { PAGE } from '../../constant';
 import { globalStore } from '../../domains/GlobalStore';
 
 export default class NavBar extends Component {

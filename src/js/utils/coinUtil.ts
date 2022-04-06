@@ -1,5 +1,5 @@
 import { Coins } from '../domains/VendingMachine';
-import { COINS, EMPTY_COIN } from '../constant/constant';
+import { COINS, EMPTY_COIN } from '../constant';
 
 const getRandomCoin = (): number => {
   const coinValueList = COINS;

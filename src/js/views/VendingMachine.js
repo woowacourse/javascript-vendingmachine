@@ -5,6 +5,7 @@ import './pages/ChangeChargePage';
 import './pages/ItemPurchasePage';
 import './components/NavBar';
 import { globalStore } from '../domains/GlobalStore';
+import { PAGE } from '../constant';
 
 export default class VendingMachine extends Component {
   template() {
@@ -15,13 +16,13 @@ export default class VendingMachine extends Component {
 
     let vendingMachinePage;
     switch (location) {
-      case '/item-management':
+      case PAGE.ITEM_MANAGEMENT.PATH:
         vendingMachinePage = '<item-management class="page"></item-management>';
         break;
-      case '/change-charge':
+      case PAGE.CHANGE_CHARGE.PATH:
         vendingMachinePage = '<change-charge class="page"></change-charge>';
         break;
-      case '/':
+      case PAGE.ITEM_PURCHASE.PATH:
         vendingMachinePage = '<item-purchase class="page"></item-purchase>';
         break;
       default:
@@ -35,7 +36,7 @@ export default class VendingMachine extends Component {
       <header>
         <h1 class="title">🍿 자판기 🍿</h1>
       </header>
-      <item-purchase class="page" path="/"></item-purchase>
+      <item-purchase class="page" path=${PAGE.ITEM_PURCHASE.PATH}></item-purchase>
       `;
     }
 
@@ -43,8 +44,8 @@ export default class VendingMachine extends Component {
       <div class="dropdown">
         <button class="user-button">${username[0]}</button>
         <div id="user-dropdown" class="dropdown-content">
-          <a href="/user-edit" id="user-edit">회원정보 수정</a>
-          <a href="/" id="logout">로그아웃</a>
+          <a id="user-edit">회원정보 수정</a>
+          <a id="logout">로그아웃</a>
         </div>
       </div>
       <header>
@@ -59,7 +60,7 @@ export default class VendingMachine extends Component {
 
   setEvent() {
     this.addEvent('click', '.login-button', () => {
-      const to = '/user-login';
+      const to = PAGE.LOGIN.PATH;
       const state = { to };
 
       window.history.pushState(state, '', to);
@@ -73,7 +74,7 @@ export default class VendingMachine extends Component {
     this.addEvent('click', '#user-edit', (event) => {
       event.preventDefault();
 
-      const to = event.target.getAttribute('href');
+      const to = PAGE.EDIT.PATH;
       const state = { to };
 
       window.history.pushState(state, '', to);

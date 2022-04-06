@@ -7,6 +7,7 @@ import './pages/UserRegisterPage';
 import './pages/UserEditPage';
 
 import { globalStore } from '../domains/GlobalStore';
+import { PAGE } from '../constant';
 
 export default class App extends Component {
   template() {
@@ -14,9 +15,9 @@ export default class App extends Component {
       <main>
         <page-router>
           <vending-machine path="/"class="app-container"></vending-machine>
-          <user-login path="/user-login" class="app-container"></user-login>
-          <user-register path="/register" class="app-container"></user-register>
-          <user-edit path="/user-edit" class="app-container"></user-edit>
+          <user-login path=${PAGE.LOGIN.PATH} class="app-container"></user-login>
+          <user-register path=${PAGE.REGISTER.PATH} class="app-container"></user-register>
+          <user-edit path=${PAGE.EDIT.PATH} class="app-container"></user-edit>
           <not-found path="*" class="app-container"></not-found>
         </page-router>
       </main>

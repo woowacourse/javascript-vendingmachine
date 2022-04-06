@@ -1,5 +1,5 @@
 import { Item } from '../domains/VendingMachine';
-import { ERROR_MESSAGE, ITEM, MONEY_UNIT, AMOUNT } from '../constant/constant';
+import { ERROR_MESSAGE, ITEM, MONEY_UNIT, AMOUNT } from '../constant';
 
 interface Condition {
   test: Function;

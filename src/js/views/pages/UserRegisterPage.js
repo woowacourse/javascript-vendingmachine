@@ -1,9 +1,8 @@
 import Component from '../../core/Component';
 import { registerUser } from '../../auth';
-import { setData } from '../../utils/storageUtil';
 import { isPasswordDifferent } from '../../auth/validate';
 import { showSnackBar } from '../../utils/domUtil';
-import { ERROR_MESSAGE, NAME, PASSWORD } from '../../constant/constant';
+import { ERROR_MESSAGE, NAME, PASSWORD, PAGE } from '../../constant';
 import { globalStore } from '../../domains/GlobalStore';
 
 class UserRegisterPage extends Component {
@@ -61,8 +60,7 @@ class UserRegisterPage extends Component {
         return;
       }
 
-      setData('user', response);
-      const to = '/';
+      const to = PAGE.ITEM_PURCHASE.PATH;
       const state = { path: to };
 
       window.history.pushState(state, '', to);

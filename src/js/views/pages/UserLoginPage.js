@@ -2,6 +2,7 @@ import Component from '../../core/Component';
 import { loginUser } from '../../auth';
 import { showSnackBar } from '../../utils/domUtil';
 import { globalStore } from '../../domains/GlobalStore';
+import { PAGE } from '../../constant';
 
 class UserLoginPage extends Component {
   template() {
@@ -47,7 +48,7 @@ class UserLoginPage extends Component {
         return;
       }
 
-      const to = '/';
+      const to = PAGE.ITEM_PURCHASE.PATH;
       const state = { path: to };
 
       window.history.pushState(state, '', to);
@@ -55,7 +56,7 @@ class UserLoginPage extends Component {
     });
 
     this.addEvent('click', '#register', () => {
-      const to = '/register';
+      const to = PAGE.REGISTER.PATH;
       const state = { path: to };
       window.history.pushState(state, '', to);
       globalStore.changeLocation(to);

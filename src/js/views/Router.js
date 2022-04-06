@@ -1,5 +1,6 @@
 import Component from '../core/Component';
 import { globalStore } from '../domains/GlobalStore';
+import { PAGE } from '../constant';
 
 class Router extends Component {
   setup() {
@@ -19,7 +20,10 @@ class Router extends Component {
     let curLocation = globalStore.useStore((state) => state.currentLocation);
     const { routes } = this.state;
 
-    if (curLocation === '/change-charge' || curLocation === '/item-management')
+    if (
+      curLocation === PAGE.CHANGE_CHARGE.PATH ||
+      curLocation === PAGE.ITEM_MANAGEMENT.PATH
+    )
       curLocation = '/';
     const component = routes[curLocation] || routes['*'];
 

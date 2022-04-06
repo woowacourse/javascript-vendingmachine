@@ -1,6 +1,7 @@
 import Subject from '../core/Subject';
 import { setData, getData } from '../utils/storageUtil';
 import { deepClone } from '../utils/commons';
+import { PAGE, LOCALSTORAGE_KEY } from '../constant';
 
 interface UserData {
   email: string;
@@ -45,9 +46,9 @@ export default class GlobalStore {
 
   login(response: Response) {
     this.state.loginState = { isLoggedIn: true, userData: response.user };
-    setData('user', response);
+    setData(LOCALSTORAGE_KEY.USER, response);
 
-    this.changeLocation('/');
+    this.changeLocation(PAGE.ITEM_PURCHASE.PATH);
   }
 
   logout() {
@@ -55,13 +56,13 @@ export default class GlobalStore {
       isLoggedIn: false,
       userData: { email: '', id: '', name: '' },
     };
-    localStorage.removeItem('user');
+    localStorage.removeItem(LOCALSTORAGE_KEY.USER);
 
-    this.changeLocation('/');
+    this.changeLocation(PAGE.ITEM_PURCHASE.PATH);
   }
 }
 
-const userData = getData('user');
+const userData = getData(LOCALSTORAGE_KEY.USER);
 const initialLocation = window.location.pathname;
 
 export const globalStore = new GlobalStore(

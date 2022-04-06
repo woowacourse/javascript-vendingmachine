@@ -1,4 +1,4 @@
-import { EMPTY_COIN, MONEY, MONEY_UNIT } from '../../constant/constant';
+import { EMPTY_COIN, MONEY, MONEY_UNIT } from '../../constant';
 import Component from '../../core/Component';
 import '../components/PurchaseItemRow';
 import { vendingMachine } from '../../domains/VendingMachine';

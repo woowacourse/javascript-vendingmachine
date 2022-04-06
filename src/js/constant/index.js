@@ -11,6 +11,15 @@ export const PAGE = {
     PATH: '/',
     TITLE: '상품 구매',
   },
+  LOGIN: {
+    PATH: '/login',
+  },
+  REGISTER: {
+    PATH: '/register',
+  },
+  EDIT: {
+    PATH: '/user-edit',
+  },
 };
 
 export const ITEM = {
@@ -59,6 +68,12 @@ export const PASSWORD = {
   PATTERN: `^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*+=-]|[A-Z]).{8,}`,
 };
 
+export const LOCALSTORAGE_KEY = {
+  ITEM: 'items',
+  COIN: 'coins',
+  USER: 'user',
+};
+
 export const ERROR_MESSAGE = {
   NOT_FOUND: '존재하지 않는 이이탬입니다.',
   NAME_ALREADY_USED:
@@ -71,6 +86,8 @@ export const ERROR_MESSAGE = {
   WRONG_AMOUNT_UNIT: `입력 금액은 ${MONEY_UNIT}원 단위여야 합니다`,
   OVERFLOW_TOTAL_MONEY: `총액은 최대 ${AMOUNT.MAX_TOTAL_MONEY}까지 가능합니다`,
   CHECK_PASSWORD: '비밀번호를 확인해주세요',
+  CANNOT_BUY: '상품을 구매할 수 없습니다. 금액을 충전해주세요.',
+  NO_PURCHASE_MONEY: '반환할 돈이 없습니다. 투입한 금액을 확인해주세요',
 };
 
 export const CONFIRM_MESSAGE = {

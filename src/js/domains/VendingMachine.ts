@@ -3,7 +3,7 @@ import { deepClone } from '../utils/commons';
 import { createRandomCoins, sortCoins } from '../utils/coinUtil';
 import { getData, setData } from '../utils/storageUtil';
 import { validate, itemValidator, amountValidator } from '../utils/validator';
-import { ERROR_MESSAGE, EMPTY_COIN } from '../constant/constant';
+import { ERROR_MESSAGE, EMPTY_COIN, LOCALSTORAGE_KEY } from '../constant';
 
 export interface Item {
   name: string;
@@ -54,7 +54,7 @@ class VendingMachine {
     validate(itemValidator, item);
 
     this.state.items = [...this.state.items, item];
-    setData('items', this.state.items);
+    setData(LOCALSTORAGE_KEY.ITEM, this.state.items);
   }
 
   updateItem(name: string, updatedItem: Item): void {
@@ -68,14 +68,14 @@ class VendingMachine {
     this.state.items = this.state.items.map((item) =>
       item.name === name ? updatedItem : item
     );
-    setData('items', this.state.items);
+    setData(LOCALSTORAGE_KEY.ITEM, this.state.items);
   }
 
   removeItem(name: string): void {
     if (!this.findItem(name)) throw new Error(ERROR_MESSAGE.NOT_FOUND);
 
     this.state.items = this.state.items.filter((item) => item.name !== name);
-    setData('items', this.state.items);
+    setData(LOCALSTORAGE_KEY.ITEM, this.state.items);
   }
 
   findItem(name: string): Item | null {
@@ -93,7 +93,7 @@ class VendingMachine {
     });
 
     this.state.coins = updatedCoins;
-    setData('coins', this.state.coins);
+    setData(LOCALSTORAGE_KEY.COIN, this.state.coins);
   }
 
   getTotalMoney(): number {
@@ -105,8 +105,9 @@ class VendingMachine {
   }
 
   addPurchaseMoney(money: number): void {
-    if (money % 10 !== 0) throw new Error('10으로 나눠 떨어져야함');
-    if (money > 10000 || money <= 0) throw new Error('범위 밖 값');
+    if (money % 10 !== 0) throw new Error(ERROR_MESSAGE.WRONG_AMOUNT_UNIT);
+    if (money > 10000 || money <= 0)
+      throw new Error(ERROR_MESSAGE.WRONG_AMOUNT_RANGE);
 
     this.state.purchaseMoney += money;
   }
@@ -116,7 +117,7 @@ class VendingMachine {
 
     const { name, price, quantity } = this.findItem(nameId);
     if (price > this.state.purchaseMoney)
-      throw new Error('상품을 구매할 수 없습니다. 금액을 충전해주세요.');
+      throw new Error(ERROR_MESSAGE.CANNOT_BUY);
 
     this.state.purchaseMoney -= price;
     if (quantity === 1) {
@@ -132,7 +133,7 @@ class VendingMachine {
     const result = { ...EMPTY_COIN };
 
     if (this.state.purchaseMoney === 0) {
-      throw new Error('반환할 돈이 없습니다. 투입한 금액을 확인해주세요');
+      throw new Error(ERROR_MESSAGE.NO_PURCHASE_MONEY);
     }
 
     while (
@@ -151,13 +152,13 @@ class VendingMachine {
       }
     }
 
-    setData('coins', this.state.coins);
+    setData(LOCALSTORAGE_KEY.COIN, this.state.coins);
 
     return result;
   }
 }
 
-const initialItems = getData('items') || [];
-const initialCoins = getData('coins') || { ...EMPTY_COIN };
+const initialItems = getData(LOCALSTORAGE_KEY.ITEM) || [];
+const initialCoins = getData(LOCALSTORAGE_KEY.COIN) || { ...EMPTY_COIN };
 
 export const vendingMachine = new VendingMachine(initialItems, initialCoins, 0);

@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
-import { AMOUNT, MONEY_UNIT } from '../../constant/constant';
+import { AMOUNT, MONEY_UNIT } from '../../constant';
 import { sortCoins } from '../../utils/coinUtil';
 import { showSnackBar } from '../../utils/domUtil';
 

@@ -1,6 +1,6 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
-import { ITEM, MONEY_UNIT, CONFIRM_MESSAGE } from '../../constant/constant';
+import { ITEM, MONEY_UNIT, CONFIRM_MESSAGE } from '../../constant';
 
 class ItemRow extends TableRow {
   setup() {
