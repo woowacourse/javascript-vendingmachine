@@ -66,12 +66,22 @@ export const convertToLocaleString = (number: number): string => {
   return number.toLocaleString('ko-kr');
 };
 
-export const showSnack = (message: string) => {
+export const showSnack = (() => {
+  let timer: NodeJS.Timeout;
   const $snackbar = document.querySelector('.snack-bar') as HTMLElement;
-  $snackbar.textContent = message;
-  $snackbar?.classList.add('show');
 
-  setTimeout(() => {
-    $snackbar?.classList.remove('show');
-  }, 2500);
-};
+  return function showSnack(message: string) {
+    $snackbar.textContent = message;
+    $snackbar?.classList.add('show');
+
+    if (timer) {
+      $snackbar.style.animationPlayState = 'paused';
+      $snackbar.style.animationPlayState = 'running';
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+      $snackbar?.classList.remove('show');
+    }, 2500);
+  };
+})();
