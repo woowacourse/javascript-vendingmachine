@@ -30,6 +30,7 @@ class LoginStatus extends HTMLElement {
 
   logOut = () => {
     localStorage.removeItem("user-info");
+    localStorage.removeItem("charged");
     location.reload();
   };
 
