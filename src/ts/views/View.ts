@@ -38,9 +38,6 @@ export default class View {
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
     this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-input');
     this.$userMenu = document.querySelector('user-menu');
-    // this.$purchaseProductContainer = <HTMLDivElement>(
-    //   document.getElementById('/javascript-vendingmachine/#!/purchase-product')
-    // );
 
     this.$tabProductManageButton.addEventListener('click', () =>
       this.handleClickTabButton(PATH_ID.PRODUCT_MANAGE),
@@ -81,6 +78,7 @@ export default class View {
   public renderTabs = async (url: string) => {
     this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
     this.renderUpdatedView(url);
+
     if (!auth.isLoggedIn) {
       return;
     }

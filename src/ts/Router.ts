@@ -11,7 +11,6 @@ export default class Router {
 
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PURCHASE_PRODUCT;
     history.replaceState({ url: this.currentTab }, null, this.currentTab);
-    this.routeLogin(this.currentTab);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       const url = event.state ? event.state.url : PATH_ID.NOT_FOUND;
