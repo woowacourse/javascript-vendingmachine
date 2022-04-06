@@ -2,13 +2,14 @@ import { getRandomNumber } from 'Utils';
 import { COIN_TYPE } from 'Constants';
 import Store from './Abstract';
 
-class HoldingAmountStore extends Store<IHoldingAmountStoreState> {
-  protected state: IHoldingAmountStoreState = {
-    coins: [0, 0, 0, 0],
+class HoldingAmountStore extends Store {
+  protected state = {
+    holdingCoins: [0, 0, 0, 0],
+    returnCoins: [0, 0, 0, 0],
   };
 
   getTotalAmount(): number {
-    return this.state.coins.reduce(
+    return this.state.holdingCoins.reduce(
       (previous, coin, index) => (previous += COIN_TYPE[index] * coin),
       0,
     );
@@ -37,12 +38,12 @@ class HoldingAmountStore extends Store<IHoldingAmountStoreState> {
 
   addAmount(amount: number): void {
     const coinsToAdd: Array<number> = this.getRandomCoinsFromAmount(amount);
-    const totalCoins: Array<number> = this.state.coins.map(
+    const totalCoins: Array<number> = this.state.holdingCoins.map(
       (value, index) => value + coinsToAdd[index],
     );
 
     this.setState({
-      coins: totalCoins,
+      holdingCoins: totalCoins,
     });
   }
 }

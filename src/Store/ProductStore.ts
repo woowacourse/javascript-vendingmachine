@@ -1,7 +1,7 @@
 import Store from './Abstract';
 
-class ProductStore extends Store<IProductStoreState> {
-  protected state: IProductStoreState = {
+class ProductStore extends Store {
+  protected state = {
     products: [],
   };
 

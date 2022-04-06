@@ -1,5 +1,5 @@
-export default abstract class Store<IState> {
-  protected abstract state: IState;
+export default abstract class Store {
+  protected abstract state: IStoreUniqueState;
   private subscribers: TRenderMethod[] = [];
 
   public addSubscriber(subscriber: TRenderMethod): void {
@@ -11,7 +11,7 @@ export default abstract class Store<IState> {
     this.subscribers.splice(subscriberIndex, 1);
   }
 
-  public setState(newState: IState) {
+  public setState(newState: IStoreUniqueState) {
     const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
@@ -20,7 +20,7 @@ export default abstract class Store<IState> {
     );
   }
 
-  public getState(): IState {
+  public getState(): IStoreUniqueState {
     return { ...this.state };
   }
 }
