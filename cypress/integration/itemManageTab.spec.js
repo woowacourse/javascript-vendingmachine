@@ -1,10 +1,13 @@
 describe('상품 관리 탭 테스트', () => {
+  const email = 'a@naaver.com';
+  const password = '1234!@#$asdf';
+
   const itemName = '콜라';
   const itemPrice = 1000;
   const itemQuantity = 10;
 
   beforeEach(() => {
-    cy.login('a@naaver.com', '1234!@#$asdf');
+    cy.login(email, password);
     cy.get('#item-manage-tab-button').click();
   });
 

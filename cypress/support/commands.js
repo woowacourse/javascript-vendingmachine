@@ -38,3 +38,17 @@ Cypress.Commands.add('addItem', (itemName, itemPrice, itemQuantity) => {
   cy.get('.item-info-input').eq(2).type(itemQuantity);
   cy.get('.input-form-button').click();
 });
+
+Cypress.Commands.add('chargeCoin', (cashInput) => {
+  cy.get('.cash-charge-input').type(cashInput);
+  cy.get('.input-form-button').click();
+});
+
+Cypress.Commands.add('insertMoney', (moneyInput) => {
+  cy.get('.item-purchase-input').type(moneyInput);
+  cy.get('.input-form-button').click();
+});
+
+Cypress.Commands.add('purchaseItem', () => {
+  cy.get('.purchase-item-button').eq(0).click();
+});
