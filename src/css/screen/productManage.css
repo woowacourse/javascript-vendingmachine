@@ -20,12 +20,6 @@
 
 .app__main.productManage .input-form__input {
   width: 120px;
-  height: 100%;
-  border: 1px solid var(--input-border-color);
-  box-sizing: border-box;
-  border-radius: 4px;
-  margin: 4px 0px;
-  padding-left: 7px;
 }
 
 .input-form__submit-button {
@@ -49,7 +43,7 @@
 
 .app__main.productManage .table-wrap {
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .table-wrap__title {
@@ -93,15 +87,6 @@
   border: 1px solid var(--input-border-color);
   border-radius: 4px;
   text-align: center;
-}
-
-.product-info .button {
-  height: 32px;
-  background-color: var(--tab-background-color);
-}
-
-.product-info .button:hover {
-  opacity: 0.8;
 }
 
 .modify-button, 

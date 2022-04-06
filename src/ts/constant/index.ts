@@ -11,9 +11,13 @@ export const PRODUCT_RULES = {
 export const INPUT_MONEY_RULES = {
   MIN: 1000,
   MOD_UNIT: 10,
+  MAX_HAVE: 100000,
 };
 
-export const MAX_HAVE_MONEY = 100000;
+export const USER_INPUT_MONEY_RULES = {
+  MOD_UNIT: 10,
+  MAX_HAVE: 10000,
+};
 
 export const ERROR_MESSAGE = {
   EMPTY_PRODUCT_NAME: '상품명을 입력해주세요!',
@@ -25,7 +29,10 @@ export const ERROR_MESSAGE = {
   NOT_EXIST_PRODUCT: '존재하지 않는 상품입니다!',
   INDIVISIBLE_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
   LACK_OF_INPUT_MONEY: `${INPUT_MONEY_RULES.MIN}원 이상 투입해주세요!`,
-  EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${MAX_HAVE_MONEY.toLocaleString()}원 입니다!`,
+  EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원 입니다!`,
+  INDIVISIBLE_USER_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${USER_INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
+  EXCEED_MAX_USER_INPUT_MONEY: `최대 ${USER_INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원까지 투입 가능합니다!`,
+  LOCK_OF_USER_INPUT_MONEY: '투입 금액이 모자랍니다!',
 };
 
 export const CONFIRM_DELETE_PRODUCT_MESSAGE = '정말 삭제하시겠습니까?';

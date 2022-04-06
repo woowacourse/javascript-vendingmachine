@@ -1,6 +1,7 @@
 import { DomainView, VendingMachine, Coin } from '../../index.d';
 import { $ } from '../util/index';
 import VendingMachineImpl from '../interactor/VendingMachineImpl';
+import Snackbar from './Snackbar';
 
 export default class ChargeMoney implements DomainView {
   private $chargeMoneyForm: HTMLElement;
@@ -11,8 +12,9 @@ export default class ChargeMoney implements DomainView {
   private $coin50: HTMLElement;
   private $coin10: HTMLElement;
   private vendingMachine: VendingMachine;
+  private snackbar: Snackbar;
 
-  constructor() {
+  constructor(snackbar: Snackbar) {
     this.$chargeMoneyForm = $('#charge-money-form');
     this.$chargeMoneyInput = $('#charge-money-input');
     this.$totalAmount = $('#total-amount');
@@ -21,6 +23,7 @@ export default class ChargeMoney implements DomainView {
     this.$coin50 = $('#coin-50-count');
     this.$coin10 = $('#coin-10-count');
     this.vendingMachine = VendingMachineImpl.getInstance();
+    this.snackbar = snackbar;
   }
 
   render(): void {
@@ -43,7 +46,7 @@ export default class ChargeMoney implements DomainView {
       this.vendingMachine.chargeMoney(inputMoney);
       this.render();
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.on(message);
     }
   }
 }

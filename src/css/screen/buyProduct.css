@@ -1,0 +1,41 @@
+.app__main.buyProduct .input-form__input {
+  width: 300px;
+}
+
+.app__main.buyProduct .input-container {
+  margin-bottom: 10px;
+}
+
+.app__main.buyProduct .coin-table {
+  width: 45%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.app__main.buyProduct .table-wrap.product {
+  height: 200px;
+  overflow-y: auto;
+}
+
+.app__main.buyProduct .product-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.app__main.buyProduct .button-wrap {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.app__main.buyProduct .button-wrap button {
+  width: 100px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: #000000;
+}
+
+.buy-button {
+  width: 100px;
+  margin: 0 auto;
+}
