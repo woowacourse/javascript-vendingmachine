@@ -1,6 +1,9 @@
 import storage from './storage';
 import { $, $$ } from './utils';
 
+const nav = $('.nav');
+const baseURL = '/javascript-vendingmachine';
+
 export type Path =
   | '/javascript-vendingmachine/'
   | '/javascript-vendingmachine/charge'
@@ -14,9 +17,6 @@ interface IRouter {
   path: Path;
   component: Element;
 }
-
-const nav = $('.nav');
-const baseURL = '/javascript-vendingmachine';
 
 export const historyRouterPush = (pathname: Path) => {
   if (pathname === window.location.pathname) return;
@@ -93,15 +93,24 @@ const render = (path: Path) => {
       signupComponent.classList.remove('hidden');
       break;
     case `${baseURL}/editprofile`:
-      $('.select-box-wrapper').classList.add('hidden');
-      $('.header').classList.add('hidden');
-      $('.nav').classList.add('hidden');
-      const editProfileComponent = $('edit-profile');
-      editProfileComponent.classList.remove('hidden');
+      if (storage.getAccessToken()) {
+        $('.select-box-wrapper').classList.add('hidden');
+        $('.header').classList.add('hidden');
+        $('.nav').classList.add('hidden');
+        const editProfileComponent = $('edit-profile');
+        editProfileComponent.classList.remove('hidden');
+      } else {
+        $('.nav').classList.add('hidden');
+        $('.login-button').classList.remove('hidden');
+        $('purchase-tab').classList.remove('hidden');
+      }
       break;
   }
 
-  if (!storage.getAccessToken() && (path === `${baseURL}/` || path === `${baseURL}/charge`)) {
+  if (
+    !storage.getAccessToken() &&
+    (path === `${baseURL}/` || path === `${baseURL}/charge` || path === `${baseURL}/editprofile`)
+  ) {
     const prevRoute = routers.filter((route) => route.path !== `${baseURL}/purchase`);
     prevRoute.forEach((router: IRouter) => router.component.classList.add('hidden'));
     return;
