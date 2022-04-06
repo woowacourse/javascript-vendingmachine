@@ -2,7 +2,7 @@ import { ERROR_MESSAGE } from '../constants';
 import { historyRouterPush } from '../router';
 import storage from '../storage';
 import { on, $, showSnackBar } from '../utils';
-import { validatePasswordCondition, validatePasswordIsEqual } from '../validator';
+import { validatePasswordCondition, validatePasswordIsEqual } from '../validator/passwordValidator';
 
 class Auth {
   private SERVER_BASE_URL = 'https://js-vendingmachine-server.herokuapp.com';

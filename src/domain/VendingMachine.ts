@@ -2,18 +2,16 @@ import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $, showSnackBar } from '../utils';
-import {
-  validateProduct,
-  validateChange,
-  validateUpdateProduct,
-  validateInputMoney,
-  validatePurchaseProduct,
-  validateReturnCharge,
-} from '../validator';
 import Coin from './Coin';
 import { Product } from './Product';
 import MoneyInput from './MoneyInput';
 import Change from './Change';
+import { validateReturnCharge } from '../validator/returnChangeValidator';
+import { validatePurchaseProduct } from '../validator/purchaseProductValidator';
+import { validateInputMoney } from '../validator/userInputMoneyValidator';
+import { validateChange } from '../validator/changeValidator';
+import { validateUpdateProduct } from '../validator/updateProductValidator';
+import { validateProduct } from '../validator/productValidator';
 
 interface IVendingMachine {
   amount: Coin;
