@@ -17,6 +17,9 @@ export default class HomePage {
   readonly #productManagementComponent: ProductManagementComponent;
   readonly #coinManagementComponent: CoinManagementComponent;
   readonly #productPurchaseComponent: ProductPurchaseComponent;
+  $nav: HTMLElement;
+  $navButtons: NodeListOf<HTMLButtonElement>;
+  $loginButton: HTMLButtonElement;
 
   constructor(readonly routePage: routePageType) {
     this.routePage = routePage;
@@ -39,10 +42,15 @@ export default class HomePage {
 
   async render() {
     replaceHTML($('#app'), this.#template());
+
+    this.$nav = $('.nav');
+    this.$navButtons = $$('.nav__button');
+    this.$loginButton = $('.login-button');
+
     this.#activateClickedButton(location.pathname);
 
-    $('.nav').addEventListener('click', this.#navClickHandler);
-    $('.login-button').addEventListener('click', this.#loginButtonHandler);
+    this.$nav.addEventListener('click', this.#navClickHandler);
+    this.$loginButton.addEventListener('click', this.#loginButtonHandler);
 
     const user = await getUser();
 
@@ -114,21 +122,20 @@ export default class HomePage {
       history.pushState({}, '', basePath);
     }
     this.#renderMainContent(`${basePath}/purchase`);
-    $('.nav').classList.add('display-none');
-    $('.login-button').classList.remove('display-none');
+    this.$nav.classList.add('display-none');
+    this.$loginButton.classList.remove('display-none');
   }
 
   #renderAsLogin(user: UserInfoWithPassWord) {
     this.#renderMainContent(location.pathname);
-    $('.nav').classList.remove('display-none');
-    $('.login-button').classList.add('display-none');
-    $('.logined-user-tab').classList.remove('display-none');
+    this.$nav.classList.remove('display-none');
+    this.$loginButton.classList.add('display-none');
+
+    const $loginedUserTab = $('.logined-user-tab');
+    $loginedUserTab.classList.remove('display-none');
     [$('.user-thumbnail').innerText] = user.name;
 
-    $('.logined-user-tab').addEventListener(
-      'change',
-      this.#selectChangeHandler,
-    );
+    $loginedUserTab.addEventListener('change', this.#selectChangeHandler);
   }
 
   #selectChangeHandler = (e: Event) => {
@@ -160,7 +167,7 @@ export default class HomePage {
   };
 
   #activateClickedButton = (pathname: string) => {
-    $$('.nav__button').forEach($button => {
+    this.$navButtons.forEach($button => {
       if (
         this.#checkMatchPathname(
           $button.dataset.pathname,
