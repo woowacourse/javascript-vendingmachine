@@ -48,6 +48,8 @@ class MyAccountPage extends RouteComponent {
 
   private feedbacks?: FeedbackRecord;
 
+  private isLoading = false;
+
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
@@ -62,11 +64,7 @@ class MyAccountPage extends RouteComponent {
     `;
   }
 
-  template(feedbacks: FeedbackRecord): string {
-    const { name, password, repassword } = feedbacks;
-    const isLoading = [name, password, repassword].every(
-      (feedback) => !feedback.hasError && feedback.inputValue
-    );
+  template(feedbacks: FeedbackRecord, isLoading: boolean): string {
     return `
       <back-arrow data-path="${WhiteList.Home}">Home</back-arrow>
       <header class="mb-12">
@@ -120,6 +118,11 @@ class MyAccountPage extends RouteComponent {
     this.addEvent('click', '.btn-edit-user-info', this.onClickEditBtn);
   }
 
+  setIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
+    this.render();
+  }
+
   setFeedbacks(feedbacks: FeedbackRecord) {
     this.feedbacks = deepCopy(feedbacks) as FeedbackRecord;
     this.render();
@@ -135,6 +138,8 @@ class MyAccountPage extends RouteComponent {
       toast(ToastType.Error, '입력하신 정보를 다시 확인해 주세요');
       return;
     }
+
+    this.setIsLoading(true);
     const [name, email, password] = [
       feedbacks.name.inputValue,
       this._initialFeedbacks.email.placeholder!,
@@ -142,6 +147,7 @@ class MyAccountPage extends RouteComponent {
     ];
     try {
       const response = await this.edit({ name, email, password });
+      this.setIsLoading(false);
       if (!response) throw new Error('통신에 오류가 발생했습니다');
 
       const body = await response.json();
@@ -244,7 +250,7 @@ class MyAccountPage extends RouteComponent {
       return;
     }
     if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
-    this.innerHTML = this.template(this.feedbacks);
+    this.innerHTML = this.template(this.feedbacks, this.isLoading);
   }
 }
 

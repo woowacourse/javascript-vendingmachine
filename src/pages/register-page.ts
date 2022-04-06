@@ -49,6 +49,8 @@ class RegisterPage extends RouteComponent {
 
   private feedbacks?: FeedbackRecord;
 
+  private isLoading = false;
+
   fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
     return `
       <fieldset class="mb-4">
@@ -61,11 +63,7 @@ class RegisterPage extends RouteComponent {
     `;
   }
 
-  template(feedbacks: FeedbackRecord): string {
-    const { email, name, password, repassword } = feedbacks;
-    const isLoading = [email, name, password, repassword].every(
-      (feedback) => !feedback.hasError && feedback.inputValue
-    );
+  template(feedbacks: FeedbackRecord, isLoading: boolean): string {
     return `
       <header class="mb-12">
         <back-arrow data-path="${WhiteList.LoginPage}">Login</back-arrow>
@@ -119,6 +117,11 @@ class RegisterPage extends RouteComponent {
     this.addEvent('click', '.btn-register', this.onClickRegisterBtn);
   }
 
+  setIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
+    this.render();
+  }
+
   setFeedbacks(feedbacks: FeedbackRecord) {
     this.feedbacks = deepCopy(feedbacks) as FeedbackRecord;
     this.render();
@@ -134,6 +137,8 @@ class RegisterPage extends RouteComponent {
       toast(ToastType.Error, '입력하신 정보를 다시 확인해 주세요');
       return;
     }
+
+    this.setIsLoading(true);
     const [name, email, password] = [
       feedbacks.name.inputValue,
       feedbacks.email.inputValue,
@@ -142,6 +147,7 @@ class RegisterPage extends RouteComponent {
 
     try {
       const response = await this.register({ name, email, password });
+      this.setIsLoading(false);
       if (!response) throw new Error('통신에 오류가 발생했습니다');
 
       const body = await response.json();
@@ -232,7 +238,7 @@ class RegisterPage extends RouteComponent {
 
   render() {
     if (!this.feedbacks) this.feedbacks = this.initialFeedbacks;
-    this.innerHTML = this.shouldRender() ? this.template(this.feedbacks) : '';
+    this.innerHTML = this.shouldRender() ? this.template(this.feedbacks, this.isLoading) : '';
   }
 }
 

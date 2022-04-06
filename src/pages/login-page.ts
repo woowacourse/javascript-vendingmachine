@@ -122,6 +122,7 @@ class LoginPage extends RouteComponent {
 
     try {
       const response = await this.login({ email, password });
+      this.setIsLoading(false);
       if (!response) throw new Error('통신에 오류가 발생했습니다');
 
       const body = await response.json();
