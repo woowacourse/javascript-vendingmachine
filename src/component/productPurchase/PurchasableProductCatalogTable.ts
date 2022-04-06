@@ -3,7 +3,9 @@ import { PurchaseMoney } from '../../domain/PurchaseMoney';
 
 import { ProductProps } from '../../utils/interface';
 
-interface PurchasableProductCatalogTableInterface {}
+interface PurchasableProductCatalogTableInterface {
+  render();
+}
 
 export class PurchasableProductCatalogTable implements PurchasableProductCatalogTableInterface {
   #target: HTMLDivElement;
