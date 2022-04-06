@@ -1,6 +1,6 @@
 import { ItemType } from '../types/types';
 
-export const ProductAPI = {
+const ProductAPI = {
   BASE_URL: 'https://vending-machine-kamwoo.herokuapp.com',
   TYPES: {
     PRODUCTS: '/products',
@@ -82,3 +82,5 @@ export const ProductAPI = {
     }
   },
 };
+
+export default ProductAPI;

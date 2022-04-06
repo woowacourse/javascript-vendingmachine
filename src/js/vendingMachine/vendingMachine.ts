@@ -10,7 +10,7 @@ import {
   validateInputMoney,
 } from '../validates/validates';
 import MoneyManager from './moneyManager';
-import { ProductAPI } from '../api/productAPI';
+import ProductAPI from '../api/productAPI';
 
 export default class VendingMachine {
   private itemManager = new ItemManager();
