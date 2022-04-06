@@ -1,12 +1,12 @@
-const $ = (
+const $ = <T extends HTMLElement>(
   selector: string,
   target: Document | HTMLElement = document,
-): HTMLElement => target.querySelector(selector);
+): T => target.querySelector(selector);
 
-const $$ = (
+const $$ = <T extends HTMLElement>(
   selector: string,
   target: Document | HTMLElement = document,
-): NodeListOf<HTMLElement> => target.querySelectorAll(selector);
+): NodeListOf<T> => target.querySelectorAll(selector);
 
 const replaceHTML = ($el: HTMLElement, template: string) => {
   $el.replaceChildren();
