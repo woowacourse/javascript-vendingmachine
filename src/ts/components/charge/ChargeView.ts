@@ -19,6 +19,7 @@ class ChargeView {
       (coinCount.innerText = `${chargeResult[index]}개`));
   }
 
+
   renderChargeView(userName: string) {
     this.vendingmachineFunctionWrap.replaceChildren();
     this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", userName ?  chargeTemplate : chargeSectionNoAuthority);

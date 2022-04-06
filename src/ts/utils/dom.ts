@@ -14,6 +14,7 @@ const addEvent = (target: HTMLElement, eventName: string, handler) => {
     handler(event);
   } catch ({ message }) {
     showSnackbar(message);
+
     return;
   }
   });

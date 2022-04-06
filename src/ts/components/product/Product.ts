@@ -37,6 +37,7 @@ class Product {
     }
   }
 
+
   handleAddProduct = (event: Event) => {
     event.preventDefault();
     const [productName, productPrice, productQuantity] = 
@@ -53,7 +54,7 @@ class Product {
       productQuantity: +productQuantity, 
     });
   };
-
+    
   handleRemoveProduct = (event: { target: HTMLTableElement }) => {
     if (!confirm("정말 삭제하시겠습니까?")) {
       return;
@@ -76,7 +77,6 @@ class Product {
       (input: HTMLInputElement) => input.value
     );
     const beforeProductName = selectDom(".product-name", event.target.closest("tr")).dataset.name;
-
     this.productInfo.validateEditProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, beforeProductName });
     showSnackbar(editProductInfoText({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }));
     this.productView.editProduct({target: event.target, productName: productName, productPrice: +productPrice, productQuantity: +productQuantity});
@@ -84,6 +84,7 @@ class Product {
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)
       .indexOf(productName);
+   
     this.productInfo.editProduct({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, changeProductIndex: changeProductIndex });
   };
 
