@@ -45,6 +45,7 @@ class ChangePageView {
     this.$header.insertAdjacentHTML(
       "beforeend",
       `<h2>자판기</h2>
+      <button id="nav-button">로그아웃</button>
       <section id="user-info">user Info</section>
       <nav id="page-tab-container">
         <a class="nav-button product-management-button" href="#!productManagement">

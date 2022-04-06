@@ -12,7 +12,7 @@ class Authorization {
   async login({ email, password }) {
     const response = await api.login({ email, password });
     if (response.isError) {
-      alert("발생발생");
+      alert("이메일 혹은 비밀번호가 잘못 되었습니다.");
       return;
     }
     location.href = "/";
@@ -20,10 +20,14 @@ class Authorization {
     document.cookie = `access_token=${response.accessToken}`;
   }
 
-  async signUp({ email, name, password }) {
+  async signUp({ email, name, password, confirmPassword }) {
+    if (password !== confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
     const response = await api.signUp({ email, name, password });
     if (response.isError) {
-      alert("서버 에러가 발생했어요~");
+      alert("이미 존재하는 이메일입니다.");
       return;
     }
     location.href = "/#!login";

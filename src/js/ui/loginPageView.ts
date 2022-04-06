@@ -16,14 +16,14 @@ class LoginView {
     this.$header.replaceChildren();
     this.$formContainer = createElement(
       "form",
-      { id: "login-form" },
+      { id: "login-form", class: "form" },
       loginTemplate.input()
     );
     this.$emailInput = $("#email", this.$formContainer);
     this.$passwordInput = $("#password", this.$formContainer);
 
     this.$page.appendChild(this.$formContainer);
-    this.$header.insertAdjacentHTML("beforeend", "로그인");
+    this.$header.insertAdjacentHTML("beforeend", "<h1>로그인</h1>");
     this.bindEvent();
   }
 
