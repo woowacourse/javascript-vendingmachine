@@ -49,12 +49,12 @@ const verifyCharge = (charge: number) => {
   }
 };
 
-const verifyPurchaseAmount = (amount: number) => {
+const verifyPurchaseAmountInput = (amount: number) => {
   if (amount < PURCAHSE.MIN_AMOUNT || amount > PURCAHSE.MAX_AMOUNT) {
     throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
   }
   if (amount % PURCAHSE.UNIT !== 0) {
-    throw new Error(ERROR_MESSAGES.INVALID_PRODUCT_QUANTITY_UNIT);
+    throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_UNIT);
   }
 };
 
@@ -67,12 +67,26 @@ const verifyPurchaseProduct = (stock: number, purchaseAmount: number, productPri
   }
 };
 
+const verifyPurchaseAmountBalance = (amount: number) => {
+  if (amount === 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_INPUT_AMOUNT);
+  }
+};
+
+const verifyPurchaseAmountReturn = (amount: number) => {
+  if (amount === 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_RETURN_COIN);
+  }
+};
+
 export {
   verifyProductName,
   verifyProductPrice,
   verifyProductQuantity,
   verifyDuplicateName,
   verifyCharge,
-  verifyPurchaseAmount,
+  verifyPurchaseAmountInput,
   verifyPurchaseProduct,
+  verifyPurchaseAmountBalance,
+  verifyPurchaseAmountReturn,
 };

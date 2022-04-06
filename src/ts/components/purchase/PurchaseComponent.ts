@@ -66,27 +66,22 @@ class PurchaseComponent {
   };
 
   handleReturnCoin = () => {
-    const purchaseAmount = this.productManager.getPurchaseAmount();
-    const returnCoins = this.chargeManager.getReturnCoins(purchaseAmount);
-    const returnCoinAmount = this.chargeManager.convertCoinsToAmount(returnCoins);
+    try {
+      const purchaseAmount = this.productManager.getPurchaseAmount();
+      const returnCoins = this.chargeManager.getReturnCoins(purchaseAmount);
+      const returnCoinsAmount = this.chargeManager.convertCoinsToAmount(returnCoins);
 
-    this.chargeManager.substractCoins(returnCoins);
-    this.productManager.substractPurchaseAmount(returnCoinAmount);
-
-    this.renderAmount();
-    this.renderReturnCoins(returnCoins);
+      this.productManager.substractPurchaseAmount(returnCoinsAmount);
+      this.chargeManager.substractCoins(returnCoins);
+      this.renderAmount();
+      this.renderReturnCoins(returnCoins);
+    } catch ({ message }) {
+      alert(message);
+    }
   };
 
   renderAmount() {
     this.purchaseAmountText.textContent = `${this.productManager.getPurchaseAmount()}`;
-  }
-
-  renderReturnCoins(returnCoins: Coin) {
-    const countList = Object.values(returnCoins);
-
-    [this.returnCoin10, this.returnCoin50, this.returnCoin100, this.returnCoin500].forEach((returnCoin, index) => {
-      returnCoin.textContent = `${countList[index]}개`;
-    });
   }
 
   renderProducts() {
@@ -95,6 +90,14 @@ class PurchaseComponent {
       "beforeend",
       productPurchaseListTemplate(this.productManager.getProducts()),
     );
+  }
+
+  renderReturnCoins(returnCoins: Coin) {
+    const countList = Object.values(returnCoins);
+
+    [this.returnCoin10, this.returnCoin50, this.returnCoin100, this.returnCoin500].forEach((returnCoin, index) => {
+      returnCoin.textContent = `${countList[index]}개`;
+    });
   }
 
   show() {

@@ -1,5 +1,5 @@
 import { pickNumberInList } from "../utils/common";
-import { verifyCharge } from "../utils/validation";
+import { verifyCharge, verifyPurchaseAmountBalance } from "../utils/validation";
 
 interface ChargeManagerInterface {
   getTotalCoins(): Coin;
@@ -46,6 +46,8 @@ class ChargeManager implements ChargeManagerInterface {
   }
 
   getReturnCoins(amount: number): Coin {
+    verifyPurchaseAmountBalance(amount);
+
     const coinObject = { 10: 0, 50: 0, 100: 0, 500: 0 };
     const coinList = [500, 100, 50, 10];
 

@@ -3,8 +3,9 @@ import {
   verifyProductName,
   verifyProductPrice,
   verifyProductQuantity,
-  verifyPurchaseAmount,
+  verifyPurchaseAmountInput,
   verifyPurchaseProduct,
+  verifyPurchaseAmountReturn,
 } from "../utils/validation";
 
 interface ProductManagerInterface {
@@ -68,11 +69,14 @@ class ProductManager implements ProductManagerInterface {
   }
 
   addPurchaseAmount(amount: number) {
-    verifyPurchaseAmount(amount);
+    verifyPurchaseAmountInput(amount);
+
     this.purchaseAmount += amount;
   }
 
   substractPurchaseAmount(amount: number) {
+    verifyPurchaseAmountReturn(amount);
+
     this.purchaseAmount -= amount;
   }
 }
