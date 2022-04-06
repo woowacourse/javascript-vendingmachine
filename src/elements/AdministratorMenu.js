@@ -1,5 +1,6 @@
 import AuthStore from '../domains/stores/AuthStore';
 import CustomElement from '../abstracts/CustomElement';
+import { hideElement, showElement } from '../utils';
 
 class AdministratorMenu extends CustomElement {
   connectedCallback() {
@@ -25,12 +26,12 @@ class AdministratorMenu extends CustomElement {
 
   rerender(isAdministrator) {
     if (isAdministrator) {
-      this.show();
+      showElement(this);
 
       return;
     }
 
-    this.hide();
+    hideElement(this);
   }
 }
 

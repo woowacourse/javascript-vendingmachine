@@ -1,4 +1,4 @@
-import { $ } from './utils';
+import { $, hideElement, showElement } from './utils';
 import { BASE_HASH, HEADER } from './constants';
 
 const targets = [
@@ -44,26 +44,24 @@ const findTarget = (hash) => {
 const renderApp = (currentTarget) => {
   if (currentTarget.header === HEADER.VENDING_MACHINE) {
     $('#app').classList.remove('auth-app');
-    $('vending-machine').show();
+    showElement($('vending-machine'));
 
     return;
   }
 
   $('#app').classList.add('auth-app');
-  $('vending-machine').hide();
+  hideElement($('vending-machine'));
 };
 
 const renderTargets = (currentTarget, prevTarget) => {
   currentTarget.$button?.classList.add('clicked');
-  currentTarget.$container.classList.add('container');
-  currentTarget.$container.show();
+  showElement(currentTarget.$container);
   currentTarget.$focusInput.focus();
 
   if (!prevTarget) return;
 
   prevTarget.$button?.classList.remove('clicked');
-  prevTarget.$container.classList.remove('container');
-  prevTarget.$container.hide();
+  hideElement(prevTarget.$container);
 };
 
 window.location.hash = BASE_HASH;

@@ -3,7 +3,7 @@ import { AUTH_ACTION, createAction } from '../../domains/actions';
 import { getUser, isLoggedIn, logout } from '../../domains/Auth';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils';
+import { $, hideElement, showElement } from '../../utils';
 
 class AuthMenu extends CustomElement {
   async connectedCallback() {
@@ -30,14 +30,14 @@ class AuthMenu extends CustomElement {
 
     return `
       <a href="#!login">
-        <button class="login-button" ${isLoginButtonHidden}>로그인</button>
+        <button class="login-button ${isLoginButtonHidden}">로그인</button>
       </a>
-      <button class="user-button" ${isUserButtonHidden}>${userNameFirstChar}</button>
-      <div class="user-menu-select-box">
+      <button class="user-button ${isUserButtonHidden}">${userNameFirstChar}</button>
+      <div class="user-menu-select-box hidden">
         <a href="#!user-info-modify">
-          <button>회원 정보 수정</button>
+          <button>🛠 회원 정보 수정</button>
         </a>
-        <button class="logout-button">로그아웃</button>
+        <button class="logout-button">👋🏻 로그아웃</button>
       </div>
     `;
   }
@@ -60,17 +60,17 @@ class AuthMenu extends CustomElement {
     const $userButton = $('.user-button');
 
     if (isAdministrator) {
-      $loginButton.setAttribute('hidden', true);
+      hideElement($loginButton);
 
       const user = await getUser();
       $userButton.textContent = user.name.charAt(0);
-      $userButton.removeAttribute('hidden');
+      showElement($userButton);
 
       return;
     }
 
-    $loginButton.removeAttribute('hidden');
-    $userButton.setAttribute('hidden', true);
+    showElement($loginButton);
+    hideElement($userButton);
   }
 }
 

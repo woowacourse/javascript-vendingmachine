@@ -2,7 +2,7 @@ import ProductStore from '../../domains/stores/ProductStore';
 import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $, $$ } from '../../utils';
+import { $, $$, hideElement, showElement } from '../../utils';
 import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
 import { CONFIRM_MESSAGE } from '../../constants';
 
@@ -44,8 +44,8 @@ class ProductCurrentSituation extends CustomElement {
 
         $tbodyRow.dataset.productName = newProductInfo.name;
 
-        $$('.product-td', $tbodyRow).forEach((td) => td.removeAttribute('hidden'));
-        $$('.product-modify-td', $tbodyRow).forEach((td) => td.setAttribute('hidden', true));
+        $$('.product-td', $tbodyRow).forEach((td) => showElement(td));
+        $$('.product-modify-td', $tbodyRow).forEach((td) => hideElement(td));
 
         $('.product-td.product-name-td', $tbodyRow).textContent = newProductInfo.name;
         $('.product-td.product-price-td', $tbodyRow).textContent = newProductInfo.price;
@@ -70,17 +70,17 @@ class ProductCurrentSituation extends CustomElement {
     return ` 
       <tr data-product-name="${name}">
         <td class="product-td product-name-td">${name}</td>
-        <td class="product-modify-td product-name-td" hidden>
+        <td class="product-modify-td product-name-td hidden">
           <input class="product-name-input" placeholder="상품명" value="${name}" maxlength="10" required>
         </td>
 
         <td class="product-td product-price-td">${price}</td>
-        <td class="product-modify-td product-price-td" hidden>
+        <td class="product-modify-td product-price-td hidden">
           <input type="number" class="product-price-input" placeholder="가격" value="${price}" min="100" max="10000" step="10" required>
         </td>
       
         <td class="product-td product-quantity-td">${quantity}</td>
-        <td class="product-modify-td product-quantity-td" hidden>
+        <td class="product-modify-td product-quantity-td hidden">
           <input type="number" class="product-quantity-input" placeholder="수량" value="${quantity}" min="1" max="20" required>
         </td>
 
@@ -88,7 +88,7 @@ class ProductCurrentSituation extends CustomElement {
           <button class="table__product-modify-button">수정</button>
           <button class="table__product-delete-button">삭제</button>
         </td>
-        <td class="product-modify-td product-manage-buttons-td" hidden>
+        <td class="product-modify-td product-manage-buttons-td hidden">
           <button class="table__product-modify-confirm-button">확인</button>
         </td>
       </tr>
@@ -116,8 +116,8 @@ class ProductCurrentSituation extends CustomElement {
   }
 
   handleProductModifyButtonClick = ($tbodyRow) => {
-    $$('.product-td', $tbodyRow).forEach((td) => td.setAttribute('hidden', true));
-    $$('.product-modify-td', $tbodyRow).forEach((td) => td.removeAttribute('hidden'));
+    $$('.product-td', $tbodyRow).forEach((td) => hideElement(td));
+    $$('.product-modify-td', $tbodyRow).forEach((td) => showElement(td));
   };
 
   handleProductDeleteButtonClick = ({ productName }) => {

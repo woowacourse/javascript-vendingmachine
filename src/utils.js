@@ -2,6 +2,14 @@ export const $ = (selector, scope = document) => scope.querySelector(selector);
 
 export const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
+export const showElement = (element) => {
+  element.classList.remove('hidden');
+};
+
+export const hideElement = (element) => {
+  element.classList.add('hidden');
+};
+
 export const pickNumberInList = (array) => {
   const index = Math.floor(Math.random() * array.length);
 

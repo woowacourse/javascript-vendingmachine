@@ -12,3 +12,7 @@ input,
 button {
   font: inherit;
 }
+
+.hidden {
+  display: none;
+}
