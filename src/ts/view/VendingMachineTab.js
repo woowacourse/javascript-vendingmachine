@@ -13,18 +13,17 @@ class VendingMachineTab {
   }
 
   renderNavBar(isLoginUser = true) {
+    const userNameFirstLetter = localStorage.getItem('user-name')[0];
     this.app.replaceChildren();
-    this.app.insertAdjacentHTML('afterbegin', vendingMachineNavBarTemplate(isLoginUser));
+    this.app.insertAdjacentHTML(
+      'afterbegin',
+      vendingMachineNavBarTemplate(isLoginUser, userNameFirstLetter)
+    );
 
     this.navBar = selectDom('nav', this.app);
     this.navTabButtonList = selectDoms('.nav-tab-button', this.navBar);
     this.tabContent = selectDom('#tab-content');
     this.snackbar = selectDom('.snackbar');
-
-    if (isLoginUser) {
-      const logoutButton = selectDom('#logout-button', this.app);
-      logoutButton.addEventListener('click', this.#onClickLogoutButton);
-    }
   }
 
   changeTabContent(contentTemplate, targetTabButton) {

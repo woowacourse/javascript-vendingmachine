@@ -165,10 +165,15 @@ export const registerUserPageTemplate = `
   </form>
 `;
 
-export const vendingMachineNavBarTemplate = (isLoginUser) => `
+export const vendingMachineNavBarTemplate = (isLoginUser, nameFirstLetter) => `
   ${
     isLoginUser
-      ? '<button type="button" id="logout-button" class="default-button">로그아웃</button>'
+      ? `<button type="button" id="thumbnail-button">${nameFirstLetter}</button>
+        <select class="thumbnail-option hide" name="thumbnail-option">
+          <option value="edit-user-info">회원정보 수정</option>
+          <option value="logout">로그아웃</option>
+        </select>
+      `
       : '<a id="login-button" class="default-button" href="#login">로그인</a>'
   }
   <h1>🍿 자판기 🍿</h1>
