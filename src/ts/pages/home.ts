@@ -1,7 +1,7 @@
 import CoinManagement from '../domain/CoinManagement';
 import MoneyManagement from '../domain/MoneyManagement';
 import ProductManagement from '../domain/ProductManagement';
-import { $, replaceHTML } from '../utils/dom';
+import { $, $$, replaceHTML } from '../utils/dom';
 import { basePath } from '../../App';
 import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
@@ -12,7 +12,6 @@ import type { UserInfoWithPassWord } from '../../apis';
 export default class HomePage {
   constructor(
     private readonly routePage,
-    private readonly activateClickedButton,
     private readonly productManagement = new ProductManagement(),
     private readonly coinManagement = new CoinManagement(),
     private readonly moneyManagement = new MoneyManagement(),
@@ -29,7 +28,6 @@ export default class HomePage {
     ),
   ) {
     this.routePage = routePage;
-    this.activateClickedButton = activateClickedButton;
   }
 
   async render() {
@@ -66,6 +64,25 @@ export default class HomePage {
     [$('.user-thumbnail').innerText] = user.name;
 
     $('.logined-user-tab').addEventListener('change', this.selectChangeHandler);
+  }
+
+  activateClickedButton = (pathname: string) => {
+    $$('.nav__button').forEach($button => {
+      if (
+        this.checkMatchPathname(
+          $button.dataset.pathname,
+          pathname.replace(basePath, ''),
+        )
+      ) {
+        $button.classList.add('active');
+        return;
+      }
+      $button.classList.remove('active');
+    });
+  };
+
+  private checkMatchPathname(buttonPathname: string, pathname: string) {
+    return buttonPathname === pathname;
   }
 
   selectChangeHandler = (e: Event) => {

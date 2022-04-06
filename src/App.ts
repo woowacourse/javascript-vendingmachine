@@ -1,4 +1,3 @@
-import { $$ } from './ts/utils/dom';
 import SignupPage from './ts/pages/signup';
 import LoginPage from './ts/pages/login';
 import HomePage from './ts/pages/home';
@@ -15,7 +14,7 @@ export default class App {
 
   constructor() {
     this.loginPage = new LoginPage(this.routePage);
-    this.homePage = new HomePage(this.routePage, this.activateClickedButton);
+    this.homePage = new HomePage(this.routePage);
     this.signupPage = new SignupPage(this.routePage);
     this.userEditPage = new UserEditPage(this.routePage);
 
@@ -24,30 +23,8 @@ export default class App {
   }
 
   private popStateHandler = () => {
-    if (location.pathname === `${basePath}/`) {
-      this.activateClickedButton(location.pathname);
-    }
     this.routePage(location.pathname);
   };
-
-  activateClickedButton = (pathname: string) => {
-    $$('.nav__button').forEach($button => {
-      if (
-        this.checkMatchPathname(
-          $button.dataset.pathname,
-          pathname.replace(basePath, ''),
-        )
-      ) {
-        $button.classList.add('active');
-        return;
-      }
-      $button.classList.remove('active');
-    });
-  };
-
-  private checkMatchPathname(buttonPathname: string, pathname: string) {
-    return buttonPathname === pathname;
-  }
 
   routePage = (pathname: string) => {
     const endPoint = pathname.replace(basePath, '');
