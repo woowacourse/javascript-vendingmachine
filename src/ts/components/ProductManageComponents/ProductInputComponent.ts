@@ -50,7 +50,7 @@ export default class ProductInputComponent {
 
       renderSnackBar(
         this.$snackBarContainer,
-        `품명: ${productName}<br>가격: ${productPrice}<br>수량: ${productQuantity}<br>상품이 등록되셨습니다. 등록된 상품을 확인해주세요.`,
+        '상품이 정상적으로 등록되었습니다. 등록된 상품을 확인해주세요.',
         'success'
       );
 

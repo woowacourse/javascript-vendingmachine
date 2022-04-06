@@ -95,7 +95,7 @@ export default class ProductStateComponent {
 
       renderSnackBar(
         this.$snackBarContainer,
-        `상품이 정상적으로 수정되셨습니다. 수정된 상품을 확인해주세요.`,
+        `상품이 정상적으로 수정되었습니다. 수정된 상품을 확인해주세요.`,
         'success'
       );
     } catch ({ message }) {
