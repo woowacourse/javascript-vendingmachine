@@ -8,6 +8,7 @@ import {
   validateUpdateProduct,
   validateInputMoney,
   validatePurchaseProduct,
+  validateReturnCharge,
 } from '../validator';
 import Coin from './Coin';
 import { Product } from './Product';
@@ -158,8 +159,10 @@ class VendingMachine implements IVendingMachine {
 
   returnChange() {
     try {
-      const userInputMoney = this.moneyInput;
       const chargedCoin = this.amount;
+      validateReturnCharge(chargedCoin);
+
+      const userInputMoney = this.moneyInput;
       const change = new Change();
 
       change.calculateReturnChange({ userInputMoney, chargedCoin, change });

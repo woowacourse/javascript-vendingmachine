@@ -46,4 +46,5 @@ export const ERROR_MESSAGE = {
   PASSWORD_CONFIRM: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
   DUPLICATED_EMAIL: '중복된 이메일이 존재합니다.',
   NOT_MATCH_USER_INFO: '일치하는 정보가 없습니다.',
+  EMPTY_CHANGE: '자판기에 보유중인 잔돈이 없습니다. 관리자에게 문의해주세요.',
 };
