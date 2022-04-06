@@ -1,5 +1,5 @@
 export const checkPasswordValidation = (password: string) => {
-  const regExp = /^(?=.*[!@#$%^&*()_+=|<>?:{}]{0,20})(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}/i;
+  const regExp = /^(?=.*[!@#$%^&*()_+=|<>?:{}]{1,20})(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}/i;
   return regExp.test(password);
 };
 
