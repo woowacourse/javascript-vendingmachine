@@ -5,6 +5,7 @@ import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkCoinValidation } from '../../validators';
 import { SNACKBAR } from '../../constants';
+import showSnackbar from '../../utils/showSnackbar';
 
 class CoinChargeForm extends CustomElement {
   template() {
@@ -32,7 +33,7 @@ class CoinChargeForm extends CustomElement {
       alert(error.message);
       return;
     }
-    this.showSnackbar(SNACKBAR.COIN_CHARGE_SUCCESS);
+    showSnackbar(SNACKBAR.COIN_CHARGE_SUCCESS);
     this.initCoinInput($coinInput);
     CoinStoreInstance.dispatchAction(COIN_ACTION.COIN_CHARGE, coinInputValue);
   };

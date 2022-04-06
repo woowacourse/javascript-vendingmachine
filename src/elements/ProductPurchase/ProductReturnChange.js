@@ -3,6 +3,7 @@ import { $ } from '../../utils/dom';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
 import { SNACKBAR } from '../../constants';
+import showSnackbar from '../../utils/showSnackbar';
 
 class ProductReturnChange extends CustomElement {
   connectedCallback() {
@@ -49,7 +50,7 @@ class ProductReturnChange extends CustomElement {
   }
 
   handleReturnChangeButtonClick = () => {
-    this.showSnackbar(SNACKBAR.RETURN_CHANGE_SUCCESS);
+    showSnackbar(SNACKBAR.RETURN_CHANGE_SUCCESS);
     const oldCoinsCount = CoinStoreInstance.coinsCount;
     CoinStoreInstance.dispatchAction(COIN_ACTION.RETURN_CHANGE, oldCoinsCount);
   };

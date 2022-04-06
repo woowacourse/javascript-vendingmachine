@@ -4,6 +4,7 @@ import { checkPurchaseMoneyValidation } from '../../validators';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
 import { SNACKBAR } from '../../constants';
+import showSnackbar from '../../utils/showSnackbar';
 
 class PurchaseMoneyForm extends CustomElement {
   connectedCallback() {
@@ -44,7 +45,7 @@ class PurchaseMoneyForm extends CustomElement {
       alert(error.message);
       return;
     }
-    this.showSnackbar(SNACKBAR.PURCHASE_MONEY_INPUT_SUCCESS);
+    showSnackbar(SNACKBAR.PURCHASE_MONEY_INPUT_SUCCESS);
     this.initPurchaseMoneyInput($purchaseMoneyInput);
     CoinStoreInstance.dispatchAction(COIN_ACTION.PURCHASE_MONEY_INPUT, purchaseMoneyInputValue);
   };
