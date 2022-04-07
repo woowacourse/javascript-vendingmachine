@@ -63,6 +63,9 @@ describe('사용자 인증 기본 기능 테스트', () => {
       cy.loginWithNewUser(userData);
 
       cy.get('#user-button').click();
+
+      // 로그아웃을 위한 셀렉트 박스 숨김 처리
+      cy.get('#user-button').click();
     });
 
     it('로그인을 하면 탭 메뉴가 표시된다.', () => {
