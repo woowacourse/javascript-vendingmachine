@@ -63,6 +63,6 @@ const ALERT_MESSAGE = {
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 const DEV_MODE = false;
-const SERVER_URL = 'http://usage-json-server.herokuapp.com';
+const SERVER_URL = 'https://usage-json-server.herokuapp.com';
 
 export { PATH_NAME, RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE, ALERT_MESSAGE, DEV_MODE, SERVER_URL };
