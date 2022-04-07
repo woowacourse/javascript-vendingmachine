@@ -1,6 +1,7 @@
 import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface } from '../types';
 import { generateLoginTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
+import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 
 class LoginView implements ViewInterface {
@@ -50,7 +51,7 @@ class LoginView implements ViewInterface {
       this.userStore.validateLoginInput(logInfo);
       await this.userStore.login(logInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 

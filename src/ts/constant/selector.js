@@ -10,6 +10,7 @@ export const ID = {
   USER_INFO_FORM: 'user-info-form',
   EDIT_BUTTON: 'edit-button',
   LOGOUT_BUTTON: 'logout-button',
+  SNACKBAR: 'snackbar',
 };
 
 export const CLASS = {
@@ -30,4 +31,5 @@ export const CLASS = {
   SIDE_BUTTON_WRAPPER: 'side-button-wrapper',
   PURCHASE_ITEM_BUTTON: 'purchase-item-button',
   RETURN_BUTTON: 'return-button',
+  SHOW: 'show',
 };

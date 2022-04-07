@@ -1,6 +1,7 @@
 import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface } from '../types';
 import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
+import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
 
@@ -52,7 +53,7 @@ class RegisterView implements ViewInterface {
       this.userStore.validateUserInfoInput(registerInfo);
       await this.userStore.register(registerInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 

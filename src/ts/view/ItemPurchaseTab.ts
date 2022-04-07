@@ -5,6 +5,7 @@ import {
   generateItemPurchaseTableDataTemplate,
 } from '../template';
 import { selectDom, selectDoms } from '../utils';
+import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 import { INITIAL_COIN_COLLECTION } from '../constant/rule';
 
@@ -51,7 +52,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemPurchaseCashInput(inputedCash);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 
@@ -72,7 +73,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     try {
       this.vendingMachine.purchaseItem(itemIndex);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 
@@ -89,7 +90,7 @@ class ItemPurchaseTab extends VendingMachineTab {
     try {
       returnedCoinCollection = this.vendingMachine.returnCoin();
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
 
       this.renderReturnedCoinTable();
       return;

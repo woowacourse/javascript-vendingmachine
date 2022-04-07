@@ -1,8 +1,8 @@
 import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface, UserInfo } from '../types';
 import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
+import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
-import HASH from '../constant/hash';
 
 class UserInfoEditView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -54,7 +54,7 @@ class UserInfoEditView implements ViewInterface {
       this.userStore.validateUserInfoInput(userInfo);
       await this.userStore.editUserInfo(userInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 

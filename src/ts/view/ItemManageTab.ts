@@ -7,6 +7,7 @@ import {
 } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
+import showSnackbar from '../utils/snackbar';
 
 class ItemManageTab extends VendingMachineTab {
   itemInfoForm: HTMLElement | null = null;
@@ -38,7 +39,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 
@@ -125,7 +126,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo, false, itemIndex);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
     this.vendingMachine.editItem(itemInfo, itemIndex);
