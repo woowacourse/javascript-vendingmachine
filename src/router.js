@@ -91,7 +91,7 @@ export const updateUserInfo = () => {
   const { id } = userAuth;
   const accessToken = `Bearer ${userAuth.accessToken}`;
 
-  const url = `http://localhost:3000/600/users/${id}`;
+  const url = `https://woowa-vendingmachine-app.herokuapp.com/600/users/${id}`;
 
   fetch(url, {
     method: 'GET',

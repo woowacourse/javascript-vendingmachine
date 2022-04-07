@@ -7,7 +7,7 @@ const setLoginedUser = (userInfo) => {
 };
 
 export const signup = (email, name, password) => {
-  const url = 'http://localhost:3000/signup/';
+  const url = 'https://woowa-vendingmachine-app.herokuapp.com/signup/';
   const userInfo = {
     email,
     name,
@@ -46,7 +46,7 @@ export const signup = (email, name, password) => {
 };
 
 export const login = (email, password) => {
-  const url = 'http://localhost:3000/login/';
+  const url = 'https://woowa-vendingmachine-app.herokuapp.com/login/';
   const userInfo = {
     email,
     password,
@@ -98,7 +98,7 @@ export const modifyUserInfo = (email, name, password) => {
   const userInfo = JSON.parse(localStorage.getItem('userAuth'));
   const { id } = userInfo;
   const accessToken = `Bearer ${userInfo.accessToken}`;
-  const url = `http://localhost:3000/600/users/${id}`;
+  const url = `https://woowa-vendingmachine-app.herokuapp.com/600/users/${id}`;
   const newUserInfo = {
     email,
     name,
