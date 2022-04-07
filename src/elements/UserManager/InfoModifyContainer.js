@@ -1,7 +1,7 @@
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkNewUserInfoValidation } from '../../validators';
-// import { modifyUserInfo } from '../../utils/auth';
+import { modifyUserInfo } from '../../utils/auth';
 
 class InfoModifyContainer extends CustomElement {
   template() {
@@ -28,7 +28,7 @@ class InfoModifyContainer extends CustomElement {
   handleInfoFormSubmit = (event) => {
     event.preventDefault();
 
-    const emailInputValue = $('#info-email-input').value;
+    const emailInputValue = $('#info-email-input').getAttribute('placeholder');
     const nameInputValue = $('#info-name-input').value;
     const passwordInputValue = $('#info-password-input').value;
     const passwordConfirmValue = $('#info-password-confirm-input').value;
@@ -46,8 +46,7 @@ class InfoModifyContainer extends CustomElement {
       alert(error.message);
       return;
     }
-    this.renderProfileManager();
-    // modifyUserInfo(emailInputValue, nameInputValue, passwordInputValue);
+    modifyUserInfo(emailInputValue, nameInputValue, passwordInputValue);
   };
 
   setEvent() {

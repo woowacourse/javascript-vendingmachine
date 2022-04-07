@@ -32,7 +32,6 @@ export const signup = (email, name, password) => {
     .then((response) => {
       const userAuth = {
         accessToken: response.accessToken,
-        email: response.user.email,
         id: response.user.id,
       };
       setLoginedUser(userAuth);
@@ -93,4 +92,38 @@ export const logout = () => {
   localStorage.removeItem('userAuth');
 
   renderUserView();
+};
+
+export const modifyUserInfo = (email, name, password) => {
+  const userInfo = JSON.parse(localStorage.getItem('userAuth'));
+  const { id } = userInfo;
+  const accessToken = `Bearer ${userInfo.accessToken}`;
+  const url = `http://localhost:3000/600/users/${id}`;
+  const newUserInfo = {
+    email,
+    name,
+    password,
+  };
+
+  fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(newUserInfo),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        return res.text().then((text) => {
+          throw new Error(text);
+        });
+      }
+      renderManagerView();
+      showSnackbar(SNACKBAR.MODIFY_SUCCESS);
+      return res.json();
+    })
+    .catch((error) => {
+      alert(error);
+    });
 };
