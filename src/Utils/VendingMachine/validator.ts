@@ -46,3 +46,15 @@ export const validateHoldingAmountToAdd = (holdingAmountToAdd: number, totalAmou
 
   return true;
 };
+
+export const validateChargeAmountToAdd = (chargeAmount: number, totalAmount: number) => {
+  const { MAX_CHARGED_AMOUNT, MONEY_UNIT } = VENDING_MACHINE;
+
+  if (!Number.isInteger(chargeAmount)) throw new Error('충전 금액은 숫자만 입력할 수 있습니다.');
+  if (!isCorrectNumberUnit(chargeAmount, MONEY_UNIT))
+    throw new Error('충전 금액은 10원 단위로 입력할 수 있습니다.');
+  if (chargeAmount + totalAmount > MAX_CHARGED_AMOUNT)
+    throw new Error('최대 1만원까지만 충전할 수 있습니다.');
+
+  return true;
+};

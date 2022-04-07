@@ -2,7 +2,7 @@ import { $ } from 'Utils';
 import Component from 'Components/Abstract';
 import AmountInputForm from 'Components/@Shared/AmountInputForm';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
-import { validateHoldingAmountToAdd } from 'Utils/VendingMachine/validator';
+import { validateChargeAmountToAdd } from 'Utils/VendingMachine/validator';
 
 export default class PurchaseAmountForm extends Component {
   subscribeStore = [HoldingAmountStore];
@@ -24,6 +24,15 @@ export default class PurchaseAmountForm extends Component {
   }
 
   handleAddAmount(userInput: number) {
+    const { chargedAmount } = HoldingAmountStore.getState();
+
+    try {
+      validateChargeAmountToAdd(userInput, chargedAmount);
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+
     HoldingAmountStore.updateChargeAmount('charge', userInput);
     return true;
   }

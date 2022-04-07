@@ -1,3 +1,5 @@
+export * from 'Utils/User/validator';
+
 export const $ = (selector, node: HTMLElement | DocumentFragment = document.body) =>
   node.querySelector(selector);
 export const $$ = (selector, node: HTMLElement | DocumentFragment = document.body) =>
@@ -19,6 +21,32 @@ export const getEntryPath = (patnName = ''): string => {
   const paths = pathName.split('/').filter(entry => entry !== '');
 
   return paths[paths.length - 1];
+};
+
+export const setCookie = (key: string, value: string, expire = 3600) => {
+  const expireDate = new Date();
+  expireDate.setSeconds(expireDate.getSeconds() + expire);
+
+  document.cookie = `${key}=${encodeURIComponent(value)}; expires=${expireDate.toUTCString()};`;
+};
+
+export const getCookie = targetKey => {
+  const splitCookie = document.cookie.split('; ');
+  const cookieList = splitCookie.reduce((previous, cookie) => {
+    const [key, value] = cookie.split('=');
+
+    previous[key] = decodeURIComponent(value);
+    return previous;
+  }, {});
+
+  return cookieList[targetKey];
+};
+
+export const getTimeStamp = (): number => Math.floor(new Date().getTime() / 1000);
+
+export const routingEvent = (pagePath: string): void => {
+  window.history.pushState({ path: pagePath }, '', pagePath);
+  window.dispatchEvent(new Event('popstate'));
 };
 
 export const convertStringToElement = (htmlString = ''): HTMLElement => {
@@ -54,6 +82,7 @@ export const setElementProperty = (
 
     switch (typeof element[key]) {
       case 'string':
+      case 'boolean':
         element[key] = value;
         break;
       case 'function':
