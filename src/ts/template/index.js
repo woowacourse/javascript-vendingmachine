@@ -73,18 +73,18 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
     </table>
 `;
 
-export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
-    <tr data-item-name="${itemName}">
-      <td>${itemName}</td>
-      <td>${itemPrice}</td>
-      <td>${itemQuantity}</td>
-      <td class="item-button-cell">
-        <button type="button" class="default-button confirm-item-button">구매</button>
-      </td>
-    </tr>
+export const generateItemPurchaseTableDataTemplate = ({ itemName, itemPrice, itemQuantity }) => `
+    <td>${itemName}</td>
+    <td>${itemPrice}</td>
+    <td>${itemQuantity}</td>
+    <td class="item-button-cell">
+      <button type="button" class="default-button purchase-item-button"
+        ${itemQuantity === 0 ? 'disabled' : ''}
+      >구매</button>
+    </td>
 `;
 
-export const generateItemPurchaseTabContentTemplate = (chargedCash) => `
+export const generateItemPurchaseTabContentTemplate = (itemList, chargedCash) => `
   <form id="cash-charge-form" class="input-form">
     <label>상품을 구매할 금액을 투입해주세요.</label>
     <div class="input-form-container">
@@ -102,16 +102,15 @@ export const generateItemPurchaseTabContentTemplate = (chargedCash) => `
         <th><span>수량</span></th>
         <th><span>구매</span></th>
       </tr>
-      ${generateItemPurchaseTableRowTemplate({
-        itemName: '콜라',
-        itemPrice: 1500,
-        itemQuantity: 20,
-      })}
-      ${generateItemPurchaseTableRowTemplate({
-        itemName: '사이다',
-        itemPrice: 1000,
-        itemQuantity: 10,
-      })}
+      ${itemList
+        .map((item) => {
+          return `
+          <tr data-item-name="${item.itemName}">
+            ${generateItemPurchaseTableDataTemplate(item)}
+          </tr>
+        `;
+        })
+        .join('')}
     </table>
   </div>
   <table class="coin-return-table">

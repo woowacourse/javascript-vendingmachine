@@ -105,6 +105,17 @@ class VendingMachine implements VendingMachineInterface {
     this._itemList[itemIndex] = itemInfo;
   }
 
+  purchaseItem(itemIndex: number): void {
+    const itemInfo: ItemInfoType = this.itemList[itemIndex];
+
+    if (this.itemPurchaseCash < itemInfo.itemPrice) {
+      throw new Error(ITEM_PURCHASE_CASH_ERROR_MESSAGE.LACK_MONEY);
+    }
+
+    this.itemList[itemIndex] = { ...itemInfo, itemQuantity: itemInfo.itemQuantity - 1 };
+    this.itemPurchaseCash -= itemInfo.itemPrice;
+  }
+
   chargeCoin(rechargeCoin: number): number {
     let candidateCoins = [COIN_500, COIN_100, COIN_50, COIN_10];
     let remainCoin = rechargeCoin;

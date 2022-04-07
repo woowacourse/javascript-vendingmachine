@@ -9,3 +9,11 @@
   margin-top: 16px;
   padding: 7px 0;
 }
+
+.purchase-item-button {
+  width: 100%;
+}
+
+.purchase-item-button:disabled {
+  background-color: var(--item-purchase-disabled-button-background-color);
+}

@@ -20,6 +20,7 @@ export const ITEM_PURCHASE_CASH_ERROR_MESSAGE = {
   NOT_NUMBER_TYPE: '숫자를 입력해주세요.',
   EXCEED_CASH_RANGE: '충전할 금액은 10원 이상 10,000원 이하로 입력해주세요.',
   NOT_DIVIDED_BY_UNIT: '충전할 금액은 10원으로 나누어 떨어져야 합니다.',
+  LACK_MONEY: '금액이 부족합니다. 금액을 더 충전해주세요.',
 };
 
 export const AUTHENTICATION_MESSAGE = {

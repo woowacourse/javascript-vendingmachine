@@ -30,6 +30,7 @@ export interface VendingMachineInterface {
   addItem: (itemInfo: ItemInfoType) => ItemInfoType;
   editItem: (itemInfo: ItemInfoType, itemIndex: number) => void;
   deleteItem: (itemName: string) => void;
+  purchaseItem: (itemIndex: number) => void;
 
   chargeCoin: (rechargeCoin: number) => number;
   calculateTotalCoinAmount: () => number;
