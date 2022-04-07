@@ -1,7 +1,7 @@
 import { getCookie } from '../utils';
 
 export async function signup(email: string, name: string, password: string) {
-  const response = await fetch('http://localhost:3000/register', {
+  const response = await fetch('https://vendingmachine-auth-server.herokuapp.com/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export async function signup(email: string, name: string, password: string) {
 }
 
 export async function login(email: string, password: string) {
-  const response = await fetch('http://localhost:3000/login', {
+  const response = await fetch('https://vendingmachine-auth-server.herokuapp.com/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export async function getUser(): Promise<object> {
   const userId: string = getCookie('user_id');
   const accessToken: string = getCookie('access_token');
 
-  const response = await fetch(`http://localhost:3000/users/${userId}`, {
+  const response = await fetch(`https://vendingmachine-auth-server.herokuapp.com/users/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

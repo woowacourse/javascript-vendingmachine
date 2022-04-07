@@ -19,7 +19,7 @@ class Login extends CustomElement {
           <button class="login-confirm-button">확인</button>
         </fieldset>
       </form>
-      <p>아직 회원이 아니신가요? <span><a href="#!signup">회원가입</a></span></p>
+      <p>아직 회원이 아니신가요? <span><a href="#!signup" class="signup-button">회원가입</a></span></p>
     `;
   }
 

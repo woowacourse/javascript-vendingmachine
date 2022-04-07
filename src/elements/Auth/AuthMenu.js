@@ -17,7 +17,7 @@ class AuthMenu extends CustomElement {
 
     if (isLoggedIn()) {
       const user = await getUser();
-      userNameFirstChar = user.name.charAt(0);
+      userNameFirstChar = user.name?.charAt(0);
     }
 
     this.insertAdjacentHTML('beforeend', this.template(userNameFirstChar));
@@ -34,7 +34,7 @@ class AuthMenu extends CustomElement {
       </a>
       <button class="user-button ${isUserButtonHidden}">${userNameFirstChar}</button>
       <div class="user-menu-select-box hidden">
-        <a href="#!user-info-modify">
+        <a href="#!user-info-modify" class="user-info-modify-button">
           <button>🛠 회원 정보 수정</button>
         </a>
         <button class="logout-button">👋🏻 로그아웃</button>
