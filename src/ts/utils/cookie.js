@@ -9,7 +9,7 @@ export const setCookie = (key, value, period) => {
 
 export const getCookie = (key) => {
   return (
-    document.cookie ??
+    document.cookie &&
     document.cookie
       .split('; ')
       .find((pair) => pair.startsWith(key))
