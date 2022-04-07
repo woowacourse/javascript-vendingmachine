@@ -70,7 +70,6 @@ export default class ProductPurchaseView {
   #onSubmitPurchaseAmount(e) {
     e.preventDefault();
     if (e.target.id !== 'purchase-form') return;
-    console.log(this.$productPurchaseInput);
     const inputAmount = this.$productPurchaseInput.valueAsNumber;
     emit(SECTION_CONTAINER, '@purchase', { inputAmount });
   }
