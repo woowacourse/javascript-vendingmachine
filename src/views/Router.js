@@ -16,16 +16,7 @@ class Router extends Component {
 
   render() {
     const component = this.getComponent();
-    const loginRequired = convertStringToBoolean(
-      component.getAttribute('loginRequired')
-    );
-
-    if (auth.isUnaccessible(loginRequired)) {
-      const state = {};
-
-      window.history.pushState(state, '', PAGES.LANDING.PATH);
-      dispatchEvent(new PopStateEvent('popstate', { state }));
-    }
+    this.redirect(component);
 
     this.clearDOM();
     this.appendChild(component);
@@ -44,6 +35,29 @@ class Router extends Component {
     return location === PAGES.LANDING.PATH
       ? routes[0].component
       : currentRoute?.component;
+  }
+
+  redirect(component) {
+    const loginRequired = convertStringToBoolean(
+      component.getAttribute('loginRequired')
+    );
+    const redirection = auth.authRoute(loginRequired);
+    const state = {};
+
+    switch (redirection) {
+      case 'landing':
+        window.history.pushState(state, '', PAGES.LANDING.PATH);
+        dispatchEvent(new PopStateEvent('popstate', { state }));
+        break;
+
+      case 'login':
+        window.history.pushState(state, '', '/login');
+        dispatchEvent(new PopStateEvent('popstate', { state }));
+        break;
+
+      default:
+        break;
+    }
   }
 }
 

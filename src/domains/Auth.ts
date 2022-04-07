@@ -77,10 +77,18 @@ export default class Auth extends Domain<AuthState> {
     };
   }
 
-  isUnaccessible(loginRequired) {
+  authRoute(loginRequired: boolean | null) {
     const isLoggedIn = Boolean(this.state.accessToken);
 
-    return isLoggedIn ? loginRequired === false : loginRequired;
+    if (isLoggedIn && loginRequired === false) {
+      return 'landing';
+    }
+
+    if (!isLoggedIn && loginRequired) {
+      return 'login';
+    }
+
+    return 'authorized';
   }
 }
 
