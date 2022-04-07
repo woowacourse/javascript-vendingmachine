@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
+    "server": "json-server db.json -m ./node_modules/json-server-auth",
     "start": "webpack serve --open",
     "build": "webpack",
     "deploy": "gh-pages -d dist"
