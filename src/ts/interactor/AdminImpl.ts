@@ -56,7 +56,7 @@ export default class AdminImpl implements Admin {
   }
 
   logout(): void {
-    if (!this.isLogin()) throw new Error('이미 로그아웃 상태입니다.');
+    if (!this.isLogin()) throw new Error(ERROR_MESSAGE.ALLREADY_LOGOUT);
 
     this.adminName = '';
     this.adminId = 0;
@@ -87,6 +87,6 @@ export default class AdminImpl implements Admin {
   }
 
   private throwAuthError() {
-    if (!this.isLogin()) throw new Error('권한이 없습니다!');
+    if (!this.isLogin()) throw new Error(ERROR_MESSAGE.DON_HAVE_AUTH);
   }
 }

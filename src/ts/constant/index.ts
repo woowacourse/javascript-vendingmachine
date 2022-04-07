@@ -41,10 +41,15 @@ export const ERROR_MESSAGE = {
   EXCEED_MAX_USER_INPUT_MONEY: `최대 ${USER_INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원까지 투입 가능합니다!`,
   LOCK_OF_USER_INPUT_MONEY: '투입 금액이 모자랍니다!',
   INVALID_FORM_EMALI: '이메일 형식을 지켜주세요!',
+  OVERLAP_EMAIL: '중복된 이메일 입니다!',
+  INVALID_EMAIL_PASSWORD: '이메일과 비밀번호가 일치하지 않습니다!',
+  NOT_EXIST_ADMIN: '존재하지 않는 어드민 입니다.',
   OUT_OF_RANGE_ADMIN_NAME: `이름은 ${ADMIN_DATA_RULES.MIN_NAME_LENGTH}이상 ${ADMIN_DATA_RULES.MAX_NAME_LENGTH}이하로 입력해주세요!`,
   OUT_OF_RANGE_ADMIN_PASSWORD: `비밀번호는 ${ADMIN_DATA_RULES.MIN_PASSWORD_LENGTH}이상 ${ADMIN_DATA_RULES.MAX_PASSWORD_LENGTH}이하로 입력해주세요!`,
   INVALID_FORM_ADMIN_PASSWORD: '비밀번호는 문자와 숫자를 모두 포함해야 합니다!',
   MISMATCH_PASSWORD_CONFIRMATION: '비밀번호와 비밀번호 확인이 일치해야 합니다!',
+  ALLREADY_LOGOUT: '이미 로그아웃 상태입니다',
+  DON_HAVE_AUTH: '권한이 없습니다!',
 };
 
 export const CONFIRM_DELETE_PRODUCT_MESSAGE = '정말 삭제하시겠습니까?';

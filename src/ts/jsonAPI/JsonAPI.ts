@@ -1,4 +1,5 @@
 import { AdminData, AdminEmail, AdminPassword } from '../../index.d';
+import { ERROR_MESSAGE } from '../constant';
 import API from '../interactor/API';
 
 export default class JsonAPI implements API {
@@ -21,7 +22,7 @@ export default class JsonAPI implements API {
       }),
     });
 
-    if (!response.ok) throw new Error('중복된 이메일 입니다!');
+    if (!response.ok) throw new Error(ERROR_MESSAGE.OVERLAP_EMAIL);
   }
 
   async modifyAdmin(admin: AdminData, id: number, key: string) {
@@ -38,7 +39,7 @@ export default class JsonAPI implements API {
       }),
     });
 
-    if (!response.ok) throw new Error('이메일과 비밀번호가 일치하지 않습니다!');
+    if (!response.ok) throw new Error(ERROR_MESSAGE.INVALID_EMAIL_PASSWORD);
   }
 
   async login(email: AdminEmail, password: AdminPassword) {
@@ -50,7 +51,7 @@ export default class JsonAPI implements API {
       body: JSON.stringify({ email, password }),
     });
 
-    if (!response.ok) throw new Error('이메일과 비밀번호가 일치하지 않습니다!');
+    if (!response.ok) throw new Error(ERROR_MESSAGE.INVALID_EMAIL_PASSWORD);
 
     const body = await response.json();
 
@@ -69,7 +70,7 @@ export default class JsonAPI implements API {
       },
     });
 
-    if (!response.ok) throw new Error('존재하지 않는 어드민 입니다.');
+    if (!response.ok) throw new Error(ERROR_MESSAGE.NOT_EXIST_ADMIN);
 
     const admin = await response.json();
 
