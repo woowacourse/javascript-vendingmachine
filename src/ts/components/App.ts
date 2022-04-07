@@ -144,6 +144,7 @@ class App {
   }
 
   showThumnailButton() {
+    this.thumnailButton.textContent = getSessionStorage("userInfo").name.slice(0, 1);
     this.thumnailButton.classList.remove("hide");
   }
 
