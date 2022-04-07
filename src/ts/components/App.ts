@@ -38,7 +38,7 @@ class App {
       "beforeend",
       `<div class="header-container">
         <button type="button" class="header__login-button button">로그인</button>
-        <button type="button" class="header__thumnail-button button hide">K</button>
+        <button type="button" class="header__thumnail-button button hide"></button>
        </div>
        <div class="select-box hide">
          <button type="button" class="select-box__button button" data-menu="#profile">회원 정보 수정</button>

@@ -1,6 +1,10 @@
 import { $ } from "../../utils/dom";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
+import { saveSessionStorage } from "../../utils/sessionStorage";
 import { ConvertTemplate, HideHeader } from "../App";
+import Snackbar from "../Snackbar";
 import { loginTemplate } from "./loginTemplate";
+import { requestLogin } from "../../api";
 
 class LoginComponent {
   loginContainer: HTMLElement;
@@ -9,8 +13,10 @@ class LoginComponent {
   loginEmailInput: HTMLInputElement;
   loginPasswordInput: HTMLInputElement;
   loginForm: HTMLFormElement;
+  snackbar: Snackbar;
 
   constructor(private hideHeader: HideHeader, private convertTemplate: ConvertTemplate) {
+    this.snackbar = new Snackbar();
     this.loginContainer = $(".login-manange__container");
     this.loginContainer.replaceChildren();
     this.loginContainer.insertAdjacentHTML("beforeend", loginTemplate());
@@ -25,18 +31,23 @@ class LoginComponent {
     this.signupButton.addEventListener("click", this.handleSignUpButton);
   }
 
-  handleLogin = (e) => {
+  handleLogin = async (e) => {
     e.preventDefault();
     const email = this.loginEmailInput.value;
     const password = this.loginPasswordInput.value;
-    console.log(email, password);
 
-    this.login(email, password);
+    try {
+      const { accessToken, user } = await requestLogin({ email, password });
+      saveSessionStorage("accessToken", accessToken);
+      saveSessionStorage("userInfo", user);
+
+      history.pushState({ path: "#purchase" }, null, "#purchase");
+      this.convertTemplate("#purchase");
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_LOGIN);
+    } catch ({ message }) {
+      this.snackbar.show(message);
+    }
   };
-
-  async login(email, password) {
-    //
-  }
 
   handleSignUpButton = () => {
     history.pushState({ path: "#signup" }, null, "#signup");

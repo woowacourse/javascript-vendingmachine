@@ -25,4 +25,25 @@ const requestSignup = async ({ name, email, password, passwordCheck }) => {
   }
 };
 
-export { requestSignup };
+const requestLogin = async ({ email, password }) => {
+  try {
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.FAIL_LOGIN);
+    }
+
+    const { accessToken, user } = await response.json();
+    return { accessToken, user };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export { requestSignup, requestLogin };
