@@ -47,7 +47,7 @@ class Signup extends CustomElement {
   async signUp($email, $name, $password, $passwordConfirm) {
     const userName = $name.value.trim();
 
-    checkSignupValidation(userName, $password, $passwordConfirm);
+    checkSignupValidation(userName, $password.value, $passwordConfirm.value);
 
     await signup($email.value, userName, $password.value);
 
