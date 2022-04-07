@@ -10,7 +10,7 @@ export default class Router {
     this.view = view;
 
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PURCHASE_PRODUCT;
-    history.replaceState({ url: this.currentTab }, null, this.currentTab);
+    this.tabRouter(this.currentTab, false);
 
     window.addEventListener('popstate', (event: PopStateEvent) => {
       const url = event.state ? event.state.url : PATH_ID.NOT_FOUND;
@@ -21,8 +21,6 @@ export default class Router {
       this.tabRouter(url, false);
     });
 
-    auth.isLoggedIn ? renderUserPrivatePage() : renderPublicPage();
-
     // 웹컴포넌트에서 보낸 커스텀 이벤트
     window.addEventListener('@route-login', () => {
       this.routeLogin(PATH_ID.PRODUCT_MANAGE);
@@ -32,18 +30,26 @@ export default class Router {
 
   private routeLogin = (url: string) => {
     this.tabRouter(url, false);
-    renderUserPrivatePage();
   };
 
   private routeLogout = () => {
+    localStorage.setItem(STORAGE_ID.CURRENT_TAB, PATH_ID.PURCHASE_PRODUCT);
+
     this.tabRouter(PATH_ID.PURCHASE_PRODUCT, false);
-    renderPublicPage();
   };
 
   private tabRouter = (url: string, isPopState = false) => {
+    this.view.renderTabs(url);
+    if (!auth.isLoggedIn) {
+      history.pushState({ url }, null, url);
+      renderPublicPage();
+
+      return;
+    }
+
     if (!isPopState && url !== location.pathname + location.hash) {
       history.pushState({ url }, null, url);
     }
-    this.view.renderTabs(url);
+    renderUserPrivatePage();
   };
 }

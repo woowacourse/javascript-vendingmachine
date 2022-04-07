@@ -79,15 +79,11 @@ export default class View {
     this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
     this.renderUpdatedView(url);
 
-    if (!auth.isLoggedIn) {
-      return;
-    }
-
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
       if (container.id === url) {
         container.classList.remove('hide');
         this.$$tabButtons[index].checked = true;
-        localStorage.setItem(STORAGE_ID.CURRENT_TAB, url);
+
         return;
       }
       container.classList.add('hide');
