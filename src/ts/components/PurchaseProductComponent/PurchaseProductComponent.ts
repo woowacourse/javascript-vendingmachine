@@ -46,6 +46,7 @@ export default class PurchaseProductComponent {
       this.render,
       this.renderTotalMoney
     );
+
     on(this.$app, '@purchaseTabClicked', this.render);
   }
 

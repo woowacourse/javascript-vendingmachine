@@ -14,15 +14,13 @@ export default class SignupComponent {
   ) as HTMLInputElement;
 
   constructor() {
-    on(this.$signupForm, 'submit', this.onSignUp);
+    on($('.signup-button'), 'click', this.onSignUp);
   }
 
   onSignUp = async (e) => {
     e.preventDefault();
 
     try {
-      const email = this.$emailInput.value;
-      const name = this.$nameInput.value;
       const password = this.$passwordInput.value;
       const passwordConfirm = this.$passwordConfirmInput.value;
 
@@ -37,13 +35,20 @@ export default class SignupComponent {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({
+          name: this.$nameInput.value,
+          email: this.$emailInput.value,
+          password,
+        }),
       });
 
       if (response.ok) {
-        const { accessToken, user } = await response.json();
+        const {
+          accessToken,
+          user: { email, name, id },
+        } = await response.json();
 
-        setCurrentUser({ accessToken, name: user.name, email: user.email });
+        setCurrentUser({ accessToken, name, email, id });
 
         location.pathname = MAIN_PAGE;
       }

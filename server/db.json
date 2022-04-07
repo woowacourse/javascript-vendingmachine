@@ -14,9 +14,21 @@
     },
     {
       "email": "123456@abc.coom",
-      "password": "$2a$10$Jlj3MHzsbfro/T.pREbikuG9eoHXaevw92amMGLldTCdg6mnuSGuO",
-      "name": "123456",
-      "id": 3
+      "password": "$2a$10$JNPIc/xNCkUyCF0DwDTKTOigmoOqtM7H3yC1MrbvP7u/PzRbn3lSO",
+      "id": 3,
+      "name": "꼬재"
+    },
+    {
+      "email": "kwannee@gmail.com",
+      "password": "$2a$10$mfvzCmWzvzoUNRArsPZULunNp.SHhP7aeNM.3pCycsfBqo6LrGQYm",
+      "name": "광희최",
+      "id": 4
+    },
+    {
+      "email": "poly@gmail.com",
+      "password": "$2a$10$sl4Zlwu/NxbcQhJ9Rgk8qOaSw2CnR/tcYfmRC1l0/6oOGG4y3opGe",
+      "name": "후이",
+      "id": 5
     }
   ]
 }

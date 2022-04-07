@@ -1,12 +1,12 @@
 import { $, $$ } from '../dom';
 import { MAIN_PAGE } from '../constants';
 import { emit, on } from '../events';
-import { getCurrentUser, isUserLoggedIn } from '../auth';
+import { isUserLoggedIn } from '../auth';
 
 const tabs = ['products', 'coins', 'purchase'];
 
 const render = (activePage: string, path: string) => {
-  if (tabs.some((tab) => tab === path)) {
+  if (tabs.some((tab) => tab === path) && $('.nav__list')) {
     $(`.nav__${path}-button`).className =
       path === activePage
         ? `nav__button nav__${path}-button nav__button--focused`
@@ -21,36 +21,40 @@ export default class NavigatorComponent {
   private $title = $('.vending-machine-title');
   private $nav = $('.nav');
   private $navList = $('.nav__list');
-  private $tabs = $$('[data-path]');
+  private $pages = $$('[data-path]');
 
   constructor() {
-    on(this.$navList, 'click', this.onClickTab);
+    on(this.$app, 'click', this.onClickRoute);
     on(window, 'popstate', this.routeByPath);
 
-    if (isUserLoggedIn()) {
-      $('.nav__login-button').classList.add('hide');
-      $('.nav__user-button').classList.remove('hide');
-    } else {
-      $('.nav__login-button').classList.remove('hide');
-      $('.nav__user-button').classList.add('hide');
+    this.renderUserButton();
+    const customerAccessiblePages = ['/purchase', '/login', '/signup'];
+    if (!isUserLoggedIn()) {
+      this.$navList.remove();
+    }
+    if (
+      !isUserLoggedIn() &&
+      !customerAccessiblePages.some((page) => window.location.pathname === page)
+    ) {
+      location.pathname = '/purchase';
     }
     this.routeByPath();
   }
 
-  private onClickTab = (e) => {
-    e.preventDefault();
+  private onClickRoute = (e) => {
+    if (e.target.dataset.path) {
+      e.preventDefault();
 
-    if (e.target.classList.contains('nav__button')) {
       this.changePage(e.target.dataset.path);
       window.history.pushState(null, null, e.target.dataset.path);
       emit(this.$app, `@${e.target.dataset.path}TabClicked`);
     }
   };
 
-  private changePage = (targetTab) => {
-    Array.from(this.$tabs).forEach((tabElement: HTMLElement) => {
-      render(targetTab, tabElement.dataset.path);
-      this.renderTitle(targetTab);
+  private changePage = (targetPage) => {
+    Array.from(this.$pages).forEach((page: HTMLElement) => {
+      render(targetPage, page.dataset.path);
+      this.renderTitle(targetPage);
     });
   };
 
@@ -72,5 +76,13 @@ export default class NavigatorComponent {
     }
   };
 
-  private renderUser = () => {};
+  private renderUserButton = () => {
+    if (isUserLoggedIn()) {
+      $('.nav__login-button').classList.add('hide');
+      $('.logged-user-wrapper').classList.remove('hide');
+    } else {
+      $('.nav__login-button').classList.remove('hide');
+      $('.logged-user-wrapper').classList.add('hide');
+    }
+  };
 }
