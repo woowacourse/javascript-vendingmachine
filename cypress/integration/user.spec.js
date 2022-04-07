@@ -4,6 +4,10 @@ describe("유저 정보 테스트", () => {
     cy.login();
   });
 
+  it("로그인 상태에서는 자판기 관리 탭을 볼 수 있다.", () => {
+    cy.get(".menu-nav").should("be.visible");
+  });
+
   it("회원 이름을 수정하면 썸네일 문자가 변경된다.", () => {
     const newUserName = "woo";
 
@@ -24,5 +28,9 @@ describe("유저 정보 테스트", () => {
     cy.get('[data-menu="#logout"]').click();
 
     cy.get(".header__login-button").should("be.visible");
+  });
+
+  it("로그아웃 상태에서는 자판기 관리 탭을 볼 수 없다.", () => {
+    cy.get(".menu-nav").should("not.be.visible");
   });
 });
