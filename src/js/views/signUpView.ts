@@ -10,8 +10,8 @@ export default class SignUpView {
   }
 
   handleSubmitSignUpForm(event) {
+    event.preventDefault();
     try {
-      event.preventDefault();
       const targetId = event.target.id;
       const email = $('#signup-email-input').value.trim();
       const name = $('#signup-name-input').value.trim();

@@ -18,7 +18,8 @@ export default class ChargeMoneyView {
     );
   }
 
-  handleSubmitChargeMoney() {
+  handleSubmitChargeMoney(event) {
+    event.preventDefault();
     try {
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 

@@ -21,10 +21,13 @@ export default class ChargeMoneyController implements Controller {
 
   handleChargeMoney(event: CustomEvent) {
     const { inputMoney }: MoneyDetailType = event.detail;
+    const isLogin = sessionStorage.getItem('isLogIn') === 'true' ? true : false;
 
     this.vendingMachine.chargeOwnMoney(inputMoney);
 
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
+
+    this.loadPage(isLogin);
   }
 
   loadPage(isLogin) {

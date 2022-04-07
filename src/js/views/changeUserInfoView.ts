@@ -9,8 +9,8 @@ export default class ChangeUserInfoView {
   }
 
   handleSubmitChangeForm(event) {
+    event.preventDefault();
     try {
-      event.preventDefault();
       const targetId = event.target.id;
       const name = $('#change-name-input').value;
       const password = $('#change-password-input').value;

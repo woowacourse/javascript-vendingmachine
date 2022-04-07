@@ -10,8 +10,8 @@ export default class LogInView {
   }
 
   handleSubmitLogInForm(event) {
+    event.preventDefault();
     try {
-      event.preventDefault();
       const targetId = event.target.id;
       const email = $('#login-email-input').value;
       const password = $('#login-password-input').value;

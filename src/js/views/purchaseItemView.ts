@@ -41,7 +41,8 @@ export default class PurchaseItemView {
     );
   }
 
-  handleSubmitPurchaseMoneyInput() {
+  handleSubmitPurchaseMoneyInput(event) {
+    event.preventDefault();
     try {
       const inputMoney: number = $(SELECTOR.CLASS.PURCHASE_ITEM_INPUT).valueAsNumber;
 

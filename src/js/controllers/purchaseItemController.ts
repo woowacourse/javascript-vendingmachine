@@ -44,6 +44,7 @@ export default class PurchaseItemController implements Controller {
     const { inputMoney }: MoneyDetailType = event.detail;
 
     this.vendingMachine.chargePurchaseInputMoney(inputMoney);
+    this.loadPage();
   }
 
   loadPage() {

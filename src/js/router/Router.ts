@@ -98,8 +98,8 @@ export default class Router {
     }
 
     if (!hash) {
-      this.$header.classList.remove('display-none');
-      this.manageItemController.loadPage(isLogin);
+      this.$header.classList.add('display-none');
+      this.logInController.loadPage(isLogin);
       this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
