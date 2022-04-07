@@ -1,4 +1,5 @@
 import { $, getEntryPath } from 'Utils';
+import { DEFAULT_PAGE } from 'Constants';
 
 export default class Router {
   pageList;
@@ -29,7 +30,7 @@ export default class Router {
   }
 
   pageRender(pathParams) {
-    const pageName = getEntryPath(pathParams) || 'product';
+    const pageName = getEntryPath(pathParams) || DEFAULT_PAGE;
     if (!this.pageList[pageName]) {
       alert('찾을 수 없는 페이지입니다.');
       history.back();

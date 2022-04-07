@@ -9,6 +9,8 @@ export const VENDING_MACHINE = {
   MAX_PRODUCT_QUANTITY: 20,
 
   MAX_HOLDING_AMOUNT: 100000,
+  MAX_CHARGED_AMOUNT: 10000,
+
   MONEY_UNIT: 10,
 };
 
@@ -29,3 +31,11 @@ export const ERROR_MESSAGE = {
 };
 
 export const COIN_TYPE = [500, 100, 50, 10].sort((a, b) => b - a);
+
+export const DEFAULT_PAGE = 'purchase';
+
+export const USER_SESSION_SETTING = {
+  EXPIRE_TIME: 1 * 60 * 60,
+  TOKEN_COOKIE_NAME: 'SESSION_TOKEN',
+  USER_INFO_STORAGE_NAME: 'SESSION_USER_INFO',
+};
