@@ -44,7 +44,7 @@ const ERROR_MESSAGES = {
   NOT_ENOUGH_INPUT_AMOUNT: "투입한 금액이 없어서 반환할 수 없습니다.",
   CANNOT_PARSE_JSON: "저장된 데이터가 유효하지 않은 JSON 형식입니다.",
   FAIL_SIGNUP: "회원가입이 실패하였습니다.",
-  FAIL_LOGIN: "로그인이 실패하였습니다.",
+  FAIL_LOGIN: "로그인이 실패하였습니다. 비밀번호 또는 이메일을 확인해주세요.",
   FAIL_EDIT_PROFILE: "회원 정보 수정이 실패하였습니다.",
   INVALID_USER_NAME_LENGTH: `유저 이름은 ${USER_NAME.MIN_LENGTH}~${USER_NAME.MAX_LENGTH}자 사이로 입력해주세요.`,
   NOT_MATCH_PASSWORD: "비밀번호가 일치하지 않습니다.",
