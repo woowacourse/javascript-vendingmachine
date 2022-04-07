@@ -21,7 +21,7 @@ export default class ChangeChargeForm extends Component {
             autofocus
           >
         </div>
-        <button class="add-charge-button styled-button emphasized">충전</button>
+        <button id="add-charge-button" class="add-charge-button styled-button emphasized">충전</button>
       </form>
     `;
   }

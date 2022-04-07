@@ -37,10 +37,10 @@ export default class LoginPage extends Component {
                 required
               >
             </label>
-            <button class="styled-button emphasized profile-button" type="submit">확인</button>
+            <button id="login-submit" class="styled-button emphasized profile-button" type="submit">확인</button>
           </fieldset>
         </form>
-        <p class="description signup-guide">아직 회원이 아니신가요? <a-link href="${PAGES.SIGNUP.PATH}" class="text-link">회원가입</a-link></p>
+        <p class="description signup-guide">아직 회원이 아니신가요? <a-link id="signup-link" href="${PAGES.SIGNUP.PATH}" class="text-link">회원가입</a-link></p>
       </div>
     `;
   }

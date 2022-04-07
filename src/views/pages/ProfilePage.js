@@ -12,10 +12,10 @@ export default class ProfilePage extends Component {
       </header>
       <form id="update-profile-form">
         <fieldset class="profile-fieldset">
-          <legend hidden>회원가입</legend>
-          <label for="signup-email"  class="description">이메일
+          <legend hidden>회원 정보 수정</legend>
+          <label for="profile-email"  class="description">이메일
             <input
-              id="signup-email"
+              id="profile-email"
               name="email"
               type="email"
               class="profile-input styled-input"
@@ -26,9 +26,9 @@ export default class ProfilePage extends Component {
               required
             >
           </label>
-          <label for="signup-name" class="description">이름
+          <label for="profile-name" class="description">이름
             <input
-              id="signup-name"
+              id="profile-name"
               name="name"
               type="text"
               class="profile-input styled-input"
@@ -40,9 +40,9 @@ export default class ProfilePage extends Component {
               required
             >
           </label>
-          <label for="signup-password" class="description">비밀번호
+          <label for="profile-password" class="description">비밀번호
             <input
-              id="signup-password"
+              id="profile-password"
               name="password"
               type="password"
               class="profile-input styled-input"
@@ -52,9 +52,9 @@ export default class ProfilePage extends Component {
               required
             >
           </label>
-          <label for="signup-password-confirm" class="description">비밀번호 확인
+          <label for="profile-password-confirm" class="description">비밀번호 확인
             <input
-              id="signup-password-confirm"
+              id="profile-password-confirm"
               name="password-confirm"
               type="password"
               class="profile-input styled-input"

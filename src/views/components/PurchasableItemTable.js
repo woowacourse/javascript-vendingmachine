@@ -38,7 +38,7 @@ export default class PurchasableItemTable extends Component {
                 ({ name, price, quantity }) => `
                   <tr
                     is="purchasable-row"
-                    class="styled-tr"
+                    class="purchasable-item-row styled-tr"
                     name="${name}"
                     price="${price}"
                     quantity="${quantity}"

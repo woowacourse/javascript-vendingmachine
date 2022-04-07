@@ -38,7 +38,7 @@ export default class ItemTable extends Component {
                 ({ name, price, quantity }) => `
                   <tr
                     is="item-row"
-                    class="styled-tr"
+                    class="item-row styled-tr"
                     name="${name}"
                     price="${price}"
                     quantity="${quantity}"

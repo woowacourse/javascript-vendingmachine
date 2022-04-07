@@ -44,7 +44,7 @@ export default class ItemAddForm extends Component {
             required
           >
         </fieldset>
-        <button class="add-item-button styled-button emphasized">추가</button>
+        <button id="add-item-button" class="add-item-button styled-button emphasized">추가</button>
       </form>
     `;
   }

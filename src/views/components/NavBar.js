@@ -9,6 +9,7 @@ export default class NavBar extends Component {
 
     return `
       <a-link
+        id="item-management-link"
         class="nav-button styled-button ${
           location === PAGES.ITEM_MANAGEMENT.PATH ? 'selected' : ''
         }"
@@ -17,6 +18,7 @@ export default class NavBar extends Component {
         ${PAGES.ITEM_MANAGEMENT.TITLE}
       </a-link>
       <a-link
+        id="change-charge-link"
         class="nav-button styled-button ${
           location === PAGES.CHANGE_CHARGE.PATH ? 'selected' : ''
         }"
@@ -25,6 +27,7 @@ export default class NavBar extends Component {
         ${PAGES.CHANGE_CHARGE.TITLE}
       </a-link>
       <a-link
+        id="item-purchase-link"
         class="nav-button styled-button ${
           location === PAGES.LANDING.PATH ||
           location === PAGES.ITEM_PURCHASE.PATH

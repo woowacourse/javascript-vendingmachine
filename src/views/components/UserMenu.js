@@ -12,19 +12,17 @@ export default class UserMenu extends Component {
     if (accessToken) {
       return `
         <div class="thumbnail">
-          <button id="user-thumbnail" class="thumbnail styled-button">
-            ${user.name[0]}
-          </button>
+          <button id="user-thumbnail" class="thumbnail styled-button">${user.name[0]}</button>
           <ul id="user-menu" class="dropdown-menu">
-            <li><a-link href="/profile">회원 정보 수정</a-link></li>
-            <li><button id="logout-button">로그아웃</button></li>
+            <li><a-link id="profile-link" href="/profile">회원 정보 수정</a-link></li>
+            <li><button id="logout-link">로그아웃</button></li>
           </ul>
         </div>
       `;
     }
 
     return `
-      <a-link href="/login" class="login-button styled-button">로그인</a-link>
+      <a-link id="login-link" href="/login" class="login-button styled-button">로그인</a-link>
     `;
   }
 
@@ -33,7 +31,7 @@ export default class UserMenu extends Component {
       this.querySelector('#user-menu').classList.toggle('show');
     });
 
-    this.addEvent('click', '#logout-button', () => {
+    this.addEvent('click', '#logout-link', () => {
       auth.logout();
 
       const state = {};

@@ -11,9 +11,9 @@ export default class SignupPage extends Component {
       <form id="signup-form">
         <fieldset class="profile-fieldset">
           <legend hidden>회원가입</legend>
-          <label for="profile-email"  class="description">이메일
+          <label for="signup-email"  class="description">이메일
             <input
-              id="profile-email"
+              id="signup-email"
               name="email"
               type="email"
               class="profile-input styled-input"
@@ -23,9 +23,9 @@ export default class SignupPage extends Component {
               required
             >
           </label>
-          <label for="profile-name" class="description">이름
+          <label for="signup-name" class="description">이름
             <input
-              id="profile-name"
+              id="signup-name"
               name="name"
               type="text"
               class="profile-input styled-input"
@@ -35,9 +35,9 @@ export default class SignupPage extends Component {
               required
             >
           </label>
-          <label for="profile-password" class="description">비밀번호
+          <label for="signup-password" class="description">비밀번호
             <input
-              id="profile-password"
+              id="signup-password"
               name="password"
               type="password"
               class="profile-input styled-input"
@@ -47,9 +47,9 @@ export default class SignupPage extends Component {
               required
             >
           </label>
-          <label for="profile-password-confirm" class="description">비밀번호 확인
+          <label for="signup-password-confirm" class="description">비밀번호 확인
             <input
-              id="profile-password-confirm"
+              id="signup-password-confirm"
               name="password-confirm"
               type="password"
               class="profile-input styled-input"
@@ -59,7 +59,7 @@ export default class SignupPage extends Component {
               required
             >
           </label>
-          <button class="styled-button emphasized profile-button" type="submit">확인</button>
+          <button id="signup-submit" class="styled-button emphasized profile-button" type="submit">확인</button>
         </fieldset>
       </form>
     `;

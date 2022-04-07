@@ -21,7 +21,7 @@ export default class InsertMoneyForm extends Component {
             autofocus
           >
         </div>
-        <button class="insert-money-button styled-button emphasized">투입</button>
+        <button id="insert-money-button" class="insert-money-button styled-button emphasized">투입</button>
       </form>
     `;
   }
