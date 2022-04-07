@@ -24,6 +24,7 @@ body {
   max-width: 500px;
   margin: 100px auto 0;
   padding: 10px 20px 50px;
+  position: relative;
 }
 
 input {
@@ -85,8 +86,8 @@ button {
 .signup-manange__container.hide,
 .select-box.hide,
 .app-title.hide,
-.thumnail-button.hide,
-.login-button.hide {
+.header__thumnail-button.hide,
+.header__login-button.hide {
   display: none;
 }
 
@@ -104,11 +105,40 @@ button {
 .product-manage__remove-button,
 .product-manage__confirm-button,
 .purchase-table__purchase-button,
-.return-coin__return-button {
+.return-coin__return-button,
+.header__login-button {
   cursor: pointer;
   background: var(--color-white-gray);
   border-radius: 5px;
   height: 32px;
+}
+
+.header-container {
+  display: flex;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.header__thumnail-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--color-light-skyblue);
+}
+
+.select-box {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  justify-content: flex-end;
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  padding: 10px;
+}
+
+.select-box__button {
+  margin-bottom: 5px;
 }
 
 .product-manage__edit-button,
@@ -118,7 +148,8 @@ button {
 
 .product-manage__confirm-button,
 .purchase-table__purchase-button,
-.return-coin__return-button {
+.return-coin__return-button,
+.header__login-button {
   width: 100px;
 }
 
@@ -126,7 +157,9 @@ button {
 .product-manage__remove-button:hover,
 .product-manage__confirm-button:hover,
 .purchase-table__purchase-button:hover,
-.return-coin__return-button:hover {
+.return-coin__return-button:hover,
+.select-box__button:hover,
+.header__login-button:hover {
   background: var(--color-light-gray);
 }
 

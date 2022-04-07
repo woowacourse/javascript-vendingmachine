@@ -1,7 +1,9 @@
+import { ERROR_MESSAGES } from "./utils/constants";
+import { verifyPassword, verifyUserName } from "./utils/validation";
+
 const requestSignup = async ({ name, email, password, passwordCheck }) => {
-  // verifyUserName(name);
-  // verifyUserEmail(email);
-  // verifyPassword(password,passwordCheck)
+  verifyUserName(name);
+  verifyPassword(password, passwordCheck);
 
   try {
     const response = await fetch("http://localhost:3000/signup", {
@@ -13,7 +15,7 @@ const requestSignup = async ({ name, email, password, passwordCheck }) => {
     });
 
     if (!response.ok) {
-      throw new Error("회원가입 실패");
+      throw new Error(ERROR_MESSAGES.FAIL_SIGNUP);
     }
 
     const { accessToken, user } = await response.json();

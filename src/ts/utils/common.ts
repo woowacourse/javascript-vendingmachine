@@ -15,4 +15,6 @@ const createTextElement = (tagName: string, className: string, text: string) => 
   return element;
 };
 
-export { pickNumberInList, clearInput, createTextElement };
+const passwordRegex = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+
+export { pickNumberInList, clearInput, createTextElement, passwordRegex };

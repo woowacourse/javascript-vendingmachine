@@ -19,6 +19,11 @@ const PURCAHSE = {
   UNIT: 10,
 };
 
+const USER_NAME = {
+  MAX_LENGTH: 6,
+  MIN_LENGTH: 2,
+};
+
 const ERROR_MESSAGES = {
   EMPTY_PRODUCT_NAME: "상품명을 입력해주세요.",
   EMPTY_PRODUCT_QUANTITY: "제품 수량을 입력해주세요.",
@@ -38,6 +43,10 @@ const ERROR_MESSAGES = {
   NOT_ENOUGH_RETURN_COIN: "반환 가능한 동전이 모두 소진되었습니다. 관리자에게 문의하세요.",
   NOT_ENOUGH_INPUT_AMOUNT: "투입한 금액이 없어서 반환할 수 없습니다.",
   CANNOT_PARSE_JSON: "저장된 데이터가 유효하지 않은 JSON 형식입니다.",
+  FAIL_SIGNUP: "회원가입이 실패하였습니다.",
+  INVALID_USER_NAME_LENGTH: `유저 이름은 ${USER_NAME.MIN_LENGTH}~${USER_NAME.MAX_LENGTH}자 사이로 입력해주세요.`,
+  NOT_MATCH_PASSWORD: "비밀번호가 일치하지 않습니다.",
+  INVALID_PASSWORD_RULE: `비밀번호는 8~16자 영문, 숫자, 특수문자를 최소 한가지 포함해야합니다.`,
 };
 
 const INFOMATION_MESSAGES = {
@@ -48,6 +57,7 @@ const INFOMATION_MESSAGES = {
   SUCCESS_EDIT_PRODUCT: "상품 수정이 완료되었습니다.",
   SUCCESS_PURCHASE_PRODUCT: "상품을 구매하였습니다.",
   SUCCESS_RETURN_COIN: "동전이 반환되었습니다.",
+  SUCCESS_SIGNUP: "회원가입 완료! 자동 로그인되었습니다.",
 };
 
-export { PRODUCT, CHARGE, PURCAHSE, ERROR_MESSAGES, INFOMATION_MESSAGES };
+export { PRODUCT, CHARGE, PURCAHSE, USER_NAME, ERROR_MESSAGES, INFOMATION_MESSAGES };

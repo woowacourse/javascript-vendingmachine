@@ -1,5 +1,6 @@
 import { Product } from "../mananger/ProductManager";
-import { PRODUCT, CHARGE, ERROR_MESSAGES, PURCAHSE } from "./constants";
+import { passwordRegex } from "./common";
+import { PRODUCT, CHARGE, ERROR_MESSAGES, PURCAHSE, USER_NAME } from "./constants";
 
 const verifyProductName = (name: string) => {
   if (name === "") {
@@ -79,6 +80,22 @@ const verifyPurchaseAmountReturn = (amount: number) => {
   }
 };
 
+const verifyUserName = (name: string) => {
+  if (name.length > USER_NAME.MAX_LENGTH || name.length < USER_NAME.MIN_LENGTH) {
+    throw new Error(ERROR_MESSAGES.INVALID_USER_NAME_LENGTH);
+  }
+};
+
+const verifyPassword = (password: string, passwordCheck: string) => {
+  if (!passwordRegex.test(password)) {
+    throw new Error(ERROR_MESSAGES.INVALID_PASSWORD_RULE);
+  }
+
+  if (password !== passwordCheck) {
+    throw new Error(ERROR_MESSAGES.NOT_MATCH_PASSWORD);
+  }
+};
+
 export {
   verifyProductName,
   verifyProductPrice,
@@ -89,4 +106,6 @@ export {
   verifyPurchaseProduct,
   verifyPurchaseAmountBalance,
   verifyPurchaseAmountReturn,
+  verifyUserName,
+  verifyPassword,
 };

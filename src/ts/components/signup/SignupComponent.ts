@@ -1,7 +1,9 @@
 import { requestSignup } from "../../api";
-import AuthManager from "../../mananger/authManager";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
 import { $ } from "../../utils/dom";
+import { saveSessionStorage } from "../../utils/sessionStorage";
 import { ConvertTemplate, HideHeader } from "../App";
+import Snackbar from "../Snackbar";
 import { signupTemplate } from "./signupTemplate";
 
 export interface UserInfo {
@@ -18,12 +20,10 @@ class SignupComponent {
   signupPasswordInput: HTMLInputElement;
   signupPasswordCheckInput: HTMLInputElement;
   signupConfirmButton: HTMLButtonElement;
+  snackbar: Snackbar;
 
-  constructor(
-    private hideHeader: HideHeader,
-    private convertTemplate: ConvertTemplate,
-    private authManager: AuthManager,
-  ) {
+  constructor(private hideHeader: HideHeader, private convertTemplate: ConvertTemplate) {
+    this.snackbar = new Snackbar();
     this.signupContainer = $(".signup-manange__container");
     this.signupContainer.replaceChildren();
     this.signupContainer.insertAdjacentHTML("beforeend", signupTemplate());
@@ -47,13 +47,14 @@ class SignupComponent {
 
     try {
       const { accessToken, user } = await requestSignup({ email, name, password, passwordCheck });
-      this.authManager.setAccessToken(accessToken);
-      this.authManager.setUserInfo(user);
+      saveSessionStorage("accessToken", accessToken);
+      saveSessionStorage("userInfo", user);
 
       history.pushState({ path: "#purchase" }, null, "#purchase");
       this.convertTemplate("#purchase");
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_SIGNUP);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 

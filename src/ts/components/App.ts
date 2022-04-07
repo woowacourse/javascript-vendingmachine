@@ -9,7 +9,7 @@ import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
-import AuthManager from "../mananger/authManager";
+import { getSessionStorage } from "../utils/sessionStorage";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
@@ -26,7 +26,6 @@ class App {
   loginComponent: LoginComponent;
   signupComponent: SignupComponent;
   chargeManager: ChargeManager;
-  authManager: AuthManager;
   menuNav: HTMLElement;
   loginButton: HTMLButtonElement;
   thumnailButton: HTMLButtonElement;
@@ -37,8 +36,10 @@ class App {
     this.app = $("#app");
     this.app.insertAdjacentHTML(
       "beforeend",
-      `<button type="button" class="login-button button">로그인</button>
-       <button type="button" class="thumnail-button button hide">K</button>
+      `<div class="header-container">
+        <button type="button" class="header__login-button button">로그인</button>
+        <button type="button" class="header__thumnail-button button hide">K</button>
+       </div>
        <div class="select-box hide">
          <button type="button" class="select-box__button button" data-menu="#profile">회원 정보 수정</button>
          <button type="button" class="select-box__button button" data-menu="#logout">로그아웃</button>
@@ -58,25 +59,23 @@ class App {
     this.menuNav = $(".menu-nav");
     this.appTitle = $(".app-title");
     this.selectBox = $(".select-box");
-    this.loginButton = $(".login-button");
-    this.thumnailButton = $(".thumnail-button");
+    this.loginButton = $(".header__login-button");
+    this.thumnailButton = $(".header__thumnail-button");
 
     this.productManager = new ProductManager();
     this.chargeManager = new ChargeManager();
-    this.authManager = new AuthManager();
     this.menuTabComponent = new MenuTabComponent(this.convertTemplate);
     this.productComponent = new ProductComponent(this.productManager);
     this.chargeComponent = new ChargeComponent(this.chargeManager);
     this.purchaseComponent = new PurchaseComponent(this.productManager, this.chargeManager);
     this.loginComponent = new LoginComponent(this.hideHeader, this.convertTemplate);
-    this.signupComponent = new SignupComponent(this.hideHeader, this.convertTemplate, this.authManager);
+    this.signupComponent = new SignupComponent(this.hideHeader, this.convertTemplate);
 
     if (!location.hash) {
       history.pushState({ path: "#purchase" }, null, "#purchase");
     }
+
     this.convertTemplate((location.hash as Path) || "#purchase");
-    this.hideMenuTab();
-    // this.showMenuTab();
 
     this.thumnailButton.addEventListener("click", this.handleThumbnail);
     this.selectBox.addEventListener("click", this.handleSelectBoxOption);
@@ -108,7 +107,6 @@ class App {
   handleLogin = () => {
     history.pushState({ path: "#login" }, null, "#login");
     this.convertTemplate("#login");
-    // this.hideAppTitle();
   };
 
   hideComponents() {
@@ -126,6 +124,7 @@ class App {
   hideHeader = () => {
     this.hideAppTitle();
     this.hideLoginButton();
+    this.hideMenuTab();
   };
 
   hideAppTitle() {
@@ -144,11 +143,27 @@ class App {
     this.loginButton.classList.remove("hide");
   }
 
+  showThumnailButton() {
+    this.thumnailButton.classList.remove("hide");
+  }
+
+  checkLoggedIn() {
+    if (getSessionStorage("accessToken")) {
+      this.hideLoginButton();
+      this.showThumnailButton();
+      this.showMenuTab();
+    }
+
+    if (!getSessionStorage("accessToken")) {
+      this.showLoginButton();
+      this.hideMenuTab();
+    }
+  }
+
   convertTemplate = (path: Path): void => {
     this.hideComponents();
-    // this.showMenuTab(); // 로그인이 됐으면 showMenuTab
     this.showAppTitle();
-    this.showLoginButton(); // 로그인이 안됐으면 showLoginButton
+    this.checkLoggedIn();
 
     const routes = {
       "#product": () => this.productComponent.show(),
