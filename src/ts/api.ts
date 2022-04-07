@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from "./utils/constants";
 import { verifyPassword, verifyUserName } from "./utils/validation";
 
-const BASE_URL = "https://mini-server-for-vending.herokuapp.com/";
+const BASE_URL = "https://mini-server-for-vending.herokuapp.com";
 
 const requestSignup = async ({ name, email, password, passwordCheck }) => {
   verifyUserName(name);
