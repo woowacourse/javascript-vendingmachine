@@ -15,7 +15,7 @@ export const VENDING_MACHINE = {
 };
 
 export const MEMBER_SERVICE = {
-  MIN_USER_NAME: 1,
+  MIN_USER_NAME: 2,
   MAX_USER_NAME: 6,
 };
 
