@@ -67,11 +67,12 @@ button {
   background: var(--color-light-skyblue);
 }
 
-.product-manange__container,
-.charge-manange__container,
-.purchase-manange__container,
-.login-manange__container,
-.signup-manange__container {
+.product-manage__container,
+.charge-manage__container,
+.purchase-manage__container,
+.login-manage__container,
+.signup-manage__container,
+.profile-manage__container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,11 +80,12 @@ button {
 }
 
 .menu-nav.hide,
-.product-manange__container.hide,
-.charge-manange__container.hide,
-.purchase-manange__container.hide,
-.login-manange__container.hide,
-.signup-manange__container.hide,
+.product-manage__container.hide,
+.charge-manage__container.hide,
+.purchase-manage__container.hide,
+.login-manage__container.hide,
+.signup-manage__container.hide,
+.profile-manage__container.hide,
 .select-box.hide,
 .app-title.hide,
 .header__thumnail-button.hide,
@@ -186,7 +188,7 @@ button {
   width: 40px;
 }
 
-.charge-manange__input,
+.charge-manage__input,
 .purchase-form__input {
   width: 300px;
   height: 36px;
@@ -197,8 +199,8 @@ button {
   font-size: 16px;
 }
 
-.product-manange__add-button,
-.charge-manange__add-button,
+.product-manage__add-button,
+.charge-manage__add-button,
 .purchase-form__add-button {
   width: 56px;
   height: 38px;
@@ -211,16 +213,17 @@ button {
   font-size: 16px;
 }
 
-.product-manange__add-button:hover,
-.charge-manange__add-button:hover,
+.product-manage__add-button:hover,
+.charge-manage__add-button:hover,
 .purchase-form__add-button:hover,
 .login-manage__confirm-button:hover,
-.signup-manage__confirm-button:hover {
+.signup-manage__confirm-button:hover,
+.profile-manage__confirm-button:hover {
   background: var(--color-dark-skyblue);
 }
 
-.product-manange__title,
-.charge-manange__title,
+.product-manage__title,
+.charge-manage__title,
 .purchase-table__title,
 .return-coin__title {
   text-align: center;
@@ -240,8 +243,8 @@ button {
   align-items: center;
 }
 
-.product-manange__table,
-.charge-manange__table,
+.product-manage__table,
+.charge-manage__table,
 .purchase-table,
 .return-coin__table {
   text-align: center;
@@ -250,7 +253,7 @@ button {
   border-collapse: collapse;
 }
 
-.charge-manange__table {
+.charge-manage__table {
   margin: auto;
 }
 
@@ -258,10 +261,10 @@ button {
   margin-bottom: 15px;
 }
 
-.product-manange__table td,
-.product-manange__table th,
-.charge-manange__table td,
-.charge-manange__table th,
+.product-manage__table td,
+.product-manage__table th,
+.charge-manage__table td,
+.charge-manage__table th,
 .purchase-table td,
 .purchase-table th,
 .return-coin__table td,
@@ -273,7 +276,8 @@ button {
 }
 
 .login-form,
-.signup-form {
+.signup-form,
+.profile-form {
   display: flex;
   flex-direction: column;
 }
@@ -289,12 +293,14 @@ button {
 }
 
 .login-title,
-.signup-title {
+.signup-title,
+.profile-title {
   font-size: 35px;
 }
 
 .login-form__confirm-button,
-.signup-form__confirm-button {
+.signup-form__confirm-button,
+.profile-form__confirm-button {
   background-color: var(--color-middle-skyblue);
   color: var(--color-white);
   height: 35px;
