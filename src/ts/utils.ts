@@ -1,3 +1,5 @@
+import { STORAGE_ID } from './constants';
+
 export const $ = <E extends Element, P extends Element>(
   selector: string,
   baseElement: P | Document = document,
@@ -21,3 +23,5 @@ export const alertSnackBar = (message: string) => {
     $snackBar.classList.toggle('show');
   }, 3000);
 };
+
+export const isLogedIn = () => localStorage.getItem(STORAGE_ID.LOGIN);

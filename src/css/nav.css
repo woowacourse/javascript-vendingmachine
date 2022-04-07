@@ -38,3 +38,18 @@ button.login-button {
   margin-left: 65%;
   margin-top: 11px;
 }
+
+div.profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d6f4f8;
+  margin-left: 65%;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 11px;
+}
+
+div.profile:hover {
+  cursor: pointer;
+}

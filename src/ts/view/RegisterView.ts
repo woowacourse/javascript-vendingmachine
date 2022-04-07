@@ -1,6 +1,7 @@
 import { UserManagerInterface } from '../domain/UserManager';
 import { $, alertSnackBar } from '../utils';
 import { SUCCESS_MESSAGE } from '../constants';
+import { checkRegister } from '../domain/validator';
 
 export interface RegisterViewInterface {
   $registerForm: HTMLFormElement;
@@ -35,7 +36,7 @@ class RegisterView implements RegisterViewInterface {
     this.$registerForm.addEventListener('submit', this.handleSubmit);
   }
 
-  handleSubmit = (event: SubmitEvent) => {
+  handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
     const userInfo = {
       email: this.$registerEmail.value,
@@ -45,9 +46,12 @@ class RegisterView implements RegisterViewInterface {
     };
 
     try {
-      this.userManager.registerUser(userInfo);
-      alertSnackBar(SUCCESS_MESSAGE.REGISTER);
-      location.href = 'http://localhost:9000/#!/login';
+      checkRegister(userInfo.name, userInfo.password, userInfo.passwordCheck);
+      const result = await this.userManager.registerUser(userInfo);
+      if (result) {
+        alertSnackBar(SUCCESS_MESSAGE.REGISTER);
+        location.href = 'http://localhost:9000/#!/login';
+      }
     } catch (error) {
       alertSnackBar(error.message);
     }

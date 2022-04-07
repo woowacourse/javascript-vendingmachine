@@ -75,8 +75,8 @@ export const checkRegister = (name: string, password: string, passwordCheck: str
     throw new Error(ERROR_MESSAGE.USER_NAME_LENGTH);
   }
   if (
-    isOverMaxValue(password.length, USER_RULE.MAX_NAME_LENGTH) ||
-    isUnderMinValue(password.length, USER_RULE.MIN_NAME_LENGTH)
+    isOverMaxValue(password.length, USER_RULE.MAX_PASSWORD_LENGTH) ||
+    isUnderMinValue(password.length, USER_RULE.MIN_PASSWORD_LENGTH)
   ) {
     throw new Error(ERROR_MESSAGE.USER_PASSWORD_LENGTH);
   }

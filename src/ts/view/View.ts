@@ -6,6 +6,8 @@ import RechargeView, { RechargeViewInterface } from './RechargeView';
 import PurchaseProductView, { PurchaseProductViewInterface } from './PurchaseProductView';
 import RegisterView, { RegisterViewInterface } from './RegisterView';
 import { UserManagerInterface } from '../domain/UserManager';
+import LoginView, { LoginViewInterface } from './LoginView';
+import { isLogedIn } from '../utils';
 
 export default class View {
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
@@ -15,6 +17,7 @@ export default class View {
   $tabPurchaseProductButton: HTMLInputElement;
   $$tabButtons: NodeListOf<HTMLInputElement>;
   $loginButton: HTMLButtonElement;
+  $profile: HTMLDivElement;
   $app: HTMLDivElement;
   $loginRegister: HTMLSpanElement;
 
@@ -24,6 +27,7 @@ export default class View {
   rechargeView: RechargeViewInterface;
   purchaseProductView: PurchaseProductViewInterface;
   registerView: RegisterViewInterface;
+  loginView: LoginViewInterface;
 
   currentView: string;
 
@@ -35,6 +39,7 @@ export default class View {
     this.$tabPurchaseProductButton = $('#tab-purchase-product');
     this.$$tabButtons = $$('.tab-button');
     this.$loginButton = $('.login-button');
+    this.$profile = $('.profile');
     this.$app = $('#app');
     this.$loginRegister = $('.login-register');
 
@@ -44,6 +49,7 @@ export default class View {
     this.rechargeView = new RechargeView(this.vendingMachine);
     this.purchaseProductView = new PurchaseProductView(this.vendingMachine);
     this.registerView = new RegisterView(this.userManager);
+    this.loginView = new LoginView(this.userManager);
 
     this.currentView = localStorage.getItem(STORAGE_ID.CURRENT_VIEW) || TAB_ID.PURCHASE_PRODUCT;
     this.renderCurrentView();
@@ -76,7 +82,20 @@ export default class View {
     }
   };
 
+  renderLogedInView = () => {
+    if (isLogedIn()) {
+      this.$profile.classList.remove('hide');
+      this.$loginButton.classList.add('hide');
+      $('.nav-tab').classList.remove('hide');
+      return;
+    }
+    this.$profile.classList.add('hide');
+    this.$loginButton.classList.remove('hide');
+    $('.nav-tab').classList.add('hide');
+  };
+
   renderTabs = (id: string) => {
+    this.renderLogedInView();
     this.$app.classList.remove('hide');
     this.$$pageContainers.forEach((container) => container.classList.add('hide'));
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {

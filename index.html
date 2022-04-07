@@ -30,13 +30,13 @@
       <section class="register-wrapper">
         <form class="register-form">
           <label class="form-label" for="register-email">이메일</label>
-          <input class="form-input" type="email" id="register-email" placeholder="이메일 주소를 입력해주세요">
+          <input class="form-input" type="email" id="register-email" placeholder="이메일 주소를 입력해주세요" required>
           <label class="form-label" for="register-name">이름</label>
-          <input class="form-input" type="text" id="register-name" placeholder="이름을 입력해주세요">
+          <input class="form-input" type="text" id="register-name" placeholder="이름을 입력해주세요" minlength="2" maxlength="6" required>
           <label class="form-label" for="register-password">비밀번호</label>
-          <input class="form-input" type="password" id="register-password" placeholder="비밀번호를 입력해주세요">
+          <input class="form-input" type="password" id="register-password" placeholder="비밀번호를 입력해주세요" minlength="4" maxlength="10" required>
           <label class="form-label" for="register-password-check">비밀번호 확인</label>
-          <input class="form-input" type="password" id="register-password-check" placeholder="비밀번호를 입력해주세요">
+          <input class="form-input" type="password" id="register-password-check" placeholder="비밀번호를 입력해주세요"  minlength="4" maxlength="10" required>
           <button class="short-button form-button">확인</button>
         </form>
       </section>
@@ -45,11 +45,11 @@
     <div class="page-container hide" id="/#!/login">
       <h1>로그인</h1>
       <section class="login-wrapper">
-        <form>
+        <form class="login-form">
           <label class="form-label" for="login-email">이메일</label>
-          <input class="form-input" type="email" id="login-email" placeholder="woowacourse@gmail.com">
+          <input class="form-input" type="email" id="login-email" placeholder="woowacourse@gmail.com" required>
           <label class="form-label" for="login-password">비밀번호</label>
-          <input class="form-input" type="password" id="login-password" placeholder="비밀번호를 입력해주세요">
+          <input class="form-input" type="password" id="login-password" placeholder="비밀번호를 입력해주세요" minlength="4" maxlength="10" required>
           <button class="short-button form-button">확인</button>
           <div class="register-introduction-wrapper">
             <span>아직 회원이 아니신가요?</span>
@@ -62,10 +62,11 @@
     <div id="app">
       <div class="login-wrapper">
         <button class="small-button login-button">로그인</button>
+        <div class="profile hide">이</div>
       </div>
       <h1>🍿 자판기 🍿</h1>
 
-      <nav class="nav-tab">
+      <nav class="nav-tab hide">
         <form>
           <input class="tab-button" type="radio" id="tab-product-manage" name="tab" />
           <label class="tab-label" for="tab-product-manage">상품 관리</label>

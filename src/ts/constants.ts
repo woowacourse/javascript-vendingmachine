@@ -41,6 +41,7 @@ export const SUCCESS_MESSAGE = {
   PURCHASE_PRODUCT: '상품을 성공적으로 구매했습니다.',
   RETURN_COIN: '잔돈을 성공적으로 반환했습니다.',
   REGISTER: '회원가입을 성공적으로 완료했습니다.',
+  LOGIN: '로그인을 성공적으로 완료했습니다.',
 };
 
 export const CONFIRM_MESSAGE = {
@@ -62,6 +63,8 @@ export const VENDING_MACHINE_RULE = {
 export const USER_RULE = {
   MIN_NAME_LENGTH: 2,
   MAX_NAME_LENGTH: 6,
+  MIN_PASSWORD_LENGTH: 4,
+  MAX_PASSWORD_LENGTH: 10,
 };
 
 export const STORAGE_ID = {
@@ -69,6 +72,7 @@ export const STORAGE_ID = {
   PRODUCTS: 'products',
   CURRENT_VIEW: 'current-view',
   PURCHASE_MONEY: 'purchase-money',
+  LOGIN: 'login',
 };
 
 export const COIN = {
@@ -86,4 +90,5 @@ export const SERVER_ENTRY = 'http://localhost:3000';
 
 export const API_QUERY = {
   REGISTER: '/register',
+  LOGIN: '/login',
 };
