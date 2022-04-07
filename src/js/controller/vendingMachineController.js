@@ -1,3 +1,4 @@
+import { generateSnackBar } from '../utils/dom';
 import { listenEvents } from '../utils/event';
 
 export default class VendingMachineController {
@@ -36,6 +37,7 @@ export default class VendingMachineController {
       this.#vendingMachine.totalChange
     );
     this.addChangePage.resetInput();
+    generateSnackBar('잔돈이 충전되었습니다.');
   };
 
   #addProduct = (e) => {
@@ -43,6 +45,7 @@ export default class VendingMachineController {
     const { name, price, stock } = this.#vendingMachine.productList[id];
     this.manageProductView.addProduct({ id, name, price, stock });
     this.purchaseProductView.addProduct({ id, name, price, stock });
+    generateSnackBar('상품이 추가되었습니다.');
   };
 
   #updateProduct = (e) => {
@@ -53,6 +56,7 @@ export default class VendingMachineController {
       id,
       this.#vendingMachine.productList[id]
     );
+    generateSnackBar('상품이 수정되었습니다.');
   };
 
   #removeProduct = (e) => {
@@ -60,12 +64,14 @@ export default class VendingMachineController {
     this.#vendingMachine.removeProduct(id);
     this.manageProductView.removeProduct(id);
     this.purchaseProductView.removeProduct(id);
+    generateSnackBar('상품이 삭제되었습니다.');
   };
 
   #inputMoney = (e) => {
     const { money } = e.detail;
     this.#vendingMachine.insertMoney(money);
     this.purchaseProductView.renderTotalMoney(this.#vendingMachine.totalMoney);
+    generateSnackBar('금액이 충전되었습니다.');
   };
 
   #purchaseProduct = (e) => {
@@ -80,6 +86,7 @@ export default class VendingMachineController {
       this.#vendingMachine.productList[productId]
     );
     this.purchaseProductView.renderTotalMoney(this.#vendingMachine.totalMoney);
+    generateSnackBar('상품을 구매하였습니다.');
   };
 
   #giveChange = () => {
@@ -90,5 +97,6 @@ export default class VendingMachineController {
       this.#vendingMachine.coinStatus,
       this.#vendingMachine.totalChange
     );
+    generateSnackBar('잔돈이 반환되었습니다.');
   };
 }
