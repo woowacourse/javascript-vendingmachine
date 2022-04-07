@@ -1,4 +1,4 @@
 {
-  "cypress:open": "cypress open",
-  "cypress:run": "cypress run --browser chrome"
+  "video": false,
+  "screenshotOnRunFailure": false
 }
