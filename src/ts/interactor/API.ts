@@ -1,5 +1,6 @@
-import { SignupData } from '../../index.d';
+import { AdminData, AdminEmail, AdminPassword } from '../../index.d';
 
 export default interface API {
-  signup(admin: SignupData);
+  signup(admin: AdminData);
+  login(email: AdminEmail, password: AdminPassword);
 }

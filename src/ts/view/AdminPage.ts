@@ -3,7 +3,7 @@ import { $ } from '../util/index';
 import AdminImpl from '../interactor/AdminImpl';
 import Snackbar from './Snackbar';
 
-export default class SignupPage implements PageView {
+export default class AdminPage implements PageView {
   private $form: HTMLElement;
   private $email: HTMLElement;
   private $name: HTMLElement;
@@ -13,18 +13,19 @@ export default class SignupPage implements PageView {
   private snackbar: Snackbar;
 
   constructor(snackbar: Snackbar) {
-    this.$form = $('#signup-form');
-    this.$email = $('#signup-email');
-    this.$name = $('#signup-name');
-    this.$password = $('#signup-password');
-    this.$passwordConfirmation = $('#signup-password-confirmation');
+    this.$form = $('#admin-form');
+    this.$email = $('#admin-email');
+    this.$name = $('#admin-name');
+    this.$password = $('#admin-password');
+    this.$passwordConfirmation = $('#admin-password-confirmation');
     this.admin = AdminImpl.getInstance();
     this.snackbar = snackbar;
   }
 
   render(): void {
-    if (this.admin.isLogin()) {
+    if (!this.admin.isLogin()) {
       history.back();
+      return;
     }
   }
 
@@ -43,7 +44,7 @@ export default class SignupPage implements PageView {
         passwordConfirmation: (this.$passwordConfirmation as HTMLInputElement).value,
       };
 
-      await this.admin.signup(adminData);
+      await this.admin.modifyAdmin(adminData);
       movePage();
     } catch ({ message }) {
       this.snackbar.on(message);

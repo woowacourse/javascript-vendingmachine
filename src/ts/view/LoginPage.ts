@@ -1,23 +1,19 @@
-import { PageView, Admin } from '../../index.d';
+import { PageView, Admin, AdminEmail, AdminPassword } from '../../index.d';
 import { $ } from '../util/index';
 import AdminImpl from '../interactor/AdminImpl';
 import Snackbar from './Snackbar';
 
-export default class SignupPage implements PageView {
+export default class LoginPage implements PageView {
   private $form: HTMLElement;
   private $email: HTMLElement;
-  private $name: HTMLElement;
   private $password: HTMLElement;
-  private $passwordConfirmation: HTMLElement;
   private admin: Admin;
   private snackbar: Snackbar;
 
   constructor(snackbar: Snackbar) {
-    this.$form = $('#signup-form');
-    this.$email = $('#signup-email');
-    this.$name = $('#signup-name');
-    this.$password = $('#signup-password');
-    this.$passwordConfirmation = $('#signup-password-confirmation');
+    this.$form = $('#login-form');
+    this.$email = $('#login-email');
+    this.$password = $('#login-password');
     this.admin = AdminImpl.getInstance();
     this.snackbar = snackbar;
   }
@@ -36,14 +32,10 @@ export default class SignupPage implements PageView {
     e.preventDefault();
 
     try {
-      const adminData = {
-        email: (this.$email as HTMLInputElement).value,
-        name: (this.$name as HTMLInputElement).value,
-        password: (this.$password as HTMLInputElement).value,
-        passwordConfirmation: (this.$passwordConfirmation as HTMLInputElement).value,
-      };
+      const email = (this.$email as HTMLInputElement).value as unknown as AdminEmail;
+      const password = (this.$password as HTMLInputElement).value as unknown as AdminPassword;
 
-      await this.admin.signup(adminData);
+      await this.admin.login(email, password);
       movePage();
     } catch ({ message }) {
       this.snackbar.on(message);

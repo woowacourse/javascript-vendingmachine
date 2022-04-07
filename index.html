@@ -7,13 +7,13 @@
   </head>
 
   <body>
-    <div id="app" class="app signup"> 
+    <div id="app" class="app signupPage"> 
       <main class="app__page main">
-        <div class="sign-wrap buyer">
-          <button type="button" id="login-button" class="login-button gray-button button page-move" data-page="login">로그인</button>
+        <div id="sign-wrap" class="sign-wrap buyer">
+          <button type="button" class="login-button gray-button button page-move" data-page="loginPage">로그인</button>
           <button type="button" id="thumbnail" class="thumbnail-button"></button>
           <div class="menu">
-            <p id="modify-admin-info-menu" class="menu-button page-move" data-page="admin">회원 정보 수정</p>
+            <p class="menu-button page-move" data-page="adminPage">회원 정보 수정</p>
             <p id="logout-menu" class="menu-button">로그아웃</p>
           </div>
         </div>
@@ -209,7 +209,7 @@
         </main>
       </main>
 
-      <main class="app__page signup">
+      <main class="app__page signupPage">
         <h1 class="page-title">회원가입</h1>
 
         <form id="signup-form" class="input-form">
@@ -265,7 +265,7 @@
         </form>
       </main>
 
-      <main class="app__page admin">
+      <main class="app__page adminPage">
         <h1 class="page-title">회원 정보 수정</h1>
 
         <form id="admin-form" class="input-form">
@@ -322,7 +322,7 @@
         </form>
       </main>
 
-      <main class="app__page login">
+      <main class="app__page loginPage">
         <h1 class="page-title">로그인</h1>
 
         <form id="login-form" class="input-form">
@@ -352,7 +352,7 @@
 
           <button type="submit" class="input-form__submit-button blue-button button">확인</button>
 
-          <p class="signup-anouncement">아직 회원이 아니신가요?<span class="page-move" data-page="signup">회원가입</span></p>
+          <p class="signup-anouncement">아직 회원이 아니신가요?<span class="page-move" data-page="signupPage">회원가입</span></p>
         </form>
       </main>
     </div>

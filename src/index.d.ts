@@ -12,16 +12,13 @@ export interface Coin {
 }
 
 export interface AdminData {
+  email: string;
   name: string;
   password: string;
   passwordConfirmation: string;
 }
 
-export interface SignupData extends AdminData {
-  email: string;
-}
-
-export type AdminEmail = Pick<SignupData, 'email'>;
+export type AdminEmail = Pick<AdminData, 'email'>;
 
 export type AdminName = Pick<AdminData, 'name'>;
 
@@ -44,13 +41,14 @@ export interface VendingMachine {
 
 export interface Admin {
   readonly vendingMachine: VendingMachine;
+  adminName: string;
   
   addProduct(product: Product): void;
   modifyProduct(product: Product, originProductName: ProductName): void;
   deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
 
-  signup(adminData: SignupData);
+  signup(adminData: AdminData);
   modifyAdmin(adminData: AdminData);
   login(email: AdminEmail, password: AdminPassword);
   isLogin(): boolean;
@@ -78,5 +76,5 @@ export interface PageView {
   bindEvent(movePage: Function): void;
 }
 
-export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signup' | 'admin' | 'login';
+export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signupPage' | 'adminPage' | 'loginPage';
  

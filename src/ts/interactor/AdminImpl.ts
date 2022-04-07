@@ -1,4 +1,4 @@
-import { VendingMachine, Admin, Product, ProductName, AdminEmail, AdminPassword, AdminData, SignupData } from '../../index.d';
+import { VendingMachine, Admin, Product, ProductName, AdminEmail, AdminPassword, AdminData, AdminName } from '../../index.d';
 import { ERROR_MESSAGE } from '../constant';
 import VendingMachineImpl from '../entity/VendingMachineImpl';
 import validator from './validator';
@@ -7,8 +7,9 @@ import JsonAPI from '../jsonAPI/JsonAPI';
 
 export default class AdminImpl implements Admin {
   public readonly vendingMachine: VendingMachine;
-  private adminName: string;
-  private accessToken: string;
+  public adminName: string;
+  private adminId: number;
+  private adminKey: string;
   private api: API;
   private static instance: Admin;
 
@@ -45,7 +46,7 @@ export default class AdminImpl implements Admin {
     this.vendingMachine.generateCoins(inputMoney);
   }
 
-  async signup(adminData: SignupData) {
+  async signup(adminData: AdminData) {
     validator.checkSignupAdmin(adminData);
     await this.api.signup(adminData);
   }
@@ -54,11 +55,15 @@ export default class AdminImpl implements Admin {
     
   }
   
-  login(email: AdminEmail, password: AdminPassword): void {
-    
+  async login(email: AdminEmail, password: AdminPassword) {
+    validator.checkLogin(email, password);
+    const adminData = await this.api.login(email, password);
+    this.adminId = adminData.id;
+    this.adminKey = adminData.key;
+    this.adminName = adminData.name;
   }
 
   isLogin(): boolean {
-    return !!this.adminName && !!this.accessToken;
+    return !!this.adminId && !!this.adminKey && !! this.adminName;
   }
 }

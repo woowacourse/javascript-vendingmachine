@@ -57,9 +57,9 @@ p {
   margin: 0 4px;
 }
 
-.app.productManage .tab__item[data-name="productManage"],
-.app.chargeMoney .tab__item[data-name="chargeMoney"], 
-.app.buyProduct .tab__item[data-name="buyProduct"] {
+.app.productManage .tab__item[data-page="productManage"],
+.app.chargeMoney .tab__item[data-page="chargeMoney"], 
+.app.buyProduct .tab__item[data-page="buyProduct"] {
   background-color: var(--tab-active-background-color);
 }
 
@@ -77,9 +77,9 @@ p {
 .app.productManage .app__page.main,
 .app.chargeMoney .app__page.main,
 .app.buyProduct .app__page.main,
-.app.signup .app__page.signup,
-.app.admin .app__page.admin,
-.app.login .app__page.login {
+.app.signupPage .app__page.signupPage,
+.app.adminPage .app__page.adminPage,
+.app.loginPage .app__page.loginPage {
   display: block;
 }
 
