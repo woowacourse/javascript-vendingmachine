@@ -70,7 +70,7 @@ export default class RegisterForm extends Component {
 
     $fragment.append(
       this.createChildComponent<IValidationInputProps>(ValidationInput, {
-        name: 'confirm-password',
+        name: 'password-confirm',
         type: 'password',
         label: '비밀번호 확인',
         placeholder: '비밀번호를 입력해주세요.',
@@ -91,7 +91,7 @@ export default class RegisterForm extends Component {
     this.$emailInput = $('input[name="email"]', $template);
     this.$nameInput = $('input[name="name"]', $template);
     this.$passwordInput = $('input[name="password"]', $template);
-    this.$passwordConfirmInput = $('input[name="confirm-password"]', $template);
+    this.$passwordConfirmInput = $('input[name="password-confirm"]', $template);
 
     return $template;
   }
