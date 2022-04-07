@@ -1,5 +1,5 @@
 import { $, $$ } from '../dom';
-import { MAIN_PAGE } from '../constants';
+import { CUSTOMER_MAIN_PAGE, MAIN_PAGE } from '../constants';
 import { emit, on } from '../events';
 import { isUserLoggedIn } from '../auth';
 
@@ -22,10 +22,12 @@ const renderUserButton = () => {
   if (isUserLoggedIn()) {
     $('.nav__login-button').classList.add('hide');
     $('.logged-user-wrapper').classList.remove('hide');
-  } else {
-    $('.nav__login-button').classList.remove('hide');
-    $('.logged-user-wrapper').classList.add('hide');
+
+    return;
   }
+
+  $('.nav__login-button').classList.remove('hide');
+  $('.logged-user-wrapper').classList.add('hide');
 };
 
 const isManagerInvalidAccess = () =>
@@ -53,7 +55,7 @@ export default class NavigatorComponent {
       window.location.pathname = MAIN_PAGE;
     }
     if (isCustomerInvalidAccess()) {
-      window.location.pathname = '/purchase';
+      window.location.pathname = CUSTOMER_MAIN_PAGE;
     }
 
     if (!isUserLoggedIn()) {
@@ -90,7 +92,7 @@ export default class NavigatorComponent {
     this.$nav.classList.remove('hide');
     if (
       ['login', 'signup', 'user'].some(
-        (hideNavPath) => targetPage === hideNavPath
+        (hideNavPage) => targetPage === hideNavPage
       )
     ) {
       this.$nav.classList.add('hide');

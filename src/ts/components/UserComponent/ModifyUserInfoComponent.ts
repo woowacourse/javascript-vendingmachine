@@ -35,9 +35,7 @@ export default class ModifyUserInfoComponent {
         this.$modifyPasswordInput.value !==
         this.$modifyPasswordConfirmInput.value
       ) {
-        throw new Error(
-          '비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요.'
-        );
+        throw new Error(ERROR_MESSAGE.NOT_CONFIRMED_PASSWORD);
       }
       const response = await fetch(
         `${BASE_SERVER_URL}/users/${currentUserId}`,

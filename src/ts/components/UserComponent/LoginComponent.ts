@@ -1,16 +1,16 @@
 import { $ } from '../../dom';
 import { on } from '../../events';
-import { BASE_SERVER_URL, MAIN_PAGE } from '../../constants';
+import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import { setCurrentUser } from '../../auth';
 
 import renderSnackBar from '../../snackbar';
 
 const checkValidUserReturn = (json) => {
   if (json === 'Cannot find user') {
-    throw new Error('유저를 찾을 수 없습니다. 이메일을 다시 한번 확인해주세요');
+    throw new Error(ERROR_MESSAGE.NOT_EXIST_USER);
   }
   if (json === 'Incorrect password') {
-    throw new Error('비밀번호가 틀렸습니다. 다시 한번 확인해주세요');
+    throw new Error(ERROR_MESSAGE.WRONG_PASSWORD_LOGIN);
   }
 };
 

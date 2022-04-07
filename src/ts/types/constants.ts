@@ -22,6 +22,11 @@ export interface ErrorMessage {
   readonly WRONG_PRODUCT_QUANTITY: string;
   readonly WRONG_UNIT_CHARGE_MONEY: string;
   readonly EMPTY_PRODUCT_NAME: string;
+  readonly NOT_CONFIRMED_PASSWORD: string;
+  readonly SOLD_OUT_PRODUCT: string;
+  readonly NOT_ENOUGH_MONEY: string;
+  readonly WRONG_PASSWORD_LOGIN: string;
+  readonly NOT_EXIST_USER: string;
   OVERFLOW_CHARGE_MONEY(chargeMoney: number): string;
 }
 

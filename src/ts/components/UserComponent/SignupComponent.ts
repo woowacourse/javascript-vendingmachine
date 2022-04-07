@@ -1,5 +1,5 @@
 import { setCurrentUser } from '../../auth';
-import { BASE_SERVER_URL, MAIN_PAGE } from '../../constants';
+import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import { $ } from '../../dom';
 import { on } from '../../events';
 import renderSnackBar from '../../snackbar';
@@ -25,9 +25,7 @@ export default class SignupComponent {
       const passwordConfirm = this.$passwordConfirmInput.value;
 
       if (password !== passwordConfirm) {
-        throw new Error(
-          '비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요.'
-        );
+        throw new Error(ERROR_MESSAGE.NOT_CONFIRMED_PASSWORD);
       }
 
       const response = await fetch(`${BASE_SERVER_URL}/register`, {
