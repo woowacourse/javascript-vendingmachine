@@ -29,6 +29,12 @@ class SignupContainer extends CustomElement {
     $('.signup-form').addEventListener('submit', this.handleSignupFormSubmit);
   }
 
+  renderProfileManager() {
+    $('.login-manager').classList.add('hidden');
+    $('.profile-manager').classList.remove('hidden');
+    $('.profile-manager-menu').classList.add('hidden');
+  }
+
   handleSignupFormSubmit = (event) => {
     event.preventDefault();
 
@@ -50,6 +56,7 @@ class SignupContainer extends CustomElement {
       alert(error.message);
       return;
     }
+    this.renderProfileManager();
     signup(emailInputValue, nameInputValue, passwordInputValue);
   };
 }

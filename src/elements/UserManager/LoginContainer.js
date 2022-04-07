@@ -20,12 +20,19 @@ class LoginContainer extends CustomElement {
     `;
   }
 
+  renderProfileManager() {
+    $('.login-manager').classList.add('hidden');
+    $('.profile-manager').classList.remove('hidden');
+    $('.profile-manager-menu').classList.add('hidden');
+  }
+
   handleLoginFormSubmit = (event) => {
     event.preventDefault();
 
     const emailInputValue = $('#email-input').value;
     const passwordInputValue = $('#password-input').value;
 
+    this.renderProfileManager();
     login(emailInputValue, passwordInputValue);
   };
 
