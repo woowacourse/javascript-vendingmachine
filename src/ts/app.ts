@@ -19,7 +19,7 @@ import ConsumerSignInButtonComponent from './components/PurchaseProductManageCom
 
 import SignInComponent from './components/membershipComponents/SignInComponent';
 import SignUpComponent from './components/membershipComponents/SignUpComponent';
-import UserThumbnailComponent from './components/membershipComponents/UserThumbnailComponent';
+import ThumbnailComponent from './components/membershipComponents/ThumbnailComponent';
 import DimmerComponent from './components/DimmerComponent';
 import EditInformationComponent from './components/membershipComponents/EditInformationComponent';
 
@@ -30,7 +30,7 @@ const startApp = () => {
   new SignInComponent();
   new SignUpComponent();
   new ConsumerSignInButtonComponent();
-  new UserThumbnailComponent();
+  new ThumbnailComponent();
   new EditInformationComponent();
 
   new DimmerComponent();
