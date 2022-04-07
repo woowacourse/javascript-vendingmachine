@@ -1,7 +1,7 @@
 {
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
-  "description": "",
+  "description": "자바스크립트 자판기",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
