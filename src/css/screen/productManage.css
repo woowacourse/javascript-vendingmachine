@@ -26,8 +26,6 @@
   padding: 6px 6px 6px 8px; 
   width: 56px;
   height: 100%;
-  background: var(--submit-button-color);
-  color: var(--submit-button-font-color);
   margin: 0px 10px;
 }
 

@@ -75,6 +75,8 @@ export default class PageMover implements View {
   private handlePopstate(): void {
     if (window.location.hash) {
       this.movePage(window.location.hash.slice(1) as unknown as PageName);
+    } else {
+      history.pushState({}, '', window.location.pathname + '#buyProduct');
     }
   }
 

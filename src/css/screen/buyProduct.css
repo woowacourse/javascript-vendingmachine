@@ -39,3 +39,10 @@
   width: 100px;
   margin: 0 auto;
 }
+
+.app__main.buyProduct .input-form__submit-button {
+  padding: 6px 6px 6px 8px; 
+  width: 56px;
+  height: 100%;
+  margin: 0px 10px;
+}

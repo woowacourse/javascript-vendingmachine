@@ -11,3 +11,10 @@
 .app__main.chargeMoney .input-container {
   margin-bottom: 10px;
 }
+
+.app__main.chargeMoney .input-form__submit-button {
+  padding: 6px 6px 6px 8px; 
+  width: 56px;
+  height: 100%;
+  margin: 0px 10px;
+}

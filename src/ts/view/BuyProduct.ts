@@ -72,9 +72,11 @@ export default class BuyProduct implements DomainView {
     try {
       const productName = (e.target as HTMLElement).dataset.name as unknown as ProductName;
 
-      this.buyer.buyProduct(productName);
-      this.render();
-      this.renderTotalBuyPrice();
+      if (productName) {
+        this.buyer.buyProduct(productName);
+        this.render();
+        this.renderTotalBuyPrice();
+      }
     } catch ({ message }) {
       this.snackbar.on(message);
     }
