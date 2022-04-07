@@ -39,8 +39,8 @@ export default class App {
     $('.select-box').addEventListener('click', this.selectBoxClickHandler);
   }
 
-  private navClickHandler = ({ target }) => {
-    if (target.tagName !== 'BUTTON') return;
+  private navClickHandler = ({ target }: MouseEvent) => {
+    if (!(target instanceof HTMLButtonElement)) return;
 
     const pathname = `${basePath}${target.dataset.pathname}`;
 

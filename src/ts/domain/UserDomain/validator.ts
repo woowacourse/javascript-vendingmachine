@@ -2,8 +2,10 @@ import { USER_INFO_RULE } from '../../constants';
 import { MESSAGE } from '../../constants/message';
 import { UserInfo } from '../types';
 
-const isEmptyValue = (user: UserInfo, confirmPassword: string) => {
-  const { email, name, password } = user;
+const isEmptyValue = (
+  { email, name, password }: UserInfo,
+  confirmPassword: string,
+) => {
   return !email || !name || !password || !confirmPassword;
 };
 

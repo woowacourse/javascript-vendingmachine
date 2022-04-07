@@ -89,8 +89,7 @@ export default class ProductInventoryUI {
     this.finishEditMode($editButton);
   };
 
-  private buttonClickHandler = (e: MouseEvent) => {
-    const { target } = e;
+  private buttonClickHandler = ({ target }: MouseEvent) => {
     if (!(target instanceof HTMLButtonElement)) return;
 
     switch (target.innerText) {

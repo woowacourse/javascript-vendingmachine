@@ -66,8 +66,7 @@ export default class ProductStatusUI {
     return baseTemplate + productsTemplate;
   }
 
-  private purchaseButtonClickHandler = (e: MouseEvent) => {
-    const { target } = e;
+  private purchaseButtonClickHandler = ({ target }: MouseEvent) => {
     if (!(target instanceof HTMLButtonElement)) return;
 
     const { productName, productPrice, productQuantity } = target.dataset;
