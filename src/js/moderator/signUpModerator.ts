@@ -27,7 +27,11 @@ class SignUpModerator {
   }
 
   signUp(userInfo) {
-    this.authorization.signUp(userInfo);
+    try {
+      this.authorization.signUp(userInfo);
+    } catch (err) {
+      alert(err);
+    }
   }
 }
 

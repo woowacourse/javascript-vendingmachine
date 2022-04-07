@@ -59,3 +59,18 @@ export const checkMoneyUnderZero = (money: number) => {
     throw new Error(ERROR_MESSAGE.MINIMUM_CHANGES);
   }
 };
+
+export const checkUserNameLength = (name: string) => {
+  if (name.length < 2 || name.length > 6) {
+    throw new Error(ERROR_MESSAGE.VALID_USER_NAME_LENGTH);
+  }
+};
+
+export const checkConfirmPassword = (
+  password: string,
+  confirmPassword: string
+) => {
+  if (password !== confirmPassword) {
+    throw new Error(ERROR_MESSAGE.NOT_CONFIRMED_PASSWORD);
+  }
+};

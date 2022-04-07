@@ -1,5 +1,6 @@
 import api from "../api";
 import { getCookie } from "../util/general";
+import { checkUserNameLength, checkConfirmPassword } from "../util/validations";
 
 class Authorization {
   async isLoggedIn() {
@@ -21,14 +22,8 @@ class Authorization {
   }
 
   async signUp({ email, name, password, confirmPassword }) {
-    if (name.length < 2 || name.length > 6) {
-      alert("이름은 2~6자 이내여야합니다. ");
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
+    checkUserNameLength(name);
+    checkConfirmPassword(password, confirmPassword);
     const response = await api.signUp({ email, name, password });
     if (response.isError) {
       alert("이미 존재하는 이메일입니다.");

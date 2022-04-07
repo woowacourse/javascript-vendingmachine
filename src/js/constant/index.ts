@@ -7,6 +7,8 @@ export const ERROR_MESSAGE = {
   DIVIDED_BY_MINIMUM_COIN: "투입된 금액은 10으로 나누어 떨어져야합니다.",
   MAXIMUM_CHANGES: "최대 잔액은 100000원 입니다.",
   MINIMUM_CHANGES: "금액은 0원보다 높아야합니다.",
+  VALID_USER_NAME_LENGTH: "이름은 2~6자 이내여야합니다. ",
+  NOT_CONFIRMED_PASSWORD: "비밀번호가 일치하지 않습니다.",
 } as const;
 
 export const VENDING_MACHINE_NUMBER = {
