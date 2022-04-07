@@ -1,5 +1,5 @@
-import VendingMachine from '../domain/VendingMachine';
-import Auth from '../domain/Auth';
+import VendingMachine from '../domain/vendingMachine/VendingMachine';
+import Auth from '../domain/auth/Auth';
 
 import PurchaseProductTab from './vendingMachine/PurchaseProductTab';
 import AddChangeTab from './vendingMachine/AddChangeTab';

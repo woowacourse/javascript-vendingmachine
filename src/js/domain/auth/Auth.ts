@@ -1,6 +1,14 @@
-import { validateData } from './validator';
-import Snackbar from '../view/SnackBar';
-import { ERROR } from '../constants';
+import { validateData } from '../vendingMachine/validator';
+import Snackbar from '../../view/SnackBar';
+import { ERROR, STORAGE_KEY } from '../../constants';
+import {
+  hasBlank,
+  isDifferent,
+  isEmpty,
+  isInValidPassword,
+  isNameLengthOutOfRange,
+  isUnderMinLengthPassword,
+} from './validator';
 
 const emailValidator = [
   { testFunc: isEmpty, errorMsg: '이메일을 입력해주세요.' },
@@ -89,9 +97,8 @@ const Auth = {
         user: { id },
       } = response;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('userId', id);
-
+      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN, accessToken);
+      localStorage.setItem(STORAGE_KEY.USER_ID, id);
       window.location.href = '#/manage';
     } catch (error) {
       Snackbar.dispatch(error, ERROR);
@@ -132,72 +139,11 @@ const Auth = {
       if (typeof response === 'string') {
         throw Error(response);
       }
-
       window.location.href = '#/purchase';
     } catch (error) {
       Snackbar.dispatch(error, ERROR);
     }
   },
 };
-
-function isUnderMinLengthPassword(password) {
-  return password.length < 10;
-}
-
-function isNameLengthOutOfRange(value) {
-  return value.length < 2 || value.length > 6;
-}
-
-function isDifferent(valueA, valueB) {
-  return valueA !== valueB;
-}
-
-function isEmpty(value) {
-  return value === '';
-}
-
-function hasBlank(value) {
-  return value.includes(' ');
-}
-
-function isInValidPassword(password) {
-  const testFuncs = [isSpecialCase, isUpperCase, isLowerCase, isNumber];
-
-  for (let value of password.split('')) {
-    for (let index in testFuncs) {
-      if (testFuncs[index](value)) {
-        testFuncs.splice(Number(index), 1);
-        break;
-      }
-    }
-    if (testFuncs.length <= 2) return false;
-  }
-
-  return true;
-}
-
-function isSpecialCase(value) {
-  const special = ['!', '@', '#', '$', '%', '^', '&', '* '];
-
-  return special.includes(value);
-}
-
-function isUpperCase(value) {
-  const code = value.charCodeAt(0);
-
-  return code >= 65 && code <= 90;
-}
-
-function isLowerCase(value) {
-  const code = value.charCodeAt(0);
-
-  return code >= 97 && code <= 122;
-}
-
-function isNumber(value) {
-  const code = value.charCodeAt(0);
-
-  return code >= 48 && code <= 57;
-}
 
 export default Auth;

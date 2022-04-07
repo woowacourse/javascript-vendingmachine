@@ -1,5 +1,5 @@
-import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../constants';
-import { changeValidationData, ProductData, Validator } from './interface';
+import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../../constants';
+import { changeValidationData, ProductData, Validator } from '../interface';
 
 // product data validation
 export function hasEmptyInput({ name, price, stock }: ProductData): boolean {

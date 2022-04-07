@@ -1,4 +1,4 @@
-import VendingMachineProduct from './VendingMachineProduct';
+import VendingMachineProduct from './vendingMachine/VendingMachineProduct';
 
 export interface ProductData {
   name: string;

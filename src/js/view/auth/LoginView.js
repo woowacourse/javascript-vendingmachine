@@ -1,4 +1,4 @@
-import Auth from '../../domain/Auth';
+import Auth from '../../domain/auth/Auth';
 import { createDivElement, selectDom } from '../../utils/dom';
 import { TEMPLATE } from '../template';
 import Snackbar from '../SnackBar';

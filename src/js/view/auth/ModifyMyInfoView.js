@@ -1,5 +1,5 @@
 import { ERROR, SNACKBAR_MESSAGE, STORAGE_KEY } from '../../constants';
-import Auth from '../../domain/Auth';
+import Auth from '../../domain/auth/Auth';
 import { createDivElement, selectDom } from '../../utils/dom';
 import Snackbar from '../SnackBar';
 import { TEMPLATE } from '../template';

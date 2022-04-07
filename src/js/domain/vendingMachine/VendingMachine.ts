@@ -1,15 +1,10 @@
-import {
-  Coin,
-  CoinStatus,
-  ProductData,
-  VendingMachineProductDictionary,
-} from './interface';
+import { CoinStatus, ProductData, VendingMachineProductDictionary } from '../interface';
 
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
 
-import { ERROR_MESSAGE } from '../constants';
-import { generateUniqueId } from '../utils';
+import { ERROR_MESSAGE } from '../../constants';
+import { generateUniqueId } from '../../utils';
 import {
   inValidUnitChange,
   isBelowMinCharge,

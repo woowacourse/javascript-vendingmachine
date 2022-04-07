@@ -1,4 +1,4 @@
-import { ProductData } from './interface';
+import { ProductData } from '../interface';
 import {
   hasEmptyInput,
   isInvalidUnitPrice,
@@ -8,7 +8,7 @@ import {
   isStockOutOfRange,
   validateData,
 } from './validator';
-import { ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE } from '../../constants';
 
 export default class VendingMachineProduct {
   #name: string;

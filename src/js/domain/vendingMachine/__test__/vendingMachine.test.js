@@ -1,6 +1,6 @@
 import VendingMachineProduct from '../VendingMachineProduct';
 import VendingMachine from '../VendingMachine';
-import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../../constants';
+import { ERROR_MESSAGE, VENDING_MACHINE_RULES } from '../../../constants';
 
 describe('자판기 클래스 테스트', () => {
   let vendingMachine;

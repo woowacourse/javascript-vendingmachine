@@ -1,9 +1,9 @@
-import { Coin, CoinStatus, distributeStrategy } from './interface';
+import { Coin, CoinStatus, distributeStrategy } from '../interface';
 
 import RandomStrategy from './RandomStrategy';
 
-import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../constants';
-import { deepCopy, deepCopyList } from '../utils';
+import { COIN_500, COIN_100, COIN_50, COIN_10 } from '../../constants';
+import { deepCopy, deepCopyList } from '../../utils';
 
 export default class MoneyBox {
   #coinStatusList: Coin[];
@@ -40,21 +40,18 @@ export default class MoneyBox {
     return totalChange;
   }
 
-  //추후 리팩토링 필요!
   get coinStatus(): CoinStatus {
-    const totalStatus: CoinStatus = {};
-
-    this.#coinStatusList.forEach(({ name, count }) => {
-      totalStatus[name] = count;
-    });
-
-    return totalStatus;
+    return this.#generateTotalStatus(this.#coinStatusList);
   }
 
   get returnCoinStatus(): CoinStatus {
+    return this.#generateTotalStatus(this.#returnCoinStatusList);
+  }
+
+  #generateTotalStatus(statusList): CoinStatus {
     const totalStatus: CoinStatus = {};
 
-    this.#returnCoinStatusList.forEach(({ name, count }) => {
+    statusList.forEach(({ name, count }) => {
       totalStatus[name] = count;
     });
 
@@ -72,10 +69,9 @@ export default class MoneyBox {
     });
   }
 
-  //TODO: 리팩토링 필수
   returnChange(totalInsertMoney): number {
-    const returnCoinStatusList = deepCopyList(this.#returnCoinStatusList);
     const coinStatusList = deepCopyList(this.#coinStatusList);
+    const returnCoinStatusList = deepCopyList(this.#returnCoinStatusList);
     let leftMoney = totalInsertMoney;
 
     coinStatusList.forEach(({ value, count }, index) => {
