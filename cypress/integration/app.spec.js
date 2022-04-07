@@ -3,7 +3,7 @@ describe('로그인 사용자는', () => {
     cy.visit('http://localhost:9000');
     cy.wait(50);
     cy.get('#login-link').click();
-    cy.login({ email: 'test2@test.com', password: 'qwerasdf' });
+    cy.login({ email: 'test@test.com', password: 'asdf1234' });
   });
 
   it('유저 썸네일 버튼과 네비게이션 바가 보여야 한다.', () => {
@@ -51,9 +51,9 @@ describe('비로그인 사용자는', () => {
     cy.get('#user-thumbnail').should('have.text', '테');
   });
 
-  it('금액을 투입할 수 있어야 한다.', () => {
+  it('상품을 구매할 수 있어야 한다.', () => {
     cy.get('#login-link').click();
-    cy.login({ email: 'test2@test.com', password: 'qwerasdf' });
+    cy.login({ email: 'test@test.com', password: 'asdf1234' });
     cy.get('#item-management-link').click();
     cy.addItem({ name: '콜라', price: '1000', quantity: '15' });
     cy.get('#change-charge-link').click();
