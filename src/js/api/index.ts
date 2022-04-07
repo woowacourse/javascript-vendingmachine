@@ -49,6 +49,20 @@ const api = {
       return { isError: true };
     }
   },
+
+  updateUserInfo: async (userId, user, accessToken) => {
+    try {
+      console.log(user);
+      const response = await request(`/600/users/${userId}`, {
+        method: "PATCH",
+        body: JSON.stringify(user),
+        headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
+      });
+      return { ...response, isError: false };
+    } catch (error) {
+      return { isError: true };
+    }
+  },
 };
 
 export default api;

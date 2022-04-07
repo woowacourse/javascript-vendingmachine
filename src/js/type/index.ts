@@ -35,3 +35,9 @@ export interface ILoginEvent {
   email: string;
   password: string;
 }
+
+export interface IUpdateUserEvent {
+  name: string;
+  password: string;
+  confirmPassword: string;
+}

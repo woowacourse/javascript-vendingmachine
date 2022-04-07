@@ -4,6 +4,7 @@ import PurchaseModerator from "./moderator/purchaseModerator";
 import SignUpModerator from "./moderator/signUpModerator";
 import LoginModerator from "./moderator/loginModerator";
 import Authorization from "./domain/authorization";
+import UserInfoModerator from "./moderator/userInfoModerator";
 
 import { $ } from "./util/dom";
 
@@ -13,6 +14,7 @@ class App {
   purchaseModerator;
   signUpModerator;
   loginModerator;
+  userInfoModerator;
   authorization;
 
   constructor() {
@@ -21,6 +23,7 @@ class App {
     this.purchaseModerator = new PurchaseModerator();
     this.signUpModerator = new SignUpModerator();
     this.loginModerator = new LoginModerator();
+    this.userInfoModerator = new UserInfoModerator();
     this.authorization = new Authorization();
 
     window.addEventListener("hashchange", this.onChangePage);
@@ -55,6 +58,10 @@ class App {
 
     if (hash === "#!login") {
       this.loginModerator.init();
+    }
+
+    if (hash === "#!userInfo") {
+      this.userInfoModerator.init();
     }
   };
 }

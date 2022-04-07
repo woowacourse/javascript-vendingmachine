@@ -34,6 +34,7 @@ export enum EVENT_TYPE {
   SIGN_UP = "@sign-up",
   LOGIN = "@login",
   LOGOUT = "@logout",
+  UPDATE_USER = "@update-user",
 }
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?" as const;

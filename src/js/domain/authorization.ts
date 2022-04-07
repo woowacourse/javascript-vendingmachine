@@ -36,6 +36,20 @@ class Authorization {
     document.cookie = `access_token=;`;
     location.href = "/";
   }
+
+  async updateUserInfo(userId, user) {
+    checkUserNameLength(user.name);
+    checkConfirmPassword(user.password, user.confirmPassword);
+    const response = await api.updateUserInfo(
+      userId,
+      user,
+      getCookie("access_token")
+    );
+    location.href = "/";
+    if (response.isError) {
+      throw new Error("서버에러");
+    }
+  }
 }
 
 export default Authorization;
