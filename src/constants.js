@@ -72,10 +72,15 @@ export const ERROR_MESSAGE = {
   AUTH: {
     CANNOT_FIND_USER: '가입되지 않은 이메일입니다! 이메일을 확인해 주세요!',
     INCORRECT_PASSWORD: '비밀번호가 틀렸습니다! 비밀번호를 다시 입력해 주세요!',
+    EMAIL_ALREADY_EXISTS: '이미 가입된 이메일입니다! 뒤로 가기를 눌러 로그인해 주세요!',
+    IS_BLANK_USER_NAME: '공백으로만 이루어진 이름이 이루어졌습니다! 이름을 입력해 주세요!',
+    IS_PASSWORD_CONFIRM_NOT_MATCH_PASSWORD:
+      '비밀번호 확인이 비밀번호와 일치하지 않습니다! 비밀번호 확인을 다시 입력해 주세요!',
   },
 };
 
 export const JSON_AUTH_SERVER_ERROR_MESSAGE = {
   CANNOT_FIND_USER: 'Cannot find user',
   INCORRECT_PASSWORD: 'Incorrect password',
+  EMAIL_ALREADY_EXISTS: 'Email already exists',
 };

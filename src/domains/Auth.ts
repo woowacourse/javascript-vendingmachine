@@ -15,7 +15,7 @@ export async function signup(email: string, name: string, password: string) {
   const jsonResponse = await response.json();
 
   if (!jsonResponse.accessToken) {
-    alert(jsonResponse);
+    throw new Error(jsonResponse);
   }
 }
 

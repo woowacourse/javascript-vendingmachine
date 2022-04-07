@@ -49,6 +49,10 @@ const isNoCustomerMoney = () => {
   return CoinStore.instance.customer.money === 0;
 };
 
+const isPasswordConfirmNotMatchPassword = (password, passwordConfirm) => {
+  return password !== passwordConfirm;
+};
+
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
   if (isBlank(name)) {
@@ -126,5 +130,14 @@ export const checkProductPurchaseValidation = (productPrice, productQuantity) =>
 export const checkChangeReturnValidation = () => {
   if (isNoCustomerMoney()) {
     throw new Error(ERROR_MESSAGE.VENDING_MACHINE.IS_NO_CUSTOMER_MONEY);
+  }
+};
+
+export const checkSignupValidation = (userName, password, passwordConfirm) => {
+  if (isBlank(userName)) {
+    throw new Error(ERROR_MESSAGE.AUTH.IS_BLANK_USER_NAME);
+  }
+  if (isPasswordConfirmNotMatchPassword(password, passwordConfirm)) {
+    throw new Error(ERROR_MESSAGE.AUTH.IS_PASSWORD_CONFIRM_NOT_MATCH_PASSWORD);
   }
 };

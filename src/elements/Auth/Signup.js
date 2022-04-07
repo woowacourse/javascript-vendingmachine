@@ -1,6 +1,8 @@
 import CustomElement from '../../abstracts/CustomElement';
+import { ERROR_MESSAGE, JSON_AUTH_SERVER_ERROR_MESSAGE } from '../../constants';
 import { signup } from '../../domains/Auth';
 import { $ } from '../../utils';
+import { checkSignupValidation } from '../../validators';
 
 class Signup extends CustomElement {
   template() {
@@ -30,11 +32,28 @@ class Signup extends CustomElement {
     event.preventDefault();
 
     const { email, name, password, passwordConfirm } = event.target.elements;
-    await signup(email.value, name.value, password.value);
 
-    this.initSignupInputs(email, name, password, passwordConfirm);
-    window.history.back();
+    try {
+      await this.signUp(email, name, password, passwordConfirm);
+      this.initSignupInputs(email, name, password, passwordConfirm);
+    } catch (error) {
+      if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.EMAIL_ALREADY_EXISTS) {
+        alert(ERROR_MESSAGE.AUTH.EMAIL_ALREADY_EXISTS);
+      }
+      alert(error.message);
+    }
   };
+
+  async signUp($email, $name, $password, $passwordConfirm) {
+    const userName = $name.value.trim();
+
+    checkSignupValidation(userName, $password, $passwordConfirm);
+
+    await signup($email.value, userName, $password.value);
+
+    this.initSignupInputs($email, $name, $password, $passwordConfirm);
+    window.history.back();
+  }
 
   initSignupInputs($email, $name, $password, $passwordConfirm) {
     $email.value = '';
