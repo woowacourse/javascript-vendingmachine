@@ -36,6 +36,9 @@ export default class PurchaseProductsStateComponent {
 
   onPurchaseProduct = (e) => {
     e.preventDefault();
+    if (!e.target.classList.contains('table-button')) {
+      return;
+    }
 
     const { productName } = e.target.closest('.product-table__info-tr').dataset;
     try {

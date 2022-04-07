@@ -68,4 +68,4 @@ export const CUSTOMER_MAIN_PAGE = 'purchase';
 
 export const SNACK_BAR_DELAY_TIME = 3000;
 
-export const BASE_SERVER_URL = 'http://localhost:3000';
+export const BASE_SERVER_URL = 'https://hui-auth.herokuapp.com';
