@@ -1,14 +1,16 @@
 const registerPageTemplate = /* html */ `
   <h2>회원가입</h2>
-  <div class="instructions">
-    <h3>👨‍🏫 회원가입 시 유의 사항</h3>
-    <ul class="instructions-list">
-      <li>모든 항목은 필수로 작성해야 합니다.</li>
-      <li>이메일은 중복될 수 없습니다.</li>
-      <li>이름은 2자-6자 길이여야 합니다.</li>
-      <li>비밀번호는 8자 이상 20자 이하의 길이로 영소문자, 숫자, 특수문자를 포함해야 합니다.</li>
-    </ul>
-  </div>
+  <details class="instruction-toggle">
+    <summary class="instructions-title">👨‍🏫 회원가입 시 유의 사항</summary>
+    <div class="instructions">
+      <ul class="instructions-list">
+        <li>모든 항목은 필수로 작성해야 합니다.</li>
+        <li>이메일은 중복될 수 없습니다.</li>
+        <li>이름은 2자-6자 길이여야 합니다.</li>
+        <li>비밀번호는 8자 이상 20자 이하의 길이로 영소문자, 숫자, 특수문자를 포함해야 합니다.</li>
+      </ul>
+    </div>
+  </details>
   <form class="auth-form">
     <label for="email">이메일</label>
     <input

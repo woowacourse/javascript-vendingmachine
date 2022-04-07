@@ -4,13 +4,15 @@ const chargeTabTemplate = /* html */ `
 <section class="form-section" aria-labelledby="charge-tab-title">
   <h2 class="tab-title" id="charge-tab-title">잔돈 충전하기</h2>
   <form id="add-change-form">
-    <div class="instructions">
-      <h3>💰 잔돈 충전 시 유의 사항</h3>
-      <ul class="instructions-list">
-        <li>최소 충전 금액: 10원</li>
-        <li>최대 충전 가능 금액: 100,000원</li>
-      </ul>
-    </div>
+    <details class="instruction-toggle">
+      <summary class="instructions-title">💰 잔돈 충전 시 유의 사항</summary>
+      <div class="instructions">
+        <ul class="instructions-list">
+          <li>최소 충전 금액: 10원</li>
+          <li>최대 충전 가능 금액: 100,000원</li>
+        </ul>
+      </div>
+    </details>
     <label for="change">자판기가 보유할 금액을 입력해주세요</label>
     <div class="input-form-wrapper">
       <input type="number" id="money-input" placeholder="금액" name="change" min="10" max="100000" step="10" required/>

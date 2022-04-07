@@ -5,14 +5,16 @@ export const purchaseTabTemplate = /* html */ `
   <h2 class="tab-title" id="purchase-tab-title">상품 구매하기</h2>
   
   <form id="user-money-form">
-    <div class="instructions">
-      <h3>🛒금액 투입 시 유의 사항</h3>
-      <ul class="instructions-list">
-        <li>금액은 최소 10원, 최대 10000원까지 투입할 수 있습니다.</li>
-        <li>투입한 금액으로 상품 구매 후 잔액이 남은 경우 하단의 잔돈 반환 버튼으로 반환할 수 있습니다.</li>
-        <li>자판기의 잔돈의 상태에 따라 잔액을 모두 반환하지 못할 수 있습니다.</li>
-      </ul>
-    </div>
+    <details class="instruction-toggle">
+      <summary class="instructions-title">🛒금액 투입 시 유의 사항</summary>
+      <div class="instructions">
+        <ul class="instructions-list">
+          <li>금액은 최소 10원, 최대 10000원까지 투입할 수 있습니다.</li>
+          <li>투입한 금액으로 상품 구매 후 잔액이 남은 경우 하단의 잔돈 반환 버튼으로 반환할 수 있습니다.</li>
+          <li>자판기의 잔돈의 상태에 따라 잔액을 모두 반환하지 못할 수 있습니다.</li>
+        </ul>
+      </div>
+    </details>
     <label for="user-money">상품을 구매할 금액을 입력해주세요</label>
     <div class="input-form-wrapper">
       <input type="number" id="user-money-input" placeholder="금액" name="user-money" min="10" max="10000" step="10" required/>

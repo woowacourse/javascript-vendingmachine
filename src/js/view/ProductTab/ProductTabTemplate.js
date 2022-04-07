@@ -2,14 +2,16 @@ export const productTabTemplate = /* html */ `
 <section class="form-section" aria-labelledby="product-tab-title">
   <h2 class="tab-title" id="product-tab-title">상품 추가하기</h2>
   <form id="add-product-form">
-    <div class="instructions">
-      <h3>🛒상품 추가 시 유의 사항</h3>
-      <ul class="instructions-list">
-        <li>상품명: 1자 이상 10자 이하</li>
-        <li>가격: 100원 이상 10000원 이하, 10원 단위</li>
-        <li>수량: 1개 이상 20개 이하</li>
-      </ul>
-    </div>
+    <details class="instruction-toggle">
+      <summary class="instructions-title">🛒상품 추가 시 유의 사항</summary>
+      <div class="instructions">
+        <ul class="instructions-list">
+          <li>상품명: 1자 이상 10자 이하</li>
+          <li>가격: 100원 이상 10000원 이하, 10원 단위</li>
+          <li>수량: 1개 이상 20개 이하</li>
+        </ul>
+      </div>
+    </details>
     <fieldset>
       <legend>추가할 상품 정보를 입력해주세요.</legend>
       <div class="input-wrapper">

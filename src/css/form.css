@@ -17,7 +17,6 @@ legend {
   margin-bottom: 5px;
 }
 
-
 .input-wrapper {
   width: 120px;
 }
@@ -58,11 +57,17 @@ form {
   width: 300px;
 }
 
+.instruction-toggle {
+  width: 80%;
+  margin: 0 auto;
+  align-self: flex-start;
+}
+
 .instructions {
   background-color: #f3f3f3;
   padding: 10px 20px;
   border-radius: 4px;
-  width: 400px;
+  width: 350px;
   margin: 0 auto;
 }
 
