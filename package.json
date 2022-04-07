@@ -9,7 +9,7 @@
     "cypress:run": "cypress run --browser chrome",
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "CI= npm run build"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
