@@ -14,6 +14,11 @@ export const VENDING_MACHINE = {
   MONEY_UNIT: 10,
 };
 
+export const MEMBER_SERVICE = {
+  MIN_USER_NAME: 1,
+  MAX_USER_NAME: 6,
+};
+
 export const ERROR_MESSAGE = {
   PRODUCT_NAME_REQUIRED: '상품명을 입력해주세요.',
   PRODUCT_NAME_LENGTH: `상품명은 ${VENDING_MACHINE.MIN_PRODUCT_NAME}자에서 ${VENDING_MACHINE.MAX_PRODUCT_NAME}자까지 입력할 수 있습니다.`,
@@ -30,7 +35,7 @@ export const ERROR_MESSAGE = {
   HOLDING_AMOUNT_WRONG_LIMIT: `자판기 보유 금액은 ${VENDING_MACHINE.MAX_HOLDING_AMOUNT}원까지 충전할 수 있습니다.`,
 
   USER_EMAIL_TYPE_WRONG: '이메일 주소를 정확히 입력해주세요.',
-  USER_NAME_WRONG_RANGE: '이름은 1자에서 6자 이내로 입력하여야 합니다.',
+  USER_NAME_WRONG_RANGE: `이름은 ${MEMBER_SERVICE.MIN_USER_NAME}자에서 ${MEMBER_SERVICE.MAX_USER_NAME}자 이내로 입력하여야 합니다.`,
   USER_PASSWORD_TYPE_WRONG: '비밀번호는 숫자와 영문을 포함하여 6자리 이상 입력하여야 합니다.',
   USER_PASSWORD_CONFIRM_DIFF: '비밀번호를 다시 확인해주세요.',
 };

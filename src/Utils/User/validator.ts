@@ -1,5 +1,5 @@
 import { isStringLengthInRange } from 'Utils';
-import { ERROR_MESSAGE } from 'Constants';
+import { ERROR_MESSAGE, MEMBER_SERVICE } from 'Constants';
 
 export const isPassEmailRules = (email: string): boolean => {
   const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]*$/g;
@@ -11,7 +11,8 @@ export const isPassPasswordRules = (password: string): boolean => {
   return regex.test(password);
 };
 
-export const isUserNameRules = (name: string): boolean => isStringLengthInRange(name, 1, 6);
+export const isUserNameRules = (name: string): boolean =>
+  isStringLengthInRange(name, MEMBER_SERVICE.MIN_USER_NAME, MEMBER_SERVICE.MAX_USER_NAME);
 
 export const validateUserRegister = (
   email: string,
@@ -21,7 +22,7 @@ export const validateUserRegister = (
 ): boolean => {
   if (!isPassEmailRules(email)) throw new Error(ERROR_MESSAGE.USER_EMAIL_TYPE_WRONG);
 
-  if (!isStringLengthInRange(name, 1, 6)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
+  if (!isUserNameRules(name)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
 
   if (!isPassPasswordRules(password)) throw new Error(ERROR_MESSAGE.USER_PASSWORD_TYPE_WRONG);
 
@@ -43,7 +44,7 @@ export const validateUserProfileEdit = (
   password: string,
   passwordConfirm: string,
 ): boolean => {
-  if (!isStringLengthInRange(name, 1, 6)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
+  if (!isUserNameRules(name)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
 
   if (!isPassPasswordRules(password)) throw new Error(ERROR_MESSAGE.USER_PASSWORD_TYPE_WRONG);
 
