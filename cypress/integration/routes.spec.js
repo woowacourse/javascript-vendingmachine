@@ -2,7 +2,7 @@ import createRandomUserData from '../support/createRandomUserData';
 
 const baseUrl = 'http://localhost:9000';
 
-describe('가입/비가입 사용자 라우터 테스트', () => {
+describe('회원/비회원 라우터 테스트', () => {
   const userOnlyRoutes = {
     '상품 관리 탭': '#/product',
     '잔돈 충전 탭': '#/charge',
