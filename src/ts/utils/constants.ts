@@ -64,8 +64,9 @@ const INFOMATION_MESSAGES = {
   SUCCESS_EDIT_PRODUCT: "상품 수정이 완료되었습니다.",
   SUCCESS_PURCHASE_PRODUCT: "상품을 구매하였습니다.",
   SUCCESS_RETURN_COIN: "동전이 반환되었습니다.",
-  SUCCESS_SIGNUP: "회원가입 완료! 로그인되었습니다.",
-  SUCCESS_LOGIN: "로그인되었습니다.",
+  SUCCESS_SIGNUP: "회원가입 완료! 로그인 되었습니다.",
+  SUCCESS_LOGIN: "로그인 되었습니다.",
+  SUCCESS_EDIT_USER_INFO: "회원 정보 수정 완료!",
 };
 
 export { PRODUCT, CHARGE, PURCAHSE, USER_NAME, KEY, ERROR_MESSAGES, INFOMATION_MESSAGES };

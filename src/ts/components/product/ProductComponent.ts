@@ -1,9 +1,10 @@
 import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
-import { productTemplate, editProductTemplate, productmanageListTemplate } from "./productTemplate";
 import { clearInput } from "../../utils/common";
-import Snackbar from "../Snackbar";
+
 import ProductManager from "../../manager/ProductManager";
+import { productTemplate, editProductTemplate, productmanageListTemplate } from "./productTemplate";
+import Snackbar from "../Snackbar";
 
 class ProductComponent {
   productContainer: HTMLElement;

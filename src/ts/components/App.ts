@@ -1,4 +1,7 @@
 import { $, $$ } from "../utils/dom";
+import { KEY } from "../utils/constants";
+import { getSessionStorage, removeSessionStorage } from "../utils/sessionStorage";
+
 import ProductManager from "../manager/ProductManager";
 import ChargeManager from "../manager/ChargeManager";
 
@@ -8,9 +11,7 @@ import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
-import { getSessionStorage, removeSessionStorage } from "../utils/sessionStorage";
 import ProfileComponent from "./profile/ProfileComponent";
-import { KEY } from "../utils/constants";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
@@ -121,10 +122,6 @@ class App {
     this.convertTemplate("#login");
   };
 
-  hideComponents() {
-    this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
-  }
-
   showMenuTab() {
     this.menuTabComponent.show();
     this.menuTabComponent.changeTabStyle();
@@ -179,6 +176,10 @@ class App {
       this.hideThumnailButton();
       this.hideMenuTab();
     }
+  }
+
+  hideComponents() {
+    this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
   }
 
   convertTemplate = (path: Path): void => {

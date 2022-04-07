@@ -1,10 +1,11 @@
 import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { saveSessionStorage } from "../../utils/sessionStorage";
+
+import { requestLogin } from "../../api";
+import { loginTemplate } from "./loginTemplate";
 import { ConvertTemplate, HideHeader } from "../App";
 import Snackbar from "../Snackbar";
-import { loginTemplate } from "./loginTemplate";
-import { requestLogin } from "../../api";
 
 class LoginComponent {
   loginContainer: HTMLElement;

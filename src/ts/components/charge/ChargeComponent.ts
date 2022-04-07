@@ -1,8 +1,9 @@
 import { $ } from "../../utils/dom";
-import { chargeTemplate } from "./chargeTemplate";
-import ChargeManager from "../../manager/ChargeManager";
-import Snackbar from "../Snackbar";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
+
+import ChargeManager from "../../manager/ChargeManager";
+import { chargeTemplate } from "./chargeTemplate";
+import Snackbar from "../Snackbar";
 
 class ChargeComponent {
   chargeContainer: HTMLElement;

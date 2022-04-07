@@ -1,10 +1,11 @@
-import { requestEditProfile } from "../../api";
-import { KEY } from "../../utils/constants";
 import { $ } from "../../utils/dom";
+import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { getSessionStorage, saveSessionStorage } from "../../utils/sessionStorage";
+
+import { requestEditProfile } from "../../api";
+import { profileTemplate } from "./profileTemplate";
 import { ConvertTemplate, HideHeader } from "../App";
 import Snackbar from "../Snackbar";
-import { profileTemplate } from "./profileTemplate";
 
 class ProfileComponent {
   profileContainer: HTMLElement;
@@ -44,6 +45,7 @@ class ProfileComponent {
 
       history.pushState({ path: "#purchase" }, null, "#purchase");
       this.convertTemplate("#purchase");
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_EDIT_USER_INFO);
     } catch ({ message }) {
       this.snackbar.show(message);
     }

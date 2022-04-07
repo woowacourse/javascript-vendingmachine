@@ -1,10 +1,10 @@
 import { $ } from "../../utils/dom";
-import { productPurchaseListTemplate, purchaseTemplate } from "./purchaseTemplate";
-
-import Snackbar from "../Snackbar";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
+
 import ProductManager from "../../manager/ProductManager";
 import ChargeManager, { Coin } from "../../manager/ChargeManager";
+import { productPurchaseListTemplate, purchaseTemplate } from "./purchaseTemplate";
+import Snackbar from "../Snackbar";
 
 class PurchaseComponent {
   purchaseContainer: HTMLElement;

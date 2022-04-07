@@ -1,10 +1,11 @@
-import { requestSignup } from "../../api";
-import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { $ } from "../../utils/dom";
+import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { saveSessionStorage } from "../../utils/sessionStorage";
+
+import { requestSignup } from "../../api";
+import { signupTemplate } from "./signupTemplate";
 import { ConvertTemplate, HideHeader } from "../App";
 import Snackbar from "../Snackbar";
-import { signupTemplate } from "./signupTemplate";
 
 class SignupComponent {
   signupContainer: HTMLElement;
