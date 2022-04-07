@@ -68,6 +68,7 @@ export default class VendingMachine extends Component {
     });
 
     this.addEvent('click', '#logout', () => {
+      window.location.pathname = '/';
       globalStore.logout();
     });
 
