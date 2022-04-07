@@ -27,21 +27,25 @@ export default class AdminImpl implements Admin {
   }
 
   addProduct(product: Product): void {
+    this.throwAuthError();
     validator.checkAdditionalProduct(product, this.vendingMachine.products);
     this.vendingMachine.addProduct(product);
   }
 
   modifyProduct(product: Product, originProductName: ProductName): void {
+    this.throwAuthError();
     validator.checkModifiedProduct(product, this.vendingMachine.products, this.vendingMachine.getProductIndex(originProductName));
     this.vendingMachine.modifyProduct(product, originProductName);
   }
 
   deleteProduct(name: ProductName): void {
+    this.throwAuthError();
     if (this.vendingMachine.getProductIndex(name) === -1) throw new Error(ERROR_MESSAGE.NOT_EXIST_PRODUCT);
     this.vendingMachine.deleteProduct(name);
   }
 
   chargeMoney(inputMoney: number): void {
+    this.throwAuthError();
     validator.checkChargeMoney(inputMoney, this.vendingMachine.calculateTotalAmount());
     this.vendingMachine.generateCoins(inputMoney);
   }
@@ -60,6 +64,7 @@ export default class AdminImpl implements Admin {
   }
 
   async modifyAdmin(adminData: AdminData) {
+    this.throwAuthError();
     validator.checkModifyAdmin(adminData);
     await this.api.modifyAdmin(adminData, this.adminId, this.adminKey);
     this.adminName = adminData.name;
@@ -79,5 +84,9 @@ export default class AdminImpl implements Admin {
 
   async getAdmin() {
     return await this.api.getEmail(this.adminId, this.adminKey);
+  }
+
+  private throwAuthError() {
+    if (!this.isLogin()) throw new Error('권한이 없습니다!');
   }
 }
