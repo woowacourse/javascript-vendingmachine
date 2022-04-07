@@ -3,6 +3,9 @@ import ChangesModerator from "./moderator/changesModerator";
 import PurchaseModerator from "./moderator/purchaseModerator";
 import SignUpModerator from "./moderator/signUpModerator";
 import LoginModerator from "./moderator/loginModerator";
+import Authorization from "./domain/authorization";
+
+import { $ } from "./util/dom";
 
 class App {
   productModerator;
@@ -10,6 +13,7 @@ class App {
   purchaseModerator;
   signUpModerator;
   loginModerator;
+  authorization;
 
   constructor() {
     this.productModerator = new ProductModerator();
@@ -17,10 +21,18 @@ class App {
     this.purchaseModerator = new PurchaseModerator();
     this.signUpModerator = new SignUpModerator();
     this.loginModerator = new LoginModerator();
+    this.authorization = new Authorization();
 
     window.addEventListener("hashchange", this.onChangePage);
+    $("#header").addEventListener("click", this.onClickHeader);
     this.onChangePage();
   }
+
+  onClickHeader = (e: Event) => {
+    const target = e.target as HTMLElement;
+    if (target.id !== "logout") return;
+    this.authorization.logout();
+  };
 
   onChangePage = (): void => {
     const hash = location.hash;

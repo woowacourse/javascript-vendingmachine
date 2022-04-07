@@ -30,6 +30,12 @@ class Authorization {
     }
     location.href = "/#!login";
   }
+
+  logout() {
+    document.cookie = `user_id=;`;
+    document.cookie = `access_token=;`;
+    location.href = "/";
+  }
 }
 
 export default Authorization;
