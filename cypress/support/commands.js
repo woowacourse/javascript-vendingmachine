@@ -36,8 +36,7 @@ Cypress.Commands.add('register', (email, name, password, confirmPassword) => {
 });
 
 Cypress.Commands.add('login', (email, password) => {
-  cy.visit('/');
-  cy.get('#login-button').click();
+  cy.visit(`/${HASH.LOGIN_USER}`);
   cy.get('.user-info-form > input').eq(0).type(email);
   cy.get('.user-info-form > input').eq(1).type(password);
   cy.get('.input-form-button').click();
