@@ -52,10 +52,14 @@ class ReleaseCoin extends Component {
       toast(ToastType.Error, '투입한 금액이 없습니다');
       return;
     }
-    if (chargedMoney === 0 || insertedMoney > chargedMoney) {
+    if (chargedMoney === 0) {
       toast(ToastType.Error, '자판기에 잔돈이 부족합니다. 관리자(010-1234-5678)에게 문의해주세요.');
       return;
     }
+    if (insertedMoney > chargedMoney) {
+      toast(ToastType.Error, '자판기에 잔돈이 부족합니다. 관리자(010-1234-5678)에게 문의해주세요.');
+    }
+
     toast(ToastType.Success, '잔돈을 반환했습니다');
     Store.instance.dispatch(createAction(ACTION.RELEASE_COIN, {}));
   };
