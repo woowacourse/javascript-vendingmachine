@@ -57,7 +57,7 @@ describe('사용자 인증 기본 기능 테스트', () => {
       cy.get('#tab-menu-navigation').should('exist');
     });
 
-    it.only('로그인을 하면 프로필 버튼을 클릭할 수 있어야 한다.', () => {
+    it('로그인을 하면 프로필 버튼을 클릭할 수 있어야 한다.', () => {
       const userData = createRandomUserData();
 
       cy.loginWithNewUser(userData);
@@ -65,7 +65,7 @@ describe('사용자 인증 기본 기능 테스트', () => {
       cy.get('#user-button').click();
     });
 
-    it.only('로그인을 하면 탭 메뉴가 표시된다.', () => {
+    it('로그인을 하면 탭 메뉴가 표시된다.', () => {
       const userData = createRandomUserData();
 
       cy.loginWithNewUser(userData);
