@@ -32,6 +32,7 @@ export default class ChargeMoney implements DomainView {
     this.$coin100.innerText = `${this.admin.vendingMachine.coins[2].count}개`;
     this.$coin500.innerText = `${this.admin.vendingMachine.coins[3].count}개`;
     this.$totalAmount.innerText = String(this.admin.vendingMachine.calculateTotalAmount());
+    this.$chargeMoneyInput.focus();
   }
 
   bindEvent(): void {

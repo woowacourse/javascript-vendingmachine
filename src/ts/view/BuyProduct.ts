@@ -46,6 +46,7 @@ export default class BuyProduct implements DomainView {
       .join('');
     this.$productContainer.replaceChildren();
     this.$productContainer.insertAdjacentHTML('beforeend', template);
+    this.$buyPriceInput.focus();
   }
 
   bindEvent(): void {

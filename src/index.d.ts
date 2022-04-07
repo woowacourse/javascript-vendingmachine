@@ -52,6 +52,7 @@ export interface Admin {
   modifyAdmin(adminData: AdminData);
   login(email: AdminEmail, password: AdminPassword);
   isLogin(): boolean;
+  getAdmin();
 }
 
 export interface Buyer {

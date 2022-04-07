@@ -44,6 +44,7 @@ export default class ProductManage implements DomainView {
       .join('');
     this.$productContainer.replaceChildren();
     this.$productContainer.insertAdjacentHTML('beforeend', template);
+    this.$additionalProductName.focus();
   }
 
   bindEvent(): void {

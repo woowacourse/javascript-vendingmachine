@@ -7,6 +7,7 @@ import Snackbar from './Snackbar';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
 import AdminImpl from '../interactor/AdminImpl';
+import AdminPage from './AdminPage';
 
 export default class PageMover implements View {
   private $app: HTMLElement;
@@ -17,6 +18,7 @@ export default class PageMover implements View {
   private buyProduct: DomainView;
   private signupPage: PageView;
   private loginPage: PageView;
+  private adminPage: PageView;
   private admin: Admin;
 
   constructor() {
@@ -29,6 +31,7 @@ export default class PageMover implements View {
     this.buyProduct = new BuyProduct(snackbar);
     this.signupPage = new SignupPage(snackbar);
     this.loginPage = new LoginPage(snackbar);
+    this.adminPage = new AdminPage(snackbar);
     this.admin = AdminImpl.getInstance();
 
     this.handlePopstate();
@@ -40,6 +43,7 @@ export default class PageMover implements View {
     this.buyProduct.bindEvent();
     this.signupPage.bindEvent(() => this.movePage('loginPage'));
     this.loginPage.bindEvent(() => this.movePage('buyProduct'));
+    this.adminPage.bindEvent(() => this.movePage('buyProduct'));
     this.$app.addEventListener('click', this.handleClickPageMoveButtons.bind(this));
     this.$thubnail.addEventListener('click', () => this.controllSignWrap('menu'));
     window.addEventListener('popstate', this.handlePopstate.bind(this));

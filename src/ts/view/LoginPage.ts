@@ -22,6 +22,8 @@ export default class LoginPage implements PageView {
     if (this.admin.isLogin()) {
       history.back();
     }
+
+    this.$email.focus();
   }
 
   bindEvent(movePage: Function): void {

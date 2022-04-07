@@ -26,6 +26,8 @@ export default class SignupPage implements PageView {
     if (this.admin.isLogin()) {
       history.back();
     }
+
+    this.$email.focus();
   }
 
   bindEvent(movePage: Function): void {

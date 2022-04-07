@@ -51,8 +51,10 @@ export default class AdminImpl implements Admin {
     await this.api.signup(adminData);
   }
 
-  modifyAdmin(adminData: AdminData): void {
-    
+  async modifyAdmin(adminData: AdminData) {
+    validator.checkModifyAdmin(adminData);
+    await this.api.modifyAdmin(adminData, this.adminId, this.adminKey);
+    this.adminName = adminData.name;
   }
   
   async login(email: AdminEmail, password: AdminPassword) {
@@ -65,5 +67,9 @@ export default class AdminImpl implements Admin {
 
   isLogin(): boolean {
     return !!this.adminId && !!this.adminKey && !! this.adminName;
+  }
+
+  async getAdmin() {
+    return await this.api.getEmail(this.adminId, this.adminKey);
   }
 }

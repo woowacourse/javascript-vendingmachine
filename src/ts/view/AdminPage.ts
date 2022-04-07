@@ -27,6 +27,12 @@ export default class AdminPage implements PageView {
       history.back();
       return;
     }
+
+    this.admin.getAdmin().then((email: string) => {
+      (this.$email as HTMLInputElement).value = email;
+      (this.$name as HTMLInputElement).value = this.admin.adminName;
+      this.$password.focus();
+    });
   }
 
   bindEvent(movePage: Function): void {
