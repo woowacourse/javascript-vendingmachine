@@ -1,15 +1,6 @@
-import Subject from './Subject';
 import { deepEqual } from '../utils/commons';
 
 export const componentMixin = {
-  connectedCallback() {
-    Subject.observe(this);
-  },
-
-  disconnectedCallback() {
-    Subject.unobserve(this);
-  },
-
   setProps() {
     this.props = {};
 

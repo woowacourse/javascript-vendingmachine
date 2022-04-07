@@ -1,4 +1,5 @@
 import { componentMixin } from './componentMixin';
+import Subject from './Subject';
 
 export default class TableRow extends HTMLTableRowElement {
   props;
@@ -11,6 +12,14 @@ export default class TableRow extends HTMLTableRowElement {
     this.setProps();
     this.setup();
     this.setEvent();
+  }
+
+  connectedCallback() {
+    Subject.observe(this);
+  }
+
+  disconnectedCallback() {
+    Subject.unobserve(this);
   }
 }
 

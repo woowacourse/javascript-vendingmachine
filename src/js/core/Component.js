@@ -1,4 +1,5 @@
 import { componentMixin } from './componentMixin';
+import Subject from './Subject';
 
 export default class Component extends HTMLElement {
   props;
@@ -11,6 +12,14 @@ export default class Component extends HTMLElement {
     this.setProps();
     this.setup();
     this.setEvent();
+  }
+
+  connectedCallback() {
+    Subject.observe(this);
+  }
+
+  disconnectedCallback() {
+    Subject.unobserve(this);
   }
 }
 

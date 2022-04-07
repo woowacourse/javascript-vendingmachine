@@ -6,9 +6,9 @@ export default class NavBar extends Component {
   template() {
     const { location } = this.props;
     // 왜 재랜더링 되는거지....ㅠ
-    // 이전 location 값이 한 번 더 랜더링됨. 근데 또 template에는 영향이 없음. 뭐야.
+    // 이전 location 값이 한 번 더 랜더링됨. 근데 또 template에는 영향이 없음.
     // delayed된 이전 값....?
-    console.log('!!!!!!!', this.props, location);
+    console.log('!!!!!!!', this.props);
 
     return `
       <a
