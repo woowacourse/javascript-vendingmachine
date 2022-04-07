@@ -1,3 +1,4 @@
+import { AdminEmail, AdminPassword } from '../../index.d';
 import { ADMIN_DATA_RULES, ERROR_MESSAGE } from '../constant';
 import validator from '../interactor/validator';
 
@@ -107,5 +108,47 @@ describe('회원 수정', () => {
     const test = () => validator.checkModifyAdmin(adminData);
 
     expect(test).toThrow(ERROR_MESSAGE.MISMATCH_PASSWORD_CONFIRMATION);
+  });
+});
+
+describe('로그인', () => {
+  it(`이메일 형식이 잘못됐을 때, 로그인 할 수 없다.`, () => {
+    const email = 'asd';
+    const password = 'asdf123';
+    const test = () => validator.checkLogin(email as unknown as AdminEmail, password as unknown as AdminPassword);
+
+    expect(test).toThrow(ERROR_MESSAGE.INVALID_FORM_EMALI);
+  });
+
+  it(`비밀번호가 ${ADMIN_DATA_RULES.MIN_PASSWORD_LENGTH - 1}글자일 때, 로그인 할 수 없다.`, () => {
+    const email = 'woowa123@gmail.com';
+    const password = 'asdf12';
+    const test = () => validator.checkLogin(email as unknown as AdminEmail, password as unknown as AdminPassword);
+
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_ADMIN_PASSWORD);
+  });
+
+  it(`비밀번호가 ${ADMIN_DATA_RULES.MAX_PASSWORD_LENGTH + 1}글자일 때, 로그인 할 수 없다.`, () => {
+    const email = 'woowa123@gmail.com';
+    const password = 'abcde12345123456';
+    const test = () => validator.checkLogin(email as unknown as AdminEmail, password as unknown as AdminPassword);
+
+    expect(test).toThrow(ERROR_MESSAGE.OUT_OF_RANGE_ADMIN_PASSWORD);
+  });
+
+  it('비밀번호가 문자로만 이뤄졌을 때, 로그인 할 수 없다.', () => {
+    const email = 'woowa123@gmail.com';
+    const password = 'abcdabcde';
+    const test = () => validator.checkLogin(email as unknown as AdminEmail, password as unknown as AdminPassword);
+
+    expect(test).toThrow(ERROR_MESSAGE.INVALID_FORM_ADMIN_PASSWORD);
+  });
+
+  it('비밀번호가 숫자로만 이뤄졌을 때, 로그인 할 수 없다.', () => {
+    const email = 'woowa123@gmail.com';
+    const password = '12345123';
+    const test = () => validator.checkLogin(email as unknown as AdminEmail, password as unknown as AdminPassword);
+
+    expect(test).toThrow(ERROR_MESSAGE.INVALID_FORM_ADMIN_PASSWORD);
   });
 });
