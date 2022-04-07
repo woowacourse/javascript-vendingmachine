@@ -1,4 +1,5 @@
 import { checkValidProfile } from './domains/validator';
+import { getCookie, setCookie, deleteCookie } from './cookie.ts';
 
 class Auth {
   #isLoggedIn;
@@ -12,11 +13,11 @@ class Auth {
   }
 
   #setUserAuth = (userAuth) => {
-    localStorage.setItem('userAuth', JSON.stringify(userAuth));
+    setCookie('userAuth', JSON.stringify(userAuth));
   };
 
   getUserAuth = () => {
-    return JSON.parse(localStorage.getItem('userAuth'));
+    return getCookie('userAuth') ? JSON.parse(getCookie('userAuth')) : undefined;
   };
 
   #getUserTokenId = () => {
@@ -29,7 +30,7 @@ class Auth {
 
   deleteUserAuth = () => {
     this.#isLoggedIn = false;
-    localStorage.removeItem('userAuth');
+    deleteCookie('userAuth');
   };
 
   getUserData = async () => {
@@ -102,7 +103,7 @@ class Auth {
     const data = await response.json();
     const userAuth = {
       accessToken: data.accessToken,
-      id: data.user.id,
+      id: String(data.user.id),
     };
     this.#setUserAuth(userAuth);
     this.#isLoggedIn = true;
