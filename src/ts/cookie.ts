@@ -4,7 +4,7 @@ export const getCookie = (name: string): string | undefined => {
 };
 
 export const setCookie = (name: string, value: string) => {
-  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=3600`;
 };
 
 export const deleteCookie = (name: string) => {
