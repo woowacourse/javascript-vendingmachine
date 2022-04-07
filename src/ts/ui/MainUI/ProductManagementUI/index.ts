@@ -1,12 +1,13 @@
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import ProductAdditionUI from './ProductAdditionUI';
 import ProductInventoryUI from './ProductInventoryUI';
 import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductManagementUI {
-  private readonly productDomain;
+  private readonly productDomain: ProductManagementDomain;
 
-  constructor(productDomain) {
+  constructor(productDomain: ProductManagementDomain) {
     this.productDomain = productDomain;
   }
 

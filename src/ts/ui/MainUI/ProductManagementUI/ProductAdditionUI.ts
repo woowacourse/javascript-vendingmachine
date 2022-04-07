@@ -1,3 +1,4 @@
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import { ProductInfoUnionType } from '../../../domain/types';
 import { MESSAGE } from '../../../constants/message';
 import { $ } from '../../../utils/dom';
@@ -9,9 +10,9 @@ type Inputs = {
 };
 
 export default class ProductAdditionUI {
-  private readonly productDomain;
+  private readonly productDomain: ProductManagementDomain;
 
-  constructor(productDomain) {
+  constructor(productDomain: ProductManagementDomain) {
     this.productDomain = productDomain;
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
     $('.product-addition__input').focus();

@@ -1,7 +1,9 @@
-type RequestType = 'signin' | 'signup';
-const baseUrl = 'https://heroku-vending-lv1.herokuapp.com';
+import { UserInfo } from '../types';
 
-const requestSign = async (purpose: RequestType, user: object) => {
+type RequestType = 'signin' | 'signup';
+const baseUrl = 'https://heroku-vending-lv1.herokuapp.com' as const;
+
+const requestSign = async (purpose: RequestType, user: UserInfo) => {
   const url = `${baseUrl}/${purpose === 'signup' ? 'register' : 'login'}`;
   let resInfo;
 
@@ -23,7 +25,7 @@ const requestSign = async (purpose: RequestType, user: object) => {
   return resInfo;
 };
 
-const requestUpdate = async (user: object, id: string) => {
+const requestUpdate = async (user: UserInfo, id: string) => {
   const url = `${baseUrl}/users/${id}`;
   let resInfo;
 

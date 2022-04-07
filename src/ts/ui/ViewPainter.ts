@@ -1,27 +1,33 @@
-class ViewPainter {
-  #mainUI;
-  #productInventoryUI;
-  #coinHoldingsUI;
-  #purchaseCashChargeUI;
-  #signInUI;
+import MainUI from './MainUI/MainUI';
+import ProductInventoryUI from './MainUI/ProductManagementUI/ProductInventoryUI';
+import CoinHoldingsUI from './MainUI/CoinManagementUI/CoinHoldingsUI';
+import PurchaseCashChargeUI from './MainUI/ProductPurchaseUI/PurchaseCashChargeUI';
+import SignInUI from './SignUI/SignInUI';
 
-  set mainUI(mainUI) {
+class ViewPainter {
+  #mainUI: MainUI;
+  #productInventoryUI: ProductInventoryUI;
+  #coinHoldingsUI: CoinHoldingsUI;
+  #purchaseCashChargeUI: PurchaseCashChargeUI;
+  #signInUI: SignInUI;
+
+  set mainUI(mainUI: MainUI) {
     this.#mainUI = mainUI;
   }
 
-  set productInventoryUI(productInventoryUI) {
+  set productInventoryUI(productInventoryUI: ProductInventoryUI) {
     this.#productInventoryUI = productInventoryUI;
   }
 
-  set coinHoldingsUI(coinHoldingsUI) {
+  set coinHoldingsUI(coinHoldingsUI: CoinHoldingsUI) {
     this.#coinHoldingsUI = coinHoldingsUI;
   }
 
-  set purchaseCashChargeUI(purchaseCashChargeUI) {
+  set purchaseCashChargeUI(purchaseCashChargeUI: PurchaseCashChargeUI) {
     this.#purchaseCashChargeUI = purchaseCashChargeUI;
   }
 
-  set signInUI(signInUI) {
+  set signInUI(signInUI: SignInUI) {
     this.#signInUI = signInUI;
   }
 

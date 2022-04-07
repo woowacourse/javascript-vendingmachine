@@ -7,14 +7,16 @@ import { ProductInfo, ProductInfoUnionType } from '../types';
 const findEmptyField = (
   product: ProductInfo,
 ): { isEmpty: boolean; target: ProductInfoUnionType } => {
-  let target;
-  const isEmpty = Object.keys(product).some(key => {
+  let target: ProductInfoUnionType;
+
+  const isEmpty = Object.keys(product).some((key: ProductInfoUnionType) => {
     target = key;
     if (typeof product[key] === 'number') {
       return Number.isNaN(product[key]);
     }
-    return product[key].trim() === '';
+    return product[key].toString().trim() === '';
   });
+
   return { isEmpty, target };
 };
 

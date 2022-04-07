@@ -1,3 +1,5 @@
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
+import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, replaceHTML } from '../../../utils/dom';
@@ -5,10 +7,13 @@ import { viewPainter } from '../../ViewPainter';
 
 export default class ProductStatusUI {
   private readonly $container: HTMLElement;
-  private readonly productDomain;
-  private readonly purchaseCashDomain;
+  private readonly productDomain: ProductManagementDomain;
+  private readonly purchaseCashDomain: PurchaseCashDomain;
 
-  constructor(productDomain, purchaseCashDomain) {
+  constructor(
+    productDomain: ProductManagementDomain,
+    purchaseCashDomain: PurchaseCashDomain,
+  ) {
     this.$container = $('.product-status__container');
     this.productDomain = productDomain;
     this.purchaseCashDomain = purchaseCashDomain;
@@ -67,14 +72,14 @@ export default class ProductStatusUI {
 
     const { productName, productPrice, productQuantity } = target.dataset;
 
-    if (this.purchaseCashDomain.cash < productPrice) {
+    if (this.purchaseCashDomain.cash < Number(productPrice)) {
       showSnackbar(MESSAGE.ERROR_LACK_CASH);
       return;
     }
 
     this.productDomain.editProduct(productName, {
       name: productName,
-      price: productPrice,
+      price: Number(productPrice),
       quantity: Number(productQuantity) - 1,
     });
     this.purchaseCashDomain.addCash(-productPrice);

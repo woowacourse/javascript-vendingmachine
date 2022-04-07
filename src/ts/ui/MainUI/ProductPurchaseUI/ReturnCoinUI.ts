@@ -1,3 +1,5 @@
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
+import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import { COIN_TYPE } from '../../../constants';
 import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
@@ -5,10 +7,13 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ReturnCoinUI {
-  private readonly coinDomain;
-  private readonly purchaseCashDomain;
+  private readonly coinDomain: CoinManagementDomain;
+  private readonly purchaseCashDomain: PurchaseCashDomain;
 
-  constructor(coinDomain, purchaseCashDomain) {
+  constructor(
+    coinDomain: CoinManagementDomain,
+    purchaseCashDomain: PurchaseCashDomain,
+  ) {
     this.coinDomain = coinDomain;
     this.purchaseCashDomain = purchaseCashDomain;
 

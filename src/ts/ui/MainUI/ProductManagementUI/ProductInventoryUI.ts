@@ -1,3 +1,4 @@
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, $$, replaceHTML } from '../../../utils/dom';
@@ -5,9 +6,9 @@ import { viewPainter } from '../../ViewPainter';
 
 export default class ProductInventoryUI {
   private readonly $container: HTMLElement;
-  private readonly productDomain;
+  private readonly productDomain: ProductManagementDomain;
 
-  constructor(productDomain) {
+  constructor(productDomain: ProductManagementDomain) {
     this.$container = $('.product-inventory__container');
     this.productDomain = productDomain;
     this.render();
@@ -170,7 +171,7 @@ export default class ProductInventoryUI {
     showSnackbar(MESSAGE.SUCCESS_EDIT_PRODUCT);
   }
 
-  private deleteProduct(productName) {
+  private deleteProduct(productName: string) {
     this.productDomain.deleteProduct(productName);
 
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);

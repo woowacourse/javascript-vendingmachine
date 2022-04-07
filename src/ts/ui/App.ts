@@ -106,7 +106,7 @@ export default class App {
     }
   };
 
-  private activateClickedButton(pathname) {
+  private activateClickedButton(pathname: string) {
     $$('.nav__button').forEach($button => {
       if ($button.dataset.pathname === pathname) {
         $button.classList.add('active');
@@ -116,7 +116,7 @@ export default class App {
     });
   }
 
-  private renderPage(pathname) {
+  private renderPage(pathname: string) {
     this.mainUI.renderInitPage();
     if (
       !this.userDomain.isSignIn &&

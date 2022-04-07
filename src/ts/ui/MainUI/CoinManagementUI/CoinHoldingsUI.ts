@@ -1,9 +1,10 @@
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
 import { $, replaceHTML } from '../../../utils/dom';
 
 export default class CoinHoldingsUI {
-  private readonly coinDomain;
+  private readonly coinDomain: CoinManagementDomain;
 
-  constructor(coinDomain) {
+  constructor(coinDomain: CoinManagementDomain) {
     this.coinDomain = coinDomain;
     this.render();
   }

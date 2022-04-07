@@ -1,3 +1,6 @@
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
+import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import ProductStatusUI from './ProductStatusUI';
 import PurchaseCashChargeUI from './PurchaseCashChargeUI';
 import ReturnCoinUI from './ReturnCoinUI';
@@ -5,11 +8,15 @@ import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class ProductPurchaseUI {
-  private readonly productDomain;
-  private readonly coinDomain;
-  private readonly purchaseCashDomain;
+  private readonly productDomain: ProductManagementDomain;
+  private readonly coinDomain: CoinManagementDomain;
+  private readonly purchaseCashDomain: PurchaseCashDomain;
 
-  constructor(productDomain, coinDomain, purchaseCashDomain) {
+  constructor(
+    productDomain: ProductManagementDomain,
+    coinDomain: CoinManagementDomain,
+    purchaseCashDomain: PurchaseCashDomain,
+  ) {
     this.productDomain = productDomain;
     this.coinDomain = coinDomain;
     this.purchaseCashDomain = purchaseCashDomain;

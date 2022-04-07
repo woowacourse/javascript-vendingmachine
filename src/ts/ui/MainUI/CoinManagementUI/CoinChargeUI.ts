@@ -1,3 +1,4 @@
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
 import { validateCash } from '../../../domain/CoinManagementDomain/validator';
 import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
@@ -5,9 +6,9 @@ import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class CoinChargeUI {
-  private readonly coinDomain;
+  private readonly coinDomain: CoinManagementDomain;
 
-  constructor(coinDomain) {
+  constructor(coinDomain: CoinManagementDomain) {
     this.coinDomain = coinDomain;
     $('.coin-charge__form').addEventListener('submit', this.submitHandler);
     $('.coin-charge__input').focus();
@@ -32,7 +33,8 @@ export default class CoinChargeUI {
 
     this.coinDomain.addCash(cash);
 
-    $('.coin-charge__total-cash').textContent = this.coinDomain.totalCash;
+    $('.coin-charge__total-cash').textContent =
+      this.coinDomain.totalCash.toString();
     viewPainter.renderCoins();
     showSnackbar(MESSAGE.SUCCESS_CHARGE_CASH);
   };

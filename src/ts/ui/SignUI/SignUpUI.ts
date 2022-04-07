@@ -1,6 +1,7 @@
 import { basePath } from '../App';
 import { requestSign } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
+import { UserInfo } from '../../domain/types';
 import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
@@ -48,7 +49,7 @@ export default class SignUpUI {
     this.signUp(user);
   };
 
-  private signUp(user: { email: string; name: string; password: string }) {
+  private signUp(user: UserInfo) {
     requestSign('signup', user)
       .then(() => {
         $$('.sign-up__input').forEach(($input: HTMLInputElement) => {

@@ -1,9 +1,8 @@
 import { COIN_TYPE } from '../../constants';
 import { Coins } from '../types';
-import { validatePurchaseCash } from './validator';
 
 export default class PurchaseCashDomain {
-  #cash;
+  #cash: number;
 
   constructor() {
     this.#cash = 0;

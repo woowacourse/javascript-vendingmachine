@@ -1,14 +1,16 @@
+import UserDomain from '../../domain/UserDomain/User';
 import { basePath } from '../App';
 import { requestSign } from '../../domain/UserDomain/request';
+import { UserInfo } from '../../domain/types';
 import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignInUI {
-  private readonly userDomain;
+  private readonly userDomain: UserDomain;
 
-  constructor(userDomain) {
+  constructor(userDomain: UserDomain) {
     this.userDomain = userDomain;
     $('.sign-in__form').addEventListener('submit', this.submitHandler);
   }
@@ -38,7 +40,7 @@ export default class SignInUI {
     this.signIn(user);
   };
 
-  private signIn(user: { email: string; password: string }) {
+  private signIn(user: UserInfo) {
     requestSign('signin', user)
       .then(response => {
         const { user: userInfo, accessToken } = response;

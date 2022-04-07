@@ -6,8 +6,9 @@ interface ProductInfo {
   quantity: number;
 }
 interface UserInfo {
+  id?: string;
   email: string;
-  name: string;
+  name?: string;
   password: string;
 }
 

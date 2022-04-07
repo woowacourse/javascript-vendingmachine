@@ -5,11 +5,13 @@ import { MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
+import UserDomain from '../../domain/UserDomain/User';
+import { UserInfo } from '../../domain/types';
 
 export default class UserInfoEditUI {
-  private readonly userDomain;
+  private readonly userDomain: UserDomain;
 
-  constructor(userDomain) {
+  constructor(userDomain: UserDomain) {
     this.userDomain = userDomain;
     $('.user-info-edit__form').addEventListener('submit', this.submitHandler);
   }
@@ -53,14 +55,10 @@ export default class UserInfoEditUI {
     this.editUserInfo(user);
   };
 
-  private editUserInfo(user: {
-    email: string;
-    name: string;
-    password: string;
-  }) {
+  private editUserInfo(user: UserInfo) {
     requestUpdate(user, this.userDomain.userInfo.id)
       .then(response => {
-        this.userDomain.signIn(response);
+        this.userDomain.signIn(response, null);
 
         $$('.user-info-edit__input').forEach(($input: HTMLInputElement) => {
           $input.value = '';

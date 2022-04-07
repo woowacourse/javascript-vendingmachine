@@ -1,12 +1,13 @@
+import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import { validatePurchaseCash } from '../../../domain/PurchaseCashDomain/validator';
 import { MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 
 export default class PurchaseCashChargeUI {
-  private readonly purchaseCashDomain;
+  private readonly purchaseCashDomain: PurchaseCashDomain;
 
-  constructor(purchaseCashDomain) {
+  constructor(purchaseCashDomain: PurchaseCashDomain) {
     this.purchaseCashDomain = purchaseCashDomain;
     $('.purchase-cash-charge__form').addEventListener(
       'submit',
@@ -39,6 +40,6 @@ export default class PurchaseCashChargeUI {
 
   render() {
     $('.purchase-cash-charge__total-cash').textContent =
-      this.purchaseCashDomain.cash;
+      this.purchaseCashDomain.cash.toString();
   }
 }
