@@ -28,6 +28,11 @@ export const ERROR_MESSAGE = {
   HOLDING_AMOUNT_ONLY_NUMBER: '추가할 보유 금액은 숫자만 입력할 수 있습니다.',
   HOLDING_AMOUNT_WRONG_UNIT: `추가할 자판기 보유 금액은 ${VENDING_MACHINE.MONEY_UNIT}원 단위로 입력할 수 있습니다.`,
   HOLDING_AMOUNT_WRONG_LIMIT: `자판기 보유 금액은 ${VENDING_MACHINE.MAX_HOLDING_AMOUNT}원까지 충전할 수 있습니다.`,
+
+  USER_EMAIL_TYPE_WRONG: '이메일 주소를 정확히 입력해주세요.',
+  USER_NAME_WRONG_RANGE: '이름은 1자에서 6자 이내로 입력하여야 합니다.',
+  USER_PASSWORD_TYPE_WRONG: '비밀번호는 숫자와 영문을 포함하여 6자리 이상 입력하여야 합니다.',
+  USER_PASSWORD_CONFIRM_DIFF: '비밀번호를 다시 확인해주세요.',
 };
 
 export const COIN_TYPE = [500, 100, 50, 10].sort((a, b) => b - a);

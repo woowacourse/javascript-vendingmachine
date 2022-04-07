@@ -1,4 +1,5 @@
 import { isStringLengthInRange } from 'Utils';
+import { ERROR_MESSAGE } from 'Constants';
 
 export const isPassEmailRules = (email: string): boolean => {
   const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]*$/g;
@@ -18,24 +19,21 @@ export const validateUserRegister = (
   password: string,
   passwordConfirm: string,
 ): boolean => {
-  if (!isPassEmailRules(email)) throw new Error('이메일 주소를 정확히 입력해주세요.');
+  if (!isPassEmailRules(email)) throw new Error(ERROR_MESSAGE.USER_EMAIL_TYPE_WRONG);
 
-  if (!isStringLengthInRange(name, 1, 6))
-    throw new Error('이름은 1자에서 6자 이내로 입력하여야 합니다.');
+  if (!isStringLengthInRange(name, 1, 6)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
 
-  if (!isPassPasswordRules(password))
-    throw new Error('비밀번호는 숫자와 영문을 포함하여 6자리 이상 입력하여야 합니다.');
+  if (!isPassPasswordRules(password)) throw new Error(ERROR_MESSAGE.USER_PASSWORD_TYPE_WRONG);
 
-  if (password !== passwordConfirm) throw new Error('비밀번호를 다시 확인해주세요.');
+  if (password !== passwordConfirm) throw new Error(ERROR_MESSAGE.USER_PASSWORD_CONFIRM_DIFF);
 
   return true;
 };
 
 export const validateUserLogin = (email: string, password: string): boolean => {
-  if (!isPassEmailRules(email)) throw new Error('이메일 주소를 정확히 입력해주세요.');
+  if (!isPassEmailRules(email)) throw new Error(ERROR_MESSAGE.USER_EMAIL_TYPE_WRONG);
 
-  if (!isPassPasswordRules(password))
-    throw new Error('비밀번호는 숫자와 영문을 포함하여 6자리 이상 입력하여야 합니다.');
+  if (!isPassPasswordRules(password)) throw new Error(ERROR_MESSAGE.USER_PASSWORD_TYPE_WRONG);
 
   return true;
 };
@@ -45,13 +43,11 @@ export const validateUserProfileEdit = (
   password: string,
   passwordConfirm: string,
 ): boolean => {
-  if (!isStringLengthInRange(name, 1, 6))
-    throw new Error('이름은 1자에서 6자 이내로 입력하여야 합니다.');
+  if (!isStringLengthInRange(name, 1, 6)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);
 
-  if (!isPassPasswordRules(password))
-    throw new Error('비밀번호는 숫자와 영문을 포함하여 6자리 이상 입력하여야 합니다.');
+  if (!isPassPasswordRules(password)) throw new Error(ERROR_MESSAGE.USER_PASSWORD_TYPE_WRONG);
 
-  if (password !== passwordConfirm) throw new Error('비밀번호를 다시 확인해주세요.');
+  if (password !== passwordConfirm) throw new Error(ERROR_MESSAGE.USER_PASSWORD_CONFIRM_DIFF);
 
   return true;
 };
