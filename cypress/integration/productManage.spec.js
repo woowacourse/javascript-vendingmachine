@@ -10,11 +10,7 @@ describe("상품 관리 테스트", () => {
     const price = 1000;
     const quantity = 10;
 
-    cy.get(".product-manage__name-input").type(productName);
-    cy.get(".product-manage__price-input").type(price);
-    cy.get(".product-manage__quantity-input").type(quantity);
-    cy.get(".product-manage__add-button").click();
-
+    cy.addProduct(productName, price, quantity);
     cy.get(`[data-name=${productName}]`).should("be.visible");
   });
 
