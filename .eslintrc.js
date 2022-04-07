@@ -32,5 +32,6 @@ module.exports = {
     'no-return-assign': 'off',
     'no-continue': 'off',
     'no-useless-escape': 'off',
+    'no-loop-func': 'off',
   },
 };

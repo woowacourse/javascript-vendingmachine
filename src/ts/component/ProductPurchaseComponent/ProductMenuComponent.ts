@@ -66,7 +66,7 @@ export default class ProductMenuComponent {
             <button
               type="button"
               data-product-name="${insertNBSP(name)}"
-              class="product-menu__button product-menu__edit-button grid-button"
+              class="product-menu__button grid-button"
             >
               구매
             </button>
