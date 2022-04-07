@@ -13,7 +13,6 @@ export const getCurrentUser = () =>
     );
 
 export const setCurrentUser = ({ accessToken, name, email, id }) => {
-  console.log(accessToken, name, email, id);
   document.cookie = `accessToken=${accessToken}`;
   document.cookie = `name=${name}`;
   document.cookie = `email=${email}`;
