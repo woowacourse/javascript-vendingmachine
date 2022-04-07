@@ -1,42 +1,23 @@
 import Header from 'Components/Header';
-import Navigation from 'Components/Navigation';
-import PurchaseProductList from 'Components/PurchaseProductList';
-import PurchaseAmountForm from 'Components/PurchaseAmountForm';
-import ReturnCoinList from 'Components/ReturnCoinList';
-import { $ } from 'Utils';
+import LoginForm from 'Components/LoginForm';
+import { DEFAULT_PAGE } from 'Constants';
+import UserSessionStore from 'Store/UserSessionStore';
+import { routingEvent } from 'Utils';
+import Page from './Abstract';
 
-export default class LoginPage {
-  public readonly title = '로그인';
-  private componentList = [];
+export default class LoginPage extends Page {
+  title = '로그인';
 
   constructor() {
-    this.setComponent();
+    super();
+
+    if (UserSessionStore.isLogin() === true) {
+      routingEvent(DEFAULT_PAGE);
+    }
   }
 
-  addComponent(ComponentClass, props = {}) {
-    const component = new ComponentClass(props);
-    component.mount();
-    this.componentList.push(component);
+  protected setComponent(): void {
+    this.createComponent(Header, { title: '로그인' });
+    this.createComponent(LoginForm);
   }
-
-  setComponent() {
-    this.addComponent(Header);
-    this.addComponent(Navigation);
-    this.addComponent(PurchaseAmountForm);
-    this.addComponent(PurchaseProductList);
-    this.addComponent(ReturnCoinList);
-  }
-
-  mount = () => {
-    const $renderPage = this.componentList.reduce((previous, component) => {
-      previous.append(component.content);
-      return previous;
-    }, document.createDocumentFragment());
-
-    $('#app').replaceChildren($renderPage);
-  };
-
-  unmount = () => {
-    this.componentList.forEach(component => component.unmount());
-  };
 }
