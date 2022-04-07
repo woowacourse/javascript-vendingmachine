@@ -1,6 +1,6 @@
 import { createElementByTemplate, selectDom } from '../utils/dom';
 import { emitEvent } from '../utils/event';
-import navTemplate from './template';
+import { navTemplate } from './template';
 
 export default class Navigation {
   #navContainer;

@@ -1,4 +1,4 @@
-const navTemplate = `
+export const navTemplate = `
     <nav class="user-navigation"> 
       <a type="button" class="tab-menu-button" id="to-login-anchor" href="#/login">
         로그인 
@@ -29,4 +29,8 @@ const navTemplate = `
     </nav>
     `;
 
-export default navTemplate;
+export const notFoundTemplate = `
+    <section title="존재하지 않는 페이지" class="not-found-section">
+      <h2>🛒 Page Not Found</h2>
+      <a href="/" class="tab-menu-button">시작 페이지로</a>
+    </section>`;
