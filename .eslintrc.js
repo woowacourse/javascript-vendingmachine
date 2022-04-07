@@ -14,6 +14,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:cypress/recommended',
+    // jest 편집 시에 사용, Cypress와 호응하지 않기 때문에 동시 사용 불가
     // 'plugin:jest/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
@@ -25,7 +26,6 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'cypress'],
   rules: {
-    // 'max-lines-per-function': ['error', 20],
     'no-var': 'error',
     'max-depth': ['error', 2],
     'no-console': 'warn',
