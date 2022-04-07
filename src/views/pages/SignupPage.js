@@ -74,8 +74,15 @@ export default class SignupPage extends Component {
         name: event.target.querySelector('[name="name"]').value,
         password: event.target.querySelector('[name="password"]').value,
       };
+      const passwordConfirm = event.target.querySelector(
+        '[name="password-confirm"]'
+      ).value;
 
       try {
+        if (newUser.password !== passwordConfirm) {
+          throw new Error('비밀번호가 다릅니다.');
+        }
+
         await auth.signup(newUser);
 
         const state = {};

@@ -78,8 +78,15 @@ export default class ProfilePage extends Component {
         name: event.target.querySelector('[name="name"]').value,
         password: event.target.querySelector('[name="password"]').value,
       };
+      const passwordConfirm = event.target.querySelector(
+        '[name="password-confirm"]'
+      ).value;
 
       try {
+        if (newUser.password !== passwordConfirm) {
+          throw new Error('비밀번호가 다릅니다.');
+        }
+
         await auth.updateProfile(updatedProfile);
       } catch (err) {
         document.querySelector('#snackbar').trigger(err.message);
