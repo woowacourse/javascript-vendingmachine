@@ -1,7 +1,8 @@
 import { getCookie } from '../utils';
+import { AUTH_BASE_URL } from '../constants';
 
 export async function signup(email: string, name: string, password: string) {
-  const response = await fetch('https://vendingmachine-auth-server.herokuapp.com/register', {
+  const response = await fetch(`${AUTH_BASE_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,7 +21,7 @@ export async function signup(email: string, name: string, password: string) {
 }
 
 export async function login(email: string, password: string) {
-  const response = await fetch('https://vendingmachine-auth-server.herokuapp.com/login', {
+  const response = await fetch(`${AUTH_BASE_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ export async function getUser(): Promise<object> {
   const userId: string = getCookie('user_id');
   const accessToken: string = getCookie('access_token');
 
-  const response = await fetch(`https://vendingmachine-auth-server.herokuapp.com/users/${userId}`, {
+  const response = await fetch(`${AUTH_BASE_URL}/users/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
