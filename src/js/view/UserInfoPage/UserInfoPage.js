@@ -46,6 +46,8 @@ export default class UserInfoPage {
       await this.#authorization.update(updateData);
 
       this.#snackbar.addToMessageList(USER_DATA_CHANGED_MESSAGE);
+
+      [selectDom('#user-name-text').textContent] = this.#authorization.name;
     } catch ({ message }) {
       this.#snackbar.addToMessageList(message);
     }
