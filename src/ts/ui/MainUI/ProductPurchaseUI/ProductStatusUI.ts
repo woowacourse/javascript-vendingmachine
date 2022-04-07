@@ -1,6 +1,6 @@
 import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -72,7 +72,7 @@ export default class ProductStatusUI {
     const { productName, productPrice, productQuantity } = target.dataset;
 
     if (this.purchaseCashDomain.cash < Number(productPrice)) {
-      showSnackbar(MESSAGE.ERROR_LACK_CASH);
+      showSnackbar(VENDING_MACHINE_MESSAGE.ERROR_LACK_CASH);
       return;
     }
 

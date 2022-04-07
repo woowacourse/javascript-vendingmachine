@@ -1,6 +1,6 @@
 import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import { ProductInfoUnionType } from '../../../domain/types';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { $ } from '../../../utils/dom';
 import { showSnackbar } from '../../../utils';
 import { viewPainter } from '../../ViewPainter';
@@ -46,7 +46,7 @@ export default class ProductAdditionUI {
 
     this.productDomain.addProduct(product);
     viewPainter.renderProducts();
-    showSnackbar(MESSAGE.SUCCESS_ADD_PRODUCT);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_ADD_PRODUCT);
   };
 
   private focusOnInvalidInput(target: ProductInfoUnionType, $$inputs: Inputs) {

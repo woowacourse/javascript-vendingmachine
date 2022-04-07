@@ -1,6 +1,6 @@
 import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
 import { validateCash } from '../../../domain/CoinManagementDomain/validator';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -36,6 +36,6 @@ export default class CoinChargeUI {
     $('.coin-charge__total-cash').textContent =
       this.coinDomain.totalCash.toString();
     viewPainter.renderCoins();
-    showSnackbar(MESSAGE.SUCCESS_CHARGE_CASH);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_CHARGE_CASH);
   };
 }

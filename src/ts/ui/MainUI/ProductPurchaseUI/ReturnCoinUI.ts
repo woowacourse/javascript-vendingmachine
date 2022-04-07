@@ -1,7 +1,7 @@
 import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
 import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import { COIN_TYPE } from '../../../constants';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -54,7 +54,7 @@ export default class ReturnCoinUI {
 
   private returnButtonClickHandler = () => {
     if (this.purchaseCashDomain.cash <= 0) {
-      showSnackbar(MESSAGE.FAIL_RETURN_COINS);
+      showSnackbar(VENDING_MACHINE_MESSAGE.FAIL_RETURN_COINS);
       return;
     }
 
@@ -66,6 +66,6 @@ export default class ReturnCoinUI {
 
     this.render(returnCoins);
     viewPainter.renderPurchaseCash();
-    showSnackbar(MESSAGE.SUCCESS_RETURN_COINS);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_RETURN_COINS);
   };
 }

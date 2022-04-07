@@ -1,5 +1,5 @@
 import { PURCHASE_CASH_RULE, USER_INFO_RULE } from '../../src/ts/constants';
-import { MESSAGE } from '../../src/ts/constants/message';
+import { USER_SIGN_MESSAGE } from '../../src/ts/constants/message';
 
 describe('손님 입장에서 UI 정상 동작 테스트', () => {
   beforeEach(() => {
@@ -68,7 +68,10 @@ describe('관리자 입장에서 UI 정상 동작 테스트', () => {
     // confirm password를 입력하지 않음
     cy.get('.sign-up__button').click();
 
-    cy.get('#snackbar').should('have.text', MESSAGE.ERROR_USER_INFO_EMPTY);
+    cy.get('#snackbar').should(
+      'have.text',
+      USER_SIGN_MESSAGE.ERROR_USER_INFO_EMPTY,
+    );
   });
 
   it(`회원가입 시 이름의 길이가 ${USER_INFO_RULE.MIN_NAME_LENGTH}~${USER_INFO_RULE.MAX_NAME_LENGTH}자가 아닌 경우 에러를 보여준다.`, () => {
@@ -87,7 +90,10 @@ describe('관리자 입장에서 UI 정상 동작 테스트', () => {
     );
     cy.get('.sign-up__button').click();
 
-    cy.get('#snackbar').should('have.text', MESSAGE.ERROR_USER_NAME_LENGTH);
+    cy.get('#snackbar').should(
+      'have.text',
+      USER_SIGN_MESSAGE.ERROR_USER_NAME_LENGTH,
+    );
   });
 
   it(`회원가입 시 비밀번호의 길이가 ${USER_INFO_RULE.MIN_PASSWORD_LENGTH}자 이상이 아닌 경우 에러를 보여준다.`, () => {
@@ -104,7 +110,10 @@ describe('관리자 입장에서 UI 정상 동작 테스트', () => {
     );
     cy.get('.sign-up__button').click();
 
-    cy.get('#snackbar').should('have.text', MESSAGE.ERROR_USER_PASSWORD_LENGTH);
+    cy.get('#snackbar').should(
+      'have.text',
+      USER_SIGN_MESSAGE.ERROR_USER_PASSWORD_LENGTH,
+    );
   });
 
   it(`회원가입 시 비밀번호 확인이 위의 비밀번호와 다른 경우 에러를 보여준다.`, () => {
@@ -123,7 +132,7 @@ describe('관리자 입장에서 UI 정상 동작 테스트', () => {
 
     cy.get('#snackbar').should(
       'have.text',
-      MESSAGE.ERROR_USER_CONFIRM_PASSWORD,
+      USER_SIGN_MESSAGE.ERROR_USER_CONFIRM_PASSWORD,
     );
   });
 });

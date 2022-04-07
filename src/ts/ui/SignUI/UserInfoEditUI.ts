@@ -1,7 +1,7 @@
 import { basePath } from '../App';
 import { requestUpdate } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
-import { MESSAGE } from '../../constants/message';
+import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
@@ -67,13 +67,13 @@ export default class UserInfoEditUI {
         $selectBox.classList.add('hide');
         $selectBox.classList.remove('active');
 
-        showSnackbar(MESSAGE.SUCCESS_EDIT_USER_INFO);
+        showSnackbar(USER_SIGN_MESSAGE.SUCCESS_EDIT_USER_INFO);
         viewPainter.renderUserName(response.name);
         viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);
       })
       .catch(() => {
-        showSnackbar(MESSAGE.FAIL_EDIT_USER_INFO);
+        showSnackbar(USER_SIGN_MESSAGE.FAIL_EDIT_USER_INFO);
       });
   }
 }

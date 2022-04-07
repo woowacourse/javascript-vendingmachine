@@ -1,5 +1,5 @@
 import { MAX_NAME_LENGTH, MAX_QUANTITY, PRICE_RULE } from '../constants';
-import { MESSAGE } from '../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../constants/message';
 import ProductManagementDomain from '../domain/ProductManagementDomain/ProductManagement';
 
 describe('상품 도메인 추가/수정/삭제 테스트', () => {
@@ -71,7 +71,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(nullNameProduct),
-    ).toThrowError(MESSAGE.ERROR_EMPTY_VALUE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_EMPTY_VALUE);
 
     const nullPriceProduct = {
       ...newProduct,
@@ -79,7 +79,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(nullPriceProduct),
-    ).toThrowError(MESSAGE.ERROR_EMPTY_VALUE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_EMPTY_VALUE);
 
     const nullQuantityProduct = {
       ...newProduct,
@@ -87,7 +87,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(nullQuantityProduct),
-    ).toThrowError(MESSAGE.ERROR_EMPTY_VALUE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_EMPTY_VALUE);
   });
 
   it('상품 추가 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
@@ -98,7 +98,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_SAME_PRODUCT);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_SAME_PRODUCT);
   });
 
   it('상품 수정 시, 동일한 이름의 상품이 존재하면 에러를 발생시킨다.', () => {
@@ -110,7 +110,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct, prevProductName),
-    ).toThrowError(MESSAGE.ERROR_SAME_PRODUCT);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_SAME_PRODUCT);
   });
 
   it(`상품 추가/수정 시, 상품명의 길이는 ${MAX_NAME_LENGTH}을 초과하면 에러를 발생시킨다.`, () => {
@@ -121,7 +121,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_OVER_MAX_LENGTH);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_OVER_MAX_LENGTH);
   });
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MIN}원 미만이면 에러를 발생시킨다.`, () => {
@@ -132,7 +132,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_INVALID_PRICE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_INVALID_PRICE);
   });
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.MAX}원 초과하면 에러를 발생시킨다.`, () => {
@@ -143,7 +143,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_INVALID_PRICE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_INVALID_PRICE);
   });
 
   it(`상품 추가/수정 시, 가격은 ${PRICE_RULE.UNIT}으로 나누어 떨어지지 않으면 에러를 발생시킨다.`, () => {
@@ -154,7 +154,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_INVALID_PRICE);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_INVALID_PRICE);
   });
 
   it(`상품 추가/수정 시, 수량이 ${MAX_QUANTITY}개를 초과하면 에러를 발생시킨다.`, () => {
@@ -165,7 +165,7 @@ describe('상품 도메인 유효성 검증 테스트', () => {
     };
     expect(() =>
       productManagementDomain.validateProductInput(newProduct),
-    ).toThrowError(MESSAGE.ERROR_OVER_MAX_QUANTITY);
+    ).toThrowError(VENDING_MACHINE_MESSAGE.ERROR_OVER_MAX_QUANTITY);
   });
 
   it(`상품 추가/수정 시, 상품명이 ${MAX_NAME_LENGTH}자이고, 가격이 ${PRICE_RULE.MAX}이며, 수량이 ${MAX_QUANTITY}개이면 정상 동작한다.`, () => {

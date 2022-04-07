@@ -2,7 +2,7 @@ import UserDomain from '../../domain/UserDomain/User';
 import { basePath } from '../App';
 import { requestSign } from '../../domain/UserDomain/request';
 import { UserInfo } from '../../domain/types';
-import { MESSAGE } from '../../constants/message';
+import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$ } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
@@ -49,13 +49,13 @@ export default class SignInUI {
         $$('.sign-in__input').forEach(($input: HTMLInputElement) => {
           $input.value = '';
         });
-        showSnackbar(MESSAGE.SUCCESS_SIGNIN);
+        showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNIN);
         viewPainter.renderUserUI(userInfo.name);
         viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);
       })
       .catch(() => {
-        showSnackbar(MESSAGE.FAIL_SIGNIN);
+        showSnackbar(USER_SIGN_MESSAGE.FAIL_SIGNIN);
       });
   }
 }

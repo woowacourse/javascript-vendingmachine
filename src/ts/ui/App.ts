@@ -3,7 +3,7 @@ import MainUI from './MainUI/MainUI';
 import SignInUI from './SignUI/SignInUI';
 import SignUpUI from './SignUI/SignUpUI';
 import UserInfoEditUI from './SignUI/UserInfoEditUI';
-import { MESSAGE } from '../constants/message';
+import { USER_SIGN_MESSAGE } from '../constants/message';
 import { showSnackbar } from '../utils';
 import { $, $$ } from '../utils/dom';
 import { viewPainter } from './ViewPainter';
@@ -96,13 +96,13 @@ export default class App {
         this.userInfoEditUI.render();
         break;
       case 'signout-button':
-        if (!confirm(MESSAGE.CONFIRM_SIGNOUT)) return;
+        if (!confirm(USER_SIGN_MESSAGE.CONFIRM_SIGNOUT)) return;
 
         this.userDomain.signOut();
         this.mainUI.renderInitPage();
         this.mainUI.renderUserUI();
         this.thumbnailClickHandler();
-        showSnackbar(MESSAGE.SUCCESS_SIGNOUT);
+        showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNOUT);
     }
   };
 

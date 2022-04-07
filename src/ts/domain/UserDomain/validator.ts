@@ -1,5 +1,5 @@
 import { USER_INFO_RULE } from '../../constants';
-import { MESSAGE } from '../../constants/message';
+import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { UserInfo } from '../types';
 
 const isEmptyValue = (
@@ -33,19 +33,19 @@ const generateUserInfoValidators = (
 ): Validator[] => [
   {
     test: isEmptyValue(user, confirmPassword),
-    errorMsg: MESSAGE.ERROR_USER_INFO_EMPTY,
+    errorMsg: USER_SIGN_MESSAGE.ERROR_USER_INFO_EMPTY,
   },
   {
     test: isNameLengthRanged(user.name),
-    errorMsg: MESSAGE.ERROR_USER_NAME_LENGTH,
+    errorMsg: USER_SIGN_MESSAGE.ERROR_USER_NAME_LENGTH,
   },
   {
     test: isPasswordLengthRanged(user.password),
-    errorMsg: MESSAGE.ERROR_USER_PASSWORD_LENGTH,
+    errorMsg: USER_SIGN_MESSAGE.ERROR_USER_PASSWORD_LENGTH,
   },
   {
     test: isDifferentPassword(user.password, confirmPassword),
-    errorMsg: MESSAGE.ERROR_USER_CONFIRM_PASSWORD,
+    errorMsg: USER_SIGN_MESSAGE.ERROR_USER_CONFIRM_PASSWORD,
   },
 ];
 

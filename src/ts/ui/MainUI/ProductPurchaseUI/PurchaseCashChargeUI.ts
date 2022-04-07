@@ -1,6 +1,6 @@
 import PurchaseCashDomain from '../../../domain/PurchaseCashDomain/PurchaseCash';
 import { validatePurchaseCash } from '../../../domain/PurchaseCashDomain/validator';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $ } from '../../../utils/dom';
 
@@ -35,7 +35,7 @@ export default class PurchaseCashChargeUI {
 
     this.purchaseCashDomain.addCash(cash);
     this.render();
-    showSnackbar(MESSAGE.SUCCESS_CHARGE_PURCHASE_CASH);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_CHARGE_PURCHASE_CASH);
   };
 
   render() {

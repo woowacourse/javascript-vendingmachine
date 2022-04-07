@@ -1,6 +1,6 @@
 import CoinManagementDomain from '../domain/CoinManagementDomain/CoinManagement';
 import { CASH_RULE } from '../constants';
-import { MESSAGE } from '../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../constants/message';
 import { validateCash } from '../domain/CoinManagementDomain/validator';
 
 describe('잔돈 도메인 동전 생성 테스트', () => {
@@ -25,7 +25,7 @@ describe('잔돈 도메인 유효성 검증 테스트', () => {
     const invalidCash = CASH_RULE.MAX + CASH_RULE.UNIT;
 
     expect(() => validateCash(invalidCash)).toThrowError(
-      MESSAGE.ERROR_INVALID_CASH,
+      VENDING_MACHINE_MESSAGE.ERROR_INVALID_CASH,
     );
   });
 
@@ -33,7 +33,7 @@ describe('잔돈 도메인 유효성 검증 테스트', () => {
     const invalidCash = CASH_RULE.MAX + CASH_RULE.UNIT / 2;
 
     expect(() => validateCash(invalidCash)).toThrowError(
-      MESSAGE.ERROR_INVALID_CASH,
+      VENDING_MACHINE_MESSAGE.ERROR_INVALID_CASH,
     );
   });
 });

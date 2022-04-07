@@ -1,5 +1,5 @@
 import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
-import { MESSAGE } from '../../../constants/message';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
 import { $, $$, replaceHTML } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
@@ -101,7 +101,11 @@ export default class ProductInventoryUI {
         break;
       case '삭제':
         const { productName } = target.dataset;
-        if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
+        if (
+          !confirm(
+            `🥤${productName}🥤${VENDING_MACHINE_MESSAGE.CONFIRM_DELETE_PRODUCT}`,
+          )
+        )
           return;
         this.deleteProduct(productName);
     }
@@ -167,7 +171,7 @@ export default class ProductInventoryUI {
 
     this.deactivateEditMode($button);
     viewPainter.renderProducts();
-    showSnackbar(MESSAGE.SUCCESS_EDIT_PRODUCT);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_EDIT_PRODUCT);
   }
 
   private deleteProduct(productName: string) {
@@ -175,6 +179,6 @@ export default class ProductInventoryUI {
 
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);
     $$tableRow.forEach($item => $item.remove());
-    showSnackbar(MESSAGE.SUCCESS_DELETE_PRODUCT);
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_DELETE_PRODUCT);
   }
 }
