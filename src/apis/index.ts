@@ -12,7 +12,10 @@ type UserResponse =
     }
   | string;
 
-export const baseUrl = 'http://localhost:3000' as const;
+export const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://json-server-tests-api-mockup.herokuapp.com'
+    : 'http://localhost:3000';
 
 async function fetchUser(
   userId: string,
