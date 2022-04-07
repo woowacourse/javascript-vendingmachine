@@ -118,5 +118,11 @@ describe('상품 테스트', () => {
       cy.inputMoney(10010);
       cy.get('#snackbar').should('have.text', ERROR_MESSAGE.EXCEED_MAX_TOTAL_MONEY);
     });
+
+    it('잔돈을 반환할 수 없는 경우 잔돈으로 반환할 수 있는 금액만 반환한다.', () => {
+      cy.inputMoney(10000);
+      cy.get('#give-change-button').click();
+      cy.get('#total-money').should('have.text', 6000);
+    });
   });
 });

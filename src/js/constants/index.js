@@ -48,3 +48,12 @@ export const ERROR_MESSAGE = {
 export function confirmMessage() {
   return '정말 삭제하시겠습니까?';
 }
+
+export const LOGIN_ERROR = {
+  'Incorrect password': '비밀번호를 확인해주세요',
+  'Cannot find user': '해당 이메일의 사용자가 존재하지 않습니다.',
+};
+
+export const SIGNUP_ERROR = {
+  'Email already exists': '해당 이메일이 존재합니다.',
+};

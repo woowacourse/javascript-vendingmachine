@@ -1,3 +1,4 @@
+import { LOGIN_ERROR, SIGNUP_ERROR } from '../constants';
 import { expireCookie } from '../utils/cookie';
 import { selectDom, generateSnackBar } from '../utils/dom';
 import { listenEvents } from '../utils/event';
@@ -40,11 +41,12 @@ export default class UserController {
     try {
       await this.#user.signIn(email, password);
     } catch (err) {
-      generateSnackBar(err.message);
+      generateSnackBar(LOGIN_ERROR[err.message] ?? err.message);
       return;
     }
     this.#renderTabMenu();
     this.#renderProfile();
+    generateSnackBar('로그인 성공');
     const tabChange = new CustomEvent('tabChange', {
       detail: {
         newHash: '/#/purchase',
@@ -58,10 +60,12 @@ export default class UserController {
     try {
       await this.#user.signUp(email, name, password);
     } catch (err) {
-      generateSnackBar(err.message);
+      generateSnackBar(SIGNUP_ERROR[err.message] ?? err.message);
       return;
     }
     this.#renderTabMenu();
+    this.#renderProfile();
+    generateSnackBar('회원가입이 완료되었습니다.');
     const tabChange = new CustomEvent('tabChange', {
       detail: {
         newHash: '/#/purchase',

@@ -47,3 +47,12 @@ Cypress.Commands.add('inputMoney', (money) => {
   cy.get('#money-input').type(money);
   cy.get('#purchase-product-form').submit();
 });
+
+Cypress.Commands.add('signUp', (email, name, password, passwordConfirm) => {
+  cy.get('#sign-up-email').type(email);
+  cy.get('#sign-up-name').type(name);
+  cy.get('#sign-up-password').type(password);
+  cy.get('#sign-up-password-confirm').type(passwordConfirm);
+
+  cy.get('#sign-up-form').submit();
+});
