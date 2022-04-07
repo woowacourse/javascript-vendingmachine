@@ -11,8 +11,10 @@ import AdminPage from './AdminPage';
 
 export default class PageMover implements View {
   private $app: HTMLElement;
-  private $signWrap: HTMLElement;
+  private $mainPage: HTMLElement;
   private $thubnail: HTMLElement;
+  private $logoutMenu: HTMLElement;
+  private snackbar: Snackbar;
   private productManage: DomainView;
   private chargeMoney: DomainView;
   private buyProduct: DomainView;
@@ -23,15 +25,16 @@ export default class PageMover implements View {
 
   constructor() {
     this.$app = $('#app');
-    this.$signWrap = $('#sign-wrap');
+    this.$mainPage = $('#main-page');
     this.$thubnail = $('#thumbnail');
-    const snackbar = new Snackbar();
-    this.productManage = new ProductManage(snackbar);
-    this.chargeMoney = new ChargeMoney(snackbar);
-    this.buyProduct = new BuyProduct(snackbar);
-    this.signupPage = new SignupPage(snackbar);
-    this.loginPage = new LoginPage(snackbar);
-    this.adminPage = new AdminPage(snackbar);
+    this.$logoutMenu = $('#logout-menu');
+    this.snackbar = new Snackbar();
+    this.productManage = new ProductManage(this.snackbar);
+    this.chargeMoney = new ChargeMoney(this.snackbar);
+    this.buyProduct = new BuyProduct(this.snackbar);
+    this.signupPage = new SignupPage(this.snackbar);
+    this.loginPage = new LoginPage(this.snackbar);
+    this.adminPage = new AdminPage(this.snackbar);
     this.admin = AdminImpl.getInstance();
 
     this.handlePopstate();
@@ -45,7 +48,8 @@ export default class PageMover implements View {
     this.loginPage.bindEvent(() => this.movePage('buyProduct'));
     this.adminPage.bindEvent(() => this.movePage('buyProduct'));
     this.$app.addEventListener('click', this.handleClickPageMoveButtons.bind(this));
-    this.$thubnail.addEventListener('click', () => this.controllSignWrap('menu'));
+    this.$thubnail.addEventListener('click', () => this.controllMainPage('menu'));
+    this.$logoutMenu.addEventListener('click', this.handleClickLogoutMenu.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
   }
 
@@ -56,6 +60,16 @@ export default class PageMover implements View {
 
     history.pushState({}, '', window.location.pathname + `#${pageName}`);
     this.movePage(pageName);
+  }
+
+  private handleClickLogoutMenu(): void {
+    try {
+      this.admin.logout();
+      this.movePage('buyProduct');
+      this.controllMainPage('buyer');
+    } catch ({ message }) {
+      this.snackbar.on(message);
+    }
   }
 
   private handlePopstate(): void {
@@ -73,15 +87,15 @@ export default class PageMover implements View {
 
   private controllSignStatus() {
     if (this.admin.isLogin()) {
-      this.controllSignWrap('admin');
+      this.controllMainPage('admin');
       this.$thubnail.innerText = this.admin.adminName[0];
     } else {
-      this.controllSignWrap('buyer')
+      this.controllMainPage('buyer')
     }
   }
 
-  private controllSignWrap(screen: string): void {
-    this.$signWrap.classList.remove('buyer', 'admin', 'menu');
-    this.$signWrap.classList.add(screen);
+  private controllMainPage(screen: string): void {
+    this.$mainPage.classList.remove('buyer', 'admin', 'menu');
+    this.$mainPage.classList.add(screen);
   }
 }

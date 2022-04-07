@@ -51,6 +51,7 @@ export interface Admin {
   signup(adminData: AdminData);
   modifyAdmin(adminData: AdminData);
   login(email: AdminEmail, password: AdminPassword);
+  logout(): void;
   isLogin(): boolean;
   getAdmin();
 }

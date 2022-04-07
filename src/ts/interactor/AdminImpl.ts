@@ -51,6 +51,14 @@ export default class AdminImpl implements Admin {
     await this.api.signup(adminData);
   }
 
+  logout(): void {
+    if (!this.isLogin()) throw new Error('이미 로그아웃 상태입니다.');
+
+    this.adminName = '';
+    this.adminId = 0;
+    this.adminKey = '';
+  }
+
   async modifyAdmin(adminData: AdminData) {
     validator.checkModifyAdmin(adminData);
     await this.api.modifyAdmin(adminData, this.adminId, this.adminKey);

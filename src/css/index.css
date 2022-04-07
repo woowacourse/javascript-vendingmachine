@@ -99,15 +99,21 @@ p {
   height: 40px;
 }
 
-.sign-wrap button,
-.sign-wrap .menu {
+.app__page.main .sign-wrap button,
+.app__page.main .sign-wrap .menu,
+.app__page.main .tab {
   display: none;
 }
 
-.sign-wrap.buyer .login-button,
-.sign-wrap.admin .thumbnail-button,
-.sign-wrap.menu .menu {
+.app__page.main.buyer .login-button,
+.app__page.main.admin .thumbnail-button,
+.app__page.main.menu .menu {
   display: block;
+}
+
+.app__page.main.admin .tab,
+.app__page.main.menu .tab {
+  display: flex;
 }
 
 .login-button {
