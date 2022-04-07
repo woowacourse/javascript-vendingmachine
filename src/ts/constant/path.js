@@ -1,4 +1,4 @@
-export const BASE_SERVER_URL = 'http://localhost:8080';
+export const BASE_SERVER_URL = 'https://vendingmachine-server.herokuapp.com';
 
 export const SERVER_PATH = {
   REGISTER: 'register',
