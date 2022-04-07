@@ -10,6 +10,7 @@ import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
 import { getSessionStorage, removeSessionStorage } from "../utils/sessionStorage";
 import ProfileComponent from "./profile/ProfileComponent";
+import { KEY } from "../utils/constants";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
@@ -109,8 +110,8 @@ class App {
   }
 
   handleLogout() {
-    removeSessionStorage("accessToken");
-    removeSessionStorage("userInfo");
+    removeSessionStorage(KEY.ACCESS_TOKEN);
+    removeSessionStorage(KEY.USER_INFO);
     this.convertTemplate("#purchase");
     this.handleThumbnail();
   }
@@ -161,12 +162,12 @@ class App {
   }
 
   showThumnailButton() {
-    this.thumnailButton.textContent = getSessionStorage("userInfo").name.slice(0, 1);
+    this.thumnailButton.textContent = getSessionStorage(KEY.USER_INFO).name.slice(0, 1);
     this.thumnailButton.classList.remove("hide");
   }
 
   checkLoggedIn() {
-    const loggedIn = getSessionStorage("accessToken");
+    const loggedIn = getSessionStorage(KEY.ACCESS_TOKEN);
 
     if (loggedIn) {
       this.hideLoginButton();

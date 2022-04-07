@@ -24,6 +24,11 @@ const USER_NAME = {
   MIN_LENGTH: 2,
 };
 
+const KEY = {
+  ACCESS_TOKEN: "accessToken",
+  USER_INFO: "userInfo",
+};
+
 const ERROR_MESSAGES = {
   EMPTY_PRODUCT_NAME: "상품명을 입력해주세요.",
   EMPTY_PRODUCT_QUANTITY: "제품 수량을 입력해주세요.",
@@ -63,4 +68,4 @@ const INFOMATION_MESSAGES = {
   SUCCESS_LOGIN: "로그인되었습니다.",
 };
 
-export { PRODUCT, CHARGE, PURCAHSE, USER_NAME, ERROR_MESSAGES, INFOMATION_MESSAGES };
+export { PRODUCT, CHARGE, PURCAHSE, USER_NAME, KEY, ERROR_MESSAGES, INFOMATION_MESSAGES };

@@ -1,4 +1,5 @@
 import { requestEditProfile } from "../../api";
+import { KEY } from "../../utils/constants";
 import { $ } from "../../utils/dom";
 import { getSessionStorage, saveSessionStorage } from "../../utils/sessionStorage";
 import { ConvertTemplate, HideHeader } from "../App";
@@ -32,14 +33,14 @@ class ProfileComponent {
   handleEditProfile = async (e: Event) => {
     e.preventDefault();
 
-    const { id } = getSessionStorage("userInfo");
+    const { id } = getSessionStorage(KEY.USER_INFO);
     const name = this.profileNameInput.value;
     const password = this.profilePasswordInput.value;
     const passwordCheck = this.profilePasswordCheckInput.value;
 
     try {
       const userInfo = await requestEditProfile({ id, name, password, passwordCheck });
-      saveSessionStorage("userInfo", userInfo);
+      saveSessionStorage(KEY.USER_INFO, userInfo);
 
       history.pushState({ path: "#purchase" }, null, "#purchase");
       this.convertTemplate("#purchase");
@@ -49,7 +50,7 @@ class ProfileComponent {
   };
 
   renderUserInfo() {
-    const userInfo = getSessionStorage("userInfo");
+    const userInfo = getSessionStorage(KEY.USER_INFO);
     this.profileEmailInput.placeholder = userInfo.email;
     this.profileNameInput.value = userInfo.name;
   }

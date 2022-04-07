@@ -1,5 +1,5 @@
 import { requestSignup } from "../../api";
-import { INFOMATION_MESSAGES } from "../../utils/constants";
+import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { $ } from "../../utils/dom";
 import { saveSessionStorage } from "../../utils/sessionStorage";
 import { ConvertTemplate, HideHeader } from "../App";
@@ -41,8 +41,8 @@ class SignupComponent {
 
     try {
       const { accessToken, user } = await requestSignup({ email, name, password, passwordCheck });
-      saveSessionStorage("accessToken", accessToken);
-      saveSessionStorage("userInfo", user);
+      saveSessionStorage(KEY.ACCESS_TOKEN, accessToken);
+      saveSessionStorage(KEY.USER_INFO, user);
 
       history.pushState({ path: "#purchase" }, null, "#purchase");
       this.convertTemplate("#purchase");

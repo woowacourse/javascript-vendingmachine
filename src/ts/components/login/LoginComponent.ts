@@ -1,5 +1,5 @@
 import { $ } from "../../utils/dom";
-import { INFOMATION_MESSAGES } from "../../utils/constants";
+import { INFOMATION_MESSAGES, KEY } from "../../utils/constants";
 import { saveSessionStorage } from "../../utils/sessionStorage";
 import { ConvertTemplate, HideHeader } from "../App";
 import Snackbar from "../Snackbar";
@@ -38,8 +38,8 @@ class LoginComponent {
 
     try {
       const { accessToken, user } = await requestLogin({ email, password });
-      saveSessionStorage("accessToken", accessToken);
-      saveSessionStorage("userInfo", user);
+      saveSessionStorage(KEY.ACCESS_TOKEN, accessToken);
+      saveSessionStorage(KEY.USER_INFO, user);
 
       history.pushState({ path: "#purchase" }, null, "#purchase");
       this.convertTemplate("#purchase");
