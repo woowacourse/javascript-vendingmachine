@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:open": "npm run build; cypress open",
-    "cypress:run": "npm run build; cypress run --browser chrome",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome",
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
