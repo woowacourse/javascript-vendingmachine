@@ -45,6 +45,7 @@ const ERROR_MESSAGES = {
   CANNOT_PARSE_JSON: "저장된 데이터가 유효하지 않은 JSON 형식입니다.",
   FAIL_SIGNUP: "회원가입이 실패하였습니다.",
   FAIL_LOGIN: "로그인이 실패하였습니다.",
+  FAIL_EDIT_PROFILE: "회원 정보 수정이 실패하였습니다.",
   INVALID_USER_NAME_LENGTH: `유저 이름은 ${USER_NAME.MIN_LENGTH}~${USER_NAME.MAX_LENGTH}자 사이로 입력해주세요.`,
   NOT_MATCH_PASSWORD: "비밀번호가 일치하지 않습니다.",
   INVALID_PASSWORD_RULE: `비밀번호는 8~16자 영문, 숫자, 특수문자를 최소 한가지 포함해야합니다.`,

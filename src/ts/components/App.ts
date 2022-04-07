@@ -127,6 +127,7 @@ class App {
 
   showMenuTab() {
     this.menuTabComponent.show();
+    this.menuTabComponent.changeTabStyle();
   }
 
   hideHeader = () => {

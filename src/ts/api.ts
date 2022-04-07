@@ -46,4 +46,27 @@ const requestLogin = async ({ email, password }) => {
   }
 };
 
-export { requestSignup, requestLogin };
+const requestEditProfile = async ({ id, name, password, passwordCheck }) => {
+  verifyUserName(name);
+  verifyPassword(password, passwordCheck);
+
+  try {
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.FAIL_EDIT_PROFILE);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export { requestSignup, requestLogin, requestEditProfile };
