@@ -64,6 +64,7 @@ export const SNACKBAR = {
   RETURN_CHANGE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
   SIGNUP_SUCCESS: '회원가입이 정상적으로 완료되었습니다.',
   LOGIN_SUCCESS: '로그인이 정상적으로 완료되었습니다.',
+  LOGOUT_SUCCESS: '로그아웃이 정상적으로 완료되었습니다.',
   MODIFY_SUCCESS: '회원 정보 수정이 정상적으로 완료되었습니다.',
 };
 

@@ -90,7 +90,7 @@ export const login = (email, password) => {
 
 export const logout = () => {
   localStorage.removeItem('userAuth');
-
+  showSnackbar(SNACKBAR.LOGOUT_SUCCESS);
   renderUserView();
 };
 
