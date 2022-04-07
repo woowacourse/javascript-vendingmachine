@@ -5,11 +5,6 @@ const isUndefinedRoutes = (pathname: string) =>
     (route) => route.dataset.pathname === pathname
   );
 
-// const isUndefinedMembershipRoutes = (pathname: string) =>
-//   !Array.from($$<HTMLElement>('.membership-component')).some(
-//     (route) => route.dataset.pathname === pathname
-//   );
-
 export default class RouteManager {
   constructor() {
     on(window, 'popstate', this.onPopstateRoute);
