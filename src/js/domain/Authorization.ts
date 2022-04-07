@@ -12,6 +12,7 @@ import {
   isOutOfRangeUserNameLength,
   validateData,
 } from './validator';
+import { removeProperty } from '../utils';
 
 export default class Authorization {
   #isLoggedIn: boolean;
@@ -47,11 +48,11 @@ export default class Authorization {
     this.#validateRegisterData(userInputData);
 
     const registerData = userInputData;
-    delete registerData.passwordConfirm;
+    const requestData = removeProperty(registerData, 'passwordConfirm');
 
     const response = await fetch(`${AUTH_URL_BASE}/users`, {
       ...POST_REQUEST_OPTIONS,
-      body: JSON.stringify(registerData),
+      body: JSON.stringify(requestData),
     });
 
     if (!response.ok) await this.#handleServerError(response);
@@ -69,7 +70,7 @@ export default class Authorization {
     this.#validateUpdateData(userInputData);
 
     const updateData = userInputData;
-    delete updateData.passwordConfirm;
+    const requestData = removeProperty(updateData, 'passwordConfirm');
 
     const response = await fetch(`${AUTH_URL_BASE}/users/${this.#userId}`, {
       method: 'PATCH',
@@ -77,7 +78,7 @@ export default class Authorization {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.#accessToken}`,
       },
-      body: JSON.stringify(updateData),
+      body: JSON.stringify(requestData),
     });
 
     if (!response.ok) await this.#handleServerError(response);

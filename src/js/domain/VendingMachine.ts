@@ -4,7 +4,7 @@ import { Coin } from './types';
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
 
-import { generateUniqueId } from '../utils';
+import { generateUniqueId, removeProperty } from '../utils';
 
 import { ERROR_MESSAGE } from '../constants';
 import {
@@ -62,7 +62,7 @@ export default class VendingMachine {
 
   removeProduct(productId: string) {
     this.#validateProductIdInList(productId);
-    delete this.#productList[productId];
+    this.#productList = removeProperty(this.#productList, productId);
   }
 
   addChange(money: number) {
@@ -86,7 +86,7 @@ export default class VendingMachine {
 
     this.#userMoney -= price;
     if (stock === 1) {
-      delete this.#productList[productId];
+      this.#productList = removeProperty(this.#productList, productId);
       return;
     }
 

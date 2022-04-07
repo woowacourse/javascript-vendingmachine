@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE, USER_REGISTER_RULES } from '../../src/js/constants';
+import { removeProperty } from '../../src/js/utils';
 import createRandomUserData from '../support/createRandomUserData';
 
 const baseUrl = 'http://localhost:9000';
@@ -11,9 +12,9 @@ describe('사용자 인증 오류 테스트', () => {
 
     it('모든 칸을 채우지 않으면 모든 칸을 작성하라는 메시지가 표시된다.', () => {
       const userData = createRandomUserData();
-      delete userData.name;
+      const noNameUserData = removeProperty(userData, 'name');
 
-      cy.validateRegister(userData);
+      cy.validateRegister(noNameUserData);
 
       cy.get('.snackbar').should(
         'have.text',
