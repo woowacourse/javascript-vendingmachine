@@ -20,11 +20,27 @@ interface IProduct {
   quantity: number;
 }
 
+interface IUserSession {
+  isLogin: boolean;
+  key: number;
+  email: string;
+  name: string;
+  expire: number;
+}
+
+interface IUserSessionEvent {
+  isDone: boolean;
+  isError: boolean;
+  message: string;
+}
+
 interface IStoreUniqueState {
   products?: IProduct[];
   holdingCoins?: number[];
   returnCoins?: number[];
   chargedAmount?: number;
+  userSession?: IUserSession;
+  userSessionEvent?: IUserSessionEvent;
 }
 
 type TRenderContent = {
@@ -39,11 +55,6 @@ type TRenderMethodList = PartialRecord<keyof IStoreUniqueState, TRenderDrawMetho
 /*
   컴포넌트 영역 타입
 */
-interface ITemplateSetting {
-  elementProperty?: Record<string, string | number | object | []>;
-  childTextContent?: Record<string, string | number>;
-}
-
 interface ICoinListComponentProps {
   drawAmountList: IStoreUniqueState['holdingCoins'];
 }
@@ -58,15 +69,39 @@ interface IProductListProps {
 interface IAmountInputProps {
   formLabel: string;
   totalAmountText: string;
-  onAddAmount(inputAmount: number);
+  onAddAmount(inputAmount: number): boolean;
+}
+
+interface IValidationInputProps {
+  name: string;
+  type: 'text' | 'password' | 'email';
+  label: string;
+  placeholder: string;
+  value?: string;
+  disabled?: boolean;
+  isValidationCheck?(inputValue: string): boolean;
+  isDisabled?: boolean;
+  errorMessage?: string;
 }
 
 /*
   Util 영역 타입
 */
+interface ITemplateSetting {
+  elementProperty?: Record<string, boolean | string | number | object | []>;
+  childTextContent?: Record<string, string | number>;
+}
 
 interface IEventDelegateListener {
   eventType: string;
   handler(event: Event);
   defaultEvent?: boolean;
+}
+
+/*
+   API 영역 타입
+*/
+interface IRequest {
+  status: boolean;
+  content: any;
 }
