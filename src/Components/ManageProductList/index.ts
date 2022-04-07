@@ -2,6 +2,7 @@ import Component from 'Components/Abstract';
 import ProductList from 'Components/@Shared/ProductList';
 import ProductStore from 'Store/ProductStore';
 import { validateProduct } from 'Utils/VendingMachine/validator';
+import { Snackbar } from 'Utils';
 
 export default class ManageProductList extends Component {
   template() {
@@ -19,7 +20,7 @@ export default class ManageProductList extends Component {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      Snackbar(error.message, 'warning');
       return;
     }
 

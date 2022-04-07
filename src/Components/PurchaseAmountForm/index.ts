@@ -1,4 +1,4 @@
-import { $ } from 'Utils';
+import { $, Snackbar } from 'Utils';
 import Component from 'Components/Abstract';
 import AmountInputForm from 'Components/@Shared/AmountInputForm';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
@@ -29,11 +29,12 @@ export default class PurchaseAmountForm extends Component {
     try {
       validateChargeAmountToAdd(userInput, chargedAmount);
     } catch (error) {
-      alert(error.message);
+      Snackbar(error.message, 'warning');
       return;
     }
 
     HoldingAmountStore.updateChargeAmount('charge', userInput);
+    Snackbar(`충전이 완료되었습니다. 현재 보유 금액: ${userInput}원`);
     return true;
   }
 

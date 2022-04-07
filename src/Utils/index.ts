@@ -1,4 +1,5 @@
 export * from 'Utils/User/validator';
+export * from 'Utils/Snackbar';
 
 export const $ = (selector, node: HTMLElement | DocumentFragment = document.body) =>
   node.querySelector(selector);
@@ -137,3 +138,25 @@ export const addMultipleEventDelegate = (
     addEventDelegate(container, selector, { eventType, defaultEvent, handler });
   });
 };
+
+export const addEventOnce = (
+  eventType: string,
+  $element: HTMLElement,
+  callback: () => void,
+): void => {
+  if ($element instanceof HTMLElement === false) {
+    return;
+  }
+
+  $element.addEventListener(eventType, callback, {
+    once: true,
+  });
+};
+
+export const runAnimation = () =>
+  new Promise(resolve => {
+    requestAnimationFrame(resolve);
+  });
+
+export const getTimeDiffToPercent = (startTime, currentTime, totalTime = 1000) =>
+  Math.ceil((currentTime - startTime) * (100 / totalTime));

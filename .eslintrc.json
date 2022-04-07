@@ -37,6 +37,7 @@
         "function-paren-newline": "off",
         "@typescript-eslint/no-empty-function": "off",
         "consistent-return": "off",
-        "no-alert": "off"
+        "no-alert": "off",
+        "no-await-in-loop": "off"
     }
 }

@@ -1,4 +1,4 @@
-import { $ } from 'Utils';
+import { $, Snackbar } from 'Utils';
 import { validateHoldingAmountToAdd } from 'Utils/VendingMachine/validator';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
 import Component from 'Components/Abstract';
@@ -29,7 +29,7 @@ export default class AddHoldingAmountForm extends Component {
     try {
       validateHoldingAmountToAdd(userInput, totalAmount);
     } catch (error) {
-      alert(error.message);
+      Snackbar(error.message, 'warning');
       return false;
     }
 

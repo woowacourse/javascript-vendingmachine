@@ -1,4 +1,4 @@
-import { $, $$, convertStringToElement } from 'Utils';
+import { $, $$, convertStringToElement, Snackbar } from 'Utils';
 import ProductStore from 'Store/ProductStore';
 import { validateProduct } from 'Utils/VendingMachine/validator';
 import Component from 'Components/Abstract';
@@ -33,7 +33,7 @@ export default class AddProduct extends Component {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      Snackbar(error.message, 'warning');
       return;
     }
 
