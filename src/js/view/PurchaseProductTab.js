@@ -1,4 +1,5 @@
 import { createMainElement, selectDom } from '../utils/dom';
+import Snackbar from './SnackBar';
 import { TEMPLATE } from './template';
 
 export default class PurchaseProductTab {
@@ -59,6 +60,8 @@ export default class PurchaseProductTab {
     });
 
     this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
+
+    Snackbar.dispatch('잔돈이 정상적으로 반환되었습니다.');
   };
 
   #renderPurchaseableProductList() {
@@ -91,8 +94,9 @@ export default class PurchaseProductTab {
       this.#vendingMachine.insertMoney(money);
       this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
       this.#resetInput();
+      Snackbar.dispatch('금액이 정상적으로 투입되었습니다.');
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, 'fail');
     }
   };
 
@@ -107,8 +111,10 @@ export default class PurchaseProductTab {
       this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
       const stock = selectDom('.product-stock', parent);
       stock.textContent = stock.textContent - 1;
+
+      Snackbar.dispatch('상품이 정상적으로 구매되었습니다.');
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, 'fail');
     }
   };
 

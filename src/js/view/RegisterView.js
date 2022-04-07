@@ -1,5 +1,6 @@
 import Auth from '../domain/Auth';
 import { createDivElement, selectDom } from '../utils/dom';
+import Snackbar from './SnackBar';
 import { TEMPLATE } from './template';
 
 export default class RegisterView {
@@ -32,6 +33,11 @@ export default class RegisterView {
     const password = this.#password.value;
     const passwordConfirm = this.#passwordConfirm.value;
 
-    Auth.register({ email, name, password, passwordConfirm });
+    try {
+      Auth.register({ email, name, password, passwordConfirm });
+      Snackbar.dispatch('정상적으로 회원가입되었습니다');
+    } catch (error) {
+      Snackbar.dispatch(error, 'fail');
+    }
   };
 }

@@ -1,6 +1,7 @@
 import Auth from '../domain/Auth';
 import { createDivElement, selectDom } from '../utils/dom';
 import { TEMPLATE } from './template';
+import Snackbar from './SnackBar';
 
 export default class LoginView {
   #loginContainer;
@@ -23,6 +24,7 @@ export default class LoginView {
     const password = this.#userPassword.value;
 
     Auth.login({ email, password });
+    Snackbar.dispatch('정상적으로 로그인되었습니다.');
   };
 
   get template() {

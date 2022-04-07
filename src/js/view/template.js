@@ -289,8 +289,8 @@ export const TEMPLATE = {
     <header>
       <h1 id="app-title">🍿 자판기 🍿</h1>
       <nav id="tab-menu-navigation">
-        <a id="manage-tab-menu" class="tab-menu-button" href="#/manage"> 상품 관리 </a>
-        <a id="charge-tab-menu" class="tab-menu-button" href="#/charge"> 잔돈 충전 </a>
+        <a id="manage-tab-menu" class="tab-menu-button" href="#/manage">상품 관리</a>
+        <a id="charge-tab-menu" class="tab-menu-button" href="#/charge">잔돈 충전</a>
         <a id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
           상품 구매
         </a>
@@ -300,7 +300,7 @@ export const TEMPLATE = {
           <a class="tab-menu-button" href="#/login">로그인</a>
         </div>
         <div id="admin">
-          <p id="nickname">우</p>
+          <p id="nickname"></p>
           <div class="admin-detail hide">
             <a id="modify-tab-menu" class="tab-menu-button" href="#/modify">내 정보 수정</a>
             <a id="logout-tab-menu" class="tab-menu-button" href="#/purchase">로그아웃</a>
@@ -309,5 +309,8 @@ export const TEMPLATE = {
       </div>
     </header>
     <main></main>
+  `,
+  SNACK_BAR: `
+    <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
   `,
 };

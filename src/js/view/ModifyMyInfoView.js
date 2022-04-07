@@ -1,5 +1,6 @@
 import Auth from '../domain/Auth';
 import { createDivElement, selectDom } from '../utils/dom';
+import Snackbar from './SnackBar';
 import { TEMPLATE } from './template';
 
 export default class ModifyMyInfoView {
@@ -41,8 +42,9 @@ export default class ModifyMyInfoView {
 
     try {
       Auth.modify(id, { email, name, password, passwordConfirm });
+      Snackbar.dispatch('내 정보가 정상적으로 수정되었습니다.');
     } catch (error) {
-      alert(error);
+      Snackbar.dispatch(error, 'fail');
     }
   };
 }

@@ -1,6 +1,7 @@
 import { CONFIRM_MESSAGE } from '../constants';
 import { createMainElement, selectDom } from '../utils/dom';
 import { TEMPLATE } from './template';
+import Snackbar from './SnackBar';
 
 export default class ManageProductTab {
   #vendingMachine;
@@ -70,8 +71,9 @@ export default class ManageProductTab {
         TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       this.#resetInput();
+      Snackbar.dispatch('상품이 정상적으로 추가되었습니다.');
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, 'fail');
     }
   };
 
@@ -130,8 +132,9 @@ export default class ManageProductTab {
       try {
         this.#vendingMachine.removeProduct(id);
         target.closest('tr').remove();
+        Snackbar.dispatch('상품이 정상적으로 삭제되었습니다.');
       } catch ({ message }) {
-        alert(message);
+        Snackbar.dispatch(message, 'fail');
       }
     }
   };
@@ -150,8 +153,9 @@ export default class ManageProductTab {
         TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       targetTableRow.remove();
+      Snackbar.dispatch('상품이 정상적으로 수정되었습니다.');
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, 'fail');
     }
   };
 

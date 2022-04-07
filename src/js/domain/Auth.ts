@@ -1,4 +1,5 @@
 import { validateData } from './validator';
+import Snackbar from '../view/SnackBar';
 
 const emailValidator = [
   { testFunc: isEmpty, errorMsg: '이메일을 입력해주세요.' },
@@ -90,9 +91,10 @@ const Auth = {
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('userId', id);
+
       window.location.href = '#/manage';
-    } catch (e) {
-      alert(e);
+    } catch (error) {
+      Snackbar.dispatch(error, 'fail');
     }
   },
 
@@ -113,7 +115,7 @@ const Auth = {
 
       window.location.href = '#/login';
     } catch (error) {
-      alert(error);
+      Snackbar.dispatch(error, 'fail');
     }
   },
   async loadModifyAPI(id, userInfo) {
@@ -133,7 +135,7 @@ const Auth = {
 
       window.location.href = '#/purchase';
     } catch (error) {
-      alert(error);
+      Snackbar.dispatch(error, 'fail');
     }
   },
 };

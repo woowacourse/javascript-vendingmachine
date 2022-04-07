@@ -8,11 +8,13 @@ import LoginView from './LoginView';
 import RegisterView from './RegisterView';
 import Auth from '../domain/Auth';
 import ModifyMyInfoView from './ModifyMyInfoView';
+import SnackBar from './SnackBar';
 
 export default class Router {
   #vendingMachine;
   #renderList;
   #app;
+  #body;
   #tabMenuNavigation;
   #adminHeaderContainer;
   #main;
@@ -35,6 +37,7 @@ export default class Router {
 
     this.#adminHeaderContainer = createDivElement(TEMPLATE.ADMIN_HEADER);
 
+    this.#body = selectDom('body');
     this.#app = selectDom('#app');
     this.#main = selectDom('main', this.#adminHeaderContainer);
     this.#tabMenuNavigation = selectDom(
@@ -52,6 +55,8 @@ export default class Router {
     this.#adminProfile.addEventListener('click', this.#handleAdminDetailMenu);
     this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
     this.#logoutTabMenu.addEventListener('click', this.#handleLogout);
+
+    this.#body.insertAdjacentHTML('beforeend', TEMPLATE.SNACK_BAR);
   }
 
   //리팩토링 필수
@@ -131,6 +136,7 @@ export default class Router {
   #handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
+    SnackBar.dispatch('정상적으로 로그아웃되었습니다.');
   };
 
   #isAdmin() {
