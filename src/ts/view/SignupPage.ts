@@ -22,6 +22,12 @@ export default class SignupPage implements PageView {
     this.snackbar = snackbar;
   }
 
+  render(): void {
+    if (this.admin.isLogin()) {
+      history.back();
+    }
+  }
+
   bindEvent(movePage: Function): void {
     this.$form.addEventListener('submit', this.handleSubmitForm.bind(this, movePage));
   }

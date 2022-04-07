@@ -7,6 +7,8 @@ import JsonAPI from '../jsonAPI/JsonAPI';
 
 export default class AdminImpl implements Admin {
   public readonly vendingMachine: VendingMachine;
+  private adminName: string;
+  private accessToken: string;
   private api: API;
   private static instance: Admin;
 
@@ -54,5 +56,9 @@ export default class AdminImpl implements Admin {
   
   login(email: AdminEmail, password: AdminPassword): void {
     
+  }
+
+  isLogin(): boolean {
+    return !!this.adminName && !!this.accessToken;
   }
 }

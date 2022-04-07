@@ -53,6 +53,7 @@ export interface Admin {
   signup(adminData: SignupData);
   modifyAdmin(adminData: AdminData);
   login(email: AdminEmail, password: AdminPassword);
+  isLogin(): boolean;
 }
 
 export interface Buyer {
@@ -73,6 +74,7 @@ export interface DomainView extends View {
 }
 
 export interface PageView {
+  render(): void;
   bindEvent(movePage: Function): void;
 }
 

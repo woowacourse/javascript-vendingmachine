@@ -51,7 +51,6 @@ export default class PageMover implements View {
   private movePage(pageName: PageName): void {
     this.$app.classList.remove('productManage', 'chargeMoney', 'buyProduct', 'signup');
     this.$app.classList.add(pageName);
-    const render = (this[pageName] as DomainView).render;
-    render && render.call(this[pageName]);
+    this[pageName].render.call(this[pageName]);
   }
 }
