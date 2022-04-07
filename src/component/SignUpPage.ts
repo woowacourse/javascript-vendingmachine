@@ -1,3 +1,4 @@
+import { SERVER_URL } from '../constants/auth';
 import { SnackBar } from './SnackBar';
 
 export class SignUpPage {
@@ -35,10 +36,11 @@ export class SignUpPage {
         name: this.nameInput.value,
         password: this.pwInput.value,
       };
-      fetch('http://localhost:3000/signup', {
+      fetch(`${SERVER_URL}/signup`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
+          'Access-Control-Allow-Origin': `${SERVER_URL}/signup`,
           'Content-Type': 'application/json',
         },
       }).then((res) => {

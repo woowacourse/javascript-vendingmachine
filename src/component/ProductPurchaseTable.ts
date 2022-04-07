@@ -77,7 +77,6 @@ export class ProductPurchaseTable {
         this.productCatalog.purchaseProductByName(tableRow.id);
         this.renderUpdatedTableRowQuantity(tableRow);
         sessionStorage.setItem('productCatalog', JSON.stringify(this.productCatalog));
-        sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
         this.snackBar.render('구매에 성공하였습니다');
         this.target.dispatchEvent(
           new CustomEvent('purchased', { detail: { price: productPrice } })

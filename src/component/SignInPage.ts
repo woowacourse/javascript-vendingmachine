@@ -1,3 +1,4 @@
+import { SERVER_URL } from '../constants/auth';
 import { SnackBar } from './SnackBar';
 
 export class SignInPage {
@@ -29,7 +30,7 @@ export class SignInPage {
       email: this.emailInput.value,
       password: this.pwInput.value,
     };
-    fetch('http://localhost:3000/signin', {
+    fetch(`${SERVER_URL}/signin`, {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: {
