@@ -25,6 +25,10 @@ class InfoModifyContainer extends CustomElement {
     `;
   }
 
+  renderProfileManager() {
+    $('.profile-manager-menu').classList.add('hidden');
+  }
+
   handleInfoFormSubmit = (event) => {
     event.preventDefault();
 
@@ -46,6 +50,7 @@ class InfoModifyContainer extends CustomElement {
       alert(error.message);
       return;
     }
+    this.renderProfileManager();
     modifyUserInfo(emailInputValue, nameInputValue, passwordInputValue);
   };
 
