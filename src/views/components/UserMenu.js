@@ -4,12 +4,9 @@ import { auth } from '../../domains/Auth';
 
 export default class UserMenu extends Component {
   template() {
-    const { accessToken, user } = auth.useStore((state) => ({
-      accessToken: state.accessToken,
-      user: state.user,
-    }));
+    const user = auth.useStore((state) => state.user);
 
-    if (accessToken) {
+    if (user) {
       return `
         <div class="thumbnail">
           <button id="user-thumbnail" class="thumbnail styled-button">${user.name[0]}</button>
