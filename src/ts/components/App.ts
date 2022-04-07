@@ -9,7 +9,7 @@ import ChargeComponent from "./charge/ChargeComponent";
 import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
-import { getSessionStorage } from "../utils/sessionStorage";
+import { getSessionStorage, removeSessionStorage } from "../utils/sessionStorage";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
@@ -92,17 +92,28 @@ class App {
     }
 
     if (target.dataset.menu === "#profile") {
-      history.pushState({ path: "#profile" }, null, "#profile");
-      this.convertTemplate("#profile");
-      this.hideMenuTab();
-      this.hideAppTitle();
-      this.selectBox.classList.add("hide");
+      this.moveProfilePage();
     }
 
     if (target.dataset.menu === "#logout") {
-      // 로그아웃
+      this.handleLogout();
     }
   };
+
+  moveProfilePage() {
+    history.pushState({ path: "#profile" }, null, "#profile");
+    this.convertTemplate("#profile");
+    this.hideMenuTab();
+    this.hideAppTitle();
+    this.selectBox.classList.add("hide");
+  }
+
+  handleLogout() {
+    removeSessionStorage("accessToken");
+    removeSessionStorage("userInfo");
+    this.convertTemplate("#purchase");
+    this.handleThumbnail();
+  }
 
   handleLogin = () => {
     history.pushState({ path: "#login" }, null, "#login");
@@ -148,15 +159,21 @@ class App {
     this.thumnailButton.classList.remove("hide");
   }
 
+  hideThumnailButton() {
+    this.thumnailButton.classList.add("hide");
+  }
+
   checkLoggedIn() {
-    if (getSessionStorage("accessToken")) {
+    const loggedIn = getSessionStorage("accessToken");
+
+    if (loggedIn) {
       this.hideLoginButton();
       this.showThumnailButton();
       this.showMenuTab();
     }
-
-    if (!getSessionStorage("accessToken")) {
+    if (!loggedIn) {
       this.showLoginButton();
+      this.hideThumnailButton();
       this.hideMenuTab();
     }
   }
