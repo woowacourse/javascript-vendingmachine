@@ -4,6 +4,8 @@ import { VendingMachineInterface } from '../domain/VendingMachine';
 import ProductManageView, { ProductManageViewInterface } from './ProductManageView';
 import RechargeView, { RechargeViewInterface } from './RechargeView';
 import PurchaseProductView, { PurchaseProductViewInterface } from './PurchaseProductView';
+import RegisterView, { RegisterViewInterface } from './RegisterView';
+import { UserManagerInterface } from '../domain/UserManager';
 
 export default class View {
   $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
@@ -17,12 +19,15 @@ export default class View {
   $loginRegister: HTMLSpanElement;
 
   vendingMachine: VendingMachineInterface;
+  userManager: UserManagerInterface;
   productManageView: ProductManageViewInterface;
   rechargeView: RechargeViewInterface;
   purchaseProductView: PurchaseProductViewInterface;
+  registerView: RegisterViewInterface;
+
   currentView: string;
 
-  constructor(vendingMachine: VendingMachineInterface) {
+  constructor(vendingMachine: VendingMachineInterface, userManager: UserManagerInterface) {
     this.$$tabResultContainers = $$('.tab-result-container');
     this.$$pageContainers = $$('.page-container');
     this.$tabProductManageButton = $('#tab-product-manage');
@@ -34,9 +39,11 @@ export default class View {
     this.$loginRegister = $('.login-register');
 
     this.vendingMachine = vendingMachine;
+    this.userManager = userManager;
     this.productManageView = new ProductManageView(this.vendingMachine);
     this.rechargeView = new RechargeView(this.vendingMachine);
     this.purchaseProductView = new PurchaseProductView(this.vendingMachine);
+    this.registerView = new RegisterView(this.userManager);
 
     this.currentView = localStorage.getItem(STORAGE_ID.CURRENT_VIEW) || TAB_ID.PURCHASE_PRODUCT;
     this.renderCurrentView();

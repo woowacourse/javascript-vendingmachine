@@ -1,5 +1,5 @@
 import ProductType from '../type/ProductType';
-import { ERROR_MESSAGE, VENDING_MACHINE_RULE } from '../constants';
+import { ERROR_MESSAGE, VENDING_MACHINE_RULE, USER_RULE } from '../constants';
 
 const isEmptyName = (name: string) => name.trim().length === 0;
 
@@ -13,6 +13,8 @@ const isInvalidUnit = (price: number) => price % VENDING_MACHINE_RULE.UNIT !== 0
 const isOverMaxValue = (value: number, max: number) => value > max;
 
 const isUnderMinValue = (value: number, min: number) => value < min;
+
+const isNotSame = (origin: string, compare: string) => origin !== compare;
 
 export const checkProductValidation = (product: ProductType) => {
   if (isEmptyName(product.name)) {
@@ -62,5 +64,23 @@ export const checkPurchaseMoney = (money: number) => {
   }
   if (isInvalidUnit(money)) {
     throw new Error(ERROR_MESSAGE.MONTY_UNIT);
+  }
+};
+
+export const checkRegister = (name: string, password: string, passwordCheck: string) => {
+  if (
+    isOverMaxValue(name.length, USER_RULE.MAX_NAME_LENGTH) ||
+    isUnderMinValue(name.length, USER_RULE.MIN_NAME_LENGTH)
+  ) {
+    throw new Error(ERROR_MESSAGE.USER_NAME_LENGTH);
+  }
+  if (
+    isOverMaxValue(password.length, USER_RULE.MAX_NAME_LENGTH) ||
+    isUnderMinValue(password.length, USER_RULE.MIN_NAME_LENGTH)
+  ) {
+    throw new Error(ERROR_MESSAGE.USER_PASSWORD_LENGTH);
+  }
+  if (isNotSame(password, passwordCheck)) {
+    throw new Error(ERROR_MESSAGE.PASSWORD_CHECK);
   }
 };

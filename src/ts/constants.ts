@@ -26,6 +26,10 @@ export const ERROR_MESSAGE = {
   UNDER_MIN_PURCHASE_MONEY: '구입할 금액 투입은 10원 이상이어야 합니다.',
   NOT_ENOUGH_MONEY: '투입한 금액이 부족합니다.',
   NOT_ENOUGH_RECHARGE: '자판기가 보유한 동전이 없습니다.',
+  REGISTER_ERROR: '이미 가입된 이메일입니다.',
+  USER_NAME_LENGTH: '이름은 2 ~ 6자로 입력해야 합니다.',
+  USER_PASSWORD_LENGTH: '비밀번호는 4 ~ 10자로 입력해야 합니다.',
+  PASSWORD_CHECK: '비밀번호 확인이 입력한 비밀번호와 일치하지 않습니다.',
 };
 
 export const SUCCESS_MESSAGE = {
@@ -36,6 +40,7 @@ export const SUCCESS_MESSAGE = {
   ADD_PURCHASE_MONEY: '성공적으로 투입했습니다.',
   PURCHASE_PRODUCT: '상품을 성공적으로 구매했습니다.',
   RETURN_COIN: '잔돈을 성공적으로 반환했습니다.',
+  REGISTER: '회원가입을 성공적으로 완료했습니다.',
 };
 
 export const CONFIRM_MESSAGE = {
@@ -54,6 +59,11 @@ export const VENDING_MACHINE_RULE = {
   MIN_PURCHASE_MONEY: 10,
 };
 
+export const USER_RULE = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
+};
+
 export const STORAGE_ID = {
   MONEY: 'money',
   PRODUCTS: 'products',
@@ -70,4 +80,10 @@ export const COIN = {
 
 export const FLAG = {
   POP_STATE: true,
+};
+
+export const SERVER_ENTRY = 'http://localhost:3000';
+
+export const API_QUERY = {
+  REGISTER: '/register',
 };
