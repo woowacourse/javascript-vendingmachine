@@ -1,5 +1,6 @@
 import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
+import { USER } from '../../configs/constants';
 
 export default class SignupPage extends Component {
   template() {
@@ -17,7 +18,7 @@ export default class SignupPage extends Component {
               type="email"
               class="profile-input styled-input"
               placeholder="woowacourse@gmail.com"
-              maxlength="40"
+              maxlength="${USER.EMAIL.LENGTH.MAX}"
               autofocus
               required
             >
@@ -29,8 +30,8 @@ export default class SignupPage extends Component {
               type="text"
               class="profile-input styled-input"
               placeholder="우테코"
-              minlength="2"
-              maxlength="6"
+              minlength="${USER.NAME.LENGTH.MIN}"
+              maxlength="${USER.NAME.LENGTH.MAX}"
               required
             >
           </label>
@@ -41,8 +42,8 @@ export default class SignupPage extends Component {
               type="password"
               class="profile-input styled-input"
               placeholder="비밀번호를 입력해주세요."
-              minlength="8"
-              maxlength="30"
+              minlength="${USER.PASSWORD.LENGTH.MIN}"
+              maxlength="${USER.PASSWORD.LENGTH.MAX}"
               required
             >
           </label>
@@ -53,8 +54,8 @@ export default class SignupPage extends Component {
               type="password"
               class="profile-input styled-input"
               placeholder="비밀번호를 입력해주세요."
-              minlength="8"
-              maxlength="30"
+              minlength="${USER.PASSWORD.LENGTH.MIN}"
+              maxlength="${USER.PASSWORD.LENGTH.MAX}"
               required
             >
           </label>

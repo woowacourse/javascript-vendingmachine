@@ -11,7 +11,7 @@ export default class Snackbar extends Component {
 
     setTimeout(() => {
       this.classList.toggle('show');
-    }, 3000);
+    }, Number(this.props.duration));
   }
 }
 

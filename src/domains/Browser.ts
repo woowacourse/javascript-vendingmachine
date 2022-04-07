@@ -1,4 +1,5 @@
 import Domain from '../core/Domain';
+import { PAGES } from '../configs/constants';
 
 export interface BrowserState {
   location: string;
@@ -11,5 +12,5 @@ export default class Browser extends Domain<BrowserState> {
 }
 
 export const browser = new Browser({
-  location: '/',
+  location: PAGES.LANDING.PATH,
 });

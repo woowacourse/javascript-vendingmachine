@@ -27,19 +27,19 @@ export default class App extends Component {
           </landing-page>
           <login-page
             class="page"
-            path="/login"
+            path="${PAGES.LOGIN.PATH}"
             loginRequired="false"
           >
           </login-page>
           <signup-page
             class="page"
-            path="/signup"
+            path="${PAGES.SIGNUP.PATH}"
             loginRequired="false"
           >
           </signup-page>
           <profile-page
             class="page"
-            path="/profile"
+            path="${PAGES.PROFILE.PATH}"
             loginRequired="true"
           >
           </profile-page>
@@ -51,7 +51,7 @@ export default class App extends Component {
           </not-found>
         </component-router>
       </main>
-      <snack-bar id="snackbar"></snack-bar>
+      <snack-bar id="snackbar" duration="3000"></snack-bar>
     `;
   }
 

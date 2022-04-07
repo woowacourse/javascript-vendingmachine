@@ -1,49 +1,56 @@
 import Domain from '../core/Domain';
+import { SERVER } from '../configs/api';
 
-interface User {
+type User = {
   id: number;
   name: string;
   email: string;
   password: string;
-}
-
+};
 type SignupInfo = Omit<User, 'id'>;
 type LoginInfo = Omit<User, 'id' | 'name'>;
-type LoggedUserInfo = Omit<User, 'password'>;
+type UserBody = {
+  accessToken: string;
+  user: Partial<User>;
+};
+type AuthState = {
+  [K in keyof UserBody]: UserBody[K] | null;
+};
 
-export interface AuthState {
-  user: LoggedUserInfo | null;
-  accessToken: string | null;
-}
+const request = async <T>(
+  url: RequestInfo,
+  option: RequestInit
+): Promise<T> => {
+  const res = await fetch(url, option);
+  const body = (await res.json()) as T | string;
+
+  if (!res.ok) throw Error(body as string);
+
+  return body as T;
+};
 
 export default class Auth extends Domain<AuthState> {
   async signup(newUser: SignupInfo): Promise<void> {
-    const res = await fetch('http://localhost:5000/signup', {
+    const body = await request<UserBody>(`${SERVER}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newUser),
     });
-    const body = await res.json();
-
-    if (!res.ok) throw Error(body);
 
     this.state.accessToken = body.accessToken;
     this.state.user = body.user;
   }
 
   async login(loginInfo: LoginInfo): Promise<void> {
-    const res = await fetch('http://localhost:5000/login', {
+    const body = await request<UserBody>(`${SERVER}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginInfo),
     });
-    const body = await res.json();
-
-    if (!res.ok) throw Error(body);
 
     this.state.accessToken = body.accessToken;
     this.state.user = body.user;
@@ -57,7 +64,7 @@ export default class Auth extends Domain<AuthState> {
   async updateProfile(updatedProfile: Partial<SignupInfo>): Promise<void> {
     const { accessToken, user } = this.state;
 
-    const res = await fetch(`http://localhost:5000/users/${user.id}`, {
+    const body = await request<User>(`${SERVER}/users/${user.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -65,9 +72,6 @@ export default class Auth extends Domain<AuthState> {
       },
       body: JSON.stringify(updatedProfile),
     });
-    const body = await res.json();
-
-    if (!res.ok) throw Error(body);
 
     this.state.user = {
       ...this.state.user,

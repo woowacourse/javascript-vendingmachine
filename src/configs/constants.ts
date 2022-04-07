@@ -1,5 +1,3 @@
-import { Coins } from '../domains/VendingMachine';
-
 export const CHARGE_AMOUNT = {
   LABEL: '충전 금액',
   MIN: 10,
@@ -38,6 +36,26 @@ export const COIN = {
   },
 } as const;
 
+export const USER = {
+  EMAIL: {
+    LENGTH: {
+      MAX: 40,
+    },
+  },
+  NAME: {
+    LENGTH: {
+      MIN: 2,
+      MAX: 6,
+    },
+  },
+  PASSWORD: {
+    LENGTH: {
+      MIN: 8,
+      MAX: 30,
+    },
+  },
+} as const;
+
 export const PAGES = {
   LANDING: {
     TITLE: '',
@@ -55,8 +73,23 @@ export const PAGES = {
     TITLE: '상품 구매',
     PATH: '/item-purchase',
   },
+  LOGIN: {
+    PATH: '/login',
+  },
+  SIGNUP: {
+    PATH: '/signup',
+  },
+  PROFILE: {
+    PATH: '/profile',
+  },
   DEFAULT: {
     TITLE: '',
     PATH: '*',
   },
+} as const;
+
+export const REDICTION = {
+  LANDING: 'landing',
+  LOGIN: 'login',
+  AUTHORIZED: 'authorized',
 } as const;

@@ -1,7 +1,7 @@
 import Component from '../core/Component';
 import { browser } from '../domains/Browser';
 import { auth } from '../domains/Auth';
-import { PAGES } from '../configs/constants';
+import { PAGES, REDICTION } from '../configs/constants';
 import { convertStringToBoolean } from '../utils/commons';
 
 class Router extends Component {
@@ -45,13 +45,13 @@ class Router extends Component {
     const state = {};
 
     switch (redirection) {
-      case 'landing':
+      case REDICTION.LANDING:
         window.history.pushState(state, '', PAGES.LANDING.PATH);
         dispatchEvent(new PopStateEvent('popstate', { state }));
         break;
 
-      case 'login':
-        window.history.pushState(state, '', '/login');
+      case REDICTION.LOGIN:
+        window.history.pushState(state, '', PAGES.LOGIN.PATH);
         dispatchEvent(new PopStateEvent('popstate', { state }));
         break;
 

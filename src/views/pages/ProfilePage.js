@@ -1,5 +1,6 @@
 import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
+import { USER } from '../../configs/constants';
 
 export default class ProfilePage extends Component {
   template() {
@@ -20,7 +21,7 @@ export default class ProfilePage extends Component {
               class="profile-input styled-input"
               placeholder="이메일 주소를 입력해주세요."
               value="${user?.email}"
-              maxlength="40"
+              maxlength="${USER.EMAIL.LENGTH.MAX}"
               disabled
               required
             >
@@ -33,8 +34,8 @@ export default class ProfilePage extends Component {
               class="profile-input styled-input"
               placeholder="이름을 입력해주세요."
               value="${user?.name}"
-              minlength="2"
-              maxlength="6"
+              minlength="${USER.NAME.LENGTH.MIN}"
+              maxlength="${USER.NAME.LENGTH.MAX}"
               autofocus
               required
             >
@@ -46,8 +47,8 @@ export default class ProfilePage extends Component {
               type="password"
               class="profile-input styled-input"
               placeholder="비밀번호를 입력해주세요."
-              minlength="8"
-              maxlength="30"
+              minlength="${USER.PASSWORD.LENGTH.MIN}"
+              maxlength="${USER.PASSWORD.LENGTH.MAX}"
               required
             >
           </label>
@@ -58,8 +59,8 @@ export default class ProfilePage extends Component {
               type="password"
               class="profile-input styled-input"
               placeholder="비밀번호를 입력해주세요."
-              minlength="8"
-              maxlength="30"
+              minlength="${USER.PASSWORD.LENGTH.MIN}"
+              maxlength="${USER.PASSWORD.LENGTH.MAX}"
               required
             >
           </label>
