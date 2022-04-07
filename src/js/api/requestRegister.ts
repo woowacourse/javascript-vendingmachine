@@ -18,6 +18,7 @@ const requestRegister = async (userData: User) => {
       case 'Email already exists':
         throw new Error(ERROR_MESSAGE.EMAIL_IS_DUPLICATED);
     }
+    throw new Error(errorMessage);
   }
 
   return ALERT_MESSAGE.REGISTER_SUCCESS;

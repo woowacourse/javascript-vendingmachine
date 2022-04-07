@@ -6,8 +6,7 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "cypress:run": "cypress run",
-    "start": "json-server-auth db.json",
-    "webpack": "webpack serve --open",
+    "start": "webpack serve --open",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -49,6 +48,6 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://intae92.github.io/javascript-vendingmachine",
+  "homepage": "https://usageness.github.io/javascript-vendingmachine",
   "dependencies": {}
 }

@@ -17,6 +17,7 @@ const requestModifyUserData = async (userData: User) => {
       case 'Password is too short':
         throw new Error(ERROR_MESSAGE.PASSWORD_IS_TOO_SHORT);
     }
+    throw new Error(dataResult);
   }
 
   const updatedInfo = {

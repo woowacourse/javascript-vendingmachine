@@ -18,6 +18,7 @@ const requestLogin = async (accountData: Object) => {
       case 'Incorrect password':
         throw new Error(ERROR_MESSAGE.PASSWORD_IS_INCORRECT);
     }
+    throw new Error(dataResult);
   }
 
   localStorage.setItem('accessToken', dataResult.accessToken);
