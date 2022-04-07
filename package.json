@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
+    "cypress:run": "cypress run --browser chrome",
     "start": "webpack serve --open",
     "build": "webpack",
     "json-server": "json-server --watch db.json -m ./node_modules/json-server-auth"
@@ -30,6 +31,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
+    "cypress": "^9.5.3",
     "eslint": "^8.12.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
