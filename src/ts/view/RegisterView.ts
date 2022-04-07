@@ -52,7 +52,7 @@ class RegisterView implements ViewInterface {
       this.userStore.validateUserInfoInput(registerInfo);
       await this.userStore.register(registerInfo);
     } catch (error) {
-      window.alert(error.message);
+      alert(error.message);
       return;
     }
 

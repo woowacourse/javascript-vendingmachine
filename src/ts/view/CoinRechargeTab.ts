@@ -36,7 +36,8 @@ class CoinRechargeTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateCashInput(chargedCash);
     } catch (error) {
-      return alert(error.message);
+      alert(error.message);
+      return;
     }
 
     this.renderChargedCoinState(

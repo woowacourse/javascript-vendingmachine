@@ -54,7 +54,7 @@ class UserInfoEditView implements ViewInterface {
       this.userStore.validateUserInfoInput(userInfo);
       await this.userStore.editUserInfo(userInfo);
     } catch (error) {
-      window.alert(error.message);
+      alert(error.message);
       return;
     }
 

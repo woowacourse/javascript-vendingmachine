@@ -51,7 +51,8 @@ class ItemPurchaseTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemPurchaseCashInput(inputedCash);
     } catch (error) {
-      return alert(error.message);
+      alert(error.message);
+      return;
     }
 
     const chargedAmount = this.vendingMachine.chargeCash(inputedCash);
