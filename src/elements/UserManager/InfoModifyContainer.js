@@ -1,4 +1,7 @@
 import CustomElement from '../../abstracts/CustomElement';
+import { $ } from '../../utils/dom';
+import { checkNewUserInfoValidation } from '../../validators';
+// import { modifyUserInfo } from '../../utils/auth';
 
 class InfoModifyContainer extends CustomElement {
   template() {
@@ -20,6 +23,35 @@ class InfoModifyContainer extends CustomElement {
           <button class="info-confirm-button button">확인</button>
         </form>
     `;
+  }
+
+  handleInfoFormSubmit = (event) => {
+    event.preventDefault();
+
+    const emailInputValue = $('#info-email-input').value;
+    const nameInputValue = $('#info-name-input').value;
+    const passwordInputValue = $('#info-password-input').value;
+    const passwordConfirmValue = $('#info-password-confirm-input').value;
+
+    const newUserInfo = {
+      email: emailInputValue,
+      name: nameInputValue,
+      password: passwordInputValue,
+      passwordConfirm: passwordConfirmValue,
+    };
+
+    try {
+      checkNewUserInfoValidation(newUserInfo);
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+    this.renderProfileManager();
+    // modifyUserInfo(emailInputValue, nameInputValue, passwordInputValue);
+  };
+
+  setEvent() {
+    $('.info-form').addEventListener('submit', this.handleInfoFormSubmit);
   }
 }
 

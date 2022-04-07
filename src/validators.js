@@ -137,7 +137,7 @@ export const checkCanPurchaseValidation = (moneyInput, productPrice) => {
   }
 };
 
-export const checkNewUserInfoValidation = ({ email, name, password, passwordConfirm }) => {
+export const checkNewUserInfoValidation = ({ password, passwordConfirm }) => {
   if (isNotCorrectedPassword(password)) {
     throw new Error(ERROR_MESSAGE.IS_NOT_CORRECTED_PASSWORD);
   }
