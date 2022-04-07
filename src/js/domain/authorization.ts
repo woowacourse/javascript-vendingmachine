@@ -21,6 +21,10 @@ class Authorization {
   }
 
   async signUp({ email, name, password, confirmPassword }) {
+    if (name.length < 2 || name.length > 6) {
+      alert("이름은 2~6자 이내여야합니다. ");
+      return;
+    }
     if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;

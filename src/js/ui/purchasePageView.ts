@@ -1,6 +1,7 @@
 import { on, emit } from "../util/event";
 import { $, createElement } from "../util/dom";
 import purchaseTemplate from "../template/purchase.template";
+import headerTemplate from "../template/header.template";
 import { ISingleProduct } from "../interface/product.interface";
 import { TCoin } from "../interface/vendingMachine.interface";
 import { EVENT_TYPE } from "../constant";
@@ -101,33 +102,12 @@ class PurchasePageView {
 
   renderHeader(userInfo) {
     if (userInfo.isError) {
-      this.$header.insertAdjacentHTML(
-        "beforeend",
-        `<h2>자판기</h2>
-        <a class="nav-button" href="#!login">
-        로그인
-        </a>
-        `
-      );
+      this.$header.insertAdjacentHTML("beforeend", headerTemplate.loggedOut());
       return;
     }
     this.$header.insertAdjacentHTML(
       "beforeend",
-      `<h2>자판기</h2>
-      <button id="nav-button">로그아웃</button>ㄴ
-      <section id="user-info">user Info</section>
-      <nav id="page-tab-container">
-        <a class="nav-button product-management-button" href="#!productManagement">
-        상품 관리
-        </a>
-        <a class="nav-button changes-charge-button" href="#!changesCharge">
-          잔돈 충전
-        </a>
-        <a class="nav-button product-purchase-button" href="#!purchaseProduct">
-          상품 구매
-        </a>
-      </nav>
-      `
+      headerTemplate.loggedIn(userInfo.name[0])
     );
   }
 

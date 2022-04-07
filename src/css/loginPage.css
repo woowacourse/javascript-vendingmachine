@@ -1,7 +1,7 @@
 
 
 
-.input-container {
+.form-input-container {
     display: flex;
     flex-direction: column;
 }
@@ -13,4 +13,22 @@
 
 .signUp-anchor{
     color:blue;
+}
+
+
+.user-avatar-container{
+    position: absolute;
+    top:30px;
+    right:30px;
+}
+
+.user-avatar{
+    background-color: var(--nav-button-hover-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 8px;
+    font-size:20px;
+    display: flex;
+    justify-content: center;
 }

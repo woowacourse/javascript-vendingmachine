@@ -4,6 +4,7 @@ import { emit, on } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 import { TCoin } from "../interface/vendingMachine.interface";
 import { IChargeChangesEvent } from "../type";
+import headerTemplate from "../template/header.template";
 
 class ChangePageView {
   $page;
@@ -42,25 +43,6 @@ class ChangePageView {
     this.$page.appendChild(this.$currentChangesContainer);
     this.$page.appendChild(this.$changesStatusContainer);
 
-    this.$header.insertAdjacentHTML(
-      "beforeend",
-      `<h2>자판기</h2>
-      <button id="nav-button">로그아웃</button>
-      <section id="user-info">user Info</section>
-      <nav id="page-tab-container">
-        <a class="nav-button product-management-button" href="#!productManagement">
-        상품 관리
-        </a>
-        <a class="nav-button changes-charge-button" href="#!changesCharge">
-          잔돈 충전
-        </a>
-        <a class="nav-button product-purchase-button" href="#!purchaseProduct">
-          상품 구매
-        </a>
-      </nav>
-      `
-    );
-
     this.$userInfoContainer = $("#user-info", this.$header);
     this.$changesInput = $("#changes-input");
     this.$changesList = $("#changes-list", this.$changesStatusContainer);
@@ -83,6 +65,13 @@ class ChangePageView {
     });
     this.$changesInput.value = "";
   };
+
+  renderHeader(userInfo) {
+    this.$header.insertAdjacentHTML(
+      "beforeend",
+      headerTemplate.loggedIn(userInfo.name[0])
+    );
+  }
 
   renderCurrentChanges(changes: number): void {
     this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;

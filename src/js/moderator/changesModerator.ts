@@ -21,9 +21,9 @@ class ChangesModerator {
   }
 
   async init() {
-    const { isError } = await this.authorization.isLoggedIn();
+    const userInfo = await this.authorization.isLoggedIn();
 
-    if (isError) {
+    if (userInfo.isError) {
       alert("권한이 없습니다.");
       location.href = "/";
       return;
@@ -33,6 +33,7 @@ class ChangesModerator {
     const coinStatus = this.vendingMachine.getCoins();
     this.changePageView.renderCurrentChanges(changes);
     this.changePageView.renderCoinStatus(coinStatus);
+    this.changePageView.renderHeader(userInfo);
   }
 
   chargeChange = ({ money }: IChargeChangesEvent): void => {

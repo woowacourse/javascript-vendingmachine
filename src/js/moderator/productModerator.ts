@@ -30,8 +30,8 @@ class ProductModerator {
   }
 
   async init() {
-    const { isError } = await this.authorization.isLoggedIn();
-    if (isError) {
+    const userInfo = await this.authorization.isLoggedIn();
+    if (userInfo.isError) {
       alert("권한이 없습니다.");
       location.href = "/";
       return;
@@ -39,6 +39,7 @@ class ProductModerator {
     this.productPageView.init();
     const products = this.vendingMachine.getProducts();
     this.productPageView.renderProductsStatus(products);
+    this.productPageView.renderHeader(userInfo);
   }
 
   addProduct = ({ name, price, count }: IAddProductEvent): void => {
