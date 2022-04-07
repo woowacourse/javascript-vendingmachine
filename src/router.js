@@ -9,6 +9,7 @@ const $coinChargeContainer = $('coin-charge-container');
 const $productPurchaseContainer = $('product-purchase-container');
 const $loginContainer = $('login-container');
 const $signupContainer = $('signup-container');
+
 const $app = $('#app');
 
 const routes = [
@@ -106,18 +107,41 @@ export const updateUserInfo = () => {
 };
 
 export const renderManagerView = () => {
+  const currentHash = window.location.hash;
+
+  if (currentHash === '#!product-manage') {
+    renderTargetContainer(currentHash);
+  }
+  if (currentHash !== '#!product-manage') {
+    moveToPage('#!product-manage');
+  }
+
   $administratorMenu.show();
   updateUserInfo();
-  $('.profile-manager').removeAttribute('hidden');
-  $('.login-manager').setAttribute('hidden', true);
-  moveToPage('#!product-manage');
+
+  window.onload = () => {
+    $('.login-manager').classList.add('hidden');
+    $('.profile-manager').classList.remove('hidden');
+    $('.profile-manager-menu').classList.add('hidden');
+  };
 };
 
 export const renderUserView = () => {
+  const currentHash = window.location.hash;
+
+  if (currentHash === '#!product-purchase') {
+    renderTargetContainer(currentHash);
+  }
+  if (currentHash !== '#!product-purchase') {
+    moveToPage('#!product-purchase');
+  }
+
   $administratorMenu.hide();
-  $('.login-manager').removeAttribute('hidden');
-  $('.profile-manager').setAttribute('hidden', true);
-  moveToPage('#!product-purchase');
+
+  window.addEventListener('DOMContentLoaded', () => {
+    $('.login-manager').classList.remove('hidden');
+    $('.profile-manager').classList.add('hidden');
+  });
 };
 
 const renderInitContainer = () => {

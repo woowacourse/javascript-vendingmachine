@@ -1,5 +1,5 @@
 import { AUTH, SNACKBAR } from '../constants';
-import { renderManagerView } from '../router';
+import { renderManagerView, renderUserView } from '../router';
 import showSnackbar from './showSnackbar';
 
 const setLoginedUser = (userInfo) => {
@@ -36,7 +36,7 @@ export const signup = (email, name, password) => {
         id: response.user.id,
       };
       setLoginedUser(userAuth);
-      renderManagerView('#!product-manage');
+      renderManagerView();
       showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
     })
     .catch((error) => {
@@ -73,7 +73,7 @@ export const login = (email, password) => {
         id: response.user.id,
       };
       setLoginedUser(userAuth);
-      renderManagerView('#!product-manage');
+      renderManagerView();
       showSnackbar(SNACKBAR.LOGIN_SUCCESS);
     })
     .catch((error) => {
@@ -87,4 +87,10 @@ export const login = (email, password) => {
         alert(AUTH.PASSWORD_IS_TOO_SHORT);
       }
     });
+};
+
+export const logout = () => {
+  localStorage.removeItem('userAuth');
+
+  renderUserView();
 };
