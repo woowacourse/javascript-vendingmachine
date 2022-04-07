@@ -76,7 +76,13 @@ class UserSessionStore extends Store {
     setCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME, accessToken, expireSecond);
 
     const { userSession } = this.state;
-    localStorage.setItem(USER_SESSION_SETTING.USER_INFO_STORAGE_NAME, JSON.stringify(userSession));
+    if (expireSecond > 0)
+      localStorage.setItem(
+        USER_SESSION_SETTING.USER_INFO_STORAGE_NAME,
+        JSON.stringify(userSession),
+      );
+
+    if (expireSecond === -1) localStorage.removeItem(USER_SESSION_SETTING.USER_INFO_STORAGE_NAME);
   }
 
   public async login(email: string, password: string): Promise<void> {
