@@ -1,9 +1,14 @@
 import Component from 'Components/Abstract';
-import { convertStringToElement } from 'Utils';
+import { createTemplate } from 'Utils';
 import template from './template.html';
+import './styles.scss';
 
 export default class Header extends Component {
   template() {
-    return convertStringToElement(template);
+    return createTemplate(template, {
+      childTextContent: {
+        '.title': this.props.title || '🍿 자판기 🍿',
+      },
+    });
   }
 }
