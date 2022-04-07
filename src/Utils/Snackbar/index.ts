@@ -42,10 +42,10 @@ export const Snackbar = (
   };
 
   const onProgressStart = async callback => {
-    const startTime = new Date().getTime();
+    const startTime = Date.now();
     while (isProgressDone === false) {
       await runAnimation();
-      const currentTime = new Date().getTime();
+      const currentTime = Date.now();
       const percent = getTimeDiffToPercent(startTime, currentTime, delay);
 
       $snackbarProgress.style.width = `${percent}%`;

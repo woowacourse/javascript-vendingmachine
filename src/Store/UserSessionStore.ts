@@ -107,12 +107,11 @@ class UserSessionStore extends Store {
         message: '',
       },
     });
-    this.updateSessionCache(accessToken);
+    this.updateSessionCache(accessToken, USER_SESSION_SETTING.EXPIRE_TIME);
   }
 
   public logout(): void {
     this.updateSessionCache('', -1);
-
     this.setState({
       userSession: {
         isLogin: false,
@@ -138,7 +137,6 @@ class UserSessionStore extends Store {
     }
 
     const { accessToken, user } = content;
-    this.updateSessionCache(accessToken, USER_SESSION_SETTING.EXPIRE_TIME);
 
     this.setState({
       userSession: {
@@ -154,6 +152,7 @@ class UserSessionStore extends Store {
         message: '',
       },
     });
+    this.updateSessionCache(accessToken, USER_SESSION_SETTING.EXPIRE_TIME);
   }
 
   async profileChange(name: string, password: string): Promise<void> {

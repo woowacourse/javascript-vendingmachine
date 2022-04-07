@@ -43,7 +43,7 @@ export const getCookie = targetKey => {
   return cookieList[targetKey];
 };
 
-export const getTimeStamp = (): number => Math.floor(new Date().getTime() / 1000);
+export const getTimeStamp = (): number => Math.floor(Date.now() / 1000);
 
 export const routingEvent = (pagePath: string): void => {
   window.history.pushState({ path: pagePath }, '', pagePath);
