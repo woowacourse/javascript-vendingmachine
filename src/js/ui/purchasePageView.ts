@@ -83,17 +83,17 @@ class PurchasePageView {
     on(this.$returnChangesButton, "click", this.returnChangesHandler);
   }
 
-  purchaseHandler = (e: Event): void => {
+  purchaseHandler = (e: Event) => {
     const target = e.target as HTMLElement;
     const productId = target.closest("tr").dataset.id;
     emit<IPurchaseProductEvent>(EVENT_TYPE.PURCHASE, { id: productId });
   };
 
-  returnChangesHandler = (): void => {
+  returnChangesHandler = () => {
     emit<unknown>(EVENT_TYPE.RETURN, {});
   };
 
-  moneySubmitHandler = (e: Event): void => {
+  moneySubmitHandler = (e: Event) => {
     e.preventDefault();
     emit<IInputMoneyEvent>(EVENT_TYPE.INPUT, {
       money: this.$chargeMoneyInput.valueAsNumber,
@@ -112,7 +112,7 @@ class PurchasePageView {
     );
   }
 
-  renderCurrentChargedMoney(changes: number): void {
+  renderCurrentChargedMoney(changes: number) {
     this.$currentChargedMoneyContainer.innerText = `투입 한 금액 : ${changes}`;
   }
 

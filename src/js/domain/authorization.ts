@@ -1,4 +1,5 @@
 import api from "../api";
+import { ERROR_MESSAGE } from "../constant";
 import { getCookie } from "../util/general";
 import { checkUserNameLength, checkConfirmPassword } from "../util/validations";
 
@@ -13,8 +14,7 @@ class Authorization {
   async login({ email, password }) {
     const response = await api.login({ email, password });
     if (response.isError) {
-      alert("이메일 혹은 비밀번호가 잘못 되었습니다.");
-      return;
+      throw new Error(ERROR_MESSAGE.WRONG_LOGIN_INFORMATION);
     }
     location.href = "/";
     document.cookie = `user_id=${response.user.id}`;
@@ -26,8 +26,7 @@ class Authorization {
     checkConfirmPassword(password, confirmPassword);
     const response = await api.signUp({ email, name, password });
     if (response.isError) {
-      alert("이미 존재하는 이메일입니다.");
-      return;
+      throw new Error(ERROR_MESSAGE.EXISTED_EMAIL);
     }
     location.href = "/#!login";
   }

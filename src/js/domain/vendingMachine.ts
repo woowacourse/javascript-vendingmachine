@@ -76,7 +76,7 @@ export default class VendingMachine implements type.IVendingMachine {
     this.accumulateCoins(newCoins);
   };
 
-  accumulateCoins = (newCoins: type.TCoin): void => {
+  accumulateCoins = (newCoins: type.TCoin) => {
     this.changes = Object.entries(newCoins).reduce((acc, [coin, count]) => {
       return { ...acc, [coin]: this.changes[coin] + count };
     }, this.changes);

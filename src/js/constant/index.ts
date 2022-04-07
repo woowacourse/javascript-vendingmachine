@@ -9,6 +9,8 @@ export const ERROR_MESSAGE = {
   MINIMUM_CHANGES: "금액은 0원보다 높아야합니다.",
   VALID_USER_NAME_LENGTH: "이름은 2~6자 이내여야합니다. ",
   NOT_CONFIRMED_PASSWORD: "비밀번호가 일치하지 않습니다.",
+  WRONG_LOGIN_INFORMATION: "이메일 혹은 비밀번호가 잘못 되었습니다.",
+  EXISTED_EMAIL: "이미 존재하는 이메일입니다.",
 } as const;
 
 export const VENDING_MACHINE_NUMBER = {

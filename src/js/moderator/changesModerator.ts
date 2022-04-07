@@ -36,7 +36,7 @@ class ChangesModerator {
     this.changePageView.renderHeader(userInfo);
   }
 
-  chargeChange = ({ money }: IChargeChangesEvent): void => {
+  chargeChange = ({ money }: IChargeChangesEvent) => {
     try {
       this.vendingMachine.chargeChanges(money);
       const changes = this.vendingMachine.getTotalChanges();

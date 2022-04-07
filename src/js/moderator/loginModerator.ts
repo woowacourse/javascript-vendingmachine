@@ -25,7 +25,11 @@ class LoginModerator {
   }
 
   login({ email, password }) {
-    this.authorization.login({ email, password });
+    try {
+      this.authorization.login({ email, password });
+    } catch (err) {
+      alert(err);
+    }
   }
 }
 

@@ -16,7 +16,7 @@ class ChangePageView {
   $changesList;
   $userInfoContainer;
 
-  init(): void {
+  init() {
     this.$page = $("#page");
     this.$header = $("#header");
     this.$page.replaceChildren();
@@ -50,7 +50,7 @@ class ChangePageView {
     this.bindEvent();
   }
 
-  bindEvent(): void {
+  bindEvent() {
     on<IChargeChangesEvent>(
       this.$formContainer,
       "submit",
@@ -58,7 +58,7 @@ class ChangePageView {
     );
   }
 
-  changesSubmitHandler = (e: Event): void => {
+  changesSubmitHandler = (e: Event) => {
     e.preventDefault();
     emit<IChargeChangesEvent>(EVENT_TYPE.CHARGE, {
       money: this.$changesInput.valueAsNumber,
@@ -73,11 +73,11 @@ class ChangePageView {
     );
   }
 
-  renderCurrentChanges(changes: number): void {
+  renderCurrentChanges(changes: number) {
     this.$currentChangesContainer.innerText = `현재 보유 금액: ${changes}`;
   }
 
-  renderCoinStatus(coinStatus: TCoin): void {
+  renderCoinStatus(coinStatus: TCoin) {
     this.$changesList.replaceChildren();
     this.$changesList.insertAdjacentHTML(
       "beforeend",

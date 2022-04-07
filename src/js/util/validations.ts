@@ -16,13 +16,13 @@ export const checkDuplicatedName = (
   }
 };
 
-export const checkNameLength = (name: string): void => {
+export const checkNameLength = (name: string) => {
   if (name.length > VENDING_MACHINE_NUMBER.MAXIMUM_NAME_LENGTH) {
     throw new Error(ERROR_MESSAGE.MAXIMUM_NAME_LENGTH);
   }
 };
 
-export const checkValidPrice = (price: number): void => {
+export const checkValidPrice = (price: number) => {
   if (
     price < VENDING_MACHINE_NUMBER.MINIMUM_PRICE ||
     price > VENDING_MACHINE_NUMBER.MAXIMUM_PRICE ||
@@ -32,7 +32,7 @@ export const checkValidPrice = (price: number): void => {
   }
 };
 
-export const checkValidCount = (count: number): void => {
+export const checkValidCount = (count: number) => {
   if (!count || count <= VENDING_MACHINE_NUMBER.MINIMUM_COUNT) {
     throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
   }
@@ -42,7 +42,7 @@ export const checkValidCount = (count: number): void => {
   }
 };
 
-export const checkDividedByMinimumCoin = (money: number): void => {
+export const checkDividedByMinimumCoin = (money: number) => {
   if (money % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0) {
     throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
   }

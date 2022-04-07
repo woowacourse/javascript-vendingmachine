@@ -42,7 +42,7 @@ class ProductModerator {
     this.productPageView.renderHeader(userInfo);
   }
 
-  addProduct = ({ name, price, count }: IAddProductEvent): void => {
+  addProduct = ({ name, price, count }: IAddProductEvent) => {
     try {
       const product = this.vendingMachine.addProduct({ name, price, count });
       this.productPageView.renderNewProduct(product);
@@ -51,7 +51,7 @@ class ProductModerator {
     }
   };
 
-  updateProduct = ({ id, name, price, count }: IUpdateProductEvent): void => {
+  updateProduct = ({ id, name, price, count }: IUpdateProductEvent) => {
     try {
       const product = this.vendingMachine.updateProduct(id, name, price, count);
       this.productPageView.renderUpdatedProduct(id, product);
@@ -60,7 +60,7 @@ class ProductModerator {
     }
   };
 
-  deleteProduct = ({ id }: IDeleteProductEvent): void => {
+  deleteProduct = ({ id }: IDeleteProductEvent) => {
     if (!confirm(CONFIRM_MESSAGE)) {
       return;
     }
