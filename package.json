@@ -9,8 +9,7 @@
     "cypress:run": "cypress run --browser chrome",
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack",
-    "server": "json-server db.json -m ./node_modules/json-server-auth"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
