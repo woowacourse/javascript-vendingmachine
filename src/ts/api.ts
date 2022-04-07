@@ -1,12 +1,14 @@
 import { ERROR_MESSAGES } from "./utils/constants";
 import { verifyPassword, verifyUserName } from "./utils/validation";
 
+const BASE_URL = "https://mini-server-for-vending.herokuapp.com/";
+
 const requestSignup = async ({ name, email, password, passwordCheck }) => {
   verifyUserName(name);
   verifyPassword(password, passwordCheck);
 
   try {
-    const response = await fetch("http://localhost:3000/signup", {
+    const response = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +29,7 @@ const requestSignup = async ({ name, email, password, passwordCheck }) => {
 
 const requestLogin = async ({ email, password }) => {
   try {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +53,7 @@ const requestEditProfile = async ({ id, name, password, passwordCheck }) => {
   verifyPassword(password, passwordCheck);
 
   try {
-    const response = await fetch(`http://localhost:3000/users/${id}`, {
+    const response = await fetch(`${BASE_URL}/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

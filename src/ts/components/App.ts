@@ -97,7 +97,6 @@ class App {
     if (target.dataset.menu === "#profile") {
       this.moveProfilePage();
     }
-
     if (target.dataset.menu === "#logout") {
       this.handleLogout();
     }
