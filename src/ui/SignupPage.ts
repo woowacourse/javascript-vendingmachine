@@ -1,6 +1,6 @@
 import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
-import { addEvent, emit, showSnackbar } from '../utils';
+import { addEvent, emit, showSnackbar, $ } from '../utils';
 import Authentication from '../domain/Authentication';
 
 class SignupPage extends CustomElement {
@@ -39,6 +39,7 @@ class SignupPage extends CustomElement {
   }
 
   notify({ userName }: Notification) {
+    ($('.signup-form', this) as HTMLFormElement).reset();
     showSnackbar(`${userName}님 회원가입을 축하합니다.`);
   }
 }
