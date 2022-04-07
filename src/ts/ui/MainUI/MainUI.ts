@@ -53,6 +53,6 @@ export default class MainUI {
   }
 
   renderUserName(name: string = '') {
-    $('.thumbnail').textContent = name.substring(0, 1);
+    $('.thumbnail').textContent = name[0];
   }
 }
