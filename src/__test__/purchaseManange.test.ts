@@ -1,4 +1,4 @@
-import ProductManager from "../ts/mananger/ProductManager";
+import ProductManager from "../ts/manager/ProductManager";
 import { ERROR_MESSAGES, PURCAHSE } from "../ts/utils/constants";
 
 describe("상품 구매 테스트", () => {

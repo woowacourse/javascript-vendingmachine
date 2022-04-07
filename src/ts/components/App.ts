@@ -1,7 +1,6 @@
 import { $, $$ } from "../utils/dom";
-
-import ChargeManager from "../mananger/ChargeManager";
-import ProductManager from "../mananger/ProductManager";
+import ProductManager from "../manager/ProductManager";
+import ChargeManager from "../manager/ChargeManager";
 
 import MenuTabComponent from "./menuTab/MenuTabComponent";
 import ProductComponent from "./product/ProductComponent";
@@ -10,6 +9,7 @@ import PurchaseComponent from "./purchase/PurchaseComponent";
 import LoginComponent from "./login/loginComponent";
 import SignupComponent from "./signup/SignupComponent";
 import { getSessionStorage, removeSessionStorage } from "../utils/sessionStorage";
+import ProfileComponent from "./profile/ProfileComponent";
 
 export type Path = "#product" | "#charge" | "#purchase" | "#login" | "#profile" | "#signup";
 export type ConvertTemplate = (path: Path) => void;
@@ -18,14 +18,15 @@ export type HideHeader = () => void;
 class App {
   app: HTMLElement;
   manageContainers: NodeList;
+  productManager: ProductManager;
+  chargeManager: ChargeManager;
   menuTabComponent: MenuTabComponent;
   productComponent: ProductComponent;
   chargeComponent: ChargeComponent;
   purchaseComponent: PurchaseComponent;
-  productManager: ProductManager;
   loginComponent: LoginComponent;
   signupComponent: SignupComponent;
-  chargeManager: ChargeManager;
+  profileComponent: ProfileComponent;
   menuNav: HTMLElement;
   loginButton: HTMLButtonElement;
   thumnailButton: HTMLButtonElement;
@@ -47,15 +48,16 @@ class App {
        <h1 class="app-title">🍿 자판기 🍿</h1>
        <nav class="menu-nav"></nav>
        <main>
-         <section class="product-manange__container manange-container"></section>
-         <section class="charge-manange__container manange-container"></section>
-         <section class="purchase-manange__container manange-container"></section>
-         <section class="login-manange__container manange-container"></section>
-         <section class="signup-manange__container manange-container"></section>
+         <section class="product-manage__container manage__container"></section>
+         <section class="charge-manage__container manage__container"></section>
+         <section class="purchase-manage__container manage__container"></section>
+         <section class="login-manage__container manage__container"></section>
+         <section class="signup-manage__container manage__container"></section>
+         <section class="profile-manage__container manage__container"></section>
        </main>`,
     );
 
-    this.manageContainers = $$(".manange-container");
+    this.manageContainers = $$(".manage__container");
     this.menuNav = $(".menu-nav");
     this.appTitle = $(".app-title");
     this.selectBox = $(".select-box");
@@ -70,6 +72,7 @@ class App {
     this.purchaseComponent = new PurchaseComponent(this.productManager, this.chargeManager);
     this.loginComponent = new LoginComponent(this.hideHeader, this.convertTemplate);
     this.signupComponent = new SignupComponent(this.hideHeader, this.convertTemplate);
+    this.profileComponent = new ProfileComponent(this.hideHeader, this.convertTemplate);
 
     if (!location.hash) {
       history.pushState({ path: "#purchase" }, null, "#purchase");
@@ -103,8 +106,6 @@ class App {
   moveProfilePage() {
     history.pushState({ path: "#profile" }, null, "#profile");
     this.convertTemplate("#profile");
-    this.hideMenuTab();
-    this.hideAppTitle();
     this.selectBox.classList.add("hide");
   }
 
@@ -124,30 +125,35 @@ class App {
     this.manageContainers.forEach((element: HTMLElement) => element.classList.add("hide"));
   }
 
-  hideMenuTab() {
-    this.menuNav.classList.add("hide");
-  }
-
   showMenuTab() {
     this.menuTabComponent.show();
   }
 
   hideHeader = () => {
+    this.hideMenuTab();
     this.hideAppTitle();
     this.hideLoginButton();
-    this.hideMenuTab();
+    this.hideThumnailButton();
   };
+
+  hideMenuTab() {
+    this.menuNav.classList.add("hide");
+  }
 
   hideAppTitle() {
     this.appTitle.classList.add("hide");
   }
 
-  showAppTitle() {
-    this.appTitle.classList.remove("hide");
-  }
-
   hideLoginButton() {
     this.loginButton.classList.add("hide");
+  }
+
+  hideThumnailButton() {
+    this.thumnailButton.classList.add("hide");
+  }
+
+  showAppTitle() {
+    this.appTitle.classList.remove("hide");
   }
 
   showLoginButton() {
@@ -157,10 +163,6 @@ class App {
   showThumnailButton() {
     this.thumnailButton.textContent = getSessionStorage("userInfo").name.slice(0, 1);
     this.thumnailButton.classList.remove("hide");
-  }
-
-  hideThumnailButton() {
-    this.thumnailButton.classList.add("hide");
   }
 
   checkLoggedIn() {
@@ -189,6 +191,7 @@ class App {
       "#purchase": () => this.purchaseComponent.show(),
       "#login": () => this.loginComponent.show(),
       "#signup": () => this.signupComponent.show(),
+      "#profile": () => this.profileComponent.show(),
     };
 
     routes[path]();

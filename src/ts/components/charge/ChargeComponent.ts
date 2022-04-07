@@ -1,6 +1,6 @@
 import { $ } from "../../utils/dom";
 import { chargeTemplate } from "./chargeTemplate";
-import ChargeManager from "../../mananger/ChargeManager";
+import ChargeManager from "../../manager/ChargeManager";
 import Snackbar from "../Snackbar";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
 
@@ -17,17 +17,17 @@ class ChargeComponent {
 
   constructor(private chargeManager: ChargeManager) {
     this.snackbar = new Snackbar();
-    this.chargeContainer = $(".charge-manange__container");
+    this.chargeContainer = $(".charge-manage__container");
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
 
-    this.chargeForm = $(".charge-manange__form");
-    this.chargeInput = $(".charge-manange__input");
-    this.chargeAmountText = $(".charge-manange__amount");
-    this.chargeCoin500 = $(".charge-manange__table-coin--500");
-    this.chargeCoin100 = $(".charge-manange__table-coin--100");
-    this.chargeCoin50 = $(".charge-manange__table-coin--50");
-    this.chargeCoin10 = $(".charge-manange__table-coin--10");
+    this.chargeForm = $(".charge-manage__form");
+    this.chargeInput = $(".charge-manage__input");
+    this.chargeAmountText = $(".charge-manage__amount");
+    this.chargeCoin500 = $(".charge-manage__table-coin--500");
+    this.chargeCoin100 = $(".charge-manage__table-coin--100");
+    this.chargeCoin50 = $(".charge-manage__table-coin--50");
+    this.chargeCoin10 = $(".charge-manage__table-coin--10");
 
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }

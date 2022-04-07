@@ -6,12 +6,6 @@ import { ConvertTemplate, HideHeader } from "../App";
 import Snackbar from "../Snackbar";
 import { signupTemplate } from "./signupTemplate";
 
-export interface UserInfo {
-  email: string;
-  name: string;
-  id: number;
-}
-
 class SignupComponent {
   signupContainer: HTMLElement;
   signupForm: HTMLFormElement;
@@ -24,7 +18,7 @@ class SignupComponent {
 
   constructor(private hideHeader: HideHeader, private convertTemplate: ConvertTemplate) {
     this.snackbar = new Snackbar();
-    this.signupContainer = $(".signup-manange__container");
+    this.signupContainer = $(".signup-manage__container");
     this.signupContainer.replaceChildren();
     this.signupContainer.insertAdjacentHTML("beforeend", signupTemplate());
 

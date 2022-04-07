@@ -1,4 +1,4 @@
-import { Product } from "../mananger/ProductManager";
+import { Product } from "../manager/ProductManager";
 import { passwordRegex } from "./common";
 import { PRODUCT, CHARGE, ERROR_MESSAGES, PURCAHSE, USER_NAME } from "./constants";
 

@@ -17,7 +17,7 @@ class LoginComponent {
 
   constructor(private hideHeader: HideHeader, private convertTemplate: ConvertTemplate) {
     this.snackbar = new Snackbar();
-    this.loginContainer = $(".login-manange__container");
+    this.loginContainer = $(".login-manage__container");
     this.loginContainer.replaceChildren();
     this.loginContainer.insertAdjacentHTML("beforeend", loginTemplate());
 
@@ -31,7 +31,7 @@ class LoginComponent {
     this.signupButton.addEventListener("click", this.handleSignUpButton);
   }
 
-  handleLogin = async (e) => {
+  handleLogin = async (e: Event) => {
     e.preventDefault();
     const email = this.loginEmailInput.value;
     const password = this.loginPasswordInput.value;

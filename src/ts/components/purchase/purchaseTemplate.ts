@@ -1,5 +1,5 @@
+import { Product } from "../../manager/ProductManager";
 import { PURCAHSE } from "../../utils/constants";
-import { Product } from "../../mananger/ProductManager";
 
 const purchaseTemplate = () => {
   return `

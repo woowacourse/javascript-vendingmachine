@@ -1,24 +1,24 @@
-import { Product } from "../../mananger/ProductManager";
+import { Product } from "../../manager/ProductManager";
 import { PRODUCT } from "../../utils/constants";
 
 const productTemplate = () => {
   return `
   <section>
-    <form class="product-manange__form">
+    <form class="product-manage__form">
       <label>추가할 상품 정보를 입력해주세요.</label>
         <div>
-          <input placeholder="상품명" class="product-manange__name-input product-input" />
-          <input type="number" placeholder="가격" class="product-manange__price-input product-input" 
+          <input placeholder="상품명" class="product-manage__name-input product-input" />
+          <input type="number" placeholder="가격" class="product-manage__price-input product-input" 
           min=${PRODUCT.MIN_PRICE} max=${PRODUCT.MAX_PRICE} step=${PRODUCT.UNIT} />
-          <input type="number" placeholder="수량" class="product-manange__quantity-input product-input" />
-          <button type="submit" class="product-manange__add-button">추가</button>
+          <input type="number" placeholder="수량" class="product-manage__quantity-input product-input" />
+          <button type="submit" class="product-manage__add-button">추가</button>
         </div>
     </form>  
   </section>
   <section>
-    <h1 class="product-manange__title">상품 현황</h1>
+    <h1 class="product-manage__title">상품 현황</h1>
     <div class="product-manage__table-container">
-    <table class="product-manange__table">
+    <table class="product-manage__table">
       <thead>
       <tr>
         <th>상품명</th>
@@ -47,7 +47,7 @@ const productRowTemplate = ({ name, price, quantity }) => {
   </tr>`;
 };
 
-const productManangeListTemplate = (list: Product[]) => {
+const productmanageListTemplate = (list: Product[]) => {
   return `
   ${list.map(({ name, price, quantity }) => `${productRowTemplate({ name, price, quantity })}`).join("")}
   `;
@@ -65,4 +65,4 @@ const editProductTemplate = ({ name, price, quantity }) => {
   `;
 };
 
-export { productTemplate, productRowTemplate, productManangeListTemplate, editProductTemplate };
+export { productTemplate, productRowTemplate, productmanageListTemplate, editProductTemplate };

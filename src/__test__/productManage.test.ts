@@ -1,4 +1,4 @@
-import ProductManager from "../ts/mananger/ProductManager";
+import ProductManager from "../ts/manager/ProductManager";
 import { ERROR_MESSAGES, PRODUCT } from "../ts/utils/constants";
 
 describe("상품 관리 테스트", () => {

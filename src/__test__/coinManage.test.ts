@@ -1,4 +1,4 @@
-import ChargeManager from "../ts/mananger/ChargeManager";
+import ChargeManager from "../ts/manager/ChargeManager";
 import { CHARGE, ERROR_MESSAGES } from "../ts/utils/constants";
 
 describe("잔돈 관리 테스트", () => {

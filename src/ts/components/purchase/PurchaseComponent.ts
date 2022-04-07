@@ -1,9 +1,10 @@
 import { $ } from "../../utils/dom";
 import { productPurchaseListTemplate, purchaseTemplate } from "./purchaseTemplate";
-import ChargeManager, { Coin } from "../../mananger/ChargeManager";
-import ProductManager from "../../mananger/ProductManager";
+
 import Snackbar from "../Snackbar";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
+import ProductManager from "../../manager/ProductManager";
+import ChargeManager, { Coin } from "../../manager/ChargeManager";
 
 class PurchaseComponent {
   purchaseContainer: HTMLElement;
@@ -21,7 +22,7 @@ class PurchaseComponent {
 
   constructor(private productManager: ProductManager, private chargeManager: ChargeManager) {
     this.snackbar = new Snackbar();
-    this.purchaseContainer = $(".purchase-manange__container");
+    this.purchaseContainer = $(".purchase-manage__container");
     this.purchaseContainer.replaceChildren();
     this.purchaseContainer.insertAdjacentHTML("beforeend", purchaseTemplate());
 

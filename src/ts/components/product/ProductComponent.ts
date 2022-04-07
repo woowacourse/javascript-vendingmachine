@@ -1,9 +1,9 @@
 import { $ } from "../../utils/dom";
 import { INFOMATION_MESSAGES } from "../../utils/constants";
-import { productTemplate, editProductTemplate, productManangeListTemplate } from "./productTemplate";
-import ProductManager from "../../mananger/ProductManager";
+import { productTemplate, editProductTemplate, productmanageListTemplate } from "./productTemplate";
 import { clearInput } from "../../utils/common";
 import Snackbar from "../Snackbar";
+import ProductManager from "../../manager/ProductManager";
 
 class ProductComponent {
   productContainer: HTMLElement;
@@ -17,16 +17,16 @@ class ProductComponent {
 
   constructor(private productManager: ProductManager) {
     this.snackbar = new Snackbar();
-    this.productContainer = $(".product-manange__container");
+    this.productContainer = $(".product-manage__container");
     this.productContainer.replaceChildren();
     this.productContainer.insertAdjacentHTML("beforeend", productTemplate());
 
-    this.productTable = $(".product-manange__table");
+    this.productTable = $(".product-manage__table");
     this.productTableBody = $(".productmanage__table-body");
-    this.productNameInput = $(".product-manange__name-input");
-    this.productPriceInput = $(".product-manange__price-input");
-    this.productQuantityInput = $(".product-manange__quantity-input");
-    this.productAddButton = $(".product-manange__add-button");
+    this.productNameInput = $(".product-manage__name-input");
+    this.productPriceInput = $(".product-manage__price-input");
+    this.productQuantityInput = $(".product-manage__quantity-input");
+    this.productAddButton = $(".product-manage__add-button");
 
     this.productAddButton.addEventListener("click", this.handleAddProduct);
     this.productTable.addEventListener("click", this.handleManageOption);
@@ -109,10 +109,7 @@ class ProductComponent {
 
   renderProducts() {
     this.productTableBody.replaceChildren();
-    this.productTableBody.insertAdjacentHTML(
-      "beforeend",
-      productManangeListTemplate(this.productManager.getProducts()),
-    );
+    this.productTableBody.insertAdjacentHTML("beforeend", productmanageListTemplate(this.productManager.getProducts()));
   }
 
   show() {
