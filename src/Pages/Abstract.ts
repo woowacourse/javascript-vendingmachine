@@ -5,6 +5,12 @@ export default abstract class Page {
   public readonly title: string = '';
   private componentList: TComponent[] = [];
 
+  constructor() {
+    this.setComponent();
+  }
+
+  protected abstract setComponent(): void;
+
   protected createComponent(ComponentClass: ClassConstructor<TComponent>, props = {}): void {
     const component: TComponent = new ComponentClass(props);
     component.mount();
