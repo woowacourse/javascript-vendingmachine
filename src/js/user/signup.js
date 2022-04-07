@@ -3,13 +3,13 @@ import { $ } from '../utils/dom.js';
 import { requestRegister } from '../utils/api.js';
 import { validPassword } from '../utils/validation.js';
 
-$('#signup-form').addEventListener('submit', async (event) => {
+$('#sign-up-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const email = $('#signup-email').value;
-  const name = $('#signup-name').value;
-  const password = $('#signup-password').value;
-  const passwordConfirm = $('#signup-password-confirm').value;
+  const email = $('#sign-up-email').value;
+  const name = $('#sign-up-name').value;
+  const password = $('#sign-up-password').value;
+  const passwordConfirm = $('#sign-up-password-confirm').value;
   const user = { email, name, password };
   try {
     validPassword(password, passwordConfirm);

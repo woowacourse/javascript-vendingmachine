@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     index: './src/js/index.ts',
     login: './src/js/user/login.js',
-    signup: './src/js/user/signup.js',
+    signUp: './src/js/user/signUp.js',
     profile: './src/js/user/profile.js',
   },
   resolve: {
@@ -64,9 +64,9 @@ module.exports = {
       hash: true,
     }),
     new HtmlWebpackPlugin({
-      template: './signup.html',
-      filename: 'signup.html',
-      chunks: ['signup'],
+      template: './signUp.html',
+      filename: 'signUp.html',
+      chunks: ['signUp'],
       hash: true,
     }),
     new HtmlWebpackPlugin({

@@ -157,6 +157,6 @@ export const CATEGORY_TEMPLATE = {
       </tbody>
     </table>
     <button id="change-button" class="button" type="button">반환하기</button>
-    <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
+    <div id="snackbar"></div>
   `,
 };
