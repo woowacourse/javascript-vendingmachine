@@ -27,6 +27,11 @@ export default class ChargeMoney implements DomainView {
   }
 
   render(): void {
+    if (!this.admin.isLogin()) {
+      history.back();
+      return;
+    }
+    
     this.$coin10.innerText = `${this.admin.vendingMachine.coins[0].count}개`;
     this.$coin50.innerText = `${this.admin.vendingMachine.coins[1].count}개`;
     this.$coin100.innerText = `${this.admin.vendingMachine.coins[2].count}개`;

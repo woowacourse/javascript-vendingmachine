@@ -24,6 +24,11 @@ export default class ProductManage implements DomainView {
   }
 
   render(): void {
+    if (!this.admin.isLogin()) {
+      history.back();
+      return;
+    }
+
     const template = this.admin.vendingMachine.products
       .map(
         ({ name, price, quantity }: Product) =>
