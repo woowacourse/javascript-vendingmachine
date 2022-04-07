@@ -23,7 +23,7 @@ export default class SignUpController implements Controller {
       password,
     });
 
-    fetch('http://localhost:3000/signup', {
+    fetch('https://json-vendingmachine-server.herokuapp.com/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: data,
@@ -32,13 +32,10 @@ export default class SignUpController implements Controller {
         return res.json();
       })
       .then(result => {
-        const { accessToken, user } = result;
+        const { accessToken } = result;
         if (!accessToken) {
           throw new Error(result);
         }
-        sessionStorage.setItem('jwt-token', accessToken);
-        sessionStorage.setItem('isLogIn', 'true');
-        sessionStorage.setItem('user', JSON.stringify(user));
 
         emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
         showSnackBar('회원가입 되었습니다.');

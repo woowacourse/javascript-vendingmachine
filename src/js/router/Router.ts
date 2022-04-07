@@ -68,7 +68,7 @@ export default class Router {
       window.history.pushState(null, null, '#purchaseItem');
     }
     if (targetId === 'signup-form') {
-      window.history.pushState(null, null, '#purchaseItem');
+      window.history.pushState(null, null, '#login');
     }
     if (targetId === 'change-form') {
       window.history.pushState(null, null, '#purchaseItem');
@@ -130,7 +130,7 @@ export default class Router {
       this.$header.classList.add('display-none');
       this.signUpController.loadPage(isLogin);
     }
-    if (hash === '#changeUserInfo') {
+    if (hash === URL_HASH.CHANGE_USER_INFO) {
       this.$header.classList.add('display-none');
       this.changeUserInfoController.loadPage(isLogin);
     }

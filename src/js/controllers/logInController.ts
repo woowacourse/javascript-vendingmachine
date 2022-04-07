@@ -24,7 +24,7 @@ export default class LogInController implements Controller {
       password,
     });
 
-    fetch('http://localhost:3000/signin', {
+    fetch('https://json-vendingmachine-server.herokuapp.com/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: data,

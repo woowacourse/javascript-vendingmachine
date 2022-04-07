@@ -109,4 +109,5 @@ export const URL_HASH = {
   PURCHASE_ITEM: '#purchaseItem',
   LOG_IN: '#login',
   SIGN_UP: '#signup',
+  CHANGE_USER_INFO: '#changeUserInfo',
 };

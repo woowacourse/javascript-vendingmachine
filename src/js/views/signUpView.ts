@@ -25,7 +25,6 @@ export default class SignUpView {
   }
 
   render(isLogin) {
-    console.log('SignUpView Render');
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', signUpTemplate(isLogin));
 

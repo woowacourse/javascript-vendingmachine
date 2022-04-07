@@ -24,7 +24,7 @@ export default class ChangeUserInfoController implements Controller {
       password,
     });
 
-    fetch(`http://localhost:3000/users/${user.id}`, {
+    fetch(`https://json-vendingmachine-server.herokuapp.com/${user.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: data,
