@@ -1,0 +1,92 @@
+@import 'Styles/Variables.scss';
+
+.user-info-section {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+
+  #user-info-profile {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: $color-robins-egg-blue-20;
+    color: $color-black;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  #user-login-button {
+    padding: {
+      left: 3rem;
+      right: 3rem;
+    };
+  }
+
+  > .user-info-menu {
+    visibility: hidden;
+    transition: transform 0.3s ease;
+    transform: translateY(-2rem);
+
+    &.menu-open {
+      visibility: visible;
+      transform: translateY(0rem);
+      // 메뉴 오픈 애니메이션 보완 하기
+    }
+
+    > li {
+      text-align: right;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.9rem;
+      color: $color-silver-chalice;
+      cursor: pointer;
+
+      &::after {
+        display: inline-block;
+        font-family: 'Font Awesome 6 Free';
+        font-style: normal;
+        font-weight: 900;
+        font-display: block;
+        text-align: center;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        color: $color-white;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        box-sizing: border-box;
+        padding: 0.5rem 0;
+        content: "";
+      }
+
+      &#user-info-logout::after {
+        content: '\f2f5';
+        background-color: $color-mariner;
+      }
+
+      &#user-info-profile-edit::after {
+        content: '\f007';
+        background-color: $color-robins-egg-blue;
+      }
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}
