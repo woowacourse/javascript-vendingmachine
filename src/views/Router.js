@@ -36,7 +36,9 @@ class Router extends Component {
     const { routes } = this.state;
 
     const currentRoute = routes.filter(
-      (route) => route.path === location || route.path === PAGES.DEFAULT.PATH
+      (route) =>
+        route.path.split('|').includes(location) ||
+        route.path === PAGES.DEFAULT.PATH
     )[0];
 
     return location === PAGES.LANDING.PATH
@@ -45,4 +47,4 @@ class Router extends Component {
   }
 }
 
-customElements.define('page-router', Router);
+customElements.define('component-router', Router);

@@ -3,7 +3,7 @@ import { auth } from '../../domains/Auth';
 
 export default class ProfilePage extends Component {
   template() {
-    const { user } = auth.useStore((state) => state);
+    const user = auth.useStore((state) => state.user);
 
     return `
       <header>
