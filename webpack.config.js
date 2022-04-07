@@ -6,9 +6,9 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/js/index.ts',
-    login: './src/js/login.ts',
-    signup: './src/js/signup.ts',
-    profile: './src/js/profile.ts',
+    login: './src/js/user/login.js',
+    signup: './src/js/user/signup.js',
+    profile: './src/js/user/profile.js',
   },
   resolve: {
     extensions: ['.js', '.css', '.ts'],

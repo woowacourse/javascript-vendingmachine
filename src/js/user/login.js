@@ -1,6 +1,6 @@
-import '../css/index.css';
-import { requestLogin } from './api.js';
-import { $ } from './utils/dom.js';
+import '../../css/index.css';
+import { requestLogin } from '../utils/api.js';
+import { $ } from '../utils/dom.js';
 
 $('#login-form').addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -9,11 +9,7 @@ $('#login-form').addEventListener('submit', async (event) => {
   const password = $('#login-password').value;
   const response = await requestLogin(email, password);
 
-  if (!response.status) {
-    alert(response.content);
-    return;
-  }
-  const { accessToken, user } = response.content;
+  const { accessToken, user } = response;
   sessionStorage.setItem('user', JSON.stringify({ accessToken, id: user.id }));
-  location.href = './';
+  document.location.href = './';
 });

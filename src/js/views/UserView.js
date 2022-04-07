@@ -1,5 +1,5 @@
 import { $ } from '../utils/dom.js';
-import { requestUserInfo } from '../api.js';
+import { requestUserInfo } from '../utils/api.js';
 
 export default class UserView {
   constructor() {
@@ -15,21 +15,16 @@ export default class UserView {
   }
 
   async confirmLogin() {
-    console.log('confirm login');
     const userInfo = JSON.parse(sessionStorage.getItem('user'));
     if (userInfo) {
       const response = await requestUserInfo(userInfo.id, userInfo.accessToken);
-      if (!response.status) {
-        alert(response.content);
-        return;
-      }
       // eslint-disable-next-line prefer-destructuring
-      this.$thumbnail.textContent = response.content.name[0];
-      this.toggle();
+      this.$thumbnail.textContent = response.name[0];
+      this.toggleHide();
     }
   }
 
-  toggle() {
+  toggleHide() {
     this.$login.classList.toggle('hide');
     this.$menuCategory.classList.toggle('hide');
     this.$thumbnail.classList.toggle('hide');
@@ -44,13 +39,12 @@ export default class UserView {
         this.$selectBox.classList.toggle('hide');
         break;
       case 'edit':
-        this.$selectBox.classList.toggle('hide');
         document.location.href = './profile.html';
         break;
       case 'logout':
-        this.$selectBox.classList.toggle('hide');
+        this.$selectBox.classList.add('hide');
         sessionStorage.removeItem('user');
-        this.toggle();
+        this.toggleHide();
         break;
       default:
     }

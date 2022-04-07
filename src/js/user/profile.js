@@ -1,7 +1,7 @@
-import '../css/index.css';
-import { requestUpdate } from './api.js';
-import { $ } from './utils/dom.js';
-import { validPassword } from './utils/validation';
+import '../../css/index.css';
+import { requestUpdate } from '../utils/api.js';
+import { $ } from '../utils/dom.js';
+import { validPassword } from '../utils/validation.js';
 
 $('#profile-form').addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -14,13 +14,9 @@ $('#profile-form').addEventListener('submit', async (event) => {
   const userInfo = JSON.parse(sessionStorage.getItem('user'));
   try {
     validPassword(password, passwordConfirm);
-    const response = await requestUpdate(user, userInfo.id);
-    if (!response.status) {
-      alert(response.content);
-      return;
-    }
+    await requestUpdate(user, userInfo.id);
     alert('회원 정보가 수정되었습니다.');
-    location.href = './login.html';
+    document.location.href = './login.html';
   } catch (error) {
     alert(error.message);
   }
