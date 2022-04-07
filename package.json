@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome",
-    "server": "json-server-auth db.json -p 8080 -r routes.json",
+    "server": "json-server-auth db.json -p 8080",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
