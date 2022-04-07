@@ -1,7 +1,7 @@
 import UserApi from '../api/user.js';
 import { getCookie, setCookie, expireCookie } from '../utils/cookie.js';
 import { isInvalidLengthName, isInvalidPassword, validateData } from './validator';
-import { ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, COOKIE_KEY } from '../constants';
 
 export default class User {
   #accessToken: string;
@@ -45,7 +45,7 @@ export default class User {
         this.#email = res.email;
         this.#name = res.name;
       } catch {
-        expireCookie('accessToken');
+        expireCookie(COOKIE_KEY);
         this.#isLogined = false;
         this.#id = null;
       }
@@ -63,7 +63,7 @@ export default class User {
       this.#email = email;
       this.#name = name;
       this.#isLogined = true;
-      setCookie('accessToken', accessToken);
+      setCookie(COOKIE_KEY, accessToken);
     }
   }
 
@@ -77,7 +77,7 @@ export default class User {
       this.#id = id;
       this.#email = email;
       this.#name = name;
-      setCookie('accessToken', accessToken);
+      setCookie(COOKIE_KEY, accessToken);
     }
   }
 

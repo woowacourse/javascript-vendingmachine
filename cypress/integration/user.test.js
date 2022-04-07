@@ -1,5 +1,10 @@
 import { pickNumberInRange } from '../../src/js/utils';
-import { ERROR_MESSAGE, LOGIN_ERROR, SIGNUP_ERROR } from '../../src/js/constants/';
+import {
+  ERROR_MESSAGE,
+  LOGIN_ERROR,
+  SIGNUP_ERROR,
+  SUCCESS_MESSAGE,
+} from '../../src/js/constants/';
 
 describe('유저 테스트', () => {
   beforeEach(() => {
@@ -16,7 +21,7 @@ describe('유저 테스트', () => {
       const name = 'abcd';
       const password = 'Abc1234!';
       cy.signUp(email, name, password, password);
-      cy.get('#snackbar').should('have.text', '회원가입이 완료되었습니다.');
+      cy.get('#snackbar').should('have.text', SUCCESS_MESSAGE.SIGNUP);
     });
 
     it('name이 2~6글자 사이가 아니면 에러가 발생한다.', () => {
@@ -55,7 +60,7 @@ describe('유저 테스트', () => {
     });
     it('올바른 회원 폼을 작성하면 로그인이 완료된다.', () => {
       cy.login(email, password);
-      cy.get('#snackbar').should('have.text', '로그인 성공');
+      cy.get('#snackbar').should('have.text', SUCCESS_MESSAGE.LOGIN);
     });
 
     it('로그인 후 사용자 이름의 첫번째 글자를 썸네일로 보인다.', () => {

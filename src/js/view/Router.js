@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../constants';
 import { createElementByTemplate, generateSnackBar, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
 
@@ -48,14 +49,14 @@ export default class Router {
     if (this.#privateRenderList[path] && !this.#user.isLogined) {
       window.history.pushState({}, null, '#/login');
       this.#render();
-      generateSnackBar('로그인이 필요합니다.');
+      generateSnackBar(ERROR_MESSAGE.NOT_LOGIN);
       return;
     }
 
     if (this.#userRenderList[path] && this.#user.isLogined) {
       window.history.pushState({}, null, '/');
       this.#render();
-      generateSnackBar('이미 로그인한 상태입니다.');
+      generateSnackBar(ERROR_MESSAGE.ALREADY_LOGGINED);
       return;
     }
 

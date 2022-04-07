@@ -66,7 +66,7 @@ export default class VendingMachine {
 
   sellProduct(productId: string): void {
     if (this.#productList[productId].stock === 0) {
-      throw new Error('해당 상품은 품절입니다.');
+      throw new Error(ERROR_MESSAGE.SOLD_OUT);
     }
     if (this.#validateProduct(productId)) {
       this.#productList[productId].sell();
@@ -83,7 +83,7 @@ export default class VendingMachine {
 
   #validateProduct(productId: string): boolean {
     if (this.#productList[productId].price > this.#totalMoney) {
-      throw new Error('금액이 부족합니다');
+      throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
     }
     this.#validateProductIdInList(productId);
     return true;
