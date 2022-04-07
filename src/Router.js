@@ -25,7 +25,9 @@ export default class Router {
   }
 
   pushState(pathParams) {
-    window.history.pushState({ path: pathParams }, '', pathParams);
+    const { path: previousPath } = window.history.state;
+    if (previousPath !== pathParams) window.history.pushState({ path: pathParams }, '', pathParams);
+
     this.pageRender(pathParams);
   }
 
