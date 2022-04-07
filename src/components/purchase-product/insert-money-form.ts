@@ -15,10 +15,10 @@ class InsertMoneyForm extends Component {
       <form onsubmit="return false">
         <label for="insert-money-input">상품을 구매할 금액을 투입해주세요</label>
         <div class="d-flex mb-4">
-          <input placeholder="금액" name="insert-money-input" class="form-control mr-4" />
-          <button type="button" class="btn btn-primary">투입</button>
+          <input placeholder="금액" name="insert-money-input" class="form-control mr-4" data-test-id="insert-money-input" />
+          <button type="button" class="btn btn-primary" data-test-id="insert-money-btn">투입</button>
         </div>
-        <label class="mb-0">투입한 금액: ${insertedMoney.toLocaleString('ko-kr')}원</label>
+        <label class="mb-0">투입한 금액: <span data-test-id="inserted-money">${insertedMoney.toLocaleString('ko-kr')}</span>원</label>
       </form>
     `;
   }

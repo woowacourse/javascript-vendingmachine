@@ -10,13 +10,19 @@ class Navigation extends Component {
       <nav class="d-flex justify-content-center">
         <button class="btn btn-secondary mr-1 ${
           currentPath === WhiteList.ProductManage ? 'active' : ''
-        }" data-destination="${WhiteList.ProductManage}">상품 관리</button>
+        }" data-destination="${
+      WhiteList.ProductManage
+    }" data-test-id="product-manage-link">상품 관리</button>
         <button class="btn btn-secondary mr-1 ${
           currentPath === WhiteList.ChargeMoney ? 'active' : ''
-        }" data-destination="${WhiteList.ChargeMoney}">잔돈 충전</button>
+        }" data-destination="${
+      WhiteList.ChargeMoney
+    }" data-test-id="charge-money-link">잔돈 충전</button>
         <button class="btn btn-secondary ${
           currentPath === WhiteList.PurchaseProduct ? 'active' : ''
-        }" data-destination="${WhiteList.PurchaseProduct}">상품 구매</button>
+        }" data-destination="${
+      WhiteList.PurchaseProduct
+    }" data-test-id="purchase-product-link">상품 구매</button>
       </nav>
     `;
   }

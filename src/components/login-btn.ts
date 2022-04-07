@@ -6,7 +6,7 @@ import Router from '../router';
 class LoginBtn extends Component {
   template(): string {
     return `
-      <button class="btn btn-secondary">로그인</button>
+      <button class="btn btn-secondary" data-test-id="login-btn">로그인</button>
     `;
   }
 

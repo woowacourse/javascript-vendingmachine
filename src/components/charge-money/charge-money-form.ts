@@ -15,10 +15,10 @@ class ChargeMoneyForm extends Component {
       <form onsubmit="return false">
         <label for="charge-money-input">자판기가 보유할 금액을 입력해주세요</label>
         <div class="d-flex mb-4">
-          <input placeholder="금액" name="charge-money-input" class="form-control mr-4" />
-          <button type="button" class="btn btn-primary">충전</button>
+          <input placeholder="금액" name="charge-money-input" class="form-control mr-4" data-test-id="charge-money-input" />
+          <button type="button" class="btn btn-primary" data-test-id="charge-money-btn">충전</button>
         </div>
-        <label class="mb-0">현재 보유 금액: ${chargedMoney.toLocaleString('ko-kr')}원</label>
+        <label class="mb-0">현재 보유 금액: <span data-test-id="current-charged-money">${chargedMoney.toLocaleString('ko-kr')}</span>원</label>
       </form>
     `;
   }

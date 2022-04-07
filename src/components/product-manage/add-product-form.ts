@@ -17,17 +17,17 @@ class AddProductForm extends Component {
         <div class="d-flex">
           <div class="input-container mr-1">
             <label for="product-name-input">상품명</label>
-            <input placeholder="상품명" name="product-name" id="product-name-input" class="form-control" />
+            <input placeholder="상품명" name="product-name" id="product-name-input" class="form-control" data-test-id="product-name-input" />
           </div>
           <div class="input-container mr-1">
             <label for="product-price-input">가격</label>
-            <input placeholder="가격" name="product-price" id="product-price-input" class="form-control" />
+            <input placeholder="가격" name="product-price" id="product-price-input" class="form-control" data-test-id="product-name-price" />
           </div>
           <div class="input-container mr-4">
             <label for="product-quantity-input">수량</label>
-            <input placeholder="수량" name="product-quantity" id="product-quantity-input" class="form-control" />
+            <input placeholder="수량" name="product-quantity" id="product-quantity-input" class="form-control" data-test-id="product-name-quantity" />
           </div>
-          <button type="button" class="btn btn-primary">추가</button>
+          <button type="button" class="btn btn-primary" data-test-id="add-product-btn">추가</button>
         </div>
       </form>
     `;

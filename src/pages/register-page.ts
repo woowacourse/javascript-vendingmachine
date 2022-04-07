@@ -57,7 +57,9 @@ class RegisterPage extends RouteComponent {
         <label for="${name}">${label}</label>
         <input id="${name}" type="${type}" name="${name}" placeholder="${placeholder}" value="${
       feedback.inputValue
-    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" ${disabled ? 'disabled' : ''} />
+    }" class="form-control ${feedback.hasError ? 'has-error' : ''}" ${
+      disabled ? 'disabled' : ''
+    } data-test-id="${name}-input" />
         ${feedback.hasError ? `<div class="error-message">${feedback.errorMessage}</div>` : ''}
       </fieldset>
     `;
@@ -104,7 +106,7 @@ class RegisterPage extends RouteComponent {
         })}
         <button type="button" class="btn btn-primary full btn-register ${
           isLoading ? 'loading' : ''
-        }" ${isLoading ? 'disabled' : ''}>확인</button>
+        }" ${isLoading ? 'disabled' : ''} data-test-id="register-btn">확인</button>
       </form>
     `;
   }

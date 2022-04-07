@@ -16,7 +16,7 @@ class ProductMenu extends Component {
         <td>${price.toLocaleString('ko-kr')}원</td>
         <td>${quantity.toLocaleString('ko-kr')}개</td>
         <td class="has-btn">
-          <button class="btn sm btn-secondary btn-purchase">구매</button>
+          <button class="btn sm btn-secondary btn-purchase" data-test-id="purchase-btn">구매</button>
         </td>
       </tr>
     `;
