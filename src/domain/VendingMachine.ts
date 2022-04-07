@@ -90,7 +90,7 @@ class VendingMachine implements VendingMachineProperty {
 
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
-      this.dispatch('subscribePurchaseTab', 'update-product', newProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'update-product', newProduct);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
     } catch (error) {
       showSnackbar(error.message);
@@ -104,7 +104,7 @@ class VendingMachine implements VendingMachineProperty {
 
       target.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
-      this.dispatch('subscribePurchaseTab', 'update-product', target);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'update-product', target);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);
     } catch (error) {
       showSnackbar(error.message);
@@ -114,7 +114,7 @@ class VendingMachine implements VendingMachineProperty {
   deleteProduct(targetName: string) {
     const targetProduct = this.products.find((product) => product.name === targetName);
 
-    this.dispatch('subscribePurchaseTab', 'delete-product', targetProduct);
+    this.dispatch(ELEMENT_KEY.PURCHASE, 'delete-product', targetProduct);
     this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
     this.products = this.products.filter((product) => product.name !== targetName);
     storage.setLocalStorage('products', this.products);
@@ -137,7 +137,7 @@ class VendingMachine implements VendingMachineProperty {
       validateUserInputMoney(userInputMoney, this.userAmount);
 
       this.userAmount += userInputMoney;
-      this.dispatch('subscribePurchaseTab', 'insert-coin');
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'insert-coin');
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -151,7 +151,7 @@ class VendingMachine implements VendingMachineProperty {
 
       this.userAmount -= targetProduct.price;
       targetProduct.quantity -= 1;
-      this.dispatch('subscribePurchaseTab', 'purchase', targetProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', targetProduct);
 
       if (targetProduct.quantity <= 0) {
         this.products = this.products.filter((product) => product.id !== targetProduct.id);
@@ -170,7 +170,7 @@ class VendingMachine implements VendingMachineProperty {
       const remainingUserAmount = this.amount.returnChange(this.userAmount);
 
       this.userAmount = remainingUserAmount;
-      this.dispatch('subscribePurchaseTab', 'return');
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'return');
       this.dispatch(ELEMENT_KEY.CHARGE, 'update');
       storage.setLocalStorage('amount', this.amount.counter);
     } catch (error) {

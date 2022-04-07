@@ -2,11 +2,12 @@ import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import { addEvent, emit, showSnackbar, $ } from '../utils';
 import Authentication from '../domain/Authentication';
+import { ELEMENT_KEY } from '../constants';
 
 class SignupPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe('subscribeSignupPage', this);
+    Authentication.instance.subscribe(ELEMENT_KEY.SIGNUP, this);
   }
 
   render() {

@@ -5,12 +5,12 @@ import Product from '../domain/Product';
 import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import { Safe } from '../domain/Safe';
-import { COINS } from '../constants';
+import { COINS, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe('subscribePurchaseTab', this);
+    VendingMachine.instance.observe(ELEMENT_KEY.PURCHASE, this);
   }
 
   render() {
@@ -67,13 +67,13 @@ class PurchaseTab extends CustomElement {
     switch (action) {
       case 'insert-coin':
         this.updateAmount(userAmount);
-        showSnackbar('성공적으로 금액을 투입했습니다.');
+        showSnackbar(SUCCESS_MESSAGE.INSERT_COIN);
         return;
 
       case 'purchase':
         this.updateAmount(userAmount);
         this.purchase(product);
-        showSnackbar('성공적으로 상품을 구매했습니다.');
+        showSnackbar(SUCCESS_MESSAGE.PURCHASE);
         return;
 
       case 'update-product':
@@ -86,9 +86,7 @@ class PurchaseTab extends CustomElement {
 
       case 'return':
         this.returnChange(amount, userAmount);
-        showSnackbar(
-          '성공적으로 잔돈이 반환되었습니다. 자판기의 잔액이 부족할 경우 자판기에 존재하는 금액만큼만 반환됩니다.',
-        );
+        showSnackbar(SUCCESS_MESSAGE.RETURN);
     }
   }
 

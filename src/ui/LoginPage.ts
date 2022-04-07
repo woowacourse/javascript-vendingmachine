@@ -3,11 +3,12 @@ import TEMPLATE from '../templates';
 import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
 import { historyRouterPush } from '../router';
+import { BASE_URL, ELEMENT_KEY } from '../constants';
 
 class LoginPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe('subscribeLoginPage', this);
+    Authentication.instance.subscribe(ELEMENT_KEY.LOGIN, this);
   }
 
   render() {
@@ -32,7 +33,7 @@ class LoginPage extends CustomElement {
 
   handleSignup(e: MouseEvent & { target: HTMLAnchorElement }) {
     e.preventDefault();
-    historyRouterPush('/javascript-vendingmachine/signup');
+    historyRouterPush(BASE_URL + '/signup');
   }
 
   notify({ userName }: Notification) {
@@ -41,6 +42,7 @@ class LoginPage extends CustomElement {
     $('.login-button').classList.add('hidden');
     $('.user-name').classList.remove('hidden');
     $('.user-name__menu-button').insertAdjacentHTML('afterbegin', userName.substring(0, 1));
+
     showSnackbar(`안녕하세요 ${userName}님 :)`);
   }
 }

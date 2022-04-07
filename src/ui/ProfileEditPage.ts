@@ -3,11 +3,12 @@ import TEMPLATE from '../templates';
 import storage from '../storage';
 import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
+import { SUCCESS_MESSAGE, ELEMENT_KEY } from '../constants';
 
 class ProfileEditPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe('subscribeProfileEditPage', this);
+    Authentication.instance.subscribe(ELEMENT_KEY.PROFILE_EDIT, this);
   }
 
   render() {
@@ -43,7 +44,7 @@ class ProfileEditPage extends CustomElement {
   }
 
   notify({}: Notification) {
-    showSnackbar('성공적으로 회원 정보가 수정되었습니다.');
+    showSnackbar(SUCCESS_MESSAGE.EDIT);
   }
 }
 

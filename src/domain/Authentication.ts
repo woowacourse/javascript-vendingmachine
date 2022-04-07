@@ -4,6 +4,7 @@ import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 import { Notification } from '../ui/CustomElement';
 import { validateProfileEdit, validateSignup } from '../validator/authentication';
+import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN } from '../constants';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -44,7 +45,7 @@ class Authentication {
   signup({ email, name, password, passwordConfirm }) {
     try {
       validateSignup(name, password, passwordConfirm);
-      fetch('http://localhost:3000/register', {
+      fetch(SERVER_ORIGIN + '/register', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -60,8 +61,8 @@ class Authentication {
 
           if (!response.ok) throw new Error(body);
 
-          this.dispatch({ key: 'subscribeSignupPage', userName: body.user.name });
-          historyRouterPush('/javascript-vendingmachine/');
+          this.dispatch({ key: ELEMENT_KEY.SIGNUP, userName: body.user.name });
+          historyRouterPush(BASE_URL + '/');
         })
         .catch((err) => {
           showSnackbar(err.message);
@@ -72,7 +73,7 @@ class Authentication {
   }
 
   login({ email, password }) {
-    fetch('http://localhost:3000/login', {
+    fetch(SERVER_ORIGIN + '/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -90,8 +91,8 @@ class Authentication {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('user', JSON.stringify(user));
 
-        this.dispatch({ key: 'subscribeLoginPage', userName: user.name });
-        historyRouterPush('/javascript-vendingmachine/');
+        this.dispatch({ key: ELEMENT_KEY.LOGIN, userName: user.name });
+        historyRouterPush(BASE_URL + '/');
       })
       .catch((err) => {
         showSnackbar(err.message);
@@ -104,7 +105,7 @@ class Authentication {
       const user = storage.getLocalStorage('user');
 
       validateProfileEdit(password, passwordConfirm, token);
-      fetch(`http://localhost:3000/users/${user.id}`, {
+      fetch(`${SERVER_ORIGIN}/users/${user.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json',
@@ -122,9 +123,9 @@ class Authentication {
           if (!ok) throw new Error(body);
 
           localStorage.setItem('user', JSON.stringify(body));
-          this.dispatch({ key: 'subscribeProfileEditPage', userName: body.name });
-          this.dispatch({ key: 'userMenu', userName: body.name });
-          historyRouterPush('/javascript-vendingmachine/');
+          this.dispatch({ key: ELEMENT_KEY.PROFILE_EDIT, userName: body.name });
+          this.dispatch({ key: ELEMENT_KEY.USER_MENU, userName: body.name });
+          historyRouterPush(BASE_URL + '/');
         })
         .catch((err) => {
           showSnackbar(err.message);

@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE, BASE_URL } from './constants';
 import { $, $$, showSnackbar } from './utils';
 
 interface Router {
@@ -8,7 +9,6 @@ interface Router {
 
 const nav = $('.nav');
 const auth = $('.auth');
-const baseURL = '/javascript-vendingmachine';
 
 [nav, auth].forEach((container) =>
   container.addEventListener('click', (e: MouseEvent & { target: HTMLElement }) => {
@@ -28,8 +28,8 @@ const isGranted = (pathname: string) => {
 };
 
 const deny = () => {
-  showSnackbar('로그인 후 이용할 수 있습니다.');
-  historyRouterPush(baseURL + '/');
+  showSnackbar(ERROR_MESSAGE.DENY);
+  historyRouterPush(BASE_URL + '/');
 };
 
 export const historyRouterPush = (pathname: string) => {
@@ -49,7 +49,7 @@ const render = (path: string) => {
 
 const renderPage = (path: string) => {
   const isVendingMachinePage =
-    path === baseURL + '/' || path === baseURL + '/charge' || path === baseURL + '/management';
+    path === BASE_URL + '/' || path === BASE_URL + '/charge' || path === BASE_URL + '/management';
 
   pageRouters.forEach((router) => router.component.classList.toggle('hidden', router.path !== path));
   pageRouters.find((router) => router.path === path)?.component.classList.remove('hidden');
@@ -70,16 +70,16 @@ const renderTab = (path: string) => {
 };
 
 const tabRouters: Router[] = [
-  { path: baseURL + '/', component: $('purchase-tab'), permission: true },
-  { path: baseURL + '/charge', component: $('charge-tab'), permission: false },
-  { path: baseURL + '/management', component: $('product-management'), permission: false },
+  { path: BASE_URL + '/', component: $('purchase-tab'), permission: true },
+  { path: BASE_URL + '/charge', component: $('charge-tab'), permission: false },
+  { path: BASE_URL + '/management', component: $('product-management'), permission: false },
 ];
 
 const pageRouters: Router[] = [
-  { path: baseURL + '/', component: $('vending-machine-page'), permission: true },
-  { path: baseURL + '/login', component: $('login-page'), permission: true },
-  { path: baseURL + '/signup', component: $('signup-page'), permission: true },
-  { path: baseURL + '/profile', component: $('profile-edit-page'), permission: false },
+  { path: BASE_URL + '/', component: $('vending-machine-page'), permission: true },
+  { path: BASE_URL + '/login', component: $('login-page'), permission: true },
+  { path: BASE_URL + '/signup', component: $('signup-page'), permission: true },
+  { path: BASE_URL + '/profile', component: $('profile-edit-page'), permission: false },
 ];
 
 window.addEventListener('popstate', function () {
@@ -87,7 +87,7 @@ window.addEventListener('popstate', function () {
 });
 
 if (window.location.pathname === '/') {
-  window.location.pathname = baseURL;
+  window.location.pathname = BASE_URL;
 }
 
 render(window.location.pathname);

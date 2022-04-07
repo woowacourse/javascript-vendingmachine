@@ -78,7 +78,7 @@ export const validateUserInputMoney = (userInputMoney: number, userAmount: numbe
   }
 
   if (userInputMoneyValidator.isOverMax(userAmount, userInputMoney)) {
-    throw new Error('투입 금액이 10,000원을 초과할 수 없습니다.');
+    throw new Error(ERROR_MESSAGE.OVER_USER_AMOUNT);
   }
 };
 
@@ -102,6 +102,6 @@ const returnValidator = {
 
 export const validateReturn = (userAmount: number) => {
   if (returnValidator.isInsufficientUserAmount(userAmount)) {
-    throw new Error('반환할 잔액이 없습니다.');
+    throw new Error(ERROR_MESSAGE.NO_RETURN_CHANGE);
   }
 };

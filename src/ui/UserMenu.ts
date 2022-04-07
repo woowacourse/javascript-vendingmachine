@@ -5,11 +5,12 @@ import { historyRouterPush } from '../router';
 import storage from '../storage';
 import Authentication from '../domain/Authentication';
 import { Notification } from './CustomElement';
+import { ELEMENT_KEY, BASE_URL } from '../constants';
 
 class UserMenu extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe('userMenu', this);
+    Authentication.instance.subscribe(ELEMENT_KEY.USER_MENU, this);
   }
 
   render() {
@@ -47,13 +48,13 @@ class UserMenu extends CustomElement {
     ($('[name=email]', $('profile-edit-page')) as HTMLInputElement).value = user.email;
     ($('[name=userName]', $('profile-edit-page')) as HTMLInputElement).value = user.name;
 
-    historyRouterPush('/javascript-vendingmachine/profile');
+    historyRouterPush(BASE_URL + '/profile');
   }
 
   handleLogout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
-    location.href = location.origin + '/javascript-vendingmachine/';
+    location.href = location.origin + BASE_URL + '/';
   }
 
   notify({ userName }: Notification) {
