@@ -1,6 +1,7 @@
 import { $ } from '../../dom';
 import { on } from '../../events';
 import renderSnackBar from '../../snackbar';
+import { checkValidPurchase } from '../validator';
 
 export default class PurchaseProductsStateComponent {
   private $purchasableProductTableBody = $(
@@ -38,15 +39,11 @@ export default class PurchaseProductsStateComponent {
 
     const { productName } = e.target.closest('.product-table__info-tr').dataset;
     try {
-      if (this.productManager.getProductQuantity(productName) <= 0) {
-        throw new Error('해당 상품은 매진되었습니다.');
-      }
-      if (
-        this.purchaseManager.getMoney() <
-        this.productManager.getProductPrice(productName)
-      ) {
-        throw new Error('현재 투입 금액으로 살 수 없는 상품입니다.');
-      }
+      checkValidPurchase({
+        quantity: this.productManager.getProductQuantity(productName),
+        price: this.productManager.getProductPrice(productName),
+        userMoney: this.purchaseManager.getMoney(),
+      });
 
       this.productManager.sellProduct(productName);
       this.purchaseManager.spendMoney(

@@ -59,3 +59,12 @@ export const checkValidChargeMoney = (money: number): void => {
     throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 };
+
+export const checkValidPurchase = ({ quantity, price, userMoney }) => {
+  if (quantity <= 0) {
+    throw new Error('해당 상품은 매진되었습니다.');
+  }
+  if (userMoney < price) {
+    throw new Error('현재 투입 금액으로 살 수 없는 상품입니다.');
+  }
+};

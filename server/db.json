@@ -14,9 +14,9 @@
     },
     {
       "email": "123456@abc.coom",
-      "password": "$2a$10$JNPIc/xNCkUyCF0DwDTKTOigmoOqtM7H3yC1MrbvP7u/PzRbn3lSO",
+      "password": "$2a$10$AAm9B.YdmEpMGN9PELniY.Y0R9OgzpIUL2wxjOpFSYrgSw2OV5f1K",
       "id": 3,
-      "name": "꼬재"
+      "name": "후이"
     },
     {
       "email": "kwannee@gmail.com",
@@ -29,6 +29,12 @@
       "password": "$2a$10$sl4Zlwu/NxbcQhJ9Rgk8qOaSw2CnR/tcYfmRC1l0/6oOGG4y3opGe",
       "name": "후이",
       "id": 5
+    },
+    {
+      "email": "qwer@abc.com",
+      "password": "$2a$10$WJj9ZRV66yzzwZqlTY.ej.z8fWWcrCHGJawPQ0QEkH21mItdCqhmK",
+      "name": "후이",
+      "id": 6
     }
   ]
 }

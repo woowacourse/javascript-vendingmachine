@@ -3,8 +3,10 @@ import { MAIN_PAGE } from '../constants';
 import { emit, on } from '../events';
 import { isUserLoggedIn } from '../auth';
 
-const tabs = ['products', 'coins', 'purchase'];
+const customerInaccessiblePages = ['/coins', '/products'];
+const managerInaccessiblePages = ['/login', '/signup'];
 
+const tabs = ['products', 'coins', 'purchase'];
 const render = (activePage: string, path: string) => {
   if (tabs.some((tab) => tab === path) && $('.nav__list')) {
     $(`.nav__${path}-button`).className =
@@ -15,6 +17,24 @@ const render = (activePage: string, path: string) => {
   $(`.${path}-section`).className =
     path === activePage ? `${path}-section` : `${path}-section hide`;
 };
+
+const renderUserButton = () => {
+  if (isUserLoggedIn()) {
+    $('.nav__login-button').classList.add('hide');
+    $('.logged-user-wrapper').classList.remove('hide');
+  } else {
+    $('.nav__login-button').classList.remove('hide');
+    $('.logged-user-wrapper').classList.add('hide');
+  }
+};
+
+const isManagerInvalidAccess = () =>
+  managerInaccessiblePages.some(
+    (inaccessiblePage) => window.location.pathname === inaccessiblePage
+  ) && isUserLoggedIn();
+const isCustomerInvalidAccess = () =>
+  customerInaccessiblePages.some((page) => window.location.pathname === page) &&
+  !isUserLoggedIn();
 
 export default class NavigatorComponent {
   private $app = $('#app');
@@ -27,17 +47,19 @@ export default class NavigatorComponent {
     on(this.$app, 'click', this.onClickRoute);
     on(window, 'popstate', this.routeByPath);
 
-    this.renderUserButton();
-    const customerAccessiblePages = ['/purchase', '/login', '/signup'];
+    renderUserButton();
+
+    if (isManagerInvalidAccess()) {
+      window.location.pathname = MAIN_PAGE;
+    }
+    if (isCustomerInvalidAccess()) {
+      window.location.pathname = '/purchase';
+    }
+
     if (!isUserLoggedIn()) {
       this.$navList.remove();
     }
-    if (
-      !isUserLoggedIn() &&
-      !customerAccessiblePages.some((page) => window.location.pathname === page)
-    ) {
-      location.pathname = '/purchase';
-    }
+
     this.routeByPath();
   }
 
@@ -73,16 +95,6 @@ export default class NavigatorComponent {
     ) {
       this.$nav.classList.add('hide');
       this.$title.classList.add('hide');
-    }
-  };
-
-  private renderUserButton = () => {
-    if (isUserLoggedIn()) {
-      $('.nav__login-button').classList.add('hide');
-      $('.logged-user-wrapper').classList.remove('hide');
-    } else {
-      $('.nav__login-button').classList.remove('hide');
-      $('.logged-user-wrapper').classList.add('hide');
     }
   };
 }

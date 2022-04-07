@@ -1,5 +1,5 @@
 import { setCurrentUser } from '../../auth';
-import { MAIN_PAGE } from '../../constants';
+import { BASE_SERVER_URL, MAIN_PAGE } from '../../constants';
 import { $ } from '../../dom';
 import { on } from '../../events';
 import renderSnackBar from '../../snackbar';
@@ -14,7 +14,7 @@ export default class SignupComponent {
   ) as HTMLInputElement;
 
   constructor() {
-    on($('.signup-button'), 'click', this.onSignUp);
+    on(this.$signupForm, 'click', this.onSignUp);
   }
 
   onSignUp = async (e) => {
@@ -30,7 +30,7 @@ export default class SignupComponent {
         );
       }
 
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch(`${BASE_SERVER_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default class SignupComponent {
 
         setCurrentUser({ accessToken, name, email, id });
 
-        location.pathname = MAIN_PAGE;
+        window.location.pathname = MAIN_PAGE;
       }
     } catch ({ message }) {
       renderSnackBar(message);

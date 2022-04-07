@@ -2,7 +2,7 @@ import { $ } from '../../dom';
 import { on } from '../../events';
 
 import { getCurrentUser, setCurrentUser } from '../../auth';
-import { MAIN_PAGE } from '../../constants';
+import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import renderSnackBar from '../../snackbar';
 
 export default class ModifyUserInfoComponent {
@@ -40,7 +40,7 @@ export default class ModifyUserInfoComponent {
         );
       }
       const response = await fetch(
-        `http://localhost:3000/users/${currentUserId}`,
+        `${BASE_SERVER_URL}/users/${currentUserId}`,
         {
           method: 'PATCH',
           headers: {
@@ -58,7 +58,7 @@ export default class ModifyUserInfoComponent {
 
       setCurrentUser({ accessToken, name, email, id });
       if (response.ok) {
-        location.pathname = MAIN_PAGE;
+        window.location.pathname = MAIN_PAGE;
       }
     } catch ({ message }) {
       renderSnackBar(message);

@@ -34,18 +34,18 @@ export default class UserComponent {
 
   onClickUserThumbnail = (e) => {
     if (e.target.className === 'user-thumbnail') {
-      $('.user-menu').classList.toggle('hide');
+      this.$userMenu.classList.toggle('hide');
     }
   };
 
   onClickUserMenu = (e) => {
     if (e.target.classList.contains('user-menu-item')) {
-      $('.user-menu').classList.add('hide');
+      this.$userMenu.classList.add('hide');
     }
   };
 
   onLogout = () => {
     deleteCurrentUser();
-    location.pathname = '/purchase';
+    window.location.pathname = '/purchase';
   };
 }
