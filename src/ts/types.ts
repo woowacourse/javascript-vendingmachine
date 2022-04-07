@@ -33,6 +33,7 @@ export interface VendingMachineInterface {
   purchaseItem: (itemIndex: number) => void;
 
   chargeCoin: (rechargeCoin: number) => number;
+  returnCoin: () => Record<Coin, number>;
   calculateTotalCoinAmount: () => number;
 
   chargeCash: (chargedCash: number) => number;

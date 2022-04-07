@@ -23,6 +23,11 @@ export const ITEM_PURCHASE_CASH_ERROR_MESSAGE = {
   LACK_MONEY: '금액이 부족합니다. 금액을 더 충전해주세요.',
 };
 
+export const COIN_RETURN_ERROR_MESSAGE = {
+  NO_CASH: '충전된 금액이 없습니다. 금액을 충전해주세요.',
+  NO_RETURN_COIN: '반환할 수 있는 동전이 없습니다.',
+};
+
 export const AUTHENTICATION_MESSAGE = {
   NOT_EMAIL_FORMAT: '이메일 형식에 맞지 않습니다.',
   EXCEED_NAME_LENGTH_RANGE: '이름은 2글자 이상 6글자 이하로 작성해 주세요.',

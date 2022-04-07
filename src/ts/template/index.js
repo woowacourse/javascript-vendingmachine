@@ -114,27 +114,27 @@ export const generateItemPurchaseTabContentTemplate = (itemList, chargedCash) =>
     </table>
   </div>
   <table class="coin-return-table">
-  <caption><h2>잔돈 반환</h2></caption>
-  <tr>
-    <th>동전</th>
-    <th>개수</th>
-  </tr>
-  <tr>
-    <td>500원</td>
-    <td class="coin-count" data-coin-value="500">${0}개</td>
-  </tr>
-  <tr>
-    <td>100원</td>
-    <td class="coin-count" data-coin-value="100">${0}개</td>
-  </tr>
-  <tr>
-    <td>50원</td>
-    <td class="coin-count" data-coin-value="50">${0}개</td>
-  </tr>
-  <tr>
-    <td>10원</td>
-    <td class="coin-count" data-coin-value="10">${0}개</td>
-  </tr>
+    <caption><h2>잔돈 반환</h2></caption>
+    <tr>
+      <th>동전</th>
+      <th>개수</th>
+    </tr>
+    <tr>
+      <td>500원</td>
+      <td class="coin-count" data-coin-value="500">${0}개</td>
+    </tr>
+    <tr>
+      <td>100원</td>
+      <td class="coin-count" data-coin-value="100">${0}개</td>
+    </tr>
+    <tr>
+      <td>50원</td>
+      <td class="coin-count" data-coin-value="50">${0}개</td>
+    </tr>
+    <tr>
+      <td>10원</td>
+      <td class="coin-count" data-coin-value="10">${0}개</td>
+    </tr>
   </table>
   <button class="default-button return-button">반환</button>
 `;

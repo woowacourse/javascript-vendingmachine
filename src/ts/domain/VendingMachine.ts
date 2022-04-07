@@ -3,6 +3,7 @@ import {
   ITEM_ERROR_MESSAGE,
   CASH_ERROR_MESSAGE,
   ITEM_PURCHASE_CASH_ERROR_MESSAGE,
+  COIN_RETURN_ERROR_MESSAGE,
 } from '../constant/errorMessage';
 import {
   ITEM,
@@ -12,17 +13,13 @@ import {
   COIN_50,
   COIN_100,
   COIN_500,
+  INITIAL_COIN_COLLECTION,
 } from '../constant/rule';
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[] = [];
 
-  private _coinCollection: Record<Coin, number> = {
-    [COIN_500]: 0,
-    [COIN_100]: 0,
-    [COIN_50]: 0,
-    [COIN_10]: 0,
-  };
+  private _coinCollection: Record<Coin, number> = INITIAL_COIN_COLLECTION;
 
   private itemPurchaseCash = 0;
 
@@ -138,6 +135,33 @@ class VendingMachine implements VendingMachineInterface {
     return this.calculateTotalCoinAmount();
   }
 
+  returnCoin(): Record<Coin, number> {
+    if (this.hasNotCash()) {
+      throw new Error(COIN_RETURN_ERROR_MESSAGE.NO_CASH);
+    }
+
+    const returnedCoinCollection: Record<Coin, number> = {
+      [COIN_500]: 0,
+      [COIN_100]: 0,
+      [COIN_50]: 0,
+      [COIN_10]: 0,
+    };
+
+    Object.entries(this._coinCollection).forEach(([coin, count]) => {
+      const returnedCoin = this.calculateReturnedCoin(coin, count);
+
+      this.coinCollection[coin] -= returnedCoin;
+      returnedCoinCollection[coin] = returnedCoin;
+      this.itemPurchaseCash -= Number(coin) * returnedCoin;
+    });
+
+    if (this.isNotReturnedCoin(returnedCoinCollection)) {
+      throw new Error(COIN_RETURN_ERROR_MESSAGE.NO_RETURN_COIN);
+    }
+
+    return returnedCoinCollection;
+  }
+
   calculateTotalCoinAmount(): number {
     return Object.entries(this._coinCollection).reduce(
       (prev, [key, value]) => prev + Number(key) * value,
@@ -170,6 +194,21 @@ class VendingMachine implements VendingMachineInterface {
 
   validateItemPurchaseCashInput(rechargedCash: number) {
     this.validateTestCase(this.itemPurchaseCashInputTestCases, rechargedCash);
+  }
+
+  private calculateReturnedCoin(coin: string, count: number): number {
+    const requiredCoinCount = Math.floor(this.itemPurchaseCash / Number(coin));
+
+    return Math.min(requiredCoinCount, count);
+  }
+
+  private hasNotCash(): boolean {
+    console.log(this.itemPurchaseCash);
+    return this.itemPurchaseCash === 0;
+  }
+
+  private isNotReturnedCoin(returnedCoinCollection: Record<Coin, number>): boolean {
+    return Object.values(returnedCoinCollection).every((coinCount) => coinCount === 0);
   }
 
   private isBlank({ itemInfo: { itemName } }: { itemInfo: ItemInfoType; isAddMode: boolean }) {

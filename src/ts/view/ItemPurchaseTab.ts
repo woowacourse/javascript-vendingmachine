@@ -1,11 +1,12 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType } from '../types';
+import { ItemInfoType, Coin } from '../types';
 import {
   generateItemPurchaseTabContentTemplate,
   generateItemPurchaseTableDataTemplate,
 } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
+import { INITIAL_COIN_COLLECTION } from '../constant/rule';
 
 class ItemPurchaseTab extends VendingMachineTab {
   private cashChargeForm: HTMLFormElement | null;
@@ -15,6 +16,10 @@ class ItemPurchaseTab extends VendingMachineTab {
   private chargedAmountSpan: HTMLSpanElement | null;
 
   private itemStatusTable: HTMLTableElement | null;
+
+  private returnButton: HTMLButtonElement | null;
+
+  private coinCountsTableCells: NodeListOf<HTMLTableCellElement>;
 
   render(): void {
     const itemList: ItemInfoType[] = this.vendingMachine.itemList;
@@ -30,9 +35,12 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.cashChargeInput = selectDom(`.${CLASS.CASH_CHARGE_INPUT}`);
     this.chargedAmountSpan = selectDom(`#${ID.CHARGED_AMOUNT}`);
     this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`);
+    this.returnButton = selectDom(`.${CLASS.RETURN_BUTTON}`);
+    this.coinCountsTableCells = selectDoms(`.${CLASS.COIN_COUNT}`);
 
     this.cashChargeForm.addEventListener('submit', this.onSubmitCashChargeForm);
     this.itemStatusTable.addEventListener('click', this.onClickPurchaseItemButton);
+    this.returnButton.addEventListener('click', this.onClickReturnCoinButton);
   }
 
   private onSubmitCashChargeForm = (e: SubmitEvent) => {
@@ -70,13 +78,45 @@ class ItemPurchaseTab extends VendingMachineTab {
     const itemInfo: ItemInfoType = this.vendingMachine.itemList[itemIndex];
     const chargedAmount = this.vendingMachine.getItemPurchaseCash();
 
-    targetItem.replaceChildren();
-    targetItem.insertAdjacentHTML('afterbegin', generateItemPurchaseTableDataTemplate(itemInfo));
+    this.renderItemInfo(targetItem, itemInfo);
     this.renderChargedAmount(String(chargedAmount));
+  };
+
+  private onClickReturnCoinButton = () => {
+    let returnedCoinCollection: Record<Coin, number>;
+
+    try {
+      returnedCoinCollection = this.vendingMachine.returnCoin();
+    } catch (error) {
+      alert(error.message);
+
+      this.renderReturnedCoinTable();
+      return;
+    }
+
+    const chargedAmount = this.vendingMachine.getItemPurchaseCash();
+
+    this.renderChargedAmount(String(chargedAmount));
+    this.renderReturnedCoinTable(returnedCoinCollection);
   };
 
   private renderChargedAmount(chargedAmount: string): void {
     this.chargedAmountSpan.textContent = chargedAmount;
+  }
+
+  private renderItemInfo(targetItem: HTMLTableRowElement, itemInfo: ItemInfoType) {
+    targetItem.replaceChildren();
+    targetItem.insertAdjacentHTML('afterbegin', generateItemPurchaseTableDataTemplate(itemInfo));
+  }
+
+  private renderReturnedCoinTable(
+    returnedCoinCollection: Record<Coin, number> = INITIAL_COIN_COLLECTION
+  ): void {
+    this.coinCountsTableCells.forEach((coinCountsTableCell) => {
+      const { coinValue } = coinCountsTableCell.dataset;
+
+      coinCountsTableCell.textContent = `${returnedCoinCollection[coinValue]}개`;
+    });
   }
 }
 

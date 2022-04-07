@@ -29,4 +29,5 @@ export const CLASS = {
   THUMBNAIL_BUTTON: 'thumbnail-button',
   SIDE_BUTTON_WRAPPER: 'side-button-wrapper',
   PURCHASE_ITEM_BUTTON: 'purchase-item-button',
+  RETURN_BUTTON: 'return-button',
 };

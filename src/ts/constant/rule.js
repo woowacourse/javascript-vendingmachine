@@ -25,6 +25,13 @@ export const COIN_100 = 100;
 export const COIN_50 = 50;
 export const COIN_10 = 10;
 
+export const INITIAL_COIN_COLLECTION = {
+  [COIN_500]: 0,
+  [COIN_100]: 0,
+  [COIN_50]: 0,
+  [COIN_10]: 0,
+};
+
 export const AUTHENTICATION_INFO = {
   MIN_NAME_LENGTH: 2,
   MAX_NAME_LENGTH: 6,

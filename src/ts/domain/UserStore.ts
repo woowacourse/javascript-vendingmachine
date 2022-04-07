@@ -57,6 +57,7 @@ class UserStore implements UserStoreInterface {
   ];
 
   constructor() {
+    //
     this.userInfo = this.getUserInfoCookie();
   }
 
