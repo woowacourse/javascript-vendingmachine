@@ -6,9 +6,17 @@ const signupValidator = {
   isWrongPassword(password: string, passwordConfirm: string) {
     return password !== passwordConfirm;
   },
+
+  isInsufficientName(name: string) {
+    return name.length < 2 || name.length > 6;
+  },
 };
 
 export const validateSignup = (userName: string, password: string, passwordConfirm: string) => {
+  if (signupValidator.isInsufficientName(userName)) {
+    throw new Error('이름은 2글자 이상, 6글자 이하로 입력해주세요.');
+  }
+
   if (signupValidator.isInsufficientPassword(password)) {
     throw new Error('비밀번호는 숫자와 영문자 조합으로 8글자 이상, 20글자 이하를 입력해주세요.');
   }
