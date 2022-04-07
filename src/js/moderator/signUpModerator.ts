@@ -2,6 +2,7 @@ import SignUpView from "../ui/signUpPageView";
 import Authorization from "../domain/authorization";
 import { EVENT_TYPE } from "../constant";
 import { on } from "../util/event";
+import { ISignUpEvent } from "../type";
 
 class SignUpModerator {
   signUpView;
@@ -10,7 +11,7 @@ class SignUpModerator {
   constructor() {
     this.signUpView = new SignUpView();
     this.authorization = new Authorization();
-    on<any>(window, EVENT_TYPE.SIGN_UP, (e) => {
+    on<ISignUpEvent>(window, EVENT_TYPE.SIGN_UP, (e) => {
       this.signUp(e.detail);
     });
   }

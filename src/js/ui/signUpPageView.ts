@@ -2,6 +2,7 @@ import { $, createElement } from "../util/dom";
 import { on, emit } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 import signUpTemplate from "../template/signUp.template";
+import { ISignUpEvent } from "../type";
 
 class SignUpView {
   $page;
@@ -43,7 +44,7 @@ class SignUpView {
     const password = this.$passwordInput.value;
     const confirmPassword = this.$confirmPasswordInput.value;
 
-    emit<any>(EVENT_TYPE.SIGN_UP, {
+    emit<ISignUpEvent>(EVENT_TYPE.SIGN_UP, {
       email,
       name,
       password,

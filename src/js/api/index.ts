@@ -21,7 +21,6 @@ const api = {
       });
       return { ...response, isError: false };
     } catch (error) {
-      console.log(error);
       return { isError: true };
     }
   },
@@ -41,14 +40,12 @@ const api = {
 
   getUser: async (userId, accessToken) => {
     try {
-      console.log(accessToken);
       const response = await request(`/600/users/${userId}`, {
         method: "GET",
         headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
       });
       return { ...response, isError: false };
     } catch (error) {
-      console.log(error);
       return { isError: true };
     }
   },

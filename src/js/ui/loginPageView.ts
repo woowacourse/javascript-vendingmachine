@@ -2,7 +2,7 @@ import { $, createElement } from "../util/dom";
 import { on, emit } from "../util/event";
 import { EVENT_TYPE } from "../constant";
 import loginTemplate from "../template/login.template";
-
+import { ILoginEvent } from "../type";
 class LoginView {
   $page;
   $header;
@@ -36,7 +36,7 @@ class LoginView {
     const email = this.$emailInput.value;
     const password = this.$passwordInput.value;
 
-    emit<any>(EVENT_TYPE.LOGIN, {
+    emit<ILoginEvent>(EVENT_TYPE.LOGIN, {
       email,
       password,
     });

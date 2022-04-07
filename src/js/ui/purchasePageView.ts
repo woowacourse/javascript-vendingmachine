@@ -5,6 +5,7 @@ import headerTemplate from "../template/header.template";
 import { ISingleProduct } from "../interface/product.interface";
 import { TCoin } from "../interface/vendingMachine.interface";
 import { EVENT_TYPE } from "../constant";
+import { IPurchaseProductEvent, IInputMoneyEvent } from "../type";
 
 class PurchasePageView {
   $page;
@@ -85,16 +86,16 @@ class PurchasePageView {
   purchaseHandler = (e: Event): void => {
     const target = e.target as HTMLElement;
     const productId = target.closest("tr").dataset.id;
-    emit<any>(EVENT_TYPE.PURCHASE, { id: productId });
+    emit<IPurchaseProductEvent>(EVENT_TYPE.PURCHASE, { id: productId });
   };
 
   returnChangesHandler = (): void => {
-    emit<any>(EVENT_TYPE.RETURN, {});
+    emit<unknown>(EVENT_TYPE.RETURN, {});
   };
 
   moneySubmitHandler = (e: Event): void => {
     e.preventDefault();
-    emit<any>(EVENT_TYPE.INPUT, {
+    emit<IInputMoneyEvent>(EVENT_TYPE.INPUT, {
       money: this.$chargeMoneyInput.valueAsNumber,
     });
     this.$chargeMoneyInput.value = "";

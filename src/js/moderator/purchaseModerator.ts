@@ -3,7 +3,7 @@ import VendingMachine from "../domain/vendingMachine";
 import PurchasePageView from "../ui/purchasePageView";
 import { on } from "../util/event";
 import Authorization from "../domain/authorization";
-
+import { IPurchaseProductEvent, IInputMoneyEvent } from "../type";
 class PurchaseModerator {
   purchasePageView;
   vendingMachine;
@@ -13,15 +13,15 @@ class PurchaseModerator {
     this.purchasePageView = new PurchasePageView();
     this.vendingMachine = VendingMachine.getInstance();
     this.authorization = new Authorization();
-    on<any>(window, EVENT_TYPE.INPUT, (e) => {
+    on<IInputMoneyEvent>(window, EVENT_TYPE.INPUT, (e) => {
       this.chargeMoney(e.detail);
     });
 
-    on<any>(window, EVENT_TYPE.PURCHASE, (e) => {
+    on<IPurchaseProductEvent>(window, EVENT_TYPE.PURCHASE, (e) => {
       this.purchaseProduct(e.detail);
     });
 
-    on<any>(window, EVENT_TYPE.RETURN, () => {
+    on<unknown>(window, EVENT_TYPE.RETURN, () => {
       this.returnChanges();
     });
   }
