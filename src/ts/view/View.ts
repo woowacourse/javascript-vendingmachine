@@ -20,6 +20,7 @@ export default class View {
   $profile: HTMLDivElement;
   $app: HTMLDivElement;
   $loginRegister: HTMLSpanElement;
+  $profileMenu: HTMLUListElement;
 
   vendingMachine: VendingMachineInterface;
   userManager: UserManagerInterface;
@@ -42,6 +43,7 @@ export default class View {
     this.$profile = $('.profile');
     this.$app = $('#app');
     this.$loginRegister = $('.login-register');
+    this.$profileMenu = $('.profile-menu');
 
     this.vendingMachine = vendingMachine;
     this.userManager = userManager;
@@ -69,6 +71,7 @@ export default class View {
     );
     this.$loginButton.addEventListener('click', () => this.router(PAGE_ID.LOGIN));
     this.$loginRegister.addEventListener('click', () => this.router(PAGE_ID.REGISTER));
+    this.$profile.addEventListener('click', this.handleProfile);
   }
 
   renderCurrentView = () => {
@@ -152,4 +155,6 @@ export default class View {
 
     localStorage.setItem(STORAGE_ID.CURRENT_VIEW, id);
   };
+
+  handleProfile = () => this.$profileMenu.classList.toggle('hide');
 }
