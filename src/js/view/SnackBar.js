@@ -1,16 +1,18 @@
-const Snackbar = {
-  dispatch(message, type = 'success') {
-    const snackbar = document.querySelector('#snackbar');
+import { SNACKBAR_DELAY_TIME } from '../constants';
+import { selectDom } from '../utils/dom';
 
-    snackbar.classList.toggle('fail', type === 'fail');
+const SnackBar = {
+  dispatch(message, type = 'success') {
+    const snackbar = selectDom('#snackbar');
 
     snackbar.textContent = message;
 
+    snackbar.classList.toggle('error', type === 'error');
     snackbar.classList.toggle('show');
     setTimeout(() => {
       snackbar.classList.toggle('show');
-    }, 1000);
+    }, SNACKBAR_DELAY_TIME);
   },
 };
 
-export default Snackbar;
+export default SnackBar;

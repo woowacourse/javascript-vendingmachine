@@ -1,6 +1,7 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import Snackbar from './SnackBar';
-import { TEMPLATE } from './template';
+import { ERROR, SNACKBAR_MESSAGE } from '../../constants';
+import { createMainElement, selectDom } from '../../utils/dom';
+import Snackbar from '../SnackBar';
+import { TEMPLATE } from '../template';
 
 export default class PurchaseProductTab {
   #vendingMachine;
@@ -28,7 +29,6 @@ export default class PurchaseProductTab {
       '#return-change-button',
       this.#purchaseContainer
     );
-
     this.#returnCoinStatusTable = selectDom(
       '#return-coin-status-table',
       this.#purchaseContainer
@@ -48,6 +48,24 @@ export default class PurchaseProductTab {
     return this.#purchaseContainer;
   }
 
+  #renderPurchaseableProductList() {
+    let productTableBody = TEMPLATE.PURCHASEABLE_PRODUCT_TABLE_BODY;
+    const { productList } = this.#vendingMachine;
+
+    for (let id of Object.keys(productList)) {
+      const { name, price, stock } = productList[id];
+      const data = { name, price, stock, id };
+
+      productTableBody += TEMPLATE.PURCHASEABLE_PRODUCT_TABLE_ROW(data);
+    }
+
+    this.#purchaseableProductStatusTbody.replaceChildren();
+    this.#purchaseableProductStatusTbody.insertAdjacentHTML(
+      'beforeend',
+      productTableBody
+    );
+  }
+
   #handleReturnChange = () => {
     this.#vendingMachine.returnChange();
 
@@ -58,33 +76,9 @@ export default class PurchaseProductTab {
     coinCountElements.forEach((element) => {
       element.textContent = `${returnCoinStatus[element.dataset.coinName]}개`;
     });
-
     this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
-
-    Snackbar.dispatch('잔돈이 정상적으로 반환되었습니다.');
+    Snackbar.dispatch(SNACKBAR_MESSAGE.RETURN_CHAGNE_SUCCESS);
   };
-
-  #renderPurchaseableProductList() {
-    const { productList } = this.#vendingMachine;
-    let productTableBody = TEMPLATE.PURCHASEABLE_PRODUCT_TABLE_BODY;
-
-    for (let id of Object.keys(productList)) {
-      const { name, price, stock } = productList[id];
-
-      productTableBody += TEMPLATE.PURCHASEABLE_PRODUCT_TABLE_ROW({
-        name,
-        price,
-        stock,
-        id,
-      });
-    }
-
-    this.#purchaseableProductStatusTbody.replaceChildren();
-    this.#purchaseableProductStatusTbody.insertAdjacentHTML(
-      'beforeend',
-      productTableBody
-    );
-  }
 
   #handleInsertMoney = (e) => {
     e.preventDefault();
@@ -94,9 +88,9 @@ export default class PurchaseProductTab {
       this.#vendingMachine.insertMoney(money);
       this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
       this.#resetInput();
-      Snackbar.dispatch('금액이 정상적으로 투입되었습니다.');
+      Snackbar.dispatch(SNACKBAR_MESSAGE.INSERT_MONEY_SUCCESS);
     } catch ({ message }) {
-      Snackbar.dispatch(message, 'fail');
+      Snackbar.dispatch(message, ERROR);
     }
   };
 
@@ -105,16 +99,15 @@ export default class PurchaseProductTab {
 
     const parent = target.closest('tr');
     const productId = target.dataset.productId;
+    const productStock = selectDom('.product-stock', parent);
 
     try {
       this.#vendingMachine.purchaseProduct(productId);
       this.#totalInsertMoney.textContent = this.#vendingMachine.totalInsertMoney;
-      const stock = selectDom('.product-stock', parent);
-      stock.textContent = stock.textContent - 1;
-
-      Snackbar.dispatch('상품이 정상적으로 구매되었습니다.');
+      productStock.textContent = productStock.textContent - 1;
+      Snackbar.dispatch(SNACKBAR_MESSAGE.PURCHASE_PRODUCT_SUCCESS);
     } catch ({ message }) {
-      Snackbar.dispatch(message, 'fail');
+      Snackbar.dispatch(message, ERROR);
     }
   };
 

@@ -19,7 +19,7 @@
   bottom: 50px;
 }
 
-#snackbar.fail {
+#snackbar.error {
   background-color: #f03e3e;
 }
 

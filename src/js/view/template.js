@@ -25,6 +25,36 @@ export const TEMPLATE = {
       </table>
     </section>
   `,
+  PRODUCT_TABLE_ROW: ({ name, price, stock, id }) => `
+    <tr>
+      <td class="product-name">${name}</td>
+      <td class="product-price">${price}</td>
+      <td class="product-stock" data-product-id=${id}>${stock}</td>
+      <td>
+        <div class="table-button-wrapper">
+          <button type="button" class="update-product-button" data-product-id=${id}>수정</button>
+          <button type="button" class="remove-product-button" data-product-id=${id}>삭제</button>
+        </div>
+      </td>
+    </tr>
+  `,
+  UPDATE_PRODUCT_TABLE_ROW: ({ name, price, stock, id }) => `
+    <tr>
+      <td><input type="text" class="update-product-name-input" value="${name}" /></td>
+      <td><input type="number" class="update-product-price-input" value="${price}" /></td>
+      <td><input type="number" class="update-product-stock-input" value="${stock}" /></td>
+      <td>
+        <div class="table-button-wrapper">
+          <button type="button" class="confirm-update-button" data-product-id=${id}>
+          확인
+          </button>
+          <button type="button" class="cancel-update-button" data-product-id=${id}>
+          취소
+          </button>
+        </div>
+      </td>
+    </tr>
+  `,
   ADD_CHANGE: `
     <section title="잔돈 충전">
       <form id="add-change-form">
@@ -63,36 +93,6 @@ export const TEMPLATE = {
         </tr>
       </table>
     </section>
-  `,
-  PRODUCT_TABLE_ROW: ({ name, price, stock, id }) => `
-    <tr>
-      <td class="product-name">${name}</td>
-      <td class="product-price">${price}</td>
-      <td class="product-stock" data-product-id=${id}>${stock}</td>
-      <td>
-        <div class="table-button-wrapper">
-          <button type="button" class="update-product-button" data-product-id=${id}>수정</button>
-          <button type="button" class="remove-product-button" data-product-id=${id}>삭제</button>
-        </div>
-      </td>
-    </tr>
-  `,
-  UPDATE_PRODUCT_TABLE_ROW: ({ name, price, stock, id }) => `
-    <tr>
-      <td><input type="text" class="update-product-name-input" value="${name}" /></td>
-      <td><input type="number" class="update-product-price-input" value="${price}" /></td>
-      <td><input type="number" class="update-product-stock-input" value="${stock}" /></td>
-      <td>
-        <div class="table-button-wrapper">
-          <button type="button" class="confirm-update-button" data-product-id=${id}>
-          확인
-          </button>
-          <button type="button" class="cancel-update-button" data-product-id=${id}>
-          취소
-          </button>
-        </div>
-      </td>
-    </tr>
   `,
   PURCHASE: `
     <section title="구매 금액 투입">
@@ -142,7 +142,6 @@ export const TEMPLATE = {
       </table>
       <button type="button" id="return-change-button">반환</button>
     </section>`,
-
   PURCHASEABLE_PRODUCT_TABLE_BODY: `
     <tr>
       <th>상품명</th>

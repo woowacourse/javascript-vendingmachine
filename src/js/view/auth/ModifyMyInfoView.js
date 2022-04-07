@@ -1,7 +1,8 @@
-import Auth from '../domain/Auth';
-import { createDivElement, selectDom } from '../utils/dom';
-import Snackbar from './SnackBar';
-import { TEMPLATE } from './template';
+import { ERROR, SNACKBAR_MESSAGE, STORAGE_KEY } from '../../constants';
+import Auth from '../../domain/Auth';
+import { createDivElement, selectDom } from '../../utils/dom';
+import Snackbar from '../SnackBar';
+import { TEMPLATE } from '../template';
 
 export default class ModifyMyInfoView {
   #modifyContainer;
@@ -12,6 +13,7 @@ export default class ModifyMyInfoView {
   #passwordConfirm;
 
   constructor() {
+    //멤버변수 생성
     this.#modifyContainer = createDivElement(TEMPLATE.MODIFY);
     this.#modifyForm = selectDom('#register-form', this.#modifyContainer);
     this.#email = selectDom('#email', this.#modifyContainer);
@@ -19,11 +21,12 @@ export default class ModifyMyInfoView {
     this.#password = selectDom('#password', this.#modifyContainer);
     this.#passwordConfirm = selectDom('#password-confirm', this.#modifyContainer);
 
+    //이벤트 등록
     this.#modifyForm.addEventListener('submit', this.handleModify);
   }
 
   get template() {
-    const id = localStorage.getItem('userId');
+    const id = localStorage.getItem(STORAGE_KEY.USER_ID);
     Auth.getUserInfo(id).then(({ name, email }) => {
       this.#email.value = email;
       this.#name.value = name;
@@ -34,7 +37,7 @@ export default class ModifyMyInfoView {
 
   handleModify = (e) => {
     e.preventDefault();
-    const id = localStorage.getItem('userId');
+    const id = localStorage.getItem(STORAGE_KEY.USER_ID);
     const email = this.#email.value;
     const name = this.#name.value;
     const password = this.#password.value;
@@ -42,9 +45,9 @@ export default class ModifyMyInfoView {
 
     try {
       Auth.modify(id, { email, name, password, passwordConfirm });
-      Snackbar.dispatch('내 정보가 정상적으로 수정되었습니다.');
+      Snackbar.dispatch(SNACKBAR_MESSAGE.MODIFY_MY_INFO_SUCCESS);
     } catch (error) {
-      Snackbar.dispatch(error, 'fail');
+      Snackbar.dispatch(error, ERROR);
     }
   };
 }

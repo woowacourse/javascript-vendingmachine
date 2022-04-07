@@ -1,14 +1,18 @@
 import VendingMachine from '../domain/VendingMachine';
-import PurchaseProductTab from './PurchaseProductTab';
-import AddChangeTab from './AddChangeTab';
-import ManageProductTab from './ManageProductTab';
-import { createDivElement, createMainElement, selectDom } from '../utils/dom';
-import { TEMPLATE } from './template';
-import LoginView from './LoginView';
-import RegisterView from './RegisterView';
 import Auth from '../domain/Auth';
-import ModifyMyInfoView from './ModifyMyInfoView';
+
+import PurchaseProductTab from './vendingMachine/PurchaseProductTab';
+import AddChangeTab from './vendingMachine/AddChangeTab';
+import ManageProductTab from './vendingMachine/ManageProductTab';
+import LoginView from './auth/LoginView';
+import RegisterView from './auth/RegisterView';
+import ModifyMyInfoView from './auth/ModifyMyInfoView';
+
 import SnackBar from './SnackBar';
+import { TEMPLATE } from './template';
+
+import { createDivElement, createMainElement, selectDom } from '../utils/dom';
+import { SNACKBAR_MESSAGE, STORAGE_KEY } from '../constants';
 
 export default class Router {
   #vendingMachine;
@@ -36,7 +40,6 @@ export default class Router {
     };
 
     this.#adminHeaderContainer = createDivElement(TEMPLATE.ADMIN_HEADER);
-
     this.#body = selectDom('body');
     this.#app = selectDom('#app');
     this.#main = selectDom('main', this.#adminHeaderContainer);
@@ -56,46 +59,36 @@ export default class Router {
     this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
     this.#logoutTabMenu.addEventListener('click', this.#handleLogout);
 
+    //초기 화면 렌더링
     this.#body.insertAdjacentHTML('beforeend', TEMPLATE.SNACK_BAR);
   }
 
-  //리팩토링 필수
   #render = () => {
     this.#app.replaceChildren();
 
-    if (
-      window.location.hash === '#/register' ||
-      (window.location.hash === '#/login') | (window.location.hash === '#/modify')
-    ) {
-      this.#app.insertAdjacentElement(
-        'beforeend',
-        this.#renderList[window.location.hash].template
-      );
+    let path = window.location.hash || '#/manage';
+    if (path === '#/register' || (path === '#/login') | (path === '#/modify')) {
+      this.#app.insertAdjacentElement('beforeend', this.#renderList[path].template);
       return;
     }
 
-    this.#app.insertAdjacentElement('beforeend', this.#adminHeaderContainer);
+    this.#renderAdminHeader(path);
 
-    if (this.#isAdmin()) {
-      const id = localStorage.getItem('userId');
-
-      Auth.getUserInfo(id).then(({ name }) => {
-        this.#nickname.textContent = name[0];
-      });
-    }
-
-    this.#userProfile.classList.toggle('hide', this.#isAdmin());
-    this.#adminProfile.classList.toggle('hide', !this.#isAdmin());
-
-    let path = window.location.hash || '#/manage';
-    this.#tabMenuNavigation.classList.remove('hide');
-    this.#updateCurrentTabMenu(path);
-
-    if (!localStorage.getItem('accessToken')) {
+    if (!localStorage.getItem(STORAGE_KEY.ACCESS_TOKEN)) {
       path = '#/purchase';
       this.#tabMenuNavigation.classList.add('hide');
     }
+    this.#renderMain(path);
+  };
 
+  #renderAdminHeader(path) {
+    this.#app.insertAdjacentElement('beforeend', this.#adminHeaderContainer);
+    this.#tabMenuNavigation.classList.remove('hide');
+    this.#updateCurrentTabMenu(path);
+    this.#handleProfile();
+  }
+
+  #renderMain(path) {
     this.#main.replaceChildren();
 
     if (!this.#renderList[path]) {
@@ -103,9 +96,24 @@ export default class Router {
       this.#main.insertAdjacentElement('beforeend', notFoundContainer);
       return;
     }
-
     this.#main.insertAdjacentElement('beforeend', this.#renderList[path].tabElements);
-  };
+  }
+
+  #handleProfile() {
+    this.#userProfile.classList.toggle('hide', this.#isAdmin());
+    this.#adminProfile.classList.toggle('hide', !this.#isAdmin());
+    this.#handleProfileThumbnail();
+  }
+
+  #handleProfileThumbnail() {
+    if (this.#isAdmin()) {
+      const id = localStorage.getItem(STORAGE_KEY.USER_ID);
+
+      Auth.getUserInfo(id).then(({ name }) => {
+        this.#nickname.textContent = name[0];
+      });
+    }
+  }
 
   #updateCurrentTabMenu(path) {
     const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
@@ -117,7 +125,6 @@ export default class Router {
 
   #handleTabMenuChange = (e) => {
     e.preventDefault();
-
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
@@ -134,9 +141,9 @@ export default class Router {
   };
 
   #handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userId');
-    SnackBar.dispatch('정상적으로 로그아웃되었습니다.');
+    localStorage.removeItem(STORAGE_KEY.ACCESS_TOKEN);
+    localStorage.removeItem(STORAGE_KEY.USER_ID);
+    SnackBar.dispatch(SNACKBAR_MESSAGE.LOGOUT_SUCCESS);
   };
 
   #isAdmin() {

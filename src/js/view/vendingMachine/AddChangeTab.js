@@ -1,6 +1,7 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { TEMPLATE } from './template';
-import Snackbar from './SnackBar';
+import { createMainElement, selectDom } from '../../utils/dom';
+import { TEMPLATE } from '../template';
+import Snackbar from '../SnackBar';
+import { ERROR, SNACKBAR_MESSAGE } from '../../constants';
 
 export default class AddChangeTab {
   #vendingMachine;
@@ -38,9 +39,9 @@ export default class AddChangeTab {
       this.#vendingMachine.addChange(money);
       this.#renderCoinStatus();
       this.#resetInput();
-      Snackbar.dispatch('잔돈이 정상적으로 충전되었습니다.');
+      Snackbar.dispatch(SNACKBAR_MESSAGE.ADD_CHANGE_SUCCESS);
     } catch ({ message }) {
-      Snackbar.dispatch(message, 'fail');
+      Snackbar.dispatch(message, ERROR);
     }
   };
 

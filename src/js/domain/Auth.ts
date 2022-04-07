@@ -1,5 +1,6 @@
 import { validateData } from './validator';
 import Snackbar from '../view/SnackBar';
+import { ERROR } from '../constants';
 
 const emailValidator = [
   { testFunc: isEmpty, errorMsg: '이메일을 입력해주세요.' },
@@ -49,7 +50,6 @@ function validateUserInfo(userInfo) {
 const Auth = {
   register(userInfo) {
     validateUserInfo(userInfo);
-
     this.loadRegisterAPI(userInfo);
   },
   login(userInfo) {
@@ -94,7 +94,7 @@ const Auth = {
 
       window.location.href = '#/manage';
     } catch (error) {
-      Snackbar.dispatch(error, 'fail');
+      Snackbar.dispatch(error, ERROR);
     }
   },
 
@@ -115,7 +115,7 @@ const Auth = {
 
       window.location.href = '#/login';
     } catch (error) {
-      Snackbar.dispatch(error, 'fail');
+      Snackbar.dispatch(error, ERROR);
     }
   },
   async loadModifyAPI(id, userInfo) {
@@ -135,7 +135,7 @@ const Auth = {
 
       window.location.href = '#/purchase';
     } catch (error) {
-      Snackbar.dispatch(error, 'fail');
+      Snackbar.dispatch(error, ERROR);
     }
   },
 };

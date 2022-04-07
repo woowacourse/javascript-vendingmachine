@@ -37,3 +37,29 @@ export const ERROR_MESSAGE = {
 };
 
 export const CONFIRM_MESSAGE = '상품을 정말 삭제하시겠습니까?';
+
+export const ERROR = 'error';
+
+export const SNACKBAR_MESSAGE = {
+  LOGOUT_SUCCESS: '정상적으로 로그아웃되었습니다.',
+  REGISTER_SUCCESS: '정상적으로 회원가입되었습니다.',
+  LOGIN_SUCCESS: '정상적으로 로그인되었습니다.',
+  MODIFY_MY_INFO_SUCCESS: '내 정보가 정상적으로 수정되었습니다.',
+
+  ADD_CHANGE_SUCCESS: '잔돈이 정상적으로 충전되었습니다.',
+  RETURN_CHAGNE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
+
+  ADD_PRODUCT_SUCCESS: '상품이 정상적으로 추가되었습니다.',
+  REMOVE_PRODUCT_SUCCESS: '상품이 정상적으로 삭제되었습니다.',
+  MODIFY_PRODUCT_SUCCESS: '상품이 정상적으로 수정되었습니다.',
+  PURCHASE_PRODUCT_SUCCESS: '상품이 정상적으로 구매되었습니다.',
+
+  INSERT_MONEY_SUCCESS: '금액이 정상적으로 투입되었습니다.',
+};
+
+export const SNACKBAR_DELAY_TIME = 1000;
+
+export const STORAGE_KEY = {
+  USER_ID: 'userId',
+  ACCESS_TOKEN: 'accessToken',
+};
