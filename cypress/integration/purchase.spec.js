@@ -13,10 +13,9 @@ describe("상품 구매 테스트", () => {
     cy.addProduct(productName, price, quantity);
 
     cy.get('[data-menu="#purchase"]').click();
-    cy.get(".purchase-form__input").type(price);
-    cy.get(".purchase-form__add-button").click();
-    cy.get(".purchase-table__purchase-button").eq(0).click();
+    cy.addPurchaseAmount(price);
 
+    cy.get(".purchase-table__purchase-button").eq(0).click();
     cy.get(".purchase-form__amount").contains(0);
   });
 });
