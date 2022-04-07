@@ -91,6 +91,6 @@ export default class BuyProduct implements DomainView {
   }
 
   private renderTotalBuyPrice(): void {
-    this.$totalBuyPrice.innerText = String(this.buyer);
+    this.$totalBuyPrice.innerText = String(this.buyer.totalInputMoney);
   }
 }
