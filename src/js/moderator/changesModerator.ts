@@ -1,9 +1,10 @@
 import ChangePageView from "../ui/changePageView";
 import { on } from "../util/event";
-import { EVENT_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import { IChargeChangesEvent } from "../type";
 import VendingMachine from "../domain/vendingMachine";
 import Authorization from "../domain/authorization";
+import snackbarUI from "../ui/snackbarUI";
 
 class ChangesModerator {
   changePageView;
@@ -44,8 +45,9 @@ class ChangesModerator {
 
       this.changePageView.renderCurrentChanges(changes);
       this.changePageView.renderCoinStatus(coinStatus);
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, "잔돈이 성공적으로 충전되었습니다!");
     } catch (err) {
-      alert(err.message);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   };
 }

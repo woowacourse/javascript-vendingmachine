@@ -1,4 +1,4 @@
-import { CONFIRM_MESSAGE, EVENT_TYPE } from "../constant";
+import { CONFIRM_MESSAGE, EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import ProductPageView from "../ui/productPageView";
 import { on } from "../util/event";
 import {
@@ -8,6 +8,7 @@ import {
 } from "../type";
 import VendingMachine from "../domain/vendingMachine";
 import Authorization from "../domain/authorization";
+import snackbarUI from "../ui/snackbarUI";
 
 class ProductModerator {
   productPageView;
@@ -46,8 +47,9 @@ class ProductModerator {
     try {
       const product = this.vendingMachine.addProduct({ name, price, count });
       this.productPageView.renderNewProduct(product);
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 추가되었습니다!");
     } catch (err) {
-      alert(err.message);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   };
 
@@ -55,8 +57,9 @@ class ProductModerator {
     try {
       const product = this.vendingMachine.updateProduct(id, name, price, count);
       this.productPageView.renderUpdatedProduct(id, product);
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 수정되었습니다!");
     } catch (err) {
-      alert(err.message);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   };
 
@@ -66,6 +69,7 @@ class ProductModerator {
     }
     this.vendingMachine.deleteProduct(id);
     this.productPageView.renderDeleteProduct(id);
+    snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 삭제되었습니다!");
   };
 }
 

@@ -1,8 +1,9 @@
 import LoginView from "../ui/loginPageView";
 import Authorization from "../domain/authorization";
-import { EVENT_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import { on } from "../util/event";
 import { ILoginEvent } from "../type";
+import snackbarUI from "../ui/snackbarUI";
 class LoginModerator {
   loginView;
   authorization;
@@ -28,7 +29,7 @@ class LoginModerator {
     try {
       await this.authorization.login({ email, password });
     } catch (err) {
-      alert(err);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   }
 }

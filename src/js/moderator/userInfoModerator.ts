@@ -1,8 +1,9 @@
 import UserInfoPageView from "../ui/userInfoPageView";
 import Authorization from "../domain/authorization";
-import { EVENT_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import { on } from "../util/event";
 import { IUpdateUserEvent } from "../type";
+import snackbarUI from "../ui/snackbarUI";
 
 class UserInfoModerator {
   userInfoView;
@@ -35,8 +36,9 @@ class UserInfoModerator {
         email: this.userInfo.email,
       };
       await this.authorization.updateUserInfo(this.userInfo.id, userInfo);
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, "성공적으로 정보가 수정되었습니다.");
     } catch (err) {
-      alert(err);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   }
 }

@@ -1,8 +1,9 @@
 import SignUpView from "../ui/signUpPageView";
 import Authorization from "../domain/authorization";
-import { EVENT_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import { on } from "../util/event";
 import { ISignUpEvent } from "../type";
+import snackbarUI from "../ui/snackbarUI";
 
 class SignUpModerator {
   signUpView;
@@ -30,7 +31,7 @@ class SignUpModerator {
     try {
       await this.authorization.signUp(userInfo);
     } catch (err) {
-      alert(err);
+      snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
   }
 }

@@ -38,3 +38,10 @@ export enum EVENT_TYPE {
 }
 
 export const CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?" as const;
+
+export const SNACKBAR_TYPE = {
+  ERROR: "ERROR",
+  ALERT: "ALERT",
+};
+
+export const SNACKBAR_CONSIST_TIME = 4000;

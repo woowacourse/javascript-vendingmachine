@@ -1,9 +1,10 @@
-import { EVENT_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
 import VendingMachine from "../domain/vendingMachine";
 import PurchasePageView from "../ui/purchasePageView";
 import { on } from "../util/event";
 import Authorization from "../domain/authorization";
 import { IPurchaseProductEvent, IInputMoneyEvent } from "../type";
+import snackbarUI from "../ui/snackbarUI";
 class PurchaseModerator {
   purchasePageView;
   vendingMachine;
@@ -57,6 +58,7 @@ class PurchaseModerator {
   returnChanges() {
     const changes = this.vendingMachine.returnChanges();
     this.purchasePageView.renderReturnedChanges(changes);
+    snackbarUI.open(SNACKBAR_TYPE.ALERT, "잔돈이 반환되었습니다!");
   }
 
   chargeMoney({ money }) {
