@@ -7,6 +7,10 @@ describe('로그인 및 회원가입을 할 수 있다', () => {
     cy.visit('http://localhost:9000/');
   });
 
+  after(() => {
+    cy.get('#logout').click({ force: true });
+  });
+
   it('로그인 버튼을 누르면 로그인 화면이 보여진다.', () => {
     cy.get('.login-button').click();
     cy.get('#login-form').should('be.visible');

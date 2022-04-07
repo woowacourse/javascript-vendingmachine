@@ -68,7 +68,7 @@ export const PASSWORD = {
   PATTERN: `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,16}`,
 };
 
-export const SESSIONSTORAGE_KEY = {
+export const COOKIE_KEY = {
   USER: 'user',
 };
 
