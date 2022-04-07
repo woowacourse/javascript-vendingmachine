@@ -3,8 +3,9 @@ import CoinStore from '../../domains/stores/CoinStore';
 import { createAction, PRODUCT_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils';
+import { $, floatSnackbar } from '../../utils';
 import { checkProductPurchaseValidation } from '../../validators';
+import { COMPLETE_MESSAGE } from '../../constants';
 
 class PurchasableProductCurrentSituation extends CustomElement {
   connectedCallback() {
@@ -87,11 +88,16 @@ class PurchasableProductCurrentSituation extends CustomElement {
   }
 
   handleProductPurchaseButtonClick = ($tbodyRow) => {
+    const $snackbar = $('#snackbar');
+
     try {
       this.purchaseProduct($tbodyRow);
+      $snackbar.textContent = COMPLETE_MESSAGE.PRODUCT_PURCHASE;
     } catch (error) {
-      alert(error.message);
+      $snackbar.textContent = error.message;
     }
+
+    floatSnackbar($snackbar);
   };
 
   purchaseProduct($tbodyRow) {

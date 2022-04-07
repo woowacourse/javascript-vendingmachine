@@ -2,8 +2,9 @@ import CoinStore from '../../domains/stores/CoinStore';
 import { createAction, COIN_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils';
+import { $, floatSnackbar } from '../../utils';
 import { checkChangeReturnValidation } from '../../validators';
+import { COMPLETE_MESSAGE } from '../../constants';
 
 class ChangeReturnTable extends CustomElement {
   connectedCallback() {
@@ -53,11 +54,16 @@ class ChangeReturnTable extends CustomElement {
   }
 
   handleChangeReturnButtonClick = () => {
+    const $snackbar = $('#snackbar');
+
     try {
       this.returnChange();
+      $snackbar.textContent = COMPLETE_MESSAGE.CHANGE_RETURN;
     } catch (error) {
-      alert(error.message);
+      $snackbar.textContent = error.message;
     }
+
+    floatSnackbar($snackbar);
   };
 
   returnChange() {

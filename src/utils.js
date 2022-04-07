@@ -10,6 +10,14 @@ export const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
+export const floatSnackbar = ($snackbar) => {
+  $snackbar.classList.toggle('show');
+
+  setTimeout(() => {
+    $snackbar.classList.toggle('show');
+  }, 3000);
+};
+
 export const pickNumberInList = (array) => {
   const index = Math.floor(Math.random() * array.length);
 

@@ -10,6 +10,7 @@ class ProductPurchaseContainer extends CustomElement {
       <money-input-form></money-input-form>
       <purchasable-product-current-situation></purchasable-product-current-situation>
       <change-return-table></change-return-table>
+      <div id="snackbar"></div>
     `;
   }
 }

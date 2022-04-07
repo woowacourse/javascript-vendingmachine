@@ -37,6 +37,12 @@ export const CONFIRM_MESSAGE = {
   DELETE: '선택한 상품을 정말 삭제하시겠습니까? 한번 삭제한 상품은 복구할 수 없습니다.',
 };
 
+export const COMPLETE_MESSAGE = {
+  MONEY_INPUT: '금액이 투입되었습니다.',
+  PRODUCT_PURCHASE: '상품이 구매되었습니다.',
+  CHANGE_RETURN: '잔돈이 반환되었습니다.',
+};
+
 export const ERROR_MESSAGE = {
   VENDING_MACHINE: {
     IS_BLANK_PRODUCT_NAME: '공백으로만 이루어진 상품명이 입력되었습니다! 상품명을 입력해 주세요!',

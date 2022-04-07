@@ -2,8 +2,9 @@ import CoinStore from '../../domains/stores/CoinStore';
 import { createAction, MONEY_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
-import { $ } from '../../utils';
+import { $, floatSnackbar } from '../../utils';
 import { checkCustomerMoneyValidation } from '../../validators';
+import { COMPLETE_MESSAGE } from '../../constants';
 
 class MoneyInputForm extends CustomElement {
   connectedCallback() {
@@ -31,13 +32,17 @@ class MoneyInputForm extends CustomElement {
 
     const $customerMoneyInput = $('#customer-money-input');
     const customerMoneyInputValue = $customerMoneyInput.valueAsNumber;
+    const $snackbar = $('#snackbar');
 
     try {
       this.inputMoney(customerMoneyInputValue);
       this.initCustomerMoneyInput($customerMoneyInput);
+      $snackbar.textContent = COMPLETE_MESSAGE.MONEY_INPUT;
     } catch (error) {
-      alert(error.message);
+      $snackbar.textContent = error.message;
     }
+
+    floatSnackbar($snackbar);
   };
 
   inputMoney(customerMoneyInputValue) {
