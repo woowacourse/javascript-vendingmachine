@@ -7,6 +7,7 @@ const $nav = document.querySelector('nav');
 const $productManageContainer = $('product-manage-container');
 const $coinChargeContainer = $('coin-charge-container');
 const $productPurchaseContainer = $('product-purchase-container');
+const $infoModifyContainer = $('info-modify-container');
 const $loginContainer = $('login-container');
 const $signupContainer = $('signup-container');
 
@@ -21,6 +22,7 @@ const routes = [
 const routesAuth = [
   { hash: '#!signup', target: $signupContainer, isLongApp: false },
   { hash: '#!login', target: $loginContainer, isLongApp: false },
+  { hash: '#!info-modify', target: $infoModifyContainer, isLongApp: false },
 ];
 
 const moveToPage = (pageHash) => {
@@ -53,7 +55,7 @@ const renderAuthContainer = (currentHash) => {
 
 const renderTargetContainer = (currentHash) => {
   // user-manager-container
-  if (currentHash === '#!signup' || currentHash === '#!login') {
+  if (currentHash === '#!signup' || currentHash === '#!login' || currentHash === '#!info-modify') {
     renderAuthContainer(currentHash);
     return;
   }
@@ -79,6 +81,8 @@ const renderTargetContainer = (currentHash) => {
 
 const renderUpdatedUserInfo = (response) => {
   $('.profile-button').textContent = response.name.substring(0, 1);
+  $('#info-email-input').setAttribute('placeholder', response.email);
+  $('#info-name-input').setAttribute('placeholder', response.name);
 };
 
 export const updateUserInfo = () => {

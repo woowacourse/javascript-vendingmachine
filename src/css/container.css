@@ -31,9 +31,11 @@
 }
 
 .login-confirm-button,
-.signup-confirm-button {
+.signup-confirm-button,
+.info-confirm-button {
   width: 300px;
   height: 36px;
+  margin-top: 30px;
 }
 
 h2 {
@@ -110,11 +112,6 @@ label {
 
 .password-label {
   margin-top: 16px;
-}
-
-.login-confirm-button,
-.signup-confirm-button {
-  margin-top: 30px;
 }
 
 .signup-suggest-container {
