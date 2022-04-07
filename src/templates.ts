@@ -72,7 +72,7 @@ const TEMPLATE = {
       <h2 hidden>상품 구매 화면</h2>
       <form class="user-amount-form">
         <label>상품을 구매할 금액을 투입해주세요.</label>
-        <input type="number" name="change" placeholder="금액" min="10" max="10000" required />
+        <input class="user-amount-form__change-input" type="number" name="change" placeholder="금액" min="10" max="10000" required />
         <button type="submit" class="user-amount-form__charge-button submit-button">투입</button>
       </form>
       <p>투입한 금액: <span class="user-amount">0</span>원</p>
@@ -132,7 +132,7 @@ const TEMPLATE = {
         <input type="password" name="password" placeholder="비밀번호를 입력해주세요." required />
         <button type="submit" class="submit-button login-page__login-button">확인</button>
       </form>
-      <p>아직 회원이 아니신가요? <a href="/javascript-vendingmachine/signup">회원가입</a></p>
+      <p>아직 회원이 아니신가요? <a id="signup-href" href="/javascript-vendingmachine/signup">회원가입</a></p>
    </section>
   `,
   SIGNUP_PAGE: `
