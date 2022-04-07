@@ -1,12 +1,13 @@
 import { resolveConfig } from 'prettier';
 import { SERVER_ENTRY, API_QUERY, STORAGE_ID } from '../constants';
 import UserType from '../type/UserType';
-import { alertSnackBar } from '../utils';
+import { $, alertSnackBar } from '../utils';
 import { checkRegister } from './validator';
 
 export interface UserManagerInterface {
   registerUser(userInfo: UserType): Promise<boolean>;
   login(loginInfo: { email: string; password: string }): Promise<boolean>;
+  logout(): void;
 }
 
 class UserManager implements UserManagerInterface {
@@ -49,8 +50,9 @@ class UserManager implements UserManagerInterface {
   };
 
   logout = () => {
-    //nav hide 추가
-    //local removeItem()
+    localStorage.removeItem(STORAGE_ID.LOGIN);
+    $('.profile-menu').classList.add('hide');
+    location.href = 'http://localhost:9000/#!/purchase-product';
   };
 }
 

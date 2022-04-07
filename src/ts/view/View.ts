@@ -21,6 +21,7 @@ export default class View {
   $app: HTMLDivElement;
   $loginRegister: HTMLSpanElement;
   $profileMenu: HTMLUListElement;
+  $logout: HTMLLIElement;
 
   vendingMachine: VendingMachineInterface;
   userManager: UserManagerInterface;
@@ -44,6 +45,7 @@ export default class View {
     this.$app = $('#app');
     this.$loginRegister = $('.login-register');
     this.$profileMenu = $('.profile-menu');
+    this.$logout = $('.logout');
 
     this.vendingMachine = vendingMachine;
     this.userManager = userManager;
@@ -71,7 +73,8 @@ export default class View {
     );
     this.$loginButton.addEventListener('click', () => this.router(PAGE_ID.LOGIN));
     this.$loginRegister.addEventListener('click', () => this.router(PAGE_ID.REGISTER));
-    this.$profile.addEventListener('click', this.handleProfile);
+    this.$profile.addEventListener('click', this.renderProfileMenu);
+    this.$logout.addEventListener('click', this.userManager.logout);
   }
 
   renderCurrentView = () => {
@@ -83,18 +86,6 @@ export default class View {
     if (Object.values(PAGE_ID).find((id) => id === this.currentView)) {
       this.renderPages(this.currentView);
     }
-  };
-
-  renderLogedInView = () => {
-    if (isLogedIn()) {
-      this.$profile.classList.remove('hide');
-      this.$loginButton.classList.add('hide');
-      $('.nav-tab').classList.remove('hide');
-      return;
-    }
-    this.$profile.classList.add('hide');
-    this.$loginButton.classList.remove('hide');
-    $('.nav-tab').classList.add('hide');
   };
 
   renderTabs = (id: string) => {
@@ -114,6 +105,18 @@ export default class View {
     localStorage.setItem(STORAGE_ID.CURRENT_VIEW, id);
   };
 
+  renderLogedInView = () => {
+    if (isLogedIn()) {
+      this.$profile.classList.remove('hide');
+      this.$loginButton.classList.add('hide');
+      $('.nav-tab').classList.remove('hide');
+      return;
+    }
+    this.$profile.classList.add('hide');
+    this.$loginButton.classList.remove('hide');
+    $('.nav-tab').classList.add('hide');
+  };
+
   renderUpdatedView = (id: string) => {
     const containerBranch = {
       [TAB_ID.PRODUCT_MANAGE]: () => this.productManageView.renderProductManage(),
@@ -129,6 +132,7 @@ export default class View {
   router = (tabKey: string, isPopState = false) => {
     if (!isPopState && this.isSamePage(tabKey)) return;
     if (!isPopState) history.pushState({ url: tabKey }, null, tabKey);
+
     const routes = {
       [TAB_ID.PRODUCT_MANAGE]: () => this.renderTabs(TAB_ID.PRODUCT_MANAGE),
       [TAB_ID.RECHARGE]: () => this.renderTabs(TAB_ID.RECHARGE),
@@ -156,5 +160,5 @@ export default class View {
     localStorage.setItem(STORAGE_ID.CURRENT_VIEW, id);
   };
 
-  handleProfile = () => this.$profileMenu.classList.toggle('hide');
+  renderProfileMenu = () => this.$profileMenu.classList.toggle('hide');
 }
