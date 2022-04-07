@@ -135,7 +135,7 @@ export default class VendingMachine implements type.IVendingMachine {
     while (this.chargedMoney > 0 && this.getTotalChanges() > 0 && index < 4) {
       if (this.changes[list[index]] === 0) index++;
       if (list[index] > this.chargedMoney) index++;
-      if (index === 4) break;
+      if (index === 4) return userChanges;
       this.chargedMoney -= list[index];
       this.changes[list[index]]--;
       userChanges[list[index]]++;
