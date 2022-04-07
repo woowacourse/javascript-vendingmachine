@@ -1,0 +1,51 @@
+@import 'Styles/Variables.scss';
+@import 'Styles/utils/Animation.scss';
+
+.validation-input-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  > label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+  }
+
+  > input {
+    transition: background-color 0.3s ease;
+  }
+
+  > .error-message {
+    display: none;
+    position: absolute;
+    right: 0px;
+    font-size: 0.8rem;
+    color: $color-pomegranate;
+    opacity: 0;
+  }
+
+  &.error {
+    > input {
+      border: 1px solid $color-pomegranate;
+      background-color: $color-white-linen;
+    }
+
+    > .error-message {
+      display: block;
+      opacity: 1;
+      @include animate(0.15s ease 3) {
+        0% {
+          transform: translateX(-0.9rem);
+        }
+
+        50% {
+          transform: translateX(0.9rem);
+        }
+
+        100% {
+          transform: translateX(0rem);
+        }
+      }
+    }
+  }
+}
