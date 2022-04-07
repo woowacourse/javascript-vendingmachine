@@ -1,5 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, alertSnackBar } from '../utils';
+import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../type/ProductType';
 import { ProductInterface } from '../domain/Product';

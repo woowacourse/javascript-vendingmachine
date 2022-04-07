@@ -1,5 +1,6 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, alertSnackBar } from '../utils';
+import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 import { COIN, SUCCESS_MESSAGE } from '../constants';
 
 export interface RechargeViewInterface {

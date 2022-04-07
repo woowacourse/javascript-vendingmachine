@@ -1,6 +1,7 @@
 import { SUCCESS_MESSAGE } from '../constants';
 import { UserManagerInterface } from '../domain/UserManager';
-import { $, alertSnackBar } from '../utils';
+import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 
 export interface LoginViewInterface {
   $loginForm: HTMLFormElement;

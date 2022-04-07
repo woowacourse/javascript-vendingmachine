@@ -1,6 +1,7 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { VendingMachineInterface } from '../domain/VendingMachine';
-import { $, $$, alertSnackBar } from '../utils';
+import { $, $$ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 
 export interface PurchaseProductViewInterface {
   $purchaseForm: HTMLFormElement;

@@ -1,8 +1,7 @@
-import { resolveConfig } from 'prettier';
 import { SERVER_ENTRY, API_QUERY, STORAGE_ID } from '../constants';
 import UserType from '../type/UserType';
-import { $, alertSnackBar } from '../utils';
-import { checkRegister } from './validator';
+import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 
 export interface UserManagerInterface {
   registerUser(userInfo: UserType): Promise<boolean>;

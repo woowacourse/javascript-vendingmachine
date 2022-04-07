@@ -1,5 +1,6 @@
 import { UserManagerInterface } from '../domain/UserManager';
-import { $, alertSnackBar } from '../utils';
+import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
 import { SUCCESS_MESSAGE } from '../constants';
 import { checkRegister } from '../domain/validator';
 
