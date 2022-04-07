@@ -27,10 +27,12 @@ class LoginUserPage {
     e.preventDefault();
     const { email, password } = e.target;
     try {
-      validateLoginBehavior(email, password);
+      const emailValue = email?.value.trim() ?? '';
+      const passwordValue = password?.value.trim() ?? '';
+      validateLoginBehavior(emailValue, passwordValue);
       const [ok, body] = await login({
-        email: email?.value.trim() ?? '',
-        password: password?.value.trim() ?? '',
+        email: emailValue,
+        password: passwordValue,
       });
       if (!ok) {
         throw new Error(body);
