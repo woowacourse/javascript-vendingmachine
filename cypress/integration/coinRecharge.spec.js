@@ -1,5 +1,3 @@
-import { CASH_ERROR_MESSAGE } from '../../src/ts/constant/errorMessage';
-
 describe('잔돈 충전 테스트', () => {
   const initialChargedAmount = 0;
   const expectedInvalidInputCount = 1;
@@ -47,11 +45,8 @@ describe('잔돈 충전 테스트', () => {
   it('충전 금액이 숫자 타입이 아니면 경고창이 보이고 금액이 충전되지 않는다.', () => {
     const cashInput = 'ㄱ';
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.rechargeCoin(cashInput).then(() => {
-      expect(alertStub).to.be.calledWith(CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE);
+      cy.get('#snackbar').should('be.visible');
     });
     cy.checkChargedAmount(initialChargedAmount);
   });
@@ -60,12 +55,9 @@ describe('잔돈 충전 테스트', () => {
     const firstCashInput = 40000;
     const secondCashInput = 60010;
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.rechargeCoin(firstCashInput);
     cy.rechargeCoin(secondCashInput).then(() => {
-      expect(alertStub).to.be.calledWith(CASH_ERROR_MESSAGE.EXCEED_TOTAL_AMOUNT_RANGE);
+      cy.get('#snackbar').should('be.visible');
     });
     cy.checkChargedAmount(firstCashInput);
   });

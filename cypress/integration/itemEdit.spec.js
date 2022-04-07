@@ -23,15 +23,12 @@ describe('상품 수정 테스트', () => {
   });
 
   it('추가한 상품의 이름을 지우고 수정 버튼을 누르면 경고창이 보이며 상품 정보를 수정할 수 없다.', () => {
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.get('.edit-item-button').click();
     cy.get('.item-info-input-cell').eq(0).clear();
     cy.get('.confirm-item-button')
       .click()
       .then(() => {
-        expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
+        cy.get('#snackbar').should('be.visible');
       });
   });
 
@@ -39,11 +36,8 @@ describe('상품 수정 테스트', () => {
     const inputIndex = 0;
     const editedItemName = ' ';
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.editItemInfo(inputIndex, editedItemName).then(() => {
-      expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
+      cy.get('#snackbar').should('be.visible');
     });
   });
 
@@ -51,9 +45,6 @@ describe('상품 수정 테스트', () => {
     const secondItemName = '사이다';
     const secondItemPrice = 2000;
     const secondItemQuantity = 20;
-
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
 
     cy.addItem(secondItemName, secondItemPrice, secondItemQuantity);
 
@@ -65,7 +56,7 @@ describe('상품 수정 테스트', () => {
       .eq(1)
       .click()
       .then(() => {
-        expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.ALREADY_EXIST);
+        cy.get('#snackbar').should('be.visible');
       });
   });
 
