@@ -2,7 +2,11 @@ import api from "../api";
 import { ERROR_MESSAGE } from "../constant";
 import { getCookie } from "../util/general";
 import { ILoginOption, ISignUpEvent, IUpdateUserOption } from "../type";
-import { checkUserNameLength, checkConfirmPassword } from "../util/validations";
+import {
+  checkUserNameLength,
+  checkConfirmPassword,
+  checkValidPassword,
+} from "../util/validations";
 
 class Authorization {
   async isLoggedIn() {
@@ -24,7 +28,9 @@ class Authorization {
 
   async signUp({ email, name, password, confirmPassword }: ISignUpEvent) {
     checkUserNameLength(name);
+    checkValidPassword(password);
     checkConfirmPassword(password, confirmPassword);
+
     const response = await api.signUp({ email, name, password });
     if (response.isError) {
       throw new Error(ERROR_MESSAGE.EXISTED_EMAIL);
