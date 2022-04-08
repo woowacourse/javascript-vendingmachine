@@ -7,8 +7,8 @@ import UpdateMyInfoPageView from './view/UpdateMyInfoPageView';
 import ProductManagementPageView from './view/ProductManagementPageView';
 import VendingMachineChargeManagementPageView from './view/VendingMachineChargeManagementPageView';
 import ProductPurchasePageView from './view/ProductPurchasePageView';
+import User from './state/User';
 
-const mainPage = 'productPurchase';
 const path = location.pathname.slice(0, -1);
 
 const loadPageMethods = {
@@ -30,8 +30,19 @@ function loadPage(page) {
 }
 
 const loadMainPage = () => {
+  const mainPage = User.isMember ? 'productManagement' : 'productPurchase';
   loadPage(mainPage);
 };
+
+function loadCurrentPage() {
+  const currentParams = (new URL(location.href)).searchParams;
+  const currentPage = currentParams.get('page');
+  if (currentPage) {
+    loadPage(currentPage);
+    return;
+  }
+  loadMainPage();
+}
 
 function initRouteEvent() {
   $('#app').addEventListener('click', event => {
@@ -48,5 +59,6 @@ function initRouteEvent() {
 
 export {
   initRouteEvent,
+  loadCurrentPage,
   loadMainPage,
 };
