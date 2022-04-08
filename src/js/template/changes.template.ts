@@ -4,7 +4,7 @@ const changesTemplate = {
   input: () => `
     <label for="changes-input" class="label">자판기가 보유할 금액을 입력해주세요</label>
     <div class="primary-input-container">
-      <input id="changes-input" class="input" placeholder="금액" type="number">
+      <input id="changes-input" class="input" placeholder="금액" type="number" required>
       <button id="charge-changes-button" class="primary-button">충전</button>
     </div>
   `,

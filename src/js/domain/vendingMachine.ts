@@ -122,8 +122,8 @@ export default class VendingMachine implements type.IVendingMachine {
 
   purchaseProduct: type.IPurchaseProduct = (id) => {
     const idx = this.products.findIndex((product) => product.getId() === id);
-
     const { price, count } = this.products[idx].get();
+
     this.chargedMoney -= price;
     this.products[idx].updateCount(count - 1);
   };

@@ -2,7 +2,7 @@ const purchaseTemplate = {
   input: () => `
     <label for="charge-money-input" class="label">상품을 구매할 금액을 투입해주세요.</label>
     <div class="primary-input-container">
-      <input id="charge-money-input" class="input" type="number" placeholder="금액"/>
+      <input id="charge-money-input" class="input" type="number" placeholder="금액" required/>
       <button id="charge-money-button" class="primary-button">투입</button>
     </div>
     `,

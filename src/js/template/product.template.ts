@@ -4,9 +4,9 @@ const productTemplate = {
   input: () => `
     <label for="product-name-input" class="label">추가할 상품 정보를 입력해주세요.</label>
     <div class="primary-input-container">
-      <input id="product-name-input" class="input" placeholder="상품명"/>
-      <input id="product-price-input" class="input" placeholder="가격" type="number"/>
-      <input id="product-count-input" class="input" placeholder="수량" type="number"/>
+      <input id="product-name-input" class="input" placeholder="상품명" required/>
+      <input id="product-price-input" class="input" placeholder="가격" type="number" required/>
+      <input id="product-count-input" class="input" placeholder="수량" type="number" required/>
       <button id="add-product-button" class="primary-button">추가</button>
     </div>
   `,
