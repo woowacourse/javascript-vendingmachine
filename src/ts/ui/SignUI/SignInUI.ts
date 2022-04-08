@@ -1,10 +1,9 @@
 import UserDomain from '../../domain/UserDomain/User';
-import { basePath } from '../App';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$, getNamedItem } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import { goToNextPage } from './common';
 
 export default class SignInUI {
   private readonly userDomain: UserDomain;
@@ -51,10 +50,11 @@ export default class SignInUI {
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNIN);
 
-        const { userInfo } = this.userDomain;
-        viewPainter.renderUserUI(userInfo.name);
-        viewPainter.renderMainUI(this.userDomain.isSignIn);
-        history.replaceState({}, '', `${basePath}/`);
+        goToNextPage(
+          'signIn',
+          this.userDomain.userInfo.name,
+          this.userDomain.isSignIn,
+        );
       })
       .catch(() => {
         showSnackbar(USER_SIGN_MESSAGE.FAIL_SIGNIN);

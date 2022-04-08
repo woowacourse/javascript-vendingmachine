@@ -1,11 +1,10 @@
 import UserDomain from '../../domain/UserDomain/User';
-import { basePath } from '../App';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$, getNamedItem } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import { goToNextPage } from './common';
 
 export default class SignUpUI {
   private readonly userDomain: UserDomain;
@@ -66,8 +65,8 @@ export default class SignUpUI {
           $input.value = '';
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNUP);
-        viewPainter.renderSignInUI();
-        history.pushState({}, '', `${basePath}/signin`);
+
+        goToNextPage('signUp');
       })
       .catch(() => {
         showSnackbar(USER_SIGN_MESSAGE.FAIL_SIGNUP);
