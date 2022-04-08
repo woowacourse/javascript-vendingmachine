@@ -1,7 +1,7 @@
 import api from "../api";
 import { ERROR_MESSAGE } from "../constant";
 import { getCookie } from "../util/general";
-import { ILoginOption, ISignUpEvent, IUpdateUserEvent } from "../type";
+import { ILoginOption, ISignUpEvent, IUpdateUserOption } from "../type";
 import { checkUserNameLength, checkConfirmPassword } from "../util/validations";
 
 class Authorization {
@@ -38,7 +38,7 @@ class Authorization {
     location.href = "/";
   }
 
-  async updateUserInfo(userId: string, user: IUpdateUserEvent) {
+  async updateUserInfo(userId: string, user: IUpdateUserOption) {
     checkUserNameLength(user.name);
     checkConfirmPassword(user.password, user.confirmPassword);
     delete user.confirmPassword;
