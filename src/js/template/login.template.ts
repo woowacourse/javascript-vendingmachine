@@ -8,7 +8,7 @@ const loginTemplate = {
       <label for="password">비밀번호</label>
       <input id="password" class="input" placeholder="비밀번호를 입력해주세요" type="password" required>
     </div>
-      <button class="primary-button">확인</button>
+      <button class="primary-button submit-button">확인</button>
       <div>아직 회원이 아니신가요? <a class="signUp-anchor" href="#!signUp">회원가입</a></div>
       `,
 };

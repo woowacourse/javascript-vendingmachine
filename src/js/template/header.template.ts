@@ -1,7 +1,7 @@
 const headerTemplate = {
   loggedOut: () => `<h2>자판기</h2>
   <div class="side-container">
-    <a class="secondary-button" href="#!login">로그인</a>
+    <a class="secondary-button login-button" href="#!login">로그인</a>
   </div>
   </a>`,
   loggedIn: (userName) => `<h2>자판기</h2>
@@ -9,7 +9,7 @@ const headerTemplate = {
       <div class="user-avatar">${userName}</div>
       <div class="tooltip">
         <button id="logout" class="tooltip-menu">로그아웃</button>
-        <a class="tooltip-menu" href="#!userInfo">회원정보수정</a>
+        <a id="update-user" class="tooltip-menu" href="#!userInfo">회원정보수정</a>
       </div>
     </div>
     <nav id="page-tab-container">

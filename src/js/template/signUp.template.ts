@@ -16,7 +16,7 @@ const signUpTemplate = {
     <label for="confirm-password">비밀번호</label>
     <input id="confirm-password" class="input" placeholder="비밀번호를 다시 입력해주세요" type="password" required />
   </div>
-    <button class="primary-button">가입하기</button>
+    <button class="primary-button submit-button">가입하기</button>
     `,
 };
 
