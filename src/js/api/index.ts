@@ -1,8 +1,28 @@
+import { ISignUpOption, ILoginOption, IUserInfoOption } from "../type";
+
 const baseUrl = "http://localhost:3000";
 const baseHeader = {
   "Content-Type": "application/json",
 };
-const request = async (path, option) => {
+
+type TGetMethod = "GET";
+type TPostMethod = "POST";
+type TPatchMethod = "PATCH";
+
+const METHODS = {
+  GET: "GET" as TGetMethod,
+  POST: "POST" as TPostMethod,
+  PATCH: "PATCH" as TPatchMethod,
+};
+
+type TMethods = TGetMethod | "POST" | "PATCH";
+interface IOption {
+  method: TMethods;
+  headers: HeadersInit;
+  body?: string;
+}
+
+const request = async (path: string, option: IOption) => {
   const response = await fetch(baseUrl + path, option);
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -12,10 +32,10 @@ const request = async (path, option) => {
 };
 
 const api = {
-  signUp: async (option) => {
+  signUp: async (option: ISignUpOption) => {
     try {
       const response = await request("/register", {
-        method: "POST",
+        method: METHODS.POST,
         headers: baseHeader,
         body: JSON.stringify(option),
       });
@@ -25,10 +45,10 @@ const api = {
     }
   },
 
-  login: async (option) => {
+  login: async (option: ILoginOption) => {
     try {
       const response = await request("/login", {
-        method: "POST",
+        method: METHODS.POST,
         headers: baseHeader,
         body: JSON.stringify(option),
       });
@@ -38,10 +58,10 @@ const api = {
     }
   },
 
-  getUser: async (userId, accessToken) => {
+  getUser: async (userId: string, accessToken: string) => {
     try {
       const response = await request(`/600/users/${userId}`, {
-        method: "GET",
+        method: METHODS.GET,
         headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
       });
       return { ...response, isError: false };
@@ -50,11 +70,14 @@ const api = {
     }
   },
 
-  updateUserInfo: async (userId, user, accessToken) => {
+  updateUserInfo: async (
+    userId: string,
+    user: IUserInfoOption,
+    accessToken: string
+  ) => {
     try {
-      console.log(user);
       const response = await request(`/600/users/${userId}`, {
-        method: "PATCH",
+        method: METHODS.PATCH,
         body: JSON.stringify(user),
         headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
       });

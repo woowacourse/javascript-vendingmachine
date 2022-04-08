@@ -27,7 +27,7 @@ class SignUpModerator {
     this.signUpView.init();
   }
 
-  async signUp(userInfo) {
+  async signUp(userInfo: ISignUpEvent) {
     try {
       await this.authorization.signUp(userInfo);
     } catch (err) {

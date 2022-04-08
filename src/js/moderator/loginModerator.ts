@@ -25,7 +25,7 @@ class LoginModerator {
     this.loginView.init();
   }
 
-  async login({ email, password }) {
+  async login({ email, password }: ILoginEvent) {
     try {
       await this.authorization.login({ email, password });
     } catch (err) {

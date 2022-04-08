@@ -1,6 +1,7 @@
 import api from "../api";
 import { ERROR_MESSAGE } from "../constant";
 import { getCookie } from "../util/general";
+import { ILoginOption, ISignUpEvent, IUpdateUserEvent } from "../type";
 import { checkUserNameLength, checkConfirmPassword } from "../util/validations";
 
 class Authorization {
@@ -11,7 +12,7 @@ class Authorization {
     return response;
   }
 
-  async login({ email, password }) {
+  async login({ email, password }: ILoginOption) {
     const response = await api.login({ email, password });
     if (response.isError) {
       throw new Error(ERROR_MESSAGE.WRONG_LOGIN_INFORMATION);
@@ -21,7 +22,7 @@ class Authorization {
     document.cookie = `access_token=${response.accessToken}`;
   }
 
-  async signUp({ email, name, password, confirmPassword }) {
+  async signUp({ email, name, password, confirmPassword }: ISignUpEvent) {
     checkUserNameLength(name);
     checkConfirmPassword(password, confirmPassword);
     const response = await api.signUp({ email, name, password });
@@ -37,9 +38,10 @@ class Authorization {
     location.href = "/";
   }
 
-  async updateUserInfo(userId, user) {
+  async updateUserInfo(userId: string, user: IUpdateUserEvent) {
     checkUserNameLength(user.name);
     checkConfirmPassword(user.password, user.confirmPassword);
+    delete user.confirmPassword;
     const response = await api.updateUserInfo(
       userId,
       user,

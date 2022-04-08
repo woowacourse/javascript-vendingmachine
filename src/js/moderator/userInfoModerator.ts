@@ -29,7 +29,7 @@ class UserInfoModerator {
     this.userInfoView.renderForm(this.userInfo.email, this.userInfo.name);
   }
 
-  async updateUserInfo(userInfo) {
+  async updateUserInfo(userInfo: IUpdateUserEvent) {
     try {
       userInfo = {
         ...userInfo,

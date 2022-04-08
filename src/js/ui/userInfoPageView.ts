@@ -19,10 +19,14 @@ class UserInfoPageView {
     this.$page.replaceChildren();
     this.$header.replaceChildren();
 
-    this.$formContainer = createElement("form", {
-      id: "userInfo-form",
-      class: "form",
-    });
+    this.$formContainer = createElement(
+      "form",
+      {
+        id: "userInfo-form",
+        class: "form",
+      },
+      ""
+    );
 
     this.$page.appendChild(this.$formContainer);
     this.$header.insertAdjacentHTML("beforeend", `<h1>회원 정보 수정</h1>`);

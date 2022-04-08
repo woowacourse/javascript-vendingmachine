@@ -24,19 +24,36 @@ export interface IPurchaseProductEvent {
   id: string;
 }
 
+export interface ISignUpOption {
+  email: string;
+  name: string;
+  password: string;
+}
+
+export interface ILoginOption {
+  email: string;
+  password: string;
+}
+
+export interface IUserInfoOption {
+  email: string;
+  name: string;
+  password: string;
+}
+
 export interface ISignUpEvent {
   email: string;
   name: string;
   password: string;
   confirmPassword: string;
 }
-
 export interface ILoginEvent {
   email: string;
   password: string;
 }
 
 export interface IUpdateUserEvent {
+  email: string;
   name: string;
   password: string;
   confirmPassword: string;
