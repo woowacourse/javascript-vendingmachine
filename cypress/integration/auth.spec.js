@@ -6,6 +6,8 @@ describe('관리자 인증 테스트', () => {
   it('로그인했을 때 관리자 화면을 볼 수 있어야 한다.', () => {
     const email = 'test1@test1';
     const password = 'Password1234';
+    cy.get('nav').should('not.exist');
+
     cy.get('#login-button').click();
     cy.login(email, password);
 
