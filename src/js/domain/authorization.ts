@@ -1,6 +1,6 @@
 import api from "../api";
 import { ERROR_MESSAGE } from "../constant";
-import { getCookie } from "../util/general";
+import { getCookie, setCookie, clearCookie } from "../util/general";
 import { ILoginOption, ISignUpEvent, IUpdateUserOption } from "../type";
 import {
   checkUserNameLength,
@@ -22,8 +22,8 @@ class Authorization {
       throw new Error(ERROR_MESSAGE.WRONG_LOGIN_INFORMATION);
     }
     location.href = "/";
-    document.cookie = `user_id=${response.user.id}`;
-    document.cookie = `access_token=${response.accessToken}`;
+    setCookie("user_id", response.user.id);
+    setCookie("access_token", response.accessToken);
   }
 
   async signUp({ email, name, password, confirmPassword }: ISignUpEvent) {
@@ -39,8 +39,8 @@ class Authorization {
   }
 
   logout() {
-    document.cookie = `user_id=;`;
-    document.cookie = `access_token=;`;
+    clearCookie("user_id");
+    clearCookie("access_token");
     location.href = "/";
   }
 

@@ -4,6 +4,14 @@ export const generateUniqueId = (): string => {
   return date + randomNumber;
 };
 
+export const setCookie = (key, value) => {
+  document.cookie = `${key}=${value}`;
+};
+
+export const clearCookie = (key) => {
+  document.cookie = `${key}=;`;
+};
+
 export const getCookie = (name) => {
   const matches = document.cookie.match(
     new RegExp(
