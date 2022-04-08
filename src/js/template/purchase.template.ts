@@ -1,9 +1,9 @@
 const purchaseTemplate = {
   input: () => `
-    <label for="charge-money-input">상품을 구매할 금액을 투입해주세요.</label>
-    <div class="input-container">
+    <label for="charge-money-input" class="label">상품을 구매할 금액을 투입해주세요.</label>
+    <div class="primary-input-container">
       <input id="charge-money-input" class="input" type="number" placeholder="금액"/>
-      <button id="charge-money-button" class="button">투입</button>
+      <button id="charge-money-button" class="primary-button">투입</button>
     </div>
     `,
 
@@ -34,7 +34,7 @@ const purchaseTemplate = {
   <td>${price}</td>
   <td>${count}</td>
   <td>
-    <button class="purchase-button process-button">구매</button>
+    <button class="purchase-button secondary-button">구매</button>
   </td>
 </tr>
   `,

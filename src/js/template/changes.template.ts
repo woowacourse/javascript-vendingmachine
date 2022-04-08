@@ -2,10 +2,10 @@ import { TCoin } from "../interface/vendingMachine.interface";
 
 const changesTemplate = {
   input: () => `
-    <label for="changes-input">자판기가 보유할 금액을 입력해주세요</label>
-    <div class="input-container">
+    <label for="changes-input" class="label">자판기가 보유할 금액을 입력해주세요</label>
+    <div class="primary-input-container">
       <input id="changes-input" class="input" placeholder="금액" type="number">
-      <button id="charge-changes-button" class="button">충전</button>
+      <button id="charge-changes-button" class="primary-button">충전</button>
     </div>
   `,
 

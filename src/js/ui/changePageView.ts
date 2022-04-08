@@ -38,6 +38,7 @@ class ChangePageView {
     );
     this.$currentChangesContainer = createElement("p", {
       id: "current-changes",
+      class: "current-status",
     });
     this.$page.appendChild(this.$formContainer);
     this.$page.appendChild(this.$currentChangesContainer);

@@ -1,10 +1,11 @@
 const headerTemplate = {
   loggedOut: () => `<h2>자판기</h2>
-  <a class="nav-button" href="#!login">
-  로그인
+  <div class="side-container">
+    <a class="secondary-button" href="#!login">로그인</a>
+  </div>
   </a>`,
   loggedIn: (userName) => `<h2>자판기</h2>
-    <div class="user-avatar-container">
+    <div class="side-container">
       <div class="user-avatar">${userName}</div>
       <div class="tooltip">
         <button id="logout" class="tooltip-menu">로그아웃</button>

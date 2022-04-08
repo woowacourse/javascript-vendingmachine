@@ -34,6 +34,7 @@ class PurchasePageView {
     );
     this.$currentChargedMoneyContainer = createElement("p", {
       id: "current-charged-money",
+      class: "current-status",
     });
 
     this.$purchaseableProductsContainer = createElement(
@@ -56,7 +57,7 @@ class PurchasePageView {
       "button",
       {
         id: "returned-changes",
-        class: "process-button",
+        class: "secondary-button",
       },
       "반환하기"
     );
