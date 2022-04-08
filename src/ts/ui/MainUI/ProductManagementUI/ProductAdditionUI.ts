@@ -1,7 +1,7 @@
 import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
 import { ProductInfoUnionType } from '../../../domain/types';
 import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
-import { $ } from '../../../utils/dom';
+import { $, getNamedItem } from '../../../utils/dom';
 import { showSnackbar } from '../../../utils';
 import { viewPainter } from '../../ViewPainter';
 
@@ -25,9 +25,9 @@ export default class ProductAdditionUI {
 
     const $$formElements = e.target.elements;
     const $$inputs = {
-      name: $$formElements.namedItem('name') as HTMLInputElement,
-      price: $$formElements.namedItem('price') as HTMLInputElement,
-      quantity: $$formElements.namedItem('quantity') as HTMLInputElement,
+      name: getNamedItem<HTMLInputElement>($$formElements, 'name'),
+      price: getNamedItem<HTMLInputElement>($$formElements, 'price'),
+      quantity: getNamedItem<HTMLInputElement>($$formElements, 'quantity'),
     };
 
     const product = {

@@ -2,7 +2,7 @@ import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManag
 import { validateCash } from '../../../domain/CoinManagementDomain/validator';
 import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
 import { showSnackbar } from '../../../utils';
-import { $ } from '../../../utils/dom';
+import { $, getNamedItem } from '../../../utils/dom';
 import { viewPainter } from '../../ViewPainter';
 
 export default class CoinChargeUI {
@@ -19,9 +19,10 @@ export default class CoinChargeUI {
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const cashInput = e.target.elements.namedItem(
+    const cashInput = getNamedItem<HTMLInputElement>(
+      e.target.elements,
       'cashInput',
-    ) as HTMLInputElement;
+    );
     const cash = cashInput.valueAsNumber;
 
     try {

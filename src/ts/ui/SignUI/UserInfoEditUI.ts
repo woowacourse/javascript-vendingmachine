@@ -3,7 +3,7 @@ import { requestUpdate } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
-import { $, $$ } from '../../utils/dom';
+import { $, $$, getNamedItem } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 import UserDomain from '../../domain/UserDomain/User';
 import { UserInfo } from '../../domain/types';
@@ -22,7 +22,7 @@ export default class UserInfoEditUI {
     $('#sign-up').classList.add('hide');
     $('#user-info-edit').classList.remove('hide');
 
-    ($('#user-info-edit-email') as HTMLInputElement).value =
+    $<HTMLInputElement>('#user-info-edit-email').value =
       this.userDomain.userInfo.email;
     $('#user-info-edit-name').focus();
   }
@@ -32,15 +32,21 @@ export default class UserInfoEditUI {
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const email = (e.target.elements.namedItem('email') as HTMLInputElement)
-      .value;
-    const name = (e.target.elements.namedItem('name') as HTMLInputElement)
-      .value;
-    const password = (
-      e.target.elements.namedItem('password') as HTMLInputElement
+    const email = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'email',
     ).value;
-    const confirmPassword = (
-      e.target.elements.namedItem('confirm-password') as HTMLInputElement
+    const name = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'name',
+    ).value;
+    const password = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'password',
+    ).value;
+    const confirmPassword = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'confirm-password',
     ).value;
 
     const user = { email, name, password };

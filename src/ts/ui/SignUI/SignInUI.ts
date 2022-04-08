@@ -4,7 +4,7 @@ import { requestSign } from '../../domain/UserDomain/request';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
-import { $, $$ } from '../../utils/dom';
+import { $, $$, getNamedItem } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignInUI {
@@ -29,10 +29,13 @@ export default class SignInUI {
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const email = (e.target.elements.namedItem('email') as HTMLInputElement)
-      .value;
-    const password = (
-      e.target.elements.namedItem('password') as HTMLInputElement
+    const email = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'email',
+    ).value;
+    const password = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'password',
     ).value;
 
     const user = { email, password };

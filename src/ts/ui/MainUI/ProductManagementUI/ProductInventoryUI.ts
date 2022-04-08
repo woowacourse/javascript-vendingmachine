@@ -82,9 +82,9 @@ export default class ProductInventoryUI {
     if (e.key !== 'Enter') return;
     if (!(e.target instanceof HTMLElement)) return;
 
-    const $editButton = $(
+    const $editButton = $<HTMLButtonElement>(
       `button[data-product-name="${e.target.dataset.productName}"][title="수정"]`,
-    ) as HTMLButtonElement;
+    );
 
     this.finishEditMode($editButton);
   };
@@ -114,9 +114,9 @@ export default class ProductInventoryUI {
   private activateEditMode($button: HTMLButtonElement) {
     $button.innerText = '확인';
 
-    const $$inputs = $$(
+    const $$inputs = $$<HTMLInputElement>(
       `input[data-product-name="${$button.dataset.productName}"]`,
-    ) as NodeListOf<HTMLInputElement>;
+    );
     $$inputs.forEach($input => {
       $input.removeAttribute('readonly');
     });
@@ -127,9 +127,9 @@ export default class ProductInventoryUI {
     $$inputs[0].setSelectionRange(inputValueLength, inputValueLength);
     $$inputs[0].scrollLeft = inputValueLength * 30;
 
-    const $deleteButton = $(
+    const $deleteButton = $<HTMLButtonElement>(
       `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
-    ) as HTMLButtonElement;
+    );
     $deleteButton.setAttribute('hidden', '');
   }
 
@@ -143,17 +143,17 @@ export default class ProductInventoryUI {
       $input.setAttribute('readonly', '');
     });
 
-    const $deleteButton = $(
+    const $deleteButton = $<HTMLButtonElement>(
       `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
-    ) as HTMLButtonElement;
+    );
     $deleteButton.removeAttribute('hidden');
   }
 
   private finishEditMode($button: HTMLButtonElement) {
     const prevProductName = $button.dataset.productName;
-    const $$inputs = $$(
+    const $$inputs = $$<HTMLInputElement>(
       `input[data-product-name="${prevProductName}"]`,
-    ) as NodeListOf<HTMLInputElement>;
+    );
     const product = {
       name: $$inputs[0].value,
       price: $$inputs[1].valueAsNumber,

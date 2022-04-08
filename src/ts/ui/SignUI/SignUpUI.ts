@@ -4,7 +4,7 @@ import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
-import { $, $$ } from '../../utils/dom';
+import { $, $$, getNamedItem } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignUpUI {
@@ -26,15 +26,21 @@ export default class SignUpUI {
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
-    const email = (e.target.elements.namedItem('email') as HTMLInputElement)
-      .value;
-    const name = (e.target.elements.namedItem('name') as HTMLInputElement)
-      .value;
-    const password = (
-      e.target.elements.namedItem('password') as HTMLInputElement
+    const email = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'email',
     ).value;
-    const confirmPassword = (
-      e.target.elements.namedItem('confirm-password') as HTMLInputElement
+    const name = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'name',
+    ).value;
+    const password = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'password',
+    ).value;
+    const confirmPassword = getNamedItem<HTMLInputElement>(
+      e.target.elements,
+      'confirm-password',
     ).value;
 
     const user = { email, name, password };
