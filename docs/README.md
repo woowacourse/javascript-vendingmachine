@@ -133,3 +133,40 @@
   - [x] 상품을 관리할 수 있다에 대한 테스트를 작성한다.
 
   - [x] 자판기에 잔돈을 충전할 수 있다에 대한 테스트를 작성한다.
+
+## Demo 실행하기
+
+### STEP1 : Clone
+
+front repository : https://github.com/juunzzi/javascript-vendingmachine.git / branch : step2
+
+backend repository : https://github.com/juunzzi/json-auth-server.git / branch : master
+
+### STEP2 : Add .env
+
+**front**
+
+```
+// .env.production
+API_URL="https://json-auth-server-jz.herokuapp.com"
+```
+
+```
+// .env.development
+API_URL = "/api"
+```
+
+**backend**
+
+```
+// .env
+PORT=3000
+```
+
+### STEP3 : install package & start Local Server
+
+1. npm install
+
+2. front server start : npm run start
+
+3. backend server start : npm run start
