@@ -4,9 +4,9 @@ import './controller';
 import { $ } from './utils/dom';
 import { getSessionStorage, removeSessionStorage } from './utils/sessionStorage';
 
-const { accessToken, user } = getSessionStorage('user');
+const userData = getSessionStorage('user');
 
-if (!accessToken) {
+if (!userData) {
   location.href = './index.html';
 }
 
@@ -14,7 +14,7 @@ const managerNameButton = $('#manager-name-button');
 const optionList = $('#option-list');
 const logoutButton = $('#logout');
 
-managerNameButton.textContent = user.name[0];
+managerNameButton.textContent = userData.user.name[0];
 
 managerNameButton.addEventListener('click', makeAnimation);
 logoutButton.addEventListener('click', logout);
