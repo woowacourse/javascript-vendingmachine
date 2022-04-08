@@ -4,6 +4,8 @@
     "target": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": ["es2017"],
+    "types": ["cypress", "cypress-wait-until"]
   }
 }
