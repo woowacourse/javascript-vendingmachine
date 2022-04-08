@@ -5,7 +5,7 @@ import SignUpModerator from "./moderator/signUpModerator";
 import LoginModerator from "./moderator/loginModerator";
 import Authorization from "./domain/authorization";
 import UserInfoModerator from "./moderator/userInfoModerator";
-import { PATH } from "./constant";
+import { HASH } from "./constant";
 import { $ } from "./util/dom";
 
 class App {
@@ -29,22 +29,22 @@ class App {
     window.addEventListener("hashchange", this.onChangePage);
     $("#header").addEventListener("click", this.onClickHeader);
     this.router = {
-      [PATH.PRODUCT_MANAGEMENT]: () => {
+      [HASH.PRODUCT_MANAGEMENT]: () => {
         this.productModerator.init();
       },
-      [PATH.CHARGE_CHANGES]: () => {
+      [HASH.CHARGE_CHANGES]: () => {
         this.changesModerator.init();
       },
-      [PATH.PRODUCT_PURCHASE]: () => {
+      [HASH.PRODUCT_PURCHASE]: () => {
         this.purchaseModerator.init();
       },
-      [PATH.SIGNUP]: () => {
+      [HASH.SIGNUP]: () => {
         this.signUpModerator.init();
       },
-      [PATH.LOGIN]: () => {
+      [HASH.LOGIN]: () => {
         this.loginModerator.init();
       },
-      [PATH.USER_INFO]: () => {
+      [HASH.USER_INFO]: () => {
         this.userInfoModerator.init();
       },
     };
@@ -61,7 +61,7 @@ class App {
     const hash = location.hash;
     this.router[hash]
       ? this.router[hash]()
-      : this.router[PATH.PRODUCT_PURCHASE]();
+      : this.router[HASH.PRODUCT_PURCHASE]();
   };
 }
 

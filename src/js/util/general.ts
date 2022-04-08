@@ -23,3 +23,7 @@ export const getCookie = (name) => {
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
+
+export const routerPush = (path: string) => {
+  location.href = path;
+};

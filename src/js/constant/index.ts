@@ -46,11 +46,16 @@ export const SNACKBAR_TYPE = {
 
 export const SNACKBAR_CONSIST_TIME = 4000;
 
-export const PATH = {
+export const HASH = {
   PRODUCT_MANAGEMENT: "#!productManagement",
   CHARGE_CHANGES: "#!changesCharge",
   PRODUCT_PURCHASE: "#!purchaseProduct",
   SIGNUP: "#!signUp",
   LOGIN: "#!login",
   USER_INFO: "#!userInfo",
+};
+
+export const COOKIE_KEY = {
+  USER_ID: "user_id",
+  ACCESS_TOKEN: "access_token",
 };

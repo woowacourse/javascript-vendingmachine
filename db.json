@@ -1,3 +1,53 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "uuuu118@naver.com",
+      "password": "$2a$10$.BrOAoBoBQ.3JnpW2TnZ0u/S7L639uQalzU2p52vx/64tAjKDDMo.",
+      "name": "dffdf",
+      "id": 1
+    },
+    {
+      "email": "uuuu1108@naver.com",
+      "password": "$2a$10$bfkYUVAvDgpvf.13gjc2quHP7TkC0omHuj1OAJfprIhgcIZ493a.i",
+      "name": "east,west",
+      "id": 2
+    },
+    {
+      "email": "uuuu1s18@naver.com",
+      "password": "$2a$10$7pmlUAq/DkAR5e/v2e2rAOZhEWTX6IfvLbG6.ZFDiagNf7hO8BUIC",
+      "name": "east,west",
+      "id": 3
+    },
+    {
+      "email": "hellomooneekim@gmail.com",
+      "password": "$2a$10$czwCce2f6hOz3lZXeIV60.T1W8O36.ljlhL0/cwQuCiupWnit4hY6",
+      "name": "east,west",
+      "id": 4
+    },
+    {
+      "email": "uuuu117@naver.com",
+      "password": "$2a$10$yi1gjkZEvsbAAe6hHAs2jOKV5sM9YxE7aevFlc7WkK69UJPIio0x6",
+      "name": "east,west",
+      "id": 5
+    },
+    {
+      "email": "test@naver.com",
+      "password": "$2a$10$0KQQwhOpVZ9nKzKtXPTQ5usmIovIwEhVxAUeD0Sk1FYvhbLmmJTF.",
+      "name": "test3",
+      "id": 6,
+      "confirmPassword": "asdf6405"
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$STokq.VtgzmZFQxa3rfbQumLlpxD/wljaxtactSRW0048vcmwbWvi",
+      "name": "관리자",
+      "id": 7
+    },
+    {
+      "email": "test1@test.com",
+      "password": "$2a$10$x.GIpQN9WNW1Ro2Sk7KFruLAywvciBFHiVJcFmHMUaDgGdPI9rp/a",
+      "name": "관리자",
+      "id": 8
+    }
+  ]
 }

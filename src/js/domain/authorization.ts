@@ -1,6 +1,6 @@
 import api from "../api";
-import { ERROR_MESSAGE } from "../constant";
-import { getCookie, setCookie, clearCookie } from "../util/general";
+import { ERROR_MESSAGE, COOKIE_KEY, HASH } from "../constant";
+import { getCookie, setCookie, clearCookie, routerPush } from "../util/general";
 import { ILoginOption, ISignUpEvent, IUpdateUserOption } from "../type";
 import {
   checkUserNameLength,
@@ -10,8 +10,8 @@ import {
 
 class Authorization {
   async isLoggedIn() {
-    const userId = getCookie("user_id");
-    const accessToken = getCookie("access_token");
+    const userId = getCookie(COOKIE_KEY.USER_ID);
+    const accessToken = getCookie(COOKIE_KEY.ACCESS_TOKEN);
     const response = await api.getUser(userId, accessToken);
     return response;
   }
@@ -21,9 +21,9 @@ class Authorization {
     if (response.isError) {
       throw new Error(ERROR_MESSAGE.WRONG_LOGIN_INFORMATION);
     }
-    location.href = "/";
-    setCookie("user_id", response.user.id);
-    setCookie("access_token", response.accessToken);
+    routerPush("/");
+    setCookie(COOKIE_KEY.USER_ID, response.user.id);
+    setCookie(COOKIE_KEY.ACCESS_TOKEN, response.accessToken);
   }
 
   async signUp({ email, name, password, confirmPassword }: ISignUpEvent) {
@@ -35,13 +35,13 @@ class Authorization {
     if (response.isError) {
       throw new Error(ERROR_MESSAGE.EXISTED_EMAIL);
     }
-    location.href = "/#!login";
+    routerPush(`/${HASH.LOGIN}`);
   }
 
   logout() {
-    clearCookie("user_id");
-    clearCookie("access_token");
-    location.href = "/";
+    clearCookie(COOKIE_KEY.USER_ID);
+    clearCookie(COOKIE_KEY.ACCESS_TOKEN);
+    routerPush("/");
   }
 
   async updateUserInfo(userId: string, user: IUpdateUserOption) {
@@ -51,9 +51,9 @@ class Authorization {
     const response = await api.updateUserInfo(
       userId,
       user,
-      getCookie("access_token")
+      getCookie(COOKIE_KEY.ACCESS_TOKEN)
     );
-    location.href = "/";
+    routerPush("/");
     if (response.isError) {
       throw new Error("서버에러");
     }
