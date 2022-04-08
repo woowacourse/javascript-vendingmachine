@@ -53,22 +53,22 @@ class HeaderView {
     this.updateUserArea();
 
     if (User.isMember && page !== 'updateMyInfo') {
-      this.showNavigationMenu();
+      this.setNavigationMenu(true);
       this.updateNavigationSelectedMenu(page);
     } else {
-      this.hideNavigationMenu();
+      this.setNavigationMenu(false);
     }
 
     switch (page) {
       case 'login':
       case 'signUp':
       case 'updateMyInfo':
-        this.showGoMainButton();
-        this.hideUserArea();
+        this.setGoMainButtonVisibility(true);
+        this.setUserAreaVisibility(false);
         break;
       default:
-        this.hideGoMainButton();
-        this.showUserArea();
+        this.setGoMainButtonVisibility(false);
+        this.setUserAreaVisibility(true);
     }
   }
 
@@ -80,40 +80,22 @@ class HeaderView {
     }
   }
 
-  showUserArea() {
-    if (this.$userArea.classList.contains('hidden')) {
-      this.$userArea.classList.remove('hidden');
-    }
+  setUserAreaVisibility(visible) {
+    const userAreaClassList = this.$userArea.classList;
+    if (visible && userAreaClassList.contains('hidden')) userAreaClassList.remove('hidden');
+    if (!visible && !userAreaClassList.contains('hidden')) userAreaClassList.add('hidden');
   }
 
-  hideUserArea() {
-    if (!this.$userArea.classList.contains('hidden')) {
-      this.$userArea.classList.add('hidden');
-    }
+  setGoMainButtonVisibility(visible) {
+    const goMainButtonClassList = this.$goMainButton.classList;
+    if (visible && goMainButtonClassList.contains('hidden')) goMainButtonClassList.remove('hidden');
+    if (!visible && !goMainButtonClassList.contains('hidden')) goMainButtonClassList.add('hidden');
   }
 
-  showGoMainButton() {
-    if (this.$goMainButton.classList.contains('hidden')) {
-      this.$goMainButton.classList.remove('hidden');
-    }
-  }
-
-  hideGoMainButton() {
-    if (!this.$goMainButton.classList.contains('hidden')) {
-      this.$goMainButton.classList.add('hidden');
-    }
-  }
-
-  showNavigationMenu() {
-    if (this.$nav.classList.contains('hidden')) {
-      this.$nav.classList.remove('hidden');
-    }
-  }
-
-  hideNavigationMenu() {
-    if (!this.$nav.classList.contains('hidden')) {
-      this.$nav.classList.add('hidden');
-    }
+  setNavigationMenu(visible) {
+    const navClassList = this.$nav.classList;
+    if (visible && navClassList.contains('hidden')) navClassList.remove('hidden');
+    if (!visible && !navClassList.contains('hidden')) navClassList.add('hidden');
   }
 
   updateNavigationSelectedMenu(page) {
