@@ -32,13 +32,14 @@ function signUp(signUpInfo: SignInfo) {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(async res => {
-    if (!res.ok) {
-      const message = await res.text();
-      throw new Error(message.slice(1, -1));
-    }
-    return res.json();
   })
+    .then(async res => {
+      if (!res.ok) {
+        const message = await res.text();
+        throw new Error(message.slice(1, -1));
+      }
+      return res.json();
+    })
     .then(response => {
       const { id, email, name }: UserInfo = response.user;
       const userAuth: AuthInfo = {
