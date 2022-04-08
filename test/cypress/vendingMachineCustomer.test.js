@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from '../../src/es/constants/index'
 
-describe('고객 입장에서의 기능이 요구사항과 일치해야 한다.', () => {
+describe('고객의 금액 충전, 상품 구매, 잔돈 반환 기능이 요구사항과 일치해야 한다.', () => {
   beforeEach(() => {
     cy.visit('/');
   });

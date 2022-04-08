@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../../src/es/constants/index'
 
-describe('관리자 입장에서의 기능이 요구사항과 일치해야 한다.', () => {
+describe('관리자의 상품 관리, 자판기 잔돈 충전 기능이 요구사항과 일치해야 한다.', () => {
   beforeEach(() => {
     cy.visit('/');
   });
