@@ -1,4 +1,6 @@
-const COIN_TYPE = [500, 100, 50, 10].sort((a, b) => b - a);
+type CoinValue = 500 | 100 | 50 | 10;
+
+const COIN_TYPE: Array<CoinValue> = [500, 100, 50, 10].sort((a, b) => b - a) as Array<CoinValue>;
 
 const VENDING_MACHINE_CONDITION = {
   MONEY_UNIT: 10,
