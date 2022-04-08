@@ -53,6 +53,12 @@ export interface ILoginEvent {
 }
 
 export interface IUpdateUserEvent {
+  name: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface IUpdateUserOption {
   email: string;
   name: string;
   password: string;
