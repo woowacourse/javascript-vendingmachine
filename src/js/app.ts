@@ -5,7 +5,7 @@ import SignUpModerator from "./moderator/signUpModerator";
 import LoginModerator from "./moderator/loginModerator";
 import Authorization from "./domain/authorization";
 import UserInfoModerator from "./moderator/userInfoModerator";
-
+import { PATH } from "./constant";
 import { $ } from "./util/dom";
 
 class App {
@@ -16,6 +16,7 @@ class App {
   loginModerator;
   userInfoModerator;
   authorization;
+  router;
 
   constructor() {
     this.productModerator = new ProductModerator();
@@ -25,9 +26,28 @@ class App {
     this.loginModerator = new LoginModerator();
     this.userInfoModerator = new UserInfoModerator();
     this.authorization = new Authorization();
-
     window.addEventListener("hashchange", this.onChangePage);
     $("#header").addEventListener("click", this.onClickHeader);
+    this.router = {
+      [PATH.PRODUCT_MANAGEMENT]: () => {
+        this.productModerator.init();
+      },
+      [PATH.CHARGE_CHANGES]: () => {
+        this.changesModerator.init();
+      },
+      [PATH.PRODUCT_PURCHASE]: () => {
+        this.purchaseModerator.init();
+      },
+      [PATH.SIGNUP]: () => {
+        this.signUpModerator.init();
+      },
+      [PATH.LOGIN]: () => {
+        this.loginModerator.init();
+      },
+      [PATH.USER_INFO]: () => {
+        this.userInfoModerator.init();
+      },
+    };
     this.onChangePage();
   }
 
@@ -39,30 +59,9 @@ class App {
 
   onChangePage = (): void => {
     const hash = location.hash;
-
-    if (hash === "#!productManagement") {
-      this.productModerator.init();
-    }
-
-    if (hash === "#!changesCharge") {
-      this.changesModerator.init();
-    }
-
-    if (hash === "#!purchaseProduct" || hash === "") {
-      this.purchaseModerator.init();
-    }
-
-    if (hash === "#!signUp") {
-      this.signUpModerator.init();
-    }
-
-    if (hash === "#!login") {
-      this.loginModerator.init();
-    }
-
-    if (hash === "#!userInfo") {
-      this.userInfoModerator.init();
-    }
+    this.router[hash]
+      ? this.router[hash]()
+      : this.router[PATH.PRODUCT_PURCHASE]();
   };
 }
 
