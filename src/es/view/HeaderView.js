@@ -23,7 +23,6 @@ class HeaderView {
   }
 
   onClickUserArea(event) {
-    if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'LI') return;
     if (event.target.name === 'thumbnail-button') {
       $('#member-menu', this.$userArea).classList.toggle('hidden');
     }
