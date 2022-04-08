@@ -5,6 +5,15 @@ import { logout } from '../utils/auth';
 
 import User from '../state/User';
 
+const titleText = {
+  specifiedPage: {
+    login: '로그인',
+    signUp: '회원가입',
+    updateMyInfo: '회원 정보 수정',
+  },
+  default: '🍿 자판기 🍿',
+};
+
 class HeaderView {
   $container = $('header');
   $title = $('.title', this.$container);
@@ -32,19 +41,12 @@ class HeaderView {
   }
 
   updateTitle(page) {
-    switch (page) {
-      case 'login':
-        this.$title.innerText = '로그인';
-        break;
-      case 'signUp':
-        this.$title.innerText = '회원가입';
-        break;
-      case 'updateMyInfo':
-        this.$title.innerText = '회원 정보 수정';
-        break;
-      default:
-        this.$title.innerText = '🍿 자판기 🍿';
+    const specifiedPageNames = Object.keys(titleText.specifiedPage);
+    if (specifiedPageNames.includes(page)) {
+      this.$title.innerText = titleText.specifiedPage[page];
+      return;
     }
+    this.$title.innerText = titleText.default;
   }
 
   updateMenuButton(page) {
