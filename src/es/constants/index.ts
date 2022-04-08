@@ -15,13 +15,13 @@ const VENDING_MACHINE_CONDITION = {
   MAX_HOLDING_AMOUNT: 100000,
 
   MAX_CUSTOMER_CHARGE_TO_ADD: 10000,
-};
+} as const;
 
 const USER_INFO_CONDITION = {
   MIN_NAME_LENGTH: 2,
   MAX_NAME_LENGTH: 6,
   PASSWORD_REGEXP: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-};
+} as const;
 
 const ERROR_MESSAGE = {
   PRODUCT_NAME_REQUIRED: '상품명을 입력해주세요.',
@@ -47,7 +47,7 @@ const ERROR_MESSAGE = {
   PASSWORD_CONDITION: '비밀번호는 숫자, 소문자 알파벳, 대문자 알파벳 각각 1자 이상을 포함하여 전체 8자 이상이어야 합니다.',
 
   FAIL_TO_READ_AUTH_INFO: '저장된 Auth 정보를 불러오는데 실패했습니다.',
-};
+} as const;
 
 const GUIDE_MESSAGE = {
   PRODUCT_UPDATE_CONFIRM: '이미 존재하는 상품입니다.\n기존 상품 목록에서 덮어씌우시겠습니까?',
@@ -69,7 +69,7 @@ const GUIDE_MESSAGE = {
   LOGIN_INCORRECT_PASSWORD: '잘못된 비밀번호입니다.',
 
   UPDATE_USER_INFO_SUCCESS: '회원 정보 업데이트 성공! 😄',
-};
+} as const;
 
 export {
   COIN_TYPE,
