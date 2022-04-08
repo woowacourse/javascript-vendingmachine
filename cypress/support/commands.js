@@ -1,9 +1,11 @@
+import 'cypress-wait-until';
+
 Cypress.Commands.add('login', (email, password) => {
   cy.get('#email-input').type(email);
   cy.get('#password-input').type(password);
   cy.get('button').click();
 
-  cy.wait(1000);
+  cy.waitUntil(() => cy.location('pathname').should('eq', '/dist/manager.html'));
 });
 
 Cypress.Commands.add('logout', () => {
@@ -23,7 +25,7 @@ Cypress.Commands.add('signupAndLogin', (email, name, password) => {
   cy.get('#password-check').type(password);
   cy.get('button').click();
 
-  cy.wait(1000);
+  cy.waitUntil(() => cy.location('pathname').should('eq', '/dist/login.html'));
 
   cy.login(email, password);
 });
@@ -39,7 +41,7 @@ Cypress.Commands.add('modifyInfo', (email, name, password) => {
   cy.get('#password-check').type(password);
   cy.get('#sign-up-info-form button').click();
 
-  cy.wait(1000);
+  cy.waitUntil(() => cy.location('pathname').should('eq', '/dist/login.html'));
 
   cy.login(email, password);
 });
