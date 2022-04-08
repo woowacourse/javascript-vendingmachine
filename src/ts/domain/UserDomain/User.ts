@@ -1,4 +1,5 @@
 import { UserInfo } from '../types';
+import { requestSign, requestUpdate } from './request';
 
 export default class UserDomain {
   #accessToken: string;
@@ -17,10 +18,22 @@ export default class UserDomain {
     return this.#isSignIn;
   }
 
-  signIn(user: UserInfo, accessToken: string) {
-    this.#isSignIn = true;
-    this.#userInfo = user;
-    this.#accessToken = accessToken ?? this.#accessToken;
+  async signUp(user: UserInfo) {
+    await requestSign('signup', user);
+  }
+
+  async signIn(user: UserInfo) {
+    await requestSign('signin', user).then(response => {
+      this.#isSignIn = true;
+      this.#userInfo = response.user;
+      this.#accessToken = response.accessToken;
+    });
+  }
+
+  async editUserInfo(user: UserInfo) {
+    await requestUpdate(user, this.#userInfo.id).then(response => {
+      this.#userInfo = response;
+    });
   }
 
   signOut() {

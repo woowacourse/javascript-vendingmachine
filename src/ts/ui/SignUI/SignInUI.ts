@@ -1,6 +1,5 @@
 import UserDomain from '../../domain/UserDomain/User';
 import { basePath } from '../App';
-import { requestSign } from '../../domain/UserDomain/request';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
@@ -44,15 +43,15 @@ export default class SignInUI {
   };
 
   private signIn(user: UserInfo) {
-    requestSign('signin', user)
-      .then(response => {
-        const { user: userInfo, accessToken } = response;
-        this.userDomain.signIn(userInfo, accessToken);
-
-        $$('.sign-in__input').forEach(($input: HTMLInputElement) => {
+    this.userDomain
+      .signIn(user)
+      .then(() => {
+        $$<HTMLInputElement>('.sign-in__input').forEach($input => {
           $input.value = '';
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNIN);
+
+        const { userInfo } = this.userDomain;
         viewPainter.renderUserUI(userInfo.name);
         viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);

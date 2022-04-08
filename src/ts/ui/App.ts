@@ -16,7 +16,7 @@ export default class App {
     private readonly userDomain = new UserDomain(),
     private readonly mainUI = new MainUI(),
     private readonly signInUI = new SignInUI(userDomain),
-    private readonly signUpUI = new SignUpUI(),
+    private readonly signUpUI = new SignUpUI(userDomain),
     private readonly userInfoEditUI = new UserInfoEditUI(userDomain),
   ) {
     this.mainUI.renderInitPage();

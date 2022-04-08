@@ -1,12 +1,11 @@
+import UserDomain from '../../domain/UserDomain/User';
 import { basePath } from '../App';
-import { requestUpdate } from '../../domain/UserDomain/request';
+import { UserInfo } from '../../domain/types';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
 import { showSnackbar } from '../../utils';
 import { $, $$, getNamedItem } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
-import UserDomain from '../../domain/UserDomain/User';
-import { UserInfo } from '../../domain/types';
 
 export default class UserInfoEditUI {
   private readonly userDomain: UserDomain;
@@ -62,19 +61,19 @@ export default class UserInfoEditUI {
   };
 
   private editUserInfo(user: UserInfo) {
-    requestUpdate(user, this.userDomain.userInfo.id)
-      .then(response => {
-        this.userDomain.signIn(response, null);
-
-        $$('.user-info-edit__input').forEach(($input: HTMLInputElement) => {
+    this.userDomain
+      .editUserInfo(user)
+      .then(() => {
+        $$<HTMLInputElement>('.user-info-edit__input').forEach($input => {
           $input.value = '';
         });
+
         const $selectBox = $('.select-box');
         $selectBox.classList.add('hide');
         $selectBox.classList.remove('active');
 
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_EDIT_USER_INFO);
-        viewPainter.renderUserName(response.name);
+        viewPainter.renderUserName(this.userDomain.userInfo.name);
         viewPainter.renderMainUI(this.userDomain.isSignIn);
         history.replaceState({}, '', `${basePath}/`);
       })

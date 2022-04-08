@@ -1,5 +1,5 @@
+import UserDomain from '../../domain/UserDomain/User';
 import { basePath } from '../App';
-import { requestSign } from '../../domain/UserDomain/request';
 import { validateUserInfo } from '../../domain/UserDomain/validator';
 import { UserInfo } from '../../domain/types';
 import { USER_SIGN_MESSAGE } from '../../constants/message';
@@ -8,7 +8,10 @@ import { $, $$, getNamedItem } from '../../utils/dom';
 import { viewPainter } from '../ViewPainter';
 
 export default class SignUpUI {
-  constructor() {
+  private readonly userDomain: UserDomain;
+
+  constructor(userDomain: UserDomain) {
+    this.userDomain = userDomain;
     $('.sign-up__form').addEventListener('submit', this.submitHandler);
   }
 
@@ -56,9 +59,10 @@ export default class SignUpUI {
   };
 
   private signUp(user: UserInfo) {
-    requestSign('signup', user)
+    this.userDomain
+      .signUp(user)
       .then(() => {
-        $$('.sign-up__input').forEach(($input: HTMLInputElement) => {
+        $$<HTMLInputElement>('.sign-up__input').forEach($input => {
           $input.value = '';
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNUP);
