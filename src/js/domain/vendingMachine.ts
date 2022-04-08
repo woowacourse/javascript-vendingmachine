@@ -128,7 +128,7 @@ export default class VendingMachine implements type.IVendingMachine {
     this.products[idx].updateCount(count - 1);
   };
 
-  calculate = () => {
+  returnChanges: type.IReturnChanges = () => {
     let index = 0;
     const list = [500, 100, 50, 10];
     const userChanges = { 500: 0, 100: 0, 50: 0, 10: 0 };
@@ -142,9 +142,5 @@ export default class VendingMachine implements type.IVendingMachine {
     }
 
     return userChanges;
-  };
-
-  returnChanges: type.IReturnChanges = () => {
-    return this.calculate();
   };
 }
