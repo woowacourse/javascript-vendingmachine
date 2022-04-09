@@ -57,9 +57,11 @@ export default class ProductPurchaseView {
 
   render(productList) {
     if (Array.isArray(productList)) {
+      let template = '';
       productList.forEach((product) => {
-        this.$purchaseTbody.insertAdjacentHTML('beforeend', purchaseTableTemplate(product));
+        template += purchaseTableTemplate(product);
       });
+      this.$purchaseTbody.insertAdjacentHTML('beforeend', template);
       return;
     }
     this.$purchaseTbody.insertAdjacentHTML('beforeend', purchaseTableTemplate(productList));
