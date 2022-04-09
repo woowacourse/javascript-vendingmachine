@@ -40,20 +40,25 @@ const isUnderMinPasswordLength = (password) => {
 };
 
 const isUnderMinCombinationCount = (password) => {
-  let upperCaseCount = 0;
-  let lowerCaseCount = 0;
-  let numberCount = 0;
+  let upperCaseExists = false;
+  let lowerCaseExists = false;
+  let numberExists = false;
 
-  if (password.match(/[A-Z]/g)) {
-    upperCaseCount += 1;
-  }
-  if (password.match(/[a-z]/g)) {
-    lowerCaseCount += 1;
-  }
-  if (password.match(/[0-9]/g)) {
-    numberCount += 1;
-  }
-  return upperCaseCount + lowerCaseCount + numberCount < PASSWORD.MIN_COMBINATION_COUNT;
+  password.split('').forEach((word) => {
+    if (word.match(/[A-Z]/g)) {
+      upperCaseExists = true;
+      return;
+    }
+    if (word.match(/[a-z]/g)) {
+      lowerCaseExists = true;
+      return;
+    }
+    if (word.match(/[0-9]/g)) {
+      numberExists = true;
+    }
+  });
+
+  return upperCaseExists + lowerCaseExists + numberExists < PASSWORD.MIN_COMBINATION_COUNT;
 };
 
 const isNotCorrectedPassword = (password) => {
