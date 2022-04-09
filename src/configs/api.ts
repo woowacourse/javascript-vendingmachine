@@ -1,1 +1,2 @@
-export const SERVER = 'http://localhost:5000' as const;
+export const SERVER =
+  'https://vendingmachin-json-server-auth.herokuapp.com' as const;
