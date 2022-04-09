@@ -5,15 +5,17 @@ import ItemManage from './vendingMachine/ItemManage';
 import CoinRecharge from './vendingMachine/CoinRecharge';
 import ItemPurchase from './vendingMachine/ItemPurchase';
 
-import ItemManageTab from './view/ItemManageTab';
-import CoinRechargeTab from './view/CoinRechargeTab';
-import ItemPurchaseTab from './view/ItemPurchaseTab';
+import {
+  ItemManageTab,
+  CoinRechargeTab,
+  ItemPurchaseTab,
+  RegisterUserPage,
+  LoginUserPage,
+} from './view';
 
-import RegisterUserPage from './view/RegisterUserPage';
-import LoginUserPage from './view/LoginUserPage';
 import { KEY } from './constant/storageKey';
 
-const initApp = function () {
+const initApp = () => {
   const itemManage = new ItemManage();
   const coinRecharge = new CoinRecharge();
   const itemPurchase = new ItemPurchase();
@@ -25,8 +27,9 @@ const initApp = function () {
   const registerUserPage = new RegisterUserPage();
   const loginUserPage = new LoginUserPage();
 
-  return function () {
+  return () => {
     const accessToken = getCookie(KEY.ACCESS_TOKEN);
+
     switch (location.hash) {
       case HASH.ITEM_MANAGE:
         accessToken
@@ -36,17 +39,17 @@ const initApp = function () {
       case HASH.COIN_RECHARGE:
         accessToken
           ? coinRechargeTab.renderInitialCoinRechargeTabState()
-          : (location.href = HASH.LOGIN_USER);
+          : (location.hash = HASH.LOGIN_USER);
         break;
       case '':
       case HASH.ITEM_PURCHASE:
         itemPurchaseTab.renderInitialItemPurchaseTabState(!!accessToken);
         break;
       case HASH.REGISTER_USER:
-        !accessToken ? registerUserPage.renderInitialRegisterPageState() : (location.hash = '');
+        accessToken ? (location.hash = '') : registerUserPage.renderInitialRegisterPageState();
         break;
       case HASH.LOGIN_USER:
-        !accessToken ? loginUserPage.renderInitialLoginPageState() : (location.hash = '');
+        accessToken ? (location.hash = '') : loginUserPage.renderInitialLoginPageState();
         break;
       default:
         break;
