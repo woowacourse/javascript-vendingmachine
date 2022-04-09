@@ -15,10 +15,6 @@ class ProductEditForm extends HTMLTableRowElement {
     addEvent(this.$page, "@renderedit", (e) => this.renderEditForm(e.detail));
   }
 
-  disconnectedCallback() {
-    removeEvent(this.$saveButton, "click", this.onEdit);
-  }
-
   onEdit = () => {
     const idx = this.getAttribute("idx");
     const updatedName = this.$editNameInput.value;
