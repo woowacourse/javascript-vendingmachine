@@ -2,7 +2,7 @@ import { addThousandUnitComma } from './utils';
 
 export const BASE_HASH = '#!product-purchase';
 
-export const AUTH_BASE_URL = 'http://localhost:3000';
+export const AUTH_BASE_URL = 'https://vendingmachine-auth-server.herokuapp.com';
 
 export const HEADER = {
   VENDING_MACHINE: '🍿 자판기 🍿',

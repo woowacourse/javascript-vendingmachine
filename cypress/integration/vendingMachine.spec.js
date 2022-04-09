@@ -1,14 +1,11 @@
-import { getUser, login, signup } from '../../src/domains/Auth';
-import { getCookie } from '../../src/utils';
-
 describe('자판기를 이용할 수 있다.', () => {
-  const newProduct = {
+  const product = {
     name: '티거',
     price: 1000,
     quantity: 10,
   };
 
-  const newUser = {
+  const user = {
     email: `${Date.now()}@test.com`,
     name: '티거',
     password: 'tiger',
@@ -16,22 +13,19 @@ describe('자판기를 이용할 수 있다.', () => {
 
   before(() => {
     cy.visit('http://localhost:9000');
-  });
 
-  it('로그아웃을 할 수 있어야 한다.', () => {
-    cy.get('.user-button').click();
-    cy.get('.logout-button').click();
+    document.cookie = `user_id=`;
+    document.cookie = `access_token=`;
   });
 
   it('고객은 고객용 화면을 볼 수 있어야 한다.', () => {
-    cy.get('administrator-menu').should('not.be.visible');
-    cy.get('.login-button').should('be.visible');
-    cy.get('product-purchase-container').should('be.visible');
+    cy.showCustomerScreen();
   });
 
   it('로그인 버튼을 클릭하면 로그인 화면을 볼 수 있어야 한다.', () => {
     cy.get('.login-button').click();
 
+    cy.hash().should('eq', '#!login');
     cy.get('vending-machine').should('not.be.visible');
     cy.get('log-in').should('be.visible');
   });
@@ -39,77 +33,89 @@ describe('자판기를 이용할 수 있다.', () => {
   it('회원 가입 버튼을 클릭하면 회원 가입 화면을 볼 수 있어야 한다.', () => {
     cy.get('.signup-button').click();
 
+    cy.hash().should('eq', '#!signup');
     cy.get('log-in').should('not.be.visible');
     cy.get('sign-up').should('be.visible');
   });
 
   it('회원 가입을 할 수 있어야 한다.', () => {
-    cy.get('#signup-email').type(newUser.email);
-    cy.get('#signup-name').type(newUser.name);
-    cy.get('#signup-password').type(newUser.password);
-    cy.get('#signup-password-confirm').type(newUser.password);
-    cy.get('.signup-confirm-button').click();
-
-    signup(newUser.email, newUser.name, newUser.password);
+    cy.signup(user);
   });
 
   it('로그인을 할 수 있어야 한다.', () => {
-    cy.wait(5000);
-    cy.visit('#!login');
-
-    cy.get('log-in').should('be.visible');
-    cy.get('#login-email').type(newUser.email);
-    cy.get('#login-password').type(newUser.password);
-
-    login(newUser.email, newUser.password);
+    cy.login(user);
   });
 
-  it('관리자는 관리자용 화면을 볼 수 있어야 한다.', () => {
-    cy.wait(5000);
-    cy.visit('#!product-purchase');
+  it('로그인 한 관리자는 관리자용 화면을 볼 수 있어야 한다.', () => {
+    const userNameFirstChar = user.name.charAt(0);
 
-    cy.get('vending-machine').should('be.visible');
-    cy.get('administrator-menu').should('be.visible');
-    cy.get('.user-button').should('be.visible');
-    cy.get('product-purchase-container').should('be.visible');
+    cy.showDefaultAdministratorScreen(userNameFirstChar);
   });
 
   it('상품을 추가하면 추가한 상품을 상품 현황에서 볼 수 있어야 한다.', () => {
+    const { name } = product;
+
     cy.get('.nav__product-manage-button').click();
+    cy.typeAddProductInputs(product);
 
-    cy.get('.product-name-input').type(newProduct.name);
-    cy.get('.product-price-input').type(newProduct.price);
-    cy.get('.product-quantity-input').type(newProduct.quantity);
-    cy.get('.product-add-button').click();
-
-    cy.get(`[data-product-name="${newProduct.name}"]`).should('be.visible');
+    cy.get(`[data-product-name="${name}"]`).should('be.visible');
   });
 
   it('추가한 상품을 구매 가능 상품 현황에서 볼 수 있어야 한다.', () => {
+    const { name } = product;
+
     cy.get('.nav__product-purchase-button').click();
 
-    cy.get(`[data-purchasable-product-name="${newProduct.name}"]`).should('be.visible');
+    cy.get(`[data-purchasable-product-name="${name}"]`).should('be.visible');
   });
 
   it('상품을 구매할 금액을 투입할 수 있어야 한다.', () => {
     const customerMoney = 1000;
 
-    cy.get('#customer-money-input').type(customerMoney);
-    cy.get('.money-input-button').click();
+    cy.get('#customer-money-input').type(customerMoney).type('{enter}');
 
     cy.get('.customer-money').should('have.text', customerMoney);
   });
 
   it('상품을 구매할 수 있어야 한다.', () => {
-    cy.get('.table__product-purchase-button').click();
+    const { name, price } = product;
+    const customerMoney = 1000;
 
-    cy.get('.purchasable-product-quantity-td').should('have.text', newProduct.quantity - 1);
+    cy.get(`[data-purchasable-product-name="${name}"]`).find('.table__product-purchase-button').click();
+
+    cy.get('.customer-money').should('have.text', customerMoney - price);
+    cy.get(`[data-purchasable-product-name="${name}"]`)
+      .find('.purchasable-product-quantity-td')
+      .should('have.text', product.quantity - 1);
   });
 
-  it('회원 정보를 수정할 수 있어야 한다.', () => {
+  it('회원 정보 수정 버튼을 클릭하면 회원 정보 수정 화면을 볼 수 있어야 한다.', () => {
+    const { email } = user;
+
     cy.get('.user-button').click();
     cy.get('.user-info-modify-button').click();
 
+    cy.hash().should('eq', '#!user-info-modify');
+    cy.get('vending-machine').should('not.be.visible');
     cy.get('user-info-modify').should('be.visible');
+    cy.get('#user-info-modify-email').should('have.attr', 'placeholder', email);
+  });
+
+  it('회원 정보를 수정할 수 있어야 한다.', () => {
+    const newUserInfo = {
+      name: '호랑',
+      password: 'horang',
+    };
+
+    cy.typeModifyUserInfoInputs(newUserInfo);
+  });
+
+  it('로그아웃을 할 수 있어야 한다.', () => {
+    cy.shouldBaseHash();
+
+    cy.get('.user-button').click();
+    cy.get('.logout-button').click();
+
+    cy.showCustomerScreen();
   });
 });
