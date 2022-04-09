@@ -16,7 +16,6 @@ class PurchaseComponent {
     this.initChildComponents();
     this.bindEventHandler();
     this.subscribeStore();
-    this.initRender();
   }
 
   mount() {
@@ -66,15 +65,11 @@ class PurchaseComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
+    this.wakeUp();
   }
 
-  initRender() {
-    const moneyInput = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE);
-    this.render(moneyInput);
-  }
-
-  wakeUp(stateKey) {
-    const inputCharge = vendingMachineStore.getState(stateKey);
+  wakeUp() {
+    const inputCharge = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE);
     this.render(inputCharge);
   }
 

@@ -14,7 +14,6 @@ class RechargeComponent {
     this.initChildComponents();
     this.bindEventHandler();
     this.subscribeStore();
-    this.initRender();
   }
 
   mount() {
@@ -60,15 +59,11 @@ class RechargeComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+    this.wakeUp();
   }
 
-  initRender() {
+  wakeUp() {
     const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
-    this.render(coinWallet);
-  }
-
-  wakeUp(stateKey) {
-    const coinWallet = vendingMachineStore.getState(stateKey);
     this.render(coinWallet);
   }
 

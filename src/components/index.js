@@ -17,7 +17,6 @@ class AppComponent {
     this.initChildComponents();
     this.bindEventHandler();
     this.subscribeStore();
-    this.initRender();
   }
 
   initDOM() {
@@ -59,12 +58,8 @@ class AppComponent {
   subscribeStore() {
     globalStore.subscribe(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
-  }
 
-  initRender() {
-    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
-    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME);
-    this.render(authInformation, currentRouteName);
+    this.wakeUp();
   }
 
   wakeUp() {

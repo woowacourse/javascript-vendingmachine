@@ -12,7 +12,6 @@ class CoinTableComponent {
     this.initDOM();
     this.bindEventHandler();
     this.subscribeStore();
-    this.initRender();
   }
 
   mount() {
@@ -80,27 +79,16 @@ class CoinTableComponent {
     if (this.tableId === 'return-coin-table') {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.RETURN_COIN, this);
     }
+    this.wakeUp();
   }
 
-  initRender() {
+  wakeUp() {
     if (this.tableId === 'recharge-coin-table') {
       const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
       this.render(coinWallet);
     }
 
     if (this.tableId === 'return-coin-table') {
-      const returnCoinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN);
-      this.render(returnCoinWallet);
-    }
-  }
-
-  wakeUp(stateType) {
-    if (stateType === VENDING_MACHINE_STATE_KEYS.COIN_WALLET) {
-      const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
-      this.render(coinWallet);
-    }
-
-    if (stateType === VENDING_MACHINE_STATE_KEYS.RETURN_COIN) {
       const returnCoinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.RETURN_COIN);
       this.render(returnCoinWallet);
     }

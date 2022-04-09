@@ -7,7 +7,6 @@ class LoadingComponent {
     this.mount();
     this.initDOM();
     this.subscribeStore();
-    this.initRender();
   }
 
   mount() {
@@ -30,15 +29,11 @@ class LoadingComponent {
 
   subscribeStore() {
     globalStore.subscribe(GLOBAL_STATE_KEYS.IS_LOADING, this);
+    this.wakeUp();
   }
 
-  initRender() {
-    const isLoading = globalStore.getState(GLOBAL_STATE_KEYS.IS_LOADING);
-    this.render(isLoading);
-  }
-
-  wakeUp(stateKey) {
-    const state = globalStore.getState(stateKey);
+  wakeUp() {
+    const state = globalStore.getState(GLOBAL_STATE_KEYS.IS_LOADING);
     this.render(state);
   }
 

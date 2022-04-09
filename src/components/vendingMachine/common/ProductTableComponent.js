@@ -13,7 +13,6 @@ class ProductTableComponent {
     this.initDOM();
     this.subscribeStore();
     this.bindEventHandler();
-    this.initRender();
   }
 
   mount() {
@@ -50,11 +49,7 @@ class ProductTableComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
-  }
-
-  initRender() {
-    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
-    this.render(productList);
+    this.wakeUp();
   }
 
   wakeUp() {

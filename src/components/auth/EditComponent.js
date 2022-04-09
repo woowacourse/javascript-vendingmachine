@@ -12,7 +12,6 @@ class EditComponent {
     this.initDOM();
     this.bindEventHandler();
     this.subscribeStore();
-    this.initRender();
   }
 
   mount() {
@@ -36,11 +35,7 @@ class EditComponent {
 
   subscribeStore() {
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
-  }
-
-  initRender() {
-    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
-    this.render(authInformation);
+    this.wakeUp();
   }
 
   wakeUp() {
