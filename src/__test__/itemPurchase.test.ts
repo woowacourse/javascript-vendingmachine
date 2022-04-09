@@ -33,29 +33,29 @@ describe('구매 가능 여부 확인', () => {
       vendingMachine.validatePurchasingBehavior(itemQuantity, itemPrice, remainedMoneyInput)
     ).not.toThrow();
   });
+});
 
-  describe('상품 구매 테스트', () => {
-    const vendingMachine = new ItemPurchase();
+describe('상품 구매 테스트', () => {
+  const vendingMachine = new ItemPurchase();
 
-    test('금액을 누적하여 투입할 수 있다.', () => {
-      const prevMoneyAmount = vendingMachine.money;
-      const inputMoney = 3000;
-      vendingMachine.insertMoney(inputMoney);
+  test('금액을 누적하여 투입할 수 있다.', () => {
+    const prevMoneyAmount = vendingMachine.money;
+    const inputMoney = 3000;
+    vendingMachine.insertMoney(inputMoney);
 
-      const nextInputMoney = 1000;
-      vendingMachine.insertMoney(nextInputMoney);
-      expect(vendingMachine.money).toBe(prevMoneyAmount + inputMoney + nextInputMoney);
-    });
+    const nextInputMoney = 1000;
+    vendingMachine.insertMoney(nextInputMoney);
+    expect(vendingMachine.money).toBe(prevMoneyAmount + inputMoney + nextInputMoney);
+  });
 
-    test('상품을 구입하면, 투입한 금액과 해당 상품의 수량이 감소한다.', () => {
-      const prevMoneyAmount = vendingMachine.money;
-      const inputMoney = 3000;
-      vendingMachine.insertMoney(inputMoney);
+  test('상품을 구입하면, 투입한 금액과 해당 상품의 수량이 감소한다.', () => {
+    const prevMoneyAmount = vendingMachine.money;
+    const inputMoney = 3000;
+    vendingMachine.insertMoney(inputMoney);
 
-      const itemPrice = 1000;
-      vendingMachine.purchaseItem(itemPrice);
-      expect(vendingMachine.money).toBe(prevMoneyAmount + inputMoney - itemPrice);
-    });
+    const itemPrice = 1000;
+    vendingMachine.purchaseItem(itemPrice);
+    expect(vendingMachine.money).toBe(prevMoneyAmount + inputMoney - itemPrice);
   });
 });
 
