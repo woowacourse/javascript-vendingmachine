@@ -1,6 +1,6 @@
 import { PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
-import { generateItemPurchaseContentTemplate } from '../template';
+import { generateItemPurchaseContentTemplate } from '../template/adminPageTemplate';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import AdminPage from './AdminPage';
 

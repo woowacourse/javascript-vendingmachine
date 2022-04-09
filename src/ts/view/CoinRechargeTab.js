@@ -1,5 +1,5 @@
 import { SELECTOR } from '../constant/selector';
-import { generateCoinRechargeTabContentTemplate } from '../template';
+import { generateCoinRechargeTabContentTemplate } from '../template/adminPageTemplate';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import AdminPage from './AdminPage';
 

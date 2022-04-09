@@ -1,4 +1,29 @@
 import { COIN_10, COIN_100, COIN_50, COIN_500 } from '../constant/rule';
+import { KEY } from '../constant/storageKey';
+
+export const vendingMachineNavBarTemplate = (isLoginUser) => `
+  ${
+    isLoginUser
+      ? `<button type="button" id="thumbnail-button">${
+          localStorage.getItem(KEY.USER_NAME)[0]
+        }</button>
+        <select class="thumbnail-option hide" name="thumbnail-option">
+          <option value="default" selected disabled>메뉴 목록</option>
+          <option value="edit-user-info">회원정보 수정</option>
+          <option value="logout">로그아웃</option>
+        </select>
+      `
+      : '<a id="login-button" class="default-button" href="#login">로그인</a>'
+  }
+  <h1>🍿 자판기 🍿</h1>
+  <nav>
+    <a id="item-manage-tab-button" class="nav-tab-button" href="#item-manage">상품 관리</a>
+    <a id="coin-recharge-tab-button" class="nav-tab-button" href="#coin-recharge">잔돈 충전</a>
+    <a id="item-purchase-tab-button" class="nav-tab-button selected" href="#item-purchase">상품 구매</a>
+  </nav>
+  <section id="tab-content"></section>
+  <div class="snackbar"></div>
+`;
 
 export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
     <tr data-item-name="${itemName}">
@@ -137,56 +162,3 @@ export const generateItemPurchaseContentTemplate = ({ moneyAmount, itemList, cha
 `;
 
 export const generateConfirmMessage = (itemName) => `정말 '${itemName}' 상품을 삭제하시겠습니까?`;
-
-export const loginUserPageTemplate = `
-  <h1>로그인</h1>
-  <form class="input-form user-info-form">
-    <label>이메일</label>
-    <input name="email" type="email" placeholder="이메일 주소를 입력해주세요" autofocus/>
-    <label>비밀번호</label>
-    <input name="password" type="password" placeholder="비밀번호를 입력해주세요"/>
-    <button class="input-form-button">확인</button>
-  </form>
-  <p class="register-link-text">아직 회원이 아니신가요? <a href="#register">회원가입</a>
-  <div class="snackbar"></div>
-`;
-
-export const registerUserPageTemplate = `
-  <h1>회원가입</h1>
-  <form class="input-form user-info-form" >
-    <label>이메일</label>
-    <input name="email" type="email" placeholder="이메일 주소를 입력해주세요" autofocus/>
-    <label>이름</label>
-    <input name="name" type="text" minlength="2" maxlength="6" placeholder="이름을 입력해주세요"/>
-    <label>비밀번호</label>
-    <input name="password" type="password" placeholder="비밀번호를 입력해주세요"/>
-    <label>비밀번호 확인</label>
-    <input name="confirmPassword" type="password" placeholder="비밀번호를 입력해주세요"/>
-    <button class="input-form-button">확인</button>
-  </form>
-  <div class="snackbar"></div>
-`;
-
-export const vendingMachineNavBarTemplate = (isLoginUser) => `
-  ${
-    isLoginUser
-      ? `<button type="button" id="thumbnail-button">${
-          localStorage.getItem('user-name')[0]
-        }</button>
-        <select class="thumbnail-option hide" name="thumbnail-option">
-          <option value="default" selected disabled>메뉴 목록</option>
-          <option value="edit-user-info">회원정보 수정</option>
-          <option value="logout">로그아웃</option>
-        </select>
-      `
-      : '<a id="login-button" class="default-button" href="#login">로그인</a>'
-  }
-  <h1>🍿 자판기 🍿</h1>
-  <nav>
-    <a id="item-manage-tab-button" class="nav-tab-button" href="#item-manage">상품 관리</a>
-    <a id="coin-recharge-tab-button" class="nav-tab-button" href="#coin-recharge">잔돈 충전</a>
-    <a id="item-purchase-tab-button" class="nav-tab-button selected" href="#item-purchase">상품 구매</a>
-  </nav>
-  <section id="tab-content"></section>
-  <div class="snackbar"></div>
-`;

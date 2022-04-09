@@ -3,7 +3,7 @@ import {
   generateConfirmMessage,
   generateItemManageTabContentTemplate,
   generateItemManageTableRowTemplate,
-} from '../template';
+} from '../template/adminPageTemplate';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import AdminPage from './AdminPage';
 

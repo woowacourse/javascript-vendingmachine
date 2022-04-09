@@ -3,7 +3,7 @@ import { HASH } from '../constant/path';
 import { THUMBNAIL_OPTION_VALUE } from '../constant/rule';
 import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
-import { vendingMachineNavBarTemplate } from '../template';
+import { vendingMachineNavBarTemplate } from '../template/adminPageTemplate';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
 import { deleteCookie } from '../utils/cookie';
 

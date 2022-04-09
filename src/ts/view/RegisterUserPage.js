@@ -1,6 +1,6 @@
 import { HASH } from '../constant/path';
 import { SELECTOR } from '../constant/selector';
-import { registerUserPageTemplate } from '../template';
+import { registerUserPageTemplate } from '../template/authPageTemplate';
 import { selectDom, showSnackbar } from '../utils';
 import { register, validateRegisterBehavior } from '../vendingMachine/authLogic';
 

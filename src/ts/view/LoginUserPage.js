@@ -1,7 +1,7 @@
 import { COOKIE_EXPIRED_PERIOD } from '../constant/rule';
 import { SELECTOR } from '../constant/selector';
 import { KEY } from '../constant/storageKey';
-import { loginUserPageTemplate } from '../template';
+import { loginUserPageTemplate } from '../template/authPageTemplate';
 import { selectDom, showSnackbar } from '../utils';
 import { setCookie } from '../utils/cookie';
 import { login, validateLoginBehavior } from '../vendingMachine/authLogic';
