@@ -43,7 +43,9 @@ class UserInfoModify extends CustomElement {
     $('.user-info-modify-form').addEventListener('submit', this.handleUserInfoModifyFormSubmit);
   }
 
-  handleUserInfoModifyFormSubmit = () => {
+  handleUserInfoModifyFormSubmit = (event) => {
+    event.preventDefault();
+
     window.location.hash = BASE_HASH;
   };
 
