@@ -104,10 +104,11 @@ class ItemPurchaseTab extends AdminPage {
 
   #onClickChangeButton = () => {
     if (this.vendingMachine.money === 0) {
-      showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE);
+      showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.NO_MONEY_LEFT);
       return;
     }
 
+    const prevMoney = this.vendingMachine.money;
     this.coinRecharge.updateCoinCollection(
       this.vendingMachine.calculateChange(this.coinRecharge.coinCollection)
     );
@@ -115,6 +116,10 @@ class ItemPurchaseTab extends AdminPage {
     const remainedMoney = this.vendingMachine.money;
     this.#renderUpdatedDataAfterGiveChange(this.coinCountList, remainedMoney);
 
+    if (remainedMoney === prevMoney) {
+      showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE);
+      return;
+    }
     if (remainedMoney !== 0) {
       showSnackbar(this.snackbar, PURCHASE_ERROR_MESSAGE.CANNOT_GIVE_BACK_CHANGE_ALL);
       return;
