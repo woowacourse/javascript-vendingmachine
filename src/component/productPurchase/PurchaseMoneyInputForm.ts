@@ -19,7 +19,7 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
     this.#target.addEventListener('coinsReturned', this.#updatePurchaseMoney);
   }
 
-  #template(purhcaseMoney) {
+  #template(purchaseMoney) {
     return `
       <div>
         <form id="purchase-money-input-form">
@@ -27,7 +27,7 @@ export class PurchaseMoneyInputForm implements PurchaseMoneyInputFormInterface {
           <input id="purchase-money-input" class="input" type="number" placeholder="금액" step="10" min="10" max="10000" />
           <button id="purchase-money-submit-btn" class="submit-button button" type="submit">투입</button>
         </form>
-        <div id="purchase-money-container">현재보유금액 : <span id="purchase-money">${purhcaseMoney}</span>원</div>
+        <div id="purchase-money-container">현재보유금액 : <span id="purchase-money">${purchaseMoney}</span>원</div>
       </div>
     `;
   }

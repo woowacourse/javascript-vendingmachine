@@ -67,7 +67,7 @@ export class Router {
     // 이벤트 핸들러
     this.#productManageNavBtn.addEventListener('click', this.#handleShowProductManageTab);
     this.#balanceChargeNavBtn.addEventListener('click', this.#handleShowBalanceChargeTab);
-    this.#productPurchaseNavBtn.addEventListener('click', this.#handleShowProductPurhcaseTab);
+    this.#productPurchaseNavBtn.addEventListener('click', this.#handleShowProductPurchaseTab);
     this.#loginBtn.addEventListener('click', this.#handleShowLoginPage);
     this.#authSection.addEventListener('signupPageRequested', this.#handleShowSignupPage);
     this.#authSection.addEventListener('loginCompleted', this.#renderHome);
@@ -197,7 +197,7 @@ export class Router {
     this.#handleHistoryState(URL_PATH.BALANCE_CHAREGE);
   };
 
-  #handleShowProductPurhcaseTab = () => {
+  #handleShowProductPurchaseTab = () => {
     if (!this.#productPurchaseView.getIsRendered()) {
       this.#productPurchaseView.renderAll();
     }
@@ -259,7 +259,7 @@ export class Router {
       this.#nav.classList.add('hide');
     }
 
-    this.#handleShowProductPurhcaseTab();
+    this.#handleShowProductPurchaseTab();
   };
 
   #handleHistoryState(path: string) {

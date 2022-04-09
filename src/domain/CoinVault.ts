@@ -14,7 +14,7 @@ interface CoinVaultInterface {
   setCoins(coins: Coins);
   getBalance();
   chargeMoney(money: number);
-  returnCoins(purhcaseMoney: number): [Coins, number];
+  returnCoins(purchaseMoney: number): [Coins, number];
 }
 
 export class CoinVault implements CoinVaultInterface {
@@ -86,10 +86,10 @@ export class CoinVault implements CoinVaultInterface {
     return generatedCoins;
   }
 
-  returnCoins(purhcaseMoney: number): [Coins, number] {
-    if (this.#isValidatedReturnCoins(purhcaseMoney)) {
+  returnCoins(purchaseMoney: number): [Coins, number] {
+    if (this.#isValidatedReturnCoins(purchaseMoney)) {
       const returnedCoins = { ...COINS_INIT_QUANTITY };
-      let remainder = purhcaseMoney;
+      let remainder = purchaseMoney;
 
       Object.entries(this.#coins).forEach(([key, quantity]) => {
         const coinUnit = COINS_UNIT_TABLE[key];
@@ -108,8 +108,8 @@ export class CoinVault implements CoinVaultInterface {
     }
   }
 
-  #isValidatedReturnCoins(purhcaseMoney: number): true | Error {
-    if (purhcaseMoney === 0) throw Error(ERROR_MESSAGE.NO_PURCHASE_MONEY);
+  #isValidatedReturnCoins(purchaseMoney: number): true | Error {
+    if (purchaseMoney === 0) throw Error(ERROR_MESSAGE.NO_PURCHASE_MONEY);
 
     if (this.getBalance() === 0) throw Error(ERROR_MESSAGE.NO_COINS);
 
