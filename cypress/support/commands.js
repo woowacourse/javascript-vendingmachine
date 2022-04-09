@@ -22,6 +22,9 @@
 //
 //
 // -- This will overwrite an existing command --
+
+import { ERROR_MESSAGE } from '../../src/js/constants';
+
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('login', (userEmail, userPassword) => {
   cy.get('#to-login-anchor').click();
@@ -55,4 +58,16 @@ Cypress.Commands.add('signUp', (email, name, password, passwordConfirm) => {
   cy.get('#sign-up-password-confirm').type(passwordConfirm);
 
   cy.get('#sign-up-form').submit();
+});
+
+Cypress.Commands.add('authorizeInNotLogin', (path) => {
+  cy.visit(path);
+  cy.get('h1').should('have.text', '로그인');
+  cy.get('#snackbar').should('have.text', ERROR_MESSAGE.NOT_LOGIN);
+});
+
+Cypress.Commands.add('authorizeInLogin', (path) => {
+  cy.visit(path);
+  cy.get('#snackbar').should('have.text', ERROR_MESSAGE.ALREADY_LOGGINED);
+  cy.get('#purchase-tab-menu').should('have.class', 'current');
 });
