@@ -37,18 +37,17 @@ export default class User {
   }
 
   async initLoginStatus() {
-    if (this.#accessToken) {
-      try {
-        const res = await UserApi.searchInfo(this.#accessToken);
-        this.#isLogined = true;
-        this.#id = res.id;
-        this.#email = res.email;
-        this.#name = res.name;
-      } catch {
-        expireCookie(COOKIE_KEY);
-        this.#isLogined = false;
-        this.#id = null;
-      }
+    if (!this.#accessToken) return;
+    try {
+      const res = await UserApi.searchInfo(this.#accessToken);
+      this.#isLogined = true;
+      this.#id = res.id;
+      this.#email = res.email;
+      this.#name = res.name;
+    } catch {
+      expireCookie(COOKIE_KEY);
+      this.#isLogined = false;
+      this.#id = null;
     }
   }
 
