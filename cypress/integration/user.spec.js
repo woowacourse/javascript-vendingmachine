@@ -11,8 +11,9 @@ describe('회원가입 테스트', () => {
     cy.get('#signup-name-input').type('위니');
     cy.get('#signup-password-input').type('alreadyexist0512');
     cy.get('#password-confirm-input').type('alreadyexist0512');
+    cy.get('.signup-confirm-button').click();
     cy.on('window:alert', (error) => {
-      expect(error).to.equal(ERROR_MESSAGE.EMAIL_ALREADY_EXISTS);
+      expect(error).to.equal(AUTH.EMAIL_ALREADY_EXISTS);
     });
   });
 
@@ -52,6 +53,43 @@ describe('회원가입 테스트', () => {
     cy.get('#password-confirm-input').clear().type('correctpassword0512');
     cy.get('.signup-confirm-button').click();
     cy.get('#snackbar').should('have.text', SNACKBAR.SIGNUP_SUCCESS);
+  });
+});
+
+describe('회원 정보 수정 테스트', () => {
+  it('비밀번호가 10자리 미만인 경우, 에러 메시지를 확인할 수 있어야한다.', () => {
+    cy.get('.profile-button').click();
+    cy.get('.info-modify').click();
+    cy.get('#info-name-input').type('로이');
+    cy.get('#info-password-input').type('under');
+    cy.get('#info-password-confirm-input').type('under');
+    cy.get('.info-confirm-button').click();
+
+    cy.on('window:alert', (error) => {
+      expect(error).to.equal(ERROR_MESSAGE.IS_NOT_CORRECTED_PASSWORD);
+    });
+  });
+  it('비밀번호에 영어 대문자, 소문자, 숫자 중 2종류 이상이 조합되지 않은 경우, 에러 메시지를 확인할 수 있어야한다.', () => {
+    cy.get('#info-password-input').clear().type('onlyenglish');
+    cy.get('#info-password-confirm-input').clear().type('onlyenglish');
+    cy.get('.info-confirm-button').click();
+    cy.on('window:alert', (error) => {
+      expect(error).to.equal(ERROR_MESSAGE.IS_NOT_CORRECTED_PASSWORD);
+    });
+  });
+  it('비밀번호 입력과 비밀번호 확인 입력이 다른 경우, 에러 메시지를 확인할 수 있어야한다.', () => {
+    cy.get('#info-password-input').clear().type('notmatch0512');
+    cy.get('#info-password-confirm-input').clear().type('notmatch512');
+    cy.get('.info-confirm-button').click();
+    cy.on('window:alert', (error) => {
+      expect(error).to.equal(ERROR_MESSAGE.IS_NOT_MATCHED_PASSWORD);
+    });
+  });
+  it('회원 정보 수정이 가능하다.', () => {
+    cy.get('#info-password-input').clear().type('correct0512');
+    cy.get('#info-password-confirm-input').clear().type('correct0512');
+    cy.get('.info-confirm-button').click();
+    cy.get('#snackbar').should('have.text', SNACKBAR.MODIFY_SUCCESS);
   });
 });
 
