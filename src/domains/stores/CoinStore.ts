@@ -50,15 +50,11 @@ class CoinStore {
 
     coinKind.forEach((coin, idx) => {
       const needCount = Math.floor(moneyInput / coin);
-      if (needCount > coinCurrentState[idx]) {
-        moneyInput -= coin * coinCurrentState[idx];
-        holdingMoneySum -= coin * coinCurrentState[idx];
-        coinCurrentState[idx] = 0;
-      } else if (needCount <= coinCurrentState[idx]) {
-        moneyInput -= coin * needCount;
-        holdingMoneySum -= coin * needCount;
-        coinCurrentState[idx] -= needCount;
-      }
+      const lowerCoinCount = needCount <= coinCurrentState[idx] ? needCount : coinCurrentState[idx];
+
+      moneyInput -= coin * lowerCoinCount;
+      holdingMoneySum -= coin * lowerCoinCount;
+      coinCurrentState[idx] = needCount <= coinCurrentState[idx] ? (coinCurrentState[idx] -= needCount) : 0;
     });
 
     this.updateCoinsCountAfterReturnChange(coinCurrentState, holdingMoneySum, moneyInput);
