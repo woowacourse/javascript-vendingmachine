@@ -7,8 +7,16 @@
   </head>
   <body>
     <div id="app">
+      <div id="login-container">
+        <button class="button login" name="login">로그인</button>
+        <button type="button" class="thumbnail hide" name="thumbnail"></button>
+        <div class="select-box hide">
+          <button class="select-box-item" name="edit">회원 정보 수정</button>
+          <button class="select-box-item" name="logout">로그아웃</button>
+        </div>
+      </div>
       <h1 class="vending-machine-header">🍿 자판기 🍿</h1>
-      <nav id="menu-category">
+      <nav id="menu-category" class="hide">
         <ul class="menu-list">
           <li>
             <a id="manage-menu" href="#!manage" class="button">상품 관리</a>

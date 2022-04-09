@@ -4,7 +4,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.ts',
+  entry: {
+    index: './src/js/index.ts',
+    login: './src/js/user/login.js',
+    signUp: './src/js/user/signUp.js',
+    profile: './src/js/user/profile.js',
+  },
   resolve: {
     extensions: ['.js', '.css', '.ts'],
   },
@@ -13,7 +18,7 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -26,6 +31,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-runtime'],
             },
           },
         ],
@@ -47,6 +53,27 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
+      filename: 'index.html',
+      chunks: ['index'],
+      hash: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './login.html',
+      filename: 'login.html',
+      chunks: ['login'],
+      hash: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './signUp.html',
+      filename: 'signUp.html',
+      chunks: ['signUp'],
+      hash: true,
+    }),
+    new HtmlWebpackPlugin({
+      template: './profile.html',
+      filename: 'profile.html',
+      chunks: ['profile'],
+      hash: true,
     }),
   ],
 };

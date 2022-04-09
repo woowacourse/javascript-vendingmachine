@@ -10,21 +10,19 @@ export default class ChargeView {
   initChargeDOM() {
     this.$chargeAmountInput = $('#charge-amount-input');
     this.$currentAmount = $('.current-amount');
-    this.$fiveHundredCoin = $('#five-hundred-coin');
-    this.$oneHundredCoin = $('#one-hundred-coin');
-    this.$fiftyCoin = $('#fifty-coin');
-    this.$tenCoin = $('#ten-coin');
+    this.$fiveHundredCoin = $('.five-hundred-coin');
+    this.$oneHundredCoin = $('.one-hundred-coin');
+    this.$fiftyCoin = $('.fifty-coin');
+    this.$tenCoin = $('.ten-coin');
   }
 
-  renderHaveCoins(coins) {
-    this.$fiveHundredCoin.innerText = `${coins[500]}개`;
-    this.$oneHundredCoin.innerText = `${coins[100]}개`;
-    this.$fiftyCoin.innerText = `${coins[50]}개`;
-    this.$tenCoin.innerText = `${coins[10]}개`;
-  }
+  renderCoins(amount, coins) {
+    this.$currentAmount.textContent = `현재 보유 금액: ${amount}원`;
 
-  renderCurrentAmount(amount) {
-    this.$currentAmount.innerText = `현재 보유 금액: ${amount}원`;
+    this.$fiveHundredCoin.textContent = `${coins[500]}개`;
+    this.$oneHundredCoin.textContent = `${coins[100]}개`;
+    this.$fiftyCoin.textContent = `${coins[50]}개`;
+    this.$tenCoin.textContent = `${coins[10]}개`;
   }
 
   resetChargeInput() {

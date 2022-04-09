@@ -1,11 +1,10 @@
-import Coin from '../models/Coin.ts';
 import { on } from '../utils/event.js';
 import { SECTION_CONTAINER } from '../constants/constants.js';
 import ChargeView from '../views/ChargeView.js';
 
 export default class Charge {
-  constructor() {
-    this.coin = new Coin();
+  constructor(coin) {
+    this.coinModel = coin;
     this.chargeView = new ChargeView();
 
     on(SECTION_CONTAINER, '@charge', this.#handleChargeCoin.bind(this));
@@ -14,10 +13,10 @@ export default class Charge {
   #handleChargeCoin(e) {
     try {
       const { amount } = e.detail;
-      this.coin.setAmount(amount);
-      this.chargeView.renderCurrentAmount(this.coin.getAmount());
+      this.coinModel.makeRandomCoins(amount);
+      const coins = this.coinModel.getCoins();
+      this.chargeView.renderCoins(this.coinModel.getTotalAmount(coins), coins);
       this.chargeView.resetChargeInput();
-      this.chargeView.renderHaveCoins(this.coin.getCoins());
     } catch (error) {
       alert(error.message);
     }
@@ -25,7 +24,7 @@ export default class Charge {
 
   initCharge() {
     this.chargeView.initChargeDOM();
-    this.chargeView.renderCurrentAmount(this.coin.getAmount());
-    this.chargeView.renderHaveCoins(this.coin.getCoins());
+    const coins = this.coinModel.getCoins();
+    this.chargeView.renderCoins(this.coinModel.getTotalAmount(coins), coins);
   }
 }

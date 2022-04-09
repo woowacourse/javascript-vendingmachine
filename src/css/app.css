@@ -1,6 +1,5 @@
 #app {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 600px;
@@ -25,9 +24,11 @@
 }
 
 .button {
+  display: block;
   text-align: center;
   width: 117px;
   height: 36px;
+  margin: 0 auto;
   border: none;
   border-radius: 4px;
   line-height: 38px;
@@ -47,18 +48,6 @@
 .delete-button:hover,
 .confirm-button:hover {
   background-color: var(--color-dark-white);
-}
-
-.menu-list li a {
-  display: block;
-  text-decoration-line: none;
-}
-
-.menu-list li a:link,
-.menu-list li a:visited,
-.menu-list li a:hover,
-.menu-list li a:active {
-  color: black;
 }
 
 .menu-list li .select {
@@ -147,11 +136,6 @@
 
 .input-width {
   width: 300px;
-}
-
-.change-button {
-  display: block;
-  margin: 0 auto;
 }
 
 .modify-input {

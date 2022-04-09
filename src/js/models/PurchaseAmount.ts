@@ -7,7 +7,7 @@ interface PurchaseAmountInterface {
   deductAmount: (productPrice: number) => void;
 }
 
-export default class PurchaseAmount implements PurchaseAmountInterface {
+export default class PurchaseAmountModel implements PurchaseAmountInterface {
   #amount: number;
 
   constructor() {

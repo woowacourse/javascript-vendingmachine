@@ -53,3 +53,19 @@ export const validPurchaseAmount = (amount) => {
     throw new Error(ERROR_MESSAGE.NOT_DIVIDE_NUMBER);
   }
 };
+
+export const validAffordablePrice = (amount, price) => {
+  if (amount < price) {
+    throw new Error(ERROR_MESSAGE.SHORTAGE_OF_MONEY);
+  }
+};
+
+export const validPassword = (password, passwordConfirm) => {
+  const passwordRule = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+  if (!passwordRule.test(password)) {
+    throw Error(ERROR_MESSAGE.INVALID_PASSWORD);
+  }
+  if (password !== passwordConfirm) {
+    throw Error(ERROR_MESSAGE.NOT_SAME_PASSWORD);
+  }
+};

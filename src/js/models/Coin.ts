@@ -1,28 +1,19 @@
 import { COIN } from '../constants/constants.js';
 import { getRandomNumber } from '../utils/common.js';
 import { validChargeAmount } from '../utils/validation.js';
-
-interface Coins {
-  500: number;
-  100: number;
-  50: number;
-  10: number;
-}
+import { Coins } from './types';
 
 interface CoinInterface {
-  setAmount: (chargedAmount: number) => void;
-  getAmount: () => number;
   getCoins: () => Coins;
+  getTotalAmount: (coins: object) => number;
   addCoinCount: (index: number) => number;
   makeRandomCoins: (amount: number) => void;
 }
 
-export default class Coin implements CoinInterface {
-  #amount: number;
+export default class CoinModel implements CoinInterface {
   #coins: Coins;
 
   constructor() {
-    this.#amount = 0;
     this.#coins = {
       500: 0,
       100: 0,
@@ -31,19 +22,16 @@ export default class Coin implements CoinInterface {
     };
   }
 
-  setAmount(chargedAmount: number): void {
-    const currentAmount = this.#amount + chargedAmount;
-    validChargeAmount(chargedAmount, currentAmount);
-    this.#amount = currentAmount;
-    this.makeRandomCoins(chargedAmount);
-  }
-
-  getAmount(): number {
-    return this.#amount;
-  }
-
   getCoins(): Coins {
     return this.#coins;
+  }
+
+  getTotalAmount(coins: object): number {
+    let total = 0;
+    for (const unit in coins) {
+      total += Number(unit) * coins[unit];
+    }
+    return total;
   }
 
   // 뽑을 수 있는 동전리스트 인덱스 범위를 찾는다. ex) 잔돈이 120원 일 경우 [10, 50, 100] 중 랜덤 인덱스
@@ -57,24 +45,33 @@ export default class Coin implements CoinInterface {
   }
 
   makeRandomCoins(amount: number): void {
+    validChargeAmount(amount);
     let currentAmount = amount;
 
     while (currentAmount > 0) {
       if (currentAmount >= COIN.UNIT_LIST[3]) {
         currentAmount -= this.addCoinCount(3);
-        continue;
-      }
-      if (currentAmount >= COIN.UNIT_LIST[2]) {
+      } else if (currentAmount >= COIN.UNIT_LIST[2]) {
         currentAmount -= this.addCoinCount(2);
-        continue;
-      }
-      if (currentAmount >= COIN.UNIT_LIST[1]) {
+      } else if (currentAmount >= COIN.UNIT_LIST[1]) {
         currentAmount -= this.addCoinCount(1);
-        continue;
+      } else {
+        this.#coins[COIN.UNIT_LIST[0]] += currentAmount / COIN.UNIT_LIST[0];
+        break;
       }
-      // 잔돈이 50 보다 작을 경우 전부 다 10원으로 충전한다
-      this.#coins[COIN.UNIT_LIST[0]] += currentAmount / COIN.UNIT_LIST[0];
-      break;
     }
+  }
+
+  returnCoins(amount: number): object {
+    const returnedCoins = {};
+    let currentAmount = amount;
+
+    COIN.UNIT_LIST.reverse().forEach((unit) => {
+      const maxAmount = Math.min(Math.floor(currentAmount / unit), this.#coins[unit]);
+      this.#coins[unit] -= maxAmount;
+      returnedCoins[unit] = maxAmount;
+      currentAmount -= maxAmount * unit;
+    });
+    return returnedCoins;
   }
 }

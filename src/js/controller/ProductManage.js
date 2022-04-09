@@ -3,31 +3,34 @@ import { on } from '../utils/event.js';
 import { initHashContents } from '../views/menuCategoryView.js';
 import Charge from './Charge.js';
 import ProductPurchase from './ProductPurchase.js';
-import ProductManager from '../models/ProductManger.ts';
+import ProductManagerModel from '../models/ProductManger.ts';
+import CoinModel from '../models/Coin.ts';
 import ProductManageView from '../views/ProductManageView.js';
+import UserView from '../views/UserView.js';
 
 export default class ProductManage {
   constructor() {
-    this.productManager = new ProductManager();
-    this.productPurchase = new ProductPurchase();
-    this.charge = new Charge();
+    this.productManagerModel = new ProductManagerModel();
+    this.coinModel = new CoinModel();
+    this.charge = new Charge(this.coinModel);
+    this.productPurchase = new ProductPurchase(this.productManagerModel, this.coinModel);
     this.productManageView = new ProductManageView();
+    this.userView = new UserView();
 
-    on(SECTION_CONTAINER, '@render', this.#renderSavedData.bind(this));
+    on(SECTION_CONTAINER, '@render', this.#renderSavedProducts.bind(this));
     on(SECTION_CONTAINER, '@manage', this.#handleProductInfo.bind(this));
-    on(SECTION_CONTAINER, '@modify', this.#modifySavedData.bind(this));
-    on(SECTION_CONTAINER, '@delete', this.#deleteSavedData.bind(this));
+    on(SECTION_CONTAINER, '@modify', this.#modifyProduct.bind(this));
+    on(SECTION_CONTAINER, '@delete', this.#deleteProduct.bind(this));
   }
 
-  #renderSavedData(e) {
-    const { hash } = e.detail;
+  #renderSavedProducts(e) {
+    const hash = e.detail.hash || '#!purchase';
     initHashContents(hash);
+    const savedProductList = this.productManagerModel.getProducts();
 
     switch (hash) {
       case '#!manage':
         this.productManageView.initManageDOM();
-        // eslint-disable-next-line no-case-declarations
-        const savedProductList = this.productManager.getProducts();
         if (savedProductList.length !== 0) {
           this.productManageView.render(savedProductList);
         }
@@ -45,7 +48,7 @@ export default class ProductManage {
   #handleProductInfo(e) {
     try {
       const { product } = e.detail;
-      this.productManager.addProduct(product);
+      this.productManagerModel.addProduct(product);
       this.productManageView.render(product);
       this.productManageView.resetProductInput();
     } catch (error) {
@@ -53,18 +56,18 @@ export default class ProductManage {
     }
   }
 
-  #modifySavedData(e) {
+  #modifyProduct(e) {
     try {
       const { index, product } = e.detail;
-      this.productManager.modifyProduct(index, product);
+      this.productManagerModel.modifyProduct(index, product);
       this.productManageView.renderModifiedProduct(index, product);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  #deleteSavedData(e) {
+  #deleteProduct(e) {
     const { index } = e.detail;
-    this.productManager.deleteProduct(index);
+    this.productManagerModel.deleteProduct(index);
   }
 }
