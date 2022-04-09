@@ -80,3 +80,4 @@
 - [ ] fetch 실패한 error 메시지 바꾸기.
 - [ ] catch에 return 달아주기.
 - [ ] require="require" 수정
+- [ ] passwordConfirm fetch에서 제거

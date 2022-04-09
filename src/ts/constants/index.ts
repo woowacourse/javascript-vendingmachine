@@ -45,4 +45,4 @@ export const ALERT_MESSAGE = {
   USER_PASSWORD_CONFIRM: `비밀번호가 동일하지 않습니다.`,
 };
 
-export const baseUrl = 'https://e217-175-123-111-78.ngrok.io';
+export const baseUrl = 'https://027d-61-74-35-102.ngrok.io';

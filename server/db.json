@@ -1,3 +1,11 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "ubc3344@gmail.com",
+      "password": "$2a$10$TFg1KPJese6xHfw4wOX0fO7VQWMfMKauj8sQLTOsOHhF4OkIxJ/s.",
+      "name": "해리",
+      "passwordConfirm": "Djawlgur78!",
+      "id": 1
+    }
+  ]
 }
