@@ -1,7 +1,10 @@
-import { UserInfoType, validateLoginBehavior } from '../ts/vendingMachine/authLogic';
+import {
+  UserInfoType,
+  validateLoginBehavior,
+  validateRegisterBehavior,
+} from '../ts/vendingMachine/authLogic';
 
 import { LOGIN_ERROR_MESSAGE, REGISTER_ERROR_MESSAGE } from '../ts/constant/errorMessage';
-import { validateRegisterBehavior } from '../ts/vendingMachine/authLogic';
 
 describe('회원가입 입력값 유효성 테스트', () => {
   test('어떤 입력값이라도 공백이면 에러가 발생한다.', () => {

@@ -27,7 +27,13 @@ export const MONEY = {
 export const REGISTER = {
   NAME_MIN_LENGTH: 2,
   NAME_MAX_LENGTH: 6,
-  PASSWORD_RULE: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+  PASSWORD_MIN_LENGTH: 8,
+  PASSWORD_MAX_LENGTH: 20,
+  PASSWORD_RULE() {
+    return new RegExp(
+      `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{${this.PASSWORD_MIN_LENGTH},${this.PASSWORD_MAX_LENGTH}}$`
+    );
+  },
 };
 
 export const THUMBNAIL_OPTION_VALUE = {

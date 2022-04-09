@@ -15,7 +15,7 @@ const isBlankInput = (email: string, name: string, password: string, confirmPass
 const isExceedNameRange = (name: string) =>
   name.length < REGISTER.NAME_MIN_LENGTH || name.length > REGISTER.NAME_MAX_LENGTH;
 
-const isViolatePasswordRule = (password: string) => !REGISTER.PASSWORD_RULE.test(password);
+const isViolatePasswordRule = (password: string) => !REGISTER.PASSWORD_RULE().test(password);
 
 const isNotMatchWithPassword = (password: string, confirmPassword: string) =>
   password !== confirmPassword;
