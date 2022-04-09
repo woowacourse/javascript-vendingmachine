@@ -46,9 +46,18 @@ export function logout() {
   document.cookie = `access_token=`;
 }
 
+export function isLoggedIn() {
+  const userId: string = getCookie('user_id');
+  const accessToken: string = getCookie('access_token');
+
+  return userId && userId !== '' && accessToken && accessToken !== '';
+}
+
 export async function getUser(): Promise<object> {
   const userId: string = getCookie('user_id');
   const accessToken: string = getCookie('access_token');
+
+  if (!isLoggedIn()) return undefined;
 
   const response = await fetch(`${AUTH_BASE_URL}/users/${userId}`, {
     method: 'GET',
@@ -61,11 +70,4 @@ export async function getUser(): Promise<object> {
   const user: Promise<object> = await response.json();
 
   return user;
-}
-
-export function isLoggedIn() {
-  const userId: string = getCookie('user_id');
-  const accessToken: string = getCookie('access_token');
-
-  return userId !== '' && accessToken !== '';
 }

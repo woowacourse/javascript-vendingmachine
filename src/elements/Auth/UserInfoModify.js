@@ -15,7 +15,7 @@ class UserInfoModify extends CustomElement {
   async render() {
     const user = await getUser();
 
-    this.insertAdjacentHTML('beforeend', this.template(user.email));
+    this.insertAdjacentHTML('beforeend', this.template(user?.email));
   }
 
   template(email) {
@@ -50,7 +50,7 @@ class UserInfoModify extends CustomElement {
   async rerender() {
     const user = await getUser();
 
-    $('#user-info-modify-email').placeholder = user.email;
+    $('#user-info-modify-email').placeholder = user?.email;
   }
 }
 

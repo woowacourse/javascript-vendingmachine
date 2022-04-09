@@ -1,6 +1,6 @@
 import AuthStore from '../../domains/stores/AuthStore';
 import { AUTH_ACTION, createAction } from '../../domains/actions';
-import { getUser, isLoggedIn, logout } from '../../domains/Auth';
+import { getUser, logout } from '../../domains/Auth';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $, hideElement, showElement } from '../../utils';
@@ -13,12 +13,8 @@ class AuthMenu extends CustomElement {
   }
 
   async render() {
-    let userNameFirstChar = '';
-
-    if (isLoggedIn()) {
-      const user = await getUser();
-      userNameFirstChar = user.name?.charAt(0);
-    }
+    const user = await getUser();
+    const userNameFirstChar = user?.name.charAt(0) ?? '';
 
     this.insertAdjacentHTML('beforeend', this.template(userNameFirstChar));
   }
