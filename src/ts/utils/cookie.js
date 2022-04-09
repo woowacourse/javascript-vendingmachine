@@ -7,15 +7,12 @@ export const setCookie = (key, value, period) => {
   document.cookie = newCookie;
 };
 
-export const getCookie = (key) => {
-  return (
-    document.cookie &&
-    document.cookie
-      .split('; ')
-      .find((pair) => pair.startsWith(key))
-      .split('=')[1]
-  );
-};
+export const getCookie = (key) =>
+  document.cookie &&
+  document.cookie
+    .split('; ')
+    .find((pair) => pair.startsWith(key))
+    .split('=')[1];
 
 export const deleteCookie = (key) => {
   const pastDate = new Date();

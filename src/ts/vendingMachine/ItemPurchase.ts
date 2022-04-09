@@ -42,7 +42,7 @@ class ItemPurchase {
         const coinValue = Number(coin);
         while (coinValue <= this._money) {
           if (coins[coinValue] === 0) break;
-          this._change[coinValue]++;
+          this._change[coinValue] += 1;
           this._money -= coinValue;
           coins[coinValue] -= 1;
         }
@@ -84,9 +84,11 @@ class ItemPurchase {
   private isNotNumberTypeMoney(moneyInput: number) {
     return isNaN(moneyInput);
   }
+
   private isExceedTotalAmountRange(moneyInput: number) {
     return moneyInput < MONEY.MIN || moneyInput > MONEY.MAX;
   }
+
   private isNotDividedByUnitCash(moneyInput: number) {
     return moneyInput % MONEY.UNIT !== 0;
   }
@@ -94,6 +96,7 @@ class ItemPurchase {
   private isOutOfStock(itemQuantity: number) {
     return itemQuantity === 0;
   }
+
   private isNotEnoughMoney(itemPrice: number, remainedMoneyInput: number) {
     return itemPrice > remainedMoneyInput;
   }

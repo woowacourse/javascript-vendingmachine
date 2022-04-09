@@ -52,7 +52,9 @@ class ItemManageTab extends AdminPage {
     const newItem = this.vendingMachine.addItem(itemInfo);
     this.#renderAddedItem(newItem);
 
-    this.itemInfoInputs.forEach((itemInfoInput) => (itemInfoInput.value = ''));
+    this.itemInfoInputs.forEach((itemInfoInput) => {
+      itemInfoInput.value = '';
+    });
     this.itemInfoInputs[0].focus();
   };
 

@@ -48,7 +48,7 @@ class CoinRecharge implements CoinRechargeInterface {
       }
 
       const selectedCoin = candidateCoins[Math.floor(Math.random() * candidateCoins.length)];
-      this._coinCollection[selectedCoin]++;
+      this._coinCollection[selectedCoin] += 1;
       remainCoin -= selectedCoin;
     }
 
@@ -89,12 +89,15 @@ class CoinRecharge implements CoinRechargeInterface {
   private isNotNumberTypeCash(rechargedCash: number) {
     return isNaN(rechargedCash);
   }
+
   private isLowerThanMinRange(rechargedCash: number) {
     return rechargedCash < CASH.MIN;
   }
+
   private isExceedTotalAmountRange(rechargedCash: number) {
     return rechargedCash > CASH.MAX - this.calculateTotalCoinAmount();
   }
+
   private isNotDividedByUnitCash(rechargedCash: number) {
     return rechargedCash % CASH.UNIT !== 0;
   }

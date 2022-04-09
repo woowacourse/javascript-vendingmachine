@@ -9,21 +9,16 @@ export type UserInfoType = {
   confirmPassword: string;
 };
 
-export const login = async (loginUserInfo: { email: string; password: string }) => {
-  try {
-    return postLoginServer(loginUserInfo);
-  } catch (error) {
-    throw new Error(LOGIN_ERROR_MESSAGE.FAIL);
-  }
-};
+const isBlankInput = (email: string, name: string, password: string, confirmPassword: string) =>
+  !email.length || !name.length || !password.length || !confirmPassword.length;
 
-export const register = async (userInfo: UserInfoType) => {
-  try {
-    return postRegisterServer(userInfo);
-  } catch (error) {
-    throw new Error(REGISTER_ERROR_MESSAGE.FAIL);
-  }
-};
+const isExceedNameRange = (name: string) =>
+  name.length < REGISTER.NAME_MIN_LENGTH || name.length > REGISTER.NAME_MAX_LENGTH;
+
+const isViolatePasswordRule = (password: string) => !REGISTER.PASSWORD_RULE.test(password);
+
+const isNotMatchWithPassword = (password: string, confirmPassword: string) =>
+  password !== confirmPassword;
 
 export const validateLoginBehavior = (email: string, password: string) => {
   if (!email.length || !password.length) {
@@ -54,15 +49,18 @@ export const validateRegisterBehavior = ({
   }
 };
 
-const isBlankInput = (email: string, name: string, password: string, confirmPassword: string) => {
-  return !email.length || !name.length || !password.length || !confirmPassword.length;
+export const login = async (loginUserInfo: { email: string; password: string }) => {
+  try {
+    return postLoginServer(loginUserInfo);
+  } catch (error) {
+    throw new Error(LOGIN_ERROR_MESSAGE.FAIL);
+  }
 };
-const isExceedNameRange = (name: string) => {
-  return name.length < REGISTER.NAME_MIN_LENGTH || name.length > REGISTER.NAME_MAX_LENGTH;
-};
-const isViolatePasswordRule = (password: string) => {
-  return !REGISTER.PASSWORD_RULE.test(password);
-};
-const isNotMatchWithPassword = (password: string, confirmPassword: string) => {
-  return password !== confirmPassword;
+
+export const register = async (userInfo: UserInfoType) => {
+  try {
+    return postRegisterServer(userInfo);
+  } catch (error) {
+    throw new Error(REGISTER_ERROR_MESSAGE.FAIL);
+  }
 };

@@ -1,5 +1,25 @@
 import { COIN_10, COIN_100, COIN_50, COIN_500 } from '../constant/rule';
 
+export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
+    <tr data-item-name="${itemName}">
+      <td><input class="item-info-input-cell" value="${itemName}" type="text" minlength="1" maxlength="10" disabled/></td>
+      <td><input class="item-info-input-cell" value="${itemPrice}" type="number" min="100" max="10000" step="10" disabled/></td>
+      <td><input class="item-info-input-cell" value="${itemQuantity}" type="number" min="1" max="20" disabled/></td>
+      <td class="item-button-cell">
+        <div>
+          <button type="button" class="default-button edit-item-button">수정</button>
+          <button type="button" class="default-button delete-item-button">삭제</button>
+        </div>
+      </td>
+      <td class="item-button-cell hide">
+        <div>
+          <button type="button" class="default-button confirm-item-button">확인</button>
+          <button type="button" class="default-button cancel-item-button">취소</button>
+        </div>
+      </td>
+    </tr>
+`;
+
 export const generateItemManageTabContentTemplate = (itemList) => `
     <form id="item-info-form" class="input-form">
       <label>추가할 상품 정보를 입력해주세요(상품명, 가격, 수량).</label>
@@ -22,26 +42,6 @@ export const generateItemManageTabContentTemplate = (itemList) => `
         ${itemList.map((itemInfo) => generateItemManageTableRowTemplate(itemInfo)).join('')}
       </table>
     </div>
-`;
-
-export const generateItemManageTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
-    <tr data-item-name="${itemName}">
-      <td><input class="item-info-input-cell" value="${itemName}" type="text" minlength="1" maxlength="10" disabled/></td>
-      <td><input class="item-info-input-cell" value="${itemPrice}" type="number" min="100" max="10000" step="10" disabled/></td>
-      <td><input class="item-info-input-cell" value="${itemQuantity}" type="number" min="1" max="20" disabled/></td>
-      <td class="item-button-cell">
-        <div>
-          <button type="button" class="default-button edit-item-button">수정</button>
-          <button type="button" class="default-button delete-item-button">삭제</button>
-        </div>
-      </td>
-      <td class="item-button-cell hide">
-        <div>
-          <button type="button" class="default-button confirm-item-button">확인</button>
-          <button type="button" class="default-button cancel-item-button">취소</button>
-        </div>
-      </td>
-    </tr>
 `;
 
 export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollection) => `
@@ -76,6 +76,17 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
         <td class="coin-count" data-coin-value="10">${coinCollection[COIN_10]}개</td>
       </tr>
     </table>
+`;
+
+export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
+  <tr data-item-name="${itemName}">
+    <td>${itemName}</td>
+    <td>${itemPrice}</td>
+    <td class="item-quantity">${itemQuantity}</td>
+    <td class="item-button-cell">
+        <button type="button" class="default-button purchase-item-button">구매</button>
+    </td>
+  </tr>
 `;
 
 export const generateItemPurchaseContentTemplate = (moneyAmount, itemList, change) => `
@@ -123,17 +134,6 @@ export const generateItemPurchaseContentTemplate = (moneyAmount, itemList, chang
     </tr>
   </table>
   <button type="button" class="default-button give-change-button">반환</button>
-`;
-
-export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, itemQuantity }) => `
-  <tr data-item-name="${itemName}">
-    <td>${itemName}</td>
-    <td>${itemPrice}</td>
-    <td class="item-quantity">${itemQuantity}</td>
-    <td class="item-button-cell">
-        <button type="button" class="default-button purchase-item-button">구매</button>
-    </td>
-  </tr>
 `;
 
 export const generateConfirmMessage = (itemName) => `정말 '${itemName}' 상품을 삭제하시겠습니까?`;

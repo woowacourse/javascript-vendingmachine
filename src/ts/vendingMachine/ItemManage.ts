@@ -10,12 +10,12 @@ type TestCaseParamType = {
 };
 
 type TestCaseType = {
-  testCase: ({}: TestCaseParamType) => boolean;
+  testCase: (testCaseParams: Partial<TestCaseParamType>) => boolean;
   errorMessage: string;
 };
 
 interface ItemManageInterface {
-  addItem: (itemInfo: itemInfoType) => Object;
+  addItem: (itemInfo: itemInfoType) => itemInfoType;
   editItem: (itemInfo: itemInfoType, itemIndex: number) => void;
   deleteItem: (itemName: string) => void;
 }
@@ -27,7 +27,7 @@ class ItemManage implements ItemManageInterface {
     this._itemList = [];
   }
 
-  get itemList(): Object[] {
+  get itemList(): itemInfoType[] {
     return this._itemList;
   }
 
@@ -77,23 +77,29 @@ class ItemManage implements ItemManageInterface {
   private isBlank({ itemInfo: { itemName } }: { itemInfo: itemInfoType }) {
     return itemName.length === 0;
   }
+
   private isNotNumberType({ itemInfo: { itemPrice, itemQuantity } }: { itemInfo: itemInfoType }) {
-    return isNaN(itemPrice) || isNaN(itemQuantity);
+    return Number.isNaN(itemPrice) || Number.isNaN(itemQuantity);
   }
+
   private isExceedMaxNameLength({ itemInfo: { itemName } }: { itemInfo: itemInfoType }) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
+
   private isAlreadyExist({ itemInfo: { itemName }, itemIndex, isAddMode }: TestCaseParamType) {
     const isExistItemName = this._itemList.some((savedItem) => savedItem.itemName === itemName);
     if (isAddMode) return isExistItemName;
     return this._itemList[itemIndex].itemName !== itemName && isExistItemName;
   }
+
   private isExceedPriceRange({ itemInfo: { itemPrice } }: { itemInfo: itemInfoType }) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
   }
+
   private isNotDividedByPriceUnit({ itemInfo: { itemPrice } }: { itemInfo: itemInfoType }) {
     return itemPrice % ITEM.PRICE_UNIT !== 0;
   }
+
   private isExceedQuantityRange({ itemInfo: { itemQuantity } }: { itemInfo: itemInfoType }) {
     return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;
   }
