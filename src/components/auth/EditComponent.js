@@ -36,10 +36,10 @@ class EditComponent {
 
   subscribeStore() {
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
     this.render(authInformation);
   }
@@ -72,7 +72,7 @@ class EditComponent {
   }
 
   generateTemplate() {
-    return ` <section>
+    return `<section>
   <form class="input-form hide" id="edit-form"> 
   <label for="email-edit-input">이메일</label>
   <input type="email" class="auth-input" id="email-edit-input" placeholder="이메일 주소를 입력해주세요" required></input>

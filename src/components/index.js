@@ -59,10 +59,10 @@ class AppComponent {
     globalStore.subscribe(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
     globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
 
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
     const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME);
     this.render(authInformation, currentRouteName);

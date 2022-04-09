@@ -65,10 +65,10 @@ class PurchaseComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, this);
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const inputCharge = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE);
     this.render(inputCharge);
   }

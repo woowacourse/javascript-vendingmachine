@@ -53,10 +53,10 @@ class ProductTableComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
     this.render(productList);
   }

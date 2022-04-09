@@ -79,10 +79,10 @@ class CoinTableComponent {
     if (this.tableId === 'return-coin-table') {
       vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.RETURN_COIN, this);
     }
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     if (this.tableId === 'recharge-coin-table') {
       const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
       this.render(coinWallet);

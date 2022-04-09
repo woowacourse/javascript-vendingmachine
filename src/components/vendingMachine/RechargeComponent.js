@@ -59,10 +59,10 @@ class RechargeComponent {
 
   subscribeStore() {
     vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET);
     this.render(coinWallet);
   }

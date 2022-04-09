@@ -29,10 +29,10 @@ class LoadingComponent {
 
   subscribeStore() {
     globalStore.subscribe(GLOBAL_STATE_KEYS.IS_LOADING, this);
-    this.wakeUp();
+    this.update();
   }
 
-  wakeUp() {
+  update() {
     const state = globalStore.getState(GLOBAL_STATE_KEYS.IS_LOADING);
     this.render(state);
   }

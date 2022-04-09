@@ -45,7 +45,7 @@ class VendingMachineStore implements IVendingMachineStore {
   }
 
   notifySubscribedView(stateType: TVendingMachineStateKey) {
-    this.subscribedComponents[stateType].forEach(component => component.wakeUp());
+    this.subscribedComponents[stateType].forEach(component => component.update());
   }
 }
 

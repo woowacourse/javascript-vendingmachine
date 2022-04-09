@@ -43,7 +43,7 @@ class GlobalStore implements IGlobalStore {
   }
 
   notifySubscribedView(stateKey: TGlobalStateKey) {
-    this.subscribedComponents[stateKey].forEach(component => component.wakeUp());
+    this.subscribedComponents[stateKey].forEach(component => component.update());
   }
 }
 
