@@ -189,3 +189,5 @@ node_modules/
 jspm_packages/
 dist
 .gitmessage.txt
+db.json
+.vscode/

@@ -1,5 +1,6 @@
-import { ERROR_MESSAGE, PRODUCT_RULES } from '../../constants';
 import VendingMachineProduct from '../VendingMachineProduct';
+
+import { ERROR_MESSAGE, PRODUCT_RULES } from '../../../constants';
 
 function generateProduct(inputData = {}) {
   const data = {

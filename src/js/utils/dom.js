@@ -8,3 +8,11 @@ export function createMainElement(template) {
 
   return mainElement;
 }
+
+export function createDivElement(template) {
+  const divElement = document.createElement('div');
+  divElement.id = 'app-inner';
+  divElement.insertAdjacentHTML('beforeend', template);
+
+  return divElement;
+}

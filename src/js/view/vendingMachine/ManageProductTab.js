@@ -1,6 +1,7 @@
-import { CONFIRM_MESSAGE } from '../constants';
-import { createMainElement, selectDom } from '../utils/dom';
-import { TEMPLATE } from './template';
+import { CONFIRM_MESSAGE, ERROR, SNACKBAR_MESSAGE } from '../../constants';
+import { createMainElement, selectDom } from '../../utils/dom';
+import { TEMPLATE } from '../template';
+import Snackbar from '../SnackBar';
 
 export default class ManageProductTab {
   #vendingMachine;
@@ -37,7 +38,22 @@ export default class ManageProductTab {
   }
 
   get tabElements() {
+    this.#renderStockStatus();
     return this.#manageContainer;
+  }
+
+  #renderStockStatus() {
+    const { productList } = this.#vendingMachine;
+
+    for (let id of Object.keys(productList)) {
+      const { stock } = productList[id];
+      const productStock = selectDom(
+        `.product-stock[data-product-id="${id}"]`,
+        this.#manageContainer
+      );
+
+      productStock.textContent = stock;
+    }
   }
 
   #handleAddProductForm = (e) => {
@@ -54,8 +70,9 @@ export default class ManageProductTab {
         TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       this.#resetInput();
+      Snackbar.dispatch(SNACKBAR_MESSAGE.ADD_PRODUCT_SUCCESS);
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, ERROR);
     }
   };
 
@@ -114,8 +131,9 @@ export default class ManageProductTab {
       try {
         this.#vendingMachine.removeProduct(id);
         target.closest('tr').remove();
+        Snackbar.dispatch(SNACKBAR_MESSAGE.REMOVE_PRODUCT_SUCCESS);
       } catch ({ message }) {
-        alert(message);
+        Snackbar.dispatch(message, ERROR);
       }
     }
   };
@@ -134,8 +152,9 @@ export default class ManageProductTab {
         TEMPLATE.PRODUCT_TABLE_ROW({ name, price, stock, id })
       );
       targetTableRow.remove();
+      Snackbar.dispatch(SNACKBAR_MESSAGE.MODIFY_PRODUCT_SUCCESS);
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, ERROR);
     }
   };
 

@@ -19,9 +19,12 @@ input {
 }
 
 .submit-button {
-  background-color: var(--submit-button-bg-color);
+  height: 38px;
 
-  padding: 10px 15px;
+  padding: 0 15px;
+  margin-left: 7px;
+
+  background-color: var(--submit-button-bg-color);
 
   color: var(--default--white-color);
   font-weight: bold;
@@ -43,5 +46,63 @@ input {
 }
 
 #add-change-form input {
+  width: 300px;
+}
+
+#login-form fieldset {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  margin-bottom: 14px;
+}
+
+#login-form input {
+  width: 300px;
+
+  margin-bottom: 16px;
+}
+
+#login-form input:last-of-type {
+  margin-bottom: 30px;
+}
+
+#login-form a {
+  color: #3581d7;
+}
+
+#register-form fieldset {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  margin-bottom: 14px;
+}
+
+#register-form input {
+  width: 300px;
+
+  margin-bottom: 16px;
+}
+
+#register-form input:last-of-type {
+  margin-bottom: 30px;
+}
+
+#insert-money-form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  margin-bottom: 5px;
+}
+
+#insert-money-form input {
   width: 300px;
 }

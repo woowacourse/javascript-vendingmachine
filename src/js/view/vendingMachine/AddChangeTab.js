@@ -1,11 +1,13 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { TEMPLATE } from './template';
+import { createMainElement, selectDom } from '../../utils/dom';
+import { TEMPLATE } from '../template';
+import Snackbar from '../SnackBar';
+import { ERROR, SNACKBAR_MESSAGE } from '../../constants';
 
 export default class AddChangeTab {
   #vendingMachine;
   #addChangeContainer;
   #addChangeForm;
-  #moneyInput;
+  #changeInput;
   #totalChange;
   #coinStatusTable;
 
@@ -15,7 +17,7 @@ export default class AddChangeTab {
 
     this.#addChangeContainer = createMainElement(TEMPLATE.ADD_CHANGE);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
-    this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
+    this.#changeInput = selectDom('#change-input', this.#addChangeContainer);
     this.#totalChange = selectDom('#total-change', this.#addChangeContainer);
     this.#coinStatusTable = selectDom('#coin-status-table', this.#addChangeContainer);
 
@@ -24,19 +26,22 @@ export default class AddChangeTab {
   }
 
   get tabElements() {
+    this.#totalChange.textContent = this.#vendingMachine.totalChange;
+    this.#renderCoinStatus();
     return this.#addChangeContainer;
   }
 
   #handleAddChange = (e) => {
     e.preventDefault();
-    const money = this.#moneyInput.valueAsNumber;
+    const money = this.#changeInput.valueAsNumber;
 
     try {
       this.#vendingMachine.addChange(money);
       this.#renderCoinStatus();
       this.#resetInput();
+      Snackbar.dispatch(SNACKBAR_MESSAGE.ADD_CHANGE_SUCCESS);
     } catch ({ message }) {
-      alert(message);
+      Snackbar.dispatch(message, ERROR);
     }
   };
 
@@ -52,6 +57,6 @@ export default class AddChangeTab {
   }
 
   #resetInput() {
-    this.#moneyInput.value = '';
+    this.#changeInput.value = '';
   }
 }

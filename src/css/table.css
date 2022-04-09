@@ -1,5 +1,11 @@
 .table-section {
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
 }
 
 caption {
@@ -11,15 +17,11 @@ caption {
 
 td,
 th {
-  padding: 8px 0;
+  height: 40px;
 
   border-bottom: 1px solid var(--table-border-color);
 
   text-align: center;
-}
-
-td {
-  height: 65px;
 }
 
 th {
@@ -42,31 +44,36 @@ table {
   margin: auto;
 }
 
-.confirm-update-button {
-  width: 100%;
-}
-
 #product-status-table tr input {
   width: 90%;
+  height: 32px;
 
   margin: auto;
 
   font-size: 1rem;
 }
 
-#product-status-table th:nth-child(1) {
+.product-table th:nth-child(1) {
   width: 160px;
 }
-#product-status-table th:nth-child(2) {
+.product-table th:nth-child(2) {
   width: 60px;
 }
-#product-status-table th:nth-child(3) {
+.product-table th:nth-child(3) {
   width: 50px;
 }
-#product-status-table th:nth-child(4) {
+.product-table th:nth-child(4) {
   width: 140px;
 }
 
-#coin-status-table td {
+.coin-table td {
+  width: 100px;
+}
+
+.purchase-product-button {
+  width: 100%;
+}
+
+#return-change-button {
   width: 100px;
 }
