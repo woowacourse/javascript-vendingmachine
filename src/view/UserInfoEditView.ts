@@ -15,14 +15,14 @@ export class UserInfoEditView implements UserInfoViewInterface {
     this.#auth = auth;
   }
 
-  #template(email: UserInfoProps['email']) {
+  #template(email: UserInfoProps['email'], name: UserInfoProps['name']) {
     return `
       <h1>회원 정보 수정</h1>
       <form id="user-info-edit-form" class="auth-form">
         <label for="email">이메일</label>
         <input id="email" class="input" type="email" value=${email} disabled />
         <label for="name">이름</label>
-        <input id="name" class="input" name="name" type="text" placeholder="이름을 입력해주세요" />
+        <input id="name" class="input" name="name" type="text" value=${name} placeholder="이름을 입력해주세요" />
         <label for="password">비밀번호</label>
         <input id="password" class="input" type="password" name="password" placeholder="비밀번호를 입력해주세요" />
         <label for="password-confirmation">비밀번호 확인</label>
@@ -33,8 +33,8 @@ export class UserInfoEditView implements UserInfoViewInterface {
   }
 
   render() {
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    this.#target.insertAdjacentHTML('beforeend', this.#template(email));
+    const { email, name } = JSON.parse(localStorage.getItem('user'));
+    this.#target.insertAdjacentHTML('beforeend', this.#template(email, name));
     this.#selectDOM();
     this.#bindEvent();
   }
