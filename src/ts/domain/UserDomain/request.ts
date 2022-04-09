@@ -3,9 +3,15 @@ import { UserInfo } from '../types';
 type RequestType = 'signin' | 'signup';
 const baseUrl = 'https://heroku-vending-lv1.herokuapp.com' as const;
 
+const makeResponseDataType = <T>(response): T => response as T;
+
 const requestSign = async (purpose: RequestType, user: UserInfo) => {
   const url = `${baseUrl}/${purpose === 'signup' ? 'register' : 'login'}`;
-  let resInfo;
+  type signResponseType = {
+    accessToken: string;
+    user: { email: string; id: string; name: string; password: string };
+  };
+  let resInfo: signResponseType;
 
   await fetch(url, {
     method: 'POST',
@@ -18,7 +24,7 @@ const requestSign = async (purpose: RequestType, user: UserInfo) => {
       throw new Error();
     }
     await response.json().then(res => {
-      resInfo = res;
+      resInfo = makeResponseDataType<signResponseType>(res);
     });
   });
 
@@ -27,7 +33,13 @@ const requestSign = async (purpose: RequestType, user: UserInfo) => {
 
 const requestUpdate = async (user: UserInfo, id: string) => {
   const url = `${baseUrl}/users/${id}`;
-  let resInfo;
+  type updateResponseType = {
+    email: string;
+    id: string;
+    name: string;
+    password: string;
+  };
+  let resInfo: updateResponseType;
 
   await fetch(url, {
     method: 'PATCH',
@@ -40,7 +52,7 @@ const requestUpdate = async (user: UserInfo, id: string) => {
       throw new Error();
     }
     await response.json().then(res => {
-      resInfo = res;
+      resInfo = makeResponseDataType<updateResponseType>(res);
     });
   });
 
