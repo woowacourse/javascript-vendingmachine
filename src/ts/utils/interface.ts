@@ -103,6 +103,11 @@ interface ValidatePasswordConfirmInfoProps {
   passwordConfirmInfoMessage: HTMLElement;
 }
 
+interface ValidateEmailInfoProps {
+  emailInputValue: string;
+  emailInfoMessage: HTMLElement;
+}
+
 type ConvertTemplate = (path: string) => void;
 
 type Coins = 500 | 100 | 50 | 10;
@@ -120,6 +125,7 @@ export {
   ValidateNameInfoProps,
   ValidatePasswordInfoProps,
   ValidatePasswordConfirmInfoProps,
+  ValidateEmailInfoProps,
   RegisterUserProps,
   ConvertTemplate,
   CoinType

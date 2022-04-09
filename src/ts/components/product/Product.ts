@@ -84,7 +84,7 @@ class Product {
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)
       .indexOf(productName);
-   
+
     this.productInfo.editProduct({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, changeProductIndex: changeProductIndex });
   };
 

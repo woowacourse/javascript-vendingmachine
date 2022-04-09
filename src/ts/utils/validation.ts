@@ -1,5 +1,5 @@
 import { PRODUCT, CHARGE, specialSymbolAsc, numberAsc, upperCaseAsc, lowerCaseAsc } from "./constants";
-import { EditInsertMoneyProps, ValidateNameInfoProps, ValidatePasswordConfirmInfoProps, ValidatePasswordInfoProps } from "./interface";
+import { EditInsertMoneyProps, ValidateEmailInfoProps, ValidateNameInfoProps, ValidatePasswordConfirmInfoProps, ValidatePasswordInfoProps } from "./interface";
 
 const validateProductName = (productName: string | null) => {
   if (productName.trim() === "") {
@@ -74,9 +74,11 @@ const validatePossiblePurchaseProduct = ({ totalMoney, productPrice }: EditInser
   }
 };
 
-const validateEmailInfo = (emailInputValue, emailInfoMessage): Boolean => {
+const validateEmailInfo = ({ emailInputValue, emailInfoMessage }: ValidateEmailInfoProps): Boolean => {
   const emailInfoSplit = emailInputValue.split("");
   const emailInfoSplitAt = emailInputValue.split("@");
+  const emailName = emailInfoSplitAt[0];
+  const emailDomain = emailInfoSplitAt[1];
 
   try {
     if (!emailInputValue) {
@@ -88,18 +90,20 @@ const validateEmailInfo = (emailInputValue, emailInfoMessage): Boolean => {
     if (emailInfoSplit.filter((text) => text === "@").length > 1) {
       throw Error("@ 다음 부분에 @기호를 포함할 수 없습니다.");
     }
-    if (emailInfoSplitAt[0].length === 0) {
+    if (emailName.length === 0) {
       throw Error("@ 앞부분을 입력해주세요.");
     }
-    if (emailInfoSplitAt[1].length < 1) {
+    if (emailDomain.length < 1) {
       throw Error("@ 뒷부분을 입력해주세요.");
     }
     if (emailInfoSplit.find((text) => text === " ")) {
       throw Error("이메일에 공백을 포함할 수 없습니다.");
     }
+
     return true;
   } catch ({ message }) {
     emailInfoMessage.textContent = `${message}`;
+
     return false;
   }
 };
@@ -120,9 +124,11 @@ const validateNameInfo = ({ nameInputValue, nameInfoMessage }: ValidateNameInfoP
     if (numberInputValueSplit.find((text: string) => text === " ")) {
       throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
     }
+
     return true;
   } catch ({ message }) {
     nameInfoMessage.textContent = `${message}`;
+
     return false;
   }
 };
@@ -166,9 +172,11 @@ const validatePasswordConfirmInfo = ({ passwordConfirmInputValue, passwordInputV
     if (passwordInputValue !== passwordConfirmInputValue) {
       throw Error("비밀번호가 일치하지 않습니다.");
     }
+
     return true;
   } catch ({ message }) {
     passwordConfirmInfoMessage.textContent = `${message}`;
+
     return false;
   }
 };

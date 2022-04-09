@@ -136,7 +136,7 @@ class Signup {
     this.emailInfoMessage.classList.add("member-info-error-text");
     this.emailInfoMessage.classList.remove("member-info-correct-text");
   
-    if (!validateEmailInfo(emailInputValue, this.emailInfoMessage)) {
+    if (!validateEmailInfo({ emailInputValue: emailInputValue, emailInfoMessage: this.emailInfoMessage})) {
       return;
     }
 
@@ -147,13 +147,13 @@ class Signup {
 
   handleSubmitSignup = async (event: Event) => {
     event.preventDefault();
-    const emailInputValueResult =  (this.emailInfoInput as HTMLInputElement).value;
+    const emailInputValue =  (this.emailInfoInput as HTMLInputElement).value;
     const nameInputValue = (this.nameInfoInput as HTMLInputElement).value;
     const passwordInputValue = (this.passwordInfoInput as HTMLInputElement).value;
     const passwordConfirmInputValue = (this.passwordConfirmInfoInput as HTMLInputElement).value;
   
     if (
-      !validateEmailInfo(emailInputValueResult, this.emailInfoMessage) ||
+      !validateEmailInfo({ emailInputValue: emailInputValue, emailInfoMessage: this.emailInfoMessage}) ||
       !validateNameInfo({ nameInputValue: nameInputValue, nameInfoMessage: this.nameInfoMessage}) ||
       !validatePasswordInfo({ passwordInputValue: passwordInputValue, passwordInfoMessage: this.passwordInfoMessage}) ||
       !validatePasswordConfirmInfo({ passwordConfirmInputValue: passwordConfirmInputValue, passwordInputValue: passwordInputValue, passwordConfirmInfoMessage: this.passwordConfirmInfoMessage })
@@ -165,7 +165,7 @@ class Signup {
       const response = await fetch("https://vendingdb.herokuapp.com/register", {
         method: "POST",
         body: JSON.stringify({
-          email: emailInputValueResult,
+          email: emailInputValue,
           name: nameInputValue,
           password: passwordInputValue,
         }),
