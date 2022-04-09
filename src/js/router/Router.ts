@@ -58,26 +58,26 @@ export default class Router {
     if (targetId === SELECTOR.ID_STRING.ITEM_PURCHASE_TAB) {
       window.history.pushState(null, null, URL_HASH.PURCHASE_ITEM);
     }
-    if (targetId === 'login-button') {
-      window.history.pushState(null, null, '#login');
+    if (targetId === SELECTOR.ID_STRING.LOGIN_BUTTON) {
+      window.history.pushState(null, null, SELECTOR.ID.LOGIN);
     }
-    if (targetId === 'go-to-signup') {
-      window.history.pushState(null, null, '#signup');
+    if (targetId === SELECTOR.ID_STRING.GO_TO_SIGNUP) {
+      window.history.pushState(null, null, SELECTOR.ID.SIGNUP);
     }
-    if (targetId === 'login-form') {
-      window.history.pushState(null, null, '#purchaseItem');
+    if (targetId === SELECTOR.ID_STRING.LOGIN_FORM) {
+      window.history.pushState(null, null, SELECTOR.ID.PURCHASE_ITEM);
     }
-    if (targetId === 'signup-form') {
-      window.history.pushState(null, null, '#login');
+    if (targetId === SELECTOR.ID_STRING.SIGNUP_FORM) {
+      window.history.pushState(null, null, SELECTOR.ID.LOGIN);
     }
-    if (targetId === 'change-form') {
-      window.history.pushState(null, null, '#purchaseItem');
+    if (targetId === SELECTOR.ID_STRING.CHANGE_FORM) {
+      window.history.pushState(null, null, SELECTOR.ID.PURCHASE_ITEM);
     }
-    if (targetId === 'change-user-info') {
-      window.history.pushState(null, null, '#changeUserInfo');
+    if (targetId === SELECTOR.ID_STRING.CHANGE_USER_INFO) {
+      window.history.pushState(null, null, SELECTOR.ID.CHANGE_USER_INFO);
     }
-    if (targetId === 'logout') {
-      window.history.pushState(null, null, '#purchaseItem');
+    if (targetId === SELECTOR.ID_STRING.LOGOUT) {
+      window.history.pushState(null, null, SELECTOR.ID.PURCHASE_ITEM);
     }
     this.loadRoutePage();
   }
@@ -87,14 +87,17 @@ export default class Router {
     const isLogin = sessionStorage.getItem('isLogIn') === 'true' ? true : false;
     const user = JSON.parse(sessionStorage.getItem('user'));
 
-    $('#header-button-container').replaceChildren();
-    $('#header-button-container').insertAdjacentHTML('beforeend', headerButtonTemplate(isLogin));
+    $(SELECTOR.ID.HEADER_BUTTON_CONTAINER).replaceChildren();
+    $(SELECTOR.ID.HEADER_BUTTON_CONTAINER).insertAdjacentHTML(
+      'beforeend',
+      headerButtonTemplate(isLogin),
+    );
 
     if (isLogin) {
-      $('#user-name').textContent = user.name[0];
-      $('.nav-container').classList.remove('display-none');
+      $(SELECTOR.ID.USER_NAME).textContent = user.name[0];
+      $(SELECTOR.CLASS.NAV_CONTAINER).classList.remove('display-none');
     } else {
-      $('.nav-container').classList.add('display-none');
+      $(SELECTOR.CLASS.NAV_CONTAINER).classList.add('display-none');
     }
 
     if (!hash) {

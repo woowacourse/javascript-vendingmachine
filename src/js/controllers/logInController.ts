@@ -2,6 +2,7 @@ import LogInView from '../views/logInView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 import Router from '../router/Router';
+import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class LogInController implements Controller {
   private logInView: LogInView;
@@ -42,7 +43,7 @@ export default class LogInController implements Controller {
         sessionStorage.setItem('user', JSON.stringify(user));
 
         emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
-        showSnackBar('로그인 되었습니다.');
+        showSnackBar(SNACK_BAR_MESSAGE.LOGIN_SUCCESS);
       })
       .catch(error => alert(error.message));
   }

@@ -4,6 +4,7 @@ import { checkDuplicatedItem } from '../validates/validates';
 import { ItemType, TableItemChangeDetailType, TableItemDeleteDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent, showSnackBar } from '../utils/common';
+import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class ManageItemController implements Controller {
   private vendingMachine: VendingMachine;
@@ -33,7 +34,7 @@ export default class ManageItemController implements Controller {
       this.manageItemView.clearInput();
       this.manageItemView.repaintItemTable(this.vendingMachine.getItems());
 
-      showSnackBar('상품이 추가되었습니다.');
+      showSnackBar(SNACK_BAR_MESSAGE.ITEM_ADDED);
     } catch (error) {
       alert(error.message);
     }
@@ -49,7 +50,7 @@ export default class ManageItemController implements Controller {
 
       this.manageItemView.repaintItemTableRow($targetTableRow, item);
 
-      showSnackBar('상품이 수정되었습니다.');
+      showSnackBar(SNACK_BAR_MESSAGE.ITEM_EDITED);
     } catch (error) {
       alert(error.message);
     }

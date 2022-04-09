@@ -1,6 +1,7 @@
 import ChangeUserInfoView from '../views/changeUserInfoView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
+import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class ChangeUserInfoController implements Controller {
   private changeUserInfoView: ChangeUserInfoView;
@@ -45,7 +46,7 @@ export default class ChangeUserInfoController implements Controller {
         sessionStorage.setItem('user', JSON.stringify(changedUser));
 
         emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
-        showSnackBar('회원 정보가 수정되었습니다.');
+        showSnackBar(SNACK_BAR_MESSAGE.USER_INFO_CHANGED);
       })
       .catch(error => alert(error.message));
   }

@@ -1,4 +1,4 @@
-import { $, $$, emitCustomEvent } from '../utils/common';
+import { $, emitCustomEvent } from '../utils/common';
 import { SELECTOR } from '../constants/constants';
 import { changeUserInfoTemplate } from '../templates/changeUserInfoTemplate';
 
@@ -12,8 +12,8 @@ export default class ChangeUserInfoView {
     event.preventDefault();
     try {
       const targetId = event.target.id;
-      const name = $('#change-name-input').value;
-      const password = $('#change-password-input').value;
+      const name = $(SELECTOR.ID.CHANGE_NAME_INPUT).value;
+      const password = $(SELECTOR.ID.CHANGE_PASSWORD_INPUT).value;
 
       emitCustomEvent('CHANGE_USER_INFO', { detail: { name, password, targetId } });
     } catch (error) {
@@ -27,7 +27,7 @@ export default class ChangeUserInfoView {
     this.$content.insertAdjacentHTML('beforeend', changeUserInfoTemplate(isLogin, user));
 
     if (isLogin) {
-      $('#change-form').addEventListener('submit', this.handleSubmitChangeForm.bind(this));
+      $(SELECTOR.ID.CHANGE_FORM).addEventListener('submit', this.handleSubmitChangeForm.bind(this));
     }
   }
 }

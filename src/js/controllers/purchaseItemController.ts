@@ -3,6 +3,7 @@ import VendingMachine from '../vendingMachine/vendingMachine';
 import { CoinsType, MoneyDetailType } from '../types';
 import { onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
+import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class PurchaseItemController implements Controller {
   private vendingMachine: VendingMachine;
@@ -22,7 +23,7 @@ export default class PurchaseItemController implements Controller {
     onCustomEvent('RETURN_MONEY', () => {
       try {
         this.vendingMachine.giveChange();
-        showSnackBar('잔돈이 반환되었습니다.');
+        showSnackBar(SNACK_BAR_MESSAGE.CHANGE_RETURNED);
         this.loadPage();
       } catch (error) {
         alert(error.message);
@@ -32,7 +33,7 @@ export default class PurchaseItemController implements Controller {
       try {
         const { itemName } = event.detail;
         this.vendingMachine.buyItem(itemName);
-        showSnackBar('상품을 구매하였습니다.');
+        showSnackBar(SNACK_BAR_MESSAGE.ITEM_PURCHASED);
         this.loadPage();
       } catch (error) {
         alert(error.message);

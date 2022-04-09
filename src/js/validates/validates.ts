@@ -71,16 +71,16 @@ export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, target
 
 export const validateReturnChange = (purchaseMoney, ownMoney) => {
   if (purchaseMoney === 0) {
-    throw new Error('투입된 금액이 없습니다.');
+    throw new Error(ERROR_MESSAGE.NO_INPUT_MONEY);
   }
   if (ownMoney === 0) {
-    throw new Error('자판기에 잔돈이 없습니다.');
+    throw new Error(ERROR_MESSAGE.NO_CHANGE_MONEY);
   }
 };
 
 export const checkPassword = password => {
   const Regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-]).{8,16}$/;
   if (!Regex.test(password)) {
-    throw new Error('영문, 숫자, 특수문자가 혼용된 8~16자의 비밀번호를 작성해주세요.');
+    throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
   }
 };

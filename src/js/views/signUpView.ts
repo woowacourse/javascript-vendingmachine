@@ -1,4 +1,4 @@
-import { $, $$, emitCustomEvent } from '../utils/common';
+import { $, emitCustomEvent } from '../utils/common';
 import { SELECTOR } from '../constants/constants';
 import { signUpTemplate } from '../templates/signUpTemplate';
 import { checkPassword } from '../validates/validates';
@@ -13,9 +13,9 @@ export default class SignUpView {
     event.preventDefault();
     try {
       const targetId = event.target.id;
-      const email = $('#signup-email-input').value.trim();
-      const name = $('#signup-name-input').value.trim();
-      const password = $('#signup-password-input').value;
+      const email = $(SELECTOR.ID.SIGNUP_EMAIL_INPUT).value.trim();
+      const name = $(SELECTOR.ID.SIGNUP_NAME_INPUT).value.trim();
+      const password = $(SELECTOR.ID.SIGNUP_PASSWORD_INPUT).value;
 
       checkPassword(password);
       emitCustomEvent('SIGN_UP', { detail: { email, name, password, targetId } });
@@ -29,7 +29,7 @@ export default class SignUpView {
     this.$content.insertAdjacentHTML('beforeend', signUpTemplate(isLogin));
 
     if (!isLogin) {
-      $('#signup-form').addEventListener('submit', this.handleSubmitSignUpForm.bind(this));
+      $(SELECTOR.ID.SIGNUP_FORM).addEventListener('submit', this.handleSubmitSignUpForm.bind(this));
     }
   }
 }

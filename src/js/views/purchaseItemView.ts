@@ -1,8 +1,7 @@
-import { $, $$, showSnackBar } from '../utils/common';
+import { $, $$, showSnackBar, emitCustomEvent } from '../utils/common';
 import { purchaseItemTemplate } from '../templates/purchaseItemTemplate';
-import { SELECTOR } from '../constants/constants';
+import { SELECTOR, SNACK_BAR_MESSAGE } from '../constants/constants';
 import { CoinsType, ItemType } from '../types';
-import { emitCustomEvent } from '../utils/common';
 import { validateInputPurchaseMoney } from '../validates/validates';
 
 export default class PurchaseItemView {
@@ -13,14 +12,16 @@ export default class PurchaseItemView {
   }
 
   bindSubmitEvent() {
-    $('#purchase-item-form').addEventListener(
+    $(SELECTOR.ID.PURCHASE_ITEM_FORM).addEventListener(
       'submit',
       this.handleSubmitPurchaseMoneyInput.bind(this),
     );
   }
 
   bindPurchaseClickEvents() {
-    $$('.item-table-purchase-button').forEach(button => this.bindTargetPurchaseClick(button));
+    $$(SELECTOR.CLASS.ITEM_TABLE_PURCHASE_BUTTON).forEach(button =>
+      this.bindTargetPurchaseClick(button),
+    );
   }
 
   bindTargetPurchaseClick(button) {
@@ -35,7 +36,7 @@ export default class PurchaseItemView {
   }
 
   bindReturnMoneyClickEvent() {
-    $('.return-money-button').addEventListener(
+    $(SELECTOR.CLASS.RETURN_MONEY_BUTTON).addEventListener(
       'click',
       this.handleClickReturnMoneyButton.bind(this),
     );
@@ -48,7 +49,7 @@ export default class PurchaseItemView {
 
       validateInputPurchaseMoney(inputMoney);
       emitCustomEvent('PURCHASE_MONEY_INPUT', { detail: { inputMoney } });
-      showSnackBar('금액을 투입하였습니다.');
+      showSnackBar(SNACK_BAR_MESSAGE.MONEY_INPUT);
     } catch (error) {
       alert(error.message);
     }

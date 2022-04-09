@@ -2,7 +2,7 @@ import { $, emitCustomEvent, showSnackBar } from '../utils/common';
 import { chargeMoneyTemplate, sectionTemplate } from '../templates/chareMoneyTemplate';
 import { validateInputOwnMoney } from '../validates/validates';
 import { CoinsType } from '../types';
-import { SELECTOR } from '../constants/constants';
+import { SELECTOR, SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class ChargeMoneyView {
   $content: HTMLDivElement;
@@ -26,7 +26,7 @@ export default class ChargeMoneyView {
       validateInputOwnMoney(inputMoney);
 
       emitCustomEvent('CHARGE_MONEY', { detail: { inputMoney } });
-      showSnackBar('잔돈이 충전되었습니다.');
+      showSnackBar(SNACK_BAR_MESSAGE.CHANGE_CHARGED);
     } catch (error) {
       alert(error.message);
     }

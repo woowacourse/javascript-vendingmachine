@@ -1,5 +1,5 @@
 import { $, $$, emitCustomEvent } from '../utils/common';
-import { SELECTOR } from '../constants/constants';
+import { CONFIRM_MESSAGE, SELECTOR } from '../constants/constants';
 import { initialTemplate } from '../templates/initialTemplate';
 
 export default class MainView {
@@ -7,7 +7,7 @@ export default class MainView {
 
   constructor() {
     $(SELECTOR.CLASS.NAV_CONTAINER).addEventListener('click', this.handleClickNavButton.bind(this));
-    $('#header-button-container').addEventListener('click', this.handleClickLoginButton);
+    $(SELECTOR.ID.HEADER_BUTTON_CONTAINER).addEventListener('click', this.handleClickLoginButton);
   }
 
   handleClickNavButton(event: { target: HTMLButtonElement }) {
@@ -19,20 +19,20 @@ export default class MainView {
 
   handleClickLoginButton(event: { target: HTMLButtonElement }) {
     const targetId = event.target.id;
-    if (targetId === 'login-button') {
+    if (targetId === SELECTOR.ID_STRING.LOGIN_BUTTON) {
       emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
     }
-    if (targetId === 'user-badge') {
+    if (targetId === SELECTOR.ID_STRING.USER_BADGE) {
       $('#user-dropbox').classList.toggle('display-none');
     }
-    if (targetId === 'user-name') {
+    if (targetId === SELECTOR.ID_STRING.USER_NAME) {
       $('#user-dropbox').classList.toggle('display-none');
     }
-    if (targetId === 'change-user-info') {
+    if (targetId === SELECTOR.ID_STRING.CHANGE_USER_INFO) {
       emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
     }
-    if (targetId === 'logout') {
-      if (window.confirm('로그아웃하시겠습니까?')) {
+    if (targetId === SELECTOR.ID_STRING.LOGOUT) {
+      if (window.confirm(CONFIRM_MESSAGE.LOGOUT)) {
         sessionStorage.removeItem('jwt-token');
         sessionStorage.removeItem('isLogIn');
         sessionStorage.removeItem('user');

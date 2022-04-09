@@ -1,6 +1,7 @@
 import SignUpView from '../views/signUpView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
+import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class SignUpController implements Controller {
   private signUpView: SignUpView;
@@ -38,7 +39,7 @@ export default class SignUpController implements Controller {
         }
 
         emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
-        showSnackBar('회원가입 되었습니다.');
+        showSnackBar(SNACK_BAR_MESSAGE.SIGNUP_SUCCESS);
       })
       .catch(error => alert(error.message));
   }
