@@ -23,27 +23,32 @@ class AdminPage {
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', vendingMachineNavBarTemplate(isLoginUser));
 
-    this.navBar = selectDom(SELECTOR.NAV, this.app);
-    this.navTabButtonList = selectDoms(SELECTOR.NAV_TAB_BUTTON, this.navBar);
     this.tabContent = selectDom(SELECTOR.TAB_CONTENT);
     this.snackbar = selectDom(SELECTOR.SNACKBAR);
 
-    if (isLoginUser) {
-      this.thumbnailOptionMenu = selectDom(SELECTOR.THUMBNAIL_OPTION, this.app);
-      const thumbnailButton = selectDom(SELECTOR.THUMBNAIL_BUTTON, this.app);
-
-      thumbnailButton.addEventListener('click', this.#onClickThumbnailButton);
-      this.thumbnailOptionMenu.addEventListener('change', this.#onChangeThumbnailOption);
+    if (!isLoginUser) {
+      return;
     }
+
+    this.navBar = selectDom(SELECTOR.NAV, this.app);
+    this.navTabButtonList = selectDoms(SELECTOR.NAV_TAB_BUTTON, this.navBar);
+
+    this.thumbnailOptionMenu = selectDom(SELECTOR.THUMBNAIL_OPTION, this.app);
+    const thumbnailButton = selectDom(SELECTOR.THUMBNAIL_BUTTON, this.app);
+
+    thumbnailButton.addEventListener('click', this.#onClickThumbnailButton);
+    this.thumbnailOptionMenu.addEventListener('change', this.#onChangeThumbnailOption);
   }
 
   changeTabContent(contentTemplate, targetTabButton) {
     this.tabContent.replaceChildren();
     this.tabContent.insertAdjacentHTML('afterbegin', contentTemplate);
 
-    this.navTabButtonList.forEach((navTabButton) =>
-      navTabButton.classList.toggle(SELECTOR_NAME.SELECTED, targetTabButton === navTabButton)
-    );
+    if (targetTabButton) {
+      this.navTabButtonList.forEach((navTabButton) =>
+        navTabButton.classList.toggle(SELECTOR_NAME.SELECTED, targetTabButton === navTabButton)
+      );
+    }
   }
 
   #onClickThumbnailButton = () => {

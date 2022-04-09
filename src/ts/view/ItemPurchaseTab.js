@@ -20,13 +20,11 @@ class ItemPurchaseTab extends AdminPage {
     this.changeButton = null;
   }
 
-  renderInitialItemPurchaseTabState(isLoginUser) {
+  renderInitialState(isLoginUser) {
     this.renderNavBar(isLoginUser);
-    this.itemPurchaseTabButton = selectDom(SELECTOR.ITEM_PURCHASE_TAB_BUTTON, this.navBar);
 
-    if (!isLoginUser) {
-      this.navBar.remove();
-      this.tabContent.classList.add(SELECTOR_NAME.LOGIN);
+    if (isLoginUser) {
+      this.itemPurchaseTabButton = selectDom(SELECTOR.ITEM_PURCHASE_TAB_BUTTON, this.navBar);
     }
 
     this.changeTabContent(

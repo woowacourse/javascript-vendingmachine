@@ -1,3 +1,4 @@
+import { HASH } from '../constant/path';
 import { SELECTOR } from '../constant/selector';
 import { generateCoinRechargeTabContentTemplate } from '../template/adminPageTemplate';
 import { selectDom, selectDoms, showSnackbar } from '../utils';
@@ -14,7 +15,12 @@ class CoinRechargeTab extends AdminPage {
     this.coinCountList = null;
   }
 
-  renderInitialCoinRechargeTabState() {
+  renderInitialState(isLoginUser) {
+    if (!isLoginUser) {
+      location.hash = HASH.LOGIN_USER;
+      return;
+    }
+
     this.renderNavBar();
     this.coinRechargeTabButton = selectDom(SELECTOR.COIN_RECHARGE_TAB_BUTTON);
 

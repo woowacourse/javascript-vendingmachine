@@ -16,12 +16,20 @@ export const vendingMachineNavBarTemplate = (isLoginUser) => `
       : '<a id="login-button" class="default-button" href="#login">로그인</a>'
   }
   <h1>🍿 자판기 🍿</h1>
-  <nav>
-    <a id="item-manage-tab-button" class="nav-tab-button" href="#item-manage">상품 관리</a>
-    <a id="coin-recharge-tab-button" class="nav-tab-button" href="#coin-recharge">잔돈 충전</a>
-    <a id="item-purchase-tab-button" class="nav-tab-button selected" href="#item-purchase">상품 구매</a>
-  </nav>
-  <section id="tab-content"></section>
+  ${
+    isLoginUser
+      ? `<nav>
+      <a id="item-manage-tab-button" class="nav-tab-button" href="#item-manage">상품 관리</a>
+      <a id="coin-recharge-tab-button" class="nav-tab-button" href="#coin-recharge">잔돈 충전</a>
+      <a id="item-purchase-tab-button" class="nav-tab-button selected" href="#item-purchase">상품 구매</a>
+    </nav>`
+      : ''
+  }
+  ${
+    isLoginUser
+      ? `<section id="tab-content"></section>`
+      : `<section id="tab-content" class="login"></section>`
+  }
   <div class="snackbar"></div>
 `;
 

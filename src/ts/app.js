@@ -29,31 +29,27 @@ const initApp = () => {
 
   return () => {
     const accessToken = getCookie(KEY.ACCESS_TOKEN);
+    const currentHash = location.hash;
+    const pages = [
+      { view: itemManageTab, hash: HASH.ITEM_MANAGE },
+      { view: coinRechargeTab, hash: HASH.COIN_RECHARGE },
+      { view: itemPurchaseTab, hash: HASH.ITEM_PURCHASE },
+      { view: registerUserPage, hash: HASH.REGISTER_USER },
+      { view: loginUserPage, hash: HASH.LOGIN_USER },
+    ];
 
-    switch (location.hash) {
-      case HASH.ITEM_MANAGE:
-        accessToken
-          ? itemManageTab.renderInitialItemManageTabState()
-          : (location.hash = HASH.LOGIN_USER);
-        break;
-      case HASH.COIN_RECHARGE:
-        accessToken
-          ? coinRechargeTab.renderInitialCoinRechargeTabState()
-          : (location.hash = HASH.LOGIN_USER);
-        break;
-      case '':
-      case HASH.ITEM_PURCHASE:
-        itemPurchaseTab.renderInitialItemPurchaseTabState(!!accessToken);
-        break;
-      case HASH.REGISTER_USER:
-        accessToken ? (location.hash = '') : registerUserPage.renderInitialRegisterPageState();
-        break;
-      case HASH.LOGIN_USER:
-        accessToken ? (location.hash = '') : loginUserPage.renderInitialLoginPageState();
-        break;
-      default:
-        break;
+    if (currentHash === '') {
+      itemPurchaseTab.renderInitialState(!!accessToken);
+      return;
     }
+
+    pages.some((page) => {
+      if (page.hash === currentHash) {
+        page.view.renderInitialState(!!accessToken);
+        return true;
+      }
+      return false;
+    });
   };
 };
 

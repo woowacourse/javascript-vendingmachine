@@ -13,7 +13,12 @@ class LoginUserPage {
     this.snackbar = null;
   }
 
-  renderInitialLoginPageState() {
+  renderInitialState(isLoginUser) {
+    if (isLoginUser) {
+      location.hash = '';
+      return;
+    }
+
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', loginUserPageTemplate);
 

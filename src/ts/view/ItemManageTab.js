@@ -1,3 +1,4 @@
+import { HASH } from '../constant/path';
 import { SELECTOR, SELECTOR_NAME } from '../constant/selector';
 import {
   generateConfirmMessage,
@@ -17,7 +18,12 @@ class ItemManageTab extends AdminPage {
     this.itemStatusTable = null;
   }
 
-  renderInitialItemManageTabState() {
+  renderInitialState(isLoginUser) {
+    if (!isLoginUser) {
+      location.hash = HASH.LOGIN_USER;
+      return;
+    }
+
     this.renderNavBar();
     this.itemManageTabButton = selectDom(SELECTOR.ITEM_MANAGE_TAB_BUTTON);
 

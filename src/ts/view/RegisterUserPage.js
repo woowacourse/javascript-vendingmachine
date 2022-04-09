@@ -11,7 +11,12 @@ class RegisterUserPage {
     this.snackbar = null;
   }
 
-  renderInitialRegisterPageState() {
+  renderInitialState(isLoginUser) {
+    if (isLoginUser) {
+      location.hash = '';
+      return;
+    }
+
     this.app.replaceChildren();
     this.app.insertAdjacentHTML('afterbegin', registerUserPageTemplate);
 
