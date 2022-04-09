@@ -34,7 +34,7 @@ describe('잔돈 충전 탭 테스트', () => {
   it('숫자가 아닌 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {
     const cashInput = 'ㅁ';
     cy.chargeCoin(cashInput);
-    cy.get('.snackbar').should('have.class', SELECTOR_NAME.SHOW);
+    cy.checkSnackbarVisibility();
   });
 
   it('10원 미만의 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {

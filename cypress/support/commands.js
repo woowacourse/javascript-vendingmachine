@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { HASH } from '../../src/ts/constant/path';
-import { SELECTOR } from '../../src/ts/constant/selector';
+import { SELECTOR, SELECTOR_NAME } from '../../src/ts/constant/selector';
 
 Cypress.Commands.add('register', (email, name, password, confirmPassword) => {
   cy.visit(`/${HASH.REGISTER_USER}`);
@@ -66,4 +66,8 @@ Cypress.Commands.add('purchaseItem', () => {
 
 Cypress.Commands.add('checkInvalidInput', (numberOfInvalidInput) => {
   cy.get('input:invalid').should('have.length', numberOfInvalidInput);
+});
+
+Cypress.Commands.add('checkSnackbarVisibility', () => {
+  cy.get('.snackbar').should('have.class', SELECTOR_NAME.SHOW);
 });
