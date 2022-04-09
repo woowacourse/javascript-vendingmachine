@@ -4,18 +4,14 @@ import { COIN_10, COIN_100, COIN_50, COIN_500, MONEY } from '../constant/rule';
 import { MONEY_ERROR_MESSAGE, PURCHASE_ERROR_MESSAGE } from '../constant/errorMessage';
 
 class ItemPurchase {
-  private _change: CoinCollectionType;
-  private _money: number;
+  private _change: CoinCollectionType = {
+    [COIN_500]: 0,
+    [COIN_100]: 0,
+    [COIN_50]: 0,
+    [COIN_10]: 0,
+  };
 
-  constructor() {
-    this._money = 0;
-    this._change = {
-      [COIN_500]: 0,
-      [COIN_100]: 0,
-      [COIN_50]: 0,
-      [COIN_10]: 0,
-    };
-  }
+  private _money = 0;
 
   get change(): CoinCollectionType {
     return this._change;

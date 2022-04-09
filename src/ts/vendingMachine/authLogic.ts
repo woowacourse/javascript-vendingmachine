@@ -49,7 +49,7 @@ export const validateRegisterBehavior = ({
   }
 };
 
-export const login = async (loginUserInfo: { email: string; password: string }) => {
+export const login = async (loginUserInfo: Partial<UserInfoType>) => {
   try {
     return postLoginServer(loginUserInfo);
   } catch (error) {

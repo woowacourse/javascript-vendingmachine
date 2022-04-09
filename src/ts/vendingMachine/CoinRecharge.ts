@@ -16,16 +16,12 @@ interface CoinRechargeInterface {
 }
 
 class CoinRecharge implements CoinRechargeInterface {
-  private _coinCollection: CoinCollectionType;
-
-  constructor() {
-    this._coinCollection = {
-      [COIN_500]: 0,
-      [COIN_100]: 0,
-      [COIN_50]: 0,
-      [COIN_10]: 0,
-    };
-  }
+  private _coinCollection: CoinCollectionType = {
+    [COIN_500]: 0,
+    [COIN_100]: 0,
+    [COIN_50]: 0,
+    [COIN_10]: 0,
+  };
 
   get coinCollection(): CoinCollectionType {
     return this._coinCollection;

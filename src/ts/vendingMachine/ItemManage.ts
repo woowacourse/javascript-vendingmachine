@@ -21,11 +21,7 @@ interface ItemManageInterface {
 }
 
 class ItemManage implements ItemManageInterface {
-  private _itemList: itemInfoType[];
-
-  constructor() {
-    this._itemList = [];
-  }
+  private _itemList: itemInfoType[] = [];
 
   get itemList(): itemInfoType[] {
     return this._itemList;
