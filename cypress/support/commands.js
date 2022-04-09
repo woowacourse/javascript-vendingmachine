@@ -1,4 +1,5 @@
 import 'cypress-wait-until';
+import 'cypress-localstorage-commands';
 
 Cypress.Commands.add('login', (email, password) => {
   cy.get('#email-input').type(email);
