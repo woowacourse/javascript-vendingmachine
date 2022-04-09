@@ -1,65 +1,31 @@
 const baseURL = 'https://immense-spire-44992.herokuapp.com/';
 
+const userFetcher = async ({ method, path, token, body = {} }) => {
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const response = await fetch(`${baseURL}${path}`, {
+    method,
+    body: JSON.stringify(body),
+    headers,
+  });
+  if (!response.ok) {
+    const errorMessage = await response.json();
+    throw Error(errorMessage);
+  }
+  return response.json();
+};
+
 const UserApi = {
-  signIn: async (email, password) => {
-    const response = await fetch(`${baseURL}login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw Error(errorMessage);
-    }
-    return response.json();
-  },
+  signIn: (email, password) =>
+    userFetcher({ method: 'POST', path: 'login', body: { email, password } }),
 
-  signUp: async (email, name, password) => {
-    const data = { email, password, name };
-    const response = await fetch(`${baseURL}signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw Error(errorMessage);
-    }
-    return response.json();
-  },
+  signUp: (email, name, password) =>
+    userFetcher({ method: 'POST', path: 'signup', body: { email, password, name } }),
 
-  searchInfo: async (accessToken) => {
-    const response = await fetch(`${baseURL}users/me`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw Error(errorMessage);
-    }
-    return response.json();
-  },
+  searchInfo: (token) => userFetcher({ method: 'GET', path: 'user/me', token }),
 
-  update: async (accessToken, id, { email, name, password }) => {
-    const response = await fetch(`${baseURL}users/${id}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, name, password }),
-    });
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw Error(errorMessage);
-    }
-    return response.json();
-  },
+  update: (token, id, body) =>
+    userFetcher({ method: 'PUT', path: `users/${id}`, token, body }),
 };
 
 export default UserApi;
