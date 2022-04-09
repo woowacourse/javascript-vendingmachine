@@ -1,0 +1,29 @@
+.app.adminPage .input-form__input {
+  width: 100%;
+  height: 36px;
+  margin-bottom: 20px;
+}
+
+.app.adminPage .input-description {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.app.adminPage .input-form__input:last-child {
+  margin-bottom: 30px;
+}
+
+.app.adminPage .input-form {
+  width: 55%;
+  margin: 0 auto;
+}
+
+.app.adminPage .input-form__submit-button {
+  width: 100%;
+  height: 36px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.25px;
+}

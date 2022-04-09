@@ -11,30 +11,58 @@ export interface Coin {
   count: number;
 }
 
-export interface ProductCollection {
-  readonly products: Array<Product>;
-
-  add(product: Product): void;
-  modify(product: Product, originProductName: ProductName): void;
-  delete(name: ProductName): void;
-  getIndex(name: ProductName): number;
+export interface AdminData {
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirmation: string;
 }
 
-export interface CoinCollection {
-  readonly coins: Array<Coin>;
+export type AdminEmail = Pick<AdminData, 'email'>;
 
-  generateCoins(inputMoney: number): void;
-  calculateTotalAmount(): number;
-}
+export type AdminName = Pick<AdminData, 'name'>;
+
+export type AdminPassword = Pick<AdminData, 'password'>;
 
 export interface VendingMachine {
-  readonly productCollection: ProductCollection;
-  readonly coinCollection: CoinCollection;
+  products: Array<Product>;
+  coins: Array<Coin>;
 
   addProduct(product: Product): void;
   modifyProduct(product: Product, originProductName: ProductName): void;
   deleteProduct(name: ProductName): void;
+  getProductIndex(name: ProductName): number;
+
+  generateCoins(inputMoney: number): void;
+  calculateTotalAmount(): number;
+
+  initialize(): void;
+}
+
+export interface Admin {
+  readonly vendingMachine: VendingMachine;
+  adminName: string;
+  
+  addProduct(product: Product): void;
+  modifyProduct(product: Product, originProductName: ProductName): void;
+  deleteProduct(name: ProductName): void;
   chargeMoney(inputMoney: number): void;
+
+  signup(adminData: AdminData);
+  modifyAdmin(adminData: AdminData);
+  login(email: AdminEmail, password: AdminPassword);
+  logout(): void;
+  isLogin(): boolean;
+  getAdmin();
+}
+
+export interface Buyer {
+  readonly vendingMachine: VendingMachine;
+  totalInputMoney: number;
+
+  chargeMoney(inputMoney: number): void;
+  buyProduct(name: ProductName): void;
+  receiveChangeCoins(): Object;
 }
 
 export interface View {
@@ -45,4 +73,10 @@ export interface DomainView extends View {
   render(): void;
 }
 
-export type TabName = 'productManage' | 'chargeMoney' | 'buyProduct';
+export interface PageView {
+  render(): void;
+  bindEvent(movePage: Function): void;
+}
+
+export type PageName = 'productManage' | 'chargeMoney' | 'buyProduct' | 'signupPage' | 'adminPage' | 'loginPage';
+ 

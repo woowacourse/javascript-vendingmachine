@@ -11,9 +11,20 @@ export const PRODUCT_RULES = {
 export const INPUT_MONEY_RULES = {
   MIN: 1000,
   MOD_UNIT: 10,
+  MAX_HAVE: 100000,
 };
 
-export const MAX_HAVE_MONEY = 100000;
+export const USER_INPUT_MONEY_RULES = {
+  MOD_UNIT: 10,
+  MAX_HAVE: 10000,
+};
+
+export const ADMIN_DATA_RULES = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
+  MIN_PASSWORD_LENGTH: 7,
+  MAX_PASSWORD_LENGTH: 15,
+};
 
 export const ERROR_MESSAGE = {
   EMPTY_PRODUCT_NAME: '상품명을 입력해주세요!',
@@ -25,7 +36,21 @@ export const ERROR_MESSAGE = {
   NOT_EXIST_PRODUCT: '존재하지 않는 상품입니다!',
   INDIVISIBLE_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
   LACK_OF_INPUT_MONEY: `${INPUT_MONEY_RULES.MIN}원 이상 투입해주세요!`,
-  EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${MAX_HAVE_MONEY.toLocaleString()}원 입니다!`,
+  EXCEED_MAX_HAVE_MONEY: `총 보유할 수 있는 금액은 ${INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원 입니다!`,
+  INDIVISIBLE_USER_INPUT_MONEY_MOD_UNIT: `투입 금액은 ${USER_INPUT_MONEY_RULES.MOD_UNIT}의 배수로 입력해주세요!`,
+  EXCEED_MAX_USER_INPUT_MONEY: `최대 ${USER_INPUT_MONEY_RULES.MAX_HAVE.toLocaleString()}원까지 투입 가능합니다!`,
+  LOCK_OF_USER_INPUT_MONEY: '투입 금액이 모자랍니다!',
+  INVALID_FORM_EMALI: '이메일 형식을 지켜주세요!',
+  OVERLAP_EMAIL: '중복된 이메일 입니다!',
+  INVALID_EMAIL_PASSWORD: '이메일과 비밀번호가 일치하지 않습니다!',
+  NOT_EXIST_ADMIN: '존재하지 않는 어드민 입니다.',
+  OUT_OF_RANGE_ADMIN_NAME: `이름은 ${ADMIN_DATA_RULES.MIN_NAME_LENGTH}이상 ${ADMIN_DATA_RULES.MAX_NAME_LENGTH}이하로 입력해주세요!`,
+  OUT_OF_RANGE_ADMIN_PASSWORD: `비밀번호는 ${ADMIN_DATA_RULES.MIN_PASSWORD_LENGTH}이상 ${ADMIN_DATA_RULES.MAX_PASSWORD_LENGTH}이하로 입력해주세요!`,
+  INVALID_FORM_ADMIN_PASSWORD: '비밀번호는 문자와 숫자를 모두 포함해야 합니다!',
+  MISMATCH_PASSWORD_CONFIRMATION: '비밀번호와 비밀번호 확인이 일치해야 합니다!',
+  ALLREADY_LOGOUT: '이미 로그아웃 상태입니다',
+  DON_HAVE_AUTH: '권한이 없습니다!',
 };
 
 export const CONFIRM_DELETE_PRODUCT_MESSAGE = '정말 삭제하시겠습니까?';
+

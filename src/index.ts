@@ -1,7 +1,7 @@
 import './css/index.css';
 import { View } from './index.d';
-import Tab from './ts/view/Tab';
+import PageMover from './ts/view/PageMover';
 
-const tab: View = new Tab();
+const pageMover: View = new PageMover();
 
-tab.bindEvent();
+pageMover.bindEvent();

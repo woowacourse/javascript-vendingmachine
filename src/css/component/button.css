@@ -7,3 +7,22 @@
 .button:hover {
   background-color: var(--tab-active-background-color);
 }
+
+.gray-button {
+  height: 32px;
+  background-color: var(--tab-background-color);
+}
+
+.gray-button:hover {
+  opacity: 0.8;
+}
+
+.blue-button {
+  background: var(--submit-button-color);
+  color: var(--submit-button-font-color);
+}
+
+.blue-button:hover {
+  background-color: var(--submit-button-color);
+  opacity: 0.7;
+}
