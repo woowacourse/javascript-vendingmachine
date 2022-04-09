@@ -1,1 +1,3 @@
 *.test.js
+*.spec.js
+support/
