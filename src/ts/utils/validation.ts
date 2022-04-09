@@ -1,5 +1,5 @@
 import { PRODUCT, CHARGE, specialSymbolAsc, numberAsc, upperCaseAsc, lowerCaseAsc } from "./constants";
-import { EditInsertMoneyProps } from "./interface";
+import { EditInsertMoneyProps, ValidateNameInfoProps, ValidatePasswordConfirmInfoProps, ValidatePasswordInfoProps } from "./interface";
 
 const validateProductName = (productName: string | null) => {
   if (productName.trim() === "") {
@@ -74,7 +74,7 @@ const validatePossiblePurchaseProduct = ({ totalMoney, productPrice }: EditInser
   }
 };
 
-const validateEmailInfo = (emailInputValue, emailInfoMessage) => {
+const validateEmailInfo = (emailInputValue, emailInfoMessage): Boolean => {
   const emailInfoSplit = emailInputValue.split("");
   const emailInfoSplitAt = emailInputValue.split("@");
 
@@ -104,18 +104,20 @@ const validateEmailInfo = (emailInputValue, emailInfoMessage) => {
   }
 };
 
-const validateNameInfo = (nameInputValue, nameInfoMessage) => {
+const validateNameInfo = ({ nameInputValue, nameInfoMessage }: ValidateNameInfoProps): Boolean => {
+  const numberInputValueSplit = nameInputValue.split("");
+
   try {
     if (!nameInputValue) {
       throw Error("필수 정보입니다.");
     }
-    if (nameInputValue.split("").find((_, index) => specialSymbolAsc.includes(nameInputValue.charCodeAt(index)))) {
+    if (numberInputValueSplit.find((_, index: number) => specialSymbolAsc.includes(nameInputValue.charCodeAt(index)))) {
       throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
     }
-    if (nameInputValue.split("").find((_, index) => numberAsc.includes(nameInputValue.charCodeAt(index)))) {
+    if (numberInputValueSplit.find((_, index: number) => numberAsc.includes(nameInputValue.charCodeAt(index)))) {
       throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
     }
-    if (nameInputValue.split("").find((text) => text === " ")) {
+    if (numberInputValueSplit.find((text: string) => text === " ")) {
       throw Error("한글과 영문을 입력해주세요. (특수기호, 숫자, 공백 사용 불가)");
     }
     return true;
@@ -125,34 +127,38 @@ const validateNameInfo = (nameInputValue, nameInfoMessage) => {
   }
 };
 
-const validatePasswordInfo = (passwordInputValue, passwordInfoMessage) => {
+const validatePasswordInfo = ({ passwordInputValue, passwordInfoMessage }: ValidatePasswordInfoProps): Boolean => {
+  const validatePasswordInfoSplit = passwordInputValue.split("");
+
   try {
     if (!passwordInputValue) {
       throw Error("필수 정보입니다.");
     }
-    if (passwordInputValue.split("").find((text) => text === " ")) {
+    if (validatePasswordInfoSplit.find((text) => text === " ")) {
       throw Error("비밀번호에 공백을 포함할 수 없습니다.");
     }
-    if (!passwordInputValue.split("").find((_, index) => specialSymbolAsc.includes(passwordInputValue.charCodeAt(index)))) {
+    if (validatePasswordInfoSplit.find((_, index) => specialSymbolAsc.includes(passwordInputValue.charCodeAt(index)))) {
       throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
     }
-    if (!passwordInputValue.split("").find((_, index) => upperCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
+    if (!validatePasswordInfoSplit.find((_, index) => upperCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
       throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
     }
-    if (!passwordInputValue.split("").find((_, index) => lowerCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
+    if (!validatePasswordInfoSplit.find((_, index) => lowerCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {
       throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
     }
-    if (!passwordInputValue.split("").find((_, index) => numberAsc.includes(passwordInputValue.charCodeAt(index)))) {
+    if (!validatePasswordInfoSplit.find((_, index) => numberAsc.includes(passwordInputValue.charCodeAt(index)))) {
       throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
     }
+
     return true;
   } catch ({ message }) {
     passwordInfoMessage.textContent = `${message}`;
+
     return false;
   }
 };
 
-const validatePasswordConfirmInfo = (passwordConfirmInputValue, passwordInputValue, passwordConfirmInfoMessage) => {
+const validatePasswordConfirmInfo = ({ passwordConfirmInputValue, passwordInputValue, passwordConfirmInfoMessage }: ValidatePasswordConfirmInfoProps): Boolean => {
   try {
     if (!passwordConfirmInputValue) {
       throw Error("필수 정보입니다.");

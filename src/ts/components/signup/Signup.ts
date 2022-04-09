@@ -62,7 +62,7 @@ class Signup {
     this.passwordConfirmInfoMessage.classList.add("member-info-error-text");
     this.passwordConfirmInfoMessage.classList.remove("member-info-correct-text");
 
-    if (validatePasswordConfirmInfo(passwordConfirmInputValue, passwordInputValue, this.passwordConfirmInfoMessage) === false) {
+    if (validatePasswordConfirmInfo({ passwordConfirmInputValue: passwordConfirmInputValue, passwordInputValue: passwordInputValue, passwordConfirmInfoMessage: this.passwordConfirmInfoMessage }) === false) {
       return;
     }
 
@@ -85,7 +85,7 @@ class Signup {
     this.passwordInfoMessage.classList.add("member-info-error-text");
     this.passwordInfoMessage.classList.remove("member-info-correct-text");
 
-    if (!validatePasswordInfo(passwordInputValue, this.passwordInfoMessage)) {
+    if (!validatePasswordInfo({ passwordInputValue: passwordInputValue, passwordInfoMessage: this.passwordInfoMessage})) {
       return;
     }
     if (passwordInputValue.length >= 8) {
@@ -113,7 +113,7 @@ class Signup {
     this.nameInfoMessage.classList.add("member-info-error-text");
     this.nameInfoMessage.classList.remove("member-info-correct-text");
 
-    if (!validateNameInfo(nameInputValue, this.nameInfoMessage)) {
+    if (!validateNameInfo({ nameInputValue: nameInputValue, nameInfoMessage: this.nameInfoMessage})) {
       return;
     }
 
@@ -154,9 +154,9 @@ class Signup {
   
     if (
       !validateEmailInfo(emailInputValueResult, this.emailInfoMessage) ||
-      !validateNameInfo(nameInputValue, this.nameInfoMessage) ||
-      !validatePasswordInfo(passwordInputValue, this.passwordInfoMessage) ||
-      !validatePasswordConfirmInfo(passwordConfirmInputValue, passwordInputValue, this.passwordConfirmInfoMessage)
+      !validateNameInfo({ nameInputValue: nameInputValue, nameInfoMessage: this.nameInfoMessage}) ||
+      !validatePasswordInfo({ passwordInputValue: passwordInputValue, passwordInfoMessage: this.passwordInfoMessage}) ||
+      !validatePasswordConfirmInfo({ passwordConfirmInputValue: passwordConfirmInputValue, passwordInputValue: passwordInputValue, passwordConfirmInfoMessage: this.passwordConfirmInfoMessage })
     ) {
       return;
     }

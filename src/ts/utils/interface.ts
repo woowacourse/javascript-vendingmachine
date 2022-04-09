@@ -87,6 +87,22 @@ interface RegisterUserProps {
   users: UserInfoProps;
 }
 
+interface ValidateNameInfoProps {
+  nameInputValue: string;
+  nameInfoMessage: HTMLElement;
+}
+
+interface ValidatePasswordInfoProps {
+  passwordInputValue: string;
+  passwordInfoMessage: HTMLElement;
+}
+
+interface ValidatePasswordConfirmInfoProps {
+  passwordConfirmInputValue: string;
+  passwordInputValue: string;
+  passwordConfirmInfoMessage: HTMLElement;
+}
+
 type ConvertTemplate = (path: string) => void;
 
 type Coins = 500 | 100 | 50 | 10;
@@ -101,6 +117,9 @@ export {
   ProductEditProps,
   EditInsertMoneyProps,
   ValidateProductProps,
+  ValidateNameInfoProps,
+  ValidatePasswordInfoProps,
+  ValidatePasswordConfirmInfoProps,
   RegisterUserProps,
   ConvertTemplate,
   CoinType
