@@ -1,5 +1,5 @@
 import { changesProcessMachine } from "../domain/changesProcessMachine";
-import { addEvent } from "../util/event";
+import { addEvent, removeEvent } from "../util/event";
 
 class ChangesTable extends HTMLElement {
   constructor() {
@@ -7,16 +7,19 @@ class ChangesTable extends HTMLElement {
     this.$page = document.querySelector("#page");
     this.attachShadow({ mode: "open" });
     this.render();
-    this.init();
-    this.renderTableStatus();
   }
 
-  init() {
+  connectedCallback() {
     this.$coin500 = this.shadowRoot.querySelector("#coin-500");
     this.$coin100 = this.shadowRoot.querySelector("#coin-100");
     this.$coin50 = this.shadowRoot.querySelector("#coin-50");
     this.$coin10 = this.shadowRoot.querySelector("#coin-10");
-    addEvent(this.$page, "@mutateChanges", () => this.renderTableStatus());
+    addEvent(this.$page, "@mutateChanges", this.renderTableStatus);
+    this.renderTableStatus();
+  }
+
+  disconnectedCallback() {
+    removeEvent(this.$page, "@mutateChanges", this.renderTableStatus);
   }
 
   renderTableStatus = () => {

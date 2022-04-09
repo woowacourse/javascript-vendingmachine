@@ -1,10 +1,11 @@
 import { addEvent, removeEvent } from "../util/event";
+import { getLocalStorage } from "../util/localStorage";
 
 class LoginStatus extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.user = JSON.parse(localStorage.getItem("user-info"));
+    this.user = getLocalStorage("user-info");
     this.render();
   }
 

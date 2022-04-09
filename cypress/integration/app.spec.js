@@ -2,11 +2,7 @@ describe("자판기 앱 구매 테스트", () => {
   beforeEach(() => {
     cy.visit("dist/index.html");
 
-    cy.get("login-status").click();
-    cy.get("#login-email-input").type("hwangstar123@gmail.com");
-    cy.get("#login-password-input").type("aldald1");
-
-    cy.get(".login-button").click();
+    cy.login("hwangstar123@gmail.com", "aldald1");
 
     cy.get(".product-management-button").click();
     cy.get("product-manage")
@@ -35,8 +31,7 @@ describe("자판기 앱 구매 테스트", () => {
       .find("#add-product-button")
       .click();
 
-    cy.get("login-status").shadow().find("#user-profile").click();
-    cy.get("login-status").shadow().find("#logout-button").click();
+    cy.logout();
   });
 
   it("금액을 충전할수 있다.", () => {
@@ -142,11 +137,7 @@ describe("자판기 앱 구매 테스트", () => {
 
 describe("자판기 반환 테스트", () => {
   beforeEach(() => {
-    cy.get("login-status").click();
-    cy.get("#login-email-input").type("hwangstar123@gmail.com");
-    cy.get("#login-password-input").type("aldald1");
-
-    cy.get(".login-button").click();
+    cy.login("hwangstar123@gmail.com", "aldald1");
     cy.get(".changes-charge-button").click();
 
     cy.get("changes-manage")
@@ -162,8 +153,7 @@ describe("자판기 반환 테스트", () => {
       .find("#charge-changes-button")
       .click();
 
-    cy.get("login-status").shadow().find("#user-profile").click();
-    cy.get("login-status").shadow().find("#logout-button").click();
+    cy.logout();
   });
 
   it("상품을 반환할수 있다", () => {

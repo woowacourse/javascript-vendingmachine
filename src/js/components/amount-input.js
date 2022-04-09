@@ -23,6 +23,7 @@ class AmountInput extends HTMLElement {
 
   disconnectedCallback() {
     removeEvent(this.$amountForm, "submit", this.onSubmit);
+    removeEvent(this.$page, "@updateamount", this.renderHaveAmount);
   }
 
   onSubmit = (e) => {

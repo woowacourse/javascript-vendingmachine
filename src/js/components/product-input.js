@@ -1,5 +1,5 @@
 import { EVENT_TYPE } from "../constant";
-import { addEvent, emit } from "../util/event";
+import { addEvent, emit, removeEvent } from "../util/event";
 import { productProcessMachine } from "../domain/productProcessMachine";
 import showSnackbar from "../util/snackbar";
 
@@ -29,7 +29,7 @@ class ProductInput extends HTMLElement {
 
   disconnectedCallback() {
     this.$addProductForm = this.shadowRoot.querySelector("#add-product-form");
-    this.$addProductForm.removeEventListener("submit", this.onSubmit);
+    removeEvent(this.$addProductForm, "submit", this.onSubmit);
   }
 
   onSubmit = (e) => {
