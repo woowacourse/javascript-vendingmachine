@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { MEMBER } from '../constants';
+import { MEMBER } from '../constatns/auth-constants';
 import { customElement } from '../decorators/decortators';
 import { login } from '../member';
 import Router from '../router';

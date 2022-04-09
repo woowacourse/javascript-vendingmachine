@@ -1,5 +1,5 @@
 import Component from '../abstract/component';
-import { COIN_UNITS } from '../constants';
+import { COIN_UNITS } from '../constatns/flux-constants';
 import { customElement } from '../decorators/decortators';
 import Store from '../flux/store';
 import { CoinRecord } from '../types';

@@ -1,4 +1,4 @@
-import { MEMBER } from './constants';
+import { MEMBER } from './constatns/auth-constants';
 import Router from './router';
 import { showSnack } from './utils';
 

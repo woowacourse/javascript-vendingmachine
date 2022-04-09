@@ -1,5 +1,6 @@
 import Component from '../abstract/component';
-import { ACTION, COIN_UNITS, ERROR_MESSAGE } from '../constants';
+import { ACTION, COIN_UNITS } from '../constatns/flux-constants';
+import { ERROR_MESSAGE } from '../constatns/validator-constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';

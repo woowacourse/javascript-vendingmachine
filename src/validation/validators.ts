@@ -1,3 +1,4 @@
+import { MEMBER } from '../constatns/auth-constants';
 import {
   ERROR_MESSAGE,
   MAX_CHARGABLE_MONEY,
@@ -8,11 +9,10 @@ import {
   MIN_COIN_UNIT,
   MIN_PRODUCT_PRICE,
   MIN_PRODUCT_QUANTITY,
-} from '../constants';
+} from '../constatns/validator-constants';
 import { ProductItem, RawProductItem } from '../types';
 import { convertToInteger } from '../utils';
 import ValidationResult from './validation-result';
-
 const isInteger = (str: string) => {
   return /^-?[0-9]+$/g.test(str);
 };
@@ -23,13 +23,13 @@ const checkPassword = (password: string, confirmPassword: string): string => {
   const symbol = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
   if (password !== confirmPassword) {
-    return ERROR_MESSAGE.DIFFERENT_PASSWORD;
+    return MEMBER.DIFFERENT_PASSWORD;
   } else if (number < 0 || character < 0 || symbol < 0) {
-    return ERROR_MESSAGE.NEED_MORE_COMPLICATED_PASSWORD;
+    return MEMBER.NEED_MORE_COMPLICATED_PASSWORD;
   } else if (/(\w)\1\1\1/.test(password)) {
-    return ERROR_MESSAGE.NO_REPEATED_CHAR;
+    return MEMBER.NO_REPEATED_CHAR;
   } else if (password.search(/\s/) != -1) {
-    return ERROR_MESSAGE.NO_SPACE_REQUIRED;
+    return MEMBER.NO_SPACE_REQUIRED;
   }
   return 'pass';
 };

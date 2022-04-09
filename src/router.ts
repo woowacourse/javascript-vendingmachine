@@ -1,4 +1,4 @@
-import { PAGE } from './constants';
+import { PAGE } from './constatns/routing-constants';
 import { getUserInfo } from './member';
 import { $ } from './utils';
 

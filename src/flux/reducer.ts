@@ -1,4 +1,4 @@
-import { ACTION, COIN_UNITS } from '../constants';
+import { ACTION, COIN_UNITS } from '../constatns/flux-constants';
 import { Action, AppState, CoinRecord } from '../types';
 import { convertArrToObj, convertToInteger, deepCopy, shuffle } from '../utils';
 

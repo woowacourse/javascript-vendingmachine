@@ -1,51 +1,6 @@
-import { AppState } from './types';
-import { convertToLocaleString } from './utils';
-
-export const ACTION = {
-  ADD_PRODUCT: 'add-product',
-  EDIT_PRODUCT: 'edit-product',
-  DELETE_PRODUCT: 'delete-product',
-  CHANGE_EDIT_MODE: 'change-edit-mode',
-  CHARGE_COINS: 'charge-coins',
-  CHANGE_ACTIVE_TAB: 'change-active-tab',
-  INSERT_MONEY: 'insert-money',
-  RETURN_CHANGES: 'return-changes',
-  PURCHASE_PRODUCT: 'purchase-product',
-};
-
-export const PAGE = {
-  LOGIN_INFO: '<login-info></login-info>',
-  LOGIN_HEADER: '<login-header></login-header>',
-  PRODUCT_MANAGE_PAGE: '<product-manage-page></product-manage-page>',
-  CHARGE_MONEY_PAGE: '<charge-money-page></charge-money-page>',
-  PURCHASE_PRODUCT_PAGE: '<purchase-product-page></purchase-product-page>',
-  LOGIN_FORM: '<login-form></login-form>',
-  SIGN_UP_FORM: '<sign-up-form></sign-up-form>',
-  MODIFY_MEMBER_FORM: '<modify-member-form></modify-member-form>',
-};
-
-export const COIN_UNITS = [500, 100, 50, 10];
-
-export const initialState: AppState = {
-  chargedMoney: 0,
-  insertedMoney: 0,
-  chargedCoins: {
-    500: 0,
-    100: 0,
-    50: 0,
-    10: 0,
-  },
-  returnCoins: {
-    500: 0,
-    100: 0,
-    50: 0,
-    10: 0,
-  },
-  productList: [],
-};
+import { convertToLocaleString } from '../utils';
 
 export const VALIDATION_ERROR_NAME = 'validation-error';
-
 export const MAX_LENGTH_OF_PRODUCT_NAME = 10;
 export const MIN_PRODUCT_PRICE = 100;
 export const MAX_PRODUCT_PRICE = 10000;
@@ -99,22 +54,8 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
 
   NEGATIVE_INSERT_MONEY: '투입하신 금액은 양수이어야 합니다.',
   NEGATIVE_CHARGE_MONEY: '충전 금액은 양수이어야 합니다.',
-
-  DIFFERENT_PASSWORD: '비밀번호가 다릅니다. 다시 확인해주세요.',
-  NEED_MORE_COMPLICATED_PASSWORD: '영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.',
-  NO_REPEATED_CHAR: '같은 문자를 4번 이상 사용하실 수 없습니다.',
-  NO_SPACE_REQUIRED: '비밀번호는 공백 없이 입력해주세요.',
 };
 
 export const CONFIRM_MESSAGE = {
   DELETE_PRODUCT: '해당 상품을 삭제하시겠습니까?',
-};
-
-export const MEMBER = {
-  SUCCESS_SIGN_UP: '가입이 완료되었습니다.',
-  PLEASE_EMAIL: '이메일을 입력해주세요.',
-  PLEASE_PASSWORD: '비밀번호를 입력해주세요.',
-  SUCCESS_LOGIN: '로그인 완료',
-  SUCCESS_MODIFY_INFO: '정보가 변경되었습니다.',
-  SUCCESS_LOG_OUT: '로그아웃 되었습니다.',
 };

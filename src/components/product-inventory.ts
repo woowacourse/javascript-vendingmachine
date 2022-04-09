@@ -1,5 +1,4 @@
 import Component from '../abstract/component';
-import { ACTION, CONFIRM_MESSAGE } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
@@ -12,6 +11,8 @@ import {
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 import emptyImage from '../../images/empty.png';
+import { ACTION } from '../constatns/flux-constants';
+import { CONFIRM_MESSAGE } from '../constatns/validator-constants';
 
 @customElement('product-inventory')
 class ProductInventory extends Component {

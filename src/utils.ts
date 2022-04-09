@@ -1,4 +1,4 @@
-import { VALIDATION_ERROR_NAME } from './constants';
+import { VALIDATION_ERROR_NAME } from './constatns/validator-constants';
 import { Indexable } from './types';
 
 export const $ = (selector: string): HTMLElement => document.querySelector(selector) as HTMLElement;
@@ -64,9 +64,9 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
   return copy;
 };
 
-export const convertToLocaleString = (number: number): string => {
+export function convertToLocaleString(number: number): string {
   return number.toLocaleString('ko-kr');
-};
+}
 
 export const showSnack = (() => {
   let timer: NodeJS.Timeout;
