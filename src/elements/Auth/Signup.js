@@ -39,6 +39,7 @@ class Signup extends CustomElement {
     } catch (error) {
       if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.EMAIL_ALREADY_EXISTS) {
         alert(ERROR_MESSAGE.AUTH.EMAIL_ALREADY_EXISTS);
+        return;
       }
       alert(error.message);
     }
