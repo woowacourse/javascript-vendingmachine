@@ -158,11 +158,12 @@ const renderInitContainer = () => {
 };
 
 window.addEventListener('hashchange', () => {
-  const { isLogined } = AuthStateaStoreInstance;
-  console.log(isLogined);
-  // if (!isLogined) return;
-
   const currentHash = window.location.hash;
+  const { isLogined } = AuthStateaStoreInstance;
+
+  if (!isLogined && currentHash !== '#!login' && currentHash !== '#!product-purchase' && currentHash !== '#!signup')
+    return;
+
   renderTargetContainer(currentHash);
 });
 

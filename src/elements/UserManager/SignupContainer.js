@@ -3,6 +3,7 @@ import { $ } from '../../utils/dom';
 import { checkNewUserInfoValidation } from '../../validators';
 import { signup } from '../../utils/auth';
 import AuthStateaStoreInstance from '../../domains/stores/AuthStateStore';
+import { AUTH_ACTION } from '../../domains/actions';
 
 class SignupContainer extends CustomElement {
   template() {
@@ -59,7 +60,7 @@ class SignupContainer extends CustomElement {
     }
     this.renderProfileManager();
     signup(emailInputValue, nameInputValue, passwordInputValue);
-    AuthStateaStoreInstance.isLogined = true;
+    AuthStateaStoreInstance.dispatchAction(AUTH_ACTION.LOGIN);
   };
 }
 
