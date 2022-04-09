@@ -1,5 +1,6 @@
 import { joinUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import { showToast } from '../../lib/toast';
 import globalStore from '../../stores/globalStore';
 import { GLOBAL_STATE_KEYS } from '../../utils/constants';
 
@@ -74,14 +75,18 @@ class JoinComponent {
     const { value: password } = this.$passwordJoinInput;
     const { value: passwordReenter } = this.$passwordReenterJoinInput;
 
-    const flag = await joinUser({ email, name, password, passwordReenter });
+    try {
+      await joinUser({ email, name, password, passwordReenter });
 
-    if (flag) {
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
 
       globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.LOGIN);
 
       this.clearForm();
+
+      showToast({ isErrorMessage: false, message: '회원가입에 성공하셨습니다.' });
+    } catch ({ message }) {
+      showToast({ isErrorMessage: true, message });
     }
   };
 

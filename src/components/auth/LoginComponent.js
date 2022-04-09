@@ -1,5 +1,6 @@
 import { loginUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import { showToast } from '../../lib/toast';
 import globalStore from '../../stores/globalStore';
 import { GLOBAL_STATE_KEYS } from '../../utils/constants';
 
@@ -66,14 +67,18 @@ class LoginComponent {
     const { value: email } = this.$emailLoginInput;
     const { value: password } = this.$passwordLoginInput;
 
-    const flag = await loginUser({ email, password });
+    try {
+      await loginUser({ email, password });
 
-    if (flag) {
       router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
 
       globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
 
       this.clearForm();
+
+      showToast({ isErrorMessage: false, message: '로그인에 성공하셨습니다.' });
+    } catch ({ message }) {
+      showToast({ isErrorMessage: true, message });
     }
   };
 

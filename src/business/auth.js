@@ -2,7 +2,6 @@ import { fetcher } from '../lib/fetcher';
 import { checkJoinPossible } from '../utils/validation';
 import globalStore from '../stores/globalStore';
 import { GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
-import { showToast } from '../lib/toast';
 
 export const loginUser = async ({ email, password }) => {
   try {
@@ -18,8 +17,6 @@ export const loginUser = async ({ email, password }) => {
       },
     });
 
-    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
-
     globalStore.setState(GLOBAL_STATE_KEYS.AUTH_INFORMATION, {
       loggedUser: user,
       isLoggedIn: true,
@@ -27,12 +24,10 @@ export const loginUser = async ({ email, password }) => {
 
     localStorage.setItem(WEB_STORAGE_KEY.ACCESS_TOKEN, JSON.stringify(accessToken));
     localStorage.setItem(WEB_STORAGE_KEY.USER, JSON.stringify(user));
-
-    showToast({ isErrorMessage: false, message: '로그인에 성공하셨습니다.' });
-
-    return true;
   } catch ({ message }) {
-    showToast({ isErrorMessage: true, message });
+    throw new Error(message);
+  } finally {
+    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
   }
 };
 
@@ -61,14 +56,11 @@ export const joinUser = async ({ email, name, password, passwordReenter }) => {
           body: JSON.stringify({ email, password, name }),
         },
       });
-      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
-
-      showToast({ isErrorMessage: false, message: '회원가입에 성공하셨습니다.' });
-
-      return true;
     }
   } catch ({ message }) {
-    showToast({ isErrorMessage: true, message });
+    throw new Error(message);
+  } finally {
+    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
   }
 };
 
@@ -88,15 +80,12 @@ export const editUser = async ({ loggedUser, email, name, password, passwordReen
           body: JSON.stringify({ email, password, name }),
         },
       });
-      globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
 
       logoutUser();
-
-      showToast({ isErrorMessage: false, message: '유저 정보 수정에 성공하였습니다.' });
-
-      return true;
     }
   } catch ({ message }) {
-    showToast({ isErrorMessage: true, message });
+    throw new Error(message);
+  } finally {
+    globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, false);
   }
 };

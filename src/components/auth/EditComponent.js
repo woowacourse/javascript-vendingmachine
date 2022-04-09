@@ -1,5 +1,6 @@
 import { editUser } from '../../business/auth';
 import router, { ROUTE_NAME } from '../../lib/router';
+import { showToast } from '../../lib/toast';
 import globalStore from '../../stores/globalStore';
 import { GLOBAL_STATE_KEYS } from '../../utils/constants';
 
@@ -98,15 +99,18 @@ class EditComponent {
     const { value: name } = this.$nameEditInput;
     const { value: password } = this.$passwordEditInput;
     const { value: passwordReenter } = this.$passwordReenterEditInput;
+    try {
+      await editUser({ loggedUser, email, name, password, passwordReenter });
 
-    const flag = await editUser({ loggedUser, email, name, password, passwordReenter });
-
-    if (flag) {
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
 
       globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.LOGIN);
 
       this.clearForm();
+
+      showToast({ isErrorMessage: false, message: '유저 정보 수정에 성공하였습니다.' });
+    } catch ({ message }) {
+      showToast({ isErrorMessage: true, message });
     }
   };
 
