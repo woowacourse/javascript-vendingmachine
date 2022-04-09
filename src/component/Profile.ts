@@ -82,7 +82,7 @@ export class Profile implements ProfileInterface {
   #handleRequestEditUserInfoPage = () => {
     this.#target.dispatchEvent(new CustomEvent('showEditUserInfoRequested'));
 
-    this.#selectContainer.classList.toggle('hide');
+    this.#handleToggleSelectContainer();
   };
 
   #handleLogout = () => {
@@ -90,6 +90,6 @@ export class Profile implements ProfileInterface {
 
     this.#target.dispatchEvent(new CustomEvent('logoutCompleted'));
 
-    this.#selectContainer.classList.toggle('hide');
+    this.#handleToggleSelectContainer();
   };
 }
