@@ -44,7 +44,7 @@ h2 {
   font-size: 20px;
 }
 
-.product-current-situation-container {
+.product-current-state-container {
   height: 285px;
   overflow-y: auto;
 }
@@ -94,8 +94,8 @@ label {
   margin-bottom: 16px;
 }
 
-.coin-current-situation,
-.product-return-change-situation {
+.coin-current-state,
+.product-return-change-state {
   width: 238px;
 }
 

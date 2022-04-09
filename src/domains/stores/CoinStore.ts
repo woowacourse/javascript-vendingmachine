@@ -44,37 +44,32 @@ class CoinStore {
 
   returnChange() {
     const coinKind = [500, 100, 50, 10];
-    const coinCurrentSituation = [
-      this.#coinsCount[500],
-      this.#coinsCount[100],
-      this.#coinsCount[50],
-      this.#coinsCount[10],
-    ];
+    const coinCurrentState = [this.#coinsCount[500], this.#coinsCount[100], this.#coinsCount[50], this.#coinsCount[10]];
     let moneyInput = this.#coinsCount.money_input;
     let holdingMoneySum = this.#coinsCount.sum;
 
     coinKind.forEach((coin, idx) => {
       const needCount = Math.floor(moneyInput / coin);
-      if (needCount > coinCurrentSituation[idx]) {
-        moneyInput -= coin * coinCurrentSituation[idx];
-        holdingMoneySum -= coin * coinCurrentSituation[idx];
-        coinCurrentSituation[idx] = 0;
-      } else if (needCount <= coinCurrentSituation[idx]) {
+      if (needCount > coinCurrentState[idx]) {
+        moneyInput -= coin * coinCurrentState[idx];
+        holdingMoneySum -= coin * coinCurrentState[idx];
+        coinCurrentState[idx] = 0;
+      } else if (needCount <= coinCurrentState[idx]) {
         moneyInput -= coin * needCount;
         holdingMoneySum -= coin * needCount;
-        coinCurrentSituation[idx] -= needCount;
+        coinCurrentState[idx] -= needCount;
       }
     });
 
-    this.updateCoinsCountAfterReturnChange(coinCurrentSituation, holdingMoneySum, moneyInput);
+    this.updateCoinsCountAfterReturnChange(coinCurrentState, holdingMoneySum, moneyInput);
   }
 
-  updateCoinsCountAfterReturnChange(coinCurrentSituation, holdingMoneySum, moneyInput) {
+  updateCoinsCountAfterReturnChange(coinCurrentState, holdingMoneySum, moneyInput) {
     this.#coinsCount = {
-      500: coinCurrentSituation[0],
-      100: coinCurrentSituation[1],
-      50: coinCurrentSituation[2],
-      10: coinCurrentSituation[3],
+      500: coinCurrentState[0],
+      100: coinCurrentState[1],
+      50: coinCurrentState[2],
+      10: coinCurrentState[3],
       sum: holdingMoneySum,
       money_input: moneyInput,
     };

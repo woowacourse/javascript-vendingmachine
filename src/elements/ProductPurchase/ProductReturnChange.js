@@ -14,7 +14,7 @@ class ProductReturnChange extends CustomElement {
   template() {
     return `
       <h2>잔돈 반환</h2>
-      <table class="product-return-change-situation">
+      <table class="product-return-change-state">
         <thead>
           <tr>
             <th>동전</th>
@@ -64,7 +64,7 @@ class ProductReturnChange extends CustomElement {
       50: oldCoinsCount[50] - newCoinsCount[50],
       10: oldCoinsCount[10] - newCoinsCount[10],
     };
-    const $productReturnChangeTable = $('.product-return-change-situation');
+    const $productReturnChangeTable = $('.product-return-change-state');
     $('.change-500-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[500]}개`;
     $('.change-100-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[100]}개`;
     $('.change-50-count-td', $productReturnChangeTable).textContent = `${returnCoinCount[50]}개`;

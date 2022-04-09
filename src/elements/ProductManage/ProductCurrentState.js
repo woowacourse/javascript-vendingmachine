@@ -7,7 +7,7 @@ import { checkDuplicateProductWhenModify, checkProductValidation } from '../../v
 import { CONFIRM_MESSAGE, SNACKBAR } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
-class ProductCurrentSituation extends CustomElement {
+class ProductCurrentState extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     ProductStoreInstance.subscribe(this);
@@ -16,8 +16,8 @@ class ProductCurrentSituation extends CustomElement {
   template() {
     return `
       <h2>상품 현황</h2>
-      <div class="product-current-situation-container">
-        <table class="product-current-situation">
+      <div class="product-current-state-container">
+        <table class="product-current-state">
           <thead>
             <tr>
               <th>상품명</th>
@@ -35,7 +35,7 @@ class ProductCurrentSituation extends CustomElement {
   rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
-        $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
+        $('tbody', $('.product-current-state')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
         this.setEventAfterRerender(detail.name);
         break;
       case PRODUCT_ACTION.MODIFY: {
@@ -190,6 +190,6 @@ class ProductCurrentSituation extends CustomElement {
   };
 }
 
-customElements.define('product-current-situation', ProductCurrentSituation);
+customElements.define('product-current-state', ProductCurrentState);
 
-export default ProductCurrentSituation;
+export default ProductCurrentState;

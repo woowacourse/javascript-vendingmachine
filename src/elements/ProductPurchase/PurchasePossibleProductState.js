@@ -5,7 +5,7 @@ import { PRODUCT_ACTION, COIN_ACTION } from '../../domains/actions';
 import { checkCanPurchaseValidation } from '../../validators';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 
-class PurchasePossibleProductSituation extends CustomElement {
+class PurchasePossibleProductState extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     ProductStoreInstance.subscribe(this);
@@ -15,7 +15,7 @@ class PurchasePossibleProductSituation extends CustomElement {
     return `
       <h2>구매 가능 상품 현황</h2>
       <div class="purchase-possible-product-container">
-        <table class="purchase-possible-product-situation">
+        <table class="purchase-possible-product-state">
           <thead>
             <tr>
               <th>상품명</th>
@@ -33,7 +33,7 @@ class PurchasePossibleProductSituation extends CustomElement {
   rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
-        $('tbody', $('.purchase-possible-product-situation')).insertAdjacentHTML(
+        $('tbody', $('.purchase-possible-product-state')).insertAdjacentHTML(
           'beforeend',
           this.tableBodyRowTemplate(detail),
         );
@@ -119,6 +119,6 @@ class PurchasePossibleProductSituation extends CustomElement {
   };
 }
 
-customElements.define('purchase-possible-product-situation', PurchasePossibleProductSituation);
+customElements.define('purchase-possible-product-state', PurchasePossibleProductState);
 
-export default PurchasePossibleProductSituation;
+export default PurchasePossibleProductState;

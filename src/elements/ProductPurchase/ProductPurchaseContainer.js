@@ -1,14 +1,14 @@
 import CustomElement from '../../abstracts/CustomElement';
 
 import './PurchaseMoneyForm';
-import './PurchasePossibleProductSituation';
+import './PurchasePossibleProductState';
 import './ProductReturnChange';
 
 class ProductPurchaseContainer extends CustomElement {
   template() {
     return `
       <purchase-money-form></purchase-money-form>
-      <purchase-possible-product-situation></purchase-possible-product-situation>
+      <purchase-possible-product-state></purchase-possible-product-state>
       <product-return-change></product-return-change>
     `;
   }
