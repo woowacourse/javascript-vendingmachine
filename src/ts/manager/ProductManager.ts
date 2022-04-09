@@ -1,10 +1,22 @@
-import { verifyDuplicateName, verifyProductName, verifyProductPrice, verifyProductQuantity } from "../utils/validation";
+import {
+  verifyDuplicateName,
+  verifyProductName,
+  verifyProductPrice,
+  verifyProductQuantity,
+  verifyPurchaseAmountInput,
+  verifyPurchaseProduct,
+  verifyPurchaseAmountReturn,
+} from "../utils/validation";
 
 interface ProductManagerInterface {
   getProducts(): Product[];
+  getPurchaseAmount(): number;
   addProduct(product: Product): void;
   removeProduct(name: string): void;
   editProduct(editProduct: Product, prevName: string): void;
+  purchaseProduct(name: string): void;
+  addPurchaseAmount(amount: number): void;
+  substractPurchaseAmount(amount: number): void;
 }
 
 export interface Product {
@@ -15,9 +27,14 @@ export interface Product {
 
 class ProductManager implements ProductManagerInterface {
   private products: Product[] = [];
+  private purchaseAmount = 0;
 
   getProducts() {
     return this.products;
+  }
+
+  getPurchaseAmount() {
+    return this.purchaseAmount;
   }
 
   addProduct(newProduct: Product) {
@@ -41,6 +58,26 @@ class ProductManager implements ProductManagerInterface {
     this.products = this.products.filter((product) => product.name !== prevName);
     verifyDuplicateName(this.products, editProduct);
     this.products.push(editProduct);
+  }
+
+  purchaseProduct(name: string) {
+    const selectedProduct = this.products.find((product) => product.name === name);
+    verifyPurchaseProduct(selectedProduct.quantity, this.purchaseAmount, selectedProduct.price);
+
+    this.purchaseAmount -= selectedProduct.price;
+    selectedProduct.quantity--;
+  }
+
+  addPurchaseAmount(amount: number) {
+    verifyPurchaseAmountInput(amount);
+
+    this.purchaseAmount += amount;
+  }
+
+  substractPurchaseAmount(amount: number) {
+    verifyPurchaseAmountReturn(amount);
+
+    this.purchaseAmount -= amount;
   }
 }
 

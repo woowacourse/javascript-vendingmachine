@@ -1,54 +1,58 @@
 import { $ } from "../../utils/dom";
+import { INFOMATION_MESSAGES } from "../../utils/constants";
+
+import ChargeManager from "../../manager/ChargeManager";
 import { chargeTemplate } from "./chargeTemplate";
-import ChargeManager from "../../mananger/ChargeManager";
+import Snackbar from "../Snackbar";
 
 class ChargeComponent {
   chargeContainer: HTMLElement;
-  chargeForm: HTMLElement;
-  chargeInput: HTMLElement;
-  chargeHoldingAmount: HTMLElement;
-  chargeManager: ChargeManager;
+  chargeForm: HTMLFormElement;
+  chargeInput: HTMLInputElement;
+  chargeAmountText: HTMLSpanElement;
   chargeCoin500: HTMLElement;
   chargeCoin100: HTMLElement;
   chargeCoin50: HTMLElement;
   chargeCoin10: HTMLElement;
+  snackbar: Snackbar;
 
-  constructor({ chargeManager }) {
-    this.chargeManager = chargeManager;
-    this.chargeContainer = $(".charge-manange__container");
+  constructor(private chargeManager: ChargeManager) {
+    this.snackbar = new Snackbar();
+    this.chargeContainer = $(".charge-manage__container");
     this.chargeContainer.replaceChildren();
     this.chargeContainer.insertAdjacentHTML("beforeend", chargeTemplate());
 
-    this.chargeForm = $(".charge-manange__form");
-    this.chargeInput = $(".charge-manange__input");
-    this.chargeHoldingAmount = $(".charge-manange__holding-amount");
-    this.chargeCoin500 = $(".charge-manange__table-coin--500");
-    this.chargeCoin100 = $(".charge-manange__table-coin--100");
-    this.chargeCoin50 = $(".charge-manange__table-coin--50");
-    this.chargeCoin10 = $(".charge-manange__table-coin--10");
+    this.chargeForm = $(".charge-manage__form");
+    this.chargeInput = $(".charge-manage__input");
+    this.chargeAmountText = $(".charge-manage__amount");
+    this.chargeCoin500 = $(".charge-manage__table-coin--500");
+    this.chargeCoin100 = $(".charge-manage__table-coin--100");
+    this.chargeCoin50 = $(".charge-manage__table-coin--50");
+    this.chargeCoin10 = $(".charge-manage__table-coin--10");
 
     this.chargeForm.addEventListener("submit", this.handleAddCharge);
   }
 
-  handleAddCharge = (e) => {
+  handleAddCharge = (e: Event) => {
     e.preventDefault();
-    const charge = (<HTMLInputElement>this.chargeInput).valueAsNumber;
+    const charge = this.chargeInput.valueAsNumber;
 
     try {
       const randomCoins = this.chargeManager.getRandomCoins(charge);
       this.chargeManager.addCoins(randomCoins);
-      this.increaseRandomCoins();
-      this.increaseHoldingAmount();
+      this.renderAmount();
+      this.renderRandomCoins();
+      this.snackbar.show(INFOMATION_MESSAGES.SUCCESS_CHARGE);
     } catch ({ message }) {
-      alert(message);
+      this.snackbar.show(message);
     }
   };
 
-  increaseHoldingAmount() {
-    this.chargeHoldingAmount.textContent = `${this.chargeManager.getTotalCharge()}`;
+  renderAmount() {
+    this.chargeAmountText.textContent = `${this.chargeManager.getTotalCharge()}`;
   }
 
-  increaseRandomCoins() {
+  renderRandomCoins() {
     const countList = Object.values(this.chargeManager.getTotalCoins());
 
     [this.chargeCoin10, this.chargeCoin50, this.chargeCoin100, this.chargeCoin500].forEach((chargeCoin, index) => {
@@ -59,6 +63,8 @@ class ChargeComponent {
   show() {
     this.chargeContainer.classList.remove("hide");
     this.chargeInput.focus();
+    this.renderRandomCoins();
+    this.renderAmount();
   }
 }
 

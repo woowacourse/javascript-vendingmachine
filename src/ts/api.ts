@@ -1,0 +1,74 @@
+import { ERROR_MESSAGES } from "./utils/constants";
+import { verifyPassword, verifyUserName } from "./utils/validation";
+
+const BASE_URL = "https://mini-server-for-vending.herokuapp.com";
+
+const requestSignup = async ({ name, email, password, passwordCheck }) => {
+  verifyUserName(name);
+  verifyPassword(password, passwordCheck);
+
+  try {
+    const response = await fetch(`${BASE_URL}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.FAIL_SIGNUP);
+    }
+
+    const { accessToken, user } = await response.json();
+    return { accessToken, user };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const requestLogin = async ({ email, password }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.FAIL_LOGIN);
+    }
+
+    const { accessToken, user } = await response.json();
+    return { accessToken, user };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const requestEditProfile = async ({ id, name, password, passwordCheck }) => {
+  verifyUserName(name);
+  verifyPassword(password, passwordCheck);
+
+  try {
+    const response = await fetch(`${BASE_URL}/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.FAIL_EDIT_PROFILE);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export { requestSignup, requestLogin, requestEditProfile };

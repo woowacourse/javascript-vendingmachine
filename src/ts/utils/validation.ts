@@ -1,5 +1,6 @@
-import { Product } from "../mananger/ProductManager";
-import { PRODUCT, CHARGE, ERROR_MESSAGES } from "./constants";
+import { Product } from "../manager/ProductManager";
+import { passwordRegex } from "./common";
+import { PRODUCT, CHARGE, ERROR_MESSAGES, PURCAHSE, USER_NAME } from "./constants";
 
 const verifyProductName = (name: string) => {
   if (name === "") {
@@ -49,4 +50,62 @@ const verifyCharge = (charge: number) => {
   }
 };
 
-export { verifyProductName, verifyProductPrice, verifyProductQuantity, verifyDuplicateName, verifyCharge };
+const verifyPurchaseAmountInput = (amount: number) => {
+  if (amount < PURCAHSE.MIN_AMOUNT || amount > PURCAHSE.MAX_AMOUNT) {
+    throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_RANGE);
+  }
+  if (amount % PURCAHSE.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGES.INVALID_PURCHASE_AMOUNT_UNIT);
+  }
+};
+
+const verifyPurchaseProduct = (stock: number, purchaseAmount: number, productPrice: number) => {
+  if (stock <= 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_PURCHASE_STOCK);
+  }
+  if (purchaseAmount < productPrice) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_PURCHASE_AMOUNT);
+  }
+};
+
+const verifyPurchaseAmountBalance = (amount: number) => {
+  if (amount === 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_INPUT_AMOUNT);
+  }
+};
+
+const verifyPurchaseAmountReturn = (amount: number) => {
+  if (amount === 0) {
+    throw new Error(ERROR_MESSAGES.NOT_ENOUGH_RETURN_COIN);
+  }
+};
+
+const verifyUserName = (name: string) => {
+  if (name.length > USER_NAME.MAX_LENGTH || name.length < USER_NAME.MIN_LENGTH) {
+    throw new Error(ERROR_MESSAGES.INVALID_USER_NAME_LENGTH);
+  }
+};
+
+const verifyPassword = (password: string, passwordCheck: string) => {
+  if (!passwordRegex.test(password)) {
+    throw new Error(ERROR_MESSAGES.INVALID_PASSWORD_RULE);
+  }
+
+  if (password !== passwordCheck) {
+    throw new Error(ERROR_MESSAGES.NOT_MATCH_PASSWORD);
+  }
+};
+
+export {
+  verifyProductName,
+  verifyProductPrice,
+  verifyProductQuantity,
+  verifyDuplicateName,
+  verifyCharge,
+  verifyPurchaseAmountInput,
+  verifyPurchaseProduct,
+  verifyPurchaseAmountBalance,
+  verifyPurchaseAmountReturn,
+  verifyUserName,
+  verifyPassword,
+};

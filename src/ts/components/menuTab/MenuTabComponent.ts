@@ -1,18 +1,20 @@
 import { $, $$ } from "../../utils/dom";
-import { ConvertTemplate } from "../App";
+import { ConvertTemplate, Path } from "../App";
+import { menuTabTemplate } from "./menuTabTemplate";
 
 class MenuTabComponent {
-  convertTemplate: ConvertTemplate;
   menuNav: HTMLElement;
   menuNavButtons: NodeList;
 
-  constructor({ convertTemplate }) {
-    this.convertTemplate = convertTemplate;
+  constructor(private convertTemplate: ConvertTemplate) {
     this.menuNav = $(".menu-nav");
+    this.menuNav.replaceChildren();
+    this.menuNav.insertAdjacentHTML("beforeend", menuTabTemplate);
+
     this.menuNavButtons = $$(".menu-nav__button");
 
-    this.menuNav.addEventListener("click", this.handleMenuTab);
     window.addEventListener("popstate", this.handlePopState);
+    this.menuNav.addEventListener("click", this.handleMenuTab);
     this.changeTabStyle();
   }
 
@@ -22,12 +24,12 @@ class MenuTabComponent {
     }
 
     history.pushState({ path: target.dataset.menu }, null, target.dataset.menu);
-    this.convertTemplate(location.hash);
+    this.convertTemplate(target.dataset.menu);
     this.changeTabStyle();
   };
 
   handlePopState = () => {
-    this.convertTemplate(location.hash || "#product");
+    this.convertTemplate((location.hash as Path) || "#product");
     this.changeTabStyle();
   };
 
@@ -35,6 +37,10 @@ class MenuTabComponent {
     this.menuNavButtons.forEach((button: HTMLButtonElement) =>
       button.dataset.menu === location.hash ? button.classList.add("active") : button.classList.remove("active"),
     );
+  }
+
+  show() {
+    this.menuNav.classList.remove("hide");
   }
 }
 
