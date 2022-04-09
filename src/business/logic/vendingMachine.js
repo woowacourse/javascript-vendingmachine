@@ -11,9 +11,9 @@ export const addProduct = ({ name, price, quantity }) => {
 
 export const editProduct = ({ id, name, price, quantity }) => {
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList => {
-    const productToEdit = productList.find(product => product.getProductInfo().id === id);
+    const targetProduct = productList.find(product => product.getProductInfo().id === id);
 
-    productToEdit.editProductInfo({ name, price, quantity });
+    targetProduct.editProductInfo({ name, price, quantity });
 
     return productList;
   });
@@ -46,10 +46,10 @@ export const purchaseProduct = ({ productId }) => {
   const moneyInput = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE);
   const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
 
-  const productToPurchase = productList.find(product => product.getProductInfo().id === productId);
-  const { price } = productToPurchase.getProductInfo();
+  const targetProduct = productList.find(product => product.getProductInfo().id === productId);
+  const { price } = targetProduct.getProductInfo();
 
-  productToPurchase.purchaseProduct(moneyInput);
+  targetProduct.purchaseProduct(moneyInput);
 
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList);
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.INPUT_CHARGE, moneyInput - price);
