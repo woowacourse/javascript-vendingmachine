@@ -1,11 +1,15 @@
 import { $ } from './dom';
 
 const $snackbar = $('#snackbar');
+let timer = null;
 
 export const handleSnackbarMessage = (message) => {
-  $snackbar.classList.toggle('show');
+  if (timer) {
+    clearTimeout(timer);
+  }
+  $snackbar.classList.add('show');
   $snackbar.textContent = message;
-  setTimeout(() => {
-    $snackbar.classList.toggle('show');
+  timer = setTimeout(() => {
+    $snackbar.classList.remove('show');
   }, 1800);
 };
