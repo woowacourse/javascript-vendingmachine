@@ -89,7 +89,7 @@ export const generateItemPurchaseTableRowTemplate = ({ itemName, itemPrice, item
   </tr>
 `;
 
-export const generateItemPurchaseContentTemplate = (moneyAmount, itemList, change) => `
+export const generateItemPurchaseContentTemplate = ({ moneyAmount, itemList, change }) => `
   <form id="item-purchase-form" class="input-form">
     <label>상품을 구매할 금액을 투입해주세요</label>
     <div class="input-form-container">

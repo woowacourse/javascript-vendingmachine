@@ -30,11 +30,11 @@ class ItemPurchaseTab extends AdminPage {
     }
 
     this.changeTabContent(
-      generateItemPurchaseContentTemplate(
-        this.vendingMachine.money,
-        this.itemManage.itemList,
-        this.vendingMachine.change
-      ),
+      generateItemPurchaseContentTemplate({
+        moneyAmount: this.vendingMachine.money,
+        itemList: this.itemManage.itemList,
+        change: this.vendingMachine.change,
+      }),
       this.itemPurchaseTabButton
     );
 
