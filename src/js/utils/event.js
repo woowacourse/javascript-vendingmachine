@@ -15,3 +15,7 @@ export function listenEvents(target, events) {
     });
   });
 }
+
+export function dispatchTabChangeEvent(newHash) {
+  emitEvent(window, 'tabChange', { newHash });
+}

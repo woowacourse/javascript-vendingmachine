@@ -1,7 +1,7 @@
 import { LOGIN_ERROR, SIGNUP_ERROR, SUCCESS_MESSAGE } from '../constants';
 import { expireCookie } from '../utils/cookie';
 import { selectDom, generateSnackBar } from '../utils/dom';
-import { listenEvents } from '../utils/event';
+import { dispatchTabChangeEvent, listenEvents } from '../utils/event';
 
 export default class UserController {
   #user;
@@ -47,12 +47,7 @@ export default class UserController {
     this.#renderTabMenu();
     this.#renderProfile();
     generateSnackBar(SUCCESS_MESSAGE.LOGIN);
-    const tabChange = new CustomEvent('tabChange', {
-      detail: {
-        newHash: '/#/purchase',
-      },
-    });
-    window.dispatchEvent(tabChange);
+    dispatchTabChangeEvent('/#/purchase');
   };
 
   #signUp = async (e) => {
@@ -66,12 +61,7 @@ export default class UserController {
     this.#renderTabMenu();
     this.#renderProfile();
     generateSnackBar(SUCCESS_MESSAGE.SIGNUP);
-    const tabChange = new CustomEvent('tabChange', {
-      detail: {
-        newHash: '/#/purchase',
-      },
-    });
-    window.dispatchEvent(tabChange);
+    dispatchTabChangeEvent('/#/purchase');
   };
 
   #updateUser = async (e) => {
@@ -84,23 +74,13 @@ export default class UserController {
       generateSnackBar(err.message);
       return;
     }
-    const tabChange = new CustomEvent('tabChange', {
-      detail: {
-        newHash: '/#/purchase',
-      },
-    });
-    window.dispatchEvent(tabChange);
+    dispatchTabChangeEvent('/#/purchase');
   };
 
   #logout = () => {
     expireCookie('accessToken');
     this.#user.init();
     this.#renderTabMenu();
-    const tabChange = new CustomEvent('tabChange', {
-      detail: {
-        newHash: '/#/purchase',
-      },
-    });
-    window.dispatchEvent(tabChange);
+    dispatchTabChangeEvent('/#/purchase');
   };
 }

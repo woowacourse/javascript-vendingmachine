@@ -1,5 +1,5 @@
 import { createElementByTemplate, selectDom } from '../utils/dom';
-import { emitEvent } from '../utils/event';
+import { dispatchTabChangeEvent, emitEvent } from '../utils/event';
 import { navTemplate } from './template';
 
 export default class Navigation {
@@ -48,12 +48,7 @@ export default class Navigation {
     if (newHash === previousHash) {
       return;
     }
-    const tabChange = new CustomEvent('tabChange', {
-      detail: {
-        newHash,
-      },
-    });
-    window.dispatchEvent(tabChange);
+    dispatchTabChangeEvent(newHash);
   };
 
   #showList = () => {
