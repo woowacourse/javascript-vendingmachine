@@ -32,28 +32,28 @@ describe('상품 추가 테스트', () => {
     cy.checkSnackbarVisibility();
   });
 
-  it('100원 미만의 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
+  it('최소 가격(100원) 미만의 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
     const itemPrice = 99;
     cy.addItem(itemName, itemPrice, itemQuantity);
 
     cy.checkInvalidInput(1);
   });
 
-  it('10000원을 초과한 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
+  it('최대 가격(10000원)을 초과한 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
     const itemPrice = 10001;
     cy.addItem(itemName, itemPrice, itemQuantity);
 
     cy.checkInvalidInput(1);
   });
 
-  it('10원으로 나누어 떨어지지 않는 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
+  it('최소 단위(10원)로 나누어 떨어지지 않는 가격을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
     const itemPrice = 9999;
     cy.addItem(itemName, itemPrice, itemQuantity);
 
     cy.checkInvalidInput(1);
   });
 
-  it('20개를 초과한 수량을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
+  it('최대 수량(20개)를 초과한 수량을 입력하고 추가 버튼을 누르면, 경고창이 뜬다.', () => {
     const itemQuantity = 21;
     cy.addItem(itemName, itemPrice, itemQuantity);
 

@@ -29,8 +29,10 @@ export const SELECTOR = {
   CANCEL_ITEM_BUTTON: '.cancel-item-button',
   DELETE_ITEM_BUTTON: '.delete-item-button',
   GIVE_CHANGE_BUTTON: '.give-change-button',
+  PURCHASE_ITEM_BUTTON: '.purchase-item-button',
   THUMBNAIL_BUTTON: '#thumbnail-button',
   LOGIN_BUTTON: '#login-button',
+  INPUT_FORM_BUTTON: '.input-form-button',
 
   CHARGED_AMOUNT: '#charged-amount',
   INPUT_AMOUNT: '#input-amount',

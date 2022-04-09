@@ -37,19 +37,19 @@ describe('잔돈 충전 탭 테스트', () => {
     cy.checkSnackbarVisibility();
   });
 
-  it('10원 미만의 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {
+  it('최소 금액(10원) 미만의 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {
     const cashInput = 9;
     cy.chargeCoin(cashInput);
     cy.checkInvalidInput(numberOfInvalidInput);
   });
 
-  it('10만원 이상 충전하려 하면, 경고 메세지가 뜬다.', () => {
+  it('최대금액(10만원)을 초과해서 충전하려 하면, 경고 메세지가 뜬다.', () => {
     const cashInput = 100001;
     cy.chargeCoin(cashInput);
     cy.checkInvalidInput(numberOfInvalidInput);
   });
 
-  it('10원으로 나누어떨어지지 않는 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {
+  it('최소 단위(10원)로 나누어떨어지지 않는 값을 입력하고 충전 버튼을 누르면, 경고 메세지가 뜬다.', () => {
     const cashInput = 9999;
     cy.chargeCoin(cashInput);
     cy.checkInvalidInput(numberOfInvalidInput);
