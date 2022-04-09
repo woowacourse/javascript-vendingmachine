@@ -51,17 +51,15 @@ class AdminPage {
   };
 
   #onChangeThumbnailOption = ({ target: { value } }) => {
-    switch (value) {
-      case THUMBNAIL_OPTION_VALUE.LOGOUT:
-        deleteCookie(KEY.ACCESS_TOKEN);
-        localStorage.removeItem(KEY.USER_NAME);
-        location.hash = location.hash === HASH.ITEM_PURCHASE ? '' : HASH.ITEM_PURCHASE;
-        break;
-      case THUMBNAIL_OPTION_VALUE.EDIT_USER_INFO:
-        showSnackbar(this.snackbar, NOT_DEVELOPED_YET_MESSAGE);
-        break;
-      default:
-        break;
+    if (value === THUMBNAIL_OPTION_VALUE.LOGOUT) {
+      deleteCookie(KEY.ACCESS_TOKEN);
+      localStorage.removeItem(KEY.USER_NAME);
+      location.hash = location.hash === HASH.ITEM_PURCHASE ? '' : HASH.ITEM_PURCHASE;
+      return;
+    }
+
+    if (value === THUMBNAIL_OPTION_VALUE.EDIT_USER_INFO) {
+      showSnackbar(this.snackbar, NOT_DEVELOPED_YET_MESSAGE);
     }
   };
 }
