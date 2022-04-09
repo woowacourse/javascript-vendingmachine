@@ -1,4 +1,5 @@
 import { $ } from './utils/dom';
+import AuthStateaStoreInstance from './domains/stores/AuthStateStore';
 
 const $administratorMenu = document.querySelector('administrator-menu');
 const $userManagerContainer = document.querySelector('#user-manager-container');
@@ -157,6 +158,10 @@ const renderInitContainer = () => {
 };
 
 window.addEventListener('hashchange', () => {
+  const { isLogined } = AuthStateaStoreInstance;
+  console.log(isLogined);
+  // if (!isLogined) return;
+
   const currentHash = window.location.hash;
   renderTargetContainer(currentHash);
 });

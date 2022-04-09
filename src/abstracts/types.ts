@@ -28,6 +28,11 @@ export type CoinActionType = {
   RETURN_CHANGE: string;
 };
 
+export type AuthActionType = {
+  LOGIN: string;
+  LOGOUT: string;
+};
+
 export type CoinsCount = {
   500: number;
   100: number;

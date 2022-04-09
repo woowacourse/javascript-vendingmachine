@@ -1,4 +1,4 @@
-import { CoinActionType, ModifyDetail, ProductActionType, Product } from '../abstracts/types';
+import { CoinActionType, ModifyDetail, ProductActionType, AuthActionType, Product } from '../abstracts/types';
 
 export const createAction = (type: string, detail?: Product | ModifyDetail | string | number) => ({
   type,
@@ -17,4 +17,9 @@ export const COIN_ACTION: CoinActionType = {
   PURCHASE_MONEY_INPUT: 'purchase-money-input',
   UPDATE_MONEY_INPUT: 'update-money-input',
   RETURN_CHANGE: 'return-coin-change',
+};
+
+export const AUTH_ACTION: AuthActionType = {
+  LOGIN: 'login',
+  LOGOUT: 'logout',
 };
