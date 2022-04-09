@@ -4,7 +4,7 @@ import globalStore from '../stores/globalStore';
 import { GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
 import { showToast } from '../lib/toast';
 
-export const loginUser = async (emailValue, passwordValue) => {
+export const loginUser = async ({ email, password }) => {
   try {
     globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, true);
     const { accessToken, user } = await fetcher({
@@ -14,7 +14,7 @@ export const loginUser = async (emailValue, passwordValue) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: emailValue, password: passwordValue }),
+        body: JSON.stringify({ email, password }),
       },
     });
 
@@ -46,7 +46,7 @@ export const logoutUser = () => {
   localStorage.removeItem(WEB_STORAGE_KEY.USER);
 };
 
-export const joinUser = async (email, name, password, passwordReenter) => {
+export const joinUser = async ({ email, name, password, passwordReenter }) => {
   try {
     if (checkJoinPossible(name, password, passwordReenter)) {
       globalStore.setState(GLOBAL_STATE_KEYS.IS_LOADING, true);
@@ -72,7 +72,7 @@ export const joinUser = async (email, name, password, passwordReenter) => {
   }
 };
 
-export const editUser = async (loggedUser, email, name, password, passwordReenter) => {
+export const editUser = async ({ loggedUser, email, name, password, passwordReenter }) => {
   const { id } = loggedUser;
   try {
     if (checkJoinPossible(name, password, passwordReenter)) {

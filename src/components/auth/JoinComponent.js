@@ -69,12 +69,12 @@ class JoinComponent {
 
   onSubmitJoinForm = async e => {
     e.preventDefault();
-    const { value: emailValue } = this.$emailJoinInput;
-    const { value: nameValue } = this.$nameJoinInput;
-    const { value: passwordValue } = this.$passwordJoinInput;
-    const { value: passwordReenterValue } = this.$passwordReenterJoinInput;
+    const { value: email } = this.$emailJoinInput;
+    const { value: name } = this.$nameJoinInput;
+    const { value: password } = this.$passwordJoinInput;
+    const { value: passwordReenter } = this.$passwordReenterJoinInput;
 
-    const flag = await joinUser(emailValue, nameValue, passwordValue, passwordReenterValue);
+    const flag = await joinUser({ email, name, password, passwordReenter });
 
     if (flag) {
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);

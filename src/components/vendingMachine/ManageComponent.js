@@ -77,22 +77,22 @@ class ManageComponent {
   onSubmitProductInputForm = e => {
     e.preventDefault();
 
-    const { value: productNameInputValue } = this.$productNameInput;
-    const { valueAsNumber: productPriceInputValue } = this.$productPriceInput;
-    const { valueAsNumber: productQuantityInputValue } = this.$productQuantityInput;
+    const { value: productNameInput } = this.$productNameInput;
+    const { valueAsNumber: productPriceInput } = this.$productPriceInput;
+    const { valueAsNumber: productQuantityInput } = this.$productQuantityInput;
 
     try {
       if (
         checkProductInput({
-          nameInput: productNameInputValue,
-          priceInput: productPriceInputValue,
-          quantityInput: productQuantityInputValue,
+          nameInput: productNameInput,
+          priceInput: productPriceInput,
+          quantityInput: productQuantityInput,
         })
       ) {
         addProduct({
-          name: productNameInputValue,
-          price: productPriceInputValue,
-          quantity: productQuantityInputValue,
+          name: productNameInput,
+          price: productPriceInput,
+          quantity: productQuantityInput,
         });
 
         this.clearInputForm();

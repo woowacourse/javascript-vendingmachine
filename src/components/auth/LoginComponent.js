@@ -63,10 +63,10 @@ class LoginComponent {
 
   onSubmitLoginForm = async e => {
     e.preventDefault();
-    const { value: emailValue } = this.$emailLoginInput;
-    const { value: passwordValue } = this.$passwordLoginInput;
+    const { value: email } = this.$emailLoginInput;
+    const { value: password } = this.$passwordLoginInput;
 
-    const flag = await loginUser(emailValue, passwordValue);
+    const flag = await loginUser({ email, password });
 
     if (flag) {
       router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);

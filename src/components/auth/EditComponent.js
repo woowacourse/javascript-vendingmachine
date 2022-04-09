@@ -94,18 +94,12 @@ class EditComponent {
     e.preventDefault();
     const { loggedUser } = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
 
-    const { value: emailValue } = this.$emailEditInput;
-    const { value: nameValue } = this.$nameEditInput;
-    const { value: passwordValue } = this.$passwordEditInput;
-    const { value: passwordReenterValue } = this.$passwordReenterEditInput;
+    const { value: email } = this.$emailEditInput;
+    const { value: name } = this.$nameEditInput;
+    const { value: password } = this.$passwordEditInput;
+    const { value: passwordReenter } = this.$passwordReenterEditInput;
 
-    const flag = await editUser(
-      loggedUser,
-      emailValue,
-      nameValue,
-      passwordValue,
-      passwordReenterValue,
-    );
+    const flag = await editUser({ loggedUser, email, name, password, passwordReenter });
 
     if (flag) {
       router.pushState({ path: ROUTE_NAME.LOGIN }, ROUTE_NAME.LOGIN);
