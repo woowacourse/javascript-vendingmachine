@@ -31,7 +31,7 @@ export default class App {
     $('.nav').addEventListener('click', this.navClickHandler);
     window.addEventListener('popstate', this.popStateHandler);
     $('.signin-button').addEventListener('click', this.signInClickHandler);
-    $('.sign-in__link-sign-up').addEventListener(
+    $('.sign-in__link-button').addEventListener(
       'click',
       this.signUpClickHandler,
     );

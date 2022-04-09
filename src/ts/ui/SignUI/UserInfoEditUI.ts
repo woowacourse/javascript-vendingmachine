@@ -8,27 +8,46 @@ import { goToNextPage } from './common';
 
 export default class UserInfoEditUI {
   private readonly userDomain: UserDomain;
+  private readonly $signForm: HTMLFormElement;
 
   constructor(userDomain: UserDomain) {
     this.userDomain = userDomain;
-    $('.user-info-edit__form').addEventListener('submit', this.submitHandler);
+    this.$signForm = $('.sign__form');
+    this.$signForm.addEventListener('submit', this.submitHandler);
   }
 
   render() {
     $('#main').classList.add('hide');
-    $('#sign-in').classList.add('hide');
-    $('#sign-up').classList.add('hide');
-    $('#user-info-edit').classList.remove('hide');
+    $('#sign').classList.remove('hide');
 
-    $<HTMLInputElement>('#user-info-edit-email').value =
-      this.userDomain.userInfo.email;
-    $('#user-info-edit-name').focus();
+    $<HTMLInputElement>('#sign-email').value = this.userDomain.userInfo.email;
+
+    this.makeUserInfoEditPage();
+
+    $('#sign-name').focus();
+  }
+
+  makeUserInfoEditPage() {
+    this.$signForm.dataset.type = 'user-info-edit';
+
+    $('.sign__title').textContent = '회원 정보 수정';
+    $('#sign-email').setAttribute('readonly', '');
+    [
+      $('label[for=sign-name]'),
+      $('#sign-name'),
+      $('label[for=sign-confirm-password]'),
+      $('#sign-confirm-password'),
+    ].forEach($element => {
+      $element.classList.remove('hide');
+    });
+    $('#sign-in__link').classList.add('hide');
   }
 
   private submitHandler = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;
+    if (e.target.dataset.type !== 'user-info-edit') return;
 
     const email = getNamedItem<HTMLInputElement>(
       e.target.elements,
@@ -63,7 +82,7 @@ export default class UserInfoEditUI {
     this.userDomain
       .editUserInfo(user)
       .then(() => {
-        $$<HTMLInputElement>('.user-info-edit__input').forEach($input => {
+        $$<HTMLInputElement>('.sign__input').forEach($input => {
           $input.value = '';
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_EDIT_USER_INFO);

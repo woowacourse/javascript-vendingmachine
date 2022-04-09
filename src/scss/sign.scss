@@ -1,17 +1,13 @@
 @import 'variable';
 
-#sign-in,
-#sign-up,
-#user-info-edit {
+#sign {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.sign-in,
-.sign-up,
-.user-info-edit {
+.sign {
   &__title {
     margin: 44px 0 48px;
   }
@@ -42,7 +38,7 @@
     color: $color-button-text-color;
   }
 
-  &__link-sign-up {
+  &-in__link-button {
     background: none;
     color: $color-link-text-color;
   }

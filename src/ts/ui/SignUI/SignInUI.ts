@@ -7,25 +7,44 @@ import { goToNextPage } from './common';
 
 export default class SignInUI {
   private readonly userDomain: UserDomain;
+  private readonly $signForm: HTMLFormElement;
 
   constructor(userDomain: UserDomain) {
     this.userDomain = userDomain;
-    $('.sign-in__form').addEventListener('submit', this.submitHandler);
+    this.$signForm = $('.sign__form');
+    this.$signForm.addEventListener('submit', this.submitHandler);
   }
 
   render() {
     $('#main').classList.add('hide');
-    $('#sign-in').classList.remove('hide');
-    $('#sign-up').classList.add('hide');
-    $('#user-info-edit').classList.add('hide');
+    $('#sign').classList.remove('hide');
 
-    $('#sign-in-email').focus();
+    this.makeSignInPage();
+
+    $('#sign-email').focus();
+  }
+
+  makeSignInPage() {
+    this.$signForm.dataset.type = 'sign-in';
+
+    $('.sign__title').textContent = '로그인';
+    $('#sign-email').removeAttribute('readonly');
+    [
+      $('label[for=sign-name]'),
+      $('#sign-name'),
+      $('label[for=sign-confirm-password]'),
+      $('#sign-confirm-password'),
+    ].forEach($element => {
+      $element.classList.add('hide');
+    });
+    $('#sign-in__link').classList.remove('hide');
   }
 
   private submitHandler = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;
+    if (e.target.dataset.type !== 'sign-in') return;
 
     const email = getNamedItem<HTMLInputElement>(
       e.target.elements,
@@ -45,7 +64,7 @@ export default class SignInUI {
     this.userDomain
       .signIn(user)
       .then(() => {
-        $$<HTMLInputElement>('.sign-in__input').forEach($input => {
+        $$<HTMLInputElement>('.sign__input').forEach($input => {
           $input.value = '';
         });
         showSnackbar(USER_SIGN_MESSAGE.SUCCESS_SIGNIN);

@@ -22,9 +22,7 @@ export default class MainUI {
 
   renderInitPage(isSignIn: boolean = false) {
     $('#main').classList.remove('hide');
-    $('#sign-in').classList.add('hide');
-    $('#sign-up').classList.add('hide');
-    $('#user-info-edit').classList.add('hide');
+    $('#sign').classList.add('hide');
 
     if (isSignIn) {
       this.renderProductManagementUI();
