@@ -9,7 +9,7 @@ const postServer = (baseUrl) => (path) => async (bodyData) => {
     body: JSON.stringify(bodyData),
   });
 
-  return [response.ok, await response.json()];
+  return { ok: response.ok, body: await response.json() };
 };
 
 const postBaseServer = postServer(BASE_SERVER_URL);

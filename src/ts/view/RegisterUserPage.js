@@ -27,7 +27,7 @@ class RegisterUserPage {
 
     try {
       validateRegisterBehavior(userInfo);
-      const [ok, body] = await register(userInfo);
+      const { ok, body } = await register(userInfo);
       if (!ok) {
         throw new Error(body);
       }

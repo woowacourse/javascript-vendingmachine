@@ -30,7 +30,7 @@ class LoginUserPage {
       const emailValue = email?.value.trim() ?? '';
       const passwordValue = password?.value.trim() ?? '';
       validateLoginBehavior(emailValue, passwordValue);
-      const [ok, body] = await login({
+      const { ok, body } = await login({
         email: emailValue,
         password: passwordValue,
       });
