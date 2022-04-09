@@ -5,11 +5,19 @@ import {
   GetTotalChanges,
   GenerateCoins,
   ChangesDomain,
-} from "../interface/changes.interface";
+} from "../interface/vending-changes.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
+import { getLocalStorage, setLocalStorage } from "../util/localStorage";
 
-class ChangesProcessMachine implements ChangesDomain {
-  coins = { 500: 0, 100: 0, 50: 0, 10: 0 };
+export class ChangesProcessMachine implements ChangesDomain {
+  coins: Coins;
+
+  constructor() {
+    this.coins = this.initCoins();
+  }
+
+  initCoins = () =>
+    getLocalStorage("coins") ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
 
   charge: Charge = (money) => {
     this.checkDividedByMinimumCoin(money);
@@ -18,7 +26,25 @@ class ChangesProcessMachine implements ChangesDomain {
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
-    console.log(this.coins);
+    this.setCoins(this.coins);
+  };
+
+  setCoins = (data: Coins) => {
+    setLocalStorage("coins", data);
+  };
+
+  return = (money: number): Coins => {
+    const returnedCoins = this.returnCoins(money);
+    this.decreaseChargedCoins(returnedCoins);
+    this.setCoins(this.coins);
+
+    return returnedCoins;
+  };
+
+  decreaseChargedCoins = (returnCoins: Coins) => {
+    Object.entries(returnCoins).forEach(([coin, amount]) => {
+      this.coins[coin] -= amount;
+    });
   };
 
   accumulateCoins = (newCoins: Coins): void => {
@@ -51,6 +77,36 @@ class ChangesProcessMachine implements ChangesDomain {
     }, 0);
   };
 
+  returnCoins = (amount: number): Coins => {
+    let remainingAmount = amount;
+
+    const sortedCoin = Object.keys(this.coins).sort(
+      (a: string, b: string) => Number(b) - Number(a)
+    );
+
+    return sortedCoin.reduce((acc: Partial<Coins>, coin: string) => {
+      const maxAvailableAmount = Math.floor(remainingAmount / Number(coin));
+      const coinAmount = this.coins[coin];
+      const amount = this.calculateAvailableAmount(
+        maxAvailableAmount,
+        coinAmount
+      );
+      remainingAmount -= amount * Number(coin);
+      return { ...acc, [coin]: amount };
+    }, {}) as Coins;
+  };
+
+  calculateAvailableAmount = (
+    maxAvailableAmount: number,
+    coinAmount: number
+  ) => {
+    if (coinAmount > maxAvailableAmount) {
+      return maxAvailableAmount;
+    }
+
+    return coinAmount;
+  };
+
   checkDividedByMinimumCoin = (money: number): void => {
     if (money % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0) {
       throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
@@ -73,4 +129,4 @@ class ChangesProcessMachine implements ChangesDomain {
   };
 }
 
-export default ChangesProcessMachine;
+export const changesProcessMachine = new ChangesProcessMachine();

@@ -1,25 +1,30 @@
-import ProductModerator from "./moderator/productModerator";
-import ChangesModerator from "./moderator/changesModerator";
+import "./pages/product-manage.page";
+import "./pages/changes-manage.page";
+import "./pages/product-purchase.page";
+import isLogin from "./util/checkLogin";
+import { addEvent } from "./util/event";
 
 class App {
   constructor() {
-    this.productModerator = new ProductModerator();
-    this.changesModerator = new ChangesModerator();
-
     this.$nav = document.querySelector("#page-tab-container");
-    this.$nav.addEventListener("click", this.onClickNavButton);
-    window.addEventListener("hashchange", this.onChangePage);
+    this.$page = document.querySelector("#page");
+    addEvent(this.$nav, "click", this.onClickNavButton);
+    addEvent(window, "hashchange", this.onChangePage);
 
     this.onChangePage();
   }
 
   onClickNavButton = ({ target }) => {
     if (target.classList.contains("product-management-button")) {
-      this.productModerator.init();
+      this.$page.innerHTML = "<product-manage></product-manage>";
     }
 
     if (target.classList.contains("changes-charge-button")) {
-      this.changesModerator.init();
+      this.$page.innerHTML = "<changes-manage></changes-manage>";
+    }
+
+    if (target.classList.contains("product-purchase-button")) {
+      this.$page.innerHTML = "<product-purchase></product-purchase>";
     }
   };
 
@@ -27,13 +32,19 @@ class App {
     const hash = location.hash;
 
     if (hash === "#!productManagement") {
-      this.productModerator.init();
+      this.$page.innerHTML = "<product-manage></product-manage>";
     }
 
     if (hash === "#!changesCharge") {
-      this.changesModerator.init();
+      this.$page.innerHTML = "<changes-manage></changes-manage>";
+    }
+
+    if (hash === "#!productPurchase") {
+      this.$page.innerHTML = "<product-purchase></product-purchase>";
     }
   };
 }
 
-new App();
+if (isLogin()) {
+  new App();
+}

@@ -4,11 +4,17 @@
     <meta charset="UTF-8" />
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script defer src="bundle.js"></script></head>
+  <script defer src="index.bundle.js?e75ad0f8696e087a9ad5"></script></head>
 
   <body>
     <div id="app">
+      <login-status class="login-menu-button"></login-status>
       <h1>🍿 자판기 🍿</h1>
+
+      <page-by-login></page-by-login>
+    </div>
+
+    <template id="nav-button-container">
       <nav id="page-tab-container">
         <a
           class="nav-button product-management-button"
@@ -19,11 +25,530 @@
         <a class="nav-button changes-charge-button" href="#!changesCharge">
           잔돈 충전
         </a>
-        <a class="nav-button product-purchase-button" type="button">
+        <a class="nav-button product-purchase-button" href="#!productPurchase" type="button">
           상품 구매
         </a>
       </nav>
       <div id="page"></div>
-    </div>
+      <div id="snackbar"></div>
+    </template>
+
+    <template id="product-input-template">
+      <style>
+        .input {
+          height: 36px; 
+          border-radius: 4px;
+          padding-left: 8px;
+          border: 1px solid var(--input-border-color);
+        }
+
+        .form {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .input-container {
+          display: flex;
+          gap: 6px;
+        }
+
+        .button {
+          color: white;
+          background-color: var(--default-button-color);
+          width: 56px;
+          height: 38px;
+          padding: 0;
+          margin-left: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        .button:hover {
+          background-color: var(--hover-button-color);
+        }
+      </style>
+      <form id="add-product-form" class="form">
+        <label for="product-name-input">추가할 상품 정보를 입력해주세요.</label>
+        <div class="input-container">
+          <input id="product-name-input" class="input" placeholder="상품명" />
+          <input
+            id="product-price-input"
+            class="input"
+            placeholder="가격"
+            type="number"
+          />
+          <input
+            id="product-count-input"
+            class="input"
+            placeholder="수량"
+            type="number"
+          />
+          <button id="add-product-button" class="button">추가</button>
+        </div>
+      </form>
+      <section id="product-status"></section>
+    </template>
+
+    <template id="product-table-template">
+      <style>
+        table {
+          width: 470px;
+          border-collapse: collapse;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+
+        .process-button {
+          background-color: var(--process-button-color);
+          width: 50px;
+          height: 32px;
+          border-radius: 4px;
+          border: none;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+
+        .process-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+
+        .hidden {
+          display: none;
+        }
+
+        .edit-input-container {
+          display: flex;
+          gap: 5px;
+        }
+
+        .product-edit-input {
+          width: 90px;
+          height: 30px;
+        }
+      </style>
+      <h2>상품 현황</h2>
+      <table>
+        <colgroup>
+          <col width="23%"></col>
+          <col width="23%"></col>
+          <col width="23%"></col>
+          <col width="31%"></col>
+        </colgroup>
+        <thead id="table-head">
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="product-table-body">
+
+        </tbody>
+      </table>
+    </template>
+
+    <template id="product-item-template">
+      <tr is="product-item">
+        <td id="item-name"></td>
+        <td id="item-price"></td>
+        <td id="item-count"></td>
+        <td>
+          <button class="edit-button process-button">수정</button>
+          <button class="delete-button process-button">삭제</button>
+        </td>
+      </tr>
+    </template>
+
+    <template id="edit-form-template">
+      <tr is="edit-form">
+        <td><input id="edit-name-input" class="product-edit-input input" /></td>
+        <td><input id="edit-price-input" class="product-edit-input input" type="number"/></td>
+        <td><input id="edit-count-input" class="product-edit-input input" type="number"/></td>
+        <td>
+          <button class="save-button process-button">확인</button>
+        </td>
+      </tr>
+    </template>
+
+    <template id="changes-template">
+      <form id="changes-form" class="form">
+        <label for="changes-input">자판기가 보유할 금액을 입력해주세요</label>
+        <div class="input-container">
+          <input id="changes-input" class="input" placeholder="금액" type="number">
+          <button id="charge-changes-button" class="button">충전</button>
+        </div>
+        <p id="have-changes"></p>
+      </form>
+      <style>
+        #changes-input {
+          width: 300px;
+        }
+
+        #changes-form {
+          width: 400px;
+          margin: 0 auto;
+        }
+
+        #have-changes {
+          margin-top: 5px;
+        }
+
+        .input-container {
+          display: flex;
+          gap: 6px;
+        }
+
+        .button {
+          color: white;
+          background-color: var(--default-button-color);
+          width: 56px;
+          height: 38px;
+          padding: 0;
+          margin-left: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        .button:hover {
+          background-color: var(--hover-button-color);
+        }
+
+        .input {
+          height: 36px;
+          border-radius: 4px;
+          padding-left: 8px;
+          border: 1px solid var(--input-border-color);
+        }
+
+        .form {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+      </style>
+
+    </template>
+
+    <template id="changes-table-template">
+      <style>
+        table {
+          width: 470px;
+          border-collapse: collapse;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+      </style>
+      <section>
+        <h2>자판기가 보유한 동전</h2>
+    
+        <table>
+          <thead>
+            <tr>
+              <th>동전</th>
+              <th>개수</th>
+            </tr>
+          </thead>
+          <tbody id="changes-table-body">
+            <tr>
+              <td>500원</td>
+              <td id="coin-500"></td>
+            </tr>
+            <tr>
+              <td>100원</td>
+              <td id="coin-100"></td>
+            </tr>
+            <tr>
+              <td>50원</td>
+              <td id="coin-50"></td>
+            </tr>
+            <tr>
+              <td>10원</td>
+              <td id="coin-10"></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </template>
+
+    <template id="amount-input-template">
+      <form id="amount-form" class="form">
+        <label for="amount-input">상품을 구매할 금액을 투입해주세요</label>
+        <div class="input-container">
+          <input id="amount-input" class="input" placeholder="금액" type="number">
+          <button id="charge-amount-button" class="button">투입</button>
+        </div>
+        <p id="have-amount"></p>
+      </form>
+      <style>
+        #amount-input {
+          width: 300px;
+        }
+
+        #amount-form {
+          width: 400px;
+          margin: 0 auto;
+        }
+
+        #have-amount {
+          margin-top: 5px;
+        }
+
+        .input-container {
+          display: flex;
+          gap: 6px;
+        }
+
+        .button {
+          color: white;
+          background-color: var(--default-button-color);
+          width: 56px;
+          height: 38px;
+          padding: 0;
+          margin-left: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        .button:hover {
+          background-color: var(--hover-button-color);
+        }
+
+        .input {
+          height: 36px;
+          border-radius: 4px;
+          padding-left: 8px;
+          border: 1px solid var(--input-border-color);
+        }
+
+        .form {
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+      </style>
+
+    </template>
+
+    <template id="product-purchase-template">
+      <style>
+        table {
+          width: 470px;
+          border-collapse: collapse;
+          margin-bottom: 60px;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+
+        .process-button {
+          background-color: var(--process-button-color);
+          width: 100px;
+          height: 32px;
+          border-radius: 4px;
+          border: none;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+  
+        .process-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+      </style>
+      <h2>상품 현황</h2>
+      <table>
+        <colgroup>
+          <col width="25%"></col>
+          <col width="25%"></col>
+          <col width="25%"></col>
+          <col width="25%"></col>
+        </colgroup>
+        <thead id="table-head">
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>구매</th>
+          </tr>
+        </thead>
+        <tbody id="product-purchase-table-body">
+
+        </tbody>
+      </table>
+    </template>
+
+    <template id="product-purchase-item-template">
+      <tr is="product-purchase-item">
+        <td id="item-name"></td>
+        <td id="item-price"></td>
+        <td id="item-count"></td>
+        <td><button id="purchase-button" class="process-button">구매</button></td>
+      </tr>
+    </template>
+
+    <template id="coin-return-table">
+      <style>
+        table {
+          width: 200px;
+          border-collapse: collapse;
+          margin: 0 auto;
+        }
+
+        tr {
+          height: 40px;
+          border-top: 1px solid var(--table-border-color);
+        }
+
+        .process-button {
+          background-color: var(--process-button-color);
+          width: 100px;
+          height: 32px;
+          border-radius: 4px;
+          border: none;
+          margin-top: 20px;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+  
+        .process-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+      </style>
+      <h2>잔돈 반환</h2>
+      <table>
+        <colgroup>
+          <col width="50%"></col>
+          <col width="50%"></col>
+        </colgroup>
+        <thead id="table-head">
+          <tr>
+            <th>동전</th>
+            <th>개수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>500원</td>
+            <td id="return-coin-500">0개</td>
+          </tr>
+          <tr>
+            <td>100원</td>
+            <td id="return-coin-100">0개</td>
+          </tr>
+          <tr>
+            <td>50원</td>
+            <td id="return-coin-50">0개</td>
+          </tr>
+          <tr>
+            <td>10원</td>
+            <td id="return-coin-10">0개</td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="return-button" class="process-button">반환</button>
+
+    </template>
+
+    <template id="user-profile-template">
+      <style>
+        #user-profile {
+          width: 50px;
+          height: 50px;
+          background-color: #D6F4F8;
+          border-radius: 50%;
+          line-height: 50px;
+          font-size: 20px;
+          margin: 0 auto;
+          cursor: pointer;
+          box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 5%), 0px 3px 14px 2px rgb(0 0 0 / 5%);
+        }
+
+        ul{
+          list-style: none;
+          padding: 0;
+          margin: 10px auto 0px auto;
+          border-radius: 8px;
+          box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+        }
+
+        li {
+          padding: 10px 20px;
+          cursor: pointer;
+          height: 40px;
+          line-height: 40px;
+          color: #333;
+        }
+
+        li:first-child {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        li:last-child {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+
+        li:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+
+        a {
+          color: #333;
+          text-decoration: none;
+        }
+
+        .hidden {
+          visibility: hidden;
+        }
+      </style>
+      <div id="user-profile"></div>
+      <ul class="user-menu-list hidden">
+        <li>
+          <a href="./user.html">회원 정보 수정</a>
+        </li>
+        <li id="logout-button">로그아웃</li>
+      </ul>
+    </template>
+
+    <template id="login-menu-button-template">
+      <style>
+        .nav-button {
+          display: block;
+          background-color: var(--nav-button-color);
+          width: 117px;
+          height: 36px;
+          cursor: pointer;
+          border: none;
+          border-radius: 4px;
+        }
+        
+        .nav-button:hover {
+          background-color: var(--nav-button-hover-color);
+        }
+
+        a {
+          text-decoration: none;
+          color: black;
+          line-height: 40px;
+        }
+      </style>
+      <a class="nav-button" id="login-button" href="./login.html">로그인</a>
+    </template>
   </body>
 </html>
