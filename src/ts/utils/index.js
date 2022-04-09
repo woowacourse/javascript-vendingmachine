@@ -5,18 +5,29 @@ export const selectDom = (selector, parent = document) => parent.querySelector(s
 
 export const selectDoms = (selector, parent = document) => parent.querySelectorAll(selector);
 
-export const showSnackbar = (snackbarElement, messsage) => {
-  snackbarElement.classList.add(SELECTOR_NAME.SHOW);
-  snackbarElement.textContent = messsage;
+const setSnackbarDebounce = () => {
+  let rafId = null;
 
-  const snackbarStartTime = new Date().getTime();
-  const snackbarAnimation = () => {
-    const snackbarCurrentTime = new Date().getTime();
-    if (snackbarCurrentTime < snackbarStartTime + SNACKBAR_MS_TIME) {
-      requestAnimationFrame(snackbarAnimation);
+  return (snackbarElement, messsage) => {
+    if (rafId) {
       return;
     }
-    snackbarElement.classList.remove(SELECTOR_NAME.SHOW);
+
+    snackbarElement.classList.add(SELECTOR_NAME.SHOW);
+    snackbarElement.textContent = messsage;
+
+    const snackbarStartTime = new Date().getTime();
+    const snackbarAnimation = () => {
+      const snackbarCurrentTime = new Date().getTime();
+      if (snackbarCurrentTime < snackbarStartTime + SNACKBAR_MS_TIME) {
+        requestAnimationFrame(snackbarAnimation);
+        return;
+      }
+      snackbarElement.classList.remove(SELECTOR_NAME.SHOW);
+      rafId = null;
+    };
+    rafId = requestAnimationFrame(snackbarAnimation);
   };
-  requestAnimationFrame(snackbarAnimation);
 };
+
+export const showSnackbar = setSnackbarDebounce();
