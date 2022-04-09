@@ -1,7 +1,7 @@
 import { SELECTOR, URL_HASH } from '../constants/constants';
 import { RouteChangeDetailType } from '../types';
 import { $, onCustomEvent } from '../utils/common';
-import MainView from '../views/mainView';
+import HeaderView from '../views/headerView';
 import ManageItemController from '../controllers/manageItemController';
 import ChargeMoneyController from '../controllers/chargeMoneyController';
 import PurchaseItemController from '../controllers/purchaseItemController';
@@ -11,7 +11,7 @@ import { headerButtonTemplate } from '../templates/initialTemplate';
 import ChangeUserInfoController from '../controllers/changeUserInfoController';
 
 export default class Router {
-  mainView: MainView;
+  headerView: HeaderView;
   manageItemController: ManageItemController;
   chargeMoneyController: ChargeMoneyController;
   purchaseItemController: PurchaseItemController;
@@ -28,7 +28,7 @@ export default class Router {
     signUpController: SignUpController,
     changeUserInfoController: ChangeUserInfoController,
   ) {
-    this.mainView = new MainView();
+    this.headerView = new HeaderView();
     this.manageItemController = manageItemController;
     this.chargeMoneyController = chargeMoneyController;
     this.purchaseItemController = purchaseItemController;
@@ -103,25 +103,25 @@ export default class Router {
     if (!hash) {
       this.$header.classList.add('display-none');
       this.logInController.loadPage(isLogin);
-      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      this.headerView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
     if (hash === URL_HASH.MANAGE_ITEM) {
       this.$header.classList.remove('display-none');
       this.manageItemController.loadPage(isLogin);
-      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
+      this.headerView.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
       return;
     }
     if (hash === URL_HASH.CHARGE_MONEY) {
       this.$header.classList.remove('display-none');
       this.chargeMoneyController.loadPage(isLogin);
-      this.mainView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
+      this.headerView.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
       return;
     }
     if (hash === URL_HASH.PURCHASE_ITEM) {
       this.$header.classList.remove('display-none');
       this.purchaseItemController.loadPage();
-      this.mainView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
+      this.headerView.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
       return;
     }
     if (hash === URL_HASH.LOG_IN) {

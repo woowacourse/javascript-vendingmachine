@@ -2,7 +2,7 @@ import { $, $$, emitCustomEvent } from '../utils/common';
 import { CONFIRM_MESSAGE, SELECTOR } from '../constants/constants';
 import { initialTemplate } from '../templates/initialTemplate';
 
-export default class MainView {
+export default class HeaderView {
   $navContainer: HTMLElement;
 
   constructor() {
