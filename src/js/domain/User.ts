@@ -36,7 +36,7 @@ export default class User {
     this.#email = null;
   }
 
-  async initLoginStatus(): Promise<void> {
+  async initLoginStatus() {
     if (this.#accessToken) {
       try {
         const res = await UserApi.searchInfo(this.#accessToken);
@@ -52,7 +52,7 @@ export default class User {
     }
   }
 
-  async signIn(email, password): Promise<void> {
+  async signIn(email, password) {
     if (this.#validatePassword(password)) {
       const {
         accessToken,
@@ -67,7 +67,7 @@ export default class User {
     }
   }
 
-  async signUp(email, name, password): Promise<void> {
+  async signUp(email, name, password) {
     if (this.#validateName(name) && this.#validatePassword(password)) {
       const {
         accessToken,
@@ -81,14 +81,14 @@ export default class User {
     }
   }
 
-  async userInfo(): Promise<void> {
+  async userInfo() {
     const { email, name, id } = await UserApi.searchInfo(this.#accessToken);
     this.#id = id;
     this.#name = name;
     this.#email = email;
   }
 
-  async updateUser(email, name, password): Promise<void> {
+  async updateUser(email, name, password) {
     if (this.#validateName(name) && this.#validatePassword(password)) {
       const {
         id,
