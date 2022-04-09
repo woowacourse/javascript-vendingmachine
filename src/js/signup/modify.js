@@ -3,9 +3,9 @@ import { validPassword } from './validAccount';
 import { $ } from '../utils/dom';
 import { handleSnackbarMessage } from '../utils/snackbar';
 import { modifyUserInfo } from '../utils/API';
-import { getSessionStorage } from '../utils/sessionStorage';
+import { sessionStore } from '../utils/storage';
 
-const { user } = getSessionStorage('user');
+const { user } = sessionStore.get('user');
 
 const signUpForm = $('#sign-up-info-form');
 const emailInput = $('#email-input');

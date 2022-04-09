@@ -1,9 +1,9 @@
 import '../css/index.css';
 import './route/route.js';
 import './controller.js';
-import { getSessionStorage } from './utils/sessionStorage';
+import { sessionStore } from './utils/storage';
 
-const manager = getSessionStorage('user');
+const manager = sessionStore.get('user');
 
 if (manager) {
   location.href = './manager.html';

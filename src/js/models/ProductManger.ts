@@ -1,16 +1,16 @@
 import { validProductInfo, validProductPurchase } from './validation';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { localStore } from '../utils/storage';
 import { Product, ProductManageInterface } from '../interface/productManage.interface';
 
 export default class ProductManager implements ProductManageInterface {
   #products: Product[];
 
   constructor() {
-    this.#products = getLocalStorage('products') ?? [];
+    this.#products = localStore.get('products') ?? [];
   }
 
   #setProductsInLocalStorage(): void {
-    setLocalStorage('products', this.#products);
+    localStore.set('products', this.#products);
   }
 
   addProduct(product: Product): void {

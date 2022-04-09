@@ -1,6 +1,6 @@
 import { SECTION_CONTAINER } from '../constants/constants';
 import { $, replaceElement } from '../utils/dom';
-import { getSessionStorage } from '../utils/sessionStorage';
+import { sessionStore } from '../utils/storage';
 import { CATEGORY_TEMPLATE } from '../templates/templates';
 
 const routes = {
@@ -22,7 +22,7 @@ const selectTab = (hash) => {
 };
 
 export const initHashContents = (hash) => {
-  const manager = getSessionStorage('user');
+  const manager = sessionStore.get('user');
   const content = routes[hash] ?? '';
   if (manager) {
     selectTab(hash);

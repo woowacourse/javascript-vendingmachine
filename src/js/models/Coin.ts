@@ -1,6 +1,6 @@
 import { COIN } from '../constants/constants';
 import { getRandomNumber } from '../utils/common';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { localStore } from '../utils/storage';
 import { validAmount } from './validation';
 import { Coins, CoinInterface } from '../interface/coins.interface';
 
@@ -8,7 +8,7 @@ export default class Coin implements CoinInterface {
   #coins: Coins;
 
   constructor() {
-    this.#coins = getLocalStorage('coins') ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
+    this.#coins = localStore.get('coins') ?? { 500: 0, 100: 0, 50: 0, 10: 0 };
   }
 
   // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
@@ -25,7 +25,7 @@ export default class Coin implements CoinInterface {
   }
 
   #setCoinsInLocalStorage(): void {
-    setLocalStorage('coins', this.#coins);
+    localStore.set('coins', this.#coins);
   }
 
   addAmount(chargedAmount: number): void {

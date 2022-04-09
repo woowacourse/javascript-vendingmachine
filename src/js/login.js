@@ -3,7 +3,7 @@ import { SNACKBAR_MESSAGE } from './constants/constants';
 import { login } from './utils/API';
 import { $ } from './utils/dom';
 import { handleSnackbarMessage } from './utils/snackbar';
-import { setSessionStorage } from './utils/sessionStorage';
+import { sessionStore } from './utils/storage';
 
 const loginForm = $('#login-form');
 const emailInput = $('#email-input');
@@ -17,7 +17,7 @@ loginForm.addEventListener('submit', async (e) => {
   const response = await login(loginEmailValue, loginPasswordValue);
 
   const dataResult = await response.json();
-  setSessionStorage('user', dataResult);
+  sessionStore.set('user', dataResult);
 
   if (dataResult.accessToken) {
     location.href = './manager.html';
