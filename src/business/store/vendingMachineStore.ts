@@ -1,4 +1,4 @@
-import CoinWallet from '../domains/coinWallet';
+import CoinWallet from '../../domains/coinWallet';
 import {
   IVendingMachineStore,
   TVendingMachineState,

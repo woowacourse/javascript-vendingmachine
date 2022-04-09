@@ -1,8 +1,12 @@
-import { deleteProduct, editProduct, purchaseProduct } from '../../../business/vendingMachine';
-import { showToast } from '../../../lib/toast';
-import vendingMachineStore from '../../../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants';
-import { checkProductInput } from '../../../utils/validation';
+import {
+  deleteProduct,
+  editProduct,
+  purchaseProduct,
+} from '../../../business/logic/vendingMachine.js';
+import { showToast } from '../../../lib/toast.js';
+import vendingMachineStore from '../../../business/store/vendingMachineStore.ts';
+import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants/index.ts';
+import { checkProductInput } from '../../../utils/validation/vendingMachine.ts';
 
 class ProductTableComponent {
   constructor($parent, { tableId, tableCaption }) {

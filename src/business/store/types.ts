@@ -1,4 +1,4 @@
-import { ICoinWallet, IProduct } from '../domains/types';
+import { ICoinWallet, IProduct } from '../../domains/types';
 
 export type TVendingMachineStateKey = keyof TVendingMachineState;
 

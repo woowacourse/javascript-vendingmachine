@@ -1,4 +1,4 @@
-import { ERROR_MSG } from '../../src/utils/constants';
+import { ERROR_MSG } from '../../src/utils/constants/error.ts';
 
 describe('잔돈 충전 예외 테스트', () => {
   beforeEach(() => {

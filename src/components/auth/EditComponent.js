@@ -1,8 +1,8 @@
-import { editUser } from '../../business/auth';
-import router, { ROUTE_NAME } from '../../lib/router';
-import { showToast } from '../../lib/toast';
-import globalStore from '../../stores/globalStore';
-import { GLOBAL_STATE_KEYS } from '../../utils/constants';
+import { editUser } from '../../business/logic/auth.js';
+import router, { ROUTE_NAME } from '../../lib/router.js';
+import { showToast } from '../../lib/toast.js';
+import { GLOBAL_STATE_KEYS } from '../../utils/constants/index.ts';
+import globalStore from '../../business/store/globalStore.ts';
 
 class EditComponent {
   $app;

@@ -1,8 +1,6 @@
-import { WEB_STORAGE_KEY } from './../utils/constants';
 import { IGlobalStore, TGlobalState, TGlobalStateComponents, TGlobalStateKey } from './types';
-
-import { ROUTE } from '../lib/router';
-
+import { ROUTE } from '../../lib/router.js';
+import { WEB_STORAGE_KEY } from '../../utils/constants';
 class GlobalStore implements IGlobalStore {
   subscribedComponents: TGlobalStateComponents;
 

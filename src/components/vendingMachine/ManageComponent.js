@@ -1,7 +1,7 @@
-import { addProduct } from '../../business/vendingMachine';
-import { showToast } from '../../lib/toast';
-import { checkProductInput } from '../../utils/validation';
-import ProductTableComponent from './common/ProductTableComponent';
+import { addProduct } from '../../business/logic/vendingMachine.js';
+import { showToast } from '../../lib/toast.js';
+import { checkProductInput } from '../../utils/validation/vendingMachine.ts';
+import ProductTableComponent from './common/ProductTableComponent.js';
 
 class ManageComponent {
   #currentProductListComponent;

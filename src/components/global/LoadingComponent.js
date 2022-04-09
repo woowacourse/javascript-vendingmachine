@@ -1,5 +1,5 @@
-import globalStore from '../../stores/globalStore';
-import { GLOBAL_STATE_KEYS } from '../../utils/constants';
+import globalStore from '../../business/store/globalStore.ts';
+import { GLOBAL_STATE_KEYS } from '../../utils/constants/index.ts';
 
 class LoadingComponent {
   constructor() {

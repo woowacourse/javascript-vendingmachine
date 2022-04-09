@@ -1,6 +1,6 @@
-import Product from '../domains/product';
-import vendingMachineStore from '../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../utils/constants';
+import Product from '../../domains/product.ts';
+import vendingMachineStore from '../store/vendingMachineStore.ts';
+import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants/index.ts';
 
 export const addProduct = ({ name, price, quantity }) => {
   vendingMachineStore.setState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, productList => [

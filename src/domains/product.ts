@@ -1,5 +1,5 @@
+import { ERROR_MSG } from '../utils/constants/error';
 import { IProduct, TProduct } from './types';
-import { ERROR_MSG } from '../utils/constants';
 const { generateNonDuplicatedId } = (function () {
   const history = new Set();
   function generateId(name: string) {

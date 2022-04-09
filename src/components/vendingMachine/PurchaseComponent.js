@@ -1,10 +1,10 @@
-import { inputMoney } from '../../business/vendingMachine';
-import { showToast } from '../../lib/toast';
-import vendingMachineStore from '../../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
-import { checkChangeInput } from '../../utils/validation';
-import CoinTableComponent from './common/CoinTableComponent';
-import ProductTableComponent from './common/ProductTableComponent';
+import { inputMoney } from '../../business/logic/vendingMachine.js';
+import { showToast } from '../../lib/toast.js';
+import vendingMachineStore from '../../business/store/vendingMachineStore.ts';
+import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants/index.ts';
+import { checkChangeInput } from '../../utils/validation/vendingMachine.ts';
+import CoinTableComponent from './common/CoinTableComponent.js';
+import ProductTableComponent from './common/ProductTableComponent.js';
 
 class PurchaseComponent {
   #currentProductListComponent;

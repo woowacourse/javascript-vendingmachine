@@ -1,7 +1,7 @@
-import { fetcher } from '../lib/fetcher';
-import { checkJoinPossible } from '../utils/validation';
-import globalStore from '../stores/globalStore';
-import { GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../utils/constants';
+import { fetcher } from '../../lib/fetcher.js';
+import { checkJoinPossible } from '../../utils/validation/auth.ts';
+import globalStore from '../store/globalStore.ts';
+import { GLOBAL_STATE_KEYS, WEB_STORAGE_KEY } from '../../utils/constants/index.ts';
 
 export const loginUser = async ({ email, password }) => {
   try {

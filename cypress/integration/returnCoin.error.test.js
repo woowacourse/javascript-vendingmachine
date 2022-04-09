@@ -1,4 +1,4 @@
-import { ERROR_MSG } from '../../src/utils/constants';
+import { ERROR_MSG } from '../../src/utils/constants/error.ts';
 
 describe('금액 반환 예외사항 테스트', () => {
   beforeEach(() => {

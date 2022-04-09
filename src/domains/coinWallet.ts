@@ -1,4 +1,4 @@
-import { ERROR_MSG } from './../utils/constants';
+import { ERROR_MSG } from './../utils/constants/error';
 import { COIN_KEYS, COIN_VALUES } from '../utils/constants';
 import { ICoinWallet, TCoinWallet } from './types';
 

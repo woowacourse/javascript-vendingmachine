@@ -1,15 +1,15 @@
-import { logoutUser } from '../business/auth';
-import router, { ROUTE_NAME } from '../lib/router';
-import { showToast } from '../lib/toast';
-import globalStore from '../stores/globalStore';
-import { GLOBAL_STATE_KEYS } from '../utils/constants';
-import EditComponent from './auth/EditComponent';
-import JoinComponent from './auth/JoinComponent';
-import LoginComponent from './auth/LoginComponent';
-import LoadingComponent from './global/LoadingComponent';
-import ManageComponent from './vendingMachine/ManageComponent';
-import PurchaseComponent from './vendingMachine/PurchaseComponent';
-import RechargeComponent from './vendingMachine/RechargeComponent';
+import { logoutUser } from '../business/logic/auth.js';
+import router, { ROUTE_NAME } from '../lib/router.js';
+import { showToast } from '../lib/toast.js';
+import globalStore from '../business/store/globalStore.ts';
+import { GLOBAL_STATE_KEYS } from '../utils/constants/index.ts';
+import EditComponent from './auth/EditComponent.js';
+import JoinComponent from './auth/JoinComponent.js';
+import LoginComponent from './auth/LoginComponent.js';
+import LoadingComponent from './global/LoadingComponent.js';
+import ManageComponent from './vendingMachine/ManageComponent.js';
+import PurchaseComponent from './vendingMachine/PurchaseComponent.js';
+import RechargeComponent from './vendingMachine/RechargeComponent.js';
 
 class AppComponent {
   constructor() {

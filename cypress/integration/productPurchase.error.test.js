@@ -1,4 +1,4 @@
-import { ERROR_MSG } from '../../src/utils/constants';
+import { ERROR_MSG } from '../../src/utils/constants/error.ts';
 
 describe('상품 관리 예외 테스트', () => {
   beforeEach(() => {
