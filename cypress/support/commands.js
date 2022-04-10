@@ -1,3 +1,5 @@
+import 'cypress-localstorage-commands';
+
 Cypress.Commands.add('login', () => {
   cy.visit('/');
 

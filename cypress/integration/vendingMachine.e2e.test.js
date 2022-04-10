@@ -9,6 +9,14 @@ describe('로그인 사용자 e2e 테스트', () => {
     cy.login();
   });
 
+  beforeEach(() => {
+    cy.restoreLocalStorage();
+  });
+
+  afterEach(() => {
+    cy.saveLocalStorage();
+  });
+
   context('로그인 사용자, 상품 관리 탭과 상품 구매 탭 연동 테스트', () => {
     it('상품 관리 탭을 클릭했을때, 추가 상품 입력 폼과 상품현황이 보여야한다.', () => {
       cy.get('#product-manage-nav-button').click();
