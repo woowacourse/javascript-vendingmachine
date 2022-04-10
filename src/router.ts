@@ -36,7 +36,12 @@ class Router {
   }
 
   private async onLoad() {
-    const { email, name } = await getUserInfo();
+    const userInfo = await getUserInfo();
+    if (!userInfo) {
+      this.onLocationChange();
+      return;
+    }
+    const { email, name } = userInfo;
     Store.instance.dispatch(createAction(ACTION.LOGIN, { email, name }));
     this.onLocationChange();
   }
