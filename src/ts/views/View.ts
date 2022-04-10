@@ -7,35 +7,30 @@ import PurchaseView from './PurchaseView';
 import { renderComponent } from '../utils';
 export default class View {
   $app: HTMLDivElement;
+  $tabResult: HTMLDivElement;
+  $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
+  $$tabButtons: NodeListOf<HTMLInputElement>;
   $notFound: HTMLDivElement;
   $navTab: HTMLDivElement;
-  $$tabResultContainers: NodeListOf<HTMLTableSectionElement>;
   $tabProductManageButton: HTMLInputElement;
   $tabRechargeButton: HTMLInputElement;
   $tabPurchaseProductButton: HTMLInputElement;
-  $$tabButtons: NodeListOf<HTMLInputElement>;
   $userMenu: HTMLElement;
-  $purchaseProductContainer: HTMLDivElement;
   vendingMachine: VendingMachineInterface;
-  productManageView: ProductManageView;
-  rechargeView: RechargeView;
-  purchaseView: PurchaseView;
   currentTab: string;
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.vendingMachine = vendingMachine;
-    this.productManageView = new ProductManageView(this.vendingMachine);
-    this.rechargeView = new RechargeView(this.vendingMachine);
-    this.purchaseView = new PurchaseView(this.vendingMachine);
 
     this.$app = <HTMLDivElement>$('#app');
+    this.$tabResult = <HTMLDivElement>$('#tab-result');
     this.$notFound = <HTMLDivElement>$('#not-found');
     this.$navTab = <HTMLDivElement>$('.nav-tab');
-    this.$$tabResultContainers = <NodeListOf<HTMLTableSectionElement>>$$('.tab-result-container');
+
+    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-input');
     this.$tabProductManageButton = <HTMLInputElement>$('#tab-product-manage');
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
-    this.$$tabButtons = <NodeListOf<HTMLInputElement>>$$('.tab-input');
     this.$userMenu = document.querySelector('user-menu');
 
     this.$tabProductManageButton.addEventListener('click', () =>
@@ -74,34 +69,30 @@ export default class View {
     this.$navTab.dispatchEvent(event);
   };
 
-  public renderTabs = async (url: string) => {
-    this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
-    this.renderUpdatedView(url);
+  public renderTab = (url: string) => {
+    this.$tabResult.replaceChildren();
 
-    this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
-      if (container.id === url) {
-        container.classList.remove('hide');
-        this.$$tabButtons[index].checked = true;
-
-        return;
-      }
-      container.classList.add('hide');
-    });
-  };
-
-  private renderUpdatedView = (url: string) => {
     switch (url) {
       case PATH_ID.PRODUCT_MANAGE:
-        this.productManageView.renderProductManageTab();
+        new ProductManageView(this.vendingMachine).render();
+        this.$tabProductManageButton.checked = true;
         break;
       case PATH_ID.RECHARGE:
-        this.rechargeView.renderRechargeTab();
+        new RechargeView(this.vendingMachine).render();
+        this.$tabRechargeButton.checked = true;
         break;
       case PATH_ID.PURCHASE_PRODUCT:
-        this.purchaseView.renderPurchaseTab();
+        new PurchaseView(this.vendingMachine).render();
+        this.$tabPurchaseProductButton.checked = true;
         break;
       default:
         break;
     }
+
+    this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
+  };
+
+  public removeTabs = () => {
+    this.$tabResult.replaceChildren();
   };
 }

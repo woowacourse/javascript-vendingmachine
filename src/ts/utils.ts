@@ -11,3 +11,8 @@ export const getRandomNumber = (min: number, max: number) => {
 export const renderComponent = (tagName: string) => {
   document.body.appendChild(document.createElement(tagName));
 };
+
+export const renderTemplate = (htmlString) => {
+  const $tabResult = document.getElementById('tab-result');
+  $tabResult.insertAdjacentHTML('beforeend', htmlString);
+};

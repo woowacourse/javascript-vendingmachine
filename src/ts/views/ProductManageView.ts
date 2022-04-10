@@ -1,8 +1,9 @@
 import { VendingMachineInterface } from '../domains/VendingMachine';
-import { $ } from '../utils';
+import { $, renderTemplate } from '../utils';
 import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../types/ProductType';
 import { renderToastModal } from '../components/ToastNotification';
+import { getProductManageTemplate } from './template';
 
 export default class ProductManageView {
   vendingMachine: VendingMachineInterface;
@@ -15,20 +16,19 @@ export default class ProductManageView {
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.vendingMachine = vendingMachine;
+    this.$toastModal = <HTMLElement>$('toast-modal');
+  }
+
+  public render = () => {
+    renderTemplate(getProductManageTemplate);
     this.$productNameInput = <HTMLInputElement>$('#product-name');
     this.$productPriceInput = <HTMLInputElement>$('#product-price');
     this.$productQuantityInput = <HTMLInputElement>$('#product-quantity');
     this.$productManageForm = <HTMLFormElement>$('#product-manage-form');
     this.$currentProductTable = <HTMLTableSectionElement>$('#current-product-table');
-    this.$toastModal = <HTMLElement>$('toast-modal');
 
     this.$productManageForm.addEventListener('submit', this.handleSubmit);
     this.$currentProductTable.addEventListener('click', this.handleModifierButton);
-    this.renderProductManageTab();
-  }
-
-  public renderProductManageTab = () => {
-    this.$currentProductTable.textContent = '';
     const tableTemplate = this.vendingMachine.products
       .map((product) => this.getProductTemplate(product))
       .join('');
@@ -96,7 +96,7 @@ export default class ProductManageView {
   private handleEdit = (target: HTMLButtonElement) => {
     const { name, price, quantity } = this.vendingMachine.getProduct(target.dataset.name);
     const editTemplate = this.getEditTemplate({ name, price, quantity });
-    const targetEdit = $(`tr[data-name='${name}']`);
+    const targetEdit = $(`tr[data-name='${name}']`, this.$currentProductTable);
     targetEdit.replaceChildren();
     targetEdit.insertAdjacentHTML('beforeend', editTemplate);
     $('.edit-confirm-button').addEventListener('click', () => this.handleConfirmEdit(name));
@@ -122,7 +122,7 @@ export default class ProductManageView {
   };
 
   private handleConfirmEdit = (targetName: string) => {
-    const targetEdit = $(`tr[data-name='${targetName}']`);
+    const targetEdit = $(`tr[data-name='${targetName}']`, this.$currentProductTable);
     const productToEdit = {
       name: (<HTMLInputElement>$('#edit-name-input')).value,
       price: +(<HTMLInputElement>$('#edit-price-input')).value,

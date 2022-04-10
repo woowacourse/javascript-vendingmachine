@@ -1,7 +1,8 @@
 import { VendingMachineInterface } from '../domains/VendingMachine';
-import { $ } from '../utils';
+import { $, renderTemplate } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
+import { getPurchaseProduct } from './template';
 
 export default class PurchaseView {
   vendingMachine: VendingMachineInterface;
@@ -17,28 +18,23 @@ export default class PurchaseView {
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.vendingMachine = vendingMachine;
+  }
+
+  public render = () => {
+    renderTemplate(getPurchaseProduct);
     this.$insertMoneyForm = <HTMLFormElement>$('#insert-money-form');
     this.$insertMoneyInput = <HTMLInputElement>$('#insert-money-input');
     this.$currentInsertedMoney = <HTMLSpanElement>$('#current-inserted-money');
-
     this.$purchasableProductTable = <HTMLTableSectionElement>$('#purchasable-product-table');
-
     this.$coin500 = $('#purchase-tab-coin-500');
     this.$coin100 = $('#purchase-tab-coin-100');
     this.$coin50 = $('#purchase-tab-coin-50');
     this.$coin10 = $('#purchase-tab-coin-10');
     this.$refundButton = <HTMLButtonElement>$('#refund-button');
-
-    // 투입버튼 이벤트 바인딩
     this.$insertMoneyForm.addEventListener('submit', this.handleInsertMoneyForm);
-
     this.$purchasableProductTable.addEventListener('click', this.handlePurchaseButton);
-
-    // 반환버튼 이벤트 바인딩
     this.$refundButton.addEventListener('click', this.handleRefundButton);
-  }
 
-  public renderPurchaseTab = () => {
     this.renderPurchaseTable();
     this.$insertMoneyInput.focus();
   };

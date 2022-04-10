@@ -7,7 +7,6 @@ export default class Router {
 
   constructor(view: View) {
     this.view = view;
-
     this.currentTab = localStorage.getItem(STORAGE_ID.CURRENT_TAB) || PATH_ID.PURCHASE_PRODUCT;
     this.tabRouter(this.currentTab, false);
 
@@ -15,6 +14,7 @@ export default class Router {
       const url = event.state ? event.state.url : PATH_ID.NOT_FOUND;
       this.tabRouter(url, true);
     });
+
     this.view.$navTab.addEventListener('@route-tab', (event: CustomEvent) => {
       const url = event.detail;
       this.tabRouter(url, false);
@@ -32,24 +32,25 @@ export default class Router {
   };
 
   private routeLogout = () => {
-    localStorage.setItem(STORAGE_ID.CURRENT_TAB, PATH_ID.PURCHASE_PRODUCT);
-
     this.tabRouter(PATH_ID.PURCHASE_PRODUCT, false);
+    localStorage.setItem(STORAGE_ID.CURRENT_TAB, PATH_ID.PURCHASE_PRODUCT);
   };
 
   private tabRouter = (url: string, isPopState = false) => {
-    this.view.renderTabs(url);
+    this.view.renderTab(url);
     if (!auth.isLoggedIn) {
-      history.pushState({ url }, null, url);
       this.renderPublicPage();
-
+      history.pushState({ url }, null, url);
       return;
     }
+
+    this.renderUserPrivatePage();
 
     if (!isPopState && url !== location.pathname + location.hash) {
       history.pushState({ url }, null, url);
     }
-    this.renderUserPrivatePage();
+
+    localStorage.setItem(STORAGE_ID.CURRENT_TAB, url);
   };
 
   private renderUserPrivatePage = () => {

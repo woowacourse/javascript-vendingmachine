@@ -1,7 +1,8 @@
 import { SUCCESS_MESSAGE } from '../constants';
 import { VendingMachineInterface } from '../domains/VendingMachine';
-import { $ } from '../utils';
+import { $, renderTemplate } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
+import { getRechargeTemplate } from './template';
 
 export default class RechargeView {
   $rechargeForm: HTMLFormElement;
@@ -14,6 +15,11 @@ export default class RechargeView {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
+    this.vendingMachine = vendingMachine;
+  }
+
+  public render = () => {
+    renderTemplate(getRechargeTemplate);
     this.$rechargeForm = <HTMLFormElement>$('#recharge-form');
     this.$rechargeInput = <HTMLInputElement>$('#recharge-input', this.$rechargeForm);
     this.$currentHoldingMoney = $('#current-holding-money');
@@ -21,12 +27,8 @@ export default class RechargeView {
     this.$coin100 = $('#coin-100');
     this.$coin50 = $('#coin-50');
     this.$coin10 = $('#coin-10');
-    this.vendingMachine = vendingMachine;
-
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
-  }
 
-  public renderRechargeTab = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
     this.$rechargeInput.focus();
@@ -49,7 +51,8 @@ export default class RechargeView {
 
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
-      this.renderRechargeTab();
+      this.renderHoldingMoney();
+      this.renderCoinTable();
       this.$rechargeInput.value = '';
       renderToastModal('success', SUCCESS_MESSAGE.MONEY_RECHARGED);
     } catch (error) {
