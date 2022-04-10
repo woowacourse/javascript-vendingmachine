@@ -2,6 +2,8 @@ export const PATH_ID = {
   PRODUCT_MANAGE: '/javascript-vendingmachine/#!/product-manage',
   RECHARGE: '/javascript-vendingmachine/#!/recharge',
   PURCHASE_PRODUCT: '/javascript-vendingmachine/#!/purchase-product',
+  LOGIN: '/javascript-vendingmachine/#!/login',
+  SIGNUP: '/javascript-vendingmachine/#!/signup',
   NOT_FOUND: '/javascript-vendingmachine/#!/not-found',
 };
 

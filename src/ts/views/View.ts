@@ -69,7 +69,7 @@ export default class View {
     this.$navTab.dispatchEvent(event);
   };
 
-  public renderTab = (url: string) => {
+  public renderPage = (url: string) => {
     this.$tabResult.replaceChildren();
 
     switch (url) {
@@ -85,11 +85,17 @@ export default class View {
         new PurchaseView(this.vendingMachine).render();
         this.$tabPurchaseProductButton.checked = true;
         break;
+      case PATH_ID.LOGIN:
+        console.log('login');
+        break;
+      case PATH_ID.SIGNUP:
+        console.log('signup');
+        break;
       default:
         break;
     }
 
-    this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
+    // this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
   };
 
   public removeTabs = () => {
