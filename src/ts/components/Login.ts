@@ -147,6 +147,8 @@ class Login extends HTMLElement {
   closeModalDimmer = (event: PointerEvent) => {
     if (event.target === this.dimmer) {
       this.closeModal();
+      const event = new CustomEvent('@route-logout', {});
+      window.dispatchEvent(event);
     }
   };
 

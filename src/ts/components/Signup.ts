@@ -1,6 +1,6 @@
 import auth from '../Auth.js';
-import { SUCCESS_MESSAGE } from '../constants';
-import { renderComponent } from '../utils';
+import { PATH_ID, SUCCESS_MESSAGE } from '../constants';
+import { $, renderComponent } from '../utils';
 import { renderToastModal } from './ToastNotification';
 
 const signupTemplate = document.createElement('template');
@@ -151,6 +151,8 @@ class Signup extends HTMLElement {
   closeModalDimmer = (event: PointerEvent) => {
     if (event.target === this.dimmer) {
       this.closeModal();
+      const event = new CustomEvent('@route-logout', {});
+      window.dispatchEvent(event);
     }
   };
 

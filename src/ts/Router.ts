@@ -24,14 +24,12 @@ export default class Router {
     });
 
     // 웹컴포넌트에서 보낸 커스텀 이벤트
-    window.addEventListener('@route-login', () => {
-      this.routeLogin(PATH_ID.PRODUCT_MANAGE);
-    });
+    window.addEventListener('@route-login', this.routeLogin);
     window.addEventListener('@route-logout', this.routeLogout);
   }
 
-  private routeLogin = (url: string) => {
-    this.tabRouter(url, false);
+  private routeLogin = () => {
+    this.tabRouter(PATH_ID.PRODUCT_MANAGE, false);
   };
 
   private routeLogout = () => {
