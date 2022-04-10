@@ -1,24 +1,29 @@
-import { Coin, CoinStatus, ProductData, VendingMachineProductDictionary } from './interface';
+import { ProductData, VendingMachineProductDictionary } from './interface';
+import { Coin } from './types';
 
 import VendingMachineProduct from './VendingMachineProduct';
 import MoneyBox from './MoneyBox';
 
+import { generateUniqueId, removeProperty } from '../utils';
+
 import { ERROR_MESSAGE } from '../constants';
-import { generateUniqueId } from '../utils';
 import {
   inValidUnitChange,
   isBelowMinCharge,
   isExceedMaxTotalChange,
+  isExceedMaxTotalUserMoney,
   validateData,
 } from './validator';
 
 export default class VendingMachine {
   #productList: VendingMachineProductDictionary;
   #moneyBox: MoneyBox;
+  #userMoney: number;
 
   constructor() {
     this.#productList = {};
     this.#moneyBox = new MoneyBox();
+    this.#userMoney = 0;
   }
 
   get productList(): VendingMachineProductDictionary {
@@ -29,19 +34,15 @@ export default class VendingMachine {
     return this.#moneyBox.totalChange;
   }
 
-  get coinStatus(): CoinStatus {
-    return this.#moneyBox.coinStatus;
-  }
-
-  addChange(money: number): never | Coin[] {
-    this.#validateChange(money);
-
-    this.#moneyBox.addChange(money);
-
+  get coinStatusList(): Coin[] {
     return this.#moneyBox.coinStatusList;
   }
 
-  addProduct(data: ProductData): never | string {
+  get userMoney(): number {
+    return this.#userMoney;
+  }
+
+  addProduct(data: ProductData) {
     this.#validateUniqueProductName(data.name);
 
     const newId = generateUniqueId(Object.keys(this.#productList));
@@ -50,7 +51,7 @@ export default class VendingMachine {
     return newId;
   }
 
-  updateProduct(productId: string, data: ProductData): void {
+  updateProduct(productId: string, data: ProductData) {
     this.#validateProductIdInList(productId);
     if (data.name !== this.#productList[productId].name) {
       this.#validateUniqueProductName(data.name);
@@ -59,12 +60,69 @@ export default class VendingMachine {
     this.#productList[productId].modify(data);
   }
 
-  removeProduct(productId: string): void {
+  removeProduct(productId: string) {
     this.#validateProductIdInList(productId);
-    delete this.#productList[productId];
+    this.#productList = removeProperty(this.#productList, productId);
   }
 
-  #validateChange(money: number): never | void {
+  addChange(money: number) {
+    this.#validateChange(money);
+
+    this.#moneyBox.addChange(money);
+
+    return this.#moneyBox.coinStatusList;
+  }
+
+  addUserMoney(money: number) {
+    this.#validateUserMoney(money);
+    this.#userMoney += money;
+  }
+
+  purchaseProduct(productId: string) {
+    const product = this.#productList[productId];
+    this.#validatePurchase(product);
+
+    const { name, price, stock } = product;
+
+    this.#userMoney -= price;
+    if (stock === 1) {
+      this.#productList = removeProperty(this.#productList, productId);
+      return;
+    }
+
+    const newData = { name, price, stock: stock - 1 };
+    this.#productList[productId].modify(newData);
+  }
+
+  returnChange(): Coin[] {
+    if (this.#userMoney === 0) {
+      throw new Error(ERROR_MESSAGE.RETURN_CHANGE.NO_USER_MONEY);
+    }
+
+    const changeCoins = this.#moneyBox.returnChange(this.#userMoney);
+    const totalChangeAmount = changeCoins.reduce(
+      (totalReturn, { value, count }) => totalReturn + value * count,
+      0
+    );
+
+    this.#userMoney -= totalChangeAmount;
+
+    return changeCoins;
+  }
+
+  #validateUniqueProductName(name: string) {
+    if (Object.values(this.#productList).some((product) => product.name === name)) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_NAME.DUPLICATE_VALUE);
+    }
+  }
+
+  #validateProductIdInList(productId: string) {
+    if (this.#productList[productId] === undefined) {
+      throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
+    }
+  }
+
+  #validateChange(money: number) {
     const changeValidator = [
       { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.CHANGE.BELOW_MIN },
       { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.CHANGE.INVALID_UNIT },
@@ -77,15 +135,23 @@ export default class VendingMachine {
     validateData({ money, totalChange: this.totalChange }, changeValidator);
   }
 
-  #validateUniqueProductName(name): never | void {
-    if (Object.values(this.#productList).some((product) => product.name === name)) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_NAME.DUPLICATE_VALUE);
-    }
+  #validateUserMoney(money: number) {
+    const userMoneyValidator = [
+      { testFunc: isBelowMinCharge, errorMsg: ERROR_MESSAGE.USER_MONEY.BELOW_MIN },
+      { testFunc: inValidUnitChange, errorMsg: ERROR_MESSAGE.USER_MONEY.INVALID_UNIT },
+      {
+        testFunc: isExceedMaxTotalUserMoney,
+        errorMsg: ERROR_MESSAGE.USER_MONEY.EXCEED_MAX_TOTAL,
+      },
+    ];
+    validateData({ money, userMoney: this.userMoney }, userMoneyValidator);
   }
 
-  #validateProductIdInList(productId: string): never | void {
-    if (this.#productList[productId] === undefined) {
-      throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
+  #validatePurchase(product: ProductData) {
+    if (!product) throw new Error(ERROR_MESSAGE.PRODUCT_ID_NOT_FOUND);
+
+    if (product.price > this.#userMoney) {
+      throw new Error(ERROR_MESSAGE.PURCHASE.INSUFFICIENT_MONEY);
     }
   }
 }

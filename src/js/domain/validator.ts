@@ -1,11 +1,40 @@
-import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../constants';
-import { changeValidationData, ProductData, Validator } from './interface';
+import { PRODUCT_RULES, USER_REGISTER_RULES, VENDING_MACHINE_RULES } from '../constants';
+import {
+  changeValidationData,
+  userMoneyValidationData,
+  ProductData,
+  UserRegisterData,
+  Validator,
+} from './interface';
 
-// product data validation
-export function hasEmptyInput({ name, price, stock }: ProductData): boolean {
-  return !name || !price || !stock;
+// general data validation
+export function hasEmptyInput(data: ProductData | UserRegisterData): boolean {
+  return Object.keys(data).some((key) => {
+    if (typeof data[key] === 'string') return !data[key].trim();
+    return !data[key];
+  });
 }
 
+// user data validation
+export function isOutOfRangeUserNameLength({ name }: UserRegisterData): boolean {
+  return (
+    name.length < USER_REGISTER_RULES.NAME_MIN_LENGTH ||
+    name.length > USER_REGISTER_RULES.NAME_MAX_LENGTH
+  );
+}
+
+export function isInvalidPassword({ password }: UserRegisterData): boolean {
+  return !USER_REGISTER_RULES.PASSWORD_REGEX.test(password);
+}
+
+export function isDifferentPassword({
+  password,
+  passwordConfirm,
+}: UserRegisterData): boolean {
+  return password !== passwordConfirm;
+}
+
+// product data validation
 export function isOverMaxLengthName({ name }: ProductData): boolean {
   return name.length > PRODUCT_RULES.MAX_NAME_LENGTH;
 }
@@ -26,17 +55,31 @@ export function isNotIntegerStock({ stock }: ProductData): boolean {
   return !Number.isInteger(stock);
 }
 
-// change data validation
-export function isBelowMinCharge({ money }: changeValidationData): boolean {
+// change, userMoney data validation
+export function isBelowMinCharge({
+  money,
+}: changeValidationData | userMoneyValidationData): boolean {
   return money <= 0;
 }
 
-export function inValidUnitChange({ money }: changeValidationData): boolean {
+export function inValidUnitChange({
+  money,
+}: changeValidationData | userMoneyValidationData): boolean {
   return money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0;
 }
 
-export function isExceedMaxTotalChange({ money, totalChange }: changeValidationData): boolean {
+export function isExceedMaxTotalChange({
+  money,
+  totalChange,
+}: changeValidationData): boolean {
   return totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE;
+}
+
+export function isExceedMaxTotalUserMoney({
+  money,
+  userMoney,
+}: userMoneyValidationData): boolean {
+  return userMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_USER_MONEY;
 }
 
 // validator function

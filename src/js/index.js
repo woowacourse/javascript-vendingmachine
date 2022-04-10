@@ -1,51 +1,133 @@
 import VendingMachine from './domain/VendingMachine';
-import PurchaseProductTab from './view/PurchaseProductTab';
-import AddChangeTab from './view/AddChangeTab';
-import ManageProductTab from './view/ManageProductTab';
+import Authorization from './domain/Authorization';
+
+import {
+  ChargeTab,
+  LoginPage,
+  ProductTab,
+  PurchaseTab,
+  RegisterPage,
+  UserInfoPage,
+} from './view';
+
 import { createMainElement, selectDom } from './utils/dom';
-import { notFoundTabTemplate } from './view/template';
+
+import {
+  loginLinkButtonTemplate,
+  navigationTemplate,
+  notFoundTabTemplate,
+  userButtonSelectBoxTemplate,
+  userButtonTemplate,
+} from './view/generalTemplate';
+
+import Snackbar from './view/Snackbar';
+import { DEFAULT_ROUTE } from './constants';
 
 class App {
   #vendingMachine;
-  #renderList;
+  #snackBar;
+  #authorization;
+
+  #userRenderList;
+  #nonUserRenderList;
+
   #appContainer;
+  #userButtonContainer;
+  #headerContainer;
   #tabMenuNavigation;
 
   constructor() {
     this.#vendingMachine = new VendingMachine();
-    this.#renderList = {
-      '#/manage': new ManageProductTab(this.#vendingMachine),
-      '#/charge': new AddChangeTab(this.#vendingMachine),
-      '#/purchase': new PurchaseProductTab(),
-    };
+    this.#snackBar = new Snackbar();
+    this.#authorization = new Authorization();
     this.#appContainer = selectDom('#app');
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
+    this.#userButtonContainer = selectDom('.user-button-container');
+    this.#headerContainer = selectDom('header');
+
+    this.#initRoutes();
 
     window.addEventListener('popstate', this.#render);
     window.addEventListener('DOMContentLoaded', this.#render);
-    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+
+    this.#userButtonContainer.addEventListener(
+      'click',
+      this.#handleUserButtonContainerClick
+    );
+  }
+
+  #initRoutes() {
+    this.#userRenderList = {
+      '#/user-info': new UserInfoPage(this.#authorization, this.#snackBar),
+      '#/product': new ProductTab(this.#vendingMachine, this.#snackBar),
+      '#/charge': new ChargeTab(this.#vendingMachine, this.#snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.#snackBar),
+    };
+    this.#nonUserRenderList = {
+      '#/login': new LoginPage(this.#authorization, this.#snackBar),
+      '#/register': new RegisterPage(this.#authorization, this.#snackBar),
+      '#/purchase': new PurchaseTab(this.#vendingMachine, this.#snackBar),
+    };
   }
 
   #render = () => {
-    const path = window.location.hash || '#/manage';
-
-    this.#updateCurrentTabMenu(path);
-
-    if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTabTemplate);
-      this.#appContainer.replaceChild(notFoundContainer, selectDom('main'));
+    if (this.#authorization.isLoggedIn) {
+      this.#renderUser();
       return;
     }
-
-    this.#appContainer.replaceChild(this.#renderList[path].tabElements, selectDom('main'));
+    this.#renderNonUser();
   };
 
-  #updateCurrentTabMenu(path) {
+  #renderUser() {
+    const path = window.location.hash || DEFAULT_ROUTE.USER;
+    this.#renderNav(path);
+    selectDom('#login-link-button', this.#userButtonContainer)?.remove();
+
+    this.#renderTab(this.#userRenderList, path);
+
+    selectDom('#user-button-select-box')?.remove();
+
+    if (selectDom('#user-button', this.#userButtonContainer)) return;
+
+    this.#userButtonContainer.insertAdjacentHTML(
+      'afterbegin',
+      userButtonTemplate(this.#authorization.name)
+    );
+  }
+
+  #renderNonUser() {
+    const path = window.location.hash || DEFAULT_ROUTE.NON_USER;
+    selectDom('#tab-menu-navigation')?.remove();
+    selectDom('#user-button', this.#userButtonContainer)?.remove();
+    if (!selectDom('#login-link-button', this.#userButtonContainer)) {
+      this.#userButtonContainer.insertAdjacentHTML('afterbegin', loginLinkButtonTemplate);
+    }
+    this.#renderTab(this.#nonUserRenderList, path);
+  }
+
+  #renderNav(path) {
+    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
+
+    if (!this.#tabMenuNavigation) {
+      this.#headerContainer.insertAdjacentHTML('beforeend', navigationTemplate);
+      this.#tabMenuNavigation = selectDom('#tab-menu-navigation', this.#headerContainer);
+      this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+    }
+
     const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
     previousMenuButton?.classList.remove('current');
 
     const currentMenuButton = selectDom(`[href="${path}"]`, this.#tabMenuNavigation);
     currentMenuButton?.classList.add('current');
+  }
+
+  #renderTab(routeList, path) {
+    if (!routeList[path]) {
+      const notFoundContainer = createMainElement(notFoundTabTemplate);
+      this.#appContainer.replaceChild(notFoundContainer, selectDom('main'));
+      return;
+    }
+
+    this.#appContainer.replaceChild(routeList[path].tabElements, selectDom('main'));
   }
 
   #handleTabMenuChange = (e) => {
@@ -54,10 +136,39 @@ class App {
     const { hash: newHash } = e.target;
     const previousHash = window.location.hash;
 
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
+    if (
+      (!Object.keys(this.#userRenderList).includes(newHash) &&
+        !Object.keys(this.#nonUserRenderList).includes(newHash)) ||
+      newHash === previousHash
+    ) {
+      return;
+    }
 
     window.history.pushState({}, null, newHash);
     this.#render();
+  };
+
+  #handleUserButtonContainerClick = ({ target }) => {
+    if (target.id === 'user-button') this.#handleSelectBoxToggle(target);
+    if (target.id === 'logout-button') this.#handleLogout();
+  };
+
+  #handleSelectBoxToggle = (target) => {
+    const selectBox = selectDom('#user-button-select-box');
+
+    if (selectBox) {
+      selectBox?.remove();
+      return;
+    }
+
+    target.insertAdjacentHTML('afterend', userButtonSelectBoxTemplate);
+  };
+
+  #handleLogout = () => {
+    this.#authorization.logout();
+    selectDom('#user-button-select-box')?.remove();
+    window.location.href = DEFAULT_ROUTE.NON_USER;
+    window.location.reload();
   };
 }
 

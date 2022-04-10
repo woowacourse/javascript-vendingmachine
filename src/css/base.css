@@ -25,27 +25,6 @@ body {
   justify-content: center;
 }
 
-#app {
-  width: 600px;
-  min-height: 675px;
-  margin-top: 32px;
-  background-color: #ffffff;
-  border: var(--border-preset);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 45px 60px;
-  gap: 52px;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 52px;
-  width: 100%;
-}
-
 button {
   padding: 8px;
   border: none;
@@ -62,6 +41,10 @@ input:focus {
   outline: none;
 }
 
+input:disabled {
+  background-color: #d4d4d4;
+}
+
 /* 숫자 입력란 화살표 숨김 */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -73,12 +56,4 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
-}
-
-.not-found-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
 }

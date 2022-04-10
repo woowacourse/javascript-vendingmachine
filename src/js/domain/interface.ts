@@ -1,3 +1,4 @@
+import { Coin } from './types';
 import VendingMachineProduct from './VendingMachineProduct';
 
 export interface ProductData {
@@ -10,21 +11,29 @@ export interface VendingMachineProductDictionary {
   [id: string]: VendingMachineProduct;
 }
 
-export interface Coin {
-  name: string;
-  value: number;
-  count: number;
-}
-
-export interface CoinStatus {
-  FIVE_HUNDRED_WON: number;
-  ONE_HUNDRED_WON: number;
-  FIFTY_WON: number;
-  TEN_WON: number;
-}
-
 export interface distributeStrategy {
   distribute(inputMoney: number): Coin[];
+}
+
+export interface UserRegisterData {
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface UserUpdateData {
+  email: string;
+  name: string;
+  password?: string;
+  passwordConfirm?: string;
+}
+
+export interface SavedUserData {
+  accessToken?: string;
+  userId: number;
+  email: string;
+  name: string;
 }
 
 export interface Validator<T> {
@@ -35,4 +44,9 @@ export interface Validator<T> {
 export interface changeValidationData {
   money: number;
   totalChange: number;
+}
+
+export interface userMoneyValidationData {
+  money: number;
+  userMoney: number;
 }

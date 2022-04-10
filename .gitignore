@@ -4,3 +4,6 @@ node_modules/
 dist
 
 .gitmessage.txt
+
+cypress/screenshots/
+cypress/videos/
