@@ -6,6 +6,7 @@ Cypress.Commands.add('login', () => {
   cy.get('[name=email]').type(email);
   cy.get('[name=password]').type(password);
   cy.get('login-form button').click();
+  cy.wait(1000);
 });
 
 Cypress.Commands.add('addProduct', (name, price, quantity) => {
