@@ -1,5 +1,6 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
+import { showSnackbar } from './Snackbar';
 
 class ReturnedChangeTable extends Component {
   template() {
@@ -42,7 +43,7 @@ class ReturnedChangeTable extends Component {
       try {
         vendingMachine.returnChange();
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

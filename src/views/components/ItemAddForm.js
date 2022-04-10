@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
 class ItemAddForm extends Component {
   template() {
@@ -70,7 +71,7 @@ class ItemAddForm extends Component {
         priceInput.value = '';
         quantityInput.value = '';
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

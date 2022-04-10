@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
 import { USER } from '../../configs/constants';
+import { showSnackbar } from '../components/Snackbar';
 
 class ProfilePage extends Component {
   template() {
@@ -89,7 +90,7 @@ class ProfilePage extends Component {
 
         await auth.updateProfile(updatedProfile);
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

@@ -1,6 +1,7 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
 class PurchasableItemRow extends TableRow {
   template() {
@@ -23,7 +24,7 @@ class PurchasableItemRow extends TableRow {
       try {
         vendingMachine.purchaseItem(name);
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

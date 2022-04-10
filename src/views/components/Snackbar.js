@@ -5,7 +5,7 @@ class Snackbar extends Component {
     return '';
   }
 
-  trigger(message) {
+  show(message) {
     this.textContent = message;
     this.classList.toggle('show');
 
@@ -16,3 +16,7 @@ class Snackbar extends Component {
 }
 
 customElements.define('snack-bar', Snackbar);
+
+export const showSnackbar = (message) => {
+  document.querySelector('#snackbar').show(message);
+};

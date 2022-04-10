@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { CHARGE_AMOUNT } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
 class InsertMoneyForm extends Component {
   template() {
@@ -38,7 +39,7 @@ class InsertMoneyForm extends Component {
 
         amountInput.value = '';
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

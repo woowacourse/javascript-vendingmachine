@@ -1,6 +1,7 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
 class ItemRow extends TableRow {
   setup() {
@@ -83,7 +84,7 @@ class ItemRow extends TableRow {
       try {
         vendingMachine.updateItem(prevName, updatedItem);
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
 
@@ -94,7 +95,7 @@ class ItemRow extends TableRow {
         try {
           vendingMachine.removeItem(name);
         } catch (err) {
-          document.querySelector('#snackbar').trigger(err.message);
+          showSnackbar(err.message);
         }
       }
     });

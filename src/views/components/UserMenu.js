@@ -2,6 +2,7 @@ import Component from '../../core/Component';
 import './Link';
 import { auth } from '../../domains/Auth';
 import { PAGES } from '../../configs/constants';
+import { jumpTo } from '../../utils/domUtils';
 
 class UserMenu extends Component {
   template() {
@@ -31,10 +32,7 @@ class UserMenu extends Component {
 
     this.addEvent('click', '#logout-link', () => {
       auth.logout();
-
-      const state = {};
-      window.history.pushState(state, '', PAGES.LANDING.PATH);
-      dispatchEvent(new PopStateEvent('popstate', { state }));
+      jumpTo(PAGES.LANDING.PATH);
     });
   }
 }

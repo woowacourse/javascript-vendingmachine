@@ -2,6 +2,8 @@ import Component from '../../core/Component';
 import '../components/Link';
 import { auth } from '../../domains/Auth';
 import { PAGES, USER } from '../../configs/constants';
+import { showSnackbar } from '../components/Snackbar';
+import { jumpTo } from '../../utils/domUtils';
 
 class LoginPage extends Component {
   template() {
@@ -56,12 +58,9 @@ class LoginPage extends Component {
 
       try {
         await auth.login(loginInfo);
-
-        const state = {};
-        window.history.pushState(state, '', PAGES.LANDING.PATH);
-        dispatchEvent(new PopStateEvent('popstate', { state }));
+        jumpTo(PAGES.LANDING.PATH);
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }

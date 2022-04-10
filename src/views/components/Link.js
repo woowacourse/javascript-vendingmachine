@@ -1,4 +1,5 @@
 import Component from '../../core/Component';
+import { jumpTo } from '../../utils/domUtils';
 
 class Link extends Component {
   template() {
@@ -9,10 +10,7 @@ class Link extends Component {
     const { href } = this.props;
 
     this.onclick = () => {
-      const state = {};
-
-      window.history.pushState(state, '', href);
-      dispatchEvent(new PopStateEvent('popstate', { state }));
+      jumpTo(href);
     };
   }
 }

@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
 import { USER } from '../../configs/constants';
+import { showSnackbar } from '../components/Snackbar';
 
 class SignupPage extends Component {
   template() {
@@ -89,7 +90,7 @@ class SignupPage extends Component {
         window.history.pushState(state, '', '/');
         dispatchEvent(new PopStateEvent('popstate', { state }));
       } catch (err) {
-        document.querySelector('#snackbar').trigger(err.message);
+        showSnackbar(err.message);
       }
     });
   }
