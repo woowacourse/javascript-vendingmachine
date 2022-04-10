@@ -13,13 +13,13 @@ class ModifyMemberForm extends Component {
     <form onsubmit="return false">
       <div class="modify-member-form d-flex">
         <label for="email" class="mb-1">이메일</label>
-        <input type="email" placeholder="${email}" name="email" class="input-email form-control mb-4" disabled/>
+        <input id="modify-email-input" type="email" placeholder="${email}" name="email" class="input-email form-control mb-4" disabled/>
         <label for="name" class="mb-1">이름</label>
-        <input type="name" placeholder="${name}" name="name" class="form-control mb-4" />
+        <input id="modify-name-input" type="name" placeholder="${name}" name="name" class="form-control mb-4" />
         <label for="password" class="mb-1">비밀번호</label>
-        <input type="password" placeholder="비밀번호를 입력해주세요" name="password" class="form-control mb-4" />
+        <input id="modify-password-input" type="password" placeholder="비밀번호를 입력해주세요" name="password" class="form-control mb-4" />
         <label for="confirm-password" class="mb-1">비밀번호 확인</label>
-        <input type="password" placeholder="비밀번호를 입력해주세요" name="confirm-password" class="form-control mb-8" />
+        <input id="modify-confirm-password-input" type="password" placeholder="비밀번호를 입력해주세요" name="confirm-password" class="form-control mb-8" />
         <button type="button" class="btn btn-primary mb-3">확인</button>
       </div>
     </form>
@@ -32,7 +32,12 @@ class ModifyMemberForm extends Component {
   }
 
   onClickModifyBtn = async () => {
-    const [_, $name, $password, $confirmPassword] = this.querySelectorAll('input');
+    const $name = this.querySelector('#modify-name-input') as HTMLInputElement;
+    const $password = this.querySelector('#modify-password-input') as HTMLInputElement;
+    const $confirmPassword = this.querySelector(
+      '#modify-confirm-password-input'
+    ) as HTMLInputElement;
+
     const [name, password, confirmPassword] = [
       $name.value,
       $password.value,

@@ -13,13 +13,13 @@ class SignUpFrom extends Component {
     <form onsubmit="return false">
       <div class="signup-form d-flex">
         <label type="email" for="email" class="mb-1">이메일</label>
-        <input placeholder="이메일 주소를 입력해주세요" name="email" class="form-control mb-4" />
+        <input id="sign-up-email-input" placeholder="이메일 주소를 입력해주세요" name="email" class="form-control mb-4" />
         <label type="name" for="name" class="mb-1">이름</label>
-        <input placeholder="이름을 입력해주세요" name="name" class="form-control mb-4" />
+        <input id="sign-up-name-input" placeholder="이름을 입력해주세요" name="name" class="form-control mb-4" />
         <label for="password" class="mb-1">비밀번호</label>
-        <input type="password" placeholder="비밀번호를 입력해 주세요" name="password" class="form-control mb-4" />
+        <input id="sign-up-password-input" type="password" placeholder="비밀번호를 입력해 주세요" name="password" class="form-control mb-4" />
         <label for="confirm-password" class="mb-1">비밀번호 확인</label>
-        <input type="password" placeholder="비밀번호를 입력해 주세요" name="confirm-password" class="form-control mb-8" />
+        <input id="sign-up-confirm-password-input" type="password" placeholder="비밀번호를 입력해 주세요" name="confirm-password" class="form-control mb-8" />
         <button type="button" class="btn btn-primary mb-3">확인</button>
       </div>
     </form>
@@ -32,7 +32,13 @@ class SignUpFrom extends Component {
   }
 
   onClickSignUpBtn = () => {
-    const [$email, $name, $password, $confirmPassword] = this.querySelectorAll('input');
+    const $email = this.querySelector('#sign-up-email-input') as HTMLInputElement;
+    const $name = this.querySelector('#sign-up-name-input') as HTMLInputElement;
+    const $password = this.querySelector('#sign-up-password-input') as HTMLInputElement;
+    const $confirmPassword = this.querySelector(
+      '#sign-up-confirm-password-input'
+    ) as HTMLInputElement;
+
     const [email, name, password, confirmPassword] = [
       $email.value,
       $name.value,

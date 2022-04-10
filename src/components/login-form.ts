@@ -13,9 +13,9 @@ class LoginForm extends Component {
     <h1 class="mb-12">로그인</h1>
     <form onsubmit="return false" class="login-form d-flex">
       <label type="email" for="email" class="mb-1">이메일</label>
-      <input placeholder="woowacourse@gmail.com" name="email" class="form-control mb-4" />
+      <input placeholder="woowacourse@gmail.com" id="login-email-input" name="email" class="form-control mb-4" />
       <label for="password" class="mb-1">비밀번호</label>
-      <input type="password" placeholder="비밀번호를 입력해 주세요" name="password" class="form-control mb-8" />
+      <input type="password" placeholder="비밀번호를 입력해 주세요" id="login-password-input" name="password" class="form-control mb-8" />
       <button type="button" class="btn btn-primary mb-3">확인</button>
       <label>
         아직 회원이 아니신가요?
@@ -32,7 +32,8 @@ class LoginForm extends Component {
   }
 
   onClickLoginConfirmBtn = () => {
-    const [$email, $password] = this.querySelectorAll('input');
+    const $email = this.querySelector('#login-email-input') as HTMLInputElement;
+    const $password = this.querySelector('#login-password-input') as HTMLInputElement;
     const email = $email.value;
     const password = $password.value;
 
