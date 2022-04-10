@@ -84,92 +84,85 @@ export class Router {
     const { path } = e.state;
     const accessToken = localStorage.getItem('accessToken');
 
-    if (path === URL_PATH.HOME) {
-      this.#renderHome();
+    switch (path) {
+      case URL_PATH.PRODUCT_MANAGE:
+        if (!accessToken) return this.#renderHome();
 
-      return;
-    }
+        this.#productPurchaseView.hide();
+        this.#authSection.classList.add('hide');
+        this.#balanceChargeView.hide();
 
-    if (path === URL_PATH.PRODUCT_MANAGE) {
-      if (!accessToken) return this.#renderHome();
-
-      this.#productPurchaseView.hide();
-      this.#authSection.classList.add('hide');
-      this.#balanceChargeView.hide();
-
-      this.#productManageView.show();
-      this.#thumbnail.classList.remove('hide');
-      this.#featureSection.classList.remove('hide');
-
-      return;
-    }
-
-    if (path === URL_PATH.BALANCE_CHAREGE) {
-      if (!accessToken) return this.#renderHome();
-
-      this.#productPurchaseView.hide();
-      this.#productManageView.hide();
-      this.#authSection.classList.add('hide');
-
-      this.#thumbnail.classList.remove('hide');
-      this.#balanceChargeView.show();
-      this.#featureSection.classList.remove('hide');
-
-      return;
-    }
-
-    if (path === URL_PATH.PRODUCT_PURCHASE) {
-      this.#balanceChargeView.hide();
-      this.#productManageView.hide();
-      this.#authSection.classList.add('hide');
-
-      this.#productPurchaseView.show();
-      this.#featureSection.classList.remove('hide');
-
-      if (accessToken) {
+        this.#productManageView.show();
         this.#thumbnail.classList.remove('hide');
-        this.#profile.render();
-        this.#nav.classList.remove('hide');
+        this.#featureSection.classList.remove('hide');
 
-        return;
-      }
+        break;
 
-      this.#loginBtn.classList.remove('hide');
+      case URL_PATH.BALANCE_CHAREGE:
+        if (!accessToken) return this.#renderHome();
 
-      return;
-    }
+        this.#productPurchaseView.hide();
+        this.#productManageView.hide();
+        this.#authSection.classList.add('hide');
 
-    if (path === URL_PATH.LOGIN) {
-      this.#featureSection.classList.add('hide');
-      this.#loginBtn.classList.add('hide');
+        this.#thumbnail.classList.remove('hide');
+        this.#balanceChargeView.show();
+        this.#featureSection.classList.remove('hide');
 
-      this.#authSection.classList.remove('hide');
-      this.#authSection.textContent = '';
-      this.#loginView.render();
+        break;
 
-      return;
-    }
+      case URL_PATH.PRODUCT_PURCHASE:
+        this.#balanceChargeView.hide();
+        this.#productManageView.hide();
+        this.#authSection.classList.add('hide');
 
-    if (path === URL_PATH.SIGNUP) {
-      this.#featureSection.classList.add('hide');
-      this.#loginBtn.classList.add('hide');
+        this.#productPurchaseView.show();
+        this.#featureSection.classList.remove('hide');
 
-      this.#authSection.classList.remove('hide');
-      this.#authSection.textContent = '';
-      this.#signupView.render();
+        if (accessToken) {
+          this.#thumbnail.classList.remove('hide');
+          this.#profile.render();
+          this.#nav.classList.remove('hide');
 
-      return;
-    }
+          break;
+        }
 
-    if (path === URL_PATH.EDIT_USER_INFO) {
-      this.#featureSection.classList.add('hide');
-      this.#thumbnail.classList.add('hide');
+        this.#loginBtn.classList.remove('hide');
 
-      this.#authSection.classList.remove('hide');
-      this.#authSection.textContent = '';
-      this.#userInfoEditView.render();
+        break;
 
-      return;
+      case URL_PATH.LOGIN:
+        this.#featureSection.classList.add('hide');
+        this.#loginBtn.classList.add('hide');
+
+        this.#authSection.classList.remove('hide');
+        this.#authSection.textContent = '';
+        this.#loginView.render();
+
+        break;
+
+      case URL_PATH.SIGNUP:
+        this.#featureSection.classList.add('hide');
+        this.#loginBtn.classList.add('hide');
+
+        this.#authSection.classList.remove('hide');
+        this.#authSection.textContent = '';
+        this.#signupView.render();
+
+        break;
+
+      case URL_PATH.EDIT_USER_INFO:
+        this.#featureSection.classList.add('hide');
+        this.#thumbnail.classList.add('hide');
+
+        this.#authSection.classList.remove('hide');
+        this.#authSection.textContent = '';
+        this.#userInfoEditView.render();
+
+        break;
+
+      default:
+        this.#renderHome();
     }
   };
 
@@ -275,11 +268,11 @@ export class Router {
   }
 }
 
-const routes = (path) => {
-  switch (path) {
-    case '/login':
-      console.log('login');
-    case '/productPurchase':
-      console.log('productPurchase');
-  }
-};
+// const routes = (path) => {
+//   switch (path) {
+//     case '/login':
+//       console.log('login');
+//     case '/productPurchase':
+//       console.log('productPurchase');
+//   }
+// };
