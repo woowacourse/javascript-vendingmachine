@@ -1,6 +1,6 @@
 import auth from '../Auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
-import { renderComponent } from './renderer';
+import { renderComponent } from '../utils';
 import { renderToastModal } from './ToastNotification';
 
 const signupTemplate = document.createElement('template');

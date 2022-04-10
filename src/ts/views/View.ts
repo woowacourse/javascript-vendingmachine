@@ -4,7 +4,7 @@ import { VendingMachineInterface } from '../domains/VendingMachine';
 import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
-import { renderComponent } from '../components/renderer';
+import { renderComponent } from '../utils';
 export default class View {
   $app: HTMLDivElement;
   $notFound: HTMLDivElement;

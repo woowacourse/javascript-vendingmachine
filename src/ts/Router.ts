@@ -1,6 +1,5 @@
 import View from './views/View';
 import { PATH_ID, STORAGE_ID } from './constants';
-import { renderPublicPage, renderUserPrivatePage } from './components/renderer';
 import auth from './Auth.js';
 export default class Router {
   currentTab: string;
@@ -42,7 +41,7 @@ export default class Router {
     this.view.renderTabs(url);
     if (!auth.isLoggedIn) {
       history.pushState({ url }, null, url);
-      renderPublicPage();
+      this.renderPublicPage();
 
       return;
     }
@@ -50,6 +49,16 @@ export default class Router {
     if (!isPopState && url !== location.pathname + location.hash) {
       history.pushState({ url }, null, url);
     }
-    renderUserPrivatePage();
+    this.renderUserPrivatePage();
+  };
+
+  private renderUserPrivatePage = () => {
+    document.querySelector('.nav-tab').classList.remove('hide');
+    document.querySelector('user-menu').setAttribute('auth', 'login');
+  };
+
+  private renderPublicPage = () => {
+    document.querySelector('.nav-tab').classList.add('hide');
+    document.querySelector('user-menu').setAttribute('auth', 'logout');
   };
 }
