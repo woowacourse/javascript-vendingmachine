@@ -1,5 +1,4 @@
-/* 공통 사용 */
-#product-information-input {
+#product-information-input-form {
   display: grid;
   margin-top: 13px;
   grid-template-areas:
@@ -9,30 +8,31 @@
   grid-column-gap: 7px;
 }
 
+#product-information-input-form > .submit-button {
+  width: 70px;
+}
+
 #product-input-label {
   grid-area: lb;
 }
 
 #product-name-input {
   grid-area: nm;
+  width: 160px;
 }
 
 #product-price-input {
   grid-area: pr;
+  width: 160px;
 }
 
 #product-quantity-input {
   grid-area: qt;
+  width: 160px;
 }
 
 #product-information-submit-btn {
   grid-area: bt;
-}
-
-.table-container {
-  display: flex;
-  text-align: center;
-  flex-direction: column;
 }
 
 #product-table {
@@ -43,13 +43,13 @@
   text-align: center;
 }
 
-td {
+#product-table td {
   padding: 10px 0;
   border-top: 2px solid var(--gray);
   border-bottom: 2px solid var(--gray);
 }
 
-th {
+#product-table th {
   padding: 10px 0;
 }
 

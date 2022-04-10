@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "email": "sam606@naver.com",
+      "password": "$2a$10$C9D3ZmvC1kwdU5vofXWNVuY05KWVSzzZG6rbs2Vj.05Yu4VM5hRKy",
+      "id": 1
+    },
+    {
+      "email": "sam2606@naver.com",
+      "password": "$2a$10$ivhY8V6fsA.2E6gcWkLw0ePLpfUmQfj3l1veZiBegTfuTNG9UDyrG",
+      "id": 2
+    },
+    {
+      "email": "sam3606@naver.com",
+      "password": "$2a$10$j.kwMBYM319pdLdo91XLNuoFudyA2gm0mGI2eXQyVkZmUejxeVdpC",
+      "id": 3
+    },
+    {
+      "email": "sam4606@naver.com",
+      "password": "$2a$10$XxmM6CjbtGuTB.RYMzjdluUXYKlNUcwir6QQqomqTTJNQ/kG7P0P2",
+      "id": 4
+    }
+  ]
+}

@@ -1,30 +1,27 @@
+@import './root.css';
+@import './auth.css';
+@import './nav.css';
 @import './productManage.css';
 @import './balanceCharge.css';
-@import './root.css';
+@import './productPurchase.css';
+
+.button {
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
 
 .hide {
   display: none;
 }
 
-#app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#contents-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  width: 632px;
-  row-gap: 40px;
-}
-
 .submit-button {
   background-color: var(--cyan-light);
   color: var(--white);
-  width: 70px;
   height: 37px;
 }
 
@@ -39,22 +36,20 @@
   height: 37px;
 }
 
-.tab-button:hover {
+.button:hover {
   background-color: var(--gray);
+}
+
+.table-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
 }
 
 .input {
   border: solid 1.5px;
   border-radius: 10px;
   border-color: var(--gray);
-  width: 160px;
   height: 30px;
   padding-left: 8px;
-}
-
-.button {
-  cursor: pointer;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
 }

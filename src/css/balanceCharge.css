@@ -1,12 +1,15 @@
-#charge-balance-input-container {
+#charge-balance-input-form {
   display: grid;
   margin-top: 13px;
   grid-template-areas:
     'lb lb lb'
-    'bi . bt'
-    'cb cb cb';
+    'bi . bt';
   grid-row-gap: 13px;
   grid-column-gap: 7px;
+}
+
+#charge-balance-input-form > .submit-button {
+  width: 70px;
 }
 
 #charge-balance-input-label {
@@ -22,13 +25,19 @@
   grid-area: bt;
 }
 
-#current-balance-container {
-  grid-area: cb;
-}
-
 #coin-vault-table {
   border-top: 2px solid var(--gray);
   border-bottom: 2px solid var(--gray);
   border-collapse: collapse;
   text-align: center;
+}
+
+#coin-vault-table td {
+  padding: 10px 0;
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+}
+
+#coin-vault-table th {
+  padding: 10px 0;
 }

@@ -1,0 +1,148 @@
+#purchase-money-input-form {
+  display: grid;
+  margin-top: 13px;
+  grid-template-areas:
+    'lb lb lb'
+    'mi . bt';
+  grid-row-gap: 13px;
+  grid-column-gap: 7px;
+}
+
+#purchase-money-input-label {
+  grid-area: lb;
+}
+
+#purchase-money-input {
+  width: 330px;
+  grid-area: mi;
+}
+
+#purchase-money-submit-btn {
+  width: 70px;
+  grid-area: bt;
+}
+
+.product-purchase-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+}
+
+#purchasable-product-table {
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+  border-collapse: collapse;
+  width: 630px;
+  text-align: center;
+}
+
+#purchasable-product-table td {
+  padding: 10px 0;
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+}
+
+#purchasable-product-table th {
+  padding: 10px 0;
+}
+
+.purchase-button,
+.return-button {
+  background-color: var(--gray-light);
+  color: var(--black);
+
+  width: 100px;
+  height: 37px;
+}
+
+.purchase-button:disabled {
+  background-color: var(--gray);
+}
+
+.return-button {
+  margin-top: 20px;
+  align-self: center;
+}
+
+#returned-coin-table {
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#returned-coin-table td {
+  padding: 10px 50px;
+  border-top: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+}
+
+#returned-coin-table th {
+  padding: 10px 50px;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+}
+
+#snackbar.show {
+  visibility: visible !important; /* Show the snackbar */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
+  animation: fadein 0.5s, fadeout 0.5s 2.7s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}

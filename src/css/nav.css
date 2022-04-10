@@ -1,0 +1,57 @@
+#contents-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 632px;
+  row-gap: 40px;
+}
+
+#login-button {
+  position: absolute;
+  right: 10px;
+}
+
+.feature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thumbnail {
+  cursor: pointer;
+  position: fixed;
+  right: 20px;
+  background-color: var(--cyan);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.thumbnail .name {
+  position: relative;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--white);
+  border: 0;
+  outline: 0;
+  background-color: var(--cyan);
+}
+
+.select-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+  top: 70px;
+  right: 20px;
+  font-size: 16px;
+}
+
+.edit-user-info-button,
+.logout-button {
+  padding: 10px 5px;
+}

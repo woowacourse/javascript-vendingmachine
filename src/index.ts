@@ -1,7 +1,7 @@
 import './css/app.css';
 
-import { NavView } from './view/NavView';
+import { Router } from './view/Router';
 
 window.addEventListener('DOMContentLoaded', () => {
-  new NavView();
+  new Router();
 });

@@ -1,35 +1,57 @@
-import { ProductInformationInput } from '../component/ProductInformationInput';
-import { ProductCatalogTable } from '../component/ProductCatalogTable';
 import { ProductCatalog } from '../domain/ProductCatalog';
 
-export class ProductManageView {
-  private productInformationInput: ProductInformationInput;
-  private productCatalogTable: ProductCatalogTable;
-  productCatalog: ProductCatalog;
-  contentsContainer: HTMLDivElement;
-  props: object;
+import { ProductCatalogTable } from '../component/productManage/ProductCatalogTable';
+import { ProductInformationInputForm } from '../component/productManage/ProductInformationInputForm';
 
-  constructor() {
-    this.productCatalog = new ProductCatalog();
+interface ProductManageViewInterface {
+  getIsRendered();
+  show();
+  renderAll();
+}
 
-    this.contentsContainer = document.querySelector('#contents-container');
+export class ProductManageView implements ProductManageViewInterface {
+  #productCatalog: ProductCatalog;
+  #productInformationInputForm: ProductInformationInputForm;
+  #productCatalogTable: ProductCatalogTable;
+  #productManageContainer: HTMLDivElement;
+  #isRendered: boolean;
+
+  constructor({ productCatalog }) {
+    this.#isRendered = false;
+    this.#productManageContainer = document.querySelector('.product-manage-container');
+
+    this.#productCatalog = productCatalog;
+
+    this.#productInformationInputForm = new ProductInformationInputForm({
+      target: this.#productManageContainer,
+      productCatalog: this.#productCatalog,
+    });
+    this.#productCatalogTable = new ProductCatalogTable({
+      target: this.#productManageContainer,
+      productCatalog: this.#productCatalog,
+    });
   }
 
-  init() {
-    this.contentsContainer.textContent = '';
+  getIsRendered() {
+    return this.#isRendered;
+  }
 
-    this.props = {
-      target: this.contentsContainer,
-      productCatalog: this.productCatalog,
-    };
-    this.productInformationInput = new ProductInformationInput(this.props);
-    this.productCatalogTable = new ProductCatalogTable(this.props);
+  #setIsRendered(status: boolean) {
+    this.#isRendered = status;
+  }
+
+  show() {
+    this.#productManageContainer.classList.remove('hide');
+  }
+
+  hide() {
+    this.#productManageContainer.classList.add('hide');
   }
 
   renderAll() {
-    this.contentsContainer.textContent = '';
+    this.#productInformationInputForm.render();
+    this.#productCatalogTable.render();
 
-    this.productInformationInput.render();
-    this.productCatalogTable.render();
+    this.#setIsRendered(true);
   }
 }

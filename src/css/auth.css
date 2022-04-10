@@ -1,0 +1,21 @@
+.auth-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-section > .submit-button {
+  width: 100%;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  width: 300px;
+}
+
+.signup-link {
+  color: var(--cyan);
+  cursor: pointer;
+}

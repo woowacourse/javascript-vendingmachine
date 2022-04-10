@@ -8,19 +8,28 @@
 
   <body>
     <div id="app">
-      <h1>🍿 자판기 🍿</h1>
-      <nav>
-        <button id="product-manage-nav-button" class="tab-button button" type="button">
-          상품 관리
-        </button>
-        <button id="charge-balance-nav-button" class="tab-button button" type="button">
-          잔돈 충전
-        </button>
-        <button id="product-purchase-nav-button" class="tab-button button" type="button">
-          상품 구매
-        </button>
-      </nav>
-      <div id="contents-container"></div>
+      <div class="thumbnail hide"></div>
+      <button id="login-button" type="button" class="tab-button button">로그인</button>
+      <section class="auth-section hide"></section>
+      <section class="feature-section">
+        <h1>🍿 자판기 🍿</h1>
+        <nav class="hide">
+          <button id="product-manage-nav-button" class="tab-button button" type="button">
+            상품 관리
+          </button>
+          <button id="charge-balance-nav-button" class="tab-button button" type="button">
+            잔돈 충전
+          </button>
+          <button id="product-purchase-nav-button" class="tab-button button" type="button">
+            상품 구매
+          </button>
+        </nav>
+        <div id="contents-container">
+          <div class="product-manage-container hide"></div>
+          <div class="balance-charge-container hide"></div>
+          <div class="product-purchase-container hide"><div id="snackbar"></div></div>
+        </div>
+      </section>
     </div>
   </body>
 </html>
