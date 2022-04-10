@@ -117,6 +117,7 @@ class ProfileEdit extends HTMLElement {
   passwordEditInput: HTMLInputElement;
   passwordCheckEditInput: HTMLInputElement;
   userAuth: any;
+  dimmer: HTMLDivElement;
 
   constructor() {
     super();
@@ -130,6 +131,7 @@ class ProfileEdit extends HTMLElement {
     this.passwordCheckEditInput = <HTMLInputElement>(
       this.shadowRoot.getElementById('password-check-edit-input')
     );
+    this.dimmer = <HTMLDivElement>this.shadowRoot.querySelector('.dimmer');
   }
 
   async connectedCallback() {
@@ -167,8 +169,10 @@ class ProfileEdit extends HTMLElement {
     }
   };
 
-  closeModalDimmer = (event) => {
-    event.target === this.shadowRoot.querySelector('.dimmer') ? this.closeModal() : false;
+  closeModalDimmer = (event: PointerEvent) => {
+    if (event.target === this.dimmer) {
+      this.closeModal();
+    }
   };
 
   closeModal = () => {

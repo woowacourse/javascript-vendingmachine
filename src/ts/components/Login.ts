@@ -119,6 +119,7 @@ loginTemplate.innerHTML = `
 class Login extends HTMLElement {
   emailInput: HTMLInputElement;
   passwordInput: HTMLInputElement;
+  dimmer: HTMLDivElement;
 
   constructor() {
     super();
@@ -127,6 +128,7 @@ class Login extends HTMLElement {
 
     this.emailInput = <HTMLInputElement>this.shadowRoot.getElementById('email-input');
     this.passwordInput = <HTMLInputElement>this.shadowRoot.getElementById('password-input');
+    this.dimmer = <HTMLDivElement>this.shadowRoot.querySelector('.dimmer');
   }
 
   connectedCallback() {
@@ -142,8 +144,10 @@ class Login extends HTMLElement {
     this.shadowRoot.removeEventListener('click', this.closeModalDimmer);
   }
 
-  closeModalDimmer = (event) => {
-    event.target === this.shadowRoot.querySelector('.dimmer') ? this.closeModal() : false;
+  closeModalDimmer = (event: PointerEvent) => {
+    if (event.target === this.dimmer) {
+      this.closeModal();
+    }
   };
 
   closeModal = () => {

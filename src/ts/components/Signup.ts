@@ -120,6 +120,7 @@ class Signup extends HTMLElement {
   passwordCheckInput: HTMLInputElement;
   submitButton: HTMLButtonElement;
   auth: any;
+  dimmer: HTMLDivElement;
 
   constructor() {
     super();
@@ -132,6 +133,7 @@ class Signup extends HTMLElement {
     this.passwordCheckInput = <HTMLInputElement>(
       this.shadowRoot.getElementById('password-check-input')
     );
+    this.dimmer = <HTMLDivElement>this.shadowRoot.querySelector('.dimmer');
   }
 
   connectedCallback() {
@@ -147,7 +149,9 @@ class Signup extends HTMLElement {
   }
 
   closeModalDimmer = (event: PointerEvent) => {
-    event.target === this.shadowRoot.querySelector('.dimmer') ? this.closeModal() : false;
+    if (event.target === this.dimmer) {
+      this.closeModal();
+    }
   };
 
   closeModal = () => {
