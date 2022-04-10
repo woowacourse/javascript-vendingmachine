@@ -1,9 +1,15 @@
 # 자판기 미션 step2
 
 - 마르코
+- 데모페이지 : https://wonsss.github.io/javascript-vendingmachine
 
-- 다음 명령어를 실행하여 json-server-auth 서버를 먼저 켠다.
-  - `npx json-server-auth db.json`
+## 로컬에서 설치 및 실행 방법
+
+1. 필수 npm package를 설치한다 : `npm install`
+2. `.env` 파일을 `.env.example` 파일을 참고하여 만든다.
+3. 프로젝트를 시작한다 : `npm run start`
+4. UNIT 테스트를 시작한다 : `npm run test`
+5. E2E 테스트를 시작한다 : `npm run cypress:open`
 
 ## step2 기능 구현 목록
 
