@@ -4,7 +4,7 @@ describe('로그인 및 회원가입을 할 수 있다', () => {
   const password = 'woowa123@';
 
   before(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
   });
 
   after(() => {
@@ -41,7 +41,7 @@ describe('로그인, 회원가입 오류. 오류를 snackbar로 보여준다', (
   const password = 'woowa123@';
 
   beforeEach(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
   });
 
   it('이미 존재하는 이메일로 회원가입은 불가능하다.', () => {
@@ -77,7 +77,7 @@ describe('로그인 시 상품 관리, 잔돈 충전, 상품 구매를 할 수 �
   const moreMoney = 600;
 
   before(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
     cy.login(email, password);
   });
 
@@ -141,7 +141,7 @@ describe('비로그인 시 상품구매만 가능하다', () => {
   const money = 10000;
 
   before(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
     cy.login(email, password);
     cy.addItem('빈츠', 2000, 5);
     cy.get('#logout').click({ force: true });
@@ -160,7 +160,7 @@ describe('로그인 시 회원 정보를 수정할 수 있다.', () => {
   const password = 'woowa123@';
 
   before(() => {
-    cy.visit('http://localhost:9000/');
+    cy.visit('/');
     cy.login(email, password);
   });
 

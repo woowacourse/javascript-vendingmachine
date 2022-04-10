@@ -3,7 +3,7 @@ import { ITEM, AMOUNT, MONEY_UNIT, EMPTY_COIN } from '../constant/constant';
 
 let vendingMachine;
 
-describe('vendingMachine', () => {
+describe('vendingMachine Item 테스트', () => {
   beforeEach(() => {
     vendingMachine = new VendingMachine([], EMPTY_COIN);
   });
@@ -177,7 +177,7 @@ describe('vendingMachine', () => {
   });
 });
 
-describe('vendingMachine', () => {
+describe('vendingMachine Coin 테스트', () => {
   beforeEach(() => {
     vendingMachine = new VendingMachine([], EMPTY_COIN);
   });
