@@ -1,5 +1,6 @@
 import Domain from '../core/Domain';
 import { SERVER } from '../configs/api';
+import { REDICTION } from '../configs/constants';
 
 type User = {
   id: number;
@@ -85,14 +86,14 @@ export default class Auth extends Domain<AuthState> {
     const isLoggedIn = Boolean(this.state.accessToken);
 
     if (isLoggedIn && loginRequired === false) {
-      return 'landing';
+      return REDICTION.LANDING;
     }
 
     if (!isLoggedIn && loginRequired) {
-      return 'login';
+      return REDICTION.LOGIN;
     }
 
-    return 'authorized';
+    return REDICTION.AUTHORIZED;
   }
 }
 

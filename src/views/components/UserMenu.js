@@ -1,6 +1,7 @@
 import Component from '../../core/Component';
 import './Link';
 import { auth } from '../../domains/Auth';
+import { PAGES } from '../../configs/constants';
 
 export default class UserMenu extends Component {
   template() {
@@ -32,7 +33,7 @@ export default class UserMenu extends Component {
       auth.logout();
 
       const state = {};
-      window.history.pushState(state, '', '/');
+      window.history.pushState(state, '', PAGES.LANDING.PATH);
       dispatchEvent(new PopStateEvent('popstate', { state }));
     });
   }

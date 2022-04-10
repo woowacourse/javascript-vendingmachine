@@ -1,3 +1,5 @@
+import { BASE } from './api';
+
 export const CHARGE_AMOUNT = {
   LABEL: '충전 금액',
   MIN: 10,
@@ -59,32 +61,32 @@ export const USER = {
 export const PAGES = {
   LANDING: {
     TITLE: '',
-    PATH: '/',
+    PATH: `${BASE}/`,
   },
   ITEM_MANAGEMENT: {
     TITLE: '상품 관리',
-    PATH: '/item-management',
+    PATH: `${BASE}/item-management`,
   },
   CHANGE_CHARGE: {
     TITLE: '잔돈 충전',
-    PATH: '/change-charge',
+    PATH: `${BASE}/change-charge`,
   },
   ITEM_PURCHASE: {
     TITLE: '상품 구매',
-    PATH: '/item-purchase',
+    PATH: `${BASE}/item-purchase`,
   },
   LOGIN: {
-    PATH: '/login',
+    PATH: `${BASE}/login`,
   },
   SIGNUP: {
-    PATH: '/signup',
+    PATH: `${BASE}/signup`,
   },
   PROFILE: {
-    PATH: '/profile',
+    PATH: `${BASE}/profile`,
   },
   DEFAULT: {
     TITLE: '',
-    PATH: '*',
+    PATH: `${BASE}/*`,
   },
 } as const;
 
