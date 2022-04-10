@@ -3,6 +3,7 @@ import { VendingMachineInterface } from '../domains/VendingMachine';
 import { $, renderTemplate } from '../utils';
 import { renderToastModal } from '../components/ToastNotification';
 import { getRechargeTemplate } from './template';
+import auth from '../Auth.js';
 
 export default class RechargeView {
   $rechargeForm: HTMLFormElement;
@@ -19,6 +20,9 @@ export default class RechargeView {
   }
 
   public render = () => {
+    if (!auth.isLoggedIn) {
+      return;
+    }
     renderTemplate(getRechargeTemplate);
     this.$rechargeForm = <HTMLFormElement>$('#recharge-form');
     this.$rechargeInput = <HTMLInputElement>$('#recharge-input', this.$rechargeForm);

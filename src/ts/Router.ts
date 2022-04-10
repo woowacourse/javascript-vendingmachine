@@ -1,5 +1,5 @@
 import View from './views/View';
-import { PATH_ID, STORAGE_ID } from './constants';
+import { PATH_ID } from './constants';
 import auth from './Auth.js';
 export default class Router {
   currentTab: string;
@@ -39,8 +39,8 @@ export default class Router {
   };
 
   private tabRouter = (url: string, isPopState = false) => {
-    this.view.renderPage(url);
     if (!auth.isLoggedIn) {
+      this.view.renderPage(url);
       this.renderPublicPage();
       history.pushState({ url }, null, url);
       return;

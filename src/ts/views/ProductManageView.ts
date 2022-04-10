@@ -4,6 +4,7 @@ import { CONFIRM_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import ProductType from '../types/ProductType';
 import { renderToastModal } from '../components/ToastNotification';
 import { getProductManageTemplate } from './template';
+import auth from '../Auth.js';
 
 export default class ProductManageView {
   vendingMachine: VendingMachineInterface;
@@ -20,6 +21,9 @@ export default class ProductManageView {
   }
 
   public render = () => {
+    if (!auth.isLoggedIn) {
+      return;
+    }
     renderTemplate(getProductManageTemplate);
     this.$productNameInput = <HTMLInputElement>$('#product-name');
     this.$productPriceInput = <HTMLInputElement>$('#product-price');
