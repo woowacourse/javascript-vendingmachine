@@ -1,12 +1,13 @@
-import { $, replaceHTML } from '../../utils/dom';
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
 import CoinHoldingsUI from './CoinHoldingsUI';
 import CoinChargeUI from './CoinChargeUI';
-import { viewPainter } from '../ViewPainter';
+import { $, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 
 export default class CoinManagementUI {
-  private coinDomain;
+  private readonly coinDomain: CoinManagementDomain;
 
-  constructor(coinDomain) {
+  constructor(coinDomain: CoinManagementDomain) {
     this.coinDomain = coinDomain;
   }
 

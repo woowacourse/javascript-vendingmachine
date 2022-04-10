@@ -1,12 +1,14 @@
-import { MESSAGE } from '../../constants';
-import { $, $$, replaceHTML } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
+import { showSnackbar } from '../../../utils';
+import { $, $$, replaceHTML } from '../../../utils/dom';
+import { viewPainter } from '../../ViewPainter';
 
 export default class ProductInventoryUI {
-  private $container: HTMLElement;
-  private productDomain;
+  private readonly $container: HTMLElement;
+  private readonly productDomain: ProductManagementDomain;
 
-  constructor(productDomain) {
+  constructor(productDomain: ProductManagementDomain) {
     this.$container = $('.product-inventory__container');
     this.productDomain = productDomain;
     this.render();
@@ -80,15 +82,14 @@ export default class ProductInventoryUI {
     if (e.key !== 'Enter') return;
     if (!(e.target instanceof HTMLElement)) return;
 
-    const $editButton = $(
+    const $editButton = $<HTMLButtonElement>(
       `button[data-product-name="${e.target.dataset.productName}"][title="수정"]`,
-    ) as HTMLButtonElement;
+    );
 
     this.finishEditMode($editButton);
   };
 
-  private buttonClickHandler = (e: MouseEvent) => {
-    const { target } = e;
+  private buttonClickHandler = ({ target }: MouseEvent) => {
     if (!(target instanceof HTMLButtonElement)) return;
 
     switch (target.innerText) {
@@ -100,7 +101,11 @@ export default class ProductInventoryUI {
         break;
       case '삭제':
         const { productName } = target.dataset;
-        if (!confirm(`🥤${productName}🥤${MESSAGE.CONFIRM_DELETE_PRODUCT}`))
+        if (
+          !confirm(
+            `🥤${productName}🥤${VENDING_MACHINE_MESSAGE.CONFIRM_DELETE_PRODUCT}`,
+          )
+        )
           return;
         this.deleteProduct(productName);
     }
@@ -109,9 +114,9 @@ export default class ProductInventoryUI {
   private activateEditMode($button: HTMLButtonElement) {
     $button.innerText = '확인';
 
-    const $$inputs = $$(
+    const $$inputs = $$<HTMLInputElement>(
       `input[data-product-name="${$button.dataset.productName}"]`,
-    ) as NodeListOf<HTMLInputElement>;
+    );
     $$inputs.forEach($input => {
       $input.removeAttribute('readonly');
     });
@@ -122,9 +127,9 @@ export default class ProductInventoryUI {
     $$inputs[0].setSelectionRange(inputValueLength, inputValueLength);
     $$inputs[0].scrollLeft = inputValueLength * 30;
 
-    const $deleteButton = $(
+    const $deleteButton = $<HTMLButtonElement>(
       `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
-    ) as HTMLButtonElement;
+    );
     $deleteButton.setAttribute('hidden', '');
   }
 
@@ -138,17 +143,17 @@ export default class ProductInventoryUI {
       $input.setAttribute('readonly', '');
     });
 
-    const $deleteButton = $(
+    const $deleteButton = $<HTMLButtonElement>(
       `button[data-product-name="${$button.dataset.productName}"][title="삭제"]`,
-    ) as HTMLButtonElement;
+    );
     $deleteButton.removeAttribute('hidden');
   }
 
   private finishEditMode($button: HTMLButtonElement) {
     const prevProductName = $button.dataset.productName;
-    const $$inputs = $$(
+    const $$inputs = $$<HTMLInputElement>(
       `input[data-product-name="${prevProductName}"]`,
-    ) as NodeListOf<HTMLInputElement>;
+    );
     const product = {
       name: $$inputs[0].value,
       price: $$inputs[1].valueAsNumber,
@@ -158,7 +163,7 @@ export default class ProductInventoryUI {
     try {
       this.productDomain.validateProductInput(product, prevProductName);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
@@ -166,12 +171,14 @@ export default class ProductInventoryUI {
 
     this.deactivateEditMode($button);
     viewPainter.renderProducts();
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_EDIT_PRODUCT);
   }
 
-  private deleteProduct(productName) {
+  private deleteProduct(productName: string) {
     this.productDomain.deleteProduct(productName);
 
     const $$tableRow = $$(`div[data-product-name="${productName}"]`);
     $$tableRow.forEach($item => $item.remove());
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_DELETE_PRODUCT);
   }
 }

@@ -1,30 +1,33 @@
-import { $ } from '../../utils/dom';
-import { viewPainter } from '../ViewPainter';
-import { ProductInfoUnionType } from '../../domain/types';
+import ProductManagementDomain from '../../../domain/ProductManagementDomain/ProductManagement';
+import { ProductInfoUnionType } from '../../../domain/types';
+import { VENDING_MACHINE_MESSAGE } from '../../../constants/message';
+import { $, getNamedItem } from '../../../utils/dom';
+import { showSnackbar } from '../../../utils';
+import { viewPainter } from '../../ViewPainter';
 
 type Inputs = {
   [infoType in ProductInfoUnionType]: HTMLInputElement;
 };
 
 export default class ProductAdditionUI {
-  private productDomain;
+  private readonly productDomain: ProductManagementDomain;
 
-  constructor(productDomain) {
+  constructor(productDomain: ProductManagementDomain) {
     this.productDomain = productDomain;
     $('.product-addition__form').addEventListener('submit', this.submitHandler);
     $('.product-addition__input').focus();
   }
 
-  private submitHandler = (e: Event) => {
+  private submitHandler = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!(e.target instanceof HTMLFormElement)) return;
 
     const $$formElements = e.target.elements;
     const $$inputs = {
-      name: $$formElements.namedItem('name') as HTMLInputElement,
-      price: $$formElements.namedItem('price') as HTMLInputElement,
-      quantity: $$formElements.namedItem('quantity') as HTMLInputElement,
+      name: getNamedItem<HTMLInputElement>($$formElements, 'name'),
+      price: getNamedItem<HTMLInputElement>($$formElements, 'price'),
+      quantity: getNamedItem<HTMLInputElement>($$formElements, 'quantity'),
     };
 
     const product = {
@@ -37,12 +40,13 @@ export default class ProductAdditionUI {
       this.productDomain.validateProductInput(product);
     } catch ({ name, message }) {
       this.focusOnInvalidInput(name, $$inputs);
-      alert(message);
+      showSnackbar(message);
       return;
     }
 
     this.productDomain.addProduct(product);
     viewPainter.renderProducts();
+    showSnackbar(VENDING_MACHINE_MESSAGE.SUCCESS_ADD_PRODUCT);
   };
 
   private focusOnInvalidInput(target: ProductInfoUnionType, $$inputs: Inputs) {

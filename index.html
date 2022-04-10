@@ -8,34 +8,105 @@
 
   <body>
     <div id="app">
-      <h1 class="title">🍿 자판기 🍿</h1>
-      <nav class="nav">
-        <button
-          type="button"
-          class="nav__button active"
-          name="product-management"
-          data-pathname="/"
-        >
-          상품 관리
-        </button>
-        <button
-          type="button"
-          class="nav__button"
-          name="coin-charge"
-          data-pathname="/charge"
-        >
-          잔돈 충전
-        </button>
-        <button
-          type="button"
-          class="nav__button"
-          name="product-purchase"
-          data-pathname="/purchase"
-        >
-          상품 구매
-        </button>
-      </nav>
-      <main id="main-content"></main>
+      <div id="main">
+        <button type="button" class="signin-button nav__button">로그인</button>
+        <button type="button" class="thumbnail" hidden></button>
+        <div class="select-box hide">
+          <button class="select-box__item" name="edit-button">
+            회원정보 수정
+          </button>
+          <button class="select-box__item" name="signout-button">
+            로그아웃
+          </button>
+        </div>
+        <h1 class="title">🍿 자판기 🍿</h1>
+        <nav class="nav" hidden>
+          <button
+            type="button"
+            class="nav__button active"
+            name="product-management"
+            data-pathname="/"
+          >
+            상품 관리
+          </button>
+          <button
+            type="button"
+            class="nav__button"
+            name="coin-charge"
+            data-pathname="/charge"
+          >
+            잔돈 충전
+          </button>
+          <button
+            type="button"
+            class="nav__button"
+            name="product-purchase"
+            data-pathname="/purchase"
+          >
+            상품 구매
+          </button>
+        </nav>
+        <div id="main-content"></div>
+      </div>
+      <div id="sign" class="hide">
+        <h1 class="sign__title">로그인</h1>
+        <form class="sign__form">
+          <label class="sign__description input-description" for="sign-email">
+            이메일
+          </label>
+          <input
+            id="sign-email"
+            class="sign__input"
+            name="email"
+            type="email"
+            placeholder="이메일 주소를 입력해주세요"
+          />
+          <label
+            class="sign__description input-description hide"
+            for="sign-name"
+          >
+            이름
+          </label>
+          <input
+            id="sign-name"
+            class="sign__input hide"
+            name="name"
+            placeholder="이름을 입력해주세요"
+          />
+          <label
+            class="sign__description input-description"
+            for="sign-password"
+          >
+            비밀번호
+          </label>
+          <input
+            id="sign-password"
+            class="sign__input"
+            name="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <label
+            class="sign__description input-description hide"
+            for="sign-confirm-password"
+          >
+            비밀번호 확인
+          </label>
+          <input
+            id="sign-confirm-password"
+            class="sign__input hide"
+            name="confirm-password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <button class="sign__button">확인</button>
+        </form>
+        <span id="sign-in__link">
+          아직 회원이 아니신가요?
+          <button class="sign-in__link-button">회원가입</button>
+        </span>
+      </div>
     </div>
+    <div id="snackbar"></div>
   </body>
 </html>

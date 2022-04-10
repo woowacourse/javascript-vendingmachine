@@ -30,5 +30,6 @@ module.exports = {
     'no-undef': 'off',
     'no-unused-vars': 'off',
     'no-continue': 'off',
+    'prefer-destructuring': ['error', { array: false }],
   },
 };

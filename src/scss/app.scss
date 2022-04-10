@@ -4,13 +4,16 @@
   width: 600px;
   min-height: 675px;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 32px 0;
   background-color: $color-app-background;
   border: 1px solid $color-app-border;
   border-radius: 4px;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -52,6 +55,10 @@ input {
     &.active {
       background: $color-brand-secondary;
     }
+
+    &:hover {
+      background-color: $color-brand-secondary;
+    }
   }
 }
 
@@ -91,4 +98,72 @@ input {
 
 .input-section {
   margin-bottom: 48px;
+}
+
+.signin-button {
+  position: absolute;
+  margin-top: 12px;
+  margin-left: 460px;
+}
+
+.thumbnail {
+  position: absolute;
+  margin-top: 12px;
+  margin-left: 530px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $color-brand-tertiary;
+}
+
+.select-box {
+  position: absolute;
+  margin-top: 60px;
+  margin-left: 490px;
+  background: white;
+  border: 1px solid $color-app-border;
+  border-radius: 3px;
+  width: 100px;
+  text-align: center;
+  animation: selectBoxFadeout 0.3s;
+
+  &__item {
+    width: 100px;
+    height: 35px;
+    background: none;
+
+    &:hover {
+      background: $color-brand-secondary;
+    }
+  }
+
+  &.active {
+    animation: selectBoxFadein 0.3s;
+  }
+}
+
+@keyframes selectBoxFadein {
+  from {
+    opacity: 0;
+    top: 20px;
+  }
+  to {
+    opacity: 1;
+    top: 33px;
+  }
+}
+
+@keyframes selectBoxFadeout {
+  from {
+    opacity: 1;
+    top: 33px;
+  }
+  to {
+    opacity: 0;
+    top: 20px;
+  }
+}
+
+.hide {
+  display: none !important;
 }

@@ -1,9 +1,10 @@
-import { $, replaceHTML } from '../../utils/dom';
+import CoinManagementDomain from '../../../domain/CoinManagementDomain/CoinManagement';
+import { $, replaceHTML } from '../../../utils/dom';
 
 export default class CoinHoldingsUI {
-  private coinDomain;
+  private readonly coinDomain: CoinManagementDomain;
 
-  constructor(coinDomain) {
+  constructor(coinDomain: CoinManagementDomain) {
     this.coinDomain = coinDomain;
     this.render();
   }
@@ -24,9 +25,9 @@ export default class CoinHoldingsUI {
       .reverse()
       .map(
         type => `
-        <div class="coin-holdings__item grid-item">${type}원</div>
-        <div class="coin-holdings__item grid-item">${coins[type]}개</div>
-      `,
+          <div class="coin-holdings__item grid-item">${type}원</div>
+          <div class="coin-holdings__item grid-item">${coins[type]}개</div>
+        `,
       )
       .join('');
 

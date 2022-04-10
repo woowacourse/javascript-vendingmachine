@@ -1,24 +1,22 @@
-import {
-  MAX_NAME_LENGTH,
-  MAX_QUANTITY,
-  MESSAGE,
-  PRICE_RULE,
-} from '../../constants';
-import { isInvalidNumber } from '../../utils/validator';
 import Product from '../Product';
+import { MAX_NAME_LENGTH, MAX_QUANTITY, PRICE_RULE } from '../../constants';
+import { VENDING_MACHINE_MESSAGE } from '../../constants/message';
+import { isInvalidNumber } from '../../utils/validator';
 import { ProductInfo, ProductInfoUnionType } from '../types';
 
 const findEmptyField = (
   product: ProductInfo,
 ): { isEmpty: boolean; target: ProductInfoUnionType } => {
-  let target;
-  const isEmpty = Object.keys(product).some(key => {
+  let target: ProductInfoUnionType;
+
+  const isEmpty = Object.keys(product).some((key: ProductInfoUnionType) => {
     target = key;
     if (typeof product[key] === 'number') {
       return Number.isNaN(product[key]);
     }
-    return product[key].trim() === '';
+    return product[key].toString().trim() === '';
   });
+
   return { isEmpty, target };
 };
 
@@ -50,27 +48,27 @@ const generateProductInfoValidators = (
 ): Validator[] => [
   {
     test: findEmptyField(newProduct).isEmpty,
-    errorMsg: MESSAGE.ERROR_EMPTY_VALUE,
+    errorMsg: VENDING_MACHINE_MESSAGE.ERROR_EMPTY_VALUE,
     target: findEmptyField(newProduct).target,
   },
   {
     test: hasSameProduct(products, newProduct, prevProductName),
-    errorMsg: MESSAGE.ERROR_SAME_PRODUCT,
+    errorMsg: VENDING_MACHINE_MESSAGE.ERROR_SAME_PRODUCT,
     target: 'name',
   },
   {
     test: isOverMaxLength(newProduct.name),
-    errorMsg: MESSAGE.ERROR_OVER_MAX_LENGTH,
+    errorMsg: VENDING_MACHINE_MESSAGE.ERROR_OVER_MAX_LENGTH,
     target: 'name',
   },
   {
     test: isInvalidNumber(newProduct.price, PRICE_RULE),
-    errorMsg: MESSAGE.ERROR_INVALID_PRICE,
+    errorMsg: VENDING_MACHINE_MESSAGE.ERROR_INVALID_PRICE,
     target: 'price',
   },
   {
     test: isQuantityRanged(newProduct.quantity),
-    errorMsg: MESSAGE.ERROR_OVER_MAX_QUANTITY,
+    errorMsg: VENDING_MACHINE_MESSAGE.ERROR_OVER_MAX_QUANTITY,
     target: 'quantity',
   },
 ];
