@@ -1,5 +1,5 @@
 Cypress.Commands.add('login', () => {
-  const email = '604jhy@naver.com';
+  const email = 'asdqwe@naver.com';
   const password = 'asdqwe123!';
 
   cy.get('login-header button').click();
@@ -10,7 +10,7 @@ Cypress.Commands.add('login', () => {
 
 Cypress.Commands.add('addProduct', (name, price, quantity) => {
   cy.get('[data-destination=product-manage-tab]').click();
-  cy.wait(500);
+  cy.wait(1000);
 
   cy.get('[name=product-name]').type(name);
   cy.get('[name=product-price]').type(price);
@@ -20,7 +20,7 @@ Cypress.Commands.add('addProduct', (name, price, quantity) => {
 
 Cypress.Commands.add('insertMoney', (money) => {
   cy.get('[data-destination=purchase-product-tab]').click();
-  cy.wait(500);
+  cy.wait(1000);
 
   cy.get('purchase-product-form input').type(money);
   cy.get('purchase-product-form button').click();
