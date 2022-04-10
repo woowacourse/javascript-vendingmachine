@@ -1,5 +1,5 @@
 import { CHARGE } from "../../utils/constants";
-import { CoinType, ProductProps, PurchaseInfoProps, PurchaseProductProps } from "../../utils/interface";
+import { CoinsType, CoinType, ProductProps, PurchaseInfoProps, PurchaseProductProps } from "../../utils/interface";
 import { validatePossiblePurchaseProduct } from "../../utils/validation";
 
 class PurchaseInfo implements PurchaseInfoProps{
@@ -7,6 +7,7 @@ class PurchaseInfo implements PurchaseInfoProps{
   insertMoney: number;
   coinsKindCount: CoinType;
   returnCoinsKindCount: CoinType;
+  insertMoneyOnlyCoin: number;
 
   constructor() {
     this.updateProductList();
@@ -24,33 +25,31 @@ class PurchaseInfo implements PurchaseInfoProps{
     this.setCoinList();
   }
 
-  calulateReturnCharge(returnCharge: number) {
+  calulateReturnCharge(insertMoneyOnlyCoin: number) {
     this.returnCoinsKindCount = { 10: 0, 50: 0, 100: 0, 500: 0 };
     this.coinsKindCount = this.getCoinList();
+    this.insertMoneyOnlyCoin = insertMoneyOnlyCoin;
 
-    while(returnCharge !== 0) {
-      if (returnCharge >= 500 && this.coinsKindCount[500] > 0) {
-        returnCharge -= 500;
-        this.coinsKindCount[500] -= 1;
-        this.returnCoinsKindCount[500] += 1;
-      } else if (returnCharge >= 100 && this.coinsKindCount[100] > 0) {
-        returnCharge -= 100;
-        this.coinsKindCount[100] -= 1;
-        this.returnCoinsKindCount[100] += 1;
-      } else if (returnCharge >= 50 && this.coinsKindCount[50] > 0) {
-        returnCharge -= 50;
-        this.coinsKindCount[50] -= 1;
-        this.returnCoinsKindCount[50] += 1;
-      } else if (returnCharge >= 10) { 
-        if (this.coinsKindCount[10] > 0) {
-          returnCharge -= 10;
-          this.coinsKindCount[10] -= 1;
-          this.returnCoinsKindCount[10] += 1;
-        } else if (this.coinsKindCount[10] === 0) {
-          break;
-        }
+    while(this.insertMoneyOnlyCoin !== 0) {
+      if (this.insertMoneyOnlyCoin >= 500 && this.coinsKindCount[500] > 0) {
+        this.operationDependCoinKind(500);
+      } else if (this.insertMoneyOnlyCoin >= 100 && this.coinsKindCount[100] > 0) {
+        this.operationDependCoinKind(100);
+      } else if (this.insertMoneyOnlyCoin >= 50 && this.coinsKindCount[50] > 0) {
+        this.operationDependCoinKind(50);
+      } else if (this.insertMoneyOnlyCoin >= 10 && this.coinsKindCount[10] > 0) { 
+        this.operationDependCoinKind(10);
+      }
+      if (this.insertMoneyOnlyCoin >= 10 && this.coinsKindCount[10] === 0) {
+        break;
       }
     }
+  }
+
+  operationDependCoinKind(coinKind : CoinsType) {
+    this.insertMoneyOnlyCoin -= coinKind;
+    this.coinsKindCount[coinKind] -= 1;
+    this.returnCoinsKindCount[coinKind] += 1;
   }
 
   updateProductList() {

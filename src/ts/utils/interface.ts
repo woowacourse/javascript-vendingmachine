@@ -110,7 +110,9 @@ interface ValidateEmailInfoProps {
 
 type ConvertTemplate = (path: string) => void;
 
-type Coins = 500 | 100 | 50 | 10;
+type PagePath = "#login" | "#signup" | "#editMember" | "#product" | "#charge" | "#purchase";
+
+type CoinsType = 500 | 100 | 50 | 10;
 
 export { 
   ProductInfoProps,
@@ -128,5 +130,6 @@ export {
   ValidateEmailInfoProps,
   RegisterUserProps,
   ConvertTemplate,
-  CoinType
+  CoinType,
+  CoinsType,
 };
