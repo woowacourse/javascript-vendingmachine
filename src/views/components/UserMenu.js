@@ -12,7 +12,7 @@ class UserMenu extends Component {
         <div class="thumbnail">
           <button id="user-thumbnail" class="thumbnail styled-button">${user.name[0]}</button>
           <ul id="user-menu" class="dropdown-menu">
-            <li><a-link id="profile-link" href="/profile">회원 정보 수정</a-link></li>
+            <li><a-link id="profile-link" href="${PAGES.PROFILE.PATH}">회원 정보 수정</a-link></li>
             <li><button id="logout-link">로그아웃</button></li>
           </ul>
         </div>
@@ -20,7 +20,7 @@ class UserMenu extends Component {
     }
 
     return `
-      <a-link id="login-link" href="/login" class="login-button styled-button">로그인</a-link>
+      <a-link id="login-link" href="${PAGES.LOGIN.PATH}" class="login-button styled-button">로그인</a-link>
     `;
   }
 
