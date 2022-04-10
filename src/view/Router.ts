@@ -70,192 +70,30 @@ export class Router {
     this.#productPurchaseNavBtn.addEventListener('click', this.#handleShowProductPurchaseTab);
     this.#loginBtn.addEventListener('click', this.#handleShowLoginPage);
     this.#authSection.addEventListener('signupPageRequested', this.#handleShowSignupPage);
-    this.#authSection.addEventListener('loginCompleted', this.#renderHome);
-    this.#authSection.addEventListener('editUserInfoCompleted', this.#renderHome);
+    this.#authSection.addEventListener('loginCompleted', this.#handleShowHome);
+    this.#authSection.addEventListener('editUserInfoCompleted', this.#handleShowHome);
     this.#thumbnail.addEventListener('showEditUserInfoRequested', this.#handleShowEditUserInfoPage);
-    this.#thumbnail.addEventListener('logoutCompleted', this.#renderHome);
+    this.#thumbnail.addEventListener('logoutCompleted', this.#handleShowHome);
     window.addEventListener('popstate', this.#handlePopstate);
 
-    // 홈 화면 렌더링
-    this.#renderHome();
+    // 홈 화면 렌더링 or 새로고침 렌더링
+    const path =
+      location.pathname === URL_PATH.HOME ? URL_PATH.PRODUCT_PURCHASE : location.pathname;
+    this.#handleHistoryState(path);
   }
 
   #handlePopstate = (e) => {
     const { path } = e.state;
     const accessToken = localStorage.getItem('accessToken');
 
-    switch (path) {
-      case URL_PATH.PRODUCT_MANAGE:
-        if (!accessToken) return this.#renderHome();
-
-        this.#productPurchaseView.hide();
-        this.#authSection.classList.add('hide');
-        this.#balanceChargeView.hide();
-
-        this.#productManageView.show();
-        this.#thumbnail.classList.remove('hide');
-        this.#featureSection.classList.remove('hide');
-
-        break;
-
-      case URL_PATH.BALANCE_CHAREGE:
-        if (!accessToken) return this.#renderHome();
-
-        this.#productPurchaseView.hide();
-        this.#productManageView.hide();
-        this.#authSection.classList.add('hide');
-
-        this.#thumbnail.classList.remove('hide');
-        this.#balanceChargeView.show();
-        this.#featureSection.classList.remove('hide');
-
-        break;
-
-      case URL_PATH.PRODUCT_PURCHASE:
-        this.#balanceChargeView.hide();
-        this.#productManageView.hide();
-        this.#authSection.classList.add('hide');
-
-        this.#productPurchaseView.show();
-        this.#featureSection.classList.remove('hide');
-
-        if (accessToken) {
-          this.#thumbnail.classList.remove('hide');
-          this.#profile.render();
-          this.#nav.classList.remove('hide');
-
-          break;
-        }
-
-        this.#loginBtn.classList.remove('hide');
-
-        break;
-
-      case URL_PATH.LOGIN:
-        this.#featureSection.classList.add('hide');
-        this.#loginBtn.classList.add('hide');
-
-        this.#authSection.classList.remove('hide');
-        this.#authSection.textContent = '';
-        this.#loginView.render();
-
-        break;
-
-      case URL_PATH.SIGNUP:
-        this.#featureSection.classList.add('hide');
-        this.#loginBtn.classList.add('hide');
-
-        this.#authSection.classList.remove('hide');
-        this.#authSection.textContent = '';
-        this.#signupView.render();
-
-        break;
-
-      case URL_PATH.EDIT_USER_INFO:
-        this.#featureSection.classList.add('hide');
-        this.#thumbnail.classList.add('hide');
-
-        this.#authSection.classList.remove('hide');
-        this.#authSection.textContent = '';
-        this.#userInfoEditView.render();
-
-        break;
-
-      default:
-        this.#renderHome();
-    }
-  };
-
-  #handleShowProductManageTab = () => {
-    if (!this.#productManageView.getIsRendered()) {
-      this.#productManageView.renderAll();
-    }
-
-    this.#balanceChargeView.hide();
-    this.#productPurchaseView.hide();
-    this.#productManageView.show();
-
-    this.#handleHistoryState(URL_PATH.PRODUCT_MANAGE);
-  };
-
-  #handleShowBalanceChargeTab = () => {
-    if (!this.#balanceChargeView.getIsRendered()) {
-      this.#balanceChargeView.renderAll();
-    }
-
-    this.#productPurchaseView.hide();
-    this.#productManageView.hide();
-    this.#balanceChargeView.show();
-
-    this.#handleHistoryState(URL_PATH.BALANCE_CHAREGE);
-  };
-
-  #handleShowProductPurchaseTab = () => {
-    if (!this.#productPurchaseView.getIsRendered()) {
-      this.#productPurchaseView.renderAll();
-    }
-
-    this.#balanceChargeView.hide();
-    this.#productManageView.hide();
-    this.#productPurchaseView.show();
-
-    this.#handleHistoryState(URL_PATH.PRODUCT_PURCHASE);
-  };
-
-  #handleShowLoginPage = () => {
-    this.#featureSection.classList.add('hide');
-    this.#loginBtn.classList.add('hide');
-
-    this.#authSection.classList.remove('hide');
-    this.#authSection.textContent = '';
-    this.#loginView.render();
-
-    this.#handleHistoryState(URL_PATH.LOGIN);
-  };
-
-  #handleShowSignupPage = () => {
-    this.#featureSection.classList.add('hide');
-    this.#loginBtn.classList.add('hide');
-
-    this.#authSection.classList.remove('hide');
-    this.#authSection.textContent = '';
-    this.#signupView.render();
-
-    this.#handleHistoryState(URL_PATH.SIGNUP);
-  };
-
-  #handleShowEditUserInfoPage = () => {
-    this.#featureSection.classList.add('hide');
-    this.#thumbnail.classList.add('hide');
-
-    this.#authSection.classList.remove('hide');
-    this.#authSection.textContent = '';
-    this.#userInfoEditView.render();
-
-    this.#handleHistoryState(URL_PATH.EDIT_USER_INFO);
-  };
-
-  #renderHome = () => {
-    this.#authSection.classList.add('hide');
-    this.#featureSection.classList.remove('hide');
-
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (accessToken) {
-      this.#profile.render();
-      this.#thumbnail.classList.remove('hide');
-      this.#loginBtn.classList.add('hide');
-      this.#nav.classList.remove('hide');
-    } else {
-      this.#thumbnail.classList.add('hide');
-      this.#loginBtn.classList.remove('hide');
-      this.#nav.classList.add('hide');
-    }
-
-    this.#handleShowProductPurchaseTab();
+    this.#routes(path, accessToken);
   };
 
   #handleHistoryState(path: string) {
+    const accessToken = localStorage.getItem('accessToken');
+
+    this.#routes(path, accessToken);
+
     const isSamePath = location.pathname === path;
 
     if (isSamePath) {
@@ -266,13 +104,104 @@ export class Router {
 
     history.pushState({ path }, null, path);
   }
-}
 
-// const routes = (path) => {
-//   switch (path) {
-//     case '/login':
-//       console.log('login');
-//     case '/productPurchase':
-//       console.log('productPurchase');
-//   }
-// };
+  #routes = (path, accessToken = null) => {
+    const featureTabs = {
+      [URL_PATH.PRODUCT_MANAGE]: this.#productManageView,
+      [URL_PATH.BALANCE_CHARGE]: this.#balanceChargeView,
+      [URL_PATH.PRODUCT_PURCHASE]: this.#productPurchaseView,
+    };
+
+    const authPages = {
+      [URL_PATH.LOGIN]: this.#loginView,
+      [URL_PATH.EDIT_USER_INFO]: this.#userInfoEditView,
+      [URL_PATH.SIGNUP]: this.#signupView,
+    };
+
+    switch (path) {
+      case URL_PATH.PRODUCT_MANAGE:
+      case URL_PATH.BALANCE_CHARGE:
+      case URL_PATH.PRODUCT_PURCHASE:
+        const notPermittedAccess =
+          !accessToken && (path === URL_PATH.PRODUCT_MANAGE || path === URL_PATH.BALANCE_CHARGE);
+
+        if (notPermittedAccess) {
+          this.#handleShowHome();
+
+          break;
+        }
+
+        this.#showAndHideTabs(featureTabs, path);
+
+        if (!featureTabs[path].getIsRendered()) {
+          featureTabs[path].renderAll();
+        }
+
+        this.#authSection.classList.add('hide');
+
+        this.#loginBtn.classList.toggle('hide', accessToken);
+        this.#nav.classList.toggle('hide', !accessToken);
+        this.#thumbnail.classList.toggle('hide', !accessToken);
+
+        accessToken && this.#profile.render();
+        this.#featureSection.classList.remove('hide');
+
+        break;
+
+      case URL_PATH.LOGIN:
+      case URL_PATH.EDIT_USER_INFO:
+      case URL_PATH.SIGNUP:
+        this.#featureSection.classList.add('hide');
+        this.#loginBtn.classList.add('hide');
+
+        this.#authSection.classList.remove('hide');
+        this.#authSection.textContent = '';
+
+        authPages[path].render();
+
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  #handleShowProductManageTab = () => {
+    this.#handleHistoryState(URL_PATH.PRODUCT_MANAGE);
+  };
+
+  #handleShowBalanceChargeTab = () => {
+    this.#handleHistoryState(URL_PATH.BALANCE_CHARGE);
+  };
+
+  #handleShowProductPurchaseTab = () => {
+    this.#handleHistoryState(URL_PATH.PRODUCT_PURCHASE);
+  };
+
+  #handleShowLoginPage = () => {
+    this.#handleHistoryState(URL_PATH.LOGIN);
+  };
+
+  #handleShowSignupPage = () => {
+    this.#handleHistoryState(URL_PATH.SIGNUP);
+  };
+
+  #handleShowEditUserInfoPage = () => {
+    this.#handleHistoryState(URL_PATH.EDIT_USER_INFO);
+  };
+
+  #handleShowHome = () => {
+    this.#handleHistoryState(URL_PATH.PRODUCT_PURCHASE);
+  };
+
+  #showAndHideTabs(featureTabs: object, path) {
+    Object.entries(featureTabs).forEach(([key, tab]) => {
+      if (key === path) {
+        tab.show();
+
+        return;
+      }
+      tab.hide();
+    });
+  }
+}
