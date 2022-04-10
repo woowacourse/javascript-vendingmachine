@@ -1,4 +1,7 @@
+import { ACTION } from './constatns/flux-constants';
 import { PAGE } from './constatns/routing-constants';
+import createAction from './flux/createAction';
+import Store from './flux/store';
 import { getUserInfo } from './member';
 import { $ } from './utils';
 
@@ -32,7 +35,9 @@ class Router {
     return Router._instance;
   }
 
-  private onLoad() {
+  private async onLoad() {
+    const { email, name } = await getUserInfo();
+    Store.instance.dispatch(createAction(ACTION.LOGIN, { email, name }));
     this.onLocationChange();
   }
 
@@ -49,14 +54,10 @@ class Router {
       this.header === undefined
     )
       return;
-    const isLogin = !!(await getUserInfo());
 
-    if (isLogin) {
-      this.loginHeader.innerHTML = PAGE.LOGIN_INFO;
-    } else {
-      this.loginHeader.innerHTML = PAGE.LOGIN_HEADER;
-    }
+    const { isLogin } = Store.instance.getState().login;
 
+    this.loginHeader.innerHTML = isLogin ? PAGE.LOGIN_INFO : PAGE.LOGIN_HEADER;
     this.pageContainer.replaceChildren();
     this.memberContainer.replaceChildren();
 

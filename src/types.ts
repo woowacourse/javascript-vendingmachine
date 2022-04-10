@@ -8,6 +8,7 @@ export type Action = {
 };
 
 export type AppState = {
+  login: loginInfo;
   chargedMoney: number;
   insertedMoney: number;
   chargedCoins: CoinRecord;
@@ -19,6 +20,12 @@ export interface ComponentConstructor {
   new (): Component;
   _tagName?: string;
 }
+
+export type loginInfo = {
+  isLogin: boolean;
+  email: string;
+  name: string;
+};
 
 export type ProductItem = {
   name: string;

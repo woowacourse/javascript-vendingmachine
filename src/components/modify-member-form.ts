@@ -1,6 +1,7 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import { getUserInfo, updateInfo } from '../member';
+import Store from '../flux/store';
+import { updateInfo } from '../member';
 import { EventOnElement } from '../types';
 import { showSnack } from '../utils';
 import { validateSignUp } from '../validation/validators';
@@ -63,7 +64,7 @@ class ModifyMemberForm extends Component {
   }
 
   async render() {
-    const { email, name } = await getUserInfo();
+    const { email, name } = Store.instance.getState().login;
     this.innerHTML = this.template(email, name);
   }
 }

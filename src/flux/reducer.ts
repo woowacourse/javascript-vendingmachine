@@ -82,11 +82,21 @@ const reducer = (state: AppState, { type, payload }: Action) => {
       if (newState.productList[productIndex].quantity === 0) {
         newState.productList.splice(productIndex, 1);
       }
-
+      break;
+    }
+    case ACTION.LOGIN: {
+      newState.login.isLogin = true;
+      newState.login.email = payload.email;
+      newState.login.name = payload.name;
+      break;
+    }
+    case ACTION.LOGOUT: {
+      newState.login.isLogin = false;
+      newState.login.email = '';
+      newState.login.name = '';
       break;
     }
   }
-
   return newState;
 };
 

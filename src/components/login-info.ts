@@ -1,7 +1,9 @@
 import Component from '../abstract/component';
 import { MEMBER } from '../constatns/auth-constants';
+import { ACTION } from '../constatns/flux-constants';
 import { customElement } from '../decorators/decortators';
-import { getUserInfo } from '../member';
+import createAction from '../flux/createAction';
+import Store from '../flux/store';
 import Router from '../router';
 import { showSnack } from '../utils';
 
@@ -33,13 +35,14 @@ class LoginInfo extends Component {
 
   onClickLogOut = () => {
     localStorage.removeItem('user-info');
+    Store.instance.dispatch(createAction(ACTION.LOGOUT, ''));
     Router.pushState('/');
     showSnack(MEMBER.SUCCESS_LOG_OUT);
   };
 
   async getFirstSpelling() {
-    const userInfo = await getUserInfo();
-    return userInfo.name[0];
+    const { name } = Store.instance.getState().login;
+    return name[0];
   }
 
   mount() {
@@ -51,4 +54,5 @@ class LoginInfo extends Component {
     this.innerHTML = this.template(thumbnail);
   }
 }
+
 export default LoginInfo;

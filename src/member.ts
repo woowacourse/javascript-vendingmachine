@@ -1,4 +1,7 @@
 import { MEMBER } from './constatns/auth-constants';
+import { ACTION } from './constatns/flux-constants';
+import createAction from './flux/createAction';
+import Store from './flux/store';
 import Router from './router';
 import { showSnack } from './utils';
 
@@ -30,6 +33,7 @@ export async function login(email: BodyInit, password: BodyInit) {
   };
   localStorage.setItem('user-info', JSON.stringify(user));
 
+  Store.instance.dispatch(createAction(ACTION.LOGIN, { email, name: info.user.name }));
   showSnack(MEMBER.SUCCESS_LOGIN);
   Router.pushState('/');
 }

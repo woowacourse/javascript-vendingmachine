@@ -10,11 +10,18 @@ export const ACTION = {
   INSERT_MONEY: 'insert-money',
   RETURN_CHANGES: 'return-changes',
   PURCHASE_PRODUCT: 'purchase-product',
+  LOGIN: 'login',
+  LOGOUT: 'logout',
 };
 
 export const COIN_UNITS = [500, 100, 50, 10];
 
 export const INITIAL_STATE: AppState = {
+  login: {
+    isLogin: false,
+    email: '',
+    name: '',
+  },
   chargedMoney: 0,
   insertedMoney: 0,
   chargedCoins: {
