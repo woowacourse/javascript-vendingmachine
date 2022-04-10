@@ -38,6 +38,7 @@ export default class Router {
 
   private tabRouter = (url: string, isPopState = false) => {
     if (!auth.isLoggedIn) {
+      this.view.renderPage(PATH_ID.PURCHASE_PRODUCT);
       this.renderPublicPage();
       history.pushState({ url }, null, url);
       return;
