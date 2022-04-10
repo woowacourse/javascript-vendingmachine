@@ -1,8 +1,20 @@
 import { SNACKBAR_DELAY_TIME } from './constants';
 
-export const showSnackBar = mention => {
-  const snackBar = document.querySelector('.snack-bar');
-  snackBar.textContent = mention;
-  snackBar.classList.add('is-active');
-  setTimeout(() => snackBar.classList.remove('is-active'), SNACKBAR_DELAY_TIME);
+const snackBar = () => {
+  const snackBarElement = document.querySelector('.snack-bar');
+  let isExistSnackBar = null;
+
+  return mention => {
+    if (isExistSnackBar) return;
+    snackBarElement.textContent = mention;
+    snackBarElement.classList.add('is-active');
+
+    isExistSnackBar = setTimeout(() => {
+      snackBarElement.classList.remove('is-active');
+      clearTimeout(isExistSnackBar);
+      isExistSnackBar = null;
+    }, SNACKBAR_DELAY_TIME);
+  };
 };
+
+export const showSnackBar = snackBar();
