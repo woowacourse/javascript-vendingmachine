@@ -173,7 +173,7 @@ class Signup extends HTMLElement {
         return;
       }
       this.closeModal();
-      // renderComponent('log-in');
+      renderComponent('log-in');
       renderToastModal('success', SUCCESS_MESSAGE.SIGNUP_COMPLETE);
     } catch (error) {
       renderToastModal('error', error.message);
