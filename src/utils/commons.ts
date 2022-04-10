@@ -93,6 +93,6 @@ export const convertStringToBoolean = (str: string): boolean | null => {
     case 'null':
       return null;
     default:
-      return undefined;
+      return null;
   }
 };
