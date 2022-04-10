@@ -53,7 +53,7 @@ export const ERROR_MESSAGE = {
 
 export const URL_PATH = {
   HOME: '/',
-  BALANCE_CHAREGE: '/balanceCharge',
+  BALANCE_CHARGE: '/balanceCharge',
   LOGIN: '/login',
   SIGNUP: '/signup',
   EDIT_USER_INFO: '/editUserInfo',
