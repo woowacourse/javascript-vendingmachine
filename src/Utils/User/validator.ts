@@ -7,7 +7,7 @@ export const isPassEmailRules = (email: string): boolean => {
 };
 
 export const isPassPasswordRules = (password: string): boolean => {
-  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/g;
+  const regex = /^.*(?=.{6,})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
   return regex.test(password);
 };
 
