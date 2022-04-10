@@ -75,14 +75,16 @@ export class Profile implements ProfileInterface {
     this.#logoutBtn.addEventListener('click', this.#handleLogout);
   }
 
-  #handleToggleSelectContainer = () => {
-    this.#selectContainer.classList.toggle('hide');
+  #handleToggleSelectContainer = (e) => {
+    if (e.target === this.#target || e.target === this.#thumbnailName) {
+      this.#toggleSelectContainer();
+    }
   };
 
   #handleRequestEditUserInfoPage = () => {
     this.#target.dispatchEvent(new CustomEvent('showEditUserInfoRequested'));
 
-    this.#handleToggleSelectContainer();
+    this.#toggleSelectContainer();
   };
 
   #handleLogout = () => {
@@ -90,6 +92,10 @@ export class Profile implements ProfileInterface {
 
     this.#target.dispatchEvent(new CustomEvent('logoutCompleted'));
 
-    this.#handleToggleSelectContainer();
+    this.#toggleSelectContainer();
   };
+
+  #toggleSelectContainer() {
+    this.#selectContainer.classList.toggle('hide');
+  }
 }

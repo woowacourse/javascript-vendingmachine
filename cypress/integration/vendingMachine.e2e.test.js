@@ -66,7 +66,7 @@ describe('로그인 사용자 e2e 테스트', () => {
 
       cy.get(`#product-table #${productName}`).as('firstProduct');
       cy.get('@firstProduct').find('.edit-button').click();
-      
+
       cy.get('@firstProduct').find('.product-name input').should('have.value', productName);
       cy.get('@firstProduct').find('.product-price input').should('have.value', productPrice);
       cy.get('@firstProduct').find('.product-quantity input').should('have.value', productQuantity);
@@ -172,7 +172,7 @@ describe('비로그인 사용자 e2e 테스트', () => {
     });
 
     it('유저 썸네일 버튼을 클릭했을때, 로그아웃 버튼과 회원 정보 수정 버튼이 보여야한다.', () => {
-      cy.get('.thumbnail .name').click();
+      cy.get('.thumbnail').click();
 
       cy.get('.select-container').should('be.visible');
       cy.get('.edit-user-info-button').should('be.visible');
