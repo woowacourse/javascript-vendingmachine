@@ -40,12 +40,11 @@ export default class Router {
 
   private tabRouter = (url: string, isPopState = false) => {
     if (!auth.isLoggedIn) {
-      this.view.renderPage(url);
       this.renderPublicPage();
       history.pushState({ url }, null, url);
       return;
     }
-
+    this.view.renderPage(url);
     this.renderUserPrivatePage();
 
     if (!isPopState && url !== location.pathname + location.hash) {
