@@ -1,4 +1,3 @@
-// import { editProfileAuth, getUserData } from '../Auth.js';
 import auth from '../Auth.js';
 import { SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';

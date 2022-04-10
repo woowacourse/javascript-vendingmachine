@@ -1,4 +1,3 @@
-// import { loginAuth } from '../Auth.js';
 import auth from '../Auth.js';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';

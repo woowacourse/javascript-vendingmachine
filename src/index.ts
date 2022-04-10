@@ -5,11 +5,11 @@ import VendingMachine from './ts/domains/VendingMachine';
 import Router from './ts/router';
 import auth from './ts/Auth.js';
 
-import './ts/components/ToastNotification';
-import './ts/components/Signup';
-import './ts/components/Login';
-import './ts/components/ProfileEdit';
-import './ts/components/UserMenu';
+import './ts/components/ToastNotification.ts';
+import './ts/components/Signup.ts';
+import './ts/components/Login.ts';
+import './ts/components/ProfileEdit.ts';
+import './ts/components/UserMenu.ts';
 
 (async () => {
   await auth.checkUserLoginStatus();
