@@ -40,7 +40,7 @@ describe('금액 투입 테스트', () => {
     });
   });
 
-  it('사용자는 규칙에 적합한 금액을 투입할 수 있다', () => {
+  it('사용자는 규칙(10의 배수, 누적 10,000원 이하)에 적합한 금액을 투입할 수 있다', () => {
     const money = '10000';
     cy.get('#insert-money-input').type(money);
     cy.get('#insert-button').click();
@@ -91,6 +91,13 @@ describe('상품 구매 테스트', () => {
 });
 
 describe('잔돈 반환 테스트', () => {
+  beforeEach(() => {
+    // alias
+    cy.get('#purchase-tab-coin-500').last().as('coin500');
+    cy.get('#purchase-tab-coin-100').last().as('coin100');
+    cy.get('#purchase-tab-coin-50').last().as('coin50');
+    cy.get('#purchase-tab-coin-10').last().as('coin10');
+  });
   it('보유한 동전이 모든 잔돈을 반환할 만큼 충분한 경우, 잔돈 반환 버튼을 누르면 최적 개수의 잔돈이 반환된다', () => {
     const money = [
       {
@@ -115,10 +122,10 @@ describe('잔돈 반환 테스트', () => {
 
     cy.get('#refund-button').click();
 
-    cy.get('#purchase-tab-coin-500').last().should('have.text', '1');
-    cy.get('#purchase-tab-coin-100').last().should('have.text', '4');
-    cy.get('#purchase-tab-coin-50').last().should('have.text', '1');
-    cy.get('#purchase-tab-coin-10').last().should('have.text', '4');
+    cy.get('@coin500').should('have.text', '1');
+    cy.get('@coin100').should('have.text', '4');
+    cy.get('@coin50').should('have.text', '1');
+    cy.get('@coin10').should('have.text', '4');
     cy.checkToastMessage(SUCCESS_MESSAGE.REFUND_COMPLETE);
   });
 
@@ -146,20 +153,20 @@ describe('잔돈 반환 테스트', () => {
 
     cy.get('#refund-button').click();
 
-    cy.get('#purchase-tab-coin-500').last().should('have.text', '1');
-    cy.get('#purchase-tab-coin-100').last().should('have.text', '4');
-    cy.get('#purchase-tab-coin-50').last().should('have.text', '1');
-    cy.get('#purchase-tab-coin-10').last().should('have.text', '1');
+    cy.get('@coin500').should('have.text', '1');
+    cy.get('@coin100').should('have.text', '4');
+    cy.get('@coin50').should('have.text', '1');
+    cy.get('@coin10').should('have.text', '1');
     cy.checkToastMessage('보유 중인 잔돈이 부족하여, 30원은 반환하지 못하였습니다.');
   });
 
   it('잔여 금액이 없는 경우 잔돈 반환 버튼을 누르면, 반환할 잔돈이 없음을 알린다.', () => {
     cy.get('#refund-button').click();
 
-    cy.get('#purchase-tab-coin-500').last().should('have.text', '0');
-    cy.get('#purchase-tab-coin-100').last().should('have.text', '0');
-    cy.get('#purchase-tab-coin-50').last().should('have.text', '0');
-    cy.get('#purchase-tab-coin-10').last().should('have.text', '0');
+    cy.get('@coin500').should('have.text', '0');
+    cy.get('@coin100').should('have.text', '0');
+    cy.get('@coin50').should('have.text', '0');
+    cy.get('@coin10').should('have.text', '0');
     cy.checkToastMessage(ERROR_MESSAGE.NOT_INSERTED_HOLDING_MONEY);
   });
 });
