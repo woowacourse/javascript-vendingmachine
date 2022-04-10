@@ -1,5 +1,6 @@
 import { API_URL, AUTH_CONDITION, ERROR_MESSAGE } from '../utils/constants';
 import { UserInfoProps } from '../utils/interface';
+import { validator } from '../utils/validator';
 
 type loginInfoProps = Omit<UserInfoProps, 'name'>;
 
@@ -23,7 +24,12 @@ export class Auth implements AuthInterface {
       body: JSON.stringify(signupInfo),
     });
 
-    if (response.status === 400) throw new Error('같은 이메일이 존재합니다');
+    validator([
+      {
+        checker: () => response.status === 400,
+        errorMessage: ERROR_MESSAGE.SAME_EMAIL_EXIST,
+      },
+    ]);
   }
 
   login = async (loginInfo: loginInfoProps) => {
@@ -35,9 +41,12 @@ export class Auth implements AuthInterface {
       body: JSON.stringify(loginInfo),
     });
 
-    if (!response.ok) {
-      throw new Error('아이디와 비밀번호를 확인해주세요~');
-    }
+    validator([
+      {
+        checker: () => !response.ok,
+        errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
+      },
+    ]);
 
     const userInfo = await response.json();
 
@@ -57,9 +66,12 @@ export class Auth implements AuthInterface {
       body: JSON.stringify(editedUserInfo),
     });
 
-    if (!response.ok) {
-      throw new Error('아이디와 비밀번호를 확인해주세요~');
-    }
+    validator([
+      {
+        checker: () => !response.ok,
+        errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
+      },
+    ]);
   }
 
   logout() {
@@ -68,11 +80,14 @@ export class Auth implements AuthInterface {
   }
 
   isValidatedName(name: string): true | Error {
-    if (
-      name.length < AUTH_CONDITION.MIN_USER_NAME_LENGTH ||
-      name.length > AUTH_CONDITION.MAX_USER_NAME_LENGTH
-    )
-      throw Error(ERROR_MESSAGE.INVALID_USER_NAME_LENGTH);
+    validator([
+      {
+        checker: () =>
+          name.length < AUTH_CONDITION.MIN_USER_NAME_LENGTH ||
+          name.length > AUTH_CONDITION.MAX_USER_NAME_LENGTH,
+        errorMessage: ERROR_MESSAGE.INVALID_USER_NAME_LENGTH,
+      },
+    ]);
 
     return true;
   }
@@ -81,9 +96,16 @@ export class Auth implements AuthInterface {
     // 8~16자, 최소 영어, 숫자, 특수문자 포함
     const passwordRegExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 
-    if (!passwordRegExp.test(password)) throw Error(ERROR_MESSAGE.INVALID_USER_PASSWORD);
-
-    if (password !== passwordConfirmation) throw Error('비밀번호가 같지 않습니다.');
+    validator([
+      {
+        checker: () => !passwordRegExp.test(password),
+        errorMessage: ERROR_MESSAGE.INVALID_USER_PASSWORD,
+      },
+      {
+        checker: () => password !== passwordConfirmation,
+        errorMessage: ERROR_MESSAGE.NOT_SAME_PASSWORD,
+      },
+    ]);
 
     return true;
   }

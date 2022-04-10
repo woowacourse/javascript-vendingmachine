@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from '../utils/constants';
+import { validator } from '../utils/validator';
 
 interface PurchaseMoneyInterface {
   getMoney(): number;
@@ -30,8 +31,16 @@ export class PurchaseMoney implements PurchaseMoneyInterface {
   }
 
   #isValidatedMoney(money: number): true | Error {
-    if (money % 10 != 0) throw Error(ERROR_MESSAGE.INVALID_PURCHASE_MONEY);
-    if (money + this.#value > 10_000) throw Error(ERROR_MESSAGE.OVER_PURCHASE_MONEY_LIMIT);
+    validator([
+      {
+        checker: () => money % 10 != 0,
+        errorMessage: ERROR_MESSAGE.INVALID_PURCHASE_MONEY,
+      },
+      {
+        checker: () => money + this.#value > 10_000,
+        errorMessage: ERROR_MESSAGE.OVER_PURCHASE_MONEY_LIMIT,
+      },
+    ]);
 
     return true;
   }

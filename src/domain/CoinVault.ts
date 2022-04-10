@@ -7,7 +7,8 @@ import {
   ERROR_MESSAGE,
 } from '../utils/constants';
 import { Coins } from '../utils/interface';
-import { getRandomNumZeroToMax } from '../utils/domain.utils';
+import { getRandomNumZeroToMax } from '../utils/utils';
+import { validator } from '../utils/validator';
 
 interface CoinVaultInterface {
   getCoins(): Coins;
@@ -42,8 +43,9 @@ export class CoinVault implements CoinVaultInterface {
   }
 
   chargeMoney(money: number): void {
-    this.#validateMoney(money);
-    this.#addCoins(this.generateRandomCoins(money));
+    if (this.#isValidatedMoney(money)) {
+      this.#addCoins(this.generateRandomCoins(money));
+    }
   }
 
   #addCoins(coins: Coins): void {
@@ -54,16 +56,21 @@ export class CoinVault implements CoinVaultInterface {
     });
 
     this.setCoins(coinsQuantity);
-    // this.#coins = coinsQuantity;
   }
 
-  #validateMoney(money: number) {
-    if (money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE) {
-      throw new Error(ERROR_MESSAGE.OVER_BALANCE_LIMIT);
-    }
-    if (money % COIN_CONDITION.UNIT_PRICE !== 0) {
-      throw new Error(ERROR_MESSAGE.NOT_DIVIDED_BY_COIN_UNIT);
-    }
+  #isValidatedMoney(money: number): boolean {
+    validator([
+      {
+        checker: () => money + this.getBalance() > COIN_VAULT_CONDITION.MAX_BALANCE,
+        errorMessage: ERROR_MESSAGE.OVER_BALANCE_LIMIT,
+      },
+      {
+        checker: () => money % COIN_CONDITION.UNIT_PRICE !== 0,
+        errorMessage: ERROR_MESSAGE.NOT_DIVIDED_BY_COIN_UNIT,
+      },
+    ]);
+
+    return true;
   }
 
   generateRandomCoins(money: number): Coins {
@@ -108,10 +115,17 @@ export class CoinVault implements CoinVaultInterface {
     }
   }
 
-  #isValidatedReturnCoins(purchaseMoney: number): true | Error {
-    if (purchaseMoney === 0) throw Error(ERROR_MESSAGE.NO_PURCHASE_MONEY);
-
-    if (this.getBalance() === 0) throw Error(ERROR_MESSAGE.NO_COINS);
+  #isValidatedReturnCoins(purchaseMoney: number) {
+    validator([
+      {
+        checker: () => purchaseMoney === 0,
+        errorMessage: ERROR_MESSAGE.NO_PURCHASE_MONEY,
+      },
+      {
+        checker: () => this.getBalance() === 0,
+        errorMessage: ERROR_MESSAGE.NO_COINS,
+      },
+    ]);
 
     return true;
   }

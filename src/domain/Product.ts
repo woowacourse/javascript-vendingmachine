@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE, PRODUCT_CONDITION } from '../utils/constants';
 import { ProductProps } from '../utils/interface';
+import { validator } from '../utils/validator';
 
 interface ProductInterface {
   getName();
@@ -59,29 +60,38 @@ export class Product implements ProductInterface {
   }
 
   #isValidatedName(name: ProductProps['name']) {
-    if (name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH) {
-      throw new Error(ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT);
-    }
+    validator([
+      {
+        checker: () => name.length > PRODUCT_CONDITION.MAX_NAME_LENGTH,
+        errorMessage: ERROR_MESSAGE.OVER_PRODUCT_NAME_LENGTH_LIMIT,
+      },
+    ]);
 
     return true;
   }
 
   #isValidatedPrice(price: ProductProps['price']) {
-    if (price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE) {
-      throw new Error(ERROR_MESSAGE.NOT_WITHIN_PRODUCT_PRICE_RANGE);
-    }
-
-    if (price % PRODUCT_CONDITION.UNIT_PRICE !== 0) {
-      throw new Error(ERROR_MESSAGE.NOT_DIVIDED_BY_PRODUCT_PRICE_UNIT);
-    }
+    validator([
+      {
+        checker: () => price < PRODUCT_CONDITION.MIN_PRICE || price > PRODUCT_CONDITION.MAX_PRICE,
+        errorMessage: ERROR_MESSAGE.NOT_WITHIN_PRODUCT_PRICE_RANGE,
+      },
+      {
+        checker: () => price % PRODUCT_CONDITION.UNIT_PRICE !== 0,
+        errorMessage: ERROR_MESSAGE.NOT_DIVIDED_BY_PRODUCT_PRICE_UNIT,
+      },
+    ]);
 
     return true;
   }
 
   #isValidatedQuantity(quantity: ProductProps['quantity']) {
-    if (quantity > PRODUCT_CONDITION.MAX_QUANTITY) {
-      throw new Error(ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT);
-    }
+    validator([
+      {
+        checker: () => quantity > PRODUCT_CONDITION.MAX_QUANTITY,
+        errorMessage: ERROR_MESSAGE.OVER_PRODUCT_QUANTITY_LIMIT,
+      },
+    ]);
 
     return true;
   }

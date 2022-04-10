@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE } from '../utils/constants';
 import { ProductProps } from '../utils/interface';
+import { validator } from '../utils/validator';
 
 import { Product } from './Product';
 
@@ -46,7 +47,12 @@ export class ProductCatalog implements ProductCatalogInterface {
   }
 
   isSameProductExist(name: ProductProps['name']): false | Error {
-    if (this.findProduct(name)) throw Error(ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST);
+    validator([
+      {
+        checker: () => this.findProduct(name),
+        errorMessage: ERROR_MESSAGE.DUPLICATE_PRODUCT_NAME_EXIST,
+      },
+    ]);
 
     return false;
   }
@@ -76,8 +82,12 @@ export class ProductCatalog implements ProductCatalogInterface {
 
   #isValidatedPurchase(name: ProductProps['name'], purchaseMoney: number) {
     const price = this.findProduct(name).getPrice();
-
-    if (purchaseMoney < price) throw new Error(ERROR_MESSAGE.MORE_PURCHASE_MONEY_NEEDED);
+    validator([
+      {
+        checker: () => purchaseMoney < price,
+        errorMessage: ERROR_MESSAGE.MORE_PURCHASE_MONEY_NEEDED,
+      },
+    ]);
 
     return true;
   }
