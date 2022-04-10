@@ -35,4 +35,8 @@ export default class Product implements ProductInterface {
     this._price = price;
     this._quantity = quantity;
   }
+
+  public set quantity(quantity) {
+    this._quantity = quantity;
+  }
 }

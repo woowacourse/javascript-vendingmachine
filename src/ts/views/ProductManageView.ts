@@ -96,31 +96,28 @@ export default class ProductManageView {
   private handleEdit = (target: HTMLButtonElement) => {
     const { name, price, quantity } = this.vendingMachine.getProduct(target.dataset.name);
     const editTemplate = this.getEditTemplate({ name, price, quantity });
-    const newTr = document.createElement('tr');
-    newTr.className = 'product-row';
-    newTr.dataset.name = name;
-    newTr.insertAdjacentHTML('beforeend', editTemplate);
-
     const targetEdit = $(`tr[data-name='${name}']`);
-    this.$currentProductTable.replaceChild(newTr, targetEdit);
-
+    targetEdit.replaceChildren();
+    targetEdit.insertAdjacentHTML('beforeend', editTemplate);
     $('.edit-confirm-button').addEventListener('click', () => this.handleConfirmEdit(name));
   };
 
   private getEditTemplate = ({ name, price, quantity }: ProductType) => {
     return `
-      <td class="product-row-name">
-        <input class="edit-input" id="edit-name-input" type="text" size="10" minlength="1" maxlength="10" value="${name}">
-      </td>
-      <td class="product-row-price">
-        <input class="edit-input" id="edit-price-input" type="number" step="10" min="100" max="100000" value="${price}">
-      </td>
-      <td class="product-row-quantity">
-        <input class="edit-input" id="edit-quantity-input" type="number" min="1" max="20" value="${quantity}">
-      </td>
-      <td>
-        <button class="small-button edit-confirm-button" data-name="${name}" >확인</button>
-      </td>
+      <tr class="product-row" dataset-name=${name} >
+        <td class="product-row-name">
+          <input class="edit-input" id="edit-name-input" type="text" size="10" minlength="1" maxlength="10" value="${name}">
+        </td>
+        <td class="product-row-price">
+          <input class="edit-input" id="edit-price-input" type="number" step="10" min="100" max="100000" value="${price}">
+        </td>
+        <td class="product-row-quantity">
+          <input class="edit-input" id="edit-quantity-input" type="number" min="1" max="20" value="${quantity}">
+        </td>
+        <td>
+          <button class="small-button edit-confirm-button" data-name="${name}" >확인</button>
+        </td>
+      </tr>
     `;
   };
 
