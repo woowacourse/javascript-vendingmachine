@@ -15,63 +15,61 @@ interface AuthInterface {
 export class Auth implements AuthInterface {
   constructor() {}
 
-  async signup(signupInfo: UserInfoProps) {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(signupInfo),
-    });
-
-    validator([
-      {
-        checker: () => response.status === 400,
-        errorMessage: ERROR_MESSAGE.SAME_EMAIL_EXIST,
-      },
-    ]);
-  }
-
-  login = async (loginInfo: loginInfoProps) => {
-    const response = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginInfo),
+  async #fetcher({ method, path, headers, bodyData, errorMessage }) {
+    const response = await fetch(`${API_URL + path}`, {
+      method,
+      headers,
+      body: JSON.stringify(bodyData),
     });
 
     validator([
       {
         checker: () => !response.ok,
-        errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
+        errorMessage,
       },
     ]);
 
-    const userInfo = await response.json();
+    return response.json();
+  }
 
-    return userInfo;
-  };
+  signup(signupInfo: UserInfoProps) {
+    return this.#fetcher({
+      method: 'POST',
+      path: '/signup',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      bodyData: signupInfo,
+      errorMessage: ERROR_MESSAGE.SAME_EMAIL_EXIST,
+    });
+  }
 
-  async edit(editedUserInfo: UserInfoProps) {
+  login(loginInfo: loginInfoProps) {
+    return this.#fetcher({
+      method: 'POST',
+      path: '/login',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      bodyData: loginInfo,
+      errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
+    });
+  }
+
+  edit(editedUserInfo: UserInfoProps) {
     const accessToken = localStorage.getItem('accessToken');
     const { id } = JSON.parse(localStorage.getItem('user'));
 
-    const response = await fetch(`${API_URL}/users/${id}`, {
+    return this.#fetcher({
       method: 'PATCH',
+      path: `/users/${id}`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(editedUserInfo),
+      bodyData: editedUserInfo,
+      errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
     });
-
-    validator([
-      {
-        checker: () => !response.ok,
-        errorMessage: ERROR_MESSAGE.INCORRECT_USER_ID_AND_PASSWORD,
-      },
-    ]);
   }
 
   logout() {
