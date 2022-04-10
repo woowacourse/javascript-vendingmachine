@@ -6,6 +6,8 @@ import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
 import { renderComponent } from '../utils';
 import { getNotFoundTemplate } from './template';
+import auth from '../Auth.js';
+
 export default class View {
   $app: HTMLDivElement;
   $tabResult: HTMLDivElement;
@@ -75,10 +77,16 @@ export default class View {
 
     switch (url) {
       case PATH_ID.PRODUCT_MANAGE:
+        if (!auth.isLoggedIn) {
+          return;
+        }
         new ProductManageView(this.vendingMachine).render();
         this.$tabProductManageButton.checked = true;
         break;
       case PATH_ID.RECHARGE:
+        if (!auth.isLoggedIn) {
+          return;
+        }
         new RechargeView(this.vendingMachine).render();
         this.$tabRechargeButton.checked = true;
         break;
@@ -96,7 +104,6 @@ export default class View {
         break;
       default:
         renderTemplate(getNotFoundTemplate);
-        return false;
         break;
     }
   };

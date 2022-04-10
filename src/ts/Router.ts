@@ -37,13 +37,13 @@ export default class Router {
   };
 
   private tabRouter = (url: string, isPopState = false) => {
+    this.view.renderPage(url);
+
     if (!auth.isLoggedIn) {
-      this.view.renderPage(PATH_ID.PURCHASE_PRODUCT);
       this.renderPublicPage();
       history.pushState({ url }, null, url);
       return;
     }
-    this.view.renderPage(url);
     this.renderUserPrivatePage();
 
     if (!isPopState && url !== location.pathname + location.hash) {
