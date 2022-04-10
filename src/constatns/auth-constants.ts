@@ -7,7 +7,7 @@ export const MEMBER = {
   SUCCESS_LOG_OUT: '로그아웃 되었습니다.',
 
   DIFFERENT_PASSWORD: '비밀번호가 다릅니다. 다시 확인해주세요.',
-  NEED_MORE_COMPLICATED_PASSWORD: '영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.',
+  NEED_MORE_COMPLICATED_PASSWORD: '영문, 숫자, 특수문자를 모두 사용하여 비밀번호를 구성해주세요.',
   NO_REPEATED_CHAR: '같은 문자를 4번 이상 사용하실 수 없습니다.',
   NO_SPACE_REQUIRED: '비밀번호는 공백 없이 입력해주세요.',
 };
