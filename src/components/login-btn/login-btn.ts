@@ -1,6 +1,6 @@
-import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
-import Router from '../router';
+import Component from '../../abstract/component';
+import { customElement } from '../../decorators/decortators';
+import Router from '../../router';
 
 @customElement('login-btn')
 class LoginBtn extends Component {

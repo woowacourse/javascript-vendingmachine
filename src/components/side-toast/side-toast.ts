@@ -1,5 +1,5 @@
-import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
+import Component from '../../abstract/component';
+import { customElement } from '../../decorators/decortators';
 
 @customElement('side-toast')
 class SideToast extends Component {

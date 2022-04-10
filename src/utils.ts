@@ -1,4 +1,4 @@
-import SnackBar from './components/side-toast';
+import SnackBar from './components/side-toast/side-toast';
 import { USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
 import { CoinRecord, Indexable, LoggedInUser, ToastType } from './types';
 

@@ -1,7 +1,7 @@
-import Component from '../abstract/component';
-import { WhiteList } from '../constants';
-import { customElement } from '../decorators/decortators';
-import Router from '../router';
+import Component from '../../abstract/component';
+import { WhiteList } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import Router from '../../router';
 
 @customElement('logged-in-btn')
 class LoggedInBtn extends Component {

@@ -1,8 +1,8 @@
-import Component from '../abstract/component';
-import { WhiteList } from '../constants';
-import { customElement } from '../decorators/decortators';
-import Router from '../router';
-import { EventOnElement } from '../types';
+import Component from '../../abstract/component';
+import { WhiteList } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import Router from '../../router';
+import { EventOnElement } from '../../types';
 
 @customElement('vendingmachine-navigation')
 class Navigation extends Component {
