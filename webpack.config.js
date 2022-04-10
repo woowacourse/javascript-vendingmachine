@@ -4,7 +4,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CnameWebpackPlugin = require('cname-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    404: './src/404.js',
+  },
   resolve: {
     extensions: ['.js', '.css', '.ts'],
   },
@@ -14,7 +17,7 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -47,7 +50,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
+      chunks: ['index'],
       template: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: '404.html',
+      chunks: ['404'],
+      template: './404.html',
     }),
     new CnameWebpackPlugin({
       domain: 'vendingmachine.woojeongmin.com',
