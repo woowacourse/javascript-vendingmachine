@@ -111,6 +111,9 @@
 - [x] 메뉴에서 버튼을 누르면 메뉴 닫기
 - [x] 인증정보 관리를 Cookie로 변경(로그인 후 1시간 지나면 유효기간 만료)
 - [x] 로그인 여부에 따라 접근 가능한 페이지만 렌더링하도록 수정 - 필요한 부분만 insertAdjacent하여 렌더링
+- [x] 로그인과 회원가입은 url로 접근할 수 있도록 라우터 수정
+  - 로그인 url : https://wonsss.github.io/javascript-vendingmachine/#!/login
+  - 회원가입 url : https://wonsss.github.io/javascript-vendingmachine/#!/signup
 
 ### E2E테스트
 

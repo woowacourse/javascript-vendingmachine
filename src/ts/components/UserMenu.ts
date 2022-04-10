@@ -1,5 +1,5 @@
 import auth from '../Auth.js';
-import { SUCCESS_MESSAGE } from '../constants';
+import { PATH_ID, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
 const userMenuTemplate = document.createElement('template');
@@ -151,6 +151,8 @@ class UserMenu extends HTMLElement {
   handleLoginButton = () => {
     const event = new CustomEvent('@render-login', {});
     window.dispatchEvent(event);
+    const url = PATH_ID.LOGIN;
+    history.pushState({ url }, null, url);
   };
 
   checkLoginStatus = async () => {

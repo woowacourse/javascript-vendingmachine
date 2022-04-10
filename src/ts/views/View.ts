@@ -1,10 +1,11 @@
-import { $, $$ } from '../utils';
+import { $, $$, renderTemplate } from '../utils';
 import { PATH_ID } from '../constants';
 import { VendingMachineInterface } from '../domains/VendingMachine';
 import ProductManageView from './ProductManageView';
 import RechargeView from './RechargeView';
 import PurchaseView from './PurchaseView';
 import { renderComponent } from '../utils';
+import { getNotFoundTemplate } from './template';
 export default class View {
   $app: HTMLDivElement;
   $tabResult: HTMLDivElement;
@@ -70,7 +71,7 @@ export default class View {
   };
 
   public renderPage = (url: string) => {
-    this.$tabResult.replaceChildren();
+    this.removePage();
 
     switch (url) {
       case PATH_ID.PRODUCT_MANAGE:
@@ -86,19 +87,23 @@ export default class View {
         this.$tabPurchaseProductButton.checked = true;
         break;
       case PATH_ID.LOGIN:
-        console.log('login');
+        new PurchaseView(this.vendingMachine).render();
+        renderComponent('log-in');
         break;
       case PATH_ID.SIGNUP:
-        console.log('signup');
+        new PurchaseView(this.vendingMachine).render();
+        renderComponent('sign-up');
         break;
       default:
+        renderTemplate(getNotFoundTemplate);
+        return false;
         break;
     }
-
-    // this.$notFound.classList.toggle('hide', url !== PATH_ID.NOT_FOUND);
   };
 
-  public removeTabs = () => {
+  public removePage = () => {
     this.$tabResult.replaceChildren();
+    $('log-in') ? $('log-in').remove() : false;
+    $('sign-up') ? $('sign-up').remove() : false;
   };
 }

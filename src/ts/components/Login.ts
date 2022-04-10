@@ -1,5 +1,5 @@
 import auth from '../Auth.js';
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants';
+import { ERROR_MESSAGE, PATH_ID, SUCCESS_MESSAGE } from '../constants';
 import { renderToastModal } from './ToastNotification';
 
 const loginTemplate = document.createElement('template');
@@ -182,6 +182,8 @@ class Login extends HTMLElement {
     this.closeModal();
     const event = new CustomEvent('@render-signup', {});
     window.dispatchEvent(event);
+    const url = PATH_ID.SIGNUP;
+    history.pushState({ url }, null, url);
   };
 }
 
