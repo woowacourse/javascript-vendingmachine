@@ -6,10 +6,13 @@
 @import './productPurchase.css';
 
 .button {
-  cursor: pointer;
   border-radius: 10px;
   border: none;
   text-align: center;
+}
+
+button {
+  cursor: pointer;
 }
 
 .hide {

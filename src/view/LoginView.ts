@@ -25,7 +25,7 @@ export class LoginView implements LoginViewInterface {
         <input id="password" class="input" name="password" type="password" placeholder="비밀번호를 입력해주세요" />
         <button class="submit-button button">확인</button>
       </form>
-      <p>아직 회원이 아니신가요? <span class="signup-link">회원가입</spanc></p>
+      <p>아직 회원이 아니신가요? <a href="signup" class="signup-link">회원가입</a></p>
     `;
   }
 
@@ -45,7 +45,9 @@ export class LoginView implements LoginViewInterface {
     this.#signupLink.addEventListener('click', this.#handleRequestSignupPage);
   }
 
-  #handleRequestSignupPage = () => {
+  #handleRequestSignupPage = (e) => {
+    e.preventDefault();
+
     this.#target.dispatchEvent(new CustomEvent('signupPageRequested'));
   };
 

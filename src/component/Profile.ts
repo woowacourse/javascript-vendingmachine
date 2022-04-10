@@ -31,7 +31,7 @@ export class Profile implements ProfileInterface {
 
   #template(name: ProductProps['name']) {
     return `
-      <span class="name">${name.slice(0, 1)}</span>
+      <button class="name">${name.slice(0, 1)}</button>
       <div class="select-container hide">
         <button type="button" class="edit-user-info-button button">회원정보 수정</button>
         <button type="button" class="logout-button button">로그아웃</button>
