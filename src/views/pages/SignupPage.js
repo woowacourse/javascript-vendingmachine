@@ -1,7 +1,8 @@
 import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
-import { USER } from '../../configs/constants';
+import { PAGES, USER } from '../../configs/constants';
 import { showSnackbar } from '../components/Snackbar';
+import { jumpTo } from '../../utils/domUtils';
 
 class SignupPage extends Component {
   template() {
@@ -85,10 +86,7 @@ class SignupPage extends Component {
         }
 
         await auth.signup(newUser);
-
-        const state = {};
-        window.history.pushState(state, '', '/');
-        dispatchEvent(new PopStateEvent('popstate', { state }));
+        jumpTo(PAGES.LANDING.PATH);
       } catch (err) {
         showSnackbar(err.message);
       }

@@ -3,6 +3,7 @@ import { browser } from '../domains/Browser';
 import { auth } from '../domains/Auth';
 import { PAGES, REDICTION } from '../configs/constants';
 import { convertStringToBoolean } from '../utils/commons';
+import { jumpTo } from '../utils/domUtils';
 
 class Router extends Component {
   setup() {
@@ -42,17 +43,14 @@ class Router extends Component {
       component.getAttribute('loginRequired')
     );
     const redirection = auth.authRoute(loginRequired);
-    const state = {};
 
     switch (redirection) {
       case REDICTION.LANDING:
-        window.history.pushState(state, '', PAGES.LANDING.PATH);
-        dispatchEvent(new PopStateEvent('popstate', { state }));
+        jumpTo(PAGES.LANDING.PATH);
         break;
 
       case REDICTION.LOGIN:
-        window.history.pushState(state, '', PAGES.LOGIN.PATH);
-        dispatchEvent(new PopStateEvent('popstate', { state }));
+        jumpTo(PAGES.LOGIN.PATH);
         break;
 
       default:
