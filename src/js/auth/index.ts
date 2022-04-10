@@ -18,7 +18,7 @@ export const registerUser = async (userInfo: UserInfo) => {
   })
     .then((res) => res.json())
     .catch(({ message }) => {
-      window.alert(message);
+      throw new Error(message);
     });
 
   return response;
@@ -37,7 +37,7 @@ export const loginUser = async ({ email, password }) => {
   })
     .then((res) => res.json())
     .catch(({ message }) => {
-      window.alert(message);
+      throw new Error(message);
     });
 
   return response;
@@ -54,7 +54,7 @@ export const editUser = async (id: string, userInfo: UserInfo) => {
     .then(manageErrors)
     .then((res) => res.json())
     .catch(({ message }) => {
-      window.alert(message);
+      throw new Error(message);
     });
 };
 
@@ -65,6 +65,6 @@ export const deleteUser = async (id: string) => {
     .then(manageErrors)
     .then((res) => res.json())
     .catch(({ message }) => {
-      window.alert(message);
+      throw new Error(message);
     });
 };
