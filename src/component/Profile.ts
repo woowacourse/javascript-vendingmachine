@@ -70,7 +70,7 @@ export class Profile implements ProfileInterface {
   }
 
   #bindEvent() {
-    this.#thumbnailName.addEventListener('click', this.#handleToggleSelectContainer);
+    this.#target.addEventListener('click', this.#handleToggleSelectContainer);
     this.#editUserInfoBtn.addEventListener('click', this.#handleRequestEditUserInfoPage);
     this.#logoutBtn.addEventListener('click', this.#handleLogout);
   }
