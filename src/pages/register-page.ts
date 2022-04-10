@@ -1,8 +1,8 @@
 import RouteComponent from '../abstract/route-component';
-import { API_URL } from '../constants';
+import { API_URL, WhiteList } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
-import { UserInfo, Feedback, FieldSet, WhiteList, ToastType } from '../types';
+import { UserInfo, Feedback, FieldSet, ToastType } from '../types';
 import { deepCopy, toast } from '../utils';
 import {
   validateEmail,

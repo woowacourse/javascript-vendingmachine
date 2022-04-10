@@ -118,3 +118,14 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   CONSECUTIVE_NUMBER_PASSWORD: `연속된 숫자가 ${PASSWORD.MAX_CONSECUTIVE_NUMBER}개를 초과하면 안됩니다`,
   NOT_MATCH_PASSWORD: '비밀번호가 일치하지 않습니다',
 };
+
+export const WhiteList = {
+  Home: '/',
+  VendingMachinePage: '/vending-machine',
+  ProductManage: '/vending-machine/product-manage',
+  ChargeMoney: '/vending-machine/charge-money',
+  PurchaseProduct: '/vending-machine/purchase-product',
+  LoginPage: '/login',
+  MyAccountPage: '/my-account',
+  RegisterPage: '/register',
+};

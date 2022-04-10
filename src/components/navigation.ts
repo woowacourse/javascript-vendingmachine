@@ -1,16 +1,20 @@
 import Component from '../abstract/component';
+import { WhiteList } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
-import { EventOnElement, WhiteList } from '../types';
+import { EventOnElement } from '../types';
 
 @customElement('vendingmachine-navigation')
 class Navigation extends Component {
   template(currentPath: string): string {
+    const isProductPage = [
+      WhiteList.Home,
+      WhiteList.VendingMachinePage,
+      WhiteList.ProductManage,
+    ].includes(currentPath);
     return `
       <nav class="d-flex justify-content-center">
-        <button class="btn btn-secondary mr-1 ${
-          currentPath === WhiteList.ProductManage ? 'active' : ''
-        }" data-destination="${
+        <button class="btn btn-secondary mr-1 ${isProductPage ? 'active' : ''}" data-destination="${
       WhiteList.ProductManage
     }" data-test-id="product-manage-link">상품 관리</button>
         <button class="btn btn-secondary mr-1 ${

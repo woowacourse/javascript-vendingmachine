@@ -41,17 +41,6 @@ export type CoinRecord = { [key: number]: number };
 
 export type EventOnElement = Override<Event, { target: HTMLElement }>;
 
-export enum WhiteList {
-  Home = '/',
-  VendingMachinePage = '/vending-machine',
-  ProductManage = '/vending-machine/product-manage',
-  ChargeMoney = '/vending-machine/charge-money',
-  PurchaseProduct = '/vending-machine/purchase-product',
-  LoginPage = '/login',
-  MyAccountPage = '/my-account',
-  RegisterPage = '/register',
-}
-
 export type UserInfo = {
   name: string;
   email: string;

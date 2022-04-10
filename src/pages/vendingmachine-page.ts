@@ -1,7 +1,8 @@
 import Component from '../abstract/component';
 import RouteComponent from '../abstract/route-component';
+import { WhiteList } from '../constants';
 import { customElement } from '../decorators/decortators';
-import { LoggedInUser, WhiteList } from '../types';
+import { LoggedInUser } from '../types';
 import { getUserInfoFromLocalStorage } from '../utils';
 
 @customElement('vendingmachine-page')

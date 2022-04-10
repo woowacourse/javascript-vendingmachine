@@ -1,8 +1,8 @@
 import RouteComponent from '../abstract/route-component';
-import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY } from '../constants';
+import { ACCESS_TOKEN_KEY, API_URL, USER_INFO_KEY, WhiteList } from '../constants';
 import { customElement } from '../decorators/decortators';
 import Router from '../router';
-import { FieldSet, Feedback, UserInfo, WhiteList, ToastType } from '../types';
+import { FieldSet, Feedback, UserInfo, ToastType } from '../types';
 import { deepCopy, getUserInfoFromLocalStorage, toast } from '../utils';
 import { validateName, validatePassword, validateRePassword } from '../validation/validators';
 
