@@ -14,8 +14,8 @@ class ReleaseCoin extends Component {
       .map((unit) => {
         return `
         <tr>
-          <td>${unit.toLocaleString('ko-kr')}원</td>
-          <td>${coins[unit].toLocaleString('ko-kr')}개</td>
+          <td>${unit.toLocaleString()}원</td>
+          <td>${coins[unit].toLocaleString()}개</td>
         </tr>
       `;
       })

@@ -28,8 +28,8 @@ class ProductInventory extends Component {
     return `
       <tr>
         <td>${name}</td>
-        <td>${price.toLocaleString('ko-kr')}원</td>
-        <td>${quantity.toLocaleString('ko-kr')}개</td>
+        <td>${price.toLocaleString()}원</td>
+        <td>${quantity.toLocaleString()}개</td>
         <td class="has-btn">
           <div class="btn-group">
             <button class="btn xs mr-2 btn-secondary btn-edit">수정</button>

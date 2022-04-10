@@ -70,7 +70,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   NOT_NUMBER_PRODUCT_PRICE: '상품 가격은 숫자이어야 합니다',
   NOT_IN_VALID_RANGE_PRODUCT_PRICE: `상품 가격은 ${PRODUCT.PRICE.MIN.toLocaleString(
     'ko-kr'
-  )}원 ~ ${PRODUCT.PRICE.MAX.toLocaleString('ko-kr')}원 이내이어야 합니다`,
+  )}원 ~ ${PRODUCT.PRICE.MAX.toLocaleString()}원 이내이어야 합니다`,
   NOT_DIVIDED_BY_TEN_PRODUCT_PRICE: `상품 가격은 ${COIN.MIN_UNIT.toLocaleString(
     'ko-kr'
   )}원 단위이어야 합니다`,
@@ -79,7 +79,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   NOT_NUMBER_QUANTITY: '상품 수량은 숫자이어야 합니다',
   NOT_IN_VALID_RANGE_PRODUCT_QUANTITY: `상품 수량은 ${PRODUCT.QUANTITY.MIN.toLocaleString(
     'ko-kr'
-  )}개 ~ ${PRODUCT.QUANTITY.MAX.toLocaleString('ko-kr')}개 이내이어야 합니다`,
+  )}개 ~ ${PRODUCT.QUANTITY.MAX.toLocaleString()}개 이내이어야 합니다`,
 
   EMPTY_CHARGE_MONEY: '충전 금액을 입력해주세요.',
   NOT_NUMBER_CHARGE_MONEY: '충전 금액은 숫자이어야 합니다',
@@ -97,7 +97,7 @@ export const ERROR_MESSAGE: { [k in string]: string } = {
   NOT_DIVIDED_BY_TEN_INSERT_MONEY: `충전 금액은 ${COIN.MIN_UNIT.toLocaleString(
     'ko-kr'
   )}원 단위이어야 합니다`,
-  OVER_MAX_INSERT_MONEY: `최대 투입 금액은 ${INSERT_MONEY.MAX.toLocaleString('ko-kr')}원입니다.`,
+  OVER_MAX_INSERT_MONEY: `최대 투입 금액은 ${INSERT_MONEY.MAX.toLocaleString()}원입니다.`,
 
   NO_STOCK: '재고가 없습니다',
   NOT_ENOUGH_MONEY: '금액이 부족합니다',

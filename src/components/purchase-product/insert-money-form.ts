@@ -18,7 +18,7 @@ class InsertMoneyForm extends Component {
           <input placeholder="금액" name="insert-money-input" class="form-control mr-4" data-test-id="insert-money-input" />
           <button type="button" class="btn btn-primary" data-test-id="insert-money-btn">투입</button>
         </div>
-        <label class="mb-0">투입한 금액: <span data-test-id="inserted-money">${insertedMoney.toLocaleString('ko-kr')}</span>원</label>
+        <label class="mb-0">투입한 금액: <span data-test-id="inserted-money">${insertedMoney.toLocaleString()}</span>원</label>
       </form>
     `;
   }
