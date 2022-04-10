@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
 import { USER } from '../../configs/constants';
 
-export default class SignupPage extends Component {
+class SignupPage extends Component {
   template() {
     return `
       <header>

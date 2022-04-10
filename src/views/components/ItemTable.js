@@ -3,7 +3,7 @@ import './ItemRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
 
-export default class ItemTable extends Component {
+class ItemTable extends Component {
   template() {
     const items = vendingMachine.useStore((state) => state.items);
 

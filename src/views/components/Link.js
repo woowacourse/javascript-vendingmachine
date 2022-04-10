@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 
-export default class Link extends Component {
+class Link extends Component {
   template() {
     return this.textContent;
   }

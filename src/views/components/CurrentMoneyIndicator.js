@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 
-export default class CurrentMoneyIndicator extends Component {
+class CurrentMoneyIndicator extends Component {
   template() {
     const totalMoney = vendingMachine.getTotalMoney();
 

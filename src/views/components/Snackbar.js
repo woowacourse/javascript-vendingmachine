@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 
-export default class Snackbar extends Component {
+class Snackbar extends Component {
   template() {
     return '';
   }

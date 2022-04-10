@@ -30,7 +30,7 @@ const request = async <T>(
   return body as T;
 };
 
-export default class Auth extends Domain<AuthState> {
+class Auth extends Domain<AuthState> {
   async signup(newUser: SignupInfo): Promise<void> {
     const body = await request<UserBody>(`${SERVER}/signup`, {
       method: 'POST',

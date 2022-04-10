@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 
-export default class ReturnedChangeTable extends Component {
+class ReturnedChangeTable extends Component {
   template() {
     const returnedChange = vendingMachine.useStore(
       (state) => state.returnedChange

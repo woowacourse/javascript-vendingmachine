@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { auth } from '../../domains/Auth';
 import { USER } from '../../configs/constants';
 
-export default class ProfilePage extends Component {
+class ProfilePage extends Component {
   template() {
     const user = auth.useStore((state) => state.user);
 

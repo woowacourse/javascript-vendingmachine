@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 
-export default class InsertedMoneyIndicator extends Component {
+class InsertedMoneyIndicator extends Component {
   template() {
     const insertedMoney = vendingMachine.useStore(
       (state) => state.insertedMoney

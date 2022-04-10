@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
 
-export default class ItemAddForm extends Component {
+class ItemAddForm extends Component {
   template() {
     return `
       <form id="item-add-form" class="item-add-form">

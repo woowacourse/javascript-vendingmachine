@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { CHARGE_AMOUNT } from '../../configs/constants';
 
-export default class ChangeChargeForm extends Component {
+class ChangeChargeForm extends Component {
   template() {
     return `
       <form id="change-charge-form" class="change-charge-form">

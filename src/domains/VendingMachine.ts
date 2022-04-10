@@ -25,7 +25,7 @@ export interface Coins {
   500: number;
 }
 
-export interface VendingMachineState {
+interface VendingMachineState {
   items: Item[];
   coins: Coins;
   insertedMoney: number;

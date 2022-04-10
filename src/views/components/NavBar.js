@@ -3,7 +3,7 @@ import './Link';
 import { browser } from '../../domains/Browser';
 import { PAGES } from '../../configs/constants';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   template() {
     const location = browser.useStore((state) => state.location);
 

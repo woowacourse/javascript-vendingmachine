@@ -7,7 +7,7 @@ import './ItemPurchasePage';
 import { auth } from '../../domains/Auth';
 import { PAGES } from '../../configs/constants';
 
-export default class LandingPage extends Component {
+class LandingPage extends Component {
   template() {
     const user = auth.useStore((state) => state.user);
 

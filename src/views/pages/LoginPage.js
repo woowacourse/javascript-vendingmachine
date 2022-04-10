@@ -3,7 +3,7 @@ import '../components/Link';
 import { auth } from '../../domains/Auth';
 import { PAGES, USER } from '../../configs/constants';
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   template() {
     return `
       <header>

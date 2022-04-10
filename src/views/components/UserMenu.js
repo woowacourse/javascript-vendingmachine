@@ -3,7 +3,7 @@ import './Link';
 import { auth } from '../../domains/Auth';
 import { PAGES } from '../../configs/constants';
 
-export default class UserMenu extends Component {
+class UserMenu extends Component {
   template() {
     const user = auth.useStore((state) => state.user);
 

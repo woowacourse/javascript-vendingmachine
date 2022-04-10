@@ -10,7 +10,7 @@ import { browser } from '../domains/Browser';
 import { getPathname } from '../utils/domUtils';
 import { PAGES } from '../configs/constants';
 
-export default class App extends Component {
+class App extends Component {
   setup() {
     browser.setLocation(getPathname());
   }
