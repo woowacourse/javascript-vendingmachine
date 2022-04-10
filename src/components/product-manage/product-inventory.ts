@@ -42,7 +42,7 @@ class ProductInventory extends Component {
 
   template(productList: Array<ProductItem>): string {
     const header = `<h2>상품 현황</h2>`;
-    if (productList.length === 0)
+    if (!productList.length)
       return header + `<div class="text-center">현재 등록된 상품이 <b>없습니다</b></div>`;
 
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
@@ -97,10 +97,8 @@ class ProductInventory extends Component {
     const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
 
     const productList = Store.instance.getState().productList;
-    const isEditingSameProduct = (item: ProductItem) => {
-      if (originalName === name && item.name === name) return false;
-      return true;
-    };
+    const isEditingSameProduct = (item: ProductItem) =>
+      !(originalName === name && item.name === name);
     const errorList = validateProduct(
       { name, price, quantity },
       productList.filter(isEditingSameProduct)
