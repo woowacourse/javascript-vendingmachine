@@ -8,6 +8,7 @@ import './components/login-form';
 import './components/sign-up-form';
 import './components/login-info';
 import './components/modify-member-form';
+import './components/only-manager-accessible-page';
 import Router from './router';
 
 new Router();

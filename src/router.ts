@@ -62,13 +62,19 @@ class Router {
 
     switch (window.location.pathname) {
       case '/product-manage-tab': {
+        const accessiblePage = isLogin
+          ? PAGE.PRODUCT_MANAGE_PAGE
+          : PAGE.ONLY_MANAGER_ACCESSIBLE_PAGE;
+
         this.header.classList.remove('hide');
-        this.pageContainer.insertAdjacentHTML('beforeend', PAGE.PRODUCT_MANAGE_PAGE);
+        this.pageContainer.insertAdjacentHTML('beforeend', accessiblePage);
         break;
       }
       case '/charge-money-tab': {
+        const accessiblePage = isLogin ? PAGE.CHARGE_MONEY_PAGE : PAGE.ONLY_MANAGER_ACCESSIBLE_PAGE;
+
         this.header.classList.remove('hide');
-        this.pageContainer.insertAdjacentHTML('beforeend', PAGE.CHARGE_MONEY_PAGE);
+        this.pageContainer.insertAdjacentHTML('beforeend', accessiblePage);
         break;
       }
       case '/purchase-product-tab': {

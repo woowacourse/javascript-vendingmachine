@@ -7,4 +7,5 @@ export const PAGE = {
   LOGIN_FORM: '<login-form></login-form>',
   SIGN_UP_FORM: '<sign-up-form></sign-up-form>',
   MODIFY_MEMBER_FORM: '<modify-member-form></modify-member-form>',
+  ONLY_MANAGER_ACCESSIBLE_PAGE: '<only-manager-accessible-page></only-manager-accessible-page>',
 };
