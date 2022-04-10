@@ -46,8 +46,8 @@ class SignUpFrom extends Component {
       $confirmPassword.value,
     ];
 
-    const { hasError, errorMessage } = validateSignUp(name, password, confirmPassword);
-    if (hasError) {
+    const { pass, errorMessage } = validateSignUp(name, password, confirmPassword);
+    if (!pass) {
       showSnack(errorMessage);
       return;
     }

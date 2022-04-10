@@ -48,9 +48,9 @@ class PurchaseProductForm extends Component {
 
   insertMoney(money: string) {
     const { insertedMoney } = Store.instance.getState();
-    const { hasError, errorMessage } = validateInsertMoney(money, insertedMoney);
+    const { pass, errorMessage } = validateInsertMoney(money, insertedMoney);
 
-    if (hasError) throw new ValidationError(errorMessage);
+    if (!pass) throw new ValidationError(errorMessage);
 
     Store.instance.dispatch(createAction(ACTION.INSERT_MONEY, money));
   }

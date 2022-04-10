@@ -45,9 +45,9 @@ class ModifyMemberForm extends Component {
       $confirmPassword.value,
     ];
 
-    const { hasError, errorMessage } = validateSignUp(name, password, confirmPassword);
+    const { pass, errorMessage } = validateSignUp(name, password, confirmPassword);
 
-    if (hasError) {
+    if (!pass) {
       showSnack(errorMessage);
       return;
     }

@@ -51,8 +51,8 @@ class ChargeMoneyForm extends Component {
 
   chargeCoins(money: string) {
     const { chargedMoney } = Store.instance.getState();
-    const { hasError, errorMessage } = validateChargeCoins(money, chargedMoney);
-    if (hasError) throw new ValidationError(errorMessage);
+    const { pass, errorMessage } = validateChargeCoins(money, chargedMoney);
+    if (!pass) throw new ValidationError(errorMessage);
 
     Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, convertToInteger(money)));
   }

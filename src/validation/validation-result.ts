@@ -1,6 +1,6 @@
 class ValidationResult {
-  constructor(public hasError: boolean, public errorMessage = '') {
-    this.hasError = hasError;
+  constructor(public pass: boolean, public errorMessage = '') {
+    this.pass = pass;
     this.errorMessage = errorMessage;
   }
 }

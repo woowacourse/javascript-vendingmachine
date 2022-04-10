@@ -58,8 +58,8 @@ class PurchaseReturnInventory extends Component {
   };
 
   returnChanges(insertedMoney: number) {
-    const { hasError, errorMessage } = validateReturnChanges(insertedMoney);
-    if (hasError) throw new ValidationError(errorMessage);
+    const { pass, errorMessage } = validateReturnChanges(insertedMoney);
+    if (!pass) throw new ValidationError(errorMessage);
 
     Store.instance.dispatch(createAction(ACTION.RETURN_CHANGES, undefined));
 
