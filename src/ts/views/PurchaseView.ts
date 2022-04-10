@@ -40,7 +40,6 @@ export default class PurchaseView {
 
   public renderPurchaseTab = () => {
     this.renderPurchaseTable();
-    this.renderRefundTable();
     this.$insertMoneyInput.focus();
   };
 
@@ -81,8 +80,6 @@ export default class PurchaseView {
       renderToastModal('error', error.message);
     }
   };
-
-  private renderRefundTable = () => {};
 
   private handleInsertMoneyForm = (event: SubmitEvent) => {
     event.preventDefault();
