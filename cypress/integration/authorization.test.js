@@ -20,13 +20,10 @@ describe('인가 테스트', () => {
   });
 
   describe('로그인 후 인가 테스트', () => {
-    beforeEach(() => {
+    it('로그인 후 로그인 주소를 들어가면 상품 구매 창으로 리다이렉트 된다.', () => {
       const email = 'test123@naver.com';
       const password = 'Abc1234!';
       cy.login(email, password);
-    });
-
-    it('로그인 후 로그인 주소를 들어가면 상품 구매 창으로 리다이렉트 된다.', () => {
       cy.wait(1000);
       cy.authorizeInLogin('/#/login');
     });

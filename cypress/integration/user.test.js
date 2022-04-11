@@ -16,13 +16,6 @@ describe('유저 테스트', () => {
     beforeEach(() => {
       cy.get('#signup--anchor').click();
     });
-    it('형식에 맞는 회원가입 창을 작성하면 회원가입이 완료된다.', () => {
-      const email = `${pickNumberInRange(0, 255).toString(16)}${Date.now()}@gmail.com`;
-      const name = 'abcd';
-      const password = 'Abc1234!';
-      cy.signUp(email, name, password, password);
-      cy.get('#snackbar').should('have.text', SUCCESS_MESSAGE.SIGNUP);
-    });
 
     it('name이 2~6글자 사이가 아니면 에러가 발생한다.', () => {
       const email = `${pickNumberInRange(0, 255).toString(16)}${Date.now()}@gmail.com`;
@@ -46,6 +39,14 @@ describe('유저 테스트', () => {
       const name = '주동혁';
       cy.signUp(email, name, password, password);
       cy.get('#snackbar').should('have.text', SIGNUP_ERROR['Email already exists']);
+    });
+
+    it('형식에 맞는 회원가입 창을 작성하면 회원가입이 완료된다.', () => {
+      const email = `${pickNumberInRange(0, 255).toString(16)}${Date.now()}@gmail.com`;
+      const name = 'abcd';
+      const password = 'Abc1234!';
+      cy.signUp(email, name, password, password);
+      cy.get('#snackbar').should('have.text', SUCCESS_MESSAGE.SIGNUP);
     });
   });
   describe('로그인 테스트', () => {
