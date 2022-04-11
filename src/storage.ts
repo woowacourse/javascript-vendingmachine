@@ -1,11 +1,12 @@
 import { Product } from './domain/Product';
 
+type StorageKey = 'products' | 'amount' | 'userMoney' | 'userInfo' | 'accessToken';
 const storage = {
-  setLocalStorage(key: string, value: any) {
+  setLocalStorage(key: StorageKey, value: any) {
     localStorage.setItem(key, JSON.stringify(value));
   },
 
-  getLocalStorage(key: string) {
+  getLocalStorage(key: StorageKey) {
     return localStorage.getItem(key);
   },
 
