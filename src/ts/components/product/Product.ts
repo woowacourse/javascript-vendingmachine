@@ -42,17 +42,18 @@ class Product {
     event.preventDefault();
     const [productName, productPrice, productQuantity] = 
       this.productInfoInputs.map((input: HTMLInputElement ) => input.value);
-
-    this.productInfo.validateProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
-    showSnackbar(registerProductText({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }));
-    this.productInfo.addProductList({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity });
-    this.productView.changeProductInfoInputEmpty();
-    this.productView.focusProductNameInput();
-    this.productView.addProduct({ 
+    const product = {
       productName: productName,
       productPrice: +productPrice,
-      productQuantity: +productQuantity, 
-    });
+      productQuantity: +productQuantity,
+    };
+
+    this.productInfo.validateProductInfo({ ...product });
+    showSnackbar(registerProductText({ ...product }));
+    this.productInfo.addProductList({ ...product });
+    this.productView.changeProductInfoInputEmpty();
+    this.productView.focusProductNameInput();
+    this.productView.addProduct({ ...product });
   };
     
   handleRemoveProduct = (event: { target: HTMLTableElement }) => {
@@ -61,6 +62,7 @@ class Product {
     };
     
     const [productNameTd] = Array.from(event.target.closest("tr").children);
+
     showSnackbar(deleteProductText(productNameTd.textContent));
     this.productInfo.removeProduct(productNameTd.textContent);
     this.productView.removeProduct(event.target);
@@ -76,16 +78,22 @@ class Product {
       selectDomAll(".product-edit-input", event.target.closest("tr")),
       (input: HTMLInputElement) => input.value
     );
+    const product = {
+      productName: productName,
+      productPrice: +productPrice,
+      productQuantity: +productQuantity,
+    };
     const beforeProductName = selectDom(".product-name", event.target.closest("tr")).dataset.name;
-    this.productInfo.validateEditProductInfo({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, beforeProductName });
-    showSnackbar(editProductInfoText({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity }));
-    this.productView.editProduct({target: event.target, productName: productName, productPrice: +productPrice, productQuantity: +productQuantity});
+
+    this.productInfo.validateEditProductInfo({ ...product, beforeProductName });
+    showSnackbar(editProductInfoText({ ...product }));
+    this.productView.editProduct({ target: event.target, ...product });
     const changeProductIndex = 
       selectDomAll(".product-name", this.productTable)
       .map((productTd: HTMLTableElement) => productTd.textContent)
       .indexOf(productName);
 
-    this.productInfo.editProduct({ productName: productName, productPrice: +productPrice, productQuantity: +productQuantity, changeProductIndex: changeProductIndex });
+    this.productInfo.editProduct({ ...product, changeProductIndex: changeProductIndex });
   };
 
   render() {

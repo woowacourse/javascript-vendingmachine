@@ -23,8 +23,8 @@ class Charge {
     addEvent(this.chargeForm, "submit", this.handleInputAmount);
   }
 
-  handleInputAmount = (e: Event) => {
-    e.preventDefault();
+  handleInputAmount = (event: Event) => {
+    event.preventDefault();
     const charge = (this.chargeInput as HTMLInputElement).valueAsNumber;
 
     validateCharge(charge);

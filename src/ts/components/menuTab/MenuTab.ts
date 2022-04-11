@@ -51,30 +51,30 @@ class MenuTab {
     this.convertTemplate("#login");
   }
 
-  handleMenuTab = (e: { target: HTMLButtonElement }) => {
-    if (!e.target.classList.contains("nav__button")) {
+  handleMenuTab = (event: { target: HTMLButtonElement }) => {
+    if (!event.target.classList.contains("nav__button")) {
       return;
     }
 
     const navList = selectDomAll(".nav__button");
 
     if (
-      e.target.dataset.menu ===
+      event.target.dataset.menu ===
         navList.find((navButton) => navButton.classList.contains("button-click")).dataset.menu
       ) {
       return;
     }
 
     navList.forEach((navButton: HTMLButtonElement) =>
-      navButton.dataset.menu === e.target.dataset.menu
+      navButton.dataset.menu === event.target.dataset.menu
         ? navButton.classList.add("button-click")
         : navButton.classList.remove("button-click")
     );
 
     history.pushState(
-      { path: e.target.dataset.menu },
+      { path: event.target.dataset.menu },
       null,
-      e.target.dataset.menu
+      event.target.dataset.menu
     );
 
     this.convertTemplate(location.hash);

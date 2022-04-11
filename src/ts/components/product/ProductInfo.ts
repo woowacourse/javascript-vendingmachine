@@ -19,7 +19,7 @@ class ProductInfo implements ProductInfoProps{
 
   validateEditProductInfo({ productName, productPrice, productQuantity, beforeProductName }: ValidateProductProps) {
     const productNameList = this.productList
-      .map((product: ProductProps) => product.productName)
+      .map((product) => product.productName)
       .filter((productName) => productName !== beforeProductName);
 
     validateProductName(productName);
@@ -38,10 +38,10 @@ class ProductInfo implements ProductInfoProps{
     this.setProductList();
   }
 
-  editProduct({ productName, productPrice, productQuantity, changeProductIndex }: ProductEditProps) {
-    this.productList[changeProductIndex].productName = productName;
-    this.productList[changeProductIndex].productPrice = productPrice;
-    this.productList[changeProductIndex].productQuantity = productQuantity;
+  editProduct({ changeProductIndex, ...productProps }: ProductEditProps) {
+    this.productList[changeProductIndex] = { ...productProps };
+    this.productList[changeProductIndex] = { ...productProps };
+    this.productList[changeProductIndex] = { ...productProps };
     this.setProductList();
   }
 
