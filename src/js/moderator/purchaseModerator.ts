@@ -28,7 +28,7 @@ class PurchaseModerator {
   }
 
   async init() {
-    const userInfo = await this.authorization.isLoggedIn();
+    const userInfo = await this.authorization.getLoggedInUser();
 
     this.purchasePageView.init();
 

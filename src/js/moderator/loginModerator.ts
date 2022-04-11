@@ -16,7 +16,7 @@ class LoginModerator {
   }
 
   async init() {
-    const { isError } = await this.authorization.isLoggedIn();
+    const { isError } = await this.authorization.getLoggedInUser();
     if (!isError) {
       alert("잘못된 접근입니다.");
       location.href = "/";

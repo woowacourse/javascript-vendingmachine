@@ -19,7 +19,7 @@ class UserInfoModerator {
   }
 
   async init() {
-    this.userInfo = await this.authorization.isLoggedIn();
+    this.userInfo = await this.authorization.getLoggedInUser();
     if (this.userInfo.isError) {
       alert("잘못된 접근입니다.");
       location.href = "/";

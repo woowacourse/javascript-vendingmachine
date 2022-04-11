@@ -9,7 +9,7 @@ import {
 } from "../util/validations";
 
 class Authorization {
-  async isLoggedIn() {
+  async getLoggedInUser() {
     const userId = getCookie(COOKIE_KEY.USER_ID);
     const accessToken = getCookie(COOKIE_KEY.ACCESS_TOKEN);
     const response = await api.getUser(userId, accessToken);

@@ -31,7 +31,7 @@ class ProductModerator {
   }
 
   async init() {
-    const userInfo = await this.authorization.isLoggedIn();
+    const userInfo = await this.authorization.getLoggedInUser();
     if (userInfo.isError) {
       alert("권한이 없습니다.");
       location.href = "/";
