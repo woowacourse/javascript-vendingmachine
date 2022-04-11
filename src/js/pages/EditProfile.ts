@@ -67,10 +67,10 @@ export default class EditProfile {
 
   onKeyDownInput = (e: KeyboardEvent) => {
     if (!(e.target instanceof HTMLInputElement)) return;
-    const { keyCode } = e;
-    const isSpacebar = keyCode === 32;
 
-    if (isSpacebar) e.returnValue = false;
+    const isSpacebar = e.key === ' ';
+
+    if (isSpacebar) e.preventDefault();
   };
 
   onSubmitLogin = async (e: SubmitEvent) => {
