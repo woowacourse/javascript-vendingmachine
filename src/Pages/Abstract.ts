@@ -1,8 +1,9 @@
+import { VENDING_MACHINE } from 'Constants';
 import { TComponent } from 'Types/ComponentTypes';
 import { $ } from 'Utils';
 
 export default abstract class Page {
-  public readonly title: string = '';
+  protected readonly title: string = '';
   private componentList: TComponent[] = [];
 
   constructor() {
@@ -18,6 +19,12 @@ export default abstract class Page {
     this.componentList.push(component);
   }
 
+  private setPageTitle() {
+    document.title = this.title
+      ? `${this.title} - ${VENDING_MACHINE.PAGE_TITLE}`
+      : VENDING_MACHINE.PAGE_TITLE;
+  }
+
   public mount = (): void => {
     const $renderPage: DocumentFragment = this.componentList.reduce((previous, component) => {
       previous.append(component.content);
@@ -25,6 +32,7 @@ export default abstract class Page {
     }, document.createDocumentFragment());
 
     $('#app').replaceChildren($renderPage);
+    this.setPageTitle();
   };
 
   public unmount = (): void => {

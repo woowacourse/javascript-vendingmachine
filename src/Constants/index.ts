@@ -1,4 +1,5 @@
 export const VENDING_MACHINE = {
+  PAGE_TITLE: '자판기',
   MIN_PRODUCT_NAME: 1,
   MAX_PRODUCT_NAME: 10,
 
