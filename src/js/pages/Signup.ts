@@ -9,7 +9,7 @@ import {
   isPwdUpperCase,
   isPwdSpecialChar,
   isPwdDigit,
-  isSamePwd2,
+  isSamePwdCheck,
 } from './validator';
 
 export default class Signup {
@@ -69,10 +69,10 @@ export default class Signup {
     const email = this.$signupEmail.value.trim();
     const name = this.$signupName.value.trim();
     const password = this.$signupPassword.value.trim();
-    const password2 = this.$signupPasswordCheck.value.trim();
+    const passwordCheck = this.$signupPasswordCheck.value.trim();
 
     try {
-      this.checkAccountValidate(name, password, password2);
+      this.checkAccountValidate(name, password, passwordCheck);
 
       const data = JSON.stringify({ email, name, password });
 
@@ -89,14 +89,14 @@ export default class Signup {
     }
   };
 
-  checkAccountValidate(name: string, pwd: string, pwd2: string) {
+  checkAccountValidate(name: string, pwd: string, pwdCheck: string) {
     const _isPositiveName = isPositiveName(name);
     const _isPositivePwdLength = isPositivePwdLength(pwd);
     const _isPwdLowerCase = isPwdLowerCase(pwd);
     const _isPwdUpperCase = isPwdUpperCase(pwd);
     const _isPwdSpecialChar = isPwdSpecialChar(pwd);
     const _isPwdDigit = isPwdDigit(pwd);
-    const _isSamePwd2 = isSamePwd2(pwd, pwd2);
+    const _isSamePwdCheck = isSamePwdCheck(pwd, pwdCheck);
 
     this.$nameLength.classList.toggle('hide', _isPositiveName);
     this.$pwdMinLength.classList.toggle('hide', _isPositivePwdLength);
@@ -104,7 +104,7 @@ export default class Signup {
     this.$pwdUppercase.classList.toggle('hide', _isPwdUpperCase);
     this.$pwdSpecial.classList.toggle('hide', _isPwdSpecialChar);
     this.$pwdDigit.classList.toggle('hide', _isPwdDigit);
-    this.$pwdConfirm.classList.toggle('hide', _isSamePwd2);
+    this.$pwdConfirm.classList.toggle('hide', _isSamePwdCheck);
 
     const isError = [
       _isPositiveName,
@@ -113,7 +113,7 @@ export default class Signup {
       _isPwdUpperCase,
       _isPwdSpecialChar,
       _isPwdDigit,
-      _isSamePwd2,
+      _isSamePwdCheck,
     ].some(v => !v);
 
     if (isError) {

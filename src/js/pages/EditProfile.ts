@@ -9,7 +9,7 @@ import {
   isPwdUpperCase,
   isPwdSpecialChar,
   isPwdDigit,
-  isSamePwd2,
+  isSamePwdCheck,
 } from './validator';
 
 interface User {
@@ -97,14 +97,14 @@ export default class EditProfile {
     }
   };
 
-  checkAccountValidate(name: string, pwd: string, pwd2: string) {
+  checkAccountValidate(name: string, pwd: string, pwdCheck: string) {
     const _isPositiveName = isPositiveName(name);
     const _isPositivePwdLength = isPositivePwdLength(pwd);
     const _isPwdLowerCase = isPwdLowerCase(pwd);
     const _isPwdUpperCase = isPwdUpperCase(pwd);
     const _isPwdSpecialChar = isPwdSpecialChar(pwd);
     const _isPwdDigit = isPwdDigit(pwd);
-    const _isSamePwd2 = isSamePwd2(pwd, pwd2);
+    const _isSamePwdCheck = isSamePwdCheck(pwd, pwdCheck);
 
     this.$nameLength.classList.toggle('hide', _isPositiveName);
     this.$pwdMinLength.classList.toggle('hide', _isPositivePwdLength);
@@ -112,7 +112,7 @@ export default class EditProfile {
     this.$pwdUppercase.classList.toggle('hide', _isPwdUpperCase);
     this.$pwdSpecial.classList.toggle('hide', _isPwdSpecialChar);
     this.$pwdDigit.classList.toggle('hide', _isPwdDigit);
-    this.$pwdConfirm.classList.toggle('hide', _isSamePwd2);
+    this.$pwdConfirm.classList.toggle('hide', _isSamePwdCheck);
 
     const isError = [
       _isPositiveName,
@@ -121,7 +121,7 @@ export default class EditProfile {
       _isPwdUpperCase,
       _isPwdSpecialChar,
       _isPwdDigit,
-      _isSamePwd2,
+      _isSamePwdCheck,
     ].some(v => !v);
 
     if (isError) {
