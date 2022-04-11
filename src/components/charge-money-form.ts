@@ -1,10 +1,14 @@
 import Component from '../abstract/component';
-import { ACTION } from '../constants';
+import { ACTION } from '../constatns/flux-constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
+import {
+  consoleErrorWithConditionalAlert,
+  convertToLocaleString,
+  convertToInteger,
+} from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateChargeCoins } from '../validation/validators';
 
@@ -25,11 +29,13 @@ class ChargeMoneyForm extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickChargeBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
-  onClickChargeBtn = ({ target }: EventOnElement) => {
-    const $input = target.previousElementSibling as HTMLInputElement;
+  onClickChargeBtn = () => {
+    const $input = this.querySelector('input') as HTMLInputElement;
     const money: string = $input.value;
+
     try {
       this.chargeCoins(money);
     } catch (e: any) {
@@ -39,11 +45,16 @@ class ChargeMoneyForm extends Component {
     }
   };
 
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickChargeBtn();
+  };
+
   chargeCoins(money: string) {
     const { chargedMoney } = Store.instance.getState();
-    const { hasError, errorMessage } = validateChargeCoins(money, chargedMoney);
-    if (hasError) throw new ValidationError(errorMessage);
-    Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, toInt(money)));
+    const { pass, errorMessage } = validateChargeCoins(money, chargedMoney);
+    if (!pass) throw new ValidationError(errorMessage);
+
+    Store.instance.dispatch(createAction(ACTION.CHARGE_COINS, convertToInteger(money)));
   }
 
   mount() {

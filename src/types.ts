@@ -8,9 +8,11 @@ export type Action = {
 };
 
 export type AppState = {
-  activeTab: Tab;
+  login: loginInfo;
   chargedMoney: number;
+  insertedMoney: number;
   chargedCoins: CoinRecord;
+  returnCoins: CoinRecord;
   productList: Array<ProductItem>;
 };
 
@@ -18,6 +20,12 @@ export interface ComponentConstructor {
   new (): Component;
   _tagName?: string;
 }
+
+export type loginInfo = {
+  isLogin: boolean;
+  email: string;
+  name: string;
+};
 
 export type ProductItem = {
   name: string;
@@ -38,7 +46,7 @@ export type Indexable = number | string;
 
 export type CoinRecord = { [key: number]: number };
 
-export type EventOnElement = Override<Event, { target: HTMLElement }>;
+export type EventOnElement = Override<Event, { target: HTMLElement; key: string }>;
 
 export enum Tab {
   ProductManageTab = 'product-manage-page',

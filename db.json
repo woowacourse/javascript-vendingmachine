@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "email": "604jhy@naver.com",
+      "name": "나인",
+      "password": "$2a$10$IKVjLJDsvcgn6j5X6krNQeVsyPzmCJyV3GHGJBgMU95Mj.6ggXCTe",
+      "id": 1
+    },
+    {
+      "email": "woowa@naver.com",
+      "password": "$2a$10$KpW3jYUSrZV.PhXqHCKw0OVBVkVn/amEo.qrOIwlCzJIiXsnO63IC",
+      "name": "skdl",
+      "id": 2
+    },
+    {
+      "email": "jhy979@gmail.com",
+      "password": "$2a$10$qerDbDV0ChvtUM0ovj1H3Ono2q1KxcLPI4cwVEx3BEIVFS8QvkH8S",
+      "name": "Ho",
+      "id": 3
+    }
+  ]
+}

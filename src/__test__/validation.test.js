@@ -8,7 +8,6 @@ import {
 } from '../validation/validators';
 
 const store = new Store({
-  activeTab: 'product-manage-tab',
   chargedMoney: 0,
   chargedCoins: COIN_UNITS,
   productList: [
@@ -26,8 +25,8 @@ describe('상품 추가 시 유효성 검사를 한다.', () => {
 
   test('상품명은 최소 1글자, 최대 10글자까지 가능하다.', () => {
     const productName = '사이다';
-    const { hasError } = validateProductName(productName, productList);
-    expect(hasError).toBe(false);
+    const { pass } = validateProductName(productName, productList);
+    expect(pass).toBe(true);
   });
 
   test('상품명이 중복되면 에러를 발생시킨다.', () => {

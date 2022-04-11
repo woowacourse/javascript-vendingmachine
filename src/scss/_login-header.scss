@@ -1,0 +1,48 @@
+@import './variables';
+
+#app {
+  position: relative;
+  login-header {
+    button {
+      position: absolute;
+      width: 117px;
+      height: 36px;
+      top: 21px;
+      right: 11px;
+      padding: 9px 0px;
+    }
+  }
+  login-info {
+    button.login-info {
+      color: $color-black-900;
+      font-weight: bold;
+      position: absolute;
+      top: 21px;
+      right: 11px;
+      background-color: $color-cyan-700;
+      padding: 8px 12px;
+      width: auto;
+      border-radius: 100%;
+    }
+
+    section {
+      background-color: $color-cyan-900;
+      border-radius: 20px;
+      padding: 5px 10px;
+      position: absolute;
+      right: 11px;
+      top: 60px;
+    }
+
+    option {
+      text-align: center;
+      color: $color-black-900;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    option:hover {
+      color: $color-gray-700;
+    }
+  }
+}

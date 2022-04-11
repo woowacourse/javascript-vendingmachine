@@ -1,13 +1,17 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { Tab } from '../types';
+import './purchase-product-form';
+import './purchase-product-inventory';
+import './purchase-return-inventory';
 
 @customElement('purchase-product-page')
 class PurchaseProductPage extends Component {
-  template(activeTab: Tab): string {
-    if (this.localName !== activeTab) return '';
-    return '<h3 class="text-center">🤖 페이지 건설중...</h3>';
+  template(): string {
+    return `
+      <purchase-product-form class="mb-12"></purchase-product-form>
+      <purchase-product-inventory class="mb-15"></purchase-product-inventory>
+      <purchase-return-inventory class="mb-4"></purchase-return-inventory>
+      `;
   }
 
   mount() {
@@ -15,8 +19,7 @@ class PurchaseProductPage extends Component {
   }
 
   render(): void {
-    const { activeTab } = Store.instance.getState();
-    this.innerHTML = this.template(activeTab);
+    this.innerHTML = this.template();
   }
 }
 

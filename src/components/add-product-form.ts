@@ -1,10 +1,10 @@
 import Component from '../abstract/component';
-import { ACTION } from '../constants';
+import { ACTION } from '../constatns/flux-constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
-import { RawProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, toInt } from '../utils';
+import { EventOnElement, RawProductItem } from '../types';
+import { consoleErrorWithConditionalAlert, convertToInteger } from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
 
@@ -26,6 +26,7 @@ class AddProductForm extends Component {
 
   setEvent() {
     this.addEvent('click', 'button', this.onClickAddProductBtn);
+    this.addEvent('keyup', 'input', this.onPressEnter);
   }
 
   onClickAddProductBtn = () => {
@@ -39,6 +40,10 @@ class AddProductForm extends Component {
 
     [...this.querySelectorAll('input')].forEach(($input) => ($input.value = ''));
     this.querySelector('input')?.focus();
+  };
+
+  onPressEnter = ({ key }: EventOnElement) => {
+    if (key === 'Enter') this.onClickAddProductBtn();
   };
 
   addProduct(productItem: RawProductItem) {
@@ -55,8 +60,8 @@ class AddProductForm extends Component {
     Store.instance.dispatch(
       createAction(ACTION.ADD_PRODUCT, {
         ...productItem,
-        price: toInt(price),
-        quantity: toInt(quantity),
+        price: convertToInteger(price),
+        quantity: convertToInteger(quantity),
       })
     );
   }

@@ -1,7 +1,9 @@
-import { VALIDATION_ERROR_NAME } from './constants';
+import { VALIDATION_ERROR_NAME } from './constatns/validator-constants';
 import { Indexable } from './types';
 
-export const toInt = (str: string, defaultNum = 0) => {
+export const $ = (selector: string): HTMLElement => document.querySelector(selector) as HTMLElement;
+
+export const convertToInteger = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
   return !Number.isNaN(val) ? val : defaultNum;
 };
@@ -23,11 +25,13 @@ const randomIndexFromArr = (arr: number[]): number => {
 const randomIndexesFromRange = (size: number): number[] => {
   const randomIndexes: number[] = [];
   let arr = [...Array(size).keys()];
+
   while (arr.length > 0) {
     const randomValue = randomIndexFromArr(arr);
     randomIndexes.push(randomValue);
     arr = arr.filter((v) => v !== randomValue);
   }
+
   return randomIndexes;
 };
 
@@ -56,9 +60,30 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
       copy[key] = deepCopy(obj[key]);
     }
   }
+
   return copy;
 };
 
-export const convertToLocaleString = (number: number): string => {
+export function convertToLocaleString(number: number): string {
   return number.toLocaleString('ko-kr');
-};
+}
+
+export const showSnack = (() => {
+  let timer: NodeJS.Timeout;
+  const $snackbar = $('.snack-bar');
+
+  return function showSnack(message: string) {
+    $snackbar.textContent = message;
+    $snackbar?.classList.add('show');
+
+    if (timer) {
+      $snackbar.style.animationPlayState = 'paused';
+      $snackbar.style.animationPlayState = 'running';
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+      $snackbar?.classList.remove('show');
+    }, 2500);
+  };
+})();

@@ -1,0 +1,13 @@
+#app {
+  purchase-product-inventory {
+    padding: 0px 64px;
+  }
+}
+
+purchase-product-inventory table {
+  @for $i from 1 through 4 {
+    th:nth-child(#{$i}) {
+      width: 25%;
+    }
+  }
+}

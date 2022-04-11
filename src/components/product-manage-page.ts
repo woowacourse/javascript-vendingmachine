@@ -1,14 +1,11 @@
 import Component from '../abstract/component';
 import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { Tab } from '../types';
 import './add-product-form';
 import './product-inventory';
 
 @customElement('product-manage-page')
 class ProductManagePage extends Component {
-  template(activeTab: Tab): string {
-    if (this.localName !== activeTab) return '';
+  template(): string {
     return `
       <add-product-form></add-product-form>
       <product-inventory></product-inventory>
@@ -19,9 +16,8 @@ class ProductManagePage extends Component {
     this.render();
   }
 
-  render(): void {
-    const { activeTab } = Store.instance.getState();
-    this.innerHTML = this.template(activeTab);
+  async render() {
+    this.innerHTML = this.template();
   }
 }
 

@@ -1,12 +1,18 @@
 import Component from '../abstract/component';
-import { ACTION, CONFIRM_MESSAGE } from '../constants';
 import { customElement } from '../decorators/decortators';
 import createAction from '../flux/createAction';
 import Store from '../flux/store';
 import { EventOnElement, ProductItem } from '../types';
-import { consoleErrorWithConditionalAlert, convertToLocaleString, toInt } from '../utils';
+import {
+  consoleErrorWithConditionalAlert,
+  convertToLocaleString,
+  convertToInteger,
+} from '../utils';
 import ValidationError from '../validation/validation-error';
 import { validateProduct } from '../validation/validators';
+import emptyImage from '../../images/empty.png';
+import { ACTION } from '../constatns/flux-constants';
+import { CONFIRM_MESSAGE } from '../constatns/validator-constants';
 
 @customElement('product-inventory')
 class ProductInventory extends Component {
@@ -62,6 +68,15 @@ class ProductInventory extends Component {
     `;
   }
 
+  emptyTemplate() {
+    return `
+      <h2>아직 상품이 없어요!</h2>
+      <div>
+        <img src=${emptyImage} width="100%" />
+      </div>
+    `;
+  }
+
   setEvent() {
     this.addEvent('click', '.btn-edit', this.changeToEditMode);
     this.addEvent('click', '.btn-confirm', this.editProduct);
@@ -72,7 +87,9 @@ class ProductInventory extends Component {
   changeToEditMode = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
+
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: $name.textContent, isEditing: true })
     );
@@ -81,13 +98,14 @@ class ProductInventory extends Component {
   editProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
-    const { $name, $price, $quantity } = tds;
 
+    const { $name, $price, $quantity } = tds;
     const originalName = ($name.childNodes[0] as HTMLInputElement).dataset.originalName as string;
     const name = ($name.childNodes[0] as HTMLInputElement).value;
     const price = ($price.childNodes[0] as HTMLInputElement).value;
     const quantity = ($quantity.childNodes[0] as HTMLInputElement).value;
     const productList = Store.instance.getState().productList;
+
     const errorList = validateProduct(
       { name, price, quantity },
       productList.filter((item) => !(item.name === originalName && item.name === name))
@@ -104,8 +122,8 @@ class ProductInventory extends Component {
       createAction(ACTION.EDIT_PRODUCT, {
         originalName,
         name,
-        price: toInt(price),
-        quantity: toInt(quantity),
+        price: convertToInteger(price),
+        quantity: convertToInteger(quantity),
       })
     );
   };
@@ -113,9 +131,11 @@ class ProductInventory extends Component {
   cancelProductEditing = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
     const $nameInput = $name.childNodes[0] as HTMLInputElement;
     const originalName = $nameInput.dataset.originalName as string;
+
     Store.instance.dispatch(
       createAction(ACTION.CHANGE_EDIT_MODE, { name: originalName, isEditing: false })
     );
@@ -124,22 +144,27 @@ class ProductInventory extends Component {
   deleteProduct = ({ target }: EventOnElement) => {
     const tds = this.findTds(target);
     if (!tds) return;
+
     const { $name } = tds;
     const result = window.confirm(CONFIRM_MESSAGE.DELETE_PRODUCT);
+
     if (!result) return;
+
     Store.instance.dispatch(createAction(ACTION.DELETE_PRODUCT, $name.textContent));
   };
 
   findTds(target: HTMLElement) {
     const children = target.closest('tr')?.children;
     if (!children) return null;
+
     const [$name, $price, $quantity] = children;
     return { $name, $price, $quantity };
   }
 
   mount() {
     const { productList } = Store.instance.getState();
-    this.innerHTML = this.template(productList);
+
+    this.innerHTML = productList.length === 0 ? this.emptyTemplate() : this.template(productList);
   }
 
   render() {
@@ -147,6 +172,7 @@ class ProductInventory extends Component {
     const { productList } = Store.instance.getState();
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
     if (!tbody) return;
+
     tbody.innerHTML = productListTemplate;
   }
 }

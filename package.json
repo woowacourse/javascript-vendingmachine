@@ -1,13 +1,16 @@
 {
   "name": "javascript-vendingmachine",
   "version": "1.0.0",
-  "description": "",
+  "description": "자바스크립트 자판기",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
     "build": "webpack",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "server": "json-server db.json -m ./node_modules/json-server-auth",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,7 @@
     "commitizen": "^4.2.4",
     "commitlint-config-gitmoji": "^2.2.5",
     "css-loader": "^6.6.0",
+    "cypress": "^9.5.3",
     "cz-customizable": "^6.3.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
@@ -39,6 +43,8 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
     "jest": "^27.4.7",
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0",
     "mini-css-extract-plugin": "^2.6.0",
     "node-sass": "^7.0.1",
     "prettier": "^2.6.0",

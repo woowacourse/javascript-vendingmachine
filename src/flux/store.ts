@@ -1,14 +1,14 @@
 import reducer from './reducer';
 import Component from '../abstract/component';
 import { Action, AppState } from '../types';
-import { initialState } from '../constants';
+import { INITIAL_STATE } from '../constatns/flux-constants';
 
 class Store {
   static _instance: null | Store = null;
 
   static get instance() {
     if (!Store._instance) {
-      Store._instance = new Store(initialState);
+      Store._instance = new Store(INITIAL_STATE);
     }
     return Store._instance;
   }
