@@ -27,7 +27,6 @@ describe('상품 관리 페이지를 테스트합니다.', () => {
     const newPrice = '500';
     const newQuantity = '5';
 
-    cy.wait(1000);
     cy.get('product-inventory input').eq(0).clear().type(newName);
     cy.get('product-inventory input').eq(1).clear().type(newPrice);
     cy.get('product-inventory input').eq(2).clear().type(newQuantity);
@@ -46,7 +45,6 @@ describe('상품 관리 페이지를 테스트합니다.', () => {
     cy.addProduct(name, price, quantity);
     cy.get('.btn-delete').click();
 
-    cy.wait(1000);
     cy.get('product-inventory h2').contains('아직 상품이 없어요!');
   });
 });

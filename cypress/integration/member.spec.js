@@ -3,19 +3,12 @@ describe('회원가입 및 로그인을 테스트한다.', () => {
     cy.visit('http://localhost:9000');
   });
 
+  const randomEmail = `${Math.random()}@naver.com`;
+  const name = '나인';
+  const password = 'asdqwe123!';
+
   it('회원가입을 진행할 수 있다.', () => {
-    const randomEmail = `${Math.random()}@naver.com`;
-    const password = 'asdqwe123!';
-
-    cy.get('login-header button').click();
-    cy.get('.sign-up-link').click();
-    cy.get('[name=email]').type(randomEmail);
-    cy.get('[name=name]').type('나인');
-    cy.get('[name=password]').type(password);
-    cy.get('[name=confirm-password]').type(password);
-    cy.get('.signup-form button').click();
-
-    cy.wait(1000);
+    cy.signUp(randomEmail, name, password);
     cy.get('login-header button').should('have.text', '로그인');
   });
 

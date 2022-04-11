@@ -1,11 +1,9 @@
-import { API_ERROR, MEMBER } from './constatns/auth-constants';
+import { API, API_ERROR, MEMBER } from './constatns/auth-constants';
 import { ACTION } from './constatns/flux-constants';
 import createAction from './flux/createAction';
 import Store from './flux/store';
 import Router from './router';
 import { consoleErrorWithConditionalAlert, showSnack } from './utils';
-
-const API = 'https://nine-db-api.herokuapp.com';
 
 export async function login(email: BodyInit, password: BodyInit) {
   try {

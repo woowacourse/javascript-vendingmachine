@@ -20,3 +20,5 @@ export const API_ERROR = {
   CANNOT_FIND_PAGE: '페이지를 찾지 못했습니다.',
   DEFAULT_ERROR: '에러가 발생했습니다. 관리자에게 문의해주세요.',
 };
+
+export const API = 'https://nine-db-api.herokuapp.com';
