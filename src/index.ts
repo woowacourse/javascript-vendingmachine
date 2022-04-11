@@ -24,8 +24,6 @@ class App {
   }
 
   onClickLogin = (e: PointerEvent) => {
-    if (!(e.target instanceof HTMLButtonElement)) return;
-
     router.to('#!/login');
   };
 
