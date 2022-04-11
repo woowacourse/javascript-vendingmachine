@@ -1,4 +1,4 @@
-import api from '../Api';
+import api from '../api';
 import showSnackbar from '../components/Snackbar';
 import router from '../router';
 import template from '../template';
