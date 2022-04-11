@@ -8,9 +8,9 @@ import EditProfileView from './sign/editProfileView';
 
 export default class SignView {
   private $app: HTMLElement;
-  signInView: SignInView;
-  singUpView: SignUpView;
-  editProfileView: EditProfileView;
+  private signInView: SignInView;
+  private singUpView: SignUpView;
+  private editProfileView: EditProfileView;
 
   constructor() {
     this.$app = $(SELECTOR.ID.APP);
