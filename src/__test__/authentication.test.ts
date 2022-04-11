@@ -10,7 +10,6 @@ describe('인증 입력값 유효성 검사', () => {
   const validEmail = 'woowa@test.email.com';
   const validName = 'woowa';
   const validPassword = 'abcd1234!';
-  const validVerificationPassword = 'abcd1234!';
 
   test('입력한 이메일이 이메일 형식에 맞지 않으면 에러가 발생한다.', () => {
     const email = 'woowa!test.email.com';
@@ -20,7 +19,7 @@ describe('인증 입력값 유효성 검사', () => {
         email,
         name: validName,
         password: validPassword,
-        verificationPassword: validVerificationPassword,
+        verificationPassword: validPassword,
       })
     ).toThrow(AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT);
   });
@@ -33,7 +32,7 @@ describe('인증 입력값 유효성 검사', () => {
         email: validEmail,
         name: name,
         password: validPassword,
-        verificationPassword: validVerificationPassword,
+        verificationPassword: validPassword,
       })
     ).toThrow(AUTHENTICATION_MESSAGE.EXCEED_NAME_LENGTH_RANGE);
   });
@@ -46,7 +45,7 @@ describe('인증 입력값 유효성 검사', () => {
         email: validEmail,
         name: name,
         password: validPassword,
-        verificationPassword: validVerificationPassword,
+        verificationPassword: validPassword,
       })
     ).toThrow(AUTHENTICATION_MESSAGE.EXCEED_NAME_LENGTH_RANGE);
   });
