@@ -1,18 +1,97 @@
 import { PRODUCT, CHARGE } from "../../src/ts/utils/constants";
 
-describe("상품 관리 탭 테스트", () => {
+describe("관리자 회원가입, 로그인, 정보 수정, 로그아웃 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:9000/#product");
+    cy.get(".member-login-button").click();
+  })
+
+  it("회원가입을 할 수 있어야 한다", () => {
+    cy.get(".signup-text").click();
+    cy.get("#email-info-input").type(`${Date.now()}@naver.com`);
+    cy.get("#name-info-input").type("카더가든");
+    cy.get("#password-info-input").type("QwEr1234!");
+    cy.get("#password-confirm-info-input").type("QwEr1234!");
+    cy.get(".member-confirm-button").click();
+
+    cy.get(".snackbar-text").should("have.text", "회원가입을 완료하였습니다.");
+  });
+// 
+  it("로그인을 할 수 있어야 한다", () => {
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.get(".user-info-text").contains("카");
+  });
+
+  it("없는 계정으로 로그인을 하면 가입된 계정이 없다는 텍스트를 보여줘야 한다", () => {
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000123!");
+    cy.get(".member-confirm-button").click();
+
+    cy.get(".snackbar-text").should("have.text", "가입된 계정이 없습니다.");
+  });
+
+  it("관리자 정보를 수정할 수 있어야 한다", () => {
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.wait(3000);
+
+    cy.get(".user-info-text").click();
+    cy.get(".user-info-edit").click();
+
+    cy.wait(2000);
+
+    cy.get("#name-info-input").type("카더가든");
+    cy.get("#password-info-input").type("KimYJ0000!");
+    cy.get("#password-confirm-info-input").type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.get(".snackbar-text").should("have.text", "수정을 완료하였습니다.");
+  });
+
+  it("로그아웃을 할 수 있어야 한다", () => {
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.wait(3000);
+
+    cy.get(".user-info-text").click();
+    cy.get(".user-logout").click();
+    
+    cy.get(".member-login-button").should("have.text", "로그인");
+  });
+
+})  
+
+describe("상품 관리 탭 테스트", () => {
+  before(() => {
+    cy.visit("http://localhost:9000/#product");
+
+
+    cy.get(".member-login-button").click();
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.wait(3000);
+  })
+
+  beforeEach(() => {
     cy.get(".product-control-input").eq(0).as("productNameInput");
     cy.get(".product-control-input").eq(1).as("productPriceInput");
-    cy.get(".product-control-input").eq(2).as("productQuantityInput");    
+    cy.get(".product-control-input").eq(2).as("productQuantityInput");
+  })
+
+  it("자판기에 상품 추가가 기능하다", () => {     
     cy.get("@productNameInput").type("사이다");
     cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE);
     cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
-  })
-
-  it("자판기에 상품 추가가 기능하다", () => {    
 
     cy.get(".product-name").should("have.text", "사이다");
   });
@@ -35,66 +114,70 @@ describe("상품 관리 탭 테스트", () => {
     cy.get("#product-control-table").children().eq(1).should("be.empty");
   });
 
-  it("자판기에 같은 이름의 상품은 등록할 수 없다", () => {    
+  it("자판기에 같은 이름의 상품은 등록할 수 없다", () => {      
     cy.get("@productNameInput").type("사이다");
     cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE);
     cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
+
+    cy.get("@productNameInput").type("사이다");
+    cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE);
+    cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq("중복된 상품명은 등록할 수 없습니다.");
-    });
+    cy.get(".snackbar-text").should("have.text", "같은 이름의 제품은 등록할 수 없습니다.");
   });
 
   it(`자판기에 등록할 상품명은 ${PRODUCT.MAX_LENGTH}글자 까지 가능하다`, () => {
-    cy.get("@productNameInput").type("사이다를마시다가용트름");
-    cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE);
-    cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
+    cy.get("@productNameInput").clear().type("사이다를마시다가용트름");
+    cy.get("@productPriceInput").clear().type(PRODUCT.MAX_PRICE);
+    cy.get("@productQuantityInput").clear().type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`상품명은 최대 ${PRODUCT.MAX_LENGTH}글자까지 입력 가능합니다.`);
-    });
+    cy.get(".snackbar-text").should("have.text", `상품명은 최대 ${PRODUCT.MAX_LENGTH}글자까지 입력 가능합니다.`);
   });
 
     it(`상품 가격은 ${PRODUCT.MIN_PRICE}원부터, 최대 ${PRODUCT.MAX_PRICE}원까지 가능하다.`, () => {
-    cy.get("@productNameInput").type("콜라");
-    cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE + 1);
-    cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
+    cy.get("@productNameInput").clear().type("콜라");
+    cy.get("@productPriceInput").clear().type(PRODUCT.MAX_PRICE + 1);
+    cy.get("@productQuantityInput").clear().type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`상품 가격은 ${PRODUCT.MIN_PRICE}원부터, 최대 ${PRODUCT.MAX_PRICE}원까지 가능합니다.`);
-    });
+    cy.get(".snackbar-text").should("have.text", `상품 가격은 ${PRODUCT.MIN_PRICE}원부터, 최대 ${PRODUCT.MAX_PRICE}원까지 가능합니다.`);
   });
 
   it(`상품 가격은 ${PRODUCT.UNIT}원으로 나누어 떨어져야한다.`, () => {
-    cy.get("@productNameInput").type("콜라");
-    cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE - 1);
-    cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY);
+    cy.get("@productNameInput").clear().type("콜라");
+    cy.get("@productPriceInput").clear().type(PRODUCT.MAX_PRICE - 1);
+    cy.get("@productQuantityInput").clear().type(PRODUCT.MAX_QUANTITY);
     cy.get("#product-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`상품 가격은 ${PRODUCT.UNIT}원으로 나누어 떨어져야합니다.`);
-    });
+    cy.get(".snackbar-text").should("have.text", `상품 가격은 ${PRODUCT.UNIT}원으로 나누어 떨어져야합니다.`);
   });
 
     it(`제품당 수량은 최소 ${PRODUCT.MAX_QUANTITY}개부터 최대 ${PRODUCT.MIN_QUANTITY}개까지 가능하다.`, () => {
-    cy.get("@productNameInput").type("콜라");
-    cy.get("@productPriceInput").type(PRODUCT.MAX_PRICE);
-    cy.get("@productQuantityInput").type(PRODUCT.MAX_QUANTITY + 1);
+    cy.get("@productNameInput").clear().type("콜라");
+    cy.get("@productPriceInput").clear().type(PRODUCT.MAX_PRICE);
+    cy.get("@productQuantityInput").clear().type(PRODUCT.MAX_QUANTITY + 1);
     cy.get("#product-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`제품당 수량은 최소 ${PRODUCT.MAX_QUANTITY}개부터 최대 ${PRODUCT.MIN_QUANTITY}개까지 가능합니다.`);
-    });
+    cy.get(".snackbar-text").should("have.text", `제품당 수량은 최소 ${PRODUCT.MIN_QUANTITY}개부터 최대 ${PRODUCT.MAX_QUANTITY}개까지 가능합니다.`);
   });
 });
 
 describe("잔돈 관리 탭 테스트", () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit("http://localhost:9000/#product");
+
+    cy.get(".member-login-button").click();
+    cy.get(".member-info-input").eq(0).type("sion0000@naver.com");
+    cy.get(".member-info-input").eq(1).type("KimYJ0000!");
+    cy.get(".member-confirm-button").click();
+
+    cy.wait(3000);
+  })
+
+  beforeEach(() => {
     cy.get(".nav__button").eq(1).click();
     cy.get(".charge-coin-count").eq(3).as("TenWonCoinCountText");    
   });
@@ -106,21 +189,16 @@ describe("잔돈 관리 탭 테스트", () => {
   })
 
   it(`최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있다.`, () => {
-    cy.get(".charge-control-input").type(CHARGE.MAX_PRICE + 1);
+    cy.get(".charge-control-input").clear().type(CHARGE.MAX_PRICE + 1);
     cy.get("#charge-add-button").click();
 
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 충전할 수 있습니다.`);
-    });
+    cy.get(".snackbar-text").should("have.text", `최소 ${CHARGE.MIN_PRICE}원, 최대 ${CHARGE.MAX_PRICE}원까지 투입할 수 있습니다.`);
   })
 
     it(`잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있다.`, () => {
-    cy.get(".charge-control-input").type(CHARGE.UNIT + 1);
+    cy.get(".charge-control-input").clear().type(CHARGE.UNIT + 1);
     cy.get("#charge-add-button").click();
-
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).eq(`잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`);
-    });
+    
+    cy.get(".snackbar-text").should("have.text", `잔돈은 ${CHARGE.UNIT}원으로 나누어 떨어지는 금액만 투입할 수 있습니다.`);
   })
-
 });

@@ -1,0 +1,62 @@
+#insert-money-form-wrap {
+  width: 384px;
+  margin: auto;
+}
+
+.insert-money-input {
+  width: 300px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #8b8b8b;
+  padding-left: 5px;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+#purchase-possible-product-table {
+  width: 470px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+}
+
+#return-charge-table {
+  width: 236px;
+  text-align: center;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+#return-money-button-wrap {
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#return-money-button {
+  width: 100px;
+  height: 32px;
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
+#return-money-button:hover {
+  background-color: #ebebeb;
+  align-items: center;
+  margin: auto;
+}
+
+.product-purchase-button {
+  width: 100px;
+  height: 32px;
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
+.product-purchase-button:hover {
+  background-color: #ebebeb;
+}
+

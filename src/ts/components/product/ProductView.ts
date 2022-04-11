@@ -1,6 +1,6 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
-import { changeEditProductInfoProps, productProps } from "../../utils/interface";
-import { productTemplate, addProductTemplate, editProductTemplate } from "./productTemplate";
+import { ChangeEditProductInfoProps, ProductProps } from "../../utils/interface";
+import { productTemplate, addProductTemplate, editProductTemplate, productSectionNoAuthority } from "./productTemplate";
 
 class ProductView {
   vendingmachineFunctionWrap: HTMLElement;
@@ -11,7 +11,7 @@ class ProductView {
     this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
-  addProduct({ productName, productPrice, productQuantity }: productProps) {
+  addProduct({ productName, productPrice, productQuantity }: ProductProps) {
       this.productTable.insertAdjacentHTML(
       "beforeend",
       addProductTemplate({
@@ -37,8 +37,8 @@ class ProductView {
     });
   }
 
-  editProduct({target, productName, productPrice, productQuantity}: changeEditProductInfoProps) {
-      target.closest("tr").innerHTML = addProductTemplate({
+  editProduct({target, productName, productPrice, productQuantity}: ChangeEditProductInfoProps) {
+    target.closest("tr").innerHTML = addProductTemplate({
       productName: productName,
       productPrice: productPrice,
       productQuantity: productQuantity
@@ -60,16 +60,16 @@ class ProductView {
     this.productInfoInputs.forEach((input: HTMLInputElement) => (input.value = ""));
   }
 
-  showProductList(productList) {
-      this.productTable.insertAdjacentHTML(
+  showProductList(productList: ProductProps[]) {
+    this.productTable.insertAdjacentHTML(
       "beforeend",
-      productList.map((product: productProps) =>  addProductTemplate(product)).join(' ')
+      productList.map((product: ProductProps) =>  addProductTemplate(product)).join(' ')
     );
   };
 
-  renderProductView() {
+  renderProductView(userName: string) {
     this.vendingmachineFunctionWrap.replaceChildren();
-    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", productTemplate());
+    this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", userName ? productTemplate : productSectionNoAuthority);
     this.productTable = selectDom("#product-control-table");
   }
 }

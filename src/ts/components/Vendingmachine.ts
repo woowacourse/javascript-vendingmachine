@@ -1,20 +1,32 @@
-import { selectDom, selectDomAll } from "../utils/dom";
 import Charge from "./charge/Charge";
 import MenuTab from "./menuTab/MenuTab";
-import { menuTabTemplate } from "./menuTab/menuTabTemplate";
 import Product from "./product/Product";
+import Purchase from "./purchase/Purchase";
+import { selectDom, selectDomAll } from "../utils/dom";
+import { menuTabTemplate } from "./menuTab/menuTabTemplate";
+import Login from "./login/login";
+import Signup from "./signup/Signup";
+import EditMemberInfo from "./editMember/EditMember";
+import EditMember from "./editMember/EditMember";
 
 class Vendingmachine {
-  vendingmachineWrap: HTMLElement;
+  login: Login;
+  editMember: EditMember;
   menuTab: MenuTab;
   product: Product;
   charge: Charge;
+  purchase: Purchase;
+  signup: Signup;
+  vendingmachineFunctionWrap: HTMLElement;
 
   constructor() {
-    this.vendingmachineWrap = selectDom("#app");
-    this.vendingmachineWrap.insertAdjacentHTML(
+    const vendingmachineWrap = selectDom("#app");
+    vendingmachineWrap.insertAdjacentHTML(
       "beforeend",
-      `<h1>🍿 자판기 🍿</h1> ${menuTabTemplate} <main class="main"></main>`
+      `<aside id="snackbar-wrap"></aside>
+        <header class="header">
+        </header>
+        <main class="main"></main>`
     );
 
     this.mountComponent();
@@ -23,9 +35,13 @@ class Vendingmachine {
   }
 
   mountComponent() {
+    this.login = new Login(this.convertTemplate);
+    this.signup = new Signup(this.convertTemplate);
+    this.editMember = new EditMember(this.convertTemplate);
     this.menuTab = new MenuTab(this.convertTemplate);
     this.product = new Product();
     this.charge = new Charge();
+    this.purchase = new Purchase();
 
     if (!location.hash) {
       history.pushState({ path: "#product" }, null, "#product");
@@ -48,11 +64,15 @@ class Vendingmachine {
 
   convertTemplate = (path: string) => {
     const routes = {
+      "#login": () => this.login.render(),
+      "#signup": () => this.signup.render(),
+      "#editMember": () => this.editMember.render(),
       "#product": () => this.product.render(),
       "#charge": () => this.charge.render(),
-      "#purchase": () => "",
+      "#purchase": () => this.purchase.render()
     };
 
+    this.menuTab.render(path); 
     routes[path]();
   };
 }

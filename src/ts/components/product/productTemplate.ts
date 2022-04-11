@@ -1,7 +1,6 @@
-import { productProps } from "../../utils/interface";
+import { ProductProps } from "../../utils/interface";
 
-const productTemplate = () => {
-  return `
+const productTemplate = `
     <section id="product-control-section">
       <div>
         <form id="product-control-form">
@@ -26,13 +25,12 @@ const productTemplate = () => {
         </table>
       </div>
     </section>`;
-};
 
 const addProductTemplate = ({
   productName,
   productPrice,
   productQuantity
-}: productProps) => {
+}: ProductProps) => {
   return `
     <tr>
       <td class="product-name">${productName}</td>
@@ -49,7 +47,8 @@ const editProductTemplate = ({
   productName,
   productPrice,
   productQuantity
-}: productProps) => {
+}: ProductProps) => {
+
   return `
     <td class="product-name" data-name="${productName}" ><input class="product-edit-input" value="${productName}" /></td>
     <td><input class="product-edit-input" value='${productPrice}' /></td>
@@ -58,4 +57,6 @@ const editProductTemplate = ({
   `;
 };
 
-export { productTemplate, addProductTemplate, editProductTemplate };
+const productSectionNoAuthority = `<p>접근 권한이 없습니다.</p>`;
+
+export { productTemplate, addProductTemplate, editProductTemplate, productSectionNoAuthority };

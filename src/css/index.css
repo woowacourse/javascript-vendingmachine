@@ -1,3 +1,8 @@
+@import "./productPage.css";
+@import "./chargePage.css";
+@import "./purchasePage.css";
+@import "./memberPage.css";
+
 #app {
   display: flex;
   flex-direction: column;
@@ -11,6 +16,30 @@ input {
 
 button {
   border: none;
+}
+
+.header {
+  width: 470px;
+}
+
+.header-text {
+  text-align: center;
+}
+
+.member-wrap {
+  float: right;
+  margin-top: -50px;
+}
+
+.member-login-button {
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.member-login-button:hover {
+  background-color: #ebebeb;
 }
 
 .nav {
@@ -44,32 +73,64 @@ button {
   background: #00bcd41f;
 }
 
-.product-control-input {
-  width: 120px;
-  height: 36px;
-  border-radius: 5px;
-  border: 1px solid #8b8b8b;
-  padding-left: 5px;
-  margin-top: 8px;
-  font-size: 16px;
-}
-
-.charge-control-input {
-  width: 300px;
-  height: 36px;
-  border-radius: 5px;
-  border: 1px solid #8b8b8b;
-  padding-left: 5px;
-  margin-top: 8px;
-  font-size: 16px;
-}
-
-.product-control-form {
+.user-info-section {
   display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.user-info-text,
+.user-info-edit,
+.user-logout {
+  width: 30px;
+  height: 26px;
+  border-radius: 15px;
+  background-color: #00bcd4;
+  color: #000000;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+  padding-top: 4px;
+  margin-bottom: 4px;
+}
+
+.user-info-text {
+  z-index: 2;
+}
+
+.user-info-edit {
+  position: absolute;
+}
+
+.edit-button-animation {
+  top: 34px
+}
+
+.user-logout {
+  position: absolute;
+}
+
+.logout-button-animation {
+  top: 68px
+}
+
+.user-info-text:hover,
+.user-info-edit:hover ,
+.user-logout:hover {
+  background-color: #00e1ff;
+}
+
+.user-info-edit > svg,
+.user-logout > svg {
+  width: 16px;
+  color: #ebebeb;
+  padding-top: 2px;
+  pointer-events: none
 }
 
 #product-add-button,
-#charge-add-button {
+#charge-add-button,
+#insert-money-button {
   width: 56px;
   height: 38px;
   cursor: pointer;
@@ -81,33 +142,28 @@ button {
   font-size: 16px;
 }
 
+#product-add-button:hover,
+#charge-add-button:hover,
+#insert-money-button:hover {
+  background-color: #00e1ff;
+}
+
 #product-table-title,
-#charge-table-title {
+#charge-table-title,
+#purchase-product-table-title,
+#return-charge-table-title {
   text-align: center;
   margin-top: 40px;
-}
-
-#product-control-table {
-  width: 470px;
-  text-align: center;
-  border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
-  border-collapse: collapse;
-}
-
-#charge-control-table {
-  width: 236px;
-  text-align: center;
-  border-top: 1px solid #dcdcdc;
-  border-bottom: 1px solid #dcdcdc;
-  border-collapse: collapse;
-  margin: auto;
 }
 
 #product-control-table td,
 #product-control-table th,
 #charge-control-table td,
-#charge-control-table th {
+#charge-control-table th,
+#purchase-possible-product-table td,
+#purchase-possible-product-table th,
+#return-charge-table td,
+#return-charge-table th {
   width: 118px;
   height: 40px;
   border-top: 1px solid #dcdcdc;
@@ -128,17 +184,38 @@ button {
   width: 50px;
 }
 
-.product-confirm-button {
-  width: 100px;
-}
-
 .product-edit-button:hover,
 .product-remove-button:hover,
 .product-confirm-button:hover {
   background: #ebebeb;
 }
 
-.product-edit-input {
-  width: 70px;
-  height: 22px;
+.disabled-input {
+  background-color: #999999;
 }
+
+#snackbar-wrap {
+  width: 302px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+}
+
+.snackbar {
+  width: 300px;
+  height: 60px;
+  background-color: #5c5c5c;
+}
+
+.snackbar-text {
+  color: #ebebeb;
+  line-height: 22px;
+  padding: 8px 8px 6px 10px;
+}
+
+.snackbar-animation {
+  animation: 2s showSnack;
+}
+
+@keyframes showSnack { from { opacity: 0; } to { opacity: 1; } }
