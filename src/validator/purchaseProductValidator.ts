@@ -10,11 +10,7 @@ const purchaseProductValidator = {
   },
 };
 
-export const validatePurchaseProduct = (
-  targetName: string,
-  products: Product[],
-  userInputMoneyAmount: number,
-): void => {
+export const validatePurchaseProduct = (targetName: string, products: Product[], userInputMoneyAmount: number) => {
   if (purchaseProductValidator.isNotEnoughMoney(targetName, products, userInputMoneyAmount)) {
     throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
   }

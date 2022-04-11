@@ -10,7 +10,7 @@ const userInputMoneyValidator = {
   },
 };
 
-export const validateInputMoney = (money: number, userInputMoneyAmount: number): void => {
+export const validateInputMoney = (money: number, userInputMoneyAmount: number) => {
   if (userInputMoneyValidator.isOverMax(money, userInputMoneyAmount)) {
     throw new Error(ERROR_MESSAGE.OVER_INPUT_MONEY);
   }
