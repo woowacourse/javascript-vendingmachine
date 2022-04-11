@@ -32,11 +32,83 @@ class ProductCurrentSituation extends CustomElement {
   }
 
   // eslint-disable-next-line max-lines-per-function
+  setEvent() {
+    const $productCurrentSituation = $('.product-current-situation tbody');
+
+    $productCurrentSituation.addEventListener('click', (event) => {
+      const { classList } = event.target;
+      const $tbodyRow = event.target.closest('tr');
+
+      if (classList.contains('table__product-modify-button')) {
+        this.handleProductModifyButtonClick($tbodyRow);
+        return;
+      }
+      if (classList.contains('table__product-delete-button')) {
+        this.handleProductDeleteButtonClick($tbodyRow.dataset);
+        return;
+      }
+      if (classList.contains('table__product-modify-confirm-button')) {
+        this.handleProductModifyConfirmButtonClick($tbodyRow);
+      }
+    });
+
+    $productCurrentSituation.addEventListener('keydown', (event) => {
+      this.handleProductModifyEnter(event, event.target.closest('tr'));
+    });
+  }
+
+  handleProductModifyButtonClick = ($tbodyRow) => {
+    $$('.product-td', $tbodyRow).forEach((td) => hideElement(td));
+    $$('.product-modify-td', $tbodyRow).forEach((td) => showElement(td));
+  };
+
+  handleProductDeleteButtonClick = ({ productName }) => {
+    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
+  };
+
+  handleProductModifyConfirmButtonClick = ($tbodyRow) => {
+    try {
+      this.modifyProduct($tbodyRow);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  handleProductModifyEnter = (event, $tbodyRow) => {
+    if (event.key !== 'Enter') return;
+
+    try {
+      this.modifyProduct($tbodyRow);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  modifyProduct($tbodyRow) {
+    const oldProductName = $tbodyRow.dataset.productName;
+    const newProductInfo = {
+      name: $('.product-name-input', $tbodyRow).value,
+      price: $('.product-price-input', $tbodyRow).valueAsNumber,
+      quantity: $('.product-quantity-input', $tbodyRow).valueAsNumber,
+    };
+
+    if (oldProductName !== newProductInfo.name) {
+      checkDuplicateProductWhenModify(newProductInfo);
+    }
+
+    checkProductValidation(newProductInfo);
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
+  }
+
+  // eslint-disable-next-line max-lines-per-function
   rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
         $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
-        this.setEventAfterProductAddRerender(detail);
+        $(`[data-product-name="${detail.name}"]`).scrollIntoView();
         break;
       case PRODUCT_ACTION.MODIFY: {
         const { oldProductName, newProductInfo } = detail;
@@ -93,72 +165,6 @@ class ProductCurrentSituation extends CustomElement {
         </td>
       </tr>
     `;
-  }
-
-  setEventAfterProductAddRerender({ name }) {
-    const $tbodyRow = $(`[data-product-name="${name}"]`);
-
-    $tbodyRow.scrollIntoView();
-
-    $('.table__product-modify-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductModifyButtonClick($tbodyRow),
-    );
-    $('.table__product-delete-button', $tbodyRow).addEventListener('click', () => {
-      this.handleProductDeleteButtonClick($tbodyRow.dataset);
-    });
-
-    $$('.product-modify-td input', $tbodyRow).forEach((input) =>
-      input.addEventListener('keydown', (event) => this.handleProductModifyEnter(event, $tbodyRow)),
-    );
-    $('.product-modify-td .table__product-modify-confirm-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductModifyConfirmButtonClick($tbodyRow),
-    );
-  }
-
-  handleProductModifyButtonClick = ($tbodyRow) => {
-    $$('.product-td', $tbodyRow).forEach((td) => hideElement(td));
-    $$('.product-modify-td', $tbodyRow).forEach((td) => showElement(td));
-  };
-
-  handleProductDeleteButtonClick = ({ productName }) => {
-    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
-
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.DELETE, productName));
-  };
-
-  handleProductModifyEnter = (event, $tbodyRow) => {
-    if (event.key !== 'Enter') return;
-
-    try {
-      this.modifyProduct($tbodyRow);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  handleProductModifyConfirmButtonClick = ($tbodyRow) => {
-    try {
-      this.modifyProduct($tbodyRow);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  modifyProduct($tbodyRow) {
-    const oldProductName = $tbodyRow.dataset.productName;
-    const newProductInfo = {
-      name: $('.product-name-input', $tbodyRow).value,
-      price: $('.product-price-input', $tbodyRow).valueAsNumber,
-      quantity: $('.product-quantity-input', $tbodyRow).valueAsNumber,
-    };
-
-    if (oldProductName !== newProductInfo.name) {
-      checkDuplicateProductWhenModify(newProductInfo);
-    }
-
-    checkProductValidation(newProductInfo);
-
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo }));
   }
 }
 

@@ -32,6 +32,38 @@ class PurchasableProductCurrentSituation extends CustomElement {
     `;
   }
 
+  setEvent() {
+    $('.purchasable-product-current-situation tbody').addEventListener('click', (event) => {
+      if (event.target.classList.contains('table__product-purchase-button')) {
+        this.handleProductPurchaseButtonClick(event.target.closest('tr'));
+      }
+    });
+  }
+
+  handleProductPurchaseButtonClick = ($tbodyRow) => {
+    const $snackbar = $('#snackbar');
+
+    try {
+      this.purchaseProduct($tbodyRow);
+      $snackbar.textContent = COMPLETE_MESSAGE.PRODUCT_PURCHASE;
+    } catch (error) {
+      $snackbar.textContent = error.message;
+    }
+
+    floatSnackbar($snackbar);
+  };
+
+  purchaseProduct($tbodyRow) {
+    const productName = $tbodyRow.dataset.purchasableProductName;
+    const productPrice = Number($('.purchasable-product-price-td', $tbodyRow).textContent);
+    const productQuantity = Number($('.purchasable-product-quantity-td', $tbodyRow).textContent);
+
+    checkProductPurchaseValidation(productPrice, productQuantity);
+
+    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productName));
+    CoinStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productPrice));
+  }
+
   // eslint-disable-next-line max-lines-per-function
   rerender({ type, detail }) {
     switch (type) {
@@ -40,7 +72,6 @@ class PurchasableProductCurrentSituation extends CustomElement {
           'beforeend',
           this.tableBodyRowTemplate(detail),
         );
-        this.setEventAfterProductAddRerender(detail);
         break;
       case PRODUCT_ACTION.MODIFY: {
         const { oldProductName, newProductInfo } = detail;
@@ -77,38 +108,6 @@ class PurchasableProductCurrentSituation extends CustomElement {
         </td>
       </tr>
     `;
-  }
-
-  setEventAfterProductAddRerender({ name }) {
-    const $tbodyRow = $(`[data-purchasable-product-name="${name}"]`);
-
-    $('.table__product-purchase-button', $tbodyRow).addEventListener('click', () =>
-      this.handleProductPurchaseButtonClick($tbodyRow),
-    );
-  }
-
-  handleProductPurchaseButtonClick = ($tbodyRow) => {
-    const $snackbar = $('#snackbar');
-
-    try {
-      this.purchaseProduct($tbodyRow);
-      $snackbar.textContent = COMPLETE_MESSAGE.PRODUCT_PURCHASE;
-    } catch (error) {
-      $snackbar.textContent = error.message;
-    }
-
-    floatSnackbar($snackbar);
-  };
-
-  purchaseProduct($tbodyRow) {
-    const productName = $tbodyRow.dataset.purchasableProductName;
-    const productPrice = Number($('.purchasable-product-price-td', $tbodyRow).textContent);
-    const productQuantity = Number($('.purchasable-product-quantity-td', $tbodyRow).textContent);
-
-    checkProductPurchaseValidation(productPrice, productQuantity);
-
-    ProductStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productName));
-    CoinStore.instance.dispatch(createAction(PRODUCT_ACTION.PURCHASE, productPrice));
   }
 }
 
