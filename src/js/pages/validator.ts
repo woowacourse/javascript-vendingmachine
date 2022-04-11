@@ -13,15 +13,15 @@ const isPwdDigit = (pwd: string) => pwd.search(/[0-9]/) >= 0;
 const isSamePwdCheck = (pwd: string, pwdCheck: string) => pwd === pwdCheck;
 
 const validateAccount = (name: string, pwd: string, pwdCheck: string) => {
-  return [
-    isPositiveName(name),
-    isPositivePwdLength(pwd),
-    isPwdLowerCase(pwd),
-    isPwdUpperCase(pwd),
-    isPwdSpecialChar(pwd),
-    isPwdDigit(pwd),
-    isSamePwdCheck(pwd, pwdCheck),
-  ];
+  return {
+    isPositiveName: isPositiveName(name),
+    isPositivePwdLength: isPositivePwdLength(pwd),
+    isPwdLowerCase: isPwdLowerCase(pwd),
+    isPwdUpperCase: isPwdUpperCase(pwd),
+    isPwdSpecialChar: isPwdSpecialChar(pwd),
+    isPwdDigit: isPwdDigit(pwd),
+    isSamePwdCheck: isSamePwdCheck(pwd, pwdCheck),
+  };
 };
 
 export { validateAccount };

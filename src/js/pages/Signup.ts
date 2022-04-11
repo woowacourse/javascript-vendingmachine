@@ -83,7 +83,7 @@ export default class Signup {
 
   checkAccountValidate(name: string, pwd: string, pwdCheck: string) {
     const validationAccount = validateAccount(name, pwd, pwdCheck);
-    const [
+    const {
       isPositiveName,
       isPositivePwdLength,
       isPwdLowerCase,
@@ -91,7 +91,7 @@ export default class Signup {
       isPwdSpecialChar,
       isPwdDigit,
       isSamePwdCheck,
-    ] = validationAccount;
+    } = validationAccount;
 
     this.$nameLength.classList.toggle('hide', isPositiveName);
     this.$pwdMinLength.classList.toggle('hide', isPositivePwdLength);
@@ -101,7 +101,7 @@ export default class Signup {
     this.$pwdDigit.classList.toggle('hide', isPwdDigit);
     this.$pwdConfirm.classList.toggle('hide', isSamePwdCheck);
 
-    const isError = validationAccount.includes(false);
+    const isError = Object.values(validationAccount).includes(false);
 
     if (isError) {
       throw new Error('잘못 입력 했습니다.');
