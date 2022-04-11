@@ -20,8 +20,8 @@ export default class Signup {
   $signupName: HTMLFormElement;
   $signupPassword: HTMLInputElement;
   $signupPasswordCheck: HTMLInputElement;
-  $nameNbr: HTMLElement;
-  $pwdNbr: HTMLElement;
+  $nameLength: HTMLElement;
+  $pwdMinLength: HTMLElement;
   $pwdLowercase: HTMLElement;
   $pwdUppercase: HTMLElement;
   $pwdSpecial: HTMLElement;
@@ -43,8 +43,8 @@ export default class Signup {
     this.$signupPassword = this.$contentsContainer.querySelector('#signup-password');
     this.$signupPasswordCheck = this.$contentsContainer.querySelector('#signup-password-check');
 
-    this.$nameNbr = this.$contentsContainer.querySelector('#name-nbr');
-    this.$pwdNbr = this.$contentsContainer.querySelector('#pwd-nbr');
+    this.$nameLength = this.$contentsContainer.querySelector('#name-length');
+    this.$pwdMinLength = this.$contentsContainer.querySelector('#pwd-min-length');
     this.$pwdLowercase = this.$contentsContainer.querySelector('#pwd-lowercase');
     this.$pwdUppercase = this.$contentsContainer.querySelector('#pwd-uppercase');
     this.$pwdSpecial = this.$contentsContainer.querySelector('#pwd-special');
@@ -98,8 +98,8 @@ export default class Signup {
     const _isPwdDigit = isPwdDigit(pwd);
     const _isSamePwd2 = isSamePwd2(pwd, pwd2);
 
-    this.$nameNbr.classList.toggle('hide', _isPositiveName);
-    this.$pwdNbr.classList.toggle('hide', _isPositivePwdLength);
+    this.$nameLength.classList.toggle('hide', _isPositiveName);
+    this.$pwdMinLength.classList.toggle('hide', _isPositivePwdLength);
     this.$pwdLowercase.classList.toggle('hide', _isPwdLowerCase);
     this.$pwdUppercase.classList.toggle('hide', _isPwdUpperCase);
     this.$pwdSpecial.classList.toggle('hide', _isPwdSpecialChar);

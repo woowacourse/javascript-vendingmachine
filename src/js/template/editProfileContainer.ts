@@ -11,14 +11,14 @@ const editProfileContainer = () => {
                     <input type="text" id="edit-profile-name" class="login-input" placeholder="이름을 입력해주세요" />
                 </div>
                 <div class="valid-box account-name">
-                    <p id="name-nbr" class="hints hide" >이름은 2~6글자까지 가능합니다.</p>
+                    <p id="name-length" class="hints hide" >이름은 2~6글자까지 가능합니다.</p>
                 </div>
                 <div class="login-block">
                     <label>비밀번호</label>
                     <input type="text" id="edit-profile-password" class="login-input" placeholder="비밀번호를 입력해주세요" />
                 </div>
                 <div class="valid-box account-pwd">
-                    <p id="pwd-nbr" class="hints hide" >최소한 8글자 이상이여야 합니다.</p>
+                    <p id="pwd-min-length" class="hints hide" >최소한 8글자 이상이여야 합니다.</p>
                     <p id="pwd-lowercase" class="hints hide" >소문자를 적어도 하나 이상 포함시켜야 합니다.</p>
                     <p id="pwd-uppercase" class="hints hide" >대문자를 적어도 하나 이상 포함시켜야 합니다.</p>
                     <p id="pwd-special" class="hints hide" >특수문자(#?!@$%^&*-)를 적어도 하나 이상 포함시켜야 합니다.</p>
