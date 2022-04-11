@@ -8,11 +8,8 @@ import PurchaseView from "./PurchaseView";
 class Purchase {
   purchaseInfo: PurchaseInfo;
   purchaseView: PurchaseView;
-  insertMoneyForm: HTMLElement;
   insertMoneyInput: HTMLElement | HTMLInputElement;
   insertMoneyText: HTMLElement;
-  purchasePossibleProductTable: HTMLElement;
-  returnMoneyButton: HTMLElement;
 
   constructor() {
     this.purchaseInfo = new PurchaseInfo();
@@ -20,14 +17,15 @@ class Purchase {
   }
 
   bindPurchaseDom() {
-    this.insertMoneyForm = selectDom("#insert-money-form");
-    this.insertMoneyInput = selectDom(".insert-money-input");
+    const insertMoneyForm = selectDom("#insert-money-form");
+    const purchasePossibleProductTable = selectDom("#purchase-possible-product-table");
+    const returnMoneyButton = selectDom("#return-money-button");
+    this.insertMoneyInput = selectDom(".insert-money-input", insertMoneyForm);
     this.insertMoneyText = selectDom("#insert-money-text");
-    this.purchasePossibleProductTable = selectDom("#purchase-possible-product-table");
-    this.returnMoneyButton = selectDom("#return-money-button");
-    addEvent(this.insertMoneyForm, "submit", this.handleInsertMoney);
-    addEvent(this.purchasePossibleProductTable, "click", this.handlePurchaseProduct);
-    addEvent(this.returnMoneyButton, "click", this.handleReturnMoney);
+
+    addEvent(insertMoneyForm, "submit", this.handleInsertMoney);
+    addEvent(purchasePossibleProductTable, "click", this.handlePurchaseProduct);
+    addEvent(returnMoneyButton, "click", this.handleReturnMoney);
   }
 
   handleInsertMoney = (event: Event) => {

@@ -1,6 +1,5 @@
-import axios from "axios";
-import { addEvent, selectDom, selectDomAll } from "../../utils/dom";
-import { ConvertTemplate, RegisterUserProps } from "../../utils/interface";
+import { addEvent, selectDom } from "../../utils/dom";
+import { ConvertTemplate } from "../../utils/interface";
 import { validateEmailInfo, validateNameInfo, validatePasswordConfirmInfo, validatePasswordInfo } from "../../utils/validation";
 import { showSnackbar } from "../snackbar/snackbar";
 import { signupTemplate } from "./signupTemplate";
@@ -8,7 +7,6 @@ import { signupTemplate } from "./signupTemplate";
 class Signup {
   signupDebounce: Boolean;
   vendingmachineFunctionWrap: HTMLElement;
-  signupInputList: HTMLElement[]
   emailInfoInput: HTMLElement;
   nameInfoInput: HTMLElement;
   passwordInfoInput: HTMLElement;
@@ -27,16 +25,15 @@ class Signup {
   bindSignupDom = () => {
     const signupForm = selectDom(".member-info-form");
   
-    this.signupInputList = selectDomAll(".member-info-input");
-    this.emailInfoInput = selectDom("#email-info-input");
-    this.nameInfoInput = selectDom("#name-info-input");
-    this.passwordInfoInput = selectDom("#password-info-input");
-    this.passwordConfirmInfoInput = selectDom("#password-confirm-info-input");
+    this.emailInfoInput = selectDom("#email-info-input", signupForm);
+    this.nameInfoInput = selectDom("#name-info-input", signupForm);
+    this.passwordInfoInput = selectDom("#password-info-input", signupForm);
+    this.passwordConfirmInfoInput = selectDom("#password-confirm-info-input", signupForm);
     
-    this.emailInfoMessage = selectDom("#email-info-message");
-    this.nameInfoMessage = selectDom("#name-info-message");
-    this.passwordInfoMessage = selectDom("#password-info-message");
-    this.passwordConfirmInfoMessage = selectDom("#password-confirm-info-message");
+    this.emailInfoMessage = selectDom("#email-info-message", signupForm);
+    this.nameInfoMessage = selectDom("#name-info-message", signupForm);
+    this.passwordInfoMessage = selectDom("#password-info-message", signupForm);
+    this.passwordConfirmInfoMessage = selectDom("#password-confirm-info-message", signupForm);
 
     addEvent(signupForm, "submit", this.handleSubmitSignup);
     addEvent(this.emailInfoInput, "keydown", this.handleEmailInputKeyEvent);

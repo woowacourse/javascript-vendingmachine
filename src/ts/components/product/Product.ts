@@ -8,7 +8,6 @@ class Product {
   productInfo: ProductInfo;
   productView: ProductView;
   productInfoInputs: HTMLElement[];
-  productAddButton: HTMLElement;
   productTable: HTMLElement;
 
   constructor() {
@@ -19,9 +18,10 @@ class Product {
 
   bindProductDom() {
     this.productInfoInputs = selectDomAll(".product-control-input");
-    this.productAddButton = selectDom("#product-add-button");
     this.productTable = selectDom("#product-control-table");
-    addEvent(this.productAddButton, "click", this.handleAddProduct);
+    const productAddButton = selectDom("#product-add-button");
+
+    addEvent(productAddButton, "click", this.handleAddProduct);
     addEvent(this.productTable, "click", this.handleControlProduct);
 
     this.productView.focusProductNameInput();

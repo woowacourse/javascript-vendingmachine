@@ -7,7 +7,6 @@ import ChargeView from "./ChargeView";
 class Charge {
   chargeInfo: ChargeInfo;
   chargeView: ChargeView;
-  chargeForm: HTMLElement;
   chargeInput: HTMLElement | HTMLInputElement;
   currentContainCharge: HTMLElement;
 
@@ -17,10 +16,11 @@ class Charge {
   }
 
   bindChargeDom() {
-    this.chargeForm = selectDom("#charge-control-form");
-    this.chargeInput = selectDom(".charge-control-input");
+    const chargeForm = selectDom("#charge-control-form");
+    this.chargeInput = selectDom(".charge-control-input", chargeForm);
     this.currentContainCharge = selectDom("#current-contain-charge");
-    addEvent(this.chargeForm, "submit", this.handleInputAmount);
+
+    addEvent(chargeForm, "submit", this.handleInputAmount);
   }
 
   handleInputAmount = (event: Event) => {
