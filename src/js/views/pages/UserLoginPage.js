@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 import { loginUser } from '../../auth';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 import { globalStore } from '../../domains/GlobalStore';
 import { PAGE } from '../../constant';
 
@@ -43,7 +43,7 @@ class UserLoginPage extends Component {
       });
 
       if (!response.accessToken) {
-        showSnackBar(response);
+        snackbar.showSnackBar(response);
 
         return;
       }

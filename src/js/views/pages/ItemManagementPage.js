@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import '../components/ItemRow';
 import { ITEM, MONEY_UNIT } from '../../constant';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 
 class ItemManagementPage extends Component {
   template() {
@@ -116,7 +116,7 @@ class ItemManagementPage extends Component {
       try {
         vendingMachine.addItem(item);
       } catch (err) {
-        showSnackBar(err);
+        snackbar.showSnackBar(err);
       }
     });
   }

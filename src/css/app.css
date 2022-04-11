@@ -247,8 +247,8 @@ input::-webkit-inner-spin-button {
 
 .show {
   visibility: visible !important;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
-  animation: fadein 0.5s, fadeout 0.5s 2.7s;
+  -webkit-animation: fadein 0.3s, fadeout 0.3s 1.7s;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s;
 }
 
 @-webkit-keyframes fadein {

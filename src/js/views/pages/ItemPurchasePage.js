@@ -3,7 +3,7 @@ import Component from '../../core/Component';
 import '../components/PurchaseItemRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { sortCoins } from '../../utils/coinUtil';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 
 class ItemPurchasePage extends Component {
   setup() {
@@ -122,7 +122,7 @@ class ItemPurchasePage extends Component {
       try {
         vendingMachine.addPurchaseMoney(money);
       } catch (err) {
-        showSnackBar(err);
+        snackbar.showSnackBar(err);
       }
     });
 
@@ -132,7 +132,7 @@ class ItemPurchasePage extends Component {
       try {
         this.state.returnCoins = vendingMachine.returnChange();
       } catch ({ message }) {
-        showSnackBar(message);
+        snackbar.showSnackBar(message);
       }
     });
   }

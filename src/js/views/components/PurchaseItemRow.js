@@ -1,6 +1,6 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 
 class PurchaseItemRow extends TableRow {
   setup() {
@@ -25,7 +25,7 @@ class PurchaseItemRow extends TableRow {
       try {
         vendingMachine.buyItem(name);
       } catch ({ message }) {
-        showSnackBar(message);
+        snackbar.showSnackBar(message);
       }
     });
   }

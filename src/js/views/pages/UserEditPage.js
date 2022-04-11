@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { setData } from '../../utils/storageUtil';
 import { loginUser, editUser, deleteUser } from '../../auth';
 import { isPasswordDifferent } from '../../auth/validate';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 import { ERROR_MESSAGE, NAME, PASSWORD, PAGE } from '../../constant';
 import { globalStore } from '../../domains/GlobalStore';
 
@@ -48,7 +48,7 @@ class UserEditPage extends Component {
         event.target.elements;
 
       if (isPasswordDifferent(password.value, passwordCheck.value)) {
-        showSnackBar(ERROR_MESSAGE.CHECK_PASSWORD);
+        snackbar.showSnackBar(ERROR_MESSAGE.CHECK_PASSWORD);
 
         return;
       }
@@ -67,7 +67,7 @@ class UserEditPage extends Component {
       });
 
       if (!loginResponse.accessToken) {
-        showSnackBar(loginResponse);
+        snackbar.showSnackBar(loginResponse);
 
         return;
       }

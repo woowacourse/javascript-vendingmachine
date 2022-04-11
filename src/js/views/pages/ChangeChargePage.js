@@ -2,7 +2,7 @@ import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { AMOUNT, MONEY_UNIT } from '../../constant';
 import { sortCoins } from '../../utils/coinUtil';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 
 class ChangeChargePage extends Component {
   template() {
@@ -69,7 +69,7 @@ class ChangeChargePage extends Component {
       try {
         vendingMachine.addCoin(chargeAmount);
       } catch (err) {
-        showSnackBar(err);
+        snackbar.showSnackBar(err);
       }
     });
   }

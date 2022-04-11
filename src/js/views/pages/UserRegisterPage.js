@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { registerUser } from '../../auth';
 import { isPasswordDifferent } from '../../auth/validate';
-import { showSnackBar } from '../../utils/domUtil';
+import { snackbar } from '../../utils/domUtil';
 import { ERROR_MESSAGE, NAME, PASSWORD, PAGE } from '../../constant';
 import { globalStore } from '../../domains/GlobalStore';
 
@@ -57,7 +57,7 @@ class UserRegisterPage extends Component {
       });
 
       if (!response.accessToken) {
-        showSnackBar(response);
+        snackbar.showSnackBar(response);
 
         return;
       }
