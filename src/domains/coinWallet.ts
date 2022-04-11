@@ -1,3 +1,4 @@
+import { ERROR_MSG } from './../utils/constants/error';
 import { COIN_KEYS, COIN_VALUES } from '../utils/constants';
 import { ICoinWallet, TCoinWallet } from './types';
 
@@ -47,6 +48,14 @@ class CoinWallet implements ICoinWallet {
     };
 
     const currentCoinTotalAmount = this.computeCoinTotalAmount();
+    if (change === 0) {
+      throw new Error(ERROR_MSG.YOU_DONT_HAVE_MONEY);
+    }
+
+    if (currentCoinTotalAmount === 0) {
+      throw new Error(ERROR_MSG.MACHINE_DONT_HAVE_MONEY);
+    }
+
     if (currentCoinTotalAmount <= change) {
       const currentCoinWallet = {
         ...this.coinWallet,
@@ -79,6 +88,10 @@ class CoinWallet implements ICoinWallet {
 
   getCoinWalletInfo() {
     return this.coinWallet;
+  }
+
+  setCoinWalletInfo(coinWalletInfo) {
+    this.coinWallet = coinWalletInfo;
   }
 }
 export default CoinWallet;

@@ -1,39 +1,140 @@
-import router from '../router';
-import { TAB_NAME } from '../utils/constants';
-import ProductManagementComponent from './ProductManagementComponent';
-import PurchaseProductComponent from './PurchaseProductComponent';
-import RechargeChangeComponent from './RechargeChangeComponent';
+import { logoutUser } from '../business/logic/auth.js';
+import router, { ROUTE_NAME } from '../lib/router.js';
+import { showToast } from '../lib/toast.js';
+import globalStore from '../business/store/globalStore.ts';
+import { GLOBAL_STATE_KEYS } from '../utils/constants/index.ts';
+import EditComponent from './auth/EditComponent.js';
+import JoinComponent from './auth/JoinComponent.js';
+import LoginComponent from './auth/LoginComponent.js';
+import LoadingComponent from './global/LoadingComponent.js';
+import ManageComponent from './vendingMachine/ManageComponent.js';
+import PurchaseComponent from './vendingMachine/PurchaseComponent.js';
+import RechargeComponent from './vendingMachine/RechargeComponent.js';
 
-class VendingMachineComponent {
-  #ProductManagementComponent;
-  #PurchaseProductComponent;
-  #RechargeChangeComponent;
-
-  $app;
-
-  #currentSectionName;
-
+class AppComponent {
   constructor() {
-    this.$app = document.querySelector('#app');
     this.initDOM();
     this.initChildComponents();
-    this.showSection(localStorage.getItem('current-section'));
-    this.$tabNav.addEventListener('click', this.onClickNavigation);
+    this.bindEventHandler();
+    this.subscribeStore();
   }
 
   initDOM() {
-    this.$tabNav = this.$app.querySelector('#tab-nav');
-    this.tabButtonMap = {
-      [TAB_NAME.MANAGE]: this.$app.querySelector('#manage-product-tab'),
-      [TAB_NAME.RECHARGE]: this.$app.querySelector('#recharge-change-tab'),
-      [TAB_NAME.PURCHASE]: this.$app.querySelector('#purchase-product-tab'),
-    };
+    this.$navTab = document.querySelector('#tab-nav');
+    this.$pageTitle = document.querySelector('#page-title');
+
+    this.$loginButton = document.querySelector('#login-button');
+    this.$logoutButton = document.querySelector('#logout-button');
+
+    this.$applicationHeader = document.querySelector('#application-header');
+
+    this.$manageTab = document.querySelector('#manage-product-tab');
+    this.$rechargeTab = document.querySelector('#recharge-change-tab');
+    this.$purchaseTab = document.querySelector('#purchase-product-tab');
   }
 
   initChildComponents() {
-    this.#ProductManagementComponent = new ProductManagementComponent(this.$app);
-    this.#PurchaseProductComponent = new PurchaseProductComponent(this.$app);
-    this.#RechargeChangeComponent = new RechargeChangeComponent(this.$app);
+    this.routerComponent = {
+      [ROUTE_NAME.MANAGE]: new ManageComponent(),
+      [ROUTE_NAME.RECHARGE]: new RechargeComponent(),
+      [ROUTE_NAME.PURCHASE]: new PurchaseComponent(),
+      [ROUTE_NAME.LOGIN]: new LoginComponent(),
+      [ROUTE_NAME.JOIN]: new JoinComponent(),
+      [ROUTE_NAME.EDIT]: new EditComponent(),
+    };
+    this.loadingComponent = new LoadingComponent();
+  }
+
+  bindEventHandler() {
+    window.addEventListener('popstate', this.onPopState);
+
+    this.$navTab.addEventListener('click', this.onClickNavigation);
+
+    this.$loginButton.addEventListener('click', this.onClickLoginOrEditButton);
+    this.$applicationHeader.addEventListener('click', this.onClickApplicationHeader);
+    this.$logoutButton.addEventListener('click', this.onClickLogout);
+  }
+
+  subscribeStore() {
+    globalStore.subscribe(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, this);
+    globalStore.subscribe(GLOBAL_STATE_KEYS.AUTH_INFORMATION, this);
+
+    this.update();
+  }
+
+  update() {
+    const authInformation = globalStore.getState(GLOBAL_STATE_KEYS.AUTH_INFORMATION);
+    const currentRouteName = globalStore.getState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME);
+    this.render(authInformation, currentRouteName);
+  }
+
+  /** loginButton, navTab, pageTitle 등 여러 페이지가 공유하는 DOM을 각 페이지에 맞게 조작하여 렌더링한다. */
+  render(authInformation, currentRouteName) {
+    const { loggedUser, isLoggedIn } = authInformation;
+
+    this.#renderHeaderSection(currentRouteName);
+
+    this.#renderLogoutButton(isLoggedIn);
+
+    this.#renderChildComponents(isLoggedIn, currentRouteName);
+
+    this.#renderLoginOrProfileButton(isLoggedIn, loggedUser);
+  }
+
+  #renderHeaderSection(currentRouteName) {
+    if (
+      currentRouteName === ROUTE_NAME.MANAGE ||
+      currentRouteName === ROUTE_NAME.RECHARGE ||
+      currentRouteName === ROUTE_NAME.PURCHASE
+    ) {
+      this.$loginButton.classList.remove('hide');
+      this.$navTab.classList.remove('hide');
+      this.$pageTitle.textContent = '🍿 자판기 🍿';
+      return;
+    }
+
+    this.$loginButton.classList.add('hide');
+    this.$navTab.classList.add('hide');
+
+    if (currentRouteName === ROUTE_NAME.LOGIN) {
+      this.$pageTitle.textContent = '로그인';
+    }
+
+    if (currentRouteName === ROUTE_NAME.JOIN) {
+      this.$pageTitle.textContent = '회원가입';
+    }
+
+    if (currentRouteName === ROUTE_NAME.EDIT) {
+      this.$pageTitle.textContent = '정보수정';
+    }
+  }
+
+  #renderLogoutButton(isLoggedIn) {
+    if (isLoggedIn) {
+      this.$logoutButton.classList.remove('hide');
+      return;
+    }
+    this.$logoutButton.classList.add('hide');
+  }
+
+  #renderChildComponents(isLoggedIn, currentRouteName) {
+    Object.entries(this.routerComponent).forEach(([routeName, component]) => {
+      if (routeName === currentRouteName) {
+        component.showSection(isLoggedIn);
+        return;
+      }
+      component.hideSection();
+    });
+  }
+
+  #renderLoginOrProfileButton(isLoggedIn, loggedUser) {
+    if (isLoggedIn) {
+      this.$loginButton.classList.add('profile');
+      this.$loginButton.textContent = loggedUser.name.slice(0, 1);
+      return;
+    }
+    this.$loginButton.classList.remove('profile');
+    this.$loginButton.textContent = '로그인';
   }
 
   onClickNavigation = e => {
@@ -41,54 +142,56 @@ class VendingMachineComponent {
       target: { id },
     } = e;
 
-    /** history가 중복해서 쌓이지 않게 관리 */
-    if (id === 'manage-product-tab' && this.#currentSectionName !== TAB_NAME.MANAGE) {
-      router.pushState({ path: TAB_NAME.MANAGE }, 'home');
-      this.showSection(TAB_NAME.MANAGE);
+    if (id === 'manage-product-tab') {
+      router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+
+      globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
     }
-    if (id === 'recharge-change-tab' && this.#currentSectionName !== TAB_NAME.RECHARGE) {
-      router.pushState({ path: TAB_NAME.RECHARGE }, 'recharge');
-      this.showSection(TAB_NAME.RECHARGE);
+
+    if (id === 'recharge-change-tab') {
+      router.pushState({ path: ROUTE_NAME.RECHARGE }, ROUTE_NAME.RECHARGE);
+
+      globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.RECHARGE);
     }
-    if (id === 'purchase-product-tab' && this.#currentSectionName !== TAB_NAME.PURCHASE) {
-      router.pushState({ path: TAB_NAME.PURCHASE }, 'purchase');
-      this.showSection(TAB_NAME.PURCHASE);
+
+    if (id === 'purchase-product-tab') {
+      router.pushState({ path: ROUTE_NAME.PURCHASE }, ROUTE_NAME.PURCHASE);
+
+      globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.PURCHASE);
     }
   };
 
-  showSection(name) {
-    this.#currentSectionName = name;
-    localStorage.setItem('current-section', this.#currentSectionName);
-    if (name === TAB_NAME.MANAGE) {
-      this.#RechargeChangeComponent.hide();
-      this.#PurchaseProductComponent.hide();
+  onClickLoginOrEditButton = e => {
+    const {
+      target: { className },
+    } = e;
+    const nextRouteName = className.includes('profile') ? ROUTE_NAME.EDIT : ROUTE_NAME.LOGIN;
 
-      this.#ProductManagementComponent.show();
-    }
-    if (name === TAB_NAME.RECHARGE) {
-      this.#PurchaseProductComponent.hide();
-      this.#ProductManagementComponent.hide();
+    router.pushState({ path: nextRouteName }, nextRouteName);
 
-      this.#RechargeChangeComponent.show();
-    }
-    if (name === TAB_NAME.PURCHASE) {
-      this.#ProductManagementComponent.hide();
-      this.#RechargeChangeComponent.hide();
+    globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, nextRouteName);
+  };
 
-      this.#PurchaseProductComponent.show();
-    }
-    this.focusTabButton(name);
-  }
+  onPopState = e => {
+    const { state } = e;
 
-  focusTabButton(buttonName) {
-    Object.entries(this.tabButtonMap).forEach(([key, node]) => {
-      if (key === buttonName) {
-        node.classList.add('checked');
-        return;
-      }
-      node.classList.remove('checked');
-    });
-  }
+    globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, state?.path ?? ROUTE_NAME.MANAGE);
+  };
+
+  onClickApplicationHeader = () => {
+    router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+
+    globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
+  };
+
+  onClickLogout = () => {
+    logoutUser();
+
+    router.pushState({ path: ROUTE_NAME.MANAGE }, ROUTE_NAME.MANAGE);
+
+    globalStore.setState(GLOBAL_STATE_KEYS.CURRENT_ROUTE_NAME, ROUTE_NAME.MANAGE);
+
+    showToast({ isErrorMessage: false, message: '로그아웃에 성공하셨습니다.' });
+  };
 }
-
-export default VendingMachineComponent;
+export default AppComponent;

@@ -1,19 +1,31 @@
 @import url('./color.css');
+
+a {
+  color: #3581d7;
+  cursor: pointer;
+}
+
 body {
-  padding: 64px 0;
+  margin: 0;
+  padding: 0;
   background-color: var(--body-background-color);
 }
+
 #app {
+  position: relative;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   max-width: 600px;
+  min-height: 600px;
   margin: 0 auto;
   border: 1px solid var(--app-border-color);
   background-color: #fff;
   border-radius: 4px;
+
+  padding: 20px 0 60px 0;
 }
 
 nav {
@@ -22,6 +34,7 @@ nav {
   margin-bottom: 50px;
   gap: 4px;
 }
+
 button {
   width: 100%;
   cursor: pointer;
@@ -56,11 +69,31 @@ a.tab-button {
   color: #000000;
   text-align: center;
 }
+
 a.tab-button:hover {
   background-color: var(--button-hover-background-color);
 }
+
 .hide {
   display: none;
   visibility: none;
   opacity: 0;
+}
+
+.user-button-container {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
+a.profile {
+  border-radius: 50%;
+  background-color: rgba(0, 150, 255, 0.3);
+  width: 20px;
+}
+
+.flex-center-box:not(.hide) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

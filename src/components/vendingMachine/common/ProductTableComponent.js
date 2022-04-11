@@ -1,6 +1,12 @@
-import { ACTION_TYPES, VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
-import vendingMachineStore from '../../stores/vendingMachineStore';
-import { checkProductInput } from '../../utils/validation';
+import {
+  deleteProduct,
+  editProduct,
+  purchaseProduct,
+} from '../../../business/logic/vendingMachine.js';
+import { showToast } from '../../../lib/toast.js';
+import vendingMachineStore from '../../../business/store/vendingMachineStore.ts';
+import { VENDING_MACHINE_STATE_KEYS } from '../../../utils/constants/index.ts';
+import { checkProductInput } from '../../../utils/validation/vendingMachine.ts';
 
 class ProductTableComponent {
   constructor($parent, { tableId, tableCaption }) {
@@ -19,20 +25,20 @@ class ProductTableComponent {
 
   generateTemplate() {
     return `<table id="${this.tableId}" class="product-list">
-        <caption>
-         ${this.tableCaption}
-        </caption>
-        <tbody class="product-list-table-body">
-        <tr>
-          <th>상품명</th>
-          <th>가격</th>
-          <th>수량</th>
-          <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-        </tr>
-        </tbody>
-      </table>
-      <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
-      `;
+          <caption>
+           ${this.tableCaption}
+          </caption>
+          <tbody class="product-list-table-body">
+          <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+          </tr>
+          </tbody>
+        </table>
+        <div class="empty-img"><img src="./empty-img.png" width="200px" height="200px"></img></div>
+        `;
   }
 
   initDOM() {
@@ -41,17 +47,18 @@ class ProductTableComponent {
     this.$emptyImg = this.$parent.querySelector('.empty-img');
   }
 
-  subscribeStore() {
-    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
-  }
-
-  wakeUp() {
-    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
-    this.render(productList);
-  }
-
   bindEventHandler() {
     this.$productTable.addEventListener('click', this.onClickTable);
+  }
+
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST, this);
+    this.update();
+  }
+
+  update() {
+    const productList = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST);
+    this.render(productList);
   }
 
   render(productList) {
@@ -62,63 +69,63 @@ class ProductTableComponent {
       this.$emptyImg.classList.add('hide');
     }
     this.$tableBody.innerHTML = `<tr>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>수량</th>
-        <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
-    </tr>
-    ${this.generateProductListTemplate(productList)}`;
+          <th>상품명</th>
+          <th>가격</th>
+          <th>수량</th>
+          <th>${this.tableId === 'purchase-product-list' ? '구매' : ''}</th>
+      </tr>
+      ${this.generateProductListTemplate(productList)}`;
   }
 
   generateProductListTemplate(productList) {
     return productList.reduce((prev, product) => {
       const { id, name, price, quantity } = product.getProductInfo();
       return `${prev}
-        <tr class="product-row">
-          <td class="product-row-name" data-product-name='${name}'>${name}</td>
-          <td class="product-row-price" data-product-price='${price}'>${price}</td>
-          <td class="product-row-quantity" data-product-quantity='${quantity}'>${quantity}</td>
-          <td>
-            ${this.generateButton(id)}
-          </td>
-      </tr>
-      `;
+          <tr class="product-row">
+            <td class="product-row-name" data-product-name='${name}'>${name}</td>
+            <td class="product-row-price" data-product-price='${price}'>${price}</td>
+            <td class="product-row-quantity" data-product-quantity='${quantity}'>${quantity}</td>
+            <td>
+              ${this.generateButton(id)}
+            </td>
+        </tr>
+        `;
     }, '');
   }
 
   generateButton(id) {
     if (this.tableId === 'current-product-list') {
       return `<button
-        type="button"
-        class="product-edit-button gray-button"
-        data-product-id="${id}"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="product-delete-button gray-button"
-        data-product-id="${id}"
-      >
-        삭제
-      </button>
-      <button
-        type="button"
-        class="product-confirm-button gray-button hide"
-        data-product-id="${id}"
-      >
-        확인
-      </button>`;
+          type="button"
+          class="product-edit-button gray-button"
+          data-product-id="${id}"
+        >
+          수정
+        </button>
+        <button
+          type="button"
+          class="product-delete-button gray-button"
+          data-product-id="${id}"
+        >
+          삭제
+        </button>
+        <button
+          type="button"
+          class="product-confirm-button gray-button hide"
+          data-product-id="${id}"
+        >
+          확인
+        </button>`;
     }
     /** 구매 기능 요구사항도 이번 스텝에 포함되는 줄 알고 미리 작성.. 했네요 .. */
     if (this.tableId === 'purchase-product-list') {
       return `  <button
-        type="button"
-        class="product-purchase-button gray-button"
-        data-product-id="${id}"
-      >
-        구매
-      </button>`;
+          type="button"
+          class="product-purchase-button gray-button"
+          data-product-id="${id}"
+        >
+          구매
+        </button>`;
     }
     return '';
   }
@@ -142,6 +149,9 @@ class ProductTableComponent {
     }
     if (classList.contains('product-confirm-button')) {
       this.onClickConfirmButton(parentElement, classList, productId);
+    }
+    if (classList.contains('product-purchase-button')) {
+      this.onClickPurchaseButton(productId);
     }
   };
 
@@ -171,35 +181,42 @@ class ProductTableComponent {
           quantityInput: quantity,
         })
       ) {
-        vendingMachineStore.mutateState({
-          actionType: ACTION_TYPES.EDIT_PRODUCT,
-          payload: {
-            id: productId,
-            name,
-            price,
-            quantity,
-          },
-          stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
+        editProduct({
+          id: productId,
+          name,
+          price,
+          quantity,
         });
+
         this.showEditAndDeleteButton(parentElement, confirmButtonClassList);
+        showToast({ isErrorMessage: false, message: '상품 수정에 성공하셨습니다.' });
       }
     } catch ({ message }) {
-      alert(message);
+      showToast({ isErrorMessage: true, message });
     }
   };
 
   onClickDeleteButton(productId) {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      vendingMachineStore.mutateState({
-        actionType: ACTION_TYPES.DELETE_PRODUCT,
-        payload: { id: productId },
-        stateKey: VENDING_MACHINE_STATE_KEYS.PRODUCT_LIST,
-      });
+      try {
+        deleteProduct({ id: productId });
+        showToast({ isErrorMessage: false, message: '상품 삭제에 성공하셨습니다.' });
+      } catch ({ message }) {
+        showToast({ isErrorMessage: true, message });
+      }
+    }
+  }
+
+  onClickPurchaseButton(productId) {
+    try {
+      purchaseProduct({ productId });
+      showToast({ isErrorMessage: false, message: '상품 구매에 성공하셨습니다.' });
+    } catch ({ message }) {
+      showToast({ isErrorMessage: true, message });
     }
   }
 
   showConfirmButton(parentElement, editButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const deleteButton = parentElement.querySelector('.product-delete-button');
     const confirmButton = parentElement.querySelector('.product-confirm-button');
 
@@ -209,7 +226,6 @@ class ProductTableComponent {
   }
 
   showEditAndDeleteButton(parentElement, confirmButtonClassList) {
-    /** 모든 상품 엘리먼트 (tr) 에 대한 button 엘리먼트들을 미리 찾아두고 이벤트가 발생하면 참조만 하게끔 로직을 구현하는 것이 효율적이겠죠? */
     const editButton = parentElement.querySelector('.product-edit-button');
     const deleteButton = parentElement.querySelector('.product-delete-button');
 

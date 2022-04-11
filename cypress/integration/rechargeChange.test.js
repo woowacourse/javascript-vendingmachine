@@ -1,6 +1,7 @@
 describe('잔돈을 충전할 수 있다.', () => {
   beforeEach(() => {
     cy.visit('http://localhost:9000/');
+    cy.login();
     cy.get('#recharge-change-tab').click();
   });
 
@@ -14,15 +15,6 @@ describe('잔돈을 충전할 수 있다.', () => {
         Number(coin500) * 500 + Number(coin100) * 100 + Number(coin50) * 50 + Number(coin10) * 10;
 
       expect(expectedChangeInput).to.equal(changeInput);
-    });
-  });
-
-  it('범위를 벗어나는 값을 입력하면 alert창을 띄워준다', () => {
-    const changeInput = -100;
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-    cy.rechargeChange(changeInput).then(() => {
-      expect(alertStub).to.be.called;
     });
   });
 });

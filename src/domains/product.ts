@@ -1,5 +1,5 @@
+import { ERROR_MSG } from '../utils/constants/error';
 import { IProduct, TProduct } from './types';
-import { ERROR_MSG } from '../utils/constants';
 const { generateNonDuplicatedId } = (function () {
   const history = new Set();
   function generateId(name: string) {
@@ -28,10 +28,15 @@ class Product implements IProduct {
     };
   }
 
-  purchaseProduct() {
+  purchaseProduct(money) {
     if (this.product.quantity === 0) {
       throw new Error(ERROR_MSG.PRODUCT_SOLD_OUT);
     }
+
+    if (money < this.product.price) {
+      throw new Error(ERROR_MSG.NOT_ENOUGH_MONEY);
+    }
+
     this.product.quantity--;
   }
 

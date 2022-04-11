@@ -16,14 +16,18 @@
   border: 1px solid var(--input-border-color);
   padding: 7px 5px;
   flex: 1;
+
+  box-sizing: border-box;
 }
 .input-form .submit-button {
-  width: 56px;
+  flex: 0.3;
+
+  width: 100%;
   background-color: var(--button-skyblue-background-color);
   color: var(--button-skyblue-font-color);
   border: none;
   border-radius: 4px;
-  margin-left: 10px;
+  min-height: 30px;
 }
 
 .input-form .submit-button:hover {
@@ -32,4 +36,9 @@
 
 .input-form * {
   margin-top: 5px;
+}
+
+.input-form .auth-input {
+  margin-bottom: 10px;
+  padding: 10px 5px;
 }

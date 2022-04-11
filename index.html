@@ -7,13 +7,24 @@
   </head>
 
   <body>
+    <header id="application-header">
+      <h1>🧃 준찌의 자판기 어플리케이션 🧃</h1>
+    </header>
     <div id="app">
-      <h1>🍿 자판기 🍿</h1>
-      <nav id="tab-nav">
+      <div class="user-button-container">
+        <a class="tab-button gray-button" id="login-button">로그인</a>
+        <a class="tab-button gray-button hide" id="logout-button">로그아웃</a>
+      </div>
+
+      <h2 id="page-title">🍿 자판기 🍿</h2>
+      <nav id="tab-nav" class="hide">
         <a class="tab-button gray-button" id="manage-product-tab">상품 관리</a>
         <a class="tab-button gray-button" id="recharge-change-tab">잔돈 충전</a>
         <a class="tab-button gray-button" id="purchase-product-tab">상품 구매</a>
       </nav>
+
+      <section id="not-access-section" class="hide">접근이 불가능한 영역입니다.</section>
+      <div id="toast"></div>
     </div>
   </body>
 </html>

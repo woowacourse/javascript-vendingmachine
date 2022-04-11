@@ -10,3 +10,7 @@ cypress/screenshots
 cypress/videos
 
 dist
+
+.env.development
+
+.env.production

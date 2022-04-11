@@ -1,11 +1,11 @@
+import { ERROR_MSG } from '../constants/error';
 import {
   CHANGE_RANGE,
-  ERROR_MSG,
   MONEY_DIVIDE_STANDARD,
   NAME_LENGTH_LIMIT,
   PRICE_RANGE,
   QUANTITY_RANGE,
-} from './constants';
+} from '../constants/range';
 
 export const isOverLimitLength = (nameInput: string) => nameInput.length > NAME_LENGTH_LIMIT;
 
@@ -50,11 +50,11 @@ export const isOutOfChangeRange = (changeInput: number) =>
   changeInput < CHANGE_RANGE.MIN || changeInput > CHANGE_RANGE.MAX;
 
 export const checkChangeInput = (changeInput: number) => {
-  if (isNotdivisibleBy10(changeInput)) {
-    throw new Error(ERROR_MSG.CHANGE_NOT_DIVISIBLE_BY_10);
-  }
   if (isOutOfChangeRange(changeInput)) {
     throw new Error(ERROR_MSG.CHANGE_OUT_OF_RANGE);
+  }
+  if (isNotdivisibleBy10(changeInput)) {
+    throw new Error(ERROR_MSG.CHANGE_NOT_DIVISIBLE_BY_10);
   }
   return true;
 };
