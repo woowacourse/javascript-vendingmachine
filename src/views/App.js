@@ -56,6 +56,10 @@ class App extends Component {
   }
 
   setEvent() {
+    window.addEventListener('pushstate', () => {
+      browser.setLocation(getPathname());
+    });
+
     window.addEventListener('popstate', (event) => {
       browser.setLocation(getPathname(event.path[0]));
     });
