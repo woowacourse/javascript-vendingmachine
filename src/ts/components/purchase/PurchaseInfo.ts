@@ -1,12 +1,12 @@
 import { CHARGE } from "../../utils/constants";
-import { CoinsType, CoinType, ProductProps, PurchaseInfoProps, PurchaseProductProps } from "../../utils/interface";
+import { CoinsType, CoinsProps, ProductProps, PurchaseInfoProps, PurchaseProductProps } from "../../utils/interface";
 import { validatePossiblePurchaseProduct } from "../../utils/validation";
 
 class PurchaseInfo implements PurchaseInfoProps{
   productList: ProductProps[];
   insertMoney: number;
-  coinsKindCount: CoinType;
-  returnCoinsKindCount: CoinType;
+  coinsKindCount: CoinsProps;
+  returnCoinsKindCount: CoinsProps;
   insertMoneyOnlyCoin: number;
 
   constructor() {
@@ -46,7 +46,7 @@ class PurchaseInfo implements PurchaseInfoProps{
     }
   }
 
-  operationDependCoinKind(coinKind : CoinsType) {
+  operationDependCoinKind(coinKind: CoinsType) {
     this.insertMoneyOnlyCoin -= coinKind;
     this.coinsKindCount[coinKind] -= 1;
     this.returnCoinsKindCount[coinKind] += 1;

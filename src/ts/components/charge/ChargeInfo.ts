@@ -1,7 +1,7 @@
-import { ChargeInfoProps, CoinType } from "../../utils/interface";
+import { ChargeInfoProps, CoinsProps } from "../../utils/interface";
 
 class ChargeInfo implements ChargeInfoProps {
-  private coinsKindCount: CoinType;
+  private coinsKindCount: CoinsProps;
   private totalCharge: number;
 
   constructor() {

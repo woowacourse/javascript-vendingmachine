@@ -1,5 +1,5 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
-import { CoinType } from "../../utils/interface";
+import { CoinsProps } from "../../utils/interface";
 import { chargeSectionNoAuthority, chargeTemplate } from "./chargeTemplate";
 
 class ChargeView {
@@ -9,7 +9,7 @@ class ChargeView {
     this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
-  showRandomChargeResult(coinsKindCount: CoinType, totalCharge: number) {
+  showRandomChargeResult(coinsKindCount: CoinsProps, totalCharge: number) {
     const currentContainCharge = selectDom("#current-contain-charge", this.vendingmachineFunctionWrap);
     const chargeResult = Object.values(coinsKindCount).reverse();
     const chargeCoinCount = selectDomAll(".charge-coin-count", this.vendingmachineFunctionWrap);

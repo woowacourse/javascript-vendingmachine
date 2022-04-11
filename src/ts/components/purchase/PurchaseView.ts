@@ -1,5 +1,5 @@
 import { selectDom, selectDomAll } from "../../utils/dom";
-import { CoinType, EditInsertMoneyProps, ProductProps } from "../../utils/interface";
+import { CoinsProps, ProductProps } from "../../utils/interface";
 import { purchasePossibleProductTemplate, purchaseTemplate } from "./purchaseTemplate";
 
 class PurchaseView {
@@ -35,7 +35,7 @@ class PurchaseView {
     }
   }
 
-  showReturnCharge(returnCoinsKindCount: CoinType) {
+  showReturnCharge(returnCoinsKindCount: CoinsProps) {
     const returnChargeCoinCount = selectDomAll(".return-coin-count", this.vendingmachineFunctionWrap);
     const returnCoinsResult = Object.values(returnCoinsKindCount).reverse();
     returnChargeCoinCount.forEach((returnCoinCount, index) =>

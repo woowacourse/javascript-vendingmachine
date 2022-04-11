@@ -12,7 +12,7 @@ interface ChargeInfoProps {
   convertRandomCharge: (args: number) => void
   pickNumberInList: () => number;
   setCoinList: () => void;
-  getCoinList: () => CoinType;
+  getCoinList: () => CoinsProps;
   setTotalCharge: () => void;
   getTotalCharge: () => number;
   getUserName: () => string;
@@ -28,8 +28,9 @@ interface PurchaseInfoProps{
   getInsertMoney: () => number;
   setProductList: () => void;
   getProductList: () => ProductProps | [];
-  setCoinList: (args: CoinType) => void;
-  getCoinList: () => CoinType;
+  setCoinList: () => void;
+  getCoinList: () => CoinsProps;
+  operationDependCoinKind: (args: CoinsType) => void;
 }
 
 interface ProductProps {
@@ -69,7 +70,7 @@ interface EditInsertMoneyProps {
   productPrice: number;
 }
 
-interface CoinType {
+interface CoinsProps {
   10: number;
   50: number;
   100: number;
@@ -130,6 +131,6 @@ export {
   ValidateEmailInfoProps,
   RegisterUserProps,
   ConvertTemplate,
-  CoinType,
+  CoinsProps,
   CoinsType,
 };
