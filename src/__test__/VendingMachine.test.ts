@@ -17,7 +17,7 @@ const findProduct = (name: string): Product =>
 
 const updateProduct = ({ currentName, changedName, changedPrice, changedQuantity }) => {
   VendingMachine.instance.updateProduct({
-    targetName: currentName,
+    targetProductName: currentName,
     name: changedName,
     price: changedPrice,
     quantity: changedQuantity,

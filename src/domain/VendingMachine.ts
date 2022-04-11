@@ -77,10 +77,10 @@ class VendingMachine {
     }
   }
 
-  updateProduct({ targetName, name, price, quantity }) {
+  updateProduct({ targetProductName, name, price, quantity }) {
     try {
-      validateUpdateProduct(targetName, name, price, this.products);
-      const currentProduct = this.products.find((product) => product.name === targetName);
+      validateUpdateProduct(targetProductName, name, price, this.products);
+      const currentProduct = this.products.find((product) => product.name === targetProductName);
 
       currentProduct.update({ name, price, quantity } as IProduct);
       storage.setLocalStorage('products', this.products);
@@ -92,12 +92,12 @@ class VendingMachine {
     }
   }
 
-  deleteProduct(targetName: string) {
-    const targetProduct = this.products.find((product) => product.name === targetName);
+  deleteProduct(targetProductName: string) {
+    const targetProduct = this.products.find((product) => product.name === targetProductName);
 
     this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
     this.dispatch(ELEMENT_KEY.PURCHASE, 'delete', targetProduct);
-    this.products = this.products.filter((product) => product.name !== targetName);
+    this.products = this.products.filter((product) => product.name !== targetProductName);
     storage.setLocalStorage('products', this.products);
   }
 
@@ -126,16 +126,16 @@ class VendingMachine {
     }
   }
 
-  purchaseProduct(targetName: string) {
+  purchaseProduct(targetProductName: string) {
     try {
-      validatePurchaseProduct(targetName, this.products, this.moneyInput.getAmount());
+      validatePurchaseProduct(targetProductName, this.products, this.moneyInput.getAmount());
 
-      const targetProduct = this.products.find((product) => product.name === targetName);
+      const targetProduct = this.products.find((product) => product.name === targetProductName);
       targetProduct.purchase();
       this.moneyInput.subtractMoney(targetProduct.price);
 
       if (targetProduct.quantity === 0) {
-        this.products = this.products.filter((product) => product.name !== targetName);
+        this.products = this.products.filter((product) => product.name !== targetProductName);
       }
 
       const userMoney = this.moneyInput.getAmount();

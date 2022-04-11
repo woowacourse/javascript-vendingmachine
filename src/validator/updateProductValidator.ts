@@ -2,12 +2,12 @@ import { Product } from '../domain/Product';
 import { ERROR_MESSAGE, CONFIGURATION } from '../constants';
 
 const updateProductValidator = {
-  isDuplicated(targetName: string, name: string, products: Product[]) {
-    if (targetName === name) {
+  isDuplicated(targetProductName: string, name: string, products: Product[]) {
+    if (targetProductName === name) {
       return false;
     }
 
-    const filteredProducts = products.filter((product) => product.name !== targetName);
+    const filteredProducts = products.filter((product) => product.name !== targetProductName);
     return filteredProducts.some((product) => product.name === name);
   },
 
@@ -16,8 +16,8 @@ const updateProductValidator = {
   },
 };
 
-export const validateUpdateProduct = (targetName: string, name: string, price: number, products: Product[]) => {
-  if (updateProductValidator.isDuplicated(targetName, name, products)) {
+export const validateUpdateProduct = (targetProductName: string, name: string, price: number, products: Product[]) => {
+  if (updateProductValidator.isDuplicated(targetProductName, name, products)) {
     throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
   }
 
