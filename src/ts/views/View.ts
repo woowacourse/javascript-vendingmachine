@@ -61,9 +61,8 @@ export default class View {
   }
 
   private hideMenu = (event: PointerEvent) => {
-    event.target === this.$userMenu
-      ? false
-      : this.$userMenu.shadowRoot.querySelector('#menu').classList.add('hide');
+    event.target !== this.$userMenu &&
+      this.$userMenu.shadowRoot.querySelector('#menu').classList.add('hide');
   };
 
   private handleClickTabButton = (url: string) => {
@@ -110,7 +109,7 @@ export default class View {
 
   public removePage = () => {
     this.$tabResult.replaceChildren();
-    $('log-in') ? $('log-in').remove() : false;
-    $('sign-up') ? $('sign-up').remove() : false;
+    $('log-in') && $('log-in').remove();
+    $('sign-up') && $('sign-up').remove();
   };
 }
