@@ -20,7 +20,7 @@ class Authentication {
 
   subscribe(key: string, element: CustomElement) {
     this.observers.push({ key, element });
-    if (this[key]) this[key]();
+    this[key]?.();
   }
 
   dispatch(params: any) {
