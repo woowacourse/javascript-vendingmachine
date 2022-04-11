@@ -143,7 +143,7 @@ const validatePasswordInfo = ({ passwordInputValue, passwordInfoMessage }: Valid
     if (validatePasswordInfoSplit.find((text) => text === " ")) {
       throw Error("비밀번호에 공백을 포함할 수 없습니다.");
     }
-    if (validatePasswordInfoSplit.find((_, index) => specialSymbolAsc.includes(passwordInputValue.charCodeAt(index)))) {
+    if (!validatePasswordInfoSplit.find((_, index) => specialSymbolAsc.includes(passwordInputValue.charCodeAt(index)))) {
       throw Error("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
     }
     if (!validatePasswordInfoSplit.find((_, index) => upperCaseAsc.includes(passwordInputValue.charCodeAt(index)))) {

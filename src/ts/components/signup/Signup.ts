@@ -6,6 +6,7 @@ import { showSnackbar } from "../snackbar/snackbar";
 import { signupTemplate } from "./signupTemplate";
 
 class Signup {
+  signupDebounce: Boolean;
   vendingmachineFunctionWrap: HTMLElement;
   signupInputList: HTMLElement[]
   emailInfoInput: HTMLElement;
@@ -19,6 +20,7 @@ class Signup {
 
   constructor(readonly convertTemplate: ConvertTemplate) {
     this.convertTemplate = convertTemplate;
+    this.signupDebounce = false;
     this.vendingmachineFunctionWrap = selectDom(".main");
   }
 
@@ -147,6 +149,15 @@ class Signup {
 
   handleSubmitSignup = async (event: Event) => {
     event.preventDefault();
+
+    if (this.signupDebounce) {
+      return;
+    }
+    this.signupDebounce = true;
+    setTimeout(() => {
+      this.signupDebounce = false;
+    }, 2000);
+
     const emailInputValue =  (this.emailInfoInput as HTMLInputElement).value;
     const nameInputValue = (this.nameInfoInput as HTMLInputElement).value;
     const passwordInputValue = (this.passwordInfoInput as HTMLInputElement).value;
