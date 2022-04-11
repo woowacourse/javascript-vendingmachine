@@ -86,8 +86,8 @@ export default class ProductList extends Component<IProductListProps> {
       elementProperty: { dataset: { 'primary-key': productIndex } },
       childTextContent: {
         '.name': name,
-        '.price': price,
-        '.quantity': quantity,
+        '.price': `${price}원`,
+        '.quantity': `${quantity}개`,
       },
     });
 
