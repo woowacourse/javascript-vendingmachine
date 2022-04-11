@@ -1,5 +1,6 @@
 import { $, hideElement, showElement } from './utils';
-import { BASE_HASH, HEADER } from './constants';
+import { BASE_HASH, ERROR_MESSAGE, HEADER } from './constants';
+import { isLoggedIn } from './domains/Auth';
 
 const targets = [
   {
@@ -17,11 +18,13 @@ const targets = [
   {
     hash: '#!user-info-modify',
     header: HEADER.USER_INFO_MODIFY,
+    authorization: 'administrator',
     $container: $('user-info-modify'),
   },
   {
     hash: '#!product-manage',
     header: HEADER.VENDING_MACHINE,
+    authorization: 'administrator',
     $button: $('.nav__product-manage-button'),
     $container: $('product-manage-container'),
     $focusInput: $('.product-name-input'),
@@ -29,6 +32,7 @@ const targets = [
   {
     hash: '#!coin-charge',
     header: HEADER.VENDING_MACHINE,
+    authorization: 'administrator',
     $button: $('.nav__coin-charge-button'),
     $container: $('coin-charge-container'),
     $focusInput: $('#machine-money-input'),
@@ -59,6 +63,13 @@ const renderApp = (currentTarget) => {
 };
 
 const renderTargets = (currentTarget, prevTarget) => {
+  if (currentTarget.authorization && !isLoggedIn()) {
+    alert(ERROR_MESSAGE.AUTH.CANNOT_ACCESS);
+    window.history.back();
+
+    return;
+  }
+
   currentTarget.$button?.classList.add('clicked');
   showElement(currentTarget.$container);
   currentTarget.$focusInput?.focus();

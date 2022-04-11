@@ -81,6 +81,7 @@ export const ERROR_MESSAGE = {
     IS_NO_CUSTOMER_MONEY: '투입한 금액이 없습니다! 10원부터 잔돈으로 반환할 수 있습니다!',
   },
   AUTH: {
+    CANNOT_ACCESS: '접근 권한이 없습니다! 로그인 후 이용해 주세요!',
     CANNOT_FIND_USER: '가입되지 않은 이메일입니다! 이메일을 확인해 주세요!',
     INCORRECT_PASSWORD: '비밀번호가 틀렸습니다! 비밀번호를 다시 입력해 주세요!',
     EMAIL_ALREADY_EXISTS: '이미 가입된 이메일입니다! 뒤로 가기를 눌러 로그인해 주세요!',
