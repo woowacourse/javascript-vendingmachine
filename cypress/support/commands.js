@@ -75,3 +75,8 @@ Cypress.Commands.add('chargeCoins', (money) => {
   cy.get('.charge-form-section__coin-input').type(money);
   return cy.get('.charge-form-section__button').click();
 });
+
+Cypress.Commands.add('chargeMoney', (money) => {
+  cy.get('.money-for-purchase-form-section__money-input').type(money);
+  return cy.get('.money-for-purchase-form-section__button').click();
+});
