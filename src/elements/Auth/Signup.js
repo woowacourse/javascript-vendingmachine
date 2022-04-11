@@ -1,8 +1,9 @@
-import CustomElement from '../../abstracts/CustomElement';
-import { ERROR_MESSAGE, JSON_AUTH_SERVER_ERROR_MESSAGE } from '../../constants';
 import { signup } from '../../domains/Auth';
+
+import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
 import { checkSignupValidation } from '../../validators';
+import { ERROR_MESSAGE, JSON_AUTH_SERVER_ERROR_MESSAGE } from '../../constants';
 
 class Signup extends CustomElement {
   template() {

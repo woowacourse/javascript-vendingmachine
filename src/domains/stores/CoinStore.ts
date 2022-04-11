@@ -1,7 +1,8 @@
 import { Action, CustomElement, MoneyStorage } from '../../abstracts/interfaces';
 import { COIN_ACTION, MONEY_ACTION, PRODUCT_ACTION } from '../actions';
-import { COIN, MONEY } from '../../constants';
+
 import { pickNumberInList } from '../../utils';
+import { COIN, MONEY } from '../../constants';
 
 class CoinStore {
   static _instance: null | object = null;
