@@ -92,22 +92,22 @@ export default class EditProfile {
   checkAccountValidate(name: string, pwd: string, pwdCheck: string) {
     const validationAccount = validateAccount(name, pwd, pwdCheck);
     const {
-      isPositiveName,
-      isPositivePwdLength,
-      isPwdLowerCase,
-      isPwdUpperCase,
-      isPwdSpecialChar,
-      isPwdDigit,
-      isSamePwdCheck,
+      validateNameLength,
+      validatePwdLength,
+      validatePwdLowerCase,
+      validatePwdUpperCase,
+      validatePwdSpecialChar,
+      validatePwdDigit,
+      validateSamePwdCheck,
     } = validationAccount;
 
-    this.$nameLength.classList.toggle('hide', isPositiveName);
-    this.$pwdMinLength.classList.toggle('hide', isPositivePwdLength);
-    this.$pwdLowercase.classList.toggle('hide', isPwdLowerCase);
-    this.$pwdUppercase.classList.toggle('hide', isPwdUpperCase);
-    this.$pwdSpecial.classList.toggle('hide', isPwdSpecialChar);
-    this.$pwdDigit.classList.toggle('hide', isPwdDigit);
-    this.$pwdConfirm.classList.toggle('hide', isSamePwdCheck);
+    this.$nameLength.classList.toggle('hide', validateNameLength);
+    this.$pwdMinLength.classList.toggle('hide', validatePwdLength);
+    this.$pwdLowercase.classList.toggle('hide', validatePwdLowerCase);
+    this.$pwdUppercase.classList.toggle('hide', validatePwdUpperCase);
+    this.$pwdSpecial.classList.toggle('hide', validatePwdSpecialChar);
+    this.$pwdDigit.classList.toggle('hide', validatePwdDigit);
+    this.$pwdConfirm.classList.toggle('hide', validateSamePwdCheck);
 
     const isError = Object.values(validationAccount).includes(false);
 
