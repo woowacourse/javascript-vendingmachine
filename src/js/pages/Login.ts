@@ -33,17 +33,13 @@ export default class Login {
       password: this.$loginPassword.value,
     });
 
-    try {
-      api.postUserLogin(data).then(res => {
-        const { accessToken, user } = res;
+    api.postUserLogin(data).then(res => {
+      const { accessToken, user } = res;
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
 
-        router.to('#!/product-manage');
-      });
-    } catch (err) {
-      showSnackbar(err.message);
-    }
+      router.to('#!/product-manage');
+    });
   };
 }
