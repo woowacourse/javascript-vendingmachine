@@ -13,7 +13,7 @@ export const ERROR_MESSAGE = {
   EXISTED_EMAIL: "이미 존재하는 이메일입니다.",
 } as const;
 
-export const VENDING_MACHINE_NUMBER = {
+export const VENDING_MACHINE_BOUNDARY_NUMBER = {
   MAXIMUM_CHANGES: 100000,
   MAXIMUM_PRICE: 10000,
   MINIMUM_PRICE: 100,

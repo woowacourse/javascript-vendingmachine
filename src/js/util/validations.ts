@@ -1,5 +1,5 @@
 import { ISingleProduct } from "../interface/product.interface";
-import { ERROR_MESSAGE, VENDING_MACHINE_NUMBER } from "../constant";
+import { ERROR_MESSAGE, VENDING_MACHINE_BOUNDARY_NUMBER } from "../constant";
 
 export const checkDuplicatedName = (
   products: ISingleProduct[],
@@ -17,39 +17,39 @@ export const checkDuplicatedName = (
 };
 
 export const checkNameLength = (name: string) => {
-  if (name.length > VENDING_MACHINE_NUMBER.MAXIMUM_NAME_LENGTH) {
+  if (name.length > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_NAME_LENGTH) {
     throw new Error(ERROR_MESSAGE.MAXIMUM_NAME_LENGTH);
   }
 };
 
 export const checkValidPrice = (price: number) => {
   if (
-    price < VENDING_MACHINE_NUMBER.MINIMUM_PRICE ||
-    price > VENDING_MACHINE_NUMBER.MAXIMUM_PRICE ||
-    price % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0
+    price < VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_PRICE ||
+    price > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_PRICE ||
+    price % VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COIN !== 0
   ) {
     throw new Error(ERROR_MESSAGE.VALID_PRICE);
   }
 };
 
 export const checkValidCount = (count: number) => {
-  if (!count || count <= VENDING_MACHINE_NUMBER.MINIMUM_COUNT) {
+  if (!count || count <= VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COUNT) {
     throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
   }
 
-  if (count > VENDING_MACHINE_NUMBER.MAXIMUM_COUNT) {
+  if (count > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_COUNT) {
     throw new Error(ERROR_MESSAGE.MAXIMUM_COUNT);
   }
 };
 
 export const checkDividedByMinimumCoin = (money: number) => {
-  if (money % VENDING_MACHINE_NUMBER.MINIMUM_COIN !== 0) {
+  if (money % VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COIN !== 0) {
     throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
   }
 };
 
 export const checkMoneyOverMaximum = (money: number) => {
-  if (money > VENDING_MACHINE_NUMBER.MAXIMUM_CHANGES) {
+  if (money > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_CHANGES) {
     throw new Error(ERROR_MESSAGE.MAXIMUM_CHANGES);
   }
 };
