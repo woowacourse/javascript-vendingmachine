@@ -1,17 +1,10 @@
 import { COINS_REVERSE } from '../constants';
 
 class Change {
-  500: number;
-  100: number;
-  50: number;
-  10: number;
-
-  constructor() {
-    this[500] = 0;
-    this[100] = 0;
-    this[50] = 0;
-    this[10] = 0;
-  }
+  500 = 0;
+  100 = 0;
+  50 = 0;
+  10 = 0;
 
   calculateReturnChange({ userInputMoney, chargedCoin, change }) {
     COINS_REVERSE.forEach((coin) => {
