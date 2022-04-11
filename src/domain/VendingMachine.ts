@@ -13,14 +13,7 @@ import { validateChange } from '../validator/changeValidator';
 import { validateUpdateProduct } from '../validator/updateProductValidator';
 import { validateProduct } from '../validator/productValidator';
 
-interface IVendingMachine {
-  amount: Coin;
-  products: Product[];
-  moneyInput: MoneyInput;
-  change: Change;
-}
-
-class VendingMachine implements IVendingMachine {
+class VendingMachine {
   static _instance: VendingMachine | null = null;
 
   static get instance() {
