@@ -32,16 +32,16 @@ export default class App {
   }
 
   async renderPage() {
-    const [, page, url] = window.location.href.split('/#');
+    const [, page, section] = window.location.href.split('/#');
 
     switch (page) {
       case URL.MAIN:
         await this.mainView.render();
-        this.mainView.renderPageSection(url);
+        this.mainView.renderPageSection(section);
         break;
       case URL.SIGN:
         this.signView.render();
-        this.signView.renderPageSection(url);
+        this.signView.renderPageSection(section);
         break;
       default:
         await this.mainView.render();

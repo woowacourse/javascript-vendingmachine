@@ -24,19 +24,14 @@ export default class SignView {
     this.$app.insertAdjacentHTML('beforeend', signTemplate);
   }
 
-  renderPageSection(url: string) {
-    switch (url) {
-      case URL.SIGN_IN:
-        this.signInView.render();
-        break;
-      case URL.SING_UP:
-        this.singUpView.render();
-        break;
-      case URL.EDIT_PROFILE:
-        this.editProfileView.render();
-        break;
-      default:
-        this.signInView.render();
-    }
+  renderPageSection(section: string) {
+    const sections = {
+      [URL.SIGN_IN]: this.signInView,
+      [URL.SING_UP]: this.singUpView,
+      [URL.EDIT_PROFILE]: this.editProfileView,
+    };
+
+    const currentView = sections[section] ?? this.signInView;
+    currentView.render();
   }
 }

@@ -38,24 +38,28 @@ export default class MainView {
     await this.vendingMachine.updateResponsCoins();
   }
 
-  renderPageSection(url: string) {
-    switch (url) {
-      case URL.MANAGE_ITEM:
-        this.manageItemView.render();
-        this.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
-        break;
-      case URL.CHARGE_MONEY:
-        this.chargeMoneyView.render();
-        this.changeButtonColor(SELECTOR.ID_STRING.MONEY_CHARGE_TAB);
-        break;
-      case URL.PURCHASE_ITEM:
-        this.purchaseItemView.render();
-        this.changeButtonColor(SELECTOR.ID_STRING.ITEM_PURCHASE_TAB);
-        break;
-      default:
-        this.manageItemView.render();
-        this.changeButtonColor(SELECTOR.ID_STRING.ITEM_MANGE_TAB);
-    }
+  renderPageSection(section: string) {
+    const initialSection = {
+      currentView: this.manageItemView,
+      buttonId: SELECTOR.ID_STRING.ITEM_MANGE_TAB,
+    };
+
+    const sections = {
+      [URL.MANAGE_ITEM]: initialSection,
+      [URL.CHARGE_MONEY]: {
+        currentView: this.chargeMoneyView,
+        buttonId: SELECTOR.ID_STRING.MONEY_CHARGE_TAB,
+      },
+      [URL.PURCHASE_ITEM]: {
+        currentView: this.purchaseItemView,
+        buttonId: SELECTOR.ID_STRING.ITEM_PURCHASE_TAB,
+      },
+    };
+
+    const { currentView, buttonId } = sections[section] ?? initialSection;
+
+    currentView.render();
+    this.changeButtonColor(buttonId);
   }
 
   private changeButtonColor(targetButtonId: string) {
