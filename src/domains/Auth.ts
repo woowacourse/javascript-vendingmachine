@@ -54,10 +54,10 @@ export function isLoggedIn() {
 }
 
 export async function getUser(): Promise<object> {
+  if (!isLoggedIn()) return undefined;
+
   const userId: string = getCookie('user_id');
   const accessToken: string = getCookie('access_token');
-
-  if (!isLoggedIn()) return undefined;
 
   const response = await fetch(`${AUTH_BASE_URL}/users/${userId}`, {
     method: 'GET',
