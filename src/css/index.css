@@ -246,8 +246,6 @@ li {
   display: none;
 }
 
-/* --------------------------------------------- */
-
 #snackbar {
   visibility: hidden;
   min-width: 250px;

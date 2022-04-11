@@ -1,5 +1,5 @@
 import PurchaseDialog from '../components/PurchaseDialog';
-import snackbar from '../components/Snackbar';
+import showSnackbar from '../components/Snackbar';
 import { ERROR_MESSAGE } from '../constants';
 import { Product, Coin } from '../interfaces/VendingMachine.interface';
 import vendingMachine from '../model/VendingMachine';
@@ -87,12 +87,12 @@ export default class ProductPurchase {
     const userMoney = vendingMachine.getUserMoney();
 
     if (price > userMoney) {
-      snackbar(ERROR_MESSAGE.TOO_SHORT_MONEY);
+      showSnackbar(ERROR_MESSAGE.TOO_SHORT_MONEY);
       return;
     }
 
     if (amount === 0) {
-      snackbar(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
+      showSnackbar(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
       return;
     }
 
@@ -112,8 +112,8 @@ export default class ProductPurchase {
     try {
       vendingMachine.putMoney(inputMoney);
       this.refreshUserMoney();
-    } catch (message) {
-      snackbar(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 
@@ -122,8 +122,8 @@ export default class ProductPurchase {
       const userChanges = vendingMachine.getUserChanges();
       this.refreshUserChange(userChanges);
       this.refreshUserMoney();
-    } catch (message) {
-      snackbar(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 

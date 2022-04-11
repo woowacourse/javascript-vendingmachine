@@ -1,5 +1,5 @@
 import api from '../Api';
-import snackbar from '../components/Snackbar';
+import showSnackbar from '../components/Snackbar';
 import router from '../router';
 import template from '../template';
 import {
@@ -92,8 +92,8 @@ export default class EditProfile {
         localStorage.setItem('user', JSON.stringify({ email, name, id }));
         router.to('#!/product-manage');
       });
-    } catch (message) {
-      snackbar(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 
