@@ -1,7 +1,7 @@
 import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../interfaces/interface';
-import { validateAllProductProps } from '../utils/domain.utils';
+import { validateAllProductProps } from '../domain/Product.validateFuncs';
 import { getStorageProductCatalog } from '../utils/sessionStorage';
 
 export class ProductCatalogTable {

@@ -1,5 +1,5 @@
 import { ProductCatalog } from '../domain/ProductCatalog';
-import { validateAllProductProps } from '../utils/domain.utils';
+import { validateAllProductProps } from '../domain/Product.validateFuncs';
 import { getStorageProductCatalog } from '../utils/sessionStorage';
 import { SnackBar } from './SnackBar';
 

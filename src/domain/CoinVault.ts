@@ -6,7 +6,7 @@ import {
   CHEAPEST_COIN,
 } from '../constants/domain';
 import { Coins } from '../interfaces/interface';
-import { getRandomNumZeroToMax } from '../utils/domain.utils';
+import { getRandomNumZeroToMax } from '../utils/utils';
 import { ERR_COIN_VAULT } from '../constants/errorMessage';
 
 export class CoinVault {

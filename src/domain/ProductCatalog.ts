@@ -1,5 +1,5 @@
 import { Product } from './Product';
-import { validateProductQuantity } from '../utils/domain.utils';
+import { validateProductQuantity } from './Product.validateFuncs';
 
 export class ProductCatalog {
   productList: Product[];
