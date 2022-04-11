@@ -11,6 +11,7 @@ export const ERROR_MESSAGE = {
   NOT_CONFIRMED_PASSWORD: "비밀번호가 일치하지 않습니다.",
   WRONG_LOGIN_INFORMATION: "이메일 혹은 비밀번호가 잘못 되었습니다.",
   EXISTED_EMAIL: "이미 존재하는 이메일입니다.",
+  SERVER_ERROR: "서버에서 오류가 났습니다! 잠시 후 다시 시도해주세요.",
 } as const;
 
 export const VENDING_MACHINE_BOUNDARY_NUMBER = {

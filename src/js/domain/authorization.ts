@@ -55,7 +55,7 @@ class Authorization {
     );
     routerPush("/");
     if (response.isError) {
-      throw new Error("서버에러");
+      throw new Error(ERROR_MESSAGE.SERVER_ERROR);
     }
   }
 }
