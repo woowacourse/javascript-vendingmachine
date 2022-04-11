@@ -21,6 +21,9 @@ export default class View {
   $userMenu: HTMLElement;
   vendingMachine: VendingMachineInterface;
   currentTab: string;
+  productManageView: ProductManageView;
+  rechargeView: RechargeView;
+  purchaseView: PurchaseView;
 
   constructor(vendingMachine: VendingMachineInterface) {
     this.vendingMachine = vendingMachine;
@@ -35,6 +38,10 @@ export default class View {
     this.$tabRechargeButton = <HTMLInputElement>$('#tab-recharge');
     this.$tabPurchaseProductButton = <HTMLInputElement>$('#tab-purchase-product');
     this.$userMenu = document.querySelector('user-menu');
+
+    this.productManageView = new ProductManageView(this.vendingMachine);
+    this.rechargeView = new RechargeView(this.vendingMachine);
+    this.purchaseView = new PurchaseView(this.vendingMachine);
 
     this.$tabProductManageButton.addEventListener('click', () =>
       this.handleClickTabButton(PATH_ID.PRODUCT_MANAGE),
@@ -79,26 +86,26 @@ export default class View {
         if (!auth.isLoggedIn) {
           return;
         }
-        new ProductManageView(this.vendingMachine).render();
+        this.productManageView.render();
         this.$tabProductManageButton.checked = true;
         break;
       case PATH_ID.RECHARGE:
         if (!auth.isLoggedIn) {
           return;
         }
-        new RechargeView(this.vendingMachine).render();
+        this.rechargeView.render();
         this.$tabRechargeButton.checked = true;
         break;
       case PATH_ID.PURCHASE_PRODUCT:
-        new PurchaseView(this.vendingMachine).render();
+        this.purchaseView.render();
         this.$tabPurchaseProductButton.checked = true;
         break;
       case PATH_ID.LOGIN:
-        new PurchaseView(this.vendingMachine).render();
+        this.purchaseView.render();
         renderComponent('log-in');
         break;
       case PATH_ID.SIGNUP:
-        new PurchaseView(this.vendingMachine).render();
+        this.purchaseView.render();
         renderComponent('sign-up');
         break;
       default:
