@@ -1,33 +1,8 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-
 import { ERROR_MESSAGE } from '../../src/js/constants';
 
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('login', (userEmail, userPassword) => {
-  cy.get('#to-login-anchor').click();
+  cy.get('#login-email').clear();
+  cy.get('#login-password').clear();
   cy.get('#login-email').type(userEmail);
   cy.get('#login-password').type(userPassword);
 
@@ -74,4 +49,11 @@ Cypress.Commands.add('authorizeInLogin', (path) => {
   cy.visit(path);
   cy.get('#snackbar').should('have.text', ERROR_MESSAGE.ALREADY_LOGGINED);
   cy.get('#purchase-tab-menu').should('have.class', 'current');
+});
+
+Cypress.Commands.add('updateUser', (name, password, passowrdConfirm) => {
+  cy.get('#update-user-name').type(name);
+  cy.get('#update-user-password').type(password);
+  cy.get('#update-user-password-confirm').type(passowrdConfirm);
+  cy.get('#update-user-form').submit();
 });

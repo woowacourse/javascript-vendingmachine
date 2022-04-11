@@ -5,6 +5,7 @@ describe('상품 테스트', () => {
     cy.visit('/');
     const email = 'test123@naver.com';
     const password = 'Abc1234!';
+    cy.get('#to-login-anchor').click();
     cy.login(email, password);
   });
 
