@@ -27,7 +27,7 @@ class ChangePageView {
         id: "changes-form",
         class: "form",
       },
-      changesTemplate.input()
+      changesTemplate.inputCollection()
     );
     this.$changesStatusContainer = createElement(
       "section",

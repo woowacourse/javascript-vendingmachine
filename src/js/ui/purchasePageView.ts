@@ -30,7 +30,7 @@ class PurchasePageView {
         id: "charge-money-form",
         class: "form",
       },
-      purchaseTemplate.input()
+      purchaseTemplate.inputCollection()
     );
     this.$currentChargedMoneyContainer = createElement("p", {
       id: "current-charged-money",

@@ -17,7 +17,7 @@ class LoginView {
     this.$formContainer = createElement(
       "form",
       { id: "login-form", class: "form" },
-      loginTemplate.input()
+      loginTemplate.inputCollection()
     );
     this.$emailInput = $("#email", this.$formContainer);
     this.$passwordInput = $("#password", this.$formContainer);

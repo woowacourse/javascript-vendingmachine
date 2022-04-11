@@ -53,7 +53,7 @@ class UserInfoPageView {
   renderForm(email, name) {
     this.$formContainer.insertAdjacentHTML(
       "beforeend",
-      userInfoTemplate.input(email, name)
+      userInfoTemplate.inputCollection(email, name)
     );
 
     this.$nameInput = $("#name", this.$formContainer);

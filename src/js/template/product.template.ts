@@ -1,7 +1,7 @@
 import { IAddProductEvent, IUpdateProductEvent } from "../type";
 
 const productTemplate = {
-  input: () => `
+  inputCollection: () => `
     <label for="product-name-input" class="label">추가할 상품 정보를 입력해주세요.</label>
     <div class="primary-input-container">
       <input id="product-name-input" class="input" placeholder="상품명" required/>

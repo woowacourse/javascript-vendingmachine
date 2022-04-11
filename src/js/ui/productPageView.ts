@@ -38,7 +38,7 @@ class ProductPageView {
         id: "add-product-form",
         class: "form",
       },
-      productTemplate.input()
+      productTemplate.inputCollection()
     );
 
     this.$productStatusContainer = createElement(

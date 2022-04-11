@@ -1,5 +1,5 @@
 const loginTemplate = {
-  input: () => `
+  inputCollection: () => `
     <div class="secondary-input-container">
       <label for="email">이메일</label>
       <input id="email" class="input" placeholder="이메일 주소를 입력해주세요" type="email" required>

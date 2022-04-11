@@ -1,5 +1,5 @@
 const userInfoTemplate = {
-  input: (email, name) =>
+  inputCollection: (email, name) =>
     `<div class="secondary-input-container">
      <label for="email">이메일</label>
      <input id="email" class="input" placeholder=${email} type="email" disabled>

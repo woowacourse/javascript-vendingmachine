@@ -21,7 +21,7 @@ class SignUpView {
     this.$formContainer = createElement(
       "form",
       { id: "signup-form", class: "form" },
-      signUpTemplate.input()
+      signUpTemplate.inputCollection()
     );
     this.$emailInput = $("#email", this.$formContainer);
     this.$nameInput = $("#name", this.$formContainer);
