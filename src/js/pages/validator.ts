@@ -12,12 +12,16 @@ const isPwdDigit = (pwd: string) => pwd.search(/[0-9]/) >= 0;
 
 const isSamePwdCheck = (pwd: string, pwdCheck: string) => pwd === pwdCheck;
 
-export {
-  isPositiveName,
-  isPositivePwdLength,
-  isPwdLowerCase,
-  isPwdUpperCase,
-  isPwdSpecialChar,
-  isPwdDigit,
-  isSamePwdCheck,
+const validateAccount = (name: string, pwd: string, pwdCheck: string) => {
+  return [
+    isPositiveName(name),
+    isPositivePwdLength(pwd),
+    isPwdLowerCase(pwd),
+    isPwdUpperCase(pwd),
+    isPwdSpecialChar(pwd),
+    isPwdDigit(pwd),
+    isSamePwdCheck(pwd, pwdCheck),
+  ];
 };
+
+export { validateAccount };

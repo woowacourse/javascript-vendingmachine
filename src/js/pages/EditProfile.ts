@@ -2,15 +2,7 @@ import api from '../api';
 import showSnackbar from '../components/Snackbar';
 import router from '../router';
 import template from '../template';
-import {
-  isPositiveName,
-  isPositivePwdLength,
-  isPwdLowerCase,
-  isPwdUpperCase,
-  isPwdSpecialChar,
-  isPwdDigit,
-  isSamePwdCheck,
-} from './validator';
+import { validateAccount } from './validator';
 
 interface User {
   email: string;
@@ -98,31 +90,26 @@ export default class EditProfile {
   };
 
   checkAccountValidate(name: string, pwd: string, pwdCheck: string) {
-    const _isPositiveName = isPositiveName(name);
-    const _isPositivePwdLength = isPositivePwdLength(pwd);
-    const _isPwdLowerCase = isPwdLowerCase(pwd);
-    const _isPwdUpperCase = isPwdUpperCase(pwd);
-    const _isPwdSpecialChar = isPwdSpecialChar(pwd);
-    const _isPwdDigit = isPwdDigit(pwd);
-    const _isSamePwdCheck = isSamePwdCheck(pwd, pwdCheck);
+    const validationAccount = validateAccount(name, pwd, pwdCheck);
+    const [
+      isPositiveName,
+      isPositivePwdLength,
+      isPwdLowerCase,
+      isPwdUpperCase,
+      isPwdSpecialChar,
+      isPwdDigit,
+      isSamePwdCheck,
+    ] = validationAccount;
 
-    this.$nameLength.classList.toggle('hide', _isPositiveName);
-    this.$pwdMinLength.classList.toggle('hide', _isPositivePwdLength);
-    this.$pwdLowercase.classList.toggle('hide', _isPwdLowerCase);
-    this.$pwdUppercase.classList.toggle('hide', _isPwdUpperCase);
-    this.$pwdSpecial.classList.toggle('hide', _isPwdSpecialChar);
-    this.$pwdDigit.classList.toggle('hide', _isPwdDigit);
-    this.$pwdConfirm.classList.toggle('hide', _isSamePwdCheck);
+    this.$nameLength.classList.toggle('hide', isPositiveName);
+    this.$pwdMinLength.classList.toggle('hide', isPositivePwdLength);
+    this.$pwdLowercase.classList.toggle('hide', isPwdLowerCase);
+    this.$pwdUppercase.classList.toggle('hide', isPwdUpperCase);
+    this.$pwdSpecial.classList.toggle('hide', isPwdSpecialChar);
+    this.$pwdDigit.classList.toggle('hide', isPwdDigit);
+    this.$pwdConfirm.classList.toggle('hide', isSamePwdCheck);
 
-    const isError = [
-      _isPositiveName,
-      _isPositivePwdLength,
-      _isPwdLowerCase,
-      _isPwdUpperCase,
-      _isPwdSpecialChar,
-      _isPwdDigit,
-      _isSamePwdCheck,
-    ].some(v => !v);
+    const isError = validationAccount.includes(false);
 
     if (isError) {
       throw new Error('잘못 입력 했습니다.');
