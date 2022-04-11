@@ -42,23 +42,6 @@ describe('상품 추가 테스트', () => {
     );
   });
 
-  it('중복된 상품명을 입력하면 에러 메세지가 보인다.', () => {
-    const duplicatedProductName = '콜라';
-    const productPrice = 1000;
-    const productQuantity = 20;
-
-    cy.wait(1500);
-    cy.addProduct(duplicatedProductName, productPrice, productQuantity);
-    cy.addProduct(duplicatedProductName, productPrice, productQuantity).then(
-      () => {
-        cy.get('.snack-bar-container .snack-bar-container__message').should(
-          'have.text',
-          '중복된 상품명을 입력하셨습니다. 중복되지 않는 상품명을 다시 입력해주세요.'
-        );
-      }
-    );
-  });
-
   it(`상품 가격이 ${PRODUCT_PRICE.MAX_PRICE} 초과면 에러 메세지가 보인다. `, () => {
     const productName = '콜라';
     const overMaxPriceProductPrice = 10010;
