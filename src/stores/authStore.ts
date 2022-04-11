@@ -6,7 +6,6 @@ class AuthStore implements IAuthStore {
   async mutateState({ actionType, payload }: { actionType: TAuthAction; payload: unknown }) {
     try {
       await this.reducer[actionType](payload);
-      window.location.href = '#';
     } catch ({ message }) {
       alert(message);
     }
@@ -30,16 +29,7 @@ class AuthStore implements IAuthStore {
       if (response.status === 400) {
         throw new Error(ERROR_MSG.FAILED_SIGN_IN);
       }
-
-      const {
-        accessToken,
-        user: { id },
-      } = await response.json();
-
-      accessTokenStorage.setAccessToken(accessToken);
-      userIdStorage.setUserId(id);
-
-      await this.setLoginUserInfo();
+      window.location.href = '#login';
     },
     [AuthActionTypes.LOGIN]: async payload => {
       const { email, password } = payload;
@@ -64,10 +54,13 @@ class AuthStore implements IAuthStore {
       userIdStorage.setUserId(id);
 
       await this.setLoginUserInfo();
+
+      window.location.href = '#';
     },
     [AuthActionTypes.LOGOUT]: payload => {
       localStorage.clear();
       window.location.href = '#login';
+      window.location.href = '#';
     },
     [AuthActionTypes.EDIT_USER_INFO]: async payload => {
       const userId = userIdStorage.getUserId();
@@ -89,6 +82,7 @@ class AuthStore implements IAuthStore {
       }
 
       await this.setLoginUserInfo();
+      window.location.href = '#';
     },
   };
 
