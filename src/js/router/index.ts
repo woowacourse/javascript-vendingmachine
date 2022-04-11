@@ -1,7 +1,7 @@
 import routes from './routes';
 
 const useRouter = () => {
-  const $headerNav = document.querySelector('#header-nav');
+  const $headerTab = document.querySelector('#header-tab');
   const $inputSection = document.querySelector('.input-section');
   const $contentsContainer = document.querySelector('.contents-container');
   const $accountLoginButton = document.querySelector('#account-login-button');
@@ -15,7 +15,7 @@ const useRouter = () => {
     if (isAccountPage) {
       $accountLoginButton.classList.add('hide');
       $accountDropdownContainer.classList.add('hide');
-      $headerNav.classList.add('hide');
+      $headerTab.classList.add('hide');
       return;
     }
 
@@ -26,7 +26,7 @@ const useRouter = () => {
 
     $accountLoginButton.classList.toggle('hide', _isLogged);
     $accountDropdownContainer.classList.toggle('hide', !_isLogged);
-    $headerNav.classList.toggle('hide', !_isLogged);
+    $headerTab.classList.toggle('hide', !_isLogged);
   };
 
   const clearPageBody = () => {

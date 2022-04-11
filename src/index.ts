@@ -6,18 +6,18 @@ window.addEventListener('popstate', function () {
 });
 
 class App {
-  $headerNav: HTMLElement;
+  $headerTab: HTMLElement;
   $accountLoginButton: HTMLButtonElement;
-  $dropdownSelect: HTMLSelectElement;
+  $dropdownNav: HTMLSelectElement;
 
   constructor() {
-    this.$headerNav = document.querySelector('#header-nav');
+    this.$headerTab = document.querySelector('#header-tab');
     this.$accountLoginButton = document.querySelector('#account-login-button');
-    this.$dropdownSelect = document.querySelector('#dropdown-select');
+    this.$dropdownNav = document.querySelector('#dropdown-select');
 
     this.$accountLoginButton.addEventListener('click', this.onClickLogin);
-    this.$headerNav.addEventListener('click', this.onClickTab);
-    this.$dropdownSelect.addEventListener('change', this.onSelectNav);
+    this.$headerTab.addEventListener('click', this.onClickTab);
+    this.$dropdownNav.addEventListener('change', this.onSelectNav);
 
     const { hash } = window.location;
     hash === '' ? router.to('#!/product-purchase') : router.to(hash);
