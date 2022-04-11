@@ -37,10 +37,6 @@ describe('잔돈 관리 도메인 테스트', () => {
 
     expect(() => {
       vendingMachineCoinManager.addCoins(newCoins);
-    }).toThrowError(
-      ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(
-        vendingMachineCoinManager.getTotalAmount()
-      )
-    );
+    }).toThrowError(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY);
   });
 });

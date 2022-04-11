@@ -27,7 +27,7 @@ export interface ErrorMessage {
   readonly NOT_ENOUGH_MONEY: string;
   readonly WRONG_PASSWORD_LOGIN: string;
   readonly NOT_EXIST_USER: string;
-  OVERFLOW_CHARGE_MONEY(chargeMoney: number): string;
+  readonly OVERFLOW_CHARGE_MONEY: string;
 }
 
 export interface ChargeMoney {

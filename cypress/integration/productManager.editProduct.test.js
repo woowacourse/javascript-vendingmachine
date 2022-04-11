@@ -1,4 +1,8 @@
-const { PRODUCT_PRICE, PRODUCT_QUANTITY } = require('../../src/ts/constants');
+import {
+  PRODUCT_PRICE,
+  PRODUCT_QUANTITY,
+  ERROR_MESSAGE,
+} from '../../src/ts/constants';
 
 describe('상품 수정 테스트', () => {
   beforeEach(() => {
@@ -52,10 +56,7 @@ describe('상품 수정 테스트', () => {
       editProductPrice,
       editProductQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        '중복된 상품명을 입력하셨습니다. 중복되지 않는 상품명을 다시 입력해주세요.'
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.DUPLICATED_PRODUCT_NAME);
     });
   });
 
@@ -75,10 +76,7 @@ describe('상품 수정 테스트', () => {
       overMaxPriceProductPrice,
       productQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        `상품 가격을 잘못 입력하셨습니다. 상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 이상 ${PRODUCT_PRICE.MAX_PRICE}원 이하로 입력해주세요.`
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
     });
   });
 
@@ -98,10 +96,7 @@ describe('상품 수정 테스트', () => {
       underMinPriceProductPrice,
       productQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        `상품 가격을 잘못 입력하셨습니다. 상품 가격은 ${PRODUCT_PRICE.MIN_PRICE}원 이상 ${PRODUCT_PRICE.MAX_PRICE}원 이하로 입력해주세요.`
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.WRONG_RANGE_PRODUCT_PRICE);
     });
   });
 
@@ -120,10 +115,7 @@ describe('상품 수정 테스트', () => {
       wrongUnitProductPrice,
       productQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        `상품 가격을 잘못 입력하셨습니다. 상품 가격은 ${PRODUCT_PRICE.UNIT}원 단위로 작성해주세요.`
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.WRONG_UNIT_PRODUCT_PRICE);
     });
   });
 
@@ -142,10 +134,7 @@ describe('상품 수정 테스트', () => {
       productPrice,
       overMaxQuantityProductQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        `상품 수량을 잘못 입력하셨습니다. 상품 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 이상 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개 이하로 작성해주세요.`
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
     });
   });
 
@@ -164,10 +153,7 @@ describe('상품 수정 테스트', () => {
       productPrice,
       underMinQuantityProductQuantity
     ).then(() => {
-      cy.get('.snack-bar-container .snack-bar-container__message').should(
-        'have.text',
-        `상품 수량을 잘못 입력하셨습니다. 상품 수량은 최소 ${PRODUCT_QUANTITY.MIN_QUANTITY}개 이상 최대 ${PRODUCT_QUANTITY.MAX_QUANTITY}개 이하로 작성해주세요.`
-      );
+      cy.checkErrorMessage(ERROR_MESSAGE.WRONG_PRODUCT_QUANTITY);
     });
   });
 });

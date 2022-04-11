@@ -20,6 +20,17 @@ Cypress.Commands.add('login', () => {
   cy.get('.login-button').click();
 });
 
+Cypress.Commands.add('changeTab', (tab) => {
+  cy.get(`.nav__${tab}-button`).click();
+});
+
+Cypress.Commands.add('checkErrorMessage', (message) => {
+  cy.get('.snack-bar-container .snack-bar-container__message').should(
+    'have.text',
+    message
+  );
+});
+
 Cypress.Commands.add('addProduct', (name, price, quantity) => {
   cy.get('.products-form__product-input').type(name);
   cy.get('.products-form__price-input').type(price);
@@ -59,3 +70,8 @@ Cypress.Commands.add(
       .should('have.text', `${quantity}개`);
   }
 );
+
+Cypress.Commands.add('chargeCoins', (money) => {
+  cy.get('.charge-form-section__coin-input').type(money);
+  return cy.get('.charge-form-section__button').click();
+});

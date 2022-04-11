@@ -13,7 +13,7 @@ export const checkCanAddMoney = (
   );
 
   if (totalMoney > CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY) {
-    throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(currentMoney));
+    throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY);
   }
 };
 
