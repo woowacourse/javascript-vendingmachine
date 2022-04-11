@@ -1,7 +1,7 @@
-import MainView from './views/mainView';
+import MainView from './views/main';
 import { URL, CUSTOM_EVENT } from './constants/appContants';
 import { RouteChangeDetailType } from './types/types';
-import SignView from './views/signView';
+import SignView from './views/sign';
 
 export default class App {
   mainView: MainView;

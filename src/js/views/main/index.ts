@@ -1,13 +1,13 @@
-import { $, $$, emit } from '../utils/common';
-import { mainTemplate } from '../templates/main/mainTemplate';
-import { CUSTOM_EVENT, FIRST_INDEX, URL } from '../constants/appContants';
-import { SELECTOR } from '../constants/viewConstants';
-import ManageItemView from './main/mangeItemView';
-import ChargeMoneyView from './main/chargeMoneyView';
-import PurchaseItemView from './main/purchaseItemView';
-import VendingMachine from '../vendingMachine/vendingMachine';
-import UserMenuView from './main/userMenuView';
-import Storage from '../api/storage';
+import { $, $$, emit } from '../../utils/common';
+import { mainTemplate } from '../../templates/main/mainTemplate';
+import { CUSTOM_EVENT, FIRST_INDEX, URL } from '../../constants/appContants';
+import { SELECTOR } from '../../constants/viewConstants';
+import ManageItemView from './mangeItemView';
+import ChargeMoneyView from './chargeMoneyView';
+import PurchaseItemView from './purchaseItemView';
+import VendingMachine from '../../vendingMachine/vendingMachine';
+import UserMenuView from './userMenuView';
+import Storage from '../../api/storage';
 
 export default class MainView {
   private $app: HTMLElement;
