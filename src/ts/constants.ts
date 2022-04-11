@@ -1,4 +1,4 @@
-import { ICoins } from './types/vendingMachineCoinManager';
+import { ICoins } from './types/CoinManager';
 import {
   ProductQuantity,
   ProductName,

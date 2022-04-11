@@ -1,4 +1,4 @@
-import { CoinManager, Coins } from '../types/vendingMachineCoinManager';
+import { CoinManager, Coins } from '../types/CoinManager';
 
 import { COINS } from '../constants';
 import { checkCanAddMoney } from './validator';

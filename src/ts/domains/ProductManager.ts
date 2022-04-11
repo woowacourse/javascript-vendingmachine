@@ -1,4 +1,4 @@
-import { ProductManager, Product } from '../types/vendingMachineProductManager';
+import { ProductManager, Product } from '../types/ProductManager';
 import {
   checkDuplicatedEditName,
   checkDuplicatedProductName,

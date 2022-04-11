@@ -5,8 +5,8 @@ import PurchaseProductComponent from './components/PurchaseProductComponent/Purc
 import UserComponent from './components/UserComponent/UserComponent';
 
 import PurchaseManager from './domains/PurchaseManager';
-import VendingMachineCoinManager from './domains/VendingMachineCoinManager';
-import VendingMachineProductManager from './domains/VendingMachineProductManager';
+import VendingMachineCoinManager from './domains/CoinManager';
+import VendingMachineProductManager from './domains/ProductManager';
 
 const startApp = () => {
   const productManager = new VendingMachineProductManager();

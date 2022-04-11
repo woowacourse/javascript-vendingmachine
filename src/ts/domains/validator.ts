@@ -1,6 +1,6 @@
 import { CHARGE_MONEY, ERROR_MESSAGE } from '../constants';
-import { Coins } from '../types/vendingMachineCoinManager';
-import { Product } from '../types/vendingMachineProductManager';
+import { Coins } from '../types/CoinManager';
+import { Product } from '../types/ProductManager';
 
 export const checkCanAddMoney = (
   currentMoney: number,

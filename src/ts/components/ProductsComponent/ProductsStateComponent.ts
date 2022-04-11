@@ -1,4 +1,4 @@
-import { Product } from '../../types/vendingMachineProductManager';
+import { Product } from '../../types/ProductManager';
 
 import { focusWrongInput, focusEditInput, $ } from '../../dom';
 import {

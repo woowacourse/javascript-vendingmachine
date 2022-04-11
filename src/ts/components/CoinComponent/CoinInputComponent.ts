@@ -2,7 +2,7 @@ import { COINS } from '../../constants';
 import { $ } from '../../dom';
 import { emit, on } from '../../events';
 import renderSnackBar from '../../snackbar';
-import { Coins } from '../../types/vendingMachineCoinManager';
+import { Coins } from '../../types/CoinManager';
 import { pickRandomIndex } from '../../utils';
 import { checkValidChargeMoney } from '../validator';
 
