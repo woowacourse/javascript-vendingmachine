@@ -1,5 +1,5 @@
 import { accessTokenStorage } from '../stores/localStorage';
-import { ERROR_MSG } from '../utils/constants';
+import { ERROR_MSG, HEADER_TITLE, ROUTER_ADDRESS } from '../utils/constants';
 import EditUserInfoComponent from './EditUserInfoComponent';
 import HeaderComponent from './headerComponent';
 import LoginComponent from './loginComponent';
@@ -46,10 +46,11 @@ class VendingMachineComponent {
   }
 
   showSectionByRoute(route) {
+    const isLoginStatus = this.checkLoginStatus();
     this.#HeaderComponent.headerShow();
-    this.$title.textContent = '🍿 자판기 🍿';
+    this.$title.textContent = HEADER_TITLE.MAIN;
 
-    if (this.checkLoginStatus()) {
+    if (isLoginStatus) {
       this.$nav.classList.remove('hide');
       this.#HeaderComponent.loginUserHide();
       this.#HeaderComponent.userProfileShow();
@@ -57,7 +58,7 @@ class VendingMachineComponent {
       this.#LoginComponent.hide();
       this.#SignInComponent.hide();
 
-      if (route === 'manage') {
+      if (route === ROUTER_ADDRESS.MANAGE_PRODUCT) {
         this.#RechargeChangeComponent.hide();
         this.#PurchaseProductComponent.hide();
         this.#LoginComponent.hide();
@@ -66,7 +67,7 @@ class VendingMachineComponent {
         this.#ProductManagementComponent.show();
         this.focusTabButton('manageProduct');
       }
-      if (route === 'recharge') {
+      if (route === ROUTER_ADDRESS.RECHARGE_COIN) {
         this.#PurchaseProductComponent.hide();
         this.#ProductManagementComponent.hide();
         this.#LoginComponent.hide();
@@ -75,7 +76,7 @@ class VendingMachineComponent {
         this.#RechargeChangeComponent.show();
         this.focusTabButton('rechargeChange');
       }
-      if (route === '') {
+      if (route === ROUTER_ADDRESS.PURCHASE_PRODUCT) {
         this.#ProductManagementComponent.hide();
         this.#RechargeChangeComponent.hide();
         this.#EditUserComponent.hide();
@@ -83,8 +84,8 @@ class VendingMachineComponent {
         this.#PurchaseProductComponent.show();
         this.focusTabButton('purchaseProduct');
       }
-      if (route === 'edit-user-info') {
-        this.$title.textContent = '회원 정보 수정';
+      if (route === ROUTER_ADDRESS.EDIT_USER_INFO) {
+        this.$title.textContent = HEADER_TITLE.EDIT_INFO;
         this.#ProductManagementComponent.hide();
         this.#RechargeChangeComponent.hide();
         this.#PurchaseProductComponent.hide();
@@ -98,13 +99,13 @@ class VendingMachineComponent {
         this.#EditUserComponent.renderUserInfo();
       }
 
-      if (route === 'login' || route === 'signin') {
+      if (route === ROUTER_ADDRESS.LOGIN || route === ROUTER_ADDRESS.SIGN_IN) {
         alert(ERROR_MSG.WRONG_ACCESS);
-        window.location.href = '#';
+        window.location.href = ROUTER_ADDRESS.PURCHASE_PRODUCT;
       }
     }
 
-    if (!this.checkLoginStatus()) {
+    if (!isLoginStatus) {
       this.$nav.classList.add('hide');
       this.#HeaderComponent.loginUserShow();
       this.#HeaderComponent.userProfileHide();
@@ -113,15 +114,15 @@ class VendingMachineComponent {
       this.#RechargeChangeComponent.hide();
       this.#EditUserComponent.hide();
 
-      if (route === '') {
+      if (route === ROUTER_ADDRESS.PURCHASE_PRODUCT) {
         this.#LoginComponent.hide();
         this.#SignInComponent.hide();
 
         this.#PurchaseProductComponent.show();
       }
 
-      if (route === 'login') {
-        this.$title.textContent = '로그인';
+      if (route === ROUTER_ADDRESS.LOGIN) {
+        this.$title.textContent = HEADER_TITLE.LOGIN;
         this.#HeaderComponent.headerHide();
 
         this.#PurchaseProductComponent.hide();
@@ -130,8 +131,8 @@ class VendingMachineComponent {
         this.#LoginComponent.show();
       }
 
-      if (route === 'signin') {
-        this.$title.textContent = '회원가입';
+      if (route === ROUTER_ADDRESS.SIGN_IN) {
+        this.$title.textContent = HEADER_TITLE.SIGN_IN;
         this.#HeaderComponent.headerHide();
 
         this.#LoginComponent.hide();
@@ -140,9 +141,13 @@ class VendingMachineComponent {
         this.#SignInComponent.show();
       }
 
-      if (route === 'manage' || route === 'recharge' || route === 'edit-user-info') {
+      if (
+        route === ROUTER_ADDRESS.MANAGE_PRODUCT ||
+        route === ROUTER_ADDRESS.RECHARGE_COIN ||
+        route === ROUTER_ADDRESS.EDIT_USER_INFO
+      ) {
         alert(ERROR_MSG.WRONG_ACCESS);
-        window.location.href = '#';
+        window.location.href = ROUTER_ADDRESS.PURCHASE_PRODUCT;
       }
     }
   }

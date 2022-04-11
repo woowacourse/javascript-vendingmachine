@@ -1,6 +1,6 @@
 import { TCoinWallet, TCoinWalletKey } from '../domains/types';
 import { TAction, TAuthAction, TStateKey } from '../stores/types';
-import { TMention, TRange } from './types';
+import { THeaderTitle, TMention, TRange, TRouterAddress } from './types';
 
 export const COIN_VALUES: TCoinWallet = {
   coin500: 500,
@@ -117,4 +117,20 @@ export const AuthActionTypes: {
   LOGOUT: 'logout',
   SIGN_IN: 'signIn',
   EDIT_USER_INFO: 'editUserInfo',
+};
+
+export const HEADER_TITLE: THeaderTitle = {
+  MAIN: '🍿 자판기 🍿',
+  EDIT_INFO: '회원 정보 수정',
+  LOGIN: '로그인',
+  SIGN_IN: '회원가입',
+};
+
+export const ROUTER_ADDRESS: TRouterAddress = {
+  PURCHASE_PRODUCT: '',
+  MANAGE_PRODUCT: 'manage',
+  RECHARGE_COIN: 'recharge',
+  EDIT_USER_INFO: 'edit-user-info',
+  LOGIN: 'login',
+  SIGN_IN: 'signin',
 };

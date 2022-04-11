@@ -1,6 +1,6 @@
 import { TAuthAction, IAuthStore } from './types';
 import { accessTokenStorage, userIdStorage, userInfoStorage } from './localStorage';
-import { AuthActionTypes, ERROR_MSG } from '../utils/constants';
+import { AuthActionTypes, ERROR_MSG, ROUTER_ADDRESS } from '../utils/constants';
 
 class AuthStore implements IAuthStore {
   async mutateState({ actionType, payload }: { actionType: TAuthAction; payload: unknown }) {
@@ -29,7 +29,7 @@ class AuthStore implements IAuthStore {
       if (response.status === 400) {
         throw new Error(ERROR_MSG.FAILED_SIGN_IN);
       }
-      window.location.href = '#login';
+      window.location.href = ROUTER_ADDRESS.LOGIN;
     },
     [AuthActionTypes.LOGIN]: async payload => {
       const { email, password } = payload;
@@ -55,12 +55,12 @@ class AuthStore implements IAuthStore {
 
       await this.setLoginUserInfo();
 
-      window.location.href = '#';
+      window.location.href = ROUTER_ADDRESS.PURCHASE_PRODUCT;
     },
     [AuthActionTypes.LOGOUT]: payload => {
       localStorage.clear();
       window.location.href = '#login';
-      window.location.href = '#';
+      window.location.href = ROUTER_ADDRESS.PURCHASE_PRODUCT;
     },
     [AuthActionTypes.EDIT_USER_INFO]: async payload => {
       const userId = userIdStorage.getUserId();
@@ -82,7 +82,7 @@ class AuthStore implements IAuthStore {
       }
 
       await this.setLoginUserInfo();
-      window.location.href = '#';
+      window.location.href = ROUTER_ADDRESS.PURCHASE_PRODUCT;
     },
   };
 
