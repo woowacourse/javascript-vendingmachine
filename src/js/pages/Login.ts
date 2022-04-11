@@ -25,7 +25,7 @@ export default class Login {
     this.$loginForm.addEventListener('submit', this.onSubmitLogin);
   }
 
-  onSubmitLogin = async (e: SubmitEvent) => {
+  onSubmitLogin = (e: SubmitEvent) => {
     e.preventDefault();
 
     const data = JSON.stringify({
