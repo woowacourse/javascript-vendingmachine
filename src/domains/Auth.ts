@@ -50,7 +50,7 @@ export function isLoggedIn() {
   const userId: string = getCookie('user_id');
   const accessToken: string = getCookie('access_token');
 
-  return userId && userId !== '' && accessToken && accessToken !== '';
+  return userId && accessToken;
 }
 
 export async function getUser(): Promise<object> {
