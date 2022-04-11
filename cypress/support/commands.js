@@ -44,3 +44,18 @@ Cypress.Commands.add(
     return cy.get(getEditSubmitButtonSelector(productName)).click();
   }
 );
+
+Cypress.Commands.add(
+  'checkProductInfo',
+  (productName, name, price, quantity) => {
+    cy.get(`[data-product-name="${productName}"] td`)
+      .eq(0)
+      .should('have.text', name);
+    cy.get(`[data-product-name="${productName}"] td`)
+      .eq(1)
+      .should('have.text', price);
+    cy.get(`[data-product-name="${productName}"] td`)
+      .eq(2)
+      .should('have.text', `${quantity}개`);
+  }
+);

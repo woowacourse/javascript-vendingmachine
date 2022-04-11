@@ -12,17 +12,14 @@ describe('상품 추가 테스트', () => {
     const productQuantity = 20;
 
     cy.wait(1500);
-    cy.addProduct(productName, productPrice, productQuantity).then(() => {
-      cy.get(`[data-product-name="${productName}"] td`)
-        .eq(0)
-        .should('have.text', productName);
-      cy.get(`[data-product-name="${productName}"] td`)
-        .eq(1)
-        .should('have.text', productPrice);
-      cy.get(`[data-product-name="${productName}"] td`)
-        .eq(2)
-        .should('have.text', `${productQuantity}개`);
-    });
+    cy.addProduct(productName, productPrice, productQuantity);
+
+    cy.checkProductInfo(
+      productName,
+      productName,
+      productPrice,
+      productQuantity
+    );
   });
 
   it('중복된 상품명을 입력하면 에러 메세지가 보인다.', () => {
