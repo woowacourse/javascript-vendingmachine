@@ -1,4 +1,3 @@
-import axios from "axios";
 import { addEvent, selectDom, selectDomAll } from "../../utils/dom";
 import { ConvertTemplate } from "../../utils/interface";
 import { showSnackbar } from "../snackbar/snackbar";

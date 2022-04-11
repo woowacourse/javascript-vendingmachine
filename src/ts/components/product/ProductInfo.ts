@@ -12,8 +12,8 @@ class ProductInfo implements ProductInfoProps{
     const productNameList = this.productList.map((product: ProductProps) => product.productName);
 
     validateProductName(productName);
-    validateProductPrice(+productPrice);
-    valudateProductQuantity(+productQuantity);
+    validateProductPrice(productPrice);
+    valudateProductQuantity(productQuantity);
     validateSameProductName(productName, productNameList);
   }
 
@@ -23,8 +23,8 @@ class ProductInfo implements ProductInfoProps{
       .filter((productName) => productName !== beforeProductName);
 
     validateProductName(productName);
-    validateProductPrice(+productPrice);
-    valudateProductQuantity(+productQuantity);
+    validateProductPrice(productPrice);
+    valudateProductQuantity(productQuantity);
     validateSameProductName(productName, productNameList);
   }
 
