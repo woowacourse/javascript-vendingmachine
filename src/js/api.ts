@@ -63,10 +63,8 @@ const postSingup = async data => {
   }
 };
 
-const api = {
+export default {
   postUserLogin,
   putEditProfile,
   postSingup,
 };
-
-export default api;
