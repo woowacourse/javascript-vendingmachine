@@ -67,7 +67,5 @@ export async function getUser(): Promise<object> {
     },
   });
 
-  const user: Promise<object> = await response.json();
-
-  return user;
+  return response.json();
 }
