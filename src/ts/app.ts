@@ -62,7 +62,7 @@ class App {
     const currentHash = window.location.hash as Hash;
 
     if (this.hasNotAuthority(currentHash)) {
-      window.location.href = '/';
+      this.changeHashUrl(HASH.ITEM_PURCHASE);
       return;
     }
 
@@ -89,6 +89,11 @@ class App {
     const userInfo: UserInfo = this.userStore.getUserInfo();
 
     return !userInfo && requiredAuthorityHashList.includes(currentHash);
+  }
+
+  private changeHashUrl(hash: Hash): void {
+    window.history.pushState({ hash }, null, hash);
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
   }
 }
 

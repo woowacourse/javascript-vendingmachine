@@ -131,7 +131,7 @@ class HeaderView implements HeaderInterface {
 
   private handleLogout() {
     this.userStore.logout();
-    this.changeHashUrl('/' as Hash);
+    this.changeHashUrl(HASH.ITEM_PURCHASE);
   }
 
   private isTabHash(hash: Hash): boolean {

@@ -3,6 +3,7 @@ import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
+import HASH from '../constant/hash';
 
 class UserInfoEditView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -59,7 +60,7 @@ class UserInfoEditView implements ViewInterface {
     }
 
     // TODO: 스낵바로 회원가입에 성공했다는 사실을 알려주기
-    this.changeHashUrl('/' as Hash);
+    this.changeHashUrl(HASH.ITEM_PURCHASE);
   };
 
   private convertToUserInfoObject(userInfoInputList: HTMLInputElement[]): AuthenticationInfo {

@@ -3,6 +3,7 @@ import { generateLoginTemplate } from '../template/authenticationTemplate';
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
+import HASH from '../constant/hash';
 
 class LoginView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -55,7 +56,7 @@ class LoginView implements ViewInterface {
       return;
     }
 
-    this.changeHashUrl('/' as Hash);
+    this.changeHashUrl(HASH.ITEM_PURCHASE);
   };
 
   private convertToLoginInfoObject(loginInputList: HTMLInputElement[]): AuthenticationInfo {
