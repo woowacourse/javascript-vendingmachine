@@ -6,9 +6,8 @@ import CustomElement from '../../abstracts/CustomElement';
 import { $, hideElement, showElement } from '../../utils';
 
 class AuthMenu extends CustomElement {
-  async connectedCallback() {
-    await this.render();
-    this.setEvent();
+  connectedCallback() {
+    super.connectedCallback();
     AuthStore.instance.subscribe(this);
   }
 
