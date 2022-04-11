@@ -14,36 +14,6 @@ export function createElementByTemplate(type, template) {
   return element;
 }
 
-function fadeOutAnimation(target, elasped, duration) {
-  const node = target;
-  node.style.transform = `translateY(${-30 + (30 * elasped) / duration}px)`;
-  node.style.opacity = 1 - elasped / duration;
-  if (elasped >= duration) {
-    node.classList.add('hide');
-  }
-}
-
-function fadeInAnimation(target, elasped, duration) {
-  const node = target;
-  node.classList.remove('hide');
-  node.style.transform = `translateY(-${(30 * elasped) / duration}px)`;
-  node.style.opacity = elasped / duration;
-}
-
-function animationCallBack(target, duration, cb) {
-  let start;
-  return function callBack(timestamp) {
-    if (!start) {
-      start = timestamp;
-    }
-    const elasped = timestamp - start;
-    cb(target, elasped, duration);
-    if (elasped < duration) {
-      requestAnimationFrame(callBack);
-    }
-  };
-}
-
 // eslint-disable-next-line max-lines-per-function
 export function snackBar() {
   const snackBarContainer = document.getElementById('snackbar');
@@ -53,14 +23,18 @@ export function snackBar() {
     if (isGenerated) {
       clearTimeout(timeoutID);
       isGenerated = false;
-      generate(text);
+      snackBarContainer.classList.remove('fadeIn');
+      setTimeout(() => {
+        generate(text);
+      });
       return;
     }
     isGenerated = true;
     snackBarContainer.textContent = text;
-    requestAnimationFrame(animationCallBack(snackBarContainer, 500, fadeInAnimation));
+    snackBarContainer.classList.remove('init');
+    snackBarContainer.classList.add('fadeIn');
     timeoutID = setTimeout(() => {
-      requestAnimationFrame(animationCallBack(snackBarContainer, 500, fadeOutAnimation));
+      snackBarContainer.classList.remove('fadeIn');
       isGenerated = false;
     }, 3000);
   };
