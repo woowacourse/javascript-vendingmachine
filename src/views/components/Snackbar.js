@@ -1,16 +1,22 @@
 import Component from '../../core/Component';
 
 class Snackbar extends Component {
+  setup() {
+    this.timerId = null;
+  }
+
   template() {
     return '';
   }
 
   show(message) {
-    this.textContent = message;
-    this.classList.toggle('show');
+    if (this.timerId) clearTimeout(this.timerId);
 
-    setTimeout(() => {
-      this.classList.toggle('show');
+    this.textContent = message;
+    this.classList.add('show');
+
+    this.timerId = setTimeout(() => {
+      this.classList.remove('show');
     }, Number(this.props.duration));
   }
 }
