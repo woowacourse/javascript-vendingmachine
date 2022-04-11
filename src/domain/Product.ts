@@ -15,7 +15,7 @@ class Product implements IProduct {
     this.update(product);
   }
 
-  update(product: Product) {
+  update(product: IProduct) {
     this.name = product.name;
     this.price = product.price;
     this.quantity = product.quantity;

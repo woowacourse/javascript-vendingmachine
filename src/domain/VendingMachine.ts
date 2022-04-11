@@ -3,7 +3,7 @@ import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
 import { on, $, showSnackBar } from '../utils';
 import Coin from './Coin';
-import { Product } from './Product';
+import { Product, IProduct } from './Product';
 import MoneyInput from './MoneyInput';
 import Change from './Change';
 import { validateReturnCharge } from '../validator/returnChangeValidator';
@@ -89,7 +89,7 @@ class VendingMachine implements IVendingMachine {
       validateUpdateProduct(targetName, name, price, this.products);
       const currentProduct = this.products.find((product) => product.name === targetName);
 
-      currentProduct.update({ name, price, quantity } as Product);
+      currentProduct.update({ name, price, quantity } as IProduct);
       storage.setLocalStorage('products', this.products);
 
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
