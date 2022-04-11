@@ -7,9 +7,7 @@ import showSnackbar from '../../utils/snackbar';
 import VendingMachine from '../../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
-  constructor(private readonly vendingMachine: VendingMachine) {
-    this.vendingMachine = vendingMachine;
-  }
+  constructor(private readonly vendingMachine: VendingMachine) {}
 
   render() {
     const $content = $(SELECTOR.ID.CONTENT);

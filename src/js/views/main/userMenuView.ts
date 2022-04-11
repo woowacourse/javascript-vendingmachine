@@ -6,14 +6,9 @@ import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
 import Storage from '../../api/storage';
 
 export default class UserMenuView {
-  private $app: HTMLElement;
-
-  constructor() {
-    this.$app = $(SELECTOR.ID.APP);
-  }
-
   showMenu() {
-    this.$app.insertAdjacentHTML('beforeend', userMenuTemplate);
+    const $app = $(SELECTOR.ID.APP);
+    $app.insertAdjacentHTML('beforeend', userMenuTemplate);
 
     $(SELECTOR.ID.MENU_EDIT_PROFILE).addEventListener(
       'click',

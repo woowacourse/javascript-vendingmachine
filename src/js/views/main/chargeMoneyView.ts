@@ -7,9 +7,7 @@ import VendingMachine from '../../vendingMachine/vendingMachine';
 import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
 
 export default class ChargeMoneyView {
-  constructor(private readonly vendingMachine: VendingMachine) {
-    this.vendingMachine = vendingMachine;
-  }
+  constructor(private readonly vendingMachine: VendingMachine) {}
 
   render() {
     const $content = $(SELECTOR.ID.CONTENT);

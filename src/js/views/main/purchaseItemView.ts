@@ -8,9 +8,7 @@ import { MONEY } from '../../constants/vendingMachineConstants';
 import { CoinsType } from '../../types/types';
 
 export default class PurchaseItemView {
-  constructor(private readonly vendingMachine: VendingMachine) {
-    this.vendingMachine = vendingMachine;
-  }
+  constructor(private readonly vendingMachine: VendingMachine) {}
 
   render() {
     const $content = $(SELECTOR.ID.CONTENT);
