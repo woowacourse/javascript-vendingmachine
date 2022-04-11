@@ -1,6 +1,9 @@
 import './css/index';
 import router from './js/router/index';
 
+import { Path } from './js/interfaces/Router.interface';
+import { TAB_IDS } from './js/constants';
+
 window.addEventListener('popstate', function () {
   router.back();
 });
@@ -20,7 +23,7 @@ class App {
     this.$dropdownNav.addEventListener('change', this.onSelectNav);
 
     const { hash } = window.location;
-    hash === '' ? router.to('#!/product-purchase') : router.to(hash);
+    hash === '' ? router.to('#!/product-purchase') : router.to(hash as Path);
   }
 
   onClickLogin = (e: PointerEvent) => {
@@ -46,23 +49,10 @@ class App {
   onClickTab = (e: PointerEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
-    const IdSelector = e.target.id;
-    let path: string = '';
+    const idSelector = e.target.id;
+    if (!TAB_IDS.includes(idSelector)) return;
 
-    switch (IdSelector) {
-      case 'product-manage-button':
-        path = '#!/product-manage';
-        break;
-      case 'change-add-button':
-        path = '#!/change-add';
-        break;
-      case 'product-purchase-button':
-        path = '#!/product-purchase';
-        break;
-      default:
-        break;
-    }
-
+    const path = `#!/${idSelector.replace('-button', '')}` as Path;
     router.to(path);
   };
 }

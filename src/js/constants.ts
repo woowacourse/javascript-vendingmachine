@@ -31,4 +31,6 @@ const ERROR_MESSAGE = {
 
 const REMOVE_CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 
-export { RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE };
+const TAB_IDS = ['product-manage-button', 'change-add-button', 'product-purchase-button'];
+
+export { RULES, ERROR_MESSAGE, REMOVE_CONFIRM_MESSAGE, TAB_IDS };

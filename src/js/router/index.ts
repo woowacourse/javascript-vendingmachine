@@ -1,4 +1,5 @@
 import routes from './routes';
+import { Path } from '../interfaces/Router.interface';
 
 const useRouter = () => {
   const $headerTab = document.querySelector('#header-tab');
@@ -35,7 +36,7 @@ const useRouter = () => {
   };
 
   return {
-    to: (_path: string) => {
+    to: (_path: Path) => {
       const { hash, pathname } = window.location;
       const { path, title, page } = routes[_path];
       const isSamePage = prevPath === _path;
