@@ -52,9 +52,7 @@ export default class VendingMachine implements type.IVendingMachine {
     checkValidPrice(price);
     checkValidCount(count);
 
-    const product = this.products.find((product) => {
-      return id === product.getId();
-    });
+    const product = this.products.find((product) => id === product.getId());
 
     name && product.updateName(name);
     price && product.updatePrice(price);
