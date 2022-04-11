@@ -1,0 +1,23 @@
+.user-edit-form{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.edit-input{
+  height: 28px;
+}
+
+.edit-button{
+  height: 36px;
+}
+
+.withdraw {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  width: 100%;
+  color: var(--link-text-color);
+}

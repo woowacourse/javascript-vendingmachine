@@ -4,6 +4,7 @@
   --app-background-color: #ffffff;
   --button-background-color: #f5f5f5;
   --button-selected-color: #ceecf0;
+  --button-hover-color: #B4B4B4;
   --button-text-color: black;
   --emphasized-background-color: #00bcd4;
   --emphasized-hover-color: #54c5d4;
@@ -11,4 +12,9 @@
   --input-border-color: rgba(180, 180, 180, 1);
   --input-placeholder-color: #8b8b8b;
   --table-border-color: #dcdcdc;
+  --dropdown-background-color: #f1f1f1;
+  --snackbar-background-color: #333;
+  --snackbar-text-color: #fff;
+  --link-text-color: #3581D7;
+  --alert-text-color: red;
 }

@@ -6,6 +6,7 @@ html {
 body {
   background-color: var(--body-background-color);
   letter-spacing: 0.5px;
+  margin-bottom: 86px;
 }
 
 input {
@@ -56,6 +57,10 @@ input {
   background: var(--button-background-color);
   color: var(--button-text-color);
   cursor: pointer;
+}
+
+.styled-button:hover{
+  background-color: var(--button-hover-color);
 }
 
 .styled-button.selected {
@@ -171,4 +176,121 @@ input {
 
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.dropdown {
+  margin-left: auto;
+}
+
+.user-button{
+  right: 0;
+  border: none;
+  background-color: var(--button-selected-color);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--body-background-color);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: var(--dropdown-background-color);}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .user-button {
+  background-color: var(--emphasized-background-color);
+}
+
+.login-button {
+  text-decoration: none; 
+  outline: none;
+  background: var(--button-background-color);
+  border-radius: 4px;
+  text-align: center;
+  margin-left: auto;
+  padding: 9px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--snackbar-background-color);
+  color: var(--snackbar-text-color);
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+}
+
+.show {
+  visibility: visible !important;
+  -webkit-animation: fadein 0.3s, fadeout 0.3s 1.7s;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
 }

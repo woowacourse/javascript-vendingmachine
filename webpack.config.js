@@ -4,12 +4,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/js/index.js',
   resolve: {
     extensions: ['.js', '.css', '.ts'],
   },
   devServer: {
     port: 9000,
+    historyApiFallback: true,
   },
   devtool: 'source-map',
   output: {

@@ -1,0 +1,24 @@
+.register-form{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 16px;
+}
+
+.register-input{
+  height: 28px;
+}
+
+.register-button{
+  height: 36px;
+}
+
+.register{
+  cursor: pointer;
+  color: var(--link-text-color);
+}
+
+.input-check-text {
+  font-size: small;
+  color: var(--alert-text-color);
+}
