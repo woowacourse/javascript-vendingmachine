@@ -12,6 +12,17 @@ export const ERROR_MESSAGE = {
   WRONG_LOGIN_INFORMATION: "이메일 혹은 비밀번호가 잘못 되었습니다.",
   EXISTED_EMAIL: "이미 존재하는 이메일입니다.",
   SERVER_ERROR: "서버에서 오류가 났습니다! 잠시 후 다시 시도해주세요.",
+  NOT_AUTHORIZED: "권한이 없습니다.",
+  WRONG_ACCESS: "잘못된 접근입니다.",
+} as const;
+
+export const ALERT_MESSAGE = {
+  UPDATE_USER_INFO: "성공적으로 정보가 수정되었습니다.",
+  RETURN_CHANGES: "잔돈이 반환되었습니다!",
+  ADD_PRODUCT: "상품이 성공적으로 추가되었습니다!",
+  UPDATE_PRODUCT: "상품이 성공적으로 수정되었습니다!",
+  DELETE_PRODUCT: "상품이 성공적으로 삭제되었습니다!",
+  CHARGE_CHANGES: "잔돈이 성공적으로 충전되었습니다!",
 } as const;
 
 export const VENDING_MACHINE_BOUNDARY_NUMBER = {

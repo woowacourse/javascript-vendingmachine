@@ -1,6 +1,6 @@
 import SignUpView from "../ui/signUpPageView";
 import Authorization from "../domain/authorization";
-import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
+import { EVENT_TYPE, SNACKBAR_TYPE, ERROR_MESSAGE } from "../constant";
 import { on } from "../util/event";
 import { ISignUpEvent } from "../type";
 import snackbarUI from "../ui/snackbarUI";
@@ -20,7 +20,7 @@ class SignUpModerator {
   async init() {
     const { isError } = await this.authorization.getLoggedInUser();
     if (!isError) {
-      alert("잘못된 접근입니다.");
+      alert(ERROR_MESSAGE.WRONG_ACCESS);
       location.href = "/";
       return;
     }

@@ -1,4 +1,10 @@
-import { CONFIRM_MESSAGE, EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
+import {
+  CONFIRM_MESSAGE,
+  EVENT_TYPE,
+  SNACKBAR_TYPE,
+  ERROR_MESSAGE,
+  ALERT_MESSAGE,
+} from "../constant";
 import ProductPageView from "../ui/productPageView";
 import { on } from "../util/event";
 import {
@@ -33,7 +39,7 @@ class ProductModerator {
   async init() {
     const userInfo = await this.authorization.getLoggedInUser();
     if (userInfo.isError) {
-      alert("권한이 없습니다.");
+      alert(ERROR_MESSAGE.NOT_AUTHORIZED);
       location.href = "/";
       return;
     }
@@ -47,7 +53,7 @@ class ProductModerator {
     try {
       const product = this.vendingMachine.addProduct({ name, price, count });
       this.productPageView.renderNewProduct(product);
-      snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 추가되었습니다!");
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.ADD_PRODUCT);
     } catch (err) {
       snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
@@ -57,7 +63,7 @@ class ProductModerator {
     try {
       const product = this.vendingMachine.updateProduct(id, name, price, count);
       this.productPageView.renderUpdatedProduct(id, product);
-      snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 수정되었습니다!");
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.UPDATE_PRODUCT);
     } catch (err) {
       snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
@@ -69,7 +75,7 @@ class ProductModerator {
     }
     this.vendingMachine.deleteProduct(id);
     this.productPageView.renderDeleteProduct(id);
-    snackbarUI.open(SNACKBAR_TYPE.ALERT, "상품이 성공적으로 삭제되었습니다!");
+    snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.DELETE_PRODUCT);
   };
 }
 

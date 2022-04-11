@@ -1,6 +1,11 @@
 import UserInfoPageView from "../ui/userInfoPageView";
 import Authorization from "../domain/authorization";
-import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
+import {
+  EVENT_TYPE,
+  SNACKBAR_TYPE,
+  ERROR_MESSAGE,
+  ALERT_MESSAGE,
+} from "../constant";
 import { on } from "../util/event";
 import { IUpdateUserEvent, IUpdateUserOption } from "../type";
 import snackbarUI from "../ui/snackbarUI";
@@ -21,7 +26,7 @@ class UserInfoModerator {
   async init() {
     this.userInfo = await this.authorization.getLoggedInUser();
     if (this.userInfo.isError) {
-      alert("잘못된 접근입니다.");
+      alert(ERROR_MESSAGE.WRONG_ACCESS);
       location.href = "/";
       return;
     }
@@ -36,7 +41,7 @@ class UserInfoModerator {
         email: this.userInfo.email,
       } as IUpdateUserOption;
       await this.authorization.updateUserInfo(this.userInfo.id, userInfo);
-      snackbarUI.open(SNACKBAR_TYPE.ALERT, "성공적으로 정보가 수정되었습니다.");
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.UPDATE_USER_INFO);
     } catch (err) {
       snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }

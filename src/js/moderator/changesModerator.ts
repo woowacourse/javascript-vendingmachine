@@ -1,6 +1,11 @@
 import ChangePageView from "../ui/changePageView";
 import { on } from "../util/event";
-import { EVENT_TYPE, SNACKBAR_TYPE } from "../constant";
+import {
+  EVENT_TYPE,
+  SNACKBAR_TYPE,
+  ERROR_MESSAGE,
+  ALERT_MESSAGE,
+} from "../constant";
 import { IChargeChangesEvent } from "../type";
 import VendingMachine from "../domain/vendingMachine";
 import Authorization from "../domain/authorization";
@@ -25,7 +30,7 @@ class ChangesModerator {
     const userInfo = await this.authorization.getLoggedInUser();
 
     if (userInfo.isError) {
-      alert("권한이 없습니다.");
+      alert(ERROR_MESSAGE.NOT_AUTHORIZED);
       location.href = "/";
       return;
     }
@@ -45,7 +50,7 @@ class ChangesModerator {
 
       this.changePageView.renderCurrentChanges(changes);
       this.changePageView.renderCoinStatus(coinStatus);
-      snackbarUI.open(SNACKBAR_TYPE.ALERT, "잔돈이 성공적으로 충전되었습니다!");
+      snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.CHARGE_CHANGES);
     } catch (err) {
       snackbarUI.open(SNACKBAR_TYPE.ERROR, err.message);
     }
