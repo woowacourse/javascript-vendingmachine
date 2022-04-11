@@ -33,3 +33,7 @@
 .input-form * {
   margin-top: 5px;
 }
+
+.input-form div {
+  margin-bottom: 20px;
+}

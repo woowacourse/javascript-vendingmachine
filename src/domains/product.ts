@@ -28,9 +28,6 @@ class Product implements IProduct {
   }
 
   purchaseProduct() {
-    if (this.product.quantity === 0) {
-      throw new Error(ERROR_MSG.PRODUCT_SOLD_OUT);
-    }
     this.product.quantity--;
   }
 

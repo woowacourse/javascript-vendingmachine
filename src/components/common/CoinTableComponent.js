@@ -1,5 +1,11 @@
 import vendingMachineStore from '../../stores/vendingMachineStore';
-import { VENDING_MACHINE_STATE_KEYS } from '../../utils/constants';
+import {
+  ACTION_TYPES,
+  ERROR_MSG,
+  NOTICE_MENTION,
+  VENDING_MACHINE_STATE_KEYS,
+} from '../../utils/constants';
+import { showSnackBar } from '../../utils/showSnackBar';
 
 class CoinTableComponent {
   constructor($parent, { tableId, tableCaption }) {
@@ -8,7 +14,9 @@ class CoinTableComponent {
     this.tableCaption = tableCaption;
     this.mount();
     this.initDOM();
+    this.initChildComponent();
     this.subscribeStore();
+    this.bindEventHandler();
   }
 
   mount() {
@@ -52,16 +60,31 @@ class CoinTableComponent {
     this.$tableData10 = this.$parent.querySelector('#hold-coin-10-count');
   }
 
-  subscribeStore() {
-    if (this.tableId === 'recharge-coin-table') {
-      vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+  initChildComponent() {
+    if (this.$parent.id === 'purchase-product-container') {
+      this.$parent.insertAdjacentHTML(
+        'beforeend',
+        '<button type="button" id="return-change-button" class="gray-button">반환</button>',
+      );
     }
+  }
+
+  subscribeStore() {
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
+    vendingMachineStore.subscribe(VENDING_MACHINE_STATE_KEYS.RETURN_COIN_WALLET, this);
   }
 
   wakeUp() {
     if (this.tableId === 'recharge-coin-table') {
       const coinWallet = vendingMachineStore.getState(VENDING_MACHINE_STATE_KEYS.COIN_WALLET, this);
       this.renderRechargeCoinTable(coinWallet);
+    }
+    if (this.tableId === 'return-change-table') {
+      const returnCoinWallet = vendingMachineStore.getState(
+        VENDING_MACHINE_STATE_KEYS.RETURN_COIN_WALLET,
+        this,
+      );
+      this.renderReturnCoinTable(returnCoinWallet);
     }
   }
 
@@ -73,6 +96,51 @@ class CoinTableComponent {
     this.$tableData50.textContent = `${coin50}`;
     this.$tableData10.textContent = `${coin10}`;
   }
+
+  renderReturnCoinTable(returnCoinWallet) {
+    const { coin500, coin100, coin50, coin10 } = returnCoinWallet;
+
+    this.$tableData500.textContent = `${coin500}`;
+    this.$tableData100.textContent = `${coin100}`;
+    this.$tableData50.textContent = `${coin50}`;
+    this.$tableData10.textContent = `${coin10}`;
+  }
+
+  bindEventHandler() {
+    if (this.$parent.id === 'purchase-product-container') {
+      this.$parent
+        .querySelector('#return-change-button')
+        .addEventListener('click', this.onClickReturnButton);
+    }
+  }
+
+  onClickReturnButton = e => {
+    e.preventDefault();
+    const storeTotalCoin = Number(document.querySelector('#change-total-amount').textContent);
+    const userTotalCoin = Number(document.querySelector('#input-total-amount').textContent);
+
+    try {
+      if (userTotalCoin !== 0 && storeTotalCoin === 0) {
+        this.clearReturnChargeForm();
+        throw new Error(ERROR_MSG.OUT_OF_CHANGE);
+      }
+      vendingMachineStore.mutateState({
+        actionType: ACTION_TYPES.RETURN_COIN_WALLET,
+        payload: '',
+        stateKey: VENDING_MACHINE_STATE_KEYS.COIN_WALLET,
+      });
+      showSnackBar(NOTICE_MENTION.RETURN_CHARGE);
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
+
+  clearReturnChargeForm = () => {
+    this.$tableData500.textContent = 0;
+    this.$tableData100.textContent = 0;
+    this.$tableData50.textContent = 0;
+    this.$tableData10.textContent = 0;
+  };
 }
 
 export default CoinTableComponent;

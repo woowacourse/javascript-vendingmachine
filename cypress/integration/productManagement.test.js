@@ -3,6 +3,12 @@ import { ERROR_MSG } from '../../src/utils/constants';
 describe('상품 관리를 할 수 있다', () => {
   beforeEach(() => {
     cy.visit('/');
+
+    const userEmail = '789456@name.com';
+    const userPassword = '1234asdf!@#$';
+
+    cy.login(userEmail, userPassword);
+    cy.get('#manage-product-tab').click();
   });
 
   it('상품을 추가할 수 있다', () => {
