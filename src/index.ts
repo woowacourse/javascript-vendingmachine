@@ -1,9 +1,13 @@
-import '@Styles';
-import Router from '@Display/Router';
-import ProductPage from '@Display/pages/ProductPage';
-import HoldingAmountPage from '@Display/pages/HoldingAmountPage';
+import './styles';
+import { getSavedAuthInfo, requestUserInfo } from './es/utils/auth';
+import { initRouteEvent, loadCurrentPage } from './es/routes';
 
-new Router({
-  product: new ProductPage(),
-  holding_amount: new HoldingAmountPage(),
-});
+const initialAuthInfo = getSavedAuthInfo();
+
+if (initialAuthInfo.accessToken) {
+  requestUserInfo(initialAuthInfo).then(() => loadCurrentPage());
+} else {
+  loadCurrentPage();
+}
+
+initRouteEvent();

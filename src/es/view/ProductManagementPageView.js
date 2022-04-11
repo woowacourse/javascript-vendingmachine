@@ -1,9 +1,13 @@
-import { $, getInnerInputValues, clearInnerInputValues } from '@Utils/index';
-import { validateProduct } from '@Utils/VendingMachine/validator';
-import ProductStore from '@Store/ProductStore';
-import { template } from '@Display/template';
+import pageTemplate from './template/page';
+import template from './template';
 
-export default class ProductPage {
+import { validateProduct } from '../validator';
+import { $, getInnerInputValues, clearInnerInputValues, showSnackBar } from '../utils';
+import { GUIDE_MESSAGE } from '../constants';
+
+import ProductManagementPageManager from '../manager/ProductManagementPageManager';
+
+class ProductManagementPageView {
   renderMethodList;
 
   $addFormSection;
@@ -14,24 +18,24 @@ export default class ProductPage {
   isTableUpdating;
 
   constructor() {
-    ProductStore.addSubscriber(this.render);
+    ProductManagementPageManager.addSubscriber(this.render);
     this.setRenderMethodList();
 
     this.isTableUpdating = false;
   }
 
   loadPage = () => {
-    $('main').innerHTML = template.productPage;
+    $('main').innerHTML = pageTemplate.productManagementPage;
 
-    this.setDom();
+    this.setDOM();
     this.render({
-      state: ProductStore.getState(),
+      state: ProductManagementPageManager.getState(),
       changeStates: Object.keys(this.renderMethodList),
     });
     this.setEvents();
   };
 
-  setDom() {
+  setDOM() {
     this.$addFormSection = $('#add-product-form-section');
     this.$addForm = $('#add-product-form', this.$addFormSection);
 
@@ -65,49 +69,51 @@ export default class ProductPage {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
       return;
     }
 
-    ProductStore.addOrUpdateProduct(product);
+    ProductManagementPageManager.addOrUpdateProduct(product);
     clearInnerInputValues(event.target);
   };
 
   onClickTableInnerButton = (event) => {
-    const targetClassList = event.target.classList;
-    switch (true) {
-    case targetClassList.contains('product-update-button'):
-      this.onClickUpdateButton(event);
-      break;
-    case targetClassList.contains('product-update-confirm-button'):
-      this.onClickUpdateConfirmButton(event);
-      break;
-    case targetClassList.contains('product-update-cancel-button'):
-      this.onClickUpdateCancelButton(event);
-      break;
-    case targetClassList.contains('product-delete-button'):
-      this.onClickDeleteButton(event);
-      break;
+    if (event.target.type !== 'button') return;
+    switch (event.target.name) {
+      case 'product-update':
+        this.onClickUpdateButton(event);
+        break;
+      case 'product-delete':
+        this.onClickDeleteButton(event);
+        break;
+      case 'product-update-confirm':
+        this.onClickUpdateConfirmButton(event);
+        break;
+      case 'product-update-cancel':
+        this.onClickUpdateCancelButton(event);
+        break;
+      default:
+        break;
     }
   };
 
   onClickUpdateButton({ target: $target }) {
     if (this.isTableUpdating) {
-      alert('한 번에 하나의 상품만 수정 가능합니다.');
+      showSnackBar(GUIDE_MESSAGE.ONE_PRODUCT_UPDATE_AT_ONCE);
       return;
     }
     this.isTableUpdating = !this.isTableUpdating;
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const { products } = ProductStore.getState();
+    const { products } = ProductManagementPageManager.getState();
 
     $tableRow.innerHTML = template.productTableRowUpdate(products[productIndex]);
   }
 
   onClickUpdateConfirmButton({ target: $target }) {
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
     const productIndex = $tableRow.dataset.primaryKey;
     const product = getInnerInputValues($tableRow);
@@ -115,32 +121,32 @@ export default class ProductPage {
     try {
       validateProduct(product);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
       return;
     }
-    ProductStore.updateProduct(productIndex, product);
+    ProductManagementPageManager.updateProduct(productIndex, product);
     this.isTableUpdating = !this.isTableUpdating;
   }
 
   onClickUpdateCancelButton({ target: $target }) {
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const { products } = ProductStore.getState();
+    const { products } = ProductManagementPageManager.getState();
 
     $tableRow.innerHTML = template.productTableRowInners(products[productIndex]);
     this.isTableUpdating = !this.isTableUpdating;
   }
 
   onClickDeleteButton({ target: $target }) {
-    if (!confirm('정말 해당 상품을 삭제하시겠습니까?')) return;
+    if (!confirm(GUIDE_MESSAGE.PRODUCT_DELETE_CONFIRM)) return;
 
-    const $tableRow = $target.closest('tr[data-primary-key]');
+    const $tableRow = $target.closest('tr');
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    ProductStore.removeProductByIndex(productIndex);
+    ProductManagementPageManager.removeProductByIndex(productIndex);
   }
 
   drawProductList = ({ products }) => {
@@ -148,3 +154,5 @@ export default class ProductPage {
     $('tbody', this.$table).innerHTML = productItem;
   };
 }
+
+export default new ProductManagementPageView();
