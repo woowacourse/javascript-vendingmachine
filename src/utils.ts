@@ -99,3 +99,7 @@ export const toast = (type: ToastType, message: string) => {
     $toast.error(message);
   }
 };
+
+export const krLocaleStringToInt = (str: string) => {
+  return toInt(str.replace(/,/g, ''));
+};

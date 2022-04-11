@@ -14,8 +14,8 @@ class ReleaseCoin extends Component {
       .map((unit) => {
         return `
         <tr>
-          <td>${unit.toLocaleString()}원</td>
-          <td>${coins[unit].toLocaleString()}개</td>
+          <td><span>${unit.toLocaleString()}</span>원</td>
+          <td><span>${coins[unit].toLocaleString()}</span>개</td>
         </tr>
       `;
       })
@@ -26,7 +26,7 @@ class ReleaseCoin extends Component {
     return `
       <section class="release-coin">
         <h2>잔돈 반환</h2>
-        <table class="mb-4">
+        <table class="mb-4" data-test-id="release-coin-table">
           <thead>
             <tr>
               <th>동전</th>
@@ -37,7 +37,7 @@ class ReleaseCoin extends Component {
             ${this.coinsTemplate(coins)}
           </tbody>
         </table>
-        <button class="btn sm btn-secondary v-center btn-release">반환</button>
+        <button class="btn sm btn-secondary v-center btn-release" data-test-id="release-coin">반환</button>
       </section>
     `;
   }

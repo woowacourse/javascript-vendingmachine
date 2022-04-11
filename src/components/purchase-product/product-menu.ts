@@ -12,9 +12,9 @@ class ProductMenu extends Component {
   productItemTemplate({ name, price, quantity }: ProductItem) {
     return `
       <tr>
-        <td>${name}</td>
-        <td>${price.toLocaleString()}원</td>
-        <td>${quantity.toLocaleString()}개</td>
+        <td data-test-id="product-name"><span>${name}</span></td>
+        <td data-test-id="product-price"><span>${price.toLocaleString()}</span>원</td>
+        <td data-test-id="product-quantity"><span>${quantity.toLocaleString()}</span>개</td>
         <td class="has-btn">
           <button class="btn sm btn-secondary btn-purchase" data-test-id="purchase-btn">구매</button>
         </td>
@@ -29,7 +29,7 @@ class ProductMenu extends Component {
       return header + `<div class="text-center">현재 구매 가능한 상품이 <b>없습니다</b></div>`;
     return `
       ${header}
-      <table>
+      <table data-test-id="product-menu">
         <thead>
           <tr>
             <th>상품명</th>

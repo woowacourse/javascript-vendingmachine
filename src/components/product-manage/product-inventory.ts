@@ -27,9 +27,9 @@ class ProductInventory extends Component {
     }
     return `
       <tr>
-        <td>${name}</td>
-        <td>${price.toLocaleString()}원</td>
-        <td>${quantity.toLocaleString()}개</td>
+        <td><span>${name}</span></td>
+        <td><span>${price.toLocaleString()}</span>원</td>
+        <td><span>${quantity.toLocaleString()}</span>개</td>
         <td class="has-btn">
           <div class="btn-group">
             <button class="btn xs mr-2 btn-secondary btn-edit">수정</button>
@@ -48,7 +48,7 @@ class ProductInventory extends Component {
     const productListTemplate = productList.map((item) => this.productItemTemplate(item)).join('');
     return `
       ${header}
-      <table>
+      <table data-test-id="product-inventory-table">
         <thead>
           <tr>
             <th>상품명</th>
