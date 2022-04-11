@@ -157,6 +157,7 @@ class  EditMember {
   }
 
   render = async () => {
+    this.vendingmachineFunctionWrap.replaceChildren();
     try {
       const response = await fetch(`https://vendingdb.herokuapp.com/users/${this.getUserId()}`, {
         method: "GET",
@@ -167,7 +168,6 @@ class  EditMember {
       }
       
       const { email, name } = await response.json();
-      this.vendingmachineFunctionWrap.replaceChildren();
       this.vendingmachineFunctionWrap.insertAdjacentHTML("beforeend", editMemberInfoTemplate(email, name));
     } catch ({ message }) {
       showSnackbar(message);
