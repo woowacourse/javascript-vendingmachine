@@ -1,9 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+require('dotenv').config();
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './src/index.ts',
   resolve: {
     extensions: ['.js', '.css', '.ts'],
@@ -44,6 +46,12 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      API_HOST:
+        process.env.NODE_ENV === 'development'
+          ? JSON.stringify(process.env.DEV_API_HOST)
+          : JSON.stringify(process.env.PROD_API_HOST),
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',

@@ -66,7 +66,7 @@ class UserStore implements UserStoreInterface {
   }
 
   async register(registerInfo: AuthenticationInfo) {
-    await request('http://localhost:3000/register', {
+    await request(`${API_HOST}/register`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -80,7 +80,7 @@ class UserStore implements UserStoreInterface {
   }
 
   async login(loginInfo: AuthenticationInfo) {
-    const response = await request('http://localhost:3000/login', {
+    const response = await request(`${API_HOST}/login`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -100,7 +100,7 @@ class UserStore implements UserStoreInterface {
   }
 
   async editUserInfo(editedUserInfo: AuthenticationInfo) {
-    const response = await request(`http://localhost:3000/600/users/${this.userInfo.id}`, {
+    const response = await request(`${API_HOST}/600/users/${this.userInfo.id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.userInfo.accessToken}`,
