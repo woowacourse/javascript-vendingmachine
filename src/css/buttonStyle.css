@@ -1,6 +1,6 @@
 .default-button {
   background-color: var(--default-button-background-color);
-  color: #000;
+  color: var(--default-button-text-color);
   font-weight: 500;
 }
 
