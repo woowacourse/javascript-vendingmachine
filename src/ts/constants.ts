@@ -40,7 +40,7 @@ export const ERROR_MESSAGE: ErrorMessage = {
     '상품명을 입력하지 않으셨습니다. 상품명을 먼저 입력해주세요.',
   NOT_CONFIRMED_PASSWORD:
     '비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요.',
-  SOLD_OUT_PRODUCT: '매진된 상품입니다.',
+  SOLD_OUT_PRODUCT: '해당 상품은 매진되었습니다.',
   NOT_ENOUGH_MONEY: '현재 투입 금액으로 살 수 없는 상품입니다.',
   NOT_EXIST_USER: '유저를 찾을 수 없습니다. 이메일을 다시 한번 확인해주세요',
   WRONG_PASSWORD_LOGIN: '비밀번호가 틀렸습니다. 다시 한번 확인해주세요',

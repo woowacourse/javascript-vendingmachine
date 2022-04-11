@@ -80,3 +80,11 @@ Cypress.Commands.add('chargeMoney', (money) => {
   cy.get('.money-for-purchase-form-section__money-input').type(money);
   return cy.get('.money-for-purchase-form-section__button').click();
 });
+
+Cypress.Commands.add('buyProduct', (productName) =>
+  cy
+    .get(
+      `.purchase-section [data-product-name="${productName}"] .product-table__purchase-button`
+    )
+    .click()
+);

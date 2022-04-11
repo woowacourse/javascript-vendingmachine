@@ -62,9 +62,9 @@ export const checkValidChargeMoney = (money: number): void => {
 
 export const checkValidPurchase = ({ quantity, price, userMoney }) => {
   if (quantity <= 0) {
-    throw new Error('해당 상품은 매진되었습니다.');
+    throw new Error(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
   }
   if (userMoney < price) {
-    throw new Error('현재 투입 금액으로 살 수 없는 상품입니다.');
+    throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
   }
 };
