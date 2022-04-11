@@ -17,8 +17,8 @@ class PurchaseTab extends CustomElement {
   render() {
     this.innerHTML = this.template();
 
-    const userInputMoney: number = storage.getUserMoney();
-    const products: Product[] = storage.getProducts();
+    const userInputMoney = storage.getUserMoney();
+    const products = storage.getProducts();
 
     $('.purchase-form__money-input-amount', this).textContent = markUnit(userInputMoney);
     products.forEach((product) => this.insertItem(product));
