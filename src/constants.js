@@ -17,6 +17,7 @@ export const COIN = {
 
 export const MONEY = {
   DEFAULT: 0,
+  MIN: 10,
   MACHINE_MAX: 100000,
   CUSTOMER_MAX: 10000,
 };
@@ -64,6 +65,8 @@ export const ERROR_MESSAGE = {
     IS_UNDER_MIN_QUANTITY: `수량이 최소 수량인 ${PRODUCT.QUANTITY.MIN}개 미만으로 입력되었습니다! ${PRODUCT.QUANTITY.MIN}개 이상으로 입력해 주세요!`,
     IS_OVER_MAX_QUANTITY: `수량이 최대 수량인 ${PRODUCT.QUANTITY.MAX}개를 초과하여 입력되었습니다! ${PRODUCT.QUANTITY.MAX}개 이하로 입력해 주세요!`,
 
+    IS_NOT_INTEGER_MONEY: '금액에 정수가 입력되지 않았습니다! 정수를 입력해 주세요!',
+    IS_UNDER_MIN_MONEY: `금액이 최소 금액인 ${MONEY.MIN}원 미만으로 입력되었습니다! ${MONEY.MIN}원 이상으로 입력해 주세요!`,
     IS_OVER_MAX_MACHINE_MONEY: `현재 보유 금액이 최대 보유 가능 금액인 ${addThousandUnitComma(
       MONEY.MACHINE_MAX,
     )}원을 초과하였습니다! 현재 보유 금액을 확인한 후 입력해 주세요!`,

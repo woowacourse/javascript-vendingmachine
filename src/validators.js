@@ -25,6 +25,8 @@ const isUnderMinQuantity = (quantity) => quantity < PRODUCT.QUANTITY.MIN;
 
 const isOverMaxQuantity = (quantity) => quantity > PRODUCT.QUANTITY.MAX;
 
+const isUnderMinMoney = (money) => money < MONEY.MIN;
+
 const isOverMaxMachineMoney = (inputMachineMoney) => {
   const currentMachineMoney = CoinStore.instance.machine.money;
 
@@ -126,6 +128,14 @@ export const checkDuplicateProductWhenModify = ({ name }) => {
 export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
   validator([
     {
+      checker: () => isNotInteger(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_MONEY,
+    },
+    {
+      checker: () => isUnderMinMoney(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_MONEY,
+    },
+    {
       checker: () => isOverMaxMachineMoney(machineMoneyInputValue),
       errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_MACHINE_MONEY,
     },
@@ -138,6 +148,14 @@ export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
 
 export const checkCustomerMoneyValidation = (customerMoneyInputValue) => {
   validator([
+    {
+      checker: () => isNotInteger(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_MONEY,
+    },
+    {
+      checker: () => isUnderMinMoney(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_MONEY,
+    },
     {
       checker: () => isOverMaxCustomerMoney(customerMoneyInputValue),
       errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_CUSTOMER_MONEY,
