@@ -8,6 +8,8 @@ window.addEventListener('popstate', function () {
   router.back();
 });
 
+const pathString = (tabId: string) => `#!/${tabId.replace('-button', '')}` as Path;
+
 class App {
   $headerTab: HTMLElement;
   $accountLoginButton: HTMLButtonElement;
@@ -52,8 +54,14 @@ class App {
     const idSelector = e.target.id;
     if (!TAB_IDS.includes(idSelector)) return;
 
-    const path = `#!/${idSelector.replace('-button', '')}` as Path;
-    router.to(path);
+    switch (idSelector) {
+      case 'product-manage-button':
+        return router.to(pathString(idSelector));
+      case 'change-add-button':
+        return router.to(pathString(idSelector));
+      case 'product-purchase-button':
+        return router.to(pathString(idSelector));
+    }
   };
 }
 
