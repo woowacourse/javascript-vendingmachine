@@ -1,6 +1,6 @@
+import AuthStore from './domains/stores/AuthStore';
 import { $, hideElement, showElement } from './utils';
 import { BASE_HASH, ERROR_MESSAGE, HEADER } from './constants';
-import { isLoggedIn } from './domains/Auth';
 
 const targets = [
   {
@@ -63,7 +63,7 @@ const renderApp = (currentTarget) => {
 };
 
 const renderTargets = (currentTarget, prevTarget) => {
-  if (currentTarget.authorization && !isLoggedIn()) {
+  if (currentTarget.authorization && !AuthStore.instance.isLoggedIn) {
     alert(ERROR_MESSAGE.AUTH.CANNOT_ACCESS);
     window.history.back();
 

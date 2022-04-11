@@ -35,6 +35,10 @@ class AuthStore {
   notifySubscribers() {
     this.#subscribers.forEach((subscriber) => subscriber.rerender(this.#isLoggedIn));
   }
+
+  get isLoggedIn() {
+    return this.#isLoggedIn;
+  }
 }
 
 export default AuthStore;
