@@ -6,7 +6,7 @@ const setLoginedUser = (userInfo) => {
   localStorage.setItem('userAuth', JSON.stringify(userInfo));
 };
 
-export const signup = (email, name, password) => {
+export const signup = async (email, name, password) => {
   const url = 'https://woowa-vendingmachine-app.herokuapp.com/signup/';
   const userInfo = {
     email,
@@ -14,78 +14,73 @@ export const signup = (email, name, password) => {
     password,
   };
 
-  fetch(url, {
+  const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(userInfo),
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return res.text().then((text) => {
-          throw new Error(text);
-        });
-      }
-      return res.json();
-    })
-    .then((response) => {
-      const userAuth = {
-        accessToken: response.accessToken,
-        id: response.user.id,
-      };
-      setLoginedUser(userAuth);
-      renderManagerView();
-      showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
-    })
-    .catch((error) => {
-      if (error.message === '"Email already exists"') {
-        alert(AUTH.EMAIL_ALREADY_EXISTS);
-      }
-    });
+  });
+  try {
+    if (!res.ok) {
+      return await res.text().then((text) => {
+        throw new Error(text);
+      });
+    }
+    const response = await res.json();
+
+    const userAuth = {
+      accessToken: response.accessToken,
+      id: response.user.id,
+    };
+    setLoginedUser(userAuth);
+    renderManagerView();
+    showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
+  } catch (error) {
+    if (error.message === '"Email already exists"') {
+      alert(AUTH.EMAIL_ALREADY_EXISTS);
+    }
+  }
 };
 
-export const login = (email, password) => {
-  const url = 'https://woowa-vendingmachine-app.herokuapp.com/login/';
+export const login = async (email, password) => {
+  const url = 'https://woowa-vendingmachine-app.herokuapp.com/login';
   const userInfo = {
     email,
     password,
   };
-  fetch(url, {
+  const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(userInfo),
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return res.text().then((text) => {
-          throw new Error(text);
-        });
-      }
-      return res.json();
-    })
-    .then((response) => {
-      const userAuth = {
-        accessToken: response.accessToken,
-        id: response.user.id,
-      };
-      setLoginedUser(userAuth);
-      renderManagerView();
-      showSnackbar(SNACKBAR.LOGIN_SUCCESS);
-    })
-    .catch((error) => {
-      if (error.message === '"Cannot find user"') {
-        alert(AUTH.CANNOT_FIND_USER);
-      }
-      if (error.message === '"Incorrect password"') {
-        alert(AUTH.INCORRECT_PASSWORD);
-      }
-      if (error.message === '"Password is too short"') {
-        alert(AUTH.PASSWORD_IS_TOO_SHORT);
-      }
-    });
+  });
+  try {
+    if (!res.ok) {
+      return await res.text().then((text) => {
+        throw new Error(text);
+      });
+    }
+    const response = await res.json();
+    const userAuth = {
+      accessToken: response.accessToken,
+      id: response.user.id,
+    };
+    setLoginedUser(userAuth);
+    renderManagerView();
+    showSnackbar(SNACKBAR.LOGIN_SUCCESS);
+  } catch (error) {
+    if (error.message === '"Cannot find user"') {
+      alert(AUTH.CANNOT_FIND_USER);
+    }
+    if (error.message === '"Incorrect password"') {
+      alert(AUTH.INCORRECT_PASSWORD);
+    }
+    if (error.message === '"Password is too short"') {
+      alert(AUTH.PASSWORD_IS_TOO_SHORT);
+    }
+  }
 };
 
 export const logout = () => {
@@ -94,7 +89,7 @@ export const logout = () => {
   renderUserView();
 };
 
-export const modifyUserInfo = (email, name, password) => {
+export const modifyUserInfo = async (email, name, password) => {
   const userInfo = JSON.parse(localStorage.getItem('userAuth'));
   const { id } = userInfo;
   const accessToken = `Bearer ${userInfo.accessToken}`;
@@ -105,25 +100,24 @@ export const modifyUserInfo = (email, name, password) => {
     password,
   };
 
-  fetch(url, {
+  const res = await fetch(url, {
     method: 'PUT',
     body: JSON.stringify(newUserInfo),
     headers: {
       'Content-Type': 'application/json',
       Authorization: accessToken,
     },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return res.text().then((text) => {
-          throw new Error(text);
-        });
-      }
-      renderManagerView();
-      showSnackbar(SNACKBAR.MODIFY_SUCCESS);
-      return res.json();
-    })
-    .catch((error) => {
-      alert(error);
-    });
+  });
+
+  try {
+    if (!res.ok) {
+      return await res.text().then((text) => {
+        throw new Error(text);
+      });
+    }
+    renderManagerView();
+    showSnackbar(SNACKBAR.MODIFY_SUCCESS);
+  } catch (error) {
+    alert(error);
+  }
 };

@@ -37,7 +37,6 @@ Cypress.Commands.add('restoreLocalStorageCache', () => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
   });
 });
-
 beforeEach(() => {
   cy.restoreLocalStorageCache();
 });
