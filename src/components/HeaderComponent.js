@@ -4,13 +4,12 @@ import { userInfoStorage } from '../stores/localStorage';
 class HeaderComponent {
   constructor($parent) {
     this.$parent = $parent;
-    this.$sibling = this.$parent.querySelector('h1');
     this.mount();
     this.initDOM();
     this.bindEventListener();
   }
   mount() {
-    this.$sibling.insertAdjacentHTML('afterend', this.generateTemplate());
+    this.$parent.insertAdjacentHTML('afterbegin', this.generateTemplate());
   }
 
   initDOM() {
@@ -67,6 +66,7 @@ class HeaderComponent {
 
   renderUserProfile() {
     const userInfo = userInfoStorage.getUserInfo();
+
     const { userName } = userInfo;
     this.$userProfile.textContent = [...userName].shift();
     this.$userHref.classList.remove('is-active');
