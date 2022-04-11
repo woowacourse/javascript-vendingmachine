@@ -25,49 +25,37 @@ interface IOption {
 const request = async (path: string, option: IOption) => {
   const response = await fetch(baseUrl + path, option);
   if (!response.ok) {
-    throw new Error(response.statusText);
+    return { isError: true };
   }
   const data = await response.json();
-  return data;
+  return { ...data, isError: false };
 };
 
 const api = {
   signUp: async (option: ISignUpOption) => {
-    try {
-      const response = await request("/register", {
-        method: METHODS.POST,
-        headers: baseHeader,
-        body: JSON.stringify(option),
-      });
-      return { ...response, isError: false };
-    } catch (error) {
-      return { isError: true };
-    }
+    const response = await request("/register", {
+      method: METHODS.POST,
+      headers: baseHeader,
+      body: JSON.stringify(option),
+    });
+    return response;
   },
 
   login: async (option: ILoginOption) => {
-    try {
-      const response = await request("/login", {
-        method: METHODS.POST,
-        headers: baseHeader,
-        body: JSON.stringify(option),
-      });
-      return { ...response, isError: false };
-    } catch (error) {
-      return { isError: true };
-    }
+    const response = await request("/login", {
+      method: METHODS.POST,
+      headers: baseHeader,
+      body: JSON.stringify(option),
+    });
+    return response;
   },
 
   getUser: async (userId: string, accessToken: string) => {
-    try {
-      const response = await request(`/600/users/${userId}`, {
-        method: METHODS.GET,
-        headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
-      });
-      return { ...response, isError: false };
-    } catch (error) {
-      return { isError: true };
-    }
+    const response = await request(`/600/users/${userId}`, {
+      method: METHODS.GET,
+      headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
+    });
+    return response;
   },
 
   updateUserInfo: async (
@@ -75,16 +63,12 @@ const api = {
     user: IUserInfoOption,
     accessToken: string
   ) => {
-    try {
-      const response = await request(`/600/users/${userId}`, {
-        method: METHODS.PATCH,
-        body: JSON.stringify(user),
-        headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
-      });
-      return { ...response, isError: false };
-    } catch (error) {
-      return { isError: true };
-    }
+    const response = await request(`/600/users/${userId}`, {
+      method: METHODS.PATCH,
+      body: JSON.stringify(user),
+      headers: { ...baseHeader, Authorization: `Bearer ${accessToken}` },
+    });
+    return response;
   },
 };
 
