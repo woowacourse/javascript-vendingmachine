@@ -5,6 +5,13 @@ export const CHARGE_AMOUNT = {
   STEP: 10,
 } as const;
 
+export const INSERT_AMOUNT = {
+  LABEL: '투입 금액',
+  MIN: 10,
+  MAX: 10000,
+  STEP: 10,
+};
+
 export const ITEM = {
   NAME: {
     LABEL: '상품명',

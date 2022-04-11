@@ -1,6 +1,6 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
-import { CHARGE_AMOUNT } from '../../configs/constants';
+import { INSERT_AMOUNT } from '../../configs/constants';
 import { showSnackbar } from './Snackbar';
 
 class InsertMoneyForm extends Component {
@@ -15,9 +15,9 @@ class InsertMoneyForm extends Component {
             name="amount"
             placeholder="금액"
             type="number"
-            min="10"
-            max="1000000"
-            step="10"
+            min="${INSERT_AMOUNT.MIN}"
+            max="${INSERT_AMOUNT.MAX}"
+            step="${INSERT_AMOUNT.STEP}"
             required
             autofocus
           >
