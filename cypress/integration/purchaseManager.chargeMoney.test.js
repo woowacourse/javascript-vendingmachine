@@ -30,12 +30,21 @@ describe('상품 구매 테스트', () => {
   });
 
   it('남은 동전은 반환할 수 있다.', () => {
+    const chargeCoinsMoney = 10000;
+    cy.changeTab('coins');
+    cy.chargeCoins(chargeCoinsMoney);
+
+    cy.changeTab('purchase');
     const chargeMoney = 5000;
 
     cy.chargeMoney(chargeMoney);
-
     cy.get('.money-for-purchase-return-button').click();
-
     cy.get('.money-for-purchase-section__total-money').should('have.text', 0);
+
+    cy.changeTab('coins');
+    cy.get('.charge-form-section__total-coin').should(
+      'have.text',
+      chargeCoinsMoney - chargeMoney
+    );
   });
 });
