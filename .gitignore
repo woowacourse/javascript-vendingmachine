@@ -111,3 +111,5 @@ cypress/videos/
 cypress/fixtures/
 cypress/screenshots/
 cypress/plugins/
+
+server/db.json
