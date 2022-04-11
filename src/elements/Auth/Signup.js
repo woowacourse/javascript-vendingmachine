@@ -34,7 +34,7 @@ class Signup extends CustomElement {
     const { email, name, password, passwordConfirm } = event.target.elements;
 
     try {
-      await this.signUp(email, name, password, passwordConfirm);
+      await this.registerAdministrator(email, name, password, passwordConfirm);
       this.initSignupInputs(email, name, password, passwordConfirm);
     } catch (error) {
       if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.EMAIL_ALREADY_EXISTS) {
@@ -45,7 +45,7 @@ class Signup extends CustomElement {
     }
   };
 
-  async signUp($email, $name, $password, $passwordConfirm) {
+  async registerAdministrator($email, $name, $password, $passwordConfirm) {
     const userName = $name.value.trim();
 
     checkSignupValidation(userName, $password.value, $passwordConfirm.value);

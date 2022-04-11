@@ -33,7 +33,7 @@ class Login extends CustomElement {
     const { email, password } = event.target.elements;
 
     try {
-      await this.logIn(email, password);
+      await this.loginAdministrator(email, password);
       this.initLoginInputs(email, password);
     } catch (error) {
       if (error.message === JSON_AUTH_SERVER_ERROR_MESSAGE.CANNOT_FIND_USER) {
@@ -45,7 +45,7 @@ class Login extends CustomElement {
     }
   };
 
-  async logIn($email, $password) {
+  async loginAdministrator($email, $password) {
     await login($email.value, $password.value);
     AuthStore.instance.dispatch(createAction(AUTH_ACTION.LOGIN));
 
