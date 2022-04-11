@@ -42,11 +42,11 @@ export const markUnit = (price: number) => price.toLocaleString();
 export const deleteSeparator = (price: string) => parseInt(price.replace(',', ''), 10);
 
 export const showSnackbar = (message: string) => {
-  const snackbar = $('#snackbar');
+  const snackbarContainer = $('#snackbar-container');
 
-  snackbar.textContent = message;
-  snackbar.classList.toggle('show');
+  snackbarContainer.insertAdjacentHTML('beforeend', `<div class="snackbar animation">${message}</div>`);
+
   setTimeout(() => {
-    snackbar.classList.toggle('show');
+    snackbarContainer.firstChild.remove();
   }, 3000);
 };
