@@ -7,17 +7,11 @@ import {
 } from '../../src/js/constants/';
 
 describe('유저 테스트', () => {
-  beforeEach(() => {
-    cy.visit('/');
-    cy.get('#to-login-anchor').click();
-  });
-
   describe('회원가입 테스트', () => {
-    beforeEach(() => {
-      cy.get('#signup--anchor').click();
-    });
-
     it('name이 2~6글자 사이가 아니면 에러가 발생한다.', () => {
+      cy.visit('/');
+      cy.get('#to-login-anchor').click();
+      cy.get('#signup--anchor').click();
       const email = `${pickNumberInRange(0, 255).toString(16)}${Date.now()}@gmail.com`;
       const name = 'a';
       const password = 'Abc1234!';
@@ -55,6 +49,7 @@ describe('유저 테스트', () => {
     let password;
     beforeEach(() => {
       cy.visit('/');
+      cy.get('#to-login-anchor').click();
       email = 'test123@naver.com';
       password = 'Abc1234!';
       name = '주동혁';

@@ -52,6 +52,10 @@ Cypress.Commands.add('inputMoney', (money) => {
 });
 
 Cypress.Commands.add('signUp', (email, name, password, passwordConfirm) => {
+  cy.get('#sign-up-email').clear();
+  cy.get('#sign-up-name').clear();
+  cy.get('#sign-up-password').clear();
+  cy.get('#sign-up-password-confirm').clear();
   cy.get('#sign-up-email').type(email);
   cy.get('#sign-up-name').type(name);
   cy.get('#sign-up-password').type(password);
