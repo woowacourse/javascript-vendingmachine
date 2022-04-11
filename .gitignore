@@ -107,3 +107,7 @@ dist
 # TernJS port file
 .tern-port
 server/db.json
+cypress/videos/
+cypress/fixtures/
+cypress/screenshots/
+cypress/plugins/
