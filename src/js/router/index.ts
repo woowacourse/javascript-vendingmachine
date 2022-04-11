@@ -10,7 +10,9 @@ const useRouter = () => {
   let prevPath = '';
 
   const activeLogin = (path: string) => {
-    if (path === '#!/login' || path === '#!/edit-profile' || path === '#!/signup') {
+    const isAccountPage = path === '#!/login' || path === '#!/edit-profile' || path === '#!/signup';
+
+    if (isAccountPage) {
       $accountLoginButton.classList.add('hide');
       $accountDropdownContainer.classList.add('hide');
       $headerNav.classList.add('hide');
