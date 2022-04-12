@@ -1,4 +1,8 @@
 @import './app.css';
+@import './snackbar.css';
+@import './userBadge.css';
+@import './userAuth.css';
+@import './shared.css';
 
 :root {
   --color-body-bg: rgb(230, 230, 230);
