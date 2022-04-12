@@ -1,5 +1,9 @@
 import { $, createElement } from "../util/dom";
-import { SNACKBAR_TYPE, SNACKBAR_CONSIST_TIME } from "../constant";
+import {
+  SNACKBAR_TYPE,
+  SNACKBAR_CONSIST_TIME,
+  SNACKBAR_MAXIMUM_STACK,
+} from "../constant";
 
 class SnackBar {
   $container;
@@ -10,7 +14,7 @@ class SnackBar {
   }
 
   open(type, message) {
-    if (this.$container.childElementCount >= 3) {
+    if (this.$container.childElementCount >= SNACKBAR_MAXIMUM_STACK) {
       this.close();
     }
     const snackbar = createElement(

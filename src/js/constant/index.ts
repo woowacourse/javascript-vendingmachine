@@ -93,3 +93,5 @@ export const COOKIE_KEY = {
 };
 
 export const COIN_TYPES = [500, 100, 50, 10] as const;
+
+export const SNACKBAR_MAXIMUM_STACK = 3;
