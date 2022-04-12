@@ -9,6 +9,12 @@ export const getProductInfo = function () {
   return { name, price, quantity };
 };
 
+export const resetProductInfo = function () {
+  $('#product-name-input').value = '';
+  $('#product-price-input').value = '';
+  $('#product-quantity-input').value = '';
+};
+
 export const getProductInfoModify = function (productNode) {
   const name = $('.product-info-name', productNode).value;
   const price = Number($('.product-info-price', productNode).value);

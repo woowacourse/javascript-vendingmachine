@@ -82,6 +82,7 @@ var LoginManage = /** @class */ (function () {
                         accessToken = json.accessToken, user = json.user;
                         if (response.ok) {
                             localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
+                            (0, userInfoUtil_1.resetLoginInfo)();
                             (0, loginUtil_1.loginnedMode)();
                         }
                         else {

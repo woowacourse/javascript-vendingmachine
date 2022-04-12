@@ -26,6 +26,7 @@ var ProductBuyManage = /** @class */ (function () {
         e.preventDefault();
         var inputMoney = Number((0, dom_1.$)('#input-money-input', this.$buy).value);
         if (this.verifyValue.verifyInputMoney(inputMoney)) {
+            (0, dom_1.$)('#input-money-input', this.$buy).value = '';
             this.totalMoney += inputMoney;
             render_1.renderTotalMoney.call(this);
         }

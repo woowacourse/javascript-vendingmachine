@@ -40,6 +40,7 @@ class ProductBuyManage implements ProductBuy {
     const inputMoney = Number($('#input-money-input', this.$buy).value);
 
     if (this.verifyValue.verifyInputMoney(inputMoney)) {
+      $('#input-money-input', this.$buy).value = '';
       this.totalMoney += inputMoney;
       renderTotalMoney.call(this);
     }

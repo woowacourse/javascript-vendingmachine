@@ -18,6 +18,7 @@ var ProductManagemManage = /** @class */ (function () {
         e.preventDefault();
         var productInfo = productUtil_1.getProductInfo.call(this);
         if (this.verifyValue.verifyProductInfo(productInfo, -1)) {
+            (0, productUtil_1.resetProductInfo)();
             this.addProduct(productInfo);
             render_1.renderProductList.call(this);
         }

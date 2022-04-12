@@ -20,6 +20,7 @@ var ChargeMoneyManage = /** @class */ (function () {
             var coinList = productUtil_1.generateRandomCoins.call(this, inputMoney);
             this.chargeMoney(coinList);
             render_1.renderCoins.call(this);
+            (0, dom_1.$)('#charge-money-input').value = '';
         }
     };
     ChargeMoneyManage.prototype.chargeMoney = function (coinList) {

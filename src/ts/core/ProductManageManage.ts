@@ -7,6 +7,7 @@ import {
   getProductInfoModify,
   getProductRowIndex,
   getProductIndex,
+  resetProductInfo,
 } from '../utils/productUtil';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 
@@ -28,6 +29,7 @@ class ProductManagemManage implements ProductManage {
     e.preventDefault();
     const productInfo = getProductInfo.call(this);
     if (this.verifyValue.verifyProductInfo(productInfo, -1)) {
+      resetProductInfo();
       this.addProduct(productInfo);
       renderProductList.call(this);
     }

@@ -85,6 +85,7 @@ var SignUpManage = /** @class */ (function () {
                     case 3:
                         _a = _b.sent(), accessToken = _a.accessToken, user = _a.user;
                         localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
+                        (0, userInfoUtil_1.resetSignUpInfo)();
                         (0, loginUtil_1.loginnedMode)();
                         return [3 /*break*/, 6];
                     case 4: return [4 /*yield*/, response.json()];

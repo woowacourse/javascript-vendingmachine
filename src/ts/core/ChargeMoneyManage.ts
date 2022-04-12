@@ -26,6 +26,7 @@ class ChargeMoneyManage implements ChargeMoney {
       const coinList = generateRandomCoins.call(this, inputMoney);
       this.chargeMoney(coinList);
       renderCoins.call(this);
+      $('#charge-money-input').value = '';
     }
   }
 

@@ -1,11 +1,22 @@
 import { $ } from './dom';
-import { LoginInfo, UserInfo } from '../declarations/resourceDeclaration';
+
+export const resetLoginInfo = function () {
+  $('#login-form__email-input').value = '';
+  $('#login-form__password-input').value = '';
+};
 
 export const getLoginInfo = function () {
   const email = $('#login-form__email-input').value;
   const password = $('#login-form__password-input').value;
 
   return { email, password };
+};
+
+export const resetSignUpInfo = function () {
+  $('#signup-form__email-input').value = '';
+  $('#signup-form__name-input').value = '';
+  $('#signup-form__password-input').value = '';
+  $('#signup-form__password-check-input').value = '';
 };
 
 export const getSignUpInfo = function () {
@@ -15,6 +26,13 @@ export const getSignUpInfo = function () {
   const passwordConfirm = $('#signup-form__password-check-input').value;
 
   return { email, name, password, passwordConfirm };
+};
+
+export const resetUserInfo = function () {
+  $('#edit-profile-form__email-input').value = '';
+  $('#edit-profile-form__name-input').value = '';
+  $('#edit-profile-form__password-input').value = '';
+  $('#edit-profile-form__password-check-input').value = '';
 };
 
 export const getUserInfo = function () {

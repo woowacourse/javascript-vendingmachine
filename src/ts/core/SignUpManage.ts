@@ -1,7 +1,7 @@
 import { $ } from '../utils/dom';
 import { SignUp } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
-import { getSignUpInfo } from '../utils/userInfoUtil';
+import { getSignUpInfo, resetSignUpInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
 import { showSnackbar } from '../utils/snackbar';
 import { signUpUrl } from '../constants';
@@ -32,6 +32,7 @@ class SignUpManage implements SignUp {
         const { accessToken, user } = await response.json();
 
         localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
+        resetSignUpInfo();
         loginnedMode();
       } else {
         const json = await response.json();

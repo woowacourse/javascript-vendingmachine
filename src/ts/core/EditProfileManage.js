@@ -94,6 +94,7 @@ var EditProfileManage = /** @class */ (function () {
                         name_2 = (_a.sent()).name;
                         accessToken.name = name_2;
                         localStorage.setItem('accessToken', JSON.stringify(accessToken));
+                        (0, userInfoUtil_1.resetUserInfo)();
                         (0, loginUtil_1.loginnedMode)();
                         return [3 /*break*/, 6];
                     case 4: return [4 /*yield*/, response.json()];

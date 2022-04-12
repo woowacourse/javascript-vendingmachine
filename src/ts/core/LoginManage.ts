@@ -1,7 +1,7 @@
 import { $ } from '../utils/dom';
 import { Login } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
-import { getLoginInfo } from '../utils/userInfoUtil';
+import { getLoginInfo, resetLoginInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
 import { showSnackbar } from '../utils/snackbar';
 import { baseUrl, loginUrl } from '../constants';
@@ -29,6 +29,7 @@ class LoginManage implements Login {
 
       if (response.ok) {
         localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
+        resetLoginInfo();
         loginnedMode();
       } else {
         showSnackbar(json);

@@ -9,7 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.generateRandomCoins = exports.getProductIndex = exports.getProductRowIndex = exports.getProductInfoModify = exports.getProductInfo = void 0;
+exports.generateRandomCoins = exports.getProductIndex = exports.getProductRowIndex = exports.getProductInfoModify = exports.resetProductInfo = exports.getProductInfo = void 0;
 var dom_1 = require("./dom");
 var getProductInfo = function () {
     var name = (0, dom_1.$)('#product-name-input').value;
@@ -18,6 +18,12 @@ var getProductInfo = function () {
     return { name: name, price: price, quantity: quantity };
 };
 exports.getProductInfo = getProductInfo;
+var resetProductInfo = function () {
+    (0, dom_1.$)('#product-name-input').value = '';
+    (0, dom_1.$)('#product-price-input').value = '';
+    (0, dom_1.$)('#product-quantity-input').value = '';
+};
+exports.resetProductInfo = resetProductInfo;
 var getProductInfoModify = function (productNode) {
     var name = (0, dom_1.$)('.product-info-name', productNode).value;
     var price = Number((0, dom_1.$)('.product-info-price', productNode).value);

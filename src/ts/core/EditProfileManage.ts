@@ -1,7 +1,7 @@
 import { $ } from '../utils/dom';
 import { EditProfile } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
-import { getUserInfo } from '../utils/userInfoUtil';
+import { getUserInfo, resetUserInfo } from '../utils/userInfoUtil';
 import { loginnedMode, logOutedMode } from '../utils/loginUtil';
 import { showSnackbar } from '../utils/snackbar';
 import { editProfileUrl } from '../constants';
@@ -51,6 +51,7 @@ class EditProfileManage implements EditProfile {
         const { name } = await response.json();
         accessToken.name = name;
         localStorage.setItem('accessToken', JSON.stringify(accessToken));
+        resetUserInfo();
         loginnedMode();
       } else {
         const json = await response.json();
