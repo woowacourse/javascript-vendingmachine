@@ -11,20 +11,20 @@ export default class PurchaseItemView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  bindSubmitEvent() {
+  private bindSubmitEvent() {
     $(SELECTOR.ID.PURCHASE_ITEM_FORM).addEventListener(
       'submit',
       this.handleSubmitPurchaseMoneyInput.bind(this),
     );
   }
 
-  bindPurchaseClickEvents() {
+  private bindPurchaseClickEvents() {
     $$(SELECTOR.CLASS.ITEM_TABLE_PURCHASE_BUTTON).forEach(button =>
       this.bindTargetPurchaseClick(button),
     );
   }
 
-  bindTargetPurchaseClick(button) {
+  private bindTargetPurchaseClick(button) {
     button.addEventListener('click', () => {
       const $targetTableRow = button.closest('tr');
       const itemName: string = $targetTableRow
@@ -35,14 +35,14 @@ export default class PurchaseItemView {
     });
   }
 
-  bindReturnMoneyClickEvent() {
+  private bindReturnMoneyClickEvent() {
     $(SELECTOR.CLASS.RETURN_MONEY_BUTTON).addEventListener(
       'click',
       this.handleClickReturnMoneyButton.bind(this),
     );
   }
 
-  handleSubmitPurchaseMoneyInput(event) {
+  private handleSubmitPurchaseMoneyInput(event) {
     event.preventDefault();
     try {
       const inputMoney: number = $(SELECTOR.CLASS.PURCHASE_ITEM_INPUT).valueAsNumber;
@@ -55,11 +55,11 @@ export default class PurchaseItemView {
     }
   }
 
-  handleClickReturnMoneyButton() {
+  private handleClickReturnMoneyButton() {
     emitCustomEvent('RETURN_MONEY');
   }
 
-  render(items: ItemType[], coins: CoinsType, inputMoney: number) {
+  public render(items: ItemType[], coins: CoinsType, inputMoney: number) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', purchaseItemTemplate(items, coins, inputMoney));
 

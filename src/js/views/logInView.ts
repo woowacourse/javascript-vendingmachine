@@ -9,7 +9,7 @@ export default class LogInView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  handleSubmitLogInForm(event) {
+  private handleSubmitLogInForm(event) {
     event.preventDefault();
     try {
       const targetId = event.target.id;
@@ -23,13 +23,13 @@ export default class LogInView {
     }
   }
 
-  handleClickGotoSignUpButton(event: { target: HTMLButtonElement }) {
+  private handleClickGotoSignUpButton(event: { target: HTMLButtonElement }) {
     const targetId = event.target.id;
 
     emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
   }
 
-  render(isLogin) {
+  public render(isLogin) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', logInTemplate(isLogin));
 

@@ -9,7 +9,7 @@ export default class SignUpView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  handleSubmitSignUpForm(event) {
+  private handleSubmitSignUpForm(event) {
     event.preventDefault();
     try {
       const targetId = event.target.id;
@@ -24,7 +24,7 @@ export default class SignUpView {
     }
   }
 
-  render(isLogin) {
+  public render(isLogin) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', signUpTemplate(isLogin));
 

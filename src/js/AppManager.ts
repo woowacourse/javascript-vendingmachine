@@ -44,7 +44,7 @@ export default class AppManager {
     this.router.loadRoutePage();
   }
 
-  initDom() {
+  private initDom() {
     $(SELECTOR.ID.APP).insertAdjacentHTML('beforeend', initialTemplate);
   }
 }

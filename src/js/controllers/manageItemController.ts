@@ -17,13 +17,13 @@ export default class ManageItemController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
+  public bindEvents() {
     onCustomEvent('ADD_ITEM', this.handleAddItem.bind(this));
     onCustomEvent('TABLE_ITEM_CHANGE', this.handleTableItemChange.bind(this));
     onCustomEvent('TABLE_ITEM_DELETE', this.handleTableItemDelete.bind(this));
   }
 
-  handleAddItem(event: CustomEvent) {
+  private handleAddItem(event: CustomEvent) {
     try {
       const newItem: ItemType = event.detail;
       const items = this.vendingMachine.getItems();
@@ -40,7 +40,7 @@ export default class ManageItemController implements Controller {
     }
   }
 
-  handleTableItemChange(event: CustomEvent) {
+  private handleTableItemChange(event: CustomEvent) {
     try {
       const { item, targetRowIndex, $targetTableRow }: TableItemChangeDetailType = event.detail;
       const items = this.vendingMachine.getItems();
@@ -56,12 +56,12 @@ export default class ManageItemController implements Controller {
     }
   }
 
-  handleTableItemDelete(event: CustomEvent) {
+  private handleTableItemDelete(event: CustomEvent) {
     const { item }: TableItemDeleteDetailType = event.detail;
     this.vendingMachine.deleteItem(item);
   }
 
-  loadPage(isLogin) {
+  public loadPage(isLogin) {
     const itemList = this.vendingMachine.getItems();
 
     this.manageItemView.render(isLogin, itemList);

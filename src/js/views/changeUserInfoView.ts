@@ -8,7 +8,7 @@ export default class ChangeUserInfoView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  handleSubmitChangeForm(event) {
+  private handleSubmitChangeForm(event) {
     event.preventDefault();
     try {
       const targetId = event.target.id;
@@ -21,7 +21,7 @@ export default class ChangeUserInfoView {
     }
   }
 
-  render(isLogin) {
+  public render(isLogin) {
     const user = JSON.parse(sessionStorage.getItem('user'));
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', changeUserInfoTemplate(isLogin, user));

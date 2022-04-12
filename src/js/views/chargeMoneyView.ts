@@ -11,14 +11,14 @@ export default class ChargeMoneyView {
     this.$content = $(SELECTOR.ID.CONTENT);
   }
 
-  bindEvents() {
+  private bindEvents() {
     $(SELECTOR.ID.CHARGE_MONEY_FORM).addEventListener(
       'submit',
       this.handleSubmitChargeMoney.bind(this),
     );
   }
 
-  handleSubmitChargeMoney(event) {
+  private handleSubmitChargeMoney(event) {
     event.preventDefault();
     try {
       const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
@@ -32,7 +32,7 @@ export default class ChargeMoneyView {
     }
   }
 
-  render(isLogin, coins: CoinsType, totalMoney: number) {
+  public render(isLogin, coins: CoinsType, totalMoney: number) {
     this.$content.replaceChildren();
     this.$content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(isLogin, coins, totalMoney));
 
@@ -41,7 +41,7 @@ export default class ChargeMoneyView {
     }
   }
 
-  repaintCoinsTable(coins: CoinsType) {
+  public repaintCoinsTable(coins: CoinsType) {
     $(SELECTOR.CLASS.COIN_TABLE).replaceChildren();
     $(SELECTOR.CLASS.COIN_TABLE).insertAdjacentHTML(
       'beforeend',
@@ -49,7 +49,7 @@ export default class ChargeMoneyView {
     );
   }
 
-  clearInput() {
+  public clearInput() {
     $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).value = '';
   }
 }

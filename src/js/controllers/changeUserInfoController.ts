@@ -12,11 +12,11 @@ export default class ChangeUserInfoController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
+  public bindEvents() {
     onCustomEvent('CHANGE_USER_INFO', this.handleChangeUserInfo.bind(this));
   }
 
-  handleChangeUserInfo(event: CustomEvent) {
+  private handleChangeUserInfo(event: CustomEvent) {
     const { name, password, targetId } = event.detail;
     const user = JSON.parse(sessionStorage.getItem('user'));
     const data = JSON.stringify({
@@ -51,7 +51,7 @@ export default class ChangeUserInfoController implements Controller {
       .catch(error => alert(error.message));
   }
 
-  loadPage(isLogin) {
+  public loadPage(isLogin) {
     this.changeUserInfoView.render(isLogin);
   }
 }

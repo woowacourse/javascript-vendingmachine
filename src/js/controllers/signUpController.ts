@@ -12,11 +12,11 @@ export default class SignUpController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
+  public bindEvents() {
     onCustomEvent('SIGN_UP', this.handleSignUp.bind(this));
   }
 
-  handleSignUp(event: CustomEvent) {
+  private handleSignUp(event: CustomEvent) {
     const { email, name, password, targetId } = event.detail;
     const data = JSON.stringify({
       email,
@@ -44,7 +44,7 @@ export default class SignUpController implements Controller {
       .catch(error => alert(error.message));
   }
 
-  loadPage(isLogin) {
+  public loadPage(isLogin) {
     this.signUpView.render(isLogin);
   }
 }

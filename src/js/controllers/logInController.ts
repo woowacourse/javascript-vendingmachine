@@ -12,11 +12,11 @@ export default class LogInController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
+  public bindEvents() {
     onCustomEvent('LOG_IN', this.handleLogIn.bind(this));
   }
 
-  handleLogIn(event: CustomEvent) {
+  private handleLogIn(event: CustomEvent) {
     const { email, password, targetId } = event.detail;
     const data = JSON.stringify({
       email,
@@ -46,7 +46,7 @@ export default class LogInController implements Controller {
       .catch(error => alert(error.message));
   }
 
-  loadPage(isLogin) {
+  public loadPage(isLogin) {
     this.logInView.render(isLogin);
   }
 }

@@ -18,7 +18,7 @@ export default class PurchaseItemController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
+  public bindEvents() {
     onCustomEvent('PURCHASE_MONEY_INPUT', this.handlePurchaseMoneyInput.bind(this));
     onCustomEvent('RETURN_MONEY', () => {
       try {
@@ -41,14 +41,14 @@ export default class PurchaseItemController implements Controller {
     });
   }
 
-  handlePurchaseMoneyInput(event: CustomEvent) {
+  private handlePurchaseMoneyInput(event: CustomEvent) {
     const { inputMoney }: MoneyDetailType = event.detail;
 
     this.vendingMachine.chargePurchaseInputMoney(inputMoney);
     this.loadPage();
   }
 
-  loadPage() {
+  public loadPage() {
     const items = this.vendingMachine.getItems();
     const inputMoney = this.vendingMachine.getPurchaseInputMoney();
     const coins = this.vendingMachine.getChange();

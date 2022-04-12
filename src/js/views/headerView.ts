@@ -10,14 +10,14 @@ export default class HeaderView {
     $(SELECTOR.ID.HEADER_BUTTON_CONTAINER).addEventListener('click', this.handleClickLoginButton);
   }
 
-  handleClickNavButton(event: { target: HTMLButtonElement }) {
+  private handleClickNavButton(event: { target: HTMLButtonElement }) {
     const targetId = event.target.id;
 
     this.changeButtonColor(targetId);
     emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
   }
 
-  handleClickLoginButton(event: { target: HTMLButtonElement }) {
+  private handleClickLoginButton(event: { target: HTMLButtonElement }) {
     const targetId = event.target.id;
     if (targetId === SELECTOR.ID_STRING.LOGIN_BUTTON) {
       emitCustomEvent('ROUTE_CHANGE', { detail: { targetId } });
@@ -41,7 +41,7 @@ export default class HeaderView {
     }
   }
 
-  changeButtonColor(targetButtonId: string) {
+  public changeButtonColor(targetButtonId: string) {
     const $navButtons = $$(SELECTOR.CLASS.NAV_BUTTON);
 
     $navButtons.forEach($navButton =>
@@ -51,7 +51,7 @@ export default class HeaderView {
     );
   }
 
-  render() {
+  public render() {
     $(SELECTOR.ID.APP).replaceChildren();
     $(SELECTOR.ID.APP).insertAdjacentHTML('beforeend', initialTemplate);
   }
