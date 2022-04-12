@@ -45,7 +45,9 @@ export default class UserComponent {
     }
   };
 
-  onLogout = () => {
+  onLogout = (e) => {
+    e.preventDefault();
+
     deleteCurrentUser();
     window.location.pathname = CUSTOMER_MAIN_PAGE;
   };

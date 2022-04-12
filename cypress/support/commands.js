@@ -12,12 +12,12 @@ const getEditProductPriceInputSelector = (productName) =>
 const getEditProductQuantityInputSelector = (productName) =>
   `[data-product-name="${productName}"] ${getEditInputSelector('quantity')}`;
 
-Cypress.Commands.add('login', () => {
+Cypress.Commands.add('login', (id = 'test@test.com', password = 'test123!') => {
   cy.get('.nav__login-button').click();
 
-  cy.get('.login-email-input').type('test@test.com');
-  cy.get('.login-password-input').type('test123!');
-  cy.get('.login-button').click();
+  cy.get('.login-email-input').type(id);
+  cy.get('.login-password-input').type(password);
+  return cy.get('.login-button').click();
 });
 
 Cypress.Commands.add('changeTab', (tab) => {
