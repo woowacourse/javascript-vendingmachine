@@ -61,7 +61,12 @@ class ProductModerator {
 
   updateProduct = ({ id, name, price, count }: IUpdateProductEvent) => {
     try {
-      const product = this.vendingMachine.updateProduct(id, name, price, count);
+      const product = this.vendingMachine.updateProduct({
+        id,
+        name,
+        price,
+        count,
+      });
       this.productPageView.renderUpdatedProduct(id, product);
       snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.UPDATE_PRODUCT);
     } catch (err) {

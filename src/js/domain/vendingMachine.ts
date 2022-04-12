@@ -34,7 +34,7 @@ export default class VendingMachine implements type.IVendingMachine {
     return this.products;
   };
 
-  updateProduct: type.IUpdateProduct = (id, name, price, count) => {
+  updateProduct: type.IUpdateProduct = ({ id, name, price, count }) => {
     validateProduct({ products: this.products, name, price, count, id });
 
     const product = this.products.find((product) => id === product.getId());

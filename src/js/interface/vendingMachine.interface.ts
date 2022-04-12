@@ -6,6 +6,10 @@ interface INewProduct {
   count: number;
 }
 
+interface IUpdatedProduct extends INewProduct {
+  id: string;
+}
+
 type TCoinKind = "500" | "100" | "50" | "10";
 
 export type TCoin = {
@@ -33,7 +37,7 @@ export interface IAddProduct {
 }
 
 export interface IUpdateProduct {
-  (id: string, name?: string, price?: number, count?: number): ISingleProduct;
+  (product: IUpdatedProduct): ISingleProduct;
 }
 
 export interface IGetProducts {
