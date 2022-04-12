@@ -2,7 +2,7 @@ import { CustomElement, Notification } from './CustomElement';
 import TEMPLATE from '../templates';
 import { addEvent, emit, showSnackbar, $ } from '../utils';
 import Authentication from '../domain/Authentication';
-import { ELEMENT_KEY } from '../constants';
+import { CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 
 class SignupPage extends CustomElement {
   connectedCallback() {
@@ -28,7 +28,7 @@ class SignupPage extends CustomElement {
 
     emit(
       '.signup-form',
-      '@signup',
+      CUSTOM_EVENT.AUTH.SIGNUP,
       {
         email: form.email.value,
         name: form.userName.value,

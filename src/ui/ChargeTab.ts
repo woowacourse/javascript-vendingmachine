@@ -3,7 +3,7 @@ import TEMPLATE from '../templates';
 import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
-import { COINS, ELEMENT_KEY } from '../constants';
+import { COINS, CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {
   connectedCallback() {
@@ -34,7 +34,7 @@ class ChargeTab extends CustomElement {
 
     const change = e.target.change.valueAsNumber;
 
-    emit('.charge-form', '@charge', { change }, this);
+    emit('.charge-form', CUSTOM_EVENT.CHARGE, { change }, this);
   }
 
   notify({ amount }: Notification) {

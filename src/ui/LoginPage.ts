@@ -3,7 +3,7 @@ import TEMPLATE from '../templates';
 import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
 import { historyRouterPush } from '../router';
-import { BASE_URL, ELEMENT_KEY } from '../constants';
+import { BASE_URL, CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 
 class LoginPage extends CustomElement {
   connectedCallback() {
@@ -28,7 +28,7 @@ class LoginPage extends CustomElement {
     e.preventDefault();
     const form = e.target;
 
-    emit('.login-form', '@login', { email: form.email.value, password: form.password.value }, this);
+    emit('.login-form', CUSTOM_EVENT.AUTH.LOGIN, { email: form.email.value, password: form.password.value }, this);
   }
 
   handleSignup(e: MouseEvent & { target: HTMLAnchorElement }) {

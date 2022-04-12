@@ -3,7 +3,7 @@ import TEMPLATE from '../templates';
 import storage from '../storage';
 import { addEvent, emit, $, showSnackbar } from '../utils';
 import Authentication from '../domain/Authentication';
-import { SUCCESS_MESSAGE, ELEMENT_KEY } from '../constants';
+import { SUCCESS_MESSAGE, ELEMENT_KEY, CUSTOM_EVENT } from '../constants';
 
 class ProfileEditPage extends CustomElement {
   connectedCallback() {
@@ -37,7 +37,7 @@ class ProfileEditPage extends CustomElement {
 
     emit(
       '.profile-edit-form',
-      '@edit',
+      CUSTOM_EVENT.AUTH.EDIT,
       { name: form.userName.value, password: form.password.value, passwordConfirm: form.passwordConfirm.value },
       this,
     );

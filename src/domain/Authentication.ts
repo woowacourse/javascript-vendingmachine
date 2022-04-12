@@ -4,7 +4,7 @@ import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 import { Notification } from '../ui/CustomElement';
 import { validateProfileEdit, validateSignup } from '../validator/authentication';
-import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN } from '../constants';
+import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN, CUSTOM_EVENT } from '../constants';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -31,15 +31,15 @@ class Authentication {
   }
 
   subscribeSignupPage() {
-    on('.signup-form', '@signup', (e) => this.signup(e.detail), $('signup-page'));
+    on('.signup-form', CUSTOM_EVENT.AUTH.SIGNUP, (e) => this.signup(e.detail), $('signup-page'));
   }
 
   subscribeLoginPage() {
-    on('.login-form', '@login', (e) => this.login(e.detail), $('login-page'));
+    on('.login-form', CUSTOM_EVENT.AUTH.LOGIN, (e) => this.login(e.detail), $('login-page'));
   }
 
   subscribeProfileEditPage() {
-    on('.profile-edit-form', '@edit', (e) => this.editProfile(e.detail), $('profile-edit-page'));
+    on('.profile-edit-form', CUSTOM_EVENT.AUTH.EDIT, (e) => this.editProfile(e.detail), $('profile-edit-page'));
   }
 
   signup({ email, name, password, passwordConfirm }) {

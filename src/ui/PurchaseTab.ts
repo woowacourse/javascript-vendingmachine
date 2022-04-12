@@ -5,7 +5,7 @@ import Product from '../domain/Product';
 import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import { Safe } from '../domain/Safe';
-import { COINS, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
+import { COINS, CUSTOM_EVENT, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {
@@ -33,19 +33,24 @@ class PurchaseTab extends CustomElement {
     addEvent(this, 'click', '.purchase_button', (e: MouseEvent & { target: HTMLButtonElement }) =>
       this.handlePurchase(e),
     );
-    addEvent(this, 'click', '.return-button', () => emit('.return-button', '@return', {}, this));
+    addEvent(this, 'click', '.return-button', () => emit('.return-button', CUSTOM_EVENT.RETURN_OF_CHANGE, {}, this));
   }
 
   handleInsertCoin(e: SubmitEvent & { target: HTMLFormElement }) {
     e.preventDefault();
 
-    emit('.user-amount-form', '@insert-coin', { userInputMoney: e.target.change.valueAsNumber }, this);
+    emit('.user-amount-form', CUSTOM_EVENT.INSERT_COIN, { userInputMoney: e.target.change.valueAsNumber }, this);
   }
 
   handlePurchase(e: MouseEvent & { target: HTMLButtonElement }) {
     const productItem = e.target.closest('.product-item') as HTMLElement;
 
-    emit('#purchasable-product-list-table', '@purchase', { productId: productItem.dataset.productId }, this);
+    emit(
+      '#purchasable-product-list-table',
+      CUSTOM_EVENT.PRODUCT.PURCHASE,
+      { productId: productItem.dataset.productId },
+      this,
+    );
   }
 
   insertPurchableProduct(product: Product, productTable: Element) {

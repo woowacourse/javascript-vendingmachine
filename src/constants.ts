@@ -27,6 +27,23 @@ export const ELEMENT_KEY = {
   PURCHASE: 'subscribePurchaseTab',
 };
 
+export const CUSTOM_EVENT = {
+  PRODUCT: {
+    ADD: '@add',
+    UPDATE: '@update',
+    DELETE: '@delete',
+    PURCHASE: '@purchase',
+  },
+  AUTH: {
+    SIGNUP: '@signup',
+    LOGIN: '@login',
+    EDIT: '@edit',
+  },
+  CHARGE: '@charge',
+  INSERT_COIN: '@insert-coin',
+  RETURN_OF_CHANGE: '@return-of-change',
+};
+
 export const ERROR_MESSAGE = {
   DUPLICATED_PRODUCT: '중복되는 상품이 존재합니다.',
   INCORRECT_UNIT_PRODUCT_PRICE: `상품 가격은 ${CONFIGURATION.PRICE.UNIT}원 단위로 나누어 떨어지는 금액으로 입력하세요.`,

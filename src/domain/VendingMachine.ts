@@ -1,4 +1,4 @@
-import { ELEMENT_KEY } from '../constants';
+import { CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
@@ -40,19 +40,39 @@ class VendingMachine implements VendingMachineProperty {
   }
 
   subscribeProductManagement() {
-    on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
-    on('#product-list-table', '@update', (e) => this.updateProduct(e.detail), $('product-management'));
-    on('#product-list-table', '@delete', (e) => this.deleteProduct(e.detail.productName), $('product-management'));
+    on('.product-manage-form', CUSTOM_EVENT.PRODUCT.ADD, (e) => this.addProduct(e.detail), $('product-management'));
+    on(
+      '#product-list-table',
+      CUSTOM_EVENT.PRODUCT.UPDATE,
+      (e) => this.updateProduct(e.detail),
+      $('product-management'),
+    );
+    on(
+      '#product-list-table',
+      CUSTOM_EVENT.PRODUCT.DELETE,
+      (e) => this.deleteProduct(e.detail.productName),
+      $('product-management'),
+    );
   }
 
   subscribeChargeTab() {
-    on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
+    on('.charge-form', CUSTOM_EVENT.CHARGE, (e) => this.charge(e.detail.change), $('charge-tab'));
   }
 
   subscribePurchaseTab() {
-    on('.user-amount-form', '@insert-coin', (e) => this.insertCoin(e.detail.userInputMoney), $('purchase-tab'));
-    on('#purchasable-product-list-table', '@purchase', (e) => this.purchase(e.detail.productId), $('purchase-tab'));
-    on('.return-button', '@return', () => this.returnCoin(), $('purchase-tab'));
+    on(
+      '.user-amount-form',
+      CUSTOM_EVENT.INSERT_COIN,
+      (e) => this.insertCoin(e.detail.userInputMoney),
+      $('purchase-tab'),
+    );
+    on(
+      '#purchasable-product-list-table',
+      CUSTOM_EVENT.PRODUCT.PURCHASE,
+      (e) => this.purchase(e.detail.productId),
+      $('purchase-tab'),
+    );
+    on('.return-button', CUSTOM_EVENT.RETURN_OF_CHANGE, () => this.returnCoin(), $('purchase-tab'));
   }
 
   dispatch(key: string, action: string, product?: Product) {

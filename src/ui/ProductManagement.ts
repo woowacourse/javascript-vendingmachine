@@ -4,7 +4,7 @@ import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
-import { ELEMENT_KEY, CONFIRM_MESSAGE } from '../constants';
+import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT } from '../constants';
 
 class ProductManagement extends CustomElement {
   connectedCallback() {
@@ -43,7 +43,7 @@ class ProductManagement extends CustomElement {
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
 
-    emit('.product-manage-form', '@add', { name, price, quantity }, this);
+    emit('.product-manage-form', CUSTOM_EVENT.PRODUCT.ADD, { name, price, quantity }, this);
   }
 
   handleUpdateAndDelete(e: MouseEvent & { target: HTMLButtonElement }) {
@@ -54,7 +54,7 @@ class ProductManagement extends CustomElement {
     if (e.target.classList.contains('product-item__delete-button') && confirm(CONFIRM_MESSAGE.DELETE)) {
       const productName = (e.target.closest('.product-item') as HTMLElement).dataset.productName;
 
-      emit('#product-list-table', '@delete', { productName }, this);
+      emit('#product-list-table', CUSTOM_EVENT.PRODUCT.DELETE, { productName }, this);
     }
   }
 
@@ -89,7 +89,7 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
+    emit('#product-list-table', CUSTOM_EVENT.PRODUCT.UPDATE, { targetName, name, price, quantity }, this);
   }
 
   notify({ action, product }: Notification) {
