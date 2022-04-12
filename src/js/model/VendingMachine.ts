@@ -29,6 +29,10 @@ class VendingMachine {
     return this.changes;
   }
 
+  getProduct(name: string) {
+    return this.products[this.findProductIndex(name)];
+  }
+
   getProducts() {
     return this.products;
   }

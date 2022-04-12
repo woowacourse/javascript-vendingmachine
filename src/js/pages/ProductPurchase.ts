@@ -69,39 +69,37 @@ export default class ProductPurchase {
   }
 
   callbackSubmitQuantity = props => {
-    const { quantity, product, ul, oldLi } = props;
+    const { quantity, product, li } = props;
 
     vendingMachine.purchaseProduct(product, quantity);
-    oldLi.querySelector('.product-amount').textContent = product.amount;
+    li.querySelector('.product-amount').textContent = product.amount;
     this.refreshUserMoney();
   };
 
   onClickPurchaseButton = (e: PointerEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
 
-    const ul = e.target.closest('ul');
-    const oldLi = e.target.closest('li');
-    const name = oldLi.querySelector('.product-name').textContent;
-    const price = parseInt(oldLi.querySelector('.product-price').textContent);
-    const amount = parseInt(oldLi.querySelector('.product-amount').textContent);
+    const li = e.target.closest('li');
+    const name = li.querySelector('.product-name').textContent;
+
+    const product = vendingMachine.getProduct(name);
     const userMoney = vendingMachine.getUserMoney();
 
-    if (price > userMoney) {
+    if (product.price > userMoney) {
       showSnackbar(ERROR_MESSAGE.TOO_SHORT_MONEY);
       return;
     }
 
-    if (amount === 0) {
+    if (product.amount === 0) {
       showSnackbar(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
       return;
     }
 
     PurchaseDialog({
-      product: { name, price, amount },
+      product,
       userMoney,
       callbackSubmitQuantity: this.callbackSubmitQuantity,
-      ul,
-      oldLi,
+      li,
     });
   };
 

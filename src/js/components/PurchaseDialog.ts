@@ -30,8 +30,7 @@ const PurchaseDialog = props => {
   const {
     product: { name, price, amount },
     callbackSubmitQuantity,
-    ul,
-    oldLi,
+    li,
     userMoney,
   } = props;
 
@@ -65,7 +64,7 @@ const PurchaseDialog = props => {
     const newAmount = amount - quantity;
     const product = { name, price, amount: newAmount };
 
-    callbackSubmitQuantity({ quantity, product, ul, oldLi });
+    callbackSubmitQuantity({ quantity, product, li });
     div.remove();
   };
 
