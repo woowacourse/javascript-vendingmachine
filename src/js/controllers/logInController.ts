@@ -1,12 +1,10 @@
 import LogInView from '../views/logInView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
-import Router from '../router/Router';
 import { SNACK_BAR_MESSAGE } from '../constants/constants';
 
 export default class LogInController implements Controller {
   private logInView: LogInView;
-  router: Router;
 
   constructor() {
     this.logInView = new LogInView();

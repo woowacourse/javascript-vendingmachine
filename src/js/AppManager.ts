@@ -18,7 +18,7 @@ export default class AppManager {
   private logInController: LogInController;
   private signUpController: SignUpController;
   private router: Router;
-  changeUserInfoController: ChangeUserInfoController;
+  private changeUserInfoController: ChangeUserInfoController;
 
   constructor() {
     this.initDom();
