@@ -1,4 +1,5 @@
 import * as type from "../interface/vendingMachine.interface";
+import { COIN_TYPES } from "../constant";
 import { validateProduct, validateChanges } from "../util/validations";
 import SingleProduct from "./product";
 
@@ -63,14 +64,13 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   generateCoins: type.IGenerateCoins = (money) => {
-    const coinTypes = [500, 100, 50, 10];
     const newCoins = { 500: 0, 100: 0, 50: 0, 10: 0 };
 
     while (money) {
-      const idx = Math.floor(Math.random() * coinTypes.length);
-      if (money < coinTypes[idx]) continue;
-      newCoins[coinTypes[idx]] += 1;
-      money -= coinTypes[idx];
+      const idx = Math.floor(Math.random() * COIN_TYPES.length);
+      if (money < COIN_TYPES[idx]) continue;
+      newCoins[COIN_TYPES[idx]] += 1;
+      money -= COIN_TYPES[idx];
     }
 
     return newCoins;
@@ -110,15 +110,14 @@ export default class VendingMachine implements type.IVendingMachine {
 
   returnChanges: type.IReturnChanges = () => {
     let index = 0;
-    const coinTypes = [500, 100, 50, 10];
     const userChanges = { 500: 0, 100: 0, 50: 0, 10: 0 };
     while (this.chargedMoney > 0 && this.getTotalChanges() > 0 && index < 4) {
-      if (this.changes[coinTypes[index]] === 0) index++;
-      if (coinTypes[index] > this.chargedMoney) index++;
+      if (this.changes[COIN_TYPES[index]] === 0) index++;
+      if (COIN_TYPES[index] > this.chargedMoney) index++;
       if (index === 4) return userChanges;
-      this.chargedMoney -= coinTypes[index];
-      this.changes[coinTypes[index]]--;
-      userChanges[coinTypes[index]]++;
+      this.chargedMoney -= COIN_TYPES[index];
+      this.changes[COIN_TYPES[index]]--;
+      userChanges[COIN_TYPES[index]]++;
     }
 
     return userChanges;

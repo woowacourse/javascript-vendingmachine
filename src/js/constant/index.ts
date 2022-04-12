@@ -91,3 +91,5 @@ export const COOKIE_KEY = {
   USER_ID: "user_id",
   ACCESS_TOKEN: "access_token",
 };
+
+export const COIN_TYPES = [500, 100, 50, 10] as const;
