@@ -101,7 +101,7 @@
   display: grid;
   align-items: center;
   grid-gap: 0;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--color-table-container);
 }
 
 .item-table {
@@ -123,7 +123,7 @@
 }
 
 .table-container > table tr:first-child {
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid var(--color-table-container);
 }
 
 .charge-money-input {
@@ -165,8 +165,8 @@
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--color-snackbar-bg);
+  color: var(--color-snackbar);
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -270,12 +270,12 @@
 
 #go-to-signup {
   cursor: pointer;
-  color: #3581d7;
+  color: var(--color-go-to-signup);
 }
 
 #user-badge {
   border-radius: 50%;
-  background-color: #d6f4f8;
+  background-color: var(--color-user-badge);
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -284,7 +284,7 @@
 }
 
 #user-badge:hover {
-  background-color: #b3ebf2;
+  background-color: var(--color-user-badge-hover-bg);
 }
 
 .permission-info {
