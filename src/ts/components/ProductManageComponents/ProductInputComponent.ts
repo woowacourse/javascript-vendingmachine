@@ -27,7 +27,7 @@ export default class ProductInputComponent {
     on(this.$productAddButton, 'click', this.onSubmitProductAddButton);
   }
 
-  private onSubmitProductAddButton = (event: Event): void => {
+  private onSubmitProductAddButton = (event: SubmitEvent): void => {
     event.preventDefault();
 
     const productName = this.$nameInput.value.trim();

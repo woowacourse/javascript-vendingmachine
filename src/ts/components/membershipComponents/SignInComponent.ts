@@ -28,7 +28,7 @@ export default class SignInComponent {
     on(this.$signInVerifyButton, 'click', this.onClickSignInButton);
   }
 
-  private onClickSignInButton = async (event: Event) => {
+  private onClickSignInButton = async (event: SubmitEvent) => {
     event.preventDefault();
 
     const { value: signInEmail } = this.$signInEmailInput;
@@ -74,7 +74,7 @@ export default class SignInComponent {
     }
   };
 
-  private onClickSignUpButton = (event: Event): void => {
+  private onClickSignUpButton = (event: MouseEvent): void => {
     event.preventDefault();
 
     window.history.pushState({}, '', '/sign-up');

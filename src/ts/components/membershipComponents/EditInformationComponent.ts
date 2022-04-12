@@ -48,7 +48,7 @@ export default class EditInformationComponent {
     this.$nameInput.value = name;
   };
 
-  onClickEditVerifyButton = async (event: Event) => {
+  onClickEditVerifyButton = async (event: SubmitEvent) => {
     event.preventDefault();
 
     const user = getCookie('user') && JSON.parse(getCookie('user'));

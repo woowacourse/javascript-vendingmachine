@@ -48,7 +48,7 @@ export default class ConsumerChargeMoneyInputComponent {
     );
   };
 
-  onClickConsumerChargeMoneyButton = (event: Event) => {
+  onClickConsumerChargeMoneyButton = (event: SubmitEvent) => {
     event.preventDefault();
 
     try {

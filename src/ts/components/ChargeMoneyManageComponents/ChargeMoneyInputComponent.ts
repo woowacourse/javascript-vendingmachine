@@ -54,7 +54,7 @@ export default class ChargeMoneyInputComponent {
       this.vendingMachineChargeMoneyManager.getTotalAmount();
   };
 
-  private onClickChargeButton = (event: Event): void => {
+  private onClickChargeButton = (event: SubmitEvent): void => {
     event.preventDefault();
 
     const { valueAsNumber: chargeMoney } = this.$chargeMoneyInput;

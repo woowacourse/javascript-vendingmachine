@@ -61,9 +61,11 @@ export default class NavigatorComponent {
     );
   }
 
-  private onClickNavButton = (event: Event): void => {
+  private onClickNavButton = (event: MouseEvent): void => {
     event.preventDefault();
+
     const target = event.target as HTMLElement;
+
     if (
       !target.matches('.nav__product-button') &&
       !target.matches('.nav__charge-button') &&

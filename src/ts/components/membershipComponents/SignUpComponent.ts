@@ -31,7 +31,7 @@ export default class SignUpComponent {
     on(this.$signUpVerifyButton, 'click', this.onClickSignUpVerifyButton);
   }
 
-  onClickSignUpVerifyButton = async (event: Event) => {
+  onClickSignUpVerifyButton = async (event: SubmitEvent) => {
     event.preventDefault();
 
     const { value: signUpEmail } = this.$signUpEmailInput;
