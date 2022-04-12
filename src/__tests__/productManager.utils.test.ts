@@ -1,4 +1,4 @@
-import { Product } from '../ts/types/vendingMachineProductManager';
+import { Product } from '../ts/types/ProductManager';
 
 import {
   checkValidLengthProductName,

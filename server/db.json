@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "email": "abc@abc.com",
+      "password": "$2a$10$KkLV2iVmEmyjPPksKDx4k.VtppL6GGGCJTL9p3Apumw8IEKM7pBi2",
+      "name": "최광희",
+      "id": 1
+    },
+    {
+      "email": "yleh1126@naver.com",
+      "password": "$2a$10$hR2XCmVZhFKtCbLF2u7PS.OXO27lQjrnUDknXfUl.CntkjQW2gbHG",
+      "name": "최광희",
+      "id": 2
+    },
+    {
+      "email": "123456@abc.coom",
+      "password": "$2a$10$AAm9B.YdmEpMGN9PELniY.Y0R9OgzpIUL2wxjOpFSYrgSw2OV5f1K",
+      "id": 3,
+      "name": "후이"
+    },
+    {
+      "email": "kwannee@gmail.com",
+      "password": "$2a$10$mfvzCmWzvzoUNRArsPZULunNp.SHhP7aeNM.3pCycsfBqo6LrGQYm",
+      "name": "광희최",
+      "id": 4
+    },
+    {
+      "email": "poly@gmail.com",
+      "password": "$2a$10$sl4Zlwu/NxbcQhJ9Rgk8qOaSw2CnR/tcYfmRC1l0/6oOGG4y3opGe",
+      "name": "후이",
+      "id": 5
+    },
+    {
+      "email": "qwer@abc.com",
+      "password": "$2a$10$WJj9ZRV66yzzwZqlTY.ej.z8fWWcrCHGJawPQ0QEkH21mItdCqhmK",
+      "name": "후이",
+      "id": 6
+    }
+  ]
+}

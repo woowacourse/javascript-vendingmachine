@@ -1,6 +1,6 @@
 import { CHARGE_MONEY, ERROR_MESSAGE } from '../constants';
-import { Coins } from '../types/vendingMachineCoinManager';
-import { Product } from '../types/vendingMachineProductManager';
+import { Coins } from '../types/CoinManager';
+import { Product } from '../types/ProductManager';
 
 export const checkCanAddMoney = (
   currentMoney: number,
@@ -13,11 +13,11 @@ export const checkCanAddMoney = (
   );
 
   if (totalMoney > CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY) {
-    throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY(currentMoney));
+    throw new Error(ERROR_MESSAGE.OVERFLOW_CHARGE_MONEY);
   }
 };
 
-const hasDuplicatedName = (products, targetName) =>
+const hasDuplicatedName = (products: Product[], targetName: string) =>
   products.some((product: Product) => product.name === targetName);
 
 export const checkDuplicatedProductName = (

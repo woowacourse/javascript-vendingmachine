@@ -1,6 +1,6 @@
-import { Product } from '../ts/types/vendingMachineProductManager';
+import { Product } from '../ts/types/ProductManager';
 
-import VendingMachineProductManager from '../ts/domains/VendingMachineProductManager';
+import VendingMachineProductManager from '../ts/domains/ProductManager';
 
 describe('상품 관리 도메인 테스트', () => {
   const newProduct: Product = {

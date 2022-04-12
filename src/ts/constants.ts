@@ -1,4 +1,4 @@
-import { ICoins } from './types/vendingMachineCoinManager';
+import { ICoins } from './types/CoinManager';
 import {
   ProductQuantity,
   ProductName,
@@ -38,9 +38,15 @@ export const ERROR_MESSAGE: ErrorMessage = {
   WRONG_UNIT_CHARGE_MONEY: `잔돈을 잘못 입력하셨습니다. 잔돈은 ${CHARGE_MONEY.UNIT}원 단위로 입력해주세요.`,
   EMPTY_PRODUCT_NAME:
     '상품명을 입력하지 않으셨습니다. 상품명을 먼저 입력해주세요.',
-  OVERFLOW_CHARGE_MONEY(chargeMoney) {
-    return `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다.<br />현재 누적 금액은 ${chargeMoney}원 입니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`;
-  },
+  NOT_CONFIRMED_PASSWORD:
+    '비밀번호가 일치하지 않습니다. 다시 한번 확인해주세요.',
+  SOLD_OUT_PRODUCT: '해당 상품은 매진되었습니다.',
+  NOT_ENOUGH_MONEY: '현재 투입 금액으로 살 수 없는 상품입니다.',
+  NOT_EXIST_USER: '유저를 찾을 수 없습니다. 이메일을 다시 한번 확인해주세요',
+  ALREADY_EXIST_EMAIL:
+    '이미 존재하는 이메일 입니다. 다른 이메일을 사용해주세요.',
+  WRONG_PASSWORD_LOGIN: '비밀번호가 틀렸습니다. 다시 한번 확인해주세요',
+  OVERFLOW_CHARGE_MONEY: `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`,
 };
 
 export const DELETE_PRODUCT_CONFIRM_MESSAGE = (productName: string): string =>
@@ -58,4 +64,8 @@ export const COINS: ICoins = {
 
 export const MAIN_PAGE = 'products';
 
+export const CUSTOMER_MAIN_PAGE = 'purchase';
+
 export const SNACK_BAR_DELAY_TIME = 3000;
+
+export const BASE_SERVER_URL = 'https://hui-auth.herokuapp.com';

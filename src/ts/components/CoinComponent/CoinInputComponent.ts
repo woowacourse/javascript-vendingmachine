@@ -2,7 +2,7 @@ import { COINS } from '../../constants';
 import { $ } from '../../dom';
 import { emit, on } from '../../events';
 import renderSnackBar from '../../snackbar';
-import { Coins } from '../../types/vendingMachineCoinManager';
+import { Coins } from '../../types/CoinManager';
 import { pickRandomIndex } from '../../utils';
 import { checkValidChargeMoney } from '../validator';
 
@@ -29,14 +29,11 @@ export default class CoinInputComponent {
   private $coinInput = $(
     '.charge-form-section__coin-input'
   ) as HTMLInputElement;
-  private $chargeButton = $(
-    '.charge-form-section__button'
-  ) as HTMLButtonElement;
+  private $chargeForm = $('.charge-form-section__form');
   private $totalCoin: HTMLElement = $('.charge-form-section__total-coin');
-  private $snackBarContainer: HTMLElement = $('.snack-bar-container');
 
   constructor(private vendingMachineCoinManager) {
-    on(this.$chargeButton, 'click', this.onSubmitChargeButton);
+    on(this.$chargeForm, 'submit', this.onSubmitChargeButton);
   }
 
   private onSubmitChargeButton = (e: Event): void => {
@@ -48,10 +45,9 @@ export default class CoinInputComponent {
         generateRandomCoins(this.$coinInput.valueAsNumber)
       );
 
-      this.$totalCoin.textContent =
-        this.vendingMachineCoinManager.getTotalAmount();
+      this.renderTotalCoins();
 
-      emit(this.$chargeButton, '@chargeInputSubmit', {
+      emit(this.$chargeForm, '@chargeInputSubmit', {
         detail: {
           coins: this.vendingMachineCoinManager.getCoins(),
         },
@@ -60,7 +56,12 @@ export default class CoinInputComponent {
       this.$coinInput.value = '';
       this.$coinInput.focus();
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message);
+      renderSnackBar(message);
     }
   };
+
+  renderTotalCoins() {
+    this.$totalCoin.textContent =
+      this.vendingMachineCoinManager.getTotalAmount();
+  }
 }

@@ -1,4 +1,4 @@
-import { ProductManager, Product } from '../types/vendingMachineProductManager';
+import { ProductManager, Product } from '../types/ProductManager';
 import {
   checkDuplicatedEditName,
   checkDuplicatedProductName,
@@ -33,6 +33,21 @@ export default class VendingMachineProductManager implements ProductManager {
     this.products = this.products.filter(
       (product) => product.name !== deleteProductName
     );
+  }
+
+  sellProduct(productName) {
+    const targetProduct = this.products.find(
+      (product) => product.name === productName
+    );
+    targetProduct.quantity -= 1;
+  }
+
+  getProductPrice(productName) {
+    return this.getTargetProduct(productName).price;
+  }
+
+  getProductQuantity(productName) {
+    return this.getTargetProduct(productName).quantity;
   }
 }
 

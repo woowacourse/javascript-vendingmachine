@@ -59,3 +59,12 @@ export const checkValidChargeMoney = (money: number): void => {
     throw new Error(ERROR_MESSAGE.WRONG_UNIT_CHARGE_MONEY);
   }
 };
+
+export const checkValidPurchase = ({ quantity, price, userMoney }) => {
+  if (quantity <= 0) {
+    throw new Error(ERROR_MESSAGE.SOLD_OUT_PRODUCT);
+  }
+  if (userMoney < price) {
+    throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
+  }
+};

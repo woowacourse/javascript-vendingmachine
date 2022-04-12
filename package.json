@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --watch --no-cache",
     "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "cypress:run": "cypress run --browser chrome",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
+    "cypress": "^9.5.3",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -33,6 +36,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0",
     "prettier": "2.6.0",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.3",
