@@ -78,9 +78,7 @@ class VendingMachine implements VendingMachineProperty {
   dispatch(key: string, action: string, product?: Product) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) =>
-      target.element.notify({ action, amount: this.amount, product, userAmount: this.userAmount }),
-    );
+    targets.forEach((target) => target.element.notify({ action, product, ...this }));
   }
 
   observe(key: string, element: CustomElement) {
