@@ -15,8 +15,8 @@ const getEditProductQuantityInputSelector = (productName) =>
 Cypress.Commands.add('login', () => {
   cy.get('.nav__login-button').click();
 
-  cy.get('.login-email-input').type('kwannee@abc.com');
-  cy.get('.login-password-input').type('kwannee123');
+  cy.get('.login-email-input').type('test@test.com');
+  cy.get('.login-password-input').type('test123!');
   cy.get('.login-button').click();
 });
 
