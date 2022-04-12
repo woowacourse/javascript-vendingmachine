@@ -6,9 +6,9 @@ const apiWrapper = new ApiWrapper();
 
 const requestModifyUserData = async (userData: User) => {
   const response = await apiWrapper.put(`/users/${userData.id}`, userData);
-  const dataResult = await response.json();
+  const dataResult: User | string = await response.json();
 
-  if (!response.ok) {
+  if (typeof dataResult === 'string') {
     switch (dataResult) {
       case 'Password is too short':
         throw new Error(ERROR_MESSAGE.PASSWORD_IS_TOO_SHORT);

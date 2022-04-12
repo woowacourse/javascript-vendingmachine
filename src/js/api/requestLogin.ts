@@ -1,13 +1,14 @@
 import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { LoginSuccess } from '../interfaces/apiStatus.interface';
 import ApiWrapper from '../utils/ApiWrapper';
 
 const apiWrapper = new ApiWrapper();
 
 const requestLogin = async (accountData: Object) => {
   const response = await apiWrapper.post('/login', accountData);
-  const dataResult = await response.json();
+  const dataResult: LoginSuccess | string = await response.json();
 
-  if (!response.ok) {
+  if (typeof dataResult === 'string') {
     switch (dataResult) {
       case 'Cannot find user':
         throw new Error(ERROR_MESSAGE.USER_IS_NOT_EXIST);
