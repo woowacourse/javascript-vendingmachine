@@ -35,15 +35,16 @@ class ModifyProductComponent {
     const prevName = (<HTMLElement>parentList.querySelector('.product-modify-submit-button')).dataset.name;
 
     if (await throwableFunctionHandler(() => vendingMachine.modifyProduct(prevName, product))) {
-      ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
+      ul.replaceChild(this.replaceList(product), parentList);
     }
   };
 
-  private replaceList = (product: Product, component: Function) => {
+  private replaceList = (product: Product) => {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
+    const productItemComponent = new ProductItemComponent(product, true);
 
-    li.insertAdjacentHTML('beforeend', component(product, true));
+    li.insertAdjacentHTML('beforeend', productItemComponent.render());
     fragment.appendChild(li);
 
     return fragment;

@@ -1,30 +1,43 @@
 import { Product } from '../interfaces/VendingMachine.interface';
 
-const controlButton = () => {
-  return `<button type="button" class="product-modify-button">
-  수정
-</button>
-<button type="button" class="product-remove-button">
-  삭제
-</button>`;
-};
+class ProductItemComponent {
+  name: string;
+  price: number;
+  amount: number;
+  isAdmin: boolean;
 
-const purchaseButton = () => {
-  return `<button type="button" class="product-purchase-button">
-  구매
-</button>`;
-};
+  constructor(product: Product, isAdmin: boolean = false) {
+    this.name = product.name;
+    this.price = product.price;
+    this.amount = product.amount;
+    this.isAdmin = isAdmin;
+  }
 
-const ProductItemComponent = (product: Product, isAdmin: boolean = false) => {
-  const { name, price, amount } = product;
-  return `
-  <span class="product-name">${name}</span>
-  <span class="product-price">${price}</span>
-  <span class="product-amount">${amount}</span>
-  <span class="product-control-buttons">
-  ${isAdmin ? controlButton() : purchaseButton()}
-  </span>
-  `;
-};
+  render() {
+    return `
+    <span class="product-name">${this.name}</span>
+    <span class="product-price">${this.price}</span>
+    <span class="product-amount">${this.amount}</span>
+    <span class="product-control-buttons">
+    ${this.isAdmin ? this.controlButton() : this.purchaseButton()}
+    </span>
+    `;
+  }
+
+  controlButton = () => {
+    return `<button type="button" class="product-modify-button">
+    수정
+  </button>
+  <button type="button" class="product-remove-button">
+    삭제
+  </button>`;
+  };
+
+  purchaseButton = () => {
+    return `<button type="button" class="product-purchase-button">
+    구매
+  </button>`;
+  };
+}
 
 export default ProductItemComponent;

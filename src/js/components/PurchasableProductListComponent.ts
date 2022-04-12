@@ -37,8 +37,9 @@ class ProductListComponent {
   addProductItem(product: Product) {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
+    const productItemComponent = new ProductItemComponent(product);
 
-    li.insertAdjacentHTML('beforeend', ProductItemComponent(product));
+    li.insertAdjacentHTML('beforeend', productItemComponent.render());
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }

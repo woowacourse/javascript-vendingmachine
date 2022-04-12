@@ -13,7 +13,6 @@ export default class Login {
 
   render = () => {
     this.LoginFormComponent.render();
-    this.LoginFormComponent.refreshComponent();
   };
 
   private locationChange = () => {
