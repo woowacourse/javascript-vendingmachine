@@ -1,3 +1,5 @@
+import { ALERT_MESSAGE } from '../../src/ts/constants/index';
+
 const ramdomNumber = Math.random().toString(36);
 const email = `test${ramdomNumber}@gmail.com`;
 const password = 'Harry0044!';
@@ -35,6 +37,54 @@ describe('사용자 테스트', () => {
     cy.get('#input-money-input').type(inputMoney);
     cy.get('#input-form__submit-button').click();
     cy.get('.input-money-indicator').should('have.text', `투입한 금액: ${inputMoney}원`);
+  });
+
+  it('올바르지 않은 이메일로 회원가입 할 수 없다.', () => {
+    cy.get('.login-button').click();
+    cy.get('#link').click();
+
+    cy.get('#signup-form__email-input').type('sdsanasf');
+    cy.get('#signup-form__name-input').type(userName);
+    cy.get('#signup-form__password-input').type(password);
+    cy.get('#signup-form__password-check-input').type(passwordConfirm);
+    cy.get('#signup-confirm-button').click();
+    cy.get('#snackbar').should('have.text', ALERT_MESSAGE.USER_EMAIL);
+  });
+
+  it('올바르지 않은 이름으로 회원가입 할 수 없다.', () => {
+    cy.get('.login-button').click();
+    cy.get('#link').click();
+
+    cy.get('#signup-form__email-input').type(email);
+    cy.get('#signup-form__name-input').type('namename');
+    cy.get('#signup-form__password-input').type(password);
+    cy.get('#signup-form__password-check-input').type(passwordConfirm);
+    cy.get('#signup-confirm-button').click();
+    cy.get('#snackbar').should('have.text', ALERT_MESSAGE.USER_NAME);
+  });
+
+  it('올바르지 않은 비밀번호로 회원가입 할 수 없다.', () => {
+    cy.get('.login-button').click();
+    cy.get('#link').click();
+
+    cy.get('#signup-form__email-input').type(email);
+    cy.get('#signup-form__name-input').type(userName);
+    cy.get('#signup-form__password-input').type(`asdf`);
+    cy.get('#signup-form__password-check-input').type(`asdf`);
+    cy.get('#signup-confirm-button').click();
+    cy.get('#snackbar').should('have.text', ALERT_MESSAGE.USER_PASSWORD);
+  });
+
+  it('비밀번호와 비밀번호 확인이 같지 않으면 회원가입 할 수 없다.', () => {
+    cy.get('.login-button').click();
+    cy.get('#link').click();
+
+    cy.get('#signup-form__email-input').type(email);
+    cy.get('#signup-form__name-input').type(userName);
+    cy.get('#signup-form__password-input').type(password);
+    cy.get('#signup-form__password-check-input').type(`asdf`);
+    cy.get('#signup-confirm-button').click();
+    cy.get('#snackbar').should('have.text', ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
   });
 
   it('회원가입을 할 수 있다', () => {

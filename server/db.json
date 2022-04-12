@@ -1,32 +1,3 @@
 {
-  "users": [
-    {
-      "email": "ubc3344@gmail.com",
-      "password": "$2a$10$bKv6rpgzeuZZ.WWNxGyC0ehhyV3DKUHb.mMslqy14/39bkKc3N8E.",
-      "name": "해리",
-      "passwordConfirm": "Djawlgur78!",
-      "id": 1
-    },
-    {
-      "email": "1@naver",
-      "password": "$2a$10$F5lhV/bRciTgyfF3Q6/cOOaLw.pdQS2RsJ9VgPUHfbFc8k7oQAW5a",
-      "name": "김김",
-      "passwordConfirm": "1111aaaa@",
-      "id": 2
-    },
-    {
-      "email": "test0.vbvpe2nnh7h@gmail.com",
-      "password": "$2a$10$KgIF4.orcdz.nxOrZirEq.5cfx0x3QuH2iSZFh6fDvq9V5roqe6km",
-      "name": "테스트",
-      "passwordConfirm": "Harry0044!",
-      "id": 3
-    },
-    {
-      "email": "visualstudio530@gmail.com",
-      "password": "$2a$10$FO91eCA/lJaat2vHp1lMneDQmidz.H0ShJvjXXYdZswnlYx4ZrA8m",
-      "name": "말라카스",
-      "passwordConfirm": "Djawlgur78!",
-      "id": 4
-    }
-  ]
+  "users": []
 }
