@@ -43,10 +43,7 @@ const useRouter = () => {
 
       activeLogin(nextPath);
 
-      if (isSamePage) {
-        console.log('같은 페이지');
-        return;
-      }
+      if (isSamePage) return;
 
       clearPageBody();
       history.pushState({}, title, pathname + path);
