@@ -1,5 +1,5 @@
 import { $ } from './utils/dom';
-import AuthStateaStoreInstance from './domains/stores/AuthStateStore';
+import AuthStateStoreInstance from './domains/stores/AuthStateStore';
 import showSnackbar from './utils/showSnackbar';
 
 const $administratorMenu = document.querySelector('administrator-menu');
@@ -154,7 +154,7 @@ const renderInitContainer = () => {
 
 window.addEventListener('hashchange', () => {
   const currentHash = window.location.hash;
-  const { isLogined } = AuthStateaStoreInstance;
+  const { isLogined } = AuthStateStoreInstance;
 
   if (!isLogined && currentHash !== '#!login' && currentHash !== '#!product-purchase' && currentHash !== '#!signup')
     return;

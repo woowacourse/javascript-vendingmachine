@@ -2,7 +2,7 @@ import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkNewUserInfoValidation } from '../../validators';
 import { signup } from '../../utils/auth';
-import AuthStateaStoreInstance from '../../domains/stores/AuthStateStore';
+import AuthStateStoreInstance from '../../domains/stores/AuthStateStore';
 import { AUTH_ACTION } from '../../domains/actions';
 import showSnackbar from '../../utils/showSnackbar';
 
@@ -61,7 +61,7 @@ class SignupContainer extends CustomElement {
     }
     this.renderProfileManager();
     signup(emailInputValue, nameInputValue, passwordInputValue);
-    AuthStateaStoreInstance.dispatchAction(AUTH_ACTION.LOGIN);
+    AuthStateStoreInstance.dispatchAction(AUTH_ACTION.LOGIN);
   };
 }
 

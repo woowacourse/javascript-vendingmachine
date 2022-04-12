@@ -1,7 +1,7 @@
 import { Action } from '../../abstracts/types';
 import { createAction, AUTH_ACTION } from '../actions';
 
-class AuthStateaStore {
+class AuthStateStore {
   #isLogined = Boolean(JSON.parse(localStorage.getItem('userAuth')));
 
   dispatchAction(actionType: string) {
@@ -23,5 +23,5 @@ class AuthStateaStore {
   }
 }
 
-const AuthStateaStoreInstance = new AuthStateaStore();
-export default AuthStateaStoreInstance;
+const AuthStateStoreInstance = new AuthStateStore();
+export default AuthStateStoreInstance;
