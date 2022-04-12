@@ -1,5 +1,5 @@
 import { HASH } from "../../src/js/constant";
-import { SELECTOR, TEST_USER } from "../utils";
+import { SELECTOR, TEST_USER } from "../constants";
 
 describe("관리자가 되고자 하는 유저는 회원 가입을 할 수 있다.", () => {
   beforeEach(() => {

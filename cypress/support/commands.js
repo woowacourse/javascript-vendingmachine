@@ -1,4 +1,4 @@
-import { SELECTOR } from "../utils";
+import { SELECTOR } from "../constants";
 
 Cypress.Commands.add("signUp", ({ email, name, password, confirmPassword }) => {
   cy.get(SELECTOR.EMAIL_INPUT).type(email);
