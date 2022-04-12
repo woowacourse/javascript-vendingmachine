@@ -78,10 +78,10 @@ export const COINS: CoinsConstantType = {
   ten: 10,
 };
 
-export const CONFIRM_MESSAGE = {
-  DELETE: '정말로 삭제하시겠습니까?',
-  LOGOUT: '로그아웃하시겠습니까?',
-};
+export const enum CONFIRM_MESSAGE {
+  DELETE = '정말로 삭제하시겠습니까?',
+  LOGOUT = '로그아웃하시겠습니까?',
+}
 
 export const ITEM = {
   NAME: {
@@ -98,28 +98,28 @@ export const ITEM = {
   },
 };
 
-export const OWN_MONEY = {
-  MIN: 0,
-  MAX: 100000,
-  UNIT: 10,
-};
+export const enum OWN_MONEY {
+  MIN = 0,
+  MAX = 100000,
+  UNIT = 10,
+}
 
-export const PURCHASE_MONEY = {
-  MIN: 0,
-  MAX: 10000,
-  UNIT: 10,
-};
+export const enum PURCHASE_MONEY {
+  MIN = 0,
+  MAX = 10000,
+  UNIT = 10,
+}
 
-export const URL_HASH = {
-  MANAGE_ITEM: '#mangeItem',
-  CHARGE_MONEY: '#chargeMoney',
-  PURCHASE_ITEM: '#purchaseItem',
-  LOG_IN: '#login',
-  SIGN_UP: '#signup',
-  CHANGE_USER_INFO: '#changeUserInfo',
-};
+export const enum URL_HASH {
+  MANAGE_ITEM = '#mangeItem',
+  CHARGE_MONEY = '#chargeMoney',
+  PURCHASE_ITEM = '#purchaseItem',
+  LOG_IN = '#login',
+  SIGN_UP = '#signup',
+  CHANGE_USER_INFO = '#changeUserInfo',
+}
 
-export enum ERROR_MESSAGE {
+export const enum ERROR_MESSAGE {
   ITEM_NAME_DUPLICATED = '이미 등록된 상품명입니다.',
   ITEM_NAME_EMPTY_NAME = '공백으로된 상품명을 입력할 수 없습니다.',
   ITEM_NAME_OVER_MAX_LENGTH = '10자 이상의 상품명을 입력할 수 없습니다.',
@@ -146,7 +146,7 @@ export enum ERROR_MESSAGE {
   INVALID_PASSWORD = '영문, 숫자, 특수문자가 혼용된 8~16자의 비밀번호를 작성해주세요.',
 }
 
-export enum SNACK_BAR_MESSAGE {
+export const enum SNACK_BAR_MESSAGE {
   USER_INFO_CHANGED = '회원 정보가 수정되었습니다.',
   LOGIN_SUCCESS = '로그인 되었습니다.',
   ITEM_ADDED = '상품이 추가되었습니다.',
