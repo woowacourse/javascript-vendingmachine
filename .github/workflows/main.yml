@@ -3,7 +3,7 @@ name: Build and GH-Page Deploy
 on:
   push:
     branches:
-      - jswith-step1
+      - jswith-step2
 
 jobs:
   build:

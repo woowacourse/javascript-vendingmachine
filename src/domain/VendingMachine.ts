@@ -1,18 +1,19 @@
 import { ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import CustomElement from '../ui/CustomElement';
-import { on, $ } from '../utils';
-import { productValidator, changeValidator, updateProductValidator } from '../validator';
-import { ERROR_MESSAGE } from '../constants';
+import { on, $, showSnackBar } from '../utils';
 import Coin from './Coin';
-import { Product } from './Product';
+import { Product, IProduct } from './Product';
+import MoneyInput from './MoneyInput';
+import Change from './Change';
+import { validateReturnCharge } from '../validator/returnChangeValidator';
+import { validatePurchaseProduct } from '../validator/purchaseProductValidator';
+import { validateInputMoney } from '../validator/userInputMoneyValidator';
+import { validateChange } from '../validator/changeValidator';
+import { validateUpdateProduct } from '../validator/updateProductValidator';
+import { validateProduct } from '../validator/productValidator';
 
-interface IVendingMachine {
-  amount: Coin;
-  products: Product[];
-}
-
-class VendingMachine implements IVendingMachine {
+class VendingMachine {
   static _instance: VendingMachine | null = null;
 
   static get instance() {
@@ -24,11 +25,14 @@ class VendingMachine implements IVendingMachine {
 
   amount: Coin;
   products: Product[];
+  moneyInput: MoneyInput;
+  change: Change;
   observers: { key: string; element: CustomElement }[] = [];
 
   constructor() {
     this.amount = new Coin(...storage.getAmount());
     this.products = storage.getProducts().map((product) => new Product(product, product.id));
+    this.moneyInput = new MoneyInput(storage.getUserMoney());
   }
 
   subscribeProductManagement() {
@@ -41,10 +45,17 @@ class VendingMachine implements IVendingMachine {
     on('.charge-form', '@charge', (e) => this.charge(e.detail.change), $('charge-tab'));
   }
 
-  dispatch(key: string, action: string, product?: Product) {
+  subscribePurchaseTab() {
+    on('.purchase-form', '@input', (e) => this.inputMoney(e.detail), $('purchase-tab'));
+    on('#purchase-product-list-table', '@purchase', (e) => this.purchaseProduct(e.detail), $('purchase-tab'));
+    on('.purchase-return-button', '@return', (e) => this.returnChange(), $('purchase-tab'));
+  }
+
+  dispatch(key: string, action: string, data?: Product | number | Coin | Object) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify(action, this.amount, product));
+    const amount = this.amount;
+    targets.forEach((target) => target.element.notify({ action, amount, data }));
   }
 
   observe(key: string, element: CustomElement) {
@@ -52,79 +63,108 @@ class VendingMachine implements IVendingMachine {
     this[key]();
   }
 
-  validateProduct(product: Product, products: Product[]) {
-    if (productValidator.isDuplicated(product.name, products)) {
-      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
-    }
-
-    if (productValidator.isIncorrectUnit(product.price)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
-    }
-  }
-
-  validateUpdateProduct(targetName: string, name: string, price: number, products: Product[]) {
-    if (updateProductValidator.isDuplicated(targetName, name, products)) {
-      throw new Error(ERROR_MESSAGE.DUPLICATED_PRODUCT);
-    }
-
-    if (updateProductValidator.isIncorrectUnit(price)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
-    }
-  }
-
-  validateChange(inputMoney: number, currentChange: number) {
-    if (changeValidator.isOverMax(inputMoney, currentChange)) {
-      throw new Error(ERROR_MESSAGE.OVER_AMOUNT);
-    }
-
-    if (changeValidator.isIncorrectUnit(inputMoney)) {
-      throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
-    }
-  }
-
   addProduct(product: Product) {
     try {
-      this.validateProduct(product, this.products);
+      validateProduct(product, this.products);
       const newProduct = new Product(product);
 
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
       this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'add', newProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
-  updateProduct({ targetName, name, price, quantity }) {
+  updateProduct({ targetProductName, name, price, quantity }) {
     try {
-      this.validateUpdateProduct(targetName, name, price, this.products);
-      const currentProduct = this.products.find((product) => product.name === targetName);
+      validateUpdateProduct(targetProductName, name, price, this.products);
+      const currentProduct = this.products.find((product) => product.name === targetProductName);
 
-      currentProduct.update({ name, price, quantity } as Product);
+      currentProduct.update({ name, price, quantity } as IProduct);
       storage.setLocalStorage('products', this.products);
+
       this.dispatch(ELEMENT_KEY.PRODUCT, 'update', currentProduct);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'update', currentProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
     }
   }
 
-  deleteProduct(targetName: string) {
-    const targetProduct = this.products.find((product) => product.name === targetName);
+  deleteProduct(targetProductName: string) {
+    const targetProduct = this.products.find((product) => product.name === targetProductName);
 
     this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
-    this.products = this.products.filter((product) => product.name !== targetName);
+    this.dispatch(ELEMENT_KEY.PURCHASE, 'delete', targetProduct);
+    this.products = this.products.filter((product) => product.name !== targetProductName);
     storage.setLocalStorage('products', this.products);
   }
 
   charge(inputMoney: number) {
     try {
-      this.validateChange(inputMoney, this.amount.getAmount());
+      validateChange(inputMoney, this.amount.getAmount());
 
-      this.amount.genarateRandomCoin(inputMoney);
+      this.amount.generateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount);
-      this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+      this.dispatch(ELEMENT_KEY.CHARGE, 'update', this.amount);
     } catch (error) {
-      alert(error.message);
+      showSnackBar(error.message);
+    }
+  }
+
+  inputMoney(money: number) {
+    try {
+      validateInputMoney(money, this.moneyInput.getAmount());
+
+      this.moneyInput.addMoney(money);
+      const userMoney = this.moneyInput.getAmount();
+      storage.setLocalStorage('userMoney', userMoney);
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'input', userMoney);
+    } catch (error) {
+      showSnackBar(error.message);
+    }
+  }
+
+  purchaseProduct(targetProductName: string) {
+    try {
+      validatePurchaseProduct(targetProductName, this.products, this.moneyInput.getAmount());
+
+      const targetProduct = this.products.find((product) => product.name === targetProductName);
+      targetProduct.purchase();
+      this.moneyInput.subtractMoney(targetProduct.price);
+
+      if (targetProduct.quantity === 0) {
+        this.products = this.products.filter((product) => product.name !== targetProductName);
+      }
+
+      const userMoney = this.moneyInput.getAmount();
+      storage.setLocalStorage('products', this.products);
+      storage.setLocalStorage('userMoney', userMoney);
+
+      const { id, quantity } = targetProduct;
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', { id, quantity, userMoney });
+    } catch (error) {
+      showSnackBar(error.message);
+    }
+  }
+
+  returnChange() {
+    try {
+      const chargedCoin = this.amount;
+      validateReturnCharge(chargedCoin);
+
+      const userInputMoney = this.moneyInput;
+      const change = new Change();
+
+      change.calculateReturnChange({ userInputMoney, chargedCoin, change });
+      const userMoney = userInputMoney.getAmount();
+      storage.setLocalStorage('userMoney', userMoney);
+      storage.setLocalStorage('amount', chargedCoin);
+
+      this.dispatch(ELEMENT_KEY.PURCHASE, 'return', { userMoney, change, chargedCoin });
+    } catch (error) {
+      showSnackBar(error.message);
     }
   }
 }

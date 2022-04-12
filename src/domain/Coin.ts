@@ -15,7 +15,7 @@ class Coin {
     return Object.entries(this).reduce((previous, [key, value]) => previous + value * Number(key), 0);
   }
 
-  genarateRandomCoin(amount: number) {
+  generateRandomCoin(amount: number) {
     let remainingAmount = amount;
 
     while (remainingAmount > 0) {
@@ -26,6 +26,10 @@ class Coin {
         remainingAmount -= randomCoin;
       }
     }
+  }
+
+  subtractCoin(value, count) {
+    this[value] -= count;
   }
 }
 

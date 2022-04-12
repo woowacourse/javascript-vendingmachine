@@ -80,15 +80,15 @@ class ProductManagement extends CustomElement {
 
     if (!e.submitter.classList.contains('product-item__confirm-button')) return;
 
-    const targetName: string = e.target.closest('.product-item').dataset.productName;
+    const targetProductName: string = e.target.closest('.product-item').dataset.productName;
     const name: string = e.target.name.value;
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
+    emit('#product-list-table', '@update', { targetProductName, name, price, quantity }, this);
   }
 
-  notify(action: string, _: never, product: Product) {
+  notify({ action, data: product }) {
     switch (action) {
       case 'add':
         this.insertItem(product);

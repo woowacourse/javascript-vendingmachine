@@ -8,8 +8,19 @@
 
   <body>
     <main id="app">
-      <h1>🍿 자판기 🍿</h1>
-      <nav class="nav">
+      <button type="button" class="login-button button hidden">로그인</button>
+      <div class="select-box-wrapper">
+        <button type="button" class="user-info-button"></button>
+        <div class="select-box hidden">
+          <div class="select-box-flex">
+            <button type="button" class="select-box__edit-profile-button select-box__button">회원 정보 수정</button>
+            <button type="button" class="select-box__logout-button select-box__button">로그아웃</button>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="header">🍿 자판기 🍿</h1>
+      <nav class="nav header">
         <button type="button" class="nav__product-manage-tab button focus-button" route="/javascript-vendingmachine/">
           상품 관리
         </button>
@@ -21,9 +32,14 @@
         </button>
       </nav>
       <section id="tab">
-        <product-management></product-management>
+        <product-management class="hidden"></product-management>
         <charge-tab class="hidden"></charge-tab>
+        <purchase-tab class="hidden"></purchase-tab>
+        <sign-in class="hidden"></sign-in>
+        <sign-up class="hidden"></sign-up>
+        <edit-profile class="hidden"></edit-profile>
       </section>
+      <div id="snack-bar"></div>
     </main>
   </body>
 </html>

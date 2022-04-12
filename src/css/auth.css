@@ -1,0 +1,104 @@
+.login-button {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.user-info-button {
+  align-self: flex-end;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  color: var(--user-info-thumbnail-font-color);
+  border: 1px solid var(--user-info-button-border-color);
+  background-color: var(--user-info-thumbnail-bg-color);
+  cursor: pointer;
+}
+
+.signup-form,
+.signin-form,
+.edit-profile-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup-form label,
+.signin-form label,
+.edit-profile-form label {
+  align-self: flex-start;
+}
+
+.signup-form input,
+.signin-form input,
+.edit-profile-form input {
+  width: 280px;
+  margin-bottom: 20px;
+}
+
+.edit-profile-form input:disabled {
+  background-color: var(--input-disabled-bg-color);
+}
+
+.signup-form button,
+.signin-form button,
+.edit-profile-form button {
+  width: 280px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: var(--submit-button-bg-color);
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.signup-text {
+  cursor: pointer;
+  color: var(--signup-text-color);
+}
+
+.select-box-wrapper {
+  align-self: flex-end;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.select-box {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  align-items: center;
+}
+
+.select-box-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-box button {
+  background: var(--button-bg-color);
+  width: 100px;
+  cursor: pointer;
+}
+
+.select-box .select-box__edit-profile-button,
+.select-box .select-box__logout-button {
+  padding: 5px;
+  border: none;
+}
+
+.select-box .select-box__edit-profile-button {
+  border-bottom: 1px solid var(--select-box-border-color);
+  border-radius: 10px 10px 0 0;
+}
+
+.select-box .select-box__logout-button {
+  border-radius: 0 0 10px 10px;
+}
+
+.select-box .select-box__edit-profile-button:hover,
+.select-box .select-box__logout-button:hover {
+  background-color: var(--select-box-button-color);
+}

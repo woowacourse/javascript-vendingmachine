@@ -3,7 +3,6 @@ import TEMPLATE from '../templates';
 import { $, addEvent, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import storage from '../storage';
-import Coin from '../domain/Coin';
 import { COINS, ELEMENT_KEY } from '../constants';
 
 class ChargeTab extends CustomElement {
@@ -38,7 +37,7 @@ class ChargeTab extends CustomElement {
     emit('.charge-form', '@charge', { change }, this);
   }
 
-  notify(_: never, amount: Coin, __: never) {
+  notify({ amount }) {
     $('.charge-amount', this).textContent = markUnit(amount.getAmount());
     COINS.forEach((coin) => ($(`.coin-${coin}-quantity`).textContent = amount[coin]));
   }

@@ -32,3 +32,12 @@ tr {
 #coin-list-table {
   margin-top: 38px;
 }
+
+#purchase-product-list-table {
+  margin-top: 30px;
+}
+
+#purchase-coin-list-table {
+  margin-top: 60px;
+  margin-bottom: 20px;
+}

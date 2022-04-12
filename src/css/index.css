@@ -1,6 +1,9 @@
 @import './table.css';
 @import './product-manage-tab.css';
 @import './charge-tab.css';
+@import './purchase-tab.css';
+@import './auth.css';
+@import './snackbar.css';
 
 :root {
   --primary-font-color: rgba(0, 0, 0, 0.87);
@@ -10,6 +13,13 @@
   --button-bg-color: #f5f5f5;
   --button-focus-bg-color: #00bcd429;
   --submit-button-bg-color: #00bcd4;
+  --select-box-button-color: #98e2ec;
+  --select-box-border-color: #000000;
+  --signup-text-color: #3581d7;
+  --input-disabled-bg-color: #e0e0e0;
+  --user-info-thumbnail-bg-color: #00bcd429;
+  --user-info-thumbnail-font-color: #000000;
+  --user-info-button-border-color: #ffffff;
 }
 
 body {
@@ -20,6 +30,9 @@ body {
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -27,6 +40,7 @@ h1 {
 }
 
 #app {
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
