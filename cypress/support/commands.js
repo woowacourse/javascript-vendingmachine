@@ -97,3 +97,8 @@ Cypress.Commands.add('signup', (email, name, password, passwordConfirm) => {
 
   cy.get('.signup-button').click();
 });
+
+Cypress.Commands.add('logout', () => {
+  cy.get('.user-thumbnail').click();
+  cy.get('.logout-button').click();
+});

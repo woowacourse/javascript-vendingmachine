@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../../src/ts/constants';
 import { pickRandomIndex } from '../../src/ts/utils';
 
-const createRandomId = () =>
+const createRandomEmail = () =>
   `${Array.from({ length: 15 }, () => pickRandomIndex(1, 30)).join(
     ''
   )}@random.com`;
@@ -12,11 +12,10 @@ describe('회원가입 테스트', () => {
   });
 
   it('회원가입을 할 수 있다.', () => {
-    const randomId = createRandomId();
-    const userName = '후이';
+    const name = '후이';
     const password = 'random123!';
 
-    cy.signup(randomId, userName, password, password);
+    cy.signup(createRandomEmail(), name, password, password);
 
     cy.url().should('eq', 'http://localhost:9000/products');
   });
