@@ -6,7 +6,7 @@
     "sourceMap": true,
     "allowJs": true,
     "checkJs": false,
-    "target": "es5",
+    "target": "es6",
   },
   "exclude": [
     "**/*.test.ts"

@@ -4,7 +4,7 @@ import { ITEM_ERROR_MESSAGE } from '../ts/constant/errorMessage';
 describe('상품 추가할 때, 입력값 유효성 확인', () => {
   const vendingMachine = new ItemManage();
 
-  test('입력값은 공백이 아니어야 한다.', () => {
+  test('입력값이 하나라도 공백이면 에러가 발생한다.', () => {
     const itemName = '';
     const itemPrice = 1000;
     const itemQuantity = 20;
@@ -14,7 +14,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('가격과 수량은 숫자 타입이어야 한다.', () => {
+  test('가격과 수량이 숫자 타입이 아니면 에러가 발생한다.', () => {
     const itemName = 'asdfasdf';
     const itemPrice = NaN;
     const itemQuantity = NaN;
@@ -24,7 +24,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품명은 최대 10글자까지 가능하다.', () => {
+  test('상품명이 10글자 초과면 에러가 발생한다.', () => {
     const itemName = 'asdfasdfasdf';
     const itemPrice = 1000;
     const itemQuantity = 10;
@@ -34,7 +34,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 가격은 100원 이상이어야 한다.', () => {
+  test('상품 가격이 100원 미만이면 에러가 발생한다.', () => {
     const itemName = 'asdfasdf';
     const itemPrice = 99;
     const itemQuantity = 10;
@@ -44,7 +44,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 가격은 10,000원 이하이어야 한다.', () => {
+  test('상품 가격이 10,000원 초과면 에러가 발생한다.', () => {
     const itemName = 'asdfasdf';
     const itemPrice = 10001;
     const itemQuantity = 10;
@@ -54,17 +54,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('상품 가격은 100원 이상, 10,000원 이하여야 한다.', () => {
-    const itemName = 'asdfasdf';
-    const itemPrice = 10000;
-    const itemQuantity = 10;
-
-    expect(() =>
-      vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })
-    ).not.toThrow();
-  });
-
-  test('10원으로 나누어 떨어져야 한다.', () => {
+  test('상품 가격이 10원으로 나누어 떨어져지 않으면 에러가 발생한다.', () => {
     const itemName = 'asdfasdf';
     const itemPrice = 1001;
     const itemQuantity = 10;
@@ -74,7 +64,7 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     );
   });
 
-  test('한 제품당 수량은 최대 20개까지 넣을 수 있다.', () => {
+  test('한 제품당 수량이 20개 초과면 에러가 발생한다.', () => {
     const itemName = 'asdfasdf';
     const itemPrice = 1000;
     const itemQuantity = 21;
@@ -82,5 +72,15 @@ describe('상품 추가할 때, 입력값 유효성 확인', () => {
     expect(() => vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })).toThrow(
       ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE
     );
+  });
+
+  test('올바른 값을 입력하면 에러가 발생하지 않는다.', () => {
+    const itemName = 'asdfasdf';
+    const itemPrice = 1000;
+    const itemQuantity = 20;
+
+    expect(() =>
+      vendingMachine.validateItemInput({ itemName, itemPrice, itemQuantity })
+    ).not.toThrow();
   });
 });

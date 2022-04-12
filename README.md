@@ -19,25 +19,35 @@
 
 [기능 명세서](https://github.com/nan-noo/javascript-vendingmachine/blob/step1/doc/README.md)
 
-## 구조 설계도
-
-![vendingmachine-step1](https://user-images.githubusercontent.com/54002105/160229971-6fc7bfac-f2d1-453d-88e3-dee2206a9a31.png)
-
-
 ## ⚙️ Before Started
 
 #### 개발 환경 가이드
 
-개발 중에는 아래 명령어를 사용하여 webpack dev server를 띄워 현재 개발 중인 어플리케이션을 확인할 수 있습니다.
+개발 중에는 아래 명령어를 사용하여 webpack dev server를 띄워 현재 개발 중인 어플리케이션을 확인할 수
+있습니다.
 
-```
+```bash
 npm run start
 ```
 
-별도로 빌드를 해야 한다면 아래 명령어를 사용해주세요
+별도로 빌드를 해야 한다면 아래 명령어를 사용해주세요.
 
-```
+```bash
 npm run build
+```
+
+개발 중에 local json server를 사용하려면 다음 명령어를 사용해주세요.
+
+```bash
+npm run server
+```
+
+단, 프로젝트 폴더 아래에 `db.json` 파일이 필요합니다.
+
+```json
+{
+  "users": []
+}
 ```
 
 <br>
@@ -50,10 +60,12 @@ npm run build
 
 ## 🐞 Bug Report
 
-버그를 발견한다면, [Issues](https://github.com/woowacourse/javascript-vendingmachine/issues)에 등록해주세요.
+버그를 발견한다면, [Issues](https://github.com/woowacourse/javascript-vendingmachine/issues)에 등록
+해주세요.
 
 <br>
 
 ## 📝 License
 
-This project is [MIT](https://github.com/woowacourse/javascript-vendingmachine/blob/main/LICENSE) licensed.
+This project is [MIT](https://github.com/woowacourse/javascript-vendingmachine/blob/main/LICENSE)
+licensed.

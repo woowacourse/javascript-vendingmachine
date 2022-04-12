@@ -1,0 +1,30 @@
+#item-purchase-form {
+  width: 80%;
+}
+
+.item-purchase-input {
+  width: 100%;
+}
+
+.total-user-input-amount {
+  width: 80%;
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.purchase-item-button {
+  width: 100%;
+}
+
+.change-table {
+  margin-top: 48px;
+  min-width: 300px;
+}
+
+.give-change-button {
+  margin-top: 16px;
+  width: 20%;
+}

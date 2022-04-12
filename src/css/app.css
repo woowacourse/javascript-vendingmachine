@@ -1,4 +1,6 @@
 #app {
+  position: relative;
+
   margin: 32px auto;
   padding: 44px 89px;
   width: fit-content;
@@ -17,20 +19,60 @@
   padding: 52px 0;
 
   width: 440px;
-  height: 500px;
+  height: fit-content;
   box-shadow: 0 1em 1em -1em var(--box-shadow-color) inset;
+}
+
+#tab-content.login {
+  padding: 0;
+  box-shadow: none;
 }
 
 .input-form {
   display: flex;
   flex-direction: column;
-  align-items: space-around;
 }
 
 .input-form-container {
   display: flex;
 }
 
+.table-container {
+  margin-top: 48px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 .hide {
   display: none;
+}
+
+#login-button {
+  align-self: flex-end;
+  padding: 4px 24px;
+}
+
+#thumbnail-button {
+  align-self: flex-end;
+  padding: 8px 14px;
+
+  border-radius: 50%;
+  background-color: var(--selected-nav-tab-button-bg-color);
+}
+
+#thumbnail-button:hover {
+  background-color: var(--thumbnail-button-hover-bg-color);
+}
+
+.thumbnail-option {
+  position: absolute;
+  top: 85px;
+  right: 55px;
+
+  border: 1px solid var(--input-border-color);
+  outline: none;
+}
+
+.thumbnail-option:focus {
+  outline: 1px solid var(--box-shadow-color);
 }

@@ -1,24 +1,29 @@
 import { CASH_ERROR_MESSAGE } from '../constant/errorMessage';
 import { CASH, COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
+export type CoinCollectionType = {
+  [COIN_500]: number;
+  [COIN_100]: number;
+  [COIN_50]: number;
+  [COIN_10]: number;
+};
+
+type TestCaseType = { testCase: (rechargedCash: number) => boolean; errorMessage: string };
+
 interface CoinRechargeInterface {
   chargeCoin: (rechargeCoin: number) => void;
   calculateTotalCoinAmount: () => number;
 }
 
 class CoinRecharge implements CoinRechargeInterface {
-  private _coinCollection: Object;
+  private _coinCollection: CoinCollectionType = {
+    [COIN_500]: 0,
+    [COIN_100]: 0,
+    [COIN_50]: 0,
+    [COIN_10]: 0,
+  };
 
-  constructor() {
-    this._coinCollection = {
-      [COIN_500]: 0,
-      [COIN_100]: 0,
-      [COIN_50]: 0,
-      [COIN_10]: 0,
-    };
-  }
-
-  get coinCollection(): Object {
+  get coinCollection(): CoinCollectionType {
     return this._coinCollection;
   }
 
@@ -39,7 +44,7 @@ class CoinRecharge implements CoinRechargeInterface {
       }
 
       const selectedCoin = candidateCoins[Math.floor(Math.random() * candidateCoins.length)];
-      this._coinCollection[selectedCoin]++;
+      this._coinCollection[selectedCoin] += 1;
       remainCoin -= selectedCoin;
     }
 
@@ -53,8 +58,12 @@ class CoinRecharge implements CoinRechargeInterface {
     );
   }
 
+  updateCoinCollection(newCoinCollection: CoinCollectionType) {
+    this._coinCollection = { ...newCoinCollection };
+  }
+
   validateCashInput(rechargedCash: number) {
-    const testCases = [
+    const testCases: TestCaseType[] = [
       { testCase: this.isNotNumberTypeCash, errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE },
       { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
       {
@@ -76,12 +85,15 @@ class CoinRecharge implements CoinRechargeInterface {
   private isNotNumberTypeCash(rechargedCash: number) {
     return isNaN(rechargedCash);
   }
+
   private isLowerThanMinRange(rechargedCash: number) {
     return rechargedCash < CASH.MIN;
   }
+
   private isExceedTotalAmountRange(rechargedCash: number) {
     return rechargedCash > CASH.MAX - this.calculateTotalCoinAmount();
   }
+
   private isNotDividedByUnitCash(rechargedCash: number) {
     return rechargedCash % CASH.UNIT !== 0;
   }

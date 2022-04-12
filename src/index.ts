@@ -5,6 +5,6 @@ addEventListener('DOMContentLoaded', () => {
   checkRoute();
 });
 
-addEventListener('popstate', () => {
+addEventListener('hashchange', () => {
   checkRoute();
 });
