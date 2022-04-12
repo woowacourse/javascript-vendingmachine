@@ -52,7 +52,7 @@ class RegisterFormComponent {
     this.$mainContents.replaceChildren();
   };
 
-  template = () => `<h1>회원가입</h1>
+  private template = () => `<h1>회원가입</h1>
     <form id="register-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" placeholder="이메일 주소를 입력해주세요" required />

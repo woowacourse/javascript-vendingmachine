@@ -73,7 +73,7 @@ class UserInfoComponent {
     this.$mainContents.replaceChildren();
   };
 
-  template = () => `<h1>회원 정보 수정</h1>
+  private template = () => `<h1>회원 정보 수정</h1>
     <form id="user-info-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" value="${this.user.email}" disabled />
