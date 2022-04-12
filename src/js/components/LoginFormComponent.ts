@@ -55,8 +55,6 @@ class LoginFormComponent {
     return ALERT_MESSAGE.LOGIN_SUCCESS(data.user.name);
   };
 
-  refreshComponent = () => {};
-
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
     this.bindEventAndElement();

@@ -34,8 +34,6 @@ class AddProductComponent {
     }
   };
 
-  refreshComponent = () => {};
-
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
     this.bindEventAndElement();
