@@ -128,18 +128,21 @@ export default class ProductPurchase {
   renderProducts() {
     const products = vendingMachine.getProducts();
 
-    products.forEach(product => {
-      this.renderProductItem(product);
-    });
+    if (products.length === 0) return;
+
+    this.$productList.appendChild(this.productsElement(products));
   }
 
-  renderProductItem(product: Product) {
+  productsElement(products: Array<Product>) {
     const fragment = new DocumentFragment();
-    const li = document.createElement('li');
 
-    li.insertAdjacentHTML('beforeend', template.purchaseProductItem(product));
-    fragment.appendChild(li);
-    this.$productList.appendChild(fragment);
+    products.forEach(product => {
+      const li = document.createElement('li');
+      li.insertAdjacentHTML('beforeend', template.purchaseProductItem(product));
+      fragment.appendChild(li);
+    });
+
+    return fragment;
   }
 
   refreshUserChange(userChanges: Coin) {
