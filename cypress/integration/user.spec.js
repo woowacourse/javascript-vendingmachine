@@ -3,10 +3,6 @@ import ProductAPI from '../../src/js/api/productAPI';
 
 describe('일반 사용자의 경우', () => {
   before(() => {
-    cy.visit('http://localhost:9000');
-  });
-
-  beforeEach(() => {
     cy.intercept('GET', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS, {
       fixture: 'productListDataResponse.json',
     }).as('productListRequest');
@@ -15,9 +11,11 @@ describe('일반 사용자의 경우', () => {
       fixture: 'moneyDataResponse.json',
     }).as('moneyDataRequest');
 
-    cy.intercept('POST', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS + '/*', {
+    cy.intercept('PATCH', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS + '/*', {
       fixture: 'responseOK.json',
-    }).as('postProductRequest');
+    }).as('patchProductUpdateRequest');
+
+    cy.visit('http://localhost:9000');
   });
 
   it('상품을 구매할 금액을 투입하고 물건을 구매할 수 있다.', () => {
