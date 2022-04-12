@@ -3,9 +3,9 @@ import Product from '../domain/Product';
 
 export interface Notification {
   action: string;
-  amount: Safe;
+  amount?: Safe;
   product?: Product;
-  userAmount: number;
+  userAmount?: number;
   userName?: string;
 }
 

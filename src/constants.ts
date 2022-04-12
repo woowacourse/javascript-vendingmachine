@@ -27,6 +27,17 @@ export enum ELEMENT_KEY {
   PURCHASE = 'subscribePurchaseTab',
 }
 
+export enum ELEMENT_ACTION {
+  INSERT_ITEM = 'add',
+  UPDATE_ITEM = 'update',
+  DELETE_ITEM = 'delete',
+  UPDATE_AMOUNT = 'insert-coin',
+  PURCHASE = 'purchase',
+  UPDATE_PRODUCT = 'update-product',
+  DELETE_PRODUCT = 'delete-product',
+  RETURN_OF_CHANGE = 'return',
+}
+
 export const CUSTOM_EVENT = {
   PRODUCT: {
     ADD: '@add',

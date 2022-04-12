@@ -1,11 +1,9 @@
 import { historyRouterPush } from '../router';
 import storage from '../storage';
-import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
-import { Notification } from '../ui/CustomElement';
 import { validateProfileEdit, validateSignup } from '../validator/authentication';
 import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN, CUSTOM_EVENT } from '../constants';
-import { Observer } from './types';
+import { Dispatch, Observer } from './types';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -19,11 +17,10 @@ class Authentication {
 
   observers: Observer[] = [];
 
-  dispatch(params: any) {
-    const { key, userName } = params;
+  dispatch({ key, action, userName }: Dispatch) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
-    targets.forEach((target) => target.element.notify({ userName } as Notification));
+    targets.forEach((target) => target.element.notify({ action, userName }));
   }
 
   observe({ key, element }: Observer) {

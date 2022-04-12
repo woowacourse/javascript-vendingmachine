@@ -1,4 +1,4 @@
-import { CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
+import { CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY } from '../constants';
 import storage from '../storage';
 import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
@@ -12,7 +12,7 @@ import {
 } from '../validator';
 import { Safe } from './Safe';
 import Product from './Product';
-import { Observer } from './types';
+import { Dispatch, Observer } from './types';
 
 interface VendingMachineProperty {
   amount: Safe;
@@ -76,7 +76,7 @@ class VendingMachine implements VendingMachineProperty {
     on('.return-button', CUSTOM_EVENT.RETURN_OF_CHANGE, () => this.returnCoin(), $('purchase-tab'));
   }
 
-  dispatch(key: string, action: string, product?: Product) {
+  dispatch({ key, action, product }: Dispatch) {
     const targets = this.observers.filter((observer) => observer.key === key);
 
     targets.forEach((target) => target.element.notify({ action, product, ...this }));
@@ -94,8 +94,8 @@ class VendingMachine implements VendingMachineProperty {
 
       this.products.push(newProduct);
       storage.setLocalStorage('products', this.products);
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'update-product', newProduct);
-      this.dispatch(ELEMENT_KEY.PRODUCT, 'add', newProduct);
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.UPDATE_PRODUCT, product: newProduct });
+      this.dispatch({ key: ELEMENT_KEY.PRODUCT, action: ELEMENT_ACTION.INSERT_ITEM, product: newProduct });
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -108,8 +108,8 @@ class VendingMachine implements VendingMachineProperty {
 
       target.update({ name, price, quantity } as Product);
       storage.setLocalStorage('products', this.products);
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'update-product', target);
-      this.dispatch(ELEMENT_KEY.PRODUCT, 'update', target);
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.UPDATE_PRODUCT, product: target });
+      this.dispatch({ key: ELEMENT_KEY.PRODUCT, action: ELEMENT_ACTION.UPDATE_ITEM, product: target });
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -118,8 +118,8 @@ class VendingMachine implements VendingMachineProperty {
   deleteProduct(targetName: string) {
     const targetProduct = this.products.find((product) => product.name === targetName);
 
-    this.dispatch(ELEMENT_KEY.PURCHASE, 'delete-product', targetProduct);
-    this.dispatch(ELEMENT_KEY.PRODUCT, 'delete', targetProduct);
+    this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.DELETE_PRODUCT, product: targetProduct });
+    this.dispatch({ key: ELEMENT_KEY.PRODUCT, action: ELEMENT_ACTION.DELETE_ITEM, product: targetProduct });
     this.products = this.products.filter((product) => product.name !== targetName);
     storage.setLocalStorage('products', this.products);
   }
@@ -130,7 +130,7 @@ class VendingMachine implements VendingMachineProperty {
 
       this.amount.genarateRandomCoin(inputMoney);
       storage.setLocalStorage('amount', this.amount.counter);
-      this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+      this.dispatch({ key: ELEMENT_KEY.CHARGE, action: ELEMENT_ACTION.UPDATE_ITEM });
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -141,7 +141,7 @@ class VendingMachine implements VendingMachineProperty {
       validateUserInputMoney(userInputMoney, this.userAmount);
 
       this.userAmount += userInputMoney;
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'insert-coin');
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.UPDATE_AMOUNT });
     } catch (error) {
       showSnackbar(error.message);
     }
@@ -155,7 +155,7 @@ class VendingMachine implements VendingMachineProperty {
 
       this.userAmount -= targetProduct.price;
       targetProduct.quantity -= 1;
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'purchase', targetProduct);
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.PURCHASE, product: targetProduct });
 
       if (targetProduct.quantity <= 0) {
         this.products = this.products.filter((product) => product.id !== targetProduct.id);
@@ -174,8 +174,8 @@ class VendingMachine implements VendingMachineProperty {
       const remainingUserAmount = this.amount.returnChange(this.userAmount);
 
       this.userAmount = remainingUserAmount;
-      this.dispatch(ELEMENT_KEY.PURCHASE, 'return');
-      this.dispatch(ELEMENT_KEY.CHARGE, 'update');
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.RETURN_OF_CHANGE });
+      this.dispatch({ key: ELEMENT_KEY.CHARGE, action: ELEMENT_ACTION.UPDATE_ITEM });
       storage.setLocalStorage('amount', this.amount.counter);
     } catch (error) {
       showSnackbar(error.message);
