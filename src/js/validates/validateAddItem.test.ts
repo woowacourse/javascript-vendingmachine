@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../constants/errorConstants';
 import { ITEM } from '../constants/vendingMachineConstants';
 import Item from '../vendingMachine/item';
-import VendingMachine from '../vendingMachine/vendingMachine';
+import ItemManager from '../vendingMachine/itemManager';
 import { checkDuplicatedItem, validateAddItemInput } from './validates';
 
 describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
@@ -98,15 +98,14 @@ describe('입력된 상품 이름, 가격, 수량이 주어질 떼', () => {
 
 describe('아이템이 주어질 때', () => {
   test('저장된 item 리스트에 같은 이름의 상품이 있다면 에러를 throw한다.', () => {
-    const vendingMachine = new VendingMachine();
+    const itemManager = new ItemManager();
 
-    vendingMachine.addItem({ name: '펩시', price: 900, quantity: 3 });
-    vendingMachine.addItem({ name: '콜라', price: 1200, quantity: 1 });
+    itemManager.addItem({ name: '펩시', price: 900, quantity: 3, id: 0 });
 
-    const newItem = new Item({ name: '콜라', price: 1000, quantity: 2, id: 0 });
+    const newItem = new Item({ name: '펩시', price: 1000, quantity: 2, id: 1 });
 
     expect(() => {
-      checkDuplicatedItem(vendingMachine.items, newItem, null);
+      checkDuplicatedItem(itemManager.items, newItem, null);
     }).toThrow(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
   });
 });
