@@ -5,7 +5,11 @@ import {
   UserInfo,
   UserStoreInterface,
 } from '../types';
-import { userInfoInputTestCases, loginInputTestCases } from './validation/authenticationValidator';
+import {
+  loginInputTestCases,
+  userInfoInputTestCases,
+  editUserInfoInputTestCases,
+} from './validation/authenticationValidator';
 import { request } from '../utils/index';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 import { COOKIE_KEY } from '../constant/cookie';
@@ -82,13 +86,6 @@ class UserStore implements UserStoreInterface {
     deleteCookie(COOKIE_KEY.USER_INFO);
   }
 
-  validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
-    testCases.every(({ testCase, errorMessage }) => {
-      if (testCase(validationInfo)) throw new Error(errorMessage);
-      return true;
-    });
-  }
-
   validateLoginInput(loginInfo: AuthenticationInfo): void {
     this.validateTestCase(loginInputTestCases, loginInfo);
   }
@@ -97,7 +94,16 @@ class UserStore implements UserStoreInterface {
     this.validateTestCase(userInfoInputTestCases, inputedUserInfo);
   }
 
-  validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
+  validateEditUserInfoInput(editUserInfoInput: AuthenticationInfo): void {
+    this.validateTestCase(editUserInfoInputTestCases, editUserInfoInput);
+  }
+
+  private validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
+    testCases.every(({ testCase, errorMessage }) => {
+      if (testCase(validationInfo)) throw new Error(errorMessage);
+      return true;
+    });
+  }
 
   private getUserInfoCookie() {
     const userInfoCookie: string | undefined = getCookie(COOKIE_KEY.USER_INFO);

@@ -52,7 +52,7 @@ class UserInfoEditView implements ViewInterface {
     );
 
     try {
-      this.userStore.validateUserInfoInput(userInfo);
+      this.userStore.validateEditUserInfoInput(userInfo);
       await this.userStore.editUserInfo(userInfo);
     } catch (error) {
       showSnackbar(error.message);

@@ -53,6 +53,13 @@ const isDifferentVerificationPassword = ({
   return password !== verificationPassword;
 };
 
+export const loginInputTestCases: TestCase[] = [
+  {
+    testCase: isNotEmailFormat,
+    errorMessage: AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT,
+  },
+];
+
 export const userInfoInputTestCases: TestCase[] = [
   {
     testCase: isNotEmailFormat,
@@ -88,9 +95,33 @@ export const userInfoInputTestCases: TestCase[] = [
   },
 ];
 
-export const loginInputTestCases: TestCase[] = [
+export const editUserInfoInputTestCases: TestCase[] = [
   {
-    testCase: isNotEmailFormat,
-    errorMessage: AUTHENTICATION_MESSAGE.NOT_EMAIL_FORMAT,
+    testCase: isInvalidNameLength,
+    errorMessage: AUTHENTICATION_MESSAGE.EXCEED_NAME_LENGTH_RANGE,
+  },
+  {
+    testCase: isInvalidPasswordLength,
+    errorMessage: AUTHENTICATION_MESSAGE.EXCEED_PASSWORD_LENGTH_RANGE,
+  },
+  {
+    testCase: isNotExistNumberInPassword,
+    errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+  },
+  {
+    testCase: isNotExistAlphabetInPassword,
+    errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+  },
+  {
+    testCase: isNotExistSpecialCharacterInPassword,
+    errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+  },
+  {
+    testCase: isExistOtherCharacterInPassword,
+    errorMessage: AUTHENTICATION_MESSAGE.NOT_PASSWORD_FORMAT,
+  },
+  {
+    testCase: isDifferentVerificationPassword,
+    errorMessage: AUTHENTICATION_MESSAGE.DIFFERENT_VERIFICATION_PASSWORD,
   },
 ];
