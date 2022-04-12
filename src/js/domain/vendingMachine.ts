@@ -1,13 +1,10 @@
 import * as type from "../interface/vendingMachine.interface";
 
 import {
-  checkDuplicatedName,
-  checkNameLength,
+  checkValidProductName,
   checkValidPrice,
   checkValidCount,
-  checkDividedByMinimumCoin,
-  checkMoneyOverMaximum,
-  checkMoneyUnderZero,
+  checkValidChanges,
 } from "../util/validations";
 
 import SingleProduct from "./product";
@@ -32,8 +29,7 @@ export default class VendingMachine implements type.IVendingMachine {
   }
 
   addProduct: type.IAddProduct = ({ name, price, count }) => {
-    checkDuplicatedName(this.products, name);
-    checkNameLength(name);
+    checkValidProductName(this.products, name);
     checkValidPrice(price);
     checkValidCount(count);
 
@@ -47,8 +43,7 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   updateProduct: type.IUpdateProduct = (id, name, price, count) => {
-    checkDuplicatedName(this.products, name, id);
-    checkNameLength(name);
+    checkValidProductName(this.products, name, id);
     checkValidPrice(price);
     checkValidCount(count);
 
@@ -66,9 +61,7 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   chargeChanges: type.IChargeChanges = (money) => {
-    checkDividedByMinimumCoin(money);
-    checkMoneyOverMaximum(this.getTotalChanges() + money);
-    checkMoneyUnderZero(money);
+    checkValidChanges(money, this.getTotalChanges() + money);
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);
