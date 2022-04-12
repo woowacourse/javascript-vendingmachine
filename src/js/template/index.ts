@@ -1,4 +1,3 @@
-import changeListWrapper from './changeListWrapper';
 import loginContainer from './loginContainer';
 import modifyProductItem from './modifyProductItem';
 import moneyAddContainer from './moneyAddContainer';
@@ -10,7 +9,6 @@ import signupContainer from './signupContainer';
 import editProfileContainer from './editProfileContainer';
 
 export default {
-  changeListWrapper,
   loginContainer,
   modifyProductItem,
   moneyAddContainer,

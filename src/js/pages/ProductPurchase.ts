@@ -1,3 +1,4 @@
+import ChangeListWrapper from '../components/ChangeListWrapper';
 import PurchaseDialog from '../components/PurchaseDialog';
 import showSnackbar from '../components/Snackbar';
 import { ERROR_MESSAGE } from '../constants';
@@ -13,12 +14,7 @@ export default class ProductPurchase {
   $moneyAddForm: HTMLElement;
   $totalChange: HTMLElement;
   $productList: HTMLElement;
-  $changeList: HTMLElement;
   $changeReturnButton: HTMLButtonElement;
-  $amountCoin500: HTMLElement;
-  $amountCoin100: HTMLElement;
-  $amountCoin50: HTMLElement;
-  $amountCoin10: HTMLElement;
 
   constructor() {
     this.$inputSection = document.querySelector('.input-section');
@@ -34,17 +30,20 @@ export default class ProductPurchase {
         resultText: '투입한 금액',
       }),
     );
+
     this.$contentsContainer.insertAdjacentHTML(
       'beforeend',
       template.productListContainer({
         tabName: this.tabName,
         title: '구매 가능 상품 현황',
-      }) +
-        template.changeListWrapper({
-          title: '잔돈 반환',
-          tabName: this.tabName,
-        }),
+      }),
     );
+
+    ChangeListWrapper.createElement({
+      targetElement: this.$contentsContainer,
+      title: '잔돈 반환',
+      tabName: this.tabName,
+    });
 
     this.$headerTitle = document.querySelector('#header-title');
     this.$headerTitle.textContent = '🍿 자판기 🍿';
@@ -52,12 +51,7 @@ export default class ProductPurchase {
     this.$moneyAddForm = this.$inputSection.querySelector('#money-add-form');
     this.$totalChange = this.$inputSection.querySelector('#total-money');
     this.$productList = this.$contentsContainer.querySelector('#product-list');
-    this.$changeList = this.$contentsContainer.querySelector('#change-list');
 
-    this.$amountCoin500 = this.$changeList.querySelector('#amount-coin-500');
-    this.$amountCoin100 = this.$changeList.querySelector('#amount-coin-100');
-    this.$amountCoin50 = this.$changeList.querySelector('#amount-coin-50');
-    this.$amountCoin10 = this.$changeList.querySelector('#amount-coin-10');
     this.$changeReturnButton = this.$contentsContainer.querySelector('#change-return-button');
 
     this.$productList.addEventListener('click', this.onClickPurchaseButton);
@@ -118,7 +112,7 @@ export default class ProductPurchase {
   onReturnChange = (e: PointerEvent) => {
     try {
       const userChanges = vendingMachine.getUserChanges();
-      this.refreshUserChange(userChanges);
+      ChangeListWrapper.setState(userChanges);
       this.refreshUserMoney();
     } catch (err) {
       showSnackbar(err.message);
@@ -143,15 +137,6 @@ export default class ProductPurchase {
     });
 
     return fragment;
-  }
-
-  refreshUserChange(userChanges: Coin) {
-    const { coin10, coin50, coin100, coin500 } = userChanges;
-
-    this.$amountCoin500.textContent = coin500 + '개';
-    this.$amountCoin100.textContent = coin100 + '개';
-    this.$amountCoin50.textContent = coin50 + '개';
-    this.$amountCoin10.textContent = coin10 + '개';
   }
 
   refreshUserMoney() {
