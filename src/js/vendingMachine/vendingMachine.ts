@@ -6,7 +6,7 @@ import {
   checkItemExist,
   checkPurchaseAvailable,
   validateAddItemInput,
-  validateChargeCoins,
+  validateInputCoinsSum,
   validateInputMoney,
 } from '../validates/validates';
 import MoneyManager from './moneyManager';
@@ -37,10 +37,10 @@ export default class VendingMachine {
     return this.moneyManager.money;
   }
 
-  chargeCoins(inputMoney: number) {
-    validateChargeCoins(inputMoney);
+  chargeCoinsSum(coinsSum: number) {
+    validateInputCoinsSum(coinsSum);
 
-    this.coinManager.chargeCoins(inputMoney);
+    this.coinManager.chargeCoinsSum(coinsSum);
     ProductAPI.updateMoney(this.coinManager.coinsSum);
   }
 

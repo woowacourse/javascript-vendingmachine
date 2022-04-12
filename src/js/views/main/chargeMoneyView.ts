@@ -12,6 +12,7 @@ export default class ChargeMoneyView {
   render() {
     const $content = $(SELECTOR.ID.CONTENT);
     const { coins, coinsSum } = this.vendingMachine;
+
     $content.replaceChildren();
     $content.insertAdjacentHTML('beforeend', chargeMoneyTemplate(coins, coinsSum));
 
@@ -21,14 +22,14 @@ export default class ChargeMoneyView {
   private handleSubmitEvent(event: Event) {
     try {
       event.preventDefault();
-      const inputMoney: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
+      const coinsSum: number = $(SELECTOR.CLASS.CHARGE_MONEY_INPUT).valueAsNumber;
 
-      this.vendingMachine.chargeCoins(inputMoney);
+      this.vendingMachine.chargeCoinsSum(coinsSum);
 
       this.repaintCurrentMoney(this.vendingMachine.coinsSum);
       this.repaintCoinsTable(this.vendingMachine.coins);
       this.clearInput();
-      showSnackbar(`${inputMoney}${CONFIRM_MESSAGE.CHARGE}`);
+      showSnackbar(`${coinsSum}${CONFIRM_MESSAGE.CHARGE}`);
     } catch (error) {
       showSnackbar(error.message);
     }

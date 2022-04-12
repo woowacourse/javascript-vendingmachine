@@ -1,13 +1,13 @@
 import { ERROR_MESSAGE } from '../constants/errorConstants';
 import { MONEY } from '../constants/vendingMachineConstants';
-import { validateChargeCoins, validateInputMoney } from './validates';
+import { validateInputCoinsSum, validateInputMoney } from './validates';
 
 describe('입력된 돈이 주어지면', () => {
   test('충전할 돈이 정수가 아니면 에러를 throw한다.', () => {
     const money = 0.1;
 
     expect(() => {
-      validateChargeCoins(money);
+      validateInputCoinsSum(money);
     }).toThrowError(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
   });
 
@@ -15,7 +15,7 @@ describe('입력된 돈이 주어지면', () => {
     const money = MONEY.MIN - 1;
 
     expect(() => {
-      validateChargeCoins(money);
+      validateInputCoinsSum(money);
     }).toThrowError(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   });
 
@@ -23,7 +23,7 @@ describe('입력된 돈이 주어지면', () => {
     const money = MONEY.CHARGE_MAX + 1;
 
     expect(() => {
-      validateChargeCoins(money);
+      validateInputCoinsSum(money);
     }).toThrowError(ERROR_MESSAGE.INPUT_MONEY.OVER_CHARGE_MAX);
   });
 
@@ -31,7 +31,7 @@ describe('입력된 돈이 주어지면', () => {
     const money = MONEY.UNIT + 1;
 
     expect(() => {
-      validateChargeCoins(money);
+      validateInputCoinsSum(money);
     }).toThrowError(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
   });
 

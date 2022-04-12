@@ -10,10 +10,10 @@ describe('잔돈 충전', () => {
 
   test('자판기 보유 금액을 충전할 수 있다.', () => {
     const vendingMachine = new CoinManager();
-    const validInputMoney = 610;
+    const validInputCoinsSum = 610;
     let totalMoney = 0;
 
-    vendingMachine.chargeCoins(validInputMoney);
+    vendingMachine.chargeCoinsSum(validInputCoinsSum);
 
     const { coins } = vendingMachine;
 
@@ -21,6 +21,6 @@ describe('잔돈 충전', () => {
       totalMoney += COINS[key] * coins[key];
     });
 
-    expect(totalMoney).toBe(validInputMoney);
+    expect(totalMoney).toBe(validInputCoinsSum);
   });
 });

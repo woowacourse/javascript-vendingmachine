@@ -19,19 +19,19 @@ export default class CoinManager {
 
   setCoins(money: number) {
     this._coins = this.getInitialCoins();
-    this.chargeCoins(money);
+    this.chargeCoinsSum(money);
   }
 
-  chargeCoins(money: number) {
-    let restMoney = money;
+  chargeCoinsSum(coinsSum: number) {
+    let restCoinsSum = coinsSum;
 
     Object.keys(this.coins).forEach(key => {
       if (key === 'ten') {
-        this.coins[key] += restMoney / COINS[key];
+        this.coins[key] += restCoinsSum / COINS[key];
         return;
       }
-      const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
-      restMoney -= randomNumber * COINS[key];
+      const randomNumber = generateRandom(Math.floor(restCoinsSum / COINS[key]));
+      restCoinsSum -= randomNumber * COINS[key];
       this.coins[key] += randomNumber;
     });
   }

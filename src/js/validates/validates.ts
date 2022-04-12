@@ -40,17 +40,17 @@ export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, target
   }
 };
 
-export const validateChargeCoins = (inputMoney: number) => {
-  if (!Number.isInteger(inputMoney)) {
+export const validateInputCoinsSum = (inputCoinsSum: number) => {
+  if (!Number.isInteger(inputCoinsSum)) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
   }
-  if (inputMoney <= MONEY.MIN) {
+  if (inputCoinsSum <= MONEY.MIN) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   }
-  if (inputMoney > MONEY.CHARGE_MAX) {
+  if (inputCoinsSum > MONEY.CHARGE_MAX) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_CHARGE_MAX);
   }
-  if (inputMoney % MONEY.UNIT !== 0) {
+  if (inputCoinsSum % MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
   }
 };
