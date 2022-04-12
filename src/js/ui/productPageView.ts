@@ -164,7 +164,7 @@ class ProductPageView {
     );
   }
 
-  renderDeleteProduct(id: string) {
+  deleteRenderedProduct(id: string) {
     const target = $(`[data-id="${id}"]`, this.$productList);
     this.$productList.removeChild(target);
   }

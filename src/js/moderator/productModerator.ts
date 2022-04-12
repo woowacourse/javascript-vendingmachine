@@ -79,7 +79,7 @@ class ProductModerator {
       return;
     }
     this.vendingMachine.deleteProduct(id);
-    this.productPageView.renderDeleteProduct(id);
+    this.productPageView.deleteRenderedProduct(id);
     snackbarUI.open(SNACKBAR_TYPE.ALERT, ALERT_MESSAGE.DELETE_PRODUCT);
   };
 }
