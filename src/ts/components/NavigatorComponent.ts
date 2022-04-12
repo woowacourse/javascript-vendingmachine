@@ -89,7 +89,7 @@ export default class NavigatorComponent {
   }
 
   async setUserInformation(user) {
-    const { email, name } = await requestUserInfo(user.accessToken, user.id);
+    const { email, name } = await requestUserInfo(user);
 
     this.$editEmailInput.value = email;
     this.$editNameInput.value = name;

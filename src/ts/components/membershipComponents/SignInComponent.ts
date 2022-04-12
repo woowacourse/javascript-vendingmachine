@@ -8,6 +8,7 @@ import { ERROR_MESSAGE } from '../../constants/errorMessage';
 
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+import { SignInUserInfo } from '../../types/userInfo';
 
 export default class SignInComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -36,10 +37,12 @@ export default class SignInComponent {
     try {
       checkValidEmail(signInEmail);
 
-      const { accessToken, user } = await requestSignIn(
-        signInEmail,
-        signInPassword
-      );
+      const signInUserInfo: SignInUserInfo = {
+        email: signInEmail,
+        password: signInPassword,
+      };
+
+      const { accessToken, user } = await requestSignIn(signInUserInfo);
 
       const userInfo = {
         id: user.id,

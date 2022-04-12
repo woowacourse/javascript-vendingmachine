@@ -9,6 +9,7 @@ import SUCCESS_MESSAGE from '../../constants/successMessage';
 
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+import { EditUserInfo } from '../../types/userInfo';
 
 export default class EditInformationComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -41,7 +42,7 @@ export default class EditInformationComponent {
 
   loadUserInformation = async () => {
     const user = getCookie('user') && JSON.parse(getCookie('user'));
-    const { email, name } = await requestUserInfo(user.accessToken, user.id);
+    const { email, name } = await requestUserInfo(user);
 
     this.$emailInput.value = email;
     this.$nameInput.value = name;
@@ -61,12 +62,17 @@ export default class EditInformationComponent {
       checkValidName(editName);
       checkValidPassword(editPassword, editPasswordConfirm);
 
-      await requestEditInformation(user.accessToken, {
-        email,
-        name: editName,
-        password: editPassword,
-        id: user.id,
-      });
+      const editUserInfo: EditUserInfo = {
+        user: {
+          email,
+          name: editName,
+          password: editPassword,
+          id: user.id,
+        },
+        accessToken: user.accessToken,
+      };
+
+      await requestEditInformation(editUserInfo);
 
       this.$passwordInput.value = '';
       this.$passwordConfirmInput.value = '';

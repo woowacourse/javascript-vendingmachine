@@ -4,6 +4,7 @@ import SUCCESS_MESSAGE from '../../constants/successMessage';
 
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+import { RegisterUserInfo } from '../../types/userInfo';
 
 import {
   checkValidName,
@@ -43,7 +44,13 @@ export default class SignUpComponent {
       checkValidPassword(signUpPassword, signUpPasswordConfirm);
       checkValidEmail(signUpEmail);
 
-      await requestRegister(signUpEmail, signUpName, signUpPassword);
+      const registerUserInfo: RegisterUserInfo = {
+        email: signUpEmail,
+        name: signUpName,
+        password: signUpPassword,
+      };
+
+      await requestRegister(registerUserInfo);
 
       this.$signUpEmailInput.value = '';
       this.$signUpNameInput.value = '';
