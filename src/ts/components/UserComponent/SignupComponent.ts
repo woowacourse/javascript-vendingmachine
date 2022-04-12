@@ -14,7 +14,7 @@ export default class SignupComponent {
   ) as HTMLInputElement;
 
   constructor() {
-    on(this.$signupForm, 'click', this.onSignUp);
+    on(this.$signupForm, 'submit', this.onSignUp);
   }
 
   onSignUp = async (e) => {

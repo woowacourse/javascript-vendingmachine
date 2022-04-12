@@ -4,6 +4,7 @@ import LoginComponent from './LoginComponent';
 import SignupComponent from './SignupComponent';
 import { deleteCurrentUser, getCurrentUser, isUserLoggedIn } from '../../auth';
 import ModifyUserInfoComponent from './ModifyUserInfoComponent';
+import { CUSTOMER_MAIN_PAGE } from '../../constants';
 
 export default class UserComponent {
   private $userButtonsWrapper = $('.user-buttons-wrapper');
@@ -46,6 +47,6 @@ export default class UserComponent {
 
   onLogout = () => {
     deleteCurrentUser();
-    window.location.pathname = '/purchase';
+    window.location.pathname = CUSTOMER_MAIN_PAGE;
   };
 }

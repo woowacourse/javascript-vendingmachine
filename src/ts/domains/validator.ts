@@ -17,7 +17,7 @@ export const checkCanAddMoney = (
   }
 };
 
-const hasDuplicatedName = (products, targetName) =>
+const hasDuplicatedName = (products: Product[], targetName: string) =>
   products.some((product: Product) => product.name === targetName);
 
 export const checkDuplicatedProductName = (

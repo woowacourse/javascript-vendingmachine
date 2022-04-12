@@ -1,7 +1,7 @@
 export default class PurchaseManager {
   private userInputMoney = 0;
 
-  addMoney(money) {
+  addMoney(money: number) {
     this.userInputMoney += money;
   }
 
@@ -9,7 +9,7 @@ export default class PurchaseManager {
     return this.userInputMoney;
   }
 
-  spendMoney(money) {
+  spendMoney(money: number) {
     this.userInputMoney -= money;
   }
 

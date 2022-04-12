@@ -1,6 +1,7 @@
 import { $ } from '../../dom';
 import { on } from '../../events';
 import renderSnackBar from '../../snackbar';
+import { Coins } from '../../types/CoinManager';
 import { checkValidPurchase } from '../validator';
 
 export default class PurchaseProductsStateComponent {
@@ -69,10 +70,10 @@ export default class PurchaseProductsStateComponent {
     this.renderTotalMoney();
   };
 
-  renderReturnedCoins({ COIN_500, COIN_100, COIN_50, COIN_10 }) {
-    this.$coin500.textContent = COIN_500;
-    this.$coin100.textContent = COIN_100;
-    this.$coin50.textContent = COIN_50;
-    this.$coin10.textContent = COIN_10;
+  renderReturnedCoins({ COIN_500, COIN_100, COIN_50, COIN_10 }: Coins) {
+    this.$coin500.textContent = String(COIN_500);
+    this.$coin100.textContent = String(COIN_100);
+    this.$coin50.textContent = String(COIN_50);
+    this.$coin10.textContent = String(COIN_10);
   }
 }
