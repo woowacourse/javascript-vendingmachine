@@ -17,7 +17,7 @@ import {
   generateEditTemplate,
 } from './productStateTemplates';
 
-export default class ProductStateComponent {
+export default class ProductsStateComponent {
   private $productTableTbody = $<HTMLElement>('.product-table tbody');
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
 
