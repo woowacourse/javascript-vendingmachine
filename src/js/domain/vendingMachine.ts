@@ -76,7 +76,7 @@ export default class VendingMachine implements type.IVendingMachine {
     return newCoins;
   };
 
-  getCoins: type.IGetCoins = () => {
+  getChanges: type.IGetChanges = () => {
     return this.changes;
   };
 

@@ -16,7 +16,7 @@ export interface IChargeChanges {
   (money: number): void;
 }
 
-export interface IGetCoins {
+export interface IGetChanges {
   (): TCoin;
 }
 
@@ -68,7 +68,7 @@ export interface IPurchaseProductProcessMachine {
 
 export interface IVendingMachine {
   chargeChanges: IChargeChanges;
-  getCoins: IGetCoins;
+  getChanges: IGetChanges;
   getTotalChanges: IGetTotalChanges;
   addProduct: IAddProduct;
   updateProduct: IUpdateProduct;
