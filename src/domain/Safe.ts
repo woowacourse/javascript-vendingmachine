@@ -48,12 +48,11 @@ export class Safe implements CoinProperty {
   }
 
   returnChange(userAmount: number) {
-    COINS.forEach((coin) => {
-      this.userChange[coin].count = 0;
-    });
     let remainingUserAmount = userAmount;
 
     COINS.forEach((coin) => {
+      this.userChange[coin].count = 0;
+
       while (remainingUserAmount > 0 && this.counter[coin].count > 0) {
         remainingUserAmount -= coin;
         this.userChange[coin].count += 1;
