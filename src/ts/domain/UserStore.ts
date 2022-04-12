@@ -10,7 +10,7 @@ import {
   userInfoInputTestCases,
   editUserInfoInputTestCases,
 } from './validation/authenticationValidator';
-import { request } from '../utils/index';
+import { requestRegister, requestLogin, requestEditUserInfo } from '../apis';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 import { COOKIE_KEY } from '../constant/cookie';
 
@@ -26,30 +26,11 @@ class UserStore implements UserStoreInterface {
   }
 
   async register(registerInfo: AuthenticationInfo) {
-    await request(`${API_HOST}/register`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        email: registerInfo.email,
-        password: registerInfo.password,
-        name: registerInfo.name,
-      }),
-    });
+    await requestRegister(registerInfo);
   }
 
   async login(loginInfo: AuthenticationInfo) {
-    const response = await request(`${API_HOST}/login`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        email: loginInfo.email,
-        password: loginInfo.password,
-      }),
-    });
+    const response = await requestLogin(loginInfo);
 
     this.userInfo = {
       accessToken: response.accessToken,
@@ -60,18 +41,11 @@ class UserStore implements UserStoreInterface {
   }
 
   async editUserInfo(editedUserInfo: AuthenticationInfo) {
-    const response = await request(`${API_HOST}/600/users/${this.userInfo.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.userInfo.accessToken}`,
-      },
-      method: 'PUT',
-      body: JSON.stringify({
-        email: editedUserInfo.email,
-        password: editedUserInfo.password,
-        name: editedUserInfo.name,
-      }),
-    });
+    const response = await requestEditUserInfo(
+      editedUserInfo,
+      this.userInfo.id,
+      this.userInfo.accessToken
+    );
 
     this.userInfo = {
       ...this.userInfo,

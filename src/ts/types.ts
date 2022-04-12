@@ -60,11 +60,14 @@ export interface VendingMachineInterface {
   validateItemPurchaseCashInput: (rechargedCash: number) => void;
 }
 
-export type UserInfo = {
-  accessToken: string;
+export type User = {
   email: string;
   name: string;
   id: number;
+};
+
+export type UserInfo = User & {
+  accessToken: string;
 };
 
 export interface UserStoreInterface {
