@@ -1,4 +1,4 @@
-const SNACK_BAR_DELAY_TIME = 3000;
+export const SNACK_BAR_DELAY_TIME = 3000;
 
 const generateSnackBarTemplate = (message: string, type: string): string => `
   <div class="snack-bar-container__snack-bar${

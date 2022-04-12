@@ -1,6 +1,8 @@
 import SUCCESS_MESSAGE from '../../src/ts/constants/successMessage';
 
 describe('동전 충전 탭 E2E 테스트', () => {
+  const chargeMoney = 5000;
+
   before(() => {
     cy.setSignIn();
     cy.visit('/');
@@ -8,12 +10,12 @@ describe('동전 충전 탭 E2E 테스트', () => {
 
   it('사용자는 상품 구입을 위해 투입할 금액을 입력하고 투입 버튼을 클릭하면 해당하는 금액이 투입한 금액에 표시된다.', () => {
     cy.get('.nav__charge-button').click();
-    cy.get('.charge-form-section__charge-money-input').type(5000);
+    cy.get('.charge-form-section__charge-money-input').type(chargeMoney);
     cy.get('.charge-form-section__button').click();
 
     cy.get('.charge-form-section__total-charge-money').should(
       'have.text',
-      5000
+      chargeMoney
     );
   });
 

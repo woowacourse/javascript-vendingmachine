@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { setCookie } from '../../src/ts/cookie/cookie';
+import { SET_PRODUCT, SET_EDIT_PRODUCT } from '../integration/testConstant';
 
 Cypress.Commands.add('setSignIn', () => {
   setCookie(
@@ -41,13 +42,25 @@ Cypress.Commands.add('setSignIn', () => {
 });
 
 Cypress.Commands.add('setProduct', () => {
-  cy.get('.product-info-form__product-input').clear().type('콜라');
-  cy.get('.product-info-form__price-input').clear().type('1200');
-  cy.get('.product-info-form__quantity-input').clear().type('12');
+  cy.get('.product-info-form__product-input')
+    .clear()
+    .type(SET_PRODUCT.PRODUCT_NAME);
+  cy.get('.product-info-form__price-input')
+    .clear()
+    .type(SET_PRODUCT.PRODUCT_PRICE);
+  cy.get('.product-info-form__quantity-input')
+    .clear()
+    .type(SET_PRODUCT.PRODUCT_QUANTITY);
 });
 
 Cypress.Commands.add('setEditProduct', () => {
-  cy.get('.product-table__product-name-input--edit').clear().type('사이다');
-  cy.get('.product-table__product-price-input--edit').clear().type('2000');
-  cy.get('.product-table__product-quantity-input--edit').clear().type('20');
+  cy.get('.product-table__product-name-input--edit')
+    .clear()
+    .type(SET_EDIT_PRODUCT.PRODUCT_NAME);
+  cy.get('.product-table__product-price-input--edit')
+    .clear()
+    .type(SET_EDIT_PRODUCT.PRODUCT_PRICE);
+  cy.get('.product-table__product-quantity-input--edit')
+    .clear()
+    .type(SET_EDIT_PRODUCT.PRODUCT_QUANTITY);
 });
