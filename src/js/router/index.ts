@@ -21,13 +21,13 @@ const useRouter = () => {
     }
 
     const user = JSON.parse(localStorage.getItem('user'));
-    const _isLogged = !!user;
+    const isLogged = !!user;
 
-    if (_isLogged) $namethumbnail.textContent = user.name[0];
+    if (isLogged) $namethumbnail.textContent = user.name[0];
 
-    $accountLoginButton.classList.toggle('hide', _isLogged);
-    $accountDropdownContainer.classList.toggle('hide', !_isLogged);
-    $headerTab.classList.toggle('hide', !_isLogged);
+    $accountLoginButton.classList.toggle('hide', isLogged);
+    $accountDropdownContainer.classList.toggle('hide', !isLogged);
+    $headerTab.classList.toggle('hide', !isLogged);
   };
 
   const clearPageBody = () => {
