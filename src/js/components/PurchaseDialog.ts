@@ -39,22 +39,22 @@ const PurchaseDialog = props => {
     return amount >= userAmount ? userAmount : amount;
   })();
   const fragment = new DocumentFragment();
-  const div = document.createElement('div');
+  const dialog = document.createElement('div');
 
-  div.classList.add('dialog');
-  div.insertAdjacentHTML('beforeend', template(props));
-  fragment.appendChild(div);
+  dialog.classList.add('dialog');
+  dialog.insertAdjacentHTML('beforeend', template(props));
+  fragment.appendChild(dialog);
   body.appendChild(fragment);
 
-  const dialogForm = div.querySelector('.dialog-form');
-  const selectQuantity = <HTMLInputElement>div.querySelector('#select-quantity');
-  const downButton = div.querySelector('.select-quantity-down-button');
-  const upButton = div.querySelector('.select-quantity-up-button');
+  const dialogForm = dialog.querySelector('.dialog-form');
+  const selectQuantity = <HTMLInputElement>dialog.querySelector('#select-quantity');
+  const downButton = dialog.querySelector('.select-quantity-down-button');
+  const upButton = dialog.querySelector('.select-quantity-up-button');
 
   const onCloseDialog = (e: PointerEvent) => {
     if (!(e.target instanceof HTMLElement) || e.target.className !== 'dialog') return;
 
-    div.remove();
+    dialog.remove();
   };
 
   const onSubmit = (e: SubmitEvent) => {
@@ -65,7 +65,7 @@ const PurchaseDialog = props => {
     const product = { name, price, amount: newAmount };
 
     callbackSubmitQuantity({ quantity, product, li });
-    div.remove();
+    dialog.remove();
   };
 
   const onDownQuantity = () => {
@@ -80,7 +80,7 @@ const PurchaseDialog = props => {
     selectQuantity.valueAsNumber = selectQuantity.valueAsNumber + 1;
   };
 
-  div.addEventListener('click', onCloseDialog);
+  dialog.addEventListener('click', onCloseDialog);
   dialogForm.addEventListener('submit', onSubmit);
   downButton.addEventListener('click', onDownQuantity);
   upButton.addEventListener('click', onUpQuantity);
