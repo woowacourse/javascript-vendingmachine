@@ -3,6 +3,16 @@ import { requestUserInfo } from '../api/api';
 
 import { $, $$, on } from '../dom/domHelper';
 
+const isMismatchesNavClassName = (target: HTMLElement): boolean =>
+  !target.matches('.nav__product-button') &&
+  !target.matches('.nav__charge-button') &&
+  !target.matches('.nav__purchase-button');
+
+const isMembershipPathname = (pathname: string): boolean =>
+  pathname === '/sign-in' ||
+  pathname === '/sign-up' ||
+  pathname === '/edit-information';
+
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
   private $$navButtons = $$<HTMLButtonElement>('.nav__button');
@@ -64,29 +74,22 @@ export default class NavigatorComponent {
   private onClickNavButton = (event: MouseEvent): void => {
     event.preventDefault();
 
-    const target = event.target as HTMLElement;
+    const $targetNavButton = event.target as HTMLElement;
 
-    if (
-      !target.matches('.nav__product-button') &&
-      !target.matches('.nav__charge-button') &&
-      !target.matches('.nav__purchase-button')
-    ) {
+    if (isMismatchesNavClassName($targetNavButton)) {
       return;
     }
 
-    window.history.pushState({}, '', target.dataset.pathname);
+    window.history.pushState({}, '', $targetNavButton.dataset.pathname);
     this.changeComponent();
   };
 
   private focusedNavButton(pathname: string): void {
     this.$$navButtons.forEach((button) => {
-      if (pathname !== button.dataset.pathname) {
-        button.classList.remove('nav__button--focused');
-      }
-
-      if (pathname === button.dataset.pathname) {
-        button.classList.add('nav__button--focused');
-      }
+      button.classList.toggle(
+        'nav__button--focused',
+        pathname === button.dataset.pathname
+      );
     });
   }
 
@@ -100,35 +103,23 @@ export default class NavigatorComponent {
   private async checkExistUser(pathname: string) {
     const user = getCookie('user') && JSON.parse(getCookie('user'));
 
-    if (
-      pathname === '/sign-in' ||
-      pathname === '/sign-up' ||
-      pathname === '/edit-information'
-    ) {
-      this.$nav.classList.add('hide');
-      this.$title.classList.add('hide');
-      this.$signInButton.classList.add('hide');
-      this.$userThumbnailButton.classList.add('hide');
-
-      if (user) await this.setUserInformation(user);
-
-      return;
-    }
+    this.$nav.classList.toggle('hide', !user || isMembershipPathname(pathname));
+    this.$userThumbnailButton.classList.toggle(
+      'hide',
+      !user || isMembershipPathname(pathname)
+    );
+    this.$signInButton.classList.toggle(
+      'hide',
+      user || isMembershipPathname(pathname)
+    );
 
     if (user) {
-      this.$nav.classList.remove('hide');
-      this.$title.classList.remove('hide');
-      this.$signInButton.classList.add('hide');
-      this.$userThumbnailButton.classList.remove('hide');
       this.$userThumbnailButton.textContent = user.name[0];
+      this.setUserInformation(user);
 
       return;
     }
 
-    this.$nav.classList.add('hide');
-    this.$title.classList.remove('hide');
-    this.$signInButton.classList.remove('hide');
-    this.$userThumbnailButton.classList.add('hide');
     this.$userThumbnailButton.textContent = '';
   }
 
@@ -136,15 +127,10 @@ export default class NavigatorComponent {
     const { pathname } = window.location;
 
     this.$$changeComponents.forEach((section) => {
-      if (pathname !== section.dataset.pathname) {
-        section.classList.add('hide');
-      }
-
-      if (pathname === section.dataset.pathname) {
-        section.classList.remove('hide');
-      }
+      section.classList.toggle('hide', pathname !== section.dataset.pathname);
     });
 
+    this.$title.classList.toggle('hide', isMembershipPathname(pathname));
     this.focusedNavButton(pathname);
     await this.checkExistUser(pathname);
   };
