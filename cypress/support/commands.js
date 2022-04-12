@@ -88,3 +88,12 @@ Cypress.Commands.add('buyProduct', (productName) =>
     )
     .click()
 );
+
+Cypress.Commands.add('signup', (email, name, password, passwordConfirm) => {
+  cy.get('.signup-email-input').type(email);
+  cy.get('.signup-name-input').type(name);
+  cy.get('.signup-password-input').type(password);
+  cy.get('.signup-password-confirm-input').type(passwordConfirm);
+
+  cy.get('.signup-button').click();
+});
