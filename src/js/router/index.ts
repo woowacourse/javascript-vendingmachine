@@ -36,12 +36,12 @@ const useRouter = () => {
   };
 
   return {
-    to: (_path: Path) => {
-      const { hash, pathname } = window.location;
-      const { path, title, page } = routes[_path];
-      const isSamePage = prevPath === _path;
+    to: (nextPath: Path) => {
+      const { pathname } = window.location;
+      const { path, title, page } = routes[nextPath];
+      const isSamePage = prevPath === nextPath;
 
-      activeLogin(_path);
+      activeLogin(nextPath);
 
       if (isSamePage) {
         console.log('같은 페이지');
@@ -49,8 +49,8 @@ const useRouter = () => {
       }
 
       clearPageBody();
-      history.pushState({ path, prevPath, hash, _path }, title, pathname + path);
-      prevPath = _path;
+      history.pushState({}, title, pathname + path);
+      prevPath = nextPath;
       page.render();
     },
     back: () => {
