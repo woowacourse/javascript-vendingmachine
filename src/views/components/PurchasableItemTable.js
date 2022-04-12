@@ -1,9 +1,9 @@
 import Component from '../../core/Component';
-import './ItemRow';
+import './PurchasableItemRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
 
-class ItemTable extends Component {
+class PurchasableItemTable extends Component {
   template() {
     const items = vendingMachine.useStore((state) => state.items);
 
@@ -20,7 +20,7 @@ class ItemTable extends Component {
             <th class="styled-th">${ITEM.NAME.LABEL}</th>
             <th class="styled-th">${ITEM.PRICE.LABEL}</th>
             <th class="styled-th">${ITEM.QUANTITY.LABEL}</th>
-            <th class="styled-th"></th>
+            <th class="styled-th">구매</th>
           </tr>
         </thead>
       </table>
@@ -37,8 +37,8 @@ class ItemTable extends Component {
               .map(
                 ({ name, price, quantity }) => `
                   <tr
-                    is="item-row"
-                    class="item-row styled-tr"
+                    is="purchasable-row"
+                    class="purchasable-item-row styled-tr"
                     name="${name}"
                     price="${price}"
                     quantity="${quantity}"
@@ -54,4 +54,4 @@ class ItemTable extends Component {
   }
 }
 
-customElements.define('item-table', ItemTable);
+customElements.define('purchasable-table', PurchasableItemTable);

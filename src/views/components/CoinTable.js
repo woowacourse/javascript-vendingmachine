@@ -1,7 +1,7 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 
-export default class CoinTable extends Component {
+class CoinTable extends Component {
   template() {
     const coins = vendingMachine.useStore((state) => state.coins);
     const coinArray = [...Object.entries(coins)].sort(([a], [b]) => b - a);

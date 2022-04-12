@@ -1,8 +1,9 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
-export default class ItemAddForm extends Component {
+class ItemAddForm extends Component {
   template() {
     return `
       <form id="item-add-form" class="item-add-form">
@@ -44,7 +45,7 @@ export default class ItemAddForm extends Component {
             required
           >
         </fieldset>
-        <button class="add-item-button styled-button emphasized">추가</button>
+        <button id="add-item-button" class="add-item-button styled-button emphasized">추가</button>
       </form>
     `;
   }
@@ -70,7 +71,7 @@ export default class ItemAddForm extends Component {
         priceInput.value = '';
         quantityInput.value = '';
       } catch (err) {
-        window.alert(err);
+        showSnackbar(err.message);
       }
     });
   }

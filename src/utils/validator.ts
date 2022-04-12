@@ -52,8 +52,7 @@ export const updatedItemValidator: Validator = [
 
 export const removedItemValidator: Validator = [
   {
-    test: (vendingMachine: VendingMachine, name: string) =>
-      vendingMachine.findItem(name),
+    test: (removedItem: Item) => removedItem,
     errorMessage: '존재하지 않는 상품입니다.',
   },
 ];
@@ -66,11 +65,42 @@ export const amountValidator: Array<Condition> = [
   },
   {
     test: (amount: number) => amount % CHARGE_AMOUNT.STEP === 0,
-    errorMessage: `${CHARGE_AMOUNT.STEP}원 단위의 금액을 입력해주세요`,
+    errorMessage: `${CHARGE_AMOUNT.STEP}원 단위의 금액을 입력해주세요.`,
   },
   {
     test: (amount: number, totalMoney: number) =>
       amount + totalMoney <= CHARGE_AMOUNT.MAX,
     errorMessage: `총액은 최대 ${CHARGE_AMOUNT.MAX}원까지 가능합니다`,
+  },
+];
+
+export const insertMoneyValidator: Validator = [
+  {
+    test: (amount: number) => amount >= 10 && amount <= 10000,
+    errorMessage: `투입 금액은 10에서 10000원 사이여야 합니다.`,
+  },
+  {
+    test: (amount: number) => amount % 10 === 0,
+    errorMessage: `10원 단위의 금액을 입력해주세요.`,
+  },
+  {
+    test: (amount: number, insertedMoney: number) =>
+      amount + insertedMoney <= 10000,
+    errorMessage: `총 투입 금액은 10000원까지 가능합니다.`,
+  },
+];
+
+export const purchaseItemValidator: Validator = [
+  {
+    test: (purchasedItem: Item, insertedMoney: number) =>
+      purchasedItem.price <= insertedMoney,
+    errorMessage: `투입 금액이 부족합니다.`,
+  },
+];
+
+export const returnChangeValidator: Validator = [
+  {
+    test: (insertedMoney: number) => insertedMoney > 0,
+    errorMessage: '투입한 금액이 없습니다.',
   },
 ];

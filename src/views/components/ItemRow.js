@@ -1,6 +1,7 @@
 import TableRow from '../../core/TableRow';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { ITEM } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
 class ItemRow extends TableRow {
   setup() {
@@ -42,7 +43,7 @@ class ItemRow extends TableRow {
           >
         </td>
         <td class="item-button-container">
-          <button class="item-update-button styled-button">완료</button>
+          <button class="item-update-button styled-button">확인</button>
         </td>
       `;
     }
@@ -83,7 +84,7 @@ class ItemRow extends TableRow {
       try {
         vendingMachine.updateItem(prevName, updatedItem);
       } catch (err) {
-        window.alert(err);
+        showSnackbar(err.message);
       }
     });
 
@@ -94,7 +95,7 @@ class ItemRow extends TableRow {
         try {
           vendingMachine.removeItem(name);
         } catch (err) {
-          window.alert(err);
+          showSnackbar(err.message);
         }
       }
     });

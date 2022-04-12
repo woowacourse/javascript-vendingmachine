@@ -83,3 +83,52 @@ export const deepClone = <T>(obj: T): T => {
 
   return clone;
 };
+
+export const convertStringToBoolean = (str: string): boolean | null => {
+  switch (str) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    case 'null':
+      return null;
+    default:
+      return null;
+  }
+};
+
+interface CallbackFunction<T extends unknown[]> {
+  (...args: T): void;
+}
+
+export const throttle = <P extends unknown[]>(
+  callback: CallbackFunction<P>,
+  delay = 0
+) => {
+  let timerId = null;
+
+  return (...args: P) => {
+    if (timerId) return;
+
+    timerId = setTimeout(() => {
+      callback(...args);
+
+      timerId = null;
+    }, delay);
+  };
+};
+
+export const debounce = <P extends unknown[]>(
+  callback: CallbackFunction<P>,
+  wait = 0
+) => {
+  let timerId = null;
+
+  return (...args: P) => {
+    if (timerId) clearTimeout(timerId);
+
+    timerId = setTimeout(() => {
+      callback(...args);
+    }, wait);
+  };
+};

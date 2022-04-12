@@ -1,8 +1,9 @@
 import Component from '../../core/Component';
 import { vendingMachine } from '../../domains/VendingMachine';
 import { CHARGE_AMOUNT } from '../../configs/constants';
+import { showSnackbar } from './Snackbar';
 
-export default class ChangeChargeForm extends Component {
+class ChangeChargeForm extends Component {
   template() {
     return `
       <form id="change-charge-form" class="change-charge-form">
@@ -21,7 +22,7 @@ export default class ChangeChargeForm extends Component {
             autofocus
           >
         </div>
-        <button class="add-charge-button styled-button emphasized">충전</button>
+        <button id="add-charge-button" class="add-charge-button styled-button emphasized">충전</button>
       </form>
     `;
   }
@@ -38,7 +39,7 @@ export default class ChangeChargeForm extends Component {
 
         amountInput.value = '';
       } catch (err) {
-        window.alert(err);
+        showSnackbar(err.message);
       }
     });
   }
