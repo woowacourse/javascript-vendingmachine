@@ -6,6 +6,15 @@ export type ItemInputValidationInfo = {
   itemInfo: ItemInfoType;
   isAddMode: boolean;
   itemIndex?: number;
+  itemList?: ItemInfoType[];
+};
+
+export type CashInputValidationInfo = {
+  inputCashAmount: number;
+};
+
+export type CoinRechargeInputValidationInfo = CashInputValidationInfo & {
+  rechargedCoinAmount: number;
 };
 
 export type AuthenticationInfo = {
@@ -15,7 +24,11 @@ export type AuthenticationInfo = {
   verificationPassword?: string;
 };
 
-export type ValidationInfo = ItemInputValidationInfo | AuthenticationInfo | number;
+export type ValidationInfo =
+  | ItemInputValidationInfo
+  | CashInputValidationInfo
+  | CoinRechargeInputValidationInfo
+  | AuthenticationInfo;
 
 export interface TestCase {
   testCase: Function;

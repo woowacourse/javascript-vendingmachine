@@ -1,4 +1,13 @@
-import { ItemInfoType, Coin, ValidationInfo, TestCase, VendingMachineInterface } from '../types';
+import {
+  ItemInfoType,
+  Coin,
+  ItemInputValidationInfo,
+  CashInputValidationInfo,
+  CoinRechargeInputValidationInfo,
+  ValidationInfo,
+  TestCase,
+  VendingMachineInterface,
+} from '../types';
 import {
   ITEM_ERROR_MESSAGE,
   CASH_ERROR_MESSAGE,
@@ -30,7 +39,7 @@ class VendingMachine implements VendingMachineInterface {
       testCase: this.isExceedMaxNameLength,
       errorMessage: ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH,
     },
-    { testCase: this.isAlreadyExist.bind(this), errorMessage: ITEM_ERROR_MESSAGE.ALREADY_EXIST },
+    { testCase: this.isAlreadyExist, errorMessage: ITEM_ERROR_MESSAGE.ALREADY_EXIST },
     { testCase: this.isExceedPriceRange, errorMessage: ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE },
     {
       testCase: this.isNotDividedByPriceUnit,
@@ -53,7 +62,7 @@ class VendingMachine implements VendingMachineInterface {
     },
     { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
     {
-      testCase: this.isExceedTotalAmountRange.bind(this),
+      testCase: this.isExceedTotalAmountRange,
       errorMessage: CASH_ERROR_MESSAGE.EXCEED_TOTAL_AMOUNT_RANGE,
     },
     {
@@ -175,25 +184,32 @@ class VendingMachine implements VendingMachineInterface {
     return this.itemPurchaseCash;
   }
 
-  validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
-    testCases.every(({ testCase, errorMessage }) => {
-      if (testCase(validationInfo)) throw new Error(errorMessage);
-      return true;
-    });
-  }
-
   validateItemInput(itemInfo: ItemInfoType, isAddMode = true, itemIndex: number | null = null) {
-    const validationInfo: ValidationInfo = { itemInfo, isAddMode, itemIndex };
+    const validationInfo: ItemInputValidationInfo = {
+      itemInfo,
+      isAddMode,
+      itemIndex,
+      itemList: this._itemList,
+    };
 
     this.validateTestCase(this.itemInputTestCases, validationInfo);
   }
 
   validateCashInput(rechargedCash: number) {
-    this.validateTestCase(this.cashInputTestCases, rechargedCash);
+    const validationInfo: CoinRechargeInputValidationInfo = {
+      inputCashAmount: rechargedCash,
+      rechargedCoinAmount: this.calculateTotalCoinAmount(),
+    };
+
+    this.validateTestCase(this.cashInputTestCases, validationInfo);
   }
 
   validateItemPurchaseCashInput(rechargedCash: number) {
-    this.validateTestCase(this.itemPurchaseCashInputTestCases, rechargedCash);
+    const validationInfo: CashInputValidationInfo = {
+      inputCashAmount: rechargedCash,
+    };
+
+    this.validateTestCase(this.itemPurchaseCashInputTestCases, validationInfo);
   }
 
   private calculateReturnedCoin(coin: string, count: number): number {
@@ -207,6 +223,13 @@ class VendingMachine implements VendingMachineInterface {
     return this.itemPurchaseCash === 0;
   }
 
+  private validateTestCase(testCases: TestCase[], validationInfo: ValidationInfo) {
+    testCases.every(({ testCase, errorMessage }) => {
+      if (testCase(validationInfo)) throw new Error(errorMessage);
+      return true;
+    });
+  }
+
   private isNotReturnedCoin(returnedCoinCollection: Record<Coin, number>): boolean {
     return Object.values(returnedCoinCollection).every((coinCount) => coinCount === 0);
   }
@@ -215,23 +238,11 @@ class VendingMachine implements VendingMachineInterface {
     return itemName.length === 0;
   }
 
-  private isNotNumberType({
-    itemInfo: { itemPrice, itemQuantity },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isNotNumberType({ itemInfo: { itemPrice, itemQuantity } }: ItemInputValidationInfo) {
     return Number.isNaN(itemPrice) || Number.isNaN(itemQuantity);
   }
 
-  private isExceedMaxNameLength({
-    itemInfo: { itemName },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isExceedMaxNameLength({ itemInfo: { itemName } }: ItemInputValidationInfo) {
     return itemName.length > ITEM.NAME_MAX_LENGTH;
   }
 
@@ -239,12 +250,9 @@ class VendingMachine implements VendingMachineInterface {
     itemInfo: { itemName },
     isAddMode,
     itemIndex,
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
-    return this._itemList.some((savedItem, savedItemIndex) => {
+    itemList,
+  }: ItemInputValidationInfo) {
+    return itemList.some((savedItem, savedItemIndex) => {
       if (!isAddMode && itemIndex === savedItemIndex) {
         return false;
       }
@@ -253,68 +261,47 @@ class VendingMachine implements VendingMachineInterface {
     });
   }
 
-  private isExceedPriceRange({
-    itemInfo: { itemPrice },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isExceedPriceRange({ itemInfo: { itemPrice } }: ItemInputValidationInfo) {
     return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
   }
 
-  private isNotDividedByPriceUnit({
-    itemInfo: { itemPrice },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isNotDividedByPriceUnit({ itemInfo: { itemPrice } }: ItemInputValidationInfo) {
     return itemPrice % ITEM.PRICE_UNIT !== 0;
   }
 
-  private isExceedQuantityRange({
-    itemInfo: { itemQuantity },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isExceedQuantityRange({ itemInfo: { itemQuantity } }: ItemInputValidationInfo) {
     return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;
   }
 
-  private isNotDividedByQuantityUnit({
-    itemInfo: { itemQuantity },
-  }: {
-    itemInfo: ItemInfoType;
-    isAddMode: boolean;
-    itemIndex: number;
-  }) {
+  private isNotDividedByQuantityUnit({ itemInfo: { itemQuantity } }: ItemInputValidationInfo) {
     return itemQuantity % ITEM.QUANTITY_UNIT !== 0;
   }
 
-  private isNotNumberTypeCash(rechargedCash: number) {
-    return isNaN(rechargedCash);
+  private isNotNumberTypeCash({ inputCashAmount }: CashInputValidationInfo) {
+    return Number.isNaN(inputCashAmount);
   }
 
-  private isLowerThanMinRange(rechargedCash: number) {
-    return rechargedCash < CASH.MIN;
+  private isLowerThanMinRange({ inputCashAmount }: CoinRechargeInputValidationInfo) {
+    return inputCashAmount < CASH.MIN;
   }
 
-  private isExceedTotalAmountRange(rechargedCash: number) {
-    return rechargedCash > CASH.MAX - this.calculateTotalCoinAmount();
+  private isExceedTotalAmountRange({
+    inputCashAmount,
+    rechargedCoinAmount,
+  }: CoinRechargeInputValidationInfo) {
+    return inputCashAmount > CASH.MAX - rechargedCoinAmount;
   }
 
-  private isNotDividedByUnitCash(rechargedCash: number) {
-    return rechargedCash % CASH.UNIT !== 0;
+  private isNotDividedByUnitCash({ inputCashAmount }: CoinRechargeInputValidationInfo) {
+    return inputCashAmount % CASH.UNIT !== 0;
   }
 
-  private isExceedItemPurchaseCashRange(rechargedCash: number) {
-    return rechargedCash < ITEM_PURCHASE_CASH.MIN || rechargedCash > ITEM_PURCHASE_CASH.MAX;
+  private isExceedItemPurchaseCashRange({ inputCashAmount }: CashInputValidationInfo) {
+    return inputCashAmount < ITEM_PURCHASE_CASH.MIN || inputCashAmount > ITEM_PURCHASE_CASH.MAX;
   }
 
-  private isNotDividedByUnitItemPurchaseCash(rechargeCoin: number) {
-    return rechargeCoin % ITEM_PURCHASE_CASH.UNIT !== 0;
+  private isNotDividedByUnitItemPurchaseCash({ inputCashAmount }: CashInputValidationInfo) {
+    return inputCashAmount % ITEM_PURCHASE_CASH.UNIT !== 0;
   }
 }
 
