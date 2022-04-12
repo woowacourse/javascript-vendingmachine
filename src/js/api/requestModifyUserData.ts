@@ -1,4 +1,4 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import ApiWrapper from '../utils/ApiWrapper';
 
@@ -16,14 +16,7 @@ const requestModifyUserData = async (userData: User) => {
     throw new Error(dataResult);
   }
 
-  const updatedInfo = {
-    email: dataResult.email,
-    name: dataResult.name,
-    id: dataResult.id,
-  };
-
-  localStorage.setItem('user', JSON.stringify(updatedInfo));
-  return ALERT_MESSAGE.USER_INFO_MODIFY_SUCCESS;
+  return dataResult;
 };
 
 export default requestModifyUserData;

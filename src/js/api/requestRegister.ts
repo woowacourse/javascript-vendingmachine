@@ -1,4 +1,4 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import ApiWrapper from '../utils/ApiWrapper';
 
@@ -18,7 +18,7 @@ const requestRegister = async (userData: User) => {
     throw new Error(errorMessage);
   }
 
-  return ALERT_MESSAGE.REGISTER_SUCCESS;
+  return true;
 };
 
 export default requestRegister;

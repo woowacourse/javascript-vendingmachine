@@ -1,4 +1,4 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
 import { LoginSuccess } from '../interfaces/apiStatus.interface';
 import ApiWrapper from '../utils/ApiWrapper';
 
@@ -18,9 +18,7 @@ const requestLogin = async (accountData: Object) => {
     throw new Error(dataResult);
   }
 
-  localStorage.setItem('accessToken', dataResult.accessToken);
-  localStorage.setItem('user', JSON.stringify(dataResult.user));
-  return ALERT_MESSAGE.LOGIN_SUCCESS(dataResult.user.name);
+  return dataResult;
 };
 
 export default requestLogin;

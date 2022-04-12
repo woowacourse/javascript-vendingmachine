@@ -1,5 +1,5 @@
 import requestModifyUserData from '../api/requestModifyUserData';
-import { PATH_NAME } from '../constants';
+import { ALERT_MESSAGE, PATH_NAME } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import routes from '../routes';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
@@ -48,7 +48,18 @@ class UserInfoComponent {
   };
 
   private checkValidateAndRequest = async (userData: User) => {
-    return checkUserDataValidate(userData) && (await requestModifyUserData(userData));
+    checkUserDataValidate(userData);
+    const data = await requestModifyUserData(userData);
+
+    const updatedInfo = {
+      email: data.email,
+      name: data.name,
+      id: data.id,
+    };
+
+    localStorage.setItem('user', JSON.stringify(updatedInfo));
+
+    return ALERT_MESSAGE.USER_INFO_MODIFY_SUCCESS;
   };
 
   private onClickCloseButton = () => {

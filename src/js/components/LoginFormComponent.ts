@@ -1,6 +1,8 @@
+import { LogInAccount } from '../interfaces/UserData.interface';
+import { LoginSuccess } from '../interfaces/apiStatus.interface';
+import { ALERT_MESSAGE, PATH_NAME } from '../constants';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import router from '../routes';
-import { PATH_NAME } from '../constants';
 import requestLogin from '../api/requestLogin';
 
 class LoginFormComponent {
@@ -29,12 +31,12 @@ class LoginFormComponent {
   private onSubmitLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    const accountData = {
+    const accountData: LogInAccount = {
       email: (<HTMLInputElement>this.$loginForm.querySelector('#email-input')).value,
       password: (<HTMLInputElement>this.$loginForm.querySelector('#password-input')).value,
     };
 
-    if (await throwableFunctionHandler(() => requestLogin(accountData))) {
+    if (await throwableFunctionHandler(async () => this.onLogIn(accountData))) {
       this.noticeStateChanged();
     }
   };
@@ -42,6 +44,15 @@ class LoginFormComponent {
   private onClickRegister = (e: Event) => {
     e.preventDefault();
     router.go(PATH_NAME.REGISTER);
+  };
+
+  private onLogIn = async (accountData: LogInAccount) => {
+    const data: LoginSuccess = await requestLogin(accountData);
+
+    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    return ALERT_MESSAGE.LOGIN_SUCCESS(data.user.name);
   };
 
   refreshComponent = () => {};

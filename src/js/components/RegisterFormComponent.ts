@@ -1,4 +1,5 @@
 import requestRegister from '../api/requestRegister';
+import { ALERT_MESSAGE } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { checkUserDataValidate } from '../utils/userValidation';
@@ -40,7 +41,9 @@ class RegisterFormComponent {
   };
 
   private checkValidateAndRequest = (userData: User) => {
-    return checkUserDataValidate(userData) && requestRegister(userData);
+    checkUserDataValidate(userData);
+    requestRegister(userData);
+    return ALERT_MESSAGE.REGISTER_SUCCESS;
   };
 
   render = () => {
