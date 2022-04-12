@@ -1,13 +1,13 @@
-import ProductManageImpl from '../core/ProductManageTab';
-import ChargeMoneyImpl from '../core/ChargeMoneyTab';
+import ProductManageManage from '../core/ProductManageManage';
+import ChargeMoneyManage from '../core/ChargeMoneyManage';
+import ProductBuyManage from '../core/ProductBuyManage';
 import { Product, Coin } from '../declarations/resourceDeclaration';
 import { $ } from '../utils/dom';
 import { COINS } from '../constants/index';
-import ProductBuyImpl from '../core/ProductBuyTab';
 import VerifyValueValidation from '../validations/verifyValueValidation';
-import LoginTab from '../core/LoginTab';
-import SignUpTab from '../core/SignUpTab';
-import EditProfileTab from '../core/EditProfileTab';
+import LoginManage from '../core/LoginManage';
+import SignUpManage from '../core/SignUpManage';
+import EditProfileManage from '../core/EditProfileManage';
 import { loginnedMode, logOutedMode } from '../utils/loginUtil';
 
 class VendingMachine {
@@ -22,14 +22,15 @@ class VendingMachine {
 
   constructor() {
     this.verifyValue = new VerifyValueValidation(this.products, this.coins);
-    new ProductManageImpl(this.products, this.verifyValue);
-    new ChargeMoneyImpl(this.coins, this.verifyValue);
-    new ProductBuyImpl(this.products, this.coins, this.verifyValue);
-    new LoginTab(this.verifyValue);
-    new SignUpTab(this.verifyValue);
-    new EditProfileTab(this.verifyValue);
+    new ProductManageManage(this.products, this.verifyValue);
+    new ChargeMoneyManage(this.coins, this.verifyValue);
+    new ProductBuyManage(this.products, this.coins, this.verifyValue);
+    new LoginManage(this.verifyValue);
+    new SignUpManage(this.verifyValue);
+    new EditProfileManage(this.verifyValue);
     $('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
-    $('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
+    $('.login-button-container').addEventListener('click', this.handleLoginInfo.bind(this));
+    $('#link').addEventListener('click', this.handleSignUp.bind(this));
     window.addEventListener('popstate', this.handlePopstate.bind(this));
     this.initWebPage();
   }
@@ -42,11 +43,21 @@ class VendingMachine {
     }
   }
 
-  handleLoginInfoManage(e) {
+  handleSignUp() {
+    history.pushState({}, '', window.location.pathname + `#signup`);
+    this.switchTab('signup');
+  }
+
+  handleLoginInfo(e) {
     if (e.target.classList.contains('login-button')) {
       history.pushState({}, '', window.location.pathname + `#login`);
       this.switchTab('login');
     }
+  }
+
+  handleEditProfile() {
+    history.pushState({}, '', window.location.pathname + `#edit-profile`);
+    this.switchTab('edit-profile');
   }
 
   handleClickTabButtons(e) {
@@ -65,22 +76,22 @@ class VendingMachine {
     if (!window.location.hash) {
       return;
     }
-
+    const accessToken = localStorage.getItem('accessToken');
     const hash = window.location.hash.slice(1);
-    if (!localStorage.getItem('accessToken')) {
+    if (!accessToken) {
       if (hash !== 'buy' && hash !== 'login') {
         return;
       }
     }
-    if (localStorage.getItem('accessToken') && hash === 'signup') {
+    if (accessToken && hash === 'signup') {
       return;
     }
     this.switchTab(hash);
   }
 
   switchTab(tabName) {
-    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+    $('#app').className = 'app';
+    $('#header').className = 'app__header';
     $('#app').classList.add(tabName);
     $('#header').classList.add(tabName);
   }

@@ -23,7 +23,6 @@ export interface ProductBuy {
 
 export interface Login {
   handleLogin(): void;
-  handleLink(): void;
 }
 
 export interface SignUp {

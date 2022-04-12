@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.baseUrl = exports.ALERT_MESSAGE = exports.COINS = exports.INPUT_MONEY_RULES = exports.CHARGE_MONEY_RULES = exports.PRODUCT_RULES = void 0;
+exports.editProfileUrl = exports.signUpUrl = exports.loginUrl = exports.baseUrl = exports.ALERT_MESSAGE = exports.COINS = exports.INPUT_MONEY_RULES = exports.CHARGE_MONEY_RULES = exports.PRODUCT_RULES = void 0;
 exports.PRODUCT_RULES = {
     MAX_NAME_LENGTH: 10,
     MIN_NAME_LENGTH: 1,
@@ -38,6 +38,10 @@ exports.ALERT_MESSAGE = {
     USER_NAME: "\uC774\uB984\uC740 2~6\uAE00\uC790 \uD55C\uAE00\uB9CC \uAC00\uB2A5\uD569\uB2C8\uB2E4.",
     USER_EMAIL: "\uC774\uBA54\uC77C\uC740 woowa123@woowa.com \uD615\uC2DD\uB9CC \uAC00\uB2A5\uD569\uB2C8\uB2E4.",
     USER_PASSWORD: "\uBE44\uBC00\uBC88\uD638\uB294 8~16\uAE00\uC790 \uC601\uB300\uBB38\uC790\uB098 \uC18C\uBB38\uC790, \uD2B9\uC218\uBB38\uC790, \uC22B\uC790\uB97C \uD3EC\uD568\uD574\uC57C\uD569\uB2C8\uB2E4.",
-    USER_PASSWORD_CONFIRM: "\uBE44\uBC00\uBC88\uD638\uAC00 \uB3D9\uC77C\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    USER_PASSWORD_CONFIRM: "\uBE44\uBC00\uBC88\uD638\uAC00 \uB3D9\uC77C\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.",
+    LOGIN: "\uC774\uBA54\uC77C \uB610\uB294 \uBE44\uBC00\uBC88\uD638\uB97C \uC798\uBABB \uC785\uB825\uD588\uC2B5\uB2C8\uB2E4."
 };
-exports.baseUrl = 'https://027d-61-74-35-102.ngrok.io';
+exports.baseUrl = 'https://4673-211-104-54-27.ngrok.io';
+exports.loginUrl = "".concat(exports.baseUrl, "/login");
+exports.signUpUrl = "".concat(exports.baseUrl, "/signUp");
+exports.editProfileUrl = "".concat(exports.baseUrl, "/users");

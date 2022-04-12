@@ -43,6 +43,11 @@ export const ALERT_MESSAGE = {
   USER_EMAIL: `이메일은 woowa123@woowa.com 형식만 가능합니다.`,
   USER_PASSWORD: `비밀번호는 8~16글자 영대문자나 소문자, 특수문자, 숫자를 포함해야합니다.`,
   USER_PASSWORD_CONFIRM: `비밀번호가 동일하지 않습니다.`,
+
+  LOGIN: `이메일 또는 비밀번호를 잘못 입력했습니다.`,
 };
 
-export const baseUrl = 'https://027d-61-74-35-102.ngrok.io';
+export const baseUrl = 'https://4673-211-104-54-27.ngrok.io';
+export const loginUrl = `${baseUrl}/login`;
+export const signUpUrl = `${baseUrl}/signUp`;
+export const editProfileUrl = `${baseUrl}/users`;

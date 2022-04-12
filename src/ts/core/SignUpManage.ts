@@ -3,10 +3,11 @@ import { SignUp } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getSignUpInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
-import { displaySnackbar } from '../utils/snackbar';
-import { baseUrl } from '../constants';
+import { showSnackbar } from '../utils/snackbar';
+import { signUpUrl } from '../constants';
+import { fetchUtil } from '../utils/fetchUtil';
 
-class SignUpTab implements SignUp {
+class SignUpManage implements SignUp {
   verifyValue: VerifyValueValidation;
   constructor(verifyValue: VerifyValueValidation) {
     this.verifyValue = verifyValue;
@@ -20,12 +21,11 @@ class SignUpTab implements SignUp {
       return;
     }
     try {
-      const response = await fetch(`${baseUrl}/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, name, password, passwordConfirm }),
+      const response = await fetchUtil(signUpUrl, 'POST', {
+        email,
+        name,
+        password,
+        passwordConfirm,
       });
 
       if (response.ok) {
@@ -35,12 +35,12 @@ class SignUpTab implements SignUp {
         loginnedMode();
       } else {
         const json = await response.json();
-        displaySnackbar(json);
+        showSnackbar(json);
       }
     } catch (error) {
-      displaySnackbar(error);
+      showSnackbar(error);
     }
   }
 }
 
-export default SignUpTab;
+export default SignUpManage;

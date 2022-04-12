@@ -52,64 +52,56 @@ var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
 var snackbar_1 = require("../utils/snackbar");
 var constants_1 = require("../constants");
-var LoginTab = /** @class */ (function () {
-    function LoginTab(verifyValue) {
+var fetchUtil_1 = require("../utils/fetchUtil");
+var SignUpManage = /** @class */ (function () {
+    function SignUpManage(verifyValue) {
         this.verifyValue = verifyValue;
-        this.$login = (0, dom_1.$)('.login');
-        (0, dom_1.$)('#link', this.$login).addEventListener('click', this.handleLink);
-        (0, dom_1.$)('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
+        (0, dom_1.$)('#signup-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
     }
-    LoginTab.prototype.handleLogin = function () {
+    SignUpManage.prototype.handleSignUp = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var loginInfo, email, password, response, json, accessToken, user, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var signUpInfo, email, name, password, passwordConfirm, response, _a, accessToken, user, json, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        loginInfo = (0, userInfoUtil_1.getLoginInfo)();
-                        email = loginInfo.email, password = loginInfo.password;
-                        if (!this.verifyValue.verifyLoginInfo(loginInfo)) {
+                        signUpInfo = (0, userInfoUtil_1.getSignUpInfo)();
+                        email = signUpInfo.email, name = signUpInfo.name, password = signUpInfo.password, passwordConfirm = signUpInfo.passwordConfirm;
+                        if (!this.verifyValue.verifySignUpInfo(signUpInfo)) {
                             return [2 /*return*/];
                         }
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, fetch("".concat(constants_1.baseUrl, "/login"), {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ email: email, password: password })
+                        _b.trys.push([1, 7, , 8]);
+                        return [4 /*yield*/, (0, fetchUtil_1.fetchUtil)(constants_1.signUpUrl, 'POST', {
+                                email: email,
+                                name: name,
+                                password: password,
+                                passwordConfirm: passwordConfirm
                             })];
                     case 2:
-                        response = _a.sent();
+                        response = _b.sent();
+                        if (!response.ok) return [3 /*break*/, 4];
                         return [4 /*yield*/, response.json()];
                     case 3:
-                        json = _a.sent();
-                        accessToken = json.accessToken, user = json.user;
-                        if (response.ok) {
-                            localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
-                            (0, loginUtil_1.loginnedMode)();
-                        }
-                        else {
-                            (0, snackbar_1.displaySnackbar)(json);
-                        }
-                        return [3 /*break*/, 5];
-                    case 4:
-                        error_1 = _a.sent();
-                        (0, snackbar_1.displaySnackbar)(error_1);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        _a = _b.sent(), accessToken = _a.accessToken, user = _a.user;
+                        localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
+                        (0, loginUtil_1.loginnedMode)();
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, response.json()];
+                    case 5:
+                        json = _b.sent();
+                        (0, snackbar_1.showSnackbar)(json);
+                        _b.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
+                        error_1 = _b.sent();
+                        (0, snackbar_1.showSnackbar)(error_1);
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
     };
-    LoginTab.prototype.handleLink = function () {
-        history.pushState({}, '', window.location.pathname + "#signup");
-        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-        (0, dom_1.$)('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-        (0, dom_1.$)('#app').classList.add('signup');
-        (0, dom_1.$)('#header').classList.add('signup');
-    };
-    return LoginTab;
+    return SignUpManage;
 }());
-exports["default"] = LoginTab;
+exports["default"] = SignUpManage;

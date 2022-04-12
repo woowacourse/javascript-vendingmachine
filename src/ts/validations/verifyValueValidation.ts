@@ -1,6 +1,6 @@
 import { Product, Coin, LoginInfo, UserInfo } from '../declarations/resourceDeclaration';
 import { ALERT_MESSAGE, CHARGE_MONEY_RULES, INPUT_MONEY_RULES, PRODUCT_RULES } from '../constants';
-import { displaySnackbar } from '../utils/snackbar';
+import { showSnackbar } from '../utils/snackbar';
 
 class VerifyValueValidation implements VerifyValueValidation {
   private products: Array<Product>;
@@ -14,19 +14,19 @@ class VerifyValueValidation implements VerifyValueValidation {
   // 각각의 전체 검증
   verifyProductInfo({ name, price, quantity }: Product, index: number) {
     if (!this.isValidProductNameRange(name)) {
-      displaySnackbar(ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
+      showSnackbar(ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
       return false;
     }
     if (this.isOverlapProductName(name, index)) {
-      displaySnackbar(ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
+      showSnackbar(ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
       return false;
     }
     if (!this.isValidProductPrice(price)) {
-      displaySnackbar(ALERT_MESSAGE.PRODUCT_PRICE);
+      showSnackbar(ALERT_MESSAGE.PRODUCT_PRICE);
       return false;
     }
     if (!this.isValidProductQuantity(quantity)) {
-      displaySnackbar(ALERT_MESSAGE.PRODUCT_QUANTITY);
+      showSnackbar(ALERT_MESSAGE.PRODUCT_QUANTITY);
       return false;
     }
     return true;
@@ -34,11 +34,11 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyChargeMoney(chargeMoney: number) {
     if (!this.isValidChargeMoney(chargeMoney)) {
-      displaySnackbar(ALERT_MESSAGE.CHARGE_MONEY);
+      showSnackbar(ALERT_MESSAGE.CHARGE_MONEY);
       return false;
     }
     if (!this.isValidChargeMoneyOver(chargeMoney)) {
-      displaySnackbar(ALERT_MESSAGE.CHARGE_MONEY_MAX);
+      showSnackbar(ALERT_MESSAGE.CHARGE_MONEY_MAX);
       return false;
     }
     return true;
@@ -46,11 +46,11 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyInputMoney(inputMoney: number) {
     if (!this.isValidInputMoneyRange(inputMoney)) {
-      displaySnackbar(ALERT_MESSAGE.INPUT_MONEY_RANGE);
+      showSnackbar(ALERT_MESSAGE.INPUT_MONEY_RANGE);
       return false;
     }
     if (!this.isValidInputMoneyMod(inputMoney)) {
-      displaySnackbar(ALERT_MESSAGE.INPUT_MONEY_MOD);
+      showSnackbar(ALERT_MESSAGE.INPUT_MONEY_MOD);
       return false;
     }
     return true;
@@ -58,11 +58,11 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifyLoginInfo({ email, password }: LoginInfo) {
     if (!this.isValidEmail(email)) {
-      displaySnackbar(ALERT_MESSAGE.USER_EMAIL);
+      showSnackbar(ALERT_MESSAGE.LOGIN);
       return false;
     }
     if (!this.isValidPassWord(password)) {
-      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD);
+      showSnackbar(ALERT_MESSAGE.LOGIN);
       return false;
     }
     return true;
@@ -70,19 +70,19 @@ class VerifyValueValidation implements VerifyValueValidation {
 
   verifySignUpInfo({ email, name, password, passwordConfirm }: UserInfo) {
     if (!this.isValidEmail(email)) {
-      displaySnackbar(ALERT_MESSAGE.USER_EMAIL);
+      showSnackbar(ALERT_MESSAGE.USER_EMAIL);
       return false;
     }
     if (!this.isValidName(name)) {
-      displaySnackbar(ALERT_MESSAGE.USER_NAME);
+      showSnackbar(ALERT_MESSAGE.USER_NAME);
       return false;
     }
     if (!this.isValidPassWord(password)) {
-      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD);
+      showSnackbar(ALERT_MESSAGE.USER_PASSWORD);
       return false;
     }
     if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-      displaySnackbar(ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
+      showSnackbar(ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
       return false;
     }
     return true;

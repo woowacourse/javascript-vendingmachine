@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.drawTotalMoney = exports.drawCoins = exports.switchButtons = exports.drawProductList = void 0;
+exports.renderTotalMoney = exports.renderCoins = exports.switchButtons = exports.renderProductList = void 0;
 var dom_1 = require("../utils/dom");
-var drawProductList = function (parentNode) {
+var renderProductList = function (parentNode) {
     if (parentNode === void 0) { parentNode = document; }
     var template = this.products
         .map(function (_a) {
@@ -13,7 +13,7 @@ var drawProductList = function (parentNode) {
     (0, dom_1.$)('#product-list', parentNode).replaceChildren();
     (0, dom_1.$)('#product-list', parentNode).insertAdjacentHTML('beforeend', template);
 };
-exports.drawProductList = drawProductList;
+exports.renderProductList = renderProductList;
 var switchButtons = function (parentNode) {
     if (parentNode === document) {
         return "\n      <button class=\"modify-button button\">\uC218\uC815</button>\n      <button class=\"delete-button button\">\uC0AD\uC81C</button>\n      <button class=\"confirm-button button\">\uD655\uC778</button>\n    ";
@@ -21,15 +21,15 @@ var switchButtons = function (parentNode) {
     return "<button class=\"buy-button button\">\uAD6C\uB9E4</button>";
 };
 exports.switchButtons = switchButtons;
-var drawCoins = function () {
+var renderCoins = function () {
     var _this = this;
     this.coins.forEach(function (_a) {
         var amount = _a.amount, count = _a.count;
         (0, dom_1.$)("#coin-".concat(amount, "-count"), _this.$buy).innerText = "".concat(count, "\uAC1C");
     });
 };
-exports.drawCoins = drawCoins;
-var drawTotalMoney = function () {
+exports.renderCoins = renderCoins;
+var renderTotalMoney = function () {
     (0, dom_1.$)('.input-money-indicator').textContent = "\uD22C\uC785\uD55C \uAE08\uC561: ".concat(this.totalMoney, "\uC6D0");
 };
-exports.drawTotalMoney = drawTotalMoney;
+exports.renderTotalMoney = renderTotalMoney;

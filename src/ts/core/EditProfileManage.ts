@@ -3,10 +3,12 @@ import { EditProfile } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getUserInfo } from '../utils/userInfoUtil';
 import { loginnedMode, logOutedMode } from '../utils/loginUtil';
-import { displaySnackbar } from '../utils/snackbar';
-import { baseUrl } from '../constants';
+import { showSnackbar } from '../utils/snackbar';
+import { editProfileUrl } from '../constants';
+import VendingMachine from '../controllers/VendingMachine';
+import { fetchUtil } from '../utils/fetchUtil';
 
-class EditProfileTab implements EditProfile {
+class EditProfileManage implements EditProfile {
   verifyValue: VerifyValueValidation;
   constructor(verifyValue: VerifyValueValidation) {
     this.verifyValue = verifyValue;
@@ -16,7 +18,7 @@ class EditProfileTab implements EditProfile {
 
   handleSelect() {
     if ($('.edit-profile-button').value === 'edit-profile') {
-      this.handleClickEditButton();
+      VendingMachine.prototype.handleEditProfile();
       let { email, name } = JSON.parse(localStorage.getItem('accessToken'));
       $('#edit-profile-form__name-input').value = name;
       $('#edit-profile-form__email-input').value = email;
@@ -24,14 +26,6 @@ class EditProfileTab implements EditProfile {
     } else if ($('.edit-profile-button').value === 'logout') {
       this.handleLogOut();
     }
-  }
-
-  handleClickEditButton() {
-    history.pushState({}, '', window.location.pathname + `#edit-profile`);
-    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-    $('#app').classList.add('edit-profile');
-    $('#header').classList.add('edit-profile');
   }
 
   handleLogOut() {
@@ -48,14 +42,11 @@ class EditProfileTab implements EditProfile {
       return;
     }
     try {
-      const response = await fetch(`${baseUrl}/users/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, password, passwordConfirm }),
+      const response = await fetchUtil(`${editProfileUrl}/${id}`, 'PATCH', {
+        name,
+        password,
+        passwordConfirm,
       });
-
       if (response.ok) {
         const { name } = await response.json();
         accessToken.name = name;
@@ -63,12 +54,12 @@ class EditProfileTab implements EditProfile {
         loginnedMode();
       } else {
         const json = await response.json();
-        displaySnackbar(json);
+        showSnackbar(json);
       }
     } catch (error) {
-      displaySnackbar(error);
+      showSnackbar(error);
     }
   }
 }
 
-export default EditProfileTab;
+export default EditProfileManage;

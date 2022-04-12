@@ -3,16 +3,16 @@ import { Login } from '../declarations/coreDeclaration';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 import { getLoginInfo } from '../utils/userInfoUtil';
 import { loginnedMode } from '../utils/loginUtil';
-import { displaySnackbar } from '../utils/snackbar';
-import { baseUrl } from '../constants';
+import { showSnackbar } from '../utils/snackbar';
+import { baseUrl, loginUrl } from '../constants';
+import { fetchUtil } from '../utils/fetchUtil';
 
-class LoginTab implements Login {
+class LoginManage implements Login {
   $login: Document;
   verifyValue: VerifyValueValidation;
   constructor(verifyValue: VerifyValueValidation) {
     this.verifyValue = verifyValue;
     this.$login = $('.login');
-    $('#link', this.$login).addEventListener('click', this.handleLink);
     $('#login-confirm-button', this.$login).addEventListener('click', this.handleLogin.bind(this));
   }
 
@@ -23,14 +23,7 @@ class LoginTab implements Login {
       return;
     }
     try {
-      const response = await fetch(`${baseUrl}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
+      const response = await fetchUtil(loginUrl, 'POST', { email, password });
       const json = await response.json();
       const { accessToken, user } = json;
 
@@ -38,20 +31,12 @@ class LoginTab implements Login {
         localStorage.setItem('accessToken', JSON.stringify({ ...user, accessToken }));
         loginnedMode();
       } else {
-        displaySnackbar(json);
+        showSnackbar(json);
       }
     } catch (error) {
-      displaySnackbar(error);
+      showSnackbar(error);
     }
-  }
-
-  handleLink(): void {
-    history.pushState({}, '', window.location.pathname + `#signup`);
-    $('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-    $('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-    $('#app').classList.add('signup');
-    $('#header').classList.add('signup');
   }
 }
 
-export default LoginTab;
+export default LoginManage;

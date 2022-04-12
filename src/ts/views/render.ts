@@ -1,7 +1,7 @@
 import { $ } from '../utils/dom';
 import { Product } from '../declarations/resourceDeclaration';
 
-export const drawProductList = function (parentNode = document) {
+export const renderProductList = function (parentNode = document) {
   const template = this.products
     .map(
       ({ name, price, quantity }: Product) =>
@@ -33,12 +33,12 @@ export const switchButtons = function (parentNode): string {
   return `<button class="buy-button button">구매</button>`;
 };
 
-export const drawCoins = function (): void {
+export const renderCoins = function (): void {
   this.coins.forEach(({ amount, count }) => {
     $(`#coin-${amount}-count`, this.$buy).innerText = `${count}개`;
   });
 };
 
-export const drawTotalMoney = function (): void {
+export const renderTotalMoney = function (): void {
   $('.input-money-indicator').textContent = `투입한 금액: ${this.totalMoney}원`;
 };

@@ -1,7 +1,7 @@
 import { $ } from '../utils/dom';
 import { Product } from '../declarations/resourceDeclaration';
 import { ProductManage } from '../declarations/coreDeclaration';
-import { drawProductList } from '../views/render';
+import { renderProductList } from '../views/render';
 import {
   getProductInfo,
   getProductInfoModify,
@@ -10,7 +10,7 @@ import {
 } from '../utils/productUtil';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 
-class ProductManageTab implements ProductManage {
+class ProductManagemManage implements ProductManage {
   private products: Array<Product>;
   verifyValue: VerifyValueValidation;
 
@@ -18,7 +18,7 @@ class ProductManageTab implements ProductManage {
     this.products = products;
     this.verifyValue = verifyValue;
     window.addEventListener('load', () => {
-      $('#tab__manage-button').addEventListener('click', drawProductList.bind(this, document));
+      $('#tab__manage-button').addEventListener('click', renderProductList.bind(this, document));
       $('#add-product-form').addEventListener('submit', this.handleAddProduct.bind(this));
       $('#product-list').addEventListener('click', this.handleClickButtons.bind(this));
     });
@@ -29,27 +29,28 @@ class ProductManageTab implements ProductManage {
     const productInfo = getProductInfo.call(this);
     if (this.verifyValue.verifyProductInfo(productInfo, -1)) {
       this.addProduct(productInfo);
-      drawProductList.call(this);
+      renderProductList.call(this);
     }
   }
 
   handleClickButtons(e) {
+    const productTr = e.target.closest('tr');
     if (e.target.classList.contains('modify-button')) {
-      e.target.closest('tr').classList.add('modify');
+      productTr.classList.add('modify');
     }
 
     if (e.target.classList.contains('delete-button') && confirm('정말 삭제하시겠습니까?')) {
-      this.deleteProduct(e.target.closest('tr').children[0].innerText);
-      drawProductList.call(this);
+      this.deleteProduct(productTr.children[0].innerText);
+      renderProductList.call(this);
     }
 
     if (e.target.classList.contains('confirm-button')) {
-      const productInfo = getProductInfoModify.call(this, e.target.closest('tr'));
-      const index = getProductRowIndex.call(this, e.target.closest('tr'));
+      const productInfo = getProductInfoModify.call(this, productTr);
+      const index = getProductRowIndex.call(this, productTr);
 
       if (this.verifyValue.verifyProductInfo(productInfo, index)) {
         this.modifyProduct(productInfo, index);
-        drawProductList.call(this);
+        renderProductList.call(this);
       }
     }
   }
@@ -67,4 +68,4 @@ class ProductManageTab implements ProductManage {
   }
 }
 
-export default ProductManageTab;
+export default ProductManagemManage;

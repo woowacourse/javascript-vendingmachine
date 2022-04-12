@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -52,56 +41,76 @@ var userInfoUtil_1 = require("../utils/userInfoUtil");
 var loginUtil_1 = require("../utils/loginUtil");
 var snackbar_1 = require("../utils/snackbar");
 var constants_1 = require("../constants");
-var SignUpTab = /** @class */ (function () {
-    function SignUpTab(verifyValue) {
+var VendingMachine_1 = require("../controllers/VendingMachine");
+var fetchUtil_1 = require("../utils/fetchUtil");
+var EditProfileManage = /** @class */ (function () {
+    function EditProfileManage(verifyValue) {
         this.verifyValue = verifyValue;
-        (0, dom_1.$)('#signup-confirm-button').addEventListener('click', this.handleSignUp.bind(this));
+        (0, dom_1.$)('.edit-profile-button').addEventListener('change', this.handleSelect.bind(this));
+        (0, dom_1.$)('#edit-profile-confirm-button').addEventListener('click', this.handleEditProfile.bind(this));
     }
-    SignUpTab.prototype.handleSignUp = function () {
+    EditProfileManage.prototype.handleSelect = function () {
+        if ((0, dom_1.$)('.edit-profile-button').value === 'edit-profile') {
+            VendingMachine_1["default"].prototype.handleEditProfile();
+            var _a = JSON.parse(localStorage.getItem('accessToken')), email = _a.email, name_1 = _a.name;
+            (0, dom_1.$)('#edit-profile-form__name-input').value = name_1;
+            (0, dom_1.$)('#edit-profile-form__email-input').value = email;
+            (0, dom_1.$)('.edit-profile-button').value = 'name-thumbnail';
+        }
+        else if ((0, dom_1.$)('.edit-profile-button').value === 'logout') {
+            this.handleLogOut();
+        }
+    };
+    EditProfileManage.prototype.handleLogOut = function () {
+        (0, loginUtil_1.logOutedMode)();
+        localStorage.clear();
+    };
+    EditProfileManage.prototype.handleEditProfile = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var signUpInfo, email, name, password, passwordConfirm, response, _a, accessToken, user, json, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var userInfo, name, password, passwordConfirm, accessToken, id, response, name_2, json, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        signUpInfo = (0, userInfoUtil_1.getSignUpInfo)();
-                        email = signUpInfo.email, name = signUpInfo.name, password = signUpInfo.password, passwordConfirm = signUpInfo.passwordConfirm;
-                        if (!this.verifyValue.verifySignUpInfo(signUpInfo)) {
+                        userInfo = (0, userInfoUtil_1.getUserInfo)();
+                        name = userInfo.name, password = userInfo.password, passwordConfirm = userInfo.passwordConfirm;
+                        accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                        id = accessToken.id;
+                        if (!this.verifyValue.verifySignUpInfo(userInfo)) {
                             return [2 /*return*/];
                         }
-                        _b.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _b.trys.push([1, 7, , 8]);
-                        return [4 /*yield*/, fetch("".concat(constants_1.baseUrl, "/signup"), {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ email: email, name: name, password: password, passwordConfirm: passwordConfirm })
+                        _a.trys.push([1, 7, , 8]);
+                        return [4 /*yield*/, (0, fetchUtil_1.fetchUtil)("".concat(constants_1.editProfileUrl, "/").concat(id), 'PATCH', {
+                                name: name,
+                                password: password,
+                                passwordConfirm: passwordConfirm
                             })];
                     case 2:
-                        response = _b.sent();
+                        response = _a.sent();
                         if (!response.ok) return [3 /*break*/, 4];
                         return [4 /*yield*/, response.json()];
                     case 3:
-                        _a = _b.sent(), accessToken = _a.accessToken, user = _a.user;
-                        localStorage.setItem('accessToken', JSON.stringify(__assign(__assign({}, user), { accessToken: accessToken })));
+                        name_2 = (_a.sent()).name;
+                        accessToken.name = name_2;
+                        localStorage.setItem('accessToken', JSON.stringify(accessToken));
                         (0, loginUtil_1.loginnedMode)();
                         return [3 /*break*/, 6];
                     case 4: return [4 /*yield*/, response.json()];
                     case 5:
-                        json = _b.sent();
-                        (0, snackbar_1.displaySnackbar)(json);
-                        _b.label = 6;
+                        json = _a.sent();
+                        (0, snackbar_1.showSnackbar)(json);
+                        _a.label = 6;
                     case 6: return [3 /*break*/, 8];
                     case 7:
-                        error_1 = _b.sent();
-                        (0, snackbar_1.displaySnackbar)(error_1);
+                        error_1 = _a.sent();
+                        (0, snackbar_1.showSnackbar)(error_1);
                         return [3 /*break*/, 8];
                     case 8: return [2 /*return*/];
                 }
             });
         });
     };
-    return SignUpTab;
+    return EditProfileManage;
 }());
-exports["default"] = SignUpTab;
+exports["default"] = EditProfileManage;

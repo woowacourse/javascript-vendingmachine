@@ -1,14 +1,14 @@
 "use strict";
 exports.__esModule = true;
-var ProductManageTab_1 = require("../core/ProductManageTab");
-var ChargeMoneyTab_1 = require("../core/ChargeMoneyTab");
+var ProductManageManage_1 = require("../core/ProductManageManage");
+var ChargeMoneyManage_1 = require("../core/ChargeMoneyManage");
+var ProductBuyManage_1 = require("../core/ProductBuyManage");
 var dom_1 = require("../utils/dom");
 var index_1 = require("../constants/index");
-var ProductBuyTab_1 = require("../core/ProductBuyTab");
 var verifyValueValidation_1 = require("../validations/verifyValueValidation");
-var LoginTab_1 = require("../core/LoginTab");
-var SignUpTab_1 = require("../core/SignUpTab");
-var EditProfileTab_1 = require("../core/EditProfileTab");
+var LoginManage_1 = require("../core/LoginManage");
+var SignUpManage_1 = require("../core/SignUpManage");
+var EditProfileManage_1 = require("../core/EditProfileManage");
 var loginUtil_1 = require("../utils/loginUtil");
 var VendingMachine = /** @class */ (function () {
     function VendingMachine() {
@@ -20,14 +20,15 @@ var VendingMachine = /** @class */ (function () {
             { amount: index_1.COINS.VAULE_500, count: 0 },
         ];
         this.verifyValue = new verifyValueValidation_1["default"](this.products, this.coins);
-        new ProductManageTab_1["default"](this.products, this.verifyValue);
-        new ChargeMoneyTab_1["default"](this.coins, this.verifyValue);
-        new ProductBuyTab_1["default"](this.products, this.coins, this.verifyValue);
-        new LoginTab_1["default"](this.verifyValue);
-        new SignUpTab_1["default"](this.verifyValue);
-        new EditProfileTab_1["default"](this.verifyValue);
+        new ProductManageManage_1["default"](this.products, this.verifyValue);
+        new ChargeMoneyManage_1["default"](this.coins, this.verifyValue);
+        new ProductBuyManage_1["default"](this.products, this.coins, this.verifyValue);
+        new LoginManage_1["default"](this.verifyValue);
+        new SignUpManage_1["default"](this.verifyValue);
+        new EditProfileManage_1["default"](this.verifyValue);
         (0, dom_1.$)('#tab').addEventListener('click', this.handleClickTabButtons.bind(this));
-        (0, dom_1.$)('.login-button-container').addEventListener('click', this.handleLoginInfoManage.bind(this));
+        (0, dom_1.$)('.login-button-container').addEventListener('click', this.handleLoginInfo.bind(this));
+        (0, dom_1.$)('#link').addEventListener('click', this.handleSignUp.bind(this));
         window.addEventListener('popstate', this.handlePopstate.bind(this));
         this.initWebPage();
     }
@@ -39,11 +40,19 @@ var VendingMachine = /** @class */ (function () {
             (0, loginUtil_1.logOutedMode)();
         }
     };
-    VendingMachine.prototype.handleLoginInfoManage = function (e) {
+    VendingMachine.prototype.handleSignUp = function () {
+        history.pushState({}, '', window.location.pathname + "#signup");
+        this.switchTab('signup');
+    };
+    VendingMachine.prototype.handleLoginInfo = function (e) {
         if (e.target.classList.contains('login-button')) {
             history.pushState({}, '', window.location.pathname + "#login");
             this.switchTab('login');
         }
+    };
+    VendingMachine.prototype.handleEditProfile = function () {
+        history.pushState({}, '', window.location.pathname + "#edit-profile");
+        this.switchTab('edit-profile');
     };
     VendingMachine.prototype.handleClickTabButtons = function (e) {
         if (e.target === e.currentTarget) {
@@ -60,20 +69,21 @@ var VendingMachine = /** @class */ (function () {
         if (!window.location.hash) {
             return;
         }
+        var accessToken = localStorage.getItem('accessToken');
         var hash = window.location.hash.slice(1);
-        if (!localStorage.getItem('accessToken')) {
+        if (!accessToken) {
             if (hash !== 'buy' && hash !== 'login') {
                 return;
             }
         }
-        if (localStorage.getItem('accessToken') && hash === 'signup') {
+        if (accessToken && hash === 'signup') {
             return;
         }
         this.switchTab(hash);
     };
     VendingMachine.prototype.switchTab = function (tabName) {
-        (0, dom_1.$)('#app').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
-        (0, dom_1.$)('#header').classList.remove('manage', 'charge', 'buy', 'login', 'signup', 'edit-profile');
+        (0, dom_1.$)('#app').className = 'app';
+        (0, dom_1.$)('#header').className = 'app__header';
         (0, dom_1.$)('#app').classList.add(tabName);
         (0, dom_1.$)('#header').classList.add(tabName);
     };

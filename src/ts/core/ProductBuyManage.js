@@ -3,8 +3,8 @@ exports.__esModule = true;
 var dom_1 = require("../utils/dom");
 var render_1 = require("../views/render");
 var productUtil_1 = require("../utils/productUtil");
-var ProductBuyTab = /** @class */ (function () {
-    function ProductBuyTab(products, coins, verifyValue) {
+var ProductBuyManage = /** @class */ (function () {
+    function ProductBuyManage(products, coins, verifyValue) {
         var _this = this;
         this.verifyValue = verifyValue;
         this.products = products;
@@ -18,19 +18,19 @@ var ProductBuyTab = /** @class */ (function () {
             (0, dom_1.$)('.return-button', _this.$buy).addEventListener('click', _this.handleReturnMoney.bind(_this));
         });
     }
-    ProductBuyTab.prototype.updateResources = function () {
-        render_1.drawProductList.call(this, this.$buy);
-        render_1.drawCoins.call(this);
+    ProductBuyManage.prototype.updateResources = function () {
+        render_1.renderProductList.call(this, this.$buy);
+        render_1.renderCoins.call(this);
     };
-    ProductBuyTab.prototype.handleChargeMoney = function (e) {
+    ProductBuyManage.prototype.handleChargeMoney = function (e) {
         e.preventDefault();
         var inputMoney = Number((0, dom_1.$)('#input-money-input', this.$buy).value);
         if (this.verifyValue.verifyInputMoney(inputMoney)) {
             this.totalMoney += inputMoney;
-            render_1.drawTotalMoney.call(this);
+            render_1.renderTotalMoney.call(this);
         }
     };
-    ProductBuyTab.prototype.handleBuyProduct = function (e) {
+    ProductBuyManage.prototype.handleBuyProduct = function (e) {
         if (!e.target.classList.contains('buy-button')) {
             return;
         }
@@ -38,27 +38,27 @@ var ProductBuyTab = /** @class */ (function () {
         var index = productUtil_1.getProductIndex.call(this, productInfo.name);
         if (this.verifyValue.canBuyProduct(productInfo, this.totalMoney)) {
             this.saleProduct(productInfo, index);
-            render_1.drawProductList.call(this, this.$buy);
+            render_1.renderProductList.call(this, this.$buy);
         }
     };
-    ProductBuyTab.prototype.handleReturnMoney = function () {
+    ProductBuyManage.prototype.handleReturnMoney = function () {
         for (var i = this.coins.length - 1; i >= 0; i--) {
             while (this.totalMoney >= this.coins[i].amount && this.coins[i].count >= 1) {
                 this.totalMoney -= this.coins[i].amount;
                 this.coins[i].count -= 1;
             }
         }
-        render_1.drawCoins.call(this);
-        render_1.drawTotalMoney.call(this);
+        render_1.renderCoins.call(this);
+        render_1.renderTotalMoney.call(this);
     };
-    ProductBuyTab.prototype.saleProduct = function (_a, index) {
+    ProductBuyManage.prototype.saleProduct = function (_a, index) {
         var name = _a.name, price = _a.price, quantity = _a.quantity;
         quantity -= 1;
         this.totalMoney -= price;
         this.products[index] = { name: name, price: price, quantity: quantity };
-        render_1.drawProductList.call(this, this.$buy);
-        render_1.drawTotalMoney.call(this);
+        render_1.renderProductList.call(this, this.$buy);
+        render_1.renderTotalMoney.call(this);
     };
-    return ProductBuyTab;
+    return ProductBuyManage;
 }());
-exports["default"] = ProductBuyTab;
+exports["default"] = ProductBuyManage;

@@ -56,7 +56,7 @@ describe('사용자 테스트', () => {
     cy.get('#login-form__password-input').type(password);
     cy.get('#login-confirm-button').click();
 
-    cy.get('#name-thumbnail').should('have.text', '아');
+    cy.get('#name-thumbnail').should('have.text', '아이디');
   });
 
   it('틀린 비밀번호로 로그인 할 수 없다.', () => {
@@ -65,7 +65,7 @@ describe('사용자 테스트', () => {
     cy.get('#login-form__password-input').type('1');
     cy.get('#login-confirm-button').click();
 
-    cy.get('#name-thumbnail').should('have.text', '아');
+    cy.get('#name-thumbnail').should('have.text', '아이디');
   });
 
   it('로그인을 할 수 있다.', () => {

@@ -1,11 +1,11 @@
 import { $ } from '../utils/dom';
 import { ProductBuy } from '../declarations/coreDeclaration';
 import { Product, Coin } from '../declarations/resourceDeclaration';
-import { drawCoins, drawProductList, drawTotalMoney } from '../views/render';
+import { renderCoins, renderProductList, renderTotalMoney } from '../views/render';
 import { getProductInfoModify, getProductIndex } from '../utils/productUtil';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 
-class ProductBuyTab implements ProductBuy {
+class ProductBuyManage implements ProductBuy {
   private coins: Array<Coin>;
   private products: Array<Product>;
   $buy: Document;
@@ -31,8 +31,8 @@ class ProductBuyTab implements ProductBuy {
   }
 
   updateResources() {
-    drawProductList.call(this, this.$buy);
-    drawCoins.call(this);
+    renderProductList.call(this, this.$buy);
+    renderCoins.call(this);
   }
 
   handleChargeMoney(e) {
@@ -41,7 +41,7 @@ class ProductBuyTab implements ProductBuy {
 
     if (this.verifyValue.verifyInputMoney(inputMoney)) {
       this.totalMoney += inputMoney;
-      drawTotalMoney.call(this);
+      renderTotalMoney.call(this);
     }
   }
 
@@ -53,7 +53,7 @@ class ProductBuyTab implements ProductBuy {
     const index = getProductIndex.call(this, productInfo.name);
     if (this.verifyValue.canBuyProduct(productInfo, this.totalMoney)) {
       this.saleProduct(productInfo, index);
-      drawProductList.call(this, this.$buy);
+      renderProductList.call(this, this.$buy);
     }
   }
 
@@ -64,17 +64,17 @@ class ProductBuyTab implements ProductBuy {
         this.coins[i].count -= 1;
       }
     }
-    drawCoins.call(this);
-    drawTotalMoney.call(this);
+    renderCoins.call(this);
+    renderTotalMoney.call(this);
   }
 
   saleProduct({ name, price, quantity }: Product, index: number): void {
     quantity -= 1;
     this.totalMoney -= price;
     this.products[index] = { name, price, quantity };
-    drawProductList.call(this, this.$buy);
-    drawTotalMoney.call(this);
+    renderProductList.call(this, this.$buy);
+    renderTotalMoney.call(this);
   }
 }
 
-export default ProductBuyTab;
+export default ProductBuyManage;

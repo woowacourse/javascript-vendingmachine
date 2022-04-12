@@ -1,11 +1,11 @@
 import { $ } from '../utils/dom';
 import { ChargeMoney } from '../declarations/coreDeclaration';
 import { Coin } from '../declarations/resourceDeclaration';
-import { drawCoins } from '../views/render';
+import { renderCoins } from '../views/render';
 import { generateRandomCoins } from '../utils/productUtil';
 import VerifyValueValidation from '../validations/verifyValueValidation';
 
-class ChargeMoneyTab implements ChargeMoney {
+class ChargeMoneyManage implements ChargeMoney {
   private coins: Array<Coin>;
   verifyValue: VerifyValueValidation;
 
@@ -13,7 +13,7 @@ class ChargeMoneyTab implements ChargeMoney {
     this.verifyValue = verifyValue;
     this.coins = coins;
     window.addEventListener('load', () => {
-      $('#tab__charge-button').addEventListener('click', drawCoins.bind(this));
+      $('#tab__charge-button').addEventListener('click', renderCoins.bind(this));
       $('#charge-money-form').addEventListener('submit', this.handleChargeMoney.bind(this));
     });
   }
@@ -25,7 +25,7 @@ class ChargeMoneyTab implements ChargeMoney {
     if (this.verifyValue.verifyChargeMoney(inputMoney)) {
       const coinList = generateRandomCoins.call(this, inputMoney);
       this.chargeMoney(coinList);
-      drawCoins.call(this);
+      renderCoins.call(this);
     }
   }
 
@@ -34,4 +34,4 @@ class ChargeMoneyTab implements ChargeMoney {
   }
 }
 
-export default ChargeMoneyTab;
+export default ChargeMoneyManage;

@@ -13,41 +13,41 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifyProductInfo = function (_a, index) {
         var name = _a.name, price = _a.price, quantity = _a.quantity;
         if (!this.isValidProductNameRange(name)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
             return false;
         }
         if (this.isOverlapProductName(name, index)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
             return false;
         }
         if (!this.isValidProductPrice(price)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_PRICE);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_PRICE);
             return false;
         }
         if (!this.isValidProductQuantity(quantity)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_QUANTITY);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_QUANTITY);
             return false;
         }
         return true;
     };
     VerifyValueValidation.prototype.verifyChargeMoney = function (chargeMoney) {
         if (!this.isValidChargeMoney(chargeMoney)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY);
             return false;
         }
         if (!this.isValidChargeMoneyOver(chargeMoney)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY_MAX);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY_MAX);
             return false;
         }
         return true;
     };
     VerifyValueValidation.prototype.verifyInputMoney = function (inputMoney) {
         if (!this.isValidInputMoneyRange(inputMoney)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_RANGE);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_RANGE);
             return false;
         }
         if (!this.isValidInputMoneyMod(inputMoney)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_MOD);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_MOD);
             return false;
         }
         return true;
@@ -55,11 +55,11 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifyLoginInfo = function (_a) {
         var email = _a.email, password = _a.password;
         if (!this.isValidEmail(email)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.LOGIN);
             return false;
         }
         if (!this.isValidPassWord(password)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.LOGIN);
             return false;
         }
         return true;
@@ -67,19 +67,19 @@ var VerifyValueValidation = /** @class */ (function () {
     VerifyValueValidation.prototype.verifySignUpInfo = function (_a) {
         var email = _a.email, name = _a.name, password = _a.password, passwordConfirm = _a.passwordConfirm;
         if (!this.isValidEmail(email)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
             return false;
         }
         if (!this.isValidName(name)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_NAME);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_NAME);
             return false;
         }
         if (!this.isValidPassWord(password)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
             return false;
         }
         if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-            (0, snackbar_1.displaySnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
+            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
             return false;
         }
         return true;
