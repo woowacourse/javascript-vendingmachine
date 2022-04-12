@@ -18,7 +18,7 @@
 개발 중에는 아래 명령어를 사용하여 webpack dev server를 띄워 현재 개발 중인 어플리케이션을 확인할 수 있습니다.
 
 ```
-npm run start
+npm run start:dev
 ```
 
 별도로 빌드를 해야 한다면 아래 명령어를 사용해주세요
