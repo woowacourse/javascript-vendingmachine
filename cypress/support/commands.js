@@ -1,13 +1,15 @@
+import { SELECTOR } from "../utils";
+
 Cypress.Commands.add("signUp", ({ email, name, password, confirmPassword }) => {
-  cy.get("#email").type(email);
-  cy.get("#name").type(name);
-  cy.get("#password").type(password);
-  cy.get("#confirm-password").type(confirmPassword);
-  cy.get(".submit-button").click();
+  cy.get(SELECTOR.EMAIL_INPUT).type(email);
+  cy.get(SELECTOR.NAME_INPUT).type(name);
+  cy.get(SELECTOR.PASSWORD_INPUT).type(password);
+  cy.get(SELECTOR.CONFIRM_PASSWORD_INPUT).type(confirmPassword);
+  cy.get(SELECTOR.SUBMIT_BUTTON).click();
 });
 
 Cypress.Commands.add("login", (email, password) => {
-  cy.get("#email").type(email);
-  cy.get("#password").type(password);
-  cy.get(".submit-button").click();
+  cy.get(SELECTOR.EMAIL_INPUT).type(email);
+  cy.get(SELECTOR.PASSWORD_INPUT).type(password);
+  cy.get(SELECTOR.SUBMIT_BUTTON).click();
 });
