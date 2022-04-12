@@ -1,11 +1,16 @@
 import { AuthenticationInfo, TestCase } from '../../types';
 import { AUTHENTICATION_INFO } from '../../constant/rule';
 import { AUTHENTICATION_MESSAGE } from '../../constant/errorMessage';
+import {
+  EMAIL_REGEX,
+  NUMBER_REGEX,
+  ALPHABET_REGEX,
+  PASSWORD_SPECIAL_CHARACTER_REGEX,
+  PASSWORD_OTHER_CHARACTERS_REGEX,
+} from '../../constant/regex';
 
 const isNotEmailFormat = ({ email }: AuthenticationInfo): boolean => {
-  const emailRegex = /[0-9a-zA-Z]+@([0-9a-zA-Z]+)(.[0-9a-zA-Z]+){1,2}$/;
-
-  return !emailRegex.test(email);
+  return !EMAIL_REGEX.test(email);
 };
 
 const isInvalidNameLength = ({ name }: AuthenticationInfo): boolean => {
@@ -23,27 +28,19 @@ const isInvalidPasswordLength = ({ password }: AuthenticationInfo): boolean => {
 };
 
 const isNotExistNumberInPassword = ({ password }: AuthenticationInfo): boolean => {
-  const numberRegex = /[0-9]/;
-
-  return !numberRegex.test(password);
+  return !NUMBER_REGEX.test(password);
 };
 
 const isNotExistAlphabetInPassword = ({ password }: AuthenticationInfo): boolean => {
-  const alphabetRegex = /[a-zA-Z]/;
-
-  return !alphabetRegex.test(password);
+  return !ALPHABET_REGEX.test(password);
 };
 
 const isNotExistSpecialCharacterInPassword = ({ password }: AuthenticationInfo): boolean => {
-  const specialCharactersRegex = /[!#$%&()*+,-./:;<=>?@]/;
-
-  return !specialCharactersRegex.test(password);
+  return !PASSWORD_SPECIAL_CHARACTER_REGEX.test(password);
 };
 
 const isExistOtherCharacterInPassword = ({ password }: AuthenticationInfo): boolean => {
-  const otherCharacterRegex = /[^0-9a-zA-Z!#$%&()*+,-./:;<=>?@]/;
-
-  return otherCharacterRegex.test(password);
+  return PASSWORD_OTHER_CHARACTERS_REGEX.test(password);
 };
 
 const isDifferentVerificationPassword = ({
