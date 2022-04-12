@@ -31,15 +31,15 @@ class Authentication {
   }
 
   subscribeSignupPage() {
-    on('.signup-form', '@signup', (e: CustomEvent) => this.signup(e.detail), $('signup-page'));
+    on('.signup-form', '@signup', (e) => this.signup(e.detail), $('signup-page'));
   }
 
   subscribeLoginPage() {
-    on('.login-form', '@login', (e: CustomEvent) => this.login(e.detail), $('login-page'));
+    on('.login-form', '@login', (e) => this.login(e.detail), $('login-page'));
   }
 
   subscribeProfileEditPage() {
-    on('.profile-edit-form', '@edit', (e: CustomEvent) => this.editProfile(e.detail), $('profile-edit-page'));
+    on('.profile-edit-form', '@edit', (e) => this.editProfile(e.detail), $('profile-edit-page'));
   }
 
   signup({ email, name, password, passwordConfirm }) {

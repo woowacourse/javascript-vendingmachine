@@ -40,14 +40,9 @@ class VendingMachine implements VendingMachineProperty {
   }
 
   subscribeProductManagement() {
-    on('.product-manage-form', '@add', (e: CustomEvent) => this.addProduct(e.detail), $('product-management'));
-    on('#product-list-table', '@update', (e: CustomEvent) => this.updateProduct(e.detail), $('product-management'));
-    on(
-      '#product-list-table',
-      '@delete',
-      (e: CustomEvent) => this.deleteProduct(e.detail.productName),
-      $('product-management'),
-    );
+    on('.product-manage-form', '@add', (e) => this.addProduct(e.detail), $('product-management'));
+    on('#product-list-table', '@update', (e) => this.updateProduct(e.detail), $('product-management'));
+    on('#product-list-table', '@delete', (e) => this.deleteProduct(e.detail.productName), $('product-management'));
   }
 
   subscribeChargeTab() {
@@ -55,18 +50,8 @@ class VendingMachine implements VendingMachineProperty {
   }
 
   subscribePurchaseTab() {
-    on(
-      '.user-amount-form',
-      '@insert-coin',
-      (e: CustomEvent) => this.insertCoin(e.detail.userInputMoney),
-      $('purchase-tab'),
-    );
-    on(
-      '#purchasable-product-list-table',
-      '@purchase',
-      (e: CustomEvent) => this.purchase(e.detail.productId),
-      $('purchase-tab'),
-    );
+    on('.user-amount-form', '@insert-coin', (e) => this.insertCoin(e.detail.userInputMoney), $('purchase-tab'));
+    on('#purchasable-product-list-table', '@purchase', (e) => this.purchase(e.detail.productId), $('purchase-tab'));
     on('.return-button', '@return', () => this.returnCoin(), $('purchase-tab'));
   }
 
