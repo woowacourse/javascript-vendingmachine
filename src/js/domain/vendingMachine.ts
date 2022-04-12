@@ -63,14 +63,14 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   generateCoins: type.IGenerateCoins = (money) => {
-    const coinArray = [500, 100, 50, 10];
+    const coinTypes = [500, 100, 50, 10];
     const newCoins = { 500: 0, 100: 0, 50: 0, 10: 0 };
 
     while (money) {
-      const idx = Math.floor(Math.random() * coinArray.length);
-      if (money < coinArray[idx]) continue;
-      newCoins[coinArray[idx]] += 1;
-      money -= coinArray[idx];
+      const idx = Math.floor(Math.random() * coinTypes.length);
+      if (money < coinTypes[idx]) continue;
+      newCoins[coinTypes[idx]] += 1;
+      money -= coinTypes[idx];
     }
 
     return newCoins;
@@ -110,15 +110,15 @@ export default class VendingMachine implements type.IVendingMachine {
 
   returnChanges: type.IReturnChanges = () => {
     let index = 0;
-    const list = [500, 100, 50, 10];
+    const coinTypes = [500, 100, 50, 10];
     const userChanges = { 500: 0, 100: 0, 50: 0, 10: 0 };
     while (this.chargedMoney > 0 && this.getTotalChanges() > 0 && index < 4) {
-      if (this.changes[list[index]] === 0) index++;
-      if (list[index] > this.chargedMoney) index++;
+      if (this.changes[coinTypes[index]] === 0) index++;
+      if (coinTypes[index] > this.chargedMoney) index++;
       if (index === 4) return userChanges;
-      this.chargedMoney -= list[index];
-      this.changes[list[index]]--;
-      userChanges[list[index]]++;
+      this.chargedMoney -= coinTypes[index];
+      this.changes[coinTypes[index]]--;
+      userChanges[coinTypes[index]]++;
     }
 
     return userChanges;
