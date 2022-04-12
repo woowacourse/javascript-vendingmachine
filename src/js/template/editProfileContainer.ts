@@ -15,7 +15,7 @@ const editProfileContainer = () => {
                 </div>
                 <div class="login-block">
                     <label>비밀번호</label>
-                    <input type="text" id="edit-profile-password" class="login-input" placeholder="비밀번호를 입력해주세요" />
+                    <input type="password" id="edit-profile-password" class="login-input" placeholder="비밀번호를 입력해주세요" />
                 </div>
                 <div class="valid-box account-pwd">
                     <p id="pwd-min-length" class="hints hide" >최소한 8글자 이상이여야 합니다.</p>
@@ -26,7 +26,7 @@ const editProfileContainer = () => {
                 </div>
                 <div class="login-block">
                     <label>비밀번호 확인</label>
-                    <input type="text" id="edit-profile-password-check" class="login-input" placeholder="비밀번호를 입력해주세요" />
+                    <input type="password" id="edit-profile-password-check" class="login-input" placeholder="비밀번호를 입력해주세요" />
                 </div>
                 <div class="valid-box account-pwd-confirm">
                     <p id="pwd-confirm" class="hints hide" >비밀번호를 다시 확인하세요.</p>
