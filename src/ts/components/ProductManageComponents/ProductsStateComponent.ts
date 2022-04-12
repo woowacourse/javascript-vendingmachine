@@ -40,12 +40,14 @@ export default class ProductsStateComponent {
   private subtractProductQuantity = ({ detail: { editProduct } }): void => {
     this.vendingMachineProductManager.editQuantity(editProduct);
 
-    const target = Array.from($$('.product-table__info-tr')).find(
-      (product) => product.dataset.productName === editProduct.name
-    );
+    const $subtractProductTarget = Array.from(
+      $$('.product-table__info-tr')
+    ).find((product) => product.dataset.productName === editProduct.name);
 
-    $<HTMLElement>('.product-table__product-quantity', target).textContent =
-      editProduct.quantity;
+    $<HTMLElement>(
+      '.product-table__product-quantity',
+      $subtractProductTarget
+    ).textContent = editProduct.quantity;
   };
 
   private addNewProduct = ({ detail: { newProduct } }): void => {
@@ -56,20 +58,20 @@ export default class ProductsStateComponent {
   };
 
   private approveEditProduct(target: HTMLButtonElement): void {
-    const parentElement: HTMLTableRowElement = target.closest(
+    const $editProductTarget: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
     const $editProductNameInput = $<HTMLInputElement>(
       '.product-table__product-name-input--edit',
-      parentElement
+      $editProductTarget
     );
     const $editProductPriceInput = $<HTMLInputElement>(
       '.product-table__product-price-input--edit',
-      parentElement
+      $editProductTarget
     );
     const $editProductQuantityInput = $<HTMLInputElement>(
       '.product-table__product-quantity-input--edit',
-      parentElement
+      $editProductTarget
     );
 
     try {
@@ -83,15 +85,15 @@ export default class ProductsStateComponent {
         quantity: $editProductQuantityInput.valueAsNumber,
       };
 
-      const previousProductName = parentElement.dataset.productName;
+      const previousProductName = $editProductTarget.dataset.productName;
 
       this.vendingMachineProductManager.editProduct(
         previousProductName,
         editedProduct
       );
 
-      parentElement.innerHTML = generateTemplate(editedProduct);
-      parentElement.dataset.productName = $editProductNameInput.value;
+      $editProductTarget.innerHTML = generateTemplate(editedProduct);
+      $editProductTarget.dataset.productName = $editProductNameInput.value;
 
       renderSnackBar(
         this.$snackBarContainer,
@@ -118,38 +120,38 @@ export default class ProductsStateComponent {
   }
 
   private readyEditProduct(target: HTMLButtonElement): void {
-    const parentElement: HTMLTableRowElement = target.closest(
+    const $parentTarget: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const targetProduct: Product =
+    const targetProductInfo: Product =
       this.vendingMachineProductManager.getTargetProduct(
-        parentElement.dataset.productName
+        $parentTarget.dataset.productName
       );
 
-    parentElement.innerHTML = generateEditTemplate(targetProduct);
+    $parentTarget.innerHTML = generateEditTemplate(targetProductInfo);
 
     focusEditInput(
       $<HTMLInputElement>(
         '.product-table__product-name-input--edit',
-        parentElement
+        $parentTarget
       )
     );
   }
 
   private deleteProduct(target: HTMLButtonElement): void {
-    const parentElement: HTMLTableRowElement = target.closest(
+    const $deleteProduct: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const grandParentElement: HTMLElement = target.closest('tbody');
-    const targetProductName = parentElement.dataset.productName;
+    const $parentTarget: HTMLElement = target.closest('tbody');
+    const deleteProductName = $deleteProduct.dataset.productName;
 
-    if (!window.confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(targetProductName))) {
+    if (!window.confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(deleteProductName))) {
       return;
     }
 
-    this.vendingMachineProductManager.deleteProduct(targetProductName);
+    this.vendingMachineProductManager.deleteProduct(deleteProductName);
 
-    grandParentElement.removeChild(parentElement);
+    $parentTarget.removeChild($deleteProduct);
 
     renderSnackBar(
       this.$snackBarContainer,
@@ -159,7 +161,7 @@ export default class ProductsStateComponent {
 
     emit(this.$productTableTbody, '@deleteConsumerProduct', {
       detail: {
-        deleteProductName: targetProductName,
+        deleteProductName,
       },
     });
   }

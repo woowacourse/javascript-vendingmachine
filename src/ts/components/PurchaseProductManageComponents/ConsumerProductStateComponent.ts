@@ -58,48 +58,54 @@ export default class ConsumerProductStateComponent {
       $$<HTMLElement>('.product-table__purchase-product-name')
     );
 
-    const target = currentProducts.find(
+    const $editProductNameTarget = currentProducts.find(
       (product) => product.textContent === previousProductName
     );
 
-    const parentTarget = target.closest('.consumer-product-table__info-tr');
-    const targetProductName = parentTarget.querySelector(
+    const $parentTarget = $editProductNameTarget.closest(
+      '.consumer-product-table__info-tr'
+    );
+    const $targetProductName = $parentTarget.querySelector(
       '.product-table__purchase-product-name'
     );
-    const targetProductPrice = parentTarget.querySelector(
+    const $targetProductPrice = $parentTarget.querySelector(
       '.product-table__purchase-product-price'
     );
-    const targetProductQuantity = parentTarget.querySelector(
+    const $targetProductQuantity = $parentTarget.querySelector(
       '.product-table__purchase-product-quantity'
     );
 
-    targetProductName.textContent = editedProduct.name;
-    targetProductPrice.textContent = editedProduct.price;
-    targetProductQuantity.textContent = editedProduct.quantity;
+    $targetProductName.textContent = editedProduct.name;
+    $targetProductPrice.textContent = editedProduct.price;
+    $targetProductQuantity.textContent = editedProduct.quantity;
   };
 
   deleteConsumerProduct = ({ detail: { deleteProductName } }) => {
-    const currentProducts = Array.from(
+    const $$currentProducts = Array.from(
       $$<HTMLElement>('.product-table__purchase-product-name')
     );
 
-    const target = currentProducts.find(
+    const $deleteProductNameTarget = $$currentProducts.find(
       (product) => product.textContent === deleteProductName
     );
-    const parentTarget = target.closest('.consumer-product-table__info-tr');
-    const grandParentTarget = target.closest('.consumer-product-table__tbody');
+    const $deleteProduct = $deleteProductNameTarget.closest(
+      '.consumer-product-table__info-tr'
+    );
+    const $parentTarget = $deleteProductNameTarget.closest(
+      '.consumer-product-table__tbody'
+    );
 
-    grandParentTarget.removeChild(parentTarget);
+    $parentTarget.removeChild($deleteProduct);
   };
 
   onClickPurchaseButton = ({ target }) => {
     if (!target.matches('.product-table__purchase-button')) return;
 
-    const $targetPurchaseProductName = $<HTMLElement>(
+    const targetPurchaseProductName = $<HTMLElement>(
       '.product-table__purchase-product-name',
       target.closest('.product-table__info-tr')
     ).textContent;
-    const $targetPurchaseProductPrice = $<HTMLElement>(
+    const targetPurchaseProductPrice = $<HTMLElement>(
       '.product-table__purchase-product-price',
       target.closest('.product-table__info-tr')
     ).textContent;
@@ -111,7 +117,7 @@ export default class ConsumerProductStateComponent {
     try {
       checkCanSubtractConsumerChargeMoney(
         this.vendingMachineConsumerMoneyManager.getConsumerChargeMoney(),
-        Number($targetPurchaseProductPrice)
+        Number(targetPurchaseProductPrice)
       );
 
       const currentTargetQuantity = String(
@@ -126,14 +132,14 @@ export default class ConsumerProductStateComponent {
       }
 
       const editProduct = {
-        name: $targetPurchaseProductName,
-        price: $targetPurchaseProductPrice,
+        name: targetPurchaseProductName,
+        price: targetPurchaseProductPrice,
         quantity: $targetPurchaseProductQuantity.textContent,
       };
 
       renderSnackBar(
         this.$snackBarContainer,
-        SUCCESS_MESSAGE.PURCHASED_PRODUCT($targetPurchaseProductName),
+        SUCCESS_MESSAGE.PURCHASED_PRODUCT(targetPurchaseProductName),
         'success'
       );
 
@@ -144,7 +150,7 @@ export default class ConsumerProductStateComponent {
       });
       emit(this.$consumerProductTableTbody, '@subtractConsumerChargeMoney', {
         detail: {
-          subtractPrice: $targetPurchaseProductPrice,
+          subtractPrice: targetPurchaseProductPrice,
         },
       });
     } catch ({ message }) {
