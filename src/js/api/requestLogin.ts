@@ -1,14 +1,10 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
+import ApiWrapper from '../utils/ApiWrapper';
+
+const apiWrapper = new ApiWrapper();
 
 const requestLogin = async (accountData: Object) => {
-  const response = await fetch(SERVER_URL + '/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(accountData),
-  });
-
+  const response = await apiWrapper.post('/login', accountData);
   const dataResult = await response.json();
 
   if (!response.ok) {

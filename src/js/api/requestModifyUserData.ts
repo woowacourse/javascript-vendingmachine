@@ -1,15 +1,11 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
+import { ALERT_MESSAGE, ERROR_MESSAGE } from '../constants';
 import { User } from '../interfaces/UserData.interface';
+import ApiWrapper from '../utils/ApiWrapper';
+
+const apiWrapper = new ApiWrapper();
 
 const requestModifyUserData = async (userData: User) => {
-  const response = await fetch(SERVER_URL + `/users/${userData.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-
+  const response = await apiWrapper.put(`/users/${userData.id}`, userData);
   const dataResult = await response.json();
 
   if (!response.ok) {
