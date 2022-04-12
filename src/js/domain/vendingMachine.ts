@@ -1,10 +1,10 @@
 import * as type from "../interface/vendingMachine.interface";
 
 import {
-  checkValidProductName,
-  checkValidPrice,
-  checkValidCount,
-  checkValidChanges,
+  validateProductName,
+  validateProductPrice,
+  validateProductCount,
+  validateChanges,
 } from "../util/validations";
 
 import SingleProduct from "./product";
@@ -29,9 +29,9 @@ export default class VendingMachine implements type.IVendingMachine {
   }
 
   addProduct: type.IAddProduct = ({ name, price, count }) => {
-    checkValidProductName(this.products, name);
-    checkValidPrice(price);
-    checkValidCount(count);
+    validateProductName(this.products, name);
+    validateProductPrice(price);
+    validateProductCount(count);
 
     const product = new SingleProduct(name, price, count);
     this.products.push(product);
@@ -43,9 +43,9 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   updateProduct: type.IUpdateProduct = (id, name, price, count) => {
-    checkValidProductName(this.products, name, id);
-    checkValidPrice(price);
-    checkValidCount(count);
+    validateProductName(this.products, name, id);
+    validateProductPrice(price);
+    validateProductCount(count);
 
     const product = this.products.find((product) => id === product.getId());
 
@@ -61,7 +61,7 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   chargeChanges: type.IChargeChanges = (money) => {
-    checkValidChanges(money, this.getTotalChanges() + money);
+    validateChanges(money, this.getTotalChanges() + money);
 
     const newCoins = this.generateCoins(money);
     this.accumulateCoins(newCoins);

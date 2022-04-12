@@ -3,9 +3,9 @@ import { ERROR_MESSAGE, COOKIE_KEY, HASH } from "../constant";
 import { getCookie, setCookie, clearCookie, routerPush } from "../util/general";
 import { ILoginOption, ISignUpEvent, IUpdateUserOption } from "../type";
 import {
-  checkUserNameLength,
-  checkConfirmPassword,
-  checkValidPassword,
+  validateUserName,
+  validateConfirmPassword,
+  validatePassword,
 } from "../util/validations";
 
 class Authorization {
@@ -27,9 +27,9 @@ class Authorization {
   }
 
   async signUp({ email, name, password, confirmPassword }: ISignUpEvent) {
-    checkUserNameLength(name);
-    checkValidPassword(password);
-    checkConfirmPassword(password, confirmPassword);
+    validateUserName(name);
+    validatePassword(password);
+    validateConfirmPassword(password, confirmPassword);
 
     const response = await api.signUp({ email, name, password });
     if (response.isError) {
@@ -45,8 +45,8 @@ class Authorization {
   }
 
   async updateUserInfo(userId: string, user: IUpdateUserOption) {
-    checkUserNameLength(user.name);
-    checkConfirmPassword(user.password, user.confirmPassword);
+    validateUserName(user.name);
+    validateConfirmPassword(user.password, user.confirmPassword);
     delete user.confirmPassword;
     const response = await api.updateUserInfo(
       userId,

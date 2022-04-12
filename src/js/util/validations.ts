@@ -1,7 +1,7 @@
 import { ISingleProduct } from "../interface/product.interface";
 import { ERROR_MESSAGE, VENDING_MACHINE_BOUNDARY_NUMBER } from "../constant";
 
-export const checkValidProductName = (
+export const validateProductName = (
   products: ISingleProduct[],
   newName: string,
   targetId = ""
@@ -20,7 +20,7 @@ export const checkValidProductName = (
   }
 };
 
-export const checkValidPrice = (price: number) => {
+export const validateProductPrice = (price: number) => {
   if (
     price < VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_PRICE ||
     price > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_PRICE ||
@@ -30,7 +30,7 @@ export const checkValidPrice = (price: number) => {
   }
 };
 
-export const checkValidCount = (count: number) => {
+export const validateProductCount = (count: number) => {
   if (!count || count <= VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COUNT) {
     throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
   }
@@ -40,7 +40,7 @@ export const checkValidCount = (count: number) => {
   }
 };
 
-export const checkValidChanges = (changes: number, totalChanges: number) => {
+export const validateChanges = (changes: number, totalChanges: number) => {
   if (changes % VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COIN !== 0) {
     throw new Error(ERROR_MESSAGE.DIVIDED_BY_MINIMUM_COIN);
   }
@@ -53,13 +53,13 @@ export const checkValidChanges = (changes: number, totalChanges: number) => {
   }
 };
 
-export const checkUserNameLength = (name: string) => {
+export const validateUserName = (name: string) => {
   if (name.length < 2 || name.length > 6) {
     throw new Error(ERROR_MESSAGE.VALID_USER_NAME_LENGTH);
   }
 };
 
-export const checkConfirmPassword = (
+export const validateConfirmPassword = (
   password: string,
   confirmPassword: string
 ) => {
@@ -68,7 +68,7 @@ export const checkConfirmPassword = (
   }
 };
 
-export const checkValidPassword = (password: string) => {
+export const validatePassword = (password: string) => {
   const regEx = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
   );
