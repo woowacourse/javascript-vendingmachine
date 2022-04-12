@@ -51,10 +51,17 @@ class RegisterPage extends RouteComponent {
 
   private isLoading = false;
 
-  fieldsetTemplate({ label, name, placeholder, feedback, type, disabled }: FieldSet) {
+  fieldsetTemplate({ label, name, placeholder, feedback, type, disabled, helptip }: FieldSet) {
+    const helptipTemplate = helptip
+      ? `
+      <span class="helptip">
+        <div class="helptip-content">${helptip}</div>
+      </span>
+    `
+      : '';
     return `
       <fieldset class="mb-4">
-        <label for="${name}">${label}</label>
+        <label for="${name}">${label} ${helptipTemplate}</label>
         <input id="${name}" type="${type}" name="${name}" placeholder="${placeholder}" value="${
       feedback.inputValue
     }" class="form-control ${feedback.hasError ? 'has-error' : ''}" ${
@@ -95,6 +102,7 @@ class RegisterPage extends RouteComponent {
           feedback: feedbacks.password,
           type: 'password',
           disabled: false,
+          helptip: '<ul><li>8자 이상 이어야 합니다.</li><li>숫자, 알파벳, 특수문자, 대문자를 포함해야 합니다</li><li>같은 문자를 3번 반복하면 안됩니다</li><li>연속된 숫자가 3개 이상이면 안됩니다</li></ul>',
         })}
         ${this.fieldsetTemplate({
           label: '비밀번호 확인',

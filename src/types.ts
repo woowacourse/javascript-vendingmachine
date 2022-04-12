@@ -63,6 +63,7 @@ export type FieldSet = {
   feedback: Feedback;
   type: 'text' | 'password';
   disabled: boolean;
+  helptip?: string;
 };
 
 export enum ToastType {
