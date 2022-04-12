@@ -9,21 +9,15 @@ import {
   VendingMachineInterface,
 } from '../types';
 import {
-  ITEM_ERROR_MESSAGE,
-  CASH_ERROR_MESSAGE,
+  itemInputTestCases,
+  cashInputTestCases,
+  itemPurchaseCashInputTestCases,
+} from './validation/vendingMachineValidator';
+import {
   ITEM_PURCHASE_CASH_ERROR_MESSAGE,
   COIN_RETURN_ERROR_MESSAGE,
 } from '../constant/errorMessage';
-import {
-  ITEM,
-  CASH,
-  ITEM_PURCHASE_CASH,
-  COIN_10,
-  COIN_50,
-  COIN_100,
-  COIN_500,
-  INITIAL_COIN_COLLECTION,
-} from '../constant/rule';
+import { COIN_10, COIN_50, COIN_100, COIN_500, INITIAL_COIN_COLLECTION } from '../constant/rule';
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[] = [];
@@ -31,60 +25,6 @@ class VendingMachine implements VendingMachineInterface {
   private _coinCollection: Record<Coin, number> = INITIAL_COIN_COLLECTION;
 
   private itemPurchaseCash = 0;
-
-  private itemInputTestCases: TestCase[] = [
-    { testCase: this.isBlank, errorMessage: ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED },
-    { testCase: this.isNotNumberType, errorMessage: ITEM_ERROR_MESSAGE.NOT_NUMBER_TYPE },
-    {
-      testCase: this.isExceedMaxNameLength,
-      errorMessage: ITEM_ERROR_MESSAGE.ITEM_NAME_MAX_LENGTH,
-    },
-    { testCase: this.isAlreadyExist, errorMessage: ITEM_ERROR_MESSAGE.ALREADY_EXIST },
-    { testCase: this.isExceedPriceRange, errorMessage: ITEM_ERROR_MESSAGE.EXCEED_PRICE_RANGE },
-    {
-      testCase: this.isNotDividedByPriceUnit,
-      errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_PRICE_UNIT,
-    },
-    {
-      testCase: this.isExceedQuantityRange,
-      errorMessage: ITEM_ERROR_MESSAGE.EXCEED_QUANTITY_RANGE,
-    },
-    {
-      testCase: this.isNotDividedByQuantityUnit,
-      errorMessage: ITEM_ERROR_MESSAGE.NOT_DIVIDED_BY_QUANTITY_UNIT,
-    },
-  ];
-
-  private cashInputTestCases: TestCase[] = [
-    {
-      testCase: this.isNotNumberTypeCash,
-      errorMessage: CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE,
-    },
-    { testCase: this.isLowerThanMinRange, errorMessage: CASH_ERROR_MESSAGE.LOWER_THAN_MIN_RANGE },
-    {
-      testCase: this.isExceedTotalAmountRange,
-      errorMessage: CASH_ERROR_MESSAGE.EXCEED_TOTAL_AMOUNT_RANGE,
-    },
-    {
-      testCase: this.isNotDividedByUnitCash,
-      errorMessage: CASH_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
-    },
-  ];
-
-  private itemPurchaseCashInputTestCases: TestCase[] = [
-    {
-      testCase: this.isNotNumberTypeCash,
-      errorMessage: ITEM_PURCHASE_CASH_ERROR_MESSAGE.NOT_NUMBER_TYPE,
-    },
-    {
-      testCase: this.isExceedItemPurchaseCashRange,
-      errorMessage: ITEM_PURCHASE_CASH_ERROR_MESSAGE.EXCEED_CASH_RANGE,
-    },
-    {
-      testCase: this.isNotDividedByUnitItemPurchaseCash,
-      errorMessage: CASH_ERROR_MESSAGE.NOT_DIVIDED_BY_UNIT,
-    },
-  ];
 
   public get itemList(): ItemInfoType[] {
     return this._itemList;
@@ -192,7 +132,7 @@ class VendingMachine implements VendingMachineInterface {
       itemList: this._itemList,
     };
 
-    this.validateTestCase(this.itemInputTestCases, validationInfo);
+    this.validateTestCase(itemInputTestCases, validationInfo);
   }
 
   validateCashInput(rechargedCash: number) {
@@ -201,7 +141,7 @@ class VendingMachine implements VendingMachineInterface {
       rechargedCoinAmount: this.calculateTotalCoinAmount(),
     };
 
-    this.validateTestCase(this.cashInputTestCases, validationInfo);
+    this.validateTestCase(cashInputTestCases, validationInfo);
   }
 
   validateItemPurchaseCashInput(rechargedCash: number) {
@@ -209,7 +149,7 @@ class VendingMachine implements VendingMachineInterface {
       inputCashAmount: rechargedCash,
     };
 
-    this.validateTestCase(this.itemPurchaseCashInputTestCases, validationInfo);
+    this.validateTestCase(itemPurchaseCashInputTestCases, validationInfo);
   }
 
   private calculateReturnedCoin(coin: string, count: number): number {
@@ -232,76 +172,6 @@ class VendingMachine implements VendingMachineInterface {
 
   private isNotReturnedCoin(returnedCoinCollection: Record<Coin, number>): boolean {
     return Object.values(returnedCoinCollection).every((coinCount) => coinCount === 0);
-  }
-
-  private isBlank({ itemInfo: { itemName } }: { itemInfo: ItemInfoType; isAddMode: boolean }) {
-    return itemName.length === 0;
-  }
-
-  private isNotNumberType({ itemInfo: { itemPrice, itemQuantity } }: ItemInputValidationInfo) {
-    return Number.isNaN(itemPrice) || Number.isNaN(itemQuantity);
-  }
-
-  private isExceedMaxNameLength({ itemInfo: { itemName } }: ItemInputValidationInfo) {
-    return itemName.length > ITEM.NAME_MAX_LENGTH;
-  }
-
-  private isAlreadyExist({
-    itemInfo: { itemName },
-    isAddMode,
-    itemIndex,
-    itemList,
-  }: ItemInputValidationInfo) {
-    return itemList.some((savedItem, savedItemIndex) => {
-      if (!isAddMode && itemIndex === savedItemIndex) {
-        return false;
-      }
-
-      return savedItem.itemName === itemName;
-    });
-  }
-
-  private isExceedPriceRange({ itemInfo: { itemPrice } }: ItemInputValidationInfo) {
-    return itemPrice < ITEM.MIN_PRICE || itemPrice > ITEM.MAX_PRICE;
-  }
-
-  private isNotDividedByPriceUnit({ itemInfo: { itemPrice } }: ItemInputValidationInfo) {
-    return itemPrice % ITEM.PRICE_UNIT !== 0;
-  }
-
-  private isExceedQuantityRange({ itemInfo: { itemQuantity } }: ItemInputValidationInfo) {
-    return itemQuantity < ITEM.MIN_QUANTITY || itemQuantity > ITEM.MAX_QUANTITY;
-  }
-
-  private isNotDividedByQuantityUnit({ itemInfo: { itemQuantity } }: ItemInputValidationInfo) {
-    return itemQuantity % ITEM.QUANTITY_UNIT !== 0;
-  }
-
-  private isNotNumberTypeCash({ inputCashAmount }: CashInputValidationInfo) {
-    return Number.isNaN(inputCashAmount);
-  }
-
-  private isLowerThanMinRange({ inputCashAmount }: CoinRechargeInputValidationInfo) {
-    return inputCashAmount < CASH.MIN;
-  }
-
-  private isExceedTotalAmountRange({
-    inputCashAmount,
-    rechargedCoinAmount,
-  }: CoinRechargeInputValidationInfo) {
-    return inputCashAmount > CASH.MAX - rechargedCoinAmount;
-  }
-
-  private isNotDividedByUnitCash({ inputCashAmount }: CoinRechargeInputValidationInfo) {
-    return inputCashAmount % CASH.UNIT !== 0;
-  }
-
-  private isExceedItemPurchaseCashRange({ inputCashAmount }: CashInputValidationInfo) {
-    return inputCashAmount < ITEM_PURCHASE_CASH.MIN || inputCashAmount > ITEM_PURCHASE_CASH.MAX;
-  }
-
-  private isNotDividedByUnitItemPurchaseCash({ inputCashAmount }: CashInputValidationInfo) {
-    return inputCashAmount % ITEM_PURCHASE_CASH.UNIT !== 0;
   }
 }
 
