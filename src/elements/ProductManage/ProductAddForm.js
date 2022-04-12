@@ -1,8 +1,8 @@
 import ProductStoreInstance from '../../domains/stores/ProductStore';
 import { PRODUCT_ACTION } from '../../domains/actions';
-
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import { SUCCESS } from '../../constants';
 import { checkProductAddValidation } from '../../validators';
 import showSnackbar from '../../utils/showSnackbar';
 
