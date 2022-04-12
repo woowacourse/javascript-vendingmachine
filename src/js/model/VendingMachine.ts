@@ -162,14 +162,16 @@ class VendingMachine {
   }
 
   purchaseProduct(newProduct: Product, quantity: number) {
-    const { name, price, amount } = newProduct;
+    const { name, price } = newProduct;
     this.modifyProduct(name, newProduct, false);
     this.userMoney -= quantity * price;
   }
 
   addProduct(product: Product) {
     this.checkProductValidate(product);
-    this.products.push(product);
+
+    const newProducts = this.products.concat(product);
+    this.setProducts(newProducts);
   }
 
   modifyProduct(oldProductName: string, newProduct: Product, canValidCheck = true) {
@@ -183,8 +185,13 @@ class VendingMachine {
     const isExist = productIndex >= 0;
 
     if (isExist) {
-      this.products.splice(productIndex, 1);
+      const newProducts = this.products.filter((v, index) => index !== productIndex);
+      this.setProducts(newProducts);
     }
+  }
+
+  private setProducts(products: Array<Product>) {
+    this.products = products;
   }
 
   private findProductIndex(name: string) {
