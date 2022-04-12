@@ -4,6 +4,7 @@ import { checkNewUserInfoValidation } from '../../validators';
 import { signup } from '../../utils/auth';
 import AuthStateaStoreInstance from '../../domains/stores/AuthStateStore';
 import { AUTH_ACTION } from '../../domains/actions';
+import showSnackbar from '../../utils/showSnackbar';
 
 class SignupContainer extends CustomElement {
   template() {
@@ -55,7 +56,7 @@ class SignupContainer extends CustomElement {
     try {
       checkNewUserInfoValidation(newUserInfo);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
     this.renderProfileManager();

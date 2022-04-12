@@ -55,17 +55,17 @@ export const ERROR_MESSAGE = {
   IS_NOT_MATCHED_PASSWORD: '비밀번호가 다릅니다. 비밀번호를 다시 확인하세요.',
 };
 
-export const SNACKBAR = {
-  PRODUCT_MODIFY_SUCCESS: '상품 정보가 정상적으로 수정되었습니다.',
-  PRODUCT_DELETE_SUCCESS: '상품 정보가 정상적으로 삭제되었습니다.',
-  PRODUCT_ADD_SUCCESS: '상품을 정상적으로 추가했습니다.',
-  COIN_CHARGE_SUCCESS: '자판기의 잔돈이 정상적으로 충전되었습니다.',
-  PURCHASE_MONEY_INPUT_SUCCESS: '금액이 정상적으로 투입되었습니다. 이제 상품을 구매할 수 있습니다.',
-  RETURN_CHANGE_SUCCESS: '잔돈이 정상적으로 반환되었습니다.',
-  SIGNUP_SUCCESS: '회원가입이 정상적으로 완료되었습니다.',
-  LOGIN_SUCCESS: '로그인이 정상적으로 완료되었습니다.',
-  LOGOUT_SUCCESS: '로그아웃이 정상적으로 완료되었습니다.',
-  MODIFY_SUCCESS: '회원 정보 수정이 정상적으로 완료되었습니다.',
+export const SUCCESS = {
+  PRODUCT_MODIFY: '상품 정보가 정상적으로 수정되었습니다.',
+  PRODUCT_DELETE: '상품 정보가 정상적으로 삭제되었습니다.',
+  PRODUCT_ADD: '상품을 정상적으로 추가했습니다.',
+  COIN_CHARGE: '자판기의 잔돈이 정상적으로 충전되었습니다.',
+  PURCHASE_MONEY_INPUT: '금액이 정상적으로 투입되었습니다. 이제 상품을 구매할 수 있습니다.',
+  RETURN_CHANGE: '잔돈이 정상적으로 반환되었습니다.',
+  SIGNUP: '회원가입이 정상적으로 완료되었습니다.',
+  LOGIN: '로그인이 정상적으로 완료되었습니다.',
+  LOGOUT: '로그아웃이 정상적으로 완료되었습니다.',
+  MODIFY: '회원 정보 수정이 정상적으로 완료되었습니다.',
 };
 
 export const PASSWORD = {

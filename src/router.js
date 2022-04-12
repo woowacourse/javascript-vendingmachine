@@ -1,5 +1,6 @@
 import { $ } from './utils/dom';
 import AuthStateaStoreInstance from './domains/stores/AuthStateStore';
+import showSnackbar from './utils/showSnackbar';
 
 const $administratorMenu = document.querySelector('administrator-menu');
 const $userManagerContainer = document.querySelector('#user-manager-container');
@@ -108,7 +109,7 @@ export const updateUserInfo = () => {
       return res.json();
     })
     .then((response) => renderUpdatedUserInfo(response))
-    .catch((error) => alert(error));
+    .catch((error) => showSnackbar(error));
 };
 
 export const renderManagerView = () => {

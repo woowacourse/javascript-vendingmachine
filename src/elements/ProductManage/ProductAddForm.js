@@ -4,7 +4,6 @@ import { PRODUCT_ACTION } from '../../domains/actions';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkProductAddValidation } from '../../validators';
-import { SNACKBAR } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
 class ProductAddForm extends CustomElement {
@@ -42,10 +41,10 @@ class ProductAddForm extends CustomElement {
     try {
       checkProductAddValidation(newProduct);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
-    showSnackbar(SNACKBAR.PRODUCT_ADD_SUCCESS);
+    showSnackbar(SUCCESS.PRODUCT_ADD);
     this.initProductInputs($productNameInput, $productPriceInput, $productQuantityInput);
     ProductStoreInstance.dispatchAction(PRODUCT_ACTION.ADD, newProduct);
   };

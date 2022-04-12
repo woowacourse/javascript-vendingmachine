@@ -2,7 +2,7 @@ import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
-import { SNACKBAR } from '../../constants';
+import { SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
 class ProductReturnChange extends CustomElement {
@@ -50,7 +50,7 @@ class ProductReturnChange extends CustomElement {
   }
 
   handleReturnChangeButtonClick = () => {
-    showSnackbar(SNACKBAR.RETURN_CHANGE_SUCCESS);
+    showSnackbar(SUCCESS.RETURN_CHANGE);
     const oldCoinsCount = CoinStoreInstance.coinsCount;
     CoinStoreInstance.dispatchAction(COIN_ACTION.RETURN_CHANGE, oldCoinsCount);
   };

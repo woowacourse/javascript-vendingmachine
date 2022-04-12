@@ -4,7 +4,7 @@ import { PRODUCT_ACTION } from '../../domains/actions';
 import CustomElement from '../../abstracts/CustomElement';
 import { $, $$ } from '../../utils/dom';
 import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
-import { CONFIRM_MESSAGE, SNACKBAR } from '../../constants';
+import { CONFIRM_MESSAGE, SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
 class ProductCurrentState extends CustomElement {
@@ -152,7 +152,7 @@ class ProductCurrentState extends CustomElement {
     try {
       this.modifyProduct($tbodyRow);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   };
 
@@ -160,7 +160,7 @@ class ProductCurrentState extends CustomElement {
     try {
       this.modifyProduct($tbodyRow);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   };
 
@@ -179,14 +179,14 @@ class ProductCurrentState extends CustomElement {
     checkProductValidation(newProductInfo);
 
     ProductStoreInstance.dispatchAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
-    showSnackbar(SNACKBAR.PRODUCT_MODIFY_SUCCESS);
+    showSnackbar(SUCCESS.PRODUCT_MODIFY);
   }
 
   handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
     ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, productName);
-    showSnackbar(SNACKBAR.PRODUCT_DELETE_SUCCESS);
+    showSnackbar(SUCCESS.PRODUCT_DELETE);
   };
 }
 

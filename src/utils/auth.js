@@ -1,4 +1,4 @@
-import { AUTH, SNACKBAR } from '../constants';
+import { AUTH, SUCCESS } from '../constants';
 import { renderManagerView, renderUserView } from '../router';
 import showSnackbar from './showSnackbar';
 
@@ -35,10 +35,10 @@ export const signup = async (email, name, password) => {
     };
     setLoginedUser(userAuth);
     renderManagerView();
-    showSnackbar(SNACKBAR.SIGNUP_SUCCESS);
+    showSnackbar(SUCCESS.SIGNUP);
   } catch (error) {
     if (error.message === '"Email already exists"') {
-      alert(AUTH.EMAIL_ALREADY_EXISTS);
+      showSnackbar(AUTH.EMAIL_ALREADY_EXISTS);
     }
   }
 };
@@ -69,23 +69,23 @@ export const login = async (email, password) => {
     };
     setLoginedUser(userAuth);
     renderManagerView();
-    showSnackbar(SNACKBAR.LOGIN_SUCCESS);
+    showSnackbar(SUCCESS.LOGIN);
   } catch (error) {
     if (error.message === '"Cannot find user"') {
-      alert(AUTH.CANNOT_FIND_USER);
+      showSnackbar(AUTH.CANNOT_FIND_USER);
     }
     if (error.message === '"Incorrect password"') {
-      alert(AUTH.INCORRECT_PASSWORD);
+      showSnackbar(AUTH.INCORRECT_PASSWORD);
     }
     if (error.message === '"Password is too short"') {
-      alert(AUTH.PASSWORD_IS_TOO_SHORT);
+      showSnackbar(AUTH.PASSWORD_IS_TOO_SHORT);
     }
   }
 };
 
 export const logout = () => {
   localStorage.removeItem('userAuth');
-  showSnackbar(SNACKBAR.LOGOUT_SUCCESS);
+  showSnackbar(SUCCESS.LOGOUT);
   renderUserView();
 };
 
@@ -116,8 +116,8 @@ export const modifyUserInfo = async (email, name, password) => {
       });
     }
     renderManagerView();
-    showSnackbar(SNACKBAR.MODIFY_SUCCESS);
+    showSnackbar(SUCCESS.MODIFY);
   } catch (error) {
-    alert(error);
+    showSnackbar(error);
   }
 };

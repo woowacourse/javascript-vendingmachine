@@ -4,7 +4,7 @@ import { COIN_ACTION } from '../../domains/actions';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkCoinValidation } from '../../validators';
-import { SNACKBAR } from '../../constants';
+import { SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
 class CoinChargeForm extends CustomElement {
@@ -30,10 +30,10 @@ class CoinChargeForm extends CustomElement {
     try {
       checkCoinValidation(coinInputValue);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
-    showSnackbar(SNACKBAR.COIN_CHARGE_SUCCESS);
+    showSnackbar(SUCCESS.COIN_CHARGE);
     this.initCoinInput($coinInput);
     CoinStoreInstance.dispatchAction(COIN_ACTION.COIN_CHARGE, coinInputValue);
   };

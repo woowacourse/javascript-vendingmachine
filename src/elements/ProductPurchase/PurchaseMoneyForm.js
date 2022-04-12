@@ -3,7 +3,7 @@ import CustomElement from '../../abstracts/CustomElement';
 import { checkPurchaseMoneyValidation } from '../../validators';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
-import { SNACKBAR } from '../../constants';
+import { SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
 
 class PurchaseMoneyForm extends CustomElement {
@@ -42,10 +42,10 @@ class PurchaseMoneyForm extends CustomElement {
     try {
       checkPurchaseMoneyValidation(purchaseMoneyInputValue);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
-    showSnackbar(SNACKBAR.PURCHASE_MONEY_INPUT_SUCCESS);
+    showSnackbar(SUCCESS.PURCHASE_MONEY_INPUT);
     this.initPurchaseMoneyInput($purchaseMoneyInput);
     CoinStoreInstance.dispatchAction(COIN_ACTION.PURCHASE_MONEY_INPUT, purchaseMoneyInputValue);
   };

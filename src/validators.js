@@ -131,7 +131,7 @@ export const checkDuplicateProductWhenModify = (product) => {
   validator([
     {
       checker: () => isAlreadyExistProduct(product.name),
-      errorMsg: RROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY,
+      errorMsg: ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY,
     },
   ]);
 };

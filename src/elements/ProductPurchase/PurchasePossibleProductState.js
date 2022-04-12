@@ -108,7 +108,7 @@ class PurchasePossibleProductState extends CustomElement {
     try {
       checkCanPurchaseValidation(moneyInput, productPrice);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
 
