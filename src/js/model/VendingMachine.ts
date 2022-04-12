@@ -48,6 +48,10 @@ class VendingMachine {
   getUserChanges() {
     const { userChanges, userMoney } = this.getUserChangeCoins(this.userMoney);
     this.checkUserChangeValidate(this.userMoney, userChanges);
+
+    const changedMoney = this.userMoney - userMoney;
+
+    this.totalMoney -= changedMoney;
     this.userMoney = userMoney;
 
     return userChanges;
