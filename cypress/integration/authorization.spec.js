@@ -4,30 +4,44 @@ describe("관리자가 되고자 하는 유저는 회원 가입을 할 수 있�
   });
 
   it("name은 2~6글자까지 가능하다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#name").type(".");
-    cy.get("#password").type("Abcd1234!");
-    cy.get("#confirm-password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.signUp({
+      email: "test@test.com",
+      name: ".",
+      password: "Abcd1234!",
+      confirmPassword: "Abcd1234!",
+    });
     cy.get(".snackbar").should("be.visible");
   });
 
   it("password는 대문자 영어 최소 1개, 소문자 영어 최소 1개, 특수문자 최소 1개의 8자 이상의 조합으로 이루어져야 한다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#name").type("관리자");
-    cy.get("#password").type("abcd1234!");
-    cy.get("#confirm-password").type("abcd1234!");
-    cy.get(".submit-button").click();
+    cy.signUp({
+      email: "test@test.com",
+      name: "관리자",
+      password: "abcd1234!",
+      confirmPassword: "abcd1234!",
+    });
     cy.get(".snackbar").should("be.visible");
   });
 
   it("입력된 비밀번호와 비밀번호 확인이 일치해야 한다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#name").type("관리자");
-    cy.get("#password").type("Abcd1234!");
-    cy.get("#confirm-password").type("Abcd1234");
-    cy.get(".submit-button").click();
+    cy.signUp({
+      email: "test@test.com",
+      name: "관리자",
+      password: "Abcd1234!",
+      confirmPassword: "Abcd1234",
+    });
+
     cy.get(".snackbar").should("be.visible");
+  });
+
+  it("회원가입이 성공적으로 되면 메인 페이지로 리다이렉트 된다.", () => {
+    cy.signUp({
+      email: "test@test.com",
+      name: "관리자",
+      password: "Abcd1234!",
+      confirmPassword: "Abcd1234!",
+    });
+    cy.location("pathname").should("eq", "/");
   });
 });
 
@@ -37,32 +51,24 @@ describe("관리자는 로그인할 수 있다.", () => {
   });
 
   it("로그인한 유저의 이름중 첫번째 글자가 썸네일로 보인다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.login("test@test.com", "Abcd1234!");
     cy.get(".user-avatar").contains("관");
   });
 
   it("로그인한 유저의 이름중 첫번째 글자가 썸네일로 보인다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.login("test@test.com", "Abcd1234!");
     cy.get(".user-avatar").contains("관");
   });
 
   it("로그인한 유저의 썸네일을 hover 하면, 회원 정보 수정과 로그아웃 메뉴가 보인다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.login("test@test.com", "Abcd1234!");
     cy.get(".tooltip").invoke("css", "visibility", "visible");
     cy.get("#logout").should("be.visible");
     cy.get("#update-user").should("be.visible");
   });
 
   it("로그아웃 하면 로그인 버튼이 보인다.", () => {
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.login("test@test.com", "Abcd1234!");
     cy.get(".tooltip").invoke("css", "visibility", "visible");
     cy.get("#logout").click();
     cy.get("#logout").should("not.exist");
@@ -91,9 +97,7 @@ describe("관리자가 아닌 일반 사용자는 관리자 페이지에 접근 
 describe("관리자로 로그인된 사용자는 로그인, 회원가입 페이지에 접근 할 수 없다.", () => {
   before(() => {
     cy.visit("/#!login");
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("Abcd1234!");
-    cy.get(".submit-button").click();
+    cy.login("test@test.com", "Abcd1234!");
   });
 
   it("관리자는 로그인 페이지에 접근하면 메인 페이지로 리다이렉트 된다.", () => {
@@ -102,7 +106,7 @@ describe("관리자로 로그인된 사용자는 로그인, 회원가입 페이�
   });
 
   it("관리자는 회원가입 페이지에 접근하면 메인 페이지로 리다이렉트 된다.", () => {
-    cy.visit("/#!login");
+    cy.visit("/#!signUp");
     cy.location("pathname").should("eq", "/");
   });
 });
