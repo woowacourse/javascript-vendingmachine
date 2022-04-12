@@ -1,5 +1,10 @@
 import { ISingleProduct } from "../interface/product.interface";
-import { ERROR_MESSAGE, VENDING_MACHINE_BOUNDARY_NUMBER } from "../constant";
+import {
+  REGEX,
+  ERROR_MESSAGE,
+  VENDING_MACHINE_BOUNDARY_NUMBER,
+  AUTHORIZATION_BOUNDARY_NUMBER,
+} from "../constant";
 
 export const validateProductName = (
   products: ISingleProduct[],
@@ -54,7 +59,10 @@ export const validateChanges = (changes: number, totalChanges: number) => {
 };
 
 export const validateUserName = (name: string) => {
-  if (name.length < 2 || name.length > 6) {
+  if (
+    name.length < AUTHORIZATION_BOUNDARY_NUMBER.MINIMUM_NAME_LENGTH ||
+    name.length > AUTHORIZATION_BOUNDARY_NUMBER.MAXIMUM_NAME_LENGTH
+  ) {
     throw new Error(ERROR_MESSAGE.VALID_USER_NAME_LENGTH);
   }
 };
@@ -69,12 +77,7 @@ export const validateConfirmPassword = (
 };
 
 export const validatePassword = (password: string) => {
-  const regEx = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-  );
-  if (!regEx.test(password)) {
-    throw new Error(
-      "비밀번호는 8자 이상이어야 하며, 대소문자 영어, 숫자, 특수문자의 조합이어야 합니다. 공백은 허용하지 않습니다."
-    );
+  if (!REGEX.PASSWORD().test(password)) {
+    throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
   }
 };

@@ -1,3 +1,5 @@
+import { REGEX } from "../constant";
+
 export const generateUniqueId = (): string => {
   const date = Date.now().toString(36);
   const randomNumber = Math.random().toString(36);
@@ -13,14 +15,7 @@ export const clearCookie = (key: string) => {
 };
 
 export const getCookie = (name: string) => {
-  const matches = document.cookie.match(
-    new RegExp(
-      "(?:^|; )" +
-        // eslint-disable-next-line no-useless-escape
-        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-        "=([^;]*)"
-    )
-  );
+  const matches = document.cookie.match(REGEX.COOKIE(name));
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 

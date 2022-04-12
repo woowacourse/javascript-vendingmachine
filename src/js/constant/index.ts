@@ -14,6 +14,8 @@ export const ERROR_MESSAGE = {
   SERVER_ERROR: "서버에서 오류가 났습니다! 잠시 후 다시 시도해주세요.",
   NOT_AUTHORIZED: "권한이 없습니다.",
   WRONG_ACCESS: "잘못된 접근입니다.",
+  INVALID_PASSWORD:
+    "비밀번호는 8자 이상이어야 하며, 대소문자 영어, 숫자, 특수문자의 조합이어야 합니다. 공백은 허용하지 않습니다.",
 } as const;
 
 export const ALERT_MESSAGE = {
@@ -34,6 +36,24 @@ export const VENDING_MACHINE_BOUNDARY_NUMBER = {
   MINIMUM_COUNT: 0,
   MAXIMUM_NAME_LENGTH: 10,
 } as const;
+
+export const AUTHORIZATION_BOUNDARY_NUMBER = {
+  MAXIMUM_NAME_LENGTH: 6,
+  MINIMUM_NAME_LENGTH: 2,
+  MINIMUM_PASSWORD_LENGTH: 8,
+} as const;
+
+export const REGEX = {
+  PASSWORD: () =>
+    new RegExp(
+      `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{${AUTHORIZATION_BOUNDARY_NUMBER.MINIMUM_PASSWORD_LENGTH},})`
+    ),
+  COOKIE: (name) =>
+    new RegExp(
+      // eslint-disable-next-line no-useless-escape
+      `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1")}"=([^;]*)`
+    ),
+};
 
 export enum EVENT_TYPE {
   CHARGE = "@charge-changes",
