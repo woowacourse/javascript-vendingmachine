@@ -1,0 +1,10 @@
+#not-found {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  line-height: 100vh;
+  background-color: white;
+}

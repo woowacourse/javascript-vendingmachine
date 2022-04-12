@@ -17,14 +17,17 @@
   width: 117px;
   font-weight: 500;
   line-height: 36px;
-  background-color: #f5f5f5;
+  background-color: var(--secondary);
   border-radius: 4px;
+  font-weight: 700;
+  color: var(--white);
 }
 
 .tab-input:checked + label {
-  background: rgba(0, 188, 212, 0.16);
+  background: var(--primary);
 }
 
 .tab-label:hover {
   cursor: pointer;
+  background-color: var(--primary);
 }

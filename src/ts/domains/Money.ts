@@ -1,4 +1,4 @@
-import MoneyType from '../type/MoneyType';
+import MoneyType from '../types/MoneyType';
 
 export default class Money implements MoneyType {
   private _value: number;
@@ -15,6 +15,10 @@ export default class Money implements MoneyType {
 
   public get count() {
     return this._count;
+  }
+
+  public deductCount(refundableCount: number) {
+    this._count = this._count - refundableCount;
   }
 
   public increaseCount() {

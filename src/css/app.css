@@ -3,6 +3,9 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: var(--secondary-lighten);
 }
 
 h1 {
@@ -75,7 +78,7 @@ col {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .short-button {
@@ -95,7 +98,41 @@ col {
   background: var(--secondary);
 }
 
+.long-button {
+  background: var(--secondary-lighten);
+  color: var(--black);
+  width: 100px;
+  margin: 23px;
+}
+
+.long-button:hover {
+  background: var(--secondary);
+}
+
 .edit-confirm-button {
   width: 100px;
   height: 32px;
+}
+
+.paper-money-wrapper {
+  margin-top: 20px;
+}
+
+#app {
+  margin-top: 40px;
+  width: 500px;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+}
+
+.header-wrapper {
+  width: 100%;
+  position: relative;
+  margin: 20px 0;
+}
+
+user-menu {
+  margin: 10px;
+  position: absolute;
+  right: 0;
 }

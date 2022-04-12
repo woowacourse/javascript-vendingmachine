@@ -23,7 +23,7 @@ describe('상품 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.NAME_LENGTH);
   });
 
-  it('상품명이 10글자 이하이면 에러를 발생시키지 않는다(10글자).', () => {
+  it('상품명이 10글자 이하이면 정상 작동한다(10글자).', () => {
     const product = { name: '코카콜라열글자인이름', price: 1000, quantity: 10 };
 
     expect(() => {
@@ -31,7 +31,7 @@ describe('상품 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.NAME_LENGTH);
   });
 
-  it('상품명이 10글자 이하이면 에러를 발생시키지 않는다(9글자).', () => {
+  it('상품명이 10글자 이하이면 정상 작동한다(9글자).', () => {
     const product = { name: '코카콜라아홉글자임', price: 1000, quantity: 10 };
 
     expect(() => {
@@ -47,7 +47,7 @@ describe('상품 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 가격이 100원 이상이면 에러를 발생시키지 않는다(100원).', () => {
+  it('상품 가격이 100원 이상이면 정상 작동한다(100원).', () => {
     const product = { name: '코카콜라', price: 100, quantity: 10 };
 
     expect(() => {
@@ -55,7 +55,7 @@ describe('상품 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 가격이 100원 이상이면 에러를 발생시키지 않는다(101원).', () => {
+  it('상품 가격이 100원 이상이면 정상 작동한다(101원).', () => {
     const product = { name: '코카콜라', price: 101, quantity: 10 };
 
     expect(() => {
@@ -71,7 +71,7 @@ describe('상품 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 가격이 10,000원 이하이면 에러를 발생시키지 않는다(10,000원).', () => {
+  it('상품 가격이 10,000원 이하이면 정상 작동한다(10,000원).', () => {
     const product = { name: '코카콜라', price: 10000, quantity: 10 };
 
     expect(() => {
@@ -79,7 +79,7 @@ describe('상품 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.PRICE_RANGE);
   });
 
-  it('상품 가격이 10,000원 이하이면 에러를 발생시키지 않는다(9,999원).', () => {
+  it('상품 가격이 10,000원 이하이면 정상 작동한다(9,999원).', () => {
     const product = { name: '코카콜라', price: 9999, quantity: 10 };
 
     expect(() => {
@@ -95,7 +95,7 @@ describe('상품 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.PRICE_UNIT);
   });
 
-  it('상품 가격이 10의 배수이면 에러를 발생시키지 않는다.', () => {
+  it('상품 가격이 10의 배수이면 정상 작동한다.', () => {
     const product = { name: '코카콜라', price: 1510, quantity: 10 };
 
     expect(() => {
@@ -111,7 +111,7 @@ describe('상품 테스트', () => {
     }).toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
   });
 
-  it('상품 수량이 20개 이하이면 에러를 발생시키지 않는다(20개).', () => {
+  it('상품 수량이 20개 이하이면 정상 작동한다(20개).', () => {
     const product = { name: '코카콜라', price: 1000, quantity: 20 };
 
     expect(() => {
@@ -119,7 +119,7 @@ describe('상품 테스트', () => {
     }).not.toThrowError(ERROR_MESSAGE.EXCEED_QUANTITY);
   });
 
-  it('상품 수량이 20개 이하이면 에러를 발생시키지 않는다(19개).', () => {
+  it('상품 수량이 20개 이하이면 정상 작동한다(19개).', () => {
     const product = { name: '코카콜라', price: 1000, quantity: 19 };
 
     expect(() => {

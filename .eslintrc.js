@@ -19,7 +19,6 @@ module.exports = {
       },
     ],
     'no-underscore-dangle': 'off',
-    'max-lines-per-function': ['error', 15],
     'max-depth': ['error', 2],
     'consistent-return': 'off',
     'max-classes-per-file': ['error', { ignoreExpressions: true, max: 2 }],
