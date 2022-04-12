@@ -7,7 +7,7 @@ describe('회원가입 테스트', () => {
     cy.visit(visitURL);
     cy.get('.login-button').click();
     cy.get('.signup').click();
-    cy.get('#signup-email-input').type('rladpwl0512@gmail.com'); // heroku의 db.json의 default user값입니다. (테스트용)
+    cy.get('#signup-email-input').type('winnie0512@test.com'); // heroku의 db.json의 default user값입니다. (테스트용)
     cy.get('#signup-name-input').type('위니');
     cy.get('#signup-password-input').type('alreadyexist0512');
     cy.get('#password-confirm-input').type('alreadyexist0512');
@@ -88,7 +88,7 @@ describe('로그아웃이 가능하다.', () => {
   });
 });
 
-describe('로그인이 가능하다.', () => {
+describe('로그인 테스트', () => {
   it('입력된 이메일로 가입된 계정이 없을 경우, 에러메시지를 확인할 수 있다 .', () => {
     cy.get('.login-button').click();
     cy.get('#email-input').type('notexist@email.com');
@@ -97,15 +97,19 @@ describe('로그인이 가능하다.', () => {
     cy.get('#snackbar').should('have.text', AUTH.CANNOT_FIND_USER);
   });
   it('비밀번호를 잘못 입력했을 경우, 에러메시지를 확인할 수 있다 .', () => {
-    cy.get('#email-input').clear().type('rladpwl0512@gmail.com');
+    cy.get('#email-input').clear().type('winnie0512@test.com');
     cy.get('#password-input').clear().type('incorrectpassword');
     cy.get('.login-confirm-button').click();
     cy.get('#snackbar').should('have.text', AUTH.INCORRECT_PASSWORD);
   });
   it('비밀번호가 너무 짧은 경우, 에러메시지를 확인할 수 있다 .', () => {
-    cy.get('#email-input').clear().type('rladpwl0512@gmail.com');
     cy.get('#password-input').clear().type('hi');
     cy.get('.login-confirm-button').click();
     cy.get('#snackbar').should('have.text', AUTH.PASSWORD_IS_TOO_SHORT);
+  });
+  it('로그인이 가능하다.', () => {
+    cy.get('#password-input').clear().type('testaccount0512');
+    cy.get('.login-confirm-button').click();
+    cy.get('#snackbar').should('have.text', SUCCESS.LOGIN);
   });
 });
