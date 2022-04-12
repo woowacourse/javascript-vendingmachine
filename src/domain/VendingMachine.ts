@@ -12,6 +12,7 @@ import {
 } from '../validator';
 import { Safe } from './Safe';
 import Product from './Product';
+import { Observer } from './types';
 
 interface VendingMachineProperty {
   amount: Safe;
@@ -32,7 +33,7 @@ class VendingMachine implements VendingMachineProperty {
   amount: Safe;
   userAmount = 0;
   products: Product[];
-  observers: { key: string; element: CustomElement }[] = [];
+  observers: Observer[] = [];
 
   constructor() {
     this.amount = new Safe(storage.getLocalStorage('amount'));
@@ -81,7 +82,7 @@ class VendingMachine implements VendingMachineProperty {
     targets.forEach((target) => target.element.notify({ action, product, ...this }));
   }
 
-  observe(key: string, element: CustomElement) {
+  observe({ key, element }: Observer) {
     this.observers.push({ key, element });
     this[key]();
   }

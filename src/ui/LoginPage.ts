@@ -8,7 +8,7 @@ import { BASE_URL, CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 class LoginPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe(ELEMENT_KEY.LOGIN, this);
+    Authentication.instance.observe({ key: ELEMENT_KEY.LOGIN, element: this });
   }
 
   render() {

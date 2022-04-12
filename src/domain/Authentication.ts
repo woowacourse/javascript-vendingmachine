@@ -5,6 +5,7 @@ import { on, $, showSnackbar } from '../utils';
 import { Notification } from '../ui/CustomElement';
 import { validateProfileEdit, validateSignup } from '../validator/authentication';
 import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN, CUSTOM_EVENT } from '../constants';
+import { Observer } from './types';
 
 class Authentication {
   static _instance: Authentication | null = null;
@@ -16,18 +17,18 @@ class Authentication {
     return Authentication._instance;
   }
 
-  observers: { key: string; element: CustomElement }[] = [];
-
-  subscribe(key: string, element: CustomElement) {
-    this.observers.push({ key, element });
-    this[key]?.();
-  }
+  observers: Observer[] = [];
 
   dispatch(params: any) {
     const { key, userName } = params;
     const targets = this.observers.filter((observer) => observer.key === key);
 
     targets.forEach((target) => target.element.notify({ userName } as Notification));
+  }
+
+  observe({ key, element }: Observer) {
+    this.observers.push({ key, element });
+    this[key]?.();
   }
 
   subscribeSignupPage() {

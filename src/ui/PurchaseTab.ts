@@ -10,7 +10,7 @@ import { COINS, CUSTOM_EVENT, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants'
 class PurchaseTab extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe(ELEMENT_KEY.PURCHASE, this);
+    VendingMachine.instance.observe({ key: ELEMENT_KEY.PURCHASE, element: this });
   }
 
   render() {

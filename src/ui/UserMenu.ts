@@ -10,7 +10,7 @@ import { ELEMENT_KEY, BASE_URL } from '../constants';
 class UserMenu extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe(ELEMENT_KEY.USER_MENU, this);
+    Authentication.instance.observe({ key: ELEMENT_KEY.USER_MENU, element: this });
   }
 
   render() {

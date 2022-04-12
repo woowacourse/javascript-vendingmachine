@@ -8,7 +8,7 @@ import { COINS, CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 class ChargeTab extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe(ELEMENT_KEY.CHARGE, this);
+    VendingMachine.instance.observe({ key: ELEMENT_KEY.CHARGE, element: this });
   }
 
   render() {

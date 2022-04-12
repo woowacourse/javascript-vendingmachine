@@ -8,7 +8,7 @@ import { SUCCESS_MESSAGE, ELEMENT_KEY, CUSTOM_EVENT } from '../constants';
 class ProfileEditPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe(ELEMENT_KEY.PROFILE_EDIT, this);
+    Authentication.instance.observe({ key: ELEMENT_KEY.PROFILE_EDIT, element: this });
   }
 
   render() {

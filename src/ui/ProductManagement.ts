@@ -9,7 +9,7 @@ import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT } from '../constants';
 class ProductManagement extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe(ELEMENT_KEY.PRODUCT, this);
+    VendingMachine.instance.observe({ key: ELEMENT_KEY.PRODUCT, element: this });
   }
 
   render() {

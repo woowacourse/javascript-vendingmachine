@@ -7,7 +7,7 @@ import { CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
 class SignupPage extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.subscribe(ELEMENT_KEY.SIGNUP, this);
+    Authentication.instance.observe({ key: ELEMENT_KEY.SIGNUP, element: this });
   }
 
   render() {

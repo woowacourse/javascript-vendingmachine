@@ -17,15 +17,15 @@ export const CONFIGURATION = {
   },
 };
 
-export const ELEMENT_KEY = {
-  PRODUCT: 'subscribeProductManagement',
-  CHARGE: 'subscribeChargeTab',
-  SIGNUP: 'subscribeSignupPage',
-  LOGIN: 'subscribeLoginPage',
-  PROFILE_EDIT: 'subscribeProfileEditPage',
-  USER_MENU: 'userMenu',
-  PURCHASE: 'subscribePurchaseTab',
-};
+export enum ELEMENT_KEY {
+  PRODUCT = 'subscribeProductManagement',
+  CHARGE = 'subscribeChargeTab',
+  SIGNUP = 'subscribeSignupPage',
+  LOGIN = 'subscribeLoginPage',
+  PROFILE_EDIT = 'subscribeProfileEditPage',
+  USER_MENU = 'userMenu',
+  PURCHASE = 'subscribePurchaseTab',
+}
 
 export const CUSTOM_EVENT = {
   PRODUCT: {
