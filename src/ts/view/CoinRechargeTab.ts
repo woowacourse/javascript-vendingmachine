@@ -32,17 +32,17 @@ class CoinRechargeTab extends VendingMachineTab {
   private onSubmitCashChargeForm = (e: SubmitEvent): void => {
     e.preventDefault();
 
-    const chargedCash = this.cashChargeInput.valueAsNumber;
+    const inputtedCashAmount = this.cashChargeInput.valueAsNumber;
 
     try {
-      this.vendingMachine.validateCashInput(chargedCash);
+      this.vendingMachine.validateCoinRechargeInput(inputtedCashAmount);
     } catch (error) {
       showSnackbar(error.message);
       return;
     }
 
     this.renderChargedCoinState(
-      this.vendingMachine.chargeCoin(chargedCash),
+      this.vendingMachine.chargeCoin(inputtedCashAmount),
       this.vendingMachine.coinCollection
     );
   };

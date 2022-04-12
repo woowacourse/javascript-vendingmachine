@@ -47,16 +47,16 @@ class ItemPurchaseTab extends VendingMachineTab {
   private onSubmitCashChargeForm = (e: SubmitEvent) => {
     e.preventDefault();
 
-    const inputedCash = this.cashChargeInput.valueAsNumber;
+    const inputtedCashAmount = this.cashChargeInput.valueAsNumber;
 
     try {
-      this.vendingMachine.validateItemPurchaseCashInput(inputedCash);
+      this.vendingMachine.validateItemPurchaseCashInput(inputtedCashAmount);
     } catch (error) {
       showSnackbar(error.message);
       return;
     }
 
-    const chargedAmount = this.vendingMachine.chargeCash(inputedCash);
+    const chargedAmount = this.vendingMachine.chargeCash(inputtedCashAmount);
     this.renderChargedAmount(String(chargedAmount));
   };
 

@@ -10,7 +10,7 @@ export type ItemInputValidationInfo = {
 };
 
 export type CashInputValidationInfo = {
-  inputCashAmount: number;
+  inputtedCashAmount: number;
 };
 
 export type CoinRechargeInputValidationInfo = CashInputValidationInfo & {
@@ -56,7 +56,7 @@ export interface VendingMachineInterface {
     isAddMode?: boolean,
     itemIndex?: number | null
   ) => void;
-  validateCashInput: (rechargeCash: number) => void;
+  validateCoinRechargeInput: (rechargeCash: number) => void;
   validateItemPurchaseCashInput: (rechargedCash: number) => void;
 }
 

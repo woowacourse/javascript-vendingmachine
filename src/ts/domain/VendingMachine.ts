@@ -135,18 +135,18 @@ class VendingMachine implements VendingMachineInterface {
     this.validateTestCase(itemInputTestCases, validationInfo);
   }
 
-  validateCashInput(rechargedCash: number) {
+  validateCoinRechargeInput(inputtedCashAmount: number) {
     const validationInfo: CoinRechargeInputValidationInfo = {
-      inputCashAmount: rechargedCash,
+      inputtedCashAmount,
       rechargedCoinAmount: this.calculateTotalCoinAmount(),
     };
 
     this.validateTestCase(cashInputTestCases, validationInfo);
   }
 
-  validateItemPurchaseCashInput(rechargedCash: number) {
+  validateItemPurchaseCashInput(inputtedCashAmount: number) {
     const validationInfo: CashInputValidationInfo = {
-      inputCashAmount: rechargedCash,
+      inputtedCashAmount,
     };
 
     this.validateTestCase(itemPurchaseCashInputTestCases, validationInfo);
@@ -159,7 +159,6 @@ class VendingMachine implements VendingMachineInterface {
   }
 
   private hasNotCash(): boolean {
-    console.log(this.itemPurchaseCash);
     return this.itemPurchaseCash === 0;
   }
 

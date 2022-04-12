@@ -54,31 +54,31 @@ const isNotDividedByQuantityUnit = ({ itemInfo: { itemQuantity } }: ItemInputVal
   return itemQuantity % ITEM.QUANTITY_UNIT !== 0;
 };
 
-const isNotNumberTypeCash = ({ inputCashAmount }: CashInputValidationInfo) => {
-  return Number.isNaN(inputCashAmount);
+const isNotNumberTypeCash = ({ inputtedCashAmount }: CashInputValidationInfo) => {
+  return Number.isNaN(inputtedCashAmount);
 };
 
-const isLowerThanMinRange = ({ inputCashAmount }: CoinRechargeInputValidationInfo) => {
-  return inputCashAmount < CASH.MIN;
+const isLowerThanMinRange = ({ inputtedCashAmount }: CoinRechargeInputValidationInfo) => {
+  return inputtedCashAmount < CASH.MIN;
 };
 
 const isExceedTotalAmountRange = ({
-  inputCashAmount,
+  inputtedCashAmount,
   rechargedCoinAmount,
 }: CoinRechargeInputValidationInfo) => {
-  return inputCashAmount > CASH.MAX - rechargedCoinAmount;
+  return inputtedCashAmount > CASH.MAX - rechargedCoinAmount;
 };
 
-const isNotDividedByUnitCash = ({ inputCashAmount }: CoinRechargeInputValidationInfo) => {
-  return inputCashAmount % CASH.UNIT !== 0;
+const isNotDividedByUnitCash = ({ inputtedCashAmount }: CoinRechargeInputValidationInfo) => {
+  return inputtedCashAmount % CASH.UNIT !== 0;
 };
 
-const isExceedItemPurchaseCashRange = ({ inputCashAmount }: CashInputValidationInfo) => {
-  return inputCashAmount < ITEM_PURCHASE_CASH.MIN || inputCashAmount > ITEM_PURCHASE_CASH.MAX;
+const isExceedItemPurchaseCashRange = ({ inputtedCashAmount }: CashInputValidationInfo) => {
+  return inputtedCashAmount < ITEM_PURCHASE_CASH.MIN || inputtedCashAmount > ITEM_PURCHASE_CASH.MAX;
 };
 
-const isNotDividedByUnitItemPurchaseCash = ({ inputCashAmount }: CashInputValidationInfo) => {
-  return inputCashAmount % ITEM_PURCHASE_CASH.UNIT !== 0;
+const isNotDividedByUnitItemPurchaseCash = ({ inputtedCashAmount }: CashInputValidationInfo) => {
+  return inputtedCashAmount % ITEM_PURCHASE_CASH.UNIT !== 0;
 };
 
 export const itemInputTestCases: TestCase[] = [

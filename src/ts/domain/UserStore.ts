@@ -90,8 +90,8 @@ class UserStore implements UserStoreInterface {
     this.validateTestCase(loginInputTestCases, loginInfo);
   }
 
-  validateUserInfoInput(inputedUserInfo: AuthenticationInfo): void {
-    this.validateTestCase(userInfoInputTestCases, inputedUserInfo);
+  validateUserInfoInput(inputtedUserInfo: AuthenticationInfo): void {
+    this.validateTestCase(userInfoInputTestCases, inputtedUserInfo);
   }
 
   validateEditUserInfoInput(editUserInfoInput: AuthenticationInfo): void {
