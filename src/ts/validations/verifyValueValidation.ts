@@ -11,81 +11,97 @@ class VerifyValueValidation implements VerifyValueValidation {
     this.coins = coins;
   }
 
+  validator = conditions => {
+    let isValid = true;
+    conditions.forEach(({ checker, errorMessage }) => {
+      if (!checker()) {
+        showSnackbar(errorMessage);
+        isValid = false;
+      }
+    });
+    return isValid;
+  };
+
   // 각각의 전체 검증
   verifyProductInfo({ name, price, quantity }: Product, index: number) {
-    if (!this.isValidProductNameRange(name)) {
-      showSnackbar(ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
-      return false;
-    }
-    if (this.isOverlapProductName(name, index)) {
-      showSnackbar(ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
-      return false;
-    }
-    if (!this.isValidProductPrice(price)) {
-      showSnackbar(ALERT_MESSAGE.PRODUCT_PRICE);
-      return false;
-    }
-    if (!this.isValidProductQuantity(quantity)) {
-      showSnackbar(ALERT_MESSAGE.PRODUCT_QUANTITY);
-      return false;
-    }
-    return true;
+    return this.validator([
+      {
+        checker: () => this.isValidProductNameRange(name),
+        errorMessage: ALERT_MESSAGE.PRODUCT_NAME_LENGTH,
+      },
+      {
+        checker: () => this.isUniqueProductName(name, index),
+        errorMessage: ALERT_MESSAGE.PRODUCT_NAME_UNIQUE,
+      },
+      {
+        checker: () => this.isValidProductPrice(price),
+        errorMessage: ALERT_MESSAGE.PRODUCT_PRICE,
+      },
+      {
+        checker: () => this.isValidProductQuantity(quantity),
+        errorMessage: ALERT_MESSAGE.PRODUCT_QUANTITY,
+      },
+    ]);
   }
 
   verifyChargeMoney(chargeMoney: number) {
-    if (!this.isValidChargeMoney(chargeMoney)) {
-      showSnackbar(ALERT_MESSAGE.CHARGE_MONEY);
-      return false;
-    }
-    if (!this.isValidChargeMoneyOver(chargeMoney)) {
-      showSnackbar(ALERT_MESSAGE.CHARGE_MONEY_MAX);
-      return false;
-    }
-    return true;
+    return this.validator([
+      {
+        checker: () => this.isValidChargeMoney(chargeMoney),
+        errorMessage: ALERT_MESSAGE.CHARGE_MONEY,
+      },
+      {
+        checker: () => this.isValidChargeMoneyOver(chargeMoney),
+        errorMessage: ALERT_MESSAGE.CHARGE_MONEY_MAX,
+      },
+    ]);
   }
 
   verifyInputMoney(inputMoney: number) {
-    if (!this.isValidInputMoneyRange(inputMoney)) {
-      showSnackbar(ALERT_MESSAGE.INPUT_MONEY_RANGE);
-      return false;
-    }
-    if (!this.isValidInputMoneyMod(inputMoney)) {
-      showSnackbar(ALERT_MESSAGE.INPUT_MONEY_MOD);
-      return false;
-    }
-    return true;
+    return this.validator([
+      {
+        checker: () => this.isValidInputMoneyRange(inputMoney),
+        errorMessage: ALERT_MESSAGE.INPUT_MONEY_RANGE,
+      },
+      {
+        checker: () => this.isValidInputMoneyMod(inputMoney),
+        errorMessage: ALERT_MESSAGE.INPUT_MONEY_MOD,
+      },
+    ]);
   }
 
   verifyLoginInfo({ email, password }: LoginInfo) {
-    if (!this.isValidEmail(email)) {
-      showSnackbar(ALERT_MESSAGE.LOGIN);
-      return false;
-    }
-    if (!this.isValidPassWord(password)) {
-      showSnackbar(ALERT_MESSAGE.LOGIN);
-      return false;
-    }
-    return true;
+    return this.validator([
+      {
+        checker: () => this.isValidEmail(email),
+        errorMessage: ALERT_MESSAGE.LOGIN,
+      },
+      {
+        checker: () => this.isValidPassWord(password),
+        errorMessage: ALERT_MESSAGE.LOGIN,
+      },
+    ]);
   }
 
   verifySignUpInfo({ email, name, password, passwordConfirm }: UserInfo) {
-    if (!this.isValidEmail(email)) {
-      showSnackbar(ALERT_MESSAGE.USER_EMAIL);
-      return false;
-    }
-    if (!this.isValidName(name)) {
-      showSnackbar(ALERT_MESSAGE.USER_NAME);
-      return false;
-    }
-    if (!this.isValidPassWord(password)) {
-      showSnackbar(ALERT_MESSAGE.USER_PASSWORD);
-      return false;
-    }
-    if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-      showSnackbar(ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
-      return false;
-    }
-    return true;
+    return this.validator([
+      {
+        checker: () => this.isValidEmail(email),
+        errorMessage: ALERT_MESSAGE.USER_EMAIL,
+      },
+      {
+        checker: () => this.isValidName(name),
+        errorMessage: ALERT_MESSAGE.USER_NAME,
+      },
+      {
+        checker: () => this.isValidPassWord(password),
+        errorMessage: ALERT_MESSAGE.USER_PASSWORD,
+      },
+      {
+        checker: () => this.isValidPassWordConfirm(password, passwordConfirm),
+        errorMessage: ALERT_MESSAGE.USER_PASSWORD_CONFIRM,
+      },
+    ]);
   }
 
   // 상품 정보 검증
@@ -95,8 +111,8 @@ class VerifyValueValidation implements VerifyValueValidation {
     );
   }
 
-  isOverlapProductName(name: string, index: number) {
-    return this.products.some(
+  isUniqueProductName(name: string, index: number) {
+    return !this.products.some(
       (product: Product, productIndex) => productIndex !== index && product.name === name,
     );
   }

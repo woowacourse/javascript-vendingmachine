@@ -6,90 +6,111 @@ var VerifyValueValidation = /** @class */ (function () {
     function VerifyValueValidation(products, coins) {
         if (products === void 0) { products = []; }
         if (coins === void 0) { coins = []; }
+        this.validator = function (conditions) {
+            var isValid = true;
+            conditions.forEach(function (_a) {
+                var checker = _a.checker, errorMessage = _a.errorMessage;
+                if (!checker()) {
+                    (0, snackbar_1.showSnackbar)(errorMessage);
+                    isValid = false;
+                }
+            });
+            return isValid;
+        };
         this.products = products;
         this.coins = coins;
     }
     // 각각의 전체 검증
     VerifyValueValidation.prototype.verifyProductInfo = function (_a, index) {
+        var _this = this;
         var name = _a.name, price = _a.price, quantity = _a.quantity;
-        if (!this.isValidProductNameRange(name)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_LENGTH);
-            return false;
-        }
-        if (this.isOverlapProductName(name, index)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_NAME_UNIQUE);
-            return false;
-        }
-        if (!this.isValidProductPrice(price)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_PRICE);
-            return false;
-        }
-        if (!this.isValidProductQuantity(quantity)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.PRODUCT_QUANTITY);
-            return false;
-        }
-        return true;
+        return this.validator([
+            {
+                checker: function () { return _this.isValidProductNameRange(name); },
+                errorMessage: constants_1.ALERT_MESSAGE.PRODUCT_NAME_LENGTH
+            },
+            {
+                checker: function () { return _this.isUniqueProductName(name, index); },
+                errorMessage: constants_1.ALERT_MESSAGE.PRODUCT_NAME_UNIQUE
+            },
+            {
+                checker: function () { return _this.isValidProductPrice(price); },
+                errorMessage: constants_1.ALERT_MESSAGE.PRODUCT_PRICE
+            },
+            {
+                checker: function () { return _this.isValidProductQuantity(quantity); },
+                errorMessage: constants_1.ALERT_MESSAGE.PRODUCT_QUANTITY
+            },
+        ]);
     };
     VerifyValueValidation.prototype.verifyChargeMoney = function (chargeMoney) {
-        if (!this.isValidChargeMoney(chargeMoney)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY);
-            return false;
-        }
-        if (!this.isValidChargeMoneyOver(chargeMoney)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.CHARGE_MONEY_MAX);
-            return false;
-        }
-        return true;
+        var _this = this;
+        return this.validator([
+            {
+                checker: function () { return _this.isValidChargeMoney(chargeMoney); },
+                errorMessage: constants_1.ALERT_MESSAGE.CHARGE_MONEY
+            },
+            {
+                checker: function () { return _this.isValidChargeMoneyOver(chargeMoney); },
+                errorMessage: constants_1.ALERT_MESSAGE.CHARGE_MONEY_MAX
+            },
+        ]);
     };
     VerifyValueValidation.prototype.verifyInputMoney = function (inputMoney) {
-        if (!this.isValidInputMoneyRange(inputMoney)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_RANGE);
-            return false;
-        }
-        if (!this.isValidInputMoneyMod(inputMoney)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.INPUT_MONEY_MOD);
-            return false;
-        }
-        return true;
+        var _this = this;
+        return this.validator([
+            {
+                checker: function () { return _this.isValidInputMoneyRange(inputMoney); },
+                errorMessage: constants_1.ALERT_MESSAGE.INPUT_MONEY_RANGE
+            },
+            {
+                checker: function () { return _this.isValidInputMoneyMod(inputMoney); },
+                errorMessage: constants_1.ALERT_MESSAGE.INPUT_MONEY_MOD
+            },
+        ]);
     };
     VerifyValueValidation.prototype.verifyLoginInfo = function (_a) {
+        var _this = this;
         var email = _a.email, password = _a.password;
-        if (!this.isValidEmail(email)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.LOGIN);
-            return false;
-        }
-        if (!this.isValidPassWord(password)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.LOGIN);
-            return false;
-        }
-        return true;
+        return this.validator([
+            {
+                checker: function () { return _this.isValidEmail(email); },
+                errorMessage: constants_1.ALERT_MESSAGE.LOGIN
+            },
+            {
+                checker: function () { return _this.isValidPassWord(password); },
+                errorMessage: constants_1.ALERT_MESSAGE.LOGIN
+            },
+        ]);
     };
     VerifyValueValidation.prototype.verifySignUpInfo = function (_a) {
+        var _this = this;
         var email = _a.email, name = _a.name, password = _a.password, passwordConfirm = _a.passwordConfirm;
-        if (!this.isValidEmail(email)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_EMAIL);
-            return false;
-        }
-        if (!this.isValidName(name)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_NAME);
-            return false;
-        }
-        if (!this.isValidPassWord(password)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD);
-            return false;
-        }
-        if (!this.isValidPassWordConfirm(password, passwordConfirm)) {
-            (0, snackbar_1.showSnackbar)(constants_1.ALERT_MESSAGE.USER_PASSWORD_CONFIRM);
-            return false;
-        }
-        return true;
+        return this.validator([
+            {
+                checker: function () { return _this.isValidEmail(email); },
+                errorMessage: constants_1.ALERT_MESSAGE.USER_EMAIL
+            },
+            {
+                checker: function () { return _this.isValidName(name); },
+                errorMessage: constants_1.ALERT_MESSAGE.USER_NAME
+            },
+            {
+                checker: function () { return _this.isValidPassWord(password); },
+                errorMessage: constants_1.ALERT_MESSAGE.USER_PASSWORD
+            },
+            {
+                checker: function () { return _this.isValidPassWordConfirm(password, passwordConfirm); },
+                errorMessage: constants_1.ALERT_MESSAGE.USER_PASSWORD_CONFIRM
+            },
+        ]);
     };
     // 상품 정보 검증
     VerifyValueValidation.prototype.isValidProductNameRange = function (name) {
         return (name.length >= constants_1.PRODUCT_RULES.MIN_NAME_LENGTH && name.length <= constants_1.PRODUCT_RULES.MAX_NAME_LENGTH);
     };
-    VerifyValueValidation.prototype.isOverlapProductName = function (name, index) {
-        return this.products.some(function (product, productIndex) { return productIndex !== index && product.name === name; });
+    VerifyValueValidation.prototype.isUniqueProductName = function (name, index) {
+        return !this.products.some(function (product, productIndex) { return productIndex !== index && product.name === name; });
     };
     VerifyValueValidation.prototype.isValidProductPrice = function (price) {
         return (price >= constants_1.PRODUCT_RULES.MIN_PRICE &&
