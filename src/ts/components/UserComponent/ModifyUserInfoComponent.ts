@@ -2,8 +2,9 @@ import { $ } from '../../dom';
 import { on } from '../../events';
 
 import { getCurrentUser, setCurrentUser } from '../../auth';
-import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
+import { ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import renderSnackBar from '../../snackbar';
+import { userHTTPRequest } from '../../http';
 
 export default class ModifyUserInfoComponent {
   private $userModifyForm = $('.user-modify-form');
@@ -31,33 +32,27 @@ export default class ModifyUserInfoComponent {
     const { id: currentUserId, accessToken } = getCurrentUser();
 
     try {
-      if (
-        this.$modifyPasswordInput.value !==
-        this.$modifyPasswordConfirmInput.value
-      ) {
+      const password = this.$modifyPasswordInput.value;
+      const passwordConfirm = this.$modifyPasswordConfirmInput.value;
+
+      if (password !== passwordConfirm) {
         throw new Error(ERROR_MESSAGE.NOT_CONFIRMED_PASSWORD);
       }
-      const response = await fetch(
-        `${BASE_SERVER_URL}/users/${currentUserId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: this.$modifyNameInput.value,
-            password: this.$modifyPasswordInput.value,
-          }),
-        }
-      );
 
-      const json = await response.json();
-      const { email, name, id } = json;
+      const userRequestReturn = await userHTTPRequest({
+        path: `users/${currentUserId}`,
+        method: 'PATCH',
+        body: {
+          name: this.$modifyNameInput.value,
+          password: this.$modifyPasswordInput.value,
+        },
+      });
+
+      const { email, name, id } = userRequestReturn;
 
       setCurrentUser({ accessToken, name, email, id });
-      if (response.ok) {
-        window.location.pathname = MAIN_PAGE;
-      }
+
+      window.location.pathname = MAIN_PAGE;
     } catch ({ message }) {
       renderSnackBar(message);
     }

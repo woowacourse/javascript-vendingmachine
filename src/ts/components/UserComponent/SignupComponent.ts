@@ -1,7 +1,8 @@
 import { setCurrentUser } from '../../auth';
-import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
+import { ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import { $ } from '../../dom';
 import { on } from '../../events';
+import { userHTTPRequest } from '../../http';
 import renderSnackBar from '../../snackbar';
 
 export default class SignupComponent {
@@ -28,28 +29,24 @@ export default class SignupComponent {
         throw new Error(ERROR_MESSAGE.NOT_CONFIRMED_PASSWORD);
       }
 
-      const response = await fetch(`${BASE_SERVER_URL}/register`, {
+      const userRequestReturn = await userHTTPRequest({
+        path: 'register',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        body: {
           name: this.$nameInput.value,
           email: this.$emailInput.value,
           password,
-        }),
+        },
       });
 
-      if (response.ok) {
-        const {
-          accessToken,
-          user: { email, name, id },
-        } = await response.json();
+      const {
+        accessToken,
+        user: { email, name, id },
+      } = userRequestReturn;
 
-        setCurrentUser({ accessToken, name, email, id });
+      setCurrentUser({ accessToken, name, email, id });
 
-        window.location.pathname = MAIN_PAGE;
-      }
+      window.location.pathname = MAIN_PAGE;
     } catch ({ message }) {
       renderSnackBar(message);
     }

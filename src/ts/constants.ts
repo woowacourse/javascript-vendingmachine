@@ -43,6 +43,8 @@ export const ERROR_MESSAGE: ErrorMessage = {
   SOLD_OUT_PRODUCT: '해당 상품은 매진되었습니다.',
   NOT_ENOUGH_MONEY: '현재 투입 금액으로 살 수 없는 상품입니다.',
   NOT_EXIST_USER: '유저를 찾을 수 없습니다. 이메일을 다시 한번 확인해주세요',
+  ALREADY_EXIST_EMAIL:
+    '이미 존재하는 이메일 입니다. 다른 이메일을 사용해주세요.',
   WRONG_PASSWORD_LOGIN: '비밀번호가 틀렸습니다. 다시 한번 확인해주세요',
   OVERFLOW_CHARGE_MONEY: `잔돈 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}을 초과했습니다. 누적 금액이 ${CHARGE_MONEY.MAX_TOTAL_CHARGE_MONEY}원이 넘지 않도록 작성해주세요.`,
 };

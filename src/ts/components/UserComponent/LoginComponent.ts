@@ -1,18 +1,10 @@
 import { $ } from '../../dom';
 import { on } from '../../events';
-import { BASE_SERVER_URL, ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
+import { ERROR_MESSAGE, MAIN_PAGE } from '../../constants';
 import { setCurrentUser } from '../../auth';
 
 import renderSnackBar from '../../snackbar';
-
-const checkValidUserReturn = (json) => {
-  if (json === 'Cannot find user') {
-    throw new Error(ERROR_MESSAGE.NOT_EXIST_USER);
-  }
-  if (json === 'Incorrect password') {
-    throw new Error(ERROR_MESSAGE.WRONG_PASSWORD_LOGIN);
-  }
-};
+import { userHTTPRequest } from '../../http';
 
 export default class LoginComponent {
   private $loginForm = $('.login-form');
@@ -27,24 +19,19 @@ export default class LoginComponent {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${BASE_SERVER_URL}/login/`, {
+      const userRequestReturn = await userHTTPRequest({
+        path: 'login',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        body: {
           email: this.$emailInput.value,
           password: this.$passwordInput.value,
-        }),
+        },
       });
-
-      const json = await response.json();
-      checkValidUserReturn(json);
 
       const {
         accessToken,
         user: { email, name, id },
-      } = json;
+      } = userRequestReturn;
 
       setCurrentUser({
         accessToken,
@@ -53,9 +40,7 @@ export default class LoginComponent {
         id,
       });
 
-      if (response.ok) {
-        window.location.pathname = MAIN_PAGE;
-      }
+      window.location.pathname = MAIN_PAGE;
     } catch ({ message }) {
       renderSnackBar(message);
     }

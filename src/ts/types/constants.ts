@@ -28,6 +28,7 @@ export interface ErrorMessage {
   readonly WRONG_PASSWORD_LOGIN: string;
   readonly NOT_EXIST_USER: string;
   readonly OVERFLOW_CHARGE_MONEY: string;
+  readonly ALREADY_EXIST_EMAIL: string;
 }
 
 export interface ChargeMoney {
