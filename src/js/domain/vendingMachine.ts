@@ -1,12 +1,5 @@
 import * as type from "../interface/vendingMachine.interface";
-
-import {
-  validateProductName,
-  validateProductPrice,
-  validateProductCount,
-  validateChanges,
-} from "../util/validations";
-
+import { validateProduct, validateChanges } from "../util/validations";
 import SingleProduct from "./product";
 
 export default class VendingMachine implements type.IVendingMachine {
@@ -29,9 +22,7 @@ export default class VendingMachine implements type.IVendingMachine {
   }
 
   addProduct: type.IAddProduct = ({ name, price, count }) => {
-    validateProductName(this.products, name);
-    validateProductPrice(price);
-    validateProductCount(count);
+    validateProduct({ products: this.products, name, price, count });
 
     const product = new SingleProduct(name, price, count);
     this.products.push(product);
@@ -43,9 +34,7 @@ export default class VendingMachine implements type.IVendingMachine {
   };
 
   updateProduct: type.IUpdateProduct = (id, name, price, count) => {
-    validateProductName(this.products, name, id);
-    validateProductPrice(price);
-    validateProductCount(count);
+    validateProduct({ products: this.products, name, price, count, id });
 
     const product = this.products.find((product) => id === product.getId());
 

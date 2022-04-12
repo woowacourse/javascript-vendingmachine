@@ -6,7 +6,13 @@ import {
   AUTHORIZATION_BOUNDARY_NUMBER,
 } from "../constant";
 
-export const validateProductName = (
+export const validateProduct = ({ products, name, price, count, id = "" }) => {
+  validateProductName(products, name, id);
+  validateProductPrice(price);
+  validateProductCount(count);
+};
+
+const validateProductName = (
   products: ISingleProduct[],
   newName: string,
   targetId = ""
@@ -25,7 +31,7 @@ export const validateProductName = (
   }
 };
 
-export const validateProductPrice = (price: number) => {
+const validateProductPrice = (price: number) => {
   if (
     price < VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_PRICE ||
     price > VENDING_MACHINE_BOUNDARY_NUMBER.MAXIMUM_PRICE ||
@@ -35,7 +41,7 @@ export const validateProductPrice = (price: number) => {
   }
 };
 
-export const validateProductCount = (count: number) => {
+const validateProductCount = (count: number) => {
   if (!count || count <= VENDING_MACHINE_BOUNDARY_NUMBER.MINIMUM_COUNT) {
     throw new Error(ERROR_MESSAGE.MINIMUM_COUNT);
   }
