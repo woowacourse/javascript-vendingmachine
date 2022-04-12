@@ -19,8 +19,8 @@ export const onCustomEvent = (customEventName: CustomEventType, eventHandler) =>
 export const showSnackBar = message => {
   const $snackbar = document.querySelector('#snackbar');
   $snackbar.textContent = message;
-  $snackbar.classList.toggle('show');
+  $snackbar.classList.toggle('snackbar-show');
   setTimeout(() => {
-    $snackbar.classList.toggle('show');
+    $snackbar.classList.toggle('snackbar-show');
   }, 2000);
 };

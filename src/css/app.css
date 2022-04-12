@@ -176,7 +176,7 @@
   bottom: 5%;
 }
 
-.show {
+.snackbar-show {
   visibility: visible !important; /* Show the snackbar */
   -webkit-animation: fadein 0.5s, fadeout 0.5s 1.7s;
   animation: fadein 0.5s, fadeout 0.5s 1.7s;
@@ -275,7 +275,7 @@
 
 #user-badge {
   border-radius: 50%;
-  background-color: var(--color-user-badge);
+  background-color: var(--color-user-badge-bg);
   width: 40px;
   height: 40px;
   line-height: 40px;
