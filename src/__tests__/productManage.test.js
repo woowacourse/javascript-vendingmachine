@@ -41,7 +41,7 @@ describe('상품 정보 유효성 테스트', () => {
 
   it(`상품 가격은 ${PRODUCT.PRICE_UNIT}원 단위가 아니면 입력할 수 없다.`, () => {
     const indivisibleProduct = {
-      name: '콜라',
+      name: '콜라1',
       price: 1001,
       quantity: 10,
     };
@@ -52,7 +52,7 @@ describe('상품 정보 유효성 테스트', () => {
 
   it(`상품 가격은 ${PRODUCT.PRICE_RANGE.MIN}원 미만으로 입력할 수 없다.`, () => {
     const cheapProduct = {
-      name: '콜라',
+      name: '콜라2',
       price: 90,
       quantity: 10,
     };
@@ -63,7 +63,7 @@ describe('상품 정보 유효성 테스트', () => {
 
   it(`상품 가격은 ${PRODUCT.PRICE_RANGE.MAX}원을 초과할 수 없다.`, () => {
     const expensiveProduct = {
-      name: '콜라',
+      name: '콜라3',
       price: 10010,
       quantity: 10,
     };
@@ -74,7 +74,7 @@ describe('상품 정보 유효성 테스트', () => {
 
   it(`상품 수량은 ${PRODUCT.QUANTITY_RANGE.MIN}개 미만으로 입력할 수 없다.`, () => {
     const lowInQuantityProduct = {
-      name: '콜라',
+      name: '콜라4',
       price: 1000,
       quantity: 0,
     };
@@ -85,7 +85,7 @@ describe('상품 정보 유효성 테스트', () => {
 
   it(`상품 수량은  ${PRODUCT.QUANTITY_RANGE.MAX}개 초과로 입력할 수 없다.`, () => {
     const lotOfQuantityProduct = {
-      name: '콜라',
+      name: '콜라5',
       price: 1000,
       quantity: 21,
     };

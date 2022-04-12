@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app">
+      <h1 class="sign-up-title">회원가입</h1>
+      <form id="sign-up-info-form" class="sign-up-form">
+        <label for="email-input">이메일</label>
+        <input id="email-input" type="email" placeholder="이메일 주소를 입력해주세요" required />
+        <label for="name-input">이름</label>
+        <input
+          id="name-input"
+          minlength="2"
+          maxlength="6"
+          type="text"
+          placeholder="이름을 입력해주세요"
+          required
+        />
+        <label for="password-input">비밀번호</label>
+        <p class="password-pattern">(최소 8글자이며, 소문자, 대문자, 숫자로 이루져야 한다)</p>
+        <input
+          id="password-input"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          required
+        />
+        <label for="password-check">비밀번호 확인</label>
+        <input
+          id="password-check"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          required
+        />
+        <button class="blue-button hover-button">확인</button>
+      </form>
+      <div id="snackbar"></div>
+    </div>
+  </body>
+</html>

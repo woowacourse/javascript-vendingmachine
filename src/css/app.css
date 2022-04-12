@@ -1,5 +1,6 @@
 #app {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -45,19 +46,20 @@
 .button:hover,
 .modify-button:hover,
 .delete-button:hover,
-.confirm-button:hover {
+.confirm-button:hover,
+.purchase-button:hover {
   background-color: var(--color-dark-white);
 }
 
-.menu-list li a {
+.a-none-deco {
   display: block;
   text-decoration-line: none;
 }
 
-.menu-list li a:link,
-.menu-list li a:visited,
-.menu-list li a:hover,
-.menu-list li a:active {
+.a-none-deco:link,
+.a-none-deco:visited,
+.a-none-deco:hover,
+.a-none-deco:active {
   color: black;
 }
 
@@ -97,7 +99,7 @@
   background-color: var(--color-light-blue);
 }
 
-.current-amount {
+.mt-20px {
   margin-top: 20px;
 }
 
@@ -159,7 +161,73 @@
   padding: 5px 0;
 }
 
-.purchase-form {
+.purchase-form-width {
   width: 375px;
   margin: 0 auto;
+}
+
+/* snackbar */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+}
+
+.show {
+  visibility: visible !important; /* Show the snackbar */
+  -webkit-animation: fadein 0.3s, fadeout 0.3s 1.7s;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
 }

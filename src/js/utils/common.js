@@ -21,3 +21,7 @@ export const getRandomNumber = (max) => {
 export const isOverMaxNumber = (number, max) => {
   return number > max;
 };
+
+export const isSame = (valueA, valueB) => {
+  return valueA === valueB;
+};

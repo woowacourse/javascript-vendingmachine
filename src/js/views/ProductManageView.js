@@ -1,7 +1,7 @@
-import { SECTION_CONTAINER, CONFIRM_DELETE_MESSAGE } from '../constants/constants.js';
-import { $, replaceElement } from '../utils/dom.js';
-import { on, emit } from '../utils/event.js';
-import { tableTemplate, tableInputTemplate } from '../templates/templates.js';
+import { SECTION_CONTAINER, CONFIRM_DELETE_MESSAGE } from '../constants/constants';
+import { $, replaceElement } from '../utils/dom';
+import { on, emit } from '../utils/event';
+import { tableTemplate, tableInputTemplate } from '../templates/templates';
 
 export default class ProductManageView {
   constructor() {

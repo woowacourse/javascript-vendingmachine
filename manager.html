@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>자판기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app">
+      <button
+        type="button"
+        for="select-box"
+        id="manager-name-button"
+        class="manager-button sign-up-button button"
+      ></button>
+      <ul id="option-list" class="display-none option-list-style fadeout-animation">
+        <li>
+          <a id="modify-info" href="./modify.html" class="a-none-deco modify-info-link">정보수정</a>
+        </li>
+        <li><button id="logout" type="button" class="logout-button">로그아웃</button></li>
+      </ul>
+      <h1 class="vending-machine-header">🍿 자판기 🍿</h1>
+      <nav id="menu-category">
+        <ul class="menu-list">
+          <li>
+            <a id="manage-menu" href="#!manage" class="button a-none-deco">상품 관리</a>
+          </li>
+          <li>
+            <a id="charge-menu" href="#!charge" class="button a-none-deco">잔돈 충전</a>
+          </li>
+          <li>
+            <a id="purchase-menu" href="#!purchase" class="button a-none-deco">상품 구매</a>
+          </li>
+        </ul>
+      </nav>
+      <section id="section-container"></section>
+      <div id="snackbar"></div>
+    </div>
+  </body>
+</html>

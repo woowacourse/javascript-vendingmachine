@@ -43,7 +43,7 @@ export const CATEGORY_TEMPLATE = {
         <col width="24%">
         <col width="24%">
       </colgroup>
-      <thead></thead>
+      <thead>
         <tr>
           <th>상품명</th>
           <th>가격</th>
@@ -56,7 +56,7 @@ export const CATEGORY_TEMPLATE = {
   CHARGE: `
     <h2 hidden>잔돈 충전</h2>
     <form id="charge-form" class="form">
-      <label for="charge-amount">자판기가 보유할 금액을 입력해주세요.</label>
+      <label for="charge-amount-input">자판기가 보유할 금액을 입력해주세요.</label>
       <div class="form-input">
         <input
           id="charge-amount-input"
@@ -69,7 +69,7 @@ export const CATEGORY_TEMPLATE = {
         />
         <button class="hover-button">구입</button>
       </div>
-      <p class="current-amount"></p>
+      <p class="current-amount mt-20px"></p>
     </form>
     <table class="table">
       <caption class="caption">
@@ -82,7 +82,7 @@ export const CATEGORY_TEMPLATE = {
         </tr>
       </thead>
       <tbody>
-        <tr></tr>
+        <tr>
           <td>500원</td>
           <td id="five-hundred-coin"></td>
         </tr>
@@ -103,13 +103,13 @@ export const CATEGORY_TEMPLATE = {
   `,
   PURCHASE: `
     <h2 hidden>상품 구매</h2>
-    <form class="purchase-form form">
-      <label for="product-purchased">상품을 구매할 금액을 투입해주세요.</label>
+    <form id="purchase-form" class="purchase-form-width form">
+      <label for="amount-input">상품을 구매할 금액을 투입해주세요.</label>
       <div class="form-input">
-        <input id="product-purchased" type="number" class="input-width" placeholder="금액" />
+        <input id="amount-input" type="number" max="10000" class="input-width" placeholder="금액" />
         <button class="hover-button">투입</button>
       </div>
-      <p class="current-amount">투입한 금액: 3000원</p>
+      <p id="current-amount" class="mt-20px">투입한 금액: 0원</p>
     </form>
     <table class="table">
       <caption class="caption">
@@ -123,14 +123,7 @@ export const CATEGORY_TEMPLATE = {
           <th>구매</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>콜라</td>
-          <td>1000</td>
-          <td>10</td>
-          <td><button type="button">구매</button></td>
-        </tr>
-      </tbody>
+      <tbody id="purchase-tbody" />
     </table>
     <table class="table">
       <caption class="caption">
@@ -145,11 +138,23 @@ export const CATEGORY_TEMPLATE = {
       <tbody>
         <tr>
           <td>500원</td>
-          <td>5개</td>
+          <td id="five-hundred-coin-remain">0개</td>
+        </tr>
+        <tr>
+          <td>100원</td>
+          <td id="one-hundred-coin-remain">0개</td>
+        </tr>
+        <tr>
+          <td>50원</td>
+          <td id="fifty-coin-remain">0개</td>
+        </tr>
+        <tr>
+          <td>10원</td>
+          <td id="ten-coin-remain">0개</td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="button change-button">반환하기</button>
+    <button id="return-button" type="button" class="button change-button">반환하기</button>
   `,
 };
 
@@ -171,4 +176,14 @@ export const tableInputTemplate = (product) => {
     <td><input type="number" class="modify-input" placeholder="수량" value=${product.quantity} /></td>
     <td><button class="confirm-button" type="button">확인</button></td>
   `;
+};
+
+export const purchaseTableTemplate = (product) => {
+  return `
+    <tr>
+      <td>${product.name}</td>
+      <td>${product.price}</td>
+      <td>${product.quantity}</td>
+      <td><button type="button" class="purchase-button">구매</button></td>
+    </tr>`;
 };

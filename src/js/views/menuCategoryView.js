@@ -1,6 +1,7 @@
-import { SECTION_CONTAINER } from '../constants/constants.js';
-import { $, replaceElement } from '../utils/dom.js';
-import { CATEGORY_TEMPLATE } from '../templates/templates.js';
+import { SECTION_CONTAINER } from '../constants/constants';
+import { $, replaceElement } from '../utils/dom';
+import { sessionStore } from '../utils/storage';
+import { CATEGORY_TEMPLATE } from '../templates/templates';
 
 const routes = {
   '#!manage': CATEGORY_TEMPLATE.MANAGE,
@@ -21,7 +22,10 @@ const selectTab = (hash) => {
 };
 
 export const initHashContents = (hash) => {
+  const manager = sessionStore.get('user');
   const content = routes[hash] ?? '';
-  selectTab(hash);
+  if (manager) {
+    selectTab(hash);
+  }
   replaceElement(SECTION_CONTAINER, content);
 };
