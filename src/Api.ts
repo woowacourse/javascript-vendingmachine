@@ -3,20 +3,22 @@ import { getCookie } from 'Utils';
 
 const HOST_NAME = 'https://api.vendingmachine.compy.life';
 
+const addAuthorizationHeader = (headers: HeadersInit) => {
+  const headersOption = new Headers(headers);
+  const accessToken = getCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME);
+
+  accessToken && headersOption.set('Authorization', `Bearer ${accessToken}`);
+  return headersOption;
+};
+
 const request = async (
   url: string,
   option: RequestInit,
-  accessTokenEnable?: boolean,
+  isAccessTokenEnable?: boolean,
 ): Promise<IRequest> => {
   const fetchOption = option;
 
-  if (accessTokenEnable) {
-    const headersOption = new Headers(option.headers);
-    const accessToken = getCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME);
-
-    accessToken && headersOption.set('Authorization', `Bearer ${accessToken}`);
-    fetchOption.headers = headersOption;
-  }
+  if (isAccessTokenEnable) fetchOption.headers = addAuthorizationHeader(option.headers);
 
   try {
     const response: Response = await fetch(HOST_NAME + url, fetchOption);
