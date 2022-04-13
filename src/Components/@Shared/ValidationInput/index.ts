@@ -40,9 +40,9 @@ export default class ValidationInput extends Component<IValidationInputProps> {
 
   onChangeValue = ({ target: $target }) => {
     const { isValidationCheck } = this.props;
-    if (typeof isValidationCheck !== 'function') return;
+    if (typeof isValidationCheck !== 'function' || this.$component instanceof DocumentFragment)
+      return;
 
-    if (this.$component instanceof DocumentFragment) return;
     this.$component.classList.toggle('error', !isValidationCheck($target.value));
   };
 }
