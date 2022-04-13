@@ -22,7 +22,9 @@ describe('상품 추가 테스트', () => {
     cy.get('.input-form-button')
       .click()
       .then(() => {
-        cy.get('#snackbar').should('be.visible');
+        cy.get('#snackbar')
+          .should('be.visible')
+          .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
       });
     cy.checkItemNotAdded();
   });
@@ -31,7 +33,9 @@ describe('상품 추가 테스트', () => {
     const invalidItemName = ' ';
 
     cy.addItem(invalidItemName, itemPrice, itemQuantity).then(() => {
-      cy.get('#snackbar').should('be.visible');
+      cy.get('#snackbar')
+        .should('be.visible')
+        .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
     });
     cy.checkItemNotAdded();
   });
@@ -42,7 +46,9 @@ describe('상품 추가 테스트', () => {
 
     cy.addItem(itemName, itemPrice, itemQuantity);
     cy.addItem(itemName, newItemPrice, newItemQuantity).then(() => {
-      cy.get('#snackbar').should('be.visible');
+      cy.get('#snackbar')
+        .should('be.visible')
+        .should('have.text', ITEM_ERROR_MESSAGE.ALREADY_EXIST);
     });
   });
 

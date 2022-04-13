@@ -28,7 +28,9 @@ describe('상품 수정 테스트', () => {
     cy.get('.confirm-item-button')
       .click()
       .then(() => {
-        cy.get('#snackbar').should('be.visible');
+        cy.get('#snackbar')
+          .should('be.visible')
+          .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
       });
   });
 
@@ -37,7 +39,9 @@ describe('상품 수정 테스트', () => {
     const editedItemName = ' ';
 
     cy.editItemInfo(inputIndex, editedItemName).then(() => {
-      cy.get('#snackbar').should('be.visible');
+      cy.get('#snackbar')
+        .should('be.visible')
+        .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
     });
   });
 
@@ -56,7 +60,9 @@ describe('상품 수정 테스트', () => {
       .eq(1)
       .click()
       .then(() => {
-        cy.get('#snackbar').should('be.visible');
+        cy.get('#snackbar')
+          .should('be.visible')
+          .should('have.text', ITEM_ERROR_MESSAGE.ALREADY_EXIST);
       });
   });
 
