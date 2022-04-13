@@ -13,8 +13,8 @@
 
 .show {
   visibility: visible !important;
-  -webkit-animation: fadeIn 0.5s, fadeOut 0.5s 2.7s;
-  animation: fadeIn 0.5s, fadeOut 0.5s 2.7s;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
 }
 
 @-webkit-keyframes fadeIn {
