@@ -10,13 +10,13 @@ import {
   isDuplicatedName,
 } from './validator';
 
-class VendingMachine {
-  private products: Array<Product>;
-  private changes: Coin;
-  private userChanges: Coin;
-  private totalMoney: number;
-  private userMoney: number;
-  private availableCoinTypeList: Array<number>;
+export class VendingMachine {
+  protected products: Array<Product>;
+  protected changes: Coin;
+  protected userChanges: Coin;
+  protected totalMoney: number;
+  protected userMoney: number;
+  protected availableCoinTypeList: Array<number>;
 
   constructor() {
     this.products = [];
@@ -253,15 +253,6 @@ class VendingMachine {
     if (this.userMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
     }
-  }
-
-  initialize() {
-    /* 테스트 용도로 작성된 초기화 함수입니다. 실제 로직에선 사용되지 않습니다. */
-    this.products = [];
-    this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
-    this.userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
-    this.totalMoney = 0;
-    this.userMoney = 0;
   }
 }
 
