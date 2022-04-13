@@ -15,4 +15,7 @@ export interface ChargeMoneyManager {
   getTotalAmount(): number;
   addCoins(newCoinsQuantity: Coins): void;
   getReturnCoins(userReturnMoney: number): Coins;
+  canSubtractCoinQuantity(coin: ChargeMoneyCoins): boolean;
 }
+
+export type ChargeMoneyCoins = 500 | 100 | 50 | 10;

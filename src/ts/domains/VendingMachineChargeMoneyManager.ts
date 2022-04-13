@@ -1,4 +1,5 @@
 import {
+  ChargeMoneyCoins,
   ChargeMoneyManager,
   Coins,
 } from '../types/vendingMachineChargeMoneyManager';
@@ -9,6 +10,7 @@ export default class VendingMachineChargeMoneyManager
   implements ChargeMoneyManager
 {
   private coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
+  private userMoney = 0;
 
   getCoins() {
     return this.coinsQuantity;
@@ -30,48 +32,55 @@ export default class VendingMachineChargeMoneyManager
     );
   }
 
+  canSubtractCoinQuantity(coin: ChargeMoneyCoins): boolean {
+    return (
+      this.coinsQuantity[`QUANTITY_COIN_${coin}`] > 0 &&
+      this.userMoney - coin >= 0
+    );
+  }
+
   getReturnCoins(userReturnMoney: number): Coins {
-    let userMoney = userReturnMoney;
+    this.userMoney = userReturnMoney;
     let returnCoinsQuantity: Coins = {
       ...COINS.INITIAL_QUANTITY_STATE,
     };
 
-    if (userMoney >= this.getTotalAmount()) {
+    if (this.userMoney >= this.getTotalAmount()) {
       returnCoinsQuantity = this.coinsQuantity;
       this.coinsQuantity = { ...COINS.INITIAL_QUANTITY_STATE };
 
       return returnCoinsQuantity;
     }
 
-    while (userMoney > 0) {
-      if (this.coinsQuantity.QUANTITY_COIN_500 > 0 && userMoney - 500 >= 0) {
+    while (this.userMoney > 0) {
+      if (this.canSubtractCoinQuantity(500)) {
         this.coinsQuantity.QUANTITY_COIN_500 -= 1;
         returnCoinsQuantity.QUANTITY_COIN_500 += 1;
-        userMoney -= 500;
+        this.userMoney -= 500;
 
         continue;
       }
 
-      if (this.coinsQuantity.QUANTITY_COIN_100 > 0 && userMoney - 100 >= 0) {
+      if (this.canSubtractCoinQuantity(100)) {
         this.coinsQuantity.QUANTITY_COIN_100 -= 1;
         returnCoinsQuantity.QUANTITY_COIN_100 += 1;
-        userMoney -= 100;
+        this.userMoney -= 100;
 
         continue;
       }
 
-      if (this.coinsQuantity.QUANTITY_COIN_50 > 0 && userMoney - 50 >= 0) {
+      if (this.canSubtractCoinQuantity(50)) {
         this.coinsQuantity.QUANTITY_COIN_50 -= 1;
         returnCoinsQuantity.QUANTITY_COIN_50 += 1;
-        userMoney -= 50;
+        this.userMoney -= 50;
 
         continue;
       }
 
-      if (this.coinsQuantity.QUANTITY_COIN_10 > 0 && userMoney - 10 >= 0) {
+      if (this.canSubtractCoinQuantity(10)) {
         this.coinsQuantity.QUANTITY_COIN_10 -= 1;
         returnCoinsQuantity.QUANTITY_COIN_10 += 1;
-        userMoney -= 10;
+        this.userMoney -= 10;
 
         continue;
       }
