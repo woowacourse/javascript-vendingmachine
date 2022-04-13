@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constants/errorConstants';
-import { userDataType } from '../types/types';
+import { UserDataType } from '../types/types';
 import { signValidate } from '../validates/signValidate';
 
 const AuthAPI = {
@@ -10,7 +10,7 @@ const AuthAPI = {
     USERS: '/users',
   },
 
-  async signIn({ email, password }: userDataType) {
+  async signIn({ email, password }: UserDataType) {
     const response = await fetch(this.BASE_URL + this.TYPES.SIGN_IN, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -25,7 +25,7 @@ const AuthAPI = {
     return { accessToken, user };
   },
 
-  async signUp({ email, name, password, confirmPassword }: userDataType) {
+  async signUp({ email, name, password, confirmPassword }: UserDataType) {
     signValidate.checkSignUpInputs({ email, name, password, confirmPassword });
 
     const response = await fetch(this.BASE_URL + this.TYPES.SIGN_UP, {
@@ -42,7 +42,7 @@ const AuthAPI = {
     return { accessToken, user };
   },
 
-  async editUserData({ id, name, password, confirmPassword }: userDataType) {
+  async editUserData({ id, name, password, confirmPassword }: UserDataType) {
     signValidate.checkEditedProfileInputs({ name, password, confirmPassword });
 
     const response = await fetch(this.BASE_URL + this.TYPES.USERS + `/${id}`, {

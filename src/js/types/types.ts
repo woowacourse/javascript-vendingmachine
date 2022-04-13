@@ -32,7 +32,7 @@ export type TableItemDeleteDetailType = {
   item: ItemType;
 };
 
-export type userDataType = {
+export type UserDataType = {
   id?: number;
   email?: string;
   name?: string;

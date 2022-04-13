@@ -1,4 +1,4 @@
-import { userDataType } from '../types/types';
+import { UserDataType } from '../types/types';
 
 const Storage = {
   KEYS: {
@@ -14,11 +14,11 @@ const Storage = {
     this.setData(this.KEYS.ACCESS_TOKEN, token);
   },
 
-  getUserData(): userDataType {
+  getUserData(): UserDataType {
     return this.getData(this.KEYS.USER_DATA);
   },
 
-  setUserData(data: userDataType) {
+  setUserData(data: UserDataType) {
     this.setData(this.KEYS.USER_DATA, data);
   },
 
