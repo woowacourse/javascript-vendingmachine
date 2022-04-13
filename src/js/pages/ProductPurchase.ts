@@ -124,10 +124,10 @@ export default class ProductPurchase {
 
     if (products.length === 0) return;
 
-    this.$productList.appendChild(this.productsElement(products));
+    this.$productList.appendChild(this.getProductsElement(products));
   }
 
-  productsElement(products: Array<Product>) {
+  getProductsElement(products: Array<Product>) {
     const fragment = new DocumentFragment();
 
     products.forEach(product => {
