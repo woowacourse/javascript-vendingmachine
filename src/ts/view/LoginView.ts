@@ -2,7 +2,7 @@ import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface } from '../
 import { generateLoginTemplate } from '../template/authenticationTemplate';
 import { requestLogin } from '../apis';
 import { selectDom, selectDoms } from '../utils';
-import showSnackbar from '../utils/snackbar';
+import Snackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
 import { setCookie } from '../utils/cookie';
@@ -58,7 +58,7 @@ class LoginView implements ViewInterface {
       this.userStore.setUserInfo({ accessToken, ...user });
       setCookie(COOKIE_KEY.USER_INFO, JSON.stringify({ accessToken, ...user }));
     } catch (error) {
-      showSnackbar(error.message);
+      Snackbar.show(error.message);
       return;
     }
 

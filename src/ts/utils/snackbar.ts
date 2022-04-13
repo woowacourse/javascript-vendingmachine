@@ -1,20 +1,21 @@
 import { selectDom } from '.';
 import { ID, CLASS } from '../constant/selector';
 
-const showSnackbar = (function () {
-  let timerId;
-  const snackbar: HTMLElement | null = selectDom(`#${ID.SNACKBAR}`);
+class Snackbar {
+  private static timerId: ReturnType<typeof setTimeout>;
 
-  return (message: string) => {
-    snackbar.textContent = message;
+  private static snackbar: HTMLElement | null = selectDom(`#${ID.SNACKBAR}`);
 
-    if (timerId) return;
-    snackbar.classList.toggle(CLASS.SHOW);
-    timerId = setTimeout(() => {
-      snackbar.classList.toggle(CLASS.SHOW);
-      timerId = null;
+  static show(message: string) {
+    this.snackbar.textContent = message;
+
+    if (this.timerId) return;
+    this.snackbar.classList.toggle(CLASS.SHOW);
+    this.timerId = setTimeout(() => {
+      this.snackbar.classList.toggle(CLASS.SHOW);
+      this.timerId = null;
     }, 3000);
-  };
-})();
+  }
+}
 
-export default showSnackbar;
+export default Snackbar;

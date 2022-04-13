@@ -2,7 +2,7 @@ import VendingMachineTab from './VendingMachineTab';
 import { CoinKind, CoinInterface } from '../types';
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms } from '../utils';
-import showSnackbar from '../utils/snackbar';
+import Snackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 
 class CoinRechargeTab extends VendingMachineTab {
@@ -37,7 +37,7 @@ class CoinRechargeTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateCoinRechargeInput(inputtedCashAmount);
     } catch (error) {
-      showSnackbar(error.message);
+      Snackbar.show(error.message);
       return;
     }
 

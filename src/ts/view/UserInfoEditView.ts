@@ -2,7 +2,7 @@ import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface, UserInfo }
 import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { requestEditUserInfo } from '../apis';
 import { selectDom, selectDoms } from '../utils';
-import showSnackbar from '../utils/snackbar';
+import Snackbar from '../utils/snackbar';
 import { setCookie } from '../utils/cookie';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
@@ -73,7 +73,7 @@ class UserInfoEditView implements ViewInterface {
 
       setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(editedUserInfo));
     } catch (error) {
-      showSnackbar(error.message);
+      Snackbar.show(error.message);
       return;
     }
 
