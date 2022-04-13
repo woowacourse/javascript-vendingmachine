@@ -12,6 +12,7 @@ import renderSnackBar from '../../dom/snackBar';
 import { EditUserInfo } from '../../types/userInfo';
 import { COOKIE_ID } from '../../constants/cookie';
 import { SNACK_BAR_TYPE } from '../../constants/snackBar';
+import { PATHNAME } from '../../constants/pathname';
 
 export default class EditInformationComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -96,7 +97,7 @@ export default class EditInformationComponent {
         SNACK_BAR_TYPE.SUCCESS
       );
 
-      window.history.pushState({}, '', '/purchase-product');
+      window.history.pushState({}, '', PATHNAME.PURCHASE_PRODUCT);
       emit(this.$editVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
       renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);

@@ -12,6 +12,7 @@ import { SignInUserInfo } from '../../types/userInfo';
 import { COOKIE_ID } from '../../constants/cookie';
 import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 import { SERVER_MESSAGE } from '../../constants/serverMessage';
+import { PATHNAME } from '../../constants/pathname';
 
 export default class SignInComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -66,7 +67,7 @@ export default class SignInComponent {
         SNACK_BAR_TYPE.SUCCESS
       );
 
-      window.history.pushState({}, '', '/purchase-product');
+      window.history.pushState({}, '', PATHNAME.PURCHASE_PRODUCT);
       emit(this.$signInVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
       if (message === SERVER_MESSAGE.CANNOT_FIND_USER) {
@@ -80,7 +81,7 @@ export default class SignInComponent {
   private onClickSignUpButton = (event: MouseEvent): void => {
     event.preventDefault();
 
-    window.history.pushState({}, '', '/sign-up');
+    window.history.pushState({}, '', PATHNAME.SIGN_UP);
     emit(this.$signUpButton, '@signUpChangeComponent');
   };
 }

@@ -30,7 +30,7 @@ export default class VendingMachineProductManager implements ProductManager {
       (product) => product.name === targetProduct.name
     );
 
-    if (editIndex === -1 || duplicatedNameIndex === -1) return;
+    if (editIndex === -1) return;
 
     checkEditDuplicateName(editIndex, duplicatedNameIndex);
 

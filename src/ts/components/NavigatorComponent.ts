@@ -3,6 +3,7 @@ import { requestUserInfo } from '../api/api';
 
 import { $, $$, on } from '../dom/domHelper';
 import { COOKIE_ID } from '../constants/cookie';
+import { PATHNAME } from '../constants/pathname';
 
 const isMismatchesNavClassName = (target: HTMLElement): boolean =>
   !target.matches('.nav__product-button') &&
@@ -10,9 +11,9 @@ const isMismatchesNavClassName = (target: HTMLElement): boolean =>
   !target.matches('.nav__purchase-button');
 
 const isMembershipPathname = (pathname: string): boolean =>
-  pathname === '/sign-in' ||
-  pathname === '/sign-up' ||
-  pathname === '/edit-information';
+  pathname === PATHNAME.SIGN_IN ||
+  pathname === PATHNAME.SIGN_UP ||
+  pathname === PATHNAME.MEMBERSHIP_EDIT;
 
 export default class NavigatorComponent {
   private $navList = $<HTMLElement>('.nav__list');
@@ -124,8 +125,8 @@ export default class NavigatorComponent {
       return;
     }
 
-    if (!user && pathname === '/edit-information') {
-      window.history.pushState({}, '', '/purchase-product');
+    if (!user && pathname === PATHNAME.MEMBERSHIP_EDIT) {
+      window.history.pushState({}, '', PATHNAME.PURCHASE_PRODUCT);
       this.changeComponent();
     }
 

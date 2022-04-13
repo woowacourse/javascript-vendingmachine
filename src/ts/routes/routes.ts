@@ -1,3 +1,4 @@
+import { PATHNAME } from '../constants/pathname';
 import { on, emit, $$ } from '../dom/domHelper';
 
 const isUndefinedRoutes = (pathname: string) =>
@@ -15,7 +16,7 @@ export default class RouteManager {
     const { pathname } = window.location;
 
     if (isUndefinedRoutes(pathname)) {
-      window.history.replaceState({}, '', '/purchase-product');
+      window.history.replaceState({}, '', PATHNAME.PURCHASE_PRODUCT);
 
       this.onPopstateRoute();
       return;
