@@ -1,4 +1,8 @@
-export type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
+export interface ItemInfoType {
+  itemName: string;
+  itemPrice: number;
+  itemQuantity: number;
+}
 
 export type CoinKind = 500 | 100 | 50 | 10;
 
@@ -8,27 +12,27 @@ export interface CoinInterface {
   useCoin(count: number): void;
 }
 
-export type ItemInputValidationInfo = {
+export interface ItemInputValidationInfo {
   itemInfo: ItemInfoType;
   isAddMode: boolean;
   itemIndex?: number;
   itemList?: ItemInfoType[];
-};
+}
 
-export type CashInputValidationInfo = {
+export interface CashInputValidationInfo {
   inputtedCashAmount: number;
-};
+}
 
-export type CoinRechargeInputValidationInfo = CashInputValidationInfo & {
+export interface CoinRechargeInputValidationInfo extends CashInputValidationInfo {
   rechargedCoinAmount: number;
-};
+}
 
-export type AuthenticationInfo = {
+export interface AuthenticationInfo {
   email: string;
   name?: string;
   password: string;
   verificationPassword?: string;
-};
+}
 
 export type ValidationInfo =
   | ItemInputValidationInfo
@@ -66,15 +70,15 @@ export interface VendingMachineInterface {
   validateItemPurchaseCashInput: (rechargedCash: number) => void;
 }
 
-export type User = {
+export interface User {
   email: string;
   name: string;
   id: number;
-};
+}
 
-export type UserInfo = User & {
+export interface UserInfo extends User {
   accessToken: string;
-};
+}
 
 export interface UserStoreInterface {
   getUserInfo: () => UserInfo;
