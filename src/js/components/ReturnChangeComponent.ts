@@ -1,7 +1,8 @@
 import vendingMachine from '../model/VendingMachine';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class ReturnChangeComponent {
+class ReturnChangeComponent extends Component.DynamicComponent {
   $changeList: HTMLElement;
   $returnChangeButton: HTMLElement;
   $amountCoin500: HTMLElement;
@@ -12,11 +13,12 @@ class ReturnChangeComponent {
   noticeStateChanged: Function;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindElementAndEvent = () => {
+  protected bindEventAndElement = () => {
     this.$changeList = document.querySelector('#change-list');
     this.$returnChangeButton = document.querySelector('#return-change-button');
     this.$amountCoin500 = document.querySelector('#amount-coin-500');
@@ -43,10 +45,10 @@ class ReturnChangeComponent {
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
-    this.bindElementAndEvent();
+    this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <div id="change-list-wrapper">
     <h4>잔돈 반환</h4>
     <ul id="change-list">

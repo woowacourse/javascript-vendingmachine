@@ -4,8 +4,9 @@ import { ALERT_MESSAGE, PATH_NAME } from '../constants';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import router from '../routes';
 import requestLogin from '../api/requestLogin';
+import * as Component from './abstractComponents/Component';
 
-class LoginFormComponent {
+class LoginFormComponent extends Component.StaticComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $loginInputSection: HTMLElement;
@@ -14,11 +15,12 @@ class LoginFormComponent {
   $mainContents: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
     this.$loginForm = document.querySelector('#login-form');
     this.$registerLink = document.querySelector('#register-link');
@@ -61,7 +63,7 @@ class LoginFormComponent {
     this.$mainContents.replaceChildren();
   };
 
-  private template = () => `<h1>로그인</h1>
+  protected template = () => `<h1>로그인</h1>
     <form id="login-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" placeholder="woowacourse@gmail.com" required />

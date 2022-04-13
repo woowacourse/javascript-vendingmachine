@@ -33,6 +33,6 @@ export default class ProductManage {
       return;
     }
 
-    this.ProductListComponent.refreshComponent();
+    this.ProductListComponent.refreshChange();
   };
 }

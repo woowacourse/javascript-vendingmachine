@@ -5,8 +5,9 @@ import routes from '../routes';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { getUserData } from '../utils/userAction';
 import { checkUserDataValidate } from '../utils/userValidation';
+import * as Component from './abstractComponents/Component';
 
-class UserInfoComponent {
+class UserInfoComponent extends Component.StaticComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $loginInputSection: HTMLElement;
@@ -16,11 +17,12 @@ class UserInfoComponent {
   user: User;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
     this.$userInfoForm = document.querySelector('#user-info-form');
     this.$mainContents = document.querySelector('.main-contents');
@@ -73,7 +75,7 @@ class UserInfoComponent {
     this.$mainContents.replaceChildren();
   };
 
-  private template = () => `<h1>회원 정보 수정</h1>
+  protected template = () => `<h1>회원 정보 수정</h1>
     <form id="user-info-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" value="${this.user.email}" disabled />
