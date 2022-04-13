@@ -1,7 +1,7 @@
 import Component from 'Components/Abstract';
 import HoldingAmountStore from 'Store/HoldingAmountStore';
 import ProductStore from 'Store/ProductStore';
-import { $, $$, addMultipleEventDelegate, createTemplate, Snackbar } from 'Utils';
+import { $, $$, addMultipleEventDelegate, createTemplate, snackbar } from 'Utils';
 
 import template from './template/index.html';
 import templateManageTableRow from './template/ManageTableRow.html';
@@ -104,7 +104,7 @@ export default class ProductList extends Component<IProductListProps> {
 
     const { onRemoveProduct } = this.props;
     typeof onRemoveProduct === 'function' && onRemoveProduct(productIndex);
-    Snackbar('상품이 삭제되었습니다.');
+    snackbar('상품이 삭제되었습니다.');
   };
 
   onClickPurchaseButton = ({ target: $target }) => {
@@ -115,12 +115,12 @@ export default class ProductList extends Component<IProductListProps> {
     const { name, price } = ProductStore.getState().products[productIndex];
 
     if (ProductStore.isOutOfStock(productIndex)) {
-      Snackbar('해당 상품의 재고가 모두 소진되었습니다.', 'warning');
+      snackbar('해당 상품의 재고가 모두 소진되었습니다.', 'warning');
       return;
     }
 
     if (HoldingAmountStore.isNotEnoughMoney(price)) {
-      Snackbar('투입한 금액이 부족합니다.\n상품 구매에 필요한 금액을 충전해주세요.', 'warning');
+      snackbar('투입한 금액이 부족합니다.\n상품 구매에 필요한 금액을 충전해주세요.', 'warning');
       return;
     }
 
@@ -129,7 +129,7 @@ export default class ProductList extends Component<IProductListProps> {
     HoldingAmountStore.updateChargeAmount('subtract', price);
     ProductStore.purchaseProduct(productIndex);
 
-    Snackbar(`${name} 구매가 완료되었습니다.`);
+    snackbar(`${name} 구매가 완료되었습니다.`);
   };
 
   drawProductList = ({ products }) => {

@@ -3,4 +3,4 @@ export * from 'Utils/EventUtils';
 export * from 'Utils/ElementUtils';
 export * from 'Utils/ElementUtils';
 export * from 'Utils/User/validator';
-export * from 'Utils/Snackbar';
+export * from 'Utils/snackbar';

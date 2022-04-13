@@ -8,7 +8,7 @@ import {
   isPassPasswordRules,
   isUserNameRules,
   routingEvent,
-  Snackbar,
+  snackbar,
   validateUserProfileEdit,
 } from 'Utils';
 import { DEFAULT_PAGE } from 'Constants';
@@ -112,7 +112,7 @@ export default class UserProfileEditForm extends Component {
     try {
       validateUserProfileEdit(inputName, inputPassword, inputPasswordConfirm);
     } catch (error) {
-      Snackbar(error.message, 'warning');
+      snackbar(error.message, 'warning');
       return;
     }
 
@@ -123,7 +123,7 @@ export default class UserProfileEditForm extends Component {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {
-      Snackbar(message, 'warning');
+      snackbar(message, 'warning');
       UserSessionStore.initSessionEvent();
     }
 

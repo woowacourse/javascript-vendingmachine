@@ -9,7 +9,7 @@ import {
   isPassPasswordRules,
   isUserNameRules,
   routingEvent,
-  Snackbar,
+  snackbar,
   validateUserRegister,
 } from 'Utils';
 import { DEFAULT_PAGE } from 'Constants';
@@ -114,7 +114,7 @@ export default class RegisterForm extends Component {
     try {
       validateUserRegister(inputEmail, inputName, inputPassword, inputPasswordConfirm);
     } catch (error) {
-      Snackbar(error.message, 'warning');
+      snackbar(error.message, 'warning');
       return;
     }
 
@@ -125,7 +125,7 @@ export default class RegisterForm extends Component {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {
-      Snackbar(message, 'warning');
+      snackbar(message, 'warning');
       UserSessionStore.initSessionEvent();
     }
 

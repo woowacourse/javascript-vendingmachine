@@ -2,7 +2,7 @@ import { $, createTemplate, addEventOnce, runAnimation, getTimeDiffToPercent } f
 import template from './template.html';
 import './styles.scss';
 
-export const Snackbar = (
+export const snackbar = (
   message: string,
   type: 'success' | 'warning' = 'success',
   delay = 3000,

@@ -2,7 +2,7 @@ import Component from 'Components/Abstract';
 import ProductList from 'Components/@Shared/ProductList';
 import ProductStore from 'Store/ProductStore';
 import { validateProduct } from 'Utils/VendingMachine/validator';
-import { Snackbar } from 'Utils';
+import { snackbar } from 'Utils';
 
 export default class PurchaseProductList extends Component {
   subscribeStore = [ProductStore];
@@ -22,7 +22,7 @@ export default class PurchaseProductList extends Component {
     try {
       validateProduct(product);
     } catch (error) {
-      Snackbar(error.message, 'warning');
+      snackbar(error.message, 'warning');
       return;
     }
 

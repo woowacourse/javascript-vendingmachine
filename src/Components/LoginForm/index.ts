@@ -8,7 +8,7 @@ import {
   isPassEmailRules,
   routingEvent,
   validateUserLogin,
-  Snackbar,
+  snackbar,
 } from 'Utils';
 
 import template from './template.html';
@@ -73,7 +73,7 @@ export default class LoginForm extends Component {
     try {
       validateUserLogin(inputEmail, inputPassword);
     } catch (error) {
-      Snackbar(error.message, 'warning');
+      snackbar(error.message, 'warning');
       return;
     }
 
@@ -84,7 +84,7 @@ export default class LoginForm extends Component {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {
-      Snackbar(message, 'warning');
+      snackbar(message, 'warning');
       UserSessionStore.initSessionEvent();
     }
 
