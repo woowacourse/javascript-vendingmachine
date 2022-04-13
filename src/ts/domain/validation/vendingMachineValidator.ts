@@ -8,7 +8,7 @@ import {
   ITEM_ERROR_MESSAGE,
   CASH_ERROR_MESSAGE,
   ITEM_PURCHASE_CASH_ERROR_MESSAGE,
-} from '../../constant/errorMessage';
+} from '../../constant/message';
 import { ITEM, CASH, ITEM_PURCHASE_CASH } from '../../constant/rule';
 
 const isBlank = ({ itemInfo: { itemName } }: ItemInputValidationInfo) => {

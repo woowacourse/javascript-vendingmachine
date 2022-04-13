@@ -5,10 +5,12 @@ import {
   generateAuthorizedTebHeaderTemplate,
 } from '../template/headerTemplate';
 import { selectDom, selectDoms } from '../utils';
+import Snackbar from '../utils/snackbar';
 import { deleteCookie } from '../utils/cookie';
 import { CLASS, ID } from '../constant/selector';
 import HASH from '../constant/hash';
 import { COOKIE_KEY } from '../constant/cookie';
+import { LOGOUT_MESSAGE } from '../constant/message';
 
 class HeaderView implements HeaderInterface {
   private userStore: UserStoreInterface;
@@ -129,6 +131,7 @@ class HeaderView implements HeaderInterface {
     this.userStore.setUserInfo(null);
     deleteCookie(COOKIE_KEY.USER_INFO);
     this.changeHashUrl(HASH.ITEM_PURCHASE);
+    Snackbar.show(LOGOUT_MESSAGE);
   }
 
   private isTabHash(hash: Hash): boolean {

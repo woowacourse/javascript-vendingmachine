@@ -36,3 +36,9 @@ export const AUTHENTICATION_MESSAGE = {
   DIFFERENT_VERIFICATION_PASSWORD:
     '비밀번호와 비밀번호 확인이 일치하지 않습니다.\n비밀번호 확인을 다시 입력해주세요.',
 };
+
+export const REGISTER_SUCCESS_MESSAGE = '회원가입에 성공했습니다. 로그인을 해주세요.';
+
+export const LOGIN_SUCCESS_MESSAGE = '로그인에 성공했습니다.';
+
+export const LOGOUT_MESSAGE = '로그아웃하였습니다.';

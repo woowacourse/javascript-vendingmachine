@@ -1,4 +1,4 @@
-import { ITEM_ERROR_MESSAGE } from '../../src/ts/constant/errorMessage';
+import { ITEM_ERROR_MESSAGE } from '../../src/ts/constant/message';
 
 describe('상품 추가 테스트', () => {
   const itemName = '콜라';

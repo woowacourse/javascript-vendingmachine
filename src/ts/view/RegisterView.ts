@@ -5,6 +5,7 @@ import { selectDom, selectDoms } from '../utils';
 import Snackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
+import { REGISTER_SUCCESS_MESSAGE } from '../constant/message';
 
 class RegisterView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -58,8 +59,8 @@ class RegisterView implements ViewInterface {
       return;
     }
 
-    // TODO: 스낵바로 회원가입에 성공했다는 사실을 알려주기
     this.changeHashUrl(HASH.LOGIN);
+    Snackbar.show(REGISTER_SUCCESS_MESSAGE);
   };
 
   private convertToRegisterInfoObject(registerInputList: HTMLInputElement[]): AuthenticationInfo {

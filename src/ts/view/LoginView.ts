@@ -3,10 +3,11 @@ import { generateLoginTemplate } from '../template/authenticationTemplate';
 import { requestLogin } from '../apis';
 import { selectDom, selectDoms } from '../utils';
 import Snackbar from '../utils/snackbar';
+import { setCookie } from '../utils/cookie';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
-import { setCookie } from '../utils/cookie';
 import { COOKIE_KEY } from '../constant/cookie';
+import { LOGIN_SUCCESS_MESSAGE } from '../constant/message';
 
 class LoginView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -63,6 +64,7 @@ class LoginView implements ViewInterface {
     }
 
     this.changeHashUrl(HASH.ITEM_PURCHASE);
+    Snackbar.show(LOGIN_SUCCESS_MESSAGE);
   };
 
   private convertToLoginInfoObject(loginInputList: HTMLInputElement[]): AuthenticationInfo {

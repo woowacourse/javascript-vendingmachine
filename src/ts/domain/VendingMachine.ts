@@ -15,10 +15,7 @@ import {
   cashInputTestCases,
   itemPurchaseCashInputTestCases,
 } from './validation/vendingMachineValidator';
-import {
-  ITEM_PURCHASE_CASH_ERROR_MESSAGE,
-  COIN_RETURN_ERROR_MESSAGE,
-} from '../constant/errorMessage';
+import { ITEM_PURCHASE_CASH_ERROR_MESSAGE, COIN_RETURN_ERROR_MESSAGE } from '../constant/message';
 import { COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
 class VendingMachine implements VendingMachineInterface {

@@ -1,6 +1,6 @@
 import { AuthenticationInfo, TestCase } from '../../types';
 import { AUTHENTICATION_INFO } from '../../constant/rule';
-import { AUTHENTICATION_MESSAGE } from '../../constant/errorMessage';
+import { AUTHENTICATION_MESSAGE } from '../../constant/message';
 import {
   EMAIL_REGEX,
   NUMBER_REGEX,
