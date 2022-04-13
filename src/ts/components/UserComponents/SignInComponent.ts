@@ -11,6 +11,7 @@ import renderSnackBar from '../../dom/snackBar';
 import { SignInUserInfo } from '../../types/userInfo';
 import { COOKIE_ID } from '../../constants/cookie';
 import { SNACK_BAR_TYPE } from '../../constants/snackBar';
+import { SERVER_MESSAGE } from '../../constants/serverMessage';
 
 export default class SignInComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -68,7 +69,7 @@ export default class SignInComponent {
       window.history.pushState({}, '', '/purchase-product');
       emit(this.$signInVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
-      if (message === 'Cannot find user') {
+      if (message === SERVER_MESSAGE.CANNOT_FIND_USER) {
         message = ERROR_MESSAGE.NOT_FOUND_EMAIL;
       }
 

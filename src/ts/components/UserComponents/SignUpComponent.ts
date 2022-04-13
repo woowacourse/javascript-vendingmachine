@@ -1,5 +1,6 @@
 import { requestRegister } from '../../api/api';
 import { ERROR_MESSAGE } from '../../constants/errorMessage';
+import { SERVER_MESSAGE } from '../../constants/serverMessage';
 import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 import SUCCESS_MESSAGE from '../../constants/successMessage';
 
@@ -69,7 +70,7 @@ export default class SignUpComponent {
       window.history.pushState({}, '', '/sign-in');
       emit(this.$signUpVerifyButton, '@signInChangeComponent');
     } catch ({ message }) {
-      if (message === 'Email already exists') {
+      if (message === SERVER_MESSAGE.EMAIL_ALREADY_EXISTS) {
         message = ERROR_MESSAGE.EMAIL_ALREADY_EXIST;
       }
 
