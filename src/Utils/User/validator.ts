@@ -14,12 +14,12 @@ export const isPassPasswordRules = (password: string): boolean => {
 export const isUserNameRules = (name: string): boolean =>
   isStringLengthInRange(name, MEMBER_SERVICE.MIN_USER_NAME, MEMBER_SERVICE.MAX_USER_NAME);
 
-export const validateUserRegister = (
-  email: string,
-  name: string,
-  password: string,
-  passwordConfirm: string,
-): boolean => {
+export const validateUserRegister = ({
+  email,
+  name,
+  password,
+  passwordConfirm,
+}: Record<string, string>): boolean => {
   if (!isPassEmailRules(email)) throw new Error(ERROR_MESSAGE.USER_EMAIL_TYPE_WRONG);
 
   if (!isUserNameRules(name)) throw new Error(ERROR_MESSAGE.USER_NAME_WRONG_RANGE);

@@ -112,7 +112,12 @@ export default class RegisterForm extends Component {
     ];
 
     try {
-      validateUserRegister(inputEmail, inputName, inputPassword, inputPasswordConfirm);
+      validateUserRegister({
+        email: inputEmail,
+        name: inputName,
+        password: inputPassword,
+        passwordConfirm: inputPasswordConfirm,
+      });
     } catch (error) {
       snackbar(error.message, 'warning');
       return;
