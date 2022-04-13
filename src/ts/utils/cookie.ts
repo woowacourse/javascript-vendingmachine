@@ -1,5 +1,7 @@
+import { generateCookieRegex } from '../constant/regex';
+
 export const getCookie = (name: string): string | undefined => {
-  const matches = document.cookie.match(new RegExp(`${name}=([^;]*)`));
+  const matches = document.cookie.match(generateCookieRegex(name));
 
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
