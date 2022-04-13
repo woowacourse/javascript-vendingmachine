@@ -6,7 +6,7 @@ type User = {
   name: string;
   id: number;
 };
-type Key = 'products' | 'amount' | 'user' | 'accessToken';
+type Key = 'products' | 'amount' | 'user';
 type ValueType<T> = T extends 'products'
   ? Product[]
   : T extends 'amount'
