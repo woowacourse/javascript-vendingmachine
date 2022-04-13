@@ -4,7 +4,7 @@ import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import Product from '../domain/Product';
 import storage from '../storage';
-import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT } from '../constants';
+import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../constants';
 
 class ProductManagement extends CustomElement {
   connectedCallback() {
@@ -94,15 +94,15 @@ class ProductManagement extends CustomElement {
 
   notify({ action, product }: Notification) {
     switch (action) {
-      case 'add':
+      case ELEMENT_ACTION.INSERT_ITEM:
         this.insertItem(product);
         return;
 
-      case 'update':
+      case ELEMENT_ACTION.UPDATE_ITEM:
         this.updateItem(product);
         return;
 
-      case 'delete':
+      case ELEMENT_ACTION.DELETE_ITEM:
         this.deleteItem(product);
         return;
     }

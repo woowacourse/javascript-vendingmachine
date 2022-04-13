@@ -141,7 +141,7 @@ class VendingMachine implements VendingMachineProperty {
       validateUserInputMoney(userInputMoney, this.userAmount);
 
       this.userAmount += userInputMoney;
-      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.UPDATE_AMOUNT });
+      this.dispatch({ key: ELEMENT_KEY.PURCHASE, action: ELEMENT_ACTION.INSERT_COIN });
     } catch (error) {
       showSnackbar(error.message);
     }

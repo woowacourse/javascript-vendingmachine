@@ -28,14 +28,14 @@ export enum ELEMENT_KEY {
 }
 
 export enum ELEMENT_ACTION {
-  INSERT_ITEM = 'add',
-  UPDATE_ITEM = 'update',
-  DELETE_ITEM = 'delete',
-  UPDATE_AMOUNT = 'insert-coin',
+  INSERT_ITEM = 'insert-item',
+  UPDATE_ITEM = 'update-item',
+  DELETE_ITEM = 'delete-item',
+  INSERT_COIN = 'insert-coin',
   PURCHASE = 'purchase',
   UPDATE_PRODUCT = 'update-product',
   DELETE_PRODUCT = 'delete-product',
-  RETURN_OF_CHANGE = 'return',
+  RETURN_OF_CHANGE = 'return-of-change',
 }
 
 export const CUSTOM_EVENT = {

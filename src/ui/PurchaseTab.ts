@@ -5,7 +5,7 @@ import Product from '../domain/Product';
 import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
 import VendingMachine from '../domain/VendingMachine';
 import { Safe } from '../domain/Safe';
-import { COINS, CUSTOM_EVENT, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
+import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {
@@ -70,26 +70,26 @@ class PurchaseTab extends CustomElement {
 
   notify({ action, amount, product, userAmount }: Notification) {
     switch (action) {
-      case 'insert-coin':
+      case ELEMENT_ACTION.INSERT_COIN:
         this.updateAmount(userAmount);
         showSnackbar(SUCCESS_MESSAGE.INSERT_COIN);
         return;
 
-      case 'purchase':
+      case ELEMENT_ACTION.PURCHASE:
         this.updateAmount(userAmount);
         this.purchase(product);
         showSnackbar(SUCCESS_MESSAGE.PURCHASE);
         return;
 
-      case 'update-product':
-        this.updateProductTable('update-product', product);
+      case ELEMENT_ACTION.UPDATE_PRODUCT:
+        this.updateProductTable(ELEMENT_ACTION.UPDATE_PRODUCT, product);
         return;
 
-      case 'delete-product':
-        this.updateProductTable('delete-product', product);
+      case ELEMENT_ACTION.DELETE_PRODUCT:
+        this.updateProductTable(ELEMENT_ACTION.DELETE_PRODUCT, product);
         return;
 
-      case 'return':
+      case ELEMENT_ACTION.RETURN_OF_CHANGE:
         this.returnChange(amount, userAmount);
         showSnackbar(SUCCESS_MESSAGE.RETURN);
     }
@@ -114,12 +114,12 @@ class PurchaseTab extends CustomElement {
     const targetProduct = $(`[data-product-id="${product.id}"]`, productTable);
 
     switch (action) {
-      case 'update-product':
+      case ELEMENT_ACTION.UPDATE_PRODUCT:
         targetProduct?.remove();
         this.insertPurchableProduct(product, productTable);
         return;
 
-      case 'delete-product':
+      case ELEMENT_ACTION.DELETE_PRODUCT:
         targetProduct.remove();
         return;
     }
