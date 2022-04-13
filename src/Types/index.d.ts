@@ -21,7 +21,7 @@ interface IProduct {
 }
 
 interface IUserSession {
-  isLogin: boolean;
+  isLoggedIn: boolean;
   key: number;
   email: string;
   name: string;

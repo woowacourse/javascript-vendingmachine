@@ -1,12 +1,12 @@
 import { requestLogin, requestProfileEdit, requestRegister, requestUserInfo } from 'Api';
 import { USER_SESSION_SETTING } from 'Constants';
-import { getCookie, getTimeStamp, setCookie } from 'Utils';
+import { getCookie, getTimeStamp, removeCookies, setCookie } from 'Utils';
 import Store from './Abstract';
 
 class UserSessionStore extends Store {
   protected state = {
     userSession: {
-      isLogin: false,
+      isLoggedIn: false,
       key: -1,
       email: '',
       name: '',
@@ -44,10 +44,10 @@ class UserSessionStore extends Store {
   }
 
   public isLogin(): boolean {
-    const { isLogin } = this.state.userSession;
+    const { isLoggedIn } = this.state.userSession;
 
-    if (isLogin === true && this.isExpireSession() === true) return false;
-    if (isLogin === false) return false;
+    if (isLoggedIn === true && this.isExpireSession() === true) return false;
+    if (isLoggedIn === false) return false;
 
     return true;
   }
@@ -72,17 +72,16 @@ class UserSessionStore extends Store {
     });
   }
 
-  private updateSessionCache(accessToken: string, expireSecond = 3600) {
+  private updateSessionCache(accessToken: string, expireSecond = USER_SESSION_SETTING.EXPIRE_TIME) {
     setCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME, accessToken, expireSecond);
 
     const { userSession } = this.state;
-    if (expireSecond > 0)
-      localStorage.setItem(
-        USER_SESSION_SETTING.USER_INFO_STORAGE_NAME,
-        JSON.stringify(userSession),
-      );
+    localStorage.setItem(USER_SESSION_SETTING.USER_INFO_STORAGE_NAME, JSON.stringify(userSession));
+  }
 
-    if (expireSecond === -1) localStorage.removeItem(USER_SESSION_SETTING.USER_INFO_STORAGE_NAME);
+  private removeSessionCache() {
+    removeCookies(USER_SESSION_SETTING.TOKEN_COOKIE_NAME);
+    localStorage.removeItem(USER_SESSION_SETTING.USER_INFO_STORAGE_NAME);
   }
 
   public async login(email: string, password: string): Promise<void> {
@@ -92,10 +91,11 @@ class UserSessionStore extends Store {
       this.errorMessageSend(content);
       return;
     }
+
     const { accessToken, user } = content;
     this.setState({
       userSession: {
-        isLogin: true,
+        isLoggedIn: true,
         key: user.id,
         email: user.email,
         name: user.name,
@@ -107,14 +107,14 @@ class UserSessionStore extends Store {
         message: '',
       },
     });
-    this.updateSessionCache(accessToken, USER_SESSION_SETTING.EXPIRE_TIME);
+    this.updateSessionCache(accessToken);
   }
 
   public logout(): void {
-    this.updateSessionCache('', -1);
+    this.removeSessionCache();
     this.setState({
       userSession: {
-        isLogin: false,
+        isLoggedIn: false,
         key: -1,
         email: '',
         name: '',
@@ -137,10 +137,9 @@ class UserSessionStore extends Store {
     }
 
     const { accessToken, user } = content;
-
     this.setState({
       userSession: {
-        isLogin: true,
+        isLoggedIn: true,
         key: user.id,
         email: user.email,
         name: user.name,
@@ -152,7 +151,7 @@ class UserSessionStore extends Store {
         message: '',
       },
     });
-    this.updateSessionCache(accessToken, USER_SESSION_SETTING.EXPIRE_TIME);
+    this.updateSessionCache(accessToken);
   }
 
   async profileChange(name: string, password: string): Promise<void> {

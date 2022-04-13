@@ -21,6 +21,20 @@ export const setCookie = (key: string, value: string, expire = 3600) => {
   document.cookie = `${key}=${encodeURIComponent(value)}; expires=${expireDate.toUTCString()};`;
 };
 
+export const removeCookies = (targetKey: string | [string]): void => {
+  const keyList: [string] = typeof targetKey === 'string' ? [targetKey] : targetKey;
+  keyList.forEach(key => {
+    setCookie(key, '', -1);
+  });
+};
+
+export const removeCookie = (key: string, value: string, expire = 3600) => {
+  const expireDate = new Date();
+  expireDate.setSeconds(expireDate.getSeconds() + expire);
+
+  document.cookie = `${key}=${encodeURIComponent(value)}; expires=${expireDate.toUTCString()};`;
+};
+
 export const getCookie = targetKey => {
   const splitCookie = document.cookie.split('; ');
   const cookieList = splitCookie.reduce((previous, cookie) => {
