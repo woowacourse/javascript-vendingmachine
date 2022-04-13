@@ -50,6 +50,8 @@ export default class EditInformationComponent {
 
     const { email, name } = await requestUserInfo(user);
 
+    if (!email || !name) return;
+
     this.$emailInput.value = email;
     this.$nameInput.value = name;
   };
@@ -59,6 +61,8 @@ export default class EditInformationComponent {
 
     const user =
       getCookie(COOKIE_ID.USER) && JSON.parse(getCookie(COOKIE_ID.USER));
+
+    if (!user) return;
 
     const { value: email } = this.$emailInput;
     const { value: editName } = this.$nameInput;
@@ -79,7 +83,9 @@ export default class EditInformationComponent {
         accessToken: user.accessToken,
       };
 
-      await requestEditInformation(editUserInfo);
+      const response = await requestEditInformation(editUserInfo);
+
+      if (!response) return;
 
       this.$passwordInput.value = '';
       this.$passwordConfirmInput.value = '';

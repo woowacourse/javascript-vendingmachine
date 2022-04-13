@@ -46,6 +46,8 @@ export default class SignInComponent {
 
       const { accessToken, user } = await requestSignIn(signInUserInfo);
 
+      if (!accessToken || !user) return;
+
       const userInfo = {
         id: user.id,
         name: user.name,

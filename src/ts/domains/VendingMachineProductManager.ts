@@ -8,21 +8,21 @@ import {
 export default class VendingMachineProductManager implements ProductManager {
   private products: Product[] = [];
 
-  addProduct(newProduct) {
+  addProduct(newProduct: Product): void {
     checkDuplicatedProductName(this.products, newProduct);
 
     this.products.push(newProduct);
   }
 
-  getTargetProduct(targetName) {
+  getTargetProduct(targetName: string): Product {
     return this.products.find((product) => product.name === targetName);
   }
 
-  getProducts() {
+  getProducts(): Product[] {
     return this.products;
   }
 
-  editProduct(editProductName, targetProduct) {
+  editProduct(editProductName: string, targetProduct: Product): void {
     const editIndex = this.products.findIndex(
       (product) => product.name === editProductName
     );
@@ -30,12 +30,14 @@ export default class VendingMachineProductManager implements ProductManager {
       (product) => product.name === targetProduct.name
     );
 
+    if (editIndex === -1 || duplicatedNameIndex === -1) return;
+
     checkEditDuplicateName(editIndex, duplicatedNameIndex);
 
     this.products.splice(editIndex, 1, targetProduct);
   }
 
-  deleteProduct(deleteProductName) {
+  deleteProduct(deleteProductName: string): void {
     this.products = this.products.filter(
       (product) => product.name !== deleteProductName
     );
@@ -45,6 +47,8 @@ export default class VendingMachineProductManager implements ProductManager {
     const editIndex = this.products.findIndex(
       (product) => product.name === editProduct.name
     );
+
+    if (editIndex === -1) return;
 
     this.products.splice(editIndex, 1, editProduct);
   }

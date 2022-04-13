@@ -51,7 +51,9 @@ export default class SignUpComponent {
         password: signUpPassword,
       };
 
-      await requestRegister(registerUserInfo);
+      const response = await requestRegister(registerUserInfo);
+
+      if (!response) return;
 
       this.$signUpEmailInput.value = '';
       this.$signUpNameInput.value = '';
