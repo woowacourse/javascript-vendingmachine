@@ -10,3 +10,4 @@ db.json
 # test file
 cypress/fixtures/
 cypress/videos/
+cypress/screenshots/
