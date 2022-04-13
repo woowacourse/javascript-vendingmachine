@@ -29,8 +29,4 @@ Cypress.Commands.add('interceptAllRequest', () => {
   cy.intercept('POST', AuthAPI.BASE_URL + AuthAPI.TYPES.SIGN_UP, {
     fixture: 'userData.json',
   }).as('signUpRequest');
-
-  cy.intercept('PATCH', AuthAPI.BASE_URL + AuthAPI.TYPES.USERS + '/*', {
-    fixture: 'editedUserData.json',
-  }).as('editUserDataRequest');
 });

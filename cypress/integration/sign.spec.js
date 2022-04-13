@@ -32,6 +32,10 @@ describe('관리자 로그인, 회원 가입, 회원 정보 수정', () => {
       fixture: 'signInUserData.json',
     }).as('signInRequest');
 
+    cy.intercept('PATCH', AuthAPI.BASE_URL + AuthAPI.TYPES.USERS + '/*', {
+      fixture: 'editedUserData.json',
+    }).as('editUserDataRequest');
+
     cy.get(SELECTOR.CLASS.CHARGE_MONEY_INPUT);
     cy.get(SELECTOR.ID.SIGN_BUTTON).click();
 
