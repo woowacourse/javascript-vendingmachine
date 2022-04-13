@@ -69,11 +69,14 @@ class CoinStore {
 
   updatePurchaseMoneyInput(action) {
     const { type, detail } = action;
-    if (type === COIN_ACTION.PURCHASE_MONEY_INPUT) {
-      this.#coinsCount.money_input += detail;
-    }
-    if (type === COIN_ACTION.UPDATE_MONEY_INPUT) {
-      this.#coinsCount.money_input -= detail;
+    switch (type) {
+      case COIN_ACTION.PURCHASE_MONEY_INPUT: {
+        this.#coinsCount.money_input += detail;
+        break;
+      }
+      case COIN_ACTION.UPDATE_MONEY_INPUT: {
+        this.#coinsCount.money_input -= detail;
+      }
     }
   }
 
