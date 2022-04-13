@@ -21,7 +21,7 @@ class HoldingAmountStore extends Store {
   }
 
   private getRandomCoinsFromAmount(amount: number): Array<number> {
-    let leftAmount: number = amount;
+    let leftAmount = amount;
     const randomCoins = [0, 0, 0, 0];
 
     while (leftAmount > 0) {
