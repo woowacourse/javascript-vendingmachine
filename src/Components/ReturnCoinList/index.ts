@@ -45,7 +45,7 @@ export default class ReturnCoinList extends Component {
     this.$returnCoinButton.classList.toggle('hide', chargedAmount === 0);
   };
 
-  drawHoldingAmountList = ({ returnCoins }: IStoreUniqueState) => {
+  drawHoldingAmountList = ({ returnCoins }: IStoreState) => {
     const updateQuantity = returnCoins.reduce((previous, quantity, index) => {
       previous[`tr[data-primary-key='${index}'] .quantity`] = `${quantity}개`;
       return previous;

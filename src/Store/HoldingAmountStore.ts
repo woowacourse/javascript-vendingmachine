@@ -3,7 +3,7 @@ import { COIN_TYPE } from 'Constants';
 import Store from './Abstract';
 
 class HoldingAmountStore extends Store {
-  protected state: IStoreUniqueState = {
+  protected state: IStoreState = {
     holdingCoins: [0, 0, 0, 0],
     returnCoins: [0, 0, 0, 0],
     chargedAmount: 0,

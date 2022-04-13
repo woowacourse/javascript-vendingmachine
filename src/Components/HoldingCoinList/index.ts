@@ -20,7 +20,7 @@ export default class HoldingCoinList extends Component {
     });
   }
 
-  drawHoldingAmountList = ({ holdingCoins }: IStoreUniqueState) => {
+  drawHoldingAmountList = ({ holdingCoins }: IStoreState) => {
     const updateQuantity = holdingCoins.reduce((previous, quantity, index) => {
       previous[`tr[data-primary-key='${index}'] .quantity`] = `${quantity}개`;
       return previous;

@@ -36,7 +36,7 @@ interface IUserSessionEvent {
   message: string;
 }
 
-interface IStoreUniqueState {
+interface IStoreState {
   products?: IProduct[];
   holdingCoins?: number[];
   returnCoins?: number[];
@@ -46,19 +46,19 @@ interface IStoreUniqueState {
 }
 
 type TRenderContent = {
-  state: IStoreUniqueState;
+  state: IStoreState;
   changedStateNames: Array<string>;
 };
 
 type TRenderMethod = (renderContent: TRenderContent) => void;
 type TRenderDrawMethod = (state: any) => void;
-type TRenderMethodList = PartialRecord<keyof IStoreUniqueState, TRenderDrawMethod[]>;
+type TRenderMethodList = PartialRecord<keyof IStoreState, TRenderDrawMethod[]>;
 
 /*
   컴포넌트 영역 타입
 */
 interface ICoinListComponentProps {
-  drawAmountList: IStoreUniqueState['holdingCoins'];
+  drawAmountList: IStoreState['holdingCoins'];
 }
 
 interface IProductListProps {

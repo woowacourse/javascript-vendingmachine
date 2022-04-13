@@ -80,7 +80,7 @@ export default class LoginForm extends Component {
     UserSessionStore.login(this.$emailInput.value, this.$passwordInput.value);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreUniqueState) => {
+  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {

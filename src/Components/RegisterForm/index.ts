@@ -121,7 +121,7 @@ export default class RegisterForm extends Component {
     UserSessionStore.register(inputEmail, inputName, inputPassword);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreUniqueState) => {
+  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {

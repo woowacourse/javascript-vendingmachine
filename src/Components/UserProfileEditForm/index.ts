@@ -119,7 +119,7 @@ export default class UserProfileEditForm extends Component {
     UserSessionStore.profileChange(inputName, inputPassword);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreUniqueState) => {
+  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {
