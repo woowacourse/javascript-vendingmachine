@@ -4,30 +4,7 @@ import Storage from '../../src/js/api/storage';
 
 describe('관리자 상품, 잔돈 관리', () => {
   before(() => {
-    cy.intercept('GET', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS, {
-      fixture: 'productListDataResponse.json',
-    }).as('productListDataRequest');
-
-    cy.intercept('POST', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS, {
-      fixture: 'responseOK.json',
-    }).as('postProduct');
-
-    cy.intercept('PATCH', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS + '/**', {
-      fixture: 'editedProductData.json',
-    }).as('patchProduct');
-
-    cy.intercept('DELETE', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS + '/**', {
-      fixture: 'responseOK.json',
-    }).as('deleteProductList');
-
-    cy.intercept('GET', ProductAPI.BASE_URL + ProductAPI.TYPES.MONEY, {
-      fixture: 'moneyDataResponse.json',
-    }).as('moneyDataRequest');
-
-    cy.intercept('PATCH', ProductAPI.BASE_URL + ProductAPI.TYPES.MONEY, {
-      fixture: 'responseOK.json',
-    }).as('patchMoney');
-
+    cy.interceptAllRequest();
     cy.visit('http://localhost:9000');
 
     Storage.setAccessToken('askfdin123412njwefn931nsndnf98');

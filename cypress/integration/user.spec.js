@@ -1,20 +1,8 @@
 import { SELECTOR } from '../../src/js/constants/viewConstants';
-import ProductAPI from '../../src/js/api/productAPI';
 
 describe('일반 사용자의 경우', () => {
   before(() => {
-    cy.intercept('GET', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS, {
-      fixture: 'productListDataResponse.json',
-    }).as('productListRequest');
-
-    cy.intercept('GET', ProductAPI.BASE_URL + ProductAPI.TYPES.MONEY, {
-      fixture: 'moneyDataResponse.json',
-    }).as('moneyDataRequest');
-
-    cy.intercept('PATCH', ProductAPI.BASE_URL + ProductAPI.TYPES.PRODUCTS + '/*', {
-      fixture: 'responseOK.json',
-    }).as('patchProductUpdateRequest');
-
+    cy.interceptAllRequest();
     cy.visit('http://localhost:9000');
   });
 
