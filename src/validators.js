@@ -25,64 +25,179 @@ const isUnderMinQuantity = (quantity) => quantity < PRODUCT.QUANTITY.MIN;
 
 const isOverMaxQuantity = (quantity) => quantity > PRODUCT.QUANTITY.MAX;
 
-const isOverMaxMoney = (inputMoney) => {
-  const currentMoney = CoinStore.instance.money;
+const isUnderMinMoney = (money) => money < MONEY.MIN;
 
-  return currentMoney + inputMoney > MONEY.MAX;
+const isOverMaxMachineMoney = (inputMachineMoney) => {
+  const currentMachineMoney = CoinStore.instance.machine.money;
+
+  return currentMachineMoney + inputMachineMoney > MONEY.MACHINE_MAX;
+};
+
+const isOverMaxCustomerMoney = (inputCustomerMoney) => {
+  const currentCustomerMoney = CoinStore.instance.customer.money;
+
+  return currentCustomerMoney + inputCustomerMoney > MONEY.CUSTOMER_MAX;
+};
+
+const isSoldOut = (quantity) => {
+  return quantity === 0;
+};
+
+const isPriceOverCustomerMoney = (price) => {
+  return price > CoinStore.instance.customer.money;
+};
+
+const isNoCustomerMoney = () => {
+  return CoinStore.instance.customer.money === 0;
+};
+
+const isPasswordConfirmNotMatchPassword = (password, passwordConfirm) => {
+  return password !== passwordConfirm;
+};
+
+const validator = (conditions) => {
+  conditions.forEach(({ checker, errorMessage }) => {
+    if (checker()) throw new Error(errorMessage);
+  });
 };
 
 // eslint-disable-next-line max-lines-per-function
 export const checkProductValidation = ({ name, price, quantity }) => {
-  if (isBlank(name)) {
-    throw new Error(ERROR_MESSAGE.IS_BLANK_PRODUCT_NAME);
-  }
-  if (isOverMaxProductNameLength(name)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_PRODUCT_NAME_LENGTH);
-  }
+  validator([
+    {
+      checker: () => isBlank(name),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_BLANK_PRODUCT_NAME,
+    },
+    {
+      checker: () => isOverMaxProductNameLength(name),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_PRODUCT_NAME_LENGTH,
+    },
 
-  if (isNotInteger(price)) {
-    throw new Error(ERROR_MESSAGE.IS_NOT_INTEGER_PRICE);
-  }
-  if (isUnderMinPrice(price)) {
-    throw new Error(ERROR_MESSAGE.IS_UNDER_MIN_PRICE);
-  }
-  if (isOverMaxPrice(price)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_PRICE);
-  }
-  if (cannotDividedByTen(price)) {
-    throw new Error(ERROR_MESSAGE.PRICE_CANNOT_DIVIDED_BY_TEN);
-  }
+    {
+      checker: () => isNotInteger(price),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_PRICE,
+    },
+    {
+      checker: () => isUnderMinPrice(price),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_PRICE,
+    },
+    {
+      checker: () => isOverMaxPrice(price),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_PRICE,
+    },
+    {
+      checker: () => cannotDividedByTen(price),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.PRICE_CANNOT_DIVIDED_BY_TEN,
+    },
 
-  if (isNotInteger(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_NOT_INTEGER_QUANTITY);
-  }
-  if (isUnderMinQuantity(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_UNDER_MIN_QUANTITY);
-  }
-  if (isOverMaxQuantity(quantity)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_QUANTITY);
-  }
+    {
+      checker: () => isNotInteger(quantity),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_QUANTITY,
+    },
+    {
+      checker: () => isUnderMinQuantity(quantity),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_QUANTITY,
+    },
+    {
+      checker: () => isOverMaxQuantity(quantity),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_QUANTITY,
+    },
+  ]);
 };
 
 export const checkProductAddValidation = (product) => {
-  if (isAlreadyExistProduct(product.name)) {
-    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_ADD);
-  }
+  validator([
+    {
+      checker: () => isAlreadyExistProduct(product.name),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_ALREADY_EXIST_PRODUCT_WHEN_ADD,
+    },
+  ]);
 
   checkProductValidation(product);
 };
 
-export const checkDuplicateProductWhenModify = (product) => {
-  if (isAlreadyExistProduct(product.name)) {
-    throw new Error(ERROR_MESSAGE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY);
-  }
+export const checkDuplicateProductWhenModify = ({ name }) => {
+  validator([
+    {
+      checker: () => isAlreadyExistProduct(name),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_ALREADY_EXIST_PRODUCT_WHEN_MODIFY,
+    },
+  ]);
 };
 
-export const checkCoinValidation = (coinInputValue) => {
-  if (isOverMaxMoney(coinInputValue)) {
-    throw new Error(ERROR_MESSAGE.IS_OVER_MAX_MONEY);
-  }
-  if (cannotDividedByTen(coinInputValue)) {
-    throw new Error(ERROR_MESSAGE.MONEY_CANNOT_DIVIDED_BY_TEN);
-  }
+export const checkMachineMoneyValidation = (machineMoneyInputValue) => {
+  validator([
+    {
+      checker: () => isNotInteger(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_MONEY,
+    },
+    {
+      checker: () => isUnderMinMoney(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_MONEY,
+    },
+    {
+      checker: () => isOverMaxMachineMoney(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_MACHINE_MONEY,
+    },
+    {
+      checker: () => cannotDividedByTen(machineMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN,
+    },
+  ]);
+};
+
+export const checkCustomerMoneyValidation = (customerMoneyInputValue) => {
+  validator([
+    {
+      checker: () => isNotInteger(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NOT_INTEGER_MONEY,
+    },
+    {
+      checker: () => isUnderMinMoney(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_UNDER_MIN_MONEY,
+    },
+    {
+      checker: () => isOverMaxCustomerMoney(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_OVER_MAX_CUSTOMER_MONEY,
+    },
+    {
+      checker: () => cannotDividedByTen(customerMoneyInputValue),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.MONEY_CANNOT_DIVIDED_BY_TEN,
+    },
+  ]);
+};
+
+export const checkProductPurchaseValidation = (productPrice, productQuantity) => {
+  validator([
+    {
+      checker: () => isPriceOverCustomerMoney(productPrice),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_PRICE_OVER_CUSTOMER_MONEY,
+    },
+    {
+      checker: () => isSoldOut(productQuantity),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_SOLD_OUT,
+    },
+  ]);
+};
+
+export const checkChangeReturnValidation = () => {
+  validator([
+    {
+      checker: () => isNoCustomerMoney(),
+      errorMessage: ERROR_MESSAGE.VENDING_MACHINE.IS_NO_CUSTOMER_MONEY,
+    },
+  ]);
+};
+
+export const checkSignupValidation = (userName, password, passwordConfirm) => {
+  validator([
+    {
+      checker: () => isBlank(userName),
+      errorMessage: ERROR_MESSAGE.AUTH.IS_BLANK_USER_NAME,
+    },
+    {
+      checker: () => isPasswordConfirmNotMatchPassword(password, passwordConfirm),
+      errorMessage: ERROR_MESSAGE.AUTH.IS_PASSWORD_CONFIRM_NOT_MATCH_PASSWORD,
+    },
+  ]);
 };

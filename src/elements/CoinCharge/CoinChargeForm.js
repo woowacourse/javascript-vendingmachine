@@ -3,22 +3,22 @@ import { createAction, COIN_ACTION } from '../../domains/actions';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils';
-import { checkCoinValidation } from '../../validators';
+import { checkMachineMoneyValidation } from '../../validators';
 
 class CoinChargeForm extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribeMoney(this);
+    CoinStore.instance.subscribeMachine(this);
   }
 
   template() {
     return `
       <form class="coin-charge-form">
-        <label class="coin-charge-label" for="coin-input">자판기가 보유할 금액을 입력해주세요.</label>
-        <input type="number" id="coin-input" placeholder="금액" required>
+        <label for="machine-money-input">자판기가 보유할 금액을 입력해주세요.</label>
+        <input type="number" id="machine-money-input" placeholder="금액" step="10" required>
         <button class="coin-charge-button">충전</button>
       </form>
-      <p>현재 보유 금액: <span class="money">0</span>원</p>
+      <p>현재 보유 금액: <span class="machine-money">0</span>원</p>
     `;
   }
 
@@ -29,32 +29,30 @@ class CoinChargeForm extends CustomElement {
   handleCoinChargeFormSubmit = (event) => {
     event.preventDefault();
 
-    const $coinInput = $('#coin-input');
-    const coinInputValue = $coinInput.valueAsNumber;
+    const $machineMoneyInput = $('#machine-money-input');
+    const machineMoneyInputValue = $machineMoneyInput.valueAsNumber;
 
     try {
-      this.chargeCoin(coinInputValue);
-      this.initiaCoinInput($coinInput);
+      this.chargeCoin(machineMoneyInputValue);
+      this.initMachineMoneyInput($machineMoneyInput);
     } catch (error) {
       alert(error.message);
     }
   };
 
-  chargeCoin(coinInputValue) {
-    checkCoinValidation(coinInputValue);
+  chargeCoin(machineMoneyInputValue) {
+    checkMachineMoneyValidation(machineMoneyInputValue);
 
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
-    CoinStore.instance.dispatch(createAction(COIN_ACTION.COIN_ADD, coinInputValue));
+    CoinStore.instance.dispatch(createAction(COIN_ACTION.CHARGE, machineMoneyInputValue));
   }
 
-  initiaCoinInput($coinInput) {
-    $coinInput.value = '';
-
-    $coinInput.focus();
+  initMachineMoneyInput($machineMoneyInput) {
+    $machineMoneyInput.value = '';
+    $machineMoneyInput.focus();
   }
 
-  rerender(newMoney) {
-    $('.money').textContent = newMoney;
+  rerender({ money }) {
+    $('.machine-money').textContent = money;
   }
 }
 

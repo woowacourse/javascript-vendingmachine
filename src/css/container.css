@@ -1,5 +1,12 @@
-.product-input-container {
-  margin-top: 4px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
 }
 
 .product-name-input,
@@ -10,7 +17,8 @@
 }
 
 .product-add-button,
-.coin-charge-button {
+.coin-charge-button,
+.money-input-button {
   width: 56px;
   height: 36px;
   margin-left: 14px;
@@ -19,7 +27,8 @@
 }
 
 .product-add-button:hover,
-.coin-charge-button:hover {
+.coin-charge-button:hover,
+.money-input-button:hover {
   background: var(--cyan-dark);
 }
 
@@ -29,9 +38,18 @@ h2 {
   font-size: 20px;
 }
 
+.product-current-situation-container,
+.purchasable-product-current-situation-container {
+  overflow-y: scroll;
+}
+
 .product-current-situation-container {
   height: 285px;
-  overflow-y: auto;
+  margin-bottom: 44px;
+}
+
+.purchasable-product-current-situation-container {
+  height: 205px;
 }
 
 table {
@@ -43,6 +61,7 @@ table {
 
 th,
 td {
+  width: 120px;
   height: 40px;
   border-bottom: 1px solid var(--border-table);
   text-align: center;
@@ -52,20 +71,21 @@ td {
 .table__product-delete-button {
   width: 50px;
   height: 32px;
+}
+
+.table__product-modify-button {
   margin-right: 6px;
 }
 
-.table__product-modify-confirm-button {
+.table__product-modify-confirm-button,
+.table__product-purchase-button,
+.change-return-button {
   width: 100px;
   height: 32px;
 }
 
-.coin-charge-label {
-  display: block;
-  margin-bottom: 4px;
-}
-
-#coin-input {
+#machine-money-input,
+#customer-money-input {
   width: 300px;
   height: 36px;
   margin-bottom: 16px;
@@ -73,4 +93,74 @@ td {
 
 .coin-current-situation {
   width: 238px;
+  margin-bottom: 44px;
+}
+
+.change-return-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0px 36px;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  bottom: 30px;
+  z-index: 1;
+  background-color: var(--gray-dark);
+  color: var(--white);
+  text-align: center;
+}
+
+.show {
+  visibility: visible !important;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
+  animation: fadein 0.5s, fadeout 0.5s 2.7s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

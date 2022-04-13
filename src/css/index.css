@@ -1,6 +1,7 @@
 @import './root.css';
 @import './app.css';
 @import './container.css';
+@import './auth.css';
 
 * {
   margin: 0;
@@ -11,4 +12,14 @@
 input,
 button {
   font: inherit;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.hidden {
+  display: none;
 }

@@ -8,7 +8,7 @@ describe('잔돈을 충전할 수 있다.', () => {
   });
 
   test(`최초 자판기가 보유한 금액은 ${MONEY.DEFAULT}원이다.`, () => {
-    expect(CoinStore.instance.money).toBe(MONEY.DEFAULT);
+    expect(CoinStore.instance.machine.money).toBe(MONEY.DEFAULT);
   });
 
   test(`최초 각 동전의 개수는 ${COIN.DEFAULT_COUNT}개이다.`, () => {
@@ -19,14 +19,14 @@ describe('잔돈을 충전할 수 있다.', () => {
       10: COIN.DEFAULT_COUNT,
     };
 
-    expect(CoinStore.instance.coinsCount).toStrictEqual(initialCoinsCount);
+    expect(CoinStore.instance.machine.coinsCount).toStrictEqual(initialCoinsCount);
   });
 
   test('현재 보유 금액을 충전할 수 있다.', () => {
-    const coinInputValue = 1000;
+    const machineMoneyInputValue = 1000;
 
-    CoinStore.instance.updateMoneyOrCoinsCount(createAction(COIN_ACTION.MONEY_CHARGE, coinInputValue));
+    CoinStore.instance.updateMoneyStorage(createAction(COIN_ACTION.CHARGE, machineMoneyInputValue));
 
-    expect(CoinStore.instance.money).toBe(coinInputValue);
+    expect(CoinStore.instance.machine.money).toBe(machineMoneyInputValue);
   });
 });

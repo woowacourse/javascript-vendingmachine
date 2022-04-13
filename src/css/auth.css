@@ -1,0 +1,82 @@
+.auth-menu {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-button {
+  width: 117px;
+  height: 36px;
+  margin: 12px 11px 0;
+}
+
+.user-button {
+  width: 40px;
+  height: 40px;
+  margin: 16px 15px 0;
+  border-radius: 50%;
+  background: var(--cyan-light);
+}
+
+.user-button:hover {
+  background: var(--cyan-light);
+}
+
+.user-menu-select-box {
+  width: 150px;
+  height: 80px;
+  position: absolute;
+  top: 100px;
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: 0 0 10px var(--gray-800);
+  text-align: center;
+}
+
+.user-menu-select-box button {
+  width: 100%;
+  height: 40px;
+  background: var(--white);
+}
+
+.user-menu-select-box button:hover {
+  background: var(--gray-600);
+}
+
+.auth-form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.auth-form label {
+  margin-bottom: 4px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.auth-form input {
+  width: 100%;
+  height: 36px;
+  margin-bottom: 16px;
+}
+
+.auth-form button {
+  width: 300px;
+  height: 36px;
+  margin-top: 14px;
+  background: var(--cyan);
+  color: var(--white);
+}
+
+.auth-form button:hover {
+  background: var(--cyan-dark);
+}
+
+log-in p {
+  width: 100%;
+  margin-top: 14px;
+  font-size: 15px;
+}

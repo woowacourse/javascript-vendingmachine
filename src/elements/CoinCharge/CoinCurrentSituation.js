@@ -5,7 +5,7 @@ import { $ } from '../../utils';
 class CoinCurrentSituation extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
-    CoinStore.instance.subscribeCoinsCount(this);
+    CoinStore.instance.subscribeMachine(this);
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -22,31 +22,31 @@ class CoinCurrentSituation extends CustomElement {
         <tbody>
           <tr>
             <td>500원</td>
-            <td class="coin-500-count-td">0개</td>
+            <td class="coin-current-situation__coin-500-count-td">0개</td>
           </tr>
           <tr>
             <td>100원</td>
-            <td class="coin-100-count-td">0개</td>
+            <td class="coin-current-situation__coin-100-count-td">0개</td>
           </tr>
           </tr>
           <tr>
             <td>50원</td>
-            <td class="coin-50-count-td">0개</td>
+            <td class="coin-current-situation__coin-50-count-td">0개</td>
           </tr>
           <tr>
             <td>10원</td>
-            <td class="coin-10-count-td">0개</td>
+            <td class="coin-current-situation__coin-10-count-td">0개</td>
           </tr>
         </tbody>
       </table>
     `;
   }
 
-  rerender(newCoinsCount) {
-    $('.coin-500-count-td').textContent = `${newCoinsCount[500]}개`;
-    $('.coin-100-count-td').textContent = `${newCoinsCount[100]}개`;
-    $('.coin-50-count-td').textContent = `${newCoinsCount[50]}개`;
-    $('.coin-10-count-td').textContent = `${newCoinsCount[10]}개`;
+  rerender({ coinsCount }) {
+    $('.coin-current-situation__coin-500-count-td').textContent = `${coinsCount[500]}개`;
+    $('.coin-current-situation__coin-100-count-td').textContent = `${coinsCount[100]}개`;
+    $('.coin-current-situation__coin-50-count-td').textContent = `${coinsCount[50]}개`;
+    $('.coin-current-situation__coin-10-count-td').textContent = `${coinsCount[10]}개`;
   }
 }
 
