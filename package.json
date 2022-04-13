@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --watch --no-cache",
-    "start:dev": "webpack serve --open",
-    "start": "node server.js",
+    "start": "webpack serve --open",
+    "node-server": "node server.js",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
