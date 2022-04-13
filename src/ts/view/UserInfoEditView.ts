@@ -3,8 +3,10 @@ import { generateUserInfoTemplate } from '../template/authenticationTemplate';
 import { requestEditUserInfo } from '../apis';
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
+import { setCookie } from '../utils/cookie';
 import { ID, CLASS } from '../constant/selector';
 import HASH from '../constant/hash';
+import { COOKIE_KEY } from '../constant/cookie';
 
 class UserInfoEditView implements ViewInterface {
   userStore: UserStoreInterface;
@@ -56,16 +58,20 @@ class UserInfoEditView implements ViewInterface {
 
     try {
       this.userStore.validateEditUserInfoInput(userInfo);
-      const editedUserInfo = await requestEditUserInfo(
+      const { name } = await requestEditUserInfo(
         userInfo,
         currentUserInfo.id,
         currentUserInfo.accessToken
       );
 
-      this.userStore.setUserInfo({
+      const editedUserInfo = {
         ...currentUserInfo,
-        name: editedUserInfo.name,
-      });
+        name,
+      };
+
+      this.userStore.setUserInfo(editedUserInfo);
+
+      setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(editedUserInfo));
     } catch (error) {
       showSnackbar(error.message);
       return;
