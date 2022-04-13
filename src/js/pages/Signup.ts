@@ -67,21 +67,18 @@ export default class Signup {
       this.checkAccountValidate(name, password, passwordCheck);
 
       const data = JSON.stringify({ email, name, password });
+      const res = await api.postSingup(data);
 
-      api
-        .postSingup(data)
-        .then(res => {
-          console.log('res', res);
-          const { accessToken, user } = res;
+      if (typeof res === 'string') {
+        throw new Error(res);
+      }
 
-          localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem('user', JSON.stringify(user));
+      const { accessToken, user } = res;
 
-          router.to('#!/product-manage');
-        })
-        .catch(err => {
-          showSnackbar(err.message);
-        });
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      router.to('#!/product-manage');
     } catch (err) {
       showSnackbar(err.message);
     }

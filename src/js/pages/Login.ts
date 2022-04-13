@@ -25,7 +25,7 @@ export default class Login {
     this.$loginForm.addEventListener('submit', this.onSubmitLogin);
   }
 
-  onSubmitLogin = (e: SubmitEvent) => {
+  onSubmitLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
     const data = JSON.stringify({
@@ -33,18 +33,18 @@ export default class Login {
       password: this.$loginPassword.value,
     });
 
-    api
-      .postUserLogin(data)
-      .then(res => {
-        const { accessToken, user } = res;
+    const res = await api.postUserLogin(data);
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('user', JSON.stringify(user));
+    if (typeof res === 'string') {
+      showSnackbar(res);
+      return;
+    }
 
-        router.to('#!/product-manage');
-      })
-      .catch(err => {
-        showSnackbar(err.message);
-      });
+    const { accessToken, user } = res;
+
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    router.to('#!/product-manage');
   };
 }

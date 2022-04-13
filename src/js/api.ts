@@ -10,8 +10,6 @@ const postUserLogin = async data => {
 
   const res = await response.json();
 
-  if (!response.ok) throw new Error(res);
-
   return res;
 };
 
@@ -23,12 +21,6 @@ const putEditProfile = async ({ id, data }) => {
   });
   const res = await response.json();
 
-  if (!response.ok) {
-    if (response.status === 404) throw new Error('잘못된 id 입니다.');
-
-    throw new Error(res);
-  }
-
   return res;
 };
 
@@ -39,8 +31,6 @@ const postSingup = async data => {
     body: data,
   });
   const res = await response.json();
-
-  if (!response.ok) throw new Error(res);
 
   return res;
 };

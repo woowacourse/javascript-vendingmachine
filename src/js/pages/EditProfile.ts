@@ -68,27 +68,25 @@ export default class EditProfile {
   onSubmitLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    const email = this.$editProfileEmail.value.trim();
-    const name = this.$editProfileName.value.trim();
+    const userEmail = this.$editProfileEmail.value.trim();
+    const userName = this.$editProfileName.value.trim();
     const password = this.$editProfilePassword.value.trim();
     const password2 = this.$editProfilePasswordCheck.value.trim();
 
     try {
-      this.checkAccountValidate(name, password, password2);
+      this.checkAccountValidate(userName, password, password2);
 
-      const data = JSON.stringify({ email, name, password });
+      const data = JSON.stringify({ email: userEmail, name: userName, password });
+      const res = await api.putEditProfile({ id: this.user.id, data });
 
-      api
-        .putEditProfile({ id: this.user.id, data })
-        .then(res => {
-          const { email, name, id } = res;
+      if (typeof res === 'string') {
+        throw new Error(res);
+      }
 
-          localStorage.setItem('user', JSON.stringify({ email, name, id }));
-          router.to('#!/product-manage');
-        })
-        .catch(err => {
-          showSnackbar(err.message);
-        });
+      const { email, name, id } = res;
+
+      localStorage.setItem('user', JSON.stringify({ email, name, id }));
+      router.to('#!/product-manage');
     } catch (err) {
       showSnackbar(err.message);
     }
