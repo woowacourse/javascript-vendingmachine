@@ -38,7 +38,7 @@ class RegisterView implements ViewInterface {
     this.registerForm.addEventListener('submit', this.onSubmitRegisterForm);
   }
 
-  changeHashUrl(hash: Hash): void {
+  private changeHashUrl(hash: Hash): void {
     window.history.pushState({ hash }, null, hash);
     window.dispatchEvent(new HashChangeEvent('hashchange'));
   }

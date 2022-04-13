@@ -106,7 +106,6 @@ export interface ViewInterface {
 export interface VendingMachineTabInterface extends ViewInterface {
   vendingMachine: VendingMachineInterface;
   changeTabContent(contentTemplate: string): void;
-  changeHashUrl(hash: Hash): void;
 }
 
 export interface HeaderInterface {

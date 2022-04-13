@@ -23,7 +23,7 @@ class VendingMachineTab implements VendingMachineTabInterface {
     this.content.classList.remove('auth-content');
   }
 
-  changeHashUrl(hash: Hash): void {
+  protected changeHashUrl(hash: Hash): void {
     window.history.pushState({ hash }, null, hash);
     window.dispatchEvent(new HashChangeEvent('hashchange'));
   }

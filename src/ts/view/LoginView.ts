@@ -41,7 +41,7 @@ class LoginView implements ViewInterface {
     this.loginForm.addEventListener('submit', this.onSubmitLoginForm);
   }
 
-  changeHashUrl(hash: Hash): void {
+  private changeHashUrl(hash: Hash): void {
     window.history.pushState({ hash }, null, hash);
     window.dispatchEvent(new HashChangeEvent('hashchange'));
   }
