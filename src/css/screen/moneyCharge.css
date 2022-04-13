@@ -1,5 +1,5 @@
-.app__main.charge .input-form__input {
-  width:  300px;
+.app__main .input-form__input {
+  width: 300px;
   height: 100%;
   border: 1px solid var(--input-border-color);
   box-sizing: border-box;
@@ -7,7 +7,7 @@
   margin: 4px 0px;
 }
 
-.app__main.charge .product-table {
+.app__main .product-table.coin-table {
   width: 45%;
   margin: 0 auto;
   border-collapse: collapse;

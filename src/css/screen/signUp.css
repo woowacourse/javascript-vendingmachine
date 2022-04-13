@@ -1,0 +1,23 @@
+#signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#signup-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.signup-form__input {
+  width: 300px;
+  height: 30px;
+  border: 1px solid var(--input-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+#signup-confirm-button {
+  width: 300px;
+}

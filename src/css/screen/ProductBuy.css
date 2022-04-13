@@ -1,0 +1,12 @@
+.button-container {
+  display: flex;
+}
+
+.return-button {
+  height: 32px;
+  margin-top: 20px;
+}
+
+.input-money-indicator {
+  margin-bottom: 0;
+}
