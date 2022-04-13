@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType } from '../types';
+import { ItemInfoType, DOMEvent } from '../types';
 import {
   generateConfirmMessage,
   generateItemManageTabContentTemplate,
@@ -54,36 +54,32 @@ class ItemManageTab extends VendingMachineTab {
     itemNameInput.focus();
   };
 
-  private onClickItemStatusTableButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    const targetItem: HTMLTableRowElement = targetElement.closest('tr');
+  private onClickItemStatusTableButton = ({ target }: DOMEvent): void => {
+    const targetItem: HTMLTableRowElement = target.closest('tr');
     if (!targetItem) {
       return;
     }
 
-    if (this.isEditItemButton(targetElement)) {
+    if (this.isEditItemButton(target)) {
       this.handleEditButtonClickEvent(targetItem);
       return;
     }
 
     if (
-      this.isDeleteItemButton(targetElement) &&
+      this.isDeleteItemButton(target) &&
       window.confirm(generateConfirmMessage(targetItem.dataset.itemName))
     ) {
       this.handleDeleteButtonClickEvent(targetItem);
       return;
     }
 
-    if (this.isConfirmItemButton(targetElement)) {
+    if (this.isConfirmItemButton(target)) {
       this.handleConfirmButtonClickEvent(targetItem);
     }
   };
 
-  private onKeyDownItemInfoRow = ({ key, target }: KeyboardEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    const targetItem: HTMLTableRowElement = targetElement.closest('tr');
+  private onKeyDownItemInfoRow = ({ key, target }: DOMEvent): void => {
+    const targetItem: HTMLTableRowElement = target.closest('tr');
 
     if (key === 'Enter' && !!targetItem) {
       this.handleConfirmButtonClickEvent(targetItem);

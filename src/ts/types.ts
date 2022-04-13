@@ -84,6 +84,11 @@ export interface UserStoreInterface {
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
 }
 
+export interface DOMEvent extends Event {
+  target: HTMLElement;
+  key?: string;
+}
+
 export type Hash =
   | ''
   | '#item-manage'

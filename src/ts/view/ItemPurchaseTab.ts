@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType, CoinKind, CoinInterface } from '../types';
+import { ItemInfoType, CoinKind, CoinInterface, DOMEvent } from '../types';
 import {
   generateItemPurchaseTabContentTemplate,
   generateItemPurchaseTableDataTemplate,
@@ -59,14 +59,12 @@ class ItemPurchaseTab extends VendingMachineTab {
     this.renderChargedAmount(String(chargedAmount));
   };
 
-  private onClickPurchaseItemButton = ({ target }: MouseEvent) => {
-    const targetElement = target as HTMLElement;
-
-    if (!targetElement.classList.contains(CLASS.PURCHASE_ITEM_BUTTON)) {
+  private onClickPurchaseItemButton = ({ target }: DOMEvent) => {
+    if (!target.classList.contains(CLASS.PURCHASE_ITEM_BUTTON)) {
       return;
     }
 
-    const targetItem: HTMLTableRowElement = targetElement.closest('tr');
+    const targetItem: HTMLTableRowElement = target.closest('tr');
     const itemIndex = targetItem.rowIndex - 1;
 
     try {

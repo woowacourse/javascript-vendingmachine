@@ -1,4 +1,4 @@
-import { UserStoreInterface, UserInfo, Hash, HeaderInterface } from '../types';
+import { UserStoreInterface, DOMEvent, Hash, HeaderInterface } from '../types';
 import {
   generateAuthenticationHeaderTemplate,
   generateUnauthorizedTabHeaderTemplate,
@@ -90,29 +90,25 @@ class HeaderView implements HeaderInterface {
     this.sideButtonWrapper.classList.toggle(CLASS.HIDE);
   };
 
-  private onClickSideButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    if (targetElement.id === ID.EDIT_BUTTON) {
+  private onClickSideButton = ({ target }: DOMEvent): void => {
+    if (target.id === ID.EDIT_BUTTON) {
       this.handleEditUserInfo();
       return;
     }
 
-    if (targetElement.id === ID.LOGOUT_BUTTON) {
+    if (target.id === ID.LOGOUT_BUTTON) {
       this.handleLogout();
     }
   };
 
-  private onClickTabButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    if (!targetElement.classList.contains('nav-tab-button')) {
+  private onClickTabButton = ({ target }: DOMEvent): void => {
+    if (!target.classList.contains('nav-tab-button')) {
       return;
     }
 
     // TODO: 같은 탭을 눌렀을 때 리렌더링이 되지 않도록 방지하는 과정 필요!
 
-    const hash = targetElement.dataset.hash as Hash;
+    const hash = target.dataset.hash as Hash;
 
     this.navTabButtons.forEach((navTabButton) => {
       navTabButton.classList.toggle(CLASS.SELECTED, navTabButton.dataset.hash === hash);
