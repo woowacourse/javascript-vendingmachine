@@ -1,6 +1,11 @@
-import { SNACK_BAR_DELAY_TIME } from '../constants/snackBar';
+import { SNACK_BAR_DELAY_TIME, SNACK_BAR_TYPE } from '../constants/snackBar';
 
-const generateSnackBarTemplate = (message: string, type: string): string => `
+type SnackBarTypes = 'success' | 'error';
+
+const generateSnackBarTemplate = (
+  message: string,
+  type: SnackBarTypes
+): string => `
   <div class="snack-bar-container__snack-bar${
     type === 'error' ? '--error' : ''
   }">
@@ -19,20 +24,19 @@ const removeSnackBar = (container: HTMLElement, selector: string): void => {
 const renderSnackBar = (
   container: HTMLElement,
   message: string,
-  type: string
+  type: SnackBarTypes
 ): void => {
   container.insertAdjacentHTML(
     'beforeend',
     generateSnackBarTemplate(message, type)
   );
 
-  if (type === 'error') {
-    removeSnackBar(container, '.snack-bar-container__snack-bar--error');
+  const snackBarSelector =
+    type === SNACK_BAR_TYPE.ERROR
+      ? '.snack-bar-container__snack-bar--error'
+      : '.snack-bar-container__snack-bar';
 
-    return;
-  }
-
-  removeSnackBar(container, '.snack-bar-container__snack-bar');
+  removeSnackBar(container, snackBarSelector);
 };
 
 export default renderSnackBar;

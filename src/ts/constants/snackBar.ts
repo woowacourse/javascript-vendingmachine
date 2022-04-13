@@ -1,4 +1,9 @@
-export const SNACK_BAR_TYPE = {
+interface SnackBarType {
+  SUCCESS: 'success';
+  ERROR: 'error';
+}
+
+export const SNACK_BAR_TYPE: SnackBarType = {
   SUCCESS: 'success',
   ERROR: 'error',
 };
