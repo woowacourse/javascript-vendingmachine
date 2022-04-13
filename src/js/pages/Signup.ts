@@ -68,14 +68,20 @@ export default class Signup {
 
       const data = JSON.stringify({ email, name, password });
 
-      api.postSingup(data).then(res => {
-        const { accessToken, user } = res;
+      api
+        .postSingup(data)
+        .then(res => {
+          console.log('res', res);
+          const { accessToken, user } = res;
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('user', JSON.stringify(user));
 
-        router.to('#!/product-manage');
-      });
+          router.to('#!/product-manage');
+        })
+        .catch(err => {
+          showSnackbar(err.message);
+        });
     } catch (err) {
       showSnackbar(err.message);
     }

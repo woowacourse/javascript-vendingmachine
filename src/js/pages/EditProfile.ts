@@ -78,12 +78,17 @@ export default class EditProfile {
 
       const data = JSON.stringify({ email, name, password });
 
-      api.putEditProfile({ id: this.user.id, data }).then(res => {
-        const { email, name, id } = res;
+      api
+        .putEditProfile({ id: this.user.id, data })
+        .then(res => {
+          const { email, name, id } = res;
 
-        localStorage.setItem('user', JSON.stringify({ email, name, id }));
-        router.to('#!/product-manage');
-      });
+          localStorage.setItem('user', JSON.stringify({ email, name, id }));
+          router.to('#!/product-manage');
+        })
+        .catch(err => {
+          showSnackbar(err.message);
+        });
     } catch (err) {
       showSnackbar(err.message);
     }
