@@ -41,18 +41,18 @@ class VendingMachine implements VendingMachineProperty {
   }
 
   subscribeProductManagement() {
-    on('.product-manage-form', CUSTOM_EVENT.PRODUCT.ADD, (e) => this.addProduct(e.detail), $('product-management'));
+    on('.product-manage-form', CUSTOM_EVENT.PRODUCT.ADD, (e) => this.addProduct(e.detail), $('product-management-tab'));
     on(
       '#product-list-table',
       CUSTOM_EVENT.PRODUCT.UPDATE,
       (e) => this.updateProduct(e.detail),
-      $('product-management'),
+      $('product-management-tab'),
     );
     on(
       '#product-list-table',
       CUSTOM_EVENT.PRODUCT.DELETE,
       (e) => this.deleteProduct(e.detail.productName),
-      $('product-management'),
+      $('product-management-tab'),
     );
   }
 

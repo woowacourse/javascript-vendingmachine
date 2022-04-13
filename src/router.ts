@@ -68,7 +68,7 @@ const routes: Route[] = [
     children: [
       { path: BASE_URL + '/', component: $('purchase-tab'), permission: true },
       { path: BASE_URL + '/charge', component: $('charge-tab'), permission: false },
-      { path: BASE_URL + '/management', component: $('product-management'), permission: false },
+      { path: BASE_URL + '/management', component: $('product-management-tab'), permission: false },
     ],
   },
   { path: BASE_URL + '/login', component: $('login-page'), permission: true },

@@ -6,7 +6,7 @@ import Product from '../domain/Product';
 import storage from '../storage';
 import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../constants';
 
-class ProductManagement extends CustomElement {
+class ProductManagementTab extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     VendingMachine.instance.observe({ key: ELEMENT_KEY.PRODUCT, element: this });
@@ -146,6 +146,6 @@ class ProductManagement extends CustomElement {
   }
 }
 
-customElements.define('product-management', ProductManagement);
+customElements.define('product-management-tab', ProductManagementTab);
 
-export default ProductManagement;
+export default ProductManagementTab;

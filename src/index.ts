@@ -1,7 +1,7 @@
 import './css/index.css';
 
 import './ui/VendingMachinePage';
-import './ui/ProductManagement';
+import './ui/ProductManagementTab';
 import './ui/ChargeTab';
 import './ui/PurchaseTab';
 import './ui/LoginPage';

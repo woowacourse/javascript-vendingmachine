@@ -182,7 +182,7 @@ const TEMPLATE = {
         </button>
       </nav>
       <div id="tab">
-        <product-management></product-management>
+        <product-management-tab></product-management-tab>
         <charge-tab class="hidden"></charge-tab>
         <purchase-tab class="hidden"></purchase-tab>
       </div>
