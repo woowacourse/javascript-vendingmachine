@@ -1,8 +1,8 @@
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { login } from '../../utils/auth';
-import AuthStateStoreInstance from '../../domains/stores/AuthStateStore';
 import { AUTH_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
 class LoginContainer extends CustomElement {
   template() {
@@ -36,7 +36,7 @@ class LoginContainer extends CustomElement {
 
     this.renderProfileManager();
     login(emailInputValue, passwordInputValue);
-    AuthStateStoreInstance.dispatchAction(AUTH_ACTION.LOGIN);
+    dispatcher(AUTH_ACTION.LOGIN);
   };
 
   setEvent() {

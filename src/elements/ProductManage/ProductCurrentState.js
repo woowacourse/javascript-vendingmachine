@@ -6,6 +6,7 @@ import { $, $$ } from '../../utils/dom';
 import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
 import { CONFIRM_MESSAGE, SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
+import dispatcher from '../../domains/dispatcher';
 
 class ProductCurrentState extends CustomElement {
   connectedCallback() {
@@ -178,14 +179,14 @@ class ProductCurrentState extends CustomElement {
 
     checkProductValidation(newProductInfo);
 
-    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
+    dispatcher(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
     showSnackbar(SUCCESS.PRODUCT_MODIFY);
   }
 
   handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, productName);
+    dispatcher(PRODUCT_ACTION.DELETE, productName);
     showSnackbar(SUCCESS.PRODUCT_DELETE);
   };
 }

@@ -1,8 +1,8 @@
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { logout } from '../../utils/auth';
-import AuthStateStoreInstance from '../../domains/stores/AuthStateStore';
 import { AUTH_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
 class UserManager extends CustomElement {
   template() {
@@ -30,7 +30,7 @@ class UserManager extends CustomElement {
   handleLogoutClick = () => {
     this.renderLoginManager();
     logout();
-    AuthStateStoreInstance.dispatchAction(AUTH_ACTION.LOGOUT);
+    dispatcher(AUTH_ACTION.LOGOUT);
   };
 
   setEvent() {

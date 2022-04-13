@@ -1,7 +1,7 @@
 import { Action, CoinsCount, CustomElement } from '../../abstracts/types';
 import { COIN, MONEY } from '../../constants';
 import pickNumberInList from '../../utils/random';
-import { COIN_ACTION, createAction } from '../actions';
+import { COIN_ACTION } from '../actions';
 
 class CoinStore {
   #coinsCount: CoinsCount = {
@@ -19,28 +19,24 @@ class CoinStore {
     this.#subscribers.push(element);
   }
 
-  dispatchAction(actionType: string, detail: number) {
-    const action: Action = createAction(actionType, detail);
-    switch (actionType) {
-      case COIN_ACTION.COIN_CHARGE: {
-        this.updateCoinsCount(action);
-        break;
-      }
-      case COIN_ACTION.PURCHASE_MONEY_INPUT: {
-        this.updatePurchaseMoneyInput(action);
-        break;
-      }
-      case COIN_ACTION.UPDATE_MONEY_INPUT: {
-        this.updatePurchaseMoneyInput(action);
-        break;
-      }
-      case COIN_ACTION.RETURN_CHANGE: {
-        this.returnChange();
-        break;
-      }
-    }
-    this.notifySubscribers(action);
-  }
+  reducer = {
+    [COIN_ACTION.COIN_CHARGE]: (action) => {
+      this.updateCoinsCount(action);
+      this.notifySubscribers(action);
+    },
+    [COIN_ACTION.PURCHASE_MONEY_INPUT]: (action) => {
+      this.updatePurchaseMoneyInput(action);
+      this.notifySubscribers(action);
+    },
+    [COIN_ACTION.UPDATE_MONEY_INPUT]: (action) => {
+      this.updatePurchaseMoneyInput(action);
+      this.notifySubscribers(action);
+    },
+    [COIN_ACTION.RETURN_CHANGE]: (action) => {
+      this.returnChange();
+      this.notifySubscribers(action);
+    },
+  };
 
   returnChange() {
     const coinKind = [500, 100, 50, 10];

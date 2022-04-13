@@ -1,5 +1,5 @@
-import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
@@ -35,7 +35,7 @@ class CoinChargeForm extends CustomElement {
     }
     showSnackbar(SUCCESS.COIN_CHARGE);
     this.initCoinInput($coinInput);
-    CoinStoreInstance.dispatchAction(COIN_ACTION.COIN_CHARGE, coinInputValue);
+    dispatcher(COIN_ACTION.COIN_CHARGE, coinInputValue);
   };
 
   initCoinInput($coinInput) {

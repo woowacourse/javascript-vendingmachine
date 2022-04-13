@@ -5,6 +5,7 @@ import showSnackbar from '../../utils/showSnackbar';
 import { PRODUCT_ACTION, COIN_ACTION } from '../../domains/actions';
 import { checkCanPurchaseValidation } from '../../validators';
 import CoinStoreInstance from '../../domains/stores/CoinStore';
+import dispatcher from '../../domains/dispatcher';
 
 class PurchasePossibleProductState extends CustomElement {
   connectedCallback() {
@@ -73,7 +74,7 @@ class PurchasePossibleProductState extends CustomElement {
     const $productQuantityTd = $('.product-quantity-td', $tbodyRow);
     $productQuantityTd.textContent -= 1;
     if (Number($productQuantityTd.textContent) === 0) {
-      ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, detail);
+      dispatcher(PRODUCT_ACTION.DELETE, detail);
     }
   };
 
@@ -114,9 +115,9 @@ class PurchasePossibleProductState extends CustomElement {
     }
 
     // 수량 -1에 대한 액션
-    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.PURCHASE, purchaseProductName);
+    dispatcher(PRODUCT_ACTION.PURCHASE, purchaseProductName);
     // 투입한 금액 업데이트에 대한 액션
-    CoinStoreInstance.dispatchAction(COIN_ACTION.UPDATE_MONEY_INPUT, productPrice);
+    dispatcher(COIN_ACTION.UPDATE_MONEY_INPUT, productPrice);
   };
 }
 

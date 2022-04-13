@@ -5,6 +5,7 @@ import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
 import { SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
+import dispatcher from '../../domains/dispatcher';
 
 class PurchaseMoneyForm extends CustomElement {
   connectedCallback() {
@@ -47,7 +48,7 @@ class PurchaseMoneyForm extends CustomElement {
     }
     showSnackbar(SUCCESS.PURCHASE_MONEY_INPUT);
     this.initPurchaseMoneyInput($purchaseMoneyInput);
-    CoinStoreInstance.dispatchAction(COIN_ACTION.PURCHASE_MONEY_INPUT, purchaseMoneyInputValue);
+    dispatcher(COIN_ACTION.PURCHASE_MONEY_INPUT, purchaseMoneyInputValue);
   };
 
   rerender(newCoinsCount) {

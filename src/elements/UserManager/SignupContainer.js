@@ -2,9 +2,9 @@ import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { checkNewUserInfoValidation } from '../../validators';
 import { signup } from '../../utils/auth';
-import AuthStateStoreInstance from '../../domains/stores/AuthStateStore';
 import { AUTH_ACTION } from '../../domains/actions';
 import showSnackbar from '../../utils/showSnackbar';
+import dispatcher from '../../domains/dispatcher';
 
 class SignupContainer extends CustomElement {
   template() {
@@ -61,7 +61,7 @@ class SignupContainer extends CustomElement {
     }
     this.renderProfileManager();
     signup(emailInputValue, nameInputValue, passwordInputValue);
-    AuthStateStoreInstance.dispatchAction(AUTH_ACTION.LOGIN);
+    dispatcher(AUTH_ACTION.LOGIN);
   };
 }
 
