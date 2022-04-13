@@ -27,7 +27,7 @@ const isGranted = (pathname: string) => {
   return element.permission || isLogin;
 };
 
-const deny = () => {
+const restrictAccess = () => {
   showSnackbar(ERROR_MESSAGE.DENY);
   historyRouterPush(BASE_URL + '/');
 };
@@ -39,7 +39,7 @@ export const historyRouterPush = (pathname: string) => {
 
 const render = (path: string) => {
   if (!isGranted(path)) {
-    deny();
+    restrictAccess();
     return;
   }
 
