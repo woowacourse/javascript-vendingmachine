@@ -5,7 +5,7 @@ import DimmerComponent from './components/DimmerComponent';
 import { ProductComponent } from './components/ProductManageComponents/index';
 import { ChargeMoneyComponent } from './components/ChargeMoneyManageComponents/index';
 import { ConsumerComponent } from './components/PurchaseProductManageComponents/index';
-import { MembershipComponent } from './components/MembershipComponents/index';
+import { MembershipComponent } from './components/UserComponents/index';
 
 import {
   VendingMachineChargeMoneyManager,
