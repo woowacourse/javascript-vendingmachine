@@ -1,7 +1,5 @@
-// /javascript-vendingmachine
-
 export const URL = {
-  BASE_URL: '',
+  BASE_URL: '/javascript-vendingmachine',
   MAIN: 'main',
   SIGN: 'sign',
   MANAGE_ITEM: `manageItem`,
