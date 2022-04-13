@@ -1,5 +1,4 @@
 import Store from 'Store/Abstract';
-import { TComponent } from 'Types/ComponentTypes';
 
 export default abstract class Component<IDefaultProps = Record<string, any>> {
   protected subscribeStore: Store[] = [];

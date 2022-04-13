@@ -3,6 +3,8 @@ declare module '*.html' {
   export default content;
 }
 
+type TComponent = import('Components/Abstract').default;
+
 interface ClassConstructor<T> {
   new (...args): T;
 }

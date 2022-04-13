@@ -1,5 +1,4 @@
 import { VENDING_MACHINE } from 'Constants';
-import { TComponent } from 'Types/ComponentTypes';
 import { $ } from 'Utils';
 
 export default abstract class Page {
