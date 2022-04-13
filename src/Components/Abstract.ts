@@ -22,7 +22,7 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
       store.addSubscriber(this.render);
       this.render({
         state: store.getState(),
-        changedStateNames: Object.keys(this.renderMethodList),
+        changedStateKeys: Object.keys(this.renderMethodList),
       });
     });
   }
@@ -48,14 +48,18 @@ export default abstract class Component<IDefaultProps = Record<string, any>> {
     this.childComponentList.forEach(component => component.unmount());
   }
 
-  public render = ({ state, changedStateNames }: TRenderContent) => {
-    const renderTargetMethod = changedStateNames.reduce((previous, stateKey) => {
-      if (!this.renderMethodList[stateKey]) return previous;
+  private getRenderMethodList(changedStateKeys): TRenderDrawMethod[] {
+    return changedStateKeys.reduce((previous, key) => {
+      if (!this.renderMethodList[key]) return previous;
 
-      this.renderMethodList[stateKey].forEach(renderMethod => previous.add(renderMethod));
+      previous.push(...this.renderMethodList[key]);
       return previous;
-    }, new Set());
-    renderTargetMethod.forEach((renderMethod: TRenderDrawMethod) => renderMethod(state));
+    }, []);
+  }
+
+  public render = ({ state, changedStateKeys }: TRenderContent) => {
+    const renderTargetMethodList = new Set(this.getRenderMethodList(changedStateKeys));
+    renderTargetMethodList.forEach((renderMethod: TRenderDrawMethod) => renderMethod(state));
   };
 
   protected createChildComponent<IProps = IDefaultProps>(

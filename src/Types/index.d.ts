@@ -47,7 +47,7 @@ interface IStoreState {
 
 type TRenderContent = {
   state: IStoreState;
-  changedStateNames: Array<string>;
+  changedStateKeys: Array<string>;
 };
 
 type TRenderMethod = (renderContent: TRenderContent) => void;

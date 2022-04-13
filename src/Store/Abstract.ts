@@ -12,12 +12,10 @@ export default abstract class Store {
   }
 
   public setState(newState: IStoreState) {
-    const changedStateNames: Array<string> = Object.entries(newState).map(([key]) => key);
+    const changedStateKeys: Array<string> = Object.entries(newState).map(([key]) => key);
 
     this.state = { ...this.state, ...newState };
-    this.subscribers.forEach(renderMethod =>
-      renderMethod({ state: this.state, changedStateNames }),
-    );
+    this.subscribers.forEach(renderMethod => renderMethod({ state: this.state, changedStateKeys }));
   }
 
   public getState(): IStoreState {
