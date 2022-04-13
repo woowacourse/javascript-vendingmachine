@@ -42,6 +42,9 @@ export default class EditInformationComponent {
 
   loadUserInformation = async () => {
     const user = getCookie('user') && JSON.parse(getCookie('user'));
+
+    if (!user) return;
+
     const { email, name } = await requestUserInfo(user);
 
     this.$emailInput.value = email;

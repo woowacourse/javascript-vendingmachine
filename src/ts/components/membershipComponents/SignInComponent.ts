@@ -50,9 +50,7 @@ export default class SignInComponent {
         accessToken,
       };
 
-      setCookie('user', JSON.stringify(userInfo), {
-        'max-age': 3600,
-      });
+      setCookie('user', JSON.stringify(userInfo), 3600);
 
       this.$signInEmailInput.value = '';
       this.$signInPasswordInput.value = '';

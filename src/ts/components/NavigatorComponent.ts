@@ -120,6 +120,11 @@ export default class NavigatorComponent {
       return;
     }
 
+    if (!user && pathname === '/edit-information') {
+      window.history.pushState({}, '', '/purchase-product');
+      this.changeComponent();
+    }
+
     this.$userThumbnailButton.textContent = '';
   }
 
