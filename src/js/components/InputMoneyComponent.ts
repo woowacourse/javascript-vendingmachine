@@ -1,3 +1,4 @@
+import coinModel from '../model/CoinModel';
 import vendingMachine from '../model/VendingMachine';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import * as Component from './abstractComponents/Component';
@@ -30,7 +31,7 @@ class InputMoneyComponent extends Component.DynamicComponent {
   };
 
   refreshChange = () => {
-    this.$totalMoney.textContent = vendingMachine.getUserMoney().toString();
+    this.$totalMoney.textContent = vendingMachine.getUserInputMoney().toString();
   };
 
   render = () => {

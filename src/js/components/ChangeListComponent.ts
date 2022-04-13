@@ -23,7 +23,7 @@ class ChangeListComponent extends Component.DynamicComponent {
   };
 
   refreshChange = () => {
-    const { coin10, coin50, coin100, coin500 } = vendingMachine.getChanges();
+    const { coin10, coin50, coin100, coin500 } = vendingMachine.getVendingMachineMoney();
 
     this.$amountCoin500.textContent = `${coin500}개`;
     this.$amountCoin100.textContent = `${coin100}개`;

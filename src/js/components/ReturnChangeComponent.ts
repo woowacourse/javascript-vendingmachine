@@ -36,7 +36,7 @@ class ReturnChangeComponent extends Component.DynamicComponent {
   };
 
   refreshChange = () => {
-    const { coin10, coin50, coin100, coin500 } = vendingMachine.getUserChanges();
+    const { coin10, coin50, coin100, coin500 } = vendingMachine.getUserMoney();
     this.$amountCoin500.textContent = `${coin500}개`;
     this.$amountCoin100.textContent = `${coin100}개`;
     this.$amountCoin50.textContent = `${coin50}개`;

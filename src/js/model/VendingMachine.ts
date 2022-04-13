@@ -1,6 +1,6 @@
 import { ALERT_MESSAGE, ERROR_MESSAGE, RULES } from '../constants';
-import { Product, Coin } from '../interfaces/VendingMachine.interface';
-import { getRandomInt } from '../utils/utils';
+import { Coin, Product } from '../interfaces/VendingMachine.interface';
+import CoinModel from './CoinModel';
 import {
   isValidProductPrice,
   isValidProductAmount,
@@ -12,40 +12,36 @@ import {
 
 export class VendingMachine {
   protected products: Array<Product>;
-  protected changes: Coin;
-  protected userChanges: Coin;
-  protected totalMoney: number;
-  protected userMoney: number;
-  protected availableCoinTypeList: Array<number>;
+  protected userMoney: Coin;
+  protected vendingMachineMoney: Coin;
+  protected userInputMoney: number;
 
   constructor() {
     this.products = [];
-    this.availableCoinTypeList = [500, 100, 50, 10, 0];
-    this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
-    this.userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
-    this.totalMoney = 0;
-    this.userMoney = 0;
+    this.userInputMoney = 0;
+    this.userMoney = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    this.vendingMachineMoney = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
   }
 
   getProducts() {
     return this.products;
   }
 
-  getChanges() {
-    return this.changes;
-  }
-
-  getUserChanges() {
-    return this.userChanges;
-  }
-
-  getTotalMoney() {
-    return this.totalMoney;
-  }
-
   getUserMoney() {
     return this.userMoney;
   }
+
+  getUserInputMoney() {
+    return this.userInputMoney;
+  }
+
+  getVendingMachineMoney() {
+    return this.vendingMachineMoney;
+  }
+
+  setUserMoney = (money: number) => {
+    this.userInputMoney = money;
+  };
 
   addProduct(product: Product) {
     this.checkProductValidate(product);
@@ -77,50 +73,14 @@ export class VendingMachine {
 
   inputChanges(money: number) {
     this.checkInputChangesValidate(money);
-    this.totalMoney += money;
-    this.makeChangesToCoin(money);
+    CoinModel.makeChangesToCoin(money, this.vendingMachineMoney);
     return ALERT_MESSAGE.ADD_CHARGE_SUCCESS(money);
   }
 
   inputUserMoney(money: number) {
     this.checkInputMoneyValidate(money);
-    this.userMoney += money;
+    this.userInputMoney += money;
     return ALERT_MESSAGE.INPUT_MONEY_SUCCESS(money);
-  }
-
-  returnChanges() {
-    const coin = this.getChangeCoin(this.userMoney);
-    this.userMoney -= coin;
-
-    switch (coin) {
-      case 500:
-        this.changes.coin500 -= 1;
-        this.userChanges.coin500 += 1;
-        break;
-      case 100:
-        this.changes.coin100 -= 1;
-        this.userChanges.coin100 += 1;
-        break;
-      case 50:
-        this.changes.coin50 -= 1;
-        this.userChanges.coin50 += 1;
-        break;
-      case 10:
-        this.changes.coin10 -= 1;
-        this.userChanges.coin10 += 1;
-        break;
-      case 0:
-        if (this.userMoney > 0) {
-          throw new Error(ERROR_MESSAGE.NOT_ENOUGH_RETURN_CHANGE);
-        }
-        break;
-    }
-
-    if (this.userMoney >= RULES.MINIMUM_CHANGE) {
-      this.returnChanges();
-    }
-
-    return ALERT_MESSAGE.RETURN_CHARGE_SUCCESS;
   }
 
   purchaseProduct(productName: string) {
@@ -128,7 +88,7 @@ export class VendingMachine {
     const productPrice = this.products[productIndex].price;
     const productAmount = this.products[productIndex].amount;
 
-    if (this.userMoney < productPrice) {
+    if (this.userInputMoney < productPrice) {
       throw new Error(ERROR_MESSAGE.NOT_ENOUGH_MONEY);
     }
 
@@ -136,77 +96,14 @@ export class VendingMachine {
       throw new Error(ERROR_MESSAGE.NOT_ENOUGH_AMOUNT);
     }
 
-    this.userMoney -= productPrice;
+    this.userInputMoney -= productPrice;
     this.products[productIndex].amount -= 1;
 
     return ALERT_MESSAGE.PURCHASE_PRODUCT_SUCCESS(productName);
   }
 
-  private makeChangesToCoin(money: number) {
-    const coin = this.getRandomChangeCoin(money);
-    money -= coin;
-
-    switch (coin) {
-      case 500:
-        this.changes.coin500 += 1;
-        break;
-      case 100:
-        this.changes.coin100 += 1;
-        break;
-      case 50:
-        this.changes.coin50 += 1;
-        break;
-      case 10:
-        this.changes.coin10 += 1;
-        break;
-    }
-
-    if (money >= RULES.MINIMUM_CHANGE) {
-      this.makeChangesToCoin(money);
-    }
-  }
-
-  private getChangeCoin(money: number) {
-    const coins = this.availableCoinTypeList.filter(coin => {
-      if (money < coin) {
-        return false;
-      }
-
-      switch (coin) {
-        case 500:
-          if (this.changes.coin500 > 0) {
-            return true;
-          }
-          break;
-        case 100:
-          if (this.changes.coin100 > 0) {
-            return true;
-          }
-          break;
-        case 50:
-          if (this.changes.coin50 > 0) {
-            return true;
-          }
-          break;
-        case 10:
-          if (this.changes.coin10 > 0) {
-            return true;
-          }
-          break;
-        case 0:
-          return true;
-      }
-
-      return false;
-    });
-
-    return coins[0];
-  }
-
-  private getRandomChangeCoin(money: number) {
-    const coins = this.availableCoinTypeList.filter(coin => coin <= money);
-    const index = getRandomInt(coins.length);
-    return coins[index];
+  returnChanges() {
+    return CoinModel.returnChanges(this.userInputMoney, this.setUserMoney, this.userMoney, this.vendingMachineMoney);
   }
 
   private checkProductValidate(product: Product, originalIndex: number = RULES.NOT_EXIST_INDEX) {
@@ -236,7 +133,7 @@ export class VendingMachine {
       throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     }
 
-    if (this.totalMoney + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
+    if (CoinModel.getCoinsValue(this.vendingMachineMoney) + money > RULES.MAX_VENDING_MACHINE_CHANGE) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_CHANGE);
     }
   }
@@ -250,7 +147,7 @@ export class VendingMachine {
       throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     }
 
-    if (this.userMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
+    if (this.userInputMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
     }
   }
