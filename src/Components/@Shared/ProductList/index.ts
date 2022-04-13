@@ -116,7 +116,7 @@ export default class ProductList extends Component<IProductListProps> {
     const { chargedAmount } = HoldingAmountStore.getState();
 
     if (product.quantity <= 0) {
-      Snackbar('해상 상품의 재고가 모두 소진되었습니다.', 'warning');
+      Snackbar('해당 상품의 재고가 모두 소진되었습니다.', 'warning');
       return;
     }
 
