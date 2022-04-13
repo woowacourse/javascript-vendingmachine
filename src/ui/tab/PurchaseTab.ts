@@ -1,11 +1,11 @@
-import { CustomElement, Notification } from './CustomElement';
-import TEMPLATE from '../templates';
-import storage from '../storage';
-import Product from '../domain/Product';
-import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../utils';
-import VendingMachine from '../domain/VendingMachine';
-import { Safe } from '../domain/Safe';
-import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY, SUCCESS_MESSAGE } from '../constants';
+import { CustomElement, Notification } from '../CustomElement';
+import TEMPLATE from '../../templates';
+import storage from '../../storage';
+import Product from '../../domain/Product';
+import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../../utils';
+import VendingMachine from '../../domain/VendingMachine';
+import { Safe } from '../../domain/Safe';
+import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY, SUCCESS_MESSAGE } from '../../constants';
 
 class PurchaseTab extends CustomElement {
   connectedCallback() {

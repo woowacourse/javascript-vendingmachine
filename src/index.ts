@@ -1,12 +1,12 @@
 import './css/index.css';
 
-import './ui/VendingMachinePage';
-import './ui/ProductManagementTab';
-import './ui/ChargeTab';
-import './ui/PurchaseTab';
-import './ui/LoginPage';
-import './ui/SignupPage';
-import './ui/ProfileEditPage';
+import './ui/page/VendingMachinePage';
+import './ui/tab/ProductManagementTab';
+import './ui/tab/ChargeTab';
+import './ui/tab/PurchaseTab';
+import './ui/page/LoginPage';
+import './ui/page/SignupPage';
+import './ui/page/ProfileEditPage';
 import './ui/UserMenu';
 
 import './router';

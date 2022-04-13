@@ -1,9 +1,9 @@
-import { CustomElement, Notification } from './CustomElement';
-import TEMPLATE from '../templates';
-import { $, addEvent, emit, markUnit } from '../utils';
-import VendingMachine from '../domain/VendingMachine';
-import storage from '../storage';
-import { COINS, CUSTOM_EVENT, ELEMENT_KEY } from '../constants';
+import { CustomElement, Notification } from '../CustomElement';
+import TEMPLATE from '../../templates';
+import { $, addEvent, emit, markUnit } from '../../utils';
+import VendingMachine from '../../domain/VendingMachine';
+import storage from '../../storage';
+import { COINS, CUSTOM_EVENT, ELEMENT_KEY } from '../../constants';
 
 class ChargeTab extends CustomElement {
   connectedCallback() {

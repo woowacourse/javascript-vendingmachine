@@ -1,9 +1,9 @@
-import { CustomElement, Notification } from './CustomElement';
-import TEMPLATE from '../templates';
-import storage from '../storage';
-import { addEvent, emit, $, showSnackbar } from '../utils';
-import Authentication from '../domain/Authentication';
-import { SUCCESS_MESSAGE, ELEMENT_KEY, CUSTOM_EVENT } from '../constants';
+import { CustomElement, Notification } from '../CustomElement';
+import TEMPLATE from '../../templates';
+import storage from '../../storage';
+import { addEvent, emit, $, showSnackbar } from '../../utils';
+import Authentication from '../../domain/Authentication';
+import { SUCCESS_MESSAGE, ELEMENT_KEY, CUSTOM_EVENT } from '../../constants';
 
 class ProfileEditPage extends CustomElement {
   connectedCallback() {

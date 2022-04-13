@@ -1,10 +1,10 @@
-import { CustomElement, Notification } from './CustomElement';
-import TEMPLATE from '../templates';
-import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
-import VendingMachine from '../domain/VendingMachine';
-import Product from '../domain/Product';
-import storage from '../storage';
-import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../constants';
+import { CustomElement, Notification } from '../CustomElement';
+import TEMPLATE from '../../templates';
+import { $, addEvent, deleteSeparator, emit, markUnit } from '../../utils';
+import VendingMachine from '../../domain/VendingMachine';
+import Product from '../../domain/Product';
+import storage from '../../storage';
+import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../../constants';
 
 class ProductManagementTab extends CustomElement {
   connectedCallback() {
