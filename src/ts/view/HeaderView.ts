@@ -68,8 +68,6 @@ class HeaderView implements HeaderInterface {
     }
   }
 
-  changeThumbnail(): void {}
-
   private bindAuthorizedTabHeaderEvent(): void {
     const thumbnailButton: HTMLButtonElement | null = selectDom(`.${CLASS.THUMBNAIL_BUTTON}`);
     this.sideButtonWrapper = selectDom(`.${CLASS.SIDE_BUTTON_WRAPPER}`);

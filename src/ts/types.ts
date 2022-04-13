@@ -106,5 +106,4 @@ export interface VendingMachineTabInterface extends ViewInterface {
 
 export interface HeaderInterface {
   render(hash: Hash): void;
-  changeThumbnail(): void;
 }
