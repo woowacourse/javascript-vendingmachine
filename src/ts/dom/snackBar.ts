@@ -1,4 +1,4 @@
-export const SNACK_BAR_DELAY_TIME = 3000;
+import { SNACK_BAR_DELAY_TIME } from '../constants/snackBar';
 
 const generateSnackBarTemplate = (message: string, type: string): string => `
   <div class="snack-bar-container__snack-bar${

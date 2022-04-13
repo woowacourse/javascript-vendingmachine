@@ -9,6 +9,7 @@ import pickRandomIndex from '../../utils/utils';
 
 import { emit, $, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 const generateRandomCoins = (money: number): Coins => {
   const coinList: number[] = COINS.INITIAL_LIST;
@@ -45,11 +46,11 @@ export default class ChargeMoneyInputComponent {
     on(
       $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
       '@replaceTotalChargeMoney',
-      this.replaceTotalChargeMoney
+      this.renderReplaceTotalChargeMoney
     );
   }
 
-  private replaceTotalChargeMoney = () => {
+  private renderReplaceTotalChargeMoney = () => {
     this.$totalChargeMoney.textContent =
       this.vendingMachineChargeMoneyManager.getTotalAmount();
   };
@@ -79,7 +80,7 @@ export default class ChargeMoneyInputComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.CHARGED_COINS(chargeMoney),
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       emit(this.$chargeButton, '@addCoinsQuantity', {
@@ -88,7 +89,7 @@ export default class ChargeMoneyInputComponent {
         },
       });
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

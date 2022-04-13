@@ -6,6 +6,7 @@ export const CHARGE_MONEY: ChargeMoney = {
   CONSUMER_MAX_CHARGE_MONEY: 10000,
   CONSUMER_MIN_CHARGE_MONEY: 10,
   UNIT: 10,
+  INITIAL_TOTAL_CHARGE_MONEY: 0,
 };
 
 export const COINS: InitialCoins = {

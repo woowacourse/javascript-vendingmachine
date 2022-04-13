@@ -52,4 +52,5 @@ export interface ChargeMoney {
   readonly MAX_TOTAL_CHARGE_MONEY: number;
   readonly CONSUMER_MAX_CHARGE_MONEY: number;
   readonly CONSUMER_MIN_CHARGE_MONEY: number;
+  readonly INITIAL_TOTAL_CHARGE_MONEY: number;
 }

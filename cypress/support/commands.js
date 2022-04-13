@@ -25,19 +25,18 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import { setCookie } from '../../src/ts/cookie/cookie';
 import { SET_PRODUCT, SET_EDIT_PRODUCT } from '../integration/testConstant';
+import { COOKIE_ID } from '../../src/ts/constants/cookie';
 
 Cypress.Commands.add('setSignIn', () => {
   setCookie(
-    'user',
+    COOKIE_ID.USER,
     JSON.stringify({
       id: 1,
       name: '꼬재',
       accessToken:
         '%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGZAZ21haWwuY29tIiwiaWF0IjoxNjQ5MjIyODExLCJleHAiOjE2NDkyMjY0MTEsInN1YiI6IjgifQ.4Gdm73HKwY3C2Mqi9nl8GrxLM2pfrb_LStYq3pXXnzM%22%7D',
     }),
-    {
-      'max-age': 3600,
-    }
+    3600
   );
 });
 

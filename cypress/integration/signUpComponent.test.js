@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../../src/ts/constants/errorMessage';
-import { SNACK_BAR_DELAY_TIME } from '../../src/ts/dom/snackBar';
+import { SNACK_BAR_DELAY_TIME } from '../../src/ts/constants/snackBar';
 import { VALID, INVALID } from './testConstant';
 
 describe('회원가입 유효성 검사', () => {

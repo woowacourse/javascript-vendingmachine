@@ -4,6 +4,7 @@ import SUCCESS_MESSAGE from '../../constants/successMessage';
 
 import renderSnackBar from '../../dom/snackBar';
 import { on, $, $$, emit } from '../../dom/domHelper';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 const generateAddProductTemplate = ({ name, price, quantity }) => `
   <tr class="product-table__info-tr consumer-product-table__info-tr">
@@ -31,27 +32,31 @@ export default class ConsumerProductStateComponent {
   constructor(private vendingMachineConsumerMoneyManager) {
     on(this.$consumerProductTableTbody, 'click', this.onClickPurchaseButton);
 
-    on(this.$productAddButton, '@addConsumerProduct', this.addConsumerProduct);
+    on(
+      this.$productAddButton,
+      '@addConsumerProduct',
+      this.renderAddConsumerProduct
+    );
     on(
       this.$productTableTbody,
       '@editConsumerProduct',
-      this.editConsumerProduct
+      this.renderEditConsumerProduct
     );
     on(
       this.$productTableTbody,
       '@deleteConsumerProduct',
-      this.deleteConsumerProduct
+      this.renderDeleteConsumerProduct
     );
   }
 
-  addConsumerProduct = ({ detail: { newProduct } }) => {
+  renderAddConsumerProduct = ({ detail: { newProduct } }) => {
     this.$consumerProductTableTbody.insertAdjacentHTML(
       'beforeend',
       generateAddProductTemplate(newProduct)
     );
   };
 
-  editConsumerProduct = ({
+  renderEditConsumerProduct = ({
     detail: { editedProduct, previousProductName },
   }) => {
     const currentProducts = Array.from(
@@ -80,7 +85,7 @@ export default class ConsumerProductStateComponent {
     $targetProductQuantity.textContent = editedProduct.quantity;
   };
 
-  deleteConsumerProduct = ({ detail: { deleteProductName } }) => {
+  renderDeleteConsumerProduct = ({ detail: { deleteProductName } }) => {
     const $$currentProducts = Array.from(
       $$<HTMLElement>('.product-table__purchase-product-name')
     );
@@ -140,7 +145,7 @@ export default class ConsumerProductStateComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.PURCHASED_PRODUCT(targetPurchaseProductName),
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       emit(this.$consumerProductTableTbody, '@subtractProductQuantity', {
@@ -154,7 +159,7 @@ export default class ConsumerProductStateComponent {
         },
       });
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

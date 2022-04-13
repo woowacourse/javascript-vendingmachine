@@ -1,6 +1,6 @@
 import SUCCESS_MESSAGE from '../../src/ts/constants/successMessage';
 import { SET_EDIT_PRODUCT, SET_PRODUCT } from './testConstant';
-import { SNACK_BAR_DELAY_TIME } from '../../src/ts/dom/snackBar';
+import { SNACK_BAR_DELAY_TIME } from '../../src/ts/constants/snackBar';
 
 describe('상품 관리 탭 E2E 테스트', () => {
   before(() => {

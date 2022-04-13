@@ -10,6 +10,8 @@ import SUCCESS_MESSAGE from '../../constants/successMessage';
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 import { EditUserInfo } from '../../types/userInfo';
+import { COOKIE_ID } from '../../constants/cookie';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class EditInformationComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -36,12 +38,13 @@ export default class EditInformationComponent {
     on(
       this.$informationWrapper,
       '@loadUserInformation',
-      this.loadUserInformation
+      this.renderUserInformation
     );
   }
 
-  loadUserInformation = async () => {
-    const user = getCookie('user') && JSON.parse(getCookie('user'));
+  renderUserInformation = async () => {
+    const user =
+      getCookie(COOKIE_ID.USER) && JSON.parse(getCookie(COOKIE_ID.USER));
 
     if (!user) return;
 
@@ -54,7 +57,8 @@ export default class EditInformationComponent {
   onClickEditVerifyButton = async (event: SubmitEvent) => {
     event.preventDefault();
 
-    const user = getCookie('user') && JSON.parse(getCookie('user'));
+    const user =
+      getCookie(COOKIE_ID.USER) && JSON.parse(getCookie(COOKIE_ID.USER));
 
     const { value: email } = this.$emailInput;
     const { value: editName } = this.$nameInput;
@@ -83,13 +87,13 @@ export default class EditInformationComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.DONE_EDIT_USER_INFORMATION,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       window.history.pushState({}, '', '/purchase-product');
       emit(this.$editVerifyButton, '@purchaseProductChangeComponentWithUser');
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

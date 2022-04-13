@@ -11,6 +11,7 @@ import {
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../validation/checkProduct';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class ProductInputComponent {
   private $nameInput = $<HTMLInputElement>('.product-info-form__product-input');
@@ -55,7 +56,7 @@ export default class ProductInputComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.ADDED_PRODUCT,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       emit(this.$productAddButton, '@addNewProduct', {
@@ -76,7 +77,7 @@ export default class ProductInputComponent {
         $quantityInput: this.$quantityInput,
       });
 
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

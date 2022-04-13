@@ -1,5 +1,6 @@
 import { $, emit, on } from '../../dom/domHelper';
 import { deleteCookie } from '../../cookie/cookie';
+import { COOKIE_ID } from '../../constants/cookie';
 
 export default class ThumbnailComponent {
   private $dimmer = $<HTMLElement>('.dimmer');
@@ -15,7 +16,7 @@ export default class ThumbnailComponent {
 
   onClickDropDownMenu = ({ target }): void => {
     if (target.matches('.membership-information-wrapper__logout-button')) {
-      deleteCookie('user');
+      deleteCookie(COOKIE_ID.USER);
       window.history.pushState({}, '', '/purchase-product');
 
       emit(this.$informationWrapper, '@logoutChangeComponent');

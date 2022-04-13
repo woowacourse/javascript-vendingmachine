@@ -14,16 +14,16 @@ export default class ChargeMoneyStateComponent {
     on(
       $<HTMLButtonElement>('.charge-form-section__button'),
       '@addCoinsQuantity',
-      this.addCoinsQuantity
+      this.renderAddCoinsQuantity
     );
     on(
       $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
       '@replaceCoinQuantity',
-      this.replaceCoinQuantity
+      this.renderReplaceCoinQuantity
     );
   }
 
-  private replaceCoinQuantity = () => {
+  private renderReplaceCoinQuantity = () => {
     const {
       QUANTITY_COIN_500,
       QUANTITY_COIN_100,
@@ -37,7 +37,7 @@ export default class ChargeMoneyStateComponent {
     this.$quantityCoin10.textContent = QUANTITY_COIN_10;
   };
 
-  private addCoinsQuantity = ({
+  private renderAddCoinsQuantity = ({
     detail: {
       coins: {
         QUANTITY_COIN_500,

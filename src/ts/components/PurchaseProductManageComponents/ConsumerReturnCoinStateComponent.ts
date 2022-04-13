@@ -2,6 +2,7 @@ import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 import SUCCESS_MESSAGE from '../../constants/successMessage';
 import { checkCanReturnCoins } from '../../validation/checkConsumerChargeMoney';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class ConsumerReturnCoinStateComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -55,14 +56,14 @@ export default class ConsumerReturnCoinStateComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.RETURN_COINS,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       emit(this.$returnCoinButton, '@initConsumerTotalChargeMoney');
       emit(this.$returnCoinButton, '@replaceCoinQuantity');
       emit(this.$returnCoinButton, '@replaceTotalChargeMoney');
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

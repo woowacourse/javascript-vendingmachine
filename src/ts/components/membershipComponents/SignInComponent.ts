@@ -9,6 +9,8 @@ import { ERROR_MESSAGE } from '../../constants/errorMessage';
 import { $, emit, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
 import { SignInUserInfo } from '../../types/userInfo';
+import { COOKIE_ID } from '../../constants/cookie';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class SignInComponent {
   private $snackBarContainer = $<HTMLElement>('.snack-bar-container');
@@ -50,7 +52,7 @@ export default class SignInComponent {
         accessToken,
       };
 
-      setCookie('user', JSON.stringify(userInfo), 3600);
+      setCookie(COOKIE_ID.USER, JSON.stringify(userInfo), 3600);
 
       this.$signInEmailInput.value = '';
       this.$signInPasswordInput.value = '';
@@ -58,7 +60,7 @@ export default class SignInComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.DONE_SIGN_IN,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       window.history.pushState({}, '', '/purchase-product');
@@ -68,7 +70,7 @@ export default class SignInComponent {
         message = ERROR_MESSAGE.NOT_FOUND_EMAIL;
       }
 
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 

@@ -1,5 +1,6 @@
 import { requestRegister } from '../../api/api';
 import { ERROR_MESSAGE } from '../../constants/errorMessage';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 import SUCCESS_MESSAGE from '../../constants/successMessage';
 
 import { $, emit, on } from '../../dom/domHelper';
@@ -60,7 +61,7 @@ export default class SignUpComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.DONE_SIGN_UP,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       window.history.pushState({}, '', '/sign-in');
@@ -70,7 +71,7 @@ export default class SignUpComponent {
         message = ERROR_MESSAGE.EMAIL_ALREADY_EXIST;
       }
 
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

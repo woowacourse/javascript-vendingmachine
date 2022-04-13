@@ -1,3 +1,5 @@
+import { CHARGE_MONEY } from '../../constants/chargeMoney';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 import SUCCESS_MESSAGE from '../../constants/successMessage';
 import { $, on } from '../../dom/domHelper';
 import renderSnackBar from '../../dom/snackBar';
@@ -25,20 +27,22 @@ export default class ConsumerChargeMoneyInputComponent {
     on(
       $<HTMLElement>('.consumer-product-table__tbody'),
       '@subtractConsumerChargeMoney',
-      this.subtractConsumerChargeMoney
+      this.renderSubtractConsumerChargeMoney
     );
     on(
       $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
       '@initConsumerTotalChargeMoney',
-      this.initConsumerTotalChargeMoney
+      this.renderInitConsumerTotalChargeMoney
     );
   }
 
-  initConsumerTotalChargeMoney = () => {
-    this.$consumerTotalChargeMoney.textContent = '0';
+  renderInitConsumerTotalChargeMoney = () => {
+    this.$consumerTotalChargeMoney.textContent = String(
+      CHARGE_MONEY.INITIAL_TOTAL_CHARGE_MONEY
+    );
   };
 
-  subtractConsumerChargeMoney = ({ detail: { subtractPrice } }) => {
+  renderSubtractConsumerChargeMoney = ({ detail: { subtractPrice } }) => {
     this.vendingMachineConsumerMoneyManager.subtractConsumerChargeMoney(
       subtractPrice
     );
@@ -75,10 +79,10 @@ export default class ConsumerChargeMoneyInputComponent {
           consumerChargeMoney,
           consumerTotalChargeMoney
         ),
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
     } catch ({ message }) {
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

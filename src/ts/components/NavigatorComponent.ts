@@ -2,6 +2,7 @@ import { getCookie } from '../cookie/cookie';
 import { requestUserInfo } from '../api/api';
 
 import { $, $$, on } from '../dom/domHelper';
+import { COOKIE_ID } from '../constants/cookie';
 
 const isMismatchesNavClassName = (target: HTMLElement): boolean =>
   !target.matches('.nav__product-button') &&
@@ -101,7 +102,8 @@ export default class NavigatorComponent {
   }
 
   private async checkExistUser(pathname: string) {
-    const user = getCookie('user') && JSON.parse(getCookie('user'));
+    const user =
+      getCookie(COOKIE_ID.USER) && JSON.parse(getCookie(COOKIE_ID.USER));
 
     this.$nav.classList.toggle('hide', !user || isMembershipPathname(pathname));
     this.$userThumbnailButton.classList.toggle(

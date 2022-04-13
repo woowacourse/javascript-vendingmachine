@@ -16,6 +16,7 @@ import {
   generateTemplate,
   generateEditTemplate,
 } from './productStateTemplates';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class ProductsStateComponent {
   private $productTableTbody = $<HTMLElement>('.product-table tbody');
@@ -28,16 +29,18 @@ export default class ProductsStateComponent {
     on(
       $<HTMLButtonElement>('.product-info-form__add-button'),
       '@addNewProduct',
-      this.addNewProduct
+      this.renderAddNewProduct
     );
     on(
       $<HTMLElement>('.consumer-product-table__tbody'),
       '@subtractProductQuantity',
-      this.subtractProductQuantity
+      this.renderSubtractProductQuantity
     );
   }
 
-  private subtractProductQuantity = ({ detail: { editProduct } }): void => {
+  private renderSubtractProductQuantity = ({
+    detail: { editProduct },
+  }): void => {
     this.vendingMachineProductManager.editQuantity(editProduct);
 
     const $subtractProductTarget = Array.from(
@@ -50,7 +53,7 @@ export default class ProductsStateComponent {
     ).textContent = editProduct.quantity;
   };
 
-  private addNewProduct = ({ detail: { newProduct } }): void => {
+  private renderAddNewProduct = ({ detail: { newProduct } }): void => {
     this.$productTableTbody.insertAdjacentHTML(
       'beforeend',
       generateTemplate(newProduct)
@@ -98,7 +101,7 @@ export default class ProductsStateComponent {
       renderSnackBar(
         this.$snackBarContainer,
         SUCCESS_MESSAGE.EDITED_PRODUCT,
-        'success'
+        SNACK_BAR_TYPE.SUCCESS
       );
 
       emit(this.$productTableTbody, '@editConsumerProduct', {
@@ -115,7 +118,7 @@ export default class ProductsStateComponent {
         $quantityInput: $editProductQuantityInput,
       });
 
-      renderSnackBar(this.$snackBarContainer, message, 'error');
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   }
 
@@ -156,7 +159,7 @@ export default class ProductsStateComponent {
     renderSnackBar(
       this.$snackBarContainer,
       SUCCESS_MESSAGE.DELETED_PRODUCT,
-      'success'
+      SNACK_BAR_TYPE.SUCCESS
     );
 
     emit(this.$productTableTbody, '@deleteConsumerProduct', {
