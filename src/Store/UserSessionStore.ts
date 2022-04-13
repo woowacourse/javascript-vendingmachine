@@ -88,7 +88,7 @@ class UserSessionStore extends Store {
   public async login(email: string, password: string): Promise<void> {
     const { status, content }: IRequest = await requestLogin(email, password);
 
-    if (status === false) {
+    if (status === 'fail') {
       this.errorMessageSend(content);
       return;
     }
@@ -131,7 +131,7 @@ class UserSessionStore extends Store {
   async register(email: string, name: string, password: string): Promise<void> {
     const { status, content }: IRequest = await requestRegister(email, name, password);
 
-    if (status === false) {
+    if (status === 'fail') {
       this.errorMessageSend(content);
       return;
     }
@@ -159,7 +159,7 @@ class UserSessionStore extends Store {
     const userKey = this.state.userSession.key;
     const { status, content }: IRequest = await requestProfileEdit(userKey, name, password);
 
-    if (status === false) {
+    if (status === 'fail') {
       this.errorMessageSend(content);
       return;
     }

@@ -102,6 +102,6 @@ interface IEventDelegateListener {
    API 영역 타입
 */
 interface IRequest {
-  status: boolean;
+  status: 'success' | 'fail';
   content: any;
 }

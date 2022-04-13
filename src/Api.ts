@@ -18,10 +18,14 @@ const request = async (
     fetchOption.headers = headersOption;
   }
 
-  const response: Response = await fetch(HOST_NAME + url, fetchOption);
-  const data = await response.json();
+  try {
+    const response: Response = await fetch(HOST_NAME + url, fetchOption);
+    const result = await response.json();
 
-  return { status: response.ok, content: data };
+    return { status: response.ok ? 'success' : 'fail', content: result };
+  } catch (error) {
+    return { status: 'fail', content: `서버와의 통신에 실패하였습니다. (${error.message})` };
+  }
 };
 
 export const requestRegister = async (email: string, name: string, password: string) => {
