@@ -112,25 +112,24 @@ export default class ProductList extends Component<IProductListProps> {
     if (!$tableRow) return;
 
     const productIndex = $tableRow.dataset.primaryKey;
-    const product = ProductStore.getState().products[productIndex];
-    const { chargedAmount } = HoldingAmountStore.getState();
+    const { name, price } = ProductStore.getState().products[productIndex];
 
-    if (product.quantity <= 0) {
+    if (ProductStore.isOutOfStock(productIndex)) {
       Snackbar('해당 상품의 재고가 모두 소진되었습니다.', 'warning');
       return;
     }
 
-    if (product.price > chargedAmount) {
+    if (HoldingAmountStore.isNotEnoughMoney(price)) {
       Snackbar('투입한 금액이 부족합니다.\n상품 구매에 필요한 금액을 충전해주세요.', 'warning');
       return;
     }
 
-    if (!confirm(`해당 상품을 구매하시겠습니까?\n${product.price}원이 차감됩니다.`)) return;
+    if (!confirm(`해당 상품을 구매하시겠습니까?\n${price}원이 차감됩니다.`)) return;
 
-    HoldingAmountStore.updateChargeAmount('subtract', product.price);
+    HoldingAmountStore.updateChargeAmount('subtract', price);
     ProductStore.purchaseProduct(productIndex);
 
-    Snackbar(`${product.name} 구매가 완료되었습니다.`);
+    Snackbar(`${name} 구매가 완료되었습니다.`);
   };
 
   drawProductList = ({ products }) => {

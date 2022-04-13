@@ -86,6 +86,11 @@ class HoldingAmountStore extends Store {
       returnCoins,
     });
   }
+
+  public isNotEnoughMoney(requiredMoney: number) {
+    const { chargedAmount } = this.state;
+    return chargedAmount < requiredMoney;
+  }
 }
 
 export default new HoldingAmountStore();
