@@ -145,7 +145,6 @@ export default class ProductsStateComponent {
     const $deleteProduct: HTMLTableRowElement = target.closest(
       '.product-table__info-tr'
     );
-    const $parentTarget: HTMLElement = target.closest('tbody');
     const deleteProductName = $deleteProduct.dataset.productName;
 
     if (!window.confirm(DELETE_PRODUCT_CONFIRM_MESSAGE(deleteProductName))) {
@@ -154,7 +153,7 @@ export default class ProductsStateComponent {
 
     this.vendingMachineProductManager.deleteProduct(deleteProductName);
 
-    $parentTarget.removeChild($deleteProduct);
+    $deleteProduct.remove();
 
     renderSnackBar(
       this.$snackBarContainer,

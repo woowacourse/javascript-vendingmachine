@@ -96,11 +96,8 @@ export default class ConsumerProductStateComponent {
     const $deleteProduct = $deleteProductNameTarget.closest(
       '.consumer-product-table__info-tr'
     );
-    const $parentTarget = $deleteProductNameTarget.closest(
-      '.consumer-product-table__tbody'
-    );
 
-    $parentTarget.removeChild($deleteProduct);
+    $deleteProduct.remove();
   };
 
   onClickPurchaseButton = ({ target }) => {
