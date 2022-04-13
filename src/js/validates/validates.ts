@@ -34,6 +34,27 @@ export const validateAddItemInput = ({ name, price, quantity }: ItemType) => {
   }
 };
 
+export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, targetIndex: number) => {
+  if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
+    throw new Error(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
+  }
+};
+
+export const validateInputCoinsSum = (inputCoinsSum: number) => {
+  if (!Number.isInteger(inputCoinsSum)) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
+  }
+  if (inputCoinsSum <= MONEY.MIN) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
+  }
+  if (inputCoinsSum > MONEY.CHARGE_MAX) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_CHARGE_MAX);
+  }
+  if (inputCoinsSum % MONEY.UNIT !== 0) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
+  }
+};
+
 export const validateInputMoney = (inputMoney: number) => {
   if (!Number.isInteger(inputMoney)) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.NOT_INTEGER);
@@ -41,16 +62,22 @@ export const validateInputMoney = (inputMoney: number) => {
   if (inputMoney <= MONEY.MIN) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.UNDER_MIN);
   }
-  if (inputMoney > MONEY.MAX) {
-    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_MAX);
+  if (inputMoney > MONEY.INPUT_MAX) {
+    throw new Error(ERROR_MESSAGE.INPUT_MONEY.OVER_INPUT_MAX);
   }
   if (inputMoney % MONEY.UNIT !== 0) {
     throw new Error(ERROR_MESSAGE.INPUT_MONEY.INVALID_UNIT);
   }
 };
 
-export const checkDuplicatedItem = (items: ItemType[], newItem: ItemType, targetIndex: number) => {
-  if (items.find((item, index) => index !== targetIndex && item.name === newItem.name)) {
-    throw new Error(ERROR_MESSAGE.ITEM_NAME.DUPLICATE_ITEM);
+export const checkItemExist = (quantity: number) => {
+  if (quantity <= 0) {
+    throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_STOCK);
+  }
+};
+
+export const checkPurchaseAvailable = (money: number, price: number) => {
+  if (money < price) {
+    throw new Error(ERROR_MESSAGE.ITEM_PURCHASE.NO_MONEY);
   }
 };

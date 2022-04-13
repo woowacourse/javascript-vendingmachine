@@ -1,18 +1,21 @@
-export type ItemType = {
-  name: string;
-  price: number;
-  quantity: number;
-};
+export interface ItemType {
+  id?: number;
+  name?: string;
+  price?: number;
+  quantity?: number;
+  subtractQuantity?(): void;
+}
 
-export type CoinsType = {
+export interface CoinsType {
   fiveHundred: number;
   hundred: number;
   fifty: number;
   ten: number;
-};
+}
 
 export type RouteChangeDetailType = {
-  $navButton: HTMLButtonElement;
+  page: string;
+  section: string;
 };
 
 export type ChargeMoneyDetailType = {
@@ -27,4 +30,12 @@ export type TableItemChangeDetailType = {
 
 export type TableItemDeleteDetailType = {
   item: ItemType;
+};
+
+export type UserDataType = {
+  id?: number;
+  email?: string;
+  name?: string;
+  password?: string;
+  confirmPassword?: string;
 };

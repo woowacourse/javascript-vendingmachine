@@ -7,9 +7,10 @@ describe('상품 이름, 가격, 수량이 주어질 때', () => {
     const name = '콜라';
     const price = 1200;
     const quantity = 1;
-    const item = new Item(name, price, quantity);
+    const id = 0;
+    const item = new Item({ name, price, quantity, id });
 
-    itemManager.addItem({ name, price, quantity });
+    itemManager.addItem(item);
 
     expect(itemManager.items).toEqual([item]);
   });
@@ -19,15 +20,17 @@ describe('상품 이름, 가격, 수량이 주어질 때', () => {
     const name = '콜라';
     const price = 1200;
     const quantity = 1;
+    const id = 0;
 
-    itemManager.addItem({ name, price, quantity });
+    itemManager.addItem({ name, price, quantity, id });
 
+    const targetIndex = 0;
     const newName = '환타';
     const newPrice = 1000;
     const newQuantity = 6;
     const newItem = { name: newName, price: newPrice, quantity: newQuantity };
 
-    itemManager.changeItem(0, newItem);
+    itemManager.changeItem(targetIndex, newItem);
 
     expect({
       name: itemManager.items[0].name,
@@ -41,10 +44,44 @@ describe('상품 이름, 가격, 수량이 주어질 때', () => {
     const name = '콜라';
     const price = 1200;
     const quantity = 1;
+    const id = 0;
 
-    itemManager.addItem({ name, price, quantity });
-    itemManager.deleteItem({ name, price, quantity });
+    itemManager.addItem({ name, price, quantity, id });
+    itemManager.deleteItem({ name });
 
     expect(itemManager.items).toEqual([]);
+  });
+});
+
+describe('구매할 상품의 이름이 주어지면', () => {
+  test('해당하는 상품을 반활할 수 있다.', () => {
+    const itemManager = new ItemManager();
+    const name = '콜라';
+    const price = 1200;
+    const quantity = 10;
+    const id = 0;
+
+    itemManager.addItem({ name, price, quantity, id });
+
+    const targetItem = itemManager.getItemWithName(name);
+
+    expect({
+      name: targetItem.name,
+      price: targetItem.price,
+      quantity: targetItem.quantity,
+    }).toEqual({ name, price, quantity });
+  });
+
+  test('해당하는 상품의 수량을 1만큼 감소시킬 수 있다.', () => {
+    const itemManager = new ItemManager();
+    const name = '콜라';
+    const price = 1200;
+    const quantity = 10;
+    const id = 0;
+
+    itemManager.addItem({ name, price, quantity, id });
+    itemManager.purchaseItem(name);
+
+    expect(itemManager.getItemWithName(name).quantity).toBe(quantity - 1);
   });
 });

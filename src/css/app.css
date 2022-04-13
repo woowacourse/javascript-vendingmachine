@@ -1,4 +1,5 @@
 #app {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: 32px 0;
@@ -49,7 +50,7 @@
   padding: 6px;
   width: 56px;
   height: 36px;
-  color: var(--color-submit-button-font-color);
+  color: var(--color-white);
   font-weight: 700;
   font-size: 14px;
   margin-left: 16px;
@@ -137,7 +138,7 @@
   display: none;
 }
 
-.return-money-button {
+.return-change-button {
   width: 100px;
   height: 32px;
   margin-top: 24px;
@@ -151,4 +152,24 @@
 .item-table-confirm-button {
   width: 100px;
   height: 32px;
+}
+
+#sign-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--color-nav-button-clicked);
+}
+
+.thumbnail-active {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--color-button-hover);
 }

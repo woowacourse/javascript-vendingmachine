@@ -1,35 +1,68 @@
 import { CoinsType } from '../types/types';
-import { COINS } from '../constants/vendingMachineConstants';
+import { COINS, INITIAL_COINS } from '../constants/vendingMachineConstants';
 import { generateRandom } from '../utils/common';
 
 export default class CoinManager {
-  private _coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private _money = 0;
+  private _coins: CoinsType = this.getInitialCoins();
+
+  get initialCoins() {
+    return this.getInitialCoins();
+  }
 
   get coins() {
     return this._coins;
   }
 
-  get money() {
-    return this._money;
+  get coinsSum() {
+    return this.getSumCoins(this._coins);
   }
 
-  chargeCoin(inputMoney: number) {
-    this.addRandomCoins(inputMoney);
-    this._money += inputMoney;
+  setCoins(money: number) {
+    this._coins = this.getInitialCoins();
+    this.chargeCoinsSum(money);
   }
 
-  private addRandomCoins(money: number) {
-    let restMoney = money;
+  chargeCoinsSum(coinsSum: number) {
+    let restCoinsSum = coinsSum;
 
     Object.keys(this.coins).forEach(key => {
       if (key === 'ten') {
-        this.coins[key] += restMoney / COINS[key];
+        this.coins[key] += restCoinsSum / COINS[key];
         return;
       }
-      const randomNumber = generateRandom(Math.floor(restMoney / COINS[key]));
-      restMoney -= randomNumber * COINS[key];
+      const randomNumber = generateRandom(Math.floor(restCoinsSum / COINS[key]));
+      restCoinsSum -= randomNumber * COINS[key];
       this.coins[key] += randomNumber;
     });
+  }
+
+  exchangeCoins(money: number) {
+    let restMoney = money;
+
+    return Object.fromEntries(
+      Object.keys(this._coins).map(coinName => {
+        const requiredCount = Math.floor(restMoney / COINS[coinName]);
+        const remainCount = this._coins[coinName];
+        const exchangeCount = requiredCount > remainCount ? remainCount : requiredCount;
+
+        this._coins[coinName] -= exchangeCount;
+        restMoney -= COINS[coinName] * exchangeCount;
+
+        return [coinName, exchangeCount];
+      })
+    );
+  }
+
+  getSumCoins(coins: CoinsType) {
+    const initialAmount = 0;
+
+    return Object.keys(coins).reduce(
+      (account, current) => account + COINS[current] * coins[current],
+      initialAmount
+    );
+  }
+
+  private getInitialCoins() {
+    return JSON.parse(JSON.stringify(INITIAL_COINS));
   }
 }

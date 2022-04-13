@@ -1,41 +1,39 @@
-import { $ } from '../utils/common';
-import { manageItemTemplate, sectionTemplate } from '../templates/manageItemTemplate';
-import { CONFIRM_MESSAGE } from '../constants/confirmConstants';
-import { SELECTOR } from '../constants/viewConstants';
-import { ItemType } from '../types/types';
-import VendingMachine from '../vendingMachine/vendingMachine';
+import { $ } from '../../utils/common';
+import { manageItemTemplate, sectionTemplate } from '../../templates/main/manageItemTemplate';
+import { CONFIRM_MESSAGE } from '../../constants/confirmConstants';
+import { SELECTOR } from '../../constants/viewConstants';
+import { ItemType } from '../../types/types';
+import showSnackbar from '../../utils/snackbar';
+import VendingMachine from '../../vendingMachine/vendingMachine';
 
 export default class ManageItemView {
-  private $content: HTMLDivElement;
-
-  constructor(private readonly vendingMachine: VendingMachine) {
-    this.vendingMachine = vendingMachine;
-    this.$content = $(SELECTOR.ID.CONTENT);
-  }
+  constructor(private readonly vendingMachine: VendingMachine) {}
 
   render() {
+    const $content = $(SELECTOR.ID.CONTENT);
     const { items } = this.vendingMachine;
-    this.$content.replaceChildren();
-    this.$content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
+    $content.replaceChildren();
+    $content.insertAdjacentHTML('beforeend', manageItemTemplate(items));
 
     $(SELECTOR.ID.ADD_ITEM_FORM).addEventListener('submit', this.handleSubmitEvent.bind(this));
     $(SELECTOR.CLASS.ITEM_TABLE).addEventListener('click', this.handleTableClickEvent.bind(this));
   }
 
-  private handleSubmitEvent(event) {
+  private handleSubmitEvent(event: SubmitEvent) {
     try {
       event.preventDefault();
       const item: ItemType = this.getItemFromAddItemInput();
 
       this.vendingMachine.addItem(item);
+
       this.clearInput();
       this.appendItemTableRow(item);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
-  private handleTableClickEvent(event) {
+  private handleTableClickEvent(event: { target: HTMLButtonElement }) {
     if (event.target.classList.contains(SELECTOR.CLASS_STRING.ITEM_TABLE_CHANGE_BUTTON)) {
       this.onChangeButtonClick(event.target);
       return;
@@ -49,15 +47,15 @@ export default class ManageItemView {
     }
   }
 
-  private onChangeButtonClick($targetButton) {
+  private onChangeButtonClick($targetButton: HTMLButtonElement) {
     const $targetTableRow = $targetButton.closest('tr');
     const item = this.getItemFromTargetButton($targetButton);
 
     $targetTableRow.replaceChildren();
-    $targetTableRow.insertAdjacentHTML('beforeEnd', sectionTemplate.changeTableRow(item));
+    $targetTableRow.insertAdjacentHTML('beforeend', sectionTemplate.changeTableRow(item));
   }
 
-  private onDeleteButtonClick($targetButton) {
+  private onDeleteButtonClick($targetButton: HTMLButtonElement) {
     const $targetTableRow = $targetButton.closest('tr');
     const item = this.getItemFromTargetButton($targetButton);
 
@@ -67,7 +65,7 @@ export default class ManageItemView {
     }
   }
 
-  private onConfirmButtonClick($targetButton) {
+  private onConfirmButtonClick($targetButton: HTMLButtonElement) {
     try {
       const $targetTableRow = $targetButton.closest('tr');
       const targetRowIndex = $targetTableRow.rowIndex - 1;
@@ -76,7 +74,7 @@ export default class ManageItemView {
       this.vendingMachine.changeItem(targetRowIndex, item);
       this.repaintItemTableRow($targetTableRow, item);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   }
 
@@ -88,9 +86,9 @@ export default class ManageItemView {
     return { name, price, quantity };
   }
 
-  private getItemFromTargetButton($targetButton): ItemType {
+  private getItemFromTargetButton($targetButton: HTMLButtonElement): ItemType {
     const { name, price, quantity } = $targetButton.dataset;
-    return { name, price, quantity };
+    return { name, price: Number(price), quantity: Number(quantity) };
   }
 
   private getItemFromChangeInput($targetTableRow): ItemType {

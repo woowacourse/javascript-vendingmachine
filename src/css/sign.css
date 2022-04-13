@@ -1,0 +1,68 @@
+#sign-button.sign-in {
+  width: 117px;
+  height: 36px;
+  background-color: var(--color-nav-button-bg);
+  border-radius: 4px;
+}
+
+#sign-button.sign-in:hover {
+  background-color: var(--color-button-hover);
+}
+
+#sign-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-header {
+  text-align: center;
+  margin-top: 44px;
+}
+
+.sign-submit {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+}
+
+.sign-submit label:not(:first-child) {
+  margin-top: 16px;
+}
+
+.sign-submit input {
+  margin-top: 4px;
+  width: 300px;
+  height: 36px;
+}
+
+.sign-submit-button {
+  margin-top: 30px;
+  width: 300px;
+  height: 36px;
+  background-color: var(--color-submit-button-bg);
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.sign-submit-button:hover {
+  background-color: var(--color-submit-button-hover);
+}
+
+#offer-signup-container {
+  display: flex;
+  margin-top: 14px;
+  gap: 10px;
+  font-size: 15px;
+}
+
+#offer-signup-button {
+  background-color: white;
+  color: var(--color-link);
+}
+
+#edit-email-input {
+  background-color: var(--color-button-hover);
+  color: gray;
+}
