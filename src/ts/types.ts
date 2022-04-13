@@ -1,6 +1,12 @@
 export type ItemInfoType = { itemName: string; itemPrice: number; itemQuantity: number };
 
-export type Coin = 500 | 100 | 50 | 10;
+export type CoinKind = 500 | 100 | 50 | 10;
+
+export interface CoinInterface {
+  count: number;
+  chargeCoin(count: number): void;
+  useCoin(count: number): void;
+}
 
 export type ItemInputValidationInfo = {
   itemInfo: ItemInfoType;
@@ -46,7 +52,7 @@ export interface VendingMachineInterface {
   purchaseItem: (itemIndex: number) => void;
 
   chargeCoin: (rechargeCoin: number) => number;
-  returnCoin: () => Record<Coin, number>;
+  returnCoin: () => Record<CoinKind, CoinInterface>;
   calculateTotalCoinAmount: () => number;
 
   chargeCash: (chargedCash: number) => number;

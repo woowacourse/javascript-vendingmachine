@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { Coin } from '../types';
+import { CoinKind, CoinInterface } from '../types';
 import { generateCoinRechargeTabContentTemplate } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
@@ -49,11 +49,11 @@ class CoinRechargeTab extends VendingMachineTab {
 
   private renderChargedCoinState(
     totalCoinAmount: number,
-    currentCoinCollection: Record<Coin, number>
+    currentCoinCollection: Record<CoinKind, CoinInterface>
   ): void {
     this.chargedAmountText.textContent = String(totalCoinAmount);
     this.coinCountList.forEach((coinCount) => {
-      coinCount.textContent = `${currentCoinCollection[coinCount.dataset.coinValue]}개`;
+      coinCount.textContent = `${currentCoinCollection[coinCount.dataset.coinValue].count}개`;
     });
   }
 }

@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType, Coin } from '../types';
+import { ItemInfoType, CoinKind, CoinInterface } from '../types';
 import {
   generateItemPurchaseTabContentTemplate,
   generateItemPurchaseTableDataTemplate,
@@ -7,7 +7,6 @@ import {
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
-import { INITIAL_COIN_COLLECTION } from '../constant/rule';
 
 class ItemPurchaseTab extends VendingMachineTab {
   private cashChargeForm: HTMLFormElement | null;
@@ -85,7 +84,7 @@ class ItemPurchaseTab extends VendingMachineTab {
   };
 
   private onClickReturnCoinButton = () => {
-    let returnedCoinCollection: Record<Coin, number>;
+    let returnedCoinCollection: Record<CoinKind, CoinInterface>;
 
     try {
       returnedCoinCollection = this.vendingMachine.returnCoin();
@@ -112,12 +111,13 @@ class ItemPurchaseTab extends VendingMachineTab {
   }
 
   private renderReturnedCoinTable(
-    returnedCoinCollection: Record<Coin, number> = INITIAL_COIN_COLLECTION
+    returnedCoinCollection: Record<CoinKind, CoinInterface> = null
   ): void {
     this.coinCountsTableCells.forEach((coinCountsTableCell) => {
       const { coinValue } = coinCountsTableCell.dataset;
+      const coinCount = returnedCoinCollection ? returnedCoinCollection[coinValue].count : 0;
 
-      coinCountsTableCell.textContent = `${returnedCoinCollection[coinValue]}개`;
+      coinCountsTableCell.textContent = `${coinCount}개`;
     });
   }
 }

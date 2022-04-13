@@ -56,19 +56,19 @@ export const generateCoinRechargeTabContentTemplate = (chargedAmount, coinCollec
       </tr>
       <tr>
         <td>500원</td>
-        <td class="coin-count" data-coin-value="500">${coinCollection[500]}개</td>
+        <td class="coin-count" data-coin-value="500">${coinCollection[500].count}개</td>
       </tr>
       <tr>
         <td>100원</td>
-        <td class="coin-count" data-coin-value="100">${coinCollection[100]}개</td>
+        <td class="coin-count" data-coin-value="100">${coinCollection[100].count}개</td>
       </tr>
       <tr>
         <td>50원</td>
-        <td class="coin-count" data-coin-value="50">${coinCollection[50]}개</td>
+        <td class="coin-count" data-coin-value="50">${coinCollection[50].count}개</td>
       </tr>
       <tr>
         <td>10원</td>
-        <td class="coin-count" data-coin-value="10">${coinCollection[10]}개</td>
+        <td class="coin-count" data-coin-value="10">${coinCollection[10].count}개</td>
       </tr>
     </table>
 `;

@@ -1,6 +1,7 @@
 import {
   ItemInfoType,
-  Coin,
+  CoinKind,
+  CoinInterface,
   ItemInputValidationInfo,
   CashInputValidationInfo,
   CoinRechargeInputValidationInfo,
@@ -8,6 +9,7 @@ import {
   TestCase,
   VendingMachineInterface,
 } from '../types';
+import Coin from './Coin';
 import {
   itemInputTestCases,
   cashInputTestCases,
@@ -17,12 +19,17 @@ import {
   ITEM_PURCHASE_CASH_ERROR_MESSAGE,
   COIN_RETURN_ERROR_MESSAGE,
 } from '../constant/errorMessage';
-import { COIN_10, COIN_50, COIN_100, COIN_500, INITIAL_COIN_COLLECTION } from '../constant/rule';
+import { COIN_10, COIN_50, COIN_100, COIN_500 } from '../constant/rule';
 
 class VendingMachine implements VendingMachineInterface {
   private _itemList: ItemInfoType[] = [];
 
-  private _coinCollection: Record<Coin, number> = INITIAL_COIN_COLLECTION;
+  private _coinCollection: Record<CoinKind, CoinInterface> = {
+    [COIN_500]: new Coin(COIN_500),
+    [COIN_100]: new Coin(COIN_100),
+    [COIN_50]: new Coin(COIN_50),
+    [COIN_10]: new Coin(COIN_10),
+  };
 
   private itemPurchaseCash = 0;
 
@@ -30,7 +37,7 @@ class VendingMachine implements VendingMachineInterface {
     return this._itemList;
   }
 
-  public get coinCollection(): Record<Coin, number> {
+  public get coinCollection(): Record<CoinKind, CoinInterface> {
     return this._coinCollection;
   }
 
@@ -68,7 +75,7 @@ class VendingMachine implements VendingMachineInterface {
 
     while (remainCoin !== 0) {
       if (COIN_50 > remainCoin) {
-        this._coinCollection[COIN_10] += remainCoin / COIN_10;
+        this._coinCollection[COIN_10].chargeCoin(remainCoin / COIN_10);
         break;
       } else if (COIN_100 > remainCoin) {
         candidateCoins = [COIN_50, COIN_10];
@@ -77,31 +84,31 @@ class VendingMachine implements VendingMachineInterface {
       }
 
       const selectedCoin = candidateCoins[Math.floor(Math.random() * candidateCoins.length)];
-      this._coinCollection[selectedCoin] += 1;
+      this._coinCollection[selectedCoin].chargeCoin(1);
       remainCoin -= selectedCoin;
     }
 
     return this.calculateTotalCoinAmount();
   }
 
-  returnCoin(): Record<Coin, number> {
+  returnCoin(): Record<CoinKind, CoinInterface> {
     if (this.hasNotCash()) {
       throw new Error(COIN_RETURN_ERROR_MESSAGE.NO_CASH);
     }
 
-    const returnedCoinCollection: Record<Coin, number> = {
-      [COIN_500]: 0,
-      [COIN_100]: 0,
-      [COIN_50]: 0,
-      [COIN_10]: 0,
+    const returnedCoinCollection: Record<CoinKind, CoinInterface> = {
+      [COIN_500]: new Coin(COIN_500),
+      [COIN_100]: new Coin(COIN_100),
+      [COIN_50]: new Coin(COIN_50),
+      [COIN_10]: new Coin(COIN_10),
     };
 
-    Object.entries(this._coinCollection).forEach(([coin, count]) => {
-      const returnedCoin = this.calculateReturnedCoin(coin, count);
+    Object.entries(this._coinCollection).forEach(([coinKind, coin]) => {
+      const returnedCoin = this.calculateReturnedCoin(coinKind, coin.count);
 
-      this.coinCollection[coin] -= returnedCoin;
-      returnedCoinCollection[coin] = returnedCoin;
-      this.itemPurchaseCash -= Number(coin) * returnedCoin;
+      this.coinCollection[coinKind].useCoin(returnedCoin);
+      returnedCoinCollection[coinKind].chargeCoin(returnedCoin);
+      this.itemPurchaseCash -= Number(coinKind) * returnedCoin;
     });
 
     if (this.isNotReturnedCoin(returnedCoinCollection)) {
@@ -113,7 +120,7 @@ class VendingMachine implements VendingMachineInterface {
 
   calculateTotalCoinAmount(): number {
     return Object.entries(this._coinCollection).reduce(
-      (prev, [key, value]) => prev + Number(key) * value,
+      (acc, [coinKind, coin]) => acc + Number(coinKind) * coin.count,
       0
     );
   }
@@ -152,8 +159,8 @@ class VendingMachine implements VendingMachineInterface {
     this.validateTestCase(itemPurchaseCashInputTestCases, validationInfo);
   }
 
-  private calculateReturnedCoin(coin: string, count: number): number {
-    const requiredCoinCount = Math.floor(this.itemPurchaseCash / Number(coin));
+  private calculateReturnedCoin(coinKind: string, count: number): number {
+    const requiredCoinCount = Math.floor(this.itemPurchaseCash / Number(coinKind));
 
     return Math.min(requiredCoinCount, count);
   }
@@ -169,8 +176,8 @@ class VendingMachine implements VendingMachineInterface {
     });
   }
 
-  private isNotReturnedCoin(returnedCoinCollection: Record<Coin, number>): boolean {
-    return Object.values(returnedCoinCollection).every((coinCount) => coinCount === 0);
+  private isNotReturnedCoin(returnedCoinCollection: Record<CoinKind, CoinInterface>): boolean {
+    return Object.values(returnedCoinCollection).every((coin) => coin.count === 0);
   }
 }
 
