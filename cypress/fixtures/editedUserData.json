@@ -1,10 +1,7 @@
 {
   "ok": true,
-  "accessToken": "safijsanfindsifn1283u12dnfsjk",
-  "user": {
-    "email": "rkadndud06@naver.com",
-    "password": "password1234!",
-    "name": "밧줄",
-    "id": 1
-  }
+  "email": "rkadndud06@naver.com",
+  "password": "password1234!",
+  "name": "우테코",
+  "id": 1
 }

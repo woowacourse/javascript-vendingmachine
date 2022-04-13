@@ -1,5 +1,4 @@
 import { SELECTOR } from '../../src/js/constants/viewConstants';
-import ProductAPI from '../../src/js/api/productAPI';
 import Storage from '../../src/js/api/storage';
 
 describe('관리자 상품, 잔돈 관리', () => {
