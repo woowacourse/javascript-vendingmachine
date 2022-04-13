@@ -5,8 +5,10 @@ import {
   generateAuthorizedTebHeaderTemplate,
 } from '../template/headerTemplate';
 import { selectDom, selectDoms } from '../utils';
+import { deleteCookie } from '../utils/cookie';
 import { CLASS, ID } from '../constant/selector';
 import HASH from '../constant/hash';
+import { COOKIE_KEY } from '../constant/cookie';
 
 class HeaderView implements HeaderInterface {
   private userStore: UserStoreInterface;
@@ -130,7 +132,8 @@ class HeaderView implements HeaderInterface {
   }
 
   private handleLogout() {
-    this.userStore.logout();
+    this.userStore.setUserInfo(null);
+    deleteCookie(COOKIE_KEY.USER_INFO);
     this.changeHashUrl(HASH.ITEM_PURCHASE);
   }
 

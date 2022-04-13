@@ -72,13 +72,10 @@ export type UserInfo = User & {
 
 export interface UserStoreInterface {
   getUserInfo: () => UserInfo;
+  setUserInfo: (userInfo: UserInfo) => void;
   validateLoginInput: (loginInfo: AuthenticationInfo) => void;
   validateUserInfoInput: (userInfo: AuthenticationInfo) => void;
   validateEditUserInfoInput: (editUserInfoInput: AuthenticationInfo) => void;
-  login: (loginInfo: AuthenticationInfo) => void;
-  register: (registerInfo: AuthenticationInfo) => void;
-  editUserInfo: (editedUserInfo: AuthenticationInfo) => void;
-  logout: () => void;
 }
 
 export type Hash =

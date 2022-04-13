@@ -10,8 +10,7 @@ import {
   userInfoInputTestCases,
   editUserInfoInputTestCases,
 } from './validation/authenticationValidator';
-import { requestRegister, requestLogin, requestEditUserInfo } from '../apis';
-import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
+import { getCookie } from '../utils/cookie';
 import { COOKIE_KEY } from '../constant/cookie';
 
 class UserStore implements UserStoreInterface {
@@ -25,39 +24,8 @@ class UserStore implements UserStoreInterface {
     return this.userInfo;
   }
 
-  async register(registerInfo: AuthenticationInfo) {
-    await requestRegister(registerInfo);
-  }
-
-  async login(loginInfo: AuthenticationInfo) {
-    const response = await requestLogin(loginInfo);
-
-    this.userInfo = {
-      accessToken: response.accessToken,
-      ...response.user,
-    };
-
-    setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
-  }
-
-  async editUserInfo(editedUserInfo: AuthenticationInfo) {
-    const response = await requestEditUserInfo(
-      editedUserInfo,
-      this.userInfo.id,
-      this.userInfo.accessToken
-    );
-
-    this.userInfo = {
-      ...this.userInfo,
-      ...response,
-    };
-
-    setCookie(COOKIE_KEY.USER_INFO, JSON.stringify(this.userInfo));
-  }
-
-  logout(): void {
-    this.userInfo = null;
-    deleteCookie(COOKIE_KEY.USER_INFO);
+  setUserInfo(userInfo: UserInfo) {
+    this.userInfo = userInfo;
   }
 
   validateLoginInput(loginInfo: AuthenticationInfo): void {

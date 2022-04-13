@@ -1,5 +1,6 @@
 import { AuthenticationInfo, UserStoreInterface, Hash, ViewInterface, UserInfo } from '../types';
 import { generateUserInfoTemplate } from '../template/authenticationTemplate';
+import { requestEditUserInfo } from '../apis';
 import { selectDom, selectDoms } from '../utils';
 import showSnackbar from '../utils/snackbar';
 import { ID, CLASS } from '../constant/selector';
@@ -51,9 +52,20 @@ class UserInfoEditView implements ViewInterface {
       Array.from(this.userInfoInputs)
     );
 
+    const currentUserInfo = this.userStore.getUserInfo();
+
     try {
       this.userStore.validateEditUserInfoInput(userInfo);
-      await this.userStore.editUserInfo(userInfo);
+      const editedUserInfo = await requestEditUserInfo(
+        userInfo,
+        currentUserInfo.id,
+        currentUserInfo.accessToken
+      );
+
+      this.userStore.setUserInfo({
+        ...currentUserInfo,
+        name: editedUserInfo.name,
+      });
     } catch (error) {
       showSnackbar(error.message);
       return;
