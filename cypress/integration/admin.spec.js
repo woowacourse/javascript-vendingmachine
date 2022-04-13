@@ -3,7 +3,7 @@ import Storage from '../../src/js/api/storage';
 
 describe('관리자 상품, 잔돈 관리', () => {
   before(() => {
-    cy.interceptAllRequest();
+    cy.interceptAdminRequest();
     cy.visit('http://localhost:9000');
 
     Storage.setAccessToken('askfdin123412njwefn931nsndnf98');

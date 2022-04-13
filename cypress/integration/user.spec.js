@@ -2,7 +2,7 @@ import { SELECTOR } from '../../src/js/constants/viewConstants';
 
 describe('일반 사용자의 경우', () => {
   before(() => {
-    cy.interceptAllRequest();
+    cy.interceptAdminRequest();
     cy.visit('http://localhost:9000');
   });
 
