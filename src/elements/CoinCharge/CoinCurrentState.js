@@ -1,6 +1,6 @@
-import CoinStoreInstance from '../../domains/stores/CoinStore';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
 
 class CoinCurrentState extends CustomElement {
   connectedCallback() {

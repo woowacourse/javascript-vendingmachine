@@ -1,11 +1,12 @@
 import { COIN_ACTION } from '../../domains/actions';
 import dispatcher from '../../domains/dispatcher';
 
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import showSnackbar from '../../utils/showSnackbar';
+
 import { checkCoinValidation } from '../../validators';
 import { SUCCESS } from '../../constants';
-import showSnackbar from '../../utils/showSnackbar';
+import CustomElement from '../../abstracts/CustomElement';
 
 class CoinChargeForm extends CustomElement {
   template() {

@@ -1,10 +1,12 @@
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
-import { checkNewUserInfoValidation } from '../../validators';
-import { signup } from '../../utils/auth';
-import { AUTH_ACTION } from '../../domains/actions';
 import showSnackbar from '../../utils/showSnackbar';
+import { signup } from '../../utils/auth';
+
+import { AUTH_ACTION } from '../../domains/actions';
 import dispatcher from '../../domains/dispatcher';
+
+import { checkNewUserInfoValidation } from '../../validators';
+import CustomElement from '../../abstracts/CustomElement';
 
 class SignupContainer extends CustomElement {
   template() {

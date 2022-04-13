@@ -1,10 +1,12 @@
 import { PRODUCT_ACTION } from '../../domains/actions';
-import CustomElement from '../../abstracts/CustomElement';
+import dispatcher from '../../domains/dispatcher';
+
 import { $ } from '../../utils/dom';
+import showSnackbar from '../../utils/showSnackbar';
+
 import { SUCCESS } from '../../constants';
 import { checkProductAddValidation } from '../../validators';
-import showSnackbar from '../../utils/showSnackbar';
-import dispatcher from '../../domains/dispatcher';
+import CustomElement from '../../abstracts/CustomElement';
 
 class ProductAddForm extends CustomElement {
   template() {

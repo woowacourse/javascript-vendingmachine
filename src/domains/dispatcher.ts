@@ -1,5 +1,5 @@
-import { Action, Product, ModifyDetail } from '../abstracts/types';
 import { createAction } from './actions';
+import { Action, Product, ModifyDetail } from '../abstracts/types';
 
 import AuthStateStoreInstance from './stores/AuthStateStore';
 import ProductStoreInstance from './stores/ProductStore';

@@ -1,6 +1,6 @@
 import { $ } from './utils/dom';
-import AuthStateStoreInstance from './domains/stores/AuthStateStore';
 import showSnackbar from './utils/showSnackbar';
+import AuthStateStoreInstance from './domains/stores/AuthStateStore';
 
 const $administratorMenu = document.querySelector('administrator-menu');
 const $userManagerContainer = document.querySelector('#user-manager-container');

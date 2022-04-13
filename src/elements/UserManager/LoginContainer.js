@@ -1,8 +1,10 @@
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
 import { login } from '../../utils/auth';
+
 import { AUTH_ACTION } from '../../domains/actions';
 import dispatcher from '../../domains/dispatcher';
+
+import CustomElement from '../../abstracts/CustomElement';
 
 class LoginContainer extends CustomElement {
   template() {

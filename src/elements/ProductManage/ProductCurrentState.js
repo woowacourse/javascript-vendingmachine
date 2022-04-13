@@ -1,12 +1,13 @@
 import ProductStoreInstance from '../../domains/stores/ProductStore';
 import { PRODUCT_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
-import CustomElement from '../../abstracts/CustomElement';
 import { $, $$ } from '../../utils/dom';
+import showSnackbar from '../../utils/showSnackbar';
+
 import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
 import { CONFIRM_MESSAGE, SUCCESS } from '../../constants';
-import showSnackbar from '../../utils/showSnackbar';
-import dispatcher from '../../domains/dispatcher';
+import CustomElement from '../../abstracts/CustomElement';
 
 class ProductCurrentState extends CustomElement {
   connectedCallback() {

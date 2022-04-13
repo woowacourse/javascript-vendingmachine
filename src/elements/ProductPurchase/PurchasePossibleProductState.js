@@ -1,11 +1,13 @@
-import CustomElement from '../../abstracts/CustomElement';
+import dispatcher from '../../domains/dispatcher';
+import { PRODUCT_ACTION, COIN_ACTION } from '../../domains/actions';
 import ProductStoreInstance from '../../domains/stores/ProductStore';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
+
 import { $ } from '../../utils/dom';
 import showSnackbar from '../../utils/showSnackbar';
-import { PRODUCT_ACTION, COIN_ACTION } from '../../domains/actions';
+
 import { checkCanPurchaseValidation } from '../../validators';
-import CoinStoreInstance from '../../domains/stores/CoinStore';
-import dispatcher from '../../domains/dispatcher';
+import CustomElement from '../../abstracts/CustomElement';
 
 class PurchasePossibleProductState extends CustomElement {
   connectedCallback() {

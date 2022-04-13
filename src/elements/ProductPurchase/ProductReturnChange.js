@@ -1,10 +1,12 @@
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import showSnackbar from '../../utils/showSnackbar';
+
 import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
-import { SUCCESS } from '../../constants';
-import showSnackbar from '../../utils/showSnackbar';
 import dispatcher from '../../domains/dispatcher';
+
+import { SUCCESS } from '../../constants';
+import CustomElement from '../../abstracts/CustomElement';
 
 class ProductReturnChange extends CustomElement {
   connectedCallback() {

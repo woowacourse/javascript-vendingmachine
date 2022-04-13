@@ -1,11 +1,13 @@
 import { $ } from '../../utils/dom';
-import CustomElement from '../../abstracts/CustomElement';
-import { checkPurchaseMoneyValidation } from '../../validators';
-import CoinStoreInstance from '../../domains/stores/CoinStore';
-import { COIN_ACTION } from '../../domains/actions';
-import { SUCCESS } from '../../constants';
 import showSnackbar from '../../utils/showSnackbar';
+
+import { COIN_ACTION } from '../../domains/actions';
 import dispatcher from '../../domains/dispatcher';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
+
+import { checkPurchaseMoneyValidation } from '../../validators';
+import { SUCCESS } from '../../constants';
+import CustomElement from '../../abstracts/CustomElement';
 
 class PurchaseMoneyForm extends CustomElement {
   connectedCallback() {

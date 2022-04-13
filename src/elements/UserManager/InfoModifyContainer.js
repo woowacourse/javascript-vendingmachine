@@ -1,8 +1,9 @@
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
-import { checkNewUserInfoValidation } from '../../validators';
 import { modifyUserInfo } from '../../utils/auth';
 import showSnackbar from '../../utils/showSnackbar';
+
+import { checkNewUserInfoValidation } from '../../validators';
+import CustomElement from '../../abstracts/CustomElement';
 
 class InfoModifyContainer extends CustomElement {
   template() {

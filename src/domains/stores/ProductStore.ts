@@ -1,5 +1,5 @@
-import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/types';
 import { PRODUCT_ACTION } from '../actions';
+import { Action, CustomElement, ModifyDetail, Product } from '../../abstracts/types';
 
 class ProductStore {
   #products: Product[] = [];

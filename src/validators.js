@@ -1,6 +1,6 @@
+import { ERROR_MESSAGE, MONEY, PASSWORD, PRODUCT } from './constants';
 import ProductStoreInstance from './domains/stores/ProductStore';
 import CoinStoreInstance from './domains/stores/CoinStore';
-import { ERROR_MESSAGE, MONEY, PASSWORD, PRODUCT } from './constants';
 
 const validator = (conditions) => {
   conditions.forEach(({ checker, errorMsg }) => {
