@@ -3,7 +3,7 @@ import type {
   SignupInfo,
   UserInfo,
   UserInfoWithPassWord,
-} from '../ts/types';
+} from '../types';
 
 type UserResponse = {
   user: UserInfo;

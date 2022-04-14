@@ -1,4 +1,4 @@
-import { API } from '../../apis';
+import { API } from '../apis';
 import { $, replaceHTML } from '../utils/dom';
 import { basePath, ROUTER } from '../../App';
 import { showSnackbar } from '../utils';

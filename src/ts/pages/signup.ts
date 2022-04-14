@@ -1,4 +1,4 @@
-import { API } from '../../apis';
+import { API } from '../apis';
 import { basePath, ROUTER } from '../../App';
 import type { SignupInfo } from '../types';
 import { focusOnInvalidInput, showSnackbar } from '../utils';

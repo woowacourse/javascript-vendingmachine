@@ -1,4 +1,4 @@
-import { API } from '../../apis';
+import { API } from '../apis';
 import type { Inputs, UserInfoWithPassWord } from '../types';
 
 const getRandomIndex = <T>(array: T[]) => {

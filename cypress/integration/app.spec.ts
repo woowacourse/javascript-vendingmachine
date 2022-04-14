@@ -1,4 +1,4 @@
-import { baseUrl } from '../../src/apis';
+import { baseUrl } from '../../src/ts/apis';
 import { coinType, PRICE_RULE } from '../../src/ts/constants';
 import { getUser, insertNBSP } from '../../src/ts/utils';
 
