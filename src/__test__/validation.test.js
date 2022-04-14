@@ -1,4 +1,4 @@
-import { COIN, ERROR_MESSAGE, INSERT_MONEY } from '../constants';
+import { COIN, ERROR_MESSAGE, MONEY, INSERT_MONEY } from '../constants';
 import Store from '../flux/store';
 import {
   validateChargeCoins,
@@ -75,15 +75,15 @@ describe('잔돈 충전 시 유효성 검사를 한다.', () => {
     expect(errorMessage).toBe(ERROR_MESSAGE.NEGATIVE_CHARGE_MONEY);
   });
 
-  test('잔돈은 10원으로 나누어 떨어지는 금액만 투입할 수 있다.', () => {
+  test(`잔돈은 ${COIN.MIN_UNIT.toLocaleString()}원으로 나누어 떨어지는 금액만 투입할 수 있다.`, () => {
     const money = '1231';
     const { errorMessage } = validateChargeCoins(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_CHARGE_MONEY);
   });
 
-  test('잔돈으로 보유할 수 있는 최대 금액은 100,000원이다.', () => {
-    const money = '20000';
-    const { errorMessage } = validateChargeCoins(money, 90000);
+  test(`잔돈으로 보유할 수 있는 최대 금액은 ${MONEY.MAX.toLocaleString()}원이다.`, () => {
+    const money = `${MONEY.MAX}`;
+    const { errorMessage } = validateChargeCoins(money, 1000);
     expect(errorMessage).toBe(ERROR_MESSAGE.OVER_MAX_CHARGE_MONEY);
   });
 });
