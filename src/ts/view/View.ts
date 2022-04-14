@@ -93,7 +93,7 @@ export default class View {
     this.$app.classList.remove('hide');
     this.$$pageContainers.forEach((container) => container.classList.add('hide'));
     this.$$tabResultContainers.forEach((container: HTMLTableSectionElement, index: number) => {
-      if (container.id === id) {
+      if (container.dataset.id === id) {
         container.classList.remove('hide');
         this.$$tabButtons[index].checked = true;
         this.renderUpdatedView(id);
@@ -139,7 +139,7 @@ export default class View {
       [TAB_ID.PURCHASE_PRODUCT]: () => this.renderTabs(TAB_ID.PURCHASE_PRODUCT),
       [PAGE_ID.LOGIN]: () => this.renderPages(PAGE_ID.LOGIN),
       [PAGE_ID.REGISTER]: () => this.renderPages(PAGE_ID.REGISTER),
-      [PAGE_ID.USERINFO_EDIT]: () => this.renderPages(PAGE_ID.USERINFO_EDIT),
+      [PAGE_ID.PROFILE_EDIT]: () => this.renderPages(PAGE_ID.PROFILE_EDIT),
     };
 
     routes[tabKey]();
@@ -150,7 +150,7 @@ export default class View {
   renderPages = (id: string) => {
     this.$app.classList.add('hide');
     this.$$pageContainers.forEach((container: HTMLTableSectionElement) => {
-      if (container.id === id) {
+      if (container.dataset.id === id) {
         container.classList.remove('hide');
         return;
       }

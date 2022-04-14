@@ -8,24 +8,24 @@
 
   <body>
 
-    <div class="page-container hide" id="/#!/user-info-edit">
+    <div class="page-container hide" data-id="/#!/profile-edit">
       <h1>회원 정보 수정</h1>
       <section class="register-wrapper">
-        <form>
-          <label class="form-label" for="register-edit-email">이메일</label>
-          <input class="form-input" type="email" id="register-edit-email" placeholder="woowacourse@gmail.com" disabled>
-          <label class="form-label" for="register-edit-name">이름</label>
-          <input class="form-input" type="text" id="register-edit-name" placeholder="우테코">
-          <label class="form-label" for="register-edit-password">비밀번호</label>
-          <input class="form-input" type="password" id="register-edit-password" placeholder="비밀번호를 입력해주세요">
-          <label class="form-label" for="register-edit-password-check">비밀번호 확인</label>
-          <input class="form-input" type="password" id="register-edit-password-check" placeholder="비밀번호를 입력해주세요">
+        <form class="profile-edit-form">
+          <label class="form-label" for="profile-edit-email">이메일</label>
+          <input class="form-input" type="email" id="profile-edit-email" placeholder="woowacourse@gmail.com" disabled>
+          <label class="form-label" for="profile-edit-name">이름</label>
+          <input class="form-input" type="text" id="profile-edit-name" placeholder="우테코">
+          <label class="form-label" for="profile-edit-password">비밀번호</label>
+          <input class="form-input" type="password" id="profile-edit-password" placeholder="비밀번호를 입력해주세요">
+          <label class="form-label" for="profile-edit-password-check">비밀번호 확인</label>
+          <input class="form-input" type="password" id="profile-edit-password-check" placeholder="비밀번호를 입력해주세요">
           <button class="short-button form-button">확인</button>
         </form>
       </section>
     </div>
 
-    <div class="page-container hide" id="/#!/register">
+    <div class="page-container hide" data-id="/#!/register">
       <h1>회원가입</h1>
       <section class="register-wrapper">
         <form class="register-form">
@@ -42,7 +42,7 @@
       </section>
     </div>
 
-    <div class="page-container hide" id="/#!/login">
+    <div class="page-container hide" data-id="/#!/login">
       <h1>로그인</h1>
       <section class="login-wrapper">
         <form class="login-form">
@@ -62,9 +62,7 @@
     <div id="app">
       <div class="login-wrapper">
         <button class="small-button login-button">로그인</button>
-        <div class="profile hide">
-          이
-        </div>
+        <div class="profile hide"></div>
         <ul class="profile-menu hide">
           <li class="profile-list edit-profile">회원정보수정</li>
           <li class="profile-list logout">로그아웃</li>
@@ -83,7 +81,7 @@
         </form>
       </nav>
 
-      <section class="tab-result-container hide" id="/#!/product-manage">
+      <section class="tab-result-container hide" data-id="/#!/product-manage">
         <h2 hidden>상품 관리</h2>
         <div class="tab-result-wrapper">
           <form class="product-manage-form">
@@ -117,7 +115,7 @@
         </div>
       </section>
 
-      <section class="tab-result-container hide" id="/#!/recharge">
+      <section class="tab-result-container hide" data-id="/#!/recharge">
         <h2 hidden>잔돈 충전</h2>
         <div class="tab-result-wrapper">
           <form class="recharge-form">
@@ -164,7 +162,7 @@
         </div>
       </section>
 
-      <section class="tab-result-container" id="/#!/purchase-product">
+      <section class="tab-result-container" data-id="/#!/purchase-product">
         <h2 hidden>상품 구매</h2>
         <div class="tab-result-wrapper">
           <form class="purchase-form">
