@@ -39,14 +39,22 @@ export default class Router {
       return;
     }
 
+    if (pageName === DEFAULT_PAGE) {
+      this.#pageMount(this.pageList[pageName]);
+      return;
+    }
+
     this.pageList[pageName]().then(module => {
-      this.currentPage && this.currentPage.unmount();
-
       const { default: PageClass } = module;
-      const loadedPage = new PageClass();
-
-      loadedPage.mount();
-      this.currentPage = loadedPage;
+      this.#pageMount(PageClass);
     });
+  }
+
+  #pageMount(PageClass) {
+    const loadedPage = new PageClass();
+    this.currentPage && this.currentPage.unmount();
+
+    loadedPage.mount();
+    this.currentPage = loadedPage;
   }
 }
