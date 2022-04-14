@@ -42,42 +42,7 @@ export class Router {
       this.app.customerInformationView.renderInformationEdit();
     }
   };
-  /*
-  pushHistory(e: Event) {
-    let path = '/';
-    if (e.type === 'productManageTabClick') {
-      path = '/productManage';
-    }
-    if (e.type === 'balanceChargeTabClick') {
-      path = '/balanceCharge';
-    }
-    if (e.type === 'productPurchaseTabClick') {
-      path = '/productPurchase';
-    }
-    if (e.type === 'signInClick') {
-      path = '/signIn';
-    }
-    if (e.type === 'signUpClick') {
-      path = '/signUp';
-    }
-    if (e.type === 'editInformationClick') {
-      path = '/editInformation';
-    }
-    if (e.type === 'signOutClick') {
-      path = '/';
-    }
-    if (e.type === 'signInOk') {
-      path = '/signIn';
-    }
-    if (e.type === 'signUpOk') {
-      path = '/signUp';
-    }
-    if (e.type === 'editInformationOkay') {
-      path = '/editInformation';
-    }
-    this.pushHistoryPath(path);
-  }
-*/
+
   pushHistoryPath(path: string) {
     history.pushState({ path }, '', path);
   }

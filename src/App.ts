@@ -53,18 +53,7 @@ export class App {
     this.app.addEventListener('signOutClick', (e: Event) => {
       this.homeView.hideNav();
       this.productPurchaseView.showProductPurchaseTab();
-      //this.router.pushHistory(e);
     });
-    /*
-    this.app.addEventListener('signInOk', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.app.addEventListener('signUpOk', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.app.addEventListener('editInformationOk', (e: Event) => {
-      this.router.pushHistory(e);
-    });*/
 
     this.coinVault = getStorageCoinVault();
     this.productCatalog = getStorageProductCatalog();
