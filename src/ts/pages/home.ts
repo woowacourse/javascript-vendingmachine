@@ -50,7 +50,7 @@ export default class HomePage {
     this.#activateClickedButton(location.pathname);
 
     this.$nav.addEventListener('click', this.#navClickHandler);
-    this.$loginButton.addEventListener('click', this.#loginButtonHandler);
+    this.$loginButton.addEventListener('click', this.#loginClickHandler);
 
     try {
       const user = await getUser();
@@ -145,7 +145,7 @@ export default class HomePage {
         this.#editClickHandler();
         break;
       case '로그아웃':
-        this.#logoutHandler();
+        this.#logout();
         break;
     }
     e.target.selectedIndex = 0;
@@ -183,14 +183,14 @@ export default class HomePage {
     return buttonPathname === pathname;
   }
 
-  #loginButtonHandler = (e: Event) => {
+  #loginClickHandler = (e: Event) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const pathname = `${basePath}${e.target.dataset.pathname}`;
 
     this.routePage(pathname);
   };
 
-  #logoutHandler = () => {
+  #logout = () => {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
