@@ -1,3 +1,5 @@
+const { createJSDocTypeExpression } = require('typescript');
+
 describe('첫 방문시 관리자 로그인', () => {
   const Email = `${Date.now()}@test.com`;
   const name = 'Wootech';
@@ -32,16 +34,20 @@ describe('관리자 로그인 이후', () => {
   const name = 'Wootech';
   const password = 123123;
 
+  Cypress.Commands.add('registerProduct', (name, price, quantity) => {
+    cy.get('#product-name-input').type(name);
+    cy.get('#product-price-input').type(price);
+    cy.get('#product-quantity-input').type(quantity);
+    cy.get('#product-information-submit-btn').click();
+  });
+
   beforeEach('페이지 방문(자동로그인)', () => {
     cy.visit('http://localhost:9000');
   });
 
   it('물품을 등록하고 관리할 수 있다.', () => {
     cy.get('#product-manage-nav-button').click();
-    cy.get('#product-name-input').type('코카콜라');
-    cy.get('#product-price-input').type(1000);
-    cy.get('#product-quantity-input').type(10);
-    cy.get('#product-information-submit-btn').click();
+    cy.registerProduct('코카콜라', 1000, 10);
 
     cy.get('.edit-button').first().click();
     cy.get('.product-quantity').children().first().clear();
@@ -58,15 +64,8 @@ describe('관리자 로그인 이후', () => {
 
   it('물품을 등록하고 구매할 수 있다.', () => {
     cy.get('#product-manage-nav-button').click();
-    cy.get('#product-name-input').type('코카콜라');
-    cy.get('#product-price-input').type(1000);
-    cy.get('#product-quantity-input').type(10);
-    cy.get('#product-information-submit-btn').click();
-
-    cy.get('#product-name-input').type('사이다');
-    cy.get('#product-price-input').type(1300);
-    cy.get('#product-quantity-input').type(13);
-    cy.get('#product-information-submit-btn').click();
+    cy.registerProduct('코카콜라', 1000, 10);
+    cy.registerProduct('사이다', 1300, 13);
 
     cy.get('#product-purchase-nav-button').click();
     cy.get('#customer-money-input').type(5000);
