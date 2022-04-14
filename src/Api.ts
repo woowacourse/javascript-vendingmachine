@@ -22,9 +22,9 @@ const request = async (
 
   try {
     const response: Response = await fetch(HOST_NAME + url, fetchOption);
-    const result = await response.json();
+    const jsonBody = await response.json();
 
-    return { status: response.ok ? 'success' : 'fail', content: result };
+    return { status: response.ok ? 'success' : 'fail', content: jsonBody };
   } catch (error) {
     return { status: 'fail', content: `서버와의 통신에 실패하였습니다. (${error.message})` };
   }
