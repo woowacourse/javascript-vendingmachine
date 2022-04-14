@@ -1,5 +1,5 @@
 import { baseUrl } from '../../src/apis';
-import { coinType, MESSAGE, PRICE_RULE } from '../../src/ts/constants';
+import { coinType, PRICE_RULE } from '../../src/ts/constants';
 import { getUser, insertNBSP } from '../../src/ts/utils';
 
 const defaultProduct = { name: '콜라', price: 1000, quantity: 10 };
