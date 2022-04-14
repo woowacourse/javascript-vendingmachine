@@ -1,9 +1,5 @@
 import 'cypress-localstorage-commands';
 
-Cypress.Cookies.defaults({
-  preserve: 'SESSION_TOKEN',
-});
-
 // 자판기에 상품을 추가할 수 있다
 Cypress.Commands.add('addProduct', ({ name, price, quantity }) => {
   cy.get('.add-product-input-wrap input[name="name"]').type(name);
