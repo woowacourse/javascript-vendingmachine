@@ -11,8 +11,8 @@ export default class ManageProductList extends Component {
     return this.createChildComponent<IProductListProps>(ProductList, {
       caption: '상품 현황',
       listType: 'manage',
-      onProductUpdate: handleProductUpdate,
-      onRemoveProduct: handleRemoveProduct,
+      handleProductUpdate,
+      handleRemoveProduct,
     });
   }
 

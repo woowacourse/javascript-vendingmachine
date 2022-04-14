@@ -27,16 +27,16 @@ export default class UserInfoForm extends Component {
 
   setEvents() {
     addMultipleEventDelegate(this.$component, 'click', {
-      '#user-info-profile': { handler: this.onUserProfileClick },
-      '#user-info-logout': { handler: this.onLogoutClick },
+      '#user-info-profile': { handler: this.handleOpenProfileMenu },
+      '#user-info-logout': { handler: this.handleTryLogout },
     });
   }
 
-  onUserProfileClick = () => {
+  handleOpenProfileMenu = () => {
     $('.user-info-menu', this.$component).classList.toggle('menu-open');
   };
 
-  onLogoutClick = () => {
+  handleTryLogout = () => {
     if (!confirm('정말 로그아웃 하시겠습니까?')) return;
 
     UserSessionStore.logout();

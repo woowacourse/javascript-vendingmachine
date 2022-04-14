@@ -23,7 +23,7 @@ export default class LoginForm extends Component {
     super(props);
 
     this.renderMethodList = {
-      userSessionEvent: [this.onUserSessionEventListener],
+      userSessionEvent: [this.handleUserSessionListener],
     };
   }
 
@@ -62,11 +62,11 @@ export default class LoginForm extends Component {
   setEvents() {
     addEventDelegate(this.$component, '#login-form', {
       eventType: 'submit',
-      handler: this.onLoginSubmit,
+      handler: this.handleTryLogin,
     });
   }
 
-  onLoginSubmit = () => {
+  handleTryLogin = () => {
     const inputEmail = this.$emailInput.value;
     const inputPassword = this.$passwordInput.value;
 
@@ -80,7 +80,7 @@ export default class LoginForm extends Component {
     UserSessionStore.login(this.$emailInput.value, this.$passwordInput.value);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
+  handleUserSessionListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {

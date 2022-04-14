@@ -30,15 +30,15 @@ export default class ProductList extends Component<IProductListProps> {
 
   setEvents() {
     addMultipleEventDelegate(this.$component, 'click', {
-      '.product-update-button': { handler: this.onClickUpdateButton },
-      '.product-update-confirm-button': { handler: this.onClickUpdateConfirmButton },
-      '.product-update-cancel-button': { handler: this.onClickUpdateCancelButton },
-      '.product-delete-button': { handler: this.onClickDeleteButton },
-      '.product-purchase-button': { handler: this.onClickPurchaseButton },
+      '.product-update-button': { handler: this.handleProductEditor },
+      '.product-update-confirm-button': { handler: this.handleSaveEditProduct },
+      '.product-update-cancel-button': { handler: this.handleCancelEditProduct },
+      '.product-delete-button': { handler: this.handleTryRemoveProduct },
+      '.product-purchase-button': { handler: this.handlePurchaseProduct },
     });
   }
 
-  onClickUpdateButton = ({ target: $target }) => {
+  handleProductEditor = ({ target: $target }) => {
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
 
@@ -57,7 +57,7 @@ export default class ProductList extends Component<IProductListProps> {
     $tableRow.replaceWith($template);
   };
 
-  onClickUpdateConfirmButton = ({ target: $target }) => {
+  handleSaveEditProduct = ({ target: $target }) => {
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
     const productIndex = $tableRow.dataset.primaryKey;
@@ -71,11 +71,11 @@ export default class ProductList extends Component<IProductListProps> {
       {},
     );
 
-    const { onProductUpdate } = this.props;
-    typeof onProductUpdate === 'function' && onProductUpdate(productIndex, product);
+    const { handleProductUpdate } = this.props;
+    typeof handleProductUpdate === 'function' && handleProductUpdate(productIndex, product);
   };
 
-  onClickUpdateCancelButton = ({ target: $target }) => {
+  handleCancelEditProduct = ({ target: $target }) => {
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
 
@@ -94,7 +94,7 @@ export default class ProductList extends Component<IProductListProps> {
     $tableRow.replaceWith($template);
   };
 
-  onClickDeleteButton = ({ target: $target }) => {
+  handleTryRemoveProduct = ({ target: $target }) => {
     if (!confirm('정말 해당 상품을 삭제하시겠습니까?')) return;
 
     const $tableRow = $target.closest('tr[data-primary-key]');
@@ -102,12 +102,12 @@ export default class ProductList extends Component<IProductListProps> {
 
     const productIndex = $tableRow.dataset.primaryKey;
 
-    const { onRemoveProduct } = this.props;
-    typeof onRemoveProduct === 'function' && onRemoveProduct(productIndex);
+    const { handleRemoveProduct } = this.props;
+    typeof handleRemoveProduct === 'function' && handleRemoveProduct(productIndex);
     snackbar('상품이 삭제되었습니다.');
   };
 
-  onClickPurchaseButton = ({ target: $target }) => {
+  handlePurchaseProduct = ({ target: $target }) => {
     const $tableRow = $target.closest('tr[data-primary-key]');
     if (!$tableRow) return;
 

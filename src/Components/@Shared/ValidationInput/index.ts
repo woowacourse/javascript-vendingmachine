@@ -34,11 +34,11 @@ export default class ValidationInput extends Component<IValidationInputProps> {
   setEvents() {
     addEventDelegate(this.$component, 'input', {
       eventType: 'change',
-      handler: this.onChangeValue,
+      handler: this.handleValidationCheck,
     });
   }
 
-  onChangeValue = ({ target: $target }) => {
+  handleValidationCheck = ({ target: $target }) => {
     const { isValidationCheck } = this.props;
     if (typeof isValidationCheck !== 'function' || this.$component instanceof DocumentFragment)
       return;

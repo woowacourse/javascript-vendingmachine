@@ -64,8 +64,8 @@ interface ICoinListComponentProps {
 interface IProductListProps {
   caption: string;
   listType: 'manage' | 'purchase';
-  onProductUpdate?(productIndex: number, product: IProduct);
-  onRemoveProduct?(productIndex: number);
+  handleProductUpdate?(productIndex: number, product: IProduct);
+  handleRemoveProduct?(productIndex: number);
 }
 
 interface IAmountInputProps {

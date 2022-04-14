@@ -26,7 +26,7 @@ export default class UserProfileEditForm extends Component {
     super(props);
 
     this.renderMethodList = {
-      userSessionEvent: [this.onUserSessionEventListener],
+      userSessionEvent: [this.handleUserSessionListener],
     };
   }
 
@@ -98,11 +98,11 @@ export default class UserProfileEditForm extends Component {
   setEvents() {
     addEventDelegate(this.$component, '#user-profile-edit-form', {
       eventType: 'submit',
-      handler: this.onUserProfileEditSubmit,
+      handler: this.handleEditUserProfile,
     });
   }
 
-  onUserProfileEditSubmit = () => {
+  handleEditUserProfile = () => {
     const [inputName, inputPassword, inputPasswordConfirm] = [
       this.$nameInput.value,
       this.$passwordInput.value,
@@ -119,7 +119,7 @@ export default class UserProfileEditForm extends Component {
     UserSessionStore.profileChange(inputName, inputPassword);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
+  handleUserSessionListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {

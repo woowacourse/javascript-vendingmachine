@@ -33,11 +33,11 @@ export default class ReturnCoinList extends Component {
   setEvents() {
     addEventDelegate(this.$component, '#return-change-button', {
       eventType: 'click',
-      handler: this.onReturnChargedAmount,
+      handler: this.handleReturnChargedAmount,
     });
   }
 
-  onReturnChargedAmount() {
+  handleReturnChargedAmount() {
     HoldingAmountStore.returnCoins();
   }
 

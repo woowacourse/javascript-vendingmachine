@@ -28,7 +28,7 @@ export default class RegisterForm extends Component {
     super(props);
 
     this.renderMethodList = {
-      userSessionEvent: [this.onUserSessionEventListener],
+      userSessionEvent: [this.handleUserSessionListener],
     };
   }
 
@@ -99,11 +99,11 @@ export default class RegisterForm extends Component {
   setEvents() {
     addEventDelegate(this.$component, '#register-form', {
       eventType: 'submit',
-      handler: this.onRegisterSubmit,
+      handler: this.handleTrySignUp,
     });
   }
 
-  onRegisterSubmit = () => {
+  handleTrySignUp = () => {
     const [inputEmail, inputName, inputPassword, inputPasswordConfirm] = [
       this.$emailInput.value,
       this.$nameInput.value,
@@ -126,7 +126,7 @@ export default class RegisterForm extends Component {
     UserSessionStore.register(inputEmail, inputName, inputPassword);
   };
 
-  onUserSessionEventListener = ({ userSessionEvent }: IStoreState) => {
+  handleUserSessionListener = ({ userSessionEvent }: IStoreState) => {
     const { isDone, isError, message } = userSessionEvent;
 
     if (isDone === false && isError === true) {

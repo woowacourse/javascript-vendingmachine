@@ -13,8 +13,8 @@ export default class PurchaseProductList extends Component {
     return this.createChildComponent<IProductListProps>(ProductList, {
       caption: '구매 가능 상품 현황',
       listType: 'purchase',
-      onProductUpdate: handleProductUpdate,
-      onRemoveProduct: handleRemoveProduct,
+      handleProductUpdate,
+      handleRemoveProduct,
     });
   }
 

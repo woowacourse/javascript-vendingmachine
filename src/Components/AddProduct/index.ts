@@ -18,10 +18,10 @@ export default class AddProduct extends Component {
   }
 
   setEvents() {
-    this.$addForm.addEventListener('submit', this.onSubmitAddProductForm);
+    this.$addForm.addEventListener('submit', this.handleAddProduct);
   }
 
-  onSubmitAddProductForm(event) {
+  handleAddProduct(event) {
     event.preventDefault();
     const $$inputs = $$('input', event.target);
     const product = Array.from($$inputs).reduce((previous, inputElement) => {
