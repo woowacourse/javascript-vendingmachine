@@ -1,0 +1,23 @@
+product-inventory {
+  padding: 0px 64px;
+  tr.is-editing {
+    input {
+      width: calc(100% - 4px);
+      height: auto;
+    }
+    td {
+      padding: 4px 0;
+    }
+  }
+
+  table {
+    @for $i from 1 through 3 {
+      th:nth-child(#{$i}) {
+        width: 20%;
+      }
+    }
+    th:nth-child(4) {
+      width: 40%;
+    }
+  }
+}

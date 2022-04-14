@@ -1,21 +1,18 @@
-import { ACTION, PATH_TO_TAB_DIC } from './constants';
-import createAction from './flux/createAction';
-import Store from './flux/store';
-import { Tab } from './types';
+import RouteComponent from './abstract/route-component';
+import { WhiteList } from './constants';
 
 class Router {
   static _instance?: Router;
 
-  tabContainer?: HTMLElement;
+  private listeners: Array<RouteComponent> = [];
 
   constructor() {
     if (Router._instance) {
       return Router._instance;
     }
+    window.addEventListener('load', this.onLocationChange);
     window.addEventListener('pushstate', this.onLocationChange);
     window.addEventListener('popstate', this.onLocationChange);
-    this.tabContainer = document.querySelector('.tab-container') as HTMLElement;
-    this.onLoad();
   }
 
   static get instance() {
@@ -25,22 +22,37 @@ class Router {
     return Router._instance;
   }
 
-  private onLoad() {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
-  }
-
   static pushState(url: string) {
     history.pushState({}, '', url);
     window.dispatchEvent(new Event('pushstate'));
   }
 
+  addListener(component: RouteComponent) {
+    this.listeners.push(component);
+  }
+
+  getCurrentPath() {
+    const { pathname } = window.location;
+    return pathname;
+  }
+
+  isNotFound() {
+    const currentPath = this.getCurrentPath();
+    return Object.keys(WhiteList).every(
+      (key) => WhiteList[key as keyof typeof WhiteList] !== currentPath
+    );
+  }
+
   onLocationChange = () => {
-    Store.instance.dispatch(createAction(ACTION.CHANGE_ACTIVE_TAB, Router.activeTab()));
+    if (this.isNotFound()) {
+      location.href = location.origin;
+      return;
+    }
+    this.notify();
   };
 
-  static activeTab(): Tab {
-    const { pathname } = window.location;
-    return PATH_TO_TAB_DIC[pathname];
+  notify() {
+    this.listeners.forEach((component) => component.onLocationChange());
   }
 }
 

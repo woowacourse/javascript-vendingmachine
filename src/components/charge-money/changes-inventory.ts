@@ -1,18 +1,21 @@
-import Component from '../abstract/component';
-import { customElement } from '../decorators/decortators';
-import Store from '../flux/store';
-import { CoinRecord } from '../types';
+import Component from '../../abstract/component';
+import { COIN } from '../../constants';
+import { customElement } from '../../decorators/decortators';
+import Store from '../../flux/store';
+import { CoinRecord } from '../../types';
 
 @customElement('changes-inventory')
 class ChangesInventory extends Component {
   coinsTemplate(coins: CoinRecord) {
-    return Object.keys(coins)
-      .map(Number)
+    const units = [...COIN.UNITS].sort((a, b) => b - a);
+    return units
       .map((unit) => {
         return `
         <tr>
-          <td>${unit.toLocaleString('ko-kr')}원</td>
-          <td>${coins[unit].toLocaleString('ko-kr')}개</td>
+          <td>${unit.toLocaleString()}원</td>
+          <td>
+            <span data-test-id="coin-unit-${unit}-quantity">${coins[unit].toLocaleString()}</span>개
+          </td>
         </tr>
       `;
       })
@@ -21,7 +24,7 @@ class ChangesInventory extends Component {
 
   template(coins: CoinRecord): string {
     return `
-      <section class="changes-inventory">
+      <section class="changes-inventory" data-test-id="changes-inventory">
         <h2>자판기가 보유한 동전</h2>
         <table>
           <thead>

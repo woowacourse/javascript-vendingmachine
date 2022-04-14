@@ -8,13 +8,17 @@
 
   <body>
     <div id="app">
-      <header class="mb-13">
-        <h1 class="mb-8">🍿 자판기 🍿</h1>
-        <vendingmachine-navigation></vendingmachine-navigation>
-      </header>
-      <product-manage-tab></product-manage-tab>
-      <charge-money-tab></charge-money-tab>
-      <purchase-product-tab></purchase-product-tab>
+      <vendingmachine-page data-to='[
+        "/",
+        "/vending-machine",
+        "/vending-machine/product-manage",
+        "/vending-machine/charge-money",
+        "/vending-machine/purchase-product"]'>
+      </vendingmachine-page>
+      <login-page data-to='["/login"]'></login-page>
+      <register-page data-to='["/register"]'></register-page>
+      <my-account-page data-to='["/my-account"]'></my-account-page>
+      <side-toast></side-toast>
     </div>
   </body>
 </html>

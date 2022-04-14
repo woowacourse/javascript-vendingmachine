@@ -8,10 +8,11 @@ export type Action = {
 };
 
 export type AppState = {
-  activeTab: Tab;
   chargedMoney: number;
   chargedCoins: CoinRecord;
   productList: Array<ProductItem>;
+  insertedMoney: number;
+  changes: CoinRecord;
 };
 
 export interface ComponentConstructor {
@@ -40,8 +41,32 @@ export type CoinRecord = { [key: number]: number };
 
 export type EventOnElement = Override<Event, { target: HTMLElement }>;
 
-export enum Tab {
-  ProductManageTab = 'product-manage-tab',
-  ChargeMoneyTab = 'charge-money-tab',
-  PurchaseProductTab = 'purchase-product-tab',
+export type UserInfo = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type LoggedInUser = Omit<UserInfo, 'password'>;
+
+export type Feedback = {
+  inputValue: string;
+  hasError: boolean;
+  errorMessage: string;
+  placeholder?: string;
+};
+
+export type FieldSet = {
+  label: string;
+  name: string;
+  placeholder: string;
+  feedback: Feedback;
+  type: 'text' | 'password';
+  disabled: boolean;
+  helptip?: string;
+};
+
+export enum ToastType {
+  Success = 'success',
+  Error = 'error',
 }

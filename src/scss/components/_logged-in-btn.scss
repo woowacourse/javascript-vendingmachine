@@ -1,0 +1,76 @@
+logged-in-btn {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+
+  .btn-dropdown {
+    background-color: $color-cyan-700;
+  }
+  .dropdown-container {
+    position: relative;
+  }
+  .dropdown {
+    &.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    pointer-events: all;
+    opacity: 1;
+    position: absolute;
+    right: 0px;
+    top: 15px;
+    background: $color-cyan-600;
+    width: auto;
+    opacity: 1;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(black, .1);
+    text-align: left;
+    transition: 0.3s ease;
+    padding: 4px 8px 2px 8px;
+    &:after {
+      bottom: 100%;
+      left: 73px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-bottom-color: $color-cyan-600;
+      border-width: 8px;
+      margin-left: -8px;
+    }
+    li {
+      transition: 0.3s ease;
+      white-space: pre;
+      font-size: 14px;
+      line-height: 22px;
+      cursor: pointer;
+      &:hover {
+        color: rgba(black, .5);
+      }
+    }
+    a {
+      color: inherit;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+  
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}

@@ -1,13 +1,25 @@
 @import './variables';
 @import './spacing';
-@import './add-product-form';
 @import './button';
 @import './form';
 @import './typhography';
 @import './flex';
 @import './header';
-@import './charge-money-form';
-@import './changes-inventory';
+@import './components/product-manage/add-product-form';
+@import './components/product-manage/product-inventory';
+@import './components/charge-money/charge-money-form';
+@import './components/charge-money/changes-inventory';
+@import './components/purchase-product/insert-money-form';
+@import './components/purchase-product/product-menu';
+@import './components/purchase-product/release-coin';
+@import './components/login-btn';
+@import './components/logged-in-btn';
+@import './components/back-arrow';
+@import './components/side-toast';
+@import './components/helptip';
+@import './pages/login-page';
+@import './pages/register-page';
+@import './pages/my-account-page';
 
 * {
   box-sizing: border-box;
@@ -18,12 +30,14 @@ body {
 }
 
 #app {
+  position: relative;
   width: 602px;
   margin: 32px auto 0 auto;
   background-color: $color-white;
   border: 1px solid $color-gray-500;
   border-radius: 4px;
-  padding: 44px 0px;
+  padding-bottom: 44px;
+  min-height: 675px;
 }
 
 .w-100 {
@@ -53,4 +67,21 @@ table {
   td.has-btn {
     padding: 4px 0;
   }
+}
+
+.v-center {
+  display: block;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: $color-blue;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

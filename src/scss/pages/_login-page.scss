@@ -1,0 +1,16 @@
+login-page {
+  position: relative;
+  padding: 0 144px 0 156px;
+  fieldset:last-of-type {
+    margin-bottom: 30px;
+  }
+  button {
+    margin-bottom: 14px;
+  }
+  span {
+    margin-right: 10px;
+  }
+  span, a {
+    font-size: 15px;
+  }
+}

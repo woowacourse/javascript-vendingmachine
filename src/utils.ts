@@ -1,18 +1,19 @@
-import { VALIDATION_ERROR_NAME } from './constants';
-import { Indexable } from './types';
+import SnackBar from './components/modules/side-toast';
+import { USER_INFO_KEY, VALIDATION_ERROR_NAME } from './constants';
+import { CoinRecord, Indexable, LoggedInUser, ToastType } from './types';
 
 export const toInt = (str: string, defaultNum = 0) => {
   const val = parseInt(str, 10);
-  return !Number.isNaN(val) ? val : defaultNum;
+  return Number.isNaN(val) ? defaultNum : val;
 };
 
-export const consoleErrorWithConditionalAlert = (
+export const consoleErrorWithConditionalToast = (
   error: Error,
-  errorNameForAlert = VALIDATION_ERROR_NAME
+  errorNameForToast = VALIDATION_ERROR_NAME
 ) => {
   console.error(error);
-  if (error.name === errorNameForAlert) {
-    alert(error.message);
+  if (error.name === errorNameForToast) {
+    toast(ToastType.Error, error.message);
   }
 };
 
@@ -55,4 +56,50 @@ export const deepCopy = (obj: { [key in Indexable]: any }) => {
     }
     return _obj;
   }, initialObj);
+};
+
+export const coinToMoney = (coins: CoinRecord) => {
+  return Object.keys(coins)
+    .map(Number)
+    .reduce((acc, unit) => {
+      return acc + coins[unit] * unit;
+    }, 0);
+};
+
+export const findMaxRepeatingLetterCount = (_str: string) => {
+  const str = _str.trim();
+  let [start, end, max] = [0, 0, 0];
+  while (end < str.length) {
+    if (str[start] === str[end]) {
+      max = Math.max(max, end - start + 1);
+      end += 1;
+    } else {
+      start = end;
+    }
+  }
+  return max;
+};
+
+export const getUserInfoFromLocalStorage = (): LoggedInUser | undefined => {
+  let userInfo = JSON.parse(localStorage.getItem(USER_INFO_KEY) || '{}');
+  if (
+    !Object.prototype.hasOwnProperty.call(userInfo, 'name') ||
+    !Object.prototype.hasOwnProperty.call(userInfo, 'email')
+  ) {
+    userInfo = undefined;
+  }
+  return userInfo;
+};
+
+export const toast = (type: ToastType, message: string) => {
+  const $toast = document.querySelector('side-toast') as SnackBar;
+  if (type === ToastType.Success) {
+    $toast.success(message);
+  } else if (type === ToastType.Error) {
+    $toast.error(message);
+  }
+};
+
+export const krLocaleStringToInt = (str: string) => {
+  return toInt(str.replace(/,/g, ''));
 };
