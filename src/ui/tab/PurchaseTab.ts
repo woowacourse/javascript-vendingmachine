@@ -1,4 +1,4 @@
-import { CustomElement, Notification } from '../CustomElement';
+import { Notification, Tab } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import storage from '../../storage';
 import Product from '../../domain/Product';
@@ -7,7 +7,7 @@ import VendingMachine from '../../domain/VendingMachine';
 import { Safe } from '../../domain/Safe';
 import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY, SUCCESS_MESSAGE } from '../../constants';
 
-class PurchaseTab extends CustomElement {
+class PurchaseTab extends Tab {
   connectedCallback() {
     super.connectedCallback();
     VendingMachine.instance.observe({ key: ELEMENT_KEY.PURCHASE, element: this });

@@ -1,11 +1,11 @@
-import { CustomElement, Notification } from '../CustomElement';
+import { Page, Notification } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import { addEvent, emit, $, showSnackbar } from '../../utils';
 import Authentication from '../../domain/Authentication';
 import { historyRouterPush } from '../../router';
 import { BASE_URL, CUSTOM_EVENT, ELEMENT_KEY } from '../../constants';
 
-class LoginPage extends CustomElement {
+class LoginPage extends Page {
   connectedCallback() {
     super.connectedCallback();
     Authentication.instance.observe({ key: ELEMENT_KEY.LOGIN, element: this });

@@ -1,8 +1,8 @@
-import { CustomElement } from '../CustomElement';
+import { Page } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import { $ } from '../../utils';
 
-class VendingMachinePage extends CustomElement {
+class VendingMachinePage extends Page {
   connectedCallback() {
     super.connectedCallback();
   }

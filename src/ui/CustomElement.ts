@@ -9,7 +9,7 @@ export interface Notification {
   userName?: string;
 }
 
-export class CustomElement extends HTMLElement {
+export class Page extends HTMLElement {
   connectedCallback() {
     this.render();
     this.setEvent();
@@ -27,3 +27,7 @@ export class CustomElement extends HTMLElement {
 
   notify(notification: Notification) {}
 }
+
+export class Tab extends Page {}
+
+export class Menu extends Page {}

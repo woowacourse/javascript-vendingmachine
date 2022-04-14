@@ -1,10 +1,10 @@
-import { CustomElement, Notification } from '../CustomElement';
+import { Page, Notification } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import { addEvent, emit, showSnackbar, $ } from '../../utils';
 import Authentication from '../../domain/Authentication';
 import { CUSTOM_EVENT, ELEMENT_KEY } from '../../constants';
 
-class SignupPage extends CustomElement {
+class SignupPage extends Page {
   connectedCallback() {
     super.connectedCallback();
     Authentication.instance.observe({ key: ELEMENT_KEY.SIGNUP, element: this });

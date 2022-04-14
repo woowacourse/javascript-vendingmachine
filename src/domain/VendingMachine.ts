@@ -1,6 +1,5 @@
 import { CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY } from '../constants';
 import storage from '../storage';
-import { CustomElement } from '../ui/CustomElement';
 import { on, $, showSnackbar } from '../utils';
 import {
   validateChange,
