@@ -10,7 +10,7 @@ export default class LoginPage {
 
   render() {
     replaceHTML($('#app'), this.#template());
-    $('.login-form').addEventListener('submit', this.#loginHandler);
+    $('.login-form').addEventListener('submit', this.#loginSubmitHandler);
     $('.signup-button').addEventListener('click', this.#signupButtonHandler);
   }
 
@@ -28,7 +28,7 @@ export default class LoginPage {
     `;
   }
 
-  #loginHandler = async (e: Event) => {
+  #loginSubmitHandler = async (e: Event) => {
     e.preventDefault();
     if (!(e.target instanceof HTMLFormElement)) return;
 
