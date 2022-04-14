@@ -1,6 +1,11 @@
 import { USER_NAME_RULE } from '../constants';
-import { RegExp } from '../utils/regexp';
 import type { SignupInfo } from '../types';
+
+const RegExp = {
+  password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+  email:
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/,
+};
 
 function isProperLength(name: string) {
   return name.length >= USER_NAME_RULE.MIN && name.length <= USER_NAME_RULE.MAX;
