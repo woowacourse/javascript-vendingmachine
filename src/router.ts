@@ -1,4 +1,5 @@
 import RouteComponent from './abstract/route-component';
+import { WhiteList } from './constants';
 
 class Router {
   static _instance?: Router;
@@ -35,7 +36,18 @@ class Router {
     return pathname;
   }
 
+  isNotFound() {
+    const currentPath = this.getCurrentPath();
+    return Object.keys(WhiteList).every(
+      (key) => WhiteList[key as keyof typeof WhiteList] !== currentPath
+    );
+  }
+
   onLocationChange = () => {
+    if (this.isNotFound()) {
+      location.href = location.origin;
+      return;
+    }
     this.notify();
   };
 
