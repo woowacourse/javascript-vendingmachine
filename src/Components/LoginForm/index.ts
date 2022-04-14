@@ -1,15 +1,8 @@
 import Component from 'Components/Abstract';
 import UserSessionStore from 'Store/UserSessionStore';
 import ValidationInput from 'Components/@Shared/ValidationInput';
-import {
-  $,
-  addEventDelegate,
-  convertStringToElement,
-  isPassEmailRules,
-  routingEvent,
-  validateUserLogin,
-  snackbar,
-} from 'Utils';
+import { $, addEventDelegate, convertStringToElement, routingEvent, snackbar } from 'Utils';
+import { isPassEmailRules, validateUserLogin } from 'Utils/User/validator';
 
 import template from './template.html';
 

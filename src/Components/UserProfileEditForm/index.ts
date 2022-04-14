@@ -1,16 +1,12 @@
 import Component from 'Components/Abstract';
 import ValidationInput from 'Components/@Shared/ValidationInput';
 import UserSessionStore from 'Store/UserSessionStore';
+import { $, addEventDelegate, createTemplate, routingEvent, snackbar } from 'Utils';
 import {
-  $,
-  addEventDelegate,
-  createTemplate,
   isPassPasswordRules,
   isUserNameRules,
-  routingEvent,
-  snackbar,
   validateUserProfileEdit,
-} from 'Utils';
+} from 'Utils/User/validator';
 import { DEFAULT_PAGE } from 'Constants';
 
 import template from './template.html';
