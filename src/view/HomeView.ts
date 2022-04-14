@@ -12,8 +12,8 @@ export class HomeView {
   balanceChargeView: BalanceChargeView;
   target: HTMLDivElement;
 
-  constructor(AppProps: AppProps) {
-    this.app = AppProps.app;
+  constructor(props: AppProps) {
+    this.app = props.app;
     this.nav = document.querySelector('.nav');
     this.productManageNavBtn = document.querySelector('#product-manage-nav-button');
     this.balanceChargeNavBtn = document.querySelector('#charge-balance-nav-button');
@@ -23,7 +23,7 @@ export class HomeView {
     this.balanceChargeNavBtn.addEventListener('click', this.handleShowBalanceChargeTab);
     this.productPurchaseNavBtn.addEventListener('click', this.handleShowProductPurchaseTab);
 
-    this.target = AppProps.contentsContainer;
+    this.target = props.contentsContainer;
   }
 
   hideNav = () => {

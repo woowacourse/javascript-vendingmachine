@@ -43,10 +43,11 @@ export class SignInPage {
           sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
           this.app.dispatchEvent(new CustomEvent('signInOk'));
         });
+
+        this.snackBar.render('로그인 하였습니다');
+        return;
       }
-      if (!res.ok) {
-        this.snackBar.render('올바른 이메일과 비밀번호를 입력해주세요');
-      }
+      this.snackBar.render('올바른 이메일과 비밀번호를 입력해주세요');
     });
   };
 }

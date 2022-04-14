@@ -1,5 +1,4 @@
 import { CoinChangesTable } from '../component/CoinChangesTable';
-import { CoinVaultTable } from '../component/CoinVaultTable';
 import { CustomerMoneyInput } from '../component/CustomerMoneyInput';
 import { ProductCatalogTable } from '../component/ProductCatalogTable';
 import { ProductPurchaseTable } from '../component/ProductPurchaseTable';
@@ -12,13 +11,13 @@ export class ProductPurchaseView {
   productCatalogTable: ProductCatalogTable;
   returnBalanceTable: CoinChangesTable;
 
-  constructor(AppProps: AppProps) {
-    this.contentsContainer = AppProps.contentsContainer;
+  constructor(props: AppProps) {
+    this.contentsContainer = props.contentsContainer;
     const productPurchaseProps = {
-      target: AppProps.contentsContainer,
-      coinVault: AppProps.coinVault,
-      productCatalog: AppProps.productCatalog,
-      snackBar: AppProps.snackBar,
+      target: props.contentsContainer,
+      coinVault: props.coinVault,
+      productCatalog: props.productCatalog,
+      snackBar: props.snackBar,
     };
 
     this.contentsContainer.addEventListener('productPurchaseTabClick', this.showProductPurchaseTab);
@@ -28,6 +27,7 @@ export class ProductPurchaseView {
   }
 
   showProductPurchaseTab = () => {
+    this.pushState();
     this.eraseAll();
     this.renderAll();
   };
@@ -40,5 +40,10 @@ export class ProductPurchaseView {
     this.customerMoneyInput.render();
     this.productPurchaseTable.render();
     this.returnBalanceTable.render();
+  }
+
+  pushState() {
+    const path = '/productPurchase';
+    history.pushState({ path }, '', path);
   }
 }

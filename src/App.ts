@@ -50,29 +50,12 @@ export class App {
 
     this.router = new Router(this);
 
-    this.contentsContainer.addEventListener('productManageTabClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.contentsContainer.addEventListener('balanceChargeTabClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.contentsContainer.addEventListener('productPurchaseTabClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.app.addEventListener('signInClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.app.addEventListener('signUpClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
-    this.app.addEventListener('editInformationClick', (e: Event) => {
-      this.router.pushHistory(e);
-    });
     this.app.addEventListener('signOutClick', (e: Event) => {
       this.homeView.hideNav();
       this.productPurchaseView.showProductPurchaseTab();
-      this.router.pushHistory(e);
+      //this.router.pushHistory(e);
     });
+    /*
     this.app.addEventListener('signInOk', (e: Event) => {
       this.router.pushHistory(e);
     });
@@ -81,7 +64,7 @@ export class App {
     });
     this.app.addEventListener('editInformationOk', (e: Event) => {
       this.router.pushHistory(e);
-    });
+    });*/
 
     this.coinVault = getStorageCoinVault();
     this.productCatalog = getStorageProductCatalog();

@@ -27,13 +27,13 @@ export class CustomerInformationView {
   signUp: HTMLDivElement;
   editCustomerInformation: HTMLDivElement;
 
-  constructor(AppProps) {
-    this.app = AppProps.app;
-    this.nav = AppProps.nav;
-    this.productCatalog = AppProps.productCatalog;
-    this.coinVault = AppProps.coinVault;
-    this.snackBar = AppProps.snackBar;
-    const userInfoProps = { app: AppProps.app, snackBar: AppProps.snackBar };
+  constructor(props) {
+    this.app = props.app;
+    this.nav = props.nav;
+    this.productCatalog = props.productCatalog;
+    this.coinVault = props.coinVault;
+    this.snackBar = props.snackBar;
+    const userInfoProps = { app: props.app, snackBar: props.snackBar };
 
     this.app.addEventListener('signInOk', this.handleSignInOk);
     this.app.addEventListener('signUpOk', this.handleSignIn);
@@ -72,6 +72,7 @@ export class CustomerInformationView {
 
   handleSignIn = () => {
     this.app.dispatchEvent(new CustomEvent('signInClick'));
+    this.pushState('/signIn');
     this.renderSignIn();
   };
 
@@ -85,6 +86,7 @@ export class CustomerInformationView {
 
   handleSignUp = () => {
     this.app.dispatchEvent(new CustomEvent('signUpClick'));
+    this.pushState('/signUp');
     this.renderSignUp();
   };
 
@@ -98,6 +100,7 @@ export class CustomerInformationView {
 
   handleInformationEdit = () => {
     this.app.dispatchEvent(new CustomEvent('editInformationClick'));
+    this.pushState('/editInformation');
     this.renderInformationEdit();
   };
 
@@ -132,5 +135,9 @@ export class CustomerInformationView {
 
   eraseAll() {
     this.app.classList.remove('hide');
+  }
+
+  pushState(path: string) {
+    history.pushState({ path }, '', path);
   }
 }

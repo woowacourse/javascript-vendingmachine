@@ -42,7 +42,7 @@ export class Router {
       this.app.customerInformationView.renderInformationEdit();
     }
   };
-
+  /*
   pushHistory(e: Event) {
     let path = '/';
     if (e.type === 'productManageTabClick') {
@@ -77,7 +77,7 @@ export class Router {
     }
     this.pushHistoryPath(path);
   }
-
+*/
   pushHistoryPath(path: string) {
     history.pushState({ path }, '', path);
   }

@@ -103,7 +103,6 @@ export class CoinVault {
     const result: Coins = { coin500: 0, coin100: 0, coin50: 0, coin10: 0 };
 
     Object.entries(this.coinsQuantity).forEach(([key, possessedQuantity]) => {
-      console.log(key, this.coinsQuantity[key]);
       let needQuantity = Math.floor(this.customerInput / COINS_PRICE_TABLE[key]);
       if (needQuantity > possessedQuantity) {
         result[key] = possessedQuantity;

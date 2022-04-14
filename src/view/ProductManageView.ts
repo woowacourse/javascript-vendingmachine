@@ -9,14 +9,14 @@ export class ProductManageView {
   contentsContainer: HTMLDivElement;
   productCatalog: ProductCatalog;
 
-  constructor(AppProps: AppProps) {
-    this.contentsContainer = AppProps.contentsContainer;
-    this.productCatalog = AppProps.productCatalog;
+  constructor(props: AppProps) {
+    this.contentsContainer = props.contentsContainer;
+    this.productCatalog = props.productCatalog;
 
     const productManageProps = {
-      target: AppProps.contentsContainer,
-      productCatalog: AppProps.productCatalog,
-      snackBar: AppProps.snackBar,
+      target: props.contentsContainer,
+      productCatalog: props.productCatalog,
+      snackBar: props.snackBar,
     };
 
     this.productInformationInput = new ProductInformationInput(productManageProps);
@@ -30,9 +30,15 @@ export class ProductManageView {
   }
 
   showProductManageTab = () => {
+    this.pushState();
     this.eraseAll();
     this.renderAll();
   };
+
+  pushState() {
+    const path = '/productManage';
+    history.pushState({ path }, '', path);
+  }
 
   eraseAll() {
     this.contentsContainer.textContent = '';

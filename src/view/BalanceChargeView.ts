@@ -9,14 +9,14 @@ export class BalanceChargeView {
   coinVault: CoinVault;
   contentsContainer: HTMLDivElement;
 
-  constructor(AppProps: AppProps) {
-    this.contentsContainer = AppProps.contentsContainer;
-    this.coinVault = AppProps.coinVault;
+  constructor(props: AppProps) {
+    this.contentsContainer = props.contentsContainer;
+    this.coinVault = props.coinVault;
 
     const balanceChargeProps = {
-      target: AppProps.contentsContainer,
-      coinVault: AppProps.coinVault,
-      snackBar: AppProps.snackBar,
+      target: props.contentsContainer,
+      coinVault: props.coinVault,
+      snackBar: props.snackBar,
     };
 
     this.balanceChargeInput = new BalanceChargeInput(balanceChargeProps);
@@ -29,9 +29,15 @@ export class BalanceChargeView {
   }
 
   showBalanceChargeTab = () => {
+    this.pushState();
     this.eraseAll();
     this.renderAll();
   };
+
+  pushState() {
+    const path = '/balanceCharge';
+    history.pushState({ path }, '', path);
+  }
 
   eraseAll() {
     this.contentsContainer.textContent = ``;

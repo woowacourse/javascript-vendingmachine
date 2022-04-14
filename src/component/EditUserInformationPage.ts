@@ -1,5 +1,6 @@
 import { UserInfo } from '../interfaces/interface';
 import { SnackBar } from './SnackBar';
+import { SERVER_URL } from '../constants/auth';
 
 export class EditUserInformationPage {
   app: HTMLDivElement;
@@ -44,7 +45,7 @@ export class EditUserInformationPage {
         password: this.pwInput.value,
         id: this.user.id,
       };
-      fetch(`http://localhost:3000/users/${this.user.id}`, {
+      fetch(`${SERVER_URL}/users/${this.user.id}`, {
         method: 'PATCH',
         body: JSON.stringify(newUserData),
         headers: {
