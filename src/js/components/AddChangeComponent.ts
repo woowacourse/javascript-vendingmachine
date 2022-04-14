@@ -1,4 +1,5 @@
 import vendingMachine from '../model/VendingMachine';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class AddChangeComponent {
   $changeAddForm: HTMLElement;
@@ -17,15 +18,12 @@ class AddChangeComponent {
     this.$changeAddForm.addEventListener('submit', this.onSubmitChangeAdd);
   };
 
-  private onSubmitChangeAdd = (e: SubmitEvent) => {
+  private onSubmitChangeAdd = async (e: SubmitEvent) => {
     e.preventDefault();
-    const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
+    const inputChange = (<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).valueAsNumber;
 
-    try {
-      vendingMachine.inputChanges(inputChange);
+    if (await throwableFunctionHandler(() => vendingMachine.inputChanges(inputChange))) {
       this.noticeStateChanged();
-    } catch (message) {
-      alert(message);
     }
   };
 
@@ -39,12 +37,13 @@ class AddChangeComponent {
   };
 
   private template = () => `
-  <div id="change-add-container">
+  <div id="change-add-container" class="single-input-container">
       <p>자판기가 보유할 금액을 입력해주세요</p>
       <form id="change-add-form">
       <input
           type="number"
           id="change-add-input"
+          class="single-input"
           placeholder="금액"
           required
       />

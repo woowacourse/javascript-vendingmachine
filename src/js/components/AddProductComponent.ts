@@ -1,5 +1,6 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class AddProductComponent {
   parentElement: HTMLElement;
@@ -19,24 +20,17 @@ class AddProductComponent {
     this.$productAddForm.addEventListener('submit', this.onSubmitNewProduct);
   };
 
-  private onSubmitNewProduct = (e: SubmitEvent) => {
+  private onSubmitNewProduct = async (e: SubmitEvent) => {
     e.preventDefault();
 
     const name = (<HTMLInputElement>this.$productAddForm.querySelector('#product-name-input')).value;
-    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).value;
-    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).value;
+    const price = (<HTMLInputElement>this.$productAddForm.querySelector('#product-price-input')).valueAsNumber;
+    const amount = (<HTMLInputElement>this.$productAddForm.querySelector('#product-amount-input')).valueAsNumber;
 
-    const newProduct: Product = {
-      name: name,
-      price: parseInt(price),
-      amount: parseInt(amount),
-    };
+    const newProduct: Product = { name, price, amount };
 
-    try {
-      vendingMachine.addProduct(newProduct);
+    if (await throwableFunctionHandler(() => vendingMachine.addProduct(newProduct))) {
       this.noticeStateChanged('add', newProduct);
-    } catch (message) {
-      alert(message);
     }
   };
 

@@ -1,9 +1,9 @@
 @import './global.css';
 @import './font.css';
+@import './snackbar.css';
 
 body {
   width: 100vw;
-  height: 100vh;
   margin: 0;
 }
 
@@ -11,18 +11,30 @@ h1 {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 #app {
+  width: 40%;
+  min-width: 465px;
+  margin: 1rem auto;
+}
+
+.section-container {
   display: flex;
   flex-direction: column;
-  width: 30%;
-  min-width: 465px;
-  margin: auto;
   gap: 20px;
+}
+
+.user-menu {
+  position: relative;
+  text-align: right;
 }
 
 header {
   text-align: center;
-  margin: 40px 0 10px;
+  margin: 0;
 }
 
 nav {
@@ -34,6 +46,13 @@ section {
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
+  gap: 60px;
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
 }
 
 input[type='number']::-webkit-outer-spin-button,
@@ -54,6 +73,11 @@ input[type='submit'] {
   margin-left: 10px;
 }
 
+input:disabled {
+  cursor: not-allowed;
+  background: var(--input-disable-bg-color);
+}
+
 input {
   background-color: var(--primary-input-bg-color);
   outline: 1px solid var(--input-outline-color);
@@ -69,8 +93,84 @@ input:focus {
   border: 1px solid var(--input-border-focus-color);
 }
 
-#change-add-input {
+.hide {
+  visibility: hidden;
+  height: 0;
+}
+
+.user-menu-select-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1;
+  gap: 5px;
+  transition: height 0.5s;
+}
+
+.user-menu-symbol {
+  cursor: pointer;
+  background: linear-gradient(45deg, var(--primary-color), var(--button-hover-color));
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-menu-symbol p {
+  margin: 5px auto;
+}
+
+#user-data-modify {
+  position: absolute;
+  top: 35px;
+}
+
+#logout {
+  position: absolute;
+  top: 75px;
+}
+
+.input-page {
+  width: 60%;
+  text-align: center;
+  margin: auto;
+}
+
+.input-page h1 {
+  margin: 30px;
+}
+
+.multiple-input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  text-align: left;
+}
+
+.multiple-input-form input,
+.multiple-input-form button {
+  display: block;
+  margin: 0 0 20px;
+  padding: 5px;
+  width: auto;
+}
+
+.multiple-input-form .submit-button {
+  margin-top: 30px;
+  padding: 0;
+  height: 35px;
+}
+
+.single-input {
   width: 300px;
+}
+
+.single-input-container {
+  margin: auto;
 }
 
 button {
@@ -94,10 +194,6 @@ h4 {
   text-align: center;
   letter-spacing: 0.15px;
   color: var(--primary-text-color);
-}
-
-#change-add-container {
-  margin: auto;
 }
 
 #product-list-container {
@@ -165,8 +261,15 @@ li {
   justify-content: center;
 }
 
-.product-control-buttons button {
+.product-modify-button,
+.product-remove-button {
   width: 40%;
+  height: 30px;
+  margin-top: -2px;
+}
+
+.product-purchase-button {
+  width: 90%;
   height: 30px;
   margin-top: -2px;
 }

@@ -3,6 +3,7 @@ import ModifyProductComponent from './ModifyProductComponent';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
 import { REMOVE_CONFIRM_MESSAGE } from '../constants';
+import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 
 class ProductListComponent {
   ModifyProductComponent: ModifyProductComponent;
@@ -39,7 +40,7 @@ class ProductListComponent {
     this.ModifyProductComponent.bindEvent();
   };
 
-  private onClickRemoveButton = (e: PointerEvent) => {
+  private onClickRemoveButton = async (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-remove-button') {
       return;
     }
@@ -51,8 +52,9 @@ class ProductListComponent {
     const parentList = (<HTMLElement>e.target).closest('li');
     const name = (<HTMLElement>parentList.querySelector('.product-name')).textContent;
 
-    vendingMachine.removeProduct(name);
-    parentList.remove();
+    if (await throwableFunctionHandler(() => vendingMachine.removeProduct(name))) {
+      parentList.remove();
+    }
   };
 
   private replaceList = (product: Product, component: Function) => {
@@ -69,7 +71,7 @@ class ProductListComponent {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
 
-    li.insertAdjacentHTML('beforeend', ProductItemComponent(product));
+    li.insertAdjacentHTML('beforeend', ProductItemComponent(product, true));
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }
