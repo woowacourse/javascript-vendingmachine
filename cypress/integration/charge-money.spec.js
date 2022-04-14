@@ -2,7 +2,7 @@ import { testid } from '../support/utils';
 import { COIN } from '../../src/constants';
 import { krLocaleStringToInt } from '../../src/utils';
 
-describe('잔돈을 충전한다', () => {
+describe('잔돈을 충전한다 - 성공케이스', () => {
   const email = `${Date.now()}@gmail.com`;
   const name = '윤병인';
   const password = 'Abcde123!';

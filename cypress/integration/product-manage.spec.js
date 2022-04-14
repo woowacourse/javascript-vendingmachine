@@ -1,6 +1,6 @@
 import { testid } from '../support/utils';
 
-describe('상품을 관리 한다', () => {
+describe('상품을 관리 한다 - 성공케이스', () => {
   const email = `${Date.now()}@gmail.com`;
   const name = '윤병인';
   const password = 'Abcde123!';
@@ -15,8 +15,12 @@ describe('상품을 관리 한다', () => {
     cy.login(email, password);
   });
 
-  it('상품을 추가한다', () => {
+  beforeEach(() => {
     cy.restoreLocalStorage();
+    cy.removeProducts();
+  });
+
+  it('상품을 추가한다', () => {
     cy.addProduct(product);
     cy.get(testid`product-inventory-table`)
       .find('tbody tr td:first-of-type span')
@@ -24,17 +28,13 @@ describe('상품을 관리 한다', () => {
   });
 
   it('상품을 수정한다', () => {
-    cy.restoreLocalStorage();
     const product = {
       name: '사이다',
-      price: 1200,
-      quantity: 10,
+      price: 1150,
+      quantity: 8,
     };
-    cy.get(testid`edit-btn`).click();
-    cy.input(`product-inventory ${testid`product-name-input`}`, product.name);
-    cy.input(`product-inventory ${testid`product-price-input`}`, product.price);
-    cy.input(`product-inventory ${testid`product-quantity-input`}`, product.quantity);
-    cy.get(testid`confirm-btn`).click();
+    cy.addProduct(product);
+    cy.editProduct(0, false, product);
     cy.get(`product-inventory ${testid`product-name`}`).should('have.text', product.name);
     cy.get(`product-inventory ${testid`product-price`}`).should(
       'have.text',
@@ -47,7 +47,7 @@ describe('상품을 관리 한다', () => {
   });
 
   it('상품을 삭제한다', () => {
-    cy.restoreLocalStorage();
+    cy.addProduct(product);
     cy.get(testid`delete-btn`).click();
     cy.get('product-inventory table').should('not.exist');
   });

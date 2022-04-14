@@ -19,7 +19,7 @@ class ProductInventory extends Component {
           <td class="has-btn">
             <div class="btn-group">
               <button class="btn xs mr-2 btn-primary btn-confirm" data-test-id="confirm-btn">확인</button>
-              <button class="btn xs btn-outline-primary btn-cancel">취소</button>
+              <button class="btn xs btn-outline-primary btn-cancel" data-test-id="cancel-btn">취소</button>
             </div>
           </td>
         </tr>

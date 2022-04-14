@@ -21,11 +21,11 @@ class AddProductForm extends Component {
           </div>
           <div class="input-container mr-1">
             <label for="product-price-input">가격</label>
-            <input placeholder="가격" name="product-price" id="product-price-input" class="form-control" data-test-id="product-name-price" />
+            <input placeholder="가격" name="product-price" id="product-price-input" class="form-control" data-test-id="product-price-input" />
           </div>
           <div class="input-container mr-4">
             <label for="product-quantity-input">수량</label>
-            <input placeholder="수량" name="product-quantity" id="product-quantity-input" class="form-control" data-test-id="product-name-quantity" />
+            <input placeholder="수량" name="product-quantity" id="product-quantity-input" class="form-control" data-test-id="product-quantity-input" />
           </div>
           <button type="button" class="btn btn-primary" data-test-id="add-product-btn">추가</button>
         </div>

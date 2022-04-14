@@ -15,14 +15,14 @@ class SideToast extends Component {
 
   success(message: string) {
     if (!this.shouldToast(message)) return;
-    const li = `<li class="toast success">${message}</li>`;
+    const li = `<li class="toast success" data-test-id="success-toast-message">${message}</li>`;
     this.$container!.insertAdjacentHTML('beforeend', li);
     this.popLater();
   }
 
   error(message: string) {
     if (!this.shouldToast(message)) return;
-    const li = `<li class="toast error">${message}</li>`;
+    const li = `<li class="toast error" data-test-id="error-toast-message">${message}</li>`;
     this.$container!.insertAdjacentHTML('beforeend', li);
     this.popLater();
   }
@@ -39,12 +39,17 @@ class SideToast extends Component {
   popLater() {
     const messageCount = this.$container?.children.length ?? 0;
     setTimeout(() => {
-      this.$container?.removeChild(this.$container?.children[0]);
+      const child = this.$container?.children[0];
+      child && this.$container?.removeChild(child);
     }, this.delay * messageCount);
   }
 
   shouldSubscribe() {
     return false;
+  }
+
+  clear() {
+    this.querySelector('ul')!.replaceChildren('');
   }
 
   mount() {
