@@ -1,2 +1,9 @@
 # Dependency directories
 node_modules/
+
+# cypress
+cypress/plugins
+cypress/screenshots
+cypress/support
+cypress/videos
+cypress/.DS_Store

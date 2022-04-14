@@ -1,0 +1,33 @@
+@keyframes fadeIn-out {
+  0% {
+    visibility: visible;
+    opacity: 0;
+  }
+  20% {
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.snack-bar {
+  background: #504f5c;
+  border-radius: 11px;
+  text-align: center;
+  animation-duration: 3s;
+  animation-name: fadeIn-out;
+  animation-fill-mode: forwards;
+  position: fixed;
+
+  right: 50%;
+  transform: translateX(50%);
+  bottom: 50px;
+
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 150%;
+  padding: 10px 40px;
+}

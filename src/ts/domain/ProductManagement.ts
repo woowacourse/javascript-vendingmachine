@@ -1,5 +1,5 @@
 import ProductImpl from './Product';
-import { ProductInfo } from './types';
+import type { ProductInfo } from './types';
 
 export default class ProductManagement {
   #products: ProductImpl[];
@@ -26,6 +26,17 @@ export default class ProductManagement {
     this.#products.forEach(product => {
       if (product.name === prevProductName) {
         product.editProduct(newProduct);
+      }
+    });
+  }
+
+  buyProduct(productName) {
+    this.#products.forEach(product => {
+      if (product.name !== productName) return;
+      product.buyProduct();
+
+      if (product.quantity === 0) {
+        this.deleteProduct(productName);
       }
     });
   }

@@ -31,5 +31,8 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-return-assign': 'off',
     'no-continue': 'off',
+    'no-useless-escape': 'off',
+    'no-loop-func': 'off',
+    'consistent-return': 'off',
   },
 };

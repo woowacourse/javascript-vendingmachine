@@ -1,0 +1,25 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  &__email-input {
+    margin-bottom: 16px;
+  }
+
+  &__pw-input {
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    width: 300px;
+    margin-left: 0;
+    margin-bottom: 14px;
+  }
+}
+
+.signup {
+  &-button {
+    color: #3581d7;
+    background-color: transparent;
+    margin-left: 10px;
+  }
+}

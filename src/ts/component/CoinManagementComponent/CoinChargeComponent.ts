@@ -1,6 +1,8 @@
+import { CASH_RULE } from '../../constants';
+import { showSnackbar } from '../../utils';
 import { $ } from '../../utils/dom';
+import { validateNumber } from '../../utils/validator';
 import { viewPainter } from '../ViewPainter';
-import { validateCash } from './validator';
 
 export default class CoinChargeComponent {
   private coinManagement;
@@ -22,9 +24,9 @@ export default class CoinChargeComponent {
     const cash = cashInput.valueAsNumber;
 
     try {
-      validateCash(cash);
+      validateNumber(cash, CASH_RULE);
     } catch ({ message }) {
-      alert(message);
+      showSnackbar(message);
       return;
     }
 

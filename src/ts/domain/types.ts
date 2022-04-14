@@ -1,7 +1,13 @@
-export interface ProductInfo {
+import { coinType } from '../constants';
+
+interface ProductInfo {
   name: string;
   price: number;
   quantity: number;
 }
 
-export type ProductInfoUnionType = keyof ProductInfo;
+type CoinUnionType = typeof coinType[number];
+
+type Coins = Record<CoinUnionType, number> | {};
+
+export type { Coins, CoinUnionType, ProductInfo };
