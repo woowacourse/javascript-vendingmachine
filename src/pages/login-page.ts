@@ -119,9 +119,12 @@ class LoginPage extends RouteComponent {
       this.resetPasswordInput();
       return;
     }
+    this.maybeLogin(feedbacks);
+  };
+
+  async maybeLogin(feedbacks: FeedbackRecord) {
     this.setIsLoading(true);
     const [email, password] = [feedbacks.email.inputValue, feedbacks.password.inputValue];
-
     try {
       const response = await this.login({ email, password });
       this.setIsLoading(false);
@@ -143,7 +146,7 @@ class LoginPage extends RouteComponent {
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
   async login({ email, password }: Omit<UserInfo, 'name'>) {
     return await fetch(`${API_URL}/login`, {
