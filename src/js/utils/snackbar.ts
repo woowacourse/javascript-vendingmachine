@@ -11,7 +11,6 @@ class Snackbar {
     if (this.timerId) {
       clearTimeout(this.timerId);
     }
-
     if (typeof msg === 'object') {
       this.$snackbar.classList.add('error');
       msg = msg.message;

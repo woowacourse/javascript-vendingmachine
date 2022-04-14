@@ -1,6 +1,7 @@
 import { ALERT_MESSAGE, ERROR_MESSAGE, RULES } from '../constants';
 import { Coin, Product } from '../interfaces/VendingMachine.interface';
 import CoinModel from './CoinModel';
+
 import {
   isValidProductPrice,
   isValidProductAmount,
@@ -74,6 +75,7 @@ export class VendingMachine {
   inputChanges(money: number) {
     this.checkInputChangesValidate(money);
     CoinModel.makeChangesToCoin(money, this.vendingMachineMoney);
+
     return ALERT_MESSAGE.ADD_CHARGE_SUCCESS(money);
   }
 
@@ -147,10 +149,26 @@ export class VendingMachine {
       throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
     }
 
+<<<<<<< HEAD
     if (this.userInputMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
       throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
     }
   }
+=======
+    if (this.userMoney + money > RULES.MAX_VENDING_MACHINE_INPUT_MONEY) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_VENDING_MACHINE_INPUT_MONEY);
+    }
+  }
+
+  initialize() {
+    /* 테스트 용도로 작성된 초기화 함수입니다. 실제 로직에선 사용되지 않습니다. */
+    this.products = [];
+    this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    this.userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+    this.totalMoney = 0;
+    this.userMoney = 0;
+  }
+>>>>>>> 59bf0111a48ba352d7e652e94949ec58bf554d7c
 }
 
 const vendingMachine = new VendingMachine();

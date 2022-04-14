@@ -1,4 +1,5 @@
 import UserInfoComponent from '../components/UserInfoComponent';
+
 export default class UserInfo {
   UserInfoComponent: UserInfoComponent;
   $loginInputContainer: HTMLElement;
