@@ -3,7 +3,7 @@ import { markUnit } from './utils';
 export const COINS = [500, 100, 50, 10];
 
 export const BASE_URL = '/javascript-vendingmachine';
-export const SERVER_ORIGIN = 'http://localhost:3000';
+export const SERVER_ORIGIN = 'https://json-auth-server-jz.herokuapp.com';
 
 export const CONFIGURATION = {
   AMOUNT: {
