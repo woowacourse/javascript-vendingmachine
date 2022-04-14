@@ -10,7 +10,8 @@
     "build": "webpack --mode=production",
     "deploy": "gh-pages -d dist",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "server": "json-server-auth user.json"
   },
   "repository": {
     "type": "git",

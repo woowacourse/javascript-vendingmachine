@@ -23,17 +23,18 @@ const getCookie = (name: string) => {
   return matches && decodeURIComponent(matches[1]);
 };
 
-const getUser = async (): Promise<UserInfoWithPassWord | string> => {
+const getUser = async (): Promise<UserInfoWithPassWord> => {
   const userId = getCookie('user_id');
   const accessToken = getCookie('access_token');
 
-  if (!(userId && accessToken)) {
-    return 'not Login';
+  if (!(userId && accessToken)) throw new Error('로그인 되지 않았습니다.');
+
+  try {
+    const user = await API.fetchUser(userId, accessToken);
+    return user;
+  } catch ({ message }) {
+    throw new Error('로그인 되지 않았습니다.');
   }
-
-  const user = await API.fetchUser(userId, accessToken);
-
-  return user;
 };
 
 const snackBarMaker = () => {

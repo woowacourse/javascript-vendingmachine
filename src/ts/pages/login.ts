@@ -38,20 +38,17 @@ export default class LoginPage {
     if (!(emailInput instanceof HTMLInputElement)) return;
     if (!(pwInput instanceof HTMLInputElement)) return;
 
-    const response = await API.login({
-      email: emailInput.value,
-      password: pwInput.value,
-    });
-
-    if (typeof response === 'string') {
-      showSnackbar(response);
-      return;
+    try {
+      const response = await API.login({
+        email: emailInput.value,
+        password: pwInput.value,
+      });
+      document.cookie = `user_id=${response.user.id}`;
+      document.cookie = `access_token=${response.accessToken}`;
+      this.routePage(`${basePath}/`);
+    } catch ({ message }) {
+      showSnackbar(message);
     }
-
-    document.cookie = `user_id=${response.user.id}`;
-    document.cookie = `access_token=${response.accessToken}`;
-
-    this.routePage(`${basePath}/`);
   };
 
   #signupButtonHandler = (e: Event) => {

@@ -52,14 +52,12 @@ export default class HomePage {
     this.$nav.addEventListener('click', this.#navClickHandler);
     this.$loginButton.addEventListener('click', this.#loginButtonHandler);
 
-    const user = await getUser();
-
-    if (typeof user === 'string') {
+    try {
+      const user = await getUser();
+      this.#renderAsLogin(user);
+    } catch ({ message }) {
       this.#renderAsNotLogin();
-      return;
     }
-
-    this.#renderAsLogin(user);
   }
 
   #template() {

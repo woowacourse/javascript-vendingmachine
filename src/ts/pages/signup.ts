@@ -62,18 +62,16 @@ export default class SignupPage {
       return;
     }
 
-    const response = await API.signup(userInfo);
+    try {
+      const response = await API.signup(userInfo);
+      showSnackbar(`${$inputs.name.value}님 회원가입에 성공했습니다.`);
 
-    if (typeof response === 'string') {
-      showSnackbar(response);
-      return;
+      document.cookie = `user_id=${response.user.id}`;
+      document.cookie = `access_token=${response.accessToken}`;
+
+      this.routePage(`${basePath}/`);
+    } catch ({ message }) {
+      showSnackbar(message);
     }
-
-    showSnackbar(`${$inputs.name.value}님 회원가입에 성공했습니다.`);
-
-    document.cookie = `user_id=${response.user.id}`;
-    document.cookie = `access_token=${response.accessToken}`;
-
-    this.routePage(`${basePath}/`);
   };
 }

@@ -46,8 +46,6 @@ describe('관리자 테스트', () => {
     it('관리자에게는 썸네일을 보여준다.', async () => {
       const user = await getUser();
 
-      if (typeof user === 'string') return;
-
       cy.get('.user-thumbnail')
         .should('be.visible')
         .and('have.text', user.name[0]);

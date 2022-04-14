@@ -33,5 +33,6 @@ module.exports = {
     'no-continue': 'off',
     'no-useless-escape': 'off',
     'no-loop-func': 'off',
+    'consistent-return': 'off',
   },
 };

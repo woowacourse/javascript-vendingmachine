@@ -5,12 +5,10 @@ import type {
   UserInfoWithPassWord,
 } from '../ts/types';
 
-type UserResponse =
-  | {
-      user: UserInfo;
-      accessToken: string;
-    }
-  | string;
+type UserResponse = {
+  user: UserInfo;
+  accessToken: string;
+};
 
 export const baseUrl =
   process.env.NODE_ENV === 'production'
@@ -28,6 +26,8 @@ async function fetchUser(
       Authorization: `Bearer ${accessToken}`,
     },
   });
+
+  if (!response.ok) throw new Error('로그인 되지 않았습니다.');
 
   const data: UserInfoWithPassWord = await response.json();
 
@@ -47,6 +47,8 @@ async function login(loginInfo: LoginInfo): Promise<UserResponse> {
     }),
   });
 
+  if (!response.ok) throw new Error('로그인 실패했습니다.');
+
   const data: UserResponse = await response.json();
 
   return data;
@@ -65,6 +67,8 @@ async function signup(signupInfo: SignupInfo): Promise<UserResponse> {
       password,
     }),
   });
+
+  if (!response.ok) throw new Error('회원가입 실패했습니다.');
 
   const data: UserResponse = await response.json();
 
@@ -86,6 +90,8 @@ async function editInfo(
       password,
     }),
   });
+
+  if (!response.ok) throw new Error('회원정보 수정 실패했습니다.');
 
   const data: UserResponse = await response.json();
 

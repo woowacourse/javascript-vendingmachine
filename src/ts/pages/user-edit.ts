@@ -7,17 +7,17 @@ import { $, replaceHTML } from '../utils/dom';
 import { validateUserInfo } from './validator';
 
 export default class UserEditPage {
-  #user: UserInfoWithPassWord | string;
+  #user: UserInfoWithPassWord;
 
   constructor(readonly routePage) {
     this.routePage = routePage;
   }
 
   async render() {
-    this.#user = await getUser();
-
-    if (typeof this.#user === 'string') {
-      showSnackbar('Not Login');
+    try {
+      this.#user = await getUser();
+    } catch ({ message }) {
+      showSnackbar(message);
       this.routePage(`${basePath}/`);
       return;
     }
@@ -27,8 +27,6 @@ export default class UserEditPage {
   }
 
   #template() {
-    if (typeof this.#user === 'string') return ``;
-
     const { email, name } = this.#user;
 
     return `
@@ -78,13 +76,15 @@ export default class UserEditPage {
     }
 
     if (!confirm('회원 정보를 변경하시겠습니까?')) return;
-    if (typeof this.#user === 'string') return;
-    const response = await API.editInfo({
-      ...userInfo,
-      id: this.#user.id,
-    });
 
-    if (typeof response === 'string') return;
-    this.routePage(`${basePath}/`);
+    try {
+      await API.editInfo({
+        ...userInfo,
+        id: this.#user.id,
+      });
+      this.routePage(`${basePath}/`);
+    } catch ({ message }) {
+      showSnackbar(message);
+    }
   };
 }
