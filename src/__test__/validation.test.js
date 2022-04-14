@@ -1,10 +1,11 @@
-import { COIN, ERROR_MESSAGE } from '../constants';
+import { COIN, ERROR_MESSAGE, INSERT_MONEY } from '../constants';
 import Store from '../flux/store';
 import {
   validateChargeCoins,
   validateProductName,
   validateProductPrice,
   validateProductQuantity,
+  validateInsertMoney,
 } from '../validation/validators';
 
 const store = new Store({
@@ -84,5 +85,37 @@ describe('잔돈 충전 시 유효성 검사를 한다.', () => {
     const money = '20000';
     const { errorMessage } = validateChargeCoins(money, 90000);
     expect(errorMessage).toBe(ERROR_MESSAGE.OVER_MAX_CHARGE_MONEY);
+  });
+});
+
+describe('상품 구매를 위해 돈을 투입 시 유효성 검사를 한다.', () => {
+  test('빈 값을 허용하지 않는다.', () => {
+    const [money, insertedMoney] = ['', 0];
+    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    expect(errorMessage).toBe(ERROR_MESSAGE.EMPTY_INSERT_MONEY);
+  });
+
+  test('숫자만 입력 가능하다.', () => {
+    const [money, insertedMoney] = ['10,00', 0];
+    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    expect(errorMessage).toBe(ERROR_MESSAGE.NOT_NUMBER_INSERT_MONEY);
+  });
+
+  test('양수이어야 한다.', () => {
+    const [money, insertedMoney] = ['-100', 0];
+    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    expect(errorMessage).toBe(ERROR_MESSAGE.NEGATIVE_CHARGE_MONEY);
+  });
+
+  test('10원으로 나누어 떨어지는 금액만 투입할 수 있다.', () => {
+    const [money, insertedMoney] = ['1111', 0];
+    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    expect(errorMessage).toBe(ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_INSERT_MONEY);
+  });
+
+  test(`최대 투입 금액은 ${INSERT_MONEY.MAX.toLocaleString()}`, () => {
+    const [money, insertedMoney] = ['5000', 6000];
+    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    expect(errorMessage).toBe(ERROR_MESSAGE.OVER_MAX_INSERT_MONEY);
   });
 });
