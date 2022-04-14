@@ -1,8 +1,8 @@
-import CoinStoreInstance from '../../domains/stores/CoinStore';
 import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import CoinStoreInstance from '../../domains/stores/CoinStore';
 
-class CoinCurrentSituation extends CustomElement {
+class CoinCurrentState extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     CoinStoreInstance.subscribe(this);
@@ -12,7 +12,7 @@ class CoinCurrentSituation extends CustomElement {
     return `
       <p>현재 보유 금액: <span class="money">0</span>원</p>
       <h2>자판기가 보유한 동전</h2>
-      <table class="coin-current-situation">
+      <table class="coin-current-state">
         <thead>
           <tr>
             <th>동전</th>
@@ -51,6 +51,6 @@ class CoinCurrentSituation extends CustomElement {
   }
 }
 
-customElements.define('coin-current-situation', CoinCurrentSituation);
+customElements.define('coin-current-state', CoinCurrentState);
 
-export default CoinCurrentSituation;
+export default CoinCurrentState;

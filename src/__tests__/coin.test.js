@@ -1,5 +1,6 @@
 import CoinStoreInstance from '../domains/stores/CoinStore';
 import { createAction, COIN_ACTION } from '../domains/actions';
+
 import { COIN, MONEY } from '../constants';
 
 describe('잔돈을 충전할 수 있다.', () => {
@@ -13,7 +14,8 @@ describe('잔돈을 충전할 수 있다.', () => {
       100: COIN.DEFAULT_COUNT,
       50: COIN.DEFAULT_COUNT,
       10: COIN.DEFAULT_COUNT,
-      sum: 0,
+      sum: MONEY.DEFAULT,
+      money_input: MONEY.DEFAULT,
     };
 
     expect(CoinStoreInstance.coinsCount).toStrictEqual(initCoinsCount);

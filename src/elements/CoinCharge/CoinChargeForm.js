@@ -1,21 +1,20 @@
-import CoinStoreInstance from '../../domains/stores/CoinStore';
 import { COIN_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
-import CustomElement from '../../abstracts/CustomElement';
 import { $ } from '../../utils/dom';
+import showSnackbar from '../../utils/showSnackbar';
+
 import { checkCoinValidation } from '../../validators';
+import { SUCCESS } from '../../constants';
+import CustomElement from '../../abstracts/CustomElement';
 
 class CoinChargeForm extends CustomElement {
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
   template() {
     return `
       <form class="coin-charge-form">
         <label class="coin-charge-label" for="coin-input">자판기가 보유할 금액을 입력해주세요.</label>
         <input type="number" id="coin-input" placeholder="금액" required>
-        <button class="coin-charge-button">충전</button>
+        <button class="coin-charge-button button">충전</button>
       </form>
     `;
   }
@@ -32,11 +31,12 @@ class CoinChargeForm extends CustomElement {
     try {
       checkCoinValidation(coinInputValue);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
       return;
     }
+    showSnackbar(SUCCESS.COIN_CHARGE);
     this.initCoinInput($coinInput);
-    CoinStoreInstance.dispatchAction(COIN_ACTION.COIN_CHARGE, coinInputValue);
+    dispatcher(COIN_ACTION.COIN_CHARGE, coinInputValue);
   };
 
   initCoinInput($coinInput) {

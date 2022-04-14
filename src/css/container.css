@@ -2,6 +2,10 @@
   margin-top: 4px;
 }
 
+#user-manager-container {
+  width: 300px;
+}
+
 .product-name-input,
 .product-price-input,
 .product-quantity-input {
@@ -9,18 +13,29 @@
   height: 36px;
 }
 
-.product-add-button,
-.coin-charge-button {
-  width: 56px;
-  height: 36px;
-  margin-left: 14px;
+.button {
   background: var(--cyan);
   color: var(--white);
 }
 
-.product-add-button:hover,
-.coin-charge-button:hover {
+.button:hover {
   background: var(--cyan-dark);
+}
+
+.product-add-button,
+.coin-charge-button,
+.purchase-money-button {
+  width: 56px;
+  height: 36px;
+  margin-left: 14px;
+}
+
+.login-confirm-button,
+.signup-confirm-button,
+.info-confirm-button {
+  width: 300px;
+  height: 36px;
+  margin-top: 30px;
 }
 
 h2 {
@@ -29,7 +44,7 @@ h2 {
   font-size: 20px;
 }
 
-.product-current-situation-container {
+.product-current-state-container {
   height: 285px;
   overflow-y: auto;
 }
@@ -55,22 +70,117 @@ td {
   margin-right: 6px;
 }
 
-.table__product-modify-confirm-button {
+.table__product-modify-confirm-button,
+.product-return-change-button,
+.table__product-purchase-button {
   width: 100px;
   height: 32px;
 }
 
-.coin-charge-label {
+.product-return-change-button {
   display: block;
-  margin-bottom: 4px;
+  margin: 16px auto 0;
 }
 
-#coin-input {
+label {
+  display: block;
+  margin: 16px 0 4px;
+}
+
+#coin-input,
+#purchase-money-input {
   width: 300px;
   height: 36px;
   margin-bottom: 16px;
 }
 
-.coin-current-situation {
+.coin-current-state,
+.product-return-change-state {
   width: 238px;
+}
+
+.long-input {
+  width: 300px;
+  height: 36px;
+  border-radius: 4px;
+}
+
+.login-form {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.password-label {
+  margin-top: 16px;
+}
+
+.signup-suggest-container {
+  margin-top: 14px;
+}
+
+.signup {
+  color: var(--blue-text);
+  text-decoration: none;
+}
+
+#snackbar {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+}
+
+.show {
+  visibility: visible !important;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.8s;
+  animation: fadein 0.5s, fadeout 0.5s 2.8s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
 }

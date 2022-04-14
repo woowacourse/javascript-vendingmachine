@@ -1,13 +1,13 @@
 import CustomElement from '../../abstracts/CustomElement';
 
 import './ProductAddForm';
-import './ProductCurrentSituation';
+import './ProductCurrentState';
 
 class ProductManageContainer extends CustomElement {
   template() {
     return `
       <product-add-form></product-add-form>
-      <product-current-situation></product-current-situation>
+      <product-current-state></product-current-state>
     `;
   }
 }

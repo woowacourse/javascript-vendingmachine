@@ -1,12 +1,15 @@
 import ProductStoreInstance from '../../domains/stores/ProductStore';
 import { PRODUCT_ACTION } from '../../domains/actions';
+import dispatcher from '../../domains/dispatcher';
 
-import CustomElement from '../../abstracts/CustomElement';
 import { $, $$ } from '../../utils/dom';
-import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
-import { CONFIRM_MESSAGE } from '../../constants';
+import showSnackbar from '../../utils/showSnackbar';
 
-class ProductCurrentSituation extends CustomElement {
+import { checkDuplicateProductWhenModify, checkProductValidation } from '../../validators';
+import { CONFIRM_MESSAGE, SUCCESS } from '../../constants';
+import CustomElement from '../../abstracts/CustomElement';
+
+class ProductCurrentState extends CustomElement {
   connectedCallback() {
     super.connectedCallback();
     ProductStoreInstance.subscribe(this);
@@ -15,8 +18,8 @@ class ProductCurrentSituation extends CustomElement {
   template() {
     return `
       <h2>상품 현황</h2>
-      <div class="product-current-situation-container">
-        <table class="product-current-situation">
+      <div class="product-current-state-container">
+        <table class="product-current-state">
           <thead>
             <tr>
               <th>상품명</th>
@@ -34,7 +37,7 @@ class ProductCurrentSituation extends CustomElement {
   rerender({ type, detail }) {
     switch (type) {
       case PRODUCT_ACTION.ADD:
-        $('tbody', $('.product-current-situation')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
+        $('tbody', $('.product-current-state')).insertAdjacentHTML('beforeend', this.tableBodyRowTemplate(detail));
         this.setEventAfterRerender(detail.name);
         break;
       case PRODUCT_ACTION.MODIFY: {
@@ -56,10 +59,20 @@ class ProductCurrentSituation extends CustomElement {
         this.setEventAfterRerender(newProductInfo.name);
         break;
       }
-      case PRODUCT_ACTION.DELETE:
+      case PRODUCT_ACTION.DELETE: {
         $(`[data-product-name="${detail}"]`).remove();
+        break;
+      }
+      case PRODUCT_ACTION.PURCHASE: {
+        const $tbodyRow = $(`[data-product-name="${detail}"]`);
+        this.updateProductQuantity($tbodyRow);
+      }
     }
   }
+
+  updateProductQuantity = ($tbodyRow) => {
+    $('.product-quantity-td', $tbodyRow).textContent -= 1;
+  };
 
   tableBodyRowTemplate({ name, price, quantity }) {
     return ` 
@@ -141,7 +154,7 @@ class ProductCurrentSituation extends CustomElement {
     try {
       this.modifyProduct($tbodyRow);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   };
 
@@ -149,7 +162,7 @@ class ProductCurrentSituation extends CustomElement {
     try {
       this.modifyProduct($tbodyRow);
     } catch (error) {
-      alert(error.message);
+      showSnackbar(error.message);
     }
   };
 
@@ -167,16 +180,18 @@ class ProductCurrentSituation extends CustomElement {
 
     checkProductValidation(newProductInfo);
 
-    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
+    dispatcher(PRODUCT_ACTION.MODIFY, { oldProductName, newProductInfo });
+    showSnackbar(SUCCESS.PRODUCT_MODIFY);
   }
 
   handleProductDeleteButtonClick = (productName) => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    ProductStoreInstance.dispatchAction(PRODUCT_ACTION.DELETE, productName);
+    dispatcher(PRODUCT_ACTION.DELETE, productName);
+    showSnackbar(SUCCESS.PRODUCT_DELETE);
   };
 }
 
-customElements.define('product-current-situation', ProductCurrentSituation);
+customElements.define('product-current-state', ProductCurrentState);
 
-export default ProductCurrentSituation;
+export default ProductCurrentState;
