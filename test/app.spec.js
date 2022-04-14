@@ -1,3 +1,5 @@
+import { USER_SESSION_SETTING } from 'Constants';
+
 const testSetting = {
   userEmail: `${Math.random().toString(36)}@compy.life`,
   userPassword: 'compyIsFree123',
@@ -9,6 +11,10 @@ describe('1. 회원 시스템 사용 순서 테스트', () => {
   before(() => {
     cy.clearLocalStorageSnapshot();
     cy.visit('http://localhost:9000');
+
+    Cypress.Cookies.defaults({
+      preserve: USER_SESSION_SETTING.TOKEN_COOKIE_NAME,
+    });
   });
 
   beforeEach(() => {
@@ -21,6 +27,7 @@ describe('1. 회원 시스템 사용 순서 테스트', () => {
 
   it('1. 첫 접속 시 비로그인 상태여야하며, 로그인 버튼이 출력되어야 한다.', () => {
     cy.get('#user-login-button').should('be.visible');
+    cy.getCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME).should('exist');
   });
 
   it('2. 로그인 버튼을 누르면 로그인 화면이 출력되어야 한다.', () => {
@@ -41,7 +48,7 @@ describe('1. 회원 시스템 사용 순서 테스트', () => {
     cy.get('.snackbar-container').should('be.visible');
   });
 
-  it('5. 회원 정보를 입력 후 로그인이 되어야 한다.', () => {
+  it('5. 회원 정보를 입력한 직후 가입한 계정으로 로그인이 되어있어야 한다.', () => {
     cy.get('#register-form-section').enterUserLoginInfo({
       email: testSetting.userEmail,
       password: testSetting.userPassword,
@@ -54,6 +61,9 @@ describe('1. 회원 시스템 사용 순서 테스트', () => {
 
     cy.get('#register-form-submit-button').click();
     cy.get('#user-info-profile').should('be.visible');
+
+    console.log(cy.getCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME));
+    cy.getCookie(USER_SESSION_SETTING.TOKEN_COOKIE_NAME).should('not.be.null');
   });
 
   it('6. 프로필을 클릭한 후 추가 메뉴를 열 수 있어야 한다.', () => {
