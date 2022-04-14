@@ -13,7 +13,9 @@ class ChangesInventory extends Component {
         return `
         <tr>
           <td>${unit.toLocaleString()}원</td>
-          <td>${coins[unit].toLocaleString()}개</td>
+          <td>
+            <span data-test-id="coin-unit-${unit}-quantity">${coins[unit].toLocaleString()}</span>개
+          </td>
         </tr>
       `;
       })
@@ -22,7 +24,7 @@ class ChangesInventory extends Component {
 
   template(coins: CoinRecord): string {
     return `
-      <section class="changes-inventory">
+      <section class="changes-inventory" data-test-id="changes-inventory">
         <h2>자판기가 보유한 동전</h2>
         <table>
           <thead>

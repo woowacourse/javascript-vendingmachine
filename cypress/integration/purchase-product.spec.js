@@ -1,7 +1,7 @@
 import { coinToMoney, krLocaleStringToInt } from '../../src/utils';
 import { testid } from '../support/utils';
 
-describe('상품 관리를 한다', () => {
+describe('상품을 구매한다', () => {
   const email = `${Date.now()}@gmail.com`;
   const name = '윤병인';
   const password = 'Abcde123!';
@@ -18,22 +18,6 @@ describe('상품 관리를 한다', () => {
     cy.login(email, password);
   });
 
-  it('상품을 추가한다', () => {
-    cy.restoreLocalStorage();
-    cy.addProduct(product);
-    cy.get(testid`product-inventory-table`)
-      .find('tbody tr td:first-of-type span')
-      .contains(product.name);
-  });
-
-  it('잔돈을 충전한다', () => {
-    cy.restoreLocalStorage();
-    cy.chargeMoney(chargedMoney);
-    cy.get(testid`charged-money`)
-      .invoke('text')
-      .should('eq', chargedMoney.toLocaleString());
-  });
-
   it('돈을 투입한다', () => {
     cy.restoreLocalStorage();
     cy.insertMoney(insertedMoney);
@@ -44,6 +28,8 @@ describe('상품 관리를 한다', () => {
 
   it('상품을 구매한다', () => {
     cy.restoreLocalStorage();
+    cy.addProduct(product); // 상품 추가
+    cy.chargeMoney(chargedMoney); // 잔돈 충전
     cy.purchaseProduct(product);
     cy.get(testid`purchase-btn`).click();
     cy.get(`${testid`product-price`} span`)

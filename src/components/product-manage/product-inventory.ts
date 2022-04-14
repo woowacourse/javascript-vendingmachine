@@ -13,12 +13,12 @@ class ProductInventory extends Component {
     if (isEditing) {
       return `
         <tr class="is-editing">
-          <td><input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}"/></td>
-          <td><input class="form-control" placeholder="가격" value="${price}"/></td>
-          <td><input class="form-control" placeholder="수량" value="${quantity}"/></td>
+          <td><input class="form-control" placeholder="상풍명" value="${name}" data-original-name="${name}" data-test-id="product-name-input"/></td>
+          <td><input class="form-control" placeholder="가격" value="${price}" data-test-id="product-price-input"/></td>
+          <td><input class="form-control" placeholder="수량" value="${quantity}" data-test-id="product-quantity-input"/></td>
           <td class="has-btn">
             <div class="btn-group">
-              <button class="btn xs mr-2 btn-primary btn-confirm">확인</button>
+              <button class="btn xs mr-2 btn-primary btn-confirm" data-test-id="confirm-btn">확인</button>
               <button class="btn xs btn-outline-primary btn-cancel">취소</button>
             </div>
           </td>
@@ -27,13 +27,13 @@ class ProductInventory extends Component {
     }
     return `
       <tr>
-        <td><span>${name}</span></td>
-        <td><span>${price.toLocaleString()}</span>원</td>
-        <td><span>${quantity.toLocaleString()}</span>개</td>
+        <td><span data-test-id="product-name">${name}</span></td>
+        <td><span data-test-id="product-price">${price.toLocaleString()}</span>원</td>
+        <td><span data-test-id="product-quantity">${quantity.toLocaleString()}</span>개</td>
         <td class="has-btn">
           <div class="btn-group">
-            <button class="btn xs mr-2 btn-secondary btn-edit">수정</button>
-            <button class="btn xs btn-secondary btn-delete">삭제</button>
+            <button class="btn xs mr-2 btn-secondary btn-edit" data-test-id="edit-btn">수정</button>
+            <button class="btn xs btn-secondary btn-delete" data-test-id="delete-btn">삭제</button>
           </div>
         </td>
       </tr>
