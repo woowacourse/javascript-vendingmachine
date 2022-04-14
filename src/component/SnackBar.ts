@@ -6,9 +6,11 @@ export class SnackBar {
 
   render(comment: string) {
     this.snackBarContainer.innerText = comment;
-    this.snackBarContainer.classList.toggle('show');
-    setTimeout(() => {
+    if (!this.snackBarContainer.classList.contains('show')) {
       this.snackBarContainer.classList.toggle('show');
-    }, 3000);
+      setTimeout(() => {
+        this.snackBarContainer.classList.toggle('show');
+      }, 3000);
+    }
   }
 }
