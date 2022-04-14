@@ -2,3 +2,7 @@
 node_modules/
 
 dist
+
+cypress/videos
+cypress/plugins
+cypress/screenshots

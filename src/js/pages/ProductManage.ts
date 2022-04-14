@@ -2,8 +2,11 @@ import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
 import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 import template from '../template/index';
+import showSnackbar from '../components/Snackbar';
 
 export default class ProductManage {
+  private tabName = 'ProductManage';
+  $headerTitle: HTMLElement;
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $productAddForm: HTMLElement;
@@ -16,7 +19,13 @@ export default class ProductManage {
 
   render() {
     this.$inputSection.insertAdjacentHTML('beforeend', template.productManageContainer());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.productListContainer());
+    this.$contentsContainer.insertAdjacentHTML(
+      'beforeend',
+      template.productListContainer({ tabName: this.tabName, title: '상품 현황' }),
+    );
+
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$headerTitle.textContent = '🍿 자판기 🍿';
 
     this.$productAddForm = this.$inputSection.querySelector('#product-add-form');
     this.$productList = this.$contentsContainer.querySelector('#product-list');
@@ -40,8 +49,8 @@ export default class ProductManage {
     try {
       vendingMachine.addProduct(newProduct);
       this.renderProductItem(newProduct);
-    } catch (message) {
-      alert(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 
@@ -82,8 +91,8 @@ export default class ProductManage {
 
       const newLi = this.replaceList(product, template.productItem);
       ul.replaceChild(newLi, oldLi);
-    } catch (message) {
-      alert(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 

@@ -8,17 +8,27 @@
 
   <body>
     <div id="app">
-      <header>
-        <h1>🍿 자판기 🍿</h1>
-        <nav>
+      <header id="header-container">
+        <h1 id="header-title">🍿 자판기 🍿</h1>
+        <nav id="header-tab">
           <button type="button" id="product-manage-button">상품 관리</button>
           <button type="button" id="change-add-button">잔돈 충전</button>
           <button type="button" id="product-purchase-button">상품 구매</button>
         </nav>
       </header>
       <section class="input-section"></section>
-
       <section class="contents-container"></section>
+      <div id="account-nav-container">
+        <button id="account-login-button" type="button">로그인하기</button>
+        <div id="account-dropdown-container">
+          <select id="dropdown-select">
+            <option value="" id="name-thumbnail" class="dropdown-select-list-item hide" disabled selected></option>
+            <option value="edit-profile" class="dropdown-select-list-item">회원 정보 수정</option>
+            <option value="logout" class="dropdown-select-list-item">로그아웃</option>
+          </select>
+        </div>
+      </div>
     </div>
+    <div id="snackbar"></div>
   </body>
 </html>

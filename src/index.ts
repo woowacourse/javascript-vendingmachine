@@ -1,22 +1,68 @@
 import './css/index';
-import routes from './js/routes';
+import router from './js/router/index';
 
-routes();
-
-const productManageButton = document.querySelector('#product-manage-button');
-const changeAddButton = document.querySelector('#change-add-button');
-// const btn3 = document.querySelector('#product-purchase-button');
-
-productManageButton.addEventListener('click', () => {
-  history.pushState({}, '상품 관리하기', window.location.pathname + '#!/product-manage');
-  routes();
-});
-
-changeAddButton.addEventListener('click', () => {
-  history.pushState({}, '잔돈 채우기', window.location.pathname + '#!/change-add');
-  routes();
-});
+import { Path } from './js/interfaces/Router.interface';
+import { TAB_IDS } from './js/constants';
 
 window.addEventListener('popstate', function () {
-  routes();
+  router.back();
 });
+
+const pathString = (tabId: string) => `#!/${tabId.replace('-button', '')}` as Path;
+
+class App {
+  $headerTab: HTMLElement;
+  $accountLoginButton: HTMLButtonElement;
+  $dropdownNav: HTMLSelectElement;
+
+  constructor() {
+    this.$headerTab = document.querySelector('#header-tab');
+    this.$accountLoginButton = document.querySelector('#account-login-button');
+    this.$dropdownNav = document.querySelector('#dropdown-select');
+
+    this.$accountLoginButton.addEventListener('click', this.onClickLogin);
+    this.$headerTab.addEventListener('click', this.onClickTab);
+    this.$dropdownNav.addEventListener('change', this.onSelectNav);
+
+    const { hash } = window.location;
+    hash === '' ? router.to('#!/product-purchase') : router.to(hash as Path);
+  }
+
+  onClickLogin = (e: PointerEvent) => {
+    router.to('#!/login');
+  };
+
+  onSelectNav = (e: Event) => {
+    if (!(e.target instanceof HTMLSelectElement)) return;
+
+    const { value } = e.target;
+    e.target.selectedIndex = 0;
+
+    if (value === 'edit-profile') {
+      router.to('#!/edit-profile');
+    }
+
+    if (value === 'logout') {
+      localStorage.clear();
+      router.to('#!/product-purchase');
+    }
+  };
+
+  onClickTab = (e: PointerEvent) => {
+    if (!(e.target instanceof HTMLButtonElement)) return;
+
+    const idSelector = e.target.id;
+    if (!TAB_IDS.includes(idSelector)) return;
+
+    switch (idSelector) {
+      case 'product-manage-button':
+        return router.to(pathString(idSelector));
+      case 'change-add-button':
+        return router.to(pathString(idSelector));
+      case 'product-purchase-button':
+        return router.to(pathString(idSelector));
+    }
+  };
+}
+
+new App();

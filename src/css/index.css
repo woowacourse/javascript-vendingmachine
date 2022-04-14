@@ -1,9 +1,15 @@
 @import './global.css';
+@import './dialog.css';
+@import './login.css';
 
 body {
   width: 100vw;
   height: 100vh;
   margin: 0;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  letter-spacing: 0.5px;
 }
 
 h1 {
@@ -11,12 +17,14 @@ h1 {
 }
 
 #app {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 30%;
   min-width: 465px;
   margin: auto;
   gap: 20px;
+  /* border: 1px solid blue; */
 }
 
 header {
@@ -68,7 +76,7 @@ input:focus {
   border: 1px solid var(--input-border-focus-color);
 }
 
-#change-add-input {
+#money-add-input {
   width: 300px;
 }
 
@@ -96,12 +104,13 @@ h4 {
   color: var(--primary-text-color);
 }
 
-#change-add-container {
+#money-add-container {
   margin: auto;
 }
 
 #product-list-container {
   width: 100%;
+  margin: 20px 0 30px;
 }
 
 #product-list-wrapper {
@@ -172,7 +181,8 @@ li {
   margin-top: -4px;
 }
 
-.product-modify-submit-button {
+.product-modify-submit-button,
+.product-purchase-submit-button {
   width: 90%;
   margin-top: -8px;
 }
@@ -200,4 +210,103 @@ li {
   letter-spacing: 0.5px;
   color: var(--primary-text-color);
   border-top: 1px solid var(--list-border-color);
+}
+
+#account-nav-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+#dropdown-select {
+  width: 40px;
+  height: 40px;
+  background-color: #d6f4f8;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  overflow: hidden;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#dropdown-select::-ms-expand {
+  display: none;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+}
+
+.show {
+  visibility: visible !important; /* Show the snackbar */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.7s;
+  animation: fadein 0.5s, fadeout 0.5s 2.7s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -30px;
+    opacity: 0;
+  }
 }

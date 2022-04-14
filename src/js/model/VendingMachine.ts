@@ -6,6 +6,8 @@ import {
   isValidProductNameLength,
   isUnitOfTen,
   isPositiveInteger,
+  isValidPutMoney,
+  isValidChangeCoins,
 } from './validator';
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
@@ -14,15 +16,21 @@ class VendingMachine {
   private changes: Coin;
   private products: Array<Product>;
   private totalMoney: number;
+  private userMoney: number;
 
   constructor() {
     this.changes = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
     this.products = [];
     this.totalMoney = 0;
+    this.userMoney = 0;
   }
 
   getChanges() {
     return this.changes;
+  }
+
+  getProduct(name: string) {
+    return this.products[this.findProductIndex(name)];
   }
 
   getProducts() {
@@ -31,6 +39,58 @@ class VendingMachine {
 
   getTotalMoney() {
     return this.totalMoney;
+  }
+
+  getUserMoney() {
+    return this.userMoney;
+  }
+
+  getUserChanges() {
+    const { userChanges, userMoney } = this.getUserChangeCoins(this.userMoney);
+    this.checkUserChangeValidate(this.userMoney, userChanges);
+
+    const changedMoney = this.userMoney - userMoney;
+
+    this.totalMoney -= changedMoney;
+    this.userMoney = userMoney;
+
+    return userChanges;
+  }
+  private checkUserChangeValidate(userMoney: number, userChanges: Coin) {
+    if (!isValidPutMoney(userMoney)) {
+      throw new Error(ERROR_MESSAGE.EMPTY_PUT_MONEY);
+    }
+
+    if (!isValidChangeCoins(userChanges)) {
+      throw new Error(ERROR_MESSAGE.EMPTY_CHANGES);
+    }
+  }
+
+  getUserChangeCoins(userMoney: number) {
+    const coinBox = RULES.CHANGE_UNITS;
+    const userChanges = { coin10: 0, coin50: 0, coin100: 0, coin500: 0 };
+
+    coinBox.forEach(coin => {
+      const changeKey = `coin${coin}`;
+      const changeAmount = this.changes[changeKey];
+      const count = Math.floor(userMoney / coin);
+
+      if (userMoney <= 0 || changeAmount <= 0) return;
+
+      if (count >= changeAmount) {
+        this.changes[changeKey] -= changeAmount;
+        userChanges[changeKey] += changeAmount;
+        userMoney -= changeAmount * coin;
+      }
+
+      if (count < changeAmount) {
+        this.changes[changeKey] -= count;
+        userChanges[changeKey] += count;
+        userMoney -= count * coin;
+      }
+    });
+
+    return { userChanges, userMoney };
   }
 
   addChange(money: number) {
@@ -82,14 +142,41 @@ class VendingMachine {
     return coins[index];
   }
 
-  addProduct(product: Product) {
-    this.checkProductValidate(product);
-    this.products.push(product);
+  putMoney(money: number) {
+    this.checkUserMoneyValidate(money);
+    this.userMoney += money;
   }
 
-  modifyProduct(oldProductName: string, newProduct: Product) {
+  private checkUserMoneyValidate(money: number) {
+    if (!isPositiveInteger(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_POSITIVE_INTEGER);
+    }
+
+    if (!isUnitOfTen(money)) {
+      throw new Error(ERROR_MESSAGE.IS_NOT_UNIT_OF_TEN);
+    }
+
+    if (this.userMoney + money > RULES.MAX_USER_MONEY) {
+      throw new Error(ERROR_MESSAGE.TOO_MUCH_USER_MONEY);
+    }
+  }
+
+  purchaseProduct(newProduct: Product, quantity: number) {
+    const { name, price } = newProduct;
+    this.modifyProduct(name, newProduct, false);
+    this.userMoney -= quantity * price;
+  }
+
+  addProduct(product: Product) {
+    this.checkProductValidate(product);
+
+    const newProducts = this.products.concat(product);
+    this.setProducts(newProducts);
+  }
+
+  modifyProduct(oldProductName: string, newProduct: Product, canValidCheck = true) {
     const oldProductIndex = this.findProductIndex(oldProductName);
-    this.checkProductValidate(newProduct, oldProductIndex);
+    if (canValidCheck) this.checkProductValidate(newProduct, oldProductIndex);
     this.products[oldProductIndex] = newProduct;
   }
 
@@ -98,8 +185,13 @@ class VendingMachine {
     const isExist = productIndex >= 0;
 
     if (isExist) {
-      this.products.splice(productIndex, 1);
+      const newProducts = this.products.filter((v, index) => index !== productIndex);
+      this.setProducts(newProducts);
     }
+  }
+
+  private setProducts(products: Array<Product>) {
+    this.products = products;
   }
 
   private findProductIndex(name: string) {

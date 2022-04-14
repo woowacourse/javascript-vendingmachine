@@ -1,16 +1,15 @@
+import ChangeListWrapper from '../components/ChangeListWrapper';
+import showSnackbar from '../components/Snackbar';
 import vendingMachine from '../model/VendingMachine';
 import template from '../template';
 
 export default class ChangeAdd {
+  private tabName: 'ChangeAdd';
+  $headerTitle: HTMLElement;
   $inputSection: HTMLElement;
   $contentsContainer: HTMLElement;
   $changeAddForm: HTMLElement;
   $totalChange: HTMLElement;
-  $changeList: HTMLElement;
-  $amountCoin500: HTMLElement;
-  $amountCoin100: HTMLElement;
-  $amountCoin50: HTMLElement;
-  $amountCoin10: HTMLElement;
 
   constructor() {
     this.$inputSection = document.querySelector('.input-section');
@@ -18,42 +17,47 @@ export default class ChangeAdd {
   }
 
   render() {
-    this.$inputSection.insertAdjacentHTML('beforeend', template.changeAddContainer());
-    this.$contentsContainer.insertAdjacentHTML('beforeend', template.changeListWrapper());
+    this.$inputSection.insertAdjacentHTML(
+      'beforeend',
+      template.moneyAddContainer({
+        labelText: '자판기가 보유할 금액을 입력해주세요',
+        buttonText: '충전',
+        resultText: '현재 보유 금액',
+      }),
+    );
 
-    this.$changeAddForm = this.$inputSection.querySelector('#change-add-form');
-    this.$totalChange = this.$inputSection.querySelector('#total-change');
-    this.$changeList = this.$contentsContainer.querySelector('#change-list');
+    ChangeListWrapper.createElement({
+      targetElement: this.$contentsContainer,
+      title: '자판기가 보유한 동전',
+      tabName: this.tabName,
+    });
 
-    this.$amountCoin500 = this.$changeList.querySelector('#amount-coin-500');
-    this.$amountCoin100 = this.$changeList.querySelector('#amount-coin-100');
-    this.$amountCoin50 = this.$changeList.querySelector('#amount-coin-50');
-    this.$amountCoin10 = this.$changeList.querySelector('#amount-coin-10');
+    this.$headerTitle = document.querySelector('#header-title');
+    this.$headerTitle.textContent = '🍿 자판기 🍿';
+
+    this.$changeAddForm = this.$inputSection.querySelector('#money-add-form');
+    this.$totalChange = this.$inputSection.querySelector('#total-money');
 
     this.$changeAddForm.addEventListener('submit', this.onSubmitChangeAdd);
-
     this.refreshChange();
   }
 
   onSubmitChangeAdd = (e: SubmitEvent) => {
     e.preventDefault();
-    const inputChange = parseInt((<HTMLInputElement>this.$changeAddForm.querySelector('#change-add-input')).value);
+    const inputChange = (<HTMLInputElement>this.$changeAddForm.querySelector('#money-add-input')).valueAsNumber;
 
     try {
       vendingMachine.addChange(inputChange);
       this.refreshChange();
-    } catch (message) {
-      alert(message);
+    } catch (err) {
+      showSnackbar(err.message);
     }
   };
 
   refreshChange() {
-    this.$totalChange.textContent = vendingMachine.getTotalMoney().toString();
-    const { coin10, coin50, coin100, coin500 } = vendingMachine.getChanges();
+    this.$totalChange.textContent = vendingMachine.getTotalMoney().toLocaleString();
 
-    this.$amountCoin500.textContent = coin500 + '개';
-    this.$amountCoin100.textContent = coin100 + '개';
-    this.$amountCoin50.textContent = coin50 + '개';
-    this.$amountCoin10.textContent = coin10 + '개';
+    const changes = vendingMachine.getChanges();
+    ChangeListWrapper.setState(changes);
   }
 }
