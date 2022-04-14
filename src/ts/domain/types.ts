@@ -8,6 +8,6 @@ interface ProductInfo {
 
 type CoinUnionType = typeof coinType[number];
 
-type Coins = Record<CoinUnionType, number>;
+type Coins = Record<CoinUnionType, number> | {};
 
 export type { Coins, CoinUnionType, ProductInfo };
