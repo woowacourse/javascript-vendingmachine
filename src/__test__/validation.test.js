@@ -59,25 +59,25 @@ describe('상품 추가 시 유효성 검사를 한다.', () => {
 describe('잔돈 충전 시 유효성 검사를 한다.', () => {
   test('잔돈 입력 시 빈 값을 허용하지 않는다.', () => {
     const money = '';
-    const { errorMessage } = validateChargeCoins(money, 0);
+    const { errorMessage } = validateChargeCoins(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.EMPTY_CHARGE_MONEY);
   });
 
   test('잔돈은 숫자만 입력 가능하다.', () => {
     const money = 'airman55';
-    const { errorMessage } = validateChargeCoins(money, 0);
+    const { errorMessage } = validateChargeCoins(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NOT_NUMBER_CHARGE_MONEY);
   });
 
   test('잔돈은 양수이어야 한다.', () => {
     const money = '-100';
-    const { errorMessage } = validateChargeCoins(money, 0);
+    const { errorMessage } = validateChargeCoins(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NEGATIVE_CHARGE_MONEY);
   });
 
   test('잔돈은 10원으로 나누어 떨어지는 금액만 투입할 수 있다.', () => {
     const money = '1231';
-    const { errorMessage } = validateChargeCoins(money, 0);
+    const { errorMessage } = validateChargeCoins(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_CHARGE_MONEY);
   });
 
@@ -90,26 +90,26 @@ describe('잔돈 충전 시 유효성 검사를 한다.', () => {
 
 describe('상품 구매를 위해 돈을 투입 시 유효성 검사를 한다.', () => {
   test('빈 값을 허용하지 않는다.', () => {
-    const [money, insertedMoney] = ['', 0];
-    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    const money = '';
+    const { errorMessage } = validateInsertMoney(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.EMPTY_INSERT_MONEY);
   });
 
   test('숫자만 입력 가능하다.', () => {
-    const [money, insertedMoney] = ['10,00', 0];
-    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    const money = '10,00';
+    const { errorMessage } = validateInsertMoney(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NOT_NUMBER_INSERT_MONEY);
   });
 
   test('양수이어야 한다.', () => {
-    const [money, insertedMoney] = ['-100', 0];
-    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    const money = '-100';
+    const { errorMessage } = validateInsertMoney(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NEGATIVE_CHARGE_MONEY);
   });
 
   test('10원으로 나누어 떨어지는 금액만 투입할 수 있다.', () => {
-    const [money, insertedMoney] = ['1111', 0];
-    const { errorMessage } = validateInsertMoney(money, insertedMoney);
+    const money = '1111';
+    const { errorMessage } = validateInsertMoney(money);
     expect(errorMessage).toBe(ERROR_MESSAGE.NOT_DIVIDED_BY_TEN_INSERT_MONEY);
   });
 

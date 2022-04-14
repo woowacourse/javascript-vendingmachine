@@ -62,7 +62,7 @@ export const validateProduct = (
   ];
 };
 
-export const validateChargeCoins = (money: string, chargedMoney: number) => {
+export const validateChargeCoins = (money: string, chargedMoney = 0) => {
   const isEmptyMoney = !money;
   if (isEmptyMoney) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_CHARGE_MONEY);
 
@@ -80,7 +80,7 @@ export const validateChargeCoins = (money: string, chargedMoney: number) => {
   return new ValidationResult(false);
 };
 
-export const validateInsertMoney = (money: string, insertedMoney: number) => {
+export const validateInsertMoney = (money: string, insertedMoney = 0) => {
   const isEmptyMoney = !money;
   if (isEmptyMoney) return new ValidationResult(true, ERROR_MESSAGE.EMPTY_INSERT_MONEY);
 
