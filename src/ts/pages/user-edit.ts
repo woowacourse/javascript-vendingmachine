@@ -1,6 +1,6 @@
 import { API } from '../../apis';
 
-import { basePath } from '../../App';
+import { basePath, ROUTER } from '../../App';
 import type { SignupInfo, UserInfoWithPassWord } from '../types';
 import { focusOnInvalidInput, getUser, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
@@ -18,7 +18,7 @@ export default class UserEditPage {
       this.#user = await getUser();
     } catch ({ message }) {
       showSnackbar(message);
-      this.routePage(`${basePath}/`);
+      this.routePage(ROUTER.HOME);
       return;
     }
 
@@ -82,7 +82,7 @@ export default class UserEditPage {
         ...userInfo,
         id: this.#user.id,
       });
-      this.routePage(`${basePath}/`);
+      this.routePage(ROUTER.HOME);
     } catch ({ message }) {
       showSnackbar(message);
     }

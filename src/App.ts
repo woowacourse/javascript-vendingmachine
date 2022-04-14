@@ -8,6 +8,10 @@ export type routePageType = (pathname: string) => void;
 export const basePath =
   process.env.NODE_ENV === 'production' ? '/javascript-vendingmachine' : '';
 
+export const ROUTER = {
+  HOME: `${basePath}/`,
+};
+
 export default class App {
   readonly #loginPage: LoginPage;
   readonly #homePage: HomePage;

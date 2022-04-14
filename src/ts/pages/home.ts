@@ -2,7 +2,7 @@ import CoinManagement from '../domain/CoinManagement';
 import MoneyManagement from '../domain/MoneyManagement';
 import ProductManagement from '../domain/ProductManagement';
 import { $, $$, replaceHTML } from '../utils/dom';
-import { basePath } from '../../App';
+import { basePath, ROUTER } from '../../App';
 import CoinManagementComponent from '../component/CoinManagementComponent';
 import ProductManagementComponent from '../component/ProductManagementComponent';
 import ProductPurchaseComponent from '../component/ProductPurchaseComponent';
@@ -194,7 +194,7 @@ export default class HomePage {
     document.cookie = 'user_id=';
     document.cookie = 'access_token=';
 
-    this.routePage(`${basePath}/`);
+    this.routePage(ROUTER.HOME);
   };
 
   #editClickHandler = () => {

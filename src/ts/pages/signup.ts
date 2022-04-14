@@ -1,5 +1,5 @@
 import { API } from '../../apis';
-import { basePath } from '../../App';
+import { basePath, ROUTER } from '../../App';
 import type { SignupInfo } from '../types';
 import { focusOnInvalidInput, showSnackbar } from '../utils';
 import { $, replaceHTML } from '../utils/dom';
@@ -69,7 +69,7 @@ export default class SignupPage {
       document.cookie = `user_id=${response.user.id}`;
       document.cookie = `access_token=${response.accessToken}`;
 
-      this.routePage(`${basePath}/`);
+      this.routePage(ROUTER.HOME);
     } catch ({ message }) {
       showSnackbar(message);
     }

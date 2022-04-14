@@ -1,6 +1,6 @@
 import { API } from '../../apis';
 import { $, replaceHTML } from '../utils/dom';
-import { basePath } from '../../App';
+import { basePath, ROUTER } from '../../App';
 import { showSnackbar } from '../utils';
 
 export default class LoginPage {
@@ -45,7 +45,7 @@ export default class LoginPage {
       });
       document.cookie = `user_id=${response.user.id}`;
       document.cookie = `access_token=${response.accessToken}`;
-      this.routePage(`${basePath}/`);
+      this.routePage(ROUTER.HOME);
     } catch ({ message }) {
       showSnackbar(message);
     }
