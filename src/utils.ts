@@ -1,3 +1,16 @@
+import { Page } from './ui/CustomElement';
+
+type CustomElementTag =
+  | 'login-page'
+  | 'profile-edit-page'
+  | 'signup-page'
+  | 'product-management-tab'
+  | 'charge-tab'
+  | 'purchase-tab'
+  | 'user-menu';
+
+type ElementType<T> = T extends CustomElementTag ? Page : Element;
+
 export const pickRandomElement = <T>(array: T[]): T => {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -32,7 +45,10 @@ export const addEvent = (component: Element, eventType: string, selector: string
   });
 };
 
-export const $ = (selector: string, scope: Element | Document = document) => scope.querySelector(selector);
+export const $ = <T extends CustomElementTag | string>(
+  selector: T,
+  scope: Element | Document = document,
+): ElementType<T> => scope.querySelector(selector);
 
 export const $$ = (selector: string, scope: Element | Document = document) =>
   Array.from(scope.querySelectorAll(selector));

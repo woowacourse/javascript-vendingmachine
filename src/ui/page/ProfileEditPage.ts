@@ -2,13 +2,11 @@ import { Page, Notification } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import storage from '../../storage';
 import { addEvent, emit, $, showSnackbar } from '../../utils';
-import Authentication from '../../domain/Authentication';
-import { SUCCESS_MESSAGE, ELEMENT_KEY, CUSTOM_EVENT } from '../../constants';
+import { SUCCESS_MESSAGE, CUSTOM_EVENT } from '../../constants';
 
 class ProfileEditPage extends Page {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.observe({ key: ELEMENT_KEY.PROFILE_EDIT, element: this });
   }
 
   render() {

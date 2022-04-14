@@ -1,14 +1,12 @@
 import { Notification, Tab } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import { $, addEvent, emit, markUnit } from '../../utils';
-import VendingMachine from '../../domain/VendingMachine';
 import storage from '../../storage';
-import { COINS, CUSTOM_EVENT, ELEMENT_KEY } from '../../constants';
+import { COINS, CUSTOM_EVENT } from '../../constants';
 
 class ChargeTab extends Tab {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe({ key: ELEMENT_KEY.CHARGE, element: this });
   }
 
   render() {

@@ -20,15 +20,6 @@ interface VendingMachineProperty {
 }
 
 class VendingMachine implements VendingMachineProperty {
-  static _instance: VendingMachine | null = null;
-
-  static get instance() {
-    if (!VendingMachine._instance) {
-      VendingMachine._instance = new VendingMachine();
-    }
-    return VendingMachine._instance;
-  }
-
   amount: Safe;
   userAmount = 0;
   products: Product[];

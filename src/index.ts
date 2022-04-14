@@ -10,3 +10,5 @@ import './ui/page/ProfileEditPage';
 import './ui/UserMenu';
 
 import './router';
+
+import './interface';

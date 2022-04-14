@@ -3,14 +3,12 @@ import TEMPLATE from '../templates';
 import { addEvent, $ } from '../utils';
 import { historyRouterPush } from '../router';
 import storage from '../storage';
-import Authentication from '../domain/Authentication';
 import { Notification } from './CustomElement';
-import { ELEMENT_KEY, BASE_URL } from '../constants';
+import { BASE_URL } from '../constants';
 
 class UserMenu extends Menu {
   connectedCallback() {
     super.connectedCallback();
-    Authentication.instance.observe({ key: ELEMENT_KEY.USER_MENU, element: this });
   }
 
   render() {

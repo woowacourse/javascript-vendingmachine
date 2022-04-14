@@ -6,15 +6,6 @@ import { ELEMENT_KEY, BASE_URL, SERVER_ORIGIN, CUSTOM_EVENT } from '../constants
 import { Dispatch, Observer } from './types';
 
 class Authentication {
-  static _instance: Authentication | null = null;
-
-  static get instance() {
-    if (!Authentication._instance) {
-      Authentication._instance = new Authentication();
-    }
-    return Authentication._instance;
-  }
-
   observers: Observer[] = [];
 
   dispatch({ key, action, userName }: Dispatch) {

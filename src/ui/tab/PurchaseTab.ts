@@ -3,14 +3,12 @@ import TEMPLATE from '../../templates';
 import storage from '../../storage';
 import Product from '../../domain/Product';
 import { $, $$, markUnit, addEvent, emit, showSnackbar } from '../../utils';
-import VendingMachine from '../../domain/VendingMachine';
 import { Safe } from '../../domain/Safe';
-import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, ELEMENT_KEY, SUCCESS_MESSAGE } from '../../constants';
+import { COINS, CUSTOM_EVENT, ELEMENT_ACTION, SUCCESS_MESSAGE } from '../../constants';
 
 class PurchaseTab extends Tab {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe({ key: ELEMENT_KEY.PURCHASE, element: this });
   }
 
   render() {

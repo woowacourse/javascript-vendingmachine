@@ -1,15 +1,13 @@
 import { Notification, Tab } from '../CustomElement';
 import TEMPLATE from '../../templates';
 import { $, addEvent, deleteSeparator, emit, markUnit } from '../../utils';
-import VendingMachine from '../../domain/VendingMachine';
 import Product from '../../domain/Product';
 import storage from '../../storage';
-import { ELEMENT_KEY, CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../../constants';
+import { CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../../constants';
 
 class ProductManagementTab extends Tab {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe({ key: ELEMENT_KEY.PRODUCT, element: this });
   }
 
   render() {

@@ -1,5 +1,8 @@
 import { Safe } from '../domain/Safe';
 import Product from '../domain/Product';
+import { ELEMENT_KEY } from '../constants';
+import VendingMachine from '../domain/VendingMachine';
+import Authentication from '../domain/Authentication';
 
 export interface Notification {
   action: string;
@@ -13,6 +16,10 @@ export class Page extends HTMLElement {
   connectedCallback() {
     this.render();
     this.setEvent();
+  }
+
+  inject(domain: VendingMachine | Authentication, elementKey: ELEMENT_KEY) {
+    domain.observe({ key: elementKey, element: this });
   }
 
   render() {
