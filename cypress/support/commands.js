@@ -23,21 +23,30 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import { setCookie } from '../../src/ts/cookie/cookie';
-import { SET_PRODUCT, SET_EDIT_PRODUCT } from '../integration/testConstant';
-import { COOKIE_ID } from '../../src/ts/constants/cookie';
+import {
+  VALID,
+  SET_PRODUCT,
+  SET_EDIT_PRODUCT,
+} from '../integration/testConstant';
+import pickRandomIndex from '../../src/ts/utils/utils';
 
 Cypress.Commands.add('setSignIn', () => {
-  setCookie(
-    COOKIE_ID.USER,
-    JSON.stringify({
-      id: 1,
-      name: '꼬재',
-      accessToken:
-        '%22%3A%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGZAZ21haWwuY29tIiwiaWF0IjoxNjQ5MjIyODExLCJleHAiOjE2NDkyMjY0MTEsInN1YiI6IjgifQ.4Gdm73HKwY3C2Mqi9nl8GrxLM2pfrb_LStYq3pXXnzM%22%7D',
-    }),
-    3600
-  );
+  const randomEmail = `${pickRandomIndex(0, 1000000000)}@gmail.com`;
+
+  cy.get('.sign-in-button').click();
+  cy.get('.sign-in-section__sign-up-button').click();
+
+  cy.get('.sign-up-form__email-input').clear().type(randomEmail);
+  cy.get('.sign-up-form__name-input').clear().type(VALID.NAME);
+  cy.get('.sign-up-form__password-input').clear().type(VALID.PASSWORD);
+  cy.get('.sign-up-form__password-confirm-input').clear().type(VALID.PASSWORD);
+  cy.wait(2000);
+  cy.get('.sign-up-form__verify-button').click();
+
+  cy.get('.sign-in-form__email-input').clear().type(randomEmail);
+  cy.get('.sign-in-form__password-input').clear().type(VALID.PASSWORD);
+
+  cy.get('.sign-in-form__verify-button').click();
 });
 
 Cypress.Commands.add('setProduct', () => {

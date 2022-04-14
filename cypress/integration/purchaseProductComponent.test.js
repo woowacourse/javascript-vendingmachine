@@ -5,8 +5,8 @@ describe('상품 구매 하기 E2E 테스트', () => {
   const remainMoney = chargeMoney - SET_PRODUCT.PRODUCT_PRICE;
 
   before(() => {
-    cy.setSignIn();
     cy.visit('/');
+    cy.setSignIn();
 
     cy.get('.nav__product-button').click();
     cy.setProduct();

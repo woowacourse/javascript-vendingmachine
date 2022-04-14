@@ -4,8 +4,8 @@ import { SNACK_BAR_DELAY_TIME } from '../../src/ts/constants/snackBar';
 
 describe('상품 관리 탭 E2E 테스트', () => {
   before(() => {
-    cy.setSignIn();
     cy.visit('/');
+    cy.setSignIn();
   });
 
   it('상품관리 탭에서 상품명, 상품 가격, 상품 수량을 입력하고 추가 버튼을 누르면 상품이 정상적으로 등록된 상품을 확인할 수 있다.', () => {
