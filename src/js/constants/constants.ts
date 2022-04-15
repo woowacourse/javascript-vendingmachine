@@ -1,4 +1,4 @@
-import { SelectorType, CoinsConstantType } from '../types/constants';
+import { SelectorType, CoinsConstantType, IsLogInType } from '../types/constants';
 
 export const SELECTOR: SelectorType = {
   ID: {
@@ -157,3 +157,5 @@ export const enum SNACK_BAR_MESSAGE {
   CHANGE_CHARGED = '잔돈이 충전되었습니다.',
   MONEY_INPUT = '금액을 투입하였습니다.',
 }
+
+export const IsLogIn: IsLogInType = 'isLogIn';

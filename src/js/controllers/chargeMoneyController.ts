@@ -3,6 +3,7 @@ import VendingMachine from '../vendingMachine/vendingMachine';
 import { MoneyDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent } from '../utils/common';
+import { IsLogIn } from '../constants/constants';
 
 export default class ChargeMoneyController implements Controller {
   private vendingMachine: VendingMachine;
@@ -21,7 +22,7 @@ export default class ChargeMoneyController implements Controller {
 
   private handleChargeMoney = (event: CustomEvent) => {
     const { inputMoney }: MoneyDetailType = event.detail;
-    const isLogin = sessionStorage.getItem('isLogIn') === 'true' ? true : false;
+    const isLogin = sessionStorage.getItem(IsLogIn) === 'true' ? true : false;
 
     this.vendingMachine.chargeOwnMoney(inputMoney);
 

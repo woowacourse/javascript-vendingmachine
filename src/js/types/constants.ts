@@ -30,3 +30,5 @@ export type CustomEventType =
   | 'SIGN_UP'
   | 'CHANGE_USER_INFO'
   | 'PURCHASE_ITEM';
+
+export type IsLogInType = 'isLogIn';
