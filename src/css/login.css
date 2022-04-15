@@ -1,0 +1,35 @@
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label {
+  display: block;
+  margin-top: 16px;
+}
+
+.form-button {
+  display: block;
+  width: 300px;
+  margin: 0;
+  margin-top: 30px;
+}
+
+input.form-input {
+  width: 300px;
+  margin-top: 4px;
+}
+
+.register-introduction-wrapper {
+  margin-top: 14px;
+}
+
+.login-register {
+  margin-left: 10px;
+  color: #3581d7;
+}
+
+.login-register:hover {
+  cursor: pointer;
+}

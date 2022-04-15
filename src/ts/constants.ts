@@ -1,7 +1,13 @@
-export const PATH_ID = {
-  PRODUCT_MANAGE: '/javascript-vendingmachine/#!/product-manage',
-  RECHARGE: '/javascript-vendingmachine/#!/recharge',
-  PURCHASE_PRODUCT: '/javascript-vendingmachine/#!/purchase-product',
+export const TAB_ID = {
+  PRODUCT_MANAGE: '/#!/product-manage',
+  RECHARGE: '/#!/recharge',
+  PURCHASE_PRODUCT: '/#!/purchase-product',
+};
+
+export const PAGE_ID = {
+  LOGIN: '/#!/login',
+  REGISTER: '/#!/register',
+  USERINFO_EDIT: '/#!/user-info-edit',
 };
 
 export const ERROR_MESSAGE = {
@@ -15,6 +21,27 @@ export const ERROR_MESSAGE = {
   EXCEED_HOLDING_MONEY: '보유할 수 있는 최대 금액은 10만원입니다.',
   UNDER_MIN_RECHARGING_MONEY: '충전할 금액은 10원 이상이어야 합니다.',
   NOT_INTEGER: '정수를 입력하셔야 합니다.',
+  MONTY_UNIT: '금액은 10의 배수여야 합니다.',
+  EXCEED_PURCHASE_MONEY: '구입할 금액 투입은 최대 10,000원 입니다.',
+  UNDER_MIN_PURCHASE_MONEY: '구입할 금액 투입은 10원 이상이어야 합니다.',
+  NOT_ENOUGH_MONEY: '투입한 금액이 부족합니다.',
+  NOT_ENOUGH_RECHARGE: '자판기가 보유한 동전이 없습니다.',
+  REGISTER_ERROR: '이미 가입된 이메일입니다.',
+  USER_NAME_LENGTH: '이름은 2 ~ 6자로 입력해야 합니다.',
+  USER_PASSWORD_LENGTH: '비밀번호는 4 ~ 10자로 입력해야 합니다.',
+  PASSWORD_CHECK: '비밀번호 확인이 입력한 비밀번호와 일치하지 않습니다.',
+};
+
+export const SUCCESS_MESSAGE = {
+  ADD_PRODUCT: '상품을 성공적으로 추가했습니다.',
+  EDIT_PRODUCT: '상품을 성공적으로 수정했습니다.',
+  DELETE_PRODUCT: '상품을 성공적으로 삭제했습니다.',
+  RECHARGE_MONEY: '잔돈을 성공적으로 충전했습니다.',
+  ADD_PURCHASE_MONEY: '성공적으로 투입했습니다.',
+  PURCHASE_PRODUCT: '상품을 성공적으로 구매했습니다.',
+  RETURN_COIN: '잔돈을 성공적으로 반환했습니다.',
+  REGISTER: '회원가입을 성공적으로 완료했습니다.',
+  LOGIN: '로그인을 성공적으로 완료했습니다.',
 };
 
 export const CONFIRM_MESSAGE = {
@@ -29,12 +56,23 @@ export const VENDING_MACHINE_RULE = {
   UNIT: 10,
   MAX_HOLDING_MONEY: 100000,
   MIN_RECHARGING_MONEY: 10,
+  MAX_PURCHASE_MONEY: 10000,
+  MIN_PURCHASE_MONEY: 10,
+};
+
+export const USER_RULE = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 6,
+  MIN_PASSWORD_LENGTH: 4,
+  MAX_PASSWORD_LENGTH: 10,
 };
 
 export const STORAGE_ID = {
   MONEY: 'money',
   PRODUCTS: 'products',
-  CURRENT_TAB: 'current-tab',
+  CURRENT_VIEW: 'current-view',
+  PURCHASE_MONEY: 'purchase-money',
+  LOGIN: 'login',
 };
 
 export const COIN = {
@@ -46,4 +84,11 @@ export const COIN = {
 
 export const FLAG = {
   POP_STATE: true,
+};
+
+export const SERVER_ENTRY = 'http://localhost:3000';
+
+export const API_QUERY = {
+  REGISTER: '/register',
+  LOGIN: '/login',
 };

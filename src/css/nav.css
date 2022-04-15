@@ -28,3 +28,60 @@
 .tab-label:hover {
   cursor: pointer;
 }
+
+div.login-wrapper {
+  display: flex;
+}
+
+button.login-button {
+  width: 117px;
+  margin-left: 65%;
+  margin-top: 11px;
+}
+
+div.profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d6f4f8;
+  margin-left: 65%;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 11px;
+  user-select: none;
+}
+
+div.profile:hover {
+  cursor: pointer;
+}
+
+ul.profile-menu {
+  position: absolute;
+  top: 4%;
+  margin-left: 65%;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  user-select: none;
+}
+
+li.profile-list {
+  border-bottom: 1px solid white;
+  font-size: 11pt;
+  padding: 10px;
+}
+
+li.profile-list:hover {
+  background-color: rgba(0, 188, 212, 0.16);
+  cursor: pointer;
+}
+
+li.edit-profile:hover {
+  border-radius: 10px 10px 0 0;
+}
+
+li.logout:hover {
+  border-radius: 0 0 10px 10px;
+}

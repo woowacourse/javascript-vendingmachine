@@ -1,5 +1,7 @@
 import { VendingMachineInterface } from '../domain/VendingMachine';
 import { $ } from '../utils';
+import { alertSnackBar } from '../snackbar';
+import { COIN, SUCCESS_MESSAGE } from '../constants';
 
 export interface RechargeViewInterface {
   $rechargeForm: HTMLFormElement;
@@ -28,14 +30,14 @@ export default class RechargeView implements RechargeViewInterface {
   vendingMachine: VendingMachineInterface;
 
   constructor(vendingMachine: VendingMachineInterface) {
-    this.$rechargeForm = <HTMLFormElement>$('.recharge-form');
+    this.$rechargeForm = $('.recharge-form');
     this.$currentHoldingMoney = $('#current-holding-money', this.$rechargeForm);
-    this.$rechargeInput = <HTMLInputElement & HTMLFormElement>$('#recharge-input', this.$rechargeForm);
-    this.$coin500 = <HTMLSpanElement>$('#coin-500');
-    this.$coin100 = <HTMLSpanElement>$('#coin-100');
-    this.$coin50 = <HTMLSpanElement>$('#coin-50');
-    this.$coin10 = <HTMLSpanElement>$('#coin-10');
-    
+    this.$rechargeInput = $('#recharge-input', this.$rechargeForm);
+    this.$coin500 = $('#coin-500');
+    this.$coin100 = $('#coin-100');
+    this.$coin50 = $('#coin-50');
+    this.$coin10 = $('#coin-10');
+
     this.vendingMachine = vendingMachine;
 
     this.$rechargeForm.addEventListener('submit', this.handleSubmit);
@@ -48,15 +50,16 @@ export default class RechargeView implements RechargeViewInterface {
     try {
       this.vendingMachine.rechargeMoney(moneyToRecharge);
       this.renderRecharge();
+      alertSnackBar(SUCCESS_MESSAGE.RECHARGE_MONEY);
     } catch (error) {
-      alert(error.message);
+      alertSnackBar(error.message);
     }
   };
 
   renderRecharge = () => {
     this.renderHoldingMoney();
     this.renderCoinTable();
-    
+
     this.$rechargeInput.value = '';
     this.$rechargeInput.focus();
   };
@@ -66,9 +69,9 @@ export default class RechargeView implements RechargeViewInterface {
   };
 
   renderCoinTable = () => {
-    this.$coin500.textContent = String(this.vendingMachine.getCoin(500).count);
-    this.$coin100.textContent = String(this.vendingMachine.getCoin(100).count);
-    this.$coin50.textContent = String(this.vendingMachine.getCoin(50).count);
-    this.$coin10.textContent = String(this.vendingMachine.getCoin(10).count);
+    this.$coin500.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_500).count);
+    this.$coin100.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_100).count);
+    this.$coin50.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_50).count);
+    this.$coin10.textContent = String(this.vendingMachine.getCoin(COIN.VALUE_10).count);
   };
 }
