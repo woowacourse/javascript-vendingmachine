@@ -1,35 +1,16 @@
 import {
+  ChargeMoneyCoins,
   ChargeMoneyManager,
   Coins,
 } from '../types/vendingMachineChargeMoneyManager';
 
 import { COINS } from '../constants/chargeMoney';
-import { checkCanAddMoney } from '../validation/checkChargeMoney';
-import pickRandomIndex from '../utils/utils';
-
-const generateRandomCoins = (money: number): Coins => {
-  const coinList: number[] = COINS.INITIAL_LIST;
-  const coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
-
-  let remainMoney: number = money;
-
-  while (remainMoney) {
-    const pickableCoins: number[] = coinList.filter(
-      (coin: number) => coin <= remainMoney
-    );
-    const pickedCoin: number =
-      pickableCoins[pickRandomIndex(0, pickableCoins.length - 1)];
-    coinsQuantity[`QUANTITY_COIN_${pickedCoin}`] += 1;
-    remainMoney -= pickedCoin;
-  }
-
-  return coinsQuantity;
-};
 
 export default class VendingMachineChargeMoneyManager
   implements ChargeMoneyManager
 {
   private coinsQuantity: Coins = { ...COINS.INITIAL_QUANTITY_STATE };
+  private userMoney = 0;
 
   getCoins() {
     return this.coinsQuantity;
@@ -43,14 +24,68 @@ export default class VendingMachineChargeMoneyManager
     );
   }
 
-  addCoins(newChargeMoney: number): void {
-    const newCoinsQuantity = generateRandomCoins(newChargeMoney);
-    checkCanAddMoney(this.getTotalAmount(), newCoinsQuantity);
-
+  addCoins(newCoinsQuantity: Coins): void {
     Object.entries(newCoinsQuantity).forEach(
       ([coin, count]: [string, number]) => {
         this.coinsQuantity[coin] += count;
       }
     );
+  }
+
+  canSubtractCoinQuantity(coin: ChargeMoneyCoins): boolean {
+    return (
+      this.coinsQuantity[`QUANTITY_COIN_${coin}`] > 0 &&
+      this.userMoney - coin >= 0
+    );
+  }
+
+  getReturnCoins(userReturnMoney: number): Coins {
+    this.userMoney = userReturnMoney;
+    let returnCoinsQuantity: Coins = {
+      ...COINS.INITIAL_QUANTITY_STATE,
+    };
+
+    if (this.userMoney >= this.getTotalAmount()) {
+      returnCoinsQuantity = this.coinsQuantity;
+      this.coinsQuantity = { ...COINS.INITIAL_QUANTITY_STATE };
+
+      return returnCoinsQuantity;
+    }
+
+    while (this.userMoney > 0) {
+      if (this.canSubtractCoinQuantity(500)) {
+        this.coinsQuantity.QUANTITY_COIN_500 -= 1;
+        returnCoinsQuantity.QUANTITY_COIN_500 += 1;
+        this.userMoney -= 500;
+
+        continue;
+      }
+
+      if (this.canSubtractCoinQuantity(100)) {
+        this.coinsQuantity.QUANTITY_COIN_100 -= 1;
+        returnCoinsQuantity.QUANTITY_COIN_100 += 1;
+        this.userMoney -= 100;
+
+        continue;
+      }
+
+      if (this.canSubtractCoinQuantity(50)) {
+        this.coinsQuantity.QUANTITY_COIN_50 -= 1;
+        returnCoinsQuantity.QUANTITY_COIN_50 += 1;
+        this.userMoney -= 50;
+
+        continue;
+      }
+
+      if (this.canSubtractCoinQuantity(10)) {
+        this.coinsQuantity.QUANTITY_COIN_10 -= 1;
+        returnCoinsQuantity.QUANTITY_COIN_10 += 1;
+        this.userMoney -= 10;
+
+        continue;
+      }
+    }
+
+    return returnCoinsQuantity;
   }
 }

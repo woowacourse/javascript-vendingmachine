@@ -1,25 +1,37 @@
 import RouteManager from './routes/routes';
 import NavigatorComponent from './components/NavigatorComponent';
-import ProductInputComponent from './components/ProductManageComponents/ProductInputComponent';
-import ProductStateComponent from './components/ProductManageComponents/ProductsStateComponent';
-import ChargeMoneyInputComponent from './components/ChargeMoneyManageComponents/ChargeMoneyInputComponent';
-import ChargeMoneyStateComponent from './components/ChargeMoneyManageComponents/ChargeMoneyStateComponent';
-import VendingMachineChargeMoneyManager from './domains/VendingMachineChargeMoneyManager';
-import VendingMachineProductManager from './domains/VendingMachineProductManager';
+import DimmerComponent from './components/DimmerComponent';
+
+import { ProductComponent } from './components/ProductManageComponents/index';
+import { ChargeMoneyComponent } from './components/ChargeMoneyManageComponents/index';
+import { ConsumerComponent } from './components/PurchaseProductManageComponents/index';
+import { MembershipComponent } from './components/UserComponents/index';
+
+import {
+  VendingMachineChargeMoneyManager,
+  VendingMachineProductManager,
+  VendingMachineConsumerMoneyManager,
+} from './domains/index';
 
 const startApp = () => {
-  new NavigatorComponent();
-  new RouteManager();
-
   const vendingMachineProductManager = new VendingMachineProductManager();
   const vendingMachineChargeMoneyManager =
     new VendingMachineChargeMoneyManager();
+  const vendingMachineConsumerMoneyManager =
+    new VendingMachineConsumerMoneyManager();
 
-  new ProductInputComponent(vendingMachineProductManager);
-  new ProductStateComponent(vendingMachineProductManager);
+  new NavigatorComponent();
+  new RouteManager();
 
-  new ChargeMoneyInputComponent(vendingMachineChargeMoneyManager);
-  new ChargeMoneyStateComponent();
+  new DimmerComponent();
+
+  new MembershipComponent();
+  new ProductComponent(vendingMachineProductManager);
+  new ChargeMoneyComponent(vendingMachineChargeMoneyManager);
+  new ConsumerComponent(
+    vendingMachineConsumerMoneyManager,
+    vendingMachineChargeMoneyManager
+  );
 };
 
 export default startApp;

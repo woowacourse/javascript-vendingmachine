@@ -1,12 +1,17 @@
+import { Product } from '../../types/vendingMachineProductManager';
+
+import SUCCESS_MESSAGE from '../../constants/successMessage';
+
+import renderSnackBar from '../../dom/snackBar';
+import { on, emit, $ } from '../../dom/domHelper';
+import focusWrongInput from '../../dom/checkErrorMessage';
+
 import {
   checkValidLengthProductName,
   checkValidProductPrice,
   checkValidProductQuantity,
 } from '../../validation/checkProduct';
-
-import renderSnackBar from '../../dom/snackBar';
-import { on, emit, $ } from '../../dom/domHelper';
-import focusWrongInput from '../../dom/checkErrorMessage';
+import { SNACK_BAR_TYPE } from '../../constants/snackBar';
 
 export default class ProductInputComponent {
   private $nameInput = $<HTMLInputElement>('.product-info-form__product-input');
@@ -23,18 +28,22 @@ export default class ProductInputComponent {
     on(this.$productAddButton, 'click', this.onSubmitProductAddButton);
   }
 
-  private onSubmitProductAddButton = (event: Event): void => {
+  private onSubmitProductAddButton = (event: SubmitEvent): void => {
     event.preventDefault();
 
-    try {
-      checkValidLengthProductName(this.$nameInput.value.trim());
-      checkValidProductPrice(this.$priceInput.valueAsNumber);
-      checkValidProductQuantity(this.$quantityInput.valueAsNumber);
+    const productName = this.$nameInput.value.trim();
+    const { valueAsNumber: productPrice } = this.$priceInput;
+    const { valueAsNumber: productQuantity } = this.$quantityInput;
 
-      const newProduct = {
-        name: this.$nameInput.value.trim(),
-        price: this.$priceInput.valueAsNumber,
-        quantity: this.$quantityInput.valueAsNumber,
+    try {
+      checkValidLengthProductName(productName);
+      checkValidProductPrice(productPrice);
+      checkValidProductQuantity(productQuantity);
+
+      const newProduct: Product = {
+        name: productName,
+        price: productPrice,
+        quantity: productQuantity,
       };
 
       this.vendingMachineProductManagement.addProduct(newProduct);
@@ -44,7 +53,18 @@ export default class ProductInputComponent {
       this.$quantityInput.value = '';
       this.$nameInput.focus();
 
-      emit(this.$productAddButton, '@productInputSubmit', {
+      renderSnackBar(
+        this.$snackBarContainer,
+        SUCCESS_MESSAGE.ADDED_PRODUCT,
+        SNACK_BAR_TYPE.SUCCESS
+      );
+
+      emit(this.$productAddButton, '@addNewProduct', {
+        detail: {
+          newProduct,
+        },
+      });
+      emit(this.$productAddButton, '@addConsumerProduct', {
         detail: {
           newProduct,
         },
@@ -56,7 +76,8 @@ export default class ProductInputComponent {
         $priceInput: this.$priceInput,
         $quantityInput: this.$quantityInput,
       });
-      renderSnackBar(this.$snackBarContainer, message);
+
+      renderSnackBar(this.$snackBarContainer, message, SNACK_BAR_TYPE.ERROR);
     }
   };
 }

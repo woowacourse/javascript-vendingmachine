@@ -1,7 +1,8 @@
+import { PATHNAME } from '../constants/pathname';
 import { on, emit, $$ } from '../dom/domHelper';
 
 const isUndefinedRoutes = (pathname: string) =>
-  !Array.from($$<HTMLElement>('.manage-component')).some(
+  !Array.from($$<HTMLElement>('.change-component')).some(
     (route) => route.dataset.pathname === pathname
   );
 
@@ -15,7 +16,7 @@ export default class RouteManager {
     const { pathname } = window.location;
 
     if (isUndefinedRoutes(pathname)) {
-      window.history.replaceState({}, '', '/products');
+      window.history.replaceState({}, '', PATHNAME.PURCHASE_PRODUCT);
 
       this.onPopstateRoute();
       return;

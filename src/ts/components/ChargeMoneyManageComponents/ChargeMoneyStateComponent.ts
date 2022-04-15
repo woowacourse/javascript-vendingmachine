@@ -10,15 +10,34 @@ export default class ChargeMoneyStateComponent {
   private $quantityCoin50 = $<HTMLSpanElement>('.coin-quantity-table__coin-50');
   private $quantityCoin10 = $<HTMLSpanElement>('.coin-quantity-table__coin-10');
 
-  constructor() {
+  constructor(private vendingMachineChargeMoneyManager) {
     on(
       $<HTMLButtonElement>('.charge-form-section__button'),
-      '@chargeInputSubmit',
-      this.addCoinsQuantity
+      '@addCoinsQuantity',
+      this.renderAddCoinsQuantity
+    );
+    on(
+      $<HTMLButtonElement>('.return-coin-quantity-section__return-button'),
+      '@replaceCoinQuantity',
+      this.renderReplaceCoinQuantity
     );
   }
 
-  private addCoinsQuantity = ({
+  private renderReplaceCoinQuantity = () => {
+    const {
+      QUANTITY_COIN_500,
+      QUANTITY_COIN_100,
+      QUANTITY_COIN_50,
+      QUANTITY_COIN_10,
+    } = this.vendingMachineChargeMoneyManager.getCoins();
+
+    this.$quantityCoin500.textContent = QUANTITY_COIN_500;
+    this.$quantityCoin100.textContent = QUANTITY_COIN_100;
+    this.$quantityCoin50.textContent = QUANTITY_COIN_50;
+    this.$quantityCoin10.textContent = QUANTITY_COIN_10;
+  };
+
+  private renderAddCoinsQuantity = ({
     detail: {
       coins: {
         QUANTITY_COIN_500,

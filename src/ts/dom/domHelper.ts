@@ -15,8 +15,10 @@ export const emit = (
   target.dispatchEvent(customEvent);
 };
 
-export const $ = <T extends HTMLElement>(selector: string): T | null =>
-  document.querySelector(selector);
+export const $ = <T extends HTMLElement>(
+  selector: string,
+  element: Document | HTMLElement = document
+): T | null => element.querySelector(selector);
 
 export const $$ = <T extends HTMLElement>(
   selector: string

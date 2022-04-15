@@ -10,9 +10,9 @@ export const generateTemplate = ({
   quantity: productQuantity,
 }): string => `
   <tr class="product-table__info-tr" data-product-name="${productName}">
-    <td>${productName}</td>
-    <td>${productPrice}</td>
-    <td>${productQuantity}개</td>
+    <td class="product-table__product-name">${productName}</td>
+    <td class="product-table__product-price">${productPrice}</td>
+    <td><span class="product-table__product-quantity">${productQuantity}</span>개</td>
     <td class="product-table__button-wrapper flex-gap05">
       <button class="product-table__edit-button">수정</button>
       <button class="product-table__delete-button">삭제</button>

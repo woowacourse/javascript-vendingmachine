@@ -3,7 +3,10 @@ import { ChargeMoney } from '../types/constants';
 
 export const CHARGE_MONEY: ChargeMoney = {
   MAX_TOTAL_CHARGE_MONEY: 100000,
+  CONSUMER_MAX_CHARGE_MONEY: 10000,
+  CONSUMER_MIN_CHARGE_MONEY: 10,
   UNIT: 10,
+  INITIAL_TOTAL_CHARGE_MONEY: 0,
 };
 
 export const COINS: InitialCoins = {
