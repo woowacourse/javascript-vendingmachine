@@ -1,6 +1,8 @@
+import { Product } from '../domain/Product';
 import { ProductCatalog } from '../domain/ProductCatalog';
 import { ProductState } from '../interfaces/interface';
-import { validateAllProductProps } from '../utils/domain.utils';
+import { validateAllProductProps } from '../domain/Product.validateFuncs';
+import { getStorageProductCatalog } from '../utils/sessionStorage';
 
 export class ProductCatalogTable {
   productCatalog: ProductCatalog;
@@ -15,6 +17,10 @@ export class ProductCatalogTable {
     this.target.addEventListener('productAdded', this.renderTable);
   }
 
+  setProductCatalog(productCatalog) {
+    this.productCatalog = productCatalog;
+  }
+
   render = () => {
     this.target.insertAdjacentHTML('beforeend', this.template());
 
@@ -24,6 +30,7 @@ export class ProductCatalogTable {
   };
 
   renderTable = () => {
+    this.productCatalog = getStorageProductCatalog();
     this.productTableBody.textContent = '';
     this.productTableBody.insertAdjacentHTML('beforeend', this.tableBodyTemplate());
     this.productTableBody.addEventListener('click', this.handleProductStateManage);
@@ -57,7 +64,7 @@ export class ProductCatalogTable {
       .join('');
   }
 
-  tableRowTemplate(product): string {
+  tableRowTemplate(product: Product): string {
     return `<tr id = '${product.getName()}'>
   <td class='product-name product-prop'><span>${product.getName()}</span></td>
   <td class='product-price product-prop'><span>${product.getPrice()}</span></td>
@@ -123,10 +130,9 @@ export class ProductCatalogTable {
   saveEditedProductState(tableRow: HTMLTableRowElement) {
     const productState = {
       index: this.productCatalog.findExistingProductIndex(tableRow.id),
-      name: (tableRow.querySelector('.product-name').firstChild as HTMLInputElement).value,
-      price: (tableRow.querySelector('.product-price').firstChild as HTMLInputElement)
-        .valueAsNumber,
-      quantity: (tableRow.querySelector('.product-quantity').firstChild as HTMLInputElement)
+      name: (<HTMLInputElement>tableRow.querySelector('.product-name').firstChild).value,
+      price: (<HTMLInputElement>tableRow.querySelector('.product-price').firstChild).valueAsNumber,
+      quantity: (<HTMLInputElement>tableRow.querySelector('.product-quantity').firstChild)
         .valueAsNumber,
     };
 

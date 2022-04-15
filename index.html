@@ -5,22 +5,131 @@
     <title>자판기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-
   <body>
-    <div id="app">
+    <div class="app">
+      <div class="sign-container">
+        <button type="submit" class="button tab-button sign-in-button">로그인</button>
+        <div class="drop-down-button hide">
+          <div class="thumbnail tab-button button">thumb</div>
+          <div class="drop-down-content">
+            <button class="button tab-button edit-information-button">회원정보 수정</button>
+            <button class="button tab-button sign-out-button">로그아웃</button>
+          </div>
+        </div>
+      </div>
       <h1>🍿 자판기 🍿</h1>
-      <nav>
-        <button id="product-manage-nav-button" type="button" class="tab-button button">
+      <nav class="nav hide">
+        <button id="product-manage-nav-button" type="button" class="button tab-button">
           상품 관리
         </button>
-        <button id="charge-balance-nav-button" type="button" class="tab-button button">
+        <button id="charge-balance-nav-button" type="button" class="button tab-button">
           잔돈 충전
         </button>
-        <button id="product-purchase-nav-button" type="button" class="tab-button button">
+        <button id="product-purchase-nav-button" type="button" class="button tab-button">
           상품 구매
         </button>
       </nav>
       <div id="contents-container"></div>
     </div>
+    <div class="customer-manage-app app hide">
+      <div class="sign-in">
+        <h1>로그인</h1>
+        <div class="email-input-container">
+          <label for="email-input">이메일</label>
+          <input
+            type="email"
+            name="email-input"
+            class="sign-in-email-input input"
+            placeholder="woowacourse@gmail.com"
+          />
+        </div>
+        <div class="pw-input-container">
+          <label for="password-input">비밀번호</label>
+          <input
+            type="password"
+            name="password-input"
+            class="sign-in-pw-input input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </div>
+        <button class="sign-in-submit-button">확인</button>
+        <div>
+          <span class="sign-up-label"> 아직 회원이 아니신가요?</span>
+          <strong class="sign-up-button">회원가입</strong>
+        </div>
+      </div>
+      <div class="sign-up">
+        <h1>회원가입</h1>
+        <div class="email-input-container">
+          <label for="email-input">이메일</label>
+          <input
+            type="email"
+            name="email-input"
+            class="input sign-up-email-input"
+            placeholder="woowacourse@gmail.com"
+          />
+        </div>
+        <div class="name-input-container">
+          <label for="name-input">이름</label>
+          <input
+            type="text"
+            name="name-input"
+            class="input sign-up-name-input"
+            placeholder="이름을 입력해주세요"
+          />
+        </div>
+        <div class="pw-input-container">
+          <label for="password-input">비밀번호</label>
+          <input
+            type="password"
+            name="password-input"
+            class="input sign-up-pw-input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </div>
+        <div class="pw-input-container">
+          <label for="password-confirm-input">비밀번호 확인</label>
+          <input
+            type="password"
+            name="password-confirm-input"
+            class="input sign-up-pw-confirm-input"
+            placeholder="비밀번호와 똑같이 입력해주세요"
+          />
+        </div>
+        <button class="submit-sign-up-button">확인</button>
+      </div>
+      <div class="edit-customer-information">
+        <h1>회원정보 수정</h1>
+        <div class="email-input-container">
+          <label for="email-input">이메일</label>
+          <input type="email" name="email-input" class="input edit-email-input" disabled />
+        </div>
+        <div class="name-input-container">
+          <label for="email-input">이름</label>
+          <input type="email" name="email-input" class="input edit-name-input" />
+        </div>
+        <div class="pw-input-container">
+          <label for="passwor-input">비밀번호</label>
+          <input
+            type="password"
+            name="pw-input"
+            class="input edit-pw-input"
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </div>
+        <div class="pw-input-container">
+          <label for="pw-confirm-input">비밀번호 확인</label>
+          <input
+            type="password"
+            name="pw-confirm-input"
+            class="input edit-pw-confirm-input"
+            placeholder="비밀번호와 똑같이 입력해주세요"
+          />
+        </div>
+        <button class="submit-edit-button">확인</button>
+      </div>
+    </div>
+
+    <div id="snackbar">이곳에 메시지를 입력해주세요.</div>
   </body>
 </html>

@@ -8,4 +8,5 @@ export const ERR_PRODUCT = {
   OUT_OF_RANGE_INPUT: '100원 이상, 10,000원 이하의 돈을 넣어주세요~',
   SMALL_INPUT_THAN_UNIT: '10원단위로 돈을 넣어주세요~',
   EXCEED_MAX_QUANTITY: '상품수량은 최대 20개까지만 가능합니다~',
+  NEGATIVE_QUANTITY: '상품수량이 0개 미만입니다',
 };

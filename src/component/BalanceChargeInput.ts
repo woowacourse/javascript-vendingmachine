@@ -1,8 +1,10 @@
 import { CoinVault } from '../domain/CoinVault';
+import { SnackBar } from './SnackBar';
 
 export class BalanceChargeInput {
   target: HTMLDivElement;
   coinVault: CoinVault;
+  snackbar: SnackBar;
   submitBtn: HTMLButtonElement;
   chargeBalanceInput: HTMLInputElement;
   chargeBalanceInputForm: HTMLFormElement;
@@ -11,6 +13,11 @@ export class BalanceChargeInput {
   constructor(props) {
     this.target = props.target;
     this.coinVault = props.coinVault;
+    this.snackbar = props.snackBar;
+  }
+
+  setCoinVault(coinVault) {
+    this.coinVault = coinVault;
   }
 
   render() {
@@ -21,20 +28,20 @@ export class BalanceChargeInput {
 
   template(balance: number): string {
     return `
-          <form id = 'charge-balance-input-container'>
+          <form class = 'charge-balance-input-container'>
             <label id ='charge-balance-input-label' for="charge-balance-input">자판기가 보유할 금액을 입력해주세요</label>
-              <input id="charge-balance-input" type="text" placeholder="금액" class = 'input'></input>
-              <button id='charge-balance-submit-btn' type="submit" class ='submit-button button'>충전</button>
-              <div id = 'current-balance-container'>현재보유금액 : <span id="current-balance">${balance}</span>원</div>
-          </form id = >
+              <input id = 'charge-balance-input' type="text" placeholder="금액" class = 'input'></input>
+              <button type="submit" class ='charge-balance-submit-btn submit-button button'>충전</button>
+              <div id = 'current-balance-container'>현재보유금액 : <span class="current-balance">${balance}</span>원</div>
+          </form>
       `;
   }
 
   selectDom() {
-    this.chargeBalanceInputForm = document.querySelector('#charge-balance-input-container');
+    this.chargeBalanceInputForm = document.querySelector('.charge-balance-input-container');
     this.chargeBalanceInput = document.querySelector('#charge-balance-input');
-    this.submitBtn = document.querySelector('#charge-balance-submit-btn');
-    this.currentBalance = document.querySelector('#current-balance');
+    this.submitBtn = document.querySelector('.charge-balance-submit-btn');
+    this.currentBalance = document.querySelector('.current-balance');
   }
 
   bindEvent() {
@@ -44,13 +51,15 @@ export class BalanceChargeInput {
   handleChargeBalance = (e: Event) => {
     e.preventDefault();
     try {
-      this.coinVault.chargeMoney(Number(this.chargeBalanceInput.value));
+      this.coinVault.chargeChanges(Number(this.chargeBalanceInput.value));
+      sessionStorage.setItem('coinVault', JSON.stringify(this.coinVault));
+      this.updateCurrentBalance();
+      this.snackbar.render('동전이 충전됐습니다');
+      this.target.dispatchEvent(new CustomEvent('coinCharged'));
     } catch (err) {
+      this.snackbar.render(err);
       this.chargeBalanceInputForm.reset();
-      alert(err);
     }
-    this.updateCurrentBalance();
-    this.target.dispatchEvent(new CustomEvent('coinCharged'));
   };
 
   updateCurrentBalance() {

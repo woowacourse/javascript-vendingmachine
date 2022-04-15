@@ -11,11 +11,14 @@ export class Router {
   }
 
   handlePopstate = (savedData) => {
+    this.app.app.classList.remove('hide');
+    this.app.customerManageApp.classList.add('hide');
+
     if (savedData.state === null) {
       return;
     }
     if (savedData.state.path === '/') {
-      this.app.homeView.renderHome();
+      this.app.productPurchaseView.showProductPurchaseTab();
     }
     if (savedData.state.path === '/productManage') {
       this.app.productManageView.eraseAll();
@@ -25,18 +28,20 @@ export class Router {
       this.app.balanceChargeView.eraseAll();
       this.app.balanceChargeView.renderAll();
     }
+    if (savedData.state.path === '/productPurchase') {
+      this.app.productPurchaseView.eraseAll();
+      this.app.productPurchaseView.renderAll();
+    }
+    if (savedData.state.path === '/signIn') {
+      this.app.customerInformationView.renderSignIn();
+    }
+    if (savedData.state.path === '/signUp') {
+      this.app.customerInformationView.renderSignUp();
+    }
+    if (savedData.state.path === '/editInformation') {
+      this.app.customerInformationView.renderInformationEdit();
+    }
   };
-
-  pushHistory(e: Event) {
-    let path = '/';
-    if (e.type === 'productManageTabClick') {
-      path = '/productManage';
-    }
-    if (e.type === 'balanceChargeTabClick') {
-      path = '/balanceCharge';
-    }
-    this.pushHistoryPath(path);
-  }
 
   pushHistoryPath(path: string) {
     history.pushState({ path }, '', path);

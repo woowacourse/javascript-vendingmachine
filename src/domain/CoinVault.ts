@@ -6,14 +6,16 @@ import {
   CHEAPEST_COIN,
 } from '../constants/domain';
 import { Coins } from '../interfaces/interface';
-import { getRandomNumZeroToMax } from '../utils/domain.utils';
+import { getRandomNumZeroToMax } from '../utils/utils';
 import { ERR_COIN_VAULT } from '../constants/errorMessage';
 
 export class CoinVault {
   private coinsQuantity: Coins;
+  private customerInput: number;
 
   constructor() {
     this.coinsQuantity = { ...COINS_INIT_QUANTITY };
+    this.customerInput = 0;
   }
 
   addCoins(coins: Coins) {
@@ -33,7 +35,7 @@ export class CoinVault {
     );
   }
 
-  chargeMoney(money: number) {
+  chargeChanges(money: number) {
     try {
       this.validateMoney(money);
       this.addCoins(this.generateRandomCoins(money));
@@ -69,5 +71,49 @@ export class CoinVault {
     });
 
     return generatedCoins;
+  }
+
+  updateCustomerInput(money: number) {
+    this.customerInput = money;
+  }
+
+  chargeCustomerInput(money: number) {
+    try {
+      this.validateMoney(money);
+      this.customerInput += money;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  deductCustomerInput(money: number) {
+    try {
+      this.validateMoney(money);
+      this.customerInput -= money;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  getCustomerInput() {
+    return this.customerInput;
+  }
+
+  giveChanges(): Coins {
+    const result: Coins = { coin500: 0, coin100: 0, coin50: 0, coin10: 0 };
+
+    Object.entries(this.coinsQuantity).forEach(([key, possessedQuantity]) => {
+      let needQuantity = Math.floor(this.customerInput / COINS_PRICE_TABLE[key]);
+      if (needQuantity > possessedQuantity) {
+        result[key] = possessedQuantity;
+        this.coinsQuantity[key] -= possessedQuantity;
+        this.customerInput -= possessedQuantity * COINS_PRICE_TABLE[key];
+        return;
+      }
+      result[key] = needQuantity;
+      this.coinsQuantity[key] -= needQuantity;
+      this.customerInput -= needQuantity * COINS_PRICE_TABLE[key];
+    });
+    return result;
   }
 }

@@ -1,4 +1,4 @@
-.charge-balance-input-container {
+.customer-money-input-container {
   display: grid;
   margin-top: 13px;
   grid-template-areas:
@@ -13,12 +13,12 @@
   grid-area: lb;
 }
 
-#charge-balance-input {
+#customer-money-input {
   width: 330px;
   grid-area: bi;
 }
 
-.charge-balance-submit-btn {
+.customer-money-input-btn {
   grid-area: bt;
 }
 
@@ -26,11 +26,10 @@
   grid-area: cb;
 }
 
-#coin-vault-table {
-  width: 200px;
-  margin-bottom: 20px;
-  border-top: 2px solid var(--gray);
-  border-bottom: 2px solid var(--gray);
-  border-collapse: collapse;
-  text-align: center;
+.purchase-button {
+  background-color: var(--gray-light);
+  color: var(--black);
+
+  width: 100px;
+  height: 37px;
 }

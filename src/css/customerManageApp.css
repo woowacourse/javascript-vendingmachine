@@ -1,0 +1,93 @@
+/*common*/
+
+.email-input-container,
+.name-input-container,
+.pw-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/*signip page*/
+.sign-in h1 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.input.sign-in-email-input,
+.input.sign-in-pw-input {
+  margin: 15px 0 15px 0;
+  width: 300px;
+}
+
+.sign-in-submit-button {
+  width: 312px;
+  height: 36px;
+  background-color: var(--cyan-light);
+
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+  text-align: center;
+
+  margin: 15px 0 18px 0;
+}
+
+.sign-up-button {
+  cursor: pointer;
+  color: var(--blue);
+  font: 13px;
+}
+
+/*signup page*/
+.sign-up h1 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.input.sign-up-email-input,
+.input.sign-up-name-input,
+.input.sign-up-pw-input,
+.input.sign-up-pw-confirm-input {
+  margin: 15px 0 15px 0;
+  width: 300px;
+}
+
+.submit-sign-up-button {
+  width: 312px;
+  height: 36px;
+  background-color: var(--cyan-light);
+
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+  text-align: center;
+
+  margin: 15px 0 18px 0;
+}
+
+/*edit information page*/
+.edit-customer-information h1 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.input.edit-email-input,
+.input.edit-name-input,
+.input.edit-pw-input,
+.input.edit-pw-confirm-input {
+  margin: 15px 0 15px 0;
+  width: 300px;
+}
+
+.submit-edit-button {
+  width: 312px;
+  height: 36px;
+  background-color: var(--cyan-light);
+
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+  text-align: center;
+
+  margin: 15px 0 18px 0;
+}
