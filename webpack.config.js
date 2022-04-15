@@ -7,11 +7,12 @@ module.exports = {
   mode: 'development',
   entry: './src/index.ts',
   resolve: {
-    extensions: ['.js', '.ts', '.css', '.scss'],
-    alias: {},
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    extensions: ['.ts', '.js', '.scss', '.css', '.html'],
   },
   devServer: {
     port: 9000,
+    historyApiFallback: true,
   },
   devtool: 'source-map',
   output: {
@@ -43,6 +44,10 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
       },
     ],
   },

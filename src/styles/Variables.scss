@@ -6,15 +6,27 @@
 
 // 무채색 계열
 $color-white: #fff;
+$color-white-30: rgba(255, 255, 255, 0.3);
 $color-concrete: #f3f3f3;
 $color-alabaster: #f8f8f8;
 $color-alto: #dcdcdc;
 $color-nobel: #b4b4b4;
+$color-silver-chalice: #999;
 $color-black: #000;
+$color-black-20: rgba(0, 0, 0, 0.2);
+
+// 붉은색 계열
+$color-pomegranate: #F12F2F;
+$color-white-linen: #F8E5E5;
 
 // 푸른색 계열
+$color-dodger-blue: #2575fc;
 $color-robins-egg-blue: #00bcd4;
 $color-robins-egg-blue-20: #D1E7ED;
+$color-mariner: #3581D7;
+
+/* 보라색 계열 */
+$color-purple-heart: #7424dd;
 
 // 브랜드 컬러
 $brand-color-accent: $color-robins-egg-blue;

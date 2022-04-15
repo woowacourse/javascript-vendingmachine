@@ -1,9 +1,12 @@
-import './styles';
-import ProductPage from './es/display/pages/ProductPage';
-import HoldingAmountPage from './es/display/pages/HoldingAmountPage';
-import Router from './es/display/Router';
+import 'Styles';
+import ProductPurchasePage from 'Pages/ProductPurchasePage';
+import Router from 'Router';
 
 new Router({
-  product: new ProductPage(),
-  holding_amount: new HoldingAmountPage(),
+  purchase: ProductPurchasePage,
+  product: () => import('Pages/ProductPage'),
+  holdingAmount: () => import('Pages/HoldingAmountPage'),
+  login: () => import('Pages/LoginPage'),
+  register: () => import('Pages/RegisterPage'),
+  profile: () => import('Pages/UserProfileEditPage'),
 });

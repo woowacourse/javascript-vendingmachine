@@ -14,8 +14,7 @@ body {
   background-color: $color-alabaster;
 }
 
-input[type='number'],
-input[type='text'] {
+input[type] {
   width: 100%;
   border: 1px solid $color-nobel;
   padding: 0.5rem;
@@ -26,6 +25,23 @@ input[type='text'] {
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  &:disabled {
+    background-color: $color-alto;
+  }
+}
+
+a {
+  color: $color-mariner;
+  text-decoration: none;
+
+  &[data-route] {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -39,6 +55,14 @@ input[type='text'] {
   &.accent {
     background-color: $brand-color-accent;
     color: $brand-color-accent-font;
+  }
+
+  &.fill {
+    width: 100%;
+    padding: {
+      top: 0.7rem;
+      bottom: 0.7rem;
+    };
   }
 
   &:hover {
@@ -86,46 +110,12 @@ input[type='text'] {
 }
 
 #app {
+  position: relative;
   background-color: $color-white;
   width: 42.85rem;
-  margin: 5rem auto;
-  padding: 2.85rem 5.7rem;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-
-  > h1.title {
-    font-size: 2.4rem;
-    font-weight: bold;
-    margin-bottom: 2.2rem;
-  }
-
-  > .nav {
-    > ul {
-      display: flex;
-      gap: 1rem;
-
-      li {
-        display: block;
-        flex-grow: 1;
-        background-color: $color-concrete;
-        border-radius: 0.4rem;
-        padding: 0.8rem;
-        cursor: pointer;
-
-        &.selected {
-          background-color: $color-robins-egg-blue-20;
-          color: $color-black;
-        }
-
-        &:hover {
-          filter: brightness(0.95);
-        }
-      }
-    }
-  }
+  min-height: 42rem;
+  margin: 8rem auto;
+  padding: 5.85rem 5.7rem;
 }
 
 .form-section {
@@ -139,5 +129,15 @@ input[type='text'] {
   }
 }
 
-.table-section {
+.input-section {
+  padding: 0 3rem;
+
+  .form-footer-text {
+    color: $color-silver-chalice;
+    margin: 0.8rem 0;
+  }
+
+  .button.fill {
+    margin: 0.2rem 0;
+  }
 }

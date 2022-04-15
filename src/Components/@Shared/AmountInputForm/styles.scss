@@ -1,0 +1,19 @@
+#amount-input-form-section {
+  #amount-input-form {
+    margin-bottom: 1rem;
+
+    .amount-input-form-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+
+      > input {
+        grid-column: 1 / 3;
+      }
+
+      > button {
+        grid-column: 3 / 3;
+      }
+    }
+  }
+}

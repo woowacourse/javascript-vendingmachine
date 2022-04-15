@@ -1,0 +1,14 @@
+#add-product-form-section {
+  position: relative;
+
+  .add-product-input-wrap {
+    display: grid;
+    grid-template-columns: minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%) minmax(auto, 25%);
+    grid-column-gap: 0.5rem;
+
+    > * {
+      position: relative;
+      display: block;
+    }
+  }
+}
