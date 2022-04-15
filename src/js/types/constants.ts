@@ -23,4 +23,12 @@ export type CustomEventType =
   | 'CHARGE_MONEY'
   | 'ADD_ITEM'
   | 'TABLE_ITEM_CHANGE'
-  | 'TABLE_ITEM_DELETE';
+  | 'TABLE_ITEM_DELETE'
+  | 'PURCHASE_MONEY_INPUT'
+  | 'RETURN_MONEY'
+  | 'LOG_IN'
+  | 'SIGN_UP'
+  | 'CHANGE_USER_INFO'
+  | 'PURCHASE_ITEM';
+
+export type IsLogInType = 'isLogIn';

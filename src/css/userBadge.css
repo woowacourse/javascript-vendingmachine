@@ -1,0 +1,47 @@
+#user-badge {
+  border-radius: 50%;
+  background-color: var(--color-user-badge-bg);
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#user-badge:hover {
+  background-color: var(--color-user-badge-hover-bg);
+}
+
+#user-container {
+  position: relative;
+}
+
+#user-dropbox {
+  position: absolute;
+  top: 50px;
+  left: -15px;
+  width: 60px;
+  padding: 5px;
+  background-color: var(--color-nav-button-bg);
+  text-align: center;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+#user-dropbox li {
+  padding: 4px 0;
+}
+
+#user-dropbox li:hover {
+  background-color: var(--color-button-hover);
+  cursor: pointer;
+}
+
+#user-dropbox::before {
+  content: '';
+  position: absolute;
+  border-bottom: 10px solid var(--color-nav-button-bg);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  top: -8px;
+}

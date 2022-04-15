@@ -1,0 +1,42 @@
+#login-form,
+#signup-form,
+#change-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 46px;
+}
+
+#login-form input,
+#signup-form input,
+#change-form input {
+  width: 300px;
+  height: 36px;
+  margin-bottom: 16px;
+}
+
+#login-form button,
+#signup-form button,
+#change-form button {
+  background: var(--color-submit-button-bg);
+  padding: 6px 6px 6px 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  margin-top: 14px;
+}
+
+#login-button {
+  width: 117px;
+  height: 36px;
+}
+
+.login-to-signup {
+  margin-top: 14px;
+  align-self: start;
+}
+
+#go-to-signup {
+  cursor: pointer;
+  color: var(--color-go-to-signup);
+}

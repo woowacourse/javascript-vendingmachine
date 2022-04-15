@@ -1,6 +1,11 @@
 @import './app.css';
+@import './snackbar.css';
+@import './userBadge.css';
+@import './userAuth.css';
+@import './shared.css';
 
 :root {
+  --color-body-bg: rgb(230, 230, 230);
   --color-nav-button-bg: #f5f5f5;
   --color-button-hover: #dfdfdf;
   --color-nav-button-clicked: #00bcd429;
@@ -8,6 +13,13 @@
   --color-submit-button-hover: #00bbd4c2;
   --color-submit-button-active: #00bbd4c2;
   --color-submit-button-font-color: #ffffff;
+  --color-snackbar-bg: #333;
+  --color-snackbar: #fff;
+  --color-table-container: #dcdcdc;
+  --color-user-badge-bg: #d6f4f8;
+  --color-user-badge-hover-bg: #b3ebf2;
+  --color-go-to-signup: #3581d7;
+  --color-input-border: #b4b4b4;
 }
 
 * {
@@ -26,6 +38,7 @@ body {
   display: flex;
   justify-content: center;
   -webkit-font-smoothing: antialiased;
+  background: var(--color-body-bg);
 }
 
 input,
@@ -46,7 +59,12 @@ button:hover {
 }
 
 input {
-  border: 1px solid #b4b4b4;
+  border: 1px solid var(--color-input-border);
   border-radius: 4px;
   padding: 5px 9px;
+}
+
+label {
+  font-size: 16px;
+  margin-bottom: 4px;
 }

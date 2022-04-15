@@ -1,8 +1,9 @@
 import ChargeMoneyView from '../views/chargeMoneyView';
 import VendingMachine from '../vendingMachine/vendingMachine';
-import { ChargeMoneyDetailType } from '../types';
+import { MoneyDetailType } from '../types';
 import { Controller } from '../types/interface';
 import { onCustomEvent } from '../utils/common';
+import { IsLogIn } from '../constants/constants';
 
 export default class ChargeMoneyController implements Controller {
   private vendingMachine: VendingMachine;
@@ -15,23 +16,25 @@ export default class ChargeMoneyController implements Controller {
     this.bindEvents();
   }
 
-  bindEvents() {
-    onCustomEvent('CHARGE_MONEY', this.handleChargeMoney.bind(this));
+  public bindEvents() {
+    onCustomEvent('CHARGE_MONEY', this.handleChargeMoney);
   }
 
-  handleChargeMoney(event: CustomEvent) {
-    const { inputMoney }: ChargeMoneyDetailType = event.detail;
+  private handleChargeMoney = (event: CustomEvent) => {
+    const { inputMoney }: MoneyDetailType = event.detail;
+    const isLogin = sessionStorage.getItem(IsLogIn) === 'true' ? true : false;
 
-    this.vendingMachine.chargeMoney(inputMoney);
+    this.vendingMachine.chargeOwnMoney(inputMoney);
 
-    this.chargeMoneyView.repaintCurrentMoney(this.vendingMachine.getInputMoney());
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
-  }
 
-  loadPage() {
+    this.loadPage(isLogin);
+  };
+
+  public loadPage(isLogin: boolean) {
     const coins = this.vendingMachine.getCoins();
-    const totalMoney = this.vendingMachine.getInputMoney();
+    const totalMoney = this.vendingMachine.getCurrentOwnMoney();
 
-    this.chargeMoneyView.render(coins, totalMoney);
+    this.chargeMoneyView.render(isLogin, coins, totalMoney);
   }
 }

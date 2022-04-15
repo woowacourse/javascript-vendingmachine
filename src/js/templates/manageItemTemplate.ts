@@ -63,7 +63,10 @@ export const sectionTemplate = {
   },
 };
 
-export const manageItemTemplate = (items: ItemType[]): string => `
-  ${sectionTemplate.inputContainer()}
-  ${sectionTemplate.tableContainer(items)}
-`;
+export const manageItemTemplate = (isLogin, items: ItemType[]): string =>
+  isLogin
+    ? `
+    ${sectionTemplate.inputContainer()}
+    ${sectionTemplate.tableContainer(items)}
+    `
+    : `<div class="permission-info">접근 권한이 없습니다.</div>`;

@@ -12,10 +12,10 @@ export type CoinsType = {
 };
 
 export type RouteChangeDetailType = {
-  $navButton: HTMLButtonElement;
+  targetId: string;
 };
 
-export type ChargeMoneyDetailType = {
+export type MoneyDetailType = {
   inputMoney: number;
 };
 

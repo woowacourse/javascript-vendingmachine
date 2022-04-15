@@ -1,10 +1,27 @@
 #app {
   display: flex;
   flex-direction: column;
-  margin: 32px 0;
-  min-height: 675px;
+  min-height: 100vh;
   width: 600px;
   align-items: center;
+  background: white;
+  padding: 12px 12px 36px;
+}
+
+.title {
+  margin-top: 32px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#header-button-container {
+  align-self: flex-end;
 }
 
 .nav-container {
@@ -12,7 +29,6 @@
 }
 
 .nav-button {
-  width: 200px;
   background: var(--color-nav-button-bg);
   width: 118px;
   height: 36px;
@@ -25,6 +41,12 @@
   background-color: var(--color-nav-button-clicked);
 }
 
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .input-container {
   margin-top: 52px;
 }
@@ -32,11 +54,6 @@
 .input-container > form {
   display: flex;
   flex-direction: column;
-}
-
-.input-container > form > label {
-  font-size: 16px;
-  margin-bottom: 4px;
 }
 
 .add-item-input {
@@ -78,22 +95,11 @@
   text-align: center;
 }
 
-.item-table-change-button,
-.item-table-delete-button {
-  width: 50px;
-  height: 32px;
-}
-
-.item-table-purchase-button {
-  width: 100px;
-  height: 32px;
-}
-
 .table-container > table tr {
   display: grid;
   align-items: center;
   grid-gap: 0;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid var(--color-table-container);
 }
 
 .item-table {
@@ -103,6 +109,17 @@
 .item-table tr {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 45px;
+}
+
+.item-table-change-button,
+.item-table-delete-button {
+  width: 50px;
+  height: 32px;
+}
+
+.item-table-purchase-button {
+  width: 100px;
+  height: 32px;
 }
 
 .coin-table {
@@ -115,7 +132,7 @@
 }
 
 .table-container > table tr:first-child {
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid var(--color-table-container);
 }
 
 .charge-money-input {
@@ -125,16 +142,6 @@
 
 .input-container p {
   margin-top: 16px;
-}
-
-#content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.display-none {
-  display: none;
 }
 
 .return-money-button {

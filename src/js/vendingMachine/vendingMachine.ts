@@ -1,11 +1,14 @@
 import { COINS } from '../constants/constants';
 import { generateRandom } from '../utils/common';
 import { ItemType, CoinsType } from '../types';
+import { validateReturnChange } from '../validates/validates';
 
 export default class VendingMachine {
   private items: ItemType[] = [];
   private coins: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
-  private inputMoney = 0;
+  private change: CoinsType = { fiveHundred: 0, hundred: 0, fifty: 0, ten: 0 };
+  private currentOwnMoney = 0;
+  private purchaseInputMoney = 0;
 
   getItems(): Array<ItemType> {
     return JSON.parse(JSON.stringify(this.items));
@@ -23,12 +26,28 @@ export default class VendingMachine {
     this.coins = newCoins;
   }
 
-  getInputMoney(): number {
-    return this.inputMoney;
+  getCurrentOwnMoney(): number {
+    return this.currentOwnMoney;
   }
 
-  setInputMoney(inputMoney: number) {
-    this.inputMoney = inputMoney;
+  setCurrentOwnMoney(currentOwnMoney: number) {
+    this.currentOwnMoney = currentOwnMoney;
+  }
+
+  getPurchaseInputMoney(): number {
+    return this.purchaseInputMoney;
+  }
+
+  setPurchaseInputMoney(purchaseInputMoney: number) {
+    this.purchaseInputMoney = purchaseInputMoney;
+  }
+
+  getChange() {
+    return { ...this.change };
+  }
+
+  setChange(change) {
+    this.change = change;
   }
 
   getTotalMoney(coins: CoinsType): number {
@@ -71,10 +90,63 @@ export default class VendingMachine {
     return newCoins;
   }
 
-  chargeMoney(money: number) {
+  chargeOwnMoney(money: number) {
     const newCoins = this.generateRandomCoins(money);
-    const newMoney = this.getInputMoney() + money;
+    const newMoney = this.getCurrentOwnMoney() + money;
     this.setCoins(newCoins);
-    this.setInputMoney(newMoney);
+    this.setCurrentOwnMoney(newMoney);
+  }
+
+  chargePurchaseInputMoney(inputMoney: number) {
+    const newMoney = this.getPurchaseInputMoney() + inputMoney;
+    this.setPurchaseInputMoney(newMoney);
+  }
+
+  giveChange() {
+    let purchaseMoney = this.getPurchaseInputMoney();
+    let ownMoney = this.getCurrentOwnMoney();
+    const coins = this.getCoins();
+    const change = this.getChange();
+
+    validateReturnChange(purchaseMoney, ownMoney);
+
+    Object.keys(coins).forEach(key => {
+      let coinCount = Math.floor(purchaseMoney / COINS[key]);
+      if (coins[key] < coinCount) {
+        coinCount = coins[key];
+      }
+      if (ownMoney >= coinCount * COINS[key]) {
+        coins[key] -= coinCount;
+        change[key] = coinCount;
+        purchaseMoney -= coinCount * COINS[key];
+        ownMoney -= coinCount * COINS[key];
+      }
+    });
+    this.setCoins(coins);
+    this.setPurchaseInputMoney(purchaseMoney);
+    this.setChange(change);
+    this.setCurrentOwnMoney(ownMoney);
+  }
+
+  buyItem(itemName) {
+    const items = this.getItems();
+    const newItems = items.map(item => {
+      if (item.name === itemName) {
+        const newMoney = this.getPurchaseInputMoney() - item.price;
+        if (item.quantity === 0) {
+          throw new Error('구매할 수 있는 상품의 수량이 남아있지 않습니다.');
+        }
+        if (newMoney < 0) {
+          throw new Error('투입된 금액이 부족합니다.');
+        }
+        item.quantity -= 1;
+        this.setPurchaseInputMoney(newMoney);
+        this.chargeOwnMoney(item.price);
+
+        return item;
+      }
+      return item;
+    });
+    this.setItems(newItems);
   }
 }
