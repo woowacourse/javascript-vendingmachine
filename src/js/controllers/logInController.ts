@@ -46,7 +46,7 @@ export default class LogInController implements Controller {
       .catch(error => alert(error.message));
   }
 
-  public loadPage(isLogin) {
+  public loadPage(isLogin: boolean) {
     this.logInView.render(isLogin);
   }
 }

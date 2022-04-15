@@ -30,7 +30,7 @@ export default class ChargeMoneyController implements Controller {
     this.loadPage(isLogin);
   }
 
-  public loadPage(isLogin) {
+  public loadPage(isLogin: boolean) {
     const coins = this.vendingMachine.getCoins();
     const totalMoney = this.vendingMachine.getCurrentOwnMoney();
 

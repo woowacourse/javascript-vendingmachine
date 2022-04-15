@@ -44,7 +44,7 @@ export default class SignUpController implements Controller {
       .catch(error => alert(error.message));
   }
 
-  public loadPage(isLogin) {
+  public loadPage(isLogin: boolean) {
     this.signUpView.render(isLogin);
   }
 }
