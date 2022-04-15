@@ -1,0 +1,8 @@
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indvb3dhQGdtYWlsLmNvbSIsImlhdCI6MTY0OTI1MjQxOSwiZXhwIjoxNjQ5MjU2MDE5LCJzdWIiOiIyIn0.3iOwbU4DU74WPF5HIcm__5ZP-0KkpkOghHu-q_Lo8kg",
+  "user": {
+    "email": "woowa@gmail.com",
+    "name": "good",
+    "id": 2
+  }
+}

@@ -40,7 +40,8 @@
     "implicit-arrow-linebreak": "off",
     "consistent-return": "off",
     "object-shorthand": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {

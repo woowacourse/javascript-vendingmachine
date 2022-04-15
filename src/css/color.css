@@ -3,6 +3,7 @@
   --input-border-color: #b4b4b4;
   --app-background-color: #fff;
   --default-button-background-color: #f5f5f5e3;
+  --default-button-text-color: #000;
   --default-button-hover-color: #eee;
   --input-form-button-background-color: #00bcd4;
   --input-form-button-text-color: #fff;
@@ -12,9 +13,16 @@
   --nav-tab-button-hover-color: #ebebeb;
   --nav-tab-button-selected-background-color: #00bcd429;
   --nav-tab-button-selected-hover-color: #00bbd459;
-  --tab-content-box-shadow-color: #00bbd459;
   --table-border-color: #dcdcdc;
   --item-info-input-cell-background-color: #fff;
   --item-info-input-cell-text-color: #949494;
   --item-info-input-cell-disabled-text-color: #000;
+  --thumbnail-button-background-color: #d6f4f8;
+  --thumbnail-button-hover-color: #c2f3fa;
+  --authentication-disabled-input-background-color: #e0e0e0;
+  --authentication-disabled-input-border-color: #b4b4b4;
+  --not-yet-member-link-text-color: #3581d7;
+  --item-purchase-disabled-button-background-color: #b4b4b4;
+  --snackbar-background-color: #333;
+  --snackbar-text-color: #fff;
 }

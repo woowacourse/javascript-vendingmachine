@@ -1,0 +1,19 @@
+.coin-return-table {
+  margin-top: 60px;
+  min-width: 300px;
+}
+
+.return-button {
+  width: 100px;
+  height: 32px;
+  margin-top: 16px;
+  padding: 7px 0;
+}
+
+.purchase-item-button {
+  width: 100%;
+}
+
+.purchase-item-button:disabled {
+  background-color: var(--item-purchase-disabled-button-background-color);
+}

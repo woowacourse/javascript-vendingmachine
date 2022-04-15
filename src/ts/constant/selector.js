@@ -1,10 +1,16 @@
 export const ID = {
-  TAB_CONTENT: 'tab-content',
+  CONTENT: 'content',
   ITEM_MANAGE_TAB_BUTTON: 'item-manage-tab-button',
   COIN_RECHARGE_TAB_BUTTON: 'coin-recharge-tab-button',
+  ITEM_PURCHASE_TAB_BUTTON: 'item-purchase-tab-button',
   ITEM_INFO_FORM: 'item-info-form',
   CASH_CHARGE_FORM: 'cash-charge-form',
   CHARGED_AMOUNT: 'charged-amount',
+  LOGIN_FORM: 'login-form',
+  USER_INFO_FORM: 'user-info-form',
+  EDIT_BUTTON: 'edit-button',
+  LOGOUT_BUTTON: 'logout-button',
+  SNACKBAR: 'snackbar',
 };
 
 export const CLASS = {
@@ -20,4 +26,10 @@ export const CLASS = {
   CONFIRM_ITEM_BUTTON: 'confirm-item-button',
   CASH_CHARGE_INPUT: 'cash-charge-input',
   COIN_COUNT: 'coin-count',
+  AUTHENTICATION_INPUT: 'authentication-input',
+  THUMBNAIL_BUTTON: 'thumbnail-button',
+  SIDE_BUTTON_WRAPPER: 'side-button-wrapper',
+  PURCHASE_ITEM_BUTTON: 'purchase-item-button',
+  RETURN_BUTTON: 'return-button',
+  SHOW: 'show',
 };

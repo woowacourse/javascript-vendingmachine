@@ -1,0 +1,30 @@
+.authentication-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.authentication-label:not(:first-child) {
+  margin-top: 16px;
+}
+
+.authentication-input:disabled {
+  background-color: var(--authentication-disabled-input-background-color);
+  border-color: var(--authentication-disabled-input-border-color);
+}
+
+.authentication-button {
+  margin: 28px 0 0;
+}
+
+.not-yet-member {
+  margin-top: 14px;
+  font-size: 0.938rem;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.not-yet-member-link {
+  color: var(--not-yet-member-link-text-color);
+  text-decoration: none;
+}

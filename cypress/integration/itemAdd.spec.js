@@ -1,4 +1,4 @@
-import { ITEM_ERROR_MESSAGE } from '../../src/ts/constant/errorMessage';
+import { ITEM_ERROR_MESSAGE } from '../../src/ts/constant/message';
 
 describe('상품 추가 테스트', () => {
   const itemName = '콜라';
@@ -6,6 +6,7 @@ describe('상품 추가 테스트', () => {
   const itemQuantity = 10;
 
   beforeEach(() => {
+    cy.login();
     cy.visit('/#item-manage');
   });
 
@@ -16,15 +17,14 @@ describe('상품 추가 테스트', () => {
   });
 
   it('상품명을 입력하지 않고 추가 버튼을 누르면 경고창이 보이며 상품이 추가되지 않는다.', () => {
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.get('.item-info-input').eq(1).type(itemPrice);
     cy.get('.item-info-input').eq(2).type(itemQuantity);
     cy.get('.input-form-button')
       .click()
       .then(() => {
-        expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
+        cy.get('#snackbar')
+          .should('be.visible')
+          .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
       });
     cy.checkItemNotAdded();
   });
@@ -32,11 +32,10 @@ describe('상품 추가 테스트', () => {
   it('상품명에 공백을 입력하고 추가 버튼을 누르면 경고창이 보이며 상품이 추가되지 않는다.', () => {
     const invalidItemName = ' ';
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.addItem(invalidItemName, itemPrice, itemQuantity).then(() => {
-      expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
+      cy.get('#snackbar')
+        .should('be.visible')
+        .should('have.text', ITEM_ERROR_MESSAGE.BLANK_NOT_ALLOWED);
     });
     cy.checkItemNotAdded();
   });
@@ -45,12 +44,11 @@ describe('상품 추가 테스트', () => {
     const newItemPrice = 2000;
     const newItemQuantity = 15;
 
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
     cy.addItem(itemName, itemPrice, itemQuantity);
     cy.addItem(itemName, newItemPrice, newItemQuantity).then(() => {
-      expect(alertStub).to.be.calledWith(ITEM_ERROR_MESSAGE.ALREADY_EXIST);
+      cy.get('#snackbar')
+        .should('be.visible')
+        .should('have.text', ITEM_ERROR_MESSAGE.ALREADY_EXIST);
     });
   });
 

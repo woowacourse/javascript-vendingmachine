@@ -4,6 +4,7 @@ describe('상품 삭제 테스트', () => {
   const itemQuantity = 10;
 
   beforeEach(() => {
+    cy.login();
     cy.visit('/#item-manage');
   });
 

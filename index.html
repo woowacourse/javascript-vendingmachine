@@ -8,36 +8,10 @@
 </head>
 
 <body>
-    <main id="app">
-        <h1>🍿 자판기 🍿</h1>
-        <nav>
-            <button id="item-manage-tab-button" class="nav-tab-button selected" type="button" data-hash="#item-manage">상품 관리</button>
-            <button id="coin-recharge-tab-button" class="nav-tab-button" type="button" data-hash="#coin-recharge">잔돈 충전</button>
-            <button id="item-purchase-tab-button" class="nav-tab-button" type="button" data-hash="#item-purchase">상품 구매</button>
-        </nav>
-        <section id="tab-content">
-            <form id="item-info-form" class="input-form">
-                <label>추가할 상품 정보를 입력해주세요.</label>
-                <div class="input-form-container">
-                  <input class="item-info-input" type="text" placeholder="상품명" minlength="1" maxlength="10" autofocus/>
-                  <input class="item-info-input" type="number" placeholder="가격" min="100" max="10000" step="10"/>
-                  <input class="item-info-input" type="number" placeholder="수량" min="1" max="20"/>
-                  <button class="input-form-button">추가</button>
-                </div>
-            </form>
-            <div class="table-container">
-                <table class="item-status-table">
-                    <caption><h2>상품 현황</h2></caption>
-                    <tr>
-                        <th><span>상품명</span></th>
-                        <th><span>가격</span></th>
-                        <th><span>수량</span></th>
-                        <th><span></span></th>
-                    </tr>
-                </table>
-            </div>
-        </section>
+    <header></header>
+    <main>
+        <section id="content"></section>
+        <div id="snackbar"></div>
     </main>
 </body>
-
 </html>

@@ -1,5 +1,5 @@
 import VendingMachineTab from './VendingMachineTab';
-import { ItemInfoType, Hash, VendingMachineInterface } from '../types';
+import { ItemInfoType, DOMEvent } from '../types';
 import {
   generateConfirmMessage,
   generateItemManageTabContentTemplate,
@@ -7,50 +7,29 @@ import {
 } from '../template';
 import { selectDom, selectDoms } from '../utils';
 import { ID, CLASS } from '../constant/selector';
+import Snackbar from '../utils/snackbar';
 
 class ItemManageTab extends VendingMachineTab {
-  itemManageTabButton: HTMLElement | null = selectDom(`#${ID.ITEM_MANAGE_TAB_BUTTON}`);
-
   itemInfoForm: HTMLElement | null = null;
 
   itemInfoInputs: NodeListOf<HTMLInputElement> | null = null;
 
   itemStatusTable: HTMLElement | null = null;
 
-  constructor(vendingMachine: VendingMachineInterface, tabHash: Hash) {
-    super(vendingMachine, tabHash);
+  render(): void {
+    this.changeTabContent(generateItemManageTabContentTemplate(this.vendingMachine.itemList));
 
-    this.itemManageTabButton?.addEventListener('click', this.onClickItemManageTabButton);
-  }
-
-  renderInitialTabState() {
-    this.changeTabContent(
-      generateItemManageTabContentTemplate(this.vendingMachine.itemList),
-      this.itemManageTabButton
-    );
-
-    this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.tabContent);
+    this.itemInfoForm = selectDom(`#${ID.ITEM_INFO_FORM}`, this.content);
     this.itemInfoInputs = selectDoms<HTMLInputElement>(
       `.${CLASS.ITEM_INFO_INPUT}`,
       this.itemInfoForm
     );
-    this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`, this.tabContent);
+    this.itemStatusTable = selectDom(`.${CLASS.ITEM_STATUS_TABLE}`, this.content);
 
     this.itemInfoForm.addEventListener('submit', this.onSubmitItemInfoForm);
     this.itemStatusTable.addEventListener('click', this.onClickItemStatusTableButton);
     this.itemStatusTable.addEventListener('keydown', this.onKeyDownItemInfoRow);
   }
-
-  private onClickItemManageTabButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-    const hash = targetElement.dataset.hash as Hash;
-
-    if (this.itemManageTabButton.classList.contains(`${CLASS.SELECTED}`)) {
-      return;
-    }
-    this.changeHashUrl(hash);
-    this.renderInitialTabState();
-  };
 
   private onSubmitItemInfoForm = (e: SubmitEvent): void => {
     e.preventDefault();
@@ -60,7 +39,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo);
     } catch (error) {
-      alert(error.message);
+      Snackbar.show(error.message);
       return;
     }
 
@@ -75,36 +54,32 @@ class ItemManageTab extends VendingMachineTab {
     itemNameInput.focus();
   };
 
-  private onClickItemStatusTableButton = ({ target }: MouseEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    const targetItem: HTMLTableRowElement = targetElement.closest('tr');
+  private onClickItemStatusTableButton = ({ target }: DOMEvent): void => {
+    const targetItem: HTMLTableRowElement = target.closest('tr');
     if (!targetItem) {
       return;
     }
 
-    if (this.isEditItemButton(targetElement)) {
+    if (this.isEditItemButton(target)) {
       this.handleEditButtonClickEvent(targetItem);
       return;
     }
 
     if (
-      this.isDeleteItemButton(targetElement) &&
+      this.isDeleteItemButton(target) &&
       window.confirm(generateConfirmMessage(targetItem.dataset.itemName))
     ) {
       this.handleDeleteButtonClickEvent(targetItem);
       return;
     }
 
-    if (this.isConfirmItemButton(targetElement)) {
+    if (this.isConfirmItemButton(target)) {
       this.handleConfirmButtonClickEvent(targetItem);
     }
   };
 
-  private onKeyDownItemInfoRow = ({ key, target }: KeyboardEvent): void => {
-    const targetElement = target as HTMLElement;
-
-    const targetItem: HTMLTableRowElement = targetElement.closest('tr');
+  private onKeyDownItemInfoRow = ({ key, target }: DOMEvent): void => {
+    const targetItem: HTMLTableRowElement = target.closest('tr');
 
     if (key === 'Enter' && !!targetItem) {
       this.handleConfirmButtonClickEvent(targetItem);
@@ -147,7 +122,7 @@ class ItemManageTab extends VendingMachineTab {
     try {
       this.vendingMachine.validateItemInput(itemInfo, false, itemIndex);
     } catch (error) {
-      alert(error.message);
+      Snackbar.show(error.message);
       return;
     }
     this.vendingMachine.editItem(itemInfo, itemIndex);
