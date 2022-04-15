@@ -8,7 +8,8 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@types/jest": "^27.4.1",
@@ -28,9 +30,11 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
+    "cypress": "^9.5.3",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^26.1.2",
     "gh-pages": "^3.2.3",
@@ -48,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/woowacourse/javascript-vendingmachine/issues"
   },
-  "homepage": "https://judonghyeok.github.io/javascript-vendingmachine"
+  "homepage": "https://judonghyeok.github.io/javascript-vendingmachine",
+  "dependencies": {
+    "@babel/runtime": "^7.17.8"
+  }
 }

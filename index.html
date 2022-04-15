@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>자판기</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
 
-  <body>
-    <div id="app">
-      <header>
-        <h1 id="app-title">🍿 자판기 🍿</h1>
-        <nav id="tab-menu-navigation">
-          <a type="button" id="manage-tab-menu" class="tab-menu-button" href="#/manage">
-            상품 관리
-          </a>
-          <a type="button" id="charge-tab-menu" class="tab-menu-button" href="#/charge">
-            잔돈 충전
-          </a>
-          <a type="button" id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
-            상품 구매
-          </a>
-        </nav>
-      </header>
-      <main></main>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>자판기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <nav class="user-navigation">
+        <a type="button" class="user-navigation-profile--button" href="#/login">
+          우
+        </a>
+        <ul class="user-navigation--ul">
+          <li type="button" class="user-navigation--li">
+            <a href="#/myprofile" id="user-navigation-profile">Profile</a>
+          </li>
+          <li type="button" class="user-navigation--li">
+            Logout
+          </li>
+        </ul>
+      </nav>
+      <h1 id="app-title">🍿 자판기 🍿</h1>
+      <nav id="tab-menu-navigation">
+        <a type="button" id="manage-tab-menu" class="tab-menu-button" href="#/manage">
+          상품 관리
+        </a>
+        <a type="button" id="charge-tab-menu" class="tab-menu-button" href="#/charge">
+          잔돈 충전
+        </a>
+        <a type="button" id="purchase-tab-menu" class="tab-menu-button" href="#/purchase">
+          상품 구매
+        </a>
+      </nav>
+    </header>
+    <main>
+    </main>
+  </div>
+  <div id="snackbar" class="init"></div>
+</body>
+
 </html>

@@ -1,0 +1,33 @@
+.user-title {
+  font-size: 34px;
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  font-weight: 400;
+}
+
+.user-form {
+  width: 80%;
+}
+
+.user-form--input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.user-form--button {
+  width: 100%;
+  background-color: #00bcd4;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.user-form--button:hover {
+  background-color: #80deea;
+}
+
+#signup--anchor {
+  color: #3581d7;
+  text-decoration: none;
+}

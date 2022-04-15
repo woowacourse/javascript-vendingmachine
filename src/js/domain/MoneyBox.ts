@@ -1,5 +1,6 @@
-import { Coin, CoinStatus, distributeStrategy } from './interface';
+import { CoinStatus, distributeStrategy } from './interface';
 import RandomStrategy from './RandomStrategy';
+import Coin from './Coin';
 
 export default class MoneyBox {
   #coinStatusList: Coin[];
@@ -7,10 +8,10 @@ export default class MoneyBox {
 
   constructor() {
     this.#coinStatusList = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 0 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 0 },
-      { name: 'FIFTY_WON', value: 50, count: 0 },
-      { name: 'TEN_WON', value: 10, count: 0 },
+      new Coin('FIVE_HUNDRED_WON', 500),
+      new Coin('ONE_HUNDRED_WON', 100),
+      new Coin('FIFTY_WON', 50),
+      new Coin('TEN_WON', 10),
     ];
 
     this.#coinDistributeStrategy = RandomStrategy;
@@ -46,11 +47,29 @@ export default class MoneyBox {
     return this.#coinStatusList;
   }
 
-  addChange(inputMoney: number): void {
-    const newCoins = this.#coinDistributeStrategy.distribute(inputMoney);
+  addChange(money: number): void {
+    const newCoins = this.#coinDistributeStrategy.distribute(money);
 
     this.#coinStatusList.forEach((coin, index) => {
-      coin.count += newCoins[index].count;
+      coin.added(newCoins[index].count);
     });
+  }
+
+  giveChange(money: number): CoinStatus {
+    let inputMoney = money;
+    return this.#coinStatusList.reduce(
+      (totalStatus, { name, value, count }, idx) => {
+        totalStatus[name] = Math.min(Math.floor(inputMoney / value), count);
+        inputMoney -= totalStatus[name] * value;
+        this.#coinStatusList[idx].consumed(totalStatus[name]);
+        return totalStatus;
+      },
+      {
+        FIVE_HUNDRED_WON: 0,
+        ONE_HUNDRED_WON: 0,
+        FIFTY_WON: 0,
+        TEN_WON: 0,
+      }
+    );
   }
 }

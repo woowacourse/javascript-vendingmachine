@@ -39,6 +39,15 @@ main {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
 button {
   padding: 8px;
   border: none;

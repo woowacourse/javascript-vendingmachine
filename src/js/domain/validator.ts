@@ -1,5 +1,5 @@
 import { PRODUCT_RULES, VENDING_MACHINE_RULES } from '../constants';
-import { changeValidationData, ProductData, Validator } from './interface';
+import { moneyValidationData, ProductData, Validator } from './interface';
 
 // product data validation
 export function hasEmptyInput({ name, price, stock }: ProductData): boolean {
@@ -26,20 +26,37 @@ export function isNotIntegerStock({ stock }: ProductData): boolean {
   return !Number.isInteger(stock);
 }
 
-// change data validation
-export function isBelowMinCharge({ money }: changeValidationData): boolean {
+// money data validation
+export function isBelowMinCharge({ money }: moneyValidationData): boolean {
   return money <= 0;
 }
 
-export function inValidUnitChange({ money }: changeValidationData): boolean {
+export function inValidUnitMoney({ money }: moneyValidationData): boolean {
   return money % VENDING_MACHINE_RULES.CHANGE_UNIT !== 0;
 }
 
 export function isExceedMaxTotalChange({
   money,
-  totalChange,
-}: changeValidationData): boolean {
+  totalMoney: totalChange,
+}: moneyValidationData): boolean {
   return totalChange + money > VENDING_MACHINE_RULES.MAX_TOTAL_CHANGE;
+}
+
+export function isExceedMaxTotalMoney({
+  money,
+  totalMoney,
+}: moneyValidationData): boolean {
+  return totalMoney + money > VENDING_MACHINE_RULES.MAX_TOTAL_INPUT_MONEY;
+}
+
+// user data validation
+export function isInvalidLengthName(name: string): boolean {
+  return name.length < 2 || name.length > 6;
+}
+
+export function isInvalidPassword(password: string): boolean {
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
+  return !regExp.test(password);
 }
 
 // validator function

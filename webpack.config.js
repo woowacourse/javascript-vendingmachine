@@ -10,7 +10,7 @@ module.exports = {
     extensions: ['.js', '.css', '.ts'],
   },
   devServer: {
-    port: 9000,
+    port: 9001,
   },
   devtool: 'source-map',
   output: {

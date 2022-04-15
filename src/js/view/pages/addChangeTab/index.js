@@ -1,17 +1,15 @@
-import { createMainElement, selectDom } from '../utils/dom';
-import { addChangeTemplate } from './template';
+import { createMainElement, selectDom } from '../../../utils/dom';
+import { emitEvent } from '../../../utils/event';
+import addChangeTemplate from './template';
 
 export default class AddChangeTab {
-  #vendingMachine;
   #addChangeContainer;
   #addChangeForm;
   #moneyInput;
   #totalChange;
   #coinStatusTable;
 
-  constructor(machine) {
-    this.#vendingMachine = machine;
-
+  constructor() {
     this.#addChangeContainer = createMainElement(addChangeTemplate);
     this.#addChangeForm = selectDom('#add-change-form', this.#addChangeContainer);
     this.#moneyInput = selectDom('#money-input', this.#addChangeContainer);
@@ -21,34 +19,27 @@ export default class AddChangeTab {
     this.#addChangeForm.addEventListener('submit', this.#handleAddChange);
   }
 
-  get tabElements() {
+  get element() {
     return this.#addChangeContainer;
   }
 
   #handleAddChange = (e) => {
     e.preventDefault();
     const money = this.#moneyInput.valueAsNumber;
-
-    try {
-      this.#vendingMachine.addChange(money);
-      this.#renderCoinStatus();
-      this.#resetInput();
-    } catch ({ message }) {
-      alert(message);
-    }
+    emitEvent(this.element, 'addChange', { money });
   };
 
-  #renderCoinStatus() {
-    const coinCountElements = this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
-    const { coinStatus } = this.#vendingMachine;
+  renderCoinStatus(coinStatus, totalChange) {
+    const coinCountElements =
+      this.#coinStatusTable.querySelectorAll('td[data-coin-name]');
 
-    this.#totalChange.textContent = this.#vendingMachine.totalChange;
+    this.#totalChange.textContent = totalChange;
     coinCountElements.forEach((element) => {
       element.textContent = `${coinStatus[element.dataset.coinName]}개`;
     });
   }
 
-  #resetInput() {
+  resetInput() {
     this.#moneyInput.value = '';
   }
 }

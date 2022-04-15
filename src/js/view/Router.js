@@ -1,63 +1,91 @@
-import VendingMachine from '../domain/VendingMachine';
-import PurchaseProductTab from './PurchaseProductTab';
-import AddChangeTab from './AddChangeTab';
-import ManageProductTab from './ManageProductTab';
-import { createMainElement, selectDom } from '../utils/dom';
+import { ERROR_MESSAGE } from '../constants';
+import { createElementByTemplate, generateSnackBar, selectDom } from '../utils/dom';
 import { notFoundTemplate } from './template';
 
 export default class Router {
-  #vendingMachine;
   #renderList;
-  #app;
-  #tabMenuNavigation;
+  #userRenderList;
+  #privateRenderList;
+  #user;
 
-  constructor() {
-    this.#vendingMachine = new VendingMachine();
-    this.#renderList = {
-      '#/manage': new ManageProductTab(this.#vendingMachine),
-      '#/charge': new AddChangeTab(this.#vendingMachine),
-      '#/purchase': new PurchaseProductTab(),
-    };
-    this.#app = selectDom('#app');
-    this.#tabMenuNavigation = selectDom('#tab-menu-navigation');
-
-    window.addEventListener('popstate', this.#render);
-    window.addEventListener('DOMContentLoaded', this.#render);
-    this.#tabMenuNavigation.addEventListener('click', this.#handleTabMenuChange);
+  constructor(user) {
+    this.#user = user;
+    this.#privateRenderList = {};
+    this.#userRenderList = {};
+    this.#renderList = {};
   }
 
-  #render = () => {
-    const path = window.location.hash || '#/manage';
+  bindEvents() {
+    window.addEventListener('popstate', this.#render);
+    window.addEventListener('DOMContentLoaded', this.#initUserState);
+    window.addEventListener('tabChange', this.#handleTabMenuChange);
+  }
 
-    this.#updateCurrentTabMenu(path);
-    const main = selectDom('main');
+  addPrivateRenderList(key, view) {
+    this.#privateRenderList[key] = view;
+    this.addRenderList(key, view);
+  }
+
+  addRenderList(key, view) {
+    this.#renderList[key] = view;
+  }
+
+  addUserRenderList(key, view) {
+    this.#userRenderList[key] = view;
+    this.addRenderList(key, view);
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  #render = () => {
+    const path = window.location.hash || '#/purchase';
 
     if (!this.#renderList[path]) {
-      const notFoundContainer = createMainElement(notFoundTemplate);
-      this.#app.replaceChild(notFoundContainer, main);
+      const notFoundContainer = createElementByTemplate('div', notFoundTemplate);
+      notFoundContainer.id = 'app';
+      selectDom('body').replaceChild(notFoundContainer, selectDom('#app'));
       return;
     }
 
-    this.#app.replaceChild(this.#renderList[path].tabElements, main);
+    if (this.#privateRenderList[path] && !this.#user.isLogined) {
+      window.history.pushState({}, null, '#/login');
+      this.#render();
+      generateSnackBar(ERROR_MESSAGE.NOT_LOGIN);
+      return;
+    }
+
+    if (this.#userRenderList[path] && this.#user.isLogined) {
+      window.history.pushState({}, null, '/');
+      this.#render();
+      generateSnackBar(ERROR_MESSAGE.ALREADY_LOGGINED);
+      return;
+    }
+
+    selectDom('body').replaceChild(this.#renderList[path].element, selectDom('#app'));
+    this.#updateCurrentTabMenu(path);
   };
 
   #updateCurrentTabMenu(path) {
-    const previousMenuButton = selectDom('.current', this.#tabMenuNavigation);
+    if (!selectDom('#tab-menu-navigation')) return;
+    const previousMenuButton = selectDom('.current', selectDom('#tab-menu-navigation'));
     previousMenuButton?.classList.remove('current');
 
-    const currentMenuButton = selectDom(`[href="${path}"]`, this.#tabMenuNavigation);
+    const currentMenuButton = selectDom(
+      `[href="${path}"]`,
+      selectDom('#tab-menu-navigation')
+    );
+
     currentMenuButton?.classList.add('current');
   }
+
+  #initUserState = async () => {
+    await this.#user.initLoginStatus();
+    this.#render();
+  };
 
   #handleTabMenuChange = (e) => {
     e.preventDefault();
 
-    const { hash: newHash } = e.target;
-    const previousHash = window.location.hash;
-
-    if (!Object.keys(this.#renderList).includes(newHash) || newHash === previousHash) return;
-
-    window.history.pushState({}, null, newHash);
+    window.history.pushState({}, null, e.detail.newHash);
     this.#render();
   };
 }

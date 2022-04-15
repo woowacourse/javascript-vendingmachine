@@ -1,5 +1,6 @@
-import { Coin, distributeStrategy } from './interface';
+import { distributeStrategy } from './interface';
 import { pickNumberInRange } from '../utils';
+import Coin from './Coin';
 
 function getRandomCoin(moneyLeft: number, value: number): number {
   const maxCount = Math.floor(moneyLeft / value);
@@ -11,24 +12,24 @@ const RandomStrategy: distributeStrategy = {
   // eslint-disable-next-line max-lines-per-function
   distribute(inputMoney: number): Coin[] {
     const coinStatusList: Coin[] = [
-      { name: 'FIVE_HUNDRED_WON', value: 500, count: 0 },
-      { name: 'ONE_HUNDRED_WON', value: 100, count: 0 },
-      { name: 'FIFTY_WON', value: 50, count: 0 },
-      { name: 'TEN_WON', value: 10, count: 0 },
+      new Coin('FIVE_HUNDRED_WON', 500),
+      new Coin('ONE_HUNDRED_WON', 100),
+      new Coin('FIFTY_WON', 50),
+      new Coin('TEN_WON', 10),
     ];
     let moneyLeft = inputMoney;
-
-    return coinStatusList.map(({ name, count, value }) => {
-      const coinObj = { name, count, value };
-      if (name === 'TEN_WON') {
-        coinObj.count = moneyLeft / value;
-        return coinObj;
+    coinStatusList.forEach((coin) => {
+      if (coin.name === 'TEN_WON') {
+        coin.added(moneyLeft / coin.value);
+        return;
       }
-      const randomCount = getRandomCoin(moneyLeft, value);
-      moneyLeft -= value * randomCount;
-      coinObj.count = randomCount;
-      return coinObj;
+      const randomCount = getRandomCoin(moneyLeft, coin.value);
+
+      moneyLeft -= coin.value * randomCount;
+      coin.added(randomCount);
     });
+
+    return coinStatusList;
   },
 };
 

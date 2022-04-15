@@ -1,6 +1,8 @@
 header {
   display: flex;
+  width: 100%;
   flex-direction: column;
+  position: relative;
   align-items: center;
   gap: 32px;
 }
@@ -40,4 +42,63 @@ nav {
 
 .tab-menu-button:visited {
   color: #000000;
+}
+
+.user-navigation {
+  position: absolute;
+  right: 0;
+}
+
+.user-navigation-profile--button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-decoration: none;
+  background-color: #d6f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-navigation-profile--button:visited {
+  color: black;
+}
+
+.user-navigation--ul {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid rgb(177, 177, 177);
+  font-weight: 400;
+}
+
+.user-navigation--li {
+  width: 80px;
+  height: 30px;
+  text-align: ellipsis;
+  cursor: pointer;
+  text-align: center;
+}
+
+.user-navigation--li:hover {
+  animation: deepening 0.5s forwards;
+  border-radius: 10px;
+}
+
+#user-navigation-profile {
+  color: black;
+}
+
+@keyframes deepening {
+  to {
+    background-color: #dfdfde;
+  }
+}
+
+.hide {
+  display: none;
 }
