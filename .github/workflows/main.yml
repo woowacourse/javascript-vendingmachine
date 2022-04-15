@@ -3,7 +3,7 @@ name: Build and GH-Page Deploy
 on:
   push:
     branches:
-      - byhhh2
+      - byhhh2-step2
 
 jobs:
   build:
@@ -22,6 +22,7 @@ jobs:
         run: |
           npm run build
           cp dist/index.html dist/404.html
+
       - name: Deploy to GH Page
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:

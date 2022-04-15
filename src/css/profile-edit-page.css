@@ -1,0 +1,20 @@
+.profile-edit-form label {
+  display: block;
+  margin-top: 8px;
+}
+
+.profile-edit-form input {
+  width: 300px;
+  margin: 8px 0;
+}
+
+.profile-edit-page h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.profile-edit-form__edit-button {
+  display: block;
+  width: 300px;
+  margin-top: 32px;
+}

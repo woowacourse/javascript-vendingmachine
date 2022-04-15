@@ -1,15 +1,13 @@
-import { CustomElement, Notification } from './CustomElement';
-import TEMPLATE from '../templates';
-import { $, addEvent, deleteSeparator, emit, markUnit } from '../utils';
-import VendingMachine from '../domain/VendingMachine';
-import Product from '../domain/Product';
-import storage from '../storage';
-import { ELEMENT_KEY, CONFIRM_MESSAGE } from '../constants';
+import { Notification, Tab } from '../CustomElement';
+import TEMPLATE from '../../templates';
+import { $, addEvent, deleteSeparator, emit, markUnit } from '../../utils';
+import Product from '../../domain/Product';
+import storage from '../../storage';
+import { CONFIRM_MESSAGE, CUSTOM_EVENT, ELEMENT_ACTION } from '../../constants';
 
-class ProductManagement extends CustomElement {
+class ProductManagementTab extends Tab {
   connectedCallback() {
     super.connectedCallback();
-    VendingMachine.instance.observe(ELEMENT_KEY.PRODUCT, this);
   }
 
   render() {
@@ -43,7 +41,7 @@ class ProductManagement extends CustomElement {
     const price = e.target.price.valueAsNumber;
     const quantity = e.target.quantity.valueAsNumber;
 
-    emit('.product-manage-form', '@add', { name, price, quantity }, this);
+    emit('.product-manage-form', CUSTOM_EVENT.PRODUCT.ADD, { name, price, quantity }, this);
   }
 
   handleUpdateAndDelete(e: MouseEvent & { target: HTMLButtonElement }) {
@@ -54,7 +52,7 @@ class ProductManagement extends CustomElement {
     if (e.target.classList.contains('product-item__delete-button') && confirm(CONFIRM_MESSAGE.DELETE)) {
       const productName = (e.target.closest('.product-item') as HTMLElement).dataset.productName;
 
-      emit('#product-list-table', '@delete', { productName }, this);
+      emit('#product-list-table', CUSTOM_EVENT.PRODUCT.DELETE, { productName }, this);
     }
   }
 
@@ -89,20 +87,20 @@ class ProductManagement extends CustomElement {
     const price: number = e.target.price.valueAsNumber;
     const quantity: number = e.target.quantity.valueAsNumber;
 
-    emit('#product-list-table', '@update', { targetName, name, price, quantity }, this);
+    emit('#product-list-table', CUSTOM_EVENT.PRODUCT.UPDATE, { targetName, name, price, quantity }, this);
   }
 
   notify({ action, product }: Notification) {
     switch (action) {
-      case 'add':
+      case ELEMENT_ACTION.INSERT_ITEM:
         this.insertItem(product);
         return;
 
-      case 'update':
+      case ELEMENT_ACTION.UPDATE_ITEM:
         this.updateItem(product);
         return;
 
-      case 'delete':
+      case ELEMENT_ACTION.DELETE_ITEM:
         this.deleteItem(product);
         return;
     }
@@ -116,7 +114,7 @@ class ProductManagement extends CustomElement {
       `<tr class="product-item" data-product-name="${product.name}" data-product-id="${product.id}">
           <td>${product.name}</td>
           <td>${markUnit(product.price)}</td>
-          <td>${product.quantity}</td>
+          <td name="quantity">${product.quantity}</td>
           <td class="product-item__button">
             <button type="button" class="product-item__edit-button button">수정</button>
             <button type="button" class="product-item__delete-button button">삭제</button>
@@ -146,6 +144,6 @@ class ProductManagement extends CustomElement {
   }
 }
 
-customElements.define('product-management', ProductManagement);
+customElements.define('product-management-tab', ProductManagementTab);
 
-export default ProductManagement;
+export default ProductManagementTab;

@@ -65,3 +65,43 @@ export const validateUpdateProduct = (targetName: string, name: string, price: n
     throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_PRODUCT_PRICE);
   }
 };
+
+const userInputMoneyValidator = {
+  isOverMax(userAmount: number, userInputMoney: number) {
+    return userAmount + userInputMoney > 10000;
+  },
+};
+
+export const validateUserInputMoney = (userInputMoney: number, userAmount: number) => {
+  if (productValidator.isIncorrectUnit(userInputMoney)) {
+    throw new Error(ERROR_MESSAGE.INCORRECT_UNIT_CHARGE_MONEY);
+  }
+
+  if (userInputMoneyValidator.isOverMax(userAmount, userInputMoney)) {
+    throw new Error(ERROR_MESSAGE.OVER_USER_AMOUNT);
+  }
+};
+
+const purchableValidator = {
+  isInsufficientCash(userAmount: number, product: Product) {
+    return userAmount < product.price;
+  },
+};
+
+export const validatePurchable = (userAmount: number, product: Product) => {
+  if (purchableValidator.isInsufficientCash(userAmount, product)) {
+    throw new Error(ERROR_MESSAGE.INSUFFICIENT_CASH);
+  }
+};
+
+const returnValidator = {
+  isInsufficientUserAmount(userAmount: number) {
+    return userAmount <= 0;
+  },
+};
+
+export const validateReturn = (userAmount: number) => {
+  if (returnValidator.isInsufficientUserAmount(userAmount)) {
+    throw new Error(ERROR_MESSAGE.NO_RETURN_CHANGE);
+  }
+};
