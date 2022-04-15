@@ -2,6 +2,7 @@ import { on, emit } from "../util/event";
 import { $, createElement } from "../util/dom";
 import { ISingleProduct } from "../interface/product.interface";
 import productTemplate from "../template/product.template";
+import headerTemplate from "../template/header.template";
 import { EVENT_TYPE } from "../constant";
 import {
   IDeleteProductEvent,
@@ -11,6 +12,9 @@ import {
 
 class ProductPageView {
   $page;
+  $header;
+
+  $userInfoContainer;
   $formContainer;
   $productStatusContainer;
   $productNameInput;
@@ -18,16 +22,23 @@ class ProductPageView {
   $productCountInput;
   $productList;
 
-  init(): void {
+  init() {
     this.$page = $("#page");
+    this.$header = $("#header");
     this.$page.replaceChildren();
+    this.$header.replaceChildren();
+
+    this.$userInfoContainer = createElement("section", {
+      id: "user-info",
+    });
+
     this.$formContainer = createElement(
       "form",
       {
         id: "add-product-form",
         class: "form",
       },
-      productTemplate.input()
+      productTemplate.inputCollection()
     );
 
     this.$productStatusContainer = createElement(
@@ -46,15 +57,16 @@ class ProductPageView {
     this.$productCountInput = $("#product-count-input", this.$formContainer);
 
     this.$productList = $("#products-list", this.$productStatusContainer);
+    this.$userInfoContainer = $("#user-info", this.$header);
     this.bindEvent();
   }
 
-  bindEvent(): void {
+  bindEvent() {
     on(this.$formContainer, "submit", this.productSubmitHandler);
     on(this.$productStatusContainer, "click", this.onClick);
   }
 
-  productSubmitHandler = (e: Event): void => {
+  productSubmitHandler = (e: Event) => {
     e.preventDefault();
 
     emit<IAddProductEvent>(EVENT_TYPE.ADD, {
@@ -84,13 +96,13 @@ class ProductPageView {
     }
   };
 
-  productDeleteHandler = (e: Event): void => {
+  productDeleteHandler = (e: Event) => {
     const target = e.target as HTMLElement;
     const productId = target.closest("tr").dataset.id;
     emit<IDeleteProductEvent>(EVENT_TYPE.DELETE, { id: productId });
   };
 
-  productUpdateHandler = (e: Event): void => {
+  productUpdateHandler = (e: Event) => {
     const target = e.target as HTMLElement;
     const $product = target.closest("tr");
     $product.replaceChildren();
@@ -104,7 +116,7 @@ class ProductPageView {
     );
   };
 
-  productSubmitUpdateHandler = (e: Event): void => {
+  productSubmitUpdateHandler = (e: Event) => {
     const target = e.target as HTMLElement;
     const updatedProduct = target.closest("tr");
 
@@ -127,7 +139,14 @@ class ProductPageView {
     });
   };
 
-  renderProductsStatus(products: ISingleProduct[]): void {
+  renderHeader(userInfo) {
+    this.$header.insertAdjacentHTML(
+      "beforeend",
+      headerTemplate.loggedIn(userInfo.name[0])
+    );
+  }
+
+  renderProductsStatus(products: ISingleProduct[]) {
     this.$productList.insertAdjacentHTML(
       "beforeend",
       products
@@ -138,14 +157,14 @@ class ProductPageView {
     );
   }
 
-  renderNewProduct(product: ISingleProduct): void {
+  renderNewProduct(product: ISingleProduct) {
     $("#products-list", this.$productStatusContainer).insertAdjacentHTML(
       "beforeend",
       productTemplate.product(product.get())
     );
   }
 
-  renderDeleteProduct(id: string): void {
+  deleteRenderedProduct(id: string) {
     const target = $(`[data-id="${id}"]`, this.$productList);
     this.$productList.removeChild(target);
   }
@@ -153,7 +172,7 @@ class ProductPageView {
   renderUpdatedProduct(
     id: string,
     { name, price, count }: IUpdateProductEvent
-  ): void {
+  ) {
     const target = $(`[data-id="${id}"]`, this.$productList);
     target.setAttribute("data-name", name);
     target.setAttribute("data-price", price.toString());

@@ -1,11 +1,11 @@
-import { ICoins } from "../interface/changes.interface";
+import { TCoin } from "../interface/vendingMachine.interface";
 
 const changesTemplate = {
-  input: () => `
-    <label for="changes-input">자판기가 보유할 금액을 입력해주세요</label>
-    <div class="input-container">
-      <input id="changes-input" class="input" placeholder="금액" type="number">
-      <button id="charge-changes-button" class="button">충전</button>
+  inputCollection: () => `
+    <label for="changes-input" class="label">자판기가 보유할 금액을 입력해주세요</label>
+    <div class="primary-input-container">
+      <input id="changes-input" class="input" placeholder="금액" type="number" required>
+      <button id="charge-changes-button" class="primary-button">충전</button>
     </div>
   `,
 
@@ -23,7 +23,7 @@ const changesTemplate = {
     </table>
   `,
 
-  changeStatus: (coinStatus: ICoins) => `
+  changeStatus: (coinStatus: TCoin) => `
     <tr>
       <td>500원</td>
       <td>${coinStatus["500"]}</td>

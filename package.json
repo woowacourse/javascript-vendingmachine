@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --no-cache",
+    "server": "json-server db.json -m ./node_modules/json-server-auth",
     "start": "webpack serve --open",
     "build": "webpack",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run —browser chrome"
   },
   "repository": {
     "type": "git",
@@ -27,9 +30,12 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
+    "cypress": "^9.5.3",
     "eslint": "^8.11.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.6",
