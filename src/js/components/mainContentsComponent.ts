@@ -3,17 +3,19 @@ import router from '../routes';
 import Auth from '../utils/Auth';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { getUserInitial, logout } from '../utils/userAction';
+import * as Component from './abstractComponents/Component';
 
-export default class MainContentsComponent {
+export default class MainContentsComponent extends Component.StaticComponent {
   $mainContents: HTMLElement;
   isLogin: Boolean;
 
   constructor() {
+    super();
     this.$mainContents = document.querySelector('.main-contents');
     this.isLogin = Auth();
   }
 
-  private bindElementAndEvent = () => {
+  protected bindEventAndElement() {
     const productManageButton = document.querySelector('#product-manage-button');
     const changeAddButton = document.querySelector('#change-add-button');
     const productPurchaseButton = document.querySelector('#product-purchase-button');
@@ -56,15 +58,15 @@ export default class MainContentsComponent {
     loginPageButton.addEventListener('click', () => {
       router.go(PATH_NAME.LOGIN);
     });
-  };
+  }
 
   render = () => {
     this.$mainContents.replaceChildren();
     this.$mainContents.insertAdjacentHTML('beforeend', this.template());
-    this.bindElementAndEvent();
+    this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <div class="user-menu">
     ${this.isLogin ? this.LoginStateMenu(getUserInitial()) : this.LogoutStateMenu()}
   </div>

@@ -1,11 +1,16 @@
 class Snackbar {
   $snackbar: HTMLElement;
+  timerId: any;
 
   constructor() {
     this.$snackbar = document.querySelector('.snackbar');
+    this.timerId = null;
   }
 
-  async push(msg: string | Error) {
+  push = (msg: string | Error) => {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
     if (typeof msg === 'object') {
       this.$snackbar.classList.add('error');
       msg = msg.message;
@@ -15,10 +20,11 @@ class Snackbar {
 
     this.$snackbar.textContent = msg;
     this.$snackbar.classList.add('show');
-    setTimeout(() => {
+    this.timerId = setTimeout(() => {
       this.$snackbar.classList.toggle('show');
+      this.timerId = null;
     }, 3000);
-  }
+  };
 }
 
 const snackbar = new Snackbar();

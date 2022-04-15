@@ -6,10 +6,15 @@ interface User {
   passwordCheck: string;
 }
 
+interface LogInAccount {
+  email: string;
+  password: string;
+}
+
 interface AccessToken {
   email: string;
   iat: number;
   exp: number;
 }
 
-export type { User, AccessToken };
+export type { User, AccessToken, LogInAccount };

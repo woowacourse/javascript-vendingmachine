@@ -28,8 +28,9 @@ export default class ProductPurchase {
     this.InputMoneyComponent.render();
     this.PurchasableProductListComponent.render();
     this.ReturnChangeComponent.render();
+
     this.InputMoneyComponent.refreshChange();
-    this.PurchasableProductListComponent.refreshComponent();
+    this.PurchasableProductListComponent.refreshChange();
     this.ReturnChangeComponent.refreshChange();
   };
 

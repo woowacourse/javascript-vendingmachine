@@ -1,6 +1,7 @@
 import vendingMachine from '../model/VendingMachine';
+import * as Component from './abstractComponents/Component';
 
-class ChangeListComponent {
+class ChangeListComponent extends Component.DynamicComponent {
   $changeList: HTMLElement;
   $amountCoin500: HTMLElement;
   $amountCoin100: HTMLElement;
@@ -9,10 +10,11 @@ class ChangeListComponent {
   parentElement: HTMLElement;
 
   constructor(parentElement: HTMLElement) {
+    super();
     this.parentElement = parentElement;
   }
 
-  private bindElement = () => {
+  protected bindEventAndElement = () => {
     this.$changeList = document.querySelector('#change-list');
     this.$amountCoin500 = document.querySelector('#amount-coin-500');
     this.$amountCoin100 = document.querySelector('#amount-coin-100');
@@ -21,7 +23,7 @@ class ChangeListComponent {
   };
 
   refreshChange = () => {
-    const { coin10, coin50, coin100, coin500 } = vendingMachine.getChanges();
+    const { coin10, coin50, coin100, coin500 } = vendingMachine.getVendingMachineMoney();
 
     this.$amountCoin500.textContent = `${coin500}개`;
     this.$amountCoin100.textContent = `${coin100}개`;
@@ -31,10 +33,10 @@ class ChangeListComponent {
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
-    this.bindElement();
+    this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <div id="change-list-wrapper">
     <h4>자판기가 보유한 동전</h4>
     <ul id="change-list">

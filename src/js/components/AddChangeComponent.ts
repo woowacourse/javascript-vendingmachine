@@ -1,18 +1,21 @@
+import coinModel from '../model/CoinModel';
 import vendingMachine from '../model/VendingMachine';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class AddChangeComponent {
+class AddChangeComponent extends Component.DynamicComponent {
   $changeAddForm: HTMLElement;
   $totalChange: HTMLElement;
   noticeStateChanged: Function;
   parentElement: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$totalChange = document.querySelector('#total-change');
     this.$changeAddForm = document.querySelector('#change-add-form');
     this.$changeAddForm.addEventListener('submit', this.onSubmitChangeAdd);
@@ -28,7 +31,7 @@ class AddChangeComponent {
   };
 
   refreshChange = () => {
-    this.$totalChange.textContent = vendingMachine.getTotalMoney().toString();
+    this.$totalChange.textContent = coinModel.getCoinsValue(vendingMachine.getVendingMachineMoney()).toString();
   };
 
   render = () => {
@@ -36,8 +39,8 @@ class AddChangeComponent {
     this.bindEventAndElement();
   };
 
-  private template = () => `
-  <div id="change-add-container" class="single-input-container">
+  protected template = () => `
+  <div id="change-add-container">
       <p>자판기가 보유할 금액을 입력해주세요</p>
       <form id="change-add-form">
       <input

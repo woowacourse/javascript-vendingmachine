@@ -1,9 +1,11 @@
 import requestRegister from '../api/requestRegister';
+import { ALERT_MESSAGE } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { checkUserDataValidate } from '../utils/userValidation';
+import * as Component from './abstractComponents/Component';
 
-class RegisterFormComponent {
+class RegisterFormComponent extends Component.StaticComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $loginInputSection: HTMLElement;
@@ -11,11 +13,12 @@ class RegisterFormComponent {
   $mainContents: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
     this.$registerForm = document.querySelector('#register-form');
     this.$mainContents = document.querySelector('.main-contents');
@@ -40,7 +43,9 @@ class RegisterFormComponent {
   };
 
   private checkValidateAndRequest = (userData: User) => {
-    return checkUserDataValidate(userData) && requestRegister(userData);
+    checkUserDataValidate(userData);
+    requestRegister(userData);
+    return ALERT_MESSAGE.REGISTER_SUCCESS;
   };
 
   render = () => {
@@ -49,7 +54,7 @@ class RegisterFormComponent {
     this.$mainContents.replaceChildren();
   };
 
-  template = () => `<h1>회원가입</h1>
+  protected template = () => `<h1>회원가입</h1>
     <form id="register-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" placeholder="이메일 주소를 입력해주세요" required />

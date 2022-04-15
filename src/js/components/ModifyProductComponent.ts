@@ -2,8 +2,9 @@ import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class ModifyProductComponent {
+class ModifyProductComponent extends Component.DependentComponent {
   name: string;
   price: number;
   amount: number;
@@ -11,13 +12,14 @@ class ModifyProductComponent {
   $productList: HTMLElement;
 
   constructor(parentElement: HTMLElement) {
+    super();
     this.parentElement = parentElement;
   }
 
-  bindEvent = () => {
+  bindEventAndElement() {
     this.$productList = this.parentElement.querySelector('#product-list');
     this.$productList.addEventListener('click', this.onSubmitModifyCompleteButton);
-  };
+  }
 
   private onSubmitModifyCompleteButton = async (e: PointerEvent) => {
     if ((<HTMLElement>e.target).className !== 'product-modify-submit-button') {
@@ -35,15 +37,16 @@ class ModifyProductComponent {
     const prevName = (<HTMLElement>parentList.querySelector('.product-modify-submit-button')).dataset.name;
 
     if (await throwableFunctionHandler(() => vendingMachine.modifyProduct(prevName, product))) {
-      ul.replaceChild(this.replaceList(product, ProductItemComponent), parentList);
+      ul.replaceChild(this.replaceList(product), parentList);
     }
   };
 
-  private replaceList = (product: Product, component: Function) => {
+  private replaceList = (product: Product) => {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
+    const productItemComponent = new ProductItemComponent(product, true);
 
-    li.insertAdjacentHTML('beforeend', component(product, true));
+    li.insertAdjacentHTML('beforeend', productItemComponent.render());
     fragment.appendChild(li);
 
     return fragment;
@@ -56,7 +59,7 @@ class ModifyProductComponent {
     return this.template();
   };
 
-  private template = () => `
+  protected template = () => `
     <span>
       <input
       type="text"

@@ -1,12 +1,13 @@
 import requestModifyUserData from '../api/requestModifyUserData';
-import { PATH_NAME } from '../constants';
+import { ALERT_MESSAGE, PATH_NAME } from '../constants';
 import { User } from '../interfaces/UserData.interface';
 import routes from '../routes';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import { getUserData } from '../utils/userAction';
 import { checkUserDataValidate } from '../utils/userValidation';
+import * as Component from './abstractComponents/Component';
 
-class UserInfoComponent {
+class UserInfoComponent extends Component.StaticComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $loginInputSection: HTMLElement;
@@ -16,11 +17,12 @@ class UserInfoComponent {
   user: User;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
     this.$userInfoForm = document.querySelector('#user-info-form');
     this.$mainContents = document.querySelector('.main-contents');
@@ -48,7 +50,18 @@ class UserInfoComponent {
   };
 
   private checkValidateAndRequest = async (userData: User) => {
-    return checkUserDataValidate(userData) && (await requestModifyUserData(userData));
+    checkUserDataValidate(userData);
+    const data = await requestModifyUserData(userData);
+
+    const updatedInfo = {
+      email: data.email,
+      name: data.name,
+      id: data.id,
+    };
+
+    localStorage.setItem('user', JSON.stringify(updatedInfo));
+
+    return ALERT_MESSAGE.USER_INFO_MODIFY_SUCCESS;
   };
 
   private onClickCloseButton = () => {
@@ -62,7 +75,7 @@ class UserInfoComponent {
     this.$mainContents.replaceChildren();
   };
 
-  template = () => `<h1>회원 정보 수정</h1>
+  protected template = () => `<h1>회원 정보 수정</h1>
     <form id="user-info-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" value="${this.user.email}" disabled />

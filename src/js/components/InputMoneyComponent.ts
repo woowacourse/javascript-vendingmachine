@@ -1,18 +1,20 @@
 import vendingMachine from '../model/VendingMachine';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class InputMoneyComponent {
+class InputMoneyComponent extends Component.DynamicComponent {
   $inputMoneyForm: HTMLElement;
   $totalMoney: HTMLElement;
   noticeStateChanged: Function;
   parentElement: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$totalMoney = document.querySelector('#total-money');
     this.$inputMoneyForm = document.querySelector('#input-money-form');
     this.$inputMoneyForm.addEventListener('submit', this.onSubmitInputMoney);
@@ -28,7 +30,7 @@ class InputMoneyComponent {
   };
 
   refreshChange = () => {
-    this.$totalMoney.textContent = vendingMachine.getUserMoney().toString();
+    this.$totalMoney.textContent = vendingMachine.getUserInputMoney().toString();
   };
 
   render = () => {
@@ -36,7 +38,7 @@ class InputMoneyComponent {
     this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <div id="input-money-container">
       <p>상품을 구매할 금액을 투입해주세요</p>
       <form id="input-money-form">

@@ -1,17 +1,14 @@
-import { ALERT_MESSAGE, ERROR_MESSAGE, SERVER_URL } from '../constants';
+import { ERROR_MESSAGE } from '../constants';
+import { LoginSuccess } from '../interfaces/apiStatus.interface';
+import ApiWrapper from '../utils/ApiWrapper';
+
+const apiWrapper = new ApiWrapper();
 
 const requestLogin = async (accountData: Object) => {
-  const response = await fetch(SERVER_URL + '/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(accountData),
-  });
+  const response = await apiWrapper.post('/login', accountData);
+  const dataResult: LoginSuccess | string = await response.json();
 
-  const dataResult = await response.json();
-
-  if (!response.ok) {
+  if (typeof dataResult === 'string') {
     switch (dataResult) {
       case 'Cannot find user':
         throw new Error(ERROR_MESSAGE.USER_IS_NOT_EXIST);
@@ -21,9 +18,7 @@ const requestLogin = async (accountData: Object) => {
     throw new Error(dataResult);
   }
 
-  localStorage.setItem('accessToken', dataResult.accessToken);
-  localStorage.setItem('user', JSON.stringify(dataResult.user));
-  return ALERT_MESSAGE.LOGIN_SUCCESS(dataResult.user.name);
+  return dataResult;
 };
 
 export default requestLogin;

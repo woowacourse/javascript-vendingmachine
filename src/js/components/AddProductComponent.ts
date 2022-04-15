@@ -1,19 +1,21 @@
 import vendingMachine from '../model/VendingMachine';
 import { Product } from '../interfaces/VendingMachine.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class AddProductComponent {
+class AddProductComponent extends Component.StaticComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $productAddForm: HTMLElement;
   $productList: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
+  protected bindEventAndElement = () => {
     this.$productAddForm = this.parentElement.querySelector('#product-add-form');
     this.$productList = this.parentElement.querySelector('#product-list');
 
@@ -34,14 +36,12 @@ class AddProductComponent {
     }
   };
 
-  refreshComponent = () => {};
-
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
     this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <div id="product-manage-container">
     <p>추가할 상품 정보를 입력해주세요.</p>
     <form id="product-add-form">

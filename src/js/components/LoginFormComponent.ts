@@ -1,9 +1,14 @@
+import { LogInAccount } from '../interfaces/UserData.interface';
+import { LoginSuccess } from '../interfaces/apiStatus.interface';
+import { ALERT_MESSAGE, PATH_NAME } from '../constants';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
 import router from '../routes';
-import { PATH_NAME } from '../constants';
+import Store from '../utils/Store';
 import requestLogin from '../api/requestLogin';
+import * as Component from './abstractComponents/Component';
 
-class LoginFormComponent {
+class LoginFormComponent extends Component.StaticComponent {
+  store: Store;
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $loginInputSection: HTMLElement;
@@ -12,29 +17,41 @@ class LoginFormComponent {
   $mainContents: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
+    this.store = new Store();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEventAndElement = () => {
-    this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
-    this.$loginForm = document.querySelector('#login-form');
-    this.$registerLink = document.querySelector('#register-link');
-    this.$mainContents = document.querySelector('.main-contents');
+  protected bindEventAndElement = () => {
+    this.store.setVariable([
+      { name: '$loginInputSection', selector: '#login-input-container' },
+      { name: '$loginForm', selector: '#login-form' },
+      { name: '$registerLink', selector: '#register-link' },
+      { name: '$mainContents', selector: '.main-contents' },
+    ]);
 
-    this.$loginForm.addEventListener('submit', this.onSubmitLogin);
-    this.$registerLink.addEventListener('click', this.onClickRegister);
+    this.store.get('$loginForm').addEventListener('submit', this.onSubmitLogin);
+    this.store.get('$registerLink').addEventListener('click', this.onClickRegister);
+
+    // this.$loginInputSection = this.parentElement.querySelector('#login-input-container');
+    // this.$loginForm = document.querySelector('#login-form');
+    // this.$registerLink = document.querySelector('#register-link');
+    // this.$mainContents = document.querySelector('.main-contents');
+
+    // this.$loginForm.addEventListener('submit', this.onSubmitLogin);
+    // this.$registerLink.addEventListener('click', this.onClickRegister);
   };
 
   private onSubmitLogin = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    const accountData = {
-      email: (<HTMLInputElement>this.$loginForm.querySelector('#email-input')).value,
-      password: (<HTMLInputElement>this.$loginForm.querySelector('#password-input')).value,
+    const accountData: LogInAccount = {
+      email: (<HTMLInputElement>this.store.get('$loginForm').querySelector('#email-input')).value,
+      password: (<HTMLInputElement>this.store.get('$loginForm').querySelector('#password-input')).value,
     };
 
-    if (await throwableFunctionHandler(() => requestLogin(accountData))) {
+    if (await throwableFunctionHandler(async () => this.onLogIn(accountData))) {
       this.noticeStateChanged();
     }
   };
@@ -44,15 +61,22 @@ class LoginFormComponent {
     router.go(PATH_NAME.REGISTER);
   };
 
-  refreshComponent = () => {};
+  private onLogIn = async (accountData: LogInAccount) => {
+    const data: LoginSuccess = await requestLogin(accountData);
+
+    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    return ALERT_MESSAGE.LOGIN_SUCCESS(data.user.name);
+  };
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
     this.bindEventAndElement();
-    this.$mainContents.replaceChildren();
+    this.store.get('$mainContents').replaceChildren();
   };
 
-  template = () => `<h1>로그인</h1>
+  protected template = () => `<h1>로그인</h1>
     <form id="login-form" class="multiple-input-form">
       <label for="email-input">이메일</label>
       <input type="email" id="email-input" placeholder="woowacourse@gmail.com" required />

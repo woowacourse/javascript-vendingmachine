@@ -4,20 +4,22 @@ import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
 import { REMOVE_CONFIRM_MESSAGE } from '../constants';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class ProductListComponent {
+class ProductListComponent extends Component.DynamicComponent {
   ModifyProductComponent: ModifyProductComponent;
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $productList: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
     this.ModifyProductComponent = new ModifyProductComponent(parentElement);
   }
 
-  private bindEvent = () => {
+  protected bindEventAndElement = () => {
     this.$productList = this.parentElement.querySelector('#product-list');
     this.$productList.addEventListener('click', this.onClickModifyButton);
     this.$productList.addEventListener('click', this.onClickRemoveButton);
@@ -37,7 +39,7 @@ class ProductListComponent {
     };
 
     ul.replaceChild(this.replaceList(product, this.ModifyProductComponent.render), oldLi);
-    this.ModifyProductComponent.bindEvent();
+    this.ModifyProductComponent.bindEventAndElement();
   };
 
   private onClickRemoveButton = async (e: PointerEvent) => {
@@ -70,13 +72,14 @@ class ProductListComponent {
   addProductItem(product: Product) {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
+    const productItemComponent = new ProductItemComponent(product, true);
 
-    li.insertAdjacentHTML('beforeend', ProductItemComponent(product, true));
+    li.insertAdjacentHTML('beforeend', productItemComponent.render());
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }
 
-  refreshComponent = () => {
+  refreshChange = () => {
     const products = vendingMachine.getProducts();
 
     products.forEach(product => {
@@ -86,10 +89,10 @@ class ProductListComponent {
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
-    this.bindEvent();
+    this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <section id="product-list-container">
     <div id="product-list-wrapper">
       <h4>상품 현황</h4>

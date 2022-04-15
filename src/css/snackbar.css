@@ -12,8 +12,8 @@
   visibility: hidden;
   min-width: 250px;
   max-width: 300px;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--snackbar-bg-color);
+  color: var(--snackbar-text-color);
   text-align: center;
   border-radius: 2px;
   padding: 16px;
@@ -22,7 +22,7 @@
 }
 
 .error {
-  background-color: rgb(177, 28, 28);
+  background-color: var(--snackbar-error-bg-color);
 }
 
 .show {

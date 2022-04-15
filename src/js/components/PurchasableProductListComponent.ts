@@ -2,18 +2,20 @@ import vendingMachine from '../model/VendingMachine';
 import ProductItemComponent from './ProductItemComponent';
 import { Product } from '../interfaces/VendingMachine.interface';
 import throwableFunctionHandler from '../utils/throwableFunctionHandler';
+import * as Component from './abstractComponents/Component';
 
-class ProductListComponent {
+class ProductListComponent extends Component.DynamicComponent {
   parentElement: HTMLElement;
   noticeStateChanged: Function;
   $productList: HTMLElement;
 
   constructor(parentElement: HTMLElement, noticeStateChanged: Function) {
+    super();
     this.parentElement = parentElement;
     this.noticeStateChanged = noticeStateChanged;
   }
 
-  private bindEvent = () => {
+  protected bindEventAndElement = () => {
     this.$productList = this.parentElement.querySelector('#product-list');
     this.$productList.addEventListener('click', this.onClickPurchaseButton);
   };
@@ -37,13 +39,14 @@ class ProductListComponent {
   addProductItem(product: Product) {
     const fragment = new DocumentFragment();
     const li = document.createElement('li');
+    const productItemComponent = new ProductItemComponent(product);
 
-    li.insertAdjacentHTML('beforeend', ProductItemComponent(product));
+    li.insertAdjacentHTML('beforeend', productItemComponent.render());
     fragment.appendChild(li);
     this.$productList.appendChild(fragment);
   }
 
-  refreshComponent = () => {
+  refreshChange = () => {
     const products = vendingMachine.getProducts();
 
     products.forEach(product => {
@@ -53,12 +56,12 @@ class ProductListComponent {
 
   render = () => {
     this.parentElement.insertAdjacentHTML('beforeend', this.template());
-    this.bindEvent();
+    this.bindEventAndElement();
   };
 
-  private template = () => `
+  protected template = () => `
   <section id="product-list-container">
-    <div id="product-list-wrapper" class="single-input-container">
+    <div id="product-list-wrapper">
       <h4>구매 가능 상품 현황</h4>
       <ul id="product-list">
         <li class="list-header">

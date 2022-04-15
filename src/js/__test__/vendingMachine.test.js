@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constants';
-import vendingMachine from '../model/VendingMachine';
+import vendingMachine from '../model/vendingMachine_Test';
 
 describe('자판기 기본 기능 테스트', () => {
   describe('자판기 상품 추가 기능 테스트', () => {
