@@ -16,10 +16,10 @@ export default class ChargeMoneyController implements Controller {
   }
 
   public bindEvents() {
-    onCustomEvent('CHARGE_MONEY', this.handleChargeMoney.bind(this));
+    onCustomEvent('CHARGE_MONEY', this.handleChargeMoney);
   }
 
-  private handleChargeMoney(event: CustomEvent) {
+  private handleChargeMoney = (event: CustomEvent) => {
     const { inputMoney }: MoneyDetailType = event.detail;
     const isLogin = sessionStorage.getItem('isLogIn') === 'true' ? true : false;
 
@@ -28,7 +28,7 @@ export default class ChargeMoneyController implements Controller {
     this.chargeMoneyView.repaintCoinsTable(this.vendingMachine.getCoins());
 
     this.loadPage(isLogin);
-  }
+  };
 
   public loadPage(isLogin: boolean) {
     const coins = this.vendingMachine.getCoins();

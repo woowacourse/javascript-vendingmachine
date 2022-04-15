@@ -2,6 +2,7 @@ import LogInView from '../views/logInView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 import { SNACK_BAR_MESSAGE } from '../constants/constants';
+import { logIn } from '../../apis/auth';
 
 export default class LogInController implements Controller {
   private logInView: LogInView;
@@ -13,24 +14,19 @@ export default class LogInController implements Controller {
   }
 
   public bindEvents() {
-    onCustomEvent('LOG_IN', this.handleLogIn.bind(this));
+    onCustomEvent('LOG_IN', this.handleLogIn);
   }
 
-  private handleLogIn(event: CustomEvent) {
+  private handleLogIn = (event: CustomEvent) => {
     const { email, password, targetId } = event.detail;
     const data = JSON.stringify({
       email,
       password,
     });
 
-    fetch('https://json-vendingmachine-server.herokuapp.com/signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: data,
-    })
-      .then(res => {
-        return res.json();
-      })
+    const response = logIn(data);
+
+    response
       .then(result => {
         const { accessToken, user } = result;
         if (!accessToken) {
@@ -44,7 +40,7 @@ export default class LogInController implements Controller {
         showSnackBar(SNACK_BAR_MESSAGE.LOGIN_SUCCESS);
       })
       .catch(error => alert(error.message));
-  }
+  };
 
   public loadPage(isLogin: boolean) {
     this.logInView.render(isLogin);

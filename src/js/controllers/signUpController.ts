@@ -2,6 +2,7 @@ import SignUpView from '../views/signUpView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 import { SNACK_BAR_MESSAGE } from '../constants/constants';
+import { singUp } from '../../apis/auth';
 
 export default class SignUpController implements Controller {
   private signUpView: SignUpView;
@@ -13,10 +14,10 @@ export default class SignUpController implements Controller {
   }
 
   public bindEvents() {
-    onCustomEvent('SIGN_UP', this.handleSignUp.bind(this));
+    onCustomEvent('SIGN_UP', this.handleSignUp);
   }
 
-  private handleSignUp(event: CustomEvent) {
+  private handleSignUp = (event: CustomEvent) => {
     const { email, name, password, targetId } = event.detail;
     const data = JSON.stringify({
       email,
@@ -24,14 +25,9 @@ export default class SignUpController implements Controller {
       password,
     });
 
-    fetch('https://json-vendingmachine-server.herokuapp.com/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: data,
-    })
-      .then(res => {
-        return res.json();
-      })
+    const response = singUp(data);
+
+    response
       .then(result => {
         const { accessToken } = result;
         if (!accessToken) {
@@ -42,7 +38,7 @@ export default class SignUpController implements Controller {
         showSnackBar(SNACK_BAR_MESSAGE.SIGNUP_SUCCESS);
       })
       .catch(error => alert(error.message));
-  }
+  };
 
   public loadPage(isLogin: boolean) {
     this.signUpView.render(isLogin);

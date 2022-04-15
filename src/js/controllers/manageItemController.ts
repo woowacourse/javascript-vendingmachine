@@ -18,12 +18,12 @@ export default class ManageItemController implements Controller {
   }
 
   public bindEvents() {
-    onCustomEvent('ADD_ITEM', this.handleAddItem.bind(this));
-    onCustomEvent('TABLE_ITEM_CHANGE', this.handleTableItemChange.bind(this));
-    onCustomEvent('TABLE_ITEM_DELETE', this.handleTableItemDelete.bind(this));
+    onCustomEvent('ADD_ITEM', this.handleAddItem);
+    onCustomEvent('TABLE_ITEM_CHANGE', this.handleTableItemChange);
+    onCustomEvent('TABLE_ITEM_DELETE', this.handleTableItemDelete);
   }
 
-  private handleAddItem(event: CustomEvent) {
+  private handleAddItem = (event: CustomEvent) => {
     try {
       const newItem: ItemType = event.detail;
       const items = this.vendingMachine.getItems();
@@ -38,9 +38,9 @@ export default class ManageItemController implements Controller {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  private handleTableItemChange(event: CustomEvent) {
+  private handleTableItemChange = (event: CustomEvent) => {
     try {
       const { item, targetRowIndex, $targetTableRow }: TableItemChangeDetailType = event.detail;
       const items = this.vendingMachine.getItems();
@@ -54,12 +54,12 @@ export default class ManageItemController implements Controller {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  private handleTableItemDelete(event: CustomEvent) {
+  private handleTableItemDelete = (event: CustomEvent) => {
     const { item }: TableItemDeleteDetailType = event.detail;
     this.vendingMachine.deleteItem(item);
-  }
+  };
 
   public loadPage(isLogin: boolean) {
     const itemList = this.vendingMachine.getItems();

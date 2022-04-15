@@ -2,6 +2,7 @@ import ChangeUserInfoView from '../views/changeUserInfoView';
 import { emitCustomEvent, onCustomEvent, showSnackBar } from '../utils/common';
 import { Controller } from '../types/interface';
 import { SNACK_BAR_MESSAGE } from '../constants/constants';
+import { editProfile } from '../../apis/auth';
 
 export default class ChangeUserInfoController implements Controller {
   private changeUserInfoView: ChangeUserInfoView;
@@ -13,10 +14,10 @@ export default class ChangeUserInfoController implements Controller {
   }
 
   public bindEvents() {
-    onCustomEvent('CHANGE_USER_INFO', this.handleChangeUserInfo.bind(this));
+    onCustomEvent('CHANGE_USER_INFO', this.handleChangeUserInfo);
   }
 
-  private handleChangeUserInfo(event: CustomEvent) {
+  private handleChangeUserInfo = (event: CustomEvent) => {
     const { name, password, targetId } = event.detail;
     const user = JSON.parse(sessionStorage.getItem('user'));
     const data = JSON.stringify({
@@ -25,14 +26,9 @@ export default class ChangeUserInfoController implements Controller {
       password,
     });
 
-    fetch(`https://json-vendingmachine-server.herokuapp.com/${user.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: data,
-    })
-      .then(res => {
-        return res.json();
-      })
+    const response = editProfile(user.id, data);
+
+    response
       .then(result => {
         const changedUser = {
           email: result.email,
@@ -49,7 +45,7 @@ export default class ChangeUserInfoController implements Controller {
         showSnackBar(SNACK_BAR_MESSAGE.USER_INFO_CHANGED);
       })
       .catch(error => alert(error.message));
-  }
+  };
 
   public loadPage(isLogin: boolean) {
     this.changeUserInfoView.render(isLogin);
